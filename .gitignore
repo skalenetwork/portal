@@ -21,3 +21,9 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+.env
+metaportConfig*.json
+src/meta/
+
+chainsData.json
