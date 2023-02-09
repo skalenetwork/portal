@@ -17,7 +17,7 @@ function stringToColor(str: string, dark: boolean): string {
 
 export function getChainName(chainsMetadata: any, chainName: string, app?: string): string {
     if (chainName == MAINNET_CHAIN_NAME) {
-        return 'Mainnet';
+        return 'Ethereum';
     }
     if (chainsMetadata && chainsMetadata[chainName]) {
         if (app && chainsMetadata[chainName]['apps'][app]) {

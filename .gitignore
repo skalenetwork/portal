@@ -27,3 +27,4 @@ metaportConfig*.json
 src/meta/
 
 chainsData.json
+.vercel

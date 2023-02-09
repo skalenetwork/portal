@@ -1,3 +1,6 @@
+.mp__inputAmountDisabled {
+    background-color: rgb(68 68 68 / 30%) !important;
+}
 
 .mp__inputAmount {
 
@@ -33,10 +36,12 @@
     input::-webkit-inner-spin-button {
         /* display: none; <- Crashes Chrome on hover */
         -webkit-appearance: none;
-        margin: 0; /* <-- Apparently some margin are still there even though it's hidden */
+        margin: 0;
+        /* <-- Apparently some margin are still there even though it's hidden */
     }
 
     input[type=number] {
-        -moz-appearance:textfield; /* Firefox */
+        -moz-appearance: textfield;
+        /* Firefox */
     }
 }

@@ -1,7 +1,7 @@
 import Web3 from 'web3';
 
 
-export const CHAIN_IDS = {
+export const CHAIN_IDS: any = {
   'staging': '0x4',
   'staging3': '0x5',
   'qatestnet': '0x4',
@@ -52,6 +52,7 @@ export const connect = (connectFallback: () => void) => {
 
 
 export const addAccountChangedListener = (accountsChangedFallback: any) => {
+  if (!window.ethereum) return;
   window.ethereum.on('accountsChanged', accountsChangedFallback); // todo: do only once!!!!
   window.ethereum
     .request({ method: 'eth_accounts' })
@@ -69,3 +70,28 @@ export const addChainChangedListener = (chainChangedFallback: any) => {
   window.ethereum.on('chainChanged', chainChangedFallback);
 }
 
+
+export function schainNetworkParams(
+  schainName: string,
+  schainChainUrl: string,
+  schainChainId: string
+): any {
+  return {
+    chainId: schainChainId,
+    chainName: "SKALE Chain | " + schainName,
+    rpcUrls: [schainChainUrl],
+    nativeCurrency: {
+      name: "sFUEL",
+      symbol: "sFUEL",
+      decimals: 18
+    }
+  };
+}
+
+
+export function mainnetNetworkParams(network: string, mainnetEndpoint: string) {
+  return {
+    chainId: CHAIN_IDS[network],
+    rpcUrls: [mainnetEndpoint],
+  };
+}

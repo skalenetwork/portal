@@ -1,13 +1,10 @@
-import React from "react";
-import TextField from '@mui/material/TextField';
-
 import Paper from '@mui/material/Paper';
+import Button from '@mui/material/Button';
 import ButtonBase from '@mui/material/ButtonBase/ButtonBase';
-
-import ElectricalServicesIcon from '@mui/icons-material/ElectricalServices';
 import WalletIcon from '@mui/icons-material/Wallet';
 
 export default function MetamaskConnector(props: any) {
+    if (!props.address && !props.connect) return null;
     return (
         <div className=''>
             {(props.address ? (<ButtonBase
@@ -16,18 +13,15 @@ export default function MetamaskConnector(props: any) {
             >
                 <Paper color='red' elevation={0} className='mp__flex mp__flexCentered'>
                     <h3 className='mp__btnChain mp__margRi10'>Connected </h3>
-                    {/* <h3 className='mp__btnChain mp__margRi10'>Connected {props.address}</h3> */}
-                    <WalletIcon/>
+                    <WalletIcon />
                 </Paper>
-            </ButtonBase>) : (<ButtonBase
+            </ButtonBase>) : (<Button
                 onClick={props.connectMetamask}
                 className='mp__btnConnect'
+                variant="contained"
             >
-                <Paper elevation={0} className='mp__flex mp__flexCentered'>
-                    <h3 className='mp__btnChain mp__margRi10'>Connect wallet</h3>
-                    <ElectricalServicesIcon/>
-                </Paper>
-            </ButtonBase>))
+                <h3 className='mp__btnChainBig'>Click here to connect wallet</h3>
+            </Button>))
             }
         </div >
     )

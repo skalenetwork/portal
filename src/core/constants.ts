@@ -23,8 +23,10 @@
 
 import { importAll } from './helper';
 
-
 export const CHAINS_META = require('../meta/chains.json');
+export const METAPORT_CONFIG = require('../metaportConfig.json');
+export const MAINNET_ABI = require('../mainnetAbi.json');
+
 export const ICONS = importAll(require.context('../meta/logos', false, /\.(png|jpe?g|svg|gif)$/));
 export const CHAIN_ICONS = importAll(require.context('../meta/icons', false, /\.(png|jpe?g|svg)$/));
 export const TOKEN_ICONS = importAll(require.context('../icons', false, /\.(png|jpe?g|svg)$/));
@@ -33,3 +35,5 @@ export const CHAIN_ID = process.env["REACT_APP_CHAIN_ID"];
 export const NETWORK_NAME = process.env["REACT_APP_NETWORK_NAME"];
 
 export const MAINNET_CHAIN_NAME = 'mainnet';
+
+export const DEFAULT_ERC20_DECIMALS = '18';

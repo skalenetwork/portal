@@ -11,12 +11,14 @@ export default function AmountInput(props: any) {
   };
 
   const setMaxAmount = () => {
-    props.setAmount(props.token.balance);
+    props.setAmount(props.balance);
   }
+
+  const disabled = props.loading || !props.balance;
 
   if (!props.token) return (<div></div>);
   return (
-    <div className='mp__flex mp__inputAmount'>
+    <div className={ 'mp__flex mp__inputAmount ' + (disabled ? 'mp__inputAmountDisabled' : null)}>
       <div className='mp__flex mp__flexGrow'>
         <TextField
           type="number"
@@ -24,20 +26,21 @@ export default function AmountInput(props: any) {
           placeholder="0.00"
           value={props.amount}
           onChange={handleChange}
-          disabled={props.loading || props.amountLocked}
+          disabled={disabled}
         />
       </div>
-      <div className='mp__flex'>
+      {props.maxBtn ? <div className='mp__flex'>
         <Button
           color="primary"
           size="small"
           className='mp__btnChain'
           onClick={setMaxAmount}
-          disabled={props.loading || !props.token.balance || props.amountLocked}
+          disabled={props.loading || !props.balance || props.amountLocked}
         >
           MAX
         </Button>
-      </div>
+      </div> : null}
+      
     </div>
   )
 }

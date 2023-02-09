@@ -173,7 +173,9 @@ h4 {
   padding: 24px 0 !important;
 }
 
-
+.mp__fullHeight {
+  height: 95vh;
+}
 
 .mp__flex {
   display: flex;
@@ -205,6 +207,10 @@ h4 {
 
 .mp__margTop20 {
   margin-top: 20px !important;
+}
+
+.mp__margTop40 {
+  margin-top: 40px !important;
 }
 
 .mp__margLeft5 {
@@ -375,7 +381,7 @@ h4 {
   text-decoration: none !important;
 }
 
-.demoBtn {
+.bridge__btn {
   font-size: .7125rem !important;
   line-height: 1.7 !important;
   border-radius: 15px !important;
@@ -464,6 +470,17 @@ input::-webkit-inner-spin-button {
   letter-spacing: 0.02857em;
 }
 
+.mp__btnChainBig {
+  width: 100%;
+  text-align: left;
+  text-transform: uppercase;
+  font-size: 1.0525rem;
+  line-height: 1;
+  letter-spacing: 0.02857em;
+  padding-left: 25pt;
+  padding-right: 25pt;
+}
+
 .MuiSnackbar-root .MuiPaper-root {
   padding: 5px 15px !important;
 }
@@ -543,7 +560,7 @@ li a {
 .mp__p3 {
   margin: 0;
   font-weight: 600 !important;
-  text-transform: uppercase !important;
+  // text-transform: uppercase !important;
   font-size: 0.6525rem !important;
   line-height: 1.6 !important;
   letter-spacing: 0.02857em !important;
@@ -559,6 +576,12 @@ li a {
   letter-spacing: 0.02857em !important;
 }
 
+.mp__p,
+.mp__infoIcon,
+.mp__backIcon {
+  color: rgb(255 255 255 / 65%) !important;
+}
+
 .mp__p2 {
   margin: 0;
   font-weight: 600 !important;
@@ -567,6 +590,17 @@ li a {
   line-height: 1.6 !important;
   letter-spacing: 0.03857em !important;
 }
+
+
+.mp__p4 {
+  margin: 0;
+  font-weight: 500 !important;
+  // text-transform: uppercase !important;
+  font-size: 0.8525rem !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0.03857em !important;
+}
+
 
 .mp__textCentered {
   text-align: center;
@@ -675,26 +709,36 @@ li a {
   height: 30px;
 }
 
+.mp__iconTokenTransferDone {
+  width: 25px;
+  height: 25px;
+}
 
 .topBannerNew {
-  border-radius: 50px !important;
-  padding: 1px 12px;
-
   font-weight: 500 !important;
   /* text-transform: uppercase !important; */
   font-size: .8525rem !important;
   line-height: 1.5 !important;
   letter-spacing: .02857em !important;
   color: #e1e1e1 !important;
-  background-image: none !important;
+}
+
+
+.mp__chipToken {
+  height: 45px !important;
+}
+
+.mp__chipAmount {
+  height: 35px !important;
+  font-size: 0.7125rem !important;
 }
 
 
 .MuiChip-filled {
-  height: 45px !important;
   border-radius: 50px !important;
   padding-right: 5px !important;
   padding-left: 5px !important;
+
   .MuiChip-label {
     text-transform: uppercase !important;
     font-weight: 600 !important;
@@ -702,6 +746,26 @@ li a {
 }
 
 
-.selectedToken .MuiButtonBase-root{
+.selectedToken .MuiButtonBase-root {
   background-color: #535610 !important;
+}
+
+
+.mp__disabledP {
+  color: #707070 !important;
+}
+
+
+.sk-header {
+  background-color: rgba(0, 0, 0, 0) !important;
+  -webkit-backdrop-filter: blur(80px) !important;
+  backdrop-filter: blur(80px) !important;
+}
+
+.mp__iconGray {
+  color: #8c8c8c;
+}
+
+.whiteText{
+  color: white !important;
 }

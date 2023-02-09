@@ -112,7 +112,7 @@ export default function ChainCard(props: any) {
               </h6>
             </div>
             {Object.keys(props.chain.tokens).map((token: any, index: number) => (
-              <Tooltip title={token} key={token}>
+              <Tooltip title={token.toUpperCase()} key={token}>
                 <img className='mp__iconToken' src={iconPath(token)} />
               </Tooltip>
             ))}
