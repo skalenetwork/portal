@@ -227,7 +227,13 @@ export default function Transfer(props: any) {
                 <CardContent className='mp__margLeft20 mp__margRi20 mp__margTop20 mp__margBott20'>
                     <Stack >
                         <div className=''>
-                            <TransferStepper disabled={disabled} to={to} toApp={toApp} activeStep={activeStep} />
+                            <TransferStepper
+                                disabled={disabled}
+                                to={to}
+                                toApp={toApp}
+                                activeStep={activeStep}
+                                disabledExitGas={recommendedRechargeAmount !== '0' && isTransferToMainnet}
+                            />
                         </div>
                         <Collapse in={activeStep === 0}>
                             <div className='mp__margTop10'>

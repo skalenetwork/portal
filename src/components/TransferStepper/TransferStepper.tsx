@@ -15,7 +15,7 @@ export default function TransferStepper(props: any) {
   const steps = ['Transfer tokens', 'Switch to ' + dest];
   return (
     <Box sx={{ width: '100%' }}>
-      <Stepper activeStep={props.disabled ? null : props.activeStep} className='mp__stepper'>
+      <Stepper activeStep={props.disabledExitGas ? -1 : props.activeStep} className='mp__stepper'>
         {steps.map((label, index) => {
           const stepProps: { completed?: boolean } = {};
           const labelProps: {
