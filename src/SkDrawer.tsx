@@ -11,17 +11,15 @@ import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 
-import StorefrontIcon from '@mui/icons-material/Storefront';
-import MoveUpIcon from '@mui/icons-material/MoveUp';
-import ElectricBoltIcon from '@mui/icons-material/ElectricBolt';
-import ExploreIcon from '@mui/icons-material/Explore';
-import AddLinkIcon from '@mui/icons-material/AddLink';
-import SettingsEthernetIcon from '@mui/icons-material/SettingsEthernet';
-import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
-import WidgetsIcon from '@mui/icons-material/Widgets';
-import RequestPageIcon from '@mui/icons-material/RequestPage';
+import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontalCircleOutlined';
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
+import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
+import OutboundOutlinedIcon from '@mui/icons-material/OutboundOutlined';
 
-import { getChainIcon } from './components/ActionCard/helper';
+import { METAPORT_CONFIG } from './core/constants';
+import { getProxyEndpoint } from './core/network';
 
 const drawerWidth = 240;
 
@@ -39,121 +37,69 @@ export default function SkDrawer() {
         >
             <Toolbar />
             <Box sx={{ overflow: 'auto' }} className="mp__margTop20">
-                <h4 className="secondaryText sectionHeader">From Mainnet</h4>
+                <h4 className="secondaryText sectionHeader">Bridge</h4>
                 <List>
                     <ListItem  >
-                        <Link to="/common/sandbox" className="undec fullWidth">
+                        <Link to="/" className="undec fullWidth">
                             <ListItemButton
-                                selected={location.pathname === "/common/s"}>
+                                selected={location.pathname === "/" || location.pathname.includes('/transfer')}>
                                 <ListItemIcon>
-                                    {getChainIcon('staging-perfect-parallel-gacrux', true)}
+                                    <SwapHorizontalCircleOutlinedIcon />
                                 </ListItemIcon>
-                                <ListItemText primary='Europa Hub' />
-                            </ListItemButton>
-                        </Link>
-                    </ListItem>
-                    <ListItem  >
-                        <Link to="/common/sandbox" className="undec fullWidth">
-                            <ListItemButton
-                                selected={location.pathname === "/common/sandbox" || location.pathname === "/"}>
-                                <ListItemIcon>
-                                    {getChainIcon('staging-severe-violet-wezen', true)}
-                                </ListItemIcon>
-                                <ListItemText primary='Calypso Hub' />
+                                <ListItemText primary='Transfer' />
                             </ListItemButton>
                         </Link>
                     </ListItem>
                     <ListItem  >
-                        <Link to="/common/sandbox" className="undec fullWidth">
+                        <Link to="/bridge/exit" className="undec fullWidth">
                             <ListItemButton
-                                selected={location.pathname === "/common/sandbox" || location.pathname === "/"}>
+                                selected={location.pathname === "/bridge/exit"}>
                                 <ListItemIcon>
-                                    <WidgetsIcon />
+                                    <AccountBalanceWalletOutlinedIcon />
                                 </ListItemIcon>
-                                <ListItemText primary='Popular' />
+                                <ListItemText primary='Exit gas wallet' />
                             </ListItemButton>
                         </Link>
                     </ListItem>
                 </List>
-                <h4 className="secondaryText sectionHeader">ERC20</h4>
+                <h4 className="secondaryText sectionHeader">Other</h4>
                 <List>
-                    <ListItem >
-                        <Link to="/erc20/s2s" className="undec fullWidth">
-                            <ListItemButton selected={location.pathname === "/erc20/s2s"}>
+                    <ListItem  >
+                        <Link to="/other/faq" className="undec fullWidth">
+                            <ListItemButton
+                                selected={location.pathname === "/other/faq"}>
                                 <ListItemIcon>
-                                    <ElectricBoltIcon />
+                                    <HelpOutlineOutlinedIcon />
                                 </ListItemIcon>
-                                <ListItemText className='undec' primary='S2S Demo' />
+                                <ListItemText primary='FAQ' />
                             </ListItemButton>
                         </Link>
                     </ListItem>
-                    <ListItem >
-                        <Link to="/erc20/wrap" className="undec fullWidth">
-                            <ListItemButton selected={location.pathname === "/erc20/wrap"}>
+                    <ListItem  >
+                        <a className="undec fullWidth" target="_blank" href={getProxyEndpoint(METAPORT_CONFIG.skaleNetwork)}>
+                            <ListItemButton
+                                selected={location.pathname === "/wwwa"}>
                                 <ListItemIcon>
-                                    <MoveUpIcon />
+                                    <PublicOutlinedIcon />
                                 </ListItemIcon>
-                                <ListItemText className='undec' primary='Wrap Demo' />
+                                <ListItemText primary='Get endpoints' />
+                                <OutboundOutlinedIcon className="drawerIconRi" />
                             </ListItemButton>
-                        </Link>
+                        </a>
                     </ListItem>
-                    <ListItem >
-                        <Link to="/erc20/transfer-requests" className="undec fullWidth">
-                            <ListItemButton selected={location.pathname === "/erc20/transfer-requests"}>
+                    <ListItem  >
+                        <a className="undec fullWidth" target="_blank" href='https://docs.skale.network/'>
+                            <ListItemButton
+                                selected={location.pathname === "/wwwa"}>
                                 <ListItemIcon>
-                                    <RequestPageIcon />
+                                    <ArticleOutlinedIcon />
                                 </ListItemIcon>
-                                <ListItemText className='undec' primary='Transfer requests' />
+                                <ListItemText primary='Docs portal' />
+                                <OutboundOutlinedIcon className="drawerIconRi" />
                             </ListItemButton>
-                        </Link>
+                        </a>
                     </ListItem>
                 </List>
-                <h4 className="secondaryText sectionHeader">NFT (ERC721 & ERC1155)</h4>
-                <List>
-                    <ListItem >
-                        <Link to="/nft/medals" className="undec fullWidth">
-                            <ListItemButton selected={location.pathname === "/nft/medals"}>
-                                <ListItemIcon>
-                                    <WorkspacePremiumIcon />
-                                </ListItemIcon>
-                                <ListItemText primary='Medals Demo' />
-                            </ListItemButton>
-                        </Link>
-                    </ListItem>
-                    <ListItem >
-                        <Link to="/nft/marketplace" className="undec fullWidth">
-                            <ListItemButton selected={location.pathname === "/nft/marketplace"}>
-                                <ListItemIcon>
-                                    <StorefrontIcon />
-                                </ListItemIcon>
-                                <ListItemText primary='Marketplace Demo' />
-                            </ListItemButton>
-                        </Link>
-                    </ListItem>
-                </List>
-                {/* <h4 className="secondaryText sectionHeader">Manage</h4>
-                <List>
-                    <ListItem >
-                        <Link to="/admin/connect-chains" className="undec fullWidth">
-                            <ListItemButton selected={location.pathname === "/admin/connect-chains"}>
-                                <ListItemIcon>
-                                    <SettingsEthernetIcon />
-                                </ListItemIcon>
-                                <ListItemText primary='Connect chains' />
-                            </ListItemButton>
-                        </Link>
-                    </ListItem>
-                    <ListItem >
-                        <Link to="/admin/link-tokens" className="undec fullWidth">
-                            <ListItemButton selected={location.pathname === "/admin/link-tokens"}>
-                                <ListItemIcon>
-                                    <AddLinkIcon />
-                                </ListItemIcon>
-                                <ListItemText primary='Link tokens' />
-                            </ListItemButton>
-                        </Link>
-                    </ListItem>
-                </List> */}
             </Box>
         </Drawer >
     );

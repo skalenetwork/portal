@@ -142,15 +142,12 @@ function App() {
           connectMetamask={connectMetamask}
           address={address}
         />
-        {/* <SkDrawer /> */}
+        <SkDrawer />
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <Toolbar />
           {address ? <Router address={address} metaport={metaport} setOpen={setOpen} /> :
             <div className='mp__flex mp__flexCentered mp__fullHeight'>
               <div className=''>
-                {/* <h2 className="mp__noMarg">
-                  Click on 'Connect wallet' button in the top right corner
-                </h2> */}
                 <MetamaskConnector address={address} connectMetamask={connectMetamask} connect={true} />
                 <p className='mp__margBott20 mp__margTop20 mp__p mp__p4 mp__textCentered'>
                   Currently only Metamask wallet is supported

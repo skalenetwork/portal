@@ -148,7 +148,7 @@ export default function CommunityPool(props: any) {
     }
 
     return (<div className='marg-top-40'>
-        <Card variant="outlined" className='topBannerNew'>
+        <Card variant="outlined" className='topBannerNew bridgeUIPaper'>
             <div className='mp__flex mp__flexCenteredVert mp__margRi10 mp__margLeft10'>
                 <div className='mp__margLeft10 mp__margRi10 mp__flex mp__flexCenteredVert'>
                     {props.recommendedRechargeAmount && balance ? <div className='mp__flex mp__flexCenteredVert'>

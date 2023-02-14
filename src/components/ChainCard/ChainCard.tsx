@@ -82,15 +82,30 @@ export default function ChainCard(props: any) {
 
   // TODO: refactor!
 
-  let url = `transfer/${props.from}/${props.toChain}`;
+  let url = `/bridge/transfer/${props.from}`;
+
+  if (props.toChain) {
+    url += `/${props.toChain}`;
+  }
+
   if (props.chain.app || props.fromApp) {
     url += '?';
   }
-  if (props.chain.app) {
+  if (props.chain.app && props.toChain) {
     url += `to-app=${props.chain.app}&`;
   }
   if (props.fromApp) {
     url += `from-app=${props.fromApp}`;
+  }
+
+  const chain = props.toChain ? props.toChain : props.from;
+
+  let tokens;
+  if (props.toChain) {
+    tokens = props.chain.tokens;
+  } else {
+    const tokensArr = Object.keys(props.chain.chains).map((toChain: any) => { return props.chain.chains[toChain].tokens });
+    tokens = tokensArr.reduce((tokens: any) => { return tokens });
   }
 
   return (
@@ -99,19 +114,19 @@ export default function ChainCard(props: any) {
         <Link to={url}>
           <Button
             className='app-icon'
-            style={{ backgroundColor: getBgColor(props.toChain, props.chain.app) }}
+            style={{ backgroundColor: getBgColor(chain, props.chain.app) }}
           >
-            {getIcon(props.toChain, props.chain.app)}
+            {getIcon(chain, props.chain.app)}
           </Button>
         </Link>
-        <div className='mp__flex mp__flexCentered app-bott' style={{ backgroundColor: getBgColor(props.toChain, props.chain.app) }}>
-          <div className={'app-bott-ins mp__flex mp__flexCentered ' + (tinycolor(getBgColor(props.toChain, props.chain.app)).isLight() ? '' : 'app-bott-dark')}>
+        <div className='mp__flex mp__flexCentered app-bott' style={{ backgroundColor: getBgColor(chain, props.chain.app) }}>
+          <div className={'app-bott-ins mp__flex mp__flexCentered ' + (tinycolor(getBgColor(chain, props.chain.app)).isLight() ? '' : 'app-bott-dark')}>
             <div className='mp__margRi5'>
               <h6 className="mp__noMarg mp__flexCentered chainInfoText">
                 TOKENS:
               </h6>
             </div>
-            {Object.keys(props.chain.tokens).map((token: any, index: number) => (
+            {Object.keys(tokens).map((token: any, index: number) => (
               <Tooltip title={token.toUpperCase()} key={token}>
                 <img className='mp__iconToken' src={iconPath(token)} />
               </Tooltip>
@@ -120,7 +135,7 @@ export default function ChainCard(props: any) {
         </div>
       </div>
       <p className="schain-name mp__flex mp__flexCentered">
-        {getChainName(CHAINS_META, props.toChain, props.chain.app)}
+        {getChainName(CHAINS_META, chain, props.chain.app)}
       </p>
     </div>
   );

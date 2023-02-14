@@ -28,7 +28,7 @@ export default function TransferDone(props: any) {
 
       </div>
 
-      <p className={'mp__margTop10 mp__margBott20 mp__p mp__p4 '}>
+      <p className='mp__margTop10 mp__margBott20 mp__p mp__p4'>
         Proceed to the dApp or go back to the transfer page.
       </p>
 

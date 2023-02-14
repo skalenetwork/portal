@@ -21,6 +21,7 @@
     "@types/webpack-env": "^1.18.0",
     "crypto-browserify": "^3.12.0",
     "debug": "^4.3.4",
+    "fuzzysort": "^2.0.4",
     "https-browserify": "^1.0.0",
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",

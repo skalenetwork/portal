@@ -10,7 +10,7 @@ export default function Tokens(props: any) {
     const from: string = props.from;
     const to: string = props.to;
     return (<div className='mp__flex mp__margTop10'>
-        {Object.keys(chainsData[from][to].tokens).map((token: any, index: number) => (
+        {Object.keys(chainsData[from].chains[to].tokens).map((token: any, index: number) => (
             <div key={token} className={'mp__margRi5 ' + (props.token === token ? 'selectedToken' : '')}>
                 <Chip
                     label={token}

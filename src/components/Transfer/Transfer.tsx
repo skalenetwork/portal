@@ -56,7 +56,8 @@ export default function Transfer(props: any) {
     const toChain = to as string;
 
     const chainsData = CHAINS as any;
-    const tokens = chainsData[fromChain][toChain].tokens; // TODO: handle
+
+    const tokens = chainsData[fromChain].chains[toChain].tokens; // TODO: handle
 
     const [loading, setLoading] = React.useState(false);
     const [amount, setAmount] = React.useState<string>('');
@@ -164,19 +165,7 @@ export default function Transfer(props: any) {
 
     return (<Container maxWidth="md">
         <Stack spacing={3}>
-            <div className="fl-centered mp__margBott10">
-                <Grid container spacing={2} className="flex-container fl-centered marg-bott-20">
-                    <Grid item md={6} xs={12}>
-                        <Breadcrumbs aria-label="breadcrumb" className="fl-grow">
-                            <Link className='undec' to="/">
-                                <ArrowBackIosIcon style={{ 'height': '12px', 'width': '15px' }} />
-                                Go back
-                            </Link>
-                        </Breadcrumbs>
-                    </Grid>
-                </Grid>
-            </div>
-            <div className='mp__flex mp__flexCenteredVert mp__noMarg'>
+            <div className='mp__flex mp__flexCenteredVert mp__margTop20'>
                 <div className='mp__flex'>
                     <h2 className="mp__flex mp__noMarg">Transfer</h2>
                 </div>
@@ -197,7 +186,7 @@ export default function Transfer(props: any) {
                 </div>
             </div>
             {toApp ? (<div className='marg-top-40'>
-                <Card variant="outlined" className='topBannerNew mp__flex mp__flexCenteredVert'>
+                <Card variant="outlined" className='topBannerNew mp__flex mp__flexCenteredVert bridgeUIPaper'>
                     <div className='mp__margLeft20 mp__margRi5 mp__flex mp__flexCenteredVert'>
                         {getChainIcon(to as string, true)}
                     </div>
@@ -223,7 +212,7 @@ export default function Transfer(props: any) {
                     setMsgType={setMsgType}
 
                 />) : null}
-            <Card variant="outlined">
+            <Card variant="outlined" className='bridgeUIPaper'>
                 <CardContent className='mp__margLeft20 mp__margRi20 mp__margTop20 mp__margBott20'>
                     <Stack >
                         <div className=''>

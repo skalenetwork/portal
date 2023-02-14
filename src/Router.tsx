@@ -2,6 +2,9 @@ import './App.scss';
 
 import Main from './Main';
 import Transfer from './components/Transfer';
+import Faq from './components/Faq';
+import ExitGasWallet from './components/ExitGasWallet';
+import TransferTo from './components/TransferTo';
 
 import { Routes, Route, useLocation } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
@@ -16,10 +19,27 @@ export default function Router(props: any) {
                         index
                         element={<Main address={props.address} metaport={props.metaport} />}
                     />
-                    <Route path="transfer" >
+                    <Route path="bridge" >
                         <Route
-                            path=":from/:to"
-                            element={<Transfer address={props.address} metaport={props.metaport} />}
+                            path="exit"
+                            element={<ExitGasWallet />}
+                        />
+                        <Route path="transfer" >
+                            <Route
+                                path=":from"
+                                element={<TransferTo address={props.address} metaport={props.metaport} />}
+                            />
+                            <Route
+                                path=":from/:to"
+                                element={<Transfer address={props.address} metaport={props.metaport} />}
+                            />
+                        </Route>
+                    </Route>
+
+                    <Route path="other" >
+                        <Route
+                            path="faq"
+                            element={<Faq />}
                         />
                     </Route>
                 </Routes>

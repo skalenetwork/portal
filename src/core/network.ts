@@ -180,7 +180,7 @@ function getSChainEndpoint(network: string, sChainName: string): string {
 }
 
 
-function getProxyEndpoint(network: string) {
+export function getProxyEndpoint(network: string) {
   // todo: add network validation
   return (proxyEndpoints as any)[network];
 }

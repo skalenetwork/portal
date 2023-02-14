@@ -77,7 +77,7 @@ export default function ActionCard(props: any) {
     return <OfflineBoltIcon className='default-chain-icon' />;
   }
 
-  const url = `transfer/${props.action.from}/${props.action.to}`;
+  const url = `bridge/transfer/${props.action.from}/${props.action.to}`;
 
   return (
     <div>
