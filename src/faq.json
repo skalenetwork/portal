@@ -18,5 +18,37 @@
   {
     "question": "Who can use a SKALE Bridge?",
     "answer": "SKALE Bridges are currently in beta and may have some bugs, so use at your own risk. However, the technology can be used by anyone looking to transfer assets or data between two different blockchain networks, including transfers between SKALE Chain and the Ethereum Mainnet. This includes individuals, businesses, and organizations looking to expand their reach and capabilities across multiple blockchain systems."
+  },
+  {
+    "question": "Which wallets are supported?",
+    "answer": "Metamask is the only currently supported wallet. Additional wallet support will be added soon."
+  },
+  {
+    "question": "Metamask is not connecting with the SKALE Bridge.",
+    "answer": "This could be caused by many reasons. Try another time, use a different browser like Chrome or Brave."
+  },
+  {
+    "question": "How do I add new custom token to the SKALE Bridge?",
+    "answer": "Each SKALE Bridge is managed by each respective SKALE Chain owner. For example, the Europa and Calypso communities collaborate to allow certain tokens to bridge between these two chains and their two dapps Ruby and NFTrade. Contact the chain communities to inquire listing a custom token."
+  },
+  {
+    "question": "What is Metaport?",
+    "answer": "Metaport is a tool used by this Bridge and by other dapps in the SKALE Network to help users perform token transfers between chains. It works with Metamask and other wallets to guide users through the transaction process especially when conducting multiple transactions across multiple chains."
+  },
+  {
+    "question": "What is the exit gas wallet?",
+    "answer": "This is a special wallet used to fund exit transactions to Ethereum. It is only required to be funded when performing an exit to Ethereum. Funds in this wallet are used to reimburse a SKALE validator node for gas when presenting your transaction to Ethereum. A deposit greater than the exit transaction gas cost is required because of the unpredictable nature of Ethereum gas pricing. Any funds left over from the exit can be retrieved, or you can use the remaining funds to perform additional exit transactions from the same chain."
+  },
+  {
+    "question": "Why do I see a transaction fee? I thought SKALE chains have zero-cost transactions?",
+    "answer": "SKALE Chains have zero-cost transactions. You will still see a transaction fee for any transaction that interacts with Ethereum such as deposit from Ethereum to SKALE, or an exit from SKALE to Ethereum."
+  },
+  {
+    "question": "What does it mean when my tokens will be wrapped?",
+    "answer": "SKALE Bridge security requires that tokens can only be bridged once, say from Ethereum to Ruby on Europa.  To forward the same token from Ruby to another chain, you must wrap it on Europa and transfer the wrapped token to the next chain.  Metaport will guide the user through this wrap step. In case any issue occurs at the wrapping step, Metaport will guide the user through an unwrapping step."
+  },
+  {
+    "question": "I am transferring from Ethereum to NFTrade, why are my tokens routing through Europa?",
+    "answer": "To transfer tokens from Ethereum to NFTrade, this transaction involves an intermediary step on Europa (SKALE&#39;s Liqudity Hub) to wrap the token and forward the wrapped token to NFTrade."  
   }
 ]
