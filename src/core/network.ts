@@ -142,7 +142,7 @@ export async function updateWeb3MainnetMetamask(
 ): Promise<void> {
   const networkParams = mainnetNetworkParams(network, mainnetEndpoint);
   await changeMetamaskNetwork(networkParams);
-  const web3 = new Web3(window.ethereum);  
+  const web3 = new Web3(window.ethereum);
   mainnet.updateWeb3(web3);
 }
 

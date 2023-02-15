@@ -34,6 +34,7 @@ import TransferDone from '../TransferDone';
 import Tokens from '../Tokens';
 import AmountInput from '../AmountInput';
 import CommunityPool from '../CommunityPool';
+import SFuel from '../SFuel';
 
 import { getBalance, initChainWeb3, initERC20Token } from '../../core/tokens';
 import { CHAINS_META, DEFAULT_ERC20_DECIMALS, MAINNET_CHAIN_NAME } from '../../core/constants';
@@ -65,6 +66,8 @@ export default function Transfer(props: any) {
     const [token, setToken] = React.useState<string>();
     const [updateBalanceFlag, setUpdateBalanceFlag] = React.useState<boolean>(false);
 
+    const [sFuelOk, setSFuelOk] = React.useState<boolean>(false);
+
     const [msg, setMsg] = React.useState<string>();
     const [msgType, setMsgType] = React.useState<'error' | 'info' | 'success'>('info');
 
@@ -93,9 +96,9 @@ export default function Transfer(props: any) {
             false
         );
         setWeb3(initChainWeb3(fromChain));
-        let balanceUpdateTimer = setTimeout(() => setUpdateBalanceFlag(!updateBalanceFlag), 10 * 1000);
+        let balanceUpdateTimer = setInterval(() => setUpdateBalanceFlag(!updateBalanceFlag), 10 * 1000);
         return () => {
-            clearTimeout(balanceUpdateTimer);
+            clearInterval(balanceUpdateTimer);
         };
     }, []);
 
@@ -161,7 +164,7 @@ export default function Transfer(props: any) {
     }
 
     const isTransferToMainnet = toChain === MAINNET_CHAIN_NAME && activeStep === 0;
-    const disabled = loading || (recommendedRechargeAmount !== '0' && isTransferToMainnet);
+    const disabled = loading || (recommendedRechargeAmount !== '0' && isTransferToMainnet) || !sFuelOk;
 
     return (<Container maxWidth="md">
         <Stack spacing={3}>
@@ -212,16 +215,31 @@ export default function Transfer(props: any) {
                     setMsgType={setMsgType}
 
                 />) : null}
+            {
+                token ? (<SFuel
+                    address={props.address}
+                    fromChain={fromChain}
+                    toChain={toChain}
+                    hubChain={tokens[token].route ? tokens[token].route.hub : null}
+
+                    sFuelOk={sFuelOk}
+                    setSFuelOk={setSFuelOk}
+
+                    msg={msg}
+                    setMsg={setMsg}
+                    msgType={msgType}
+                    setMsgType={setMsgType}
+                />) : null
+            }
             <Card variant="outlined" className='bridgeUIPaper'>
                 <CardContent className='mp__margLeft20 mp__margRi20 mp__margTop20 mp__margBott20'>
                     <Stack >
                         <div className=''>
                             <TransferStepper
-                                disabled={disabled}
                                 to={to}
                                 toApp={toApp}
                                 activeStep={activeStep}
-                                disabledExitGas={recommendedRechargeAmount !== '0' && isTransferToMainnet}
+                                disabled={(recommendedRechargeAmount !== '0' && isTransferToMainnet) || !sFuelOk}
                             />
                         </div>
                         <Collapse in={activeStep === 0}>

@@ -17,6 +17,8 @@ import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
 import OutboundOutlinedIcon from '@mui/icons-material/OutboundOutlined';
+import LocalGasStationOutlinedIcon from '@mui/icons-material/LocalGasStationOutlined';
+import SettingsApplicationsOutlinedIcon from '@mui/icons-material/SettingsApplicationsOutlined';
 
 import { METAPORT_CONFIG } from './core/constants';
 import { getProxyEndpoint } from './core/network';
@@ -75,10 +77,9 @@ export default function SkDrawer() {
                             </ListItemButton>
                         </Link>
                     </ListItem>
-                    <ListItem  >
+                    <ListItem>
                         <a className="undec fullWidth" target="_blank" href={getProxyEndpoint(METAPORT_CONFIG.skaleNetwork)}>
-                            <ListItemButton
-                                selected={location.pathname === "/wwwa"}>
+                            <ListItemButton>
                                 <ListItemIcon>
                                     <PublicOutlinedIcon />
                                 </ListItemIcon>
@@ -87,10 +88,31 @@ export default function SkDrawer() {
                             </ListItemButton>
                         </a>
                     </ListItem>
-                    <ListItem  >
+                    <ListItem>
+                        <a className="undec fullWidth" target="_blank" href='https://sfuel.skale.network/'>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <LocalGasStationOutlinedIcon />
+                                </ListItemIcon>
+                                <ListItemText primary='Get sFUEL' />
+                                <OutboundOutlinedIcon className="drawerIconRi" />
+                            </ListItemButton>
+                        </a>
+                    </ListItem>
+                    {/* <ListItem>
+                        <a className="undec fullWidth" target="_blank" href='https://admin.skale.network/'>
+                            <ListItemButton>
+                                <ListItemIcon>
+                                    <SettingsApplicationsOutlinedIcon />
+                                </ListItemIcon>
+                                <ListItemText primary='Admin UI' />
+                                <OutboundOutlinedIcon className="drawerIconRi" />
+                            </ListItemButton>
+                        </a>
+                    </ListItem> */}
+                    <ListItem>
                         <a className="undec fullWidth" target="_blank" href='https://docs.skale.network/'>
-                            <ListItemButton
-                                selected={location.pathname === "/wwwa"}>
+                            <ListItemButton>
                                 <ListItemIcon>
                                     <ArticleOutlinedIcon />
                                 </ListItemIcon>

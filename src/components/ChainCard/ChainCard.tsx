@@ -102,10 +102,11 @@ export default function ChainCard(props: any) {
 
   let tokens;
   if (props.toChain) {
-    tokens = props.chain.tokens;
+    tokens = Object.keys(props.chain.tokens);
   } else {
     const tokensArr = Object.keys(props.chain.chains).map((toChain: any) => { return props.chain.chains[toChain].tokens });
-    tokens = tokensArr.reduce((tokens: any) => { return tokens });
+    tokens = tokensArr.map((val: any) => { return Object.keys(val) });
+    tokens = Array.from(new Set(tokens.flat()));
   }
 
   return (
@@ -126,7 +127,7 @@ export default function ChainCard(props: any) {
                 TOKENS:
               </h6>
             </div>
-            {Object.keys(tokens).map((token: any, index: number) => (
+            {tokens.map((token: any, index: number) => (
               <Tooltip title={token.toUpperCase()} key={token}>
                 <img className='mp__iconToken' src={iconPath(token)} />
               </Tooltip>

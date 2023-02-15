@@ -18,5 +18,13 @@
   {
     "question": "Who can use a SKALE Bridge?",
     "answer": "SKALE Bridges are currently in beta and may have some bugs, so use at your own risk. However, the technology can be used by anyone looking to transfer assets or data between two different blockchain networks, including transfers between SKALE Chain and the Ethereum Mainnet. This includes individuals, businesses, and organizations looking to expand their reach and capabilities across multiple blockchain systems."
+  },
+  {
+    "question": "What is Exit gas wallet?",
+    "answer": "Exit gas wallet answer placeholder"
+  },
+  {
+    "question": "What is sFUEL?",
+    "answer": "sFUEL is the native token of SKALE. This is similar (but different!) to Ether in Ethereum. To interact with a SKALE chain, sFUEL tokens are required to conduct transactions. Unlike Ether and other gas tokens, sFUEL has no value: it’s FREE. There is no payment/cost required for transactions since sFUEL is FREE. Getting sFUEL on a SKALE chain is done through a number of ways. Read more: https://docs.skale.network/develop/sfuel-gas-token"
   }
 ]
