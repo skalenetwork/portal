@@ -16,6 +16,8 @@ import metaportConfig from './metaportConfig.json'
 import Header from './Header';
 import SkDrawer from './SkDrawer';
 import Router from './Router';
+import Footer from './components/Footer';
+
 import MetamaskConnector from './MetamaskConnector';
 import { connect, addAccountChangedListener } from './core/connector'
 
@@ -164,6 +166,7 @@ function App() {
               Transfer completed
             </Alert>
           </Snackbar>
+          <Footer />
         </Box>
       </Box>
     </ThemeProvider >

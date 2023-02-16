@@ -19,6 +19,7 @@ import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalance
 import OutboundOutlinedIcon from '@mui/icons-material/OutboundOutlined';
 import LocalGasStationOutlinedIcon from '@mui/icons-material/LocalGasStationOutlined';
 import SettingsApplicationsOutlinedIcon from '@mui/icons-material/SettingsApplicationsOutlined';
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
 import { METAPORT_CONFIG } from './core/constants';
 import { getProxyEndpoint } from './core/network';
@@ -84,7 +85,7 @@ export default function SkDrawer() {
                                     <PublicOutlinedIcon />
                                 </ListItemIcon>
                                 <ListItemText primary='Get endpoints' />
-                                <OutboundOutlinedIcon className="drawerIconRi" />
+                                <ArrowOutwardIcon className="drawerIconRi" />
                             </ListItemButton>
                         </a>
                     </ListItem>
@@ -95,7 +96,7 @@ export default function SkDrawer() {
                                     <LocalGasStationOutlinedIcon />
                                 </ListItemIcon>
                                 <ListItemText primary='Get sFUEL' />
-                                <OutboundOutlinedIcon className="drawerIconRi" />
+                                <ArrowOutwardIcon className="drawerIconRi" />
                             </ListItemButton>
                         </a>
                     </ListItem>
@@ -117,7 +118,7 @@ export default function SkDrawer() {
                                     <ArticleOutlinedIcon />
                                 </ListItemIcon>
                                 <ListItemText primary='Docs portal' />
-                                <OutboundOutlinedIcon className="drawerIconRi" />
+                                <ArrowOutwardIcon className="drawerIconRi" />
                             </ListItemButton>
                         </a>
                     </ListItem>

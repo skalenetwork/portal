@@ -5,7 +5,6 @@ import AccordionSummary from '@mui/material/AccordionSummary';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
-
 import { FAQ } from '../../core/constants';
 
 export default function FaqAccordion() {
@@ -19,7 +18,7 @@ export default function FaqAccordion() {
     return (
         <div>
             {FAQ.map((question: any, index: number) => (
-                <Accordion expanded={expanded === `panel${index}`} onChange={handleChange(`panel${index}`)}>
+                <Accordion key={index} expanded={expanded === `panel${index}`} onChange={handleChange(`panel${index}`)}>
                     <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
                         aria-controls="panel1bh-content"

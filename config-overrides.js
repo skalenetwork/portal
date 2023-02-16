@@ -20,5 +20,27 @@ module.exports = function override(config) {
             Buffer: ["buffer", "Buffer"],
         }),
     ]);
+    config.module.rules = config.module.rules.map(rule => {
+        if (rule.oneOf instanceof Array) {
+            return {
+                ...rule,
+                oneOf: [
+                    {
+                        test: /\.mdx?$/,
+                        use: [
+                            {
+                                loader: '@mdx-js/loader',
+                                /** @type {import('@mdx-js/loader').Options} */
+                                options: {}
+                            }
+                        ]
+                    },
+                    ...rule.oneOf
+                ]
+            };
+        }
+
+        return rule;
+    });
     return config;
 };

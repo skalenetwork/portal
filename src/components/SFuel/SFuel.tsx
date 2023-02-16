@@ -73,12 +73,15 @@ export default function SFuel(props: any) {
 
     useEffect(() => {
         if (!fromChainSFuel || !toChainSFuel) return;
+        setLoading(true);
         if (fromChainSFuel === '0' || (hubChainSFuel && hubChainSFuel === '0')) {
             setSFuelStatus('error');
             props.setSFuelOk(false);
         } else {
             if (toChainSFuel === '0') {
                 setSFuelStatus('warning');
+            } else {
+                setSFuelStatus('action');
             }
             props.setSFuelOk(true);
         }

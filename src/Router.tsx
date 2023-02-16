@@ -3,6 +3,7 @@ import './App.scss';
 import Main from './Main';
 import Transfer from './components/Transfer';
 import Faq from './components/Faq';
+import Terms from './components/Terms';
 import ExitGasWallet from './components/ExitGasWallet';
 import TransferTo from './components/TransferTo';
 
@@ -40,6 +41,10 @@ export default function Router(props: any) {
                         <Route
                             path="faq"
                             element={<Faq />}
+                        />
+                        <Route
+                            path="terms-of-service"
+                            element={<Terms />}
                         />
                     </Route>
                 </Routes>
