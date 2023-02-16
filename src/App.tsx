@@ -166,7 +166,6 @@ function App() {
               Transfer completed
             </Alert>
           </Snackbar>
-          <Footer />
         </Box>
       </Box>
     </ThemeProvider >

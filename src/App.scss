@@ -1,3 +1,7 @@
+p {
+  font-size: 0.9rem;
+}
+
 .App {
   text-align: center;
 }
@@ -466,6 +470,16 @@ input::-webkit-inner-spin-button {
   }
 }
 
+.moreBtn {
+  background-color: #191919 !important;
+  svg {
+    width: 14pt !important;
+    height: 14pt !important;
+  }
+  height: 37px;
+  width: 37px;
+}
+
 
 .mp__btnChain {
   width: 100%;
@@ -858,6 +872,12 @@ li a {
   width: 12pt !important;
   height: 12pt !important;
   margin-right: 12px !important;
+}
+
+.menuIconRi {
+  color: #a6a6a6;
+  width: 12pt !important;
+  height: 12pt !important;
 }
 
 
