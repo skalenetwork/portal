@@ -10,6 +10,8 @@ import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
 import { initChainWeb3 } from '../../core/tokens';
 import { Collapse } from '@mui/material';
 import { MAINNET_CHAIN_NAME } from '../../core/constants';
+import { AnonymousPoW } from "@skaleproject/pow-ethers";
+import { getFuncData } from '../../core/faucet';
 
 
 debug.enable('*');
@@ -115,6 +117,84 @@ export default function SFuel(props: any) {
         setHubChainSFuel(balance);
     }
 
+    async function powFromChain() {
+        if (!fromChainWeb3 || !fromChainWeb3.currentProvider || !props.fromChain) return false;
+        const anon = new AnonymousPoW({ rpcUrl: fromChainWeb3.currentProvider.toString() });
+        log('Mining sFUEL fromChain');
+        await anon.send(getFuncData(fromChainWeb3, props.fromChain, props.address));
+        return true;
+    }
+
+    async function powToChain() {
+        if (!toChainWeb3 || !toChainWeb3.currentProvider || !props.toChain) return false;
+        const anon = new AnonymousPoW({ rpcUrl: toChainWeb3.currentProvider.toString() });
+        log('Mining sFUEL toChain');
+        await anon.send(getFuncData(toChainWeb3, props.toChain, props.address));
+        return true;
+    }
+
+    async function powHubChain() {
+        if (!hubChainWeb3 || !hubChainWeb3.currentProvider || !props.hubChain) return false;
+        const anon = new AnonymousPoW({ rpcUrl: hubChainWeb3.currentProvider.toString() });
+        log('Mining sFUEL hubChain');
+        await anon.send(getFuncData(hubChainWeb3, props.hubChain, props.address));
+        return true;
+    }
+
+    async function pow() {
+        if (fromChainSFuel === '0' && props.fromChain !== MAINNET_CHAIN_NAME) {
+            let success = false;
+            setLoading(true);
+            try {
+                success = await powFromChain();
+            } catch (e: any) {
+                log('Mining sFUEL error', e);
+                props.setMsgType('error');
+                props.setMsg(e.message);
+            }
+            await updateBalances();
+            setLoading(false);
+            if (!success) {
+                window.location.href = 'https://sfuel.skale.network/';
+            }
+            return;
+        }
+        if (hubChainSFuel && hubChainSFuel === '0') {
+            let success = false;
+            setLoading(true);
+            try {
+                success = await powHubChain();
+            } catch (e: any) {
+                log('Mining sFUEL error', e);
+                props.setMsgType('error');
+                props.setMsg(e.message);
+            }
+            await updateBalances();
+            setLoading(false);
+            if (!success) {
+                window.location.href = 'https://sfuel.skale.network/';
+            }
+            return;
+        }
+        if (toChainSFuel && toChainSFuel === '0') {
+            let success = false;
+            setLoading(true);
+            try {
+                success = await powToChain();
+            } catch (e: any) {
+                log('Mining sFUEL error', e);
+                props.setMsgType('error');
+                props.setMsg(e.message);
+            }
+            await updateBalances();
+            setLoading(false);
+            if (!success) {
+                window.location.href = 'https://sfuel.skale.network/';
+            }
+            return;
+        }
+    }
+
 
     const noEth = (fromChainSFuel === '0' && props.fromChain === MAINNET_CHAIN_NAME);
 
@@ -135,13 +215,14 @@ export default function SFuel(props: any) {
 
                 {!noEth ? (<div className='mp__flex'>
                     <Button
+                        onClick={pow}
                         size='small'
                         variant='contained'
                         className='bridge__btn mp__margLeft10'
                         target="_blank"
-                        href='https://sfuel.skale.network/'
+                        disabled={loading}
                     >
-                        Get sFUEL
+                        {loading ? 'Mining...' : 'Get sFUEL'}
                     </Button>
                 </div>) : null}
 

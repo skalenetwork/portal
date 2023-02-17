@@ -40,3 +40,5 @@ export const NETWORK_NAME = process.env["REACT_APP_NETWORK_NAME"];
 export const MAINNET_CHAIN_NAME = 'mainnet';
 
 export const DEFAULT_ERC20_DECIMALS = '18';
+export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
+export const ZERO_FUNCSIG = '0x00000000';
