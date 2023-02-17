@@ -24,5 +24,5 @@ export function getFuncData(web3: Web3, chainName: string, address: string) {
     const faucetAddress = getAddress(chainName);
     const functionSig = getFunc(chainName);
     const functionParam = web3.eth.abi.encodeParameter('address', address);
-    return {to: faucetAddress, data: functionSig + functionParam};
+    return {to: faucetAddress, data: functionSig + functionParam.slice(2)};
 }

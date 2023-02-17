@@ -7,11 +7,12 @@ import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
 
-import { initChainWeb3 } from '../../core/tokens';
+import { getChainEndpoint, initChainWeb3 } from '../../core/tokens';
 import { Collapse } from '@mui/material';
 import { MAINNET_CHAIN_NAME } from '../../core/constants';
 import { AnonymousPoW } from "@skaleproject/pow-ethers";
 import { getFuncData, isFaucetAvailable } from '../../core/faucet';
+import { FALSE } from 'sass';
 
 
 debug.enable('*');
@@ -34,6 +35,7 @@ const SFUEL_TEXT = {
 
 export default function SFuel(props: any) {
     const [loading, setLoading] = React.useState<boolean>(true);
+    const [loadingSFUEL, setLoadingSFUEL] = React.useState<boolean>(false);
     const [fromChainWeb3, setFromChainWeb3] = React.useState<Web3>();
     const [toChainWeb3, setToChainWeb3] = React.useState<Web3>();
     const [hubChainWeb3, setHubChainWeb3] = React.useState<Web3>();
@@ -118,80 +120,68 @@ export default function SFuel(props: any) {
     }
 
     async function powFromChain() {
-        if (!fromChainWeb3 || !fromChainWeb3.currentProvider || !props.fromChain || !isFaucetAvailable(props.fromChain)) return false;
-        const anon = new AnonymousPoW({ rpcUrl: fromChainWeb3.currentProvider.toString() });
+        if (!fromChainWeb3 || !props.fromChain || !isFaucetAvailable(props.fromChain) || !getChainEndpoint(props.fromChain)) return false;
+        const anon = new AnonymousPoW({ rpcUrl: getChainEndpoint(props.fromChain) });
         log('Mining sFUEL fromChain');
-        await anon.send(getFuncData(fromChainWeb3, props.fromChain, props.address));
+        await (await anon.send(getFuncData(fromChainWeb3, props.fromChain, props.address))).wait();
         return true;
     }
 
     async function powToChain() {
-        if (!toChainWeb3 || !toChainWeb3.currentProvider || !props.toChain || !isFaucetAvailable(props.toChain)) return false;
-        const anon = new AnonymousPoW({ rpcUrl: toChainWeb3.currentProvider.toString() });
+        if (!toChainWeb3 || !props.toChain || !isFaucetAvailable(props.toChain) || !getChainEndpoint(props.toChain)) return false;
+        const anon = new AnonymousPoW({ rpcUrl: getChainEndpoint(props.toChain) });
         log('Mining sFUEL toChain');
-        await anon.send(getFuncData(toChainWeb3, props.toChain, props.address));
+        await (await anon.send(getFuncData(toChainWeb3, props.toChain, props.address))).wait();
         return true;
     }
 
     async function powHubChain() {
-        if (!hubChainWeb3 || !hubChainWeb3.currentProvider || !props.hubChain || !isFaucetAvailable(props.hubChain)) return false;
-        const anon = new AnonymousPoW({ rpcUrl: hubChainWeb3.currentProvider.toString() });
+        if (!hubChainWeb3 || !props.hubChain || !isFaucetAvailable(props.hubChain) || !getChainEndpoint(props.hubChain)) return false;
+        const anon = new AnonymousPoW({ rpcUrl: getChainEndpoint(props.hubChain) });
         log('Mining sFUEL hubChain');
-        await anon.send(getFuncData(hubChainWeb3, props.hubChain, props.address));
+        await (await anon.send(getFuncData(hubChainWeb3, props.hubChain, props.address))).wait();
         return true;
     }
 
     async function pow() {
-        if (fromChainSFuel === '0' && props.fromChain !== MAINNET_CHAIN_NAME) {
-            let success = false;
-            setLoading(true);
+        let successFrom = true;
+        let successHub = true;
+        let successTo = true;
+        setLoadingSFUEL(true);
+        if (fromChainSFuel && fromChainSFuel === '0' && props.fromChain !== MAINNET_CHAIN_NAME) {
             try {
-                success = await powFromChain();
+                successFrom = await powFromChain();
             } catch (e: any) {
-                log('Mining sFUEL error', e);
+                log('Mining sFUEL fromChain error', e);
                 props.setMsgType('error');
                 props.setMsg(e.message);
+                successFrom = false;
             }
-            await updateBalances();
-            setLoading(false);
-            if (!success) {
-                window.open('https://sfuel.skale.network/', '_blank');
-            }
-            return;
         }
         if (hubChainSFuel && hubChainSFuel === '0') {
-            let success = false;
-            setLoading(true);
             try {
-                success = await powHubChain();
+                successHub = await powHubChain();
             } catch (e: any) {
-                log('Mining sFUEL error', e);
+                log('Mining sFUEL hubChain error', e);
                 props.setMsgType('error');
                 props.setMsg(e.message);
+                successHub = false;
             }
-            await updateBalances();
-            setLoading(false);
-            if (!success) {
-                window.open('https://sfuel.skale.network/', '_blank');
-            }
-            return;
         }
         if (toChainSFuel && toChainSFuel === '0') {
-            let success = false;
-            setLoading(true);
             try {
-                success = await powToChain();
+                successTo = await powToChain();
             } catch (e: any) {
-                log('Mining sFUEL error', e);
+                log('Mining sFUEL toChain error', e);
                 props.setMsgType('error');
                 props.setMsg(e.message);
+                successTo = false;
             }
-            await updateBalances();
-            setLoading(false);
-            if (!success) {
-                window.open('https://sfuel.skale.network/', '_blank');
-            }
-            return;
+        }
+        await updateBalances();
+        setLoadingSFUEL(false);
+        if (!(successFrom && successHub && successTo)) {
+            window.open('https://sfuel.skale.network/', '_blank');
         }
     }
 
@@ -219,9 +209,9 @@ export default function SFuel(props: any) {
                         size='small'
                         variant='contained'
                         className='bridge__btn mp__margLeft10'
-                        disabled={loading}
+                        disabled={loadingSFUEL}
                     >
-                        {loading ? 'Mining...' : 'Get sFUEL'}
+                        {loadingSFUEL ? 'Mining...' : 'Get sFUEL'}
                     </Button>
                 </div>) : null}
 
