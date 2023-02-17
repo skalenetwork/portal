@@ -15,6 +15,7 @@ function getFunc(chainName: string) {
 }
 
 export function isFaucetAvailable(chainName: string) {
+    if (!FAUCET) return false;
     let keys = Object.keys(FAUCET);
     return keys.includes(chainName);
 }

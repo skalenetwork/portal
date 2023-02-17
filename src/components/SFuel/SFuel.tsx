@@ -11,7 +11,7 @@ import { initChainWeb3 } from '../../core/tokens';
 import { Collapse } from '@mui/material';
 import { MAINNET_CHAIN_NAME } from '../../core/constants';
 import { AnonymousPoW } from "@skaleproject/pow-ethers";
-import { getFuncData } from '../../core/faucet';
+import { getFuncData, isFaucetAvailable } from '../../core/faucet';
 
 
 debug.enable('*');
@@ -118,7 +118,7 @@ export default function SFuel(props: any) {
     }
 
     async function powFromChain() {
-        if (!fromChainWeb3 || !fromChainWeb3.currentProvider || !props.fromChain) return false;
+        if (!fromChainWeb3 || !fromChainWeb3.currentProvider || !props.fromChain || !isFaucetAvailable(props.fromChain)) return false;
         const anon = new AnonymousPoW({ rpcUrl: fromChainWeb3.currentProvider.toString() });
         log('Mining sFUEL fromChain');
         await anon.send(getFuncData(fromChainWeb3, props.fromChain, props.address));
@@ -126,7 +126,7 @@ export default function SFuel(props: any) {
     }
 
     async function powToChain() {
-        if (!toChainWeb3 || !toChainWeb3.currentProvider || !props.toChain) return false;
+        if (!toChainWeb3 || !toChainWeb3.currentProvider || !props.toChain || !isFaucetAvailable(props.toChain)) return false;
         const anon = new AnonymousPoW({ rpcUrl: toChainWeb3.currentProvider.toString() });
         log('Mining sFUEL toChain');
         await anon.send(getFuncData(toChainWeb3, props.toChain, props.address));
@@ -134,7 +134,7 @@ export default function SFuel(props: any) {
     }
 
     async function powHubChain() {
-        if (!hubChainWeb3 || !hubChainWeb3.currentProvider || !props.hubChain) return false;
+        if (!hubChainWeb3 || !hubChainWeb3.currentProvider || !props.hubChain || !isFaucetAvailable(props.hubChain)) return false;
         const anon = new AnonymousPoW({ rpcUrl: hubChainWeb3.currentProvider.toString() });
         log('Mining sFUEL hubChain');
         await anon.send(getFuncData(hubChainWeb3, props.hubChain, props.address));
