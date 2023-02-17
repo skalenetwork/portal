@@ -103,6 +103,7 @@ export default function CommunityPool(props: any) {
             });
             // props.setMsgType('success');
             // props.setMsg('Exit gas wallet recharged');
+            setOpen(false);
         } catch (e: any) {
             log('recharge error', e);
             props.setMsgType('error');
@@ -145,14 +146,13 @@ export default function CommunityPool(props: any) {
 
         const activeS = await schain.communityLocker.contract.methods.activeUsers(props.address).call();
         setActiveUserSchain(activeS);
-        if (open && activeS) {
-            setOpen(false);
-        }
+        log('User is active on Schain:', activeS);
 
         const chainHash = mainnet.web3.utils.soliditySha3(props.chainName);
 
         const activeM = await mainnet.communityPool.contract.methods.activeUsers(props.address, chainHash).call(); //.contract.methods.activeUserSchains(props.address).call();
         setActiveUserMainnet(activeM);
+        log('User is active on Mainnet:', activeM);
 
         const accountBalanceWei = await mainnet.ethBalance(props.address);
         const accountBalanceEther = fromWei(accountBalanceWei as string, DEFAULT_ERC20_DECIMALS);
@@ -175,9 +175,10 @@ export default function CommunityPool(props: any) {
             <div className='mp__flex mp__flexCenteredVert mp__margRi10 mp__margLeft10'>
                 <div className='mp__margLeft10 mp__margRi10 mp__flex mp__flexCenteredVert'>
                     {props.recommendedRechargeAmount && balance ? <div className='mp__flex mp__flexCenteredVert'>
-                        {props.recommendedRechargeAmount === '0' ? <CheckCircleIcon color='success' /> : <ErrorIcon color='warning' />}
+                        {props.recommendedRechargeAmount === '0' && activeUserSchain ? <CheckCircleIcon color='success' /> : <ErrorIcon color='warning' />}
                         <p className='mp__flex mp__margLeft10'>
-                            {props.recommendedRechargeAmount === '0' ? ( activeUserSchain ? 'Exit gas wallet OK' : 'Waiting info on schain...') : 'You need to recharge exit gas wallet first'}
+                            {/* {props.recommendedRechargeAmount === '0' ? ( activeUserSchain ? 'Exit gas wallet OK' : 'Waiting info on schain...') : 'You need to recharge exit gas wallet first'} */}
+                            {props.recommendedRechargeAmount === '0' ? 'Exit gas wallet OK' : 'You need to recharge exit gas wallet first'}
                         </p>
                     </div> : <Skeleton className='mp__flex' width='180px' height='47px' />}
                 </div>
@@ -227,11 +228,13 @@ export default function CommunityPool(props: any) {
                                 <Button
                                     onClick={recharge}
                                     variant="contained"
-                                    disabled={loading || !balance || !accountBalance || Number(amount) > Number(accountBalance) || amount === '' || amount === '0' || !amount || (activeUserMainnet && !activeUserSchain)}
+                                    // disabled={loading || !balance || !accountBalance || Number(amount) > Number(accountBalance) || amount === '' || amount === '0' || !amount || (activeUserMainnet && !activeUserSchain)}
+                                    disabled={loading || !balance || !accountBalance || Number(amount) > Number(accountBalance) || amount === '' || amount === '0' || !amount}
                                     className='mp__margTop20 bridge__btn'
                                     size='large'
                                 >
-                                    {loading ? 'Recharging...' : ( activeUserMainnet && !activeUserSchain ? 'Waiting on Schain...' : 'Recharge')}
+                                    {/* {loading ? 'Recharging...' : ( activeUserMainnet && !activeUserSchain ? 'Waiting on Schain...' : 'Recharge')} */}
+                                    {loading ? 'Recharging...' : 'Recharge'}
                                 </Button>
                             </Grid>
                         </Grid>
