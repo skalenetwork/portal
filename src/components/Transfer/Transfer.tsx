@@ -201,10 +201,10 @@ export default function Transfer(props: any) {
             </div>) : null}
 
             {msg ? <Alert onClose={() => { setMsg(undefined); }} severity={msgType} className='mp__margTop20'>{msg}</Alert> : null}
-            {isTransferToMainnet ? (
+            {isTransferToMainnet && token ? (
                 <CommunityPool
                     address={props.address}
-                    chainName={fromChain}
+                    chainName={tokens[token].route ? tokens[token].route.hub : fromChain}
                     recommendedRechargeAmount={recommendedRechargeAmount}
                     setRecommendedRechargeAmount={setRecommendedRechargeAmount}
 
