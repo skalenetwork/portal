@@ -175,7 +175,8 @@ export default function CommunityPool(props: any) {
             <div className='mp__flex mp__flexCenteredVert mp__margRi10 mp__margLeft10'>
                 <div className='mp__margLeft10 mp__margRi10 mp__flex mp__flexCenteredVert'>
                     {props.recommendedRechargeAmount && balance ? <div className='mp__flex mp__flexCenteredVert'>
-                        {props.recommendedRechargeAmount === '0' && activeUserSchain ? <CheckCircleIcon color='success' /> : <ErrorIcon color='warning' />}
+                        {/* {props.recommendedRechargeAmount === '0' && activeUserSchain ? <CheckCircleIcon color='success' /> : <ErrorIcon color='warning' />} */}
+                        {props.recommendedRechargeAmount === '0' ? <CheckCircleIcon color='success' /> : <ErrorIcon color='warning' />}
                         <p className='mp__flex mp__margLeft10'>
                             {/* {props.recommendedRechargeAmount === '0' ? ( activeUserSchain ? 'Exit gas wallet OK' : 'Waiting info on schain...') : 'You need to recharge exit gas wallet first'} */}
                             {props.recommendedRechargeAmount === '0' ? 'Exit gas wallet OK' : 'You need to recharge exit gas wallet first'}
