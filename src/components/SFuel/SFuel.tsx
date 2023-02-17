@@ -155,7 +155,7 @@ export default function SFuel(props: any) {
             await updateBalances();
             setLoading(false);
             if (!success) {
-                window.location.href = 'https://sfuel.skale.network/';
+                window.open('https://sfuel.skale.network/', '_blank');
             }
             return;
         }
@@ -172,7 +172,7 @@ export default function SFuel(props: any) {
             await updateBalances();
             setLoading(false);
             if (!success) {
-                window.location.href = 'https://sfuel.skale.network/';
+                window.open('https://sfuel.skale.network/', '_blank');
             }
             return;
         }
@@ -189,7 +189,7 @@ export default function SFuel(props: any) {
             await updateBalances();
             setLoading(false);
             if (!success) {
-                window.location.href = 'https://sfuel.skale.network/';
+                window.open('https://sfuel.skale.network/', '_blank');
             }
             return;
         }
@@ -219,7 +219,6 @@ export default function SFuel(props: any) {
                         size='small'
                         variant='contained'
                         className='bridge__btn mp__margLeft10'
-                        target="_blank"
                         disabled={loading}
                     >
                         {loading ? 'Mining...' : 'Get sFUEL'}
