@@ -169,7 +169,7 @@ export default function SFuel(props: any) {
                 successHub = false;
             }
         }
-        if (toChainSFuel && toChainSFuel === '0') {
+        if (toChainSFuel && toChainSFuel === '0' && props.toChain !== MAINNET_CHAIN_NAME) {
             try {
                 successTo = await powToChain();
             } catch (e: any) {

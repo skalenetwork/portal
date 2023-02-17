@@ -2307,11 +2307,6 @@
 "@skalenetwork/metaport@../metaport":
   version "1.1.0"
 
-"@skaleproject/constants@*":
-  version "0.2.1"
-  resolved "https://registry.yarnpkg.com/@skaleproject/constants/-/constants-0.2.1.tgz#98351deab441ad41986e08df5dcda68c2ffcbd11"
-  integrity sha512-ClBF45wxf2qvA6vBIfOjPk0t3PV8oFtRzO6WbHcua/prZRKEkvJahhbyRqnMHv+B8BHQGXo81c8Nh+/f8Lm/7w==
-
 "@skaleproject/pow-ethers@0.2.4-1":
   version "0.2.4-1"
   resolved "https://registry.yarnpkg.com/@skaleproject/pow-ethers/-/pow-ethers-0.2.4-1.tgz#bb64eb417abced3186666cce13bbfaa24869e122"
@@ -2322,13 +2317,9 @@
     "@skaleproject/pow" "*"
 
 "@skaleproject/pow@*":
-  version "0.1.1-0"
-  resolved "https://registry.yarnpkg.com/@skaleproject/pow/-/pow-0.1.1-0.tgz#8b3b1f8f99782798c3b2e2a4d871996652ea5b6f"
-  integrity sha512-eVKtRW05oClcaNkh/7+ZaUUyWmAxvEm+s7o1JhQ1ELEb+sX6pGgxmdMXLRrgEDJpnQrLgWy66qHWnAQkoa7cjA==
-  dependencies:
-    "@skaleproject/constants" "*"
-    bn.js "^5.2.1"
-    web3-utils "^1.8.1"
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@skaleproject/pow/-/pow-0.1.1.tgz#b3c08153374276f9b1892262767fbecdbd9f88ce"
+  integrity sha512-wpcj5ZJ9KAo/cJWbEP2IqsMPps1arwlxnuiOvQagdBK939jlliJzraHV/x7zIhB3tOcr5H0kqy5Jj13Ue/s44w==
 
 "@surma/rollup-plugin-off-main-thread@^2.2.3":
   version "2.2.3"
@@ -12117,19 +12108,6 @@ web3-utils@1.7.5:
   version "1.7.5"
   resolved "https://registry.npmjs.org/web3-utils/-/web3-utils-1.7.5.tgz"
   integrity sha512-9AqNOziQky4wNQadEwEfHiBdOZqopIHzQQVzmvvv6fJwDSMhP+khqmAZC7YTiGjs0MboyZ8tWNivqSO1699XQw==
-  dependencies:
-    bn.js "^5.2.1"
-    ethereum-bloom-filters "^1.0.6"
-    ethereumjs-util "^7.1.0"
-    ethjs-unit "0.1.6"
-    number-to-bn "1.7.0"
-    randombytes "^2.1.0"
-    utf8 "3.0.0"
-
-web3-utils@^1.8.1:
-  version "1.8.2"
-  resolved "https://registry.yarnpkg.com/web3-utils/-/web3-utils-1.8.2.tgz#c32dec5e9b955acbab220eefd7715bc540b75cc9"
-  integrity sha512-v7j6xhfLQfY7xQDrUP0BKbaNrmZ2/+egbqP9q3KYmOiPpnvAfol+32slgL0WX/5n8VPvKCK5EZ1HGrAVICSToA==
   dependencies:
     bn.js "^5.2.1"
     ethereum-bloom-filters "^1.0.6"

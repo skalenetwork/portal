@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { MainnetChain } from '@skalenetwork/ima-js';
+import { MainnetChain, SChain } from '@skalenetwork/ima-js';
 import debug from 'debug';
 
 import Card from '@mui/material/Card';
@@ -15,7 +15,7 @@ import ErrorIcon from '@mui/icons-material/Error';
 import AmountInput from '../AmountInput';
 
 
-import { MAINNET_CHAIN_NAME, MAINNET_ABI, DEFAULT_ERC20_DECIMALS, METAPORT_CONFIG } from '../../core/constants';
+import { MAINNET_CHAIN_NAME, MAINNET_ABI, DEFAULT_ERC20_DECIMALS, METAPORT_CONFIG, SCHAIN_ABI } from '../../core/constants';
 import { initChainWeb3 } from '../../core/tokens';
 import { fromWei, toWei } from '../../core/convertation';
 import { initMainnetMetamask } from '../../core/network';
@@ -32,9 +32,14 @@ export default function CommunityPool(props: any) {
     const [balance, setBalance] = React.useState<string>();
 
     const [loading, setLoading] = React.useState(false);
+    const [activeUserSchain, setActiveUserSchain] = React.useState(false);
+    const [activeUserMainnet, setActiveUserMainnet] = React.useState(false);
     const [amount, setAmount] = React.useState<string>();
 
     const [mainnet, setMainnet] = React.useState<MainnetChain>();
+    const [schain, setSchain] = React.useState<SChain>();
+
+    const [updateBalanceTime, setUpdateBalanceTime] = React.useState<number>(Date.now());
 
     function toggleOpen() {
         setOpen(!open);
@@ -64,10 +69,18 @@ export default function CommunityPool(props: any) {
     }, []);
 
     useEffect(() => {
-        if (mainnet && props.address) {
+        log('init schain for community locker');
+        const schain = new SChain(initChainWeb3(props.chainName), SCHAIN_ABI);
+        setSchain(schain);
+    }, []);
+
+    useEffect(() => {
+        if (mainnet && schain && props.address) {
             updateBalance();
         }
-    }, [mainnet, props.address]);
+        const interval = setInterval(() => setUpdateBalanceTime(Date.now()), 10 * 1000);
+        return () => clearInterval(interval);
+    }, [updateBalanceTime, mainnet, props.address]);
 
     async function mainnetMetamask() {
         log('setMainnetMetamask');
@@ -90,7 +103,6 @@ export default function CommunityPool(props: any) {
             });
             // props.setMsgType('success');
             // props.setMsg('Exit gas wallet recharged');
-            setOpen(false);
         } catch (e: any) {
             log('recharge error', e);
             props.setMsgType('error');
@@ -125,11 +137,22 @@ export default function CommunityPool(props: any) {
     }
 
     async function updateBalance() {
-        log('updating balance for community pool');
-        if (!mainnet) return;
+        log('updating balance for community pool and community locker');
+        if (!mainnet || !schain) return;
         const balanceWei = await mainnet.communityPool.balance(props.address, props.chainName);
         const balanceEther = fromWei(balanceWei as string, DEFAULT_ERC20_DECIMALS);
         setBalance(balanceEther);
+
+        const activeS = await schain.communityLocker.contract.methods.activeUsers(props.address).call();
+        setActiveUserSchain(activeS);
+        if (open && activeS) {
+            setOpen(false);
+        }
+
+        const chainHash = mainnet.web3.utils.soliditySha3(props.chainName);
+
+        const activeM = await mainnet.communityPool.contract.methods.activeUsers(props.address, chainHash).call(); //.contract.methods.activeUserSchains(props.address).call();
+        setActiveUserMainnet(activeM);
 
         const accountBalanceWei = await mainnet.ethBalance(props.address);
         const accountBalanceEther = fromWei(accountBalanceWei as string, DEFAULT_ERC20_DECIMALS);
@@ -154,7 +177,7 @@ export default function CommunityPool(props: any) {
                     {props.recommendedRechargeAmount && balance ? <div className='mp__flex mp__flexCenteredVert'>
                         {props.recommendedRechargeAmount === '0' ? <CheckCircleIcon color='success' /> : <ErrorIcon color='warning' />}
                         <p className='mp__flex mp__margLeft10'>
-                            {props.recommendedRechargeAmount === '0' ? 'Exit gas wallet OK' : 'You need to recharge exit gas wallet first'}
+                            {props.recommendedRechargeAmount === '0' ? ( activeUserSchain ? 'Exit gas wallet OK' : 'Waiting info on schain...') : 'You need to recharge exit gas wallet first'}
                         </p>
                     </div> : <Skeleton className='mp__flex' width='180px' height='47px' />}
                 </div>
@@ -204,11 +227,11 @@ export default function CommunityPool(props: any) {
                                 <Button
                                     onClick={recharge}
                                     variant="contained"
-                                    disabled={loading || !balance || !accountBalance || Number(amount) > Number(accountBalance) || amount === '' || amount === '0' || !amount}
+                                    disabled={loading || !balance || !accountBalance || Number(amount) > Number(accountBalance) || amount === '' || amount === '0' || !amount || (activeUserMainnet && !activeUserSchain)}
                                     className='mp__margTop20 bridge__btn'
                                     size='large'
                                 >
-                                    {loading ? 'Recharging...' : 'Recharge'}
+                                    {loading ? 'Recharging...' : ( activeUserMainnet && !activeUserSchain ? 'Waiting on Schain...' : 'Recharge')}
                                 </Button>
                             </Grid>
                         </Grid>

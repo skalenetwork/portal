@@ -26,6 +26,7 @@ import { importAll } from './helper';
 export const CHAINS_META = require('../meta/chains.json');
 export const METAPORT_CONFIG = require('../metaportConfig.json');
 export const MAINNET_ABI = require('../mainnetAbi.json');
+export const SCHAIN_ABI = require('../schainAbi.json');
 export const SEARCH_SUGGESTIONS = require('../searchSuggestions.json');
 export const FAQ = require('../faq.json');
 export const EXTERNAL_TOKEN_ICONS = require('../externalTokenIcons.json');
