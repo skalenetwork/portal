@@ -11,6 +11,7 @@
     "@mdx-js/loader": "^2.3.0",
     "@mdx-js/react": "^2.3.0",
     "@mui/icons-material": "^5.11.0",
+    "@mui/lab": "^5.0.0-alpha.120",
     "@mui/material": "^5.11.4",
     "@skalenetwork/ima-js": "1.1.2-develop.3",
     "@skalenetwork/metaport": "../metaport",

@@ -5,6 +5,7 @@ import Web3 from 'web3';
 
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
 
 import { getChainEndpoint, initChainWeb3 } from '../../core/tokens';
@@ -204,15 +205,25 @@ export default function SFuel(props: any) {
                 </div>
 
                 {!noEth ? (<div className='mp__flex'>
-                    <Button
-                        onClick={pow}
-                        size='small'
-                        variant='contained'
-                        className='bridge__btn mp__margLeft10'
-                        disabled={loadingSFUEL}
-                    >
-                        {loadingSFUEL ? 'Mining...' : 'Get sFUEL'}
-                    </Button>
+                    {loadingSFUEL ? 
+                        (<LoadingButton
+                            loading
+                            loadingPosition="start"
+                            size='small'
+                            variant='contained'
+                            className='bridge__btn bridge__btnLoading mp__margLeft10'
+                        >
+                            Mining...
+                        </LoadingButton>)
+                        : (<Button
+                            onClick={pow}
+                            size='small'
+                            variant='contained'
+                            className='bridge__btn mp__margLeft10'
+                        >
+                            Get SFUEL
+                        </Button>)
+                    }
                 </div>) : null}
 
             </div>
