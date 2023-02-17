@@ -5,8 +5,6 @@
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@ethersproject/providers": "^5.7.2",
-    "@ethersproject/wallet": "^5.7.0",
     "@fontsource/roboto": "^4.5.8",
     "@mdx-js/loader": "^2.3.0",
     "@mdx-js/react": "^2.3.0",
@@ -15,7 +13,7 @@
     "@mui/material": "^5.11.4",
     "@skalenetwork/ima-js": "1.1.2-develop.3",
     "@skalenetwork/metaport": "../metaport",
-    "@skaleproject/pow-ethers": "0.2.2",
+    "@skaleproject/pow-ethers": "0.2.4-1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",

@@ -2312,11 +2312,13 @@
   resolved "https://registry.yarnpkg.com/@skaleproject/constants/-/constants-0.2.1.tgz#98351deab441ad41986e08df5dcda68c2ffcbd11"
   integrity sha512-ClBF45wxf2qvA6vBIfOjPk0t3PV8oFtRzO6WbHcua/prZRKEkvJahhbyRqnMHv+B8BHQGXo81c8Nh+/f8Lm/7w==
 
-"@skaleproject/pow-ethers@0.2.2":
-  version "0.2.2"
-  resolved "https://registry.yarnpkg.com/@skaleproject/pow-ethers/-/pow-ethers-0.2.2.tgz#06b9a6f7e1b2d9891b36caa7c799bdff6036f4dc"
-  integrity sha512-QxIvBTme9dWC5m6y7Vcna8bKZSDg44izX+2+lcbcSr6sz7XAE4H2rbc6OWy2xm6QBJnpXVah+V0WK0rqPZj+3A==
+"@skaleproject/pow-ethers@0.2.4-1":
+  version "0.2.4-1"
+  resolved "https://registry.yarnpkg.com/@skaleproject/pow-ethers/-/pow-ethers-0.2.4-1.tgz#bb64eb417abced3186666cce13bbfaa24869e122"
+  integrity sha512-vgO7b/OONvpa7tBn6mmOdS3ioSuJRT/in42SQ1Iw9HxbRJwg9oRrzKgYKes00YhWQuO//wnUhMdttYtYucnNBw==
   dependencies:
+    "@ethersproject/providers" "^5.7.2"
+    "@ethersproject/wallet" "^5.7.0"
     "@skaleproject/pow" "*"
 
 "@skaleproject/pow@*":
