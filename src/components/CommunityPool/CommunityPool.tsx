@@ -15,10 +15,10 @@ import ErrorIcon from '@mui/icons-material/Error';
 import AmountInput from '../AmountInput';
 
 
-import { MAINNET_CHAIN_NAME, MAINNET_ABI, DEFAULT_ERC20_DECIMALS, METAPORT_CONFIG } from '../../core/constants';
+import { MAINNET_CHAIN_NAME, DEFAULT_ERC20_DECIMALS, METAPORT_CONFIG } from '../../core/constants';
 import { initChainWeb3 } from '../../core/tokens';
 import { fromWei, toWei } from '../../core/convertation';
-import { initMainnetMetamask } from '../../core/network';
+import { initMainnetMetamask, initMainnet } from '../../core/network';
 
 debug.enable('*');
 const log = debug('bridge:components:CommunityPool');
@@ -58,7 +58,10 @@ export default function CommunityPool(props: any) {
 
     useEffect(() => {
         log('init mainnet chain for community pool');
-        const mainnet = new MainnetChain(initChainWeb3(MAINNET_CHAIN_NAME), MAINNET_ABI);
+        const mainnet = initMainnet(
+            METAPORT_CONFIG.skaleNetwork,
+            METAPORT_CONFIG.mainnetEndpoint
+        );
         setMainnet(mainnet);
     }, []);
 

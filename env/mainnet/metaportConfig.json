@@ -3,7 +3,10 @@
   "autoLookup": true,
   "chains": [
     "mainnet",
-    "elated-tan-skat"
+    "elated-tan-skat",
+    "honorable-steel-rasalhague",
+    "affectionate-immediate-pollux",
+    "turbulent-unique-scheat"
   ],
   "chainsMetadata": {
     "elated-tan-skat": {
@@ -15,6 +18,22 @@
           "url": "https://ruby.exchange/"
         }
       }
+    },
+    "honorable-steel-rasalhague": {
+      "alias": "Calypso Hub",
+      "apps": {
+        "nftrade": {
+          "alias": "NFTrade",
+          "background": "#ffffff",
+          "url": "https://nftrade.com/"
+        }
+      }
+    },
+    "affectionate-immediate-pollux": {
+      "alias": "CryptoBlades"
+    },
+    "turbulent-unique-scheat": {
+      "alias": "Razor Network"
     }
   },
   "tokens": {
@@ -25,6 +44,13 @@
         ]
       },
       "erc20": {
+        "_RAZOR_0x50DE6856358Cc35f3A9a57eAAA34BD4cB707d2cd": {
+          "address": "0x50DE6856358Cc35f3A9a57eAAA34BD4cB707d2cd",
+          "decimals": "18",
+          "name": "RAZOR Network",
+          "symbol": "RAZOR",
+          "iconUrl": "https://assets.coingecko.com/coins/images/13797/small/icon.png"
+        },
         "_DAI_0x6B175474E89094C44Da98b954EedeAC495271d0F": {
           "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
           "decimals": "18",
@@ -83,6 +109,18 @@
             "symbol": "ETH",
             "name": "ETH"
           }
+        }
+      }
+    },
+    "honorable-steel-rasalhague": {},
+    "turbulent-unique-scheat": {},
+    "affectionate-immediate-pollux": {
+      "erc20": {
+        "_SKILL_0x5F6E97612482095C0c2C02BC495C0171e61017d7": {
+          "address": "0x5F6E97612482095C0c2C02BC495C0171e61017d7",
+          "name": "SKILL",
+          "symbol": "SKILL",
+          "iconUrl": "https://ruby.exchange/images/tokens/skill-square.png"
         }
       }
     }

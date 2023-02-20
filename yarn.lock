@@ -2097,8 +2097,10 @@
     tslog "^3.2.0"
     web3 "1.7.5"
 
-"@skalenetwork/metaport@../metaport":
-  version "1.1.0"
+"@skalenetwork/metaport@1.1.0-develop.2":
+  version "1.1.0-develop.2"
+  resolved "https://registry.yarnpkg.com/@skalenetwork/metaport/-/metaport-1.1.0-develop.2.tgz#597fd83e90319779b597e011b93ef82008135b0f"
+  integrity sha512-tcV0CMpfXmfdG9YFyrYCf52Z3eHgiUck8dOS5p73KL7ku2mEnJ9HXmw1wNQXNTWECCI7Yc88C2uw76iw953DTw==
 
 "@surma/rollup-plugin-off-main-thread@^2.2.3":
   version "2.2.3"
