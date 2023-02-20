@@ -2,6 +2,8 @@
 
 set -e
 
+: "${NETWORK_NAME?Need to set NETWORK_NAME}"
+
 export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
 META_DIR_EXTERNAL=$DIR/skale-network/metadata/$NETWORK_NAME/
