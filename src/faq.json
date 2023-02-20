@@ -50,5 +50,13 @@
   {
     "question": "I am transferring from Ethereum to NFTrade, why are my tokens routing through Europa?",
     "answer": "To transfer tokens from Ethereum to NFTrade, this transaction involves an intermediary step on Europa (SKALE&#39;s Liqudity Hub) to wrap the token and forward the wrapped token to NFTrade."  
+  },
+  {
+    "question": "What is Exit gas wallet?",
+    "answer": "Exit gas wallet answer placeholder"
+  },
+  {
+    "question": "What is sFUEL?",
+    "answer": "sFUEL is the native token of SKALE. This is similar (but different!) to Ether in Ethereum. To interact with a SKALE chain, sFUEL tokens are required to conduct transactions. Unlike Ether and other gas tokens, sFUEL has no value: it’s FREE. There is no payment/cost required for transactions since sFUEL is FREE. Getting sFUEL on a SKALE chain is done through a number of ways. Read more: https://docs.skale.network/develop/sfuel-gas-token"
   }
 ]

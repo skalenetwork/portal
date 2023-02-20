@@ -56,7 +56,6 @@ export default function CommunityPool(props: any) {
         }
     }, [props.web3]);
 
-
     useEffect(() => {
         log('init mainnet chain for community pool');
         const mainnet = new MainnetChain(initChainWeb3(MAINNET_CHAIN_NAME), MAINNET_ABI);
@@ -67,7 +66,7 @@ export default function CommunityPool(props: any) {
         if (mainnet && props.address) {
             updateBalance();
         }
-    }, [mainnet, props.address]);
+    }, [mainnet, props.address, props.chainName]);
 
     async function mainnetMetamask() {
         log('setMainnetMetamask');
@@ -135,7 +134,10 @@ export default function CommunityPool(props: any) {
         const accountBalanceEther = fromWei(accountBalanceWei as string, DEFAULT_ERC20_DECIMALS);
         setAccountBalance(accountBalanceEther);
 
-        const recommendedRechargeAmountWei = await mainnet.communityPool.contract.methods.getRecommendedRechargeAmount(mainnet.web3.utils.soliditySha3(props.chainName), props.address).call();
+        const recommendedRechargeAmountWei = await mainnet.communityPool.contract.methods.getRecommendedRechargeAmount(
+            mainnet.web3.utils.soliditySha3(props.chainName),
+            props.address
+        ).call();
         const recommendedRechargeAmountEther = fromWei(recommendedRechargeAmountWei as string, DEFAULT_ERC20_DECIMALS);
         props.setRecommendedRechargeAmount(recommendedRechargeAmountEther);
 
@@ -181,6 +183,9 @@ export default function CommunityPool(props: any) {
                             You need a balance in this wallet to transfer to Ethereum. This wallet is used to pay for gas fees when your transaction is presented to Ethereum. You may withdraw from the wallet at anytime.
                         </p>
 
+                        <p className={'mp__margTop5 mp__margBott20 mp__p mp__p4 '}>
+                            ⚠️ You may need to wait for some time (5-10 min) after the first Exit gas wallet recharge before you will be able to move funds to Ethereum.
+                        </p>
                         <p className={'mp__noMarg mp__p mp__p3 '}>
                             Mainnet ETH balance
                         </p>

@@ -19,7 +19,7 @@ export default function Faq(props: any) {
             <p className='mp__noMarg mp__p mp__p4'>
                 Common questions about SKALE Bridge
             </p>
-            <FaqAccordion/>
+            <FaqAccordion />
         </Stack>
     </Container>)
 }

@@ -30,6 +30,8 @@ import { Link } from "react-router-dom";
 import MetamaskConnector from './MetamaskConnector';
 import logo from './skale_lg.svg';
 
+import MoreMenu from './components/MoreMenu';
+
 
 export default class Header extends React.Component {
   render() {
@@ -44,8 +46,8 @@ export default class Header extends React.Component {
               </div> */}
             </Link>
           </div>
-
           <MetamaskConnector address={this.props.address} connectMetamask={this.props.connectMetamask} />
+          <MoreMenu />
         </Toolbar>
       </AppBar>
     )

@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
 
 import { chainIconPath } from '../../core/helper';
-import { MAINNET_CHAIN_NAME, TOKEN_ICONS } from '../../core/constants';
+import { MAINNET_CHAIN_NAME, TOKEN_ICONS, EXTERNAL_TOKEN_ICONS } from '../../core/constants';
 
 
 function stringToColor(str: string, dark: boolean): string {
@@ -41,6 +41,9 @@ export function getChainIcon(chainName: string, dark: boolean, app?: string) {
 
 export function iconPath(name: string) {
     if (!name) return;
+    if (EXTERNAL_TOKEN_ICONS[name]) {
+        return EXTERNAL_TOKEN_ICONS[name];
+    }
     const key = name.toLowerCase() + '.svg';
     if (TOKEN_ICONS[key]) {
         return TOKEN_ICONS[key];

@@ -1,3 +1,9 @@
+.textPage {
+  p {
+    font-size: 0.9rem;
+  }
+}
+
 .App {
   text-align: center;
 }
@@ -89,6 +95,12 @@ h4 {
   .mp__btnConnect.mp__btnConnected {
     .MuiPaper-root {
       color: rgb(45, 203, 116) !important;
+      border: none !important;
+    }
+
+    svg {
+      width: 14pt;
+      height: 14pt;
     }
   }
 }
@@ -460,6 +472,18 @@ input::-webkit-inner-spin-button {
   }
 }
 
+.moreBtn {
+  background-color: #191919 !important;
+
+  svg {
+    width: 14pt !important;
+    height: 14pt !important;
+  }
+
+  height: 37px;
+  width: 37px;
+}
+
 
 .mp__btnChain {
   width: 100%;
@@ -817,25 +841,25 @@ li a {
 }
 
 
-.MuiAccordion-rounded:first-of-type{
+.MuiAccordion-rounded:first-of-type {
   border-top-left-radius: 20px !important;
-  border-top-right-radius:  20px !important;
+  border-top-right-radius: 20px !important;
 }
 
-.MuiAccordion-rounded:last-of-type{
+.MuiAccordion-rounded:last-of-type {
   border-bottom-left-radius: 20px !important;
-  border-bottom-right-radius:  20px !important;
+  border-bottom-right-radius: 20px !important;
 }
 
-.Mui-expanded{
+.Mui-expanded {
   border-radius: 20px !important;
 }
 
-.MuiAccordionSummary-content{
+.MuiAccordionSummary-content {
   margin: 12pt 0 !important;
 }
 
-.MuiAccordionSummary-content.Mui-expanded p{
+.MuiAccordionSummary-content.Mui-expanded p {
   font-weight: 600 !important;
 }
 
@@ -843,8 +867,8 @@ li a {
   padding: 8pt 16pt 16pt !important;
 }
 
-.MuiAccordionSummary-root{
-  padding: 0 16pt !important; 
+.MuiAccordionSummary-root {
+  padding: 0 16pt !important;
 }
 
 .drawerIconRi {
@@ -852,4 +876,27 @@ li a {
   width: 12pt !important;
   height: 12pt !important;
   margin-right: 12px !important;
+}
+
+.menuIconRi {
+  color: #a6a6a6;
+  width: 12pt !important;
+  height: 12pt !important;
+}
+
+
+
+.bridgeFooter {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  // background-color: red;
+  // color: white;
+  text-align: center;
+  z-index: 9999;
+
+  background-color: rgba(0, 0, 0, 0) !important;
+  -webkit-backdrop-filter: blur(80px) !important;
+  backdrop-filter: blur(80px) !important;
 }
