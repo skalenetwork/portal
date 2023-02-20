@@ -10,7 +10,7 @@ const log = debug('bridge:components:Terms');
 
 
 export default function Terms(props: any) {
-    return (<Container maxWidth="md">
+    return (<Container maxWidth="md" className='textPage'>
         <Stack spacing={3}>
             <div className='mp__flex mp__flexCenteredVert mp__margTop20'>
                 <div className='mp__flex'>

@@ -1,5 +1,7 @@
-p {
-  font-size: 0.9rem;
+.textPage {
+  p {
+    font-size: 0.9rem;
+  }
 }
 
 .App {
@@ -472,10 +474,12 @@ input::-webkit-inner-spin-button {
 
 .moreBtn {
   background-color: #191919 !important;
+
   svg {
     width: 14pt !important;
     height: 14pt !important;
   }
+
   height: 37px;
   width: 37px;
 }

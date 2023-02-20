@@ -7,7 +7,14 @@
   ],
   "chainsMetadata": {
     "elated-tan-skat": {
-      "alias": "Europa Hub"
+      "alias": "Europa Hub",
+      "apps": {
+        "ruby": {
+          "alias": "Ruby Exchange",
+          "background": "#02001f",
+          "url": "https://ruby.exchange/"
+        }
+      }
     }
   },
   "tokens": {
