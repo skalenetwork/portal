@@ -278,7 +278,7 @@ export default function Transfer(props: any) {
                                         onClick={requestTransfer}
                                         variant="contained"
                                         startIcon={<SwipeRightIcon />}
-                                        disabled={disabled || !balance || Number(amount) > Number(balance) || amount === '' || amount === '0'}
+                                        disabled={disabled || !balance || Number(amount) > Number(balance) || amount === '' || amount === '0' || Number(amount) === 0}
                                         className='mp__margTop20 bridge__btn'
                                         size='large'
                                     >
