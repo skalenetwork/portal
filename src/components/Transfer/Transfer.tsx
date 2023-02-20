@@ -37,12 +37,11 @@ import CommunityPool from '../CommunityPool';
 import SFuel from '../SFuel';
 
 import { getBalance, initChainWeb3, initERC20Token } from '../../core/tokens';
-import { CHAINS_META, DEFAULT_ERC20_DECIMALS, MAINNET_CHAIN_NAME } from '../../core/constants';
+import {
+    CHAINS_META, DEFAULT_ERC20_DECIMALS, MAINNET_CHAIN_NAME, CHAINS
+} from '../../core/constants';
 import { fromWei } from '../../core/convertation';
 import { getQueryVariable } from '../../core/helper';
-
-
-import CHAINS from '../../chainsData.json';
 
 
 debug.enable('*');

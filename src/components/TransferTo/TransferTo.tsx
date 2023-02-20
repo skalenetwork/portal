@@ -10,8 +10,7 @@ import Search from '../Search';
 import { getQueryVariable } from '../../core/helper';
 
 import { getChainIcon, getChainName } from '../ActionCard/helper';
-import { CHAINS_META } from '../../core/constants';
-import CHAINS from '../../chainsData.json';
+import { CHAINS_META, CHAINS } from '../../core/constants';
 
 
 export default function TransferTo(props: any) {

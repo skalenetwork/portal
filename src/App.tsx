@@ -11,7 +11,6 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 
 import { Metaport, interfaces, dataclasses } from '@skalenetwork/metaport';
-import metaportConfig from './metaportConfig.json'
 
 import Header from './Header';
 import SkDrawer from './SkDrawer';
@@ -20,6 +19,7 @@ import Footer from './components/Footer';
 
 import MetamaskConnector from './MetamaskConnector';
 import { connect, addAccountChangedListener } from './core/connector'
+import { METAPORT_CONFIG } from './core/constants';
 
 
 interface MetaportThemesMap { [themeName: string]: interfaces.MetaportTheme; }
@@ -62,7 +62,7 @@ export const themes: MetaportThemesMap = {
   }
 }
 
-const metaport = new Metaport(metaportConfig);
+const metaport = new Metaport(METAPORT_CONFIG);
 
 
 function createMuiTheme(th: any) {
