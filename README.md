@@ -19,7 +19,8 @@ If you're interested in contributing to the SKALE Bridge UI, follow these steps 
 1. Clone the repository: `git clone --recurse-submodules https://github.com/skalenetwork/bridge-ui.git`
 2. Install dependencies: `cd bridge-ui && yarn install`
 3. Prepare metadata: `NETWORK_NAME=[SKALE NETWORK NAME - mainnet or staging] bash build.sh`
-4. Start the development server: `yarn start`
+4. Export Mainnet Ethereum endpoint to your env: `export REACT_APP_MAINNET_ENDPOINT=XXX` or create `.env` file in the root dir
+5. Start the development server: `yarn start`
 
 The SKALE Interchain Bridge UI is built using the Create React App TypeScript template and uses [Metaport](https://github.com/skalenetwork/metaport) and [ima-js](https://github.com/skalenetwork/ima-js) libraries.
 
