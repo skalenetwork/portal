@@ -14,11 +14,10 @@ import ErrorIcon from '@mui/icons-material/Error';
 
 import AmountInput from '../AmountInput';
 
-
-import { MAINNET_CHAIN_NAME, MAINNET_ABI, DEFAULT_ERC20_DECIMALS, METAPORT_CONFIG, SCHAIN_ABI } from '../../core/constants';
+import { DEFAULT_ERC20_DECIMALS, METAPORT_CONFIG } from '../../core/constants';
 import { initChainWeb3 } from '../../core/tokens';
 import { fromWei, toWei } from '../../core/convertation';
-import { initMainnetMetamask } from '../../core/network';
+import { initMainnetMetamask, initMainnet, initSChain } from '../../core/network';
 
 debug.enable('*');
 const log = debug('bridge:components:CommunityPool');
@@ -63,13 +62,19 @@ export default function CommunityPool(props: any) {
 
     useEffect(() => {
         log('init mainnet chain for community pool');
-        const mainnet = new MainnetChain(initChainWeb3(MAINNET_CHAIN_NAME), MAINNET_ABI);
+        const mainnet = initMainnet(
+            METAPORT_CONFIG.skaleNetwork,
+            METAPORT_CONFIG.mainnetEndpoint
+        );
         setMainnet(mainnet);
     }, []);
 
     useEffect(() => {
         log('init schain for community locker');
-        const schain = new SChain(initChainWeb3(props.chainName), SCHAIN_ABI);
+        const schain = initSChain(
+            METAPORT_CONFIG.skaleNetwork,
+            props.chainName
+        );
         setSchain(schain);
     }, []);
 

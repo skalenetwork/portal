@@ -1,0 +1,131 @@
+{
+  "skaleNetwork": "mainnet",
+  "autoLookup": true,
+  "chains": [
+    "mainnet",
+    "elated-tan-skat",
+    "honorable-steel-rasalhague",
+    "affectionate-immediate-pollux",
+    "turbulent-unique-scheat"
+  ],
+  "chainsMetadata": {
+    "elated-tan-skat": {
+      "alias": "Europa Hub",
+      "apps": {
+        "ruby": {
+          "alias": "Ruby Exchange",
+          "background": "#02001f",
+          "url": "https://ruby.exchange/"
+        }
+      }
+    },
+    "honorable-steel-rasalhague": {
+      "alias": "Calypso Hub",
+      "apps": {
+        "nftrade": {
+          "alias": "NFTrade",
+          "background": "#ffffff",
+          "url": "https://nftrade.com/"
+        }
+      }
+    },
+    "affectionate-immediate-pollux": {
+      "alias": "CryptoBlades"
+    },
+    "turbulent-unique-scheat": {
+      "alias": "Razor Network"
+    }
+  },
+  "tokens": {
+    "mainnet": {
+      "eth": {
+        "chains": [
+          "elated-tan-skat"
+        ]
+      },
+      "erc20": {
+        "_RAZOR_0x50DE6856358Cc35f3A9a57eAAA34BD4cB707d2cd": {
+          "address": "0x50DE6856358Cc35f3A9a57eAAA34BD4cB707d2cd",
+          "decimals": "18",
+          "name": "RAZOR Network",
+          "symbol": "RAZOR",
+          "iconUrl": "https://assets.coingecko.com/coins/images/13797/small/icon.png"
+        },
+        "_DAI_0x6B175474E89094C44Da98b954EedeAC495271d0F": {
+          "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+          "decimals": "18",
+          "name": "Dai Stablecoin",
+          "symbol": "DAI"
+        },
+        "_RUBY_0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23": {
+          "address": "0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23",
+          "decimals": "18",
+          "name": "Ruby Token",
+          "iconUrl": "https://ruby.exchange/images/tokens/ruby-square.png",
+          "symbol": "RUBY"
+        },
+        "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7": {
+          "address": "0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+          "decimals": "18",
+          "name": "SKALE",
+          "symbol": "SKL"
+        },
+        "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48": {
+          "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+          "decimals": "6",
+          "name": "USD Coin",
+          "symbol": "USDC"
+        },
+        "_USDP_0x8E870D67F660D95d5be530380D0eC0bd388289E1": {
+          "address": "0x8E870D67F660D95d5be530380D0eC0bd388289E1",
+          "decimals": "18",
+          "name": "Pax Dollar",
+          "iconUrl": "https://ruby.exchange/images/tokens/usdp-square.png",
+          "symbol": "USDP"
+        },
+        "_USDT_0xdAC17F958D2ee523a2206206994597C13D831ec7": {
+          "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+          "decimals": "6",
+          "name": "Tether USD",
+          "symbol": "USDT"
+        },
+        "_WBTC_0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599": {
+          "address": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+          "decimals": "8",
+          "name": "Wrapped BTC",
+          "symbol": "WBTC"
+        }
+      }
+    },
+    "elated-tan-skat": {
+      "erc20": {
+        "_ETH_0xa5274efA35EbeFF47C1510529D9a8812F95F5735": {
+          "address": "0xa5274efA35EbeFF47C1510529D9a8812F95F5735",
+          "name": "ETH",
+          "symbol": "ETH",
+          "cloneSymbol": "ETH",
+          "wraps": {
+            "address": "0xD2Aaa00700000000000000000000000000000000",
+            "symbol": "ETH",
+            "name": "ETH"
+          }
+        }
+      }
+    },
+    "honorable-steel-rasalhague": {},
+    "turbulent-unique-scheat": {},
+    "affectionate-immediate-pollux": {
+      "erc20": {
+        "_SKILL_0x5F6E97612482095C0c2C02BC495C0171e61017d7": {
+          "address": "0x5F6E97612482095C0c2C02BC495C0171e61017d7",
+          "name": "SKILL",
+          "symbol": "SKILL",
+          "iconUrl": "https://ruby.exchange/images/tokens/skill-square.png"
+        }
+      }
+    }
+  },
+  "theme": {
+    "mode": "dark"
+  }
+}

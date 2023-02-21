@@ -5,8 +5,8 @@ import Grid from '@mui/material/Grid';
 
 import ChainCard from '../ChainCard';
 
-import { ICONS, CHAINS_META } from '../../core/constants';
-import CHAINS from '../../chainsData.json';
+import { ICONS, CHAINS_META, CHAINS } from '../../core/constants';
+
 
 
 export default function ChainCards(props: any) {

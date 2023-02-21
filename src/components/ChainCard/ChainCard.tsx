@@ -122,11 +122,11 @@ export default function ChainCard(props: any) {
         </Link>
         <div className='mp__flex mp__flexCentered app-bott' style={{ backgroundColor: getBgColor(chain, props.chain.app) }}>
           <div className={'app-bott-ins mp__flex mp__flexCentered ' + (tinycolor(getBgColor(chain, props.chain.app)).isLight() ? '' : 'app-bott-dark')}>
-            <div className='mp__margRi5'>
+            {/* <div className='mp__margRi5'>
               <h6 className="mp__noMarg mp__flexCentered chainInfoText">
-                TOKENS:
+                TOKENS
               </h6>
-            </div>
+            </div> */}
             {tokens.map((token: any, index: number) => (
               <Tooltip title={token.toUpperCase()} key={token}>
                 <img className='mp__iconToken' src={iconPath(token)} />

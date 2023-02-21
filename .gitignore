@@ -23,8 +23,9 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
-metaportConfig*.json
+src/metadata/metaportConfig*.json
 src/meta/
 
-chainsData.json
+src/metadata/chainsData.json
+src/metadata/faucet.json
 .vercel

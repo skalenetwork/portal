@@ -12,7 +12,7 @@
     "@mui/lab": "^5.0.0-alpha.120",
     "@mui/material": "^5.11.4",
     "@skalenetwork/ima-js": "1.1.2-develop.3",
-    "@skalenetwork/metaport": "../metaport",
+    "@skalenetwork/metaport": "1.1.0-develop.2",
     "@skaleproject/pow-ethers": "0.2.4-1",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",

@@ -2,7 +2,7 @@
 import Chip from '@mui/material/Chip';
 import { iconPath } from '../ActionCard/helper';
 
-import CHAINS from '../../chainsData.json';
+import { CHAINS } from '../../core/constants';
 
 
 export default function Tokens(props: any) {
