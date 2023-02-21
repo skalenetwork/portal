@@ -2309,10 +2309,10 @@
   resolved "https://registry.yarnpkg.com/@skalenetwork/metaport/-/metaport-1.1.0-develop.2.tgz#597fd83e90319779b597e011b93ef82008135b0f"
   integrity sha512-tcV0CMpfXmfdG9YFyrYCf52Z3eHgiUck8dOS5p73KL7ku2mEnJ9HXmw1wNQXNTWECCI7Yc88C2uw76iw953DTw==
 
-"@skaleproject/pow-ethers@0.2.4-1":
-  version "0.2.4-1"
-  resolved "https://registry.yarnpkg.com/@skaleproject/pow-ethers/-/pow-ethers-0.2.4-1.tgz#bb64eb417abced3186666cce13bbfaa24869e122"
-  integrity sha512-vgO7b/OONvpa7tBn6mmOdS3ioSuJRT/in42SQ1Iw9HxbRJwg9oRrzKgYKes00YhWQuO//wnUhMdttYtYucnNBw==
+"@skaleproject/pow-ethers@0.2.4":
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/@skaleproject/pow-ethers/-/pow-ethers-0.2.4.tgz#8fcdd7ee4d2e389916804d7c6d077511f086a77d"
+  integrity sha512-Ld2luziwmVKTt2sm8JHfHMZC3SxzvMZyQIvLNS+b1TWriHamchqvNHAiCmnXZQvCOvWqiufPzUCOPVa4Izr3RQ==
   dependencies:
     "@ethersproject/providers" "^5.7.2"
     "@ethersproject/wallet" "^5.7.0"
