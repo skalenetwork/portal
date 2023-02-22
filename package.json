@@ -22,6 +22,7 @@
     "@types/react-dom": "^18.0.0",
     "@types/react-router-dom": "^5.3.3",
     "@types/webpack-env": "^1.18.0",
+    "@vercel/analytics": "^0.1.10",
     "crypto-browserify": "^3.12.0",
     "debug": "^4.3.4",
     "fuzzysort": "^2.0.4",
