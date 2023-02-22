@@ -1,0 +1,255 @@
+{
+  "mainnet": {
+    "hub": "ethereum",
+    "chains": {
+      "elated-tan-skat": {
+        "app": "ruby",
+        "tokens": {
+          "eth": {
+            "keyname": "eth",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.2",
+              "0.5"
+            ]
+          },
+          "usdc": {
+            "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "recommendedValues": [
+              "100",
+              "300",
+              "1000"
+            ],
+            "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+          },
+          "usdt": {
+            "keyname": "_usdt_0xdAC17F958D2ee523a2206206994597C13D831ec7",
+            "recommendedValues": [
+              "100",
+              "300",
+              "1000"
+            ],
+            "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+          },
+          "wbtc": {
+            "keyname": "_wbtc_0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.5"
+            ],
+            "address": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599"
+          },
+          "skl": {
+            "keyname": "_skl_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+            "recommendedValues": [
+              "1000",
+              "3000",
+              "5000"
+            ],
+            "address": "0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7"
+          },
+          "ruby": {
+            "keyname": "_RUBY_0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23",
+            "recommendedValues": [
+              "1000",
+              "3000",
+              "5000"
+            ],
+            "address": "0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23"
+          }
+        }
+      },
+      "turbulent-unique-scheat": {
+        "tokens": {
+          "razor": {
+            "keyname": "_RAZOR_0x50DE6856358Cc35f3A9a57eAAA34BD4cB707d2cd",
+            "recommendedValues": [
+              "100",
+              "300",
+              "1000",
+              "2000"
+            ],
+            "address": "0x50DE6856358Cc35f3A9a57eAAA34BD4cB707d2cd"
+          }
+        }
+      },
+      "honorable-steel-rasalhague": {
+        "tokens": {
+          "eth": {
+            "keyname": "eth",
+            "recommendedValues": [
+              "0.1",
+              "0.2",
+              "0.5",
+              "1"
+            ],
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_ETH_0xa5274efA35EbeFF47C1510529D9a8812F95F5735",
+              "tokenType": "erc20"
+            }
+          }
+        },
+        "app": "nftrade"
+      }
+    }
+  },
+  "elated-tan-skat": {
+    "app": "ruby",
+    "hub": "europa",
+    "type": "app",
+    "chains": {
+      "honorable-steel-rasalhague": {
+        "app": "nftrade",
+        "tokens": {
+          "eth": {
+            "keyname": "_ETH_0xa5274efA35EbeFF47C1510529D9a8812F95F5735",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.2",
+              "0.5"
+            ],
+            "address": "0xD2Aaa00700000000000000000000000000000000"
+          }
+        }
+      },
+      "mainnet": {
+        "tokens": {
+          "eth": {
+            "keyname": "eth",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.2",
+              "0.5"
+            ],
+            "address": "0xD2Aaa00700000000000000000000000000000000"
+          },
+          "usdc": {
+            "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "recommendedValues": [
+              "100",
+              "300",
+              "1000"
+            ],
+            "address": "0x5F795bb52dAC3085f578f4877D450e2929D2F13d"
+          },
+          "usdt": {
+            "keyname": "_usdt_0xdAC17F958D2ee523a2206206994597C13D831ec7",
+            "recommendedValues": [
+              "100",
+              "300",
+              "1000"
+            ],
+            "address": "0x1c0491E3396AD6a35f061c62387a95d7218FC515"
+          },
+          "wbtc": {
+            "keyname": "_wbtc_0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.5"
+            ],
+            "address": "0xcb011E86DF014a46F4e3AC3F3cbB114A4EB80870"
+          },
+          "skl": {
+            "keyname": "_skl_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+            "recommendedValues": [
+              "1000",
+              "3000",
+              "5000"
+            ],
+            "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
+          },
+          "ruby": {
+            "keyname": "_RUBY_0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23",
+            "recommendedValues": [
+              "1000",
+              "3000",
+              "5000"
+            ],
+            "address": "0x2B4e4899b53E8b7958c4591a6d02f9C0b5c50F8f"
+          }
+        }
+      },
+      "affectionate-immediate-pollux": {
+        "tokens": {
+          "skill": {
+            "keyname": "_SKILL_0x5F6E97612482095C0c2C02BC495C0171e61017d7",
+            "recommendedValues": [
+              "100",
+              "300",
+              "500",
+              "1000"
+            ],
+            "address": "0xBDDad45160E10C3738785d9dD7F30b4B2a5Eeba8"
+          }
+        }
+      }
+    }
+  },
+  "honorable-steel-rasalhague": {
+    "app": "nftrade",
+    "hub": "calypso",
+    "type": "app",
+    "chains": {
+      "elated-tan-skat": {
+        "app": "ruby",
+        "tokens": {
+          "eth": {
+            "keyname": "_ETH_0xa5274efA35EbeFF47C1510529D9a8812F95F5735",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.2",
+              "0.5"
+            ],
+            "address": "0x59ab97Ee239e02112652587F9Ef86CB6F762983b"
+          }
+        }
+      }
+    }
+  },
+  "affectionate-immediate-pollux": {
+    "type": "game",
+    "chains": {
+      "elated-tan-skat": {
+        "app": "ruby",
+        "tokens": {
+          "skill": {
+            "keyname": "_SKILL_0x5F6E97612482095C0c2C02BC495C0171e61017d7",
+            "recommendedValues": [
+              "100",
+              "300",
+              "500",
+              "1000"
+            ],
+            "address": "0x5F6E97612482095C0c2C02BC495C0171e61017d7"
+          }
+        }
+      }
+    }
+  },
+  "turbulent-unique-scheat": {
+    "type": "app",
+    "chains": {
+      "mainnet": {
+        "tokens": {
+          "razor": {
+            "keyname": "_RAZOR_0x50DE6856358Cc35f3A9a57eAAA34BD4cB707d2cd",
+            "recommendedValues": [
+              "100",
+              "300",
+              "1000",
+              "2000"
+            ],
+            "address": "0xcbf70914Fae03B3acB91E953De60CfDAaCA8145f"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+.mp__inputAmountDisabled {
+    background-color: rgb(68 68 68 / 30%) !important;
+}
+
+.mp__inputAmount {
+
+    // max-width: 50%;
+
+    .MuiInput-root::after {
+        border-bottom: none !important;
+    }
+
+    .MuiInput-root::before {
+        border-bottom: none !important;
+    }
+
+    input {
+        border-radius: 4px 0 0 4px;
+        padding: 9pt 15pt;
+    }
+
+    .MuiFormControl-root {
+        width: 100%;
+        // border-radius: 4px;
+    }
+
+    background-color: rgb(161 161 161 / 34%);
+    border-radius: 10px;
+
+    .MuiButton-root {
+        border-radius: 0 !important;
+        // margin-right: 10px;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none;
+        margin: 0;
+        /* <-- Apparently some margin are still there even though it's hidden */
+    }
+
+    input[type=number] {
+        -moz-appearance: textfield;
+        /* Firefox */
+    }
+}
