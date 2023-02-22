@@ -1,0 +1,66 @@
+[
+  {
+    "question": "What is SKALE Bridge",
+    "answer": "SKALE Bridge is the underlying technology built to increase the interoperability between SKALE Chains and/or the Ethereum mainnet by allowing for the secure transfer of interchain messages: payment tokens, NFTs, or custom data between."
+  },
+  {
+    "question": "What is Metaport? How is it different from SKALE Bridge?",
+    "answer": "Metaport is a tool implemented on top of SKALE Bridges and dapps within the SKALE Network to simplify the process of token transfers between chains to provide users with a streamlined and consistent bridging experience throughout the SKALE Network"
+  },
+  {
+    "question": "What are the benefits of using a SKALE Bridge?",
+    "answer": "SKALE Bridge provides zero-cost, near-instant transfers of assets and data between connected SKALE chains, as well as fast-finality transfers between SKALE Chains connected to Ethereum mainnet (ETH gas fees apply to Ethereum mainnet transactions)."
+  },
+  {
+    "question": "How does a SKALE Bridge work?",
+    "answer": "A SKALE Bridge works by establishing a secure connection between two different blockchain networks using cryptographically secure algorithms and is enabled by Interchain Messaging Agents (IMA) that are running on each SKALE Node. This connection allows for the transfer of assets and data between the networks, and can be achieved through a variety of different methods, including cross-chain atomic swaps, hash time-locked contracts, or other forms of multi-party computation."
+  },
+  {
+    "question": "Are there any security concerns when using a SKALE Bridge?",
+    "answer": "As with any technology, there are potential security risks associated with the use of a SKALE Bridge. These risks can include vulnerabilities in the implementation of the bridge, or malicious actors attempting to exploit the bridge for their own gain. It is important to thoroughly vet and secure any SKALE Bridge before using it, and to regularly monitor it for any potential security threats."
+  },
+  {
+    "question": "Which wallets are supported?",
+    "answer": "Currently, Metamask is the only supported wallet. Additional support for other wallets will be added soon or requested: https://github.com/skalenetwork/bridge-ui/issues"
+  },
+  {
+    "question": "Who can use a SKALE Bridge?",
+    "answer": "SKALE Bridges are currently in beta and may have some bugs, so use at your own risk. However, SKALE Bridges can be used by any individuals, businesses, and organizations looking to transfer assets or data between two different blockchains connected within the SKALE Network (e.g., transfers between SKALE Chains and/or the Ethereum mainnet)"
+  },
+  {
+    "question": "Can SKALE bridge connect to other chains than SKALE or Ethereum?",
+    "answer": "Not Currently. At this time SKALE Bridge is for bridging to/from Ethereum and other SKALE chains"
+  },
+  {
+    "question": "Metamask is not connecting with the SKALE Bridge.",
+    "answer": "This could be caused by many reasons. Most commonly due to missing or misconfigured SKALE chain info within Metamask. Check that the chain is properly added/configured/selected in Metamask: https://mainnet.skalenodes.com/. If Metamask still won’t connect, restart your browser or try a different browser like Firefox, Chrome, or Brave"
+  },
+  {
+    "question": "How do I add a new custom token to the SKALE Bridge?",
+    "answer": "Each SKALE Bridge is managed by each respective SKALE Chain owner or community.For example, the Europa and Calypso communities collaborate to allow certain tokens to bridge between these two chains for use in dapps such as Ruby and NFTrade. Contact the specific dapp or community to inquire about listing a custom token.  SKALE Hubs: https://www.calypsohub.network/, https://nebulachain.io/, https://link.skale.space/onchain-site-europa"
+  },
+  {
+    "question": "What is the exit gas wallet?",
+    "answer": "This is a special wallet used to fund exit transactions to Ethereum. It is only required to be funded when performing an exit to Ethereum. Funds in this wallet are used to reimburse a SKALE validator node for gas when presenting your transaction to Ethereum. A deposit greater than the exit transaction gas cost is required because of the unpredictable nature of Ethereum gas pricing. Any funds left over from the exit can be retrieved, or you can use the remaining funds to perform additional exit transactions from the same chain."
+  },
+  {
+    "question": "Why do I see a transaction fee? I thought SKALE chains have zero-cost transactions?",
+    "answer": "SKALE Chains have zero-cost transactions. However, any transaction that interacts with Ethereum mainnet, such as bridging to/from, will still have gas fees based on the current Ethereum gas price."
+  },
+  {
+    "question": "What does it mean when my tokens will be wrapped?",
+    "answer": "SKALE Bridge security requires that tokens can only be bridged once, say from Ethereum to Ruby on Europa.  To forward the same token from Ruby to another chain, you must wrap it on Europa and transfer the wrapped token to the next chain.  Metaport will guide the user through this wrap step. In case any issue occurs at the wrapping step, Metaport will guide the user through an unwrapping step."
+  },
+  {
+    "question": "I am transferring from Ethereum to NFTrade, why are my tokens routing through Europa?",
+    "answer": "To transfer tokens from Ethereum to NFTrade, this transaction involves an intermediary step on Europa (SKALE&#39;s Liquidity Hub) to wrap the token and forward the wrapped token to NFTrade."
+  },
+  {
+    "question": "What is sFUEL?",
+    "answer": "sFUEL is the native token of SKALE. This is similar (but different!) to Ether in Ethereum. To interact with a SKALE chain, sFUEL tokens are required to conduct transactions. Unlike Ether and other gas tokens, sFUEL has no value: it’s FREE. There is no payment/cost required for transactions since sFUEL is FREE. Getting sFUEL on a SKALE chain is done in several ways. Read more: https://docs.skale.network/develop/sfuel-gas-token"
+  },
+  {
+    "question": "I found a bug or have suggestions on how to improve SKALE Bridge. When can I submit these?",
+    "answer": "Please submit bugs and suggestions here: https://github.com/skalenetwork/bridge-ui/issues"
+  }
+]

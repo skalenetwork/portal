@@ -1,0 +1,157 @@
+{
+  "skaleNetwork": "staging3",
+  "autoLookup": false,
+  "openOnLoad": false,
+  "openButton": true,
+  "debug": false,
+  "chains": [
+    "mainnet",
+    "staging-perfect-parallel-gacrux",
+    "staging-severe-violet-wezen"
+  ],
+  "chainsMetadata": {
+    "staging-perfect-parallel-gacrux": {
+      "alias": "Europa Hub",
+      "apps": {
+        "ruby": {
+          "alias": "Ruby Exchange",
+          "background": "#02001f",
+          "url": "https://ruby.exchange/"
+        }
+      }
+    },
+    "staging-severe-violet-wezen": {
+      "alias": "Calypso Hub",
+      "apps": {
+        "nftrade": {
+          "alias": "NFTrade",
+          "background": "#ffffff",
+          "url": "https://nftrade.com/"
+        }
+      }
+    }
+  },
+  "tokens": {
+    "mainnet": {
+      "eth": {
+        "chains": [
+          "staging-perfect-parallel-gacrux"
+        ]
+      },
+      "erc20": {
+        "_skl_0x2868716b3B4AEa43E8387922AFE71a77D101854e": {
+          "address": "0x2868716b3B4AEa43E8387922AFE71a77D101854e",
+          "decimals": "18",
+          "name": "SKALE",
+          "symbol": "skl",
+          "mappings": {
+            "staging-perfect-parallel-gacrux": "0x6FA34A9A1eb81d550D6bB5E129B9FDc35aa0F021"
+          }
+        },
+        "_usdc_0xdE7EBAA09961D4BdD9E41206De23D2214e22b5d2": {
+          "address": "0xdE7EBAA09961D4BdD9E41206De23D2214e22b5d2",
+          "decimals": "18",
+          "name": "USDC",
+          "symbol": "usdc"
+        },
+        "_usdt_0xB89fCb83F7868d8Cfd104c768FF93FDF74C8a590": {
+          "address": "0xB89fCb83F7868d8Cfd104c768FF93FDF74C8a590",
+          "decimals": "18",
+          "name": "USDT",
+          "symbol": "usdt"
+        },
+        "_wbtc_0xd7BAd1A8E66050178a815355567E5e0218a5B659": {
+          "address": "0xd7BAd1A8E66050178a815355567E5e0218a5B659",
+          "decimals": "18",
+          "name": "WBTC",
+          "symbol": "wbtc"
+        }
+      },
+      "erc721meta": {
+        "_TST_0x1b7729d7E1025A031aF9D6E68598b57f4C2adfF6": {
+          "address": "0x1b7729d7E1025A031aF9D6E68598b57f4C2adfF6",
+          "name": "SKALE Space",
+          "symbol": "skl",
+          "iconUrl": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Rocket/3D/rocket_3d.png"
+        }
+      },
+      "erc1155": {
+        "skaliens": {
+          "address": "0x6cb73D413970ae9379560aA45c769b417Fbf33D6",
+          "name": "SKALIENS Collection",
+          "symbol": "SKALIENS",
+          "iconUrl": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Alien/3D/alien_3d.png"
+        }
+      }
+    },
+    "staging-perfect-parallel-gacrux": {
+      "erc20": {
+        "_ETH_0xBA3f8192e28224790978794102C0D7aaa65B7d70": {
+          "address": "0xBA3f8192e28224790978794102C0D7aaa65B7d70",
+          "name": "ETH",
+          "symbol": "ETH",
+          "cloneSymbol": "ETH",
+          "wraps": {
+            "address": "0xD2Aaa00700000000000000000000000000000000",
+            "symbol": "ETH",
+            "name": "aaaa"
+          }
+        },
+        "_SKILL_0xb36A1DdaBf21161ad71013A34D502381DD1aa7BA": {
+          "address": "0xb36A1DdaBf21161ad71013A34D502381DD1aa7BA",
+          "name": "SKILL Token",
+          "symbol": "SKILL",
+          "iconUrl": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Compass/3D/compass_3d.png"
+        },
+        "DMT": {
+          "address": "0xb36A1DdaBf21161ad71013A34D502381DD1aa7BA",
+          "name": "DMT",
+          "symbol": "DMT",
+          "cloneSymbol": "DMTC",
+          "wraps": {
+            "address": "0x688f6d050B935BF06531b51B5e598318788fA7a5",
+            "symbol": "DMT",
+            "iconUrl": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Compass/3D/compass_3d.png"
+          }
+        },
+        "_SKL_0x099A46F35b627CABee27dc917eDA253fFbC55Be6": {
+          "address": "0x099A46F35b627CABee27dc917eDA253fFbC55Be6",
+          "decimals": "18",
+          "name": "SKL S2S",
+          "symbol": "SKL"
+        }
+      },
+      "erc721": {
+        "skaliens": {
+          "address": "0x30216880A73B67133F37de35e769b8e1A943D35c",
+          "name": "SKALE Space S2S",
+          "symbol": "skl",
+          "iconUrl": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Glowing%20star/3D/glowing_star_3d.png"
+        }
+      },
+      "erc1155": {
+        "skaliens": {
+          "address": "0xBA9fF38A2b22edDfa8e05805bD22C8f20c40546e",
+          "name": "SKALIENS Collection",
+          "symbol": "SKALIENS2S",
+          "iconUrl": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Alien/3D/alien_3d.png"
+        },
+        "medals": {
+          "address": "0x5D8bD602dC5468B3998e8514A1851bd5888E9639",
+          "name": "Medals",
+          "symbol": "MEDALS2S",
+          "iconUrl": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/1st%20place%20medal/3D/1st_place_medal_3d.png"
+        },
+        "animals": {
+          "address": "0xDf87EEF0977148129969b01b329379b17756cdDE",
+          "name": "Funny Animals",
+          "symbol": "ANIMALS2S",
+          "iconUrl": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Frog/3D/frog_3d.png"
+        }
+      }
+    }
+  },
+  "theme": {
+    "mode": "dark"
+  }
+}

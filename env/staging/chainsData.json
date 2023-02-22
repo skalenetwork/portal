@@ -1,0 +1,255 @@
+{
+  "mainnet": {
+    "hub": "ethereum",
+    "chains": {
+      "staging-perfect-parallel-gacrux": {
+        "tokens": {
+          "eth": {
+            "keyname": "eth",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.2",
+              "0.5"
+            ]
+          },
+          "usdc": {
+            "keyname": "_usdc_0xdE7EBAA09961D4BdD9E41206De23D2214e22b5d2",
+            "recommendedValues": [
+              "100",
+              "300",
+              "1000"
+            ],
+            "address": "0xdE7EBAA09961D4BdD9E41206De23D2214e22b5d2"
+          },
+          "usdt": {
+            "keyname": "_usdt_0xB89fCb83F7868d8Cfd104c768FF93FDF74C8a590",
+            "recommendedValues": [
+              "100",
+              "300",
+              "1000"
+            ],
+            "address": "0xB89fCb83F7868d8Cfd104c768FF93FDF74C8a590"
+          },
+          "wbtc": {
+            "keyname": "_wbtc_0xd7BAd1A8E66050178a815355567E5e0218a5B659",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.5"
+            ],
+            "address": "0xd7BAd1A8E66050178a815355567E5e0218a5B659"
+          },
+          "skl": {
+            "keyname": "_skl_0x2868716b3B4AEa43E8387922AFE71a77D101854e",
+            "recommendedValues": [
+              "1000",
+              "3000",
+              "5000"
+            ],
+            "address": "0x2868716b3B4AEa43E8387922AFE71a77D101854e"
+          }
+        },
+        "app": "ruby"
+      },
+      "staging-severe-violet-wezen": {
+        "tokens": {
+          "eth": {
+            "keyname": "eth",
+            "recommendedValues": [
+              "0.1",
+              "0.2",
+              "0.5",
+              "1"
+            ],
+            "route": {
+              "hub": "staging-perfect-parallel-gacrux",
+              "tokenKeyname": "_ETH_0xBA3f8192e28224790978794102C0D7aaa65B7d70",
+              "tokenType": "erc20"
+            }
+          }
+        },
+        "app": "nftrade"
+      }
+    }
+  },
+  "staging-perfect-parallel-gacrux": {
+    "app": "ruby",
+    "hub": "europa",
+    "type": "app",
+    "chains": {
+      "mainnet": {
+        "tokens": {
+          "eth": {
+            "keyname": "eth",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.2",
+              "0.5"
+            ],
+            "address": "0xD2Aaa00700000000000000000000000000000000"
+          },
+          "usdc": {
+            "keyname": "_usdc_0xdE7EBAA09961D4BdD9E41206De23D2214e22b5d2",
+            "recommendedValues": [
+              "100",
+              "300",
+              "1000"
+            ],
+            "address": "0xbb4a651544B2d43d6071fb9cCCdd955467452a3F"
+          },
+          "usdt": {
+            "keyname": "_usdt_0xB89fCb83F7868d8Cfd104c768FF93FDF74C8a590",
+            "recommendedValues": [
+              "100",
+              "300",
+              "1000"
+            ],
+            "address": "0xB56800E98a77776Dce6A8509c63dFFCa2f513e50"
+          },
+          "wbtc": {
+            "keyname": "_wbtc_0xd7BAd1A8E66050178a815355567E5e0218a5B659",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.5"
+            ],
+            "address": "0x2Cc01B06851F124A54756d1a2e9bCf15fa583CA7"
+          },
+          "skl": {
+            "keyname": "_skl_0x2868716b3B4AEa43E8387922AFE71a77D101854e",
+            "recommendedValues": [
+              "1000",
+              "3000",
+              "5000"
+            ],
+            "address": "0x6FA34A9A1eb81d550D6bB5E129B9FDc35aa0F021"
+          }
+        }
+      },
+      "staging-severe-violet-wezen": {
+        "tokens": {
+          "eth": {
+            "keyname": "_ETH_0xBA3f8192e28224790978794102C0D7aaa65B7d70",
+            "recommendedValues": [
+              "0.1",
+              "0.2",
+              "0.5",
+              "1"
+            ],
+            "address": "0xD2Aaa00700000000000000000000000000000000"
+          },
+          "skl": {
+            "keyname": "_SKL_0x099A46F35b627CABee27dc917eDA253fFbC55Be6",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200"
+            ],
+            "address": "0x099A46F35b627CABee27dc917eDA253fFbC55Be6"
+          }
+        },
+        "app": "nftrade"
+      },
+      "glamorous-grumium": {
+        "tokens": {
+          "skill": {
+            "keyname": "_skl_0x2868716b3B4AEa43E8387922AFE71a77D101854e",
+            "recommendedValues": [
+              "200",
+              "400",
+              "700"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "staging-severe-violet-wezen": {
+    "app": "nftrade",
+    "hub": "calypso",
+    "type": "app",
+    "chains": {
+      "mainnet": {
+        "tokens": {
+          "eth": {
+            "keyname": "_ETH_0xBA3f8192e28224790978794102C0D7aaa65B7d70",
+            "address": "0xFbbDF9aC97093b1E88aB79F7D0c296d9cc5eD0d0",
+            "recommendedValues": [
+              "0.1",
+              "0.2",
+              "0.5",
+              "1"
+            ],
+            "route": {
+              "hub": "staging-perfect-parallel-gacrux",
+              "tokenKeyname": "eth",
+              "tokenType": "eth"
+            }
+          }
+        }
+      },
+      "staging-perfect-parallel-gacrux": {
+        "tokens": {
+          "eth": {
+            "keyname": "_ETH_0xBA3f8192e28224790978794102C0D7aaa65B7d70",
+            "recommendedValues": [
+              "0.1",
+              "0.2",
+              "0.5",
+              "1"
+            ],
+            "address": "0xFbbDF9aC97093b1E88aB79F7D0c296d9cc5eD0d0"
+          },
+          "skl": {
+            "keyname": "_SKL_0x099A46F35b627CABee27dc917eDA253fFbC55Be6",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200"
+            ],
+            "address": "0x9C0e8bC2B2D403299214c80081F93fAB5e10b593"
+          }
+        },
+        "app": "ruby"
+      }
+    }
+  },
+  "glamorous-grumium": {
+    "type": "game",
+    "chains": {
+      "staging-perfect-parallel-gacrux": {
+        "tokens": {
+          "skill": {
+            "keyname": "_skl_0x2868716b3B4AEa43E8387922AFE71a77D101854e",
+            "recommendedValues": [
+              "200",
+              "400",
+              "700"
+            ]
+          }
+        },
+        "app": "ruby"
+      }
+    }
+  },
+  "staging-costly-stale-albali": {
+    "type": "game",
+    "chains": {
+      "staging-perfect-parallel-gacrux": {
+        "tokens": {
+          "brawl": {
+            "keyname": "_skl_0x2868716b3B4AEa43E8387922AFE71a77D101854e",
+            "recommendedValues": [
+              "200",
+              "400",
+              "700"
+            ]
+          }
+        },
+        "app": "ruby"
+      }
+    }
+  }
+}

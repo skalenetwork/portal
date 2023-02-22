@@ -1,0 +1,27 @@
+.mp__labelStep {
+    text-transform: uppercase !important;
+    font-size: 0.6525rem !important;
+    line-height: 1.6 !important;
+    letter-spacing: 0.02857em !important;
+}
+
+.mp__stepper {
+    span {
+        font-weight: 600 !important;
+        text-transform: uppercase !important;
+        font-size: 0.6525rem !important;
+        line-height: 1.6 !important;
+        letter-spacing: 0.02857em !important;
+    }
+    .MuiStepConnector-line {
+        min-height: 0 !important;
+    }
+    .MuiBox-root {
+        margin-bottom: 5px !important;
+    }
+    .MuiStepContent-root {
+        padding-right: 0;
+        margin-left: 8px;
+        padding-left: 18px
+    }
+}
