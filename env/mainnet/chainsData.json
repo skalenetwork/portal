@@ -24,7 +24,7 @@
             "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
           },
           "usdt": {
-            "keyname": "_usdt_0xdAC17F958D2ee523a2206206994597C13D831ec7",
+            "keyname": "_USDT_0xdAC17F958D2ee523a2206206994597C13D831ec7",
             "recommendedValues": [
               "100",
               "300",
@@ -33,7 +33,7 @@
             "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7"
           },
           "wbtc": {
-            "keyname": "_wbtc_0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+            "keyname": "_WBTC_0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
             "recommendedValues": [
               "0.01",
               "0.1",
@@ -42,7 +42,7 @@
             "address": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599"
           },
           "skl": {
-            "keyname": "_skl_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+            "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
             "recommendedValues": [
               "1000",
               "3000",
@@ -138,7 +138,7 @@
             "address": "0x5F795bb52dAC3085f578f4877D450e2929D2F13d"
           },
           "usdt": {
-            "keyname": "_usdt_0xdAC17F958D2ee523a2206206994597C13D831ec7",
+            "keyname": "_USDT_0xdAC17F958D2ee523a2206206994597C13D831ec7",
             "recommendedValues": [
               "100",
               "300",
@@ -147,7 +147,7 @@
             "address": "0x1c0491E3396AD6a35f061c62387a95d7218FC515"
           },
           "wbtc": {
-            "keyname": "_wbtc_0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+            "keyname": "_WBTC_0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
             "recommendedValues": [
               "0.01",
               "0.1",
@@ -156,7 +156,7 @@
             "address": "0xcb011E86DF014a46F4e3AC3F3cbB114A4EB80870"
           },
           "skl": {
-            "keyname": "_skl_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+            "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
             "recommendedValues": [
               "1000",
               "3000",
