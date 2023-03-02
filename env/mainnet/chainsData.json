@@ -2,6 +2,25 @@
   "mainnet": {
     "hub": "ethereum",
     "chains": {
+      "affectionate-immediate-pollux": {
+        "tokens": {
+          "skl": {
+            "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
+              "tokenType": "erc20"
+            }
+          }
+        }
+      },
       "elated-tan-skat": {
         "app": "ruby",
         "tokens": {
@@ -186,6 +205,16 @@
               "1000"
             ],
             "address": "0xBDDad45160E10C3738785d9dD7F30b4B2a5Eeba8"
+          },
+          "skl": {
+            "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
           }
         }
       }
@@ -228,6 +257,35 @@
               "1000"
             ],
             "address": "0x5F6E97612482095C0c2C02BC495C0171e61017d7"
+          },
+          "skl": {
+            "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0x9FeF16c2Fe0dCB261cfD39e0B618c69A73feB3FE"
+          }
+        }
+      },
+      "mainnet": {
+        "tokens": {
+          "skl": {
+            "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0x9FeF16c2Fe0dCB261cfD39e0B618c69A73feB3FE",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+              "tokenType": "erc20"
+            }
           }
         }
       }
