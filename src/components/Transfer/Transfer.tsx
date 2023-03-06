@@ -1,28 +1,18 @@
 import React, { useEffect } from 'react';
 import { useParams, useLocation } from "react-router-dom";
 
-
 import debug from 'debug';
 import Web3 from 'web3';
 import { Contract } from 'web3-eth-contract';
 
-import CardContent from '@mui/material/CardContent';
-import Card from '@mui/material/Card';
-import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Typography from '@mui/material/Typography';
-import { Link } from "react-router-dom";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import SwipeRightIcon from '@mui/icons-material/SwipeRight';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import Collapse from '@mui/material/Collapse';
 import Alert from '@mui/material/Alert';
-import { Skeleton } from '@mui/material';
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
 
 import './Transfer.scss';
 
@@ -162,16 +152,24 @@ export default function Transfer(props: any) {
         setLoading(false);
     }
 
+    function getTransferButtonText() {
+        if (loading) return 'Complete transfer in Metaport popup';
+        if (!balance) return 'Loading balances...';
+        if (Number(amount) > Number(balance)) return `Insufficient ${token} balance`;
+        if (amount === '' || amount === '0' || Number(amount) === 0) return 'Enter an amount';
+        return 'Transfer to ' + toChainName;
+    }
+
     const isTransferToMainnet = toChain === MAINNET_CHAIN_NAME && activeStep === 0;
     const disabled = loading || (recommendedRechargeAmount !== '0' && isTransferToMainnet) || !sFuelOk;
 
-    return (<Container maxWidth="md">
+    return (<Container maxWidth="sm" className=''>
         <Stack spacing={3}>
             <div className='mp__flex mp__flexCenteredVert mp__margTop20'>
                 <div className='mp__flex'>
                     <h2 className="mp__flex mp__noMarg">Transfer</h2>
                 </div>
-                <div className='mp__flex mp__margRi5 mp__margLeft10'>
+                {/* <div className='mp__flex mp__margRi5 mp__margLeft10'>
                     {getChainIcon(from as string, true, fromApp)}
                 </div>
                 <div className='mp__flex'>
@@ -185,9 +183,9 @@ export default function Transfer(props: any) {
                 </div>
                 <div className='mp__flex'>
                     <h2 className="mp__flex mp__noMarg">{getChainName(CHAINS_META, to as string, toApp)}</h2>
-                </div>
+                </div> */}
             </div>
-            {toApp ? (<div className='marg-top-40'>
+            {/* {toApp ? (<div className='marg-top-40'>
                 <Card variant="outlined" className='topBannerNew mp__flex mp__flexCenteredVert bridgeUIPaper'>
                     <div className='mp__margLeft20 mp__margRi5 mp__flex mp__flexCenteredVert'>
                         {getChainIcon(to as string, true)}
@@ -197,8 +195,7 @@ export default function Transfer(props: any) {
                     </div>
                     <p className='fl-grow'>{getChainName(CHAINS_META, to as string, toApp)} dApp is located on {getChainName(CHAINS_META, to as string)}</p>
                 </Card>
-            </div>) : null}
-
+            </div>) : null} */}
             {msg ? <Alert onClose={() => { setMsg(undefined); }} severity={msgType} className='mp__margTop20'>{msg}</Alert> : null}
             {isTransferToMainnet && token ? (
                 <CommunityPool
@@ -230,8 +227,123 @@ export default function Transfer(props: any) {
                     setMsgType={setMsgType}
                 />) : null
             }
-            <Card variant="outlined" className='bridgeUIPaper'>
-                <CardContent className='mp__margLeft20 mp__margRi20 mp__margTop20 mp__margBott20'>
+
+            {/* <div className='bridgeUIPaper bridge__paperRounded mp__margTop10'>
+                <TransferStepper
+                    to={to}
+                    toApp={toApp}
+                    activeStep={activeStep}
+                    disabled={(recommendedRechargeAmount !== '0' && isTransferToMainnet) || !sFuelOk}
+                />
+            </div> */}
+
+            <div className='mp__margTop10 bridgeUIPaper bridge__paperTop'>
+                {/* <p className={'mp__flex  mp__p mp__p3 mp__margBott5 ' + (disabled ? 'mp__disabledP' : '')}>Transfer from</p> */}
+                <div className='mp__flex mp__flexCenteredVert mp__margBott20'>
+                    <div className='mp__flex mp__margRi10'>
+                        {getChainIcon(from as string, true, fromApp)}
+                    </div>
+                    <div className='mp__flex mp__flexGrow'>
+                        <h3 className="mp__flex mp__noMarg">{getChainName(CHAINS_META, from as string, fromApp)}</h3>
+                    </div>
+                    <p className={'mp__flex  mp__p mp__p3 mp__noMarg ' + (disabled ? 'mp__disabledP' : '')}>Balance: {balance} {token ? token.toUpperCase() : ''}</p>
+                </div>
+                <Tokens from={from} to={to} token={token} setToken={setToken} loading={disabled} />
+            </div>
+
+            <div className='mp__noMarg bridgeUIPaper bridge__paperBott ' style={{ background: '#2a2a2a' }}>
+                <AmountInput setAmount={setAmount} amount={amount} token={{}} loading={disabled} balance={balance} maxBtn={true} />
+                <div className='mp__margTop10 mp__flex'>
+                    {token ? tokens[token].recommendedValues.map((value: any, index: number) => (
+                        <div key={value} className={'mp__margRi5 mp__flex ' + (amount === value ? 'selectedToken' : '')}>
+                            <Chip
+                                label={value + ' ' + token}
+                                onClick={() => { setAmount(value) }}
+                                variant="filled"
+                                clickable
+                                className='mp__margRi5 mp__chipAmount'
+                                size='small'
+                                disabled={disabled || !balance || Number(value) > Number(balance)}
+                            />
+                        </div>
+                    )) : null}
+                    <div key='max' className={'mp__margRi5 mp__flex ' + (amount === balance ? 'selectedToken' : '')}>
+                        <Chip
+                            label='MAX'
+                            onClick={() => { setAmount(balance as string) }}
+                            variant="filled"
+                            clickable
+                            className='mp__margRi5 mp__chipAmount'
+                            size='small'
+                            disabled={disabled || !balance || Number(balance) > Number(balance)}
+                        />
+                    </div>
+                </div>
+            </div>
+
+            <div className='bridge__moveDownIcon mp__margTop10'>
+                <div className='mp__flex' >
+                    <div className='mp__flex mp__flexGrow'>
+                    </div>
+                    <KeyboardArrowDownRoundedIcon />
+                    <div className='mp__flex mp__flexGrow'>
+                    </div>
+                </div>
+            </div>
+
+            <div className='bridgeUIPaper bridge__paperRounded' style={{ marginTop: '-17px' }}>
+                <div className='mp__flex mp__flexCenteredVert'>
+                    <div className='mp__flex mp__margRi10'>
+                        {getChainIcon(to as string, true, toApp)}
+                    </div>
+                    <div className='mp__flex mp__flexGrow'>
+                        <h3 className="mp__flex mp__noMarg">{getChainName(CHAINS_META, to as string, toApp)}</h3>
+                    </div>
+                    <p className={'mp__flex  mp__p mp__p3 mp__noMarg ' + (disabled ? 'mp__disabledP' : '')}>Balance: {balance} {token ? token.toUpperCase() : ''}</p>
+                </div>
+
+                {toApp ? (
+                    <div className='mp__flex mp__flexCenteredVert mp__margTop5'>
+                        {/* <div className='mp__margRi5 mp__flex mp__flexCenteredVert'>
+                            {getChainIcon(to as string, true)}
+                        </div> */}
+                        <p className='mp__flex  mp__p mp__p3'> {getChainName(CHAINS_META, to as string, toApp)} dApp is located on {getChainName(CHAINS_META, to as string)}</p>
+                    </div>) : null}
+
+                <div className='mp__margTop20 mp__paddTop10'>
+                    <Button
+                        onClick={requestTransfer}
+                        variant="contained"
+                        // startIcon={<SwipeRightIcon />}
+                        disabled={disabled || !balance || Number(amount) > Number(balance) || amount === '' || amount === '0' || Number(amount) === 0}
+                        className=' bridge__btn bridge__transferBtn'
+                        size='large'
+                    >
+                        {getTransferButtonText()}
+                    </Button>
+
+                    <Collapse in={loading}>
+                        <Button
+                            onClick={closeMetaport}
+                            //variant=""
+                            startIcon={<CancelIcon />}
+                            disabled={!loading}
+                            className='mp__margTop20 bridge__btn'
+                            color='warning'
+                            size='medium'
+                            style={{
+                                width: '100%',
+                                textAlign: 'center'
+                            }}
+                        >
+                            Cancel transfer
+                        </Button>
+                    </Collapse>
+                </div>
+            </div>
+
+            {/* <Card variant="outlined" className='bridgeUIPaper'>
+                <CardContent className=''>
                     <Stack >
                         <div className=''>
                             <TransferStepper
@@ -242,19 +354,26 @@ export default function Transfer(props: any) {
                             />
                         </div>
                         <Collapse in={activeStep === 0}>
-                            <div className='mp__margTop10'>
+                            <div className='mp__margTop40'>
                                 <p className={'mp__p2 mp__margTop20 ' + (disabled ? 'mp__disabledP' : '')}>Token</p>
+                                <p className={'mp__p mp__p3 mp__margTop20 ' + (disabled ? 'mp__disabledP' : '')}>Token</p>
                                 <Tokens from={from} to={to} token={token} setToken={setToken} loading={disabled} />
                             </div>
                             <Collapse in={!!token}>
                                 <Grid container className='mp__margTop10'>
                                     <Grid className='fl-centered' item md={6} sm={12} xs={12}>
+
+                                        <p className={'mp__p2 mp__margTop20 mp__flexGrow  ' + (disabled ? 'mp__disabledP' : '')}>56 SKL</p>
+                                        <p className={' mp__p mp__p3 ' + (disabled ? 'mp__disabledP' : '')}>On {fromChainName}</p>
+
+
                                         <div className='mp__flex mp__flexCenteredVert mp__margTop20 mp__margBott5'>
                                             <p className={'mp__p2 mp__noMarg mp__flexGrow  ' + (disabled ? 'mp__disabledP' : '')}>Amount</p>
                                             {balance ? <p className={'mp__noMarg mp__p mp__p3 ' + (disabled ? 'mp__disabledP' : '')}>
                                                 Balance: {balance} {token ? token.toUpperCase() : ''}
                                             </p> : <Skeleton width='80px' />}
                                         </div>
+                                        <p className={'mp__p mp__p3 mp__margTop20 mp__margBott5 ' + (disabled ? 'mp__disabledP' : '')}>Amount</p>
                                         <AmountInput setAmount={setAmount} amount={amount} token={{}} loading={disabled} balance={balance} maxBtn={true} />
                                     </Grid>
                                 </Grid>
@@ -273,29 +392,6 @@ export default function Transfer(props: any) {
                                         </div>
                                     )) : null}
                                 </div>
-                                <div className='mp__margTop20'>
-                                    <Button
-                                        onClick={requestTransfer}
-                                        variant="contained"
-                                        startIcon={<SwipeRightIcon />}
-                                        disabled={disabled || !balance || Number(amount) > Number(balance) || amount === '' || amount === '0' || Number(amount) === 0}
-                                        className='mp__margTop20 bridge__btn'
-                                        size='large'
-                                    >
-                                        {loading ? 'Complete transfer in Metaport popup' : 'Transfer'}
-                                    </Button>
-                                    {loading ? <Button
-                                        onClick={closeMetaport}
-                                        variant="contained"
-                                        startIcon={<CancelIcon />}
-                                        disabled={!loading}
-                                        className='mp__margLeft10 mp__margTop20 bridge__btn'
-                                        color='warning'
-                                        size='large'
-                                    >
-                                        Cancel transfer
-                                    </Button> : null}
-                                </div>
                             </Collapse>
                         </Collapse>
                         <Collapse in={activeStep === 1}>
@@ -310,7 +406,8 @@ export default function Transfer(props: any) {
                         </Collapse>
                     </Stack>
                 </CardContent>
-            </Card>
+            </Card> */}
+
         </Stack>
     </Container>)
 }

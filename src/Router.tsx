@@ -28,11 +28,11 @@ export default function Router(props: any) {
                         <Route path="transfer" >
                             <Route
                                 path=":from"
-                                element={<TransferTo address={props.address} metaport={props.metaport} />}
+                                element={<TransferTo address={props.address} metaport={props.metaport} theme={props.theme} />}
                             />
                             <Route
                                 path=":from/:to"
-                                element={<Transfer address={props.address} metaport={props.metaport} />}
+                                element={<Transfer address={props.address} metaport={props.metaport} theme={props.theme} />}
                             />
                         </Route>
                     </Route>

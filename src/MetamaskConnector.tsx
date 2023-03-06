@@ -1,5 +1,7 @@
 import React from 'react';
 
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
+
 import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
@@ -18,15 +20,13 @@ export default function MetamaskConnector(props: any) {
         <div className=''>
             {(props.address ? (
                 <Tooltip arrow title={open ? 'Click to minimize' : 'Click to show connected wallet'}>
-                    <ButtonBase
+                    <Button
                         onClick={toggleOpen}
                         className='mp__btnConnect mp__btnConnected'
                     >
-                        <Paper elevation={0} className='mp__flex mp__flexCentered'>
-                            <h3 className='mp__btnChain mp__margRi10'>{open ? props.address : 'Connected'}</h3>
-                            <WalletIcon />
-                        </Paper>
-                    </ButtonBase>
+                        <Jazzicon diameter={20} seed={jsNumberForAddress(props.address)} />
+                        {open ? props.address : props.address.substring(0, 5) + '...' + props.address.substring(props.address.length - 3)}
+                    </Button>
                 </Tooltip>
             ) : (<Button
                 onClick={props.connectMetamask}

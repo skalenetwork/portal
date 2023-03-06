@@ -2097,10 +2097,10 @@
     tslog "^3.2.0"
     web3 "1.7.5"
 
-"@skalenetwork/metaport@1.1.0-develop.2":
-  version "1.1.0-develop.2"
-  resolved "https://registry.yarnpkg.com/@skalenetwork/metaport/-/metaport-1.1.0-develop.2.tgz#597fd83e90319779b597e011b93ef82008135b0f"
-  integrity sha512-tcV0CMpfXmfdG9YFyrYCf52Z3eHgiUck8dOS5p73KL7ku2mEnJ9HXmw1wNQXNTWECCI7Yc88C2uw76iw953DTw==
+"@skalenetwork/metaport@1.1.0-develop.3":
+  version "1.1.0-develop.3"
+  resolved "https://registry.yarnpkg.com/@skalenetwork/metaport/-/metaport-1.1.0-develop.3.tgz#9aad629d960baaa13eb585e0958aa8c714e89eee"
+  integrity sha512-iBKZNFS2BAsJoJNpcZW/JXaS7+OCZyfFsZxWWTvCqS21Hea8sBA0ybiDk9cMDf3NgIHPlLjjDUwPoE7OBTBoog==
 
 "@surma/rollup-plugin-off-main-thread@^2.2.3":
   version "2.2.3"
@@ -8026,6 +8026,11 @@ merge2@^1.3.0, merge2@^1.4.1:
   resolved "https://registry.npmjs.org/merge2/-/merge2-1.4.1.tgz"
   integrity sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==
 
+mersenne-twister@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/mersenne-twister/-/mersenne-twister-1.1.0.tgz#f916618ee43d7179efcf641bec4531eb9670978a"
+  integrity sha512-mUYWsMKNrm4lfygPkL3OfGzOPTR2DBlTkBNHM//F6hGp8cLThY897crAlk3/Jo17LEOOjQUrNAx6DvgO77QJkA==
+
 methods@~1.1.2:
   version "1.1.2"
   resolved "https://registry.npmjs.org/methods/-/methods-1.1.2.tgz"
@@ -9881,6 +9886,13 @@ react-is@^18.0.0, react-is@^18.2.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
+
+react-jazzicon@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-jazzicon/-/react-jazzicon-1.0.4.tgz#31e5f6908e042786ba93a9093b852dea1870e7a0"
+  integrity sha512-/3kWv5vtAhI18GBFoqjpxRTtL+EImuB73PAC02r/zJQ6E+PAUmoBx8edYvTCIYHwS01uFf6N3elTDqSrVPwg4w==
+  dependencies:
+    mersenne-twister "^1.1.0"
 
 react-refresh@^0.11.0:
   version "0.11.0"

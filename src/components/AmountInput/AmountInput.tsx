@@ -29,7 +29,7 @@ export default function AmountInput(props: any) {
           disabled={disabled}
         />
       </div>
-      {props.maxBtn ? <div className='mp__flex'>
+      {/* {props.maxBtn ? <div className='mp__flex'>
         <Button
           color="primary"
           size="small"
@@ -40,7 +40,7 @@ export default function AmountInput(props: any) {
           MAX
         </Button>
       </div> : null}
-      
+       */}
     </div>
   )
 }
