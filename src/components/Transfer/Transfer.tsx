@@ -310,7 +310,7 @@ export default function Transfer(props: any) {
                         <p className='mp__flex  mp__p mp__p3'> {getChainName(CHAINS_META, to as string, toApp)} dApp is located on {getChainName(CHAINS_META, to as string)}</p>
                     </div>) : null}
 
-                <div className='mp__margTop20 mp__paddTop10'>
+                <div className='mp__margTop20'>
                     <Button
                         onClick={requestTransfer}
                         variant="contained"
