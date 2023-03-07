@@ -2,6 +2,7 @@ import './App.scss';
 
 import Main from './Main';
 import Transfer from './components/Transfer';
+import TransferV2 from './components/TransferV2';
 import Faq from './components/Faq';
 import Terms from './components/Terms';
 import ExitGasWallet from './components/ExitGasWallet';
@@ -33,6 +34,7 @@ export default function Router(props: any) {
                             <Route
                                 path=":from/:to"
                                 element={<Transfer address={props.address} metaport={props.metaport} theme={props.theme} />}
+                                // element={<TransferV2 address={props.address} metaport={props.metaport} theme={props.theme} />}
                             />
                         </Route>
                     </Route>
