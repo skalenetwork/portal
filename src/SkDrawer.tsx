@@ -20,6 +20,7 @@ import OutboundOutlinedIcon from '@mui/icons-material/OutboundOutlined';
 import LocalGasStationOutlinedIcon from '@mui/icons-material/LocalGasStationOutlined';
 import SettingsApplicationsOutlinedIcon from '@mui/icons-material/SettingsApplicationsOutlined';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 
 import { METAPORT_CONFIG } from './core/constants';
 import { getProxyEndpoint } from './core/network';
@@ -64,6 +65,17 @@ export default function SkDrawer() {
                             </ListItemButton>
                         </Link>
                     </ListItem>
+                    {/* <ListItem  >
+                        <Link to="/bridge/overview" className="undec fullWidth">
+                            <ListItemButton
+                                selected={location.pathname === "/bridge/overview"}>
+                                <ListItemIcon>
+                                    <AppsOutlinedIcon />
+                                </ListItemIcon>
+                                <ListItemText primary='Overview' />
+                            </ListItemButton>
+                        </Link>
+                    </ListItem> */}
                 </List>
                 <h4 className="secondaryText sectionHeader">Other</h4>
                 <List>
