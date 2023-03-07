@@ -158,7 +158,7 @@ export default function CommunityPool(props: any) {
                 <div className='mp__margLeft10 mp__margRi10 mp__flex mp__flexCenteredVert'>
                     {props.recommendedRechargeAmount && balance ? <div className='mp__flex mp__flexCenteredVert'>
                         {props.recommendedRechargeAmount === '0' ? <CheckCircleIcon color='success' /> : <ErrorIcon color='warning' />}
-                        <p className='mp__flex mp__margLeft10'>
+                        <p className='mp__flex mp__noMarg'>
                             {props.recommendedRechargeAmount === '0' ? 'Exit gas wallet OK' : 'You need to recharge exit gas wallet first'}
                         </p>
                     </div> : <Skeleton className='mp__flex' width='180px' height='47px' />}
@@ -179,7 +179,6 @@ export default function CommunityPool(props: any) {
             </div>
             <Collapse in={open}>
                 <CardContent className='mp__margLeft20 mp__margRi20 mp__margTop20 mp__margBott20'>
-
                     {view === 'recharge' ? (<div>
                         <h2 className='mp__noMarg'>Recharge</h2>
                         <p className={'mp__margTop5 mp__margBott20 mp__p mp__p4 '}>

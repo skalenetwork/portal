@@ -197,7 +197,7 @@ export default function Transfer(props: any) {
             </div>
             {toApp ? (<div className='marg-top-40'>
                 <Card variant="outlined" className='topBannerNew mp__flex mp__flexCenteredVert bridgeUIPaper'>
-                    <div className='mp__margLeft20 mp__margRi5 mp__flex mp__flexCenteredVert'>
+                    <div className='mp__margRi5 mp__flex mp__flexCenteredVert'>
                         {getChainIcon(to as string, true)}
                     </div>
                     <div className='mp__margRi10 mp__flex mp__flexCenteredVert'>
@@ -239,9 +239,9 @@ export default function Transfer(props: any) {
                 />) : null
             }
             <Card variant="outlined" className='bridgeUIPaper'>
-                <CardContent className=''>
+                <CardContent className='mp__noPadd'>
                     <Stack >
-                        <div className=''>
+                        <div className='mp__margTop10'>
                             <TransferStepper
                                 to={to}
                                 toApp={toApp}
@@ -257,7 +257,7 @@ export default function Transfer(props: any) {
                                 </div>
                             </div>
                             <Collapse in={!!token}>
-                                <Grid container className='mp__margTop10'>
+                                <Grid container >
                                     <Grid className='fl-centered' item md={12} sm={12} xs={12}>
                                         <div className='mp__margTop20 bridgeUIPaper bridge__paperRounded ' style={{ background: '#2a2a2a' }}>
                                             <div className='mp__flex mp__flexCenteredVert mp__margTop20d mp__margBott5'>
@@ -298,7 +298,7 @@ export default function Transfer(props: any) {
                                     </Grid>
                                 </Grid>
 
-                                <div className='mp__margTop10'>
+                                <div>
                                     <Button
                                         onClick={requestTransfer}
                                         variant="contained"
