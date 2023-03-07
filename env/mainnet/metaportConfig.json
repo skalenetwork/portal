@@ -6,7 +6,8 @@
     "elated-tan-skat",
     "honorable-steel-rasalhague",
     "affectionate-immediate-pollux",
-    "turbulent-unique-scheat"
+    "turbulent-unique-scheat",
+    "adorable-quaint-bellatrix"
   ],
   "chainsMetadata": {
     "elated-tan-skat": {
@@ -34,13 +35,17 @@
     },
     "turbulent-unique-scheat": {
       "alias": "Razor Network"
+    },
+    "adorable-quaint-bellatrix": {
+      "alias": "StreamMyScreen"
     }
   },
   "tokens": {
     "mainnet": {
       "eth": {
         "chains": [
-          "elated-tan-skat"
+          "elated-tan-skat",
+          "adorable-quaint-bellatrix"
         ]
       },
       "erc20": {
