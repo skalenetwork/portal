@@ -112,6 +112,25 @@
           }
         },
         "app": "nftrade"
+      },
+      "green-giddy-denebola": {
+        "tokens": {
+          "skl": {
+            "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
+              "tokenType": "erc20"
+            }
+          }
+        }
       }
     }
   },
@@ -217,6 +236,20 @@
             "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
           }
         }
+      },
+      "green-giddy-denebola": {
+        "tokens": {
+          "skl": {
+            "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
+          }
+        }
       }
     }
   },
@@ -305,6 +338,45 @@
               "2000"
             ],
             "address": "0xcbf70914Fae03B3acB91E953De60CfDAaCA8145f"
+          }
+        }
+      }
+    }
+  },
+  "green-giddy-denebola": {
+    "type": "game",
+    "chains": {
+      "elated-tan-skat": {
+        "app": "ruby",
+        "tokens": {
+          "skl": {
+            "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0x7F73B66d4e6e67bCdeaF277b9962addcDabBFC4d"
+          }
+        }
+      },
+      "mainnet": {
+        "tokens": {
+          "skl": {
+            "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0x7F73B66d4e6e67bCdeaF277b9962addcDabBFC4d",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+              "tokenType": "erc20"
+            }
           }
         }
       }
