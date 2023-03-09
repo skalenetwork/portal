@@ -6,7 +6,8 @@
     "elated-tan-skat",
     "honorable-steel-rasalhague",
     "affectionate-immediate-pollux",
-    "turbulent-unique-scheat"
+    "turbulent-unique-scheat",
+    "green-giddy-denebola"
   ],
   "chainsMetadata": {
     "elated-tan-skat": {
@@ -34,6 +35,9 @@
     },
     "turbulent-unique-scheat": {
       "alias": "Razor Network"
+    },
+    "green-giddy-denebola": {
+      "alias": "Nebula"
     }
   },
   "tokens": {
@@ -125,6 +129,7 @@
     },
     "honorable-steel-rasalhague": {},
     "turbulent-unique-scheat": {},
+    "green-giddy-denebola": {},
     "affectionate-immediate-pollux": {
       "erc20": {
         "_SKILL_0x5F6E97612482095C0c2C02BC495C0171e61017d7": {
