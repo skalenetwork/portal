@@ -25,6 +25,15 @@
 import { MAINNET_CHAIN_NAME, CHAIN_ICONS } from './constants';
 
 
+export function clsNames(...args: any): string {
+    const filteredArgs = args.map((clsName: any) => {
+        if (typeof clsName === 'string') return clsName;
+        if (Array.isArray(clsName) && clsName.length === 2 && clsName[1]) return clsName[0];
+    });
+    return filteredArgs.join(' ');
+}
+
+
 export function rmPad0x(s: string) {
     let fx = remove0x(s);
     fx = fx.replace(/^0+/, '');

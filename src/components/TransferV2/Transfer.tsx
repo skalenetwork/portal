@@ -13,7 +13,7 @@ import Chip from '@mui/material/Chip';
 import Collapse from '@mui/material/Collapse';
 import Alert from '@mui/material/Alert';
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded';
-
+import AccountBalanceWalletRoundedIcon from '@mui/icons-material/AccountBalanceWalletRounded';
 import './Transfer.scss';
 
 import { interfaces, dataclasses } from '@skalenetwork/metaport';
@@ -164,38 +164,12 @@ export default function Transfer(props: any) {
     const disabled = loading || (recommendedRechargeAmount !== '0' && isTransferToMainnet) || !sFuelOk;
 
     return (<Container maxWidth="sm" className=''>
-        <Stack spacing={3}>
+        <Stack spacing={2}>
             <div className='mp__flex mp__flexCenteredVert mp__margTop20'>
                 <div className='mp__flex'>
                     <h2 className="mp__flex mp__noMarg">Transfer</h2>
-                </div>
-                {/* <div className='mp__flex mp__margRi5 mp__margLeft10'>
-                    {getChainIcon(from as string, true, fromApp)}
-                </div>
-                <div className='mp__flex'>
-                    <h2 className="mp__flex mp__noMarg">{getChainName(CHAINS_META, from as string, fromApp)}</h2>
-                </div>
-                <div className='mp__flex mp__margLeft10'>
-                    <ArrowForwardIcon />
-                </div>
-                <div className='mp__flex mp__margRi5 mp__margLeft10'>
-                    {getChainIcon(to as string, true, toApp)}
-                </div>
-                <div className='mp__flex'>
-                    <h2 className="mp__flex mp__noMarg">{getChainName(CHAINS_META, to as string, toApp)}</h2>
-                </div> */}
+                </div>    
             </div>
-            {/* {toApp ? (<div className='marg-top-40'>
-                <Card variant="outlined" className='topBannerNew mp__flex mp__flexCenteredVert bridgeUIPaper'>
-                    <div className='mp__margLeft20 mp__margRi5 mp__flex mp__flexCenteredVert'>
-                        {getChainIcon(to as string, true)}
-                    </div>
-                    <div className='mp__margRi10 mp__flex mp__flexCenteredVert'>
-                        {getChainIcon(to as string, true, toApp)}
-                    </div>
-                    <p className='fl-grow'>{getChainName(CHAINS_META, to as string, toApp)} dApp is located on {getChainName(CHAINS_META, to as string)}</p>
-                </Card>
-            </div>) : null} */}
             {msg ? <Alert onClose={() => { setMsg(undefined); }} severity={msgType} className='mp__margTop20'>{msg}</Alert> : null}
             {isTransferToMainnet && token ? (
                 <CommunityPool
@@ -227,17 +201,7 @@ export default function Transfer(props: any) {
                     setMsgType={setMsgType}
                 />) : null
             }
-
-            {/* <div className='bridgeUIPaper bridge__paperRounded mp__margTop10'>
-                <TransferStepper
-                    to={to}
-                    toApp={toApp}
-                    activeStep={activeStep}
-                    disabled={(recommendedRechargeAmount !== '0' && isTransferToMainnet) || !sFuelOk}
-                />
-            </div> */}
-
-            <div className='mp__margTop10 bridgeUIPaper bridge__paperTop'>
+            <div className='mp__margTop10 br__paper bridge__paperTop'>
                 {/* <p className={'mp__flex  mp__p mp__p3 mp__margBott5 ' + (disabled ? 'mp__disabledP' : '')}>Transfer from</p> */}
                 <div className='mp__flex mp__flexCenteredVert mp__margBott20'>
                     <div className='mp__flex mp__margRi10'>
@@ -246,12 +210,15 @@ export default function Transfer(props: any) {
                     <div className='mp__flex mp__flexGrow'>
                         <h3 className="mp__flex mp__noMarg">{getChainName(CHAINS_META, from as string, fromApp)}</h3>
                     </div>
+                    <div className='mp__margRi5 mp__flex br__balanceCard'>
+                        <AccountBalanceWalletRoundedIcon className='chainIcon' style={{ color: 'rgb(112 112 112)' }} />
+                    </div>
                     <p className={'mp__flex  mp__p mp__p3 mp__noMarg ' + (disabled ? 'mp__disabledP' : '')}>Balance: {balance} {token ? token.toUpperCase() : ''}</p>
                 </div>
                 <Tokens from={from} to={to} token={token} setToken={setToken} loading={disabled} />
             </div>
 
-            <div className='mp__noMarg bridgeUIPaper bridge__paperBott ' style={{ background: '#2a2a2a' }}>
+            <div className='mp__noMarg br__paper bridge__paperBott ' style={{ background: '#2a2a2a' }}>
                 <AmountInput setAmount={setAmount} amount={amount} token={{}} loading={disabled} balance={balance} maxBtn={true} />
                 <div className='mp__margTop10 mp__flex'>
                     {token ? tokens[token].recommendedValues.map((value: any, index: number) => (
@@ -291,13 +258,16 @@ export default function Transfer(props: any) {
                 </div>
             </div>
 
-            <div className='bridgeUIPaper bridge__paperRounded' style={{ marginTop: '-17px' }}>
+            <div className='br__paper br__paperRounded' style={{ marginTop: '-17px' }}>
                 <div className='mp__flex mp__flexCenteredVert'>
                     <div className='mp__flex mp__margRi10'>
                         {getChainIcon(to as string, true, toApp)}
                     </div>
                     <div className='mp__flex mp__flexGrow'>
                         <h3 className="mp__flex mp__noMarg">{getChainName(CHAINS_META, to as string, toApp)}</h3>
+                    </div>
+                    <div className='mp__margRi5 mp__flex br__balanceCard'>
+                        <AccountBalanceWalletRoundedIcon className='chainIcon' style={{ color: 'rgb(112 112 112)' }} />
                     </div>
                     <p className={'mp__flex  mp__p mp__p3 mp__noMarg ' + (disabled ? 'mp__disabledP' : '')}>Balance: {balance} {token ? token.toUpperCase() : ''}</p>
                 </div>
@@ -342,7 +312,7 @@ export default function Transfer(props: any) {
                 </div>
             </div>
 
-            {/* <Card variant="outlined" className='bridgeUIPaper'>
+            {/* <Card variant="outlined" className='br__paper'>
                 <CardContent className=''>
                     <Stack >
                         <div className=''>

@@ -76,7 +76,7 @@ p {
 }
 
 
-.bridgeUIPaper {
+.br__paper {
   background-color: #151515;
   padding: 20px !important;
 }
@@ -89,12 +89,12 @@ p {
   border-radius: 0 0 25px 25px !important;
 }
 
-.bridge__paperRounded {
+.br__paperRounded {
   border-radius: 25px !important;
 }
 
 
-.bridgeUIPaper.MuiPaper-rounded {
+.br__paper.MuiPaper-rounded {
   border-radius: 25px !important;
   background-color: #151515;
   border: none !important;
@@ -298,6 +298,10 @@ h4 {
 
 .mp__margBott10 {
   margin-bottom: 10px !important;
+}
+
+.mp__margBottMin10 {
+  margin-bottom: -10px !important;
 }
 
 .marg-bott-40 {
@@ -634,7 +638,8 @@ li a {
   margin: 0;
   font-weight: 600 !important;
   // text-transform: uppercase !important;
-  font-size: 0.6525rem !important;
+  //font-size: 0.6525rem !important;
+  font-size: 0.7rem !important;
   line-height: 1.6 !important;
   letter-spacing: 0.02857em !important;
 }
@@ -761,10 +766,9 @@ li a {
 
 .schain-name {
   font-weight: bold;
-  text-transform: uppercase;
-  font-size: 0.7rem;
+  // text-transform: uppercase;
+  font-size: .75rem;
   color: white;
-  padding-top: 5pt;
   text-align: center;
 }
 
@@ -833,6 +837,9 @@ li a {
   background-color: #535610 !important;
 }
 
+.whiteText {
+  color: white !important;
+}
 
 .mp__disabledP {
   color: #707070 !important;
@@ -849,9 +856,7 @@ li a {
   color: #8c8c8c;
 }
 
-.whiteText {
-  color: white !important;
-}
+
 
 .MuiDrawer-paper {
   background-color: black !important;
@@ -950,6 +955,7 @@ li a {
   // margin-top: -35px !important;
   position: absolute;
   position: relative;
+
   svg {
     //background-color: white;
     // color: black;
@@ -965,6 +971,21 @@ li a {
   }
 }
 
-.bridge__tokensChips{
+.bridge__tokensChips {
   overflow: scroll;
+}
+
+.br__balanceCard {
+  .chainIcon {
+    width: 15px !important;
+    height: 15px !important;
+  }
+}
+
+.br__paperGrey {
+  background-color: #2a2a2a;
+}
+
+.br__fullHeight {
+  height: 100%;
 }

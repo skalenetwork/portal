@@ -2097,10 +2097,10 @@
     tslog "^3.2.0"
     web3 "1.7.5"
 
-"@skalenetwork/metaport@1.1.0-develop.3":
-  version "1.1.0-develop.3"
-  resolved "https://registry.yarnpkg.com/@skalenetwork/metaport/-/metaport-1.1.0-develop.3.tgz#9aad629d960baaa13eb585e0958aa8c714e89eee"
-  integrity sha512-iBKZNFS2BAsJoJNpcZW/JXaS7+OCZyfFsZxWWTvCqS21Hea8sBA0ybiDk9cMDf3NgIHPlLjjDUwPoE7OBTBoog==
+"@skalenetwork/metaport@1.1.0-beta.0":
+  version "1.1.0-beta.0"
+  resolved "https://registry.yarnpkg.com/@skalenetwork/metaport/-/metaport-1.1.0-beta.0.tgz#4c97c493e96dfc094b95b73e27a458f94fc5364e"
+  integrity sha512-0g7pOUqhQ/KwOrdOWdudGQxRR/XCkViIwOmplp3BgZ9PWpuu9OGSt/ibgV27nFJyxrv//iz2Yk/WmDT0cJSBHw==
 
 "@surma/rollup-plugin-off-main-thread@^2.2.3":
   version "2.2.3"

@@ -11,12 +11,7 @@ import Card from '@mui/material/Card';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
-import Breadcrumbs from '@mui/material/Breadcrumbs';
-import Typography from '@mui/material/Typography';
-import { Link } from "react-router-dom";
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import SwipeRightIcon from '@mui/icons-material/SwipeRight';
 import CancelIcon from '@mui/icons-material/Cancel';
 import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
@@ -35,6 +30,9 @@ import Tokens from '../Tokens';
 import AmountInput from '../AmountInput';
 import CommunityPool from '../CommunityPool';
 import SFuel from '../SFuel';
+import BalanceBlock from '../BalanceBlock';
+
+import BridgePaper from '../BridgePaper';
 
 import { getBalance, initChainWeb3, initERC20Token } from '../../core/tokens';
 import {
@@ -57,11 +55,11 @@ export default function Transfer(props: any) {
 
     const chainsData = CHAINS as any;
 
-    const tokens = chainsData[fromChain].chains[toChain].tokens; // TODO: handle
+    const tokens = chainsData[fromChain].chains[toChain].tokens;
 
     const [loading, setLoading] = React.useState(false);
     const [amount, setAmount] = React.useState<string>('');
-    const [balance, setBalance] = React.useState<string>();
+
     const [token, setToken] = React.useState<string>();
     const [updateBalanceFlag, setUpdateBalanceFlag] = React.useState<boolean>(false);
 
@@ -70,20 +68,27 @@ export default function Transfer(props: any) {
     const [msg, setMsg] = React.useState<string>();
     const [msgType, setMsgType] = React.useState<'error' | 'info' | 'success'>('info');
 
+    const [balance, setBalance] = React.useState<string>();
     const [web3, setWeb3] = React.useState<Web3>();
     const [tokenContract, setTokenContract] = React.useState<Contract>();
+
+    const [web3Dest, setWeb3Dest] = React.useState<Web3>();
+    const [tokenContractDest, setTokenContractDest] = React.useState<Contract>();
+    const [balanceDest, setBalanceDest] = React.useState<string>();
+
+    const [activeStep, setActiveStep] = React.useState<number>(0);
+    const [recommendedRechargeAmount, setRecommendedRechargeAmount] = React.useState<string>();
 
     const fromApp = getQueryVariable(location.search, 'from-app');
     const toApp = getQueryVariable(location.search, 'to-app');
     const externalAmount = getQueryVariable(location.search, 'amount');
     const externalToken = getQueryVariable(location.search, 'token');
 
-    const [activeStep, setActiveStep] = React.useState<number>(0);
-
-    const [recommendedRechargeAmount, setRecommendedRechargeAmount] = React.useState<string>();
-
     const fromChainName = getChainName(CHAINS_META, from as string, fromApp);
     const toChainName = getChainName(CHAINS_META, to as string, toApp);
+
+    const fromChainIcon = getChainIcon(from as string, true, fromApp);
+    const toChainIcon = getChainIcon(to as string, true, toApp);
 
     useEffect(() => {
         if (externalToken) setToken(externalToken);
@@ -95,6 +100,7 @@ export default function Transfer(props: any) {
             false
         );
         setWeb3(initChainWeb3(fromChain));
+        setWeb3Dest(initChainWeb3(toChain));
         let balanceUpdateTimer = setInterval(() => setUpdateBalanceFlag(!updateBalanceFlag), 10 * 1000);
         return () => {
             clearInterval(balanceUpdateTimer);
@@ -104,17 +110,21 @@ export default function Transfer(props: any) {
     useEffect(() => {
         setAmount('');
         setBalance(undefined);
+        setBalanceDest(undefined);
         if (token && web3) {
             const tokenInfo = tokens[token as string];
             log(tokenInfo);
             log(`Setting token contract: ${tokenInfo.address}`);
             setTokenContract(initERC20Token(web3, tokenInfo.address));
+            // todo: handle
+            const destAddress = chainsData[toChain].chains[fromChain].tokens[token].address;
+            setTokenContractDest(initERC20Token(web3Dest, destAddress));
         }
     }, [token]);
 
     useEffect(() => {
         updateBalance();
-    }, [tokenContract, props.address, web3, updateBalanceFlag]);
+    }, [tokenContract, tokenContractDest, activeStep, props.address, web3, updateBalanceFlag]);
 
     async function updateBalance() {
         if (props.address) {
@@ -123,10 +133,19 @@ export default function Transfer(props: any) {
             const decimals = tokenInfo && tokenInfo.decimals ? tokenInfo.decimals : DEFAULT_ERC20_DECIMALS;
             const balanceWei = await getBalance(web3, tokenContract, props.address, fromChain);
             const balanceEther = fromWei(balanceWei as string, decimals);
+
+            const balanceWeiDest = await getBalance(web3Dest, tokenContractDest, props.address, toChain);
+            const balanceEtherDest = fromWei(balanceWeiDest as string, decimals);
+
             if (balanceEther) {
                 setBalance(balanceEther);
             } else {
-                log('Balance request failed!');
+                log('Balance request failed - source chain');
+            }
+            if (balanceEtherDest) {
+                setBalanceDest(balanceEtherDest);
+            } else {
+                log('Balance request failed - dest chain');
             }
         }
     }
@@ -173,169 +192,186 @@ export default function Transfer(props: any) {
     const isTransferToMainnet = toChain === MAINNET_CHAIN_NAME && activeStep === 0;
     const disabled = loading || (recommendedRechargeAmount !== '0' && isTransferToMainnet) || !sFuelOk;
 
+    const balancesBlock = (
+        <BridgePaper rounded gray fullHeight>
+            <BalanceBlock
+                icon={fromChainIcon}
+                chainName={fromChainName}
+                balance={balance}
+                token={token}
+                disabled={disabled}
+            />
+            <BalanceBlock
+                icon={toChainIcon}
+                chainName={toChainName}
+                balance={balanceDest}
+                token={token}
+                disabled={disabled}
+                margTop
+            />
+        </BridgePaper>
+    );
+
     return (<Container maxWidth="md">
-        <Stack spacing={3}>
-            <div className='mp__flex mp__flexCenteredVert mp__margTop20'>
-                <div className='mp__flex'>
-                    <h2 className="mp__flex mp__noMarg">Transfer</h2>
+        <div className='mp__flex mp__flexCenteredVert mp__margBott10'>
+            <div className='mp__flex'>
+                <h2 className="mp__flex mp__noMarg">Transfer</h2>
+            </div>
+            <div className='mp__flex mp__margRi5 mp__margLeft10'>
+                {fromChainIcon}
+            </div>
+            <div className='mp__flex'>
+                <h2 className="mp__flex mp__noMarg">{getChainName(CHAINS_META, from as string, fromApp)}</h2>
+            </div>
+            <div className='mp__flex mp__margLeft10'>
+                <ArrowForwardIcon />
+            </div>
+            <div className='mp__flex mp__margRi5 mp__margLeft10'>
+                {getChainIcon(to as string, true, toApp)}
+            </div>
+            <div className='mp__flex'>
+                <h2 className="mp__flex mp__noMarg">{getChainName(CHAINS_META, to as string, toApp)}</h2>
+            </div>
+        </div>
+        {toApp ? (<div className='marg-top-40'>
+            <Card variant="outlined" className='topBannerNew mp__flex mp__flexCenteredVert br__paper'>
+                <div className='mp__margRi5 mp__flex mp__flexCenteredVert'>
+                    {getChainIcon(to as string, true)}
                 </div>
-                <div className='mp__flex mp__margRi5 mp__margLeft10'>
-                    {getChainIcon(from as string, true, fromApp)}
-                </div>
-                <div className='mp__flex'>
-                    <h2 className="mp__flex mp__noMarg">{getChainName(CHAINS_META, from as string, fromApp)}</h2>
-                </div>
-                <div className='mp__flex mp__margLeft10'>
-                    <ArrowForwardIcon />
-                </div>
-                <div className='mp__flex mp__margRi5 mp__margLeft10'>
+                <div className='mp__margRi10 mp__flex mp__flexCenteredVert'>
                     {getChainIcon(to as string, true, toApp)}
                 </div>
-                <div className='mp__flex'>
-                    <h2 className="mp__flex mp__noMarg">{getChainName(CHAINS_META, to as string, toApp)}</h2>
-                </div>
-            </div>
-            {toApp ? (<div className='marg-top-40'>
-                <Card variant="outlined" className='topBannerNew mp__flex mp__flexCenteredVert bridgeUIPaper'>
-                    <div className='mp__margRi5 mp__flex mp__flexCenteredVert'>
-                        {getChainIcon(to as string, true)}
-                    </div>
-                    <div className='mp__margRi10 mp__flex mp__flexCenteredVert'>
-                        {getChainIcon(to as string, true, toApp)}
-                    </div>
-                    <p className='fl-grow mp__noMarg'>{getChainName(CHAINS_META, to as string, toApp)} dApp is located on {getChainName(CHAINS_META, to as string)}</p>
-                </Card>
-            </div>) : null}
-
-            {msg ? <Alert onClose={() => { setMsg(undefined); }} severity={msgType} className='mp__margTop20'>{msg}</Alert> : null}
-            {isTransferToMainnet && token ? (
-                <CommunityPool
-                    address={props.address}
-                    chainName={tokens[token].route ? tokens[token].route.hub : fromChain}
-                    recommendedRechargeAmount={recommendedRechargeAmount}
-                    setRecommendedRechargeAmount={setRecommendedRechargeAmount}
-
-                    msg={msg}
-                    setMsg={setMsg}
-
-                    msgType={msgType}
-                    setMsgType={setMsgType}
-
-                />) : null}
-            {
-                token ? (<SFuel
-                    address={props.address}
-                    fromChain={fromChain}
-                    toChain={toChain}
-                    hubChain={tokens[token].route ? tokens[token].route.hub : null}
-
-                    sFuelOk={sFuelOk}
-                    setSFuelOk={setSFuelOk}
-
-                    msg={msg}
-                    setMsg={setMsg}
-                    msgType={msgType}
-                    setMsgType={setMsgType}
-                />) : null
-            }
-            <Card variant="outlined" className='bridgeUIPaper'>
-                <CardContent className='mp__noPadd'>
-                    <Stack >
-                        <div className='mp__margTop10'>
-                            <TransferStepper
-                                to={to}
-                                toApp={toApp}
-                                activeStep={activeStep}
-                                disabled={(recommendedRechargeAmount !== '0' && isTransferToMainnet) || !sFuelOk}
-                            />
-                        </div>
-                        <Collapse in={activeStep === 0}>
-                            <div className='mp__margTop30'>
-                                <div className='bridgeUIPaper bridge__paperRounded ' style={{ background: '#2a2a2a' }}>
-                                    <p className={'mp__p2 mp__margTop20s ' + (disabled ? 'mp__disabledP' : '')}>Token</p>
-                                    <Tokens from={from} to={to} token={token} setToken={setToken} loading={disabled} />
-                                </div>
-                            </div>
-                            <Collapse in={!!token}>
-                                <Grid container >
-                                    <Grid className='fl-centered' item md={12} sm={12} xs={12}>
-                                        <div className='mp__margTop20 bridgeUIPaper bridge__paperRounded ' style={{ background: '#2a2a2a' }}>
-                                            <div className='mp__flex mp__flexCenteredVert mp__margTop20d mp__margBott5'>
-                                                <p className={'mp__p2 mp__noMarg mp__flexGrow  ' + (disabled ? 'mp__disabledP' : '')}>Amount</p>
-                                                {balance ? <p className={'mp__noMarg mp__p mp__p3 ' + (disabled ? 'mp__disabledP' : '')}>
-                                                    Balance: {balance} {token ? token.toUpperCase() : ''}
-                                                </p> : <Skeleton width='80px' />}
-                                            </div>
-                                            <AmountInput setAmount={setAmount} amount={amount} token={{}} loading={disabled} balance={balance} maxBtn={true} />
-                                            <div className='mp__margTop10 mp__flex'>
-                                                {token ? tokens[token].recommendedValues.map((value: any, index: number) => (
-                                                    <div key={value} className={'mp__margRi5 mp__flex ' + (amount === value ? 'selectedToken' : '')}>
-                                                        <Chip
-                                                            label={value + ' ' + token}
-                                                            onClick={() => { setAmount(value) }}
-                                                            variant="filled"
-                                                            clickable
-                                                            className='mp__margRi5 mp__chipAmount'
-                                                            size='small'
-                                                            disabled={disabled || !balance || Number(value) > Number(balance)}
-                                                        />
-                                                    </div>
-                                                )) : null}
-                                                <div key='max' className={'mp__margRi5 mp__flex ' + (amount === balance ? 'selectedToken' : '')}>
-                                                    <Chip
-                                                        label='MAX'
-                                                        onClick={() => { setAmount(balance as string) }}
-                                                        variant="filled"
-                                                        clickable
-                                                        className='mp__margRi5 mp__chipAmount'
-                                                        size='small'
-                                                        disabled={disabled || !balance || Number(balance) > Number(balance) || balance === '0'}
-                                                    />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </Grid>
-                                </Grid>
-
-                                <div>
-                                    <Button
-                                        onClick={requestTransfer}
-                                        variant="contained"
-                                        // startIcon={<SwipeRightIcon />}
-                                        disabled={disabled || !balance || Number(amount) > Number(balance) || amount === '' || amount === '0' || Number(amount) === 0}
-                                        className='mp__margTop20 bridge__btn'
-                                        size='large'
-                                    >
-                                        {getTransferButtonText()}
-                                    </Button>
-                                    {loading ? <Button
-                                        onClick={closeMetaport}
-                                        variant="contained"
-                                        startIcon={<CancelIcon />}
-                                        disabled={!loading}
-                                        className='mp__margLeft10 mp__margTop20 bridge__btn'
-                                        color='warning'
-                                        size='large'
-                                    >
-                                        Cancel transfer
-                                    </Button> : null}
-                                </div>
-                            </Collapse>
-                        </Collapse>
-                        <Collapse in={activeStep === 1}>
-                            <TransferDone
-                                to={to}
-                                toApp={toApp}
-                                toChainName={toChainName}
-                                setActiveStep={setActiveStep}
-                                amount={amount}
-                                token={token}
-                            />
-                        </Collapse>
-                    </Stack>
-                </CardContent>
+                <p className='fl-grow mp__noMarg'>{getChainName(CHAINS_META, to as string, toApp)} dApp is located on {getChainName(CHAINS_META, to as string)}</p>
             </Card>
-        </Stack>
+        </div>) : null}
+
+        {msg ? <Alert onClose={() => { setMsg(undefined); }} severity={msgType} className='mp__margTop20'>{msg}</Alert> : null}
+        {isTransferToMainnet && token ? (
+            <CommunityPool
+                address={props.address}
+                chainName={tokens[token].route ? tokens[token].route.hub : fromChain}
+                recommendedRechargeAmount={recommendedRechargeAmount}
+                setRecommendedRechargeAmount={setRecommendedRechargeAmount}
+
+                msg={msg}
+                setMsg={setMsg}
+
+                msgType={msgType}
+                setMsgType={setMsgType}
+
+            />) : null}
+        {
+            token ? (<SFuel
+                address={props.address}
+                fromChain={fromChain}
+                toChain={toChain}
+                hubChain={tokens[token].route ? tokens[token].route.hub : null}
+
+                sFuelOk={sFuelOk}
+                setSFuelOk={setSFuelOk}
+
+                msg={msg}
+                setMsg={setMsg}
+                msgType={msgType}
+                setMsgType={setMsgType}
+            />) : null
+        }
+        <Card variant="outlined" className='br__paper mp__margTop10'>
+            <CardContent className='mp__noPadd'>
+                <Stack >
+                    <div className='mp__margTop10'>
+                        <TransferStepper
+                            to={to}
+                            toApp={toApp}
+                            activeStep={activeStep}
+                            disabled={(recommendedRechargeAmount !== '0' && isTransferToMainnet) || !sFuelOk}
+                        />
+                    </div>
+                    <Collapse in={activeStep === 0}>
+                        <div className='mp__margTop20'>
+                            <div className='br__paper br__paperRounded br__paperGrey'>
+                                <p className={'mp__p mp__p3 mp__margTop20s ' + (disabled ? 'mp__disabledP' : '')}>Token</p>
+                                <Tokens from={from} to={to} token={token} setToken={setToken} loading={disabled} />
+                            </div>
+                        </div>
+                        <Grid container spacing={2} >
+                            <Grid className='fl-centered' item md={8} sm={12} xs={12}>
+                                <BridgePaper rounded gray margTop>
+                                    <div className='mp__flex mp__flexCenteredVert mp__margTop20d mp__margBott5'>
+                                        <p className={'mp__p mp__p3 mp__noMarg mp__flexGrow  ' + (disabled ? 'mp__disabledP' : '')}>
+                                            Amount
+                                        </p>
+                                    </div>
+                                    <AmountInput setAmount={setAmount} amount={amount} token={{}} loading={disabled} balance={balance} maxBtn={true} />
+                                    <div className='mp__margTop10 mp__flex'>
+                                        {token ? tokens[token].recommendedValues.map((value: any, index: number) => (
+                                            <div key={value} className={'mp__margRi5 mp__flex ' + (amount === value ? 'selectedToken' : '')}>
+                                                <Chip
+                                                    label={value + ' ' + token}
+                                                    onClick={() => { setAmount(value) }}
+                                                    variant="filled"
+                                                    clickable
+                                                    className='mp__margRi5 mp__chipAmount'
+                                                    size='small'
+                                                    disabled={disabled || !balance || Number(value) > Number(balance)}
+                                                />
+                                            </div>
+                                        )) : null}
+                                        <div key='max' className={'mp__margRi5 mp__flex ' + (amount === balance ? 'selectedToken' : '')}>
+                                            <Chip
+                                                label='MAX'
+                                                onClick={() => { setAmount(balance as string) }}
+                                                variant="filled"
+                                                clickable
+                                                className='mp__margRi5 mp__chipAmount'
+                                                size='small'
+                                                disabled={disabled || !balance || Number(balance) > Number(balance) || balance === '0'}
+                                            />
+                                        </div>
+                                    </div>
+                                </BridgePaper>
+                            </Grid>
+                            <Grid className='mp__margTop20' item md={4} sm={12} xs={12}>
+                                {balancesBlock}
+                            </Grid>
+                        </Grid>
+
+                        <div>
+                            <Button
+                                onClick={requestTransfer}
+                                variant="contained"
+                                disabled={disabled || !balance || Number(amount) > Number(balance) || amount === '' || amount === '0' || Number(amount) === 0}
+                                className='mp__margTop20 bridge__btn'
+                                size='large'
+                            >
+                                {getTransferButtonText()}
+                            </Button>
+                            {loading ? <Button
+                                onClick={closeMetaport}
+                                variant="contained"
+                                startIcon={<CancelIcon />}
+                                disabled={!loading}
+                                className='mp__margLeft10 mp__margTop20 bridge__btn'
+                                color='warning'
+                                size='large'
+                            >
+                                Cancel transfer
+                            </Button> : null}
+                        </div>
+                    </Collapse>
+                    <Collapse in={activeStep === 1}>
+                        <TransferDone
+                            to={to}
+                            toApp={toApp}
+                            toChainName={toChainName}
+                            setActiveStep={setActiveStep}
+                            amount={amount}
+                            token={token}
+                            balancesBlock={balancesBlock}
+                        />
+                    </Collapse>
+                </Stack>
+            </CardContent>
+        </Card>
     </Container>)
 }

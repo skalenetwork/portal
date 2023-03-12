@@ -29,7 +29,7 @@ export default function Router(props: any) {
                         />
                         <Route
                             path="overview"
-                            element={<Overview />}
+                            element={<Overview address={props.address} />}
                         />
                         <Route path="transfer" >
                             <Route

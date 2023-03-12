@@ -17,7 +17,7 @@ export default function Overview(props: any) {
     let keys = Object.keys(CHAINS);
 
     return (<Container maxWidth="md">
-        <Stack spacing={3}>
+        <Stack spacing={2}>
             <div className='mp__flex mp__flexCenteredVert mp__margTop20'>
                 <div className='mp__flex'>
                     <h2 className="mp__flex mp__noMarg">Overview</h2>
@@ -26,10 +26,10 @@ export default function Overview(props: any) {
             <p className='mp__noMarg mp__p mp__p4'>
                 Overview of your assets and balances across all chains
             </p>
-            <Grid container spacing={3}>
+            <Grid container spacing={0}>
                 {keys.map((chain: any, index: number) => (
-                    <Grid key={index} className='fl-centered dappCard' item md={3} sm={6} xs={6}>
-                        <ChainOverview chain={CHAINS[chain]} chainName={chain} icons={ICONS} />
+                    <Grid key={index} className='fl-centered' item md={4} sm={6} xs={6}>
+                        <ChainOverview chain={CHAINS[chain]} chainName={chain} icons={ICONS} address={props.address} />
                     </Grid>
                 ))}
             </Grid>
