@@ -14,12 +14,14 @@ import { Metaport, interfaces, dataclasses } from '@skalenetwork/metaport';
 
 import Header from './Header';
 import SkDrawer from './SkDrawer';
+import SkBottomNavigation from './SkBottomNavigation';
 import Router from './Router';
 import TermsModal from './components/TermsModal';
 
 import MetamaskConnector from './MetamaskConnector';
 import { connect, addAccountChangedListener } from './core/connector'
 import { METAPORT_CONFIG } from './core/constants';
+import { BottomNavigation } from '@mui/material';
 
 
 interface MetaportThemesMap { [themeName: string]: interfaces.MetaportTheme; }
@@ -170,6 +172,7 @@ function App() {
           </Snackbar>
         </Box>
       </Box>
+      <SkBottomNavigation />
     </ThemeProvider >
   );
 }

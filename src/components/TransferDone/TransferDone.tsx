@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -12,11 +12,18 @@ import TollIcon from '@mui/icons-material/Toll';
 
 import BridgePaper from '../BridgePaper';
 import { iconPath } from '../ActionCard/helper';
-import { CHAINS_META, MAINNET_CHAIN_NAME } from '../../core/constants';
-
+import { CHAINS_META, MAINNET_CHAIN_NAME, SUCCESS_EMOJIS } from '../../core/constants';
+import { getRandom } from '../../core/helper';
 
 
 export default function TransferDone(props: any) {
+
+  const [emoji, setEmoji] = React.useState<string>();
+
+  useEffect(() => {
+    setEmoji(getRandom(SUCCESS_EMOJIS));
+  }, []);
+
   const dAppUrl = CHAINS_META[props.to] && CHAINS_META[props.to]['url'] ? CHAINS_META[props.to]['url'] : undefined;
   return (
     <div className="mp__margTop20">
@@ -24,7 +31,7 @@ export default function TransferDone(props: any) {
         <Grid item md={8} sm={12} xs={12}>
           <BridgePaper rounded gray fullHeight>
             <div className="mp__flex mp__flexCenteredVert">
-              <h3 className="mp__flex  mp__noMarg">🎉  You've successfully transferred</h3>
+              <h3 className="mp__flex  mp__noMarg">{emoji} You've successfully transferred</h3>
               <img
                 className='mp__iconTokenTransferDone mp__flex mp__flexCenteredVert mp__margLeft10 mp__margRi5'
                 src={iconPath(props.token)}
@@ -33,7 +40,6 @@ export default function TransferDone(props: any) {
                 {props.amount} {props.token ? props.token.toUpperCase() : ''}
               </h3>
             </div>
-
             <p className='mp__margTop10 mp__p mp__p4'>
               Proceed to the dApp or go back to the transfer page.
             </p>
@@ -54,7 +60,7 @@ export default function TransferDone(props: any) {
       >
         Go to {props.toChainName}
       </Button> : null}
-      {(props.to !== MAINNET_CHAIN_NAME && props.token !== 'eth') ? <Button
+      {(props.to === MAINNET_CHAIN_NAME && props.token === 'eth') ? null : <Button
         onClick={() => { }}
         variant="contained"
         startIcon={<TollIcon />}
@@ -62,7 +68,7 @@ export default function TransferDone(props: any) {
         size='large'
       >
         Add token
-      </Button> : null}
+      </Button>}
       <Button
         onClick={() => { props.setActiveStep(0) }}
         startIcon={<RestartAltIcon />}

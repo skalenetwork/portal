@@ -101,3 +101,7 @@ export function getQueryVariable(urlParams: string, variable: string): string | 
         if (pair[0] == variable) { return pair[1]; }
     }
 }
+
+export function getRandom(list: Array<any>) {
+    return list[Math.floor((Math.random() * list.length))];
+}

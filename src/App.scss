@@ -1049,3 +1049,10 @@ li a {
 body::-webkit-scrollbar {
   display: none;
 }
+
+
+.br__bottomNav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
