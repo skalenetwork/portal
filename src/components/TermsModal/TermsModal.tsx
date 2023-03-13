@@ -52,7 +52,8 @@ export default function TermsModal(props: any) {
     }
 
     function handleTermsScroll(e: any) {
-        const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+        const diff = e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight;
+        const bottom = Math.abs(diff) < 15;
         setScrolled(bottom);
     }
     if (props.termsAccepted) return null;
