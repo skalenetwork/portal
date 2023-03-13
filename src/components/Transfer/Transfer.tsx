@@ -76,7 +76,7 @@ export default function Transfer(props: any) {
     const [tokenContractDest, setTokenContractDest] = React.useState<Contract>();
     const [balanceDest, setBalanceDest] = React.useState<string>();
 
-    const [activeStep, setActiveStep] = React.useState<number>(1);
+    const [activeStep, setActiveStep] = React.useState<number>(0);
     const [recommendedRechargeAmount, setRecommendedRechargeAmount] = React.useState<string>();
 
     const fromApp = getQueryVariable(location.search, 'from-app');
