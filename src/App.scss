@@ -155,6 +155,10 @@ h4 {
   width: 75pt;
 }
 
+.logoBig {
+  width: 95pt;
+}
+
 .sk-header {
   background-color: rgba(0, 0, 0, 0) !important;
 }
@@ -162,10 +166,6 @@ h4 {
 .appContent {
   height: calc(100vh - 94px);
   overflow-y: auto;
-}
-
-::-webkit-scrollbar {
-  display: none;
 }
 
 .bridgeUI-light .logo {
@@ -679,6 +679,13 @@ li a {
   letter-spacing: 0.03857em !important;
 }
 
+.mp__p6 {
+  margin: 0;
+  font-weight: 500 !important;
+  font-size: 0.9525rem !important;
+  line-height: 1.6 !important;
+}
+
 .mp__p5 {
   margin: 0;
   font-weight: 400 !important;
@@ -972,7 +979,7 @@ li a {
 }
 
 .bridge__tokensChips {
-  overflow: scroll;
+  // overflow: scroll;
 }
 
 .br__balanceCard {
@@ -988,4 +995,57 @@ li a {
 
 .br__fullHeight {
   height: 100%;
+}
+
+.MuiModal-root {
+  z-index: 99999 !important;
+}
+
+
+.br__modal {
+  .br__modalScroll {
+    height: 35vh;
+    overflow-y: scroll !important;
+  }
+}
+
+// ::-webkit-scrollbar {
+//   display: none;
+// }
+
+
+.br__modalScroll {
+  ::-webkit-scrollbar {
+    display: unset !important;
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  background: white;
+  -webkit-box-shadow: none;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: none;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #e1e1e125;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  border: 0px solid rgba(255, 255, 255, 0);
+  background-clip: content-box;
+  background-color: #a0a0a0;
+}
+
+body::-webkit-scrollbar {
+  display: none;
 }

@@ -15,7 +15,7 @@ import { Metaport, interfaces, dataclasses } from '@skalenetwork/metaport';
 import Header from './Header';
 import SkDrawer from './SkDrawer';
 import Router from './Router';
-import Footer from './components/Footer';
+import TermsModal from './components/TermsModal';
 
 import MetamaskConnector from './MetamaskConnector';
 import { connect, addAccountChangedListener } from './core/connector'
@@ -86,6 +86,7 @@ function createMuiTheme(th: any) {
 function App() {
 
   const [open, setOpen] = React.useState(false);
+  const [termsAccepted, setTermsAccepted] = React.useState<boolean>(false);
 
   const [colorScheme, setColorScheme] = React.useState('default');
   const [muiTheme, setMuiTheme] = React.useState(createMuiTheme(themes[colorScheme]));
@@ -138,6 +139,7 @@ function App() {
         className={'AppWrap bridgeUI ' + (darkMode ? 'bridgeUI-dark' : 'bridgeUI-light')}
       >
         <CssBaseline />
+        <TermsModal termsAccepted={termsAccepted} setTermsAccepted={setTermsAccepted} />
         <Header
           colorScheme={colorScheme}
           setColorScheme={setColorScheme}
