@@ -18,7 +18,7 @@ export default function Overview(props: any) {
 
     return (<Container maxWidth="md">
         <Stack spacing={2}>
-            <div className='mp__flex mp__flexCenteredVert mp__margTop20'>
+            <div className='mp__flex mp__flexCenteredVert'>
                 <div className='mp__flex'>
                     <h2 className="mp__flex mp__noMarg">Overview</h2>
                 </div>
@@ -28,7 +28,7 @@ export default function Overview(props: any) {
             </p>
             <Grid container spacing={0}>
                 {keys.map((chain: any, index: number) => (
-                    <Grid key={index} className='fl-centered' item md={4} sm={6} xs={6}>
+                    <Grid key={index} className='fl-centered' item md={6} sm={12} xs={12}>
                         <ChainOverview chain={CHAINS[chain]} chainName={chain} icons={ICONS} address={props.address} />
                     </Grid>
                 ))}

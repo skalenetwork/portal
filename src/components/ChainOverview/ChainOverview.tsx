@@ -28,6 +28,7 @@ import Web3 from 'web3';
 import { Contract } from 'web3-eth-contract';
 import Button from '@mui/material/Button';
 import Skeleton from '@mui/material/Skeleton';
+import Grid from '@mui/material/Grid';
 
 import { CHAINS_META, DEFAULT_ERC20_DECIMALS } from '../../core/constants';
 import { getBalance, initChainWeb3, initERC20Token } from '../../core/tokens';
@@ -122,22 +123,22 @@ export default function ChainOverview(props: any) {
             </p>
           </div>
         </div>
-
         <div className='mp__margBott20 mp__margTop10 mp__margRi20 br__paper br__paperRounded ' style={{ background: '#2a2a2a' }}>
           <div className=''>
-            {Object.keys(tokens).map((token: any, index: number) => (
-              <div className='mp__flex mp__margBott10' key={index}>
-                <div className='mp__flex'>
-                  <img className='mp__iconToken mp__margRi10' src={iconPath(token)} />
-
-                  {tokenBalances[token] ? (<p className="mp__p mp__p2 whiteText mp__noMarg mp__flex mp__flexCentered uppercase">
-                    {tokenBalances[token] ? tokenBalances[token].substring(0, 7) : null} {token}
-                  </p>) : <Skeleton variant="text" width={100} />}
-
-                </div>
-              </div>
-            ))}
-
+            <Grid container spacing={0}>
+              {Object.keys(tokens).map((token: any, index: number) => (
+                <Grid md={6}>
+                  <div className='mp__flex mp__margBott10' key={index}>
+                    <div className='mp__flex'>
+                      <img className='mp__iconToken mp__margRi10' src={iconPath(token)} />
+                      {tokenBalances[token] ? (<p className="mp__p mp__p2 whiteText mp__noMarg mp__flex mp__flexCentered uppercase">
+                        {tokenBalances[token] ? tokenBalances[token].substring(0, 7) : null} {token}
+                      </p>) : <Skeleton variant="text" width={100} />}
+                    </div>
+                  </div>
+                </Grid>
+              ))}
+            </Grid>
             <Link to={url} className='undec'>
               <Button
                 onClick={() => { }}

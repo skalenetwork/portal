@@ -1,31 +1,23 @@
 import * as React from 'react';
+import { Link } from "react-router-dom";
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
+
 import Box from '@mui/material/Box';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
-import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
-
-
-import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
-
-import Paper from '@mui/material/Paper';
 import Button from '@mui/material/Button';
-import ButtonBase from '@mui/material/ButtonBase/ButtonBase';
-import WalletIcon from '@mui/icons-material/Wallet';
 
-import { Link } from "react-router-dom";
 
-import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
-import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
-import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
-import HubOutlinedIcon from '@mui/icons-material/HubOutlined';
+
+
+
+
+
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import HistoryIcon from '@mui/icons-material/History';
-import AutoGraphIcon from '@mui/icons-material/AutoGraph';
 import SignalCellularAltOutlinedIcon from '@mui/icons-material/SignalCellularAltOutlined';
-import { METAPORT_CONFIG } from '../../core/constants';
-import { getProxyEndpoint } from '../../core/network';
+import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 
 
 export default function AccountMenu(props: any) {
@@ -48,7 +40,6 @@ export default function AccountMenu(props: any) {
                         className='mp__btnConnect mp__btnConnected'
                     >
                         <Jazzicon diameter={20} seed={jsNumberForAddress(props.address)} />
-                        {/* {open ? props.address : props.address.substring(0, 5) + '...' + props.address.substring(props.address.length - 3)} */}
                         {props.address.substring(0, 5) + '...' + props.address.substring(props.address.length - 3)}
                     </Button>
                 </Tooltip>
@@ -89,9 +80,14 @@ export default function AccountMenu(props: any) {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <Link to="/other/terms-of-service" className="undec fullWidth">
+                <Link to="/bridge/history" className="undec fullWidth">
                     <MenuItem onClick={handleClose}>
-                        <HistoryIcon className='mp__margRi10' />  Transactions history
+                        <HistoryIcon className='mp__margRi10' /> Transfers history
+                    </MenuItem>
+                </Link>
+                <Link to="/bridge/overview" className="undec fullWidth">
+                    <MenuItem onClick={handleClose}>
+                        <AppsOutlinedIcon className='mp__margRi10' /> Assets overview
                     </MenuItem>
                 </Link>
                 <a className="undec fullWidth" target="_blank" href={'https://etherscan.io/address/' + props.address}>

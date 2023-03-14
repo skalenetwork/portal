@@ -11,7 +11,7 @@ const log = debug('bridge:components:ExitGasWallet');
 export default function ExitGasWallet(props: any) {
     return (<Container maxWidth="md">
         <Stack spacing={2}>
-            <div className='mp__flex mp__flexCenteredVert mp__margTop20'>
+            <div className='mp__flex mp__flexCenteredVert'>
                 <div className='mp__flex'>
                     <h2 className="mp__flex mp__noMarg">Exit Gas Wallet</h2>
                 </div>

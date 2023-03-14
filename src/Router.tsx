@@ -8,6 +8,7 @@ import Terms from './components/Terms';
 import ExitGasWallet from './components/ExitGasWallet';
 import TransferTo from './components/TransferTo';
 import Overview from './components/Overview';
+import History from './components/History';
 
 import { Routes, Route, useLocation } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
@@ -31,6 +32,10 @@ export default function Router(props: any) {
                             path="overview"
                             element={<Overview address={props.address} />}
                         />
+                        <Route
+                            path="history"
+                            element={<History address={props.address} />}
+                        />
                         <Route path="transfer" >
                             <Route
                                 path=":from"
@@ -39,7 +44,7 @@ export default function Router(props: any) {
                             <Route
                                 path=":from/:to"
                                 element={<Transfer address={props.address} metaport={props.metaport} theme={props.theme} />}
-                                // element={<TransferV2 address={props.address} metaport={props.metaport} theme={props.theme} />}
+                            // element={<TransferV2 address={props.address} metaport={props.metaport} theme={props.theme} />}
                             />
                         </Route>
                     </Route>

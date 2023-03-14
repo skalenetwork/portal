@@ -17,8 +17,8 @@
  */
 
 /**
- * @file BridgePaper.js
- * @copyright SKALE Labs 2022-Present
+ * @file BridgePaper.ts
+ * @copyright SKALE Labs 2023-Present
 */
 
 import { ReactElement } from 'react';
