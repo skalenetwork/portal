@@ -30,6 +30,8 @@ import Button from '@mui/material/Button';
 import Skeleton from '@mui/material/Skeleton';
 import Grid from '@mui/material/Grid';
 
+import BridgePaper from '../BridgePaper';
+
 import { CHAINS_META, DEFAULT_ERC20_DECIMALS } from '../../core/constants';
 import { getBalance, initChainWeb3, initERC20Token } from '../../core/tokens';
 import { fromWei } from '../../core/convertation';
@@ -52,6 +54,8 @@ export default function ChainOverview(props: any) {
   const [tokenContracts, setTokenContracts] = React.useState<any>();
   const [tokenBalances, setTokenBalances] = React.useState<any>({});
   const [updateBalanceFlag, setUpdateBalanceFlag] = React.useState<boolean>(false);
+
+  const name = getChainName(CHAINS_META, props.chainName, props.chain.app);
 
   useEffect(() => {
     const tokensArr = Object.keys(props.chain.chains).map((toChain: any) => { return props.chain.chains[toChain].tokens });
@@ -111,46 +115,48 @@ export default function ChainOverview(props: any) {
 
   if (!tokens) return null;
   return (
-    <div>
+    <div className=''>
       <div className='mp__flexCentered'>
-        <div className='mp__flex' >
-          <div className='mp__flex'>
-            {getChainIcon(props.chainName as string, true, props.chain.app)}
-          </div>
-          <div className='mp__flex mp__margLeft5'>
-            <p className="schain-name mp__noMarg mp__flex mp__flexCentered">
-              {getChainName(CHAINS_META, props.chainName, props.chain.app)}
-            </p>
-          </div>
-        </div>
-        <div className='mp__margBott20 mp__margTop10 mp__margRi20 br__paper br__paperRounded ' style={{ background: '#2a2a2a' }}>
-          <div className=''>
-            <Grid container spacing={0}>
-              {Object.keys(tokens).map((token: any, index: number) => (
-                <Grid md={6}>
-                  <div className='mp__flex mp__margBott10' key={index}>
-                    <div className='mp__flex'>
-                      <img className='mp__iconToken mp__margRi10' src={iconPath(token)} />
-                      {tokenBalances[token] ? (<p className="mp__p mp__p2 whiteText mp__noMarg mp__flex mp__flexCentered uppercase">
-                        {tokenBalances[token] ? tokenBalances[token].substring(0, 7) : null} {token}
-                      </p>) : <Skeleton variant="text" width={100} />}
+        <BridgePaper rounded>
+          <div className='mp__margTop5'>
+            <div className='mp__flex' >
+              <div className='mp__flex'>
+                {getChainIcon(props.chainName as string, true, props.chain.app)}
+              </div>
+              <div className='mp__flex mp__margLeft5'>
+                <p className="mp__p mp__p2 whiteText mp__margLeft5 mp__flex mp__flexCentered">
+                  {name}
+                </p>
+              </div>
+            </div>
+            <BridgePaper rounded gray margTop>
+              <Grid container spacing={0} className='mp__margBottMin10'>
+                {Object.keys(tokens).map((token: any, index: number) => (
+                  <Grid md={6} sm={12}>
+                    <div className='mp__flex mp__margBott10' key={index}>
+                      <div className='mp__flex mp__flexCenteredVert'>
+                        <img className='mp__iconToken mp__margRi10' src={iconPath(token)} />
+                        {tokenBalances[token] ? (<p className="mp__p mp__p2 whiteText mp__noMarg mp__flex mp__flexCentered uppercase">
+                          {tokenBalances[token] ? tokenBalances[token].substring(0, 7) : null} {token}
+                        </p>) : <Skeleton variant="text" width={100} />}
+                      </div>
                     </div>
-                  </div>
-                </Grid>
-              ))}
-            </Grid>
+                  </Grid>
+                ))}
+              </Grid>
+            </BridgePaper>
             <Link to={url} className='undec'>
               <Button
                 onClick={() => { }}
                 variant="contained"
-                className='mp__margTop20 bridge__btn bridge__transferBtn'
-                size='large'
+                className='mp__margTop20 bridge__btn fullWidthe'
+                size='small'
               >
                 Transfer
               </Button>
             </Link >
           </div>
-        </div>
+        </BridgePaper>
 
       </div>
     </div>

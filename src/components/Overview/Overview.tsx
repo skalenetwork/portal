@@ -2,6 +2,7 @@ import debug from 'debug';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
 
 
 import { ICONS, CHAINS } from '../../core/constants';
@@ -26,13 +27,16 @@ export default function Overview(props: any) {
             <p className='mp__noMarg mp__p mp__p4'>
                 Overview of your assets and balances across all chains
             </p>
-            <Grid container spacing={0}>
-                {keys.map((chain: any, index: number) => (
-                    <Grid key={index} className='fl-centered' item md={6} sm={12} xs={12}>
-                        <ChainOverview chain={CHAINS[chain]} chainName={chain} icons={ICONS} address={props.address} />
-                    </Grid>
-                ))}
-            </Grid>
+            <Box className='mp__margTop20'>
+                <Grid container spacing={2} >
+                    {keys.map((chain: any, index: number) => (
+                        <Grid key={index} className='fl-centered' item md={6} sm={12} xs={12}>
+                            <ChainOverview chain={CHAINS[chain]} chainName={chain} icons={ICONS} address={props.address} />
+                        </Grid>
+                    ))}
+                </Grid>
+            </Box>
+
         </Stack>
     </Container>)
 }
