@@ -27,6 +27,7 @@ import Modal from '@mui/material/Modal';
 import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
 
 import BridgePaper from '../BridgePaper';
 import TermsOfService from '../Terms/terms-of-service.mdx'
@@ -67,8 +68,8 @@ export default function TermsModal(props: any) {
                             <BridgePaper rounded >
                                 <img src={logo} className="logoBig mp__margBott20 mp__margTop10" alt="logo" />
                                 <p className='mp__p mp__p6 whiteText'>
-                                    We will NEVER ask you for your seed phrase or private keys. <br />
-                                    SKALE Network is in beta. <a href="https://docs.skale.network/learn/mainnet-beta">Learn more.</a> <br />
+                                    We will NEVER ask you for your seed phrase or private keys. <br /><br />
+                                    SKALE Network is in beta - <Link target="_blank" rel="noopener noreferrer" href="https://docs.skale.network/learn/mainnet-beta">learn more</Link>. <br />
                                     Before you use SKALE Bridge, you should review our terms of service carefully and confirm below 👇
                                 </p>
                             </BridgePaper>
