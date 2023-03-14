@@ -99,11 +99,6 @@ export default function Transfer(props: any) {
             transferComplete,
             false
         );
-        window.addEventListener(
-            "metaport_transferComplete",
-            transferComplete,
-            false
-        );
         setWeb3(initChainWeb3(fromChain));
         setWeb3Dest(initChainWeb3(toChain));
         let balanceUpdateTimer = setInterval(() => setUpdateBalanceFlag(!updateBalanceFlag), 10 * 1000);
