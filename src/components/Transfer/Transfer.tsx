@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useParams, useLocation } from "react-router-dom";
 
+import { Link } from "react-router-dom";
 
 import debug from 'debug';
 import Web3 from 'web3';
@@ -17,7 +18,8 @@ import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import Collapse from '@mui/material/Collapse';
 import Alert from '@mui/material/Alert';
-import { Skeleton } from '@mui/material';
+
+import HistoryIcon from '@mui/icons-material/History';
 
 import './Transfer.scss';
 
@@ -31,8 +33,8 @@ import AmountInput from '../AmountInput';
 import CommunityPool from '../CommunityPool';
 import SFuel from '../SFuel';
 import BalanceBlock from '../BalanceBlock';
-
 import BridgePaper from '../BridgePaper';
+import TransactionData from '../TransactionData';
 
 import { getBalance, initChainWeb3, initERC20Token } from '../../core/tokens';
 import {
@@ -40,6 +42,7 @@ import {
 } from '../../core/constants';
 import { fromWei } from '../../core/convertation';
 import { getQueryVariable } from '../../core/helper';
+import { addToTransferHistory } from '../../core/transferHistory';
 
 
 debug.enable('*');
@@ -79,6 +82,9 @@ export default function Transfer(props: any) {
     const [activeStep, setActiveStep] = React.useState<number>(0);
     const [recommendedRechargeAmount, setRecommendedRechargeAmount] = React.useState<string>();
 
+    const [transactionsHistory, setTransactionsHistory] = React.useState<Array<any>>([]);
+    const [transferRequest, setTransferRequest] = React.useState<interfaces.TransferParams>();
+
     const fromApp = getQueryVariable(location.search, 'from-app');
     const toApp = getQueryVariable(location.search, 'to-app');
     const externalAmount = getQueryVariable(location.search, 'amount');
@@ -96,7 +102,12 @@ export default function Transfer(props: any) {
         setToken(Object.keys(tokens)[0]);
         window.addEventListener(
             "metaport_transferRequestCompleted",
-            transferComplete,
+            transferCompleted,
+            false
+        );
+        window.addEventListener(
+            "metaport_transactionCompleted",
+            transactionCompleted,
             false
         );
         setWeb3(initChainWeb3(fromChain));
@@ -104,8 +115,29 @@ export default function Transfer(props: any) {
         let balanceUpdateTimer = setInterval(() => setUpdateBalanceFlag(!updateBalanceFlag), 10 * 1000);
         return () => {
             clearInterval(balanceUpdateTimer);
+            window.removeEventListener(
+                "metaport_transactionCompleted",
+                transactionCompleted
+            );
         };
     }, []);
+
+    useEffect(() => {
+        window.addEventListener(
+            "metaport_transferRequestCompleted",
+            transferCompleted,
+            false
+        );
+        window.addEventListener(
+            "metaport_transactionCompleted",
+            transactionCompleted,
+            false
+        );
+        return () => {
+            window.removeEventListener("metaport_transferRequestCompleted", transferCompleted);
+            window.removeEventListener("metaport_transactionCompleted", transactionCompleted);
+        }
+    }, [transferRequest]);
 
     useEffect(() => {
         setAmount('');
@@ -150,12 +182,23 @@ export default function Transfer(props: any) {
         }
     }
 
-    async function transferComplete(e: any) {
+    async function transferCompleted(e: any) {
         setUpdateBalanceFlag(!updateBalanceFlag);
         setLoading(false);
         props.metaport.reset();
         props.metaport.close();
         setActiveStep(1);
+        const transferData = {
+            trReq: transferRequest,
+            transactionsHistory: transactionsHistory,
+            token: token
+        }
+        addToTransferHistory(transferData);
+    }
+
+    async function transactionCompleted(e: any) {
+        transactionsHistory.push(e.detail); // todo: fix
+        setTransactionsHistory([...transactionsHistory]);
     }
 
     function requestTransfer() {
@@ -173,6 +216,7 @@ export default function Transfer(props: any) {
             fromApp: fromApp,
             toApp: toApp
         };
+        setTransferRequest(params);
         props.metaport.transfer(params);
     }
 
@@ -368,10 +412,37 @@ export default function Transfer(props: any) {
                             amount={amount}
                             token={token}
                             balancesBlock={balancesBlock}
+                            setTransactionsHistory={setTransactionsHistory}
                         />
                     </Collapse>
                 </Stack>
             </CardContent>
         </Card>
-    </Container>)
+        {transactionsHistory.length > 0 ? <Card variant="outlined" className='br__paper mp__margTop10'>
+            <CardContent className='mp__noPadd'>
+                <Stack >
+                    <h4 className="mp__flex mp__margBott10 mp__noMargTop">Mined transactions</h4>
+                    <BridgePaper rounded gray>
+                        <div className='mp__margBottMin15'>
+                            {transactionsHistory.map((transactionData: any) => (
+                                <TransactionData key={transactionData.tx.transactionHash} transactionData={transactionData} />
+                            ))}
+                        </div>
+                    </BridgePaper>
+                    <Collapse in={!loading}>
+                        <Link to="/bridge/history" className="undec fullWidth" >
+                            <Button
+                                startIcon={<HistoryIcon />}
+                                variant='text'
+                                className='mp__margTop20 bridge__btn'
+                                size='large'
+                            >
+                                Go to Transfers history
+                            </Button>
+                        </Link>
+                    </Collapse>
+                </Stack>
+            </CardContent>
+        </Card> : null}
+    </Container >)
 }

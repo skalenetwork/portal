@@ -28,6 +28,8 @@ export const SEARCH_SUGGESTIONS = require('../searchSuggestions.json');
 export const FAQ = require('../faq.json');
 export const EXTERNAL_TOKEN_ICONS = require('../externalTokenIcons.json');
 
+export const BASE_EXPLORER_URLS = require('../metadata/explorer.json');
+
 export const CHAINS = require('../metadata/chainsData.json');
 export const METAPORT_CONFIG = require('../metadata/metaportConfig.json');
 METAPORT_CONFIG.mainnetEndpoint = process.env.REACT_APP_MAINNET_ENDPOINT;
@@ -44,3 +46,13 @@ export const MAINNET_CHAIN_NAME = 'mainnet';
 export const DEFAULT_ERC20_DECIMALS = '18';
 
 export const SUCCESS_EMOJIS = ['🎉', '👌', '✅', '🙌', '🎊'];
+
+export const HTTPS_PREFIX = 'https://';
+
+export const MAINNET_EXPLORER_URLS: { [networkName: string]: string } = {
+    mainnet: 'https://etherscan.io',
+    staging3: 'https://goerli.etherscan.io/'
+};
+
+export const MAINNET_EXPLORER_URL = MAINNET_EXPLORER_URLS[METAPORT_CONFIG.skaleNetwork];
+export const CHAIN_EXPLORER_BASE_URL = BASE_EXPLORER_URLS[METAPORT_CONFIG.skaleNetwork];

@@ -2097,10 +2097,10 @@
     tslog "^3.2.0"
     web3 "1.7.5"
 
-"@skalenetwork/metaport@1.1.0-beta.0":
-  version "1.1.0-beta.0"
-  resolved "https://registry.yarnpkg.com/@skalenetwork/metaport/-/metaport-1.1.0-beta.0.tgz#4c97c493e96dfc094b95b73e27a458f94fc5364e"
-  integrity sha512-0g7pOUqhQ/KwOrdOWdudGQxRR/XCkViIwOmplp3BgZ9PWpuu9OGSt/ibgV27nFJyxrv//iz2Yk/WmDT0cJSBHw==
+"@skalenetwork/metaport@1.2.0-preview.0":
+  version "1.2.0-preview.0"
+  resolved "https://registry.yarnpkg.com/@skalenetwork/metaport/-/metaport-1.2.0-preview.0.tgz#fff5534fdc1f2eb442d7e85857fed7520ce8d242"
+  integrity sha512-IrApkkFrGkzgYa+HknnoLUWaSkBuiFsTV9myvTbq/jibMK2Sivo0FSpNz8PxmdUK12gl1Lg6s4Nr0DlQbIQ25g==
 
 "@surma/rollup-plugin-off-main-thread@^2.2.3":
   version "2.2.3"
@@ -2851,9 +2851,9 @@
     eslint-visitor-keys "^3.3.0"
 
 "@vercel/analytics@^0.1.10":
-  version "0.1.10"
-  resolved "https://registry.yarnpkg.com/@vercel/analytics/-/analytics-0.1.10.tgz#772ab975f1226b6db9632568299ead173c21da7d"
-  integrity sha512-jjJ8GzcPnQp0cMxpfYoUycMRBtDiaIeyVjZPiEPe99Dj1PdjMzAFYEASiV/hpNsXHkpcNYCveDFh6jnmh0YSDQ==
+  version "0.1.11"
+  resolved "https://registry.npmjs.org/@vercel/analytics/-/analytics-0.1.11.tgz"
+  integrity sha512-mj5CPR02y0BRs1tN3oZcBNAX9a8NxsIUl9vElDPcqxnMfP0RbRc9fI9Ud7+QDg/1Izvt5uMumsr+6YsmVHcyuw==
 
 "@webassemblyjs/ast@1.11.1":
   version "1.11.1"
@@ -8028,7 +8028,7 @@ merge2@^1.3.0, merge2@^1.4.1:
 
 mersenne-twister@^1.1.0:
   version "1.1.0"
-  resolved "https://registry.yarnpkg.com/mersenne-twister/-/mersenne-twister-1.1.0.tgz#f916618ee43d7179efcf641bec4531eb9670978a"
+  resolved "https://registry.npmjs.org/mersenne-twister/-/mersenne-twister-1.1.0.tgz"
   integrity sha512-mUYWsMKNrm4lfygPkL3OfGzOPTR2DBlTkBNHM//F6hGp8cLThY897crAlk3/Jo17LEOOjQUrNAx6DvgO77QJkA==
 
 methods@~1.1.2:
@@ -9889,7 +9889,7 @@ react-is@^18.0.0, react-is@^18.2.0:
 
 react-jazzicon@^1.0.4:
   version "1.0.4"
-  resolved "https://registry.yarnpkg.com/react-jazzicon/-/react-jazzicon-1.0.4.tgz#31e5f6908e042786ba93a9093b852dea1870e7a0"
+  resolved "https://registry.npmjs.org/react-jazzicon/-/react-jazzicon-1.0.4.tgz"
   integrity sha512-/3kWv5vtAhI18GBFoqjpxRTtL+EImuB73PAC02r/zJQ6E+PAUmoBx8edYvTCIYHwS01uFf6N3elTDqSrVPwg4w==
   dependencies:
     mersenne-twister "^1.1.0"

@@ -81,7 +81,7 @@ export default function Transfer(props: any) {
         setToken(Object.keys(tokens)[0]);
         window.addEventListener(
             "metaport_transferRequestCompleted",
-            transferComplete,
+            transferCompleted,
             false
         );
         setWeb3(initChainWeb3(fromChain));
@@ -121,7 +121,7 @@ export default function Transfer(props: any) {
         }
     }
 
-    async function transferComplete(e: any) {
+    async function transferCompleted(e: any) {
         setUpdateBalanceFlag(!updateBalanceFlag);
         setLoading(false);
         props.metaport.reset();
