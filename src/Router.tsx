@@ -43,7 +43,11 @@ export default function Router(props: any) {
                             />
                             <Route
                                 path=":from/:to"
-                                element={<Transfer address={props.address} metaport={props.metaport} theme={props.theme} />}
+                                element={<Transfer
+                                    address={props.address}
+                                    metaport={props.metaport}
+                                    theme={props.theme}
+                                />}
                             // element={<TransferV2 address={props.address} metaport={props.metaport} theme={props.theme} />}
                             />
                         </Route>

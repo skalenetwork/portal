@@ -300,9 +300,18 @@ h4 {
   margin-bottom: 10px !important;
 }
 
+.mp__margBott15 {
+  margin-bottom: 15px !important;
+}
+
 .mp__margBottMin10 {
   margin-bottom: -10px !important;
 }
+
+.mp__margBottMin15 {
+  margin-bottom: -15px !important;
+}
+
 
 .marg-bott-40 {
   margin-bottom: 40px !important;
@@ -989,6 +998,14 @@ li a {
   }
 }
 
+.br__transferData {
+  .chainIcon,
+  svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+}
+
 .br__paperGrey {
   background-color: #2a2a2a;
 }
@@ -1055,4 +1072,49 @@ body::-webkit-scrollbar {
   position: fixed;
   bottom: 0;
   width: 100%;
+}
+
+.br__transactionDataIcon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+
+  svg {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+.br__action_deposit {
+  background-image: linear-gradient(45deg, #8A463C 0%, #b02d50 100%);
+}
+
+.br__action_transferToSchain {
+  // background-image: linear-gradient(120deg, #00546B 0%, #003559 50%, #002466 100%);
+  background-image: linear-gradient(120deg, #9c27b0 0%, #3f51b5 100%)
+}
+
+.br__action_wrap {
+  background-image: linear-gradient(160deg, #237bc3 0%, #1a3b94 100%);
+}
+
+.br__action_unwrap {
+  background-image: linear-gradient(160deg, #1a3b94 0%, #237bc3 100%);
+  // background-image: linear-gradient(135deg, #31a385 0%, #25648a 100%);
+}
+
+.br__action_withdraw {
+  background-image: linear-gradient(45deg, #b02d50 0%, #8A463C 100%);
+}
+
+.br__action_getMyEth {
+  background-image: linear-gradient(45deg, #009688 0%, #0c5f57 100%);
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.bold {
+  font-weight: bold !important;
 }

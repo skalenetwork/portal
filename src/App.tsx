@@ -151,7 +151,12 @@ function App() {
         <SkDrawer />
         <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
           <Toolbar />
-          {address ? <Router address={address} metaport={metaport} setOpen={setOpen} theme={themes[colorScheme]} /> :
+          {address ? <Router
+            address={address}
+            metaport={metaport}
+            setOpen={setOpen}
+            theme={themes[colorScheme]}
+          /> :
             <div className='mp__flex mp__flexCentered mp__fullHeight'>
               <div className=''>
                 <MetamaskConnector address={address} connectMetamask={connectMetamask} connect={true} />

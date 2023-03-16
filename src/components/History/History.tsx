@@ -22,8 +22,14 @@
 */
 
 import debug from 'debug';
+import { useState, useEffect } from "react";
+
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import ClearAllIcon from '@mui/icons-material/ClearAll';
+import { getTransferHistory, clearTransferHistory } from '../../core/transferHistory';
+import TransferData from '../TransferData';
 
 
 debug.enable('*');
@@ -31,6 +37,19 @@ const log = debug('bridge:components:History');
 
 
 export default function History(props: any) {
+
+    const [transferHistory, setTransferHistory] = useState<Array<any>>(getTransferHistory());
+
+    useEffect(() => {
+        const handleStorageChange = (e: any) => {
+            setTransferHistory(getTransferHistory());
+        };
+        window.addEventListener("storage", handleStorageChange);
+        return () => {
+            window.removeEventListener("storage", handleStorageChange);
+        };
+    }, []);
+
     return (<Container maxWidth="md">
         <Stack spacing={2}>
             <div className='mp__flex mp__flexCenteredVert'>
@@ -41,10 +60,27 @@ export default function History(props: any) {
             <p className='mp__noMarg mp__p mp__p4'>
                 View your transfers history
             </p>
+            {transferHistory.slice().reverse().map((transferData: any, index: number) => (
+                <TransferData key={index} transferData={transferData} />
+            ))}
 
-            <p className='mp__margTop40 mp__textCentered mp__p mp__p2'>
-                🏗️ Work in progress <br />
-            </p>
+            {transferHistory.length === 0 ? (<div>
+                <p className='mp__margTop40 mp__textCentered mp__p mp__p2'>
+                    🏗️ No past transfers just yet
+                </p>
+            </div>) : (<div className='mp__textCentered'>
+                <Button
+                    onClick={() => {
+                        clearTransferHistory();
+                        setTransferHistory(getTransferHistory());
+                    }}
+                    startIcon={<ClearAllIcon />}
+                    variant='text'
+                    className='mp__margTop20 bridge__btn'
+                    size='large'
+                >
+                    Clear transfers history
+                </Button></div>)}
         </Stack>
     </Container>)
 }

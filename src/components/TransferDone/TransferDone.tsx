@@ -40,7 +40,7 @@ export default function TransferDone(props: any) {
                 {props.amount} {props.token ? props.token.toUpperCase() : ''}
               </h3>
             </div>
-            <p className='mp__margTop10 mp__p mp__p4'>
+            <p className='mp__margTop5 mp__p mp__p4'>
               Proceed to the dApp or go back to the transfer page.
             </p>
           </BridgePaper>
@@ -70,7 +70,10 @@ export default function TransferDone(props: any) {
         Add token
       </Button>}
       <Button
-        onClick={() => { props.setActiveStep(0) }}
+        onClick={() => {
+          props.setActiveStep(0);
+          props.setTransactionsHistory([]);
+        }}
         startIcon={<RestartAltIcon />}
         variant={dAppUrl ? 'text' : 'contained'}
         className='mp__margTop20 bridge__btn'
