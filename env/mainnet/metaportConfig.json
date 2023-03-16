@@ -7,7 +7,8 @@
     "honorable-steel-rasalhague",
     "affectionate-immediate-pollux",
     "turbulent-unique-scheat",
-    "green-giddy-denebola"
+    "green-giddy-denebola",
+    "wan-red-ain"
   ],
   "chainsMetadata": {
     "elated-tan-skat": {
@@ -38,6 +39,9 @@
     },
     "green-giddy-denebola": {
       "alias": "Nebula"
+    },
+    "wan-red-ain": {
+      "alias": "Human Protocol"
     }
   },
   "tokens": {
@@ -98,6 +102,12 @@
           "decimals": "8",
           "name": "Wrapped BTC",
           "symbol": "WBTC"
+        },
+        "_HMT_0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867": {
+          "address": "0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
+          "decimals": "18",
+          "name": "Human Token",
+          "symbol": "HMT"
         }
       }
     },
@@ -124,12 +134,24 @@
             "symbol": "SKL",
             "name": "SKL"
           }
+        },
+        "_HMT_0x06104018340BB547803F5410174d9B68475e6769": {
+          "address": "0x06104018340BB547803F5410174d9B68475e6769",
+          "name": "HMT",
+          "symbol": "HMT",
+          "cloneSymbol": "HMT",
+          "wraps": {
+            "address": "0xBE3530a3eDf9472693065041B8c9155C7FeCB8e5",
+            "symbol": "HMT",
+            "name": "HMT"
+          }
         }
       }
     },
     "honorable-steel-rasalhague": {},
     "turbulent-unique-scheat": {},
     "green-giddy-denebola": {},
+    "wan-red-ain": {},
     "affectionate-immediate-pollux": {
       "erc20": {
         "_SKILL_0x5F6E97612482095C0c2C02BC495C0171e61017d7": {
