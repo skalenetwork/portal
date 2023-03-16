@@ -229,6 +229,15 @@
               "5000"
             ],
             "address": "0x2B4e4899b53E8b7958c4591a6d02f9C0b5c50F8f"
+          },
+          "hmt": {
+            "keyname": "_HMT_0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
+            "recommendedValues": [
+              "1000",
+              "3000",
+              "5000"
+            ],
+            "address": "0xBE3530a3eDf9472693065041B8c9155C7FeCB8e5"
           }
         }
       },
@@ -267,6 +276,20 @@
               "5000"
             ],
             "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
+          }
+        }
+      },
+      "wan-red-ain": {
+        "tokens": {
+          "hmt": {
+            "keyname": "_HMT_0x06104018340BB547803F5410174d9B68475e6769",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0xBE3530a3eDf9472693065041B8c9155C7FeCB8e5"
           }
         }
       }
