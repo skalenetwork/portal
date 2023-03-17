@@ -133,6 +133,21 @@
               "tokenKeyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
               "tokenType": "erc20"
             }
+          },
+          "usdc": {
+            "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200",
+              "500"
+            ],
+            "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_SKL_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+              "tokenType": "erc20"
+            }
           }
         },
         "app": "nftrade"
@@ -219,7 +234,7 @@
             "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
           },
           "usdc": {
-            "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
             "recommendedValues": [
               "100",
               "300",
