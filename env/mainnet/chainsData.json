@@ -131,6 +131,25 @@
             }
           }
         }
+      },
+      "wan-red-ain": {
+        "tokens": {
+          "hmt": {
+            "keyname": "_HMT_0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_HMT_0x06104018340BB547803F5410174d9B68475e6769",
+              "tokenType": "erc20"
+            }
+          }
+        }
       }
     }
   },
@@ -210,6 +229,15 @@
               "5000"
             ],
             "address": "0x2B4e4899b53E8b7958c4591a6d02f9C0b5c50F8f"
+          },
+          "hmt": {
+            "keyname": "_HMT_0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
+            "recommendedValues": [
+              "1000",
+              "3000",
+              "5000"
+            ],
+            "address": "0xBE3530a3eDf9472693065041B8c9155C7FeCB8e5"
           }
         }
       },
@@ -248,6 +276,20 @@
               "5000"
             ],
             "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
+          }
+        }
+      },
+      "wan-red-ain": {
+        "tokens": {
+          "hmt": {
+            "keyname": "_HMT_0x06104018340BB547803F5410174d9B68475e6769",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0xBE3530a3eDf9472693065041B8c9155C7FeCB8e5"
           }
         }
       }
@@ -375,6 +417,45 @@
             "route": {
               "hub": "elated-tan-skat",
               "tokenKeyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+              "tokenType": "erc20"
+            }
+          }
+        }
+      }
+    }
+  },
+  "wan-red-ain": {
+    "type": "app",
+    "chains": {
+      "elated-tan-skat": {
+        "app": "ruby",
+        "tokens": {
+          "hmt": {
+            "keyname": "_HMT_0x06104018340BB547803F5410174d9B68475e6769",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0xa91B2C7d9704aeE8918460fc4375866e2c415A67"
+          }
+        }
+      },
+      "mainnet": {
+        "tokens": {
+          "hmt": {
+            "keyname": "_HMT_0x06104018340BB547803F5410174d9B68475e6769",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0xa91B2C7d9704aeE8918460fc4375866e2c415A67",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_HMT_0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
               "tokenType": "erc20"
             }
           }
