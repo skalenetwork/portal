@@ -36,9 +36,10 @@
           "usdc": {
             "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
             "recommendedValues": [
+              "50",
               "100",
-              "300",
-              "1000"
+              "200",
+              "500"
             ],
             "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
           },
@@ -63,8 +64,9 @@
           "skl": {
             "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
             "recommendedValues": [
+              "500",
               "1000",
-              "3000",
+              "2000",
               "5000"
             ],
             "address": "0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7"
@@ -145,7 +147,7 @@
             "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
             "route": {
               "hub": "elated-tan-skat",
-              "tokenKeyname": "_SKL_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+              "tokenKeyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
               "tokenType": "erc20"
             }
           }
@@ -236,9 +238,10 @@
           "usdc": {
             "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
             "recommendedValues": [
+              "50",
               "100",
-              "300",
-              "1000"
+              "200",
+              "500"
             ],
             "address": "0x5F795bb52dAC3085f578f4877D450e2929D2F13d"
           }
@@ -259,9 +262,10 @@
           "usdc": {
             "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
             "recommendedValues": [
+              "50",
               "100",
-              "300",
-              "1000"
+              "200",
+              "500"
             ],
             "address": "0x5F795bb52dAC3085f578f4877D450e2929D2F13d"
           },
@@ -286,8 +290,9 @@
           "skl": {
             "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
             "recommendedValues": [
+              "500",
               "1000",
-              "3000",
+              "2000",
               "5000"
             ],
             "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
@@ -399,8 +404,8 @@
             "recommendedValues": [
               "50",
               "100",
-              "300",
-              "1000"
+              "200",
+              "500"
             ],
             "address": "0x7Cf76E740Cb23b99337b21F392F22c47Ad910c67"
           }
@@ -438,8 +443,8 @@
             "recommendedValues": [
               "50",
               "100",
-              "300",
-              "1000"
+              "200",
+              "500"
             ],
             "address": "0x7Cf76E740Cb23b99337b21F392F22c47Ad910c67",
             "route": {
