@@ -56,7 +56,7 @@ export default function TransferData(props: any) {
                     <h4 className="mp__flex mp__noMarg">{fromChainName}</h4>
                 </div>
                 <div className='mp__flex mp__margLeft10'>
-                    <ArrowForwardIcon />
+                    <ArrowForwardIcon className='chainIcon' />
                 </div>
                 <div className='mp__flex mp__margRi5 mp__margLeft10'>
                     {toChainIcon}
