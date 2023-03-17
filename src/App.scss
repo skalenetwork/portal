@@ -94,6 +94,10 @@ p {
 }
 
 
+.MuiPaper-rounded {
+  border-radius: 25px !important;
+}
+
 .br__paper.MuiPaper-rounded {
   border-radius: 25px !important;
   background-color: #151515;
@@ -999,9 +1003,7 @@ li a {
 }
 
 .br__transferData {
-
-  .chainIcon,
-  svg {
+  .chainIcon {
     width: 15px !important;
     height: 15px !important;
   }
