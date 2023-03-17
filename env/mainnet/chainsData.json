@@ -150,6 +150,19 @@
             }
           }
         }
+      },
+      "adorable-quaint-bellatrix": {
+        "tokens": {
+          "eth": {
+            "keyname": "eth",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.2",
+              "0.5"
+            ]
+          }
+        }
       }
     }
   },
@@ -458,6 +471,25 @@
               "tokenKeyname": "_HMT_0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
               "tokenType": "erc20"
             }
+          }
+        }
+      }
+    }
+  },
+  "adorable-quaint-bellatrix": {
+    "type": "app",
+    "chains": {
+      "mainnet": {
+        "tokens": {
+          "eth": {
+            "keyname": "eth",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.2",
+              "0.5"
+            ],
+            "address": "0xD2Aaa00700000000000000000000000000000000"
           }
         }
       }

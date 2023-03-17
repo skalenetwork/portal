@@ -8,7 +8,8 @@
     "affectionate-immediate-pollux",
     "turbulent-unique-scheat",
     "green-giddy-denebola",
-    "wan-red-ain"
+    "wan-red-ain",
+    "adorable-quaint-bellatrix"
   ],
   "chainsMetadata": {
     "elated-tan-skat": {
@@ -42,13 +43,17 @@
     },
     "wan-red-ain": {
       "alias": "Human Protocol"
+    },
+    "adorable-quaint-bellatrix": {
+      "alias": "StreamMyScreen"
     }
   },
   "tokens": {
     "mainnet": {
       "eth": {
         "chains": [
-          "elated-tan-skat"
+          "elated-tan-skat",
+          "adorable-quaint-bellatrix"
         ]
       },
       "erc20": {
