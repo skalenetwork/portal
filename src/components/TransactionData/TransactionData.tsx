@@ -31,7 +31,7 @@ import LockOpenIcon from '@mui/icons-material/LockOpen';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import OpenInNewIcon from '@mui/icons-material/OpenInNew';
 import LogoutIcon from '@mui/icons-material/Logout';
-
+import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
 import { getTxUrl } from '../../core/network';
 
 
@@ -41,7 +41,9 @@ const actionIcons: { [actionName: string]: ReactElement; } = {
     'wrap': <MoveDownIcon />,
     'unwrap': <MoveUpIcon />,
     'getMyEth': <LockOpenIcon />,
-    'withdraw': <LogoutIcon />
+    'withdraw': <LogoutIcon />,
+    'approve': <DoneRoundedIcon />,
+    'approveWrap': <DoneRoundedIcon />,
 }
 
 
@@ -68,7 +70,7 @@ export default function TransactionData(props: any) {
                 href={explorerUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className='mp__margLeft10 moreBtn'
+                className='mp__margLeft10 moreBtn br__openExplorerBtn'
             >
                 <OpenInNewIcon />
             </IconButton>
