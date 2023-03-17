@@ -22,6 +22,7 @@
 */
 
 import { interfaces } from '@skalenetwork/metaport';
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 
@@ -55,7 +56,7 @@ export default function TransferData(props: any) {
                     <h4 className="mp__flex mp__noMarg">{fromChainName}</h4>
                 </div>
                 <div className='mp__flex mp__margLeft10'>
-                    <ArrowForwardIcon />
+                    <ArrowForwardIcon className='chainIcon' />
                 </div>
                 <div className='mp__flex mp__margRi5 mp__margLeft10'>
                     {toChainIcon}
@@ -63,11 +64,24 @@ export default function TransferData(props: any) {
                 <div className='mp__flex mp__flexGrow'>
                     <h4 className="mp__flex mp__noMarg">{toChainName}</h4>
                 </div>
+                {
+                    props.transferData.address ? (<div className='mp__flex mp__flexCenteredVert mp__margRi10'>
+                        <Jazzicon diameter={20} seed={jsNumberForAddress(props.transferData.address)} />
+                        <div className='mp__flex mp__margRi10 mp__margLeft5'>
+                            <h5 className="mp__flex mp__noMarg">
+                                {props.transferData.address.substring(0, 5) + '...' + props.transferData.address.substring(props.transferData.address.length - 3)}
+                            </h5>
+                        </div>
+                        <h5 className="mp__flex mp__noMarg">
+                            •
+                        </h5>
+                    </div>) : null
+                }
                 <div className='mp__flex'>
                     <img className='mp__iconToken mp__margRi10' src={iconPath(props.transferData.token)} />
                 </div>
                 <div className='mp__flex'>
-                    <h4 className="mp__flex mp__noMarg uppercase bold">{props.transferData.trReq.amount} {props.transferData.token}</h4>
+                    <h5 className="mp__flex mp__noMarg uppercase bold">{props.transferData.trReq.amount} {props.transferData.token}</h5>
                 </div>
             </div>
             <BridgePaper rounded gray>

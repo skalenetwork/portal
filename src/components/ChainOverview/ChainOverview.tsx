@@ -84,6 +84,11 @@ export default function ChainOverview(props: any) {
     updateTokenBalances();
   }, [updateBalanceFlag]);
 
+  useEffect(() => {
+    setTokenBalances({});
+    updateTokenBalances();
+  }, [props.address]);
+
 
   interface BalancesMap { [token: string]: any; }
 

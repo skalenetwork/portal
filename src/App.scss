@@ -94,6 +94,10 @@ p {
 }
 
 
+.MuiPaper-rounded {
+  border-radius: 25px !important;
+}
+
 .br__paper.MuiPaper-rounded {
   border-radius: 25px !important;
   background-color: #151515;
@@ -999,8 +1003,7 @@ li a {
 }
 
 .br__transferData {
-  .chainIcon,
-  svg {
+  .chainIcon {
     width: 15px !important;
     height: 15px !important;
   }
@@ -1111,10 +1114,25 @@ body::-webkit-scrollbar {
   background-image: linear-gradient(45deg, #009688 0%, #0c5f57 100%);
 }
 
+.br__action_approve {
+  background-image: linear-gradient(135deg, #29b1a9 0%, #14532a 100%);
+}
+
+.br__action_approveWrap {
+  background-image: linear-gradient(135deg, #14532a 0%, #29b1a9 100%);
+}
+
 .capitalize {
   text-transform: capitalize;
 }
 
 .bold {
   font-weight: bold !important;
+}
+
+.br__openExplorerBtn {
+  svg {
+    width: 15px !important;
+    height: 15px !important
+  }
 }

@@ -191,7 +191,8 @@ export default function Transfer(props: any) {
         const transferData = {
             trReq: transferRequest,
             transactionsHistory: transactionsHistory,
-            token: token
+            token: token,
+            address: props.address
         }
         addToTransferHistory(transferData);
     }
@@ -289,7 +290,7 @@ export default function Transfer(props: any) {
             </Card>
         </div>) : null}
 
-        {msg ? <Alert onClose={() => { setMsg(undefined); }} severity={msgType} className='mp__margTop20'>{msg}</Alert> : null}
+        {msg ? <Alert onClose={() => { setMsg(undefined); }} severity={msgType} className='mp__margBott20'>{msg}</Alert> : null}
         {isTransferToMainnet && token ? (
             <CommunityPool
                 address={props.address}
