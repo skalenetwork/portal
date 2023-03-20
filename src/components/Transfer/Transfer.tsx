@@ -18,6 +18,7 @@ import Button from '@mui/material/Button';
 import Chip from '@mui/material/Chip';
 import Collapse from '@mui/material/Collapse';
 import Alert from '@mui/material/Alert';
+import Tooltip from '@mui/material/Tooltip';
 
 import HistoryIcon from '@mui/icons-material/History';
 
@@ -391,17 +392,20 @@ export default function Transfer(props: any) {
                             >
                                 {getTransferButtonText()}
                             </Button>
-                            {loading ? <Button
-                                onClick={closeMetaport}
-                                variant="contained"
-                                startIcon={<CancelIcon />}
-                                disabled={!loading}
-                                className='mp__margLeft10 mp__margTop20 bridge__btn'
-                                color='warning'
-                                size='large'
-                            >
-                                Cancel transfer
-                            </Button> : null}
+                            {loading ?
+                                <Tooltip title='Mined transactions can not be reverted'>
+                                    <Button
+                                        onClick={closeMetaport}
+                                        variant="text"
+                                        startIcon={<CancelIcon />}
+                                        disabled={!loading}
+                                        className='mp__margLeft10 mp__margTop20 bridge__btn'
+                                        color='error'
+                                        size='large'
+                                    >
+                                        Cancel transfer
+                                    </Button>
+                                </Tooltip> : null}
                         </div>
                     </Collapse>
                     <Collapse in={activeStep === 1}>

@@ -40,7 +40,7 @@ const style = {
     height: '100vh',
     outline: 'none',
     backdropFilter: 'blur(5px)',
-    '-webkit-backdrop-filter': 'blur(10px)'
+    WebkitBackdropFilter: 'blur(10px)'
 };
 
 
