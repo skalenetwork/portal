@@ -152,6 +152,17 @@
             "symbol": "HMT",
             "name": "HMT"
           }
+        },
+        "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4": {
+          "address": "0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+          "name": "USDC",
+          "symbol": "USDC",
+          "cloneSymbol": "USDC",
+          "wraps": {
+            "address": "0x5F795bb52dAC3085f578f4877D450e2929D2F13d",
+            "symbol": "USDC",
+            "name": "USDC"
+          }
         }
       }
     },
