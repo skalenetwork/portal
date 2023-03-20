@@ -414,14 +414,19 @@
       "mainnet": {
         "tokens": {
           "eth": {
-            "keyname": "eth",
+            "keyname": "_ETH_0xa5274efA35EbeFF47C1510529D9a8812F95F5735",
             "recommendedValues": [
               "0.01",
               "0.1",
               "0.2",
               "0.5"
             ],
-            "address": "0xD2Aaa00700000000000000000000000000000000"
+            "address": "0x59ab97Ee239e02112652587F9Ef86CB6F762983b",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "eth",
+              "tokenType": "eth"
+            }
           },
           "skl": {
             "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
