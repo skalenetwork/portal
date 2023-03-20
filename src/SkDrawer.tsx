@@ -15,12 +15,9 @@ import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontal
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
-import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
-import OutboundOutlinedIcon from '@mui/icons-material/OutboundOutlined';
 import LocalGasStationOutlinedIcon from '@mui/icons-material/LocalGasStationOutlined';
-import SettingsApplicationsOutlinedIcon from '@mui/icons-material/SettingsApplicationsOutlined';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
-import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
+import HistoryIcon from '@mui/icons-material/History';
 
 import { METAPORT_CONFIG } from './core/constants';
 import { getProxyEndpoint } from './core/network';
@@ -56,6 +53,17 @@ export default function SkDrawer() {
                             </Link>
                         </ListItem>
                         <ListItem  >
+                            <Link to="/bridge/history" className="undec fullWidth">
+                                <ListItemButton
+                                    selected={location.pathname === "/bridge/history"}>
+                                    <ListItemIcon>
+                                        <HistoryIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='History' />
+                                </ListItemButton>
+                            </Link>
+                        </ListItem>
+                        {/* <ListItem  >
                             <Link to="/bridge/exit" className="undec fullWidth">
                                 <ListItemButton
                                     selected={location.pathname === "/bridge/exit"}>
@@ -65,7 +73,7 @@ export default function SkDrawer() {
                                     <ListItemText primary='Exit gas wallet' />
                                 </ListItemButton>
                             </Link>
-                        </ListItem>
+                        </ListItem> */}
                         {/* <ListItem  >
                         <Link to="/bridge/overview" className="undec fullWidth">
                             <ListItemButton
