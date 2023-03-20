@@ -53,7 +53,7 @@ export default function TransactionData(props: any) {
         props.transactionData.tx.transactionHash
     );
     return (<div className='mp__margBott15 mp__flex mp__flexCenteredVert' >
-        <div className='mp__flexs'>
+        <div className=''>
             <div className={'br__transactionDataIcon mp__flex mp__flexCentered ' + `br__action_${props.transactionData.txName}`}>
                 {actionIcons[props.transactionData.txName]}
             </div>

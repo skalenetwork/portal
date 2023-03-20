@@ -95,7 +95,7 @@ p {
 
 
 .MuiPaper-rounded {
-  border-radius: 25px !important;
+  border-radius: 25px;
 }
 
 .br__paper.MuiPaper-rounded {
@@ -216,7 +216,7 @@ h4 {
 }
 
 .mp__fullHeight {
-  height: 95vh;
+  height: 85vh;
 }
 
 .mp__flex {
@@ -511,7 +511,7 @@ input::-webkit-inner-spin-button {
   width: 100%;
   border-radius: 18px !important;
 
-  text-align: left;
+  text-align: center;
 
   .mp__iconConnect {
     margin-left: 10px;
@@ -555,10 +555,9 @@ input::-webkit-inner-spin-button {
 
 .mp__btnChainBig {
   width: 100%;
-  text-align: left;
   text-transform: uppercase;
-  font-size: 1.0525rem;
-  line-height: 1;
+  font-size: 0.90525rem;
+  line-height: 1.5;
   letter-spacing: 0.02857em;
   padding-left: 25pt;
   padding-right: 25pt;
@@ -592,8 +591,8 @@ input::-webkit-inner-spin-button {
 }
 
 .chainIcon {
-  width: 25px !important;
-  height: 25px !important;
+  width: 24px !important;
+  height: 24px !important;
 }
 
 .MuiListItemIcon-root {
@@ -744,6 +743,8 @@ li a {
   border-left: 1px #292929 solid !important;
 
   background-color: #191919;
+
+  margin-top: -1px; // hotfix for Safari
 }
 
 .app-bott-ins {
@@ -1082,7 +1083,7 @@ body::-webkit-scrollbar {
   height: 45px;
   border-radius: 50%;
 
-  svg {
+  svg, img {
     width: 20px !important;
     height: 20px !important;
   }
@@ -1120,6 +1121,10 @@ body::-webkit-scrollbar {
 
 .br__action_approveWrap {
   background-image: linear-gradient(135deg, #14532a 0%, #29b1a9 100%);
+}
+
+.br__action_wallet {
+  background-image: linear-gradient(135deg, #dedede 0%, #aeaeae 100%);
 }
 
 .capitalize {

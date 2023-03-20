@@ -27,7 +27,6 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { Link } from "react-router-dom";
 
-import MetamaskConnector from './MetamaskConnector';
 import logo from './skale_lg.svg';
 
 import MoreMenu from './components/MoreMenu';

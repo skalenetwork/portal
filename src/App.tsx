@@ -1,3 +1,26 @@
+/**
+ * @license
+ * SKALE bridge-ui
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/**
+ * @file App.tsx
+ * @copyright SKALE Labs 2023-Present
+*/
+
 import './App.scss';
 import React, { useEffect } from 'react';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
@@ -7,64 +30,30 @@ import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 import Toolbar from '@mui/material/Toolbar';
 
-import Snackbar from '@mui/material/Snackbar';
-import Alert from '@mui/material/Alert';
-
-import { Metaport, interfaces, dataclasses } from '@skalenetwork/metaport';
+import { Metaport, interfaces } from '@skalenetwork/metaport';
 
 import Header from './Header';
 import SkDrawer from './SkDrawer';
 import SkBottomNavigation from './SkBottomNavigation';
 import Router from './Router';
+import MetamaskConnector from './MetamaskConnector';
+
 import TermsModal from './components/TermsModal';
 
-import MetamaskConnector from './MetamaskConnector';
-import { connect, addAccountChangedListener } from './core/connector'
+import { connect, getAccounts } from './core/connector'
 import { METAPORT_CONFIG } from './core/constants';
-import { BottomNavigation } from '@mui/material';
 
 
 interface MetaportThemesMap { [themeName: string]: interfaces.MetaportTheme; }
-
-
-const customPosition: dataclasses.Position = dataclasses.Positions.bottomRight;
 
 
 export const themes: MetaportThemesMap = {
   'default': {
     primary: '#d9e021',
     background: '#191919',
-    mode: 'dark',
-    position: customPosition
-  },
-  'green': {
-    primary: '#2dcb74',
-    background: '#191919',
-    mode: 'dark',
-    position: customPosition
-  },
-  'orange': {
-    primary: '#f96300',
-    background: '#ffffff',
-    mode: 'light',
-    position: customPosition
-  },
-  'violet': {
-    primary: '#9a66ff',
-    background: '#fbf8ff',
-    mode: 'light',
-    position: customPosition
-  },
-  'pink': {
-    primary: '#e41c5d',
-    background: '#ffffff',
-    mode: 'light',
-    position: { top: '100pt', bottom: 'auto', 'left': 'auto', right: '100pt' },
-    zIndex: 10
+    mode: 'dark'
   }
 }
-
-const metaport = new Metaport(METAPORT_CONFIG);
 
 
 function createMuiTheme(th: any) {
@@ -79,58 +68,63 @@ function createMuiTheme(th: any) {
       },
       secondary: {
         main: th.background
-      },
-    },
+      }
+    }
   })
 }
 
 
 function App() {
 
-  const [open, setOpen] = React.useState(false);
   const [termsAccepted, setTermsAccepted] = React.useState<boolean>(false);
 
   const [colorScheme, setColorScheme] = React.useState('default');
   const [muiTheme, setMuiTheme] = React.useState(createMuiTheme(themes[colorScheme]));
 
   const [address, setAddress] = React.useState<string>();
+  const [connectionError, setConnectionError] = React.useState<any>();
+  const [metaport, setMetaport] = React.useState<Metaport>();
 
   useEffect(() => {
     setMuiTheme(createMuiTheme(themes[colorScheme]));
-    metaport.setTheme(themes[colorScheme]);
   }, [colorScheme]);
 
   useEffect(() => {
-    addAccountChangedListener(accountsChangedFallback);
-    // addChainChangedListener(chainChangedFallback);
-  }, []);
+    if (!window.ethereum) return;
+    window.ethereum.on('accountsChanged', accountsChangedFallback);
+    getAccounts(
+      (accounts: string[]) => { setAddress(accounts[0]); },
+      (err) => { console.error(err) }
+    );
+    if (window.ethereum) {
+      setMetaport(new Metaport(METAPORT_CONFIG));
+    }
+    return () => {
+      window.removeEventListener("accountsChanged", accountsChangedFallback);
+    }
+  }, [window.ethereum]);
 
   function connectMetamask() {
-    console.log('connectMetamask...');
-    connect(networkConnectFallback);
-    console.log('Done: connectMetamask...');
+    console.log('connectMetamask called');
+    connect(
+      () => {
+        setAddress(window.ethereum.selectedAddress);
+        setConnectionError(null);
+      },
+      (err) => { setConnectionError(err); }
+    );
   }
 
-  function networkConnectFallback() {
-
-  }
-
-  function accountsChangedFallback(accounts: string[]) {
+  function accountsChangedFallback(event: any) {
+    const accounts = event as string[];
     if (accounts.length === 0) {
       setAddress(undefined);
       // MetaMask is locked or the user has not connected any accounts
-      console.log('Please connect to MetaMask!');
+      console.log('Please connect wallet!');
     } else {
       setAddress(accounts[0]);
     }
   }
-
-  const handleClose = (event: React.SyntheticEvent | Event, reason?: string) => {
-    if (reason === 'clickaway') {
-      return;
-    }
-    setOpen(false);
-  };
 
   const darkMode = themes[colorScheme].mode === 'dark';
 
@@ -154,27 +148,13 @@ function App() {
           {address ? <Router
             address={address}
             metaport={metaport}
-            setOpen={setOpen}
             theme={themes[colorScheme]}
           /> :
-            <div className='mp__flex mp__flexCentered mp__fullHeight'>
-              <div className=''>
-                <MetamaskConnector address={address} connectMetamask={connectMetamask} connect={true} />
-                <p className='mp__margBott20 mp__margTop20 mp__p mp__p4 mp__textCentered'>
-                  Currently only Metamask wallet is supported
-                </p>
-              </div>
-
-            </div>}
-          <Snackbar
-            open={open}
-            autoHideDuration={8000}
-            onClose={handleClose}
-          >
-            <Alert onClose={handleClose} severity="success" sx={{ width: '100%' }}>
-              Transfer completed
-            </Alert>
-          </Snackbar>
+            <MetamaskConnector
+              address={address}
+              connectMetamask={connectMetamask}
+              connectionError={connectionError}
+            />}
         </Box>
       </Box>
       <SkBottomNavigation />
