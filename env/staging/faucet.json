@@ -1,0 +1,10 @@
+{
+  "staging-perfect-parallel-gacrux": {
+    "address": "0x4576d1B9eeaE16d6Ca643e55D21E0Dc00e8A7b6D",
+    "func": "0x0c11dedd"
+  },
+  "staging-severe-violet-wezen": {
+    "address": "0x37412E23bBF1058A7e325A16C01FF654E1D53562",
+    "func": "0x0c11dedd"
+  }
+}

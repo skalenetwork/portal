@@ -452,14 +452,16 @@ h4 {
   box-shadow: none !important;
 }
 
+.bridge__btnLoading{
+  padding-left: 35px !important;
+}
+
 .bridge__transferBtn {
   width: 100%;
   font-size: 0.8rem !important;
   font-weight: 600 !important;
   padding: 12px !important;
-  // text-transform: none !important;
 }
-
 
 .nftImg {
   max-height: 200px;

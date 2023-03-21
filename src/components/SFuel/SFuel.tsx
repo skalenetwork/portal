@@ -5,11 +5,14 @@ import Web3 from 'web3';
 
 import Card from '@mui/material/Card';
 import Button from '@mui/material/Button';
+import LoadingButton from '@mui/lab/LoadingButton';
 import LocalGasStationIcon from '@mui/icons-material/LocalGasStation';
 
-import { initChainWeb3 } from '../../core/tokens';
+import { getChainEndpoint, initChainWeb3 } from '../../core/tokens';
 import { Collapse } from '@mui/material';
 import { MAINNET_CHAIN_NAME } from '../../core/constants';
+import { AnonymousPoW } from "@skaleproject/pow-ethers";
+import { getFuncData, isFaucetAvailable } from '../../core/faucet';
 
 
 debug.enable('*');
@@ -20,7 +23,7 @@ const SFUEL_TEXT = {
     'sfuel': {
         'action': '',
         'warning': 'You may need sFUEL on the destination chain',
-        'error': 'You need sFUEL to perform this transfer'
+        'error': 'You need sFUEL to perform this transfer - it will be automatically mined for you'
     },
     'gas': {
         'action': '',
@@ -32,6 +35,7 @@ const SFUEL_TEXT = {
 
 export default function SFuel(props: any) {
     const [loading, setLoading] = React.useState<boolean>(true);
+    const [loadingSFUEL, setLoadingSFUEL] = React.useState<boolean>(false);
     const [fromChainWeb3, setFromChainWeb3] = React.useState<Web3>();
     const [toChainWeb3, setToChainWeb3] = React.useState<Web3>();
     const [hubChainWeb3, setHubChainWeb3] = React.useState<Web3>();
@@ -115,13 +119,79 @@ export default function SFuel(props: any) {
         setHubChainSFuel(balance);
     }
 
+    async function powFromChain() {
+        if (!fromChainWeb3 || !props.fromChain || !isFaucetAvailable(props.fromChain) || !getChainEndpoint(props.fromChain)) return false;
+        const anon = new AnonymousPoW({ rpcUrl: getChainEndpoint(props.fromChain) });
+        log('Mining sFUEL fromChain');
+        await (await anon.send(getFuncData(fromChainWeb3, props.fromChain, props.address))).wait();
+        return true;
+    }
+
+    async function powToChain() {
+        if (!toChainWeb3 || !props.toChain || !isFaucetAvailable(props.toChain) || !getChainEndpoint(props.toChain)) return false;
+        const anon = new AnonymousPoW({ rpcUrl: getChainEndpoint(props.toChain) });
+        log('Mining sFUEL toChain');
+        await (await anon.send(getFuncData(toChainWeb3, props.toChain, props.address))).wait();
+        return true;
+    }
+
+    async function powHubChain() {
+        if (!hubChainWeb3 || !props.hubChain || !isFaucetAvailable(props.hubChain) || !getChainEndpoint(props.hubChain)) return false;
+        const anon = new AnonymousPoW({ rpcUrl: getChainEndpoint(props.hubChain) });
+        log('Mining sFUEL hubChain');
+        await (await anon.send(getFuncData(hubChainWeb3, props.hubChain, props.address))).wait();
+        return true;
+    }
+
+    async function pow() {
+        let successFrom = true;
+        let successHub = true;
+        let successTo = true;
+        setLoadingSFUEL(true);
+        if (fromChainSFuel && fromChainSFuel === '0' && props.fromChain !== MAINNET_CHAIN_NAME) {
+            try {
+                successFrom = await powFromChain();
+            } catch (e: any) {
+                log('Mining sFUEL fromChain error', e);
+                props.setMsgType('error');
+                props.setMsg(e.message);
+                successFrom = false;
+            }
+        }
+        if (hubChainSFuel && hubChainSFuel === '0') {
+            try {
+                successHub = await powHubChain();
+            } catch (e: any) {
+                log('Mining sFUEL hubChain error', e);
+                props.setMsgType('error');
+                props.setMsg(e.message);
+                successHub = false;
+            }
+        }
+        if (toChainSFuel && toChainSFuel === '0' && props.toChain !== MAINNET_CHAIN_NAME) {
+            try {
+                successTo = await powToChain();
+            } catch (e: any) {
+                log('Mining sFUEL toChain error', e);
+                props.setMsgType('error');
+                props.setMsg(e.message);
+                successTo = false;
+            }
+        }
+        await updateBalances();
+        setLoadingSFUEL(false);
+        if (!(successFrom && successHub && successTo)) {
+            window.open('https://sfuel.skale.network/', '_blank');
+        }
+    }
 
     const noEth = (fromChainSFuel === '0' && props.fromChain === MAINNET_CHAIN_NAME);
+    const noEthDest = (toChainSFuel === '0' && props.toChain === MAINNET_CHAIN_NAME);
 
     return (<Collapse in={!loading && sFuelStatus !== 'action'} className='mp__noMarg'>
         <Card variant="outlined" className='topBannerNew br__paper mp__margTop10'>
             <div className='mp__flex mp__flexCenteredVert'>
-                <div className='mp__flex mp__flexCenteredVert'>
+                <div className='mp__flex mp__flexCenteredVert mp__flexGrow'>
                     <div className='mp__flex mp__flexCenteredVert'>
                         <LocalGasStationIcon color={sFuelStatus} className='mp__margRi10' />
                         <p className='mp__flex mp__noMarg'>
@@ -129,20 +199,26 @@ export default function SFuel(props: any) {
                         </p>
                     </div>
                 </div>
-                <div className='mp__flex mp__flexGrow mp__flexCenteredVert mp__margLeft10'>
-                    {/* <HelpIcon fontSize='small' className='mp__iconGray'/> */}
-                </div>
-
-                {!noEth ? (<div className='mp__flex'>
-                    <Button
-                        size='small'
-                        variant='contained'
-                        className='bridge__btn mp__margLeft10'
-                        target="_blank"
-                        href='https://sfuel.skale.network/'
-                    >
-                        Get sFUEL
-                    </Button>
+                {!noEth && !noEthDest ? (<div className='mp__flex'>
+                    {loadingSFUEL ? 
+                        (<LoadingButton
+                            loading
+                            loadingPosition="start"
+                            size='small'
+                            variant='contained'
+                            className='bridge__btn bridge__btnLoading mp__margLeft10'
+                        >
+                            Mining...
+                        </LoadingButton>)
+                        : (<Button
+                            onClick={pow}
+                            size='small'
+                            variant='contained'
+                            className='bridge__btn mp__margLeft10'
+                        >
+                            Get SFUEL
+                        </Button>)
+                    }
                 </div>) : null}
 
             </div>
