@@ -30,8 +30,15 @@ import LanguageIcon from '@mui/icons-material/Language';
 import TollIcon from '@mui/icons-material/Toll';
 
 import BridgePaper from '../BridgePaper';
-import { iconPath } from '../ActionCard/helper';
-import { CHAINS_META, MAINNET_CHAIN_NAME, SUCCESS_EMOJIS, METAPORT_CONFIG, ICONS_BASE_URL } from '../../core/constants';
+import { iconPath, getChainWebsiteUrl } from '../ActionCard/helper';
+
+import {
+  CHAINS_META,
+  MAINNET_CHAIN_NAME,
+  SUCCESS_EMOJIS,
+  METAPORT_CONFIG,
+  ICONS_BASE_URL
+} from '../../core/constants';
 
 import { setMetamaskNetwork } from '../../core/network';
 import { getRandom } from '../../core/helper';
@@ -94,7 +101,7 @@ export default function TransferDone(props: any) {
     }
   }
 
-  const dAppUrl = CHAINS_META[props.to] && CHAINS_META[props.to]['url'] ? CHAINS_META[props.to]['url'] : undefined;
+  const chainWebsiteUrl = getChainWebsiteUrl(CHAINS_META, props.to, props.toApp);
 
   return (
     <div className="mp__margTop20">
@@ -120,8 +127,8 @@ export default function TransferDone(props: any) {
           {props.balancesBlock}
         </Grid>
       </Grid>
-      {dAppUrl ? <Button
-        href={dAppUrl}
+      {chainWebsiteUrl ? <Button
+        href={chainWebsiteUrl}
         target="_blank"
         rel="noopener noreferrer"
         variant="contained"
@@ -147,7 +154,7 @@ export default function TransferDone(props: any) {
           props.setTransactionsHistory([]);
         }}
         startIcon={<RestartAltIcon />}
-        variant={dAppUrl ? 'text' : 'contained'}
+        variant={chainWebsiteUrl ? 'text' : 'contained'}
         className='mp__margTop20 bridge__btn'
         size='large'
       >
