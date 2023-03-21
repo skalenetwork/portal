@@ -186,7 +186,7 @@ export default function SFuel(props: any) {
     }
 
     const noEth = (fromChainSFuel === '0' && props.fromChain === MAINNET_CHAIN_NAME);
-    const noEthDest = (toChainSFuel === '0' && props.toChain === MAINNET_CHAIN_NAME);
+    const noEthDest = (fromChainSFuel !== '0' && toChainSFuel === '0' && props.toChain === MAINNET_CHAIN_NAME);
 
     return (<Collapse in={!loading && sFuelStatus !== 'action'} className='mp__noMarg'>
         <Card variant="outlined" className='topBannerNew br__paper mp__margTop10'>
@@ -195,7 +195,7 @@ export default function SFuel(props: any) {
                     <div className='mp__flex mp__flexCenteredVert'>
                         <LocalGasStationIcon color={sFuelStatus} className='mp__margRi10' />
                         <p className='mp__flex mp__noMarg'>
-                            {noEth ? SFUEL_TEXT['gas'][sFuelStatus] : SFUEL_TEXT['sfuel'][sFuelStatus]}
+                            {noEth || noEthDest ? SFUEL_TEXT['gas'][sFuelStatus] : SFUEL_TEXT['sfuel'][sFuelStatus]}
                         </p>
                     </div>
                 </div>
