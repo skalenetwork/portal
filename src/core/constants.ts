@@ -56,3 +56,5 @@ export const MAINNET_EXPLORER_URLS: { [networkName: string]: string } = {
 
 export const MAINNET_EXPLORER_URL = MAINNET_EXPLORER_URLS[METAPORT_CONFIG.skaleNetwork];
 export const CHAIN_EXPLORER_BASE_URL = BASE_EXPLORER_URLS[METAPORT_CONFIG.skaleNetwork];
+
+export const ICONS_BASE_URL = 'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/';

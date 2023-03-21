@@ -63,6 +63,7 @@ export default function Transfer(props: any) {
 
     const [loading, setLoading] = React.useState(false);
     const [amount, setAmount] = React.useState<string>('');
+    const [tokenDecimals, setTokenDecimals] = React.useState<string>();
 
     const [token, setToken] = React.useState<string>();
     const [updateBalanceFlag, setUpdateBalanceFlag] = React.useState<boolean>(false);
@@ -164,6 +165,7 @@ export default function Transfer(props: any) {
             log('Updating balance...');
             const tokenInfo = tokens[token as string];
             const decimals = tokenInfo && tokenInfo.decimals ? tokenInfo.decimals : DEFAULT_ERC20_DECIMALS;
+            setTokenDecimals(decimals);
             const balanceWei = await getBalance(web3, tokenContract, props.address, fromChain);
             const balanceEther = fromWei(balanceWei as string, decimals);
 
@@ -418,6 +420,10 @@ export default function Transfer(props: any) {
                             token={token}
                             balancesBlock={balancesBlock}
                             setTransactionsHistory={setTransactionsHistory}
+                            chainsData={chainsData}
+                            toChain={toChain}
+                            fromChain={fromChain}
+                            tokenDecimals={tokenDecimals}
                         />
                     </Collapse>
                 </Stack>
