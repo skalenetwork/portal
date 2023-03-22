@@ -61,3 +61,7 @@ export const CHAIN_EXPLORER_BASE_URL = BASE_EXPLORER_URLS[METAPORT_CONFIG.skaleN
 export const ICONS_BASE_URL = 'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/';
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
 export const ZERO_FUNCSIG = '0x00000000';
+
+export const COMMUNITY_POOL_WITHDRAW_GAS_LIMIT = '1500000';
+
+export const BALANCE_UPDATE_INTERVAL_SECONDS = 10;

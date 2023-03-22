@@ -14,15 +14,19 @@ import ErrorIcon from '@mui/icons-material/Error';
 import AccountBalanceWalletRoundedIcon from '@mui/icons-material/AccountBalanceWalletRounded';
 
 import AmountInput from '../AmountInput';
+import BridgePaper from '../BridgePaper';
+import BalanceBlock from '../BalanceBlock';
 
 import { getChainIcon } from '../ActionCard/helper';
-import { MAINNET_CHAIN_NAME, DEFAULT_ERC20_DECIMALS, METAPORT_CONFIG } from '../../core/constants';
-import { initChainWeb3 } from '../../core/tokens';
+import {
+    DEFAULT_ERC20_DECIMALS,
+    METAPORT_CONFIG,
+    COMMUNITY_POOL_WITHDRAW_GAS_LIMIT,
+    BALANCE_UPDATE_INTERVAL_SECONDS
+} from '../../core/constants';
 import { fromWei, toWei } from '../../core/convertation';
 import { capitalize } from '../../core/helper';
 import { initMainnetMetamask, initMainnet, initSChain } from '../../core/network';
-import BridgePaper from '../BridgePaper';
-import BalanceBlock from '../BalanceBlock';
 
 debug.enable('*');
 const log = debug('bridge:components:CommunityPool');
@@ -30,20 +34,22 @@ const log = debug('bridge:components:CommunityPool');
 
 export default function CommunityPool(props: any) {
     const [open, setOpen] = React.useState<boolean>(false);
-    const [view, setView] = React.useState<string>();
+    const [view, setView] = React.useState<string>('recharge');
 
     const [accountBalance, setAccountBalance] = React.useState<string>();
     const [balance, setBalance] = React.useState<string>();
 
-    const [loading, setLoading] = React.useState(false);
-    const [activeUserSchain, setActiveUserSchain] = React.useState(false);
-    const [activeUserMainnet, setActiveUserMainnet] = React.useState(false);
-    const [amount, setAmount] = React.useState<string>();
+    const [loading, setLoading] = React.useState<boolean>(false);
+    const [recharging, setRecharging] = React.useState<boolean>(false);
+
+    const [activeUserSchain, setActiveUserSchain] = React.useState<boolean>(false);
+    const [activeUserMainnet, setActiveUserMainnet] = React.useState<boolean>(false);
+    const [amount, setAmount] = React.useState<string>('');
 
     const [mainnet, setMainnet] = React.useState<MainnetChain>();
     const [schain, setSchain] = React.useState<SChain>();
 
-    const [updateBalanceTime, setUpdateBalanceTime] = React.useState<number>(Date.now());
+    const [updateBalanceFlag, setUpdateBalanceFlag] = React.useState<boolean>(false);
 
     function toggleOpen() {
         setOpen(!open);
@@ -60,21 +66,13 @@ export default function CommunityPool(props: any) {
     }
 
     useEffect(() => {
-        if (props.web3) {
-            // todo!
-        }
-    }, [props.web3]);
-
-    useEffect(() => {
         log('init mainnet chain for community pool');
         const mainnet = initMainnet(
             METAPORT_CONFIG.skaleNetwork,
             METAPORT_CONFIG.mainnetEndpoint
         );
         setMainnet(mainnet);
-    }, []);
 
-    useEffect(() => {
         log('init schain for community locker');
         const schain = initSChain(
             METAPORT_CONFIG.skaleNetwork,
@@ -84,12 +82,19 @@ export default function CommunityPool(props: any) {
     }, []);
 
     useEffect(() => {
+        checkUserActive();
+    }, [activeUserMainnet, activeUserSchain, recharging]);
+
+    useEffect(() => {
         if (mainnet && schain && props.address) {
             updateBalance();
         }
-        const interval = setInterval(() => setUpdateBalanceTime(Date.now()), 10 * 1000);
+        const interval = setInterval(
+            () => setUpdateBalanceFlag(!updateBalanceFlag),
+            BALANCE_UPDATE_INTERVAL_SECONDS * 1000
+        );
         return () => clearInterval(interval);
-    }, [updateBalanceTime, mainnet, props.address, props.chainName]);
+    }, [updateBalanceFlag, mainnet, props.address, props.chainName]);
 
     async function mainnetMetamask() {
         log('setMainnetMetamask');
@@ -99,9 +104,22 @@ export default function CommunityPool(props: any) {
         );
     }
 
+    function checkUserActive() {
+        if (activeUserMainnet && activeUserSchain) {
+            props.setUserActive(true);
+            if (!loading || recharging) return;
+            props.setMsgType('success');
+            props.setMsg('Exit gas wallet recharged');
+            setOpen(false);
+            setLoading(false);
+            setAmount('');
+        }
+    }
+
     async function recharge() {
         if (!mainnet || !amount) return;
         setLoading(true);
+        setRecharging(true);
         const mm = await mainnetMetamask();
         const amountWei = toWei(amount, DEFAULT_ERC20_DECIMALS);
         log(`recharge - ${props.address} - ${amountWei}`);
@@ -110,16 +128,14 @@ export default function CommunityPool(props: any) {
                 address: props.address,
                 value: amountWei
             });
-            // props.setMsgType('success');
-            // props.setMsg('Exit gas wallet recharged');
-            setOpen(false);
         } catch (e: any) {
             log('recharge error', e);
             props.setMsgType('error');
             props.setMsg(e.message);
-        } finally {
-            await updateBalance();
             setLoading(false);
+        } finally {
+            setRecharging(false);
+            await updateBalance();
         }
     }
 
@@ -131,7 +147,8 @@ export default function CommunityPool(props: any) {
         log(`withdraw - ${props.address} - ${amountWei}`);
         try {
             await mm.communityPool.withdraw(props.chainName, amountWei, {
-                address: props.address
+                address: props.address,
+                customGasLimit: COMMUNITY_POOL_WITHDRAW_GAS_LIMIT
             });
             props.setMsgType('success');
             props.setMsg('ETH withdrawn from exit gas wallet');
@@ -155,13 +172,12 @@ export default function CommunityPool(props: any) {
 
         const activeS = await schain.communityLocker.contract.methods.activeUsers(props.address).call();
         setActiveUserSchain(activeS);
-        log('User is active on Schain:', activeS);
+        // log('User is active on Schain:', activeS);
 
         const chainHash = mainnet.web3.utils.soliditySha3(props.chainName);
-
-        const activeM = await mainnet.communityPool.contract.methods.activeUsers(props.address, chainHash).call(); //.contract.methods.activeUserSchains(props.address).call();
+        const activeM = await mainnet.communityPool.contract.methods.activeUsers(props.address, chainHash).call();
         setActiveUserMainnet(activeM);
-        log('User is active on Mainnet:', activeM);
+        // log('User is active on Mainnet:', activeM);
 
         const accountBalanceWei = await mainnet.ethBalance(props.address);
         const accountBalanceEther = fromWei(accountBalanceWei as string, DEFAULT_ERC20_DECIMALS);
@@ -189,7 +205,10 @@ export default function CommunityPool(props: any) {
     }
 
     function getRechargeBtnText() {
-        if (loading) return 'Recharging...'
+        if (loading) {
+            if (!recharging) return 'Waiting for the address to be activated...';
+            return 'Recharging...'
+        }
         if (!balance || !accountBalance) return 'Loading balance...';
         if (Number(amount) > Number(accountBalance)) return 'Insufficient ETH balance'
         if (amount === '' || amount === '0' || !amount) return 'Enter an amount';
@@ -224,13 +243,11 @@ export default function CommunityPool(props: any) {
             <Collapse in={open}>
                 <CardContent className='mp__noPadd'>
                     {view === 'recharge' ? (<div>
-                        {/* <h2 className='mp__margTop20'>Recharge</h2> */}
                         <BridgePaper gray rounded margTop>
                             <p className={'mp__p mp__p4 whiteText'}>
                                 You need a balance in this wallet to transfer to Ethereum. This wallet is used to pay for gas fees when your transaction is presented to Ethereum. You may withdraw from the wallet at anytime.
                             </p>
                         </BridgePaper>
-
                         <Grid container spacing={2} >
                             <Grid className='fl-centered' item md={6} sm={12} xs={12}>
                                 <div className='mp__margTop20 br__paper br__paperRounded ' style={{ background: '#2a2a2a' }}>
@@ -270,15 +287,14 @@ export default function CommunityPool(props: any) {
                         >
                             {getRechargeBtnText()}
                         </Button>
-
-
                     </div>) : null}
                     {view === 'withdraw' ? (<div className=''>
                         <Grid container spacing={2}>
                             <Grid className='fl-centered mp__margTop20' item md={9} sm={12} xs={12}>
                                 <div className='br__paper br__paperRounded br__paperGrey'>
                                     <p className={'mp__p mp__p4 whiteText'}>
-                                        Withdraw all ETH from exit gas wallet. You will be unable to perform transfers until you refill again.
+                                        Withdraw all ETH from exit gas wallet. <br />
+                                        You will be unable to perform transfers until you refill again.
                                     </p>
                                 </div>
                             </Grid>

@@ -30,10 +30,13 @@ import Button from '@mui/material/Button';
 import Skeleton from '@mui/material/Skeleton';
 import Grid from '@mui/material/Grid';
 
+import { dataclasses } from '@skalenetwork/metaport';
+
 import BridgePaper from '../BridgePaper';
 
 import { CHAINS_META, DEFAULT_ERC20_DECIMALS } from '../../core/constants';
 import { getBalance, initChainWeb3, initERC20Token } from '../../core/tokens';
+import { getTokenDecimals } from '../../core/metaportConfig';
 import { fromWei } from '../../core/convertation';
 
 import { getChainName, iconPath, getChainIcon } from '../ActionCard/helper';
@@ -102,8 +105,13 @@ export default function ChainOverview(props: any) {
   }
 
   async function getTokenBalance(token: string, tokenContract: Contract) {
-    const tokenInfo = tokens[token];
-    const decimals = tokenInfo && tokenInfo.decimals ? tokenInfo.decimals : DEFAULT_ERC20_DECIMALS;
+    const tokenKeyname = tokens[token as string].keyname;
+    const decimals = getTokenDecimals(
+      props.chainName,
+      undefined,
+      dataclasses.TokenType.erc20,
+      tokenKeyname
+    );
     const balanceWei = await getBalance(web3, tokenContract, props.address, props.chainName);
     return fromWei(balanceWei as string, decimals);
   }
@@ -128,37 +136,37 @@ export default function ChainOverview(props: any) {
                 {getChainIcon(props.chainName as string, true, props.chain.app)}
               </div>
               <div className='mp__flex mp__margLeft5'>
-                <h4 className="mp__flex mp__noMarg">{name}</h4>            
+                <h4 className="mp__flex mp__noMarg">{name}</h4>
+              </div>
             </div>
-          </div>
-          <BridgePaper rounded gray>
-            <Grid container spacing={0} className='mp__margBottMin10'>
-              {Object.keys(tokens).map((token: any, index: number) => (
-                <Grid md={6} sm={12}>
-                  <div className='mp__flex mp__margBott10' key={index}>
-                    <div className='mp__flex mp__flexCenteredVert'>
-                      <img className='mp__iconToken mp__margRi10' src={iconPath(token)} />
-                      {tokenBalances[token] ? (<p className="mp__p mp__p2 whiteText mp__noMarg mp__flex mp__flexCentered uppercase">
-                        {tokenBalances[token] ? tokenBalances[token].substring(0, 7) : null} {token}
-                      </p>) : <Skeleton variant="text" width={100} />}
+            <BridgePaper rounded gray>
+              <Grid container spacing={0} className='mp__margBottMin10'>
+                {Object.keys(tokens).map((token: any, index: number) => (
+                  <Grid md={6} sm={12} key={index} item>
+                    <div className='mp__flex mp__margBott10'>
+                      <div className='mp__flex mp__flexCenteredVert'>
+                        <img className='mp__iconToken mp__margRi10' src={iconPath(token)} />
+                        {tokenBalances[token] ? (<p className="mp__p mp__p2 whiteText mp__noMarg mp__flex mp__flexCentered uppercase">
+                          {tokenBalances[token] ? tokenBalances[token].substring(0, 7) : null} {token}
+                        </p>) : <Skeleton variant="text" width={100} />}
+                      </div>
                     </div>
-                  </div>
-                </Grid>
-              ))}
-            </Grid>
-          </BridgePaper>
-          <Link to={url} className='undec'>
-            <Button
-              onClick={() => { }}
-              variant="contained"
-              className='mp__margTop20 bridge__btn fullWidthe'
-              size='small'
-            >
-              Transfer
-            </Button>
-          </Link >
-      </div>
-    </BridgePaper>
+                  </Grid>
+                ))}
+              </Grid>
+            </BridgePaper>
+            <Link to={url} className='undec'>
+              <Button
+                onClick={() => { }}
+                variant="contained"
+                className='mp__margTop20 bridge__btn fullWidthe'
+                size='small'
+              >
+                Transfer
+              </Button>
+            </Link >
+          </div>
+        </BridgePaper>
 
       </div >
     </div >
