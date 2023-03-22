@@ -89,7 +89,26 @@ p {
   border-radius: 0 0 25px 25px !important;
 }
 
-.br__paperRounded {
+
+.br__alert {
+  font-weight: 500 !important;
+  font-size: 0.8525rem !important;
+  padding: 20px !important;
+
+  .MuiAlert-icon,
+  .MuiAlert-message,
+  .MuiAlert-action,
+  .MuiButtonBase-root {
+    padding: 0 !important;
+  }
+
+  .MuiButtonBase-root {
+    margin-right: 10px;
+  }
+}
+
+.br__paperRounded,
+.br__alert {
   border-radius: 25px !important;
 }
 
@@ -452,14 +471,16 @@ h4 {
   box-shadow: none !important;
 }
 
+.bridge__btnLoading {
+  padding-left: 35px !important;
+}
+
 .bridge__transferBtn {
   width: 100%;
   font-size: 0.8rem !important;
   font-weight: 600 !important;
   padding: 12px !important;
-  // text-transform: none !important;
 }
-
 
 .nftImg {
   max-height: 200px;
@@ -1083,7 +1104,8 @@ body::-webkit-scrollbar {
   height: 45px;
   border-radius: 50%;
 
-  svg, img {
+  svg,
+  img {
     width: 20px !important;
     height: 20px !important;
   }

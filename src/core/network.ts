@@ -114,11 +114,13 @@ export async function initSChainMetamask(network: string, schainName: string) {
   return new SChain(sChainWeb3, sChainAbi);
 }
 
+
 export function updateWeb3SChain(schain: SChain, network: string, schainName: string) {
   const endpoint = getSChainEndpoint(network, schainName);
   const sChainWeb3 = new Web3(endpoint);
   schain.updateWeb3(sChainWeb3);
 }
+
 
 export async function updateWeb3SChainMetamask(
   schain: SChain,
@@ -160,6 +162,23 @@ function getMainnetAbi(network: string) {
     return { ...mainnetAbi, ...staging3Addresses }
   }
   return { ...mainnetAbi, ...mainnetAddresses }
+}
+
+
+export async function setMetamaskNetwork(
+  network: string,
+  chainName: string,
+  mainnetEndpoint: string
+) {
+  let networkParams;
+  if (chainName === MAINNET_CHAIN_NAME) {
+    networkParams = mainnetNetworkParams(network, mainnetEndpoint);
+  } else {
+    const endpoint = getSChainEndpoint(network, chainName);
+    const chainId = calcChainId(chainName);
+    networkParams = schainNetworkParams(chainName, endpoint, chainId);
+  }
+  await changeMetamaskNetwork(networkParams);
 }
 
 

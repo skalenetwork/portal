@@ -141,8 +141,11 @@ export default function MetamaskConnector(props: any) {
                                 Try again
                             </Button>
                         </Collapse>
-
                     </BridgePaper>
+
+                    <p className='mp__p mp__p5 mp__textCentered mp__margTop20'>
+                        If your wallet is already connected, it may take a few seconds to be detected
+                    </p>
                 </div>
             </div >
         </Container>

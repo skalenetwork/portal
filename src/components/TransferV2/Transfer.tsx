@@ -106,7 +106,7 @@ export default function Transfer(props: any) {
         updateBalance();
     }, [tokenContract, props.address, web3, updateBalanceFlag]);
 
-    async function updateBalance() {
+    async function updateBalance() { // todo: fix!
         if (props.address) {
             log('Updating balance...');
             const tokenInfo = tokens[token as string];

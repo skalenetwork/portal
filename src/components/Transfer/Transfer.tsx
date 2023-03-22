@@ -1,3 +1,26 @@
+/**
+ * @license
+ * SKALE bridge-ui
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/**
+ * @file Transfer.tsx
+ * @copyright SKALE Labs 2023-Present
+*/
+
 import React, { useEffect } from 'react';
 import { useParams, useLocation } from "react-router-dom";
 
@@ -37,9 +60,14 @@ import BalanceBlock from '../BalanceBlock';
 import BridgePaper from '../BridgePaper';
 import TransactionData from '../TransactionData';
 
-import { getBalance, initChainWeb3, initERC20Token } from '../../core/tokens';
 import {
-    CHAINS_META, DEFAULT_ERC20_DECIMALS, MAINNET_CHAIN_NAME, CHAINS
+    getBalance,
+    initChainWeb3,
+    initERC20Token
+} from '../../core/tokens';
+import { getTokenDecimals } from '../../core/metaportConfig';
+import {
+    CHAINS_META, MAINNET_CHAIN_NAME, CHAINS, BALANCE_UPDATE_INTERVAL_SECONDS
 } from '../../core/constants';
 import { fromWei } from '../../core/convertation';
 import { getQueryVariable } from '../../core/helper';
@@ -63,8 +91,10 @@ export default function Transfer(props: any) {
 
     const [loading, setLoading] = React.useState(false);
     const [amount, setAmount] = React.useState<string>('');
+    const [tokenDecimals, setTokenDecimals] = React.useState<string>();
 
     const [token, setToken] = React.useState<string>();
+    const [tokenType, setTokenType] = React.useState<dataclasses.TokenType>(dataclasses.TokenType.eth);
     const [updateBalanceFlag, setUpdateBalanceFlag] = React.useState<boolean>(false);
 
     const [sFuelOk, setSFuelOk] = React.useState<boolean>(false);
@@ -85,6 +115,8 @@ export default function Transfer(props: any) {
 
     const [transactionsHistory, setTransactionsHistory] = React.useState<Array<any>>([]);
     const [transferRequest, setTransferRequest] = React.useState<interfaces.TransferParams>();
+
+    const [userActive, setUserActive] = React.useState<boolean>(false);
 
     const fromApp = getQueryVariable(location.search, 'from-app');
     const toApp = getQueryVariable(location.search, 'to-app');
@@ -113,7 +145,10 @@ export default function Transfer(props: any) {
         );
         setWeb3(initChainWeb3(fromChain));
         setWeb3Dest(initChainWeb3(toChain));
-        let balanceUpdateTimer = setInterval(() => setUpdateBalanceFlag(!updateBalanceFlag), 10 * 1000);
+        let balanceUpdateTimer = setInterval(
+            () => setUpdateBalanceFlag(!updateBalanceFlag),
+            BALANCE_UPDATE_INTERVAL_SECONDS * 1000
+        );
         return () => {
             clearInterval(balanceUpdateTimer);
             window.removeEventListener(
@@ -144,6 +179,7 @@ export default function Transfer(props: any) {
         setAmount('');
         setBalance(undefined);
         setBalanceDest(undefined);
+        setTokenType(token === 'eth' ? dataclasses.TokenType.eth : dataclasses.TokenType.erc20);
         if (token && web3) {
             const tokenInfo = tokens[token as string];
             log(tokenInfo);
@@ -160,10 +196,11 @@ export default function Transfer(props: any) {
     }, [tokenContract, tokenContractDest, activeStep, props.address, web3, updateBalanceFlag]);
 
     async function updateBalance() {
-        if (props.address) {
+        if (props.address && token) {
             log('Updating balance...');
-            const tokenInfo = tokens[token as string];
-            const decimals = tokenInfo && tokenInfo.decimals ? tokenInfo.decimals : DEFAULT_ERC20_DECIMALS;
+            const tokenKeyname = tokens[token as string].keyname;
+            const decimals = getTokenDecimals(fromChain, toChain, tokenType, tokenKeyname);
+            setTokenDecimals(decimals);
             const balanceWei = await getBalance(web3, tokenContract, props.address, fromChain);
             const balanceEther = fromWei(balanceWei as string, decimals);
 
@@ -236,7 +273,8 @@ export default function Transfer(props: any) {
     }
 
     const isTransferToMainnet = toChain === MAINNET_CHAIN_NAME && activeStep === 0;
-    const disabled = loading || (recommendedRechargeAmount !== '0' && isTransferToMainnet) || !sFuelOk;
+    const exitGasOk = (userActive && recommendedRechargeAmount === '0') || !isTransferToMainnet;
+    const disabled = loading || !exitGasOk || !sFuelOk;
 
     const balancesBlock = (
         <BridgePaper rounded gray fullHeight>
@@ -290,8 +328,13 @@ export default function Transfer(props: any) {
                 <p className='fl-grow mp__noMarg'>{getChainName(CHAINS_META, to as string, toApp)} dApp is located on {getChainName(CHAINS_META, to as string)}</p>
             </Card>
         </div>) : null}
-
-        {msg ? <Alert onClose={() => { setMsg(undefined); }} severity={msgType} className='mp__margBott20'>{msg}</Alert> : null}
+        {msg ? <Alert
+            onClose={() => { setMsg(undefined); }}
+            severity={msgType}
+            className='mp__margBott10 br__alert'
+        >
+            {msg}
+        </Alert> : null}
         {isTransferToMainnet && token ? (
             <CommunityPool
                 address={props.address}
@@ -305,6 +348,7 @@ export default function Transfer(props: any) {
                 msgType={msgType}
                 setMsgType={setMsgType}
 
+                setUserActive={setUserActive}
             />) : null}
         {
             token ? (<SFuel
@@ -418,6 +462,10 @@ export default function Transfer(props: any) {
                             token={token}
                             balancesBlock={balancesBlock}
                             setTransactionsHistory={setTransactionsHistory}
+                            chainsData={chainsData}
+                            toChain={toChain}
+                            fromChain={fromChain}
+                            tokenDecimals={tokenDecimals}
                         />
                     </Collapse>
                 </Stack>
