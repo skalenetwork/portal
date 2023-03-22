@@ -28,6 +28,7 @@ import Grid from '@mui/material/Grid';
 import RestartAltIcon from '@mui/icons-material/RestartAlt';
 import LanguageIcon from '@mui/icons-material/Language';
 import TollIcon from '@mui/icons-material/Toll';
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 
 import BridgePaper from '../BridgePaper';
 import { iconPath, getChainWebsiteUrl } from '../ActionCard/helper';
@@ -127,7 +128,20 @@ export default function TransferDone(props: any) {
           {props.balancesBlock}
         </Grid>
       </Grid>
-      {chainWebsiteUrl ? <Button
+
+      {(props.fallbackUrl && props.fallbackText) ? <Button
+        href={props.fallbackUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        variant="contained"
+        startIcon={<ArrowOutwardIcon />}
+        className='mp__margTop20 mp__margRi10 bridge__btn'
+        size='large'
+      >
+        {props.fallbackText}
+      </Button> : null}
+
+      {chainWebsiteUrl && (!props.fallbackUrl || !props.fallbackText) ? <Button
         href={chainWebsiteUrl}
         target="_blank"
         rel="noopener noreferrer"

@@ -91,6 +91,7 @@ export default function Transfer(props: any) {
 
     const [loading, setLoading] = React.useState(false);
     const [amount, setAmount] = React.useState<string>('');
+    const [externalAmount, setExternalAmount] = React.useState<string | undefined>(undefined);
     const [tokenDecimals, setTokenDecimals] = React.useState<string>();
 
     const [token, setToken] = React.useState<string>();
@@ -110,7 +111,7 @@ export default function Transfer(props: any) {
     const [tokenContractDest, setTokenContractDest] = React.useState<Contract>();
     const [balanceDest, setBalanceDest] = React.useState<string>();
 
-    const [activeStep, setActiveStep] = React.useState<number>(0);
+    const [activeStep, setActiveStep] = React.useState<number>(1);
     const [recommendedRechargeAmount, setRecommendedRechargeAmount] = React.useState<string>();
 
     const [transactionsHistory, setTransactionsHistory] = React.useState<Array<any>>([]);
@@ -120,8 +121,22 @@ export default function Transfer(props: any) {
 
     const fromApp = getQueryVariable(location.search, 'from-app');
     const toApp = getQueryVariable(location.search, 'to-app');
-    const externalAmount = getQueryVariable(location.search, 'amount');
     const externalToken = getQueryVariable(location.search, 'token');
+
+    // todo: move to the separate module
+    const fallbackTextEncoded = getQueryVariable(location.search, 'fallback-text');
+    const fallbackUrlEncoded = getQueryVariable(location.search, 'fallback-url');
+    let fallbackUrl;
+    let fallbackText;
+
+    if (fallbackUrlEncoded && fallbackTextEncoded) {
+        try {
+            fallbackUrl = decodeURIComponent(fallbackUrlEncoded);
+            fallbackText = decodeURIComponent(fallbackTextEncoded);
+        } catch (error) {
+            console.error('Error decoding URL parameter:', error);
+        }
+    }
 
     const fromChainName = getChainName(CHAINS_META, from as string, fromApp);
     const toChainName = getChainName(CHAINS_META, to as string, toApp);
@@ -130,9 +145,12 @@ export default function Transfer(props: any) {
     const toChainIcon = getChainIcon(to as string, true, toApp);
 
     useEffect(() => {
-        if (externalToken) setToken(externalToken);
-        if (externalAmount) setAmount(externalAmount);
-        setToken(Object.keys(tokens)[0]);
+        setExternalAmount(getQueryVariable(location.search, 'amount'));
+        if (externalToken) {
+            setToken(externalToken);
+        } else {
+            setToken(Object.keys(tokens)[0]);
+        }
         window.addEventListener(
             "metaport_transferRequestCompleted",
             transferCompleted,
@@ -176,7 +194,12 @@ export default function Transfer(props: any) {
     }, [transferRequest]);
 
     useEffect(() => {
-        setAmount('');
+        if (externalAmount) {
+            setAmount(externalAmount);
+            setExternalAmount(undefined);
+        } else {
+            setAmount('');
+        }
         setBalance(undefined);
         setBalanceDest(undefined);
         setTokenType(token === 'eth' ? dataclasses.TokenType.eth : dataclasses.TokenType.erc20);
@@ -466,6 +489,9 @@ export default function Transfer(props: any) {
                             toChain={toChain}
                             fromChain={fromChain}
                             tokenDecimals={tokenDecimals}
+
+                            fallbackUrl={fallbackUrl}
+                            fallbackText={fallbackText}
                         />
                     </Collapse>
                 </Stack>
