@@ -5,6 +5,7 @@ import Transfer from './components/Transfer';
 import TransferV2 from './components/TransferV2';
 import Faq from './components/Faq';
 import Terms from './components/Terms';
+import PrivacyPolicy from './components/PrivacyPolicy';
 import ExitGasWallet from './components/ExitGasWallet';
 import TransferTo from './components/TransferTo';
 import Overview from './components/Overview';
@@ -61,6 +62,10 @@ export default function Router(props: any) {
                         <Route
                             path="terms-of-service"
                             element={<Terms />}
+                        />
+                         <Route
+                            path="privacy-policy"
+                            element={<PrivacyPolicy />}
                         />
                     </Route>
                 </Routes>
