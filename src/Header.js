@@ -27,10 +27,10 @@ import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import { Link } from "react-router-dom";
 
-import MetamaskConnector from './MetamaskConnector';
 import logo from './skale_lg.svg';
 
 import MoreMenu from './components/MoreMenu';
+import AccountMenu from './components/AccountMenu';
 
 
 export default class Header extends React.Component {
@@ -41,12 +41,9 @@ export default class Header extends React.Component {
           <div className="mp__flex mp__flexCenteredVert mp__flexGrow">
             <Link to="/" className='mp__undec mp__logoLink mp__flex mp__flexCenteredVert'>
               <img src={logo} className="logo" alt="logo" />
-              {/* <div className="mp__flex  mp__margLeft10">
-                <h2 className="mp__noMarg mp__flexCenteredVert headerText">Bridge</h2>
-              </div> */}
             </Link>
           </div>
-          <MetamaskConnector address={this.props.address} connectMetamask={this.props.connectMetamask} />
+          <AccountMenu address={this.props.address} connectMetamask={this.props.connectMetamask} />
           <MoreMenu />
         </Toolbar>
       </AppBar>

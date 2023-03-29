@@ -26,7 +26,7 @@ export default function TransferTo(props: any) {
     const [searchValue, setSearchValue] = useState('');
 
     return (<Container maxWidth="md">
-        <Stack spacing={3}>
+        <Stack spacing={2}>
             <div className='mp__flex mp__flexCenteredVert'>
                 <div className='mp__flex'>
                     <h2 className="mp__flex mp__noMarg">Transfer from</h2>

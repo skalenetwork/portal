@@ -14,7 +14,7 @@ export default function Main(props: any) {
 
   return (
     <Container maxWidth="md">
-      <Stack spacing={3}>
+      <Stack spacing={2}>
         <TransferFrom />
       </Stack>
     </Container>)

@@ -1,5 +1,5 @@
 .mp__inputAmountDisabled {
-    background-color: rgb(68 68 68 / 30%) !important;
+   // background-color: rgb(68 68 68 / 30%) !important;
 }
 
 .mp__inputAmount {
@@ -16,7 +16,10 @@
 
     input {
         border-radius: 4px 0 0 4px;
-        padding: 9pt 15pt;
+        // padding: 9pt 15pt;
+
+        padding: 9pt 5pt;
+        font-size: 16pt;
     }
 
     .MuiFormControl-root {
@@ -24,8 +27,8 @@
         // border-radius: 4px;
     }
 
-    background-color: rgb(161 161 161 / 34%);
-    border-radius: 10px;
+    // background-color: rgb(161 161 161 / 34%);
+    border-radius: 15px;
 
     .MuiButton-root {
         border-radius: 0 !important;

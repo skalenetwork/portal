@@ -36,9 +36,10 @@
           "usdc": {
             "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
             "recommendedValues": [
+              "50",
               "100",
-              "300",
-              "1000"
+              "200",
+              "500"
             ],
             "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
           },
@@ -63,8 +64,9 @@
           "skl": {
             "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
             "recommendedValues": [
+              "500",
               "1000",
-              "3000",
+              "2000",
               "5000"
             ],
             "address": "0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7"
@@ -77,6 +79,15 @@
               "5000"
             ],
             "address": "0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23"
+          },
+          "hmt": {
+            "keyname": "_HMT_0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
+            "recommendedValues": [
+              "1000",
+              "3000",
+              "5000"
+            ],
+            "address": "0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867"
           }
         }
       },
@@ -109,9 +120,90 @@
               "tokenKeyname": "_ETH_0xa5274efA35EbeFF47C1510529D9a8812F95F5735",
               "tokenType": "erc20"
             }
+          },
+          "skl": {
+            "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
+              "tokenType": "erc20"
+            }
+          },
+          "usdc": {
+            "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200",
+              "500"
+            ],
+            "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+              "tokenType": "erc20"
+            }
           }
         },
         "app": "nftrade"
+      },
+      "green-giddy-denebola": {
+        "tokens": {
+          "skl": {
+            "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
+              "tokenType": "erc20"
+            }
+          }
+        }
+      },
+      "wan-red-ain": {
+        "tokens": {
+          "hmt": {
+            "keyname": "_HMT_0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_HMT_0xA0f4D4db1457E442b83555cb92aaBB8DE959Aa75",
+              "tokenType": "erc20"
+            }
+          }
+        }
+      },
+      "adorable-quaint-bellatrix": {
+        "tokens": {
+          "eth": {
+            "keyname": "eth",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.2",
+              "0.5"
+            ]
+          }
+        }
       }
     }
   },
@@ -132,6 +224,26 @@
               "0.5"
             ],
             "address": "0xD2Aaa00700000000000000000000000000000000"
+          },
+          "skl": {
+            "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
+          },
+          "usdc": {
+            "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200",
+              "500"
+            ],
+            "address": "0x5F795bb52dAC3085f578f4877D450e2929D2F13d"
           }
         }
       },
@@ -150,9 +262,10 @@
           "usdc": {
             "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
             "recommendedValues": [
+              "50",
               "100",
-              "300",
-              "1000"
+              "200",
+              "500"
             ],
             "address": "0x5F795bb52dAC3085f578f4877D450e2929D2F13d"
           },
@@ -177,8 +290,9 @@
           "skl": {
             "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
             "recommendedValues": [
+              "500",
               "1000",
-              "3000",
+              "2000",
               "5000"
             ],
             "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
@@ -191,6 +305,15 @@
               "5000"
             ],
             "address": "0x2B4e4899b53E8b7958c4591a6d02f9C0b5c50F8f"
+          },
+          "hmt": {
+            "keyname": "_HMT_0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
+            "recommendedValues": [
+              "1000",
+              "3000",
+              "5000"
+            ],
+            "address": "0xBE3530a3eDf9472693065041B8c9155C7FeCB8e5"
           }
         }
       },
@@ -217,6 +340,34 @@
             "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
           }
         }
+      },
+      "green-giddy-denebola": {
+        "tokens": {
+          "skl": {
+            "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
+          }
+        }
+      },
+      "wan-red-ain": {
+        "tokens": {
+          "hmt": {
+            "keyname": "_HMT_0xA0f4D4db1457E442b83555cb92aaBB8DE959Aa75",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0xBE3530a3eDf9472693065041B8c9155C7FeCB8e5"
+          }
+        }
       }
     }
   },
@@ -237,6 +388,75 @@
               "0.5"
             ],
             "address": "0x59ab97Ee239e02112652587F9Ef86CB6F762983b"
+          },
+          "skl": {
+            "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0x4048C4dd6eccF1Dc23b068211fDf20AD19602e50"
+          },
+          "usdc": {
+            "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200",
+              "500"
+            ],
+            "address": "0x7Cf76E740Cb23b99337b21F392F22c47Ad910c67"
+          }
+        }
+      },
+      "mainnet": {
+        "tokens": {
+          "eth": {
+            "keyname": "_ETH_0xa5274efA35EbeFF47C1510529D9a8812F95F5735",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.2",
+              "0.5"
+            ],
+            "address": "0x59ab97Ee239e02112652587F9Ef86CB6F762983b",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "eth",
+              "tokenType": "eth"
+            }
+          },
+          "skl": {
+            "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0x4048C4dd6eccF1Dc23b068211fDf20AD19602e50",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+              "tokenType": "erc20"
+            }
+          },
+          "usdc": {
+            "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200",
+              "500"
+            ],
+            "address": "0x7Cf76E740Cb23b99337b21F392F22c47Ad910c67",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+              "tokenType": "erc20"
+            }
           }
         }
       }
@@ -305,6 +525,103 @@
               "2000"
             ],
             "address": "0xcbf70914Fae03B3acB91E953De60CfDAaCA8145f"
+          }
+        }
+      }
+    }
+  },
+  "green-giddy-denebola": {
+    "type": "game",
+    "chains": {
+      "elated-tan-skat": {
+        "app": "ruby",
+        "tokens": {
+          "skl": {
+            "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0x7F73B66d4e6e67bCdeaF277b9962addcDabBFC4d"
+          }
+        }
+      },
+      "mainnet": {
+        "tokens": {
+          "skl": {
+            "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0x7F73B66d4e6e67bCdeaF277b9962addcDabBFC4d",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+              "tokenType": "erc20"
+            }
+          }
+        }
+      }
+    }
+  },
+  "wan-red-ain": {
+    "type": "app",
+    "chains": {
+      "elated-tan-skat": {
+        "app": "ruby",
+        "tokens": {
+          "hmt": {
+            "keyname": "_HMT_0xA0f4D4db1457E442b83555cb92aaBB8DE959Aa75",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0x6E5FF61Ea88270F6142E0E0eC8cbe9d67476CbCd"
+          }
+        }
+      },
+      "mainnet": {
+        "tokens": {
+          "hmt": {
+            "keyname": "_HMT_0xA0f4D4db1457E442b83555cb92aaBB8DE959Aa75",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0x6E5FF61Ea88270F6142E0E0eC8cbe9d67476CbCd",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_HMT_0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
+              "tokenType": "erc20"
+            }
+          }
+        }
+      }
+    }
+  },
+  "adorable-quaint-bellatrix": {
+    "type": "app",
+    "chains": {
+      "mainnet": {
+        "tokens": {
+          "eth": {
+            "keyname": "eth",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.2",
+              "0.5"
+            ],
+            "address": "0xD2Aaa00700000000000000000000000000000000"
           }
         }
       }

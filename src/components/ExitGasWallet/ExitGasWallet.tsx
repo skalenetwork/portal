@@ -10,8 +10,8 @@ const log = debug('bridge:components:ExitGasWallet');
 
 export default function ExitGasWallet(props: any) {
     return (<Container maxWidth="md">
-        <Stack spacing={3}>
-            <div className='mp__flex mp__flexCenteredVert mp__margTop20'>
+        <Stack spacing={2}>
+            <div className='mp__flex mp__flexCenteredVert'>
                 <div className='mp__flex'>
                     <h2 className="mp__flex mp__noMarg">Exit Gas Wallet</h2>
                 </div>
@@ -24,19 +24,6 @@ export default function ExitGasWallet(props: any) {
                 🏗️ Work in progress <br />
                 Exit gas wallet functionality is available on the transfer page when transferring to Ethereum
             </p>
-
-            {/* <CommunityPool
-                address={props.address}
-                chainName={fromChain}
-                recommendedRechargeAmount={recommendedRechargeAmount}
-                setRecommendedRechargeAmount={setRecommendedRechargeAmount}
-
-                msg={msg}
-                setMsg={setMsg}
-
-                msgType={msgType}
-                setMsgType={setMsgType}
-            /> */}
         </Stack>
     </Container>)
 }

@@ -10,6 +10,49 @@ The SKALE Interchain Bridge UI is built on top of the [SKALE IMA contracts](http
 
 The Interchain Bridge UI consists of a user interface that allows users to initiate and track transfers of assets and data between different blockchain networks. Users can connect their wallets to the Interchain Bridge UI and select the source and destination blockchains for their transfers.
 
+## Bridge integration
+
+It's possible to embed Bridge UI link with fallback into your dApp.
+
+#### Directing users to the particular source chain
+
+```
+https://[BASE_BRIDGE_URL]/#/bridge/transfer/[FROM_CHAIN_NAME]
+```
+
+#### Directing users to the particular pair of chains
+
+```
+https://[BASE_BRIDGE_URL]/#/bridge/transfer/[FROM_CHAIN_NAME]/[TO_CHAIN_NAME]
+```
+
+#### Customizing transfer parameters
+
+You can customize the link with the following parameters:
+
+All params are optional.
+
+- `amount` - amount of tokens to transfer
+- `token` - symbol of the token to transfer
+- `from-app` - when transfering from a Hub chain, it's possible to specify the name of the app to transfer from
+- `to-app` - when transfering to a Hub chain, it's possible to specify the name of the app to transfer to
+- `fallback-url` - URL with fallback link to redirect user after the transfer is completed (should be encoded)
+- `fallback-text` - Text to display on the fallback button (should be encoded)
+
+Example of the link with all params:
+
+```
+http://[BASE_BRIDGE_URL]/#/bridge/transfer/staging-perfect-parallel-gacrux/staging-severe-violet-wezen?to-app=nftrade&from-app=ruby&token=skl&amount=250&fallback-url=https%3A%2F%2Fnftrade.com%2Fassets%2Fskale%2F0x3b6f8d50938900ef14fbac48575c33a849ffd683%2F1&fallback-text=Return%20to%20NFT%20%22Solitude%22
+```
+
+In JS you can use the following function to encode the URL:
+
+```js
+function encodeUrl(url) {
+  return encodeURIComponent('https://www.example.com/some/path')
+}
+```
+
 ## Getting Started
 To get started with the SKALE Bridge UI, users can visit the [SKALE Bridge UI](https://bridge.skale.network/) website and click on the "Connect wallet" button. Users can then connect their wallets and select the source and destination blockchains for their transfers.
 

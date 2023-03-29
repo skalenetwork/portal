@@ -37,7 +37,7 @@ const ACTIONS = [
 export default function PopularActions(props: any) {
     return (<div>
         <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={3}>
+            <Grid container spacing={2}>
                 {ACTIONS.map((action, index) => (
                     <Grid key={index} className='fl-centered dappCard' item md={3} sm={6} xs={6}>
                         <ActionCard icons={ICONS} action={action} schain={{}}/>

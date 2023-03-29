@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { MainnetChain } from '@skalenetwork/ima-js';
+import { MainnetChain, SChain } from '@skalenetwork/ima-js';
 import debug from 'debug';
 
 import Card from '@mui/material/Card';
@@ -11,14 +11,22 @@ import Button from '@mui/material/Button';
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
+import AccountBalanceWalletRoundedIcon from '@mui/icons-material/AccountBalanceWalletRounded';
 
 import AmountInput from '../AmountInput';
+import BridgePaper from '../BridgePaper';
+import BalanceBlock from '../BalanceBlock';
 
-
-import { MAINNET_CHAIN_NAME, DEFAULT_ERC20_DECIMALS, METAPORT_CONFIG } from '../../core/constants';
-import { initChainWeb3 } from '../../core/tokens';
+import { getChainIcon } from '../ActionCard/helper';
+import {
+    DEFAULT_ERC20_DECIMALS,
+    METAPORT_CONFIG,
+    COMMUNITY_POOL_WITHDRAW_GAS_LIMIT,
+    BALANCE_UPDATE_INTERVAL_SECONDS
+} from '../../core/constants';
 import { fromWei, toWei } from '../../core/convertation';
-import { initMainnetMetamask, initMainnet } from '../../core/network';
+import { capitalize } from '../../core/helper';
+import { initMainnetMetamask, initMainnet, initSChain } from '../../core/network';
 
 debug.enable('*');
 const log = debug('bridge:components:CommunityPool');
@@ -26,15 +34,22 @@ const log = debug('bridge:components:CommunityPool');
 
 export default function CommunityPool(props: any) {
     const [open, setOpen] = React.useState<boolean>(false);
-    const [view, setView] = React.useState<string>();
+    const [view, setView] = React.useState<string>('recharge');
 
     const [accountBalance, setAccountBalance] = React.useState<string>();
     const [balance, setBalance] = React.useState<string>();
 
-    const [loading, setLoading] = React.useState(false);
-    const [amount, setAmount] = React.useState<string>();
+    const [loading, setLoading] = React.useState<boolean>(false);
+    const [recharging, setRecharging] = React.useState<boolean>(false);
+
+    const [activeUserSchain, setActiveUserSchain] = React.useState<boolean>(false);
+    const [activeUserMainnet, setActiveUserMainnet] = React.useState<boolean>(false);
+    const [amount, setAmount] = React.useState<string>('');
 
     const [mainnet, setMainnet] = React.useState<MainnetChain>();
+    const [schain, setSchain] = React.useState<SChain>();
+
+    const [updateBalanceFlag, setUpdateBalanceFlag] = React.useState<boolean>(false);
 
     function toggleOpen() {
         setOpen(!open);
@@ -51,25 +66,35 @@ export default function CommunityPool(props: any) {
     }
 
     useEffect(() => {
-        if (props.web3) {
-            // todo!
-        }
-    }, [props.web3]);
-
-    useEffect(() => {
         log('init mainnet chain for community pool');
         const mainnet = initMainnet(
             METAPORT_CONFIG.skaleNetwork,
             METAPORT_CONFIG.mainnetEndpoint
         );
         setMainnet(mainnet);
+
+        log('init schain for community locker');
+        const schain = initSChain(
+            METAPORT_CONFIG.skaleNetwork,
+            props.chainName
+        );
+        setSchain(schain);
     }, []);
 
     useEffect(() => {
-        if (mainnet && props.address) {
+        checkUserActive();
+    }, [activeUserMainnet, activeUserSchain, recharging]);
+
+    useEffect(() => {
+        if (mainnet && schain && props.address) {
             updateBalance();
         }
-    }, [mainnet, props.address, props.chainName]);
+        const interval = setInterval(
+            () => setUpdateBalanceFlag(!updateBalanceFlag),
+            BALANCE_UPDATE_INTERVAL_SECONDS * 1000
+        );
+        return () => clearInterval(interval);
+    }, [updateBalanceFlag, mainnet, props.address, props.chainName]);
 
     async function mainnetMetamask() {
         log('setMainnetMetamask');
@@ -79,9 +104,22 @@ export default function CommunityPool(props: any) {
         );
     }
 
+    function checkUserActive() {
+        if (activeUserMainnet && activeUserSchain) {
+            props.setUserActive(true);
+            if (!loading || recharging) return;
+            props.setMsgType('success');
+            props.setMsg('Exit gas wallet recharged');
+            setOpen(false);
+            setLoading(false);
+            setAmount('');
+        }
+    }
+
     async function recharge() {
         if (!mainnet || !amount) return;
         setLoading(true);
+        setRecharging(true);
         const mm = await mainnetMetamask();
         const amountWei = toWei(amount, DEFAULT_ERC20_DECIMALS);
         log(`recharge - ${props.address} - ${amountWei}`);
@@ -90,16 +128,14 @@ export default function CommunityPool(props: any) {
                 address: props.address,
                 value: amountWei
             });
-            // props.setMsgType('success');
-            // props.setMsg('Exit gas wallet recharged');
-            setOpen(false);
         } catch (e: any) {
             log('recharge error', e);
             props.setMsgType('error');
             props.setMsg(e.message);
-        } finally {
-            await updateBalance();
             setLoading(false);
+        } finally {
+            setRecharging(false);
+            await updateBalance();
         }
     }
 
@@ -111,7 +147,8 @@ export default function CommunityPool(props: any) {
         log(`withdraw - ${props.address} - ${amountWei}`);
         try {
             await mm.communityPool.withdraw(props.chainName, amountWei, {
-                address: props.address
+                address: props.address,
+                customGasLimit: COMMUNITY_POOL_WITHDRAW_GAS_LIMIT
             });
             props.setMsgType('success');
             props.setMsg('ETH withdrawn from exit gas wallet');
@@ -127,11 +164,20 @@ export default function CommunityPool(props: any) {
     }
 
     async function updateBalance() {
-        log('updating balance for community pool');
-        if (!mainnet) return;
+        log('updating balance for community pool and community locker');
+        if (!mainnet || !schain) return;
         const balanceWei = await mainnet.communityPool.balance(props.address, props.chainName);
         const balanceEther = fromWei(balanceWei as string, DEFAULT_ERC20_DECIMALS);
         setBalance(balanceEther);
+
+        const activeS = await schain.communityLocker.contract.methods.activeUsers(props.address).call();
+        setActiveUserSchain(activeS);
+        // log('User is active on Schain:', activeS);
+
+        const chainHash = mainnet.web3.utils.soliditySha3(props.chainName);
+        const activeM = await mainnet.communityPool.contract.methods.activeUsers(props.address, chainHash).call();
+        setActiveUserMainnet(activeM);
+        // log('User is active on Mainnet:', activeM);
 
         const accountBalanceWei = await mainnet.ethBalance(props.address);
         const accountBalanceEther = fromWei(accountBalanceWei as string, DEFAULT_ERC20_DECIMALS);
@@ -144,24 +190,41 @@ export default function CommunityPool(props: any) {
         const recommendedRechargeAmountEther = fromWei(recommendedRechargeAmountWei as string, DEFAULT_ERC20_DECIMALS);
         props.setRecommendedRechargeAmount(recommendedRechargeAmountEther);
 
-        let recommendedAmount = parseFloat(recommendedRechargeAmountEther as string) * 10;
+        let recommendedAmount = parseFloat(recommendedRechargeAmountEther as string) * 1.2;
         if (recommendedAmount < 0.01) recommendedAmount = 0.01;
 
         if (recommendedRechargeAmountWei !== '0') {
-            setAmount(recommendedAmount.toFixed(2).toString());
+            setAmount(recommendedAmount.toFixed(4).toString());
         }
     }
 
-    return (<div className='marg-top-40'>
-        <Card variant="outlined" className='topBannerNew bridgeUIPaper'>
-            <div className='mp__flex mp__flexCenteredVert mp__margRi10 mp__margLeft10'>
-                <div className='mp__margLeft10 mp__margRi10 mp__flex mp__flexCenteredVert'>
+
+    function getTitleText() {
+        if (open) return capitalize(view as string);
+        return props.recommendedRechargeAmount === '0' ? 'Exit gas wallet OK' : 'You need to recharge exit gas wallet first'
+    }
+
+    function getRechargeBtnText() {
+        if (loading) {
+            if (!recharging) return 'Waiting for the address to be activated...';
+            return 'Recharging...'
+        }
+        if (!balance || !accountBalance) return 'Loading balance...';
+        if (Number(amount) > Number(accountBalance)) return 'Insufficient ETH balance'
+        if (amount === '' || amount === '0' || !amount) return 'Enter an amount';
+        return 'Recharge exit gas wallet';
+    }
+
+    return (<div>
+        <Card variant="outlined" className='topBannerNew br__paper'>
+            <div className='mp__flex mp__flexCenteredVert'>
+                <div className='mp__margRi10 mp__flex mp__flexCenteredVert'>
                     {props.recommendedRechargeAmount && balance ? <div className='mp__flex mp__flexCenteredVert'>
-                        {props.recommendedRechargeAmount === '0' ? <CheckCircleIcon color='success' /> : <ErrorIcon color='warning' />}
-                        <p className='mp__flex mp__margLeft10'>
-                            {props.recommendedRechargeAmount === '0' ? 'Exit gas wallet OK' : 'You need to recharge exit gas wallet first'}
+                        {props.recommendedRechargeAmount === '0' ? <CheckCircleIcon color='success' className='mp__margRi10' /> : <ErrorIcon color='warning' className='mp__margRi10' />}
+                        <p className={'mp__flex mp__noMarg ' + (open ? 'mp__p mp__p2 whiteText' : null)}>
+                            {getTitleText()}
                         </p>
-                    </div> : <Skeleton className='mp__flex' width='180px' height='47px' />}
+                    </div> : <Skeleton className='mp__flex' width='180px' height='20px' />}
                 </div>
                 <div className='mp__flex mp__flexGrow mp__flexCenteredVert mp__margLeft10'>
                     {/* <HelpIcon fontSize='small' className='mp__iconGray'/> */}
@@ -178,54 +241,74 @@ export default function CommunityPool(props: any) {
                 </div>}
             </div>
             <Collapse in={open}>
-                <CardContent className='mp__margLeft20 mp__margRi20 mp__margTop20 mp__margBott20'>
-
+                <CardContent className='mp__noPadd'>
                     {view === 'recharge' ? (<div>
-                        <h2 className='mp__noMarg'>Recharge</h2>
-                        <p className={'mp__margTop5 mp__margBott20 mp__p mp__p4 '}>
-                            You need a balance in this wallet to transfer to Ethereum. This wallet is used to pay for gas fees when your transaction is presented to Ethereum. You may withdraw from the wallet at anytime.
-                        </p>
-
-                        <p className={'mp__margTop5 mp__margBott20 mp__p mp__p4 '}>
-                            ⚠️ You may need to wait for some time (5-10 min) after the first Exit gas wallet recharge before you will be able to move funds to Ethereum.
-                        </p>
-                        <p className={'mp__noMarg mp__p mp__p3 '}>
-                            Mainnet ETH balance
-                        </p>
-                        <p className={'mp__margBott10 mp__p mp__p4 whiteText'}>
-                            {accountBalance} ETH
-                        </p>
-
-                        <p className={'mp__noMarg mp__p mp__p3 '}>
-                            Exit gas wallet balance
-                        </p>
-                        <p className={'mp__margBott10 mp__p mp__p4 whiteText'}>
-                            {balance} ETH
-                        </p>
-
-                        <Grid container className=''>
+                        <BridgePaper gray rounded margTop>
+                            <p className={'mp__p mp__p4 whiteText'}>
+                                You need a balance in this wallet to transfer to Ethereum. This wallet is used to pay for gas fees when your transaction is presented to Ethereum. You may withdraw from the wallet at anytime.
+                            </p>
+                        </BridgePaper>
+                        <Grid container spacing={2} >
                             <Grid className='fl-centered' item md={6} sm={12} xs={12}>
-                                <div className='mp__flex mp__flexCenteredVert mp__margTop10 mp__margBott5'>
-                                    <p className={'mp__p2 mp__noMarg mp__flexGrow  ' + (loading ? 'mp__disabledP' : '')}>Amount</p>
+                                <div className='mp__margTop20 br__paper br__paperRounded ' style={{ background: '#2a2a2a' }}>
+                                    <p className={'mp__noMarg mp__p mp__p3 '}>
+                                        Recharge amount
+                                    </p>
+                                    <AmountInput setAmount={setAmount} amount={amount} token={{}} loading={loading} balance={accountBalance} maxBtn={false} />
                                 </div>
-                                <AmountInput setAmount={setAmount} amount={amount} token={{}} loading={loading} balance={accountBalance} maxBtn={false} />
-                                <Button
-                                    onClick={recharge}
-                                    variant="contained"
-                                    disabled={loading || !balance || !accountBalance || Number(amount) > Number(accountBalance) || amount === '' || amount === '0' || !amount}
-                                    className='mp__margTop20 bridge__btn'
-                                    size='large'
-                                >
-                                    {loading ? 'Recharging...' : 'Recharge'}
-                                </Button>
+                            </Grid>
+                            <Grid className='mp__margTop20' item md={3} sm={12} xs={12}>
+                                <BridgePaper rounded gray fullHeight>
+                                    <BalanceBlock
+                                        icon={getChainIcon('mainnet', true)}
+                                        chainName='Ethereum'
+                                        balance={accountBalance}
+                                        token='eth'
+                                    />
+                                </BridgePaper>
+                            </Grid>
+                            <Grid className='mp__margTop20' item md={3} sm={12} xs={12}>
+                                <BridgePaper rounded gray fullHeight>
+                                    <BalanceBlock
+                                        icon={<AccountBalanceWalletRoundedIcon className='chainIcon' style={{ color: '#b5b5b5' }} />}
+                                        chainName='exit wallet'
+                                        balance={balance}
+                                        token='eth'
+                                    />
+                                </BridgePaper>
                             </Grid>
                         </Grid>
+                        <Button
+                            onClick={recharge}
+                            variant="contained"
+                            disabled={loading || !balance || !accountBalance || Number(amount) > Number(accountBalance) || amount === '' || amount === '0' || !amount}
+                            className='mp__margTop20 bridge__btn'
+                            size='large'
+                        >
+                            {getRechargeBtnText()}
+                        </Button>
                     </div>) : null}
                     {view === 'withdraw' ? (<div className=''>
-                        <h2 className='mp__noMarg'>Withdraw {balance} ETH</h2>
-                        <p className={'mp__margTop5 mp__p mp__p4 '}>
-                            Withdraw all ETH from exit gas wallet. You will be unable to perform transfers until you refill again.
-                        </p>
+                        <Grid container spacing={2}>
+                            <Grid className='fl-centered mp__margTop20' item md={9} sm={12} xs={12}>
+                                <div className='br__paper br__paperRounded br__paperGrey'>
+                                    <p className={'mp__p mp__p4 whiteText'}>
+                                        Withdraw all ETH from exit gas wallet. <br />
+                                        You will be unable to perform transfers until you refill again.
+                                    </p>
+                                </div>
+                            </Grid>
+                            <Grid className='mp__margTop20' item md={3} sm={12} xs={12}>
+                                <BridgePaper rounded gray fullHeight>
+                                    <BalanceBlock
+                                        icon={<AccountBalanceWalletRoundedIcon className='chainIcon' style={{ color: '#b5b5b5' }} />}
+                                        chainName='exit wallet'
+                                        balance={balance}
+                                        token='eth'
+                                    />
+                                </BridgePaper>
+                            </Grid>
+                        </Grid>
                         <Button
                             onClick={withdraw}
                             variant="contained"
@@ -233,12 +316,11 @@ export default function CommunityPool(props: any) {
                             className='mp__margTop20 bridge__btn'
                             size='large'
                         >
-                            {loading ? 'Withdrawing...' : 'Withdraw'}
+                            {loading ? 'Withdrawing...' : `Withdraw ${balance ? balance.substring(0, 8) : null} ETH`}
                         </Button>
                     </div>) : null}
-
                 </CardContent >
             </Collapse>
         </Card >
-    </div>)
+    </div >)
 }

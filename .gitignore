@@ -27,4 +27,5 @@ src/metadata/metaportConfig*.json
 src/meta/
 
 src/metadata/chainsData.json
+src/metadata/faucet.json
 .vercel
