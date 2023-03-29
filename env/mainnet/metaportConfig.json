@@ -158,6 +158,7 @@
           "name": "USDC",
           "symbol": "USDC",
           "cloneSymbol": "USDC",
+          "decimals": "6",
           "wraps": {
             "address": "0x5F795bb52dAC3085f578f4877D450e2929D2F13d",
             "symbol": "USDC",

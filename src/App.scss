@@ -76,8 +76,51 @@ p {
 }
 
 
-.bridgeUIPaper.MuiPaper-rounded {
-  border-radius: 20px !important;
+.br__paper {
+  background-color: #151515;
+  padding: 20px !important;
+}
+
+.bridge__paperTop {
+  border-radius: 25px 25px 0 0 !important;
+}
+
+.bridge__paperBott {
+  border-radius: 0 0 25px 25px !important;
+}
+
+
+.br__alert {
+  font-weight: 500 !important;
+  font-size: 0.8525rem !important;
+  padding: 20px !important;
+
+  .MuiAlert-icon,
+  .MuiAlert-message,
+  .MuiAlert-action,
+  .MuiButtonBase-root {
+    padding: 0 !important;
+  }
+
+  .MuiButtonBase-root {
+    margin-right: 10px;
+  }
+}
+
+.br__paperRounded,
+.br__alert {
+  border-radius: 25px !important;
+}
+
+
+.MuiPaper-rounded {
+  border-radius: 25px;
+}
+
+.br__paper.MuiPaper-rounded {
+  border-radius: 25px !important;
+  background-color: #151515;
+  border: none !important;
 }
 
 h4 {
@@ -93,15 +136,25 @@ h4 {
   background-color: #000000;
 
   .mp__btnConnect.mp__btnConnected {
-    .MuiPaper-root {
-      color: rgb(45, 203, 116) !important;
-      border: none !important;
+
+    color: white !important;
+    background-color: #191919 !important;
+    border: none !important;
+
+    text-transform: none !important;
+
+    font-size: .8525rem;
+    line-height: 1.6;
+    font-weight: 600;
+
+    height: 37px !important;
+
+
+    .paper {
+      margin-right: 10px !important;
     }
 
-    svg {
-      width: 14pt;
-      height: 14pt;
-    }
+    padding-right: 12px !important;
   }
 }
 
@@ -118,11 +171,15 @@ h4 {
 }
 
 .MuiCardContent-root:last-child {
-  padding-bottom: 16px !important;
+  // padding-bottom: 16px !important;
 }
 
 .logo {
   width: 75pt;
+}
+
+.logoBig {
+  width: 95pt;
 }
 
 .sk-header {
@@ -132,10 +189,6 @@ h4 {
 .appContent {
   height: calc(100vh - 94px);
   overflow-y: auto;
-}
-
-::-webkit-scrollbar {
-  display: none;
 }
 
 .bridgeUI-light .logo {
@@ -182,7 +235,7 @@ h4 {
 }
 
 .mp__fullHeight {
-  height: 95vh;
+  height: 85vh;
 }
 
 .mp__flex {
@@ -270,6 +323,19 @@ h4 {
   margin-bottom: 10px !important;
 }
 
+.mp__margBott15 {
+  margin-bottom: 15px !important;
+}
+
+.mp__margBottMin10 {
+  margin-bottom: -10px !important;
+}
+
+.mp__margBottMin15 {
+  margin-bottom: -15px !important;
+}
+
+
 .marg-bott-40 {
   margin-bottom: 40px !important;
 }
@@ -294,6 +360,10 @@ h4 {
 
 .mp__noMarg {
   margin: 0 !important;
+}
+
+.mp__noPadd {
+  padding: 0 !important;
 }
 
 .mp__paddTop10 {
@@ -401,6 +471,16 @@ h4 {
   box-shadow: none !important;
 }
 
+.bridge__btnLoading {
+  padding-left: 35px !important;
+}
+
+.bridge__transferBtn {
+  width: 100%;
+  font-size: 0.8rem !important;
+  font-weight: 600 !important;
+  padding: 12px !important;
+}
 
 .nftImg {
   max-height: 200px;
@@ -452,7 +532,7 @@ input::-webkit-inner-spin-button {
   width: 100%;
   border-radius: 18px !important;
 
-  text-align: left;
+  text-align: center;
 
   .mp__iconConnect {
     margin-left: 10px;
@@ -496,10 +576,9 @@ input::-webkit-inner-spin-button {
 
 .mp__btnChainBig {
   width: 100%;
-  text-align: left;
   text-transform: uppercase;
-  font-size: 1.0525rem;
-  line-height: 1;
+  font-size: 0.90525rem;
+  line-height: 1.5;
   letter-spacing: 0.02857em;
   padding-left: 25pt;
   padding-right: 25pt;
@@ -533,8 +612,8 @@ input::-webkit-inner-spin-button {
 }
 
 .chainIcon {
-  width: 25px !important;
-  height: 25px !important;
+  width: 24px !important;
+  height: 24px !important;
 }
 
 .MuiListItemIcon-root {
@@ -592,7 +671,8 @@ li a {
   margin: 0;
   font-weight: 600 !important;
   // text-transform: uppercase !important;
-  font-size: 0.6525rem !important;
+  //font-size: 0.6525rem !important;
+  font-size: 0.7rem !important;
   line-height: 1.6 !important;
   letter-spacing: 0.02857em !important;
 }
@@ -630,6 +710,13 @@ li a {
   font-size: 0.8525rem !important;
   line-height: 1.6 !important;
   letter-spacing: 0.03857em !important;
+}
+
+.mp__p6 {
+  margin: 0;
+  font-weight: 500 !important;
+  font-size: 0.9525rem !important;
+  line-height: 1.6 !important;
 }
 
 .mp__p5 {
@@ -677,6 +764,8 @@ li a {
   border-left: 1px #292929 solid !important;
 
   background-color: #191919;
+
+  margin-top: -1px; // hotfix for Safari
 }
 
 .app-bott-ins {
@@ -719,10 +808,9 @@ li a {
 
 .schain-name {
   font-weight: bold;
-  text-transform: uppercase;
-  font-size: 0.7rem;
+  // text-transform: uppercase;
+  font-size: .75rem;
   color: white;
-  padding-top: 5pt;
   text-align: center;
 }
 
@@ -791,6 +879,9 @@ li a {
   background-color: #535610 !important;
 }
 
+.whiteText {
+  color: white !important;
+}
 
 .mp__disabledP {
   color: #707070 !important;
@@ -807,9 +898,7 @@ li a {
   color: #8c8c8c;
 }
 
-.whiteText {
-  color: white !important;
-}
+
 
 .MuiDrawer-paper {
   background-color: black !important;
@@ -899,4 +988,178 @@ li a {
   background-color: rgba(0, 0, 0, 0) !important;
   -webkit-backdrop-filter: blur(80px) !important;
   backdrop-filter: blur(80px) !important;
+}
+
+
+
+.bridge__moveDownIcon {
+  text-align: center;
+  // margin-top: -35px !important;
+  position: absolute;
+  position: relative;
+
+  svg {
+    //background-color: white;
+    // color: black;
+    border-radius: 50%;
+    padding: 5px;
+    width: 42px;
+    height: 42px;
+
+    background-color: #151515;
+    margin-top: -20px;
+
+    border: 6px black solid;
+  }
+}
+
+.bridge__tokensChips {
+  // overflow: scroll;
+}
+
+.br__balanceCard {
+  .chainIcon {
+    width: 15px !important;
+    height: 15px !important;
+  }
+}
+
+.br__transferData {
+  .chainIcon {
+    width: 15px !important;
+    height: 15px !important;
+  }
+}
+
+.br__paperGrey {
+  background-color: #2a2a2a;
+}
+
+.br__fullHeight {
+  height: 100%;
+}
+
+.MuiModal-root {
+  z-index: 99999 !important;
+}
+
+
+.br__modal {
+  .br__modalScroll {
+    height: 30vh;
+    overflow-y: scroll !important;
+  }
+}
+
+// ::-webkit-scrollbar {
+//   display: none;
+// }
+
+
+.br__modalScroll {
+  ::-webkit-scrollbar {
+    display: unset !important;
+  }
+}
+
+::-webkit-scrollbar-thumb {
+  background: white;
+  -webkit-box-shadow: none;
+}
+
+::-webkit-scrollbar-thumb:window-inactive {
+  background: none;
+}
+
+::-webkit-scrollbar {
+  -webkit-appearance: none;
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: #e1e1e125;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+  border: 0px solid rgba(255, 255, 255, 0);
+  background-clip: content-box;
+  background-color: #a0a0a0;
+}
+
+body::-webkit-scrollbar {
+  display: none;
+}
+
+
+.br__bottomNav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.br__transactionDataIcon {
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+
+  svg,
+  img {
+    width: 20px !important;
+    height: 20px !important;
+  }
+}
+
+.br__action_deposit {
+  background-image: linear-gradient(45deg, #8A463C 0%, #b02d50 100%);
+}
+
+.br__action_transferToSchain {
+  // background-image: linear-gradient(120deg, #00546B 0%, #003559 50%, #002466 100%);
+  background-image: linear-gradient(120deg, #9c27b0 0%, #3f51b5 100%)
+}
+
+.br__action_wrap {
+  background-image: linear-gradient(160deg, #237bc3 0%, #1a3b94 100%);
+}
+
+.br__action_unwrap {
+  background-image: linear-gradient(160deg, #1a3b94 0%, #237bc3 100%);
+  // background-image: linear-gradient(135deg, #31a385 0%, #25648a 100%);
+}
+
+.br__action_withdraw {
+  background-image: linear-gradient(45deg, #b02d50 0%, #8A463C 100%);
+}
+
+.br__action_getMyEth {
+  background-image: linear-gradient(45deg, #009688 0%, #0c5f57 100%);
+}
+
+.br__action_approve {
+  background-image: linear-gradient(135deg, #29b1a9 0%, #14532a 100%);
+}
+
+.br__action_approveWrap {
+  background-image: linear-gradient(135deg, #14532a 0%, #29b1a9 100%);
+}
+
+.br__action_wallet {
+  background-image: linear-gradient(135deg, #dedede 0%, #aeaeae 100%);
+}
+
+.capitalize {
+  text-transform: capitalize;
+}
+
+.bold {
+  font-weight: bold !important;
+}
+
+.br__openExplorerBtn {
+  svg {
+    width: 15px !important;
+    height: 15px !important
+  }
 }

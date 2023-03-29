@@ -14,6 +14,28 @@ function stringToColor(str: string, dark: boolean): string {
     // return `hsl(${hashCode(str) % 360}, 55%, 40%)`;
 }
 
+/**
+ * Gets the website URL for a given chain or application.
+ *
+ * @param {object} chainsMetadata An object containing metadata for SKALE chains.
+ * @param {string} chainName The name of the chain to get the website URL for.
+ * @param {string} [app] (Optional) The name of the application to get the website URL for.
+ * @returns {string | undefined} The website URL for the specified chain/application, or `undefined` if not found.
+ */
+export function getChainWebsiteUrl(
+    chainsMetadata: any,
+    chainName: string,
+    app?: string
+): string | undefined {
+    if (chainName == MAINNET_CHAIN_NAME) return;
+    if (chainsMetadata && chainsMetadata[chainName]) {
+        if (app && chainsMetadata[chainName]['apps'][app]) {
+            return chainsMetadata[chainName]['apps'][app].url;
+        }
+        return chainsMetadata[chainName].url;
+    }
+}
+
 
 export function getChainName(chainsMetadata: any, chainName: string, app?: string): string {
     if (chainName == MAINNET_CHAIN_NAME) {
@@ -33,7 +55,7 @@ export function getChainName(chainsMetadata: any, chainName: string, app?: strin
 export function getChainIcon(chainName: string, dark: boolean, app?: string) {
     const iconPath = chainIconPath(chainName, app);
     if (iconPath !== undefined) {
-        return <img src={iconPath} className='eth-logo chainIcon'/>;
+        return <img src={iconPath} className='eth-logo chainIcon' />;
     }
     return (<OfflineBoltIcon className='chainIcon' sx={{ color: stringToColor(chainName, dark) }} />);
 }

@@ -36,7 +36,7 @@ debug.enable('*');
 const log = debug('bridge:core:tokens');
 
 
-function getChainEndpoint(chainName: string): string {
+export function getChainEndpoint(chainName: string): string {
     if (chainName === MAINNET_CHAIN_NAME) {
         return METAPORT_CONFIG.mainnetEndpoint;
     }
