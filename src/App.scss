@@ -1,3 +1,7 @@
+
+
+$boder-color: rgba(131, 131, 131, 0.35);
+
 .textPage {
   p {
     font-size: 0.9rem;
@@ -759,19 +763,18 @@ li a {
   border-bottom-left-radius: 25px !important;
   border-bottom-right-radius: 25px !important;
 
-  border-bottom: 1px #292929 solid !important;
-  border-right: 1px #292929 solid !important;
-  border-left: 1px #292929 solid !important;
+  border-bottom: 1px $boder-color solid !important;
+  border-right: 1px $boder-color solid !important;
+  border-left: 1px $boder-color solid !important;
 
   background-color: #191919;
 
-  margin-top: -1px; // hotfix for Safari
+  margin-top: -3pt; // hotfix for Safari
 }
 
 .app-bott-ins {
-  backdrop-filter: brightness(0.6);
   width: 100%;
-  padding: 5pt 0;
+  padding: 3pt 12pt 12pt 12pt;
 }
 
 .app-bott h6,
@@ -795,10 +798,9 @@ li a {
   border-bottom-left-radius: 0 !important;
   border-bottom-right-radius: 0 !important;
 
-
-  border-top: 1px #292929 solid !important;
-  border-right: 1px #292929 solid !important;
-  border-left: 1px #292929 solid !important;
+  border-top: 1px $boder-color solid !important;
+  border-right: 1px $boder-color solid !important;
+  border-left: 1px $boder-color solid !important;
 
   svg {
     color: white !important;
@@ -821,9 +823,11 @@ li a {
 
 
 .mp__iconToken {
-  width: 20px;
-  height: 20px;
-  margin-right: -5px;
+  width: 25px;
+  height: 25px;
+  margin-right: -10px;
+  border: 1px $boder-color solid !important;
+  border-radius: 50%;
 }
 
 .mp__iconTokenBig {
@@ -1162,4 +1166,28 @@ body::-webkit-scrollbar {
     width: 15px !important;
     height: 15px !important
   }
+}
+
+
+
+.tile-container {
+  perspective: 3000px;
+}
+
+.tile {
+  .app-icon {
+    box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.05);
+  }
+
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+}
+
+.tile:hover {
+
+  .app-icon {
+    box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.1);
+  }
+
+  transform: scale(1.1) rotateX(15deg);
 }

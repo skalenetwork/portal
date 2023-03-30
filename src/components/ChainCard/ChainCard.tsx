@@ -53,7 +53,7 @@ function getBgColor(schainName: string, app?: string) {
     }
     return CHAINS_META[schainName]['background'];
   }
-  return '#ffffff'; // todo: tmp!
+  return 'linear-gradient(273.67deg, rgb(255, 255, 255), rgb(223 222 222))';
   return stringToColor(schainName);
 }
 
@@ -110,34 +110,31 @@ export default function ChainCard(props: any) {
   }
 
   return (
-    <div>
-      <div className='mp__flexCentered'>
-        <Link to={url}>
+    <Link to={url} className='undec'>
+      <div className='tile'>
+        <div className='mp__flexCentered'>
+
           <Button
             className='app-icon'
-            style={{ backgroundColor: getBgColor(chain, props.chain.app) }}
+            style={{ background: getBgColor(chain, props.chain.app) }}
           >
             {getIcon(chain, props.chain.app)}
           </Button>
-        </Link>
-        <div className='mp__flex mp__flexCentered app-bott' style={{ backgroundColor: getBgColor(chain, props.chain.app) }}>
-          <div className={'app-bott-ins mp__flex mp__flexCentered ' + (tinycolor(getBgColor(chain, props.chain.app)).isLight() ? '' : 'app-bott-dark')}>
-            {/* <div className='mp__margRi5'>
-              <h6 className="mp__noMarg mp__flexCentered chainInfoText">
-                TOKENS
-              </h6>
-            </div> */}
-            {tokens.map((token: any, index: number) => (
-              <Tooltip title={token.toUpperCase()} key={token}>
-                <img className='mp__iconToken' src={iconPath(token)} />
-              </Tooltip>
-            ))}
+
+          <div className='mp__flex app-bott' style={{ background: getBgColor(chain, props.chain.app) }}>
+            <div className={'app-bott-ins mp__flex ' + (tinycolor(getBgColor(chain, props.chain.app)).isLight() ? '' : 'app-bott-dark')}>
+              {tokens.map((token: any, index: number) => (
+                <Tooltip title={token.toUpperCase()} key={token}>
+                  <img className='mp__iconToken' src={iconPath(token)} />
+                </Tooltip>
+              ))}
+            </div>
           </div>
         </div>
+        <p className="schain-name mp__flex mp__flexCentered undec">
+          {getChainName(CHAINS_META, chain, props.chain.app)}
+        </p>
       </div>
-      <p className="schain-name mp__flex mp__flexCentered">
-        {getChainName(CHAINS_META, chain, props.chain.app)}
-      </p>
-    </div>
+    </Link>
   );
 }
