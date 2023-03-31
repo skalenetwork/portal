@@ -21,21 +21,11 @@
  * @copyright SKALE Labs 2022-Present
 */
 
-import * as React from 'react';
-
 import { Link } from "react-router-dom";
-
-import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
 import Tooltip from '@mui/material/Tooltip';
 
 import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
-import LooksOneIcon from '@mui/icons-material/LooksOne';
-import LooksTwoIcon from '@mui/icons-material/LooksTwo';
 
-import BlurOnIcon from '@mui/icons-material/BlurOn';
-import BlurOffIcon from '@mui/icons-material/BlurOff';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { stringToColor } from '../../core/helper';
 import { CHAINS_META } from '../../core/constants';
 
@@ -47,14 +37,20 @@ const tinycolor = require("tinycolor2");
 
 
 function getBgColor(schainName: string, app?: string) {
+  // todo: refactor
   if (CHAINS_META[schainName]) {
     if (app) {
+      if (CHAINS_META[schainName]['apps'][app]['gradientBackground']) {
+        return CHAINS_META[schainName]['apps'][app]['gradientBackground'];
+      }
       return CHAINS_META[schainName]['apps'][app]['background'];
+    }
+    if (CHAINS_META[schainName]['background']['gradientBackground']) {
+      return CHAINS_META[schainName]['background']['gradientBackground'];
     }
     return CHAINS_META[schainName]['background'];
   }
   return 'linear-gradient(273.67deg, rgb(255, 255, 255), rgb(223 222 222))';
-  return stringToColor(schainName);
 }
 
 
@@ -111,30 +107,23 @@ export default function ChainCard(props: any) {
 
   return (
     <Link to={url} className='undec'>
-      <div className='tile'>
-        <div className='mp__flexCentered'>
-
-          <Button
-            className='app-icon'
-            style={{ background: getBgColor(chain, props.chain.app) }}
-          >
-            {getIcon(chain, props.chain.app)}
-          </Button>
-
-          <div className='mp__flex app-bott' style={{ background: getBgColor(chain, props.chain.app) }}>
-            <div className={'app-bott-ins mp__flex ' + (tinycolor(getBgColor(chain, props.chain.app)).isLight() ? '' : 'app-bott-dark')}>
-              {tokens.map((token: any, index: number) => (
-                <Tooltip title={token.toUpperCase()} key={token}>
-                  <img className='mp__iconToken' src={iconPath(token)} />
-                </Tooltip>
-              ))}
-            </div>
+      <div className='br__tile' style={{ background: getBgColor(chain, props.chain.app) }}>
+        <div className='br__tileLogo mp__flex mp__flexCentered'>
+          {getIcon(chain, props.chain.app)}
+        </div>
+        <div className="br__tileBott">
+          <div className={'br__tileBottIcons mp__flex ' + (tinycolor(getBgColor(chain, props.chain.app)).isLight() ? '' : 'app-bott-dark')}>
+            {tokens.map((token: any, index: number) => (
+              <Tooltip title={token.toUpperCase()} key={token}>
+                <img className='mp__iconToken' src={iconPath(token)} />
+              </Tooltip>
+            ))}
           </div>
         </div>
-        <p className="schain-name mp__flex mp__flexCentered undec">
-          {getChainName(CHAINS_META, chain, props.chain.app)}
-        </p>
       </div>
+      <p className="schain-name mp__flex mp__flexCentered undec">
+        {getChainName(CHAINS_META, chain, props.chain.app)}
+      </p>
     </Link>
   );
 }

@@ -39,9 +39,9 @@ export default function ChainCards(props: any) {
     }
     return (<div className='mp__noMarg'>
         <Box sx={{ flexGrow: 1 }}>
-            <Grid container spacing={2}>
+            <Grid container spacing={3}>
                 {keys.map((chain: any, index: number) => (
-                    <Grid key={index} className='fl-centered dappCardd tile-container' item md={3} sm={6} xs={6}>
+                    <Grid key={index} className='fl-centered tile-container' item md={3} sm={6} xs={6}>
                         <ChainCard
                             icons={ICONS}
                             chain={chains[chain]}
@@ -52,7 +52,9 @@ export default function ChainCards(props: any) {
                     </Grid>
                 ))}
             </Grid>
-            {keys.length === 0 && <p className='mp__margTop40 mp__textCentered mp__p mp__p2'> No available chains</p>}
+            {keys.length === 0 && <p className='mp__margTop40 mp__textCentered mp__p mp__p2'>
+                No available chains
+            </p>}
         </Box>
     </div>)
 }
