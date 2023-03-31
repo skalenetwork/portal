@@ -45,8 +45,8 @@ function getBgColor(schainName: string, app?: string) {
       }
       return CHAINS_META[schainName]['apps'][app]['background'];
     }
-    if (CHAINS_META[schainName]['background']['gradientBackground']) {
-      return CHAINS_META[schainName]['background']['gradientBackground'];
+    if (CHAINS_META[schainName]['gradientBackground']) {
+      return CHAINS_META[schainName]['gradientBackground'];
     }
     return CHAINS_META[schainName]['background'];
   }
