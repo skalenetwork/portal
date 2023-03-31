@@ -113,7 +113,7 @@ export default function ChainCard(props: any) {
           <TokensPreview tokens={tokens} chain={chain} />
         </div>
       </div>
-      <p className="schain-name mp__flex mp__flexCentered undec">
+      <p className="schain-name mp__flex mp__flexCentered undec mp__noMargBott">
         {getChainName(CHAINS_META, chain, props.chain.app)}
       </p>
     </Link>
