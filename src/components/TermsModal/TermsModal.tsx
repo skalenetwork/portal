@@ -70,7 +70,12 @@ export default function TermsModal(props: any) {
                                 <p className='mp__p mp__p6 whiteText'>
                                     We will NEVER ask you for your seed phrase or private keys. <br /><br />
                                     SKALE Network is in beta - <Link target="_blank" rel="noopener noreferrer" href="https://docs.skale.network/learn/mainnet-beta">learn more</Link>. <br />
-                                    BE SURE that you are connected to the right bridge and only use official links: <Link target="_blank" rel="noopener noreferrer" href="https://bridge.skale.network">https://bridge.skale.network</Link> and <Link target="_blank" rel="noopener noreferrer" href="https://bridge.skale.space">https://bridge.skale.space</Link>.<br />
+                                    BE SURE that you are connected to the right bridge and only use official links: 
+                                    
+                                    <ul>
+                                        <li><Link target="_blank" rel="noopener noreferrer" href="https://bridge.skale.network">https://bridge.skale.network</Link></li>
+                                        <li><Link target="_blank" rel="noopener noreferrer" href="https://bridge.skale.space">https://bridge.skale.space</Link></li>
+                                    </ul>
                                     Before you use SKALE Bridge, you should review our terms of service carefully and confirm below 👇
                                 </p>
                             </BridgePaper>
