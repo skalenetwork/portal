@@ -22,14 +22,12 @@
 */
 
 import { Link } from "react-router-dom";
-import Tooltip from '@mui/material/Tooltip';
-
 import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
 
-import { stringToColor } from '../../core/helper';
 import { CHAINS_META } from '../../core/constants';
 
-import { getChainName, getChainIcon, iconPath } from '../ActionCard/helper';
+import TokensPreview from '../TokensPreview';
+import { getChainName } from '../ActionCard/helper';
 
 import './ChainCard.scss';
 
@@ -112,13 +110,7 @@ export default function ChainCard(props: any) {
           {getIcon(chain, props.chain.app)}
         </div>
         <div className="br__tileBott">
-          <div className={'br__tileBottIcons mp__flex ' + (tinycolor(getBgColor(chain, props.chain.app)).isLight() ? '' : 'app-bott-dark')}>
-            {tokens.map((token: any, index: number) => (
-              <Tooltip title={token.toUpperCase()} key={token}>
-                <img className='mp__iconToken' src={iconPath(token)} />
-              </Tooltip>
-            ))}
-          </div>
+          <TokensPreview tokens={tokens} chain={chain} />
         </div>
       </div>
       <p className="schain-name mp__flex mp__flexCentered undec">

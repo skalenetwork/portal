@@ -1,4 +1,4 @@
-$boder-color: rgba(131, 131, 131, 0.35);
+$border-color: rgba(131, 131, 131, 0.35);
 
 .textPage {
   p {
@@ -758,8 +758,18 @@ li a {
   width: 25px;
   height: 25px;
   margin-right: -10px;
-  border: 1px $boder-color solid !important;
+  border: 1px $border-color solid !important;
   border-radius: 50%;
+}
+
+.mp__iconTokenMore {
+  margin-left: 10px !important;
+  background: #00000081;
+  p {
+    color: white !important;
+    font-weight: bold;
+    font-size: 0.6rem;
+  }
 }
 
 .mp__iconTokenBig {
@@ -1122,7 +1132,7 @@ body::-webkit-scrollbar {
   width: 100%;
   height: 130px;
   border-radius: 25px !important;
-  border: 1px $boder-color solid !important;
+  border: 1px $border-color solid !important;
 }
 
 .br__tileLogo {
@@ -1146,3 +1156,12 @@ body::-webkit-scrollbar {
   left: 0;
   z-index: 2;
 }
+
+// .br__tileTop {
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   z-index: 2;
+
+//   padding: 12pt 15pt;
+// }
