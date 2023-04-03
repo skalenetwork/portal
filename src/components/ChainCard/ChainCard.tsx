@@ -24,6 +24,7 @@
 import * as React from 'react';
 
 import { Link } from "react-router-dom";
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 
 import Button from '@mui/material/Button';
 import Paper from '@mui/material/Paper';
@@ -74,10 +75,12 @@ export default function ChainCard(props: any) {
     } else if (props.icons[svgPath]) {
       iconPath = svgPath;
     }
-    if (iconPath) {
+    if (iconPath !== schainName) {
       return <img alt='logo' src={props.icons[iconPath]} />
     }
-    return <OfflineBoltIcon className='default-chain-icon' />;
+    return <div className="br__tileDefaultLogo">
+      <Jazzicon diameter={200} seed={jsNumberForAddress(schainName)} />
+    </div>;
   }
 
   // TODO: refactor!

@@ -3,3 +3,14 @@
     max-width: 80%;
     text-align: center;
 }
+
+.br__tileDefaultLogo {
+    height: 100%;
+    width: 100%;
+
+    .paper {
+        border-radius: 20px !important;
+        height: 100% !important;
+        width: 100% !important;
+    }
+}

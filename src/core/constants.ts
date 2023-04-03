@@ -52,7 +52,8 @@ export const HTTPS_PREFIX = 'https://';
 
 export const MAINNET_EXPLORER_URLS: { [networkName: string]: string } = {
     mainnet: 'https://etherscan.io',
-    staging3: 'https://goerli.etherscan.io/'
+    staging3: 'https://goerli.etherscan.io/',
+    legacy: 'https://goerli.etherscan.io/'
 };
 
 export const MAINNET_EXPLORER_URL = MAINNET_EXPLORER_URLS[METAPORT_CONFIG.skaleNetwork];
