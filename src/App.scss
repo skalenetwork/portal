@@ -1,3 +1,5 @@
+$border-color: rgba(131, 131, 131, 0.35);
+
 .textPage {
   p {
     font-size: 0.9rem;
@@ -241,6 +243,10 @@ h4 {
 .mp__flex {
   display: flex;
   vertical-align: middle;
+}
+
+.mp__flexWrap {
+  flex-wrap: wrap;
 }
 
 .fl-right {
@@ -623,12 +629,6 @@ input::-webkit-inner-spin-button {
   }
 }
 
-.dappCard {
-  .chainIcon {
-    width: 40px !important;
-    height: 40px !important;
-  }
-}
 
 .fade-enter {
   opacity: 0;
@@ -734,18 +734,6 @@ li a {
   text-align: center;
 }
 
-
-// cards
-
-.dappCard.MuiGrid-item {
-  transition: transform .2s;
-}
-
-.dappCard.MuiGrid-item:hover {
-  transform: scale(1.1);
-}
-
-
 .chainInfoIcon {
   width: 12pt !important;
   color: #0000008a !important;
@@ -753,56 +741,6 @@ li a {
 
 .chainInfoText {
   color: #0000008a !important;
-}
-
-.app-bott {
-  border-bottom-left-radius: 25px !important;
-  border-bottom-right-radius: 25px !important;
-
-  border-bottom: 1px #292929 solid !important;
-  border-right: 1px #292929 solid !important;
-  border-left: 1px #292929 solid !important;
-
-  background-color: #191919;
-
-  margin-top: -1px; // hotfix for Safari
-}
-
-.app-bott-ins {
-  backdrop-filter: brightness(0.6);
-  width: 100%;
-  padding: 5pt 0;
-}
-
-.app-bott h6,
-.app-bott svg {
-  color: #000000cc !important;
-}
-
-.app-bott-dark h6,
-.app-bott-dark svg {
-  color: #ffffffc9 !important;
-}
-
-
-
-.app-icon {
-  width: 100%;
-  height: 95px;
-  border-top-left-radius: 25px !important;
-  border-top-right-radius: 25px !important;
-
-  border-bottom-left-radius: 0 !important;
-  border-bottom-right-radius: 0 !important;
-
-
-  border-top: 1px #292929 solid !important;
-  border-right: 1px #292929 solid !important;
-  border-left: 1px #292929 solid !important;
-
-  svg {
-    color: white !important;
-  }
 }
 
 
@@ -821,9 +759,21 @@ li a {
 
 
 .mp__iconToken {
-  width: 20px;
-  height: 20px;
-  margin-right: -5px;
+  width: 25px;
+  height: 25px;
+  margin-right: -10px;
+  border: 1px $border-color solid !important;
+  border-radius: 50%;
+}
+
+.mp__iconTokenMore {
+  margin-left: 10px !important;
+  background: #00000081;
+  p {
+    color: white !important;
+    font-weight: bold;
+    font-size: 0.6rem;
+  }
 }
 
 .mp__iconTokenBig {
@@ -1163,3 +1113,59 @@ body::-webkit-scrollbar {
     height: 15px !important
   }
 }
+
+
+
+.tile-container {
+  perspective: 500px;
+}
+
+.br__tile {
+  box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.05);
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+}
+
+.br__tile:hover {
+  box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.1);
+  transform: scale(1.1) rotateX(15deg);
+}
+
+.br__tile {
+  position: relative;
+  width: 100%;
+  height: 130px;
+  border-radius: 25px !important;
+  border: 1px $border-color solid !important;
+}
+
+.br__tileLogo {
+  height: 95px;
+
+  img {
+    max-height: 80%;
+    max-width: 80%;
+    text-align: center;
+  }
+}
+
+.br__tileBottIcons {
+  padding: 12pt 15pt;
+}
+
+
+.br__tileBott {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  z-index: 2;
+}
+
+// .br__tileTop {
+//   position: absolute;
+//   top: 0;
+//   right: 0;
+//   z-index: 2;
+
+//   padding: 12pt 15pt;
+// }
