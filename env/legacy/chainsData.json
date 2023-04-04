@@ -4,6 +4,16 @@
     "chains": {
       "elated-tan-skat": {
         "tokens": {
+          "usdt": {
+            "keyname": "_USDT_0x8eA86DB11442536Df5C6e43d0283C0D6f08B77fB",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "12000"
+            ],
+            "address": "0x8eA86DB11442536Df5C6e43d0283C0D6f08B77fB"
+          },
           "eth": {
             "keyname": "eth",
             "recommendedValues": [
@@ -21,6 +31,16 @@
     "chains": {
       "mainnet": {
         "tokens": {
+          "usdt": {
+            "keyname": "_USDT_0x8eA86DB11442536Df5C6e43d0283C0D6f08B77fB",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "12000"
+            ],
+            "address": "0x93D75D40Cf545be4B36dfb5802Ab498364848727"
+          },
           "eth": {
             "keyname": "eth",
             "recommendedValues": [
