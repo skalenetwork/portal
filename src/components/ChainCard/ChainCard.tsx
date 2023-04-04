@@ -22,16 +22,13 @@
 */
 
 import { Link } from "react-router-dom";
-import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
-
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 import { CHAINS_META } from '../../core/constants';
 
 import TokensPreview from '../TokensPreview';
 import { getChainName } from '../ActionCard/helper';
 
 import './ChainCard.scss';
-
-const tinycolor = require("tinycolor2");
 
 
 function getBgColor(schainName: string, app?: string) {
@@ -68,10 +65,12 @@ export default function ChainCard(props: any) {
     } else if (props.icons[svgPath]) {
       iconPath = svgPath;
     }
-    if (iconPath) {
+    if (iconPath !== schainName) {
       return <img alt='logo' src={props.icons[iconPath]} />
     }
-    return <OfflineBoltIcon className='default-chain-icon' />;
+    return <div className="br__tileDefaultLogo">
+      <Jazzicon diameter={200} seed={jsNumberForAddress(schainName)} />
+    </div>;
   }
 
   // TODO: refactor!

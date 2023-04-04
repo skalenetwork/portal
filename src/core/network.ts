@@ -46,6 +46,7 @@ import erc20WrapperAbi from '../metadata/erc20_wrapper_abi.json';
 import mainnetAddresses from '../metadata/addresses/mainnet.json';
 import stagingAddresses from '../metadata/addresses/staging.json';
 import staging3Addresses from '../metadata/addresses/staging3.json';
+import legacyAddresses from '../metadata/addresses/legacy.json';
 
 import {
   MAINNET_CHAIN_NAME,
@@ -160,6 +161,9 @@ function getMainnetAbi(network: string) {
   }
   if (network === 'staging3') {
     return { ...mainnetAbi, ...staging3Addresses }
+  }
+  if (network === 'legacy') {
+    return { ...mainnetAbi, ...legacyAddresses }
   }
   return { ...mainnetAbi, ...mainnetAddresses }
 }
