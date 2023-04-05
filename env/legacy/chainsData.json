@@ -14,6 +14,17 @@
             ],
             "address": "0x8eA86DB11442536Df5C6e43d0283C0D6f08B77fB"
           },
+          "wbtc": {
+            "keyname": "_WBTC_0xD4869FeF1A4A431B00c0872Ee561dCc617075947",
+            "recommendedValues": [
+              "200",
+              "500",
+              "1000",
+              "2000",
+              "12000"
+            ],
+            "address": "0xD4869FeF1A4A431B00c0872Ee561dCc617075947"
+          },
           "skl": {
             "keyname": "_SKL_0x4828207D56D2f494C891afFE4546c5c6192f3509",
             "recommendedValues": [
@@ -51,6 +62,16 @@
               "12000"
             ],
             "address": "0x93D75D40Cf545be4B36dfb5802Ab498364848727"
+          },
+          "wbtc": {
+            "keyname": "_WBTC_0xD4869FeF1A4A431B00c0872Ee561dCc617075947",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "12000"
+            ],
+            "address": "0x013C0E9Ca8B0432B7C0fBdA89d9b919fdA8D9d91"
           },
           "eth": {
             "keyname": "eth",

@@ -27,7 +27,12 @@
           "name": "SKALE",
           "address": "0x4828207D56D2f494C891afFE4546c5c6192f3509",
           "symbol": "SKL"
-      }
+      },
+        "_WBTC_0xD4869FeF1A4A431B00c0872Ee561dCc617075947": {
+          "name": "WBTC",
+          "address": "0xD4869FeF1A4A431B00c0872Ee561dCc617075947",
+          "symbol": "WBTC"
+    }
       },
       "erc721meta": {
       },
