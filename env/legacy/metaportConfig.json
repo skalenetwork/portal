@@ -6,7 +6,8 @@
   "debug": false,
   "chains": [
     "mainnet",
-    "elated-tan-skat"
+    "elated-tan-skat",
+    "lucky-precious-secunda-giedi"
   ],
   "chainsMetadata": {
   },
@@ -14,7 +15,8 @@
     "mainnet": {
       "eth": {
         "chains": [
-          "elated-tan-skat"
+          "elated-tan-skat",
+          "lucky-precious-secunda-giedi"
         ]
       },
       "erc20": {

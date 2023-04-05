@@ -2,6 +2,19 @@
   "mainnet": {
     "hub": "ethereum",
     "chains": {
+      "lucky-precious-secunda-giedi": {
+        "tokens": {
+          "eth": {
+            "keyname": "eth",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.2",
+              "0.5"
+            ]
+          }
+        }
+      },
       "elated-tan-skat": {
         "tokens": {
           "usdt": {
@@ -93,6 +106,24 @@
               "12000"
             ],
             "address": "0x51A1eD016633Afb00C25Eb404745C61D8c16BBd4"
+          }
+        }
+      }
+    }
+  },
+  "lucky-precious-secunda-giedi": {
+    "chains": {
+      "mainnet": {
+        "tokens": {
+          "eth": {
+            "keyname": "eth",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.2",
+              "0.5"
+            ],
+            "address": "0xD2Aaa00700000000000000000000000000000000"
           }
         }
       }
