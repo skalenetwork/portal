@@ -7,7 +7,7 @@
   "chains": [
     "mainnet",
     "elated-tan-skat",
-    "lucky-precious-secunda-giedi"
+    "new-handy-mira"
   ],
   "chainsMetadata": {
   },
@@ -16,7 +16,7 @@
       "eth": {
         "chains": [
           "elated-tan-skat",
-          "lucky-precious-secunda-giedi"
+          "new-handy-mira"
         ]
       },
       "erc20": {
@@ -39,6 +39,21 @@
       "erc721meta": {
       },
       "erc1155": {
+      }
+    },
+    "elated-tan-skat": {
+      "erc20": {
+        "_ETH_0x8ff5E9623323f0B74A55550A7D3C855b94fBf765": {
+          "address": "0x8ff5E9623323f0B74A55550A7D3C855b94fBf765",
+          "name": "ETH",
+          "symbol": "ETH",
+          "cloneSymbol": "ETH",
+          "wraps": {
+            "address": "0xD2Aaa00700000000000000000000000000000000",
+            "symbol": "ETH",
+            "name": "ETH"
+          }
+        }
       }
     }
 
