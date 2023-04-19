@@ -22,8 +22,9 @@
 */
 
 import { Link } from "react-router-dom";
-import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
+import Jazzicon from 'react-jazzicon'
 import { CHAINS_META } from '../../core/constants';
+import { getPseudoRandomNumber } from '../../core/helper';
 
 import TokensPreview from '../TokensPreview';
 import { getChainName } from '../ActionCard/helper';
@@ -69,7 +70,7 @@ export default function ChainCard(props: any) {
       return <img alt='logo' src={props.icons[iconPath]} />
     }
     return <div className="br__tileDefaultLogo">
-      <Jazzicon diameter={200} seed={jsNumberForAddress(schainName)} />
+      <Jazzicon diameter={180} seed={getPseudoRandomNumber(schainName)} />
     </div>;
   }
 

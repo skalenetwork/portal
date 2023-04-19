@@ -9,6 +9,7 @@ import ExitGasWallet from './components/ExitGasWallet';
 import TransferTo from './components/TransferTo';
 import Overview from './components/Overview';
 import History from './components/History';
+import Admin from './components/Admin';
 
 import { Routes, Route, useLocation } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
@@ -27,6 +28,10 @@ export default function Router(props: any) {
                         <Route
                             path="exit"
                             element={<ExitGasWallet />}
+                        />
+                         <Route
+                            path="admin"
+                            element={<Admin />}
                         />
                         <Route
                             path="overview"

@@ -105,3 +105,15 @@ export function getQueryVariable(urlParams: string, variable: string): string | 
 export function getRandom(list: Array<any>) {
     return list[Math.floor((Math.random() * list.length))];
 }
+
+export function getPseudoRandomNumber(
+    seed: string,
+    min: number = 1000000000,
+    max: number = 100000000000000
+): number {
+    const seedValue = hashCode(seed);
+    const range = max - min;
+    const rng = Math.sin(seedValue) * 10000;
+    const randomInt = min + Math.floor((rng - Math.floor(rng)) * range);
+    return randomInt;
+}

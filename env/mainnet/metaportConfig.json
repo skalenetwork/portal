@@ -9,7 +9,8 @@
     "turbulent-unique-scheat",
     "green-giddy-denebola",
     "wan-red-ain",
-    "adorable-quaint-bellatrix"
+    "adorable-quaint-bellatrix",
+    "frayed-decent-antares"
   ],
   "chainsMetadata": {
     "elated-tan-skat": {
@@ -46,6 +47,9 @@
     },
     "adorable-quaint-bellatrix": {
       "alias": "StreamMyScreen"
+    },
+    "frayed-decent-antares": {
+      "alias": "Block Brawlers"
     }
   },
   "tokens": {
@@ -178,6 +182,17 @@
           "name": "SKILL",
           "symbol": "SKILL",
           "iconUrl": "https://ruby.exchange/images/tokens/skill-square.png"
+        }
+      }
+    },
+    "frayed-decent-antares": {
+      "erc20": {
+        "_BRAWL_0xE0A107a0010930Ac218ED0a50937b50D5633EB3e": {
+          "address": "0xE0A107a0010930Ac218ED0a50937b50D5633EB3e",
+          "name": "BRAWL",
+          "symbol": "BRAWL",
+          "iconUrl": "https://ruby.exchange/images/tokens/brawl-square.png",
+          "wrapsSFuel": true
         }
       }
     }
