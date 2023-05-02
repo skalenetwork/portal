@@ -53,6 +53,17 @@
             "symbol": "ETH",
             "name": "ETH"
           }
+        },
+        "_SKL_0xF300Ce2f09f1D93C457Acc0b4974cBfBc53815D1": {
+          "address": "0xF300Ce2f09f1D93C457Acc0b4974cBfBc53815D1",
+          "name": "SKL",
+          "symbol": "SKL",
+          "cloneSymbol": "SKL",
+          "wraps": {
+            "address": "0x51A1eD016633Afb00C25Eb404745C61D8c16BBd4",
+            "symbol": "SKL",
+            "name": "SKL"
+          }
         }
       }
     }

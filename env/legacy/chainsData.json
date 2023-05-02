@@ -47,7 +47,7 @@
           }
         }
       },
-      "new-handy-mira":{
+      "new-handy-mira": {
         "tokens": {
           "eth": {
             "keyname": "eth",
@@ -62,6 +62,21 @@
               "tokenKeyname": "_ETH_0x8ff5E9623323f0B74A55550A7D3C855b94fBf765",
               "tokenType": "erc20"
             }
+          },
+          "skl": {
+            "keyname": "_SKL_0x4828207D56D2f494C891afFE4546c5c6192f3509",
+            "recommendedValues": [
+              "100",
+              "200",
+              "300",
+              "500"
+            ],
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_SKL_0xF300Ce2f09f1D93C457Acc0b4974cBfBc53815D1",
+              "tokenType": "erc20"
+            },
+            "address": "0x4828207D56D2f494C891afFE4546c5c6192f3509"
           }
         }
       }
@@ -80,6 +95,16 @@
               "0.5"
             ],
             "address": "0xD2Aaa00700000000000000000000000000000000"
+          },
+          "skl": {
+            "keyname": "_SKL_0xF300Ce2f09f1D93C457Acc0b4974cBfBc53815D1",
+            "recommendedValues": [
+              "100",
+              "200",
+              "400",
+              "900"
+            ],
+            "address": "0x51A1eD016633Afb00C25Eb404745C61D8c16BBd4"
           }
         }
       },
@@ -143,6 +168,16 @@
               "0.5"
             ],
             "address": "0x9C0e8bC2B2D403299214c80081F93fAB5e10b593"
+          },
+          "skl": {
+            "keyname": "_SKL_0xF300Ce2f09f1D93C457Acc0b4974cBfBc53815D1",
+            "recommendedValues": [
+              "100",
+              "200",
+              "400",
+              "900"
+            ],
+            "address": "0xFbbDF9aC97093b1E88aB79F7D0c296d9cc5eD0d0"
           }
         }
       },
@@ -162,6 +197,21 @@
               "tokenKeyname": "eth",
               "tokenType": "eth"
             }
+          },
+          "skl": {
+            "keyname": "_SKL_0xF300Ce2f09f1D93C457Acc0b4974cBfBc53815D1",
+            "recommendedValues": [
+              "100",
+              "200",
+              "300",
+              "500"
+            ],
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_SKL_0x4828207D56D2f494C891afFE4546c5c6192f3509",
+              "tokenType": "erc20"
+            },
+            "address": "0xFbbDF9aC97093b1E88aB79F7D0c296d9cc5eD0d0"
           }
         }
       }
