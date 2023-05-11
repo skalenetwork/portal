@@ -1,0 +1,31 @@
+.mp__moreMenu {
+    .MuiList-root {
+        padding: 8px !important;
+    }
+
+    .MuiMenuItem-root, .MuiPaper-root {
+        border-radius: 12px !important;
+    }
+
+    .MuiItem-padding {
+        padding-top: 2px !important;
+        padding-bottom: 2px !important;
+    }
+
+    .MuiMenuItem-root {
+        font-weight: 600 !important;
+        font-size: .8rem !important;
+        line-height: 1.6 !important;
+        color: white;
+        padding: 8px 12px;
+    }
+
+    .MuiItemIcon-root {
+        min-width: 35px !important;
+        margin-left: 10px;
+    }
+
+    .MuiMenuItem-root svg {
+        width: 22px !important;
+    }
+}
