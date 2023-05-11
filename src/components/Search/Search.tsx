@@ -43,7 +43,7 @@ const SearchComponent = (props: any) => {
                     </IconButton>
                 </div>
             </div>
-            <div className='mp__flex mp__flexCenteredVert mp__margTop5'>
+            <div className='mp__flex mp__flexWrap mp__flexCenteredVert mp__margTop5'>
                 <p className='mp__margRi5 mp__p mp__p4'>
                     Try searching for:
                 </p>
