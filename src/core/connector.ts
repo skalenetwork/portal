@@ -1,9 +1,33 @@
+/**
+ * @license
+ * SKALE bridge-ui
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/**
+ * @file connector.ts
+ * @copyright SKALE Labs 2023-Present
+*/
+
 import Web3 from 'web3';
 
 
 export const CHAIN_IDS: any = {
   'staging': '0x4',
   'staging3': '0x5',
+  'legacy': '0x5',
   'qatestnet': '0x4',
   'mainnet': '0x1'
 }
@@ -34,40 +58,33 @@ export async function changeMetamaskNetwork(networkParams: { chainId: any; }) {
 }
 
 
-export const connect = (connectFallback: () => void) => {
+export const connect = (connectFallback: () => void, errorFallback: (err: any) => void) => {
   window.ethereum
     .request({ method: 'eth_requestAccounts' })
     .then(connectFallback)
-    .catch((err: any) => {
-      if (err.code === 4001) {
-        // EIP-1193 userRejectedRequest error
-        // If this happens, the user rejected the connection request.
-        // console.log('Please connect to MetaMask.');
-      } else {
-        // console.error(err);
-      }
-    });
+    .catch(errorFallback);
 }
 
 
-
-export const addAccountChangedListener = (accountsChangedFallback: any) => {
-  if (!window.ethereum) return;
-  window.ethereum.on('accountsChanged', accountsChangedFallback); // todo: do only once!!!!
+export const getAccounts = (fallback: (accounts: Array<string>) => void, errorFallback: (err: any) => void) => {
   window.ethereum
     .request({ method: 'eth_accounts' })
-    .then(accountsChangedFallback)
-    .catch((err: any) => {
-      // Some unexpected error.
-      // For backwards compatibility reasons, if no accounts are available,
-      // eth_accounts will return an empty array.
-      // console.error(err);
-    });
+    .then(fallback)
+    .catch(errorFallback);
 }
 
 
 export const addChainChangedListener = (chainChangedFallback: any) => {
   window.ethereum.on('chainChanged', chainChangedFallback);
+}
+
+
+export const unlockStateChangedListener = (unlockStateChangedFallback: any) => {
+  if (!window.ethereum) {
+    console.log('WARNING: window.ethereum is not defined - skipping unlockStateChangedListener');
+    return;
+  }
+  window.ethereum.on('metamask_unlockStateChanged', unlockStateChangedFallback);
 }
 
 

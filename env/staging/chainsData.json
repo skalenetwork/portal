@@ -151,18 +151,6 @@
           }
         },
         "app": "nftrade"
-      },
-      "glamorous-grumium": {
-        "tokens": {
-          "skill": {
-            "keyname": "_skl_0x2868716b3B4AEa43E8387922AFE71a77D101854e",
-            "recommendedValues": [
-              "200",
-              "400",
-              "700"
-            ]
-          }
-        }
       }
     }
   },
@@ -210,42 +198,6 @@
               "200"
             ],
             "address": "0x9C0e8bC2B2D403299214c80081F93fAB5e10b593"
-          }
-        },
-        "app": "ruby"
-      }
-    }
-  },
-  "glamorous-grumium": {
-    "type": "game",
-    "chains": {
-      "staging-perfect-parallel-gacrux": {
-        "tokens": {
-          "skill": {
-            "keyname": "_skl_0x2868716b3B4AEa43E8387922AFE71a77D101854e",
-            "recommendedValues": [
-              "200",
-              "400",
-              "700"
-            ]
-          }
-        },
-        "app": "ruby"
-      }
-    }
-  },
-  "staging-costly-stale-albali": {
-    "type": "game",
-    "chains": {
-      "staging-perfect-parallel-gacrux": {
-        "tokens": {
-          "brawl": {
-            "keyname": "_skl_0x2868716b3B4AEa43E8387922AFE71a77D101854e",
-            "recommendedValues": [
-              "200",
-              "400",
-              "700"
-            ]
           }
         },
         "app": "ruby"

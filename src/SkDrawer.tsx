@@ -15,11 +15,9 @@ import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontal
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
-import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
-import OutboundOutlinedIcon from '@mui/icons-material/OutboundOutlined';
 import LocalGasStationOutlinedIcon from '@mui/icons-material/LocalGasStationOutlined';
-import SettingsApplicationsOutlinedIcon from '@mui/icons-material/SettingsApplicationsOutlined';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
+import HistoryIcon from '@mui/icons-material/History';
 
 import { METAPORT_CONFIG } from './core/constants';
 import { getProxyEndpoint } from './core/network';
@@ -30,77 +28,100 @@ const drawerWidth = 240;
 export default function SkDrawer() {
     const location = useLocation();
     return (
-        <Drawer
-            variant="permanent"
-            sx={{
-                width: drawerWidth,
-                flexShrink: 0,
-                [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
-            }}
-        >
-            <Toolbar />
-            <Box sx={{ overflow: 'auto' }} className="mp__margTop20">
-                <h4 className="secondaryText sectionHeader">Bridge</h4>
-                <List>
-                    <ListItem  >
-                        <Link to="/" className="undec fullWidth">
+        <Box display={{ sm: 'block', xs: 'none' }} m={1}>
+            <Drawer
+                variant="permanent"
+                sx={{
+                    width: drawerWidth,
+                    flexShrink: 0,
+                    [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+                }}
+            >
+                <Toolbar />
+                <Box sx={{ overflow: 'auto' }} className="mp__margTop20">
+                    <h4 className="secondaryText sectionHeader">Bridge</h4>
+                    <List>
+                        <ListItem  >
+                            <Link to="/" className="undec fullWidth">
+                                <ListItemButton
+                                    selected={location.pathname === "/" || location.pathname.includes('/transfer')}>
+                                    <ListItemIcon>
+                                        <SwapHorizontalCircleOutlinedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Transfer' />
+                                </ListItemButton>
+                            </Link>
+                        </ListItem>
+                        <ListItem  >
+                            <Link to="/bridge/history" className="undec fullWidth">
+                                <ListItemButton
+                                    selected={location.pathname === "/bridge/history"}>
+                                    <ListItemIcon>
+                                        <HistoryIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='History' />
+                                </ListItemButton>
+                            </Link>
+                        </ListItem>
+                        {/* <ListItem  >
+                            <Link to="/bridge/exit" className="undec fullWidth">
+                                <ListItemButton
+                                    selected={location.pathname === "/bridge/exit"}>
+                                    <ListItemIcon>
+                                        <AccountBalanceWalletOutlinedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Exit gas wallet' />
+                                </ListItemButton>
+                            </Link>
+                        </ListItem> */}
+                        {/* <ListItem  >
+                        <Link to="/bridge/overview" className="undec fullWidth">
                             <ListItemButton
-                                selected={location.pathname === "/" || location.pathname.includes('/transfer')}>
+                                selected={location.pathname === "/bridge/overview"}>
                                 <ListItemIcon>
-                                    <SwapHorizontalCircleOutlinedIcon />
+                                    <AppsOutlinedIcon />
                                 </ListItemIcon>
-                                <ListItemText primary='Transfer' />
+                                <ListItemText primary='Overview' />
                             </ListItemButton>
                         </Link>
-                    </ListItem>
-                    <ListItem  >
-                        <Link to="/bridge/exit" className="undec fullWidth">
-                            <ListItemButton
-                                selected={location.pathname === "/bridge/exit"}>
-                                <ListItemIcon>
-                                    <AccountBalanceWalletOutlinedIcon />
-                                </ListItemIcon>
-                                <ListItemText primary='Exit gas wallet' />
-                            </ListItemButton>
-                        </Link>
-                    </ListItem>
-                </List>
-                <h4 className="secondaryText sectionHeader">Other</h4>
-                <List>
-                    <ListItem  >
-                        <Link to="/other/faq" className="undec fullWidth">
-                            <ListItemButton
-                                selected={location.pathname === "/other/faq"}>
-                                <ListItemIcon>
-                                    <HelpOutlineOutlinedIcon />
-                                </ListItemIcon>
-                                <ListItemText primary='FAQ' />
-                            </ListItemButton>
-                        </Link>
-                    </ListItem>
-                    <ListItem>
-                        <a className="undec fullWidth" target="_blank" href={getProxyEndpoint(METAPORT_CONFIG.skaleNetwork)}>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <PublicOutlinedIcon />
-                                </ListItemIcon>
-                                <ListItemText primary='Get endpoints' />
-                                <ArrowOutwardIcon className="drawerIconRi" />
-                            </ListItemButton>
-                        </a>
-                    </ListItem>
-                    <ListItem>
-                        <a className="undec fullWidth" target="_blank" href='https://sfuel.skale.network/'>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <LocalGasStationOutlinedIcon />
-                                </ListItemIcon>
-                                <ListItemText primary='Get sFUEL' />
-                                <ArrowOutwardIcon className="drawerIconRi" />
-                            </ListItemButton>
-                        </a>
-                    </ListItem>
-                    {/* <ListItem>
+                    </ListItem> */}
+                    </List>
+                    <h4 className="secondaryText sectionHeader">Other</h4>
+                    <List>
+                        <ListItem  >
+                            <Link to="/other/faq" className="undec fullWidth">
+                                <ListItemButton
+                                    selected={location.pathname === "/other/faq"}>
+                                    <ListItemIcon>
+                                        <HelpOutlineOutlinedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='FAQ' />
+                                </ListItemButton>
+                            </Link>
+                        </ListItem>
+                        <ListItem>
+                            <a className="undec fullWidth" target="_blank" href={getProxyEndpoint(METAPORT_CONFIG.skaleNetwork)}>
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        <PublicOutlinedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Get endpoints' />
+                                    <ArrowOutwardIcon className="drawerIconRi" />
+                                </ListItemButton>
+                            </a>
+                        </ListItem>
+                        <ListItem>
+                            <a className="undec fullWidth" target="_blank" href='https://sfuel.skale.network/'>
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        <LocalGasStationOutlinedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Get sFUEL' />
+                                    <ArrowOutwardIcon className="drawerIconRi" />
+                                </ListItemButton>
+                            </a>
+                        </ListItem>
+                        {/* <ListItem>
                         <a className="undec fullWidth" target="_blank" href='https://admin.skale.network/'>
                             <ListItemButton>
                                 <ListItemIcon>
@@ -111,19 +132,21 @@ export default function SkDrawer() {
                             </ListItemButton>
                         </a>
                     </ListItem> */}
-                    <ListItem>
-                        <a className="undec fullWidth" target="_blank" href='https://docs.skale.network/'>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <ArticleOutlinedIcon />
-                                </ListItemIcon>
-                                <ListItemText primary='Docs portal' />
-                                <ArrowOutwardIcon className="drawerIconRi" />
-                            </ListItemButton>
-                        </a>
-                    </ListItem>
-                </List>
-            </Box>
-        </Drawer >
+                        <ListItem>
+                            <a className="undec fullWidth" target="_blank" href='https://docs.skale.network/'>
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        <ArticleOutlinedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Docs portal' />
+                                    <ArrowOutwardIcon className="drawerIconRi" />
+                                </ListItemButton>
+                            </a>
+                        </ListItem>
+                    </List>
+                </Box>
+            </Drawer >
+        </Box>
+
     );
 }

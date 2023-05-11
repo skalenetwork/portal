@@ -11,9 +11,11 @@ META_DIR=$DIR/src/meta/
 
 CHAINS_DATA_PATH=$DIR/env/$NETWORK_NAME/chainsData.json
 METAPORT_CONFIG_PATH=$DIR/env/$NETWORK_NAME/metaportConfig.json
+FAUCET_DATA_PATH=$DIR/env/$NETWORK_NAME/faucet.json
 
 CHAINS_DATA_PATH_SRC=$DIR/src/metadata/chainsData.json
 METAPORT_CONFIG_PATH_SRC=$DIR/src/metadata/metaportConfig.json
+FAUCET_DATA_PATH_SRC=$DIR/src/metadata/faucet.json
 
 if [ -d "$META_DIR" ]; then
     echo "Removing ${META_DIR}..."
@@ -35,6 +37,9 @@ cp $CHAINS_DATA_PATH $CHAINS_DATA_PATH_SRC
 
 echo "Copying ${METAPORT_CONFIG_PATH} -> ${METAPORT_CONFIG_PATH_SRC}..."
 cp $METAPORT_CONFIG_PATH $METAPORT_CONFIG_PATH_SRC
+
+echo "Copying ${FAUCET_DATA_PATH} -> ${FAUCET_DATA_PATH_SRC}..."
+cp $FAUCET_DATA_PATH $FAUCET_DATA_PATH_SRC
 
 echo "Building..."
 yarn build

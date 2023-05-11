@@ -10,8 +10,8 @@ const log = debug('bridge:components:Faq');
 
 export default function Faq(props: any) {
     return (<Container maxWidth="md">
-        <Stack spacing={3}>
-            <div className='mp__flex mp__flexCenteredVert mp__margTop20'>
+        <Stack spacing={2}>
+            <div className='mp__flex mp__flexCenteredVert'>
                 <div className='mp__flex'>
                     <h2 className="mp__flex mp__noMarg">FAQ</h2>
                 </div>

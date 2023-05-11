@@ -17,7 +17,7 @@
  */
 
 /**
- * @file helper.js
+ * @file network.ts
  * @copyright SKALE Labs 2023-Present
 */
 
@@ -46,8 +46,14 @@ import erc20WrapperAbi from '../metadata/erc20_wrapper_abi.json';
 import mainnetAddresses from '../metadata/addresses/mainnet.json';
 import stagingAddresses from '../metadata/addresses/staging.json';
 import staging3Addresses from '../metadata/addresses/staging3.json';
+import legacyAddresses from '../metadata/addresses/legacy.json';
 
-import { MAINNET_CHAIN_NAME } from './constants';
+import {
+  MAINNET_CHAIN_NAME,
+  HTTPS_PREFIX,
+  MAINNET_EXPLORER_URL,
+  CHAIN_EXPLORER_BASE_URL
+} from './constants';
 
 
 const ERC_ABIS: any = {
@@ -109,11 +115,13 @@ export async function initSChainMetamask(network: string, schainName: string) {
   return new SChain(sChainWeb3, sChainAbi);
 }
 
+
 export function updateWeb3SChain(schain: SChain, network: string, schainName: string) {
   const endpoint = getSChainEndpoint(network, schainName);
   const sChainWeb3 = new Web3(endpoint);
   schain.updateWeb3(sChainWeb3);
 }
+
 
 export async function updateWeb3SChainMetamask(
   schain: SChain,
@@ -154,7 +162,27 @@ function getMainnetAbi(network: string) {
   if (network === 'staging3') {
     return { ...mainnetAbi, ...staging3Addresses }
   }
+  if (network === 'legacy') {
+    return { ...mainnetAbi, ...legacyAddresses }
+  }
   return { ...mainnetAbi, ...mainnetAddresses }
+}
+
+
+export async function setMetamaskNetwork(
+  network: string,
+  chainName: string,
+  mainnetEndpoint: string
+) {
+  let networkParams;
+  if (chainName === MAINNET_CHAIN_NAME) {
+    networkParams = mainnetNetworkParams(network, mainnetEndpoint);
+  } else {
+    const endpoint = getSChainEndpoint(network, chainName);
+    const chainId = calcChainId(chainName);
+    networkParams = schainNetworkParams(chainName, endpoint, chainId);
+  }
+  await changeMetamaskNetwork(networkParams);
 }
 
 
@@ -183,6 +211,18 @@ function getSChainEndpoint(network: string, sChainName: string): string {
 export function getProxyEndpoint(network: string) {
   // todo: add network validation
   return (proxyEndpoints as any)[network];
+}
+
+
+export function getExplorerUrl(chainName: string): string {
+  if (chainName === MAINNET_CHAIN_NAME) return MAINNET_EXPLORER_URL;
+  return HTTPS_PREFIX + chainName + '.' + CHAIN_EXPLORER_BASE_URL;
+}
+
+
+export function getTxUrl(chainName: string, txHash: string): string {
+  const explorerUrl = getExplorerUrl(chainName);
+  return `${explorerUrl}/tx/${txHash}`;
 }
 
 

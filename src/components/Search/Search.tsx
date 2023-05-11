@@ -11,6 +11,13 @@ const SearchComponent = (props: any) => {
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         props.setSearchValue(event.target.value);
     };
+
+    const _handleKeyDown = (event: any) => {
+        if (event.key === 'Enter') {
+            // todo: handle enter key
+        }
+    };
+
     return (
         <div className='mp__margBott20'>
             <div className={'mp__flex mp__inputAmount mp__inputAmountDark mp__margTop20 ' + (props.disabled ? 'mp__inputAmountDisabled' : null)}>
@@ -19,11 +26,13 @@ const SearchComponent = (props: any) => {
                 </div>
                 <div className='mp__flex mp__flexGrow'>
                     <TextField
+                        autoFocus
                         type="text"
                         variant="standard"
                         placeholder="Search by dApp name, SKALE Chain name, Hub name or app type"
                         value={props.searchValue}
                         onChange={handleChange}
+                        onKeyDown={_handleKeyDown}
                         disabled={props.disabled}
                         size='small'
                     />
@@ -34,7 +43,7 @@ const SearchComponent = (props: any) => {
                     </IconButton>
                 </div>
             </div>
-            <div className='mp__flex mp__flexCenteredVert mp__margTop5'>
+            <div className='mp__flex mp__flexWrap mp__flexCenteredVert mp__margTop5'>
                 <p className='mp__margRi5 mp__p mp__p4'>
                     Try searching for:
                 </p>

@@ -28,6 +28,9 @@ export const SEARCH_SUGGESTIONS = require('../searchSuggestions.json');
 export const FAQ = require('../faq.json');
 export const EXTERNAL_TOKEN_ICONS = require('../externalTokenIcons.json');
 
+export const BASE_EXPLORER_URLS = require('../metadata/explorer.json');
+
+export const FAUCET_DATA = require('../metadata/faucet.json');
 export const CHAINS = require('../metadata/chainsData.json');
 export const METAPORT_CONFIG = require('../metadata/metaportConfig.json');
 METAPORT_CONFIG.mainnetEndpoint = process.env.REACT_APP_MAINNET_ENDPOINT;
@@ -42,3 +45,24 @@ export const NETWORK_NAME = process.env["REACT_APP_NETWORK_NAME"];
 export const MAINNET_CHAIN_NAME = 'mainnet';
 
 export const DEFAULT_ERC20_DECIMALS = '18';
+
+export const SUCCESS_EMOJIS = ['🎉', '👌', '✅', '🙌', '🎊'];
+
+export const HTTPS_PREFIX = 'https://';
+
+export const MAINNET_EXPLORER_URLS: { [networkName: string]: string } = {
+    mainnet: 'https://etherscan.io',
+    staging3: 'https://goerli.etherscan.io/',
+    legacy: 'https://goerli.etherscan.io/'
+};
+
+export const MAINNET_EXPLORER_URL = MAINNET_EXPLORER_URLS[METAPORT_CONFIG.skaleNetwork];
+export const CHAIN_EXPLORER_BASE_URL = BASE_EXPLORER_URLS[METAPORT_CONFIG.skaleNetwork];
+
+export const ICONS_BASE_URL = 'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/';
+export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
+export const ZERO_FUNCSIG = '0x00000000';
+
+export const COMMUNITY_POOL_WITHDRAW_GAS_LIMIT = '1500000';
+
+export const BALANCE_UPDATE_INTERVAL_SECONDS = 10;
