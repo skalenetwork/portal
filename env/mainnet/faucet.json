@@ -22,5 +22,9 @@
   "wan-red-ain": {
     "address": "0xb51a0E538c76C82e76757dc6D5a3938136C03c0C",
     "func": "0x0c11dedd"
+  },
+  "green-giddy-denebola": {
+    "address": "0x5a6869ef5b81DCb58EBF51b8F893c31f5AFE3Fa8",
+    "func": "0x0c11dedd"
   }
 }
