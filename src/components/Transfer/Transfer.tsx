@@ -291,10 +291,6 @@ export default function Transfer(props: any) {
             toApp: toApp
         };
 
-        console.log('--------------');
-        console.log(JSON.stringify(params));
-        console.log('--------------');
-
         setTransferRequest(params);
         props.metaport.transfer(params);
     }
