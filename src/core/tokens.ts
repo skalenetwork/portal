@@ -87,9 +87,12 @@ export async function getBalance(
     web3: Web3 | undefined,
     contract: Contract | undefined,
     address: string,
-    chainName: string
+    chainName: string,
+    wrapsSFuel: boolean
 ): Promise<string | undefined> {
     log(`Getting balance for ${address}`);
     if (contract) return await getTokenBalance(contract, address);
-    if (web3 && chainName === MAINNET_CHAIN_NAME) return await ethBalance(web3, address);
+    if (web3 && (chainName === MAINNET_CHAIN_NAME || wrapsSFuel)) {
+        return await ethBalance(web3, address);
+    }
 }

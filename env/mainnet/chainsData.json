@@ -368,6 +368,20 @@
             "address": "0xBE3530a3eDf9472693065041B8c9155C7FeCB8e5"
           }
         }
+      },
+      "frayed-decent-antares": {
+        "tokens": {
+          "brawl": {
+            "keyname": "_BRAWL_0xE0A107a0010930Ac218ED0a50937b50D5633EB3e",
+            "recommendedValues": [
+              "100",
+              "200",
+              "500",
+              "1000"
+            ],
+            "address": "0x28c6ac22aB738BB01FC6CBA75804dC088aae6193"
+          }
+        }
       }
     }
   },
@@ -622,6 +636,27 @@
               "0.5"
             ],
             "address": "0xD2Aaa00700000000000000000000000000000000"
+          }
+        }
+      }
+    }
+  },
+  "frayed-decent-antares": {
+    "type": "game",
+    "chains": {
+      "elated-tan-skat": {
+        "app": "ruby",
+        "tokens": {
+          "brawl": {
+            "keyname": "_BRAWL_0xE0A107a0010930Ac218ED0a50937b50D5633EB3e",
+            "recommendedValues": [
+              "100",
+              "200",
+              "500",
+              "1000"
+            ],
+            "address": "",
+            "wrapsSFuel": true
           }
         }
       }

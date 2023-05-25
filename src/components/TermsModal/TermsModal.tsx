@@ -92,7 +92,7 @@ export default function TermsModal(props: any) {
                                 onClick={() => { props.setTermsAccepted(true); }}
                                 variant="contained"
                                 disabled={!scrolled}
-                                className='mp__margTop20 bridge__btn'
+                                className='mp__margTop20 bridge__btn bridge__action_btn'
                                 size='large'
                             >
                                 {getAgreeButtonText()}
