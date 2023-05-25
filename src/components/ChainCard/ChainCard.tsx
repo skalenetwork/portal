@@ -26,6 +26,7 @@ import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 import { CHAINS_META } from '../../core/constants';
 
 import TokensPreview from '../TokensPreview';
+import HubIcon from '../HubIcon';
 import { getChainName } from '../ActionCard/helper';
 
 import './ChainCard.scss';
@@ -108,8 +109,13 @@ export default function ChainCard(props: any) {
         <div className='br__tileLogo mp__flex mp__flexCentered'>
           {getIcon(chain, props.chain.app)}
         </div>
-        <div className="br__tileBott">
-          <TokensPreview tokens={tokens} chain={chain} />
+        <div className="br__tileBott mp__flex mp__flexCentered fullWidth">
+          <div className="mp__flex mp__flexGrow">
+            <TokensPreview tokens={tokens} chain={chain} />
+          </div>
+          <div className="mp__flex">
+            {props.chain.app ? <HubIcon chains_meta={CHAINS_META} chain={chain} /> : null}
+          </div>
         </div>
       </div>
       <p className="schain-name mp__flex mp__flexCentered undec mp__noMargBott">

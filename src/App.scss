@@ -788,6 +788,17 @@ li a {
   border-radius: 50%;
 }
 
+
+.mp__iconHub {
+  img {
+    width: 25px;
+    height: 25px;
+    // margin-right: 10px;
+    border: 1px $border-color solid !important;
+    border-radius: 50%;
+  }
+}
+
 .mp__iconTokenMore {
   margin-left: 10px !important;
   background: #00000081;
