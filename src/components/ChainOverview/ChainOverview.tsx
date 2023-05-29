@@ -112,7 +112,8 @@ export default function ChainOverview(props: any) {
       dataclasses.TokenType.erc20,
       tokenKeyname
     );
-    const balanceWei = await getBalance(web3, tokenContract, props.address, props.chainName);
+    const balanceWei = await getBalance(
+      web3, tokenContract, props.address, props.chainName, tokens[token as string].wrapsSFuel);
     return fromWei(balanceWei as string, decimals);
   }
 

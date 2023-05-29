@@ -1,4 +1,14 @@
-$border-color: rgba(131, 131, 131, 0.35);
+@import './variables';
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 .textPage {
   p {
@@ -474,7 +484,19 @@ h4 {
   line-height: 1.7 !important;
   border-radius: 15px !important;
   font-weight: 600 !important;
+}
+
+
+.bridge__action_btn {
   box-shadow: none !important;
+  font-size: 0.7525rem !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0.02857em !important;
+  font-weight: 600 !important;
+  padding-top: 0.8em !important;
+  padding-bottom: 0.8em !important;
+  min-height: $sk-btn-height !important;
+  border-radius: $sk-border-radius !important;
 }
 
 .bridge__btnLoading {
@@ -766,9 +788,21 @@ li a {
   border-radius: 50%;
 }
 
+
+.mp__iconHub {
+  img {
+    width: 25px;
+    height: 25px;
+    // margin-right: 10px;
+    border: 1px $border-color solid !important;
+    border-radius: 50%;
+  }
+}
+
 .mp__iconTokenMore {
   margin-left: 10px !important;
   background: #00000081;
+
   p {
     color: white !important;
     font-weight: bold;
@@ -1071,6 +1105,10 @@ body::-webkit-scrollbar {
 }
 
 .br__action_wrap {
+  background-image: linear-gradient(160deg, #237bc3 0%, #1a3b94 100%);
+}
+
+.br__action_wrapsfuel {
   background-image: linear-gradient(160deg, #237bc3 0%, #1a3b94 100%);
 }
 

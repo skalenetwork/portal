@@ -67,7 +67,7 @@ import {
 } from '../../core/tokens';
 import { getTokenDecimals } from '../../core/metaportConfig';
 import {
-    CHAINS_META, MAINNET_CHAIN_NAME, CHAINS, BALANCE_UPDATE_INTERVAL_SECONDS
+    CHAINS_META, MAINNET_CHAIN_NAME, CHAINS, BALANCE_UPDATE_INTERVAL_SECONDS, SFUEL_RESERVE_AMOUNT
 } from '../../core/constants';
 import { fromWei } from '../../core/convertation';
 import { getQueryVariable } from '../../core/helper';
@@ -104,6 +104,7 @@ export default function Transfer(props: any) {
     const [msgType, setMsgType] = React.useState<'error' | 'info' | 'success'>('info');
 
     const [balance, setBalance] = React.useState<string>();
+    const [maxAllowedTransferAmount, setMaxAllowedTransferAmount] = React.useState<string>('-1');
     const [web3, setWeb3] = React.useState<Web3>();
     const [tokenContract, setTokenContract] = React.useState<Contract>();
 
@@ -224,14 +225,25 @@ export default function Transfer(props: any) {
             const tokenKeyname = tokens[token as string].keyname;
             const decimals = getTokenDecimals(fromChain, toChain, tokenType, tokenKeyname);
             setTokenDecimals(decimals);
-            const balanceWei = await getBalance(web3, tokenContract, props.address, fromChain);
+            const balanceWei = await getBalance(
+                web3, tokenContract, props.address, fromChain, tokens[token as string].wrapsSFuel);
             const balanceEther = fromWei(balanceWei as string, decimals);
 
-            const balanceWeiDest = await getBalance(web3Dest, tokenContractDest, props.address, toChain);
+
+            const wrapsSFuelDest = chainsData[toChain].chains[fromChain].tokens[token].wrapsSFuel;
+            const balanceWeiDest = await getBalance(
+                web3Dest, tokenContractDest, props.address, toChain, wrapsSFuelDest);
             const balanceEtherDest = fromWei(balanceWeiDest as string, decimals);
 
             if (balanceEther) {
                 setBalance(balanceEther);
+                if (tokens[token as string].wrapsSFuel) {
+                    setMaxAllowedTransferAmount(
+                        (Number(balanceEther) - SFUEL_RESERVE_AMOUNT).toString()
+                    );
+                } else {
+                    setMaxAllowedTransferAmount(balanceEther as string);
+                }
             } else {
                 log('Balance request failed - source chain');
             }
@@ -278,6 +290,7 @@ export default function Transfer(props: any) {
             fromApp: fromApp,
             toApp: toApp
         };
+
         setTransferRequest(params);
         props.metaport.transfer(params);
     }
@@ -290,9 +303,13 @@ export default function Transfer(props: any) {
     function getTransferButtonText() {
         if (loading) return 'Complete transfer in Metaport popup';
         if (!balance) return 'Loading balances...';
-        if (Number(amount) > Number(balance)) return `Insufficient ${token} balance`;
+        if (Number(amount) > Number(maxAllowedTransferAmount)) return `Insufficient ${token} balance`;
         if (amount === '' || amount === '0' || Number(amount) === 0) return 'Enter an amount';
         return 'Transfer to ' + toChainName;
+    }
+
+    function setMaxAmount() {
+        setAmount(maxAllowedTransferAmount);
     }
 
     const isTransferToMainnet = toChain === MAINNET_CHAIN_NAME && activeStep === 0;
@@ -415,7 +432,7 @@ export default function Transfer(props: any) {
                                             Amount
                                         </p>
                                     </div>
-                                    <AmountInput setAmount={setAmount} amount={amount} token={{}} loading={disabled} balance={balance} maxBtn={true} />
+                                    <AmountInput setAmount={setAmount} amount={amount} token={{}} loading={disabled} balance={balance} />
                                     <div className='mp__margTop10 mp__flex'>
                                         {token ? tokens[token].recommendedValues.map((value: any, index: number) => (
                                             <div key={value} className={'mp__margRi5 mp__flex ' + (amount === value ? 'selectedToken' : '')}>
@@ -430,15 +447,15 @@ export default function Transfer(props: any) {
                                                 />
                                             </div>
                                         )) : null}
-                                        <div key='max' className={'mp__margRi5 mp__flex ' + (amount === balance ? 'selectedToken' : '')}>
+                                        <div key='max' className={'mp__margRi5 mp__flex ' + (amount === maxAllowedTransferAmount ? 'selectedToken' : '')}>
                                             <Chip
                                                 label='MAX'
-                                                onClick={() => { setAmount(balance as string) }}
+                                                onClick={setMaxAmount}
                                                 variant="filled"
                                                 clickable
                                                 className='mp__margRi5 mp__chipAmount'
                                                 size='small'
-                                                disabled={disabled || !balance || Number(balance) > Number(balance) || balance === '0'}
+                                                disabled={disabled || !balance || balance === '0'}
                                             />
                                         </div>
                                     </div>
@@ -453,20 +470,20 @@ export default function Transfer(props: any) {
                             <Button
                                 onClick={requestTransfer}
                                 variant="contained"
-                                disabled={disabled || !balance || Number(amount) > Number(balance) || amount === '' || amount === '0' || Number(amount) === 0}
-                                className='mp__margTop20 bridge__btn'
+                                disabled={disabled || !balance || Number(amount) > Number(maxAllowedTransferAmount) || amount === '' || amount === '0' || Number(amount) === 0}
+                                className='mp__margTop20 bridge__btn bridge__action_btn'
                                 size='large'
                             >
                                 {getTransferButtonText()}
                             </Button>
                             {loading ?
-                                <Tooltip title='Mined transactions can not be reverted'>
+                                <Tooltip title='Completed transactions can not be reverted'>
                                     <Button
                                         onClick={closeMetaport}
                                         variant="text"
                                         startIcon={<CancelIcon />}
                                         disabled={!loading}
-                                        className='mp__margLeft10 mp__margTop20 bridge__btn'
+                                        className='mp__margLeft10 mp__margTop20 bridge__btn bridge__action_btn'
                                         color='error'
                                         size='large'
                                     >
@@ -500,7 +517,7 @@ export default function Transfer(props: any) {
         {transactionsHistory.length > 0 ? <Card variant="outlined" className='br__paper mp__margTop10'>
             <CardContent className='mp__noPadd'>
                 <Stack >
-                    <h4 className="mp__flex mp__margBott10 mp__noMargTop">Mined transactions</h4>
+                    <h4 className="mp__flex mp__margBott10 mp__noMargTop">Completed transactions</h4>
                     <BridgePaper rounded gray>
                         <div className='mp__margBottMin15'>
                             {transactionsHistory.map((transactionData: any) => (
@@ -513,7 +530,7 @@ export default function Transfer(props: any) {
                             <Button
                                 startIcon={<HistoryIcon />}
                                 variant='text'
-                                className='mp__margTop20 bridge__btn'
+                                className='mp__margTop20 bridge__btn bridge__action_btn'
                                 size='large'
                             >
                                 Go to Transfers history
