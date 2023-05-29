@@ -49,7 +49,7 @@ import './Transfer.scss';
 
 import { interfaces, dataclasses } from '@skalenetwork/metaport';
 
-import { getChainIcon, getChainName } from '../ActionCard/helper';
+import { getChainIcon, getChainName, getChainNameFix } from '../ActionCard/helper';
 import TransferStepper from '../TransferStepper';
 import TransferDone from '../TransferDone';
 import Tokens from '../Tokens';
@@ -139,11 +139,26 @@ export default function Transfer(props: any) {
         }
     }
 
-    const fromChainName = getChainName(CHAINS_META, from as string, fromApp);
-    const toChainName = getChainName(CHAINS_META, to as string, toApp);
 
-    const fromChainIcon = getChainIcon(from as string, true, fromApp);
-    const toChainIcon = getChainIcon(to as string, true, toApp);
+    let chainFromFix = from;
+    let appFromFix = fromApp as string;
+
+    let namesFromFix = getChainNameFix(chainFromFix as string, appFromFix);
+    chainFromFix = namesFromFix[0];
+    appFromFix = namesFromFix[1];
+
+    let chainToFix = to;
+    let appToFix = toApp as string;
+
+    let namesToFix = getChainNameFix(chainToFix as string, appToFix);
+    chainToFix = namesToFix[0];
+    appToFix = namesToFix[1];
+
+    const fromChainName = getChainName(CHAINS_META, chainFromFix, appFromFix);
+    const toChainName = getChainName(CHAINS_META, chainToFix, appToFix);
+
+    const fromChainIcon = getChainIcon(chainFromFix, true, appFromFix);
+    const toChainIcon = getChainIcon(chainToFix, true, appToFix);
 
     useEffect(() => {
         setExternalAmount(getQueryVariable(location.search, 'amount'));
@@ -282,7 +297,7 @@ export default function Transfer(props: any) {
         const tokenType = tokenKeyname === 'eth' ? dataclasses.TokenType.eth : dataclasses.TokenType.erc20;
         const params: interfaces.TransferParams = {
             amount: amount,
-            chains: [fromChain, toChain],
+            chains: [chainFromFix as string, chainToFix as string],
             tokenKeyname: tokenKeyname,
             tokenType: tokenType,
             lockValue: true,
@@ -345,27 +360,27 @@ export default function Transfer(props: any) {
                 {fromChainIcon}
             </div>
             <div className='mp__flex'>
-                <h2 className="mp__flex mp__noMarg">{getChainName(CHAINS_META, from as string, fromApp)}</h2>
+                <h2 className="mp__flex mp__noMarg">{fromChainName}</h2>
             </div>
             <div className='mp__flex mp__margLeft10'>
                 <ArrowForwardIcon />
             </div>
             <div className='mp__flex mp__margRi5 mp__margLeft10'>
-                {getChainIcon(to as string, true, toApp)}
+                {toChainIcon}
             </div>
             <div className='mp__flex'>
-                <h2 className="mp__flex mp__noMarg">{getChainName(CHAINS_META, to as string, toApp)}</h2>
+                <h2 className="mp__flex mp__noMarg">{toChainName}</h2>
             </div>
         </div>
         {toApp ? (<div className='marg-top-40'>
             <Card variant="outlined" className='topBannerNew mp__flex mp__flexCenteredVert br__paper'>
                 <div className='mp__margRi5 mp__flex mp__flexCenteredVert'>
-                    {getChainIcon(to as string, true)}
+                    {getChainIcon(chainToFix, true)}
                 </div>
                 <div className='mp__margRi10 mp__flex mp__flexCenteredVert'>
-                    {getChainIcon(to as string, true, toApp)}
+                    {toChainIcon}
                 </div>
-                <p className='fl-grow mp__noMarg'>{getChainName(CHAINS_META, to as string, toApp)} dApp is located on {getChainName(CHAINS_META, to as string)}</p>
+                <p className='fl-grow mp__noMarg'>{toChainName} dApp is located on {getChainName(CHAINS_META, chainToFix)}</p>
             </Card>
         </div>) : null}
         {msg ? <Alert

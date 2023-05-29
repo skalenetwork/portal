@@ -154,6 +154,26 @@
         },
         "app": "nftrade"
       },
+      "honorable-steel-rasalhague_untitled-platformer": {
+        "tokens": {
+          "usdc": {
+            "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200",
+              "500"
+            ],
+            "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+              "tokenType": "erc20"
+            }
+          }
+        },
+        "app": "untitled-platformer"
+      },
       "green-giddy-denebola": {
         "tokens": {
           "skl": {
@@ -235,6 +255,21 @@
             ],
             "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
           },
+          "usdc": {
+            "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200",
+              "500"
+            ],
+            "address": "0x5F795bb52dAC3085f578f4877D450e2929D2F13d"
+          }
+        }
+      },
+      "honorable-steel-rasalhague_untitled-platformer": {
+        "app": "untitled-platformer",
+        "tokens": {
           "usdc": {
             "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
             "recommendedValues": [
@@ -457,6 +492,47 @@
               "tokenType": "erc20"
             }
           },
+          "usdc": {
+            "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200",
+              "500"
+            ],
+            "address": "0x7Cf76E740Cb23b99337b21F392F22c47Ad910c67",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+              "tokenType": "erc20"
+            }
+          }
+        }
+      }
+    }
+  },
+  "honorable-steel-rasalhague_untitled-platformer": {
+    "app": "untitled-platformer",
+    "hub": "calypso",
+    "type": "game",
+    "chains": {
+      "elated-tan-skat": {
+        "app": "ruby",
+        "tokens": {
+          "usdc": {
+            "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200",
+              "500"
+            ],
+            "address": "0x7Cf76E740Cb23b99337b21F392F22c47Ad910c67"
+          }
+        }
+      },
+      "mainnet": {
+        "tokens": {
           "usdc": {
             "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
             "recommendedValues": [
