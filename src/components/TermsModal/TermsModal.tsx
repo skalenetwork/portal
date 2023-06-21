@@ -69,7 +69,7 @@ export default function TermsModal(props: any) {
                                 <img src={logo} className="logoBig mp__margBott20 mp__margTop10" alt="logo" />
                                 <p className='mp__p mp__p6 whiteText'>
                                     We will NEVER ask you for your seed phrase or private keys. <br /><br />
-                                    SKALE Network is in beta - <Link target="_blank" rel="noopener noreferrer" href="https://docs.skale.network/learn/mainnet-beta">learn more</Link>. <br />
+                                    SKALE Network is in beta - <Link target="_blank" rel="noopener noreferrer" href="https://docs.skale.network/introduction/mainnet-beta">learn more</Link>. <br />
                                     BE SURE that you are connected to the right bridge and only use official links: 
                                     
                                     <ul>
