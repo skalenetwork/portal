@@ -66,16 +66,14 @@ export default function TermsModal(props: any) {
 
                         <Grid item md={12} sm={12} xs={12}>
                             <BridgePaper rounded >
-                                <img src={logo} className="logoBig mp__margBott20 mp__margTop10" alt="logo" />
+                                <img src={logo} className="logo mp__margBott20 mp__margTop10" alt="logo" />
                                 <p className='mp__p mp__p6 whiteText'>
                                     We will NEVER ask you for your seed phrase or private keys. <br /><br />
-                                    SKALE Network is in beta - <Link target="_blank" rel="noopener noreferrer" href="https://docs.skale.network/learn/mainnet-beta">learn more</Link>. <br />
-                                    BE SURE that you are connected to the right bridge and only use official links: 
-                                    
-                                    <ul>
-                                        <li><Link target="_blank" rel="noopener noreferrer" href="https://bridge.skale.network">https://bridge.skale.network</Link></li>
-                                        <li><Link target="_blank" rel="noopener noreferrer" href="https://bridge.skale.space">https://bridge.skale.space</Link></li>
-                                    </ul>
+                                    🖥️ For Desktop Use Only. <br /><br />
+                                    SKALE Network is in beta - <Link target="_blank" rel="noopener noreferrer" href="https://docs.skale.network/introduction/mainnet-beta">learn more</Link>. <br />
+                                    BE SURE that you are connected to the right bridge and only use official link - <Link target="_blank" rel="noopener noreferrer" href="https://bridge.skale.space">https://bridge.skale.space</Link>.
+                                    <br />
+                                    <br />
                                     Before you use SKALE Bridge, you should review our terms of service carefully and confirm below 👇
                                 </p>
                             </BridgePaper>

@@ -715,8 +715,8 @@ li a {
 .mp__p6 {
   margin: 0;
   font-weight: 500 !important;
-  font-size: 0.9525rem !important;
-  line-height: 1.6 !important;
+  font-size: 0.9rem !important;
+  line-height: 1.4 !important;
 }
 
 .mp__p5 {
@@ -769,6 +769,7 @@ li a {
 .mp__iconTokenMore {
   margin-left: 10px !important;
   background: #00000081;
+
   p {
     color: white !important;
     font-weight: bold;
@@ -995,9 +996,21 @@ li a {
 
 
 .br__modal {
+  .MuiContainer-root {
+    padding: 0px !important;
+  }
+
   .br__modalScroll {
-    height: 30vh;
+    height: 25vh;
     overflow-y: scroll !important;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+
+  h2 {
+    margin-top: 0 !important;
   }
 }
 
