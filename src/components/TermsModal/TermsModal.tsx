@@ -22,6 +22,7 @@
 */
 
 import React from 'react';
+import { styled } from '@mui/material/styles';
 
 import Modal from '@mui/material/Modal';
 import Grid from '@mui/material/Grid';
@@ -35,17 +36,23 @@ import TermsOfService from '../Terms/terms-of-service.mdx'
 import logo from '../../skale_lg.svg';
 
 
-const style = {
-    width: '100vw',
-    height: '100vh',
-    outline: 'none',
-    backdropFilter: 'blur(5px)',
-    WebkitBackdropFilter: 'blur(10px)'
-};
-
-
 export default function TermsModal(props: any) {
     const [scrolled, setScrolled] = React.useState<boolean>(false);
+
+    const BrModal = styled('div')(({ theme }) => ({
+        width: '100vw',
+        height: '100vh',
+        outline: 'none',
+        backdropFilter: 'blur(5px)',
+        display: 'flex',
+        WebkitBackdropFilter: 'blur(10px)',
+        [theme.breakpoints.down('sm')]: {
+            alignItems: 'end'
+        },
+        [theme.breakpoints.up('md')]: {
+            alignItems: 'center'
+        }
+    }));
 
     function getAgreeButtonText() {
         if (!scrolled) return '⬆️ Read Terms of Service to continue ⬆️';
@@ -59,30 +66,27 @@ export default function TermsModal(props: any) {
     }
     if (props.termsAccepted) return null;
     return (<Modal open={!props.termsAccepted} className='br__modal'>
-        <div style={style} className='mp__flex mp__flexCenteredVert'>
+        <BrModal>
             <Container maxWidth="md">
-                <BridgePaper rounded>
-                    <Grid container spacing={2} >
-
+                <BridgePaper blur border>
+                    <Grid container spacing={0} >
                         <Grid item md={12} sm={12} xs={12}>
                             <BridgePaper rounded >
-                                <img src={logo} className="logoBig mp__margBott20 mp__margTop10" alt="logo" />
+                                <img src={logo} className="logo mp__margBott20 mp__margTop10" alt="logo" />
                                 <p className='mp__p mp__p6 whiteText'>
                                     We will NEVER ask you for your seed phrase or private keys. <br /><br />
-                                    SKALE Network is in beta - <Link target="_blank" rel="noopener noreferrer" href="https://docs.skale.network/learn/mainnet-beta">learn more</Link>. <br />
-                                    BE SURE that you are connected to the right bridge and only use official links: 
-                                    
-                                    <ul>
-                                        <li><Link target="_blank" rel="noopener noreferrer" href="https://bridge.skale.network">https://bridge.skale.network</Link></li>
-                                        <li><Link target="_blank" rel="noopener noreferrer" href="https://bridge.skale.space">https://bridge.skale.space</Link></li>
-                                    </ul>
+                                    🖥️ For Desktop Use Only. <br /><br />
+                                    SKALE Network is in beta - <Link target="_blank" rel="noopener noreferrer" href="https://docs.skale.network/introduction/mainnet-beta">learn more</Link>. <br />
+                                    BE SURE that you are connected to the right bridge and only use official link - <Link target="_blank" rel="noopener noreferrer" href="https://bridge.skale.space">https://bridge.skale.space</Link>.
+                                    <br />
+                                    <br />
                                     Before you use SKALE Bridge, you should review our terms of service carefully and confirm below 👇
                                 </p>
                             </BridgePaper>
                         </Grid>
                         <Grid item md={12} sm={12} xs={12}>
                             <div style={{}}>
-                                <BridgePaper rounded gray>
+                                <BridgePaper rounded blur border>
                                     <div id='terms' className='br__modalScroll' style={{ paddingRight: '20px' }} onScroll={handleTermsScroll} >
                                         <TermsOfService />
                                     </div>
@@ -102,6 +106,6 @@ export default function TermsModal(props: any) {
                     </Grid>
                 </BridgePaper>
             </Container>
-        </div>
+        </BrModal>
     </Modal>)
 }

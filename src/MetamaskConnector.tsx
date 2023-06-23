@@ -61,7 +61,7 @@ export default function MetamaskConnector(props: any) {
         <Container maxWidth="sm" className=''>
             <div className='mp__flex mp__flexCentered mp__fullHeight'>
                 <div className='fullWidth'>
-                    <BridgePaper rounded>
+                    <BridgePaper rounded dark>
                         <div>
                             <div className='mp__flex mp__flexCenteredVert mp__margBott10'>
                                 <div className='mp__flex mp__margRi5 mp__maregLeft10'>

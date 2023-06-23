@@ -6,7 +6,7 @@ import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontalCircleOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
-import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined';
+import HistoryIcon from '@mui/icons-material/History';
 
 
 export default function SkBottomNavigation() {
@@ -35,9 +35,9 @@ export default function SkBottomNavigation() {
                     onClick={() => { navigate("/"); }}
                 />
                 <BottomNavigationAction
-                    label="Exit gas"
-                    icon={<AccountBalanceWalletOutlinedIcon />}
-                    onClick={() => { navigate("/bridge/exit"); }}
+                    label="History"
+                    icon={<HistoryIcon />}
+                    onClick={() => { navigate("/bridge/history"); }}
                 />
                 <BottomNavigationAction
                     label="FAQ"

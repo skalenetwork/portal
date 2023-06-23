@@ -22,23 +22,42 @@
 */
 
 import { ReactElement } from 'react';
+import { styled } from '@mui/material/styles';
+
 import { clsNames } from '../../core/helper';
 
 
 export default function BridgePaper(props: {
     children?: ReactElement | ReactElement[],
     gray?: boolean,
+    blur?: boolean,
+    dark?: boolean,
+    border?: boolean,
     rounded?: boolean,
+    roundedTop?: boolean,
     fullHeight?: boolean,
     margTop?: boolean
 }) {
-    return (<div className={clsNames(
+
+    const BrPaper = styled('div')(({ theme }) => ({
+        [theme.breakpoints.down('sm')]: {
+            borderRadius: '28px 28px 0 0'
+        },
+        [theme.breakpoints.up('sm')]: {
+            borderRadius: '28px'
+        }
+    }));
+
+    return (<BrPaper className={clsNames(
         'br__paper',
+        ['br__paperBlur', props.blur],
+        ['br__paperBorder', props.border],
         ['br__paperGrey', props.gray],
+        ['br__paperDark', props.dark],
         ['br__paperRounded', props.rounded],
         ['br__fullHeight', props.fullHeight],
         ['mp__margTop20', props.margTop]
     )}>
         {props.children}
-    </div>)
+    </BrPaper>)
 }

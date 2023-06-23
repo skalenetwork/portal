@@ -79,7 +79,7 @@ p {
 
 
 .br__paper {
-  background-color: #151515;
+  background-color: transparent;
   padding: 20px !important;
 }
 
@@ -114,7 +114,6 @@ p {
   border-radius: 25px !important;
 }
 
-
 .MuiPaper-rounded {
   border-radius: 25px;
 }
@@ -123,6 +122,10 @@ p {
   border-radius: 25px !important;
   background-color: #151515;
   border: none !important;
+}
+
+.br__paperDark {
+  background-color: #151515;
 }
 
 h4 {
@@ -715,8 +718,8 @@ li a {
 .mp__p6 {
   margin: 0;
   font-weight: 500 !important;
-  font-size: 0.9525rem !important;
-  line-height: 1.6 !important;
+  font-size: 0.9rem !important;
+  line-height: 1.5 !important;
 }
 
 .mp__p5 {
@@ -769,6 +772,7 @@ li a {
 .mp__iconTokenMore {
   margin-left: 10px !important;
   background: #00000081;
+
   p {
     color: white !important;
     font-weight: bold;
@@ -985,6 +989,15 @@ li a {
   background-color: #2a2a2a;
 }
 
+.br__paperBlur {
+  background: rgba(14, 14, 14, 0.85);
+  backdrop-filter: blur(50px);
+}
+
+.br__paperBorder {
+  border: 1px rgba(255, 255, 255, 0.1) solid;
+}
+
 .br__fullHeight {
   height: 100%;
 }
@@ -995,9 +1008,18 @@ li a {
 
 
 .br__modal {
+
+  .MuiContainer-root {
+    padding: 0px !important;
+  }
+
   .br__modalScroll {
-    height: 30vh;
+    height: 25vh;
     overflow-y: scroll !important;
+
+    p {
+      font-size: 0.9rem;
+    }
   }
 }
 
@@ -1161,11 +1183,8 @@ body::-webkit-scrollbar {
   z-index: 2;
 }
 
-// .br__tileTop {
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   z-index: 2;
 
-//   padding: 12pt 15pt;
-// }
+.MuiBox-root {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
