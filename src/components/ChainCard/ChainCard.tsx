@@ -21,40 +21,32 @@
  * @copyright SKALE Labs 2022-Present
 */
 
-import * as React from 'react';
-
 import { Link } from "react-router-dom";
-
-import Button from '@mui/material/Button';
-import Paper from '@mui/material/Paper';
-import Tooltip from '@mui/material/Tooltip';
-
-import OfflineBoltIcon from '@mui/icons-material/OfflineBolt';
-import LooksOneIcon from '@mui/icons-material/LooksOne';
-import LooksTwoIcon from '@mui/icons-material/LooksTwo';
-
-import BlurOnIcon from '@mui/icons-material/BlurOn';
-import BlurOffIcon from '@mui/icons-material/BlurOff';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { stringToColor } from '../../core/helper';
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 import { CHAINS_META } from '../../core/constants';
 
-import { getChainName, getChainIcon, iconPath } from '../ActionCard/helper';
+import TokensPreview from '../TokensPreview';
+import HubIcon from '../HubIcon';
+import { getChainName, getChainNameFix } from '../ActionCard/helper';
 
 import './ChainCard.scss';
 
-const tinycolor = require("tinycolor2");
-
 
 function getBgColor(schainName: string, app?: string) {
+  // todo: refactor
   if (CHAINS_META[schainName]) {
     if (app) {
+      if (CHAINS_META[schainName]['apps'][app]['gradientBackground']) {
+        return CHAINS_META[schainName]['apps'][app]['gradientBackground'];
+      }
       return CHAINS_META[schainName]['apps'][app]['background'];
+    }
+    if (CHAINS_META[schainName]['gradientBackground']) {
+      return CHAINS_META[schainName]['gradientBackground'];
     }
     return CHAINS_META[schainName]['background'];
   }
-  return '#ffffff'; // todo: tmp!
-  return stringToColor(schainName);
+  return 'linear-gradient(273.67deg, rgb(255, 255, 255), rgb(223 222 222))';
 }
 
 
@@ -74,11 +66,16 @@ export default function ChainCard(props: any) {
     } else if (props.icons[svgPath]) {
       iconPath = svgPath;
     }
-    if (iconPath) {
+    if (iconPath !== schainName) {
       return <img alt='logo' src={props.icons[iconPath]} />
     }
-    return <OfflineBoltIcon className='default-chain-icon' />;
+    return <div className="br__tileDefaultLogo">
+      <Jazzicon diameter={200} seed={jsNumberForAddress(schainName)} />
+    </div>;
   }
+
+  let chain = props.toChain ? props.toChain : props.from;
+  let app = props.chain.app;
 
   // TODO: refactor!
 
@@ -88,17 +85,19 @@ export default function ChainCard(props: any) {
     url += `/${props.toChain}`;
   }
 
-  if (props.chain.app || props.fromApp) {
+  if (app || props.fromApp) {
     url += '?';
   }
-  if (props.chain.app && props.toChain) {
-    url += `to-app=${props.chain.app}&`;
+  if (app && props.toChain) {
+    url += `to-app=${app}&`;
   }
   if (props.fromApp) {
     url += `from-app=${props.fromApp}`;
   }
 
-  const chain = props.toChain ? props.toChain : props.from;
+  let namesFix = getChainNameFix(chain, app);
+  chain = namesFix[0];
+  app = namesFix[1];
 
   let tokens;
   if (props.toChain) {
@@ -110,34 +109,23 @@ export default function ChainCard(props: any) {
   }
 
   return (
-    <div>
-      <div className='mp__flexCentered'>
-        <Link to={url}>
-          <Button
-            className='app-icon'
-            style={{ backgroundColor: getBgColor(chain, props.chain.app) }}
-          >
-            {getIcon(chain, props.chain.app)}
-          </Button>
-        </Link>
-        <div className='mp__flex mp__flexCentered app-bott' style={{ backgroundColor: getBgColor(chain, props.chain.app) }}>
-          <div className={'app-bott-ins mp__flex mp__flexCentered ' + (tinycolor(getBgColor(chain, props.chain.app)).isLight() ? '' : 'app-bott-dark')}>
-            {/* <div className='mp__margRi5'>
-              <h6 className="mp__noMarg mp__flexCentered chainInfoText">
-                TOKENS
-              </h6>
-            </div> */}
-            {tokens.map((token: any, index: number) => (
-              <Tooltip title={token.toUpperCase()} key={token}>
-                <img className='mp__iconToken' src={iconPath(token)} />
-              </Tooltip>
-            ))}
+    <Link to={url} className='undec'>
+      <div className='br__tile' style={{ background: getBgColor(chain, app) }}>
+        <div className='br__tileLogo mp__flex mp__flexCentered'>
+          {getIcon(chain, app)}
+        </div>
+        <div className="br__tileBott mp__flex mp__flexCentered fullWidth">
+          <div className="mp__flex mp__flexGrow">
+            <TokensPreview tokens={tokens} chain={chain} />
+          </div>
+          <div className="mp__flex">
+            {app ? <HubIcon chains_meta={CHAINS_META} chain={chain} /> : null}
           </div>
         </div>
       </div>
-      <p className="schain-name mp__flex mp__flexCentered">
-        {getChainName(CHAINS_META, chain, props.chain.app)}
+      <p className="schain-name mp__flex mp__flexCentered undec mp__noMargBott">
+        {getChainName(CHAINS_META, chain, app)}
       </p>
-    </div>
+    </Link>
   );
 }

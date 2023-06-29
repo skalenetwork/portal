@@ -2,5 +2,6 @@
   "mainnet": "https://mainnet.skalenodes.com",
   "staging": "https://staging-v2.skalenodes.com",
   "staging3": "https://staging-v3.skalenodes.com",
+  "legacy": "https://legacy-proxy.skalenodes.com/",
   "qatestnet": "https://new-testnet-proxy.skalenodes.com"
 }

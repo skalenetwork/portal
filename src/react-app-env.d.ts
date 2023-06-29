@@ -2,6 +2,7 @@
 
 interface Window {
     ethereum: any
+    zE: any
 }
 
 declare module "*.json" {

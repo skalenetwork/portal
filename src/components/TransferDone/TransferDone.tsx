@@ -135,7 +135,7 @@ export default function TransferDone(props: any) {
         rel="noopener noreferrer"
         variant="contained"
         startIcon={<ArrowOutwardIcon />}
-        className='mp__margTop20 mp__margRi10 bridge__btn'
+        className='mp__margTop20 mp__margRi10 bridge__btn bridge__action_btn'
         size='large'
       >
         {props.fallbackText}
@@ -147,7 +147,7 @@ export default function TransferDone(props: any) {
         rel="noopener noreferrer"
         variant="contained"
         startIcon={<LanguageIcon />}
-        className='mp__margTop20 mp__margRi10 bridge__btn'
+        className='mp__margTop20 mp__margRi10 bridge__btn bridge__action_btn'
         size='large'
       >
         Go to {props.toChainName}
@@ -157,7 +157,7 @@ export default function TransferDone(props: any) {
         disabled={loading}
         variant="contained"
         startIcon={<TollIcon />}
-        className='mp__margTop20 mp__margRi10 bridge__btn'
+        className='mp__margTop20 mp__margRi10 bridge__btn bridge__action_btn'
         size='large'
       >
         {loading ? 'Adding token, check your wallet' : 'Add token'}
@@ -169,7 +169,7 @@ export default function TransferDone(props: any) {
         }}
         startIcon={<RestartAltIcon />}
         variant={chainWebsiteUrl ? 'text' : 'contained'}
-        className='mp__margTop20 bridge__btn'
+        className='mp__margTop20 bridge__btn bridge__action_btn'
         size='large'
       >
         Go back

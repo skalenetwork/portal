@@ -34,12 +34,12 @@ import { dataclasses } from '@skalenetwork/metaport';
 
 import BridgePaper from '../BridgePaper';
 
-import { CHAINS_META, DEFAULT_ERC20_DECIMALS } from '../../core/constants';
+import { CHAINS_META } from '../../core/constants';
 import { getBalance, initChainWeb3, initERC20Token } from '../../core/tokens';
 import { getTokenDecimals } from '../../core/metaportConfig';
 import { fromWei } from '../../core/convertation';
 
-import { getChainName, iconPath, getChainIcon } from '../ActionCard/helper';
+import { getChainName, iconPath, getChainIcon, getChainNameFix } from '../ActionCard/helper';
 
 
 const objectMap = (obj: any, fn: any) =>
@@ -58,7 +58,15 @@ export default function ChainOverview(props: any) {
   const [tokenBalances, setTokenBalances] = React.useState<any>({});
   const [updateBalanceFlag, setUpdateBalanceFlag] = React.useState<boolean>(false);
 
-  const name = getChainName(CHAINS_META, props.chainName, props.chain.app);
+
+  let chainFix = props.chainName;
+  let appFix = props.chain.app;
+
+  let namesFix = getChainNameFix(chainFix as string, appFix);
+  chainFix = namesFix[0];
+  appFix = namesFix[1];
+
+  const name = getChainName(CHAINS_META, chainFix, appFix);
 
   useEffect(() => {
     const tokensArr = Object.keys(props.chain.chains).map((toChain: any) => { return props.chain.chains[toChain].tokens });
@@ -67,7 +75,7 @@ export default function ChainOverview(props: any) {
       tokensMap = { ...tokensMap, ...tokensArr[i] };
     }
     setTokens(tokensMap);
-    setWeb3(initChainWeb3(props.chainName));
+    setWeb3(initChainWeb3(chainFix));
     let balanceUpdateTimer = setInterval(() => setUpdateBalanceFlag(!updateBalanceFlag), 10 * 1000);
     return () => {
       clearInterval(balanceUpdateTimer);
@@ -107,22 +115,23 @@ export default function ChainOverview(props: any) {
   async function getTokenBalance(token: string, tokenContract: Contract) {
     const tokenKeyname = tokens[token as string].keyname;
     const decimals = getTokenDecimals(
-      props.chainName,
+      chainFix,
       undefined,
       dataclasses.TokenType.erc20,
       tokenKeyname
     );
-    const balanceWei = await getBalance(web3, tokenContract, props.address, props.chainName);
+    const balanceWei = await getBalance(
+      web3, tokenContract, props.address, chainFix, tokens[token as string].wrapsSFuel);
     return fromWei(balanceWei as string, decimals);
   }
 
   let url = `/bridge/transfer/${props.chainName}`;
 
-  if (props.chain.app || props.chain.app) {
+  if (appFix || appFix) {
     url += '?';
   }
-  if (props.chain.app) {
-    url += `from-app=${props.chain.app}`;
+  if (appFix) {
+    url += `from-app=${appFix}`;
   }
 
   if (!tokens) return null;
@@ -133,7 +142,7 @@ export default function ChainOverview(props: any) {
           <div className=''>
             <div className='mp__margBott10 mp__flex mp__flexCenteredVert' >
               <div className='mp__flex'>
-                {getChainIcon(props.chainName as string, true, props.chain.app)}
+                {getChainIcon(chainFix as string, true, appFix)}
               </div>
               <div className='mp__flex mp__margLeft5'>
                 <h4 className="mp__flex mp__noMarg">{name}</h4>

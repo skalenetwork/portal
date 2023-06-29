@@ -23,7 +23,7 @@ const SFUEL_TEXT = {
     'sfuel': {
         'action': '',
         'warning': 'You may need sFUEL on the destination chain',
-        'error': 'You need sFUEL to perform this transfer - it will be automatically mined for you'
+        'error': 'You need sFUEL to perform this transfer - it will be provided to you automatically'
     },
     'gas': {
         'action': '',
@@ -200,7 +200,7 @@ export default function SFuel(props: any) {
                     </div>
                 </div>
                 {!noEth && !noEthDest ? (<div className='mp__flex'>
-                    {loadingSFUEL ? 
+                    {loadingSFUEL ?
                         (<LoadingButton
                             loading
                             loadingPosition="start"
