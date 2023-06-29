@@ -1,53 +1,18 @@
 {
   "skaleNetwork": "mainnet",
   "autoLookup": true,
+  "openButton": true,
   "chains": [
     "mainnet",
     "elated-tan-skat",
     "honorable-steel-rasalhague",
-    "affectionate-immediate-pollux",
-    "turbulent-unique-scheat",
     "green-giddy-denebola",
+    "frayed-decent-antares",
+    "affectionate-immediate-pollux",
     "wan-red-ain",
+    "turbulent-unique-scheat",
     "adorable-quaint-bellatrix"
   ],
-  "chainsMetadata": {
-    "elated-tan-skat": {
-      "alias": "Europa Hub",
-      "apps": {
-        "ruby": {
-          "alias": "Ruby Exchange",
-          "background": "#02001f",
-          "url": "https://ruby.exchange/"
-        }
-      }
-    },
-    "honorable-steel-rasalhague": {
-      "alias": "Calypso Hub",
-      "apps": {
-        "nftrade": {
-          "alias": "NFTrade",
-          "background": "#ffffff",
-          "url": "https://nftrade.com/"
-        }
-      }
-    },
-    "affectionate-immediate-pollux": {
-      "alias": "CryptoBlades"
-    },
-    "turbulent-unique-scheat": {
-      "alias": "Razor Network"
-    },
-    "green-giddy-denebola": {
-      "alias": "Nebula"
-    },
-    "wan-red-ain": {
-      "alias": "Human Protocol"
-    },
-    "adorable-quaint-bellatrix": {
-      "alias": "StreamMyScreen"
-    }
-  },
   "tokens": {
     "mainnet": {
       "eth": {
@@ -117,6 +82,17 @@
         }
       }
     },
+    "frayed-decent-antares": {
+      "erc20": {
+        "_BRAWL_0xE0A107a0010930Ac218ED0a50937b50D5633EB3e": {
+          "address": "0xE0A107a0010930Ac218ED0a50937b50D5633EB3e",
+          "name": "BRAWL",
+          "symbol": "BRAWL",
+          "iconUrl": "https://ruby.exchange/images/tokens/brawl-square.png",
+          "wrapsSFuel": true
+        }
+      }
+    },
     "elated-tan-skat": {
       "erc20": {
         "_ETH_0xa5274efA35EbeFF47C1510529D9a8812F95F5735": {
@@ -141,8 +117,8 @@
             "name": "SKL"
           }
         },
-        "_HMT_0x06104018340BB547803F5410174d9B68475e6769": {
-          "address": "0x06104018340BB547803F5410174d9B68475e6769",
+        "_HMT_0xA0f4D4db1457E442b83555cb92aaBB8DE959Aa75": {
+          "address": "0xA0f4D4db1457E442b83555cb92aaBB8DE959Aa75",
           "name": "HMT",
           "symbol": "HMT",
           "cloneSymbol": "HMT",

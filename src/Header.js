@@ -29,6 +29,7 @@ import { Link } from "react-router-dom";
 
 import logo from './skale_lg.svg';
 
+import HelpZen from './components/HelpZen';
 import MoreMenu from './components/MoreMenu';
 import AccountMenu from './components/AccountMenu';
 
@@ -44,6 +45,7 @@ export default class Header extends React.Component {
             </Link>
           </div>
           <AccountMenu address={this.props.address} connectMetamask={this.props.connectMetamask} />
+          <HelpZen />
           <MoreMenu />
         </Toolbar>
       </AppBar>

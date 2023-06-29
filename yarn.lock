@@ -2304,10 +2304,10 @@
     tslog "^3.2.0"
     web3 "1.7.5"
 
-"@skalenetwork/metaport@1.2.0-preview.0":
-  version "1.2.0-preview.0"
-  resolved "https://registry.yarnpkg.com/@skalenetwork/metaport/-/metaport-1.2.0-preview.0.tgz#fff5534fdc1f2eb442d7e85857fed7520ce8d242"
-  integrity sha512-IrApkkFrGkzgYa+HknnoLUWaSkBuiFsTV9myvTbq/jibMK2Sivo0FSpNz8PxmdUK12gl1Lg6s4Nr0DlQbIQ25g==
+"@skalenetwork/metaport@1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@skalenetwork/metaport/-/metaport-1.2.0.tgz#31ff6b18d860317a4c047cab2773a265d42bd8fa"
+  integrity sha512-YTtyifWayncYEHBS0wejNfNChh/w2utQADUA4Tej+W9J4RbnYvyng02WvQRKZ+1x54J0Rfw6aXwo0SAiIq5bMw==
 
 "@skaleproject/pow-ethers@0.2.4":
   version "0.2.4"

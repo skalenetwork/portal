@@ -52,7 +52,8 @@ export const HTTPS_PREFIX = 'https://';
 
 export const MAINNET_EXPLORER_URLS: { [networkName: string]: string } = {
     mainnet: 'https://etherscan.io',
-    staging3: 'https://goerli.etherscan.io/'
+    staging3: 'https://goerli.etherscan.io/',
+    legacy: 'https://goerli.etherscan.io/'
 };
 
 export const MAINNET_EXPLORER_URL = MAINNET_EXPLORER_URLS[METAPORT_CONFIG.skaleNetwork];
@@ -65,3 +66,5 @@ export const ZERO_FUNCSIG = '0x00000000';
 export const COMMUNITY_POOL_WITHDRAW_GAS_LIMIT = '1500000';
 
 export const BALANCE_UPDATE_INTERVAL_SECONDS = 10;
+
+export const SFUEL_RESERVE_AMOUNT = 0.01;

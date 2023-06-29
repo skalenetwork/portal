@@ -1,4 +1,5 @@
 {
   "mainnet": "explorer.mainnet.skalenodes.com",
-  "staging3": "explorer.staging-v3.skalenodes.com"
+  "staging3": "explorer.staging-v3.skalenodes.com",
+  "legacy": "explorer.staging-v3.skalenodes.com"
 }

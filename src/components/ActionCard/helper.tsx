@@ -73,3 +73,9 @@ export function iconPath(name: string) {
         return TOKEN_ICONS['eth.svg'];
     }
 }
+
+
+export function getChainNameFix(chain: string, app: string): string[] {
+    if (chain.includes('_')) return chain.split('_');
+    return [chain, app];
+}
