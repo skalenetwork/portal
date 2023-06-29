@@ -238,7 +238,13 @@ export default function Transfer(props: any) {
         if (props.address && token) {
             log('Updating balance...');
             const tokenKeyname = tokens[token as string].keyname;
-            const decimals = getTokenDecimals(fromChain, toChain, tokenType, tokenKeyname);
+            const hubChain = tokens[token].route ? tokens[token].route.hub : undefined;
+            const decimals = getTokenDecimals(
+                fromChain,
+                hubChain ?? toChain,
+                tokenType,
+                tokenKeyname
+            );
             setTokenDecimals(decimals);
             const balanceWei = await getBalance(
                 web3, tokenContract, props.address, fromChain, tokens[token as string].wrapsSFuel);
