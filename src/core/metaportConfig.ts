@@ -96,6 +96,6 @@ export function getTokenDecimals(
         toChainName,
         tokenType,
         tokenKeyname
-    )
+    );
     return tokenData && tokenData.decimals ? tokenData.decimals : DEFAULT_ERC20_DECIMALS;
 }
