@@ -259,9 +259,10 @@ export default function Transfer(props: any) {
             if (balanceEther) {
                 setBalance(balanceEther);
                 if (tokens[token as string].wrapsSFuel) {
-                    setMaxAllowedTransferAmount(
-                        (Number(balanceEther) - SFUEL_RESERVE_AMOUNT).toString()
-                    );
+                    const adjustedAmount = Number(balanceEther) - SFUEL_RESERVE_AMOUNT;
+                    if (adjustedAmount > 0) {
+                        setMaxAllowedTransferAmount(adjustedAmount.toString());
+                    }
                 } else {
                     setMaxAllowedTransferAmount(balanceEther as string);
                 }
