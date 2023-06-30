@@ -22,9 +22,10 @@
 */
 
 import React from 'react';
-import Fab from '@mui/material/Fab';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
+import Chip from '@mui/material/Chip';
+
 import { Link } from "react-router-dom";
 
 import logo from './skale_lg.svg';
@@ -33,16 +34,34 @@ import HelpZen from './components/HelpZen';
 import MoreMenu from './components/MoreMenu';
 import AccountMenu from './components/AccountMenu';
 
+import { MAINNET_CHAIN_NAME } from './core/constants';
+
 
 export default class Header extends React.Component {
   render() {
     return (
-      <AppBar elevation={0} position="fixed" className="sk-header" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+      <AppBar
+        elevation={0}
+        position="fixed"
+        className="sk-header"
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
         <Toolbar className='mp__flex'>
-          <div className="mp__flex mp__flexCenteredVert mp__flexGrow">
+          <div className="mp__flex mp__flexCenteredVert">
             <Link to="/" className='mp__undec mp__logoLink mp__flex mp__flexCenteredVert'>
               <img src={logo} className="logo" alt="logo" />
             </Link>
+          </div>
+          <div className="mp__flex mp__flexCenteredVert mp__flexGrow mp__margLeft10">
+            {
+              process.env.REACT_APP_NETWORK_NAME !== MAINNET_CHAIN_NAME ?
+                <Chip
+                  label="TESTNET"
+                  color="primary"
+                  size='small'
+                  className='br__chipXs br__chipGray'
+                /> : null
+            }
           </div>
           <AccountMenu address={this.props.address} connectMetamask={this.props.connectMetamask} />
           <HelpZen />
