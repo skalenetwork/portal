@@ -1,53 +1,18 @@
 {
   "skaleNetwork": "mainnet",
   "autoLookup": true,
+  "openButton": true,
   "chains": [
     "mainnet",
     "elated-tan-skat",
     "honorable-steel-rasalhague",
-    "affectionate-immediate-pollux",
-    "turbulent-unique-scheat",
     "green-giddy-denebola",
+    "frayed-decent-antares",
+    "affectionate-immediate-pollux",
     "wan-red-ain",
+    "turbulent-unique-scheat",
     "adorable-quaint-bellatrix"
   ],
-  "chainsMetadata": {
-    "elated-tan-skat": {
-      "alias": "Europa Hub",
-      "apps": {
-        "ruby": {
-          "alias": "Ruby Exchange",
-          "background": "#02001f",
-          "url": "https://ruby.exchange/"
-        }
-      }
-    },
-    "honorable-steel-rasalhague": {
-      "alias": "Calypso Hub",
-      "apps": {
-        "nftrade": {
-          "alias": "NFTrade",
-          "background": "#ffffff",
-          "url": "https://nftrade.com/"
-        }
-      }
-    },
-    "affectionate-immediate-pollux": {
-      "alias": "CryptoBlades"
-    },
-    "turbulent-unique-scheat": {
-      "alias": "Razor Network"
-    },
-    "green-giddy-denebola": {
-      "alias": "Nebula"
-    },
-    "wan-red-ain": {
-      "alias": "Human Protocol"
-    },
-    "adorable-quaint-bellatrix": {
-      "alias": "StreamMyScreen"
-    }
-  },
   "tokens": {
     "mainnet": {
       "eth": {
@@ -114,6 +79,17 @@
           "name": "Human Token",
           "symbol": "HMT",
           "iconUrl": "https://s2.coinmarketcap.com/static/img/coins/64x64/10347.png"
+        }
+      }
+    },
+    "frayed-decent-antares": {
+      "erc20": {
+        "_BRAWL_0xE0A107a0010930Ac218ED0a50937b50D5633EB3e": {
+          "address": "0xE0A107a0010930Ac218ED0a50937b50D5633EB3e",
+          "name": "BRAWL",
+          "symbol": "BRAWL",
+          "iconUrl": "https://ruby.exchange/images/tokens/brawl-square.png",
+          "wrapsSFuel": true
         }
       }
     },

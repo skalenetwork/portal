@@ -1,86 +1,133 @@
 {
   "skaleNetwork": "staging3",
   "autoLookup": false,
-  "openOnLoad": false,
   "openButton": true,
   "debug": false,
   "chains": [
     "mainnet",
+    "staging-legal-crazy-castor",
+    "staging-utter-unripe-menkar",
+    "staging-faint-slimy-achird",
     "staging-perfect-parallel-gacrux",
-    "staging-severe-violet-wezen"
+    "staging-severe-violet-wezen",
+    "staging-weepy-fitting-caph"
   ],
-  "chainsMetadata": {
-    "staging-perfect-parallel-gacrux": {
-      "alias": "Europa Hub",
-      "apps": {
-        "ruby": {
-          "alias": "Ruby Exchange",
-          "background": "#02001f",
-          "url": "https://ruby.exchange/"
-        }
-      }
-    },
-    "staging-severe-violet-wezen": {
-      "alias": "Calypso Hub",
-      "apps": {
-        "nftrade": {
-          "alias": "NFTrade",
-          "background": "#ffffff",
-          "url": "https://nftrade.com/"
-        }
-      }
-    }
-  },
   "tokens": {
     "mainnet": {
       "eth": {
         "chains": [
-          "staging-perfect-parallel-gacrux"
+          "staging-legal-crazy-castor",
+          "staging-utter-unripe-menkar",
+          "staging-faint-slimy-achird",
+          "staging-perfect-parallel-gacrux",
+          "staging-severe-violet-wezen",
+          "staging-weepy-fitting-caph"
         ]
       },
       "erc20": {
-        "_skl_0x2868716b3B4AEa43E8387922AFE71a77D101854e": {
-          "address": "0x2868716b3B4AEa43E8387922AFE71a77D101854e",
-          "decimals": "18",
+        "_SKL_0x493D4442013717189C9963a2e275Ad33bfAFcE11": {
           "name": "SKALE",
-          "symbol": "skl",
-          "mappings": {
-            "staging-perfect-parallel-gacrux": "0x6FA34A9A1eb81d550D6bB5E129B9FDc35aa0F021"
-          }
+          "address": "0x493D4442013717189C9963a2e275Ad33bfAFcE11",
+          "symbol": "SKL"
         },
-        "_usdc_0xdE7EBAA09961D4BdD9E41206De23D2214e22b5d2": {
-          "address": "0xdE7EBAA09961D4BdD9E41206De23D2214e22b5d2",
-          "decimals": "18",
-          "name": "USDC",
-          "symbol": "usdc"
+        "_RUBY_0xd66641E25E9D36A995682572eaD74E24C11Bb422": {
+          "name": "Ruby Token",
+          "address": "0xd66641E25E9D36A995682572eaD74E24C11Bb422",
+          "iconUrl": "https://ruby.exchange/images/tokens/ruby-square.png",
+          "symbol": "RUBY"
         },
-        "_usdt_0xB89fCb83F7868d8Cfd104c768FF93FDF74C8a590": {
-          "address": "0xB89fCb83F7868d8Cfd104c768FF93FDF74C8a590",
-          "decimals": "18",
-          "name": "USDT",
-          "symbol": "usdt"
+        "_DAI_0x83B38f79cFFB47CF74f7eC8a5F8D7DD69349fBf7": {
+          "name": "DAI Stablecoin",
+          "address": "0x83B38f79cFFB47CF74f7eC8a5F8D7DD69349fBf7",
+          "symbol": "DAI"
         },
-        "_wbtc_0xd7BAd1A8E66050178a815355567E5e0218a5B659": {
-          "address": "0xd7BAd1A8E66050178a815355567E5e0218a5B659",
-          "decimals": "18",
-          "name": "WBTC",
-          "symbol": "wbtc"
+        "_USDP_0x66259E472f8d09083ecB51D42F9F872A61001426": {
+          "name": "Pax Dollar",
+          "address": "0x66259E472f8d09083ecB51D42F9F872A61001426",
+          "symbol": "USDP",
+          "iconUrl": "https://ruby.exchange/images/tokens/usdp-square.png"
+        },
+        "_USDT_0xD1E44e3afd6d3F155e7704c67705E3bAC2e491b6": {
+          "name": "Tether USD",
+          "address": "0xD1E44e3afd6d3F155e7704c67705E3bAC2e491b6",
+          "symbol": "USDT",
+          "decimals": "6"
+        },
+        "_USDC_0x85dedAA65D33210E15911Da5E9dc29F5C93a50A9": {
+          "name": "USD Coin",
+          "address": "0x85dedAA65D33210E15911Da5E9dc29F5C93a50A9",
+          "symbol": "USDC",
+          "decimals": "6"
+        },
+        "_WBTC_0xd80BC0126A38c9F7b915e1B2B9f78280639cadb3": {
+          "name": "Wrapped BTC",
+          "address": "0xd80BC0126A38c9F7b915e1B2B9f78280639cadb3",
+          "symbol": "WBTC"
+        },
+        "_HMT_0x4058d058ff62ED347dB8a69c43Ae9C67268B50b0": {
+          "name": "Human Token",
+          "address": "0x4058d058ff62ED347dB8a69c43Ae9C67268B50b0",
+          "symbol": "HMT",
+          "iconUrl": "https://s2.coinmarketcap.com/static/img/coins/64x64/10347.png"
         }
       },
       "erc721meta": {
-        "_TST_0x1b7729d7E1025A031aF9D6E68598b57f4C2adfF6": {
+        "_SPACE_0x1b7729d7E1025A031aF9D6E68598b57f4C2adfF6": {
           "address": "0x1b7729d7E1025A031aF9D6E68598b57f4C2adfF6",
           "name": "SKALE Space",
-          "symbol": "skl",
+          "symbol": "SPACE",
           "iconUrl": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Rocket/3D/rocket_3d.png"
         }
       },
       "erc1155": {
-        "skaliens": {
+        "_SKALIENS_0x6cb73D413970ae9379560aA45c769b417Fbf33D6": {
           "address": "0x6cb73D413970ae9379560aA45c769b417Fbf33D6",
           "name": "SKALIENS Collection",
           "symbol": "SKALIENS",
           "iconUrl": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Alien/3D/alien_3d.png"
+        }
+      }
+    },
+    "staging-utter-unripe-menkar": {
+      "erc721": {
+        "_TANK_0x4aaa1bb85d9339811b65566fa1aae11a8a9db28d": {
+          "name": "TANK",
+          "address": "0x4aaa1bb85d9339811b65566fa1aae11a8a9db28d",
+          "symbol": "TANK",
+          "iconUrl": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Bomb/3D/bomb_3d.png"
+        }
+      }
+    },
+    "staging-legal-crazy-castor": {
+      "erc20": {
+        "_ETH_0xa270484784f043e159f74C03B691F80B6F6e3c24": {
+          "name": "ETH",
+          "address": "0xa270484784f043e159f74C03B691F80B6F6e3c24",
+          "symbol": "ETH",
+          "wraps": {
+            "address": "0xD2Aaa00700000000000000000000000000000000",
+            "symbol": "ETH"
+          }
+        },
+        "_SKL_0x6a679eF80aF3fE01A646F858Ca1e26D58b5430B6": {
+          "name": "SKL",
+          "symbol": "SKL",
+          "address": "0x6a679eF80aF3fE01A646F858Ca1e26D58b5430B6",
+          "wraps": {
+            "address": "0xbA1E9BA7CDd4815Da6a51586bE56e8643d1bEAb6",
+            "symbol": "SKL"
+          }
+        },
+        "_USDC_0x4f250cCE5b8B39caA96D1144b9A32E1c6a9f97b0": {
+          "name": "USDC",
+          "symbol": "USDC",
+          "address": "0x4f250cCE5b8B39caA96D1144b9A32E1c6a9f97b0",
+          "decimals": "6",
+          "wraps": {
+            "address": "0x5d42495D417fcd9ECf42F3EA8a55FcEf44eD9B33",
+            "symbol": "USDC",
+            "decimals": "6"
+          }
         }
       }
     },
@@ -122,10 +169,10 @@
         }
       },
       "erc721": {
-        "skaliens": {
+        "_SPS_0x30216880A73B67133F37de35e769b8e1A943D35c": {
           "address": "0x30216880A73B67133F37de35e769b8e1A943D35c",
           "name": "SKALE Space S2S",
-          "symbol": "skl",
+          "symbol": "SPS",
           "iconUrl": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Glowing%20star/3D/glowing_star_3d.png"
         }
       },
@@ -142,10 +189,10 @@
           "symbol": "MEDALS2S",
           "iconUrl": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/1st%20place%20medal/3D/1st_place_medal_3d.png"
         },
-        "animals": {
+        "_ANIMALS_0xDf87EEF0977148129969b01b329379b17756cdDE": {
           "address": "0xDf87EEF0977148129969b01b329379b17756cdDE",
           "name": "Funny Animals",
-          "symbol": "ANIMALS2S",
+          "symbol": "ANIMALS",
           "iconUrl": "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Frog/3D/frog_3d.png"
         }
       }

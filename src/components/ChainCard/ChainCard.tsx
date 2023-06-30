@@ -26,7 +26,8 @@ import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 import { CHAINS_META } from '../../core/constants';
 
 import TokensPreview from '../TokensPreview';
-import { getChainName } from '../ActionCard/helper';
+import HubIcon from '../HubIcon';
+import { getChainName, getChainNameFix } from '../ActionCard/helper';
 
 import './ChainCard.scss';
 
@@ -73,6 +74,9 @@ export default function ChainCard(props: any) {
     </div>;
   }
 
+  let chain = props.toChain ? props.toChain : props.from;
+  let app = props.chain.app;
+
   // TODO: refactor!
 
   let url = `/bridge/transfer/${props.from}`;
@@ -81,17 +85,19 @@ export default function ChainCard(props: any) {
     url += `/${props.toChain}`;
   }
 
-  if (props.chain.app || props.fromApp) {
+  if (app || props.fromApp) {
     url += '?';
   }
-  if (props.chain.app && props.toChain) {
-    url += `to-app=${props.chain.app}&`;
+  if (app && props.toChain) {
+    url += `to-app=${app}&`;
   }
   if (props.fromApp) {
     url += `from-app=${props.fromApp}`;
   }
 
-  const chain = props.toChain ? props.toChain : props.from;
+  let namesFix = getChainNameFix(chain, app);
+  chain = namesFix[0];
+  app = namesFix[1];
 
   let tokens;
   if (props.toChain) {
@@ -104,16 +110,21 @@ export default function ChainCard(props: any) {
 
   return (
     <Link to={url} className='undec'>
-      <div className='br__tile' style={{ background: getBgColor(chain, props.chain.app) }}>
+      <div className='br__tile' style={{ background: getBgColor(chain, app) }}>
         <div className='br__tileLogo mp__flex mp__flexCentered'>
-          {getIcon(chain, props.chain.app)}
+          {getIcon(chain, app)}
         </div>
-        <div className="br__tileBott">
-          <TokensPreview tokens={tokens} chain={chain} />
+        <div className="br__tileBott mp__flex mp__flexCentered fullWidth">
+          <div className="mp__flex mp__flexGrow">
+            <TokensPreview tokens={tokens} chain={chain} />
+          </div>
+          <div className="mp__flex">
+            {app ? <HubIcon chains_meta={CHAINS_META} chain={chain} /> : null}
+          </div>
         </div>
       </div>
       <p className="schain-name mp__flex mp__flexCentered undec mp__noMargBott">
-        {getChainName(CHAINS_META, chain, props.chain.app)}
+        {getChainName(CHAINS_META, chain, app)}
       </p>
     </Link>
   );

@@ -111,7 +111,8 @@ export default function Transfer(props: any) {
             log('Updating balance...');
             const tokenInfo = tokens[token as string];
             const decimals = tokenInfo && tokenInfo.decimals ? tokenInfo.decimals : DEFAULT_ERC20_DECIMALS;
-            const balanceWei = await getBalance(web3, tokenContract, props.address, fromChain);
+            const balanceWei = await getBalance(
+                web3, tokenContract, props.address, fromChain, tokens[token as string].wrapsSFuel);
             const balanceEther = fromWei(balanceWei as string, decimals);
             if (balanceEther) {
                 setBalance(balanceEther);
@@ -168,7 +169,7 @@ export default function Transfer(props: any) {
             <div className='mp__flex mp__flexCenteredVert mp__margTop20'>
                 <div className='mp__flex'>
                     <h2 className="mp__flex mp__noMarg">Transfer</h2>
-                </div>    
+                </div>
             </div>
             {msg ? <Alert onClose={() => { setMsg(undefined); }} severity={msgType} className='mp__margTop20'>{msg}</Alert> : null}
             {isTransferToMainnet && token ? (
