@@ -28,6 +28,8 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 
+import { METAPORT_CONFIG, MAINNET_CHAIN_NAME } from '../../core/constants';
+
 import BridgePaper from '../BridgePaper';
 import TermsOfService from '../Terms/terms-of-service.mdx'
 
@@ -63,6 +65,11 @@ export default function TermsModal(props: any) {
                 <BridgePaper rounded>
                     <BridgePaper rounded >
                         <img src={logo} className="logo mp__margBott20 mp__margTop10" alt="logo" />
+                        {
+                            METAPORT_CONFIG.skaleNetwork !== MAINNET_CHAIN_NAME ?
+                                <p className='mp__p mp__p6 whiteText'>
+                                    ❗ THIS IS A TEST WEBSITE ❗ <br /><br />
+                                </p> : <div></div>}
                         <p className='mp__p mp__p6 whiteText'>
                             🖥️ For Desktop Use Only. <br /><br />
                             SKALE will NEVER ask you for your seed phrase or private keys. <br /><br />
