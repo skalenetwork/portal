@@ -34,7 +34,7 @@ import HelpZen from './components/HelpZen';
 import MoreMenu from './components/MoreMenu';
 import AccountMenu from './components/AccountMenu';
 
-import { MAINNET_CHAIN_NAME } from './core/constants';
+import { METAPORT_CONFIG, MAINNET_CHAIN_NAME } from './core/constants';
 
 
 export default class Header extends React.Component {
@@ -54,7 +54,7 @@ export default class Header extends React.Component {
           </div>
           <div className="mp__flex mp__flexCenteredVert mp__flexGrow mp__margLeft10">
             {
-              process.env.REACT_APP_NETWORK_NAME !== MAINNET_CHAIN_NAME ?
+              METAPORT_CONFIG.skaleNetwork !== MAINNET_CHAIN_NAME ?
                 <Chip
                   label="TESTNET"
                   color="primary"

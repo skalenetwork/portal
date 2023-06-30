@@ -28,7 +28,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 
-import { MAINNET_CHAIN_NAME } from '../../core/constants';
+import { METAPORT_CONFIG, MAINNET_CHAIN_NAME } from '../../core/constants';
 
 import BridgePaper from '../BridgePaper';
 import TermsOfService from '../Terms/terms-of-service.mdx'
@@ -66,7 +66,7 @@ export default function TermsModal(props: any) {
                     <BridgePaper rounded >
                         <img src={logo} className="logo mp__margBott20 mp__margTop10" alt="logo" />
                         {
-                            process.env.REACT_APP_NETWORK_NAME !== MAINNET_CHAIN_NAME ?
+                            METAPORT_CONFIG.skaleNetwork !== MAINNET_CHAIN_NAME ?
                                 <p className='mp__p mp__p6 whiteText'>
                                     ❗ THIS IS A TEST WEBSITE ❗ <br /><br />
                                 </p> : <div></div>}
