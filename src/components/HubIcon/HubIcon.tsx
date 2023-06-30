@@ -17,34 +17,31 @@
  */
 
 /**
- * @file TokensPreview.js
+ * @file HubIcon.js
  * @copyright SKALE Labs 2023-Present
 */
 
 import Tooltip from '@mui/material/Tooltip';
-import { iconPath } from '../ActionCard/helper';
+import { getChainName, getChainIcon } from '../ActionCard/helper';
+
+import { CHAINS_META } from '../../core/constants';
 
 
-const MAX_TOKENS = 4;
+export default function HubIcon(props: {
+  chains_meta: any,
+  chain: string
+}) {
 
+  const chainName = getChainName(CHAINS_META, props.chain);
+  const chainIcon = getChainIcon(props.chain, true);
 
-export default function TokensPreview(props: any) {
   return (
-    <div className='br__tileBottIcons mp__flex'>
-      {props.tokens.slice(0, MAX_TOKENS).map((token: any, index: number) => (
-        <Tooltip title={token.toUpperCase()} key={token}>
-          <img className='mp__iconToken' src={iconPath(token)} />
-        </Tooltip>
-      ))}
-      {props.tokens.length > MAX_TOKENS ? <div
-        className='mp__iconToken mp__iconTokenMore mp__flex mp__flexCentered'
-      >
-        <Tooltip title={`${props.tokens.length - MAX_TOKENS} more mapped tokens`}>
-          <p className="mp__noMarg mp__flex">
-            +{props.tokens.length - MAX_TOKENS}
-          </p>
-        </Tooltip>
-      </div> : null}
+    <div className='br__tileBottIcons mp__flex mp__flexCenteredVert'>
+      <Tooltip title={'This app is located on ' + chainName}>
+        <div className='mp__iconHub mp__flex mp__flexCenteredVert'>
+          {chainIcon}
+        </div>
+      </Tooltip>
     </div>
   );
 }

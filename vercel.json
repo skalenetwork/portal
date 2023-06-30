@@ -5,7 +5,7 @@
       "headers": [
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'none'; script-src 'self' https://vercel.live; style-src 'self' 'unsafe-inline'; img-src 'self' * data:; connect-src 'self' https://api.coingecko.com https://ethgasstation.info https://*.infura.io https://*.skalenodes.com; font-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; manifest-src 'self';"
+          "value": "default-src 'none'; script-src 'self' 'sha256-SNHZ9YXEiiZqb8C8s0qFvFzqzRfWcWHKYL4BGuapkm4=' 'sha256-B2Yvd5DSiyn3CHdK2XYukRft560++o3GfZ3FkbQ7cig=' https://*.zendesk.com https://static.zdassets.com https://vercel.live; style-src 'self' 'unsafe-inline'; img-src 'self' * data:; connect-src 'self' https://*.zendesk.com https://ekr.zdassets.com https://ekr.zendesk.com https://*.zopim.com https://zendesk-eu.my.sentry.io wss://*.zendesk.com wss://*.zopim.com https://api.coingecko.com https://ethgasstation.info https://*.infura.io https://*.skalenodes.com; font-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; manifest-src 'self';"
 
         },
         {

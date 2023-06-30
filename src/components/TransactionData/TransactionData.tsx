@@ -44,6 +44,7 @@ const actionIcons: { [actionName: string]: ReactElement; } = {
     'withdraw': <LogoutIcon />,
     'approve': <DoneRoundedIcon />,
     'approveWrap': <DoneRoundedIcon />,
+    'wrapsfuel': <MoveDownIcon />,
 }
 
 

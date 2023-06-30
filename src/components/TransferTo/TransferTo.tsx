@@ -9,7 +9,7 @@ import Search from '../Search';
 
 import { getQueryVariable } from '../../core/helper';
 
-import { getChainIcon, getChainName } from '../ActionCard/helper';
+import { getChainIcon, getChainName, getChainNameFix } from '../ActionCard/helper';
 import { CHAINS_META, CHAINS } from '../../core/constants';
 
 
@@ -19,7 +19,15 @@ export default function TransferTo(props: any) {
     const fromApp = getQueryVariable(location.search, 'from-app');
 
     const fromChain = from as string;
-    const fromChainName = getChainName(CHAINS_META, fromChain as string, fromApp);
+
+    let chain = fromChain;
+    let app = fromApp as string;
+
+    let namesFix = getChainNameFix(chain, app);
+    chain = namesFix[0];
+    app = namesFix[1];
+
+    const fromChainName = getChainName(CHAINS_META, chain, app);
 
     const chains = CHAINS as any;
 
@@ -32,7 +40,7 @@ export default function TransferTo(props: any) {
                     <h2 className="mp__flex mp__noMarg">Transfer from</h2>
                 </div>
                 <div className='mp__flex mp__margRi5 mp__margLeft10'>
-                    {getChainIcon(fromChain, true, fromApp)}
+                    {getChainIcon(chain, true, app)}
                 </div>
                 <div className='mp__flex'>
                     <h2 className="mp__flex mp__noMarg">{fromChainName} to...</h2>

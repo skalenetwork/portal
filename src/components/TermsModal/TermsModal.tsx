@@ -24,10 +24,11 @@
 import React from 'react';
 
 import Modal from '@mui/material/Modal';
-import Grid from '@mui/material/Grid';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
+
+import { METAPORT_CONFIG, MAINNET_CHAIN_NAME } from '../../core/constants';
 
 import BridgePaper from '../BridgePaper';
 import TermsOfService from '../Terms/terms-of-service.mdx'
@@ -62,44 +63,38 @@ export default function TermsModal(props: any) {
         <div style={style} className='mp__flex mp__flexCenteredVert'>
             <Container maxWidth="md">
                 <BridgePaper rounded>
-                    <Grid container spacing={2} >
-
-                        <Grid item md={12} sm={12} xs={12}>
-                            <BridgePaper rounded >
-                                <img src={logo} className="logoBig mp__margBott20 mp__margTop10" alt="logo" />
+                    <BridgePaper rounded >
+                        <img src={logo} className="logo mp__margBott20 mp__margTop10" alt="logo" />
+                        {
+                            METAPORT_CONFIG.skaleNetwork !== MAINNET_CHAIN_NAME ?
                                 <p className='mp__p mp__p6 whiteText'>
-                                    We will NEVER ask you for your seed phrase or private keys. <br /><br />
-                                    SKALE Network is in beta - <Link target="_blank" rel="noopener noreferrer" href="https://docs.skale.network/learn/mainnet-beta">learn more</Link>. <br />
-                                    BE SURE that you are connected to the right bridge and only use official links: 
-                                    
-                                    <ul>
-                                        <li><Link target="_blank" rel="noopener noreferrer" href="https://bridge.skale.network">https://bridge.skale.network</Link></li>
-                                        <li><Link target="_blank" rel="noopener noreferrer" href="https://bridge.skale.space">https://bridge.skale.space</Link></li>
-                                    </ul>
-                                    Before you use SKALE Bridge, you should review our terms of service carefully and confirm below 👇
-                                </p>
-                            </BridgePaper>
-                        </Grid>
-                        <Grid item md={12} sm={12} xs={12}>
-                            <div style={{}}>
-                                <BridgePaper rounded gray>
-                                    <div id='terms' className='br__modalScroll' style={{ paddingRight: '20px' }} onScroll={handleTermsScroll} >
-                                        <TermsOfService />
-                                    </div>
-                                </BridgePaper>
+                                    ❗ THIS IS A TEST WEBSITE ❗ <br /><br />
+                                </p> : <div></div>}
+                        <p className='mp__p mp__p6 whiteText'>
+                            🖥️ For Desktop Use Only. <br /><br />
+                            SKALE will NEVER ask you for your seed phrase or private keys. <br /><br />
+                            Please make sure you are connected to the correct bridge and only use this official link: <Link target="_blank" rel="noopener noreferrer" href="https://bridge.skale.space/">https://bridge.skale.space/</Link>
+                            <br />
+                            <br />
+                            Before you use the SKALE Bridge, you must review the terms of service carefully and confirm below.
+                        </p>
+                    </BridgePaper>
+                    <div>
+                        <BridgePaper rounded gray>
+                            <div id='terms' className='br__modalScroll' style={{ paddingRight: '20px' }} onScroll={handleTermsScroll} >
+                                <TermsOfService />
                             </div>
-                            <Button
-                                onClick={() => { props.setTermsAccepted(true); }}
-                                variant="contained"
-                                disabled={!scrolled}
-                                className='mp__margTop20 bridge__btn'
-                                size='large'
-                            >
-                                {getAgreeButtonText()}
-                            </Button>
-
-                        </Grid>
-                    </Grid>
+                        </BridgePaper>
+                    </div>
+                    <Button
+                        onClick={() => { props.setTermsAccepted(true); }}
+                        variant="contained"
+                        disabled={!scrolled}
+                        className='mp__margTop20 bridge__btn'
+                        size='large'
+                    >
+                        {getAgreeButtonText()}
+                    </Button>
                 </BridgePaper>
             </Container>
         </div>
