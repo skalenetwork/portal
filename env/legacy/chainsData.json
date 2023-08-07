@@ -4,6 +4,38 @@
     "chains": {
       "elated-tan-skat": {
         "tokens": {
+          "usdt": {
+            "keyname": "_USDT_0x8eA86DB11442536Df5C6e43d0283C0D6f08B77fB",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "12000"
+            ],
+            "address": "0x8eA86DB11442536Df5C6e43d0283C0D6f08B77fB"
+          },
+          "wbtc": {
+            "keyname": "_WBTC_0xD4869FeF1A4A431B00c0872Ee561dCc617075947",
+            "recommendedValues": [
+              "200",
+              "500",
+              "1000",
+              "2000",
+              "12000"
+            ],
+            "address": "0xD4869FeF1A4A431B00c0872Ee561dCc617075947"
+          },
+          "skl": {
+            "keyname": "_SKL_0x4828207D56D2f494C891afFE4546c5c6192f3509",
+            "recommendedValues": [
+              "200",
+              "500",
+              "1000",
+              "2000",
+              "12000"
+            ],
+            "address": "0x4828207D56D2f494C891afFE4546c5c6192f3509"
+          },
           "eth": {
             "keyname": "eth",
             "recommendedValues": [
@@ -14,13 +46,90 @@
             ]
           }
         }
+      },
+      "new-handy-mira": {
+        "tokens": {
+          "eth": {
+            "keyname": "eth",
+            "recommendedValues": [
+              "0.1",
+              "0.2",
+              "0.5",
+              "1"
+            ],
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_ETH_0x8ff5E9623323f0B74A55550A7D3C855b94fBf765",
+              "tokenType": "erc20"
+            }
+          },
+          "skl": {
+            "keyname": "_SKL_0x4828207D56D2f494C891afFE4546c5c6192f3509",
+            "recommendedValues": [
+              "100",
+              "200",
+              "300",
+              "500"
+            ],
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_SKL_0xF300Ce2f09f1D93C457Acc0b4974cBfBc53815D1",
+              "tokenType": "erc20"
+            },
+            "address": "0x4828207D56D2f494C891afFE4546c5c6192f3509"
+          }
+        }
       }
     }
   },
   "elated-tan-skat": {
     "chains": {
+      "new-handy-mira": {
+        "tokens": {
+          "eth": {
+            "keyname": "_ETH_0x8ff5E9623323f0B74A55550A7D3C855b94fBf765",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.2",
+              "0.5"
+            ],
+            "address": "0xD2Aaa00700000000000000000000000000000000"
+          },
+          "skl": {
+            "keyname": "_SKL_0xF300Ce2f09f1D93C457Acc0b4974cBfBc53815D1",
+            "recommendedValues": [
+              "100",
+              "200",
+              "400",
+              "900"
+            ],
+            "address": "0x51A1eD016633Afb00C25Eb404745C61D8c16BBd4"
+          }
+        }
+      },
       "mainnet": {
         "tokens": {
+          "usdt": {
+            "keyname": "_USDT_0x8eA86DB11442536Df5C6e43d0283C0D6f08B77fB",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "12000"
+            ],
+            "address": "0x93D75D40Cf545be4B36dfb5802Ab498364848727"
+          },
+          "wbtc": {
+            "keyname": "_WBTC_0xD4869FeF1A4A431B00c0872Ee561dCc617075947",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "12000"
+            ],
+            "address": "0x013C0E9Ca8B0432B7C0fBdA89d9b919fdA8D9d91"
+          },
           "eth": {
             "keyname": "eth",
             "recommendedValues": [
@@ -30,6 +139,79 @@
               "0.5"
             ],
             "address": "0xD2Aaa00700000000000000000000000000000000"
+          },
+          "skl": {
+            "keyname": "_SKL_0x4828207D56D2f494C891afFE4546c5c6192f3509",
+            "recommendedValues": [
+              "200",
+              "500",
+              "1000",
+              "2000",
+              "12000"
+            ],
+            "address": "0x51A1eD016633Afb00C25Eb404745C61D8c16BBd4"
+          }
+        }
+      }
+    }
+  },
+  "new-handy-mira": {
+    "chains": {
+      "elated-tan-skat": {
+        "tokens": {
+          "eth": {
+            "keyname": "_ETH_0x8ff5E9623323f0B74A55550A7D3C855b94fBf765",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.2",
+              "0.5"
+            ],
+            "address": "0x9C0e8bC2B2D403299214c80081F93fAB5e10b593"
+          },
+          "skl": {
+            "keyname": "_SKL_0xF300Ce2f09f1D93C457Acc0b4974cBfBc53815D1",
+            "recommendedValues": [
+              "100",
+              "200",
+              "400",
+              "900"
+            ],
+            "address": "0xFbbDF9aC97093b1E88aB79F7D0c296d9cc5eD0d0"
+          }
+        }
+      },
+      "mainnet": {
+        "tokens": {
+          "eth": {
+            "keyname": "_ETH_0x8ff5E9623323f0B74A55550A7D3C855b94fBf765",
+            "recommendedValues": [
+              "0.01",
+              "0.1",
+              "0.2",
+              "0.5"
+            ],
+            "address": "0x9C0e8bC2B2D403299214c80081F93fAB5e10b593",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "eth",
+              "tokenType": "eth"
+            }
+          },
+          "skl": {
+            "keyname": "_SKL_0xF300Ce2f09f1D93C457Acc0b4974cBfBc53815D1",
+            "recommendedValues": [
+              "100",
+              "200",
+              "300",
+              "500"
+            ],
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_SKL_0x4828207D56D2f494C891afFE4546c5c6192f3509",
+              "tokenType": "erc20"
+            },
+            "address": "0xFbbDF9aC97093b1E88aB79F7D0c296d9cc5eD0d0"
           }
         }
       }
