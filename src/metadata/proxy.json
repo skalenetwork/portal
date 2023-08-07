@@ -3,6 +3,6 @@
   "staging": "https://staging-v2.skalenodes.com",
   "staging3": "https://staging-v3.skalenodes.com",
   "legacy": "https://legacy-proxy.skalenodes.com",
-  "regression": "http://regression-proxy.skalenodes.com",
+  "regression": "https://regression-proxy.skalenodes.com",
   "qatestnet": "https://new-testnet-proxy.skalenodes.com"
 }
