@@ -190,6 +190,21 @@
               "tokenKeyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
               "tokenType": "erc20"
             }
+          },
+          "usdc": {
+            "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200",
+              "500"
+            ],
+            "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+              "tokenType": "erc20"
+            }
           }
         }
       },
@@ -387,6 +402,16 @@
               "5000"
             ],
             "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
+          },
+          "usdc": {
+            "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200",
+              "500"
+            ],
+            "address": "0x5F795bb52dAC3085f578f4877D450e2929D2F13d"
           }
         }
       },
@@ -635,6 +660,16 @@
               "5000"
             ],
             "address": "0x7F73B66d4e6e67bCdeaF277b9962addcDabBFC4d"
+          },
+          "usdc": {
+            "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200",
+              "500"
+            ],
+            "address": "0xCC205196288B7A26f6D43bBD68AaA98dde97276d"
           }
         }
       },
@@ -652,6 +687,21 @@
             "route": {
               "hub": "elated-tan-skat",
               "tokenKeyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+              "tokenType": "erc20"
+            }
+          },
+          "usdc": {
+            "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200",
+              "500"
+            ],
+            "address": "0xCC205196288B7A26f6D43bBD68AaA98dde97276d",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
               "tokenType": "erc20"
             }
           }

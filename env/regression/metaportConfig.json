@@ -1,0 +1,32 @@
+{
+  "skaleNetwork": "regression",
+  "autoLookup": false,
+  "openOnLoad": false,
+  "openButton": true,
+  "debug": false,
+  "chains": [
+    "mainnet",
+    "curly-red-alterf"
+  ],
+  "chainsMetadata": {
+  },
+  "tokens": {
+    "mainnet": {
+      "eth": {
+        "chains": [
+          ""
+        ]
+      },
+      "erc20": {
+      },
+      "erc721meta": {
+      },
+      "erc1155": {
+      }
+    }
+
+  },
+  "theme": {
+    "mode": "dark"
+  }
+}

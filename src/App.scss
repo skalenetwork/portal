@@ -1212,11 +1212,16 @@ body::-webkit-scrollbar {
   z-index: 2;
 }
 
-// .br__tileTop {
-//   position: absolute;
-//   top: 0;
-//   right: 0;
-//   z-index: 2;
 
-//   padding: 12pt 15pt;
-// }
+.br__chipXs {
+  height: 22px !important;
+
+  .MuiChip-label {
+    font-size: 0.7125rem;
+  }
+}
+
+.br__chipGray {
+  color: white !important;
+  background-color: #191919 !important;
+}
