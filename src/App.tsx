@@ -22,144 +22,34 @@
 */
 
 import './App.scss';
-import React, { useEffect } from 'react';
-import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-import Box from '@mui/material/Box';
+import { MetaportProvider, interfaces, getMetaportTheme } from '@skalenetwork/metaport';
+import '@skalenetwork/metaport/dist/style.css'
 
-import CssBaseline from '@mui/material/CssBaseline';
-import Toolbar from '@mui/material/Toolbar';
+import { StyledEngineProvider } from '@mui/material/styles'
+import { ThemeProvider } from '@mui/material/styles'
 
-import { Metaport, interfaces } from '@skalenetwork/metaport';
+import Bridge from './Bridge';
 
-import Header from './Header';
-import SkDrawer from './SkDrawer';
-import SkBottomNavigation from './SkBottomNavigation';
-import Router from './Router';
-import MetamaskConnector from './MetamaskConnector';
+import { METAPORT_CONFIG } from './metadata/metaportConfig';
+import { createMuiTheme } from './core/themes';
 
-import TermsModal from './components/TermsModal';
+METAPORT_CONFIG.mainnetEndpoint = import.meta.env.VITE_MAINNET_ENDPOINT;
 
-import { connect, getAccounts } from './core/connector'
-import { METAPORT_CONFIG } from './core/constants';
+const mpTheme = getMetaportTheme(METAPORT_CONFIG.theme);
+const muiTheme = createMuiTheme(mpTheme);
+const isDarkMode = mpTheme.mode === 'dark';
 
-
-interface MetaportThemesMap { [themeName: string]: interfaces.MetaportTheme; }
-
-
-export const themes: MetaportThemesMap = {
-  'default': {
-    primary: '#d9e021',
-    background: '#191919',
-    mode: 'dark'
-  }
-}
-
-
-function createMuiTheme(th: any) {
-  return createTheme({
-    palette: {
-      mode: th.mode,
-      background: {
-        paper: th.background
-      },
-      primary: {
-        main: th.primary,
-      },
-      secondary: {
-        main: th.background
-      }
-    }
-  })
-}
-
-
-function App() {
-
-  const [termsAccepted, setTermsAccepted] = React.useState<boolean>(false);
-
-  const [colorScheme, setColorScheme] = React.useState('default');
-  const [muiTheme, setMuiTheme] = React.useState(createMuiTheme(themes[colorScheme]));
-
-  const [address, setAddress] = React.useState<string>();
-  const [connectionError, setConnectionError] = React.useState<any>();
-  const [metaport, setMetaport] = React.useState<Metaport>();
-
-  useEffect(() => {
-    setMuiTheme(createMuiTheme(themes[colorScheme]));
-  }, [colorScheme]);
-
-  useEffect(() => {
-    if (!window.ethereum) return;
-    window.ethereum.on('accountsChanged', accountsChangedFallback);
-    getAccounts(
-      (accounts: string[]) => { setAddress(accounts[0]); },
-      (err) => { console.error(err) }
-    );
-    if (window.ethereum) {
-      setMetaport(new Metaport(METAPORT_CONFIG));
-    }
-    return () => {
-      window.removeEventListener("accountsChanged", accountsChangedFallback);
-    }
-  }, [window.ethereum]);
-
-  function connectMetamask() {
-    console.log('connectMetamask called');
-    connect(
-      () => {
-        setAddress(window.ethereum.selectedAddress);
-        setConnectionError(null);
-      },
-      (err) => { setConnectionError(err); }
-    );
-  }
-
-  function accountsChangedFallback(event: any) {
-    const accounts = event as string[];
-    if (accounts.length === 0) {
-      setAddress(undefined);
-      // MetaMask is locked or the user has not connected any accounts
-      console.log('Please connect wallet!');
-    } else {
-      setAddress(accounts[0]);
-    }
-  }
-
-  const darkMode = themes[colorScheme].mode === 'dark';
-
+export default function App() {
   return (
-    <ThemeProvider theme={muiTheme}>
-      <Box
-        sx={{ display: 'flex' }}
-        className={'AppWrap bridgeUI ' + (darkMode ? 'bridgeUI-dark' : 'bridgeUI-light')}
-      >
-        <CssBaseline />
-        <TermsModal termsAccepted={termsAccepted} setTermsAccepted={setTermsAccepted} />
-        <Header
-          colorScheme={colorScheme}
-          setColorScheme={setColorScheme}
-          connectMetamask={connectMetamask}
-          address={address}
-        />
-        <SkDrawer />
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          <Toolbar />
-          {address ? <Router
-            address={address}
-            metaport={metaport}
-            theme={themes[colorScheme]}
-          /> :
-            <MetamaskConnector
-              address={address}
-              connectMetamask={connectMetamask}
-              connectionError={connectionError}
-            />}
-        </Box>
-      </Box>
-      <SkBottomNavigation />
-    </ThemeProvider >
-  );
+    <div className={'bridge ' + (isDarkMode ? 'bridge-dark' : 'bridge-light')} style={{background: mpTheme.background}}>
+      <StyledEngineProvider injectFirst>
+        <ThemeProvider theme={muiTheme}>
+          <MetaportProvider config={METAPORT_CONFIG}>
+            <Bridge mpTheme={mpTheme} />
+          </MetaportProvider>
+        </ThemeProvider>
+      </StyledEngineProvider>
+    </div>
+  )
 }
-
-export default App;

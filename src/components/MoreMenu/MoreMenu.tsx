@@ -14,10 +14,10 @@ import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
 import HubOutlinedIcon from '@mui/icons-material/HubOutlined';
 
-import { METAPORT_CONFIG } from '../../core/constants';
-import { getProxyEndpoint } from '../../core/network';
+import { cls, styles, common } from '@skalenetwork/metaport';
 
-import './MoreMenu.scss';
+//import { METAPORT_CONFIG } from '../../core/constants';
+// import { getProxyEndpoint } from '../../core/network';
 
 
 export default function MoreMenu() {
@@ -39,9 +39,9 @@ export default function MoreMenu() {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                         onClick={handleClick}
-                        className='mp__margLeft10 moreBtn'
+                        className={cls(styles.paperGrey, common.pMain, common.margLeft10)}
                     >
-                        <MoreVertIcon />
+                        <MoreVertIcon className={cls(common.pMain)} style={{ height: '20px', width: '20px' }} />
                     </IconButton>
                 </Tooltip>
             </Box>
@@ -112,19 +112,17 @@ export default function MoreMenu() {
                         </div>
                     </MenuItem>
                 </a>
-                <a className="undec fullWidth" target="_blank" href={getProxyEndpoint(METAPORT_CONFIG.skaleNetwork)}>
-                    <MenuItem onClick={handleClose} className='undec fullWidth'>
-                        <div className='mp__flex'>
-                            <HubOutlinedIcon className='mp__margRi10' />
-                        </div>
-                        <div className='mp__flex mp__flexGrow'>
-                            Network UI
-                        </div>
-                        <div className='mp__flex mp__margLeft10'>
-                            <ArrowOutwardIcon className="menuIconRi" />
-                        </div>
-                    </MenuItem>
-                </a>
+                {/* <MenuItem onClick={handleClose} className='undec fullWidth'>
+                    <div className='mp__flex'>
+                        <HubOutlinedIcon className='mp__margRi10' />
+                    </div>
+                    <div className='mp__flex mp__flexGrow'>
+                        Endpoints
+                    </div>
+                    <div className='mp__flex mp__margLeft10'>
+                        <ArrowOutwardIcon className="menuIconRi" />
+                    </div>
+                </MenuItem> */}
             </Menu>
         </React.Fragment>
     );

@@ -4,10 +4,10 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import ContactSupportRoundedIcon from '@mui/icons-material/ContactSupportRounded';
 
-import './HelpZen.scss';
+import { cls, styles, common } from '@skalenetwork/metaport';
 
 
-export default function MoreMenu() {
+export default function HelpZen() {
     const [open, setOpen] = React.useState<boolean>(false);
 
     useEffect(() => {
@@ -28,13 +28,12 @@ export default function MoreMenu() {
                 <Tooltip arrow title={open ? 'Click to hide chat' : 'Click to open chat'}>
                     <Button
                         onClick={handleClick}
-                        className='mp__btnConnect mp__btnConnected'
-                    >
-                        <ContactSupportRoundedIcon className='mp__margRi10' />
+                        className={cls('mp__btnConnect', styles.paperGrey, common.pMain, common.flex)}>
+                        <ContactSupportRoundedIcon className='mp__margRi5' style={{ height: '20px', width: '20px' }} />
                         Get help
                     </Button>
                 </Tooltip>
             </Box>
-        </React.Fragment>
+        </React.Fragment >
     );
 }

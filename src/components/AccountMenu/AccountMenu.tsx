@@ -12,7 +12,9 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import HistoryIcon from '@mui/icons-material/History';
 import SignalCellularAltOutlinedIcon from '@mui/icons-material/SignalCellularAltOutlined';
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
+import { cls, styles, common } from '@skalenetwork/metaport';
 
 export default function AccountMenu(props: any) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -31,9 +33,11 @@ export default function AccountMenu(props: any) {
                 <Tooltip arrow title="Click to expand">
                     <Button
                         onClick={handleClick}
-                        className='mp__btnConnect mp__btnConnected'
+                        className={cls('mp__btnConnect', styles.paperGrey, common.pMain, common.flex)}
                     >
-                        <Jazzicon diameter={20} seed={jsNumberForAddress(props.address)} />
+                        <div className={cls(common.margRi10, common.flexCenteredVert)} style={{ height: '20px' }}>
+                            <Jazzicon diameter={20} seed={jsNumberForAddress(props.address)} />
+                        </div>
                         {props.address.substring(0, 5) + '...' + props.address.substring(props.address.length - 3)}
                     </Button>
                 </Tooltip>
@@ -74,6 +78,9 @@ export default function AccountMenu(props: any) {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
+                <MenuItem onClick={handleClose}>
+                    <AccountCircleRoundedIcon className='mp__margRi10' /> Account info
+                </MenuItem>
                 <Link to="/bridge/history" className="undec fullWidth">
                     <MenuItem onClick={handleClose}>
                         <HistoryIcon className='mp__margRi10' /> Transfers history

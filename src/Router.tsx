@@ -1,14 +1,14 @@
 import './App.scss';
 
-import Main from './Main';
-import Transfer from './components/Transfer';
-import TransferV2 from './components/TransferV2';
+import Main from './components/Main';
+// import Transfer from './components/Transfer';
+// import TransferV2 from './components/TransferV2';
 import Faq from './components/Faq';
 import Terms from './components/Terms';
-import ExitGasWallet from './components/ExitGasWallet';
-import TransferTo from './components/TransferTo';
-import Overview from './components/Overview';
-import History from './components/History';
+// import ExitGasWallet from './components/ExitGasWallet';
+// import TransferTo from './components/TransferTo';
+// import Overview from './components/Overview';
+// import History from './components/History';
 
 import { Routes, Route, useLocation } from "react-router-dom";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
@@ -16,14 +16,14 @@ import { TransitionGroup, CSSTransition } from "react-transition-group";
 export default function Router(props: any) {
     const location = useLocation();
     return (
-        <TransitionGroup component={null}>
-            <CSSTransition key={location.key} classNames="fade" timeout={300}>
+        // <TransitionGroup component={null}>
+        //     <CSSTransition key={location.key} classNames="fade" timeout={300}>
                 <Routes>
                     <Route
                         index
                         element={<Main address={props.address} metaport={props.metaport} />}
                     />
-                    <Route path="bridge" >
+                    {/* <Route path="bridge" >
                         <Route
                             path="exit"
                             element={<ExitGasWallet />}
@@ -48,7 +48,6 @@ export default function Router(props: any) {
                                     metaport={props.metaport}
                                     theme={props.theme}
                                 />}
-                            // element={<TransferV2 address={props.address} metaport={props.metaport} theme={props.theme} />}
                             />
                         </Route>
                         <Route path="transferv2" >
@@ -67,6 +66,7 @@ export default function Router(props: any) {
                         </Route>
                     </Route>
 
+                     */}
                     <Route path="other" >
                         <Route
                             path="faq"
@@ -78,7 +78,7 @@ export default function Router(props: any) {
                         />
                     </Route>
                 </Routes>
-            </CSSTransition>
-        </TransitionGroup>
+        //     </CSSTransition>
+        // </TransitionGroup>
     );
 }

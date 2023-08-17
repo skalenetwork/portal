@@ -1,15 +1,10 @@
-import debug from 'debug';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 
-import { MDXProvider } from '@mdx-js/react'
 import TermsOfService from './terms-of-service.mdx'
 
-debug.enable('*');
-const log = debug('bridge:components:Terms');
 
-
-export default function Terms(props: any) {
+export default function Terms() {
     return (<Container maxWidth="md" className='textPage'>
         <Stack spacing={2}>
             <div className='mp__flex mp__flexCenteredVert mp__margTop20'>
@@ -20,9 +15,7 @@ export default function Terms(props: any) {
             <p className='mp__noMarg mp__p mp__p4'>
                 SKALE Network Blockchain Bridge Terms of Service
             </p>
-            <MDXProvider >
-                <TermsOfService />
-            </MDXProvider>
+            <TermsOfService />
         </Stack>
     </Container>)
 }

@@ -19,8 +19,8 @@ import LocalGasStationOutlinedIcon from '@mui/icons-material/LocalGasStationOutl
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import HistoryIcon from '@mui/icons-material/History';
 
-import { METAPORT_CONFIG } from './core/constants';
-import { getProxyEndpoint } from './core/network';
+// import { METAPORT_CONFIG } from './core/constants';
+// import { getProxyEndpoint } from './core/network';
 
 const drawerWidth = 240;
 
@@ -63,6 +63,17 @@ export default function SkDrawer() {
                                 </ListItemButton>
                             </Link>
                         </ListItem>
+                        <ListItem  >
+                            <Link to="/other/faq" className="undec fullWidth">
+                                <ListItemButton
+                                    selected={location.pathname === "/other/faq"}>
+                                    <ListItemIcon>
+                                        <HelpOutlineOutlinedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='FAQ' />
+                                </ListItemButton>
+                            </Link>
+                        </ListItem>
                         {/* <ListItem  >
                             <Link to="/bridge/exit" className="undec fullWidth">
                                 <ListItemButton
@@ -88,29 +99,18 @@ export default function SkDrawer() {
                     </List>
                     <h4 className="secondaryText sectionHeader">Other</h4>
                     <List>
-                        <ListItem  >
-                            <Link to="/other/faq" className="undec fullWidth">
-                                <ListItemButton
-                                    selected={location.pathname === "/other/faq"}>
-                                    <ListItemIcon>
-                                        <HelpOutlineOutlinedIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary='FAQ' />
-                                </ListItemButton>
-                            </Link>
-                        </ListItem>
                         <ListItem>
-                            <a className="undec fullWidth" target="_blank" href={getProxyEndpoint(METAPORT_CONFIG.skaleNetwork)}>
-                                <ListItemButton>
+                            <Link to="/network" className="undec fullWidth">
+                                <ListItemButton selected={location.pathname === "/network"}>
                                     <ListItemIcon>
                                         <PublicOutlinedIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary='Get endpoints' />
-                                    <ArrowOutwardIcon className="drawerIconRi" />
+                                    <ListItemText primary='Network' />
                                 </ListItemButton>
-                            </a>
+                            </Link>
                         </ListItem>
-                        <ListItem>
+
+                        {/* <ListItem>
                             <a className="undec fullWidth" target="_blank" href='https://sfuel.skale.network/'>
                                 <ListItemButton>
                                     <ListItemIcon>
@@ -120,7 +120,7 @@ export default function SkDrawer() {
                                     <ArrowOutwardIcon className="drawerIconRi" />
                                 </ListItemButton>
                             </a>
-                        </ListItem>
+                        </ListItem> */}
                         {/* <ListItem>
                         <a className="undec fullWidth" target="_blank" href='https://admin.skale.network/'>
                             <ListItemButton>
