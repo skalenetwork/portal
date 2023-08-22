@@ -6,6 +6,9 @@ import Collapse from '@mui/material/Collapse';
 import Stack from '@mui/material/Stack';
 
 // import TransferFrom from '../TransferFrom';
+
+import { MAINNET_CHAIN_NAME } from '../core/constants'
+
 import {
   TransferETF,
   TransferETA,
@@ -19,12 +22,13 @@ import {
   useCollapseStore,
   useMetaportStore,
   cls,
-  common,
+  cmn,
   styles,
   AmountErrorMessage,
   TokenBalance,
   DestTokenBalance,
-  ErrorMessage
+  ErrorMessage,
+  CommunityPool
 } from '@skalenetwork/metaport';
 
 
@@ -39,6 +43,7 @@ export default function Main(props: any) {
   const expandedTo = useCollapseStore((state) => state.expandedTo)
   const setExpandedTo = useCollapseStore((state) => state.setExpandedTo)
 
+  const expandedCP = useCollapseStore((state) => state.expandedCP)
   const expandedTokens = useCollapseStore((state) => state.expandedTokens)
 
   const token = useMetaportStore((state) => state.token)
@@ -47,6 +52,7 @@ export default function Main(props: any) {
   const tokens = useMetaportStore((state) => state.tokens)
   const chainName1 = useMetaportStore((state) => state.chainName1)
   const chainName2 = useMetaportStore((state) => state.chainName2)
+  const destChains = useMetaportStore((state) => state.destChains)
 
   const setChainName1 = useMetaportStore((state) => state.setChainName1)
   const setChainName2 = useMetaportStore((state) => state.setChainName2)
@@ -69,29 +75,28 @@ export default function Main(props: any) {
   }, [tokens]);
 
 
-  const showFrom = !expandedTo && !expandedTokens && !errorMessage
-  const showTo = !expandedFrom && !expandedTokens && !errorMessage
-  const showInput = !expandedFrom && !expandedTo && !errorMessage
-  const showSwitch = !expandedFrom && !expandedTo && !expandedTokens && !errorMessage
-  const showStepper = !expandedFrom && !expandedTo && !expandedTokens && !errorMessage
-  const showError = !!errorMessage;
+  const showFrom = !expandedTo && !expandedTokens && !errorMessage && !expandedCP
+  const showTo = !expandedFrom && !expandedTokens && !errorMessage && !expandedCP
+  const showInput = !expandedFrom && !expandedTo && !errorMessage && !expandedCP
+  const showSwitch = !expandedFrom && !expandedTo && !expandedTokens && !errorMessage && !expandedCP
+  const showStepper = !expandedFrom && !expandedTo && !expandedTokens && !errorMessage && !expandedCP
+  const showCP = !expandedFrom && !expandedTo && !expandedTokens && chainName2 === MAINNET_CHAIN_NAME
+  const showError = !!errorMessage
 
 
   return (
     <Container maxWidth="sm">
       <Stack spacing={0}>
-        <h2 className={cls(common.noMargTop, common.margBott20)}>Transfer</h2>
-        {/* <SkPaper background='transparent'> */}
-
+        <div className={cls(cmn.flex, cmn.mbott20)}>
+          <h2 className={cls(cmn.nom)}>Transfer</h2>
+        </div>
         <Collapse in={showError}>
           <ErrorMessage errorMessage={errorMessage} />
         </Collapse>
-
-
-        <SkPaper gray className={common.noPadd}>
+        <SkPaper gray className={cmn.nop}>
           <Collapse in={showFrom}>
-            <div className={cls(common.paddTop20, common.margLeft20, common.margRi20, common.flex)}>
-              <p className={cls(common.noMarg, common.p, common.p4, common.pSecondary, common.flex, common.flexGrow)}>From</p>
+            <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
+              <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>From</p>
               {token ? <TokenBalance
                 balance={tokenBalances[token.keyname]}
                 symbol={token.meta.symbol}
@@ -103,6 +108,7 @@ export default function Main(props: any) {
               expanded={expandedFrom}
               setExpanded={setExpandedFrom}
               chain={chainName1}
+              chains={mpc.config.chains ?? []}
               setChain={setChainName1}
               disabledChain={chainName2}
               disabled={transferInProgress}
@@ -114,7 +120,7 @@ export default function Main(props: any) {
             <SkPaper gray className={cls()}>
               <AmountInput />
               <Collapse in={!!amountErrorMessage || amountErrorMessage === ''}>
-                <div className={cls(common.margBott20, common.margLeft10)}>
+                <div className={cls(cmn.mbott20, cmn.mleft10)}>
                   <AmountErrorMessage />
                 </div>
               </Collapse>
@@ -128,9 +134,9 @@ export default function Main(props: any) {
         </Collapse>
 
         <Collapse in={showTo}>
-          <SkPaper gray className={common.noPadd}>
-            <div className={cls(common.paddTop20, common.margLeft20, common.margRi20, common.flex)}>
-              <p className={cls(common.noMarg, common.p, common.p4, common.pSecondary, common.flex, common.flexGrow)}>To</p>
+          <SkPaper gray className={cmn.nop}>
+            <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
+              <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>To</p>
               <DestTokenBalance />
             </div>
             <ChainsList
@@ -138,16 +144,21 @@ export default function Main(props: any) {
               expanded={expandedTo}
               setExpanded={setExpandedTo}
               chain={chainName2}
+              chains={destChains}
               setChain={setChainName2}
               disabledChain={chainName1}
               disabled={transferInProgress}
             />
           </SkPaper>
         </Collapse>
-        <Collapse in={showStepper} className={common.margTop20} >
+        <Collapse in={showCP}>
+          <SkPaper gray className={cmn.nop}>
+            <CommunityPool />
+          </SkPaper>
+        </Collapse>
+        <Collapse in={showStepper} className={cmn.mtop20} >
           <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
         </Collapse>
-
       </Stack>
     </Container>)
 }

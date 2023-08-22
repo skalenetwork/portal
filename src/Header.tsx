@@ -21,7 +21,6 @@
  * @copyright SKALE Labs 2021-Present
 */
 
-import React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Chip from '@mui/material/Chip';
@@ -30,6 +29,7 @@ import { Link } from "react-router-dom";
 
 import logo from './assets/skale_lg.svg';
 
+import { cmn, cls } from '@skalenetwork/metaport';
 
 import HelpZen from './components/HelpZen';
 import MoreMenu from './components/MoreMenu';
@@ -39,7 +39,6 @@ import { MAINNET_CHAIN_NAME } from './core/constants';
 
 
 export default function Header(props: { address: `0x${string}` | undefined }) {
-
   return (
     <AppBar
       elevation={0}
@@ -47,13 +46,13 @@ export default function Header(props: { address: `0x${string}` | undefined }) {
       className="sk-header"
       sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
     >
-      <Toolbar className='mp__flex'>
-        <div className="mp__flex mp__flexCenteredVert">
-          <Link to="/" className='mp__undec mp__logoLink mp__flex mp__flexCenteredVert'>
+      <Toolbar className={cmn.flex}>
+        <div className={cls(cmn.flex, cmn.flexcv)}>
+          <Link to="/" className={cls(cmn.flex, cmn.flexcv)}>
             <img src={logo} className="logo" alt="logo" />
           </Link>
         </div>
-        <div className="mp__flex mp__flexCenteredVert mp__flexGrow mp__margLeft10">
+        <div className={cls(cmn.flex, cmn.flexg, cmn.mleft10)}>
           {
             'mainnet' !== MAINNET_CHAIN_NAME ?
               <Chip

@@ -14,7 +14,7 @@ import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
 import HubOutlinedIcon from '@mui/icons-material/HubOutlined';
 
-import { cls, styles, common } from '@skalenetwork/metaport';
+import { cls, styles, cmn } from '@skalenetwork/metaport';
 
 //import { METAPORT_CONFIG } from '../../core/constants';
 // import { getProxyEndpoint } from '../../core/network';
@@ -39,9 +39,9 @@ export default function MoreMenu() {
                         aria-haspopup="true"
                         aria-expanded={open ? 'true' : undefined}
                         onClick={handleClick}
-                        className={cls(styles.paperGrey, common.pMain, common.margLeft10)}
+                        className={cls(styles.paperGrey, cmn.pPrim, cmn.mleft10)}
                     >
-                        <MoreVertIcon className={cls(common.pMain)} style={{ height: '20px', width: '20px' }} />
+                        <MoreVertIcon className={cls(cmn.pPrim)} style={{ height: '20px', width: '20px' }} />
                     </IconButton>
                 </Tooltip>
             </Box>
@@ -83,43 +83,43 @@ export default function MoreMenu() {
             >
                 <Link to="/other/terms-of-service" className="undec fullWidth">
                     <MenuItem onClick={handleClose}>
-                        <InventoryOutlinedIcon className='mp__margRi10' /> Terms of service
+                        <InventoryOutlinedIcon className={cmn.mri10} /> Terms of service
                     </MenuItem>
                 </Link>
                 <a className="undec fullWidth" target="_blank" href='https://skale.space/'>
                     <MenuItem onClick={handleClose}>
-                        <div className='mp__flex'>
-                            <PublicOutlinedIcon className='mp__margRi10' />
+                        <div className={cmn.flex}>
+                            <PublicOutlinedIcon className={cmn.mri10} />
                         </div>
-                        <div className='mp__flex mp__flexGrow'>
+                        <div className={cls(cmn.flex, cmn.flexg)}>
                             Main website
                         </div>
-                        <div className='mp__flex mp__margLeft10'>
+                        <div className={cls(cmn.flex, cmn.mleft10)}>
                             <ArrowOutwardIcon className="menuIconRi" />
                         </div>
                     </MenuItem>
                 </a>
                 <a className="undec fullWidth" target="_blank" href='https://docs.skale.network/'>
                     <MenuItem onClick={handleClose} className='undec'>
-                        <div className='mp__flex'>
-                            <ArticleOutlinedIcon className='mp__margRi10' />
+                        <div className={cmn.flex}>
+                            <ArticleOutlinedIcon className={cmn.mri10} />
                         </div>
-                        <div className='mp__flex mp__flexGrow'>
+                        <div className={cls(cmn.flex, cmn.flexg)}>
                             Docs portal
                         </div>
-                        <div className='mp__flex mp__margLeft10'>
+                        <div className={cls(cmn.flex, cmn.mleft10)}>
                             <ArrowOutwardIcon className="menuIconRi" />
                         </div>
                     </MenuItem>
                 </a>
                 {/* <MenuItem onClick={handleClose} className='undec fullWidth'>
-                    <div className='mp__flex'>
-                        <HubOutlinedIcon className='mp__margRi10' />
+                    <div className={cmn.flex}>
+                        <HubOutlinedIcon className={cmn.mri10} />
                     </div>
-                    <div className='mp__flex mp__flexGrow'>
+                    <div className={cls(cmn.flex, cmn.flexg)}>
                         Endpoints
                     </div>
-                    <div className='mp__flex mp__margLeft10'>
+                    <div className={cls(cmn.flex, cmn.mleft10)}>
                         <ArrowOutwardIcon className="menuIconRi" />
                     </div>
                 </MenuItem> */}

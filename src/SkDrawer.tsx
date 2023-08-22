@@ -1,4 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
+import { cmn } from '@skalenetwork/metaport';
 
 import Box from '@mui/material/Box';
 
@@ -38,7 +39,7 @@ export default function SkDrawer() {
                 }}
             >
                 <Toolbar />
-                <Box sx={{ overflow: 'auto' }} className="mp__margTop20">
+                <Box sx={{ overflow: 'auto' }} className={cmn.mtop20}>
                     <h4 className="secondaryText sectionHeader">Bridge</h4>
                     <List>
                         <ListItem  >

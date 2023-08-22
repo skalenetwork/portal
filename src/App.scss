@@ -40,15 +40,7 @@ body {
 }
 
 
-
-
-
-
-
-
-
 @import './variables';
-
 
 body {
   margin: 0;
@@ -193,12 +185,6 @@ h4 {
 }
 
 
-
-
-
-
-
-
 .bridge-dark .MuiFormControlLabel-label {
   color: rgba(255, 255, 255, 0.7);
 }
@@ -266,160 +252,6 @@ h4 {
 .MuiTabPanel-root {
   padding: 24px 0 !important;
 }
-
-.mp__fullHeight {
-  height: 85vh;
-}
-
-.mp__flex {
-  display: flex;
-  vertical-align: middle;
-}
-
-.mp__flexWrap {
-  flex-wrap: wrap;
-}
-
-.fl-right {
-  justify-content: end;
-}
-
-.mp__flexCentered {
-  align-items: center;
-  justify-content: center;
-
-}
-
-.mp__flexCenteredVert {
-  align-items: center;
-}
-
-.mp__flexGrow {
-  flex-grow: 1;
-}
-
-
-.mp__margTop10 {
-  margin-top: 10px !important;
-}
-
-.mp__margTop20 {
-  margin-top: 20px !important;
-}
-
-.mp__margTop30 {
-  margin-top: 30px !important;
-}
-
-.mp__margTop40 {
-  margin-top: 40px !important;
-}
-
-.mp__margLeft5 {
-  margin-left: 5px !important;
-}
-
-.mp__margLeft10 {
-  margin-left: 10px !important;
-}
-
-.mp__margLeft20 {
-  margin-left: 20px !important;
-}
-
-.mp__margRi20 {
-  margin-right: 20px !important;
-}
-
-.mp__margRi10 {
-  margin-right: 10px !important;
-}
-
-.mp__margRi5 {
-  margin-right: 5px !important;
-}
-
-
-.marg-top-20 {
-  margin-top: 20px !important;
-}
-
-.mp__margTop20Pt {
-  margin-top: 20pt !important;
-}
-
-.marg-top-30 {
-  margin-top: 30px !important;
-}
-
-.mp__margBott20 {
-  margin-bottom: 20px !important;
-}
-
-.mp__margBott10 {
-  margin-bottom: 10px !important;
-}
-
-.mp__margBott15 {
-  margin-bottom: 15px !important;
-}
-
-.mp__margBottMin10 {
-  margin-bottom: -10px !important;
-}
-
-.mp__margBottMin15 {
-  margin-bottom: -15px !important;
-}
-
-
-.marg-bott-40 {
-  margin-bottom: 40px !important;
-}
-
-.mp__margBott5 {
-  margin-bottom: 5px !important;
-}
-
-.mp__margTop5 {
-  margin-top: 5px !important;
-}
-
-
-.mp__noMargTop {
-  margin-top: 0 !important;
-}
-
-
-.mp__noMargBott {
-  margin-bottom: 0 !important;
-}
-
-.mp__noMarg {
-  margin: 0 !important;
-}
-
-.mp__noPadd {
-  padding: 0 !important;
-}
-
-.mp__paddTop10 {
-  padding-top: 10px !important;
-}
-
-
-.mp__noMarg-bott {
-  margin-bottom: 0 !important;
-}
-
-.mp__noMarg {
-  margin: 0 !important;
-}
-
-.hidden {
-  display: none !important;
-}
-
 
 .bridge-dark .MuiListItemText-primary {
   color: #ffffffdb !important;
@@ -496,85 +328,6 @@ h4 {
   width: 100%;
 }
 
-.undec {
-  text-decoration: none !important;
-}
-
-.bridge__btn {
-  font-size: .7125rem !important;
-  line-height: 1.7 !important;
-  border-radius: 15px !important;
-  font-weight: 600 !important;
-}
-
-
-.bridge__action_btn {
-  box-shadow: none !important;
-  font-size: 0.7525rem !important;
-  line-height: 1.6 !important;
-  letter-spacing: 0.02857em !important;
-  font-weight: 600 !important;
-  padding-top: 0.8em !important;
-  padding-bottom: 0.8em !important;
-  min-height: $sk-btn-height !important;
-  border-radius: $sk-border-radius !important;
-}
-
-.bridge__btnLoading {
-  padding-left: 35px !important;
-}
-
-.bridge__transferBtn {
-  width: 100%;
-  font-size: 0.8rem !important;
-  font-weight: 600 !important;
-  padding: 12px !important;
-}
-
-.nftImg {
-  max-height: 200px;
-  padding: 20px 30px;
-}
-
-.nftImgWrap {
-  max-height: 200px;
-}
-
-
-input[type=number] {
-  -moz-appearance: textfield;
-  /* Firefox */
-}
-
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  /* display: none; <- Crashes Chrome on hover */
-  -webkit-appearance: none;
-  margin: 0;
-  /* <-- Apparently some margin are still there even though it's hidden */
-}
-
-.inputAmount .MuiFormControl-root {
-  width: 100%;
-}
-
-
-.MuiInputBase-root::after {
-  border-bottom: none !important;
-}
-
-.MuiInputBase-root::before {
-  border-bottom: none !important;
-}
-
-.MuiInputBase-root {
-  border-radius: 8px !important;
-}
-
-.inputAmount {
-  margin: 20px 0 10px 0;
-}
-
 
 
 .mp__btnConnect {
@@ -624,109 +377,21 @@ input::-webkit-inner-spin-button {
 }
 
 
-.mp__btnChain {
-  width: 100%;
-  text-align: left;
-  text-transform: uppercase;
-  font-size: 0.6525rem;
-  line-height: 1.6;
-  letter-spacing: 0.02857em;
-}
-
-.mp__btnChainBig {
-  width: 100%;
-  text-transform: uppercase;
-  font-size: 0.90525rem;
-  line-height: 1.5;
-  letter-spacing: 0.02857em;
-  padding-left: 25pt;
-  padding-right: 25pt;
-}
-
 .MuiSnackbar-root .MuiPaper-root {
   padding: 5px 15px !important;
 }
 
-.chainLogo {
-  width: 80px;
-}
-
-
-.ethLogo {
-  width: 65px;
-}
-
-.headerText {
-  margin-bottom: 1px !important;
-  font-size: 1.5rem !important;
-  font-weight: 600;
-}
-
-.mp__undec {
-  text-decoration: none !important;
-}
-
-.mp__logoLink {
-  color: white;
-}
-
-.chainIcon {
-  width: 24px !important;
-  height: 24px !important;
-}
-
-.MuiListItemIcon-root {
-  .chainIcon {
-    width: 20px !important;
-    height: 20px !important;
-  }
-}
-
-
-.fade-enter {
-  opacity: 0;
-  transform: translate(0, 25px);
-  z-index: 1;
-}
-
-.fade-enter.fade-enter-active {
-  opacity: 1;
-  transform: translate(0, 0);
-
-  transition: opacity 250ms ease-out, transform 300ms ease;
-}
-
-.fade-exit {
-  opacity: 1;
-  transform: translate(0, 0);
-}
-
-.fade-exit.fade-exit-active {
-  opacity: 0;
-  transform: translate(0, 30px);
-
-  transition: opacity 250ms ease-out, transform 300ms ease;
-}
 
 
 
 
-.uppercase {
-  text-transform: uppercase !important;
-}
 
 
 
 
-.mp__p3 {
-  margin: 0;
-  font-weight: 600 !important;
-  // text-transform: uppercase !important;
-  //font-size: 0.6525rem !important;
-  font-size: 0.7rem !important;
-  line-height: 1.6 !important;
-  letter-spacing: 0.02857em !important;
-}
+
+
+
 
 
 .MuiToggleButton-root {
@@ -736,143 +401,6 @@ input::-webkit-inner-spin-button {
   font-size: 0.8525rem !important;
   line-height: 1.6 !important;
   letter-spacing: 0.02857em !important;
-}
-
-.mp__p,
-.mp__infoIcon,
-.mp__backIcon {
-  color: rgb(255 255 255 / 65%) !important;
-}
-
-.mp__p2 {
-  margin: 0;
-  font-weight: 600 !important;
-  // text-transform: uppercase !important;
-  font-size: 0.9525rem !important;
-  line-height: 1.6 !important;
-  letter-spacing: 0.03857em !important;
-}
-
-
-.mp__p4 {
-  margin: 0;
-  font-weight: 400 !important;
-  // text-transform: uppercase !important;
-  font-size: 0.8525rem !important;
-  line-height: 1.6 !important;
-  letter-spacing: 0.03857em !important;
-}
-
-.mp__p6 {
-  margin: 0;
-  font-weight: 500 !important;
-  font-size: 0.9rem !important;
-  line-height: 1.4 !important;
-}
-
-.mp__p5 {
-  margin: 0;
-  font-weight: 400 !important;
-  // text-transform: uppercase !important;
-  font-size: 0.7025rem !important;
-  line-height: 1.6 !important;
-  letter-spacing: 0.03857em !important;
-}
-
-
-
-.mp__textCentered {
-  text-align: center;
-}
-
-.chainInfoIcon {
-  width: 12pt !important;
-  color: #0000008a !important;
-}
-
-.chainInfoText {
-  color: #0000008a !important;
-}
-
-
-.schain-name {
-  font-weight: bold;
-  // text-transform: uppercase;
-  font-size: .75rem;
-  color: white;
-  text-align: center;
-}
-
-.defaultChainIcon {
-  width: 20px !important;
-  height: 20px !important;
-}
-
-
-.mp__iconToken {
-  width: 25px;
-  height: 25px;
-  margin-right: -10px;
-  border: 1px $border-color solid !important;
-  border-radius: 50%;
-}
-
-
-.mp__iconHub {
-  img {
-    width: 25px;
-    height: 25px;
-    // margin-right: 10px;
-    border: 1px $border-color solid !important;
-    border-radius: 50%;
-  }
-}
-
-.mp__iconTokenMore {
-  margin-left: 10px !important;
-  background: #00000081;
-
-  p {
-    color: white !important;
-    font-weight: bold;
-    font-size: 0.6rem;
-  }
-}
-
-.mp__iconTokenBig {
-  width: 30px;
-  height: 30px;
-  margin-top: 10px;
-  margin-right: 10px;
-}
-
-.mp__iconTokenBtn {
-  width: 30px;
-  height: 30px;
-}
-
-.mp__iconTokenTransferDone {
-  width: 25px;
-  height: 25px;
-}
-
-.topBannerNew {
-  font-weight: 500 !important;
-  /* text-transform: uppercase !important; */
-  font-size: .8525rem !important;
-  line-height: 1.5 !important;
-  letter-spacing: .02857em !important;
-  color: #e1e1e1 !important;
-}
-
-
-.mp__chipToken {
-  height: 45px !important;
-}
-
-.mp__chipAmount {
-  height: 35px !important;
-  font-size: 0.7125rem !important;
 }
 
 

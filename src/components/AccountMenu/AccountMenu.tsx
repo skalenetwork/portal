@@ -14,7 +14,7 @@ import SignalCellularAltOutlinedIcon from '@mui/icons-material/SignalCellularAlt
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
-import { cls, styles, common } from '@skalenetwork/metaport';
+import { cls, styles, cmn } from '@skalenetwork/metaport';
 
 export default function AccountMenu(props: any) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -33,9 +33,9 @@ export default function AccountMenu(props: any) {
                 <Tooltip arrow title="Click to expand">
                     <Button
                         onClick={handleClick}
-                        className={cls('mp__btnConnect', styles.paperGrey, common.pMain, common.flex)}
+                        className={cls('mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex)}
                     >
-                        <div className={cls(common.margRi10, common.flexCenteredVert)} style={{ height: '20px' }}>
+                        <div className={cls(cmn.mri10, cmn.flexcv)} style={{ height: '20px' }}>
                             <Jazzicon diameter={20} seed={jsNumberForAddress(props.address)} />
                         </div>
                         {props.address.substring(0, 5) + '...' + props.address.substring(props.address.length - 3)}
@@ -79,27 +79,27 @@ export default function AccountMenu(props: any) {
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
                 <MenuItem onClick={handleClose}>
-                    <AccountCircleRoundedIcon className='mp__margRi10' /> Account info
+                    <AccountCircleRoundedIcon className={cmn.mri10} /> Account info
                 </MenuItem>
                 <Link to="/bridge/history" className="undec fullWidth">
                     <MenuItem onClick={handleClose}>
-                        <HistoryIcon className='mp__margRi10' /> Transfers history
+                        <HistoryIcon className={cmn.mri10} /> Transfers history
                     </MenuItem>
                 </Link>
                 <Link to="/bridge/overview" className="undec fullWidth">
                     <MenuItem onClick={handleClose}>
-                        <AppsOutlinedIcon className='mp__margRi10' /> Assets overview
+                        <AppsOutlinedIcon className={cmn.mri10} /> Assets overview
                     </MenuItem>
                 </Link>
                 <a className="undec fullWidth" target="_blank" href={'https://etherscan.io/address/' + props.address}>
                     <MenuItem onClick={handleClose}>
-                        <div className='mp__flex'>
-                            <SignalCellularAltOutlinedIcon className='mp__margRi10' />
+                        <div className={cmn.flex}>
+                            <SignalCellularAltOutlinedIcon className={cmn.mri10} />
                         </div>
-                        <div className='mp__flex mp__flexGrow'>
+                        <div className={cls(cmn.flex, cmn.flexg)}>
                             View on Etherscan
                         </div>
-                        <div className='mp__flex mp__margLeft10'>
+                        <div className={cls(cmn.flex, cmn.mleft10)}>
                             <ArrowOutwardIcon className="menuIconRi" />
                         </div>
                     </MenuItem>
