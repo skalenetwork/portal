@@ -21,6 +21,8 @@ import {
   interfaces,
   useCollapseStore,
   useMetaportStore,
+  useSFuelStore,
+  useUIStore,
   cls,
   cmn,
   styles,
@@ -28,7 +30,9 @@ import {
   TokenBalance,
   DestTokenBalance,
   ErrorMessage,
-  CommunityPool
+  CommunityPool,
+  SFuelWarning,
+  chainBg
 } from '@skalenetwork/metaport';
 
 
@@ -63,6 +67,10 @@ export default function Main(props: any) {
   const amountErrorMessage = useMetaportStore((state) => state.amountErrorMessage)
   const errorMessage = useMetaportStore((state) => state.errorMessage)
 
+  const theme = useUIStore((state) => state.theme)
+
+  const sFuelOk = useSFuelStore((state) => state.sFuelOk)
+
   useEffect(() => {
     setChainName1(mpc.config.chains ? mpc.config.chains[0] : '')
     setChainName2(mpc.config.chains ? mpc.config.chains[1] : '')
@@ -79,10 +87,15 @@ export default function Main(props: any) {
   const showTo = !expandedFrom && !expandedTokens && !errorMessage && !expandedCP
   const showInput = !expandedFrom && !expandedTo && !errorMessage && !expandedCP
   const showSwitch = !expandedFrom && !expandedTo && !expandedTokens && !errorMessage && !expandedCP
-  const showStepper = !expandedFrom && !expandedTo && !expandedTokens && !errorMessage && !expandedCP
-  const showCP = !expandedFrom && !expandedTo && !expandedTokens && chainName2 === MAINNET_CHAIN_NAME
+  const showStepper =
+    !expandedFrom && !expandedTo && !expandedTokens && !errorMessage && !expandedCP && sFuelOk
+  const showCP =
+    !expandedFrom && !expandedTo && !expandedTokens && chainName2 === MAINNET_CHAIN_NAME
   const showError = !!errorMessage
 
+  const grayBg = 'rgb(136 135 135 / 15%)'
+  const sourceBg = theme.vibrant ? chainBg(mpc.config.skaleNetwork, chainName1) : grayBg;
+  const destBg = theme.vibrant ? chainBg(mpc.config.skaleNetwork, chainName2) : grayBg;
 
   return (
     <Container maxWidth="sm">
@@ -90,75 +103,82 @@ export default function Main(props: any) {
         <div className={cls(cmn.flex, cmn.mbott20)}>
           <h2 className={cls(cmn.nom)}>Transfer</h2>
         </div>
-        <Collapse in={showError}>
-          <ErrorMessage errorMessage={errorMessage} />
-        </Collapse>
-        <SkPaper gray className={cmn.nop}>
-          <Collapse in={showFrom}>
-            <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
-              <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>From</p>
-              {token ? <TokenBalance
-                balance={tokenBalances[token.keyname]}
-                symbol={token.meta.symbol}
-                decimals={token.meta.decimals ?? ''}
-              /> : null}
-            </div>
-            <ChainsList
-              config={mpc.config}
-              expanded={expandedFrom}
-              setExpanded={setExpandedFrom}
-              chain={chainName1}
-              chains={mpc.config.chains ?? []}
-              setChain={setChainName1}
-              disabledChain={chainName2}
-              disabled={transferInProgress}
-              from={true}
-            />
+        <div>
+          <Collapse in={showError}>
+            <ErrorMessage errorMessage={errorMessage} />
+          </Collapse>
+          <SkPaper background={sourceBg} className={cmn.nop}>
+            <Collapse in={showFrom}>
+              <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
+                <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>From</p>
+                {token ? <TokenBalance
+                  balance={tokenBalances[token.keyname]}
+                  symbol={token.meta.symbol}
+                  decimals={token.meta.decimals ?? ''}
+                /> : null}
+              </div>
+              <ChainsList
+                config={mpc.config}
+                expanded={expandedFrom}
+                setExpanded={setExpandedFrom}
+                chain={chainName1}
+                chains={mpc.config.chains ?? []}
+                setChain={setChainName1}
+                disabledChain={chainName2}
+                disabled={transferInProgress}
+                from={true}
+                size='md'
+              />
+            </Collapse>
+
+            <Collapse in={showInput}>
+              <SkPaper gray className={cls()}>
+                <AmountInput />
+                <Collapse in={!!amountErrorMessage || amountErrorMessage === ''}>
+                  <div className={cls(cmn.mbott20, cmn.mleft10)}>
+                    <AmountErrorMessage />
+                  </div>
+                </Collapse>
+
+              </SkPaper>
+            </Collapse>
+          </SkPaper>
+
+          <Collapse in={showSwitch} >
+            <SwitchDirection />
           </Collapse>
 
-          <Collapse in={showInput}>
-            <SkPaper gray className={cls()}>
-              <AmountInput />
-              <Collapse in={!!amountErrorMessage || amountErrorMessage === ''}>
-                <div className={cls(cmn.mbott20, cmn.mleft10)}>
-                  <AmountErrorMessage />
-                </div>
-              </Collapse>
-
+          <Collapse in={showTo}>
+            <SkPaper background={destBg} className={cmn.nop}>
+              <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
+                <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>To</p>
+                <DestTokenBalance />
+              </div>
+              <ChainsList
+                config={mpc.config}
+                expanded={expandedTo}
+                setExpanded={setExpandedTo}
+                chain={chainName2}
+                chains={destChains}
+                setChain={setChainName2}
+                disabledChain={chainName1}
+                disabled={transferInProgress}
+                size='md'
+              />
             </SkPaper>
           </Collapse>
-        </SkPaper>
+          <Collapse in={showCP}>
+            <SkPaper gray className={cmn.nop}>
+              <CommunityPool />
+            </SkPaper>
+          </Collapse>
 
-        <Collapse in={showSwitch} >
-          <SwitchDirection />
-        </Collapse>
+          <SFuelWarning />
 
-        <Collapse in={showTo}>
-          <SkPaper gray className={cmn.nop}>
-            <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
-              <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>To</p>
-              <DestTokenBalance />
-            </div>
-            <ChainsList
-              config={mpc.config}
-              expanded={expandedTo}
-              setExpanded={setExpandedTo}
-              chain={chainName2}
-              chains={destChains}
-              setChain={setChainName2}
-              disabledChain={chainName1}
-              disabled={transferInProgress}
-            />
-          </SkPaper>
-        </Collapse>
-        <Collapse in={showCP}>
-          <SkPaper gray className={cmn.nop}>
-            <CommunityPool />
-          </SkPaper>
-        </Collapse>
-        <Collapse in={showStepper} className={cmn.mtop20} >
-          <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
-        </Collapse>
+          <Collapse in={showStepper} className={cmn.mtop20} >
+            <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
+          </Collapse>
+        </div>
       </Stack>
     </Container>)
 }

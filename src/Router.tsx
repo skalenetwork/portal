@@ -18,12 +18,12 @@ export default function Router(props: any) {
     return (
         // <TransitionGroup component={null}>
         //     <CSSTransition key={location.key} classNames="fade" timeout={300}>
-                <Routes>
-                    <Route
-                        index
-                        element={<Main address={props.address} metaport={props.metaport} />}
-                    />
-                    {/* <Route path="bridge" >
+        <Routes>
+            <Route
+                index
+                element={<Main address={props.address} metaport={props.metaport} />}
+            />
+            {/* <Route path="bridge" >
                         <Route
                             path="exit"
                             element={<ExitGasWallet />}
@@ -67,17 +67,17 @@ export default function Router(props: any) {
                     </Route>
 
                      */}
-                    <Route path="other" >
-                        <Route
-                            path="faq"
-                            element={<Faq />}
-                        />
-                        <Route
-                            path="terms-of-service"
-                            element={<Terms />}
-                        />
-                    </Route>
-                </Routes>
+            <Route path="other" >
+                <Route
+                    path="faq"
+                    element={<Faq />}
+                />
+                <Route
+                    path="terms-of-service"
+                    element={<Terms />}
+                />
+            </Route>
+        </Routes>
         //     </CSSTransition>
         // </TransitionGroup>
     );

@@ -23,7 +23,7 @@ export default function HelpZen() {
     return (
         <React.Fragment>
             <Box
-                className='mp__margLeft10'
+                className={cmn.mleft10}
                 sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }} >
                 <Tooltip arrow title={open ? 'Click to hide chat' : 'Click to open chat'}>
                     <Button
