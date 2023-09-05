@@ -17,9 +17,12 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import LocalGasStationOutlinedIcon from '@mui/icons-material/LocalGasStationOutlined';
+import LeaderboardRoundedIcon from '@mui/icons-material/LeaderboardRounded';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import HistoryIcon from '@mui/icons-material/History';
-
+import SpaceDashboardRoundedIcon from '@mui/icons-material/SpaceDashboardRounded';
+import SpaceDashboardOutlinedIcon from '@mui/icons-material/SpaceDashboardOutlined';
+import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 // import { METAPORT_CONFIG } from './core/constants';
 // import { getProxyEndpoint } from './core/network';
 
@@ -98,17 +101,40 @@ export default function SkDrawer() {
                         </Link>
                     </ListItem> */}
                     </List>
-                    <h4 className="secondaryText sectionHeader">Other</h4>
+                    <h4 className="secondaryText sectionHeader">Network</h4>
                     <List>
                         <ListItem>
-                            <Link to="/network" className="undec fullWidth">
-                                <ListItemButton selected={location.pathname === "/network"}>
+                            <Link to="/chains" className="undec fullWidth">
+                                <ListItemButton selected={location.pathname.includes("/chains")}>
                                     <ListItemIcon>
                                         <PublicOutlinedIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary='Network' />
+                                    <ListItemText primary='Chains' />
                                 </ListItemButton>
                             </Link>
+                        </ListItem>
+
+                        <ListItem>
+                            <Link to="/stats" className="undec fullWidth">
+                                <ListItemButton selected={location.pathname === "/stats"}>
+                                    <ListItemIcon>
+                                        <InsertChartOutlinedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Stats' />
+                                </ListItemButton>
+                            </Link>
+                        </ListItem>
+
+                        <ListItem>
+                            <a className="undec fullWidth" target="_blank" href='https://dune.com/manel/skale-analytics'>
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        <SpaceDashboardOutlinedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Dune Dashboard' />
+                                    <ArrowOutwardIcon className="drawerIconRi" />
+                                </ListItemButton>
+                            </a>
                         </ListItem>
 
                         {/* <ListItem>
@@ -133,7 +159,18 @@ export default function SkDrawer() {
                             </ListItemButton>
                         </a>
                     </ListItem> */}
-                        <ListItem>
+                        {/* <ListItem>
+                            <a className="undec fullWidth" target="_blank" href='https://skale.space/stats'>
+                                <ListItemButton>
+                                    <ListItemIcon>
+                                        <LeaderboardRoundedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Stats' />
+                                    <ArrowOutwardIcon className="drawerIconRi" />
+                                </ListItemButton>
+                            </a>
+                        </ListItem> */}
+                        {/* <ListItem>
                             <a className="undec fullWidth" target="_blank" href='https://docs.skale.network/'>
                                 <ListItemButton>
                                     <ListItemIcon>
@@ -143,7 +180,7 @@ export default function SkDrawer() {
                                     <ArrowOutwardIcon className="drawerIconRi" />
                                 </ListItemButton>
                             </a>
-                        </ListItem>
+                        </ListItem> */}
                     </List>
                 </Box>
             </Drawer >

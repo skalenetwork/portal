@@ -70,15 +70,13 @@ function Bridge(props: { mpTheme: interfaces.MetaportTheme }) {
       <CssBaseline />
 
       <Header
-      // colorScheme={colorScheme}
-      // setColorScheme={setColorScheme}
-      // connectMetamask={connectMetamask}
+        // colorScheme={colorScheme}
+        // setColorScheme={setColorScheme}
+        // connectMetamask={connectMetamask}
         address={address}
       />
       <SkDrawer />
-
-      {address ? <Router address={address} /> : <SkConnect />}
-
+      <Router />
       {/* <Metaport config={mpc.config}/> */}
       {/* <Button variant='contained' className={cls(styles.btnAction)}>Action button</Button> */}
 

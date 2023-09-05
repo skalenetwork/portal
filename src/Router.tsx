@@ -1,81 +1,65 @@
 import './App.scss';
 
+import { useState } from 'react'
+
 import Main from './components/Main';
 // import Transfer from './components/Transfer';
 // import TransferV2 from './components/TransferV2';
 import Faq from './components/Faq';
 import Terms from './components/Terms';
+import Network from './components/Network';
+import Schain from './components/Schain';
+import Stats from './components/Stats';
 // import ExitGasWallet from './components/ExitGasWallet';
 // import TransferTo from './components/TransferTo';
 // import Overview from './components/Overview';
 // import History from './components/History';
 
+
+import { useMetaportStore, PROXY_ENDPOINTS } from '@skalenetwork/metaport';
 import { Routes, Route, useLocation } from "react-router-dom";
-import { TransitionGroup, CSSTransition } from "react-transition-group";
 
-export default function Router(props: any) {
+
+export default function Router() {
     const location = useLocation();
-    return (
-        // <TransitionGroup component={null}>
-        //     <CSSTransition key={location.key} classNames="fade" timeout={300}>
-        <Routes>
-            <Route
-                index
-                element={<Main address={props.address} metaport={props.metaport} />}
-            />
-            {/* <Route path="bridge" >
-                        <Route
-                            path="exit"
-                            element={<ExitGasWallet />}
-                        />
-                        <Route
-                            path="overview"
-                            element={<Overview address={props.address} />}
-                        />
-                        <Route
-                            path="history"
-                            element={<History address={props.address} />}
-                        />
-                        <Route path="transfer" >
-                            <Route
-                                path=":from"
-                                element={<TransferTo address={props.address} metaport={props.metaport} theme={props.theme} />}
-                            />
-                            <Route
-                                path=":from/:to"
-                                element={<Transfer
-                                    address={props.address}
-                                    metaport={props.metaport}
-                                    theme={props.theme}
-                                />}
-                            />
-                        </Route>
-                        <Route path="transferv2" >
-                            <Route
-                                path=":from"
-                                element={<TransferTo address={props.address} metaport={props.metaport} theme={props.theme} />}
-                            />
-                            <Route
-                                path=":from/:to"
-                                element={<TransferV2
-                                    address={props.address}
-                                    metaport={props.metaport}
-                                    theme={props.theme}
-                                />}
-                            />
-                        </Route>
-                    </Route>
 
-                     */}
+    const [schains, setSchains] = useState<any[]>([])
+    const mpc = useMetaportStore((state) => state.mpc)
+    const endpoint = PROXY_ENDPOINTS[mpc.config.skaleNetwork]
+
+    async function loadSchains() {
+        let response = await fetch(`https://${endpoint}/files/chains.json`);
+        let chainsJson = await response.json();
+        let schains = [];
+        for (let chain of chainsJson) {
+            schains.push(chain.schain);
+        }
+        setSchains(schains)
+    }
+
+    return (
+        <Routes>
+            <Route index element={<Main />} />
+            <Route path='chains' element={<Network
+                loadSchains={loadSchains}
+                schains={schains}
+                mpc={mpc}
+            />} />
+            <Route path="chains" >
+                <Route
+                    path=":name"
+                    element={<Schain
+                        loadSchains={loadSchains}
+                        schains={schains}
+                        mpc={mpc}
+                    />}
+                />
+            </Route>
+
+            <Route path='stats' element={<Stats />} />
             <Route path="other" >
-                <Route
-                    path="faq"
-                    element={<Faq />}
-                />
-                <Route
-                    path="terms-of-service"
-                    element={<Terms />}
-                />
+                <Route path="faq" element={<Faq />} />
+                <Route path="terms-of-service" element={<Terms />} />
             </Route>
         </Routes>
         //     </CSSTransition>

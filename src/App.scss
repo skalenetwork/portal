@@ -1,4 +1,5 @@
 @import './variables';
+@import './Chains';
 
 
 body {
@@ -736,7 +737,7 @@ body::-webkit-scrollbar {
 
 .br__tile:hover {
   box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.1);
-  transform: scale(1.1) rotateX(15deg);
+  transform: scale(1.05);
 }
 
 .br__tile {
@@ -824,4 +825,67 @@ body::-webkit-scrollbar {
 .switchDirection {
   margin-bottom: -13pt !important;
   margin-top: 0 !important;
+}
+
+
+.fullscreen-msg {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: calc(100vh - 94px);
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.fullscreen-msg-text {
+  color: #ffffff;
+  font-size: 1.5rem;
+  box-sizing: border-box;
+  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+  font-weight: 500;
+  line-height: 1.75;
+  letter-spacing: 0.02857em;
+  margin-right: 15px;
+  margin-left: 15px;
+}
+
+.schain-name {
+  font-weight: bold;
+  // text-transform: uppercase;
+  font-size: .75rem;
+  color: white;
+  text-align: center;
+}
+
+
+.cardBtn {
+  background: rgba(0, 0, 0, .506) !important;
+  border: 1px solid hsla(0, 0%, 51%, .35) !important;
+  text-transform: none !important;
+  color: white !important;
+  padding: 5px 10px 5px 15px !important;
+  font-size: 0.7125rem !important;
+
+  svg {
+    width: 12pt;
+    height: 12pt;
+  }
+
+  .MuiButton-endIcon {
+    margin: 0 !important;
+  }
+}
+
+.cardBtnIcon {
+  padding: 5px 0 !important;
+  width: 32px !important;
+
+  height: 32px !important;
+
+  svg {
+    color: white !important;
+    width: 14pt;
+    height: 14pt;
+  }
 }

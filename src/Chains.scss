@@ -1,0 +1,23 @@
+.copyBoard {
+    margin: 10px 0 !important;
+    padding: 13pt 15pt !important;
+    background-color: #3a3a3a !important;
+    border-radius: 20px !important;
+    border: none !important;
+    cursor: pointer !important;
+    width: 100%;
+    font-size: 0.9rem !important;
+}
+
+
+code {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+.overflow-auto {
+    overflow: auto;
+}

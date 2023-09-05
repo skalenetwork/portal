@@ -17,12 +17,14 @@ import {
   SwitchDirection,
   SkStepper,
   ChainsList,
+  SkConnect,
   TokenList,
   interfaces,
   useCollapseStore,
   useMetaportStore,
   useSFuelStore,
   useUIStore,
+  useWagmiAccount,
   cls,
   cmn,
   styles,
@@ -32,6 +34,7 @@ import {
   ErrorMessage,
   CommunityPool,
   SFuelWarning,
+  WrappedTokens,
   chainBg
 } from '@skalenetwork/metaport';
 
@@ -48,6 +51,7 @@ export default function Main(props: any) {
   const setExpandedTo = useCollapseStore((state) => state.setExpandedTo)
 
   const expandedCP = useCollapseStore((state) => state.expandedCP)
+  const expandedWT = useCollapseStore((state) => state.expandedWT)
   const expandedTokens = useCollapseStore((state) => state.expandedTokens)
 
   const token = useMetaportStore((state) => state.token)
@@ -71,6 +75,8 @@ export default function Main(props: any) {
 
   const sFuelOk = useSFuelStore((state) => state.sFuelOk)
 
+  const { address } = useWagmiAccount()
+
   useEffect(() => {
     setChainName1(mpc.config.chains ? mpc.config.chains[0] : '')
     setChainName2(mpc.config.chains ? mpc.config.chains[1] : '')
@@ -84,13 +90,27 @@ export default function Main(props: any) {
 
 
   const showFrom = !expandedTo && !expandedTokens && !errorMessage && !expandedCP
-  const showTo = !expandedFrom && !expandedTokens && !errorMessage && !expandedCP
-  const showInput = !expandedFrom && !expandedTo && !errorMessage && !expandedCP
-  const showSwitch = !expandedFrom && !expandedTo && !expandedTokens && !errorMessage && !expandedCP
+  const showTo = !expandedFrom && !expandedTokens && !errorMessage && !expandedCP && !expandedWT
+  const showInput = !expandedFrom && !expandedTo && !errorMessage && !expandedCP && !expandedWT
+  const showSwitch = !expandedFrom && !expandedTo && !expandedTokens && !errorMessage && !expandedCP && !expandedWT
   const showStepper =
-    !expandedFrom && !expandedTo && !expandedTokens && !errorMessage && !expandedCP && sFuelOk
+    !expandedFrom &&
+    !expandedTo &&
+    !expandedTokens &&
+    !errorMessage &&
+    !expandedCP &&
+    sFuelOk &&
+    !expandedWT &&
+    !!address
   const showCP =
-    !expandedFrom && !expandedTo && !expandedTokens && chainName2 === MAINNET_CHAIN_NAME
+    !expandedFrom && !expandedTo && !expandedTokens && chainName2 === MAINNET_CHAIN_NAME && !expandedWT
+  const showWT = !expandedFrom &&
+  !expandedTo &&
+  !expandedTokens &&
+  !errorMessage &&
+  !expandedCP &&
+  sFuelOk &&
+  !!address
   const showError = !!errorMessage
 
   const grayBg = 'rgb(136 135 135 / 15%)'
@@ -173,11 +193,22 @@ export default function Main(props: any) {
             </SkPaper>
           </Collapse>
 
-          <SFuelWarning />
+          <Collapse in={showWT}>
+            <SkPaper gray className={cmn.nop}>
+              <WrappedTokens />
+            </SkPaper>
+          </Collapse>
+
+          <Collapse in={!!address} >
+            <SFuelWarning />
+          </Collapse>
+
+          {!address ? <SkConnect /> : null}
 
           <Collapse in={showStepper} className={cmn.mtop20} >
             <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
           </Collapse>
+
         </div>
       </Stack>
     </Container>)

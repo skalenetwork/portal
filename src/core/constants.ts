@@ -24,6 +24,8 @@
 
 export const MAINNET_CHAIN_NAME = 'mainnet'
 
+export const DASHBOARD_URL = "https://app.geckoboard.com/v5/dashboards/LISYTRBEVGCVGL57/inception"
+
 import FAQ from '../faq.json'
 
 export { FAQ }
