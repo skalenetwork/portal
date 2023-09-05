@@ -10,7 +10,6 @@ import Schain from './components/Schain';
 import Stats from './components/Stats';
 // import History from './components/History';
 
-
 import { useMetaportStore, PROXY_ENDPOINTS } from '@skalenetwork/metaport';
 import { Routes, Route } from "react-router-dom";
 
