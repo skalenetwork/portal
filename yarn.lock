@@ -979,10 +979,24 @@
     debug "^4.3.4"
     ethers "6.6.2"
 
-"@skalenetwork/metaport@2.0.0-preview.2":
-  version "2.0.0-preview.2"
-  resolved "https://registry.yarnpkg.com/@skalenetwork/metaport/-/metaport-2.0.0-preview.2.tgz#27f893a69b3b94439493b0cae96746164f33df6b"
-  integrity sha512-ntEKZ5tstLid+heUv5BkT01bJI+vdB7FIGF0b7e0nQ7AzVWo5ZtcdAlHgrcW9fcgzwZP9rvY0a1cfM+NSIGOaw==
+"@skalenetwork/metaport@2.0.0-preview.3":
+  version "2.0.0-preview.3"
+  resolved "https://registry.yarnpkg.com/@skalenetwork/metaport/-/metaport-2.0.0-preview.3.tgz#01a4669ea19b3a5e0a623e1ac3095b7f426eda5d"
+  integrity sha512-oZ3CeuhudCmdiuf/5U7eslkDo2E+wFQmtPrJH4zzG1Y2p3ZfMsByPOtr7ijKHa0t12GlHpJLPpfs4G8IAq3wxA==
+  dependencies:
+    "@emotion/react" "^11.9.0"
+    "@emotion/styled" "^11.8.1"
+    "@fontsource/roboto" "^4.5.7"
+    "@mui/icons-material" "^5.8.0"
+    "@mui/lab" "^5.0.0-alpha.88"
+    "@mui/material" "^5.8.1"
+    "@rainbow-me/rainbowkit" "^1.0.9"
+    "@skalenetwork/ima-js" "2.0.0-develop.3"
+    coingecko-api-v3 "^0.0.28"
+    react-jazzicon "^1.0.4"
+    viem "^1.5.3"
+    wagmi "^1.3.9"
+    zustand "^4.4.1"
 
 "@solana/buffer-layout@^4.0.0":
   version "4.0.1"
