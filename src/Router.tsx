@@ -3,16 +3,11 @@ import './App.scss';
 import { useState } from 'react'
 
 import Main from './components/Main';
-// import Transfer from './components/Transfer';
-// import TransferV2 from './components/TransferV2';
 import Faq from './components/Faq';
 import Terms from './components/Terms';
 import Network from './components/Network';
 import Schain from './components/Schain';
 import Stats from './components/Stats';
-// import ExitGasWallet from './components/ExitGasWallet';
-// import TransferTo from './components/TransferTo';
-// import Overview from './components/Overview';
 // import History from './components/History';
 
 
