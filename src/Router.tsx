@@ -10,13 +10,13 @@ import Schain from './components/Schain';
 import Stats from './components/Stats';
 // import History from './components/History';
 
-import { useMetaportStore, PROXY_ENDPOINTS } from '@skalenetwork/metaport';
+import { useMetaportStore, PROXY_ENDPOINTS, MetaportState } from '@skalenetwork/metaport';
 import { Routes, Route } from "react-router-dom";
 
 
 export default function Router() {
     const [schains, setSchains] = useState<any[]>([])
-    const mpc = useMetaportStore((state) => state.mpc)
+    const mpc = useMetaportStore((state: MetaportState) => state.mpc)
     const endpoint = PROXY_ENDPOINTS[mpc.config.skaleNetwork]
 
     async function loadSchains() {
