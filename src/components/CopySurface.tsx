@@ -42,7 +42,7 @@ export default function CopySurface(props: any) {
     setCopied(true);
   };
 
-  const handleClose = (event: any, reason: any) => {
+  const handleClose = (_: any, reason: any) => {
     if (reason === 'clickaway') {
       return;
     }
@@ -53,9 +53,9 @@ export default function CopySurface(props: any) {
     <React.Fragment>
       <IconButton
         // size="small"
-        aria-label="close"
-        color="inherit"
-        onClick={handleClose}
+        // aria-label="close"
+        // color="inherit"
+        // onClick={handleClose}
       >
         <CloseIcon fontSize="small" />
       </IconButton>

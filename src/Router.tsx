@@ -17,12 +17,10 @@ import Stats from './components/Stats';
 
 
 import { useMetaportStore, PROXY_ENDPOINTS } from '@skalenetwork/metaport';
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 
 export default function Router() {
-    const location = useLocation();
-
     const [schains, setSchains] = useState<any[]>([])
     const mpc = useMetaportStore((state) => state.mpc)
     const endpoint = PROXY_ENDPOINTS[mpc.config.skaleNetwork]

@@ -6,7 +6,7 @@ import { cmn, cls } from '@skalenetwork/metaport';
 import { DASHBOARD_URL } from '../core/constants'
 
 
-export default function Stats(props: any) {
+export default function Stats() {
     return (<Container maxWidth="lg">
         <Stack spacing={0}>
             <div className={cls(cmn.flex)}>

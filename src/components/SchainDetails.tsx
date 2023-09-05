@@ -21,8 +21,6 @@
  * @copyright SKALE Labs 2021-Present
 */
 
-import React from 'react';
-
 import { id } from 'ethers'
 
 import CopySurface from './CopySurface';
@@ -68,7 +66,7 @@ function getChainId(schainName: string): string {
 
 function getSchainHash(schainName: string): string {
   // return Web3.utils.sha3(schainName);
-  return '0xxx234'
+  return '0xxx234' + schainName // todo!
 }
 
 export default function SchainDetails(props: {
@@ -93,7 +91,8 @@ export default function SchainDetails(props: {
   const chainId = getChainId(props.schainName);
   const schainHash = getSchainHash(props.schainName);
 
-  const [checked, setChecked] = React.useState(true);
+  // const [checked, setChecked] = React.useState(true);
+  const checked = true;
 
   const networkParams = {
     chainId: chainId,
@@ -111,13 +110,6 @@ export default function SchainDetails(props: {
       return props.chainMeta['alias'];
     }
     return schainName;
-  }
-
-  function getBgColor(schainName: string) {
-    if (props.chainMeta) {
-      return props.chainMeta['background'];
-    }
-    // return stringToColour(schainName);
   }
 
   async function addNetwork() {

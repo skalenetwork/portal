@@ -13,7 +13,7 @@ export default function Chains(props: {
     mpc: MetaportCore
 }) {
 
-    const [intervalId, setIntervalId] = useState<NodeJS.Timeout>();
+    const [_, setIntervalId] = useState<NodeJS.Timeout>();
 
     useEffect(() => {
         props.loadSchains();

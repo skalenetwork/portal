@@ -21,19 +21,19 @@
  * @copyright SKALE Labs 2022-Present
 */
 
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 
 import Modal from '@mui/material/Modal';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 
-import { METAPORT_CONFIG, MAINNET_CHAIN_NAME } from '../../core/constants';
+import { MAINNET_CHAIN_NAME } from '../../core/constants';
 
-import BridgePaper from '../BridgePaper';
 import TermsOfService from '../Terms/terms-of-service.mdx'
 
-import logo from '../../skale_lg.svg';
+import logo from '../../assets/skale_lg.svg';
+import { MetaportCore, SkPaper, cls, cmn, styles } from '@skalenetwork/metaport';
 
 
 const style = {
@@ -45,7 +45,11 @@ const style = {
 };
 
 
-export default function TermsModal(props: any) {
+export default function TermsModal(props: {
+    mpc: MetaportCore,
+    termsAccepted: boolean,
+    setTermsAccepted: Dispatch<SetStateAction<boolean>>
+}) {
     const [scrolled, setScrolled] = React.useState<boolean>(false);
 
     function getAgreeButtonText() {
@@ -60,42 +64,42 @@ export default function TermsModal(props: any) {
     }
     if (props.termsAccepted) return null;
     return (<Modal open={!props.termsAccepted} className='br__modal'>
-        <div style={style} className='mp__flex mp__flexCenteredVert'>
+        <div style={style} className={cls(cmn.flex, cmn.flexcv)}>
             <Container maxWidth="md">
-                <BridgePaper rounded>
-                    <BridgePaper rounded >
-                        <img src={logo} className="logo mp__margBott20 mp__margTop10" alt="logo" />
-                        {
-                            METAPORT_CONFIG.skaleNetwork !== MAINNET_CHAIN_NAME ?
-                                <p className='mp__p mp__p6 whiteText'>
-                                    ❗ THIS IS A TEST WEBSITE ❗ <br /><br />
-                                </p> : <div></div>}
-                        <p className='mp__p mp__p6 whiteText'>
-                            🖥️ For Desktop Use Only. <br /><br />
-                            SKALE will NEVER ask you for your seed phrase or private keys. <br /><br />
-                            Please make sure you are connected to the correct bridge and only use this official link: <Link target="_blank" rel="noopener noreferrer" href="https://bridge.skale.space/">https://bridge.skale.space/</Link>
-                            <br />
-                            <br />
-                            Before you use the SKALE Bridge, you must review the terms of service carefully and confirm below.
-                        </p>
-                    </BridgePaper>
-                    <div>
-                        <BridgePaper rounded gray>
-                            <div id='terms' className='br__modalScroll' style={{ paddingRight: '20px' }} onScroll={handleTermsScroll} >
+
+                <SkPaper gray>
+                    <SkPaper >
+                        <div className={cls(cmn.mtop20, cmn.mleft20)}>
+                            <img src={logo} className={cls(cmn.mbott20, 'logo')} alt="logo" />
+                            {
+                                props.mpc.config.skaleNetwork !== MAINNET_CHAIN_NAME ?
+                                    <p className={cls(cmn.p, cmn.p2)}>
+                                        ❗ THIS IS A TEST WEBSITE
+                                    </p> : <div></div>}
+                            <p className={cls(cmn.p, cmn.p2, cmn.nom)}>
+                                🖥️ For Desktop Use Only <br /><br />
+                                SKALE will NEVER ask you for your seed phrase or private keys. <br /><br />
+                                Please make sure you are connected to the correct bridge and only use this official link: <Link target="_blank" rel="noopener noreferrer" href="https://bridge.skale.space/">https://bridge.skale.space/</Link>
+                                <br />
+                                Before you use the SKALE Bridge, you must review the terms of service carefully and confirm below.
+                            </p>
+                        </div>
+                        <SkPaper background='transparent'>
+                            <div id='terms' className={cls('br__modalScroll', cmn.mtop20, cmn.mleft10)} style={{ paddingRight: '20px' }} onScroll={handleTermsScroll} >
                                 <TermsOfService />
                             </div>
-                        </BridgePaper>
-                    </div>
+                        </SkPaper>
+                    </SkPaper>
                     <Button
                         onClick={() => { props.setTermsAccepted(true); }}
                         variant="contained"
                         disabled={!scrolled}
-                        className='mp__margTop20 bridge__btn'
+                        className={cls(styles.btnAction, cmn.mtop10)}
                         size='large'
                     >
                         {getAgreeButtonText()}
                     </Button>
-                </BridgePaper>
+                </SkPaper>
             </Container>
         </div>
     </Modal>)

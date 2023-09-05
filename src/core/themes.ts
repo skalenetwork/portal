@@ -1,6 +1,6 @@
 import { PaletteMode } from '@mui/material'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { interfaces, getMetaportTheme } from '@skalenetwork/metaport';
+import { createTheme } from '@mui/material/styles';
+import { interfaces } from '@skalenetwork/metaport';
 
 
 export function createMuiTheme(mpTheme: interfaces.MetaportTheme) {

@@ -1,25 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 
-import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
 import Collapse from '@mui/material/Collapse';
 import Stack from '@mui/material/Stack';
 
-// import TransferFrom from '../TransferFrom';
-
 import { MAINNET_CHAIN_NAME } from '../core/constants'
 
 import {
-  TransferETF,
-  TransferETA,
   SkPaper,
   AmountInput,
   SwitchDirection,
   SkStepper,
   ChainsList,
   SkConnect,
-  TokenList,
-  interfaces,
   useCollapseStore,
   useMetaportStore,
   useSFuelStore,
@@ -27,7 +20,6 @@ import {
   useWagmiAccount,
   cls,
   cmn,
-  styles,
   AmountErrorMessage,
   TokenBalance,
   DestTokenBalance,
@@ -40,10 +32,7 @@ import {
 
 
 
-export default function Main(props: any) {
-
-  // const [tokenOnce, setTokenOnce] = useState<boolean>(false);
-
+export default function Main() {
   const expandedFrom = useCollapseStore((state) => state.expandedFrom)
   const setExpandedFrom = useCollapseStore((state) => state.setExpandedFrom)
 
@@ -105,12 +94,12 @@ export default function Main(props: any) {
   const showCP =
     !expandedFrom && !expandedTo && !expandedTokens && chainName2 === MAINNET_CHAIN_NAME && !expandedWT
   const showWT = !expandedFrom &&
-  !expandedTo &&
-  !expandedTokens &&
-  !errorMessage &&
-  !expandedCP &&
-  sFuelOk &&
-  !!address
+    !expandedTo &&
+    !expandedTokens &&
+    !errorMessage &&
+    !expandedCP &&
+    sFuelOk &&
+    !!address
   const showError = !!errorMessage
 
   const grayBg = 'rgb(136 135 135 / 15%)'

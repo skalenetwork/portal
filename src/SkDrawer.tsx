@@ -15,16 +15,11 @@ import ListItemText from '@mui/material/ListItemText';
 import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontalCircleOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
-import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
-import LocalGasStationOutlinedIcon from '@mui/icons-material/LocalGasStationOutlined';
-import LeaderboardRoundedIcon from '@mui/icons-material/LeaderboardRounded';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import HistoryIcon from '@mui/icons-material/History';
-import SpaceDashboardRoundedIcon from '@mui/icons-material/SpaceDashboardRounded';
 import SpaceDashboardOutlinedIcon from '@mui/icons-material/SpaceDashboardOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
-// import { METAPORT_CONFIG } from './core/constants';
-// import { getProxyEndpoint } from './core/network';
+
 
 const drawerWidth = 240;
 

@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2022-Present
 */
 
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 
 import { useParams } from "react-router-dom";
 import Container from '@mui/material/Container';

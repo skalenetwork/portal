@@ -12,12 +12,8 @@ import { Link } from "react-router-dom";
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
-import HubOutlinedIcon from '@mui/icons-material/HubOutlined';
 
 import { cls, styles, cmn } from '@skalenetwork/metaport';
-
-//import { METAPORT_CONFIG } from '../../core/constants';
-// import { getProxyEndpoint } from '../../core/network';
 
 
 export default function MoreMenu() {

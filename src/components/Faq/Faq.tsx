@@ -1,4 +1,3 @@
-import debug from 'debug';
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
 
@@ -6,11 +5,8 @@ import { cmn, cls } from '@skalenetwork/metaport';
 
 import FaqAccordion from '../FaqAccordion';
 
-debug.enable('*');
-const log = debug('bridge:components:Faq');
 
-
-export default function Faq(props: any) {
+export default function Faq() {
     return (<Container maxWidth="md">
         <Stack spacing={0}>
             <div className={cls(cmn.flex)}>

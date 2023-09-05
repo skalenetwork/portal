@@ -23,42 +23,23 @@
 
 import { useState } from 'react';
 
-import Header from './Header';
-import SkDrawer from './SkDrawer';
-import Router from './Router';
-
 import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
 
+import Header from './Header';
+import SkDrawer from './SkDrawer';
+import Router from './Router';
+import TermsModal from './components/TermsModal';
+
+import { useMetaportStore, useWagmiAccount } from '@skalenetwork/metaport'
 
 
-import { Metaport, SkConnect, TokenIcon, ChainIcon, ChainsList, TokenList, interfaces, useCollapseStore, useMetaportStore, cls, styles, cmn, useWagmiAccount } from '@skalenetwork/metaport';
-import { Button } from '@mui/material';
-
-
-function Bridge(props: { mpTheme: interfaces.MetaportTheme }) {
+export default function Bridge() {
 
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
 
-  const expandedFrom = useCollapseStore((state) => state.expandedFrom)
-  const setExpandedFrom = useCollapseStore((state) => state.setExpandedFrom)
-
-  const expandedTo = useCollapseStore((state) => state.expandedTo)
-  const setExpandedTo = useCollapseStore((state) => state.setExpandedTo)
-
-  const token = useMetaportStore((state) => state.token)
-  const chainName1 = useMetaportStore((state) => state.chainName1)
-  const chainName2 = useMetaportStore((state) => state.chainName2)
-
-  const setChainName1 = useMetaportStore((state) => state.setChainName1)
-  const setChainName2 = useMetaportStore((state) => state.setChainName2)
-
-  const transferInProgress = useMetaportStore((state) => state.transferInProgress)
   const mpc = useMetaportStore((state) => state.mpc)
-
   const { address } = useWagmiAccount()
-
-  // const address = '0x'
 
   if (!mpc) return <div></div>
 
@@ -68,21 +49,18 @@ function Bridge(props: { mpTheme: interfaces.MetaportTheme }) {
       className={'AppWrap'}
     >
       <CssBaseline />
+      <TermsModal
+        mpc={mpc}
+        termsAccepted={termsAccepted}
+        setTermsAccepted={setTermsAccepted}
+      />
 
       <Header
-        // colorScheme={colorScheme}
-        // setColorScheme={setColorScheme}
-        // connectMetamask={connectMetamask}
         address={address}
       />
       <SkDrawer />
       <Router />
-      {/* <Metaport config={mpc.config}/> */}
-      {/* <Button variant='contained' className={cls(styles.btnAction)}>Action button</Button> */}
-
     </Box >
 
   )
 }
-
-export default Bridge
