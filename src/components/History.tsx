@@ -6,9 +6,7 @@ import { useEffect } from 'react';
 
 export default function History() {
 
-    const expandedTH = useCollapseStore((state) => state.expandedTH)
     const setExpandedTH = useCollapseStore((state) => state.setExpandedTH)
-
     const transfersHistory = useMetaportStore((state) => state.transfersHistory)
 
     useEffect(() => {

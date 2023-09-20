@@ -1,13 +1,8 @@
-import { useState, useEffect } from 'react'
 import Container from '@mui/material/Container';
 import Stack from '@mui/material/Stack';
-import CircularProgress from '@mui/material/CircularProgress';
+import { cmn, cls } from '@skalenetwork/metaport';
 
-import CategorySection from './CategorySection'
-
-import { cmn, cls, MetaportCore, CHAINS_META, interfaces } from '@skalenetwork/metaport';
-
-export default function Apps(props: { mpc: MetaportCore }) {
+export default function Apps() {
     return (<Container maxWidth="md">
         <Stack spacing={0}>
             <div className={cls(cmn.flex)}>
