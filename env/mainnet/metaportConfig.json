@@ -140,6 +140,30 @@
             "symbol": "USDC",
             "name": "USDC"
           }
+        },
+        "_USDT_0x42dDeBDa2195FaEDAEC1cf24c19B42da1c881feB": {
+          "address": "0x42dDeBDa2195FaEDAEC1cf24c19B42da1c881feB",
+          "name": "USDT",
+          "symbol": "USDT",
+          "cloneSymbol": "USDT",
+          "decimals": "6",
+          "wraps": {
+            "address": "0x1c0491e3396ad6a35f061c62387a95d7218fc515",
+            "symbol": "USDT",
+            "name": "USDT"
+          }
+        },
+        "_DAI_0x9E7563B0D51F9B6dFB1917F97D29D50804300d28": {
+          "address": "0x9E7563B0D51F9B6dFB1917F97D29D50804300d28",
+          "name": "DAI",
+          "symbol": "DAI",
+          "cloneSymbol": "DAI",
+          "decimals": "18",
+          "wraps": {
+            "address": "0xd05c4be5f3be302d376518c9492ec0147fa5a718",
+            "symbol": "DAI",
+            "name": "DAI"
+          }
         }
       }
     },
