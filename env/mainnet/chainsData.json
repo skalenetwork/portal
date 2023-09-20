@@ -165,6 +165,21 @@
               "tokenKeyname": "_USDT_0x42dDeBDa2195FaEDAEC1cf24c19B42da1c881feB",
               "tokenType": "erc20"
             }
+          },
+          "dai": {
+            "keyname": "_DAI_0x6B175474E89094C44Da98b954EedeAC495271d0F",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200",
+              "500"
+            ],
+            "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_DAI_0x9E7563B0D51F9B6dFB1917F97D29D50804300d28",
+              "tokenType": "erc20"
+            }
           }
         },
         "app": "nftrade"
@@ -304,6 +319,16 @@
               "500"
             ],
             "address": "0x1c0491e3396ad6a35f061c62387a95d7218fc515"
+          },
+          "dai": {
+            "keyname": "_DAI_0x9E7563B0D51F9B6dFB1917F97D29D50804300d28",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200",
+              "500"
+            ],
+            "address": "0xd05c4be5f3be302d376518c9492ec0147fa5a718"
           }
         }
       },
@@ -517,6 +542,16 @@
               "500"
             ],
             "address": "0xf9B5736E74b37Ec2EDd37B1B3c8e1aF9fa426F2A"
+          },
+          "dai": {
+            "keyname": "_DAI_0x9E7563B0D51F9B6dFB1917F97D29D50804300d28",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200",
+              "500"
+            ],
+            "address": "0x941C0Dd6055787aE9D417620E8F4F540d8B9D9E5"
           }
         }
       },
@@ -579,6 +614,21 @@
             "route": {
               "hub": "elated-tan-skat",
               "tokenKeyname": "_USDT_0xdAC17F958D2ee523a2206206994597C13D831ec7",
+              "tokenType": "erc20"
+            }
+          },
+          "dai": {
+            "keyname": "_DAI_0x9E7563B0D51F9B6dFB1917F97D29D50804300d28",
+            "recommendedValues": [
+              "50",
+              "100",
+              "200",
+              "500"
+            ],
+            "address": "0x941C0Dd6055787aE9D417620E8F4F540d8B9D9E5",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_DAI_0x6B175474E89094C44Da98b954EedeAC495271d0F",
               "tokenType": "erc20"
             }
           }
