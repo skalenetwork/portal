@@ -13,5 +13,5 @@ echo "Copying ${METAPORT_CONFIG_PATH} -> ${METAPORT_CONFIG_PATH_SRC}..."
 cp $METAPORT_CONFIG_PATH $METAPORT_CONFIG_PATH_SRC
 
 echo "Building..."
-cd $DIR
+# cd $DIR
 yarn build
