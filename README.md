@@ -57,7 +57,7 @@ function encodeUrl(url) {
 To get started with the SKALE Bridge UI, users can visit the [SKALE Bridge UI](https://bridge.skale.network/) website and click on the "Connect wallet" button. Users can then connect their wallets and select the source and destination blockchains for their transfers.
 
 ## Development Setup
-If you're interested in contributing to the SKALE Bridge UI, follow these steps to set up your development environment:
+If you are interested in contributing to the SKALE Bridge UI, follow these steps to set up your development environment:
 
 1. Clone the repository: `git clone --recurse-submodules https://github.com/skalenetwork/bridge-ui.git`
 2. Install dependencies: `cd bridge-ui && yarn install`
