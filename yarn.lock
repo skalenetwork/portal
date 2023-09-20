@@ -308,7 +308,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/memoize/-/memoize-0.8.1.tgz#c1ddb040429c6d21d38cc945fe75c818cfb68e17"
   integrity sha512-W2P2c/VRW1/1tLox0mVUalvnWXxavmv/Oum2aPsRcoDJuob75FC3Y8FbpfLwUegRcxINtGUMPq0tFCvYNTBXNA==
 
-"@emotion/react@^11.9.0":
+"@emotion/react@^11.11.1":
   version "11.11.1"
   resolved "https://registry.yarnpkg.com/@emotion/react/-/react-11.11.1.tgz#b2c36afac95b184f73b08da8c214fdf861fa4157"
   integrity sha512-5mlW1DquU5HaxjLkfkGN1GA/fvVGdyHURRiX/0FHl2cfIfRxSOfmxEH5YS43edp0OldZrZ+dkBKbngxcNCdZvA==
@@ -338,7 +338,7 @@
   resolved "https://registry.yarnpkg.com/@emotion/sheet/-/sheet-1.2.2.tgz#d58e788ee27267a14342303e1abb3d508b6d0fec"
   integrity sha512-0QBtGvaqtWi+nx6doRwDdBIzhNdZrXUppvTM4dtZZWEGTXL/XE/yJxLMGlDT1Gt+UHH5IX1n+jkXyytE/av7OA==
 
-"@emotion/styled@^11.8.1":
+"@emotion/styled@^11.11.0":
   version "11.11.0"
   resolved "https://registry.yarnpkg.com/@emotion/styled/-/styled-11.11.0.tgz#26b75e1b5a1b7a629d7c0a8b708fbf5a9cdce346"
   integrity sha512-hM5Nnvu9P3midq5aaXj4I+lnSfNi7Pmd4EWk1fOZ3pxookaQTNew6bp4JaCBYM4HVFZF9g7UjJmsUmC2JlxOng==
@@ -649,11 +649,6 @@
   resolved "https://registry.yarnpkg.com/@floating-ui/utils/-/utils-0.1.1.tgz#1a5b1959a528e374e8037c4396c3e825d6cf4a83"
   integrity sha512-m0G6wlnhm/AX0H12IOWtK8gASEMffnX08RtKkCgTdHb9JpHKGloI7icFfLg9ZmQeavcvR0PKmzxClyuFPSjKWw==
 
-"@fontsource/roboto@^4.5.7":
-  version "4.5.8"
-  resolved "https://registry.yarnpkg.com/@fontsource/roboto/-/roboto-4.5.8.tgz#56347764786079838faf43f0eeda22dd7328437f"
-  integrity sha512-CnD7zLItIzt86q4Sj3kZUiLcBk1dSk81qcqgMGaZe7SQ1P8hFNxhMl5AZthK1zrDM5m74VVhaOpuMGIL4gagaA==
-
 "@humanwhocodes/config-array@^0.11.10":
   version "0.11.11"
   resolved "https://registry.yarnpkg.com/@humanwhocodes/config-array/-/config-array-0.11.11.tgz#88a04c570dbbc7dd943e4712429c3df09bc32844"
@@ -859,14 +854,14 @@
   resolved "https://registry.yarnpkg.com/@mui/core-downloads-tracker/-/core-downloads-tracker-5.14.8.tgz#9117bd29e94e96dc376f93a28e024666a2456696"
   integrity sha512-8V7ZOC/lKkM03TRHqaThQFIq6bWPnj7L/ZWPh0ymldYFFyh8XdF0ywTgafsofDNYT4StlNknbaTjVHBma3SNjQ==
 
-"@mui/icons-material@^5.14.8", "@mui/icons-material@^5.8.0":
+"@mui/icons-material@^5.14.8":
   version "5.14.8"
   resolved "https://registry.yarnpkg.com/@mui/icons-material/-/icons-material-5.14.8.tgz#e07418e792050eae611afd74f810ed1c234be687"
   integrity sha512-YXcReLydTuNWb1/PxduAH5LgnHNH6spSQBaA0JOz9HD4J+vwst0IanAQgsXy9KKCJSjCsHywE3DB8X+w/b4eeQ==
   dependencies:
     "@babel/runtime" "^7.22.10"
 
-"@mui/lab@^5.0.0-alpha.88":
+"@mui/lab@^5.0.0-alpha.143":
   version "5.0.0-alpha.143"
   resolved "https://registry.yarnpkg.com/@mui/lab/-/lab-5.0.0-alpha.143.tgz#0fef89f8780f819a28d7f7e62383ab964d121ae2"
   integrity sha512-2lpzJCSyrb0yNhxzKK2G25w9+Tk+vjlmjgAXh+j8NS2fyRD7F992DuChRqNaoZmg1aoAbFli6qZh6XJE/5cymA==
@@ -881,7 +876,7 @@
     prop-types "^15.8.1"
     react-is "^18.2.0"
 
-"@mui/material@^5.14.5", "@mui/material@^5.8.1":
+"@mui/material@^5.14.5", "@mui/material@^5.14.8":
   version "5.14.8"
   resolved "https://registry.yarnpkg.com/@mui/material/-/material-5.14.8.tgz#1cad40f106f7c983639376589c3f21485fb1d166"
   integrity sha512-fqvDGGF1pXwOOL/f0Gw+KHo/67hasRpf2ApTIJkbuONOk9AUb2jnYMEqCWmL2sUcbbE3ShMbHl8N7HPSsRv1/A==
@@ -1007,10 +1002,10 @@
   resolved "https://registry.yarnpkg.com/@popperjs/core/-/core-2.11.8.tgz#6b79032e760a0899cd4204710beede972a3a185f"
   integrity sha512-P1st0aksCrn9sGZhp8GMYwBnQsbvAWsZAX44oXNNvLHGqAOcoVxmjZiohstwQ7SqKnbR47akdNi+uleWD8+g6A==
 
-"@rainbow-me/rainbowkit@^1.0.9":
-  version "1.0.10"
-  resolved "https://registry.yarnpkg.com/@rainbow-me/rainbowkit/-/rainbowkit-1.0.10.tgz#fa6d38d962c9fa8113f2478af73b309f08c59bf0"
-  integrity sha512-nXo1mPO8c7aV8mtog0QN9Kn1DoNRJmjd5V8zMU+kIUDAmZFzUhwrBKNcL/X24ie67NjOtbmIKlSBlwWdGZlcvg==
+"@rainbow-me/rainbowkit@^1.0.11":
+  version "1.0.11"
+  resolved "https://registry.yarnpkg.com/@rainbow-me/rainbowkit/-/rainbowkit-1.0.11.tgz#5d03a8b1f8b8d7f8b3dee14dae378574ea3e6f8b"
+  integrity sha512-+cm6+WUPG9iPgkfJKbvlowcrSHu266Zk20LVRsYLcmb6v29gVMHcWQvyI4T6EVC9TxNjnyq/jIlen++uiUBmmQ==
   dependencies:
     "@vanilla-extract/css" "1.9.1"
     "@vanilla-extract/dynamic" "2.0.2"
@@ -1094,23 +1089,20 @@
     debug "^4.3.4"
     ethers "6.6.2"
 
-"@skalenetwork/metaport@2.0.0-preview.3":
-  version "2.0.0-preview.3"
-  resolved "https://registry.yarnpkg.com/@skalenetwork/metaport/-/metaport-2.0.0-preview.3.tgz#01a4669ea19b3a5e0a623e1ac3095b7f426eda5d"
-  integrity sha512-oZ3CeuhudCmdiuf/5U7eslkDo2E+wFQmtPrJH4zzG1Y2p3ZfMsByPOtr7ijKHa0t12GlHpJLPpfs4G8IAq3wxA==
+"@skalenetwork/metaport@../metaport-rp":
+  version "2.0.0"
   dependencies:
-    "@emotion/react" "^11.9.0"
-    "@emotion/styled" "^11.8.1"
-    "@fontsource/roboto" "^4.5.7"
-    "@mui/icons-material" "^5.8.0"
-    "@mui/lab" "^5.0.0-alpha.88"
-    "@mui/material" "^5.8.1"
-    "@rainbow-me/rainbowkit" "^1.0.9"
+    "@emotion/react" "^11.11.1"
+    "@emotion/styled" "^11.11.0"
+    "@mui/icons-material" "^5.14.8"
+    "@mui/lab" "^5.0.0-alpha.143"
+    "@mui/material" "^5.14.8"
+    "@rainbow-me/rainbowkit" "^1.0.11"
     "@skalenetwork/ima-js" "2.0.0-develop.3"
-    coingecko-api-v3 "^0.0.28"
+    coingecko-api-v3 "^0.0.29"
     react-jazzicon "^1.0.4"
-    viem "^1.5.3"
-    wagmi "^1.3.9"
+    viem "^1.10.8"
+    wagmi "^1.4.1"
     zustand "^4.4.1"
 
 "@solana/buffer-layout@^4.0.0":
@@ -1600,7 +1592,7 @@
   optionalDependencies:
     ajv "^6.0.0"
 
-"@vitejs/plugin-react@^4.0.3":
+"@vitejs/plugin-react@^4.0.4":
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/@vitejs/plugin-react/-/plugin-react-4.0.4.tgz#31c3f779dc534e045c4b134e7cf7b150af0a7646"
   integrity sha512-7wU921ABnNYkETiMaZy7XqpueMnpu5VxvVps13MjmCo+utBdD79sZzrApHawHtVX66cCJQQTXFcjH0y9dSUK8g==
@@ -2326,10 +2318,10 @@ clsx@^2.0.0:
   resolved "https://registry.yarnpkg.com/clsx/-/clsx-2.0.0.tgz#12658f3fd98fafe62075595a5c30e43d18f3d00b"
   integrity sha512-rQ1+kcj+ttHG0MKVGBUXwayCCF1oh39BF5COIpRzuCEv8Mwjv0XucrI2ExNTOn9IlLifGClWQcU9BrZORvtw6Q==
 
-coingecko-api-v3@^0.0.28:
-  version "0.0.28"
-  resolved "https://registry.yarnpkg.com/coingecko-api-v3/-/coingecko-api-v3-0.0.28.tgz#e30d05c7acd142ddef455f2a88c49ef4ae71e702"
-  integrity sha512-PdWujZzi6hFfgfyIC+p1M4jLud3yQLHn8Je0kWYoy2UTWnjERPZ4ggByzoEOSMmj66F4zlrix+qnklDrW0EaZQ==
+coingecko-api-v3@^0.0.29:
+  version "0.0.29"
+  resolved "https://registry.yarnpkg.com/coingecko-api-v3/-/coingecko-api-v3-0.0.29.tgz#68b43ecae04519ca9f669da44df596e868861845"
+  integrity sha512-4aF0mU6Pwmo78W4NsPbMslU3ooeSa2Dq8a8PFR+5+wWcWvTBMiUZgfy9UvybynYVsnvYCoyxtNwxTiMZBeZh4w==
   dependencies:
     https "^1.0.0"
 
@@ -5101,10 +5093,25 @@ vfile@^5.0.0:
     unist-util-stringify-position "^3.0.0"
     vfile-message "^3.0.0"
 
-viem@^1.0.0, viem@^1.5.3:
+viem@^1.0.0:
   version "1.10.3"
   resolved "https://registry.yarnpkg.com/viem/-/viem-1.10.3.tgz#e558ec568f961a5472ba6999528cb4eb7ae31c6f"
   integrity sha512-7L35k0JmxTa7xIx1s8lCsTLGrTEUXTYnLppZ56EVBjtvE2OKSfDjL8No0Fnedu6Ye0zi/VX2BQC3arhpKOVIlw==
+  dependencies:
+    "@adraffy/ens-normalize" "1.9.4"
+    "@noble/curves" "1.2.0"
+    "@noble/hashes" "1.3.2"
+    "@scure/bip32" "1.3.2"
+    "@scure/bip39" "1.2.1"
+    "@types/ws" "^8.5.5"
+    abitype "0.9.8"
+    isomorphic-ws "5.0.0"
+    ws "8.13.0"
+
+viem@^1.10.8:
+  version "1.10.8"
+  resolved "https://registry.yarnpkg.com/viem/-/viem-1.10.8.tgz#1c6aaaf25cb25484bbe69dc93870a70907b2bd2e"
+  integrity sha512-/kVDjc9j1OVoDsxV0E1iw1ehPuWPXv5x/9Yc1H0wKky6ACWRoKsURDeLi0Xwtli7vmFcJne+MMPhA96zVu5iIg==
   dependencies:
     "@adraffy/ens-normalize" "1.9.4"
     "@noble/curves" "1.2.0"
@@ -5127,7 +5134,7 @@ vite-plugin-vercel@^0.2.1:
     fast-glob "^3.3.0"
     zod "^3.21.4"
 
-vite@^4.4.5:
+vite@^4.4.9:
   version "4.4.9"
   resolved "https://registry.yarnpkg.com/vite/-/vite-4.4.9.tgz#1402423f1a2f8d66fd8d15e351127c7236d29d3d"
   integrity sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==
@@ -5138,7 +5145,7 @@ vite@^4.4.5:
   optionalDependencies:
     fsevents "~2.3.2"
 
-wagmi@^1.3.9:
+wagmi@^1.4.1:
   version "1.4.1"
   resolved "https://registry.yarnpkg.com/wagmi/-/wagmi-1.4.1.tgz#32e5fda3e3a47559115118e7c8315fe25115ab11"
   integrity sha512-v3xd+uYZfLCAs1I4fLU7U9hg/gCw+Ud005J7kNR0mi20BcFAEU1EDN1LxHxpjUV0qKhOzSlMlrLjJyBCmSYhFA==

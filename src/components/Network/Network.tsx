@@ -21,8 +21,6 @@ export default function Chains(props: {
         setIntervalId(intervalId);
     }, []);
 
-
-
     const chainsMeta: interfaces.ChainsMetadataMap = CHAINS_META[props.mpc.config.skaleNetwork]
 
     if (props.schains.length === 0) {
@@ -46,7 +44,7 @@ export default function Chains(props: {
     return (<Container maxWidth="md">
         <Stack spacing={0}>
             <div className={cls(cmn.flex)}>
-                <h2 className={cls(cmn.nom)}>Chains ({props.schains.length})</h2>
+                <h2 className={cls(cmn.nom)}>Chains</h2>
             </div>
             <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
                 SKALE Chains overview - block explorer links, endpoints and more

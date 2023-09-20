@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { cmn } from '@skalenetwork/metaport';
+import { cls, cmn, useMetaportStore } from '@skalenetwork/metaport';
 
 import Box from '@mui/material/Box';
 
@@ -19,6 +19,7 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import HistoryIcon from '@mui/icons-material/History';
 import SpaceDashboardOutlinedIcon from '@mui/icons-material/SpaceDashboardOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
+import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 
 
 const drawerWidth = 240;
@@ -26,6 +27,7 @@ const drawerWidth = 240;
 
 export default function SkDrawer() {
     const location = useLocation();
+    const transfersHistory = useMetaportStore((state) => state.transfersHistory)
     return (
         <Box display={{ sm: 'block', xs: 'none' }} m={1}>
             <Drawer
@@ -38,11 +40,14 @@ export default function SkDrawer() {
             >
                 <Toolbar />
                 <Box sx={{ overflow: 'auto' }} className={cmn.mtop20}>
-                    <h4 className="secondaryText sectionHeader">Bridge</h4>
+                    <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>
+                        Bridge
+                    </h4>
                     <List>
                         <ListItem  >
                             <Link to="/" className="undec fullWidth">
                                 <ListItemButton
+                                    className={cls(cmn.pPrim)}
                                     selected={location.pathname === "/" || location.pathname.includes('/transfer')}>
                                     <ListItemIcon>
                                         <SwapHorizontalCircleOutlinedIcon />
@@ -54,17 +59,19 @@ export default function SkDrawer() {
                         <ListItem  >
                             <Link to="/bridge/history" className="undec fullWidth">
                                 <ListItemButton
+                                    className={cls(cmn.pPrim)}
                                     selected={location.pathname === "/bridge/history"}>
                                     <ListItemIcon>
                                         <HistoryIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary='History' />
+                                    <ListItemText primary={'History ' + (transfersHistory.length !== 0 ? `(${transfersHistory.length})` : '')} />
                                 </ListItemButton>
                             </Link>
                         </ListItem>
                         <ListItem  >
                             <Link to="/other/faq" className="undec fullWidth">
                                 <ListItemButton
+                                    className={cls(cmn.pPrim)}
                                     selected={location.pathname === "/other/faq"}>
                                     <ListItemIcon>
                                         <HelpOutlineOutlinedIcon />
@@ -73,34 +80,16 @@ export default function SkDrawer() {
                                 </ListItemButton>
                             </Link>
                         </ListItem>
-                        {/* <ListItem  >
-                            <Link to="/bridge/exit" className="undec fullWidth">
-                                <ListItemButton
-                                    selected={location.pathname === "/bridge/exit"}>
-                                    <ListItemIcon>
-                                        <AccountBalanceWalletOutlinedIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary='Exit gas wallet' />
-                                </ListItemButton>
-                            </Link>
-                        </ListItem> */}
-                        {/* <ListItem  >
-                        <Link to="/bridge/overview" className="undec fullWidth">
-                            <ListItemButton
-                                selected={location.pathname === "/bridge/overview"}>
-                                <ListItemIcon>
-                                    <AppsOutlinedIcon />
-                                </ListItemIcon>
-                                <ListItemText primary='Overview' />
-                            </ListItemButton>
-                        </Link>
-                    </ListItem> */}
                     </List>
-                    <h4 className="secondaryText sectionHeader">Network</h4>
+                    <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>
+                        Network
+                    </h4>
                     <List>
                         <ListItem>
                             <Link to="/chains" className="undec fullWidth">
-                                <ListItemButton selected={location.pathname.includes("/chains")}>
+                                <ListItemButton
+                                    className={cls(cmn.pPrim)}
+                                    selected={location.pathname.includes("/chains")}>
                                     <ListItemIcon>
                                         <PublicOutlinedIcon />
                                     </ListItemIcon>
@@ -108,10 +97,24 @@ export default function SkDrawer() {
                                 </ListItemButton>
                             </Link>
                         </ListItem>
+                        <ListItem>
+                            <Link to="/apps" className="undec fullWidth">
+                                <ListItemButton
+                                    className={cls(cmn.pPrim)}
+                                    selected={location.pathname.includes("/apps")}>
+                                    <ListItemIcon>
+                                        <AppsOutlinedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Apps' />
+                                </ListItemButton>
+                            </Link>
+                        </ListItem>
 
                         <ListItem>
                             <Link to="/stats" className="undec fullWidth">
-                                <ListItemButton selected={location.pathname === "/stats"}>
+                                <ListItemButton
+                                    className={cls(cmn.pPrim)}
+                                    selected={location.pathname === "/stats"}>
                                     <ListItemIcon>
                                         <InsertChartOutlinedIcon />
                                     </ListItemIcon>
@@ -119,10 +122,9 @@ export default function SkDrawer() {
                                 </ListItemButton>
                             </Link>
                         </ListItem>
-
                         <ListItem>
                             <a className="undec fullWidth" target="_blank" href='https://dune.com/manel/skale-analytics'>
-                                <ListItemButton>
+                                <ListItemButton className={cls(cmn.pPrim)}>
                                     <ListItemIcon>
                                         <SpaceDashboardOutlinedIcon />
                                     </ListItemIcon>
@@ -131,55 +133,10 @@ export default function SkDrawer() {
                                 </ListItemButton>
                             </a>
                         </ListItem>
-
-                        {/* <ListItem>
-                            <a className="undec fullWidth" target="_blank" href='https://sfuel.skale.network/'>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <LocalGasStationOutlinedIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary='Get sFUEL' />
-                                    <ArrowOutwardIcon className="drawerIconRi" />
-                                </ListItemButton>
-                            </a>
-                        </ListItem> */}
-                        {/* <ListItem>
-                        <a className="undec fullWidth" target="_blank" href='https://admin.skale.network/'>
-                            <ListItemButton>
-                                <ListItemIcon>
-                                    <SettingsApplicationsOutlinedIcon />
-                                </ListItemIcon>
-                                <ListItemText primary='Admin UI' />
-                                <OutboundOutlinedIcon className="drawerIconRi" />
-                            </ListItemButton>
-                        </a>
-                    </ListItem> */}
-                        {/* <ListItem>
-                            <a className="undec fullWidth" target="_blank" href='https://skale.space/stats'>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <LeaderboardRoundedIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary='Stats' />
-                                    <ArrowOutwardIcon className="drawerIconRi" />
-                                </ListItemButton>
-                            </a>
-                        </ListItem> */}
-                        {/* <ListItem>
-                            <a className="undec fullWidth" target="_blank" href='https://docs.skale.network/'>
-                                <ListItemButton>
-                                    <ListItemIcon>
-                                        <ArticleOutlinedIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary='Docs portal' />
-                                    <ArrowOutwardIcon className="drawerIconRi" />
-                                </ListItemButton>
-                            </a>
-                        </ListItem> */}
                     </List>
                 </Box>
             </Drawer >
-        </Box>
+        </Box >
 
     );
 }

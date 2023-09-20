@@ -46,7 +46,7 @@ export default function Bridge() {
   return (
     <Box
       sx={{ display: 'flex' }}
-      className={'AppWrap'}
+      className='AppWrap'
     >
       <CssBaseline />
       <TermsModal

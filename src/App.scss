@@ -1,6 +1,4 @@
 @import './variables';
-@import './Chains';
-
 
 body {
   margin: 0;
@@ -21,266 +19,19 @@ body {
   width: 75pt;
 }
 
-.appContent {
-  height: calc(100vh - 94px);
-  overflow-y: auto;
-}
-
-.bridge-light .logo {
-  filter: invert(1);
-}
-
-.mainApp {
-  padding-top: 94px;
-}
-
 .sk-header {
   background-color: rgba(0, 0, 0, 0) !important;
   -webkit-backdrop-filter: blur(80px) !important;
   backdrop-filter: blur(80px) !important;
 }
 
-
-@import './variables';
-
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif !important;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-.textPage {
-  p {
-    font-size: 0.9rem;
-  }
-}
-
-.App {
-  text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.MuiToggleButtonGroup-root .Mui-disabled {
-  color: #bdbdbd !important;
-}
-
-
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
-}
-
-
-.bbLogo {
-  width: 60pt;
-}
-
-.skaleLogo {
-  height: 30pt;
-}
-
-
-.no-text-transform {
-  text-transform: none !important;
-}
-
-
-.br__paper {
-  background-color: #151515;
-  padding: 20px !important;
-}
-
-.bridge__paperTop {
-  border-radius: 25px 25px 0 0 !important;
-}
-
-.bridge__paperBott {
-  border-radius: 0 0 25px 25px !important;
-}
-
-
-.br__alert {
-  font-weight: 500 !important;
-  font-size: 0.8525rem !important;
-  padding: 20px !important;
-
-  .MuiAlert-icon,
-  .MuiAlert-message,
-  .MuiAlert-action,
-  .MuiButtonBase-root {
-    padding: 0 !important;
-  }
-
-  .MuiButtonBase-root {
-    margin-right: 10px;
-  }
-}
-
-.br__paperRounded,
-.br__alert {
-  border-radius: 25px !important;
-}
-
-
-.MuiPaper-rounded {
-  border-radius: 25px;
-}
-
-.br__paper.MuiPaper-rounded {
-  border-radius: 25px !important;
-  background-color: #151515;
-  border: none !important;
-}
-
-h4 {
-  font-weight: 600 !important;
-}
-
-.bridge-light {
-  background-color: #f2f2f2;
-}
-
-
-.bridge-dark .MuiFormControlLabel-label {
-  color: rgba(255, 255, 255, 0.7);
-}
-
-.MuiCardContent-root:last-child {
-  // padding-bottom: 16px !important;
-}
-
-.logo {
-  width: 75pt;
-}
-
-.logoBig {
-  width: 95pt;
-}
-
-.sk-header {
-  background-color: rgba(0, 0, 0, 0) !important;
-}
-
-.appContent {
-  height: calc(100vh - 94px);
-  overflow-y: auto;
-}
-
 .bridge-light .logo {
   filter: invert(0.85);
-}
-
-.mainApp {
-  padding-top: 94px;
-}
-
-.ApdpWrap {
-  height: 100vh;
 }
 
 .MuiAppBar-positionFixed {
   background-image: none !important;
   padding: 10pt 0;
-}
-
-.sk-header .MuiFab-root {
-  box-shadow: none !important;
-}
-
-.fl-centered-vert {
-  align-items: center;
-}
-
-.try-icon .MuiSvgIcon-root {
-  width: 13pt;
-  height: 13pt;
-}
-
-.bridge-light .try-icon .MuiSvgIcon-root {
-  color: rgba(0, 0, 0, 0.87);
-}
-
-.try-text {
-  font-weight: 600 !important;
-  font-size: 10pt !important;
-}
-
-.MuiTabPanel-root {
-  padding: 24px 0 !important;
-}
-
-.bridge-dark .MuiListItemText-primary {
-  color: #ffffffdb !important;
-}
-
-.bridge-light .MuiListItemText-primary {
-  color: #525252 !important;
-}
-
-
-.MuiFab-sizeSmall {
-  width: 25pt !important;
-  height: 25pt !important;
-  min-height: 0 !important;
-}
-
-.MuiFab-sizeSmall svg {
-  width: 15pt !important;
-  height: 15pt !important;
-}
-
-
-.skBtn {
-  font-weight: 600 !important;
-  text-transform: none !important;
-  font-size: .9525rem !important;
-  line-height: 1.6 !important;
-  letter-spacing: .03857em !important;
 }
 
 
@@ -303,16 +54,6 @@ h4 {
   letter-spacing: .02857em !important;
 }
 
-
-.bridge-dark .secondaryText {
-  color: rgba(255, 255, 255, .65) !important;
-}
-
-.sectionHeader {
-  margin: 10pt 0 0 15pt !important;
-}
-
-
 .MuiListItemButton-root .MuiTypography-root {
   margin: 0;
   font-weight: 600 !important;
@@ -320,16 +61,9 @@ h4 {
   line-height: 1.6 !important;
 }
 
-.MuiListItemIcon-root {
-  min-width: 35px !important;
-  margin-left: 10px;
-}
-
 .fullWidth {
   width: 100%;
 }
-
-
 
 .mp__btnConnect {
   width: 100%;
@@ -364,228 +98,23 @@ h4 {
   }
 }
 
-.moreBtn {
-  background-color: #191919 !important;
-
-  svg {
-    color: white !important;
-    width: 14pt !important;
-    height: 14pt !important;
-  }
-
-  height: 37px;
-  width: 37px;
-}
-
-
-.MuiSnackbar-root .MuiPaper-root {
-  padding: 5px 15px !important;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.MuiToggleButton-root {
-  margin: 0;
-  // font-weight: 600 !important;
-  text-transform: uppercase !important;
-  font-size: 0.8525rem !important;
-  line-height: 1.6 !important;
-  letter-spacing: 0.02857em !important;
-}
-
-
-.MuiChip-filled {
-  border-radius: 50px !important;
-  padding-right: 5px !important;
-  padding-left: 5px !important;
-
-  .MuiChip-label {
-    text-transform: uppercase !important;
-    font-weight: 600 !important;
-  }
-}
-
-
-.selectedToken .MuiButtonBase-root {
-  background-color: #535610 !important;
-}
-
-.whiteText {
-  color: white !important;
-}
-
-.mp__disabledP {
-  color: #707070 !important;
-}
-
-
-.sk-header {
-  background-color: rgba(0, 0, 0, 0) !important;
-  -webkit-backdrop-filter: blur(80px) !important;
-  backdrop-filter: blur(80px) !important;
-}
-
-.mp__iconGray {
-  color: #8c8c8c;
-}
-
-
-
 .MuiDrawer-paper {
-  // background-color: black !important;
   margin-bottom: 20px !important;
   border: none !important;
 }
 
 .MuiListItemIcon-root {
-  svg {
-    width: 22px;
-  }
-}
-
-
-
-.MuiInputBase-inputSizeSmall,
-.MuiInputLabel-sizeSmall {
-  font-size: 0.9rem !important;
-}
-
-.mp__inputAmountDark {
-  background-color: rgba(255, 255, 255, 0.09) !important;
+  min-width: 30px;
+  margin-left: 10px;
 
   svg {
-    width: 13pt;
-    height: 13pt;
-    color: #8b8b8b;
+    width: 20px;
   }
-}
-
-
-.MuiAccordion-rounded:first-of-type {
-  border-top-left-radius: 20px !important;
-  border-top-right-radius: 20px !important;
-}
-
-.MuiAccordion-rounded:last-of-type {
-  border-bottom-left-radius: 20px !important;
-  border-bottom-right-radius: 20px !important;
-}
-
-.Mui-expanded {
-  border-radius: 20px !important;
-}
-
-.MuiAccordionSummary-content {
-  margin: 12pt 0 !important;
-}
-
-.MuiAccordionSummary-content.Mui-expanded p {
-  font-weight: 600 !important;
-}
-
-.MuiAccordionDetails-root {
-  padding: 8pt 16pt 16pt !important;
-}
-
-.MuiAccordionSummary-root {
-  padding: 0 16pt !important;
-}
-
-.drawerIconRi {
-  color: #a6a6a6;
-  width: 12pt !important;
-  height: 12pt !important;
-  margin-right: 12px !important;
-}
-
-.menuIconRi {
-  color: #a6a6a6;
-  width: 12pt !important;
-  height: 12pt !important;
-}
-
-
-
-.bridgeFooter {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  // background-color: red;
-  // color: white;
-  text-align: center;
-  z-index: 9999;
-
-  background-color: rgba(0, 0, 0, 0) !important;
-  -webkit-backdrop-filter: blur(80px) !important;
-  backdrop-filter: blur(80px) !important;
-}
-
-
-
-.bridge__moveDownIcon {
-  text-align: center;
-  // margin-top: -35px !important;
-  position: absolute;
-  position: relative;
-
-  svg {
-    //background-color: white;
-    // color: black;
-    border-radius: 50%;
-    padding: 5px;
-    width: 42px;
-    height: 42px;
-
-    background-color: #151515;
-    margin-top: -20px;
-
-    border: 6px black solid;
-  }
-}
-
-.bridge__tokensChips {
-  flex-flow: row wrap;
-  align-content: space-between;
-}
-
-.br__balanceCard {
-  .chainIcon {
-    width: 15px !important;
-    height: 15px !important;
-  }
-}
-
-.br__transferData {
-  .chainIcon {
-    width: 15px !important;
-    height: 15px !important;
-  }
-}
-
-.br__paperGrey {
-  background-color: #2a2a2a;
-}
-
-.br__fullHeight {
-  height: 100%;
 }
 
 .MuiModal-root {
   z-index: 99999 !important;
 }
-
 
 .br__modal {
   .MuiContainer-root {
@@ -606,10 +135,12 @@ h4 {
   }
 }
 
-// ::-webkit-scrollbar {
-//   display: none;
-// }
-
+.drawerIconRi {
+  color: #a6a6a6;
+  width: 12pt !important;
+  height: 12pt !important;
+  margin-right: 12px !important;
+}
 
 .br__modalScroll {
   ::-webkit-scrollbar {
@@ -647,86 +178,10 @@ body::-webkit-scrollbar {
   display: none;
 }
 
-
 .br__bottomNav {
   position: fixed;
   bottom: 0;
   width: 100%;
-}
-
-.br__transactionDataIcon {
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-
-  svg,
-  img {
-    width: 20px !important;
-    height: 20px !important;
-  }
-}
-
-.br__action_deposit {
-  background-image: linear-gradient(45deg, #8A463C 0%, #b02d50 100%);
-}
-
-.br__action_transferToSchain {
-  // background-image: linear-gradient(120deg, #00546B 0%, #003559 50%, #002466 100%);
-  background-image: linear-gradient(120deg, #9c27b0 0%, #3f51b5 100%)
-}
-
-.br__action_wrap {
-  background-image: linear-gradient(160deg, #237bc3 0%, #1a3b94 100%);
-}
-
-.br__action_wrapsfuel {
-  background-image: linear-gradient(160deg, #237bc3 0%, #1a3b94 100%);
-}
-
-.br__action_unwrap {
-  background-image: linear-gradient(160deg, #1a3b94 0%, #237bc3 100%);
-  // background-image: linear-gradient(135deg, #31a385 0%, #25648a 100%);
-}
-
-.br__action_withdraw {
-  background-image: linear-gradient(45deg, #b02d50 0%, #8A463C 100%);
-}
-
-.br__action_getMyEth {
-  background-image: linear-gradient(45deg, #009688 0%, #0c5f57 100%);
-}
-
-.br__action_approve {
-  background-image: linear-gradient(135deg, #29b1a9 0%, #14532a 100%);
-}
-
-.br__action_approveWrap {
-  background-image: linear-gradient(135deg, #14532a 0%, #29b1a9 100%);
-}
-
-.br__action_wallet {
-  background-image: linear-gradient(135deg, #dedede 0%, #aeaeae 100%);
-}
-
-.capitalize {
-  text-transform: capitalize;
-}
-
-.bold {
-  font-weight: bold !important;
-}
-
-.br__openExplorerBtn {
-  svg {
-    width: 15px !important;
-    height: 15px !important
-  }
-}
-
-
-
-.tile-container {
-  perspective: 500px;
 }
 
 .br__tile {
@@ -757,11 +212,6 @@ body::-webkit-scrollbar {
     text-align: center;
   }
 }
-
-.br__tileBottIcons {
-  padding: 12pt 15pt;
-}
-
 
 .br__tileBott {
   position: absolute;
@@ -822,12 +272,6 @@ body::-webkit-scrollbar {
   }
 }
 
-.switchDirection {
-  margin-bottom: -13pt !important;
-  margin-top: 0 !important;
-}
-
-
 .fullscreen-msg {
   display: flex;
   justify-content: center;
@@ -837,27 +281,6 @@ body::-webkit-scrollbar {
   padding: 0;
   width: 100%;
 }
-
-.fullscreen-msg-text {
-  color: #ffffff;
-  font-size: 1.5rem;
-  box-sizing: border-box;
-  font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-  font-weight: 500;
-  line-height: 1.75;
-  letter-spacing: 0.02857em;
-  margin-right: 15px;
-  margin-left: 15px;
-}
-
-.schain-name {
-  font-weight: bold;
-  // text-transform: uppercase;
-  font-size: .75rem;
-  color: white;
-  text-align: center;
-}
-
 
 .cardBtn {
   background: rgba(0, 0, 0, .506) !important;
@@ -888,4 +311,27 @@ body::-webkit-scrollbar {
     width: 14pt;
     height: 14pt;
   }
+}
+
+.copyBoard {
+  margin: 10px 0 !important;
+  padding: 13pt 15pt !important;
+  background-color: #3a3a3a !important;
+  border-radius: 20px !important;
+  border: none !important;
+  cursor: pointer !important;
+  width: 100%;
+  font-size: 0.9rem !important;
+}
+
+code {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+.overflow-auto {
+  overflow: auto;
 }

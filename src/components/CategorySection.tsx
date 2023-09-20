@@ -32,7 +32,7 @@ export default function CategorySection(props: any) {
   return (
     <div className="marg-top-40">
       <h3 className='card-header no-marg-top'>
-        {props.category} ({props.schains.length})
+        {props.category}
       </h3>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={3}>
