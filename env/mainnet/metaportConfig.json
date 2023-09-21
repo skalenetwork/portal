@@ -164,6 +164,18 @@
             "symbol": "DAI",
             "name": "DAI"
           }
+        },
+        "_WBTC_0x497C476bcABB2F7D50afF99ca3Ae9354451Ff7d0": {
+          "address": "0x497C476bcABB2F7D50afF99ca3Ae9354451Ff7d0",
+          "name": "WBTC",
+          "symbol": "WBTC",
+          "cloneSymbol": "WBTC",
+          "decimals": "8",
+          "wraps": {
+            "address": "0xcb011E86DF014a46F4e3AC3F3cbB114A4EB80870",
+            "symbol": "WBTC",
+            "name": "WBTC"
+          }
         }
       }
     },
