@@ -33,6 +33,25 @@
               "0.5"
             ]
           },
+          "skl": {
+            "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7"
+          },
+          "ruby": {
+            "keyname": "_RUBY_0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23",
+            "recommendedValues": [
+              "1000",
+              "3000",
+              "5000"
+            ],
+            "address": "0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23"
+          },
           "usdc": {
             "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
             "recommendedValues": [
@@ -52,6 +71,15 @@
             ],
             "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7"
           },
+          "dai": {
+            "keyname": "_DAI_0x6B175474E89094C44Da98b954EedeAC495271d0F",
+            "recommendedValues": [
+              "100",
+              "300",
+              "1000"
+            ],
+            "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F"
+          },
           "wbtc": {
             "keyname": "_WBTC_0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
             "recommendedValues": [
@@ -60,25 +88,6 @@
               "0.5"
             ],
             "address": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599"
-          },
-          "skl": {
-            "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
-            "address": "0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7"
-          },
-          "ruby": {
-            "keyname": "_RUBY_0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23",
-            "recommendedValues": [
-              "1000",
-              "3000",
-              "5000"
-            ],
-            "address": "0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23"
           },
           "hmt": {
             "keyname": "_HMT_0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
@@ -359,6 +368,25 @@
             ],
             "address": "0xD2Aaa00700000000000000000000000000000000"
           },
+          "skl": {
+            "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+            "recommendedValues": [
+              "500",
+              "1000",
+              "2000",
+              "5000"
+            ],
+            "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
+          },
+          "ruby": {
+            "keyname": "_RUBY_0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23",
+            "recommendedValues": [
+              "1000",
+              "3000",
+              "5000"
+            ],
+            "address": "0x2B4e4899b53E8b7958c4591a6d02f9C0b5c50F8f"
+          },
           "usdc": {
             "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
             "recommendedValues": [
@@ -378,6 +406,15 @@
             ],
             "address": "0x1c0491E3396AD6a35f061c62387a95d7218FC515"
           },
+          "dai": {
+            "keyname": "_USDT_0x6B175474E89094C44Da98b954EedeAC495271d0F",
+            "recommendedValues": [
+              "100",
+              "300",
+              "1000"
+            ],
+            "address": "0xd05c4be5f3be302d376518c9492ec0147fa5a718"
+          },
           "wbtc": {
             "keyname": "_WBTC_0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
             "recommendedValues": [
@@ -386,25 +423,6 @@
               "0.5"
             ],
             "address": "0xcb011E86DF014a46F4e3AC3F3cbB114A4EB80870"
-          },
-          "skl": {
-            "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
-            "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
-          },
-          "ruby": {
-            "keyname": "_RUBY_0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23",
-            "recommendedValues": [
-              "1000",
-              "3000",
-              "5000"
-            ],
-            "address": "0x2B4e4899b53E8b7958c4591a6d02f9C0b5c50F8f"
           },
           "hmt": {
             "keyname": "_HMT_0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
