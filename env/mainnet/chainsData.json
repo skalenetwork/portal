@@ -606,6 +606,16 @@
               "tokenKeyname": "_USDT_0xdAC17F958D2ee523a2206206994597C13D831ec7",
               "tokenType": "erc20"
             }
+          },
+          "wbtc": {
+            "keyname": "_WBTC_0x497C476bcABB2F7D50afF99ca3Ae9354451Ff7d0",
+            "recommendedValues": ["0.05", "0.1", "0.2", "0.5"],
+            "address": "0x64d2EebA8B02f2aB19e2238f1655A8409dB64817",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_WBTC_0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+              "tokenType": "erc20"
+            }
           }
         }
       },
