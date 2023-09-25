@@ -6,12 +6,7 @@
         "tokens": {
           "skl": {
             "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
+            "recommendedValues": ["500", "1000", "2000", "5000"],
             "address": "0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
             "route": {
               "hub": "elated-tan-skat",
@@ -26,67 +21,41 @@
         "tokens": {
           "eth": {
             "keyname": "eth",
-            "recommendedValues": [
-              "0.01",
-              "0.1",
-              "0.2",
-              "0.5"
-            ]
-          },
-          "usdc": {
-            "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-            "recommendedValues": [
-              "50",
-              "100",
-              "200",
-              "500"
-            ],
-            "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
-          },
-          "usdt": {
-            "keyname": "_USDT_0xdAC17F958D2ee523a2206206994597C13D831ec7",
-            "recommendedValues": [
-              "100",
-              "300",
-              "1000"
-            ],
-            "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7"
-          },
-          "wbtc": {
-            "keyname": "_WBTC_0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
-            "recommendedValues": [
-              "0.01",
-              "0.1",
-              "0.5"
-            ],
-            "address": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599"
+            "recommendedValues": ["0.01", "0.1", "0.2", "0.5"]
           },
           "skl": {
             "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
+            "recommendedValues": ["500", "1000", "2000", "5000"],
             "address": "0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7"
           },
           "ruby": {
             "keyname": "_RUBY_0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23",
-            "recommendedValues": [
-              "1000",
-              "3000",
-              "5000"
-            ],
+            "recommendedValues": ["1000", "3000", "5000"],
             "address": "0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23"
+          },
+          "usdc": {
+            "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48"
+          },
+          "usdt": {
+            "keyname": "_USDT_0xdAC17F958D2ee523a2206206994597C13D831ec7",
+            "recommendedValues": ["100", "300", "1000"],
+            "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7"
+          },
+          "dai": {
+            "keyname": "_DAI_0x6B175474E89094C44Da98b954EedeAC495271d0F",
+            "recommendedValues": ["100", "300", "1000"],
+            "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F"
+          },
+          "wbtc": {
+            "keyname": "_WBTC_0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+            "recommendedValues": ["0.01", "0.1", "0.5"],
+            "address": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599"
           },
           "hmt": {
             "keyname": "_HMT_0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
-            "recommendedValues": [
-              "1000",
-              "3000",
-              "5000"
-            ],
+            "recommendedValues": ["1000", "3000", "5000"],
             "address": "0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867"
           }
         }
@@ -95,12 +64,7 @@
         "tokens": {
           "razor": {
             "keyname": "_RAZOR_0x50DE6856358Cc35f3A9a57eAAA34BD4cB707d2cd",
-            "recommendedValues": [
-              "100",
-              "300",
-              "1000",
-              "2000"
-            ],
+            "recommendedValues": ["100", "300", "1000", "2000"],
             "address": "0x50DE6856358Cc35f3A9a57eAAA34BD4cB707d2cd"
           }
         }
@@ -109,12 +73,7 @@
         "tokens": {
           "eth": {
             "keyname": "eth",
-            "recommendedValues": [
-              "0.1",
-              "0.2",
-              "0.5",
-              "1"
-            ],
+            "recommendedValues": ["0.1", "0.2", "0.5", "1"],
             "route": {
               "hub": "elated-tan-skat",
               "tokenKeyname": "_ETH_0xa5274efA35EbeFF47C1510529D9a8812F95F5735",
@@ -123,12 +82,7 @@
           },
           "skl": {
             "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
+            "recommendedValues": ["500", "1000", "2000", "5000"],
             "address": "0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
             "route": {
               "hub": "elated-tan-skat",
@@ -138,16 +92,31 @@
           },
           "usdc": {
             "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-            "recommendedValues": [
-              "50",
-              "100",
-              "200",
-              "500"
-            ],
+            "recommendedValues": ["50", "100", "200", "500"],
             "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
             "route": {
               "hub": "elated-tan-skat",
               "tokenKeyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+              "tokenType": "erc20"
+            }
+          },
+          "usdt": {
+            "keyname": "_USDT_0xdAC17F958D2ee523a2206206994597C13D831ec7",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_USDT_0x42dDeBDa2195FaEDAEC1cf24c19B42da1c881feB",
+              "tokenType": "erc20"
+            }
+          },
+          "dai": {
+            "keyname": "_DAI_0x6B175474E89094C44Da98b954EedeAC495271d0F",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_DAI_0x9E7563B0D51F9B6dFB1917F97D29D50804300d28",
               "tokenType": "erc20"
             }
           }
@@ -158,12 +127,7 @@
         "tokens": {
           "usdc": {
             "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-            "recommendedValues": [
-              "50",
-              "100",
-              "200",
-              "500"
-            ],
+            "recommendedValues": ["50", "100", "200", "500"],
             "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
             "route": {
               "hub": "elated-tan-skat",
@@ -178,12 +142,7 @@
         "tokens": {
           "skl": {
             "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
+            "recommendedValues": ["500", "1000", "2000", "5000"],
             "address": "0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
             "route": {
               "hub": "elated-tan-skat",
@@ -193,16 +152,31 @@
           },
           "usdc": {
             "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-            "recommendedValues": [
-              "50",
-              "100",
-              "200",
-              "500"
-            ],
+            "recommendedValues": ["50", "100", "200", "500"],
             "address": "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
             "route": {
               "hub": "elated-tan-skat",
               "tokenKeyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+              "tokenType": "erc20"
+            }
+          },
+          "usdt": {
+            "keyname": "_USDT_0xdAC17F958D2ee523a2206206994597C13D831ec7",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_USDT_0x42dDeBDa2195FaEDAEC1cf24c19B42da1c881feB",
+              "tokenType": "erc20"
+            }
+          },
+          "wbtc": {
+            "keyname": "_WBTC_0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_WBTC_0x497C476bcABB2F7D50afF99ca3Ae9354451Ff7d0",
               "tokenType": "erc20"
             }
           }
@@ -212,12 +186,7 @@
         "tokens": {
           "hmt": {
             "keyname": "_HMT_0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
+            "recommendedValues": ["500", "1000", "2000", "5000"],
             "address": "0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
             "route": {
               "hub": "elated-tan-skat",
@@ -231,12 +200,7 @@
         "tokens": {
           "eth": {
             "keyname": "eth",
-            "recommendedValues": [
-              "0.01",
-              "0.1",
-              "0.2",
-              "0.5"
-            ]
+            "recommendedValues": ["0.01", "0.1", "0.2", "0.5"]
           }
         }
       }
@@ -252,33 +216,28 @@
         "tokens": {
           "eth": {
             "keyname": "_ETH_0xa5274efA35EbeFF47C1510529D9a8812F95F5735",
-            "recommendedValues": [
-              "0.01",
-              "0.1",
-              "0.2",
-              "0.5"
-            ],
+            "recommendedValues": ["0.01", "0.1", "0.2", "0.5"],
             "address": "0xD2Aaa00700000000000000000000000000000000"
           },
           "skl": {
             "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
+            "recommendedValues": ["500", "1000", "2000", "5000"],
             "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
           },
           "usdc": {
             "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
-            "recommendedValues": [
-              "50",
-              "100",
-              "200",
-              "500"
-            ],
+            "recommendedValues": ["50", "100", "200", "500"],
             "address": "0x5F795bb52dAC3085f578f4877D450e2929D2F13d"
+          },
+          "usdt": {
+            "keyname": "_USDT_0x42dDeBDa2195FaEDAEC1cf24c19B42da1c881feB",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0x1c0491e3396ad6a35f061c62387a95d7218fc515"
+          },
+          "dai": {
+            "keyname": "_DAI_0x9E7563B0D51F9B6dFB1917F97D29D50804300d28",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0xd05c4be5f3be302d376518c9492ec0147fa5a718"
           }
         }
       },
@@ -287,12 +246,7 @@
         "tokens": {
           "usdc": {
             "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
-            "recommendedValues": [
-              "50",
-              "100",
-              "200",
-              "500"
-            ],
+            "recommendedValues": ["50", "100", "200", "500"],
             "address": "0x5F795bb52dAC3085f578f4877D450e2929D2F13d"
           }
         }
@@ -301,68 +255,42 @@
         "tokens": {
           "eth": {
             "keyname": "eth",
-            "recommendedValues": [
-              "0.01",
-              "0.1",
-              "0.2",
-              "0.5"
-            ],
+            "recommendedValues": ["0.01", "0.1", "0.2", "0.5"],
             "address": "0xD2Aaa00700000000000000000000000000000000"
-          },
-          "usdc": {
-            "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
-            "recommendedValues": [
-              "50",
-              "100",
-              "200",
-              "500"
-            ],
-            "address": "0x5F795bb52dAC3085f578f4877D450e2929D2F13d"
-          },
-          "usdt": {
-            "keyname": "_USDT_0xdAC17F958D2ee523a2206206994597C13D831ec7",
-            "recommendedValues": [
-              "100",
-              "300",
-              "1000"
-            ],
-            "address": "0x1c0491E3396AD6a35f061c62387a95d7218FC515"
-          },
-          "wbtc": {
-            "keyname": "_WBTC_0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
-            "recommendedValues": [
-              "0.01",
-              "0.1",
-              "0.5"
-            ],
-            "address": "0xcb011E86DF014a46F4e3AC3F3cbB114A4EB80870"
           },
           "skl": {
             "keyname": "_SKL_0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
+            "recommendedValues": ["500", "1000", "2000", "5000"],
             "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
           },
           "ruby": {
             "keyname": "_RUBY_0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23",
-            "recommendedValues": [
-              "1000",
-              "3000",
-              "5000"
-            ],
+            "recommendedValues": ["1000", "3000", "5000"],
             "address": "0x2B4e4899b53E8b7958c4591a6d02f9C0b5c50F8f"
+          },
+          "usdc": {
+            "keyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0x5F795bb52dAC3085f578f4877D450e2929D2F13d"
+          },
+          "usdt": {
+            "keyname": "_USDT_0xdAC17F958D2ee523a2206206994597C13D831ec7",
+            "recommendedValues": ["100", "300", "1000"],
+            "address": "0x1c0491E3396AD6a35f061c62387a95d7218FC515"
+          },
+          "dai": {
+            "keyname": "_USDT_0x6B175474E89094C44Da98b954EedeAC495271d0F",
+            "recommendedValues": ["100", "300", "1000"],
+            "address": "0xd05c4be5f3be302d376518c9492ec0147fa5a718"
+          },
+          "wbtc": {
+            "keyname": "_WBTC_0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+            "recommendedValues": ["0.01", "0.1", "0.5"],
+            "address": "0xcb011E86DF014a46F4e3AC3F3cbB114A4EB80870"
           },
           "hmt": {
             "keyname": "_HMT_0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
-            "recommendedValues": [
-              "1000",
-              "3000",
-              "5000"
-            ],
+            "recommendedValues": ["1000", "3000", "5000"],
             "address": "0xBE3530a3eDf9472693065041B8c9155C7FeCB8e5"
           }
         }
@@ -371,22 +299,12 @@
         "tokens": {
           "skill": {
             "keyname": "_SKILL_0x5F6E97612482095C0c2C02BC495C0171e61017d7",
-            "recommendedValues": [
-              "100",
-              "300",
-              "500",
-              "1000"
-            ],
+            "recommendedValues": ["100", "300", "500", "1000"],
             "address": "0xBDDad45160E10C3738785d9dD7F30b4B2a5Eeba8"
           },
           "skl": {
             "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
+            "recommendedValues": ["500", "1000", "2000", "5000"],
             "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
           }
         }
@@ -395,23 +313,23 @@
         "tokens": {
           "skl": {
             "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
+            "recommendedValues": ["500", "1000", "2000", "5000"],
             "address": "0xE0595a049d02b7674572b0d59cd4880Db60EDC50"
           },
           "usdc": {
             "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
-            "recommendedValues": [
-              "50",
-              "100",
-              "200",
-              "500"
-            ],
+            "recommendedValues": ["50", "100", "200", "500"],
             "address": "0x5F795bb52dAC3085f578f4877D450e2929D2F13d"
+          },
+          "usdt": {
+            "keyname": "_USDT_0x42dDeBDa2195FaEDAEC1cf24c19B42da1c881feB",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0x1c0491e3396ad6a35f061c62387a95d7218fc515"
+          },
+          "wbtc": {
+            "keyname": "_WBTC_0x497C476bcABB2F7D50afF99ca3Ae9354451Ff7d0",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0xcb011E86DF014a46F4e3AC3F3cbB114A4EB80870"
           }
         }
       },
@@ -419,12 +337,7 @@
         "tokens": {
           "hmt": {
             "keyname": "_HMT_0xA0f4D4db1457E442b83555cb92aaBB8DE959Aa75",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
+            "recommendedValues": ["500", "1000", "2000", "5000"],
             "address": "0xBE3530a3eDf9472693065041B8c9155C7FeCB8e5"
           }
         }
@@ -433,12 +346,7 @@
         "tokens": {
           "brawl": {
             "keyname": "_BRAWL_0xE0A107a0010930Ac218ED0a50937b50D5633EB3e",
-            "recommendedValues": [
-              "100",
-              "200",
-              "500",
-              "1000"
-            ],
+            "recommendedValues": ["100", "200", "500", "1000"],
             "address": "0x28c6ac22aB738BB01FC6CBA75804dC088aae6193"
           }
         }
@@ -455,33 +363,28 @@
         "tokens": {
           "eth": {
             "keyname": "_ETH_0xa5274efA35EbeFF47C1510529D9a8812F95F5735",
-            "recommendedValues": [
-              "0.01",
-              "0.1",
-              "0.2",
-              "0.5"
-            ],
+            "recommendedValues": ["0.01", "0.1", "0.2", "0.5"],
             "address": "0x59ab97Ee239e02112652587F9Ef86CB6F762983b"
           },
           "skl": {
             "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
+            "recommendedValues": ["500", "1000", "2000", "5000"],
             "address": "0x4048C4dd6eccF1Dc23b068211fDf20AD19602e50"
           },
           "usdc": {
             "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
-            "recommendedValues": [
-              "50",
-              "100",
-              "200",
-              "500"
-            ],
+            "recommendedValues": ["50", "100", "200", "500"],
             "address": "0x7Cf76E740Cb23b99337b21F392F22c47Ad910c67"
+          },
+          "usdt": {
+            "keyname": "_USDT_0x42dDeBDa2195FaEDAEC1cf24c19B42da1c881feB",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0xf9B5736E74b37Ec2EDd37B1B3c8e1aF9fa426F2A"
+          },
+          "dai": {
+            "keyname": "_DAI_0x9E7563B0D51F9B6dFB1917F97D29D50804300d28",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0x941C0Dd6055787aE9D417620E8F4F540d8B9D9E5"
           }
         }
       },
@@ -489,12 +392,7 @@
         "tokens": {
           "eth": {
             "keyname": "_ETH_0xa5274efA35EbeFF47C1510529D9a8812F95F5735",
-            "recommendedValues": [
-              "0.01",
-              "0.1",
-              "0.2",
-              "0.5"
-            ],
+            "recommendedValues": ["0.01", "0.1", "0.2", "0.5"],
             "address": "0x59ab97Ee239e02112652587F9Ef86CB6F762983b",
             "route": {
               "hub": "elated-tan-skat",
@@ -504,12 +402,7 @@
           },
           "skl": {
             "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
+            "recommendedValues": ["500", "1000", "2000", "5000"],
             "address": "0x4048C4dd6eccF1Dc23b068211fDf20AD19602e50",
             "route": {
               "hub": "elated-tan-skat",
@@ -519,16 +412,55 @@
           },
           "usdc": {
             "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
-            "recommendedValues": [
-              "50",
-              "100",
-              "200",
-              "500"
-            ],
+            "recommendedValues": ["50", "100", "200", "500"],
             "address": "0x7Cf76E740Cb23b99337b21F392F22c47Ad910c67",
             "route": {
               "hub": "elated-tan-skat",
               "tokenKeyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+              "tokenType": "erc20"
+            }
+          },
+          "usdt": {
+            "keyname": "_USDT_0x42dDeBDa2195FaEDAEC1cf24c19B42da1c881feB",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0xf9B5736E74b37Ec2EDd37B1B3c8e1aF9fa426F2A",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_USDT_0xdAC17F958D2ee523a2206206994597C13D831ec7",
+              "tokenType": "erc20"
+            }
+          },
+          "dai": {
+            "keyname": "_DAI_0x9E7563B0D51F9B6dFB1917F97D29D50804300d28",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0x941C0Dd6055787aE9D417620E8F4F540d8B9D9E5",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_DAI_0x6B175474E89094C44Da98b954EedeAC495271d0F",
+              "tokenType": "erc20"
+            }
+          }
+        }
+      },
+      "green-giddy-denebola": {
+        "tokens": {
+          "usdc": {
+            "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0x7Cf76E740Cb23b99337b21F392F22c47Ad910c67",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+              "tokenType": "erc20"
+            }
+          },
+          "usdt": {
+            "keyname": "_USDT_0x42dDeBDa2195FaEDAEC1cf24c19B42da1c881feB",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0xf9B5736E74b37Ec2EDd37B1B3c8e1aF9fa426F2A",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_USDT_0x42dDeBDa2195FaEDAEC1cf24c19B42da1c881feB",
               "tokenType": "erc20"
             }
           }
@@ -546,12 +478,7 @@
         "tokens": {
           "usdc": {
             "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
-            "recommendedValues": [
-              "50",
-              "100",
-              "200",
-              "500"
-            ],
+            "recommendedValues": ["50", "100", "200", "500"],
             "address": "0x7Cf76E740Cb23b99337b21F392F22c47Ad910c67"
           }
         }
@@ -560,12 +487,7 @@
         "tokens": {
           "usdc": {
             "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
-            "recommendedValues": [
-              "50",
-              "100",
-              "200",
-              "500"
-            ],
+            "recommendedValues": ["50", "100", "200", "500"],
             "address": "0x7Cf76E740Cb23b99337b21F392F22c47Ad910c67",
             "route": {
               "hub": "elated-tan-skat",
@@ -585,22 +507,12 @@
         "tokens": {
           "skill": {
             "keyname": "_SKILL_0x5F6E97612482095C0c2C02BC495C0171e61017d7",
-            "recommendedValues": [
-              "100",
-              "300",
-              "500",
-              "1000"
-            ],
+            "recommendedValues": ["100", "300", "500", "1000"],
             "address": "0x5F6E97612482095C0c2C02BC495C0171e61017d7"
           },
           "skl": {
             "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
+            "recommendedValues": ["500", "1000", "2000", "5000"],
             "address": "0x9FeF16c2Fe0dCB261cfD39e0B618c69A73feB3FE"
           }
         }
@@ -609,12 +521,7 @@
         "tokens": {
           "skl": {
             "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
+            "recommendedValues": ["500", "1000", "2000", "5000"],
             "address": "0x9FeF16c2Fe0dCB261cfD39e0B618c69A73feB3FE",
             "route": {
               "hub": "elated-tan-skat",
@@ -633,12 +540,7 @@
         "tokens": {
           "razor": {
             "keyname": "_RAZOR_0x50DE6856358Cc35f3A9a57eAAA34BD4cB707d2cd",
-            "recommendedValues": [
-              "100",
-              "300",
-              "1000",
-              "2000"
-            ],
+            "recommendedValues": ["100", "300", "1000", "2000"],
             "address": "0xcbf70914Fae03B3acB91E953De60CfDAaCA8145f"
           }
         }
@@ -653,23 +555,23 @@
         "tokens": {
           "skl": {
             "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
+            "recommendedValues": ["500", "1000", "2000", "5000"],
             "address": "0x7F73B66d4e6e67bCdeaF277b9962addcDabBFC4d"
           },
           "usdc": {
             "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
-            "recommendedValues": [
-              "50",
-              "100",
-              "200",
-              "500"
-            ],
+            "recommendedValues": ["50", "100", "200", "500"],
             "address": "0xCC205196288B7A26f6D43bBD68AaA98dde97276d"
+          },
+          "usdt": {
+            "keyname": "_USDT_0x42dDeBDa2195FaEDAEC1cf24c19B42da1c881feB",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0x932427E1f1Ea096e2bb05C7dE937d083ddb8Ff83"
+          },
+          "wbtc": {
+            "keyname": "_WBTC_0x497C476bcABB2F7D50afF99ca3Ae9354451Ff7d0",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0x64d2EebA8B02f2aB19e2238f1655A8409dB64817"
           }
         }
       },
@@ -677,12 +579,7 @@
         "tokens": {
           "skl": {
             "keyname": "_SKL_0xD162bB5c75FE99144295b03510bAb2DF99617440",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
+            "recommendedValues": ["500", "1000", "2000", "5000"],
             "address": "0x7F73B66d4e6e67bCdeaF277b9962addcDabBFC4d",
             "route": {
               "hub": "elated-tan-skat",
@@ -692,16 +589,55 @@
           },
           "usdc": {
             "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
-            "recommendedValues": [
-              "50",
-              "100",
-              "200",
-              "500"
-            ],
+            "recommendedValues": ["50", "100", "200", "500"],
             "address": "0xCC205196288B7A26f6D43bBD68AaA98dde97276d",
             "route": {
               "hub": "elated-tan-skat",
               "tokenKeyname": "_USDC_0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+              "tokenType": "erc20"
+            }
+          },
+          "usdt": {
+            "keyname": "_USDT_0x42dDeBDa2195FaEDAEC1cf24c19B42da1c881feB",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0x932427E1f1Ea096e2bb05C7dE937d083ddb8Ff83",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_USDT_0xdAC17F958D2ee523a2206206994597C13D831ec7",
+              "tokenType": "erc20"
+            }
+          },
+          "wbtc": {
+            "keyname": "_WBTC_0x497C476bcABB2F7D50afF99ca3Ae9354451Ff7d0",
+            "recommendedValues": ["0.05", "0.1", "0.2", "0.5"],
+            "address": "0x64d2EebA8B02f2aB19e2238f1655A8409dB64817",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_WBTC_0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599",
+              "tokenType": "erc20"
+            }
+          }
+        }
+      },
+      "honorable-steel-rasalhague": {
+        "tokens": {
+          "usdc": {
+            "keyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0xCC205196288B7A26f6D43bBD68AaA98dde97276d",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_USDC_0x1c566a47e1baC535Ca616373146e3BE024F88Aa4",
+              "tokenType": "erc20"
+            }
+          },
+          "usdt": {
+            "keyname": "_USDT_0x42dDeBDa2195FaEDAEC1cf24c19B42da1c881feB",
+            "recommendedValues": ["50", "100", "200", "500"],
+            "address": "0x932427E1f1Ea096e2bb05C7dE937d083ddb8Ff83",
+            "route": {
+              "hub": "elated-tan-skat",
+              "tokenKeyname": "_USDT_0x42dDeBDa2195FaEDAEC1cf24c19B42da1c881feB",
               "tokenType": "erc20"
             }
           }
@@ -717,12 +653,7 @@
         "tokens": {
           "hmt": {
             "keyname": "_HMT_0xA0f4D4db1457E442b83555cb92aaBB8DE959Aa75",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
+            "recommendedValues": ["500", "1000", "2000", "5000"],
             "address": "0x6E5FF61Ea88270F6142E0E0eC8cbe9d67476CbCd"
           }
         }
@@ -731,12 +662,7 @@
         "tokens": {
           "hmt": {
             "keyname": "_HMT_0xA0f4D4db1457E442b83555cb92aaBB8DE959Aa75",
-            "recommendedValues": [
-              "500",
-              "1000",
-              "2000",
-              "5000"
-            ],
+            "recommendedValues": ["500", "1000", "2000", "5000"],
             "address": "0x6E5FF61Ea88270F6142E0E0eC8cbe9d67476CbCd",
             "route": {
               "hub": "elated-tan-skat",
@@ -755,12 +681,7 @@
         "tokens": {
           "eth": {
             "keyname": "eth",
-            "recommendedValues": [
-              "0.01",
-              "0.1",
-              "0.2",
-              "0.5"
-            ],
+            "recommendedValues": ["0.01", "0.1", "0.2", "0.5"],
             "address": "0xD2Aaa00700000000000000000000000000000000"
           }
         }
@@ -775,12 +696,7 @@
         "tokens": {
           "brawl": {
             "keyname": "_BRAWL_0xE0A107a0010930Ac218ED0a50937b50D5633EB3e",
-            "recommendedValues": [
-              "100",
-              "200",
-              "500",
-              "1000"
-            ],
+            "recommendedValues": ["100", "200", "500", "1000"],
             "address": "",
             "wrapsSFuel": true
           }
