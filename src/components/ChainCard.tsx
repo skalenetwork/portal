@@ -1,6 +1,6 @@
 /**
  * @license
- * SKALE proxy-ui
+ * SKALE bridge-ui
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -60,7 +60,7 @@ export default function ChainCard(props: {
             </div>
           </div>
         </div>
-        <p className="schain-name mp__flex mp__flexCentered undec mp__noMargBott">
+        <p className={cls(cmn.p, cmn.pCent, cmn.p3, cmn.pPrim, cmn.mtop10, cmn.p600)}>
           {getChainAlias(props.skaleNetwork, props.schain[0])}
         </p>
 

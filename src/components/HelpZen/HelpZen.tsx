@@ -29,7 +29,7 @@ export default function HelpZen() {
                     <Button
                         onClick={handleClick}
                         className={cls('mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex)}>
-                        <ContactSupportRoundedIcon className='mp__margRi5' style={{ height: '20px', width: '20px' }} />
+                        <ContactSupportRoundedIcon className={cmn.mri5} style={{ height: '20px', width: '20px' }} />
                         Get help
                     </Button>
                 </Tooltip>

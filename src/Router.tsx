@@ -2,7 +2,7 @@ import './App.scss';
 
 import { useState } from 'react'
 
-import Main from './components/Main';
+import Bridge from './components/Bridge';
 import Faq from './components/Faq';
 import Terms from './components/Terms';
 import Network from './components/Network';
@@ -11,6 +11,7 @@ import Stats from './components/Stats';
 import Apps from './components/Apps';
 import App from './components/App';
 import History from './components/History';
+import Portfolio from './components/Portfolio';
 
 import { useMetaportStore, PROXY_ENDPOINTS, MetaportState } from '@skalenetwork/metaport';
 import { Routes, Route } from "react-router-dom";
@@ -33,13 +34,14 @@ export default function Router() {
 
     return (
         <Routes>
-            <Route index element={<Main />} />
+            <Route index element={<Bridge />} />
             <Route path="bridge" >
                 <Route
                     path="history"
                     element={<History />}
                 />
             </Route>
+            <Route path='portfolio' element={<Portfolio mpc={mpc} />} />
             <Route path='chains' element={<Network
                 loadSchains={loadSchains}
                 schains={schains}

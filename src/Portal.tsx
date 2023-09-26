@@ -17,7 +17,7 @@
  */
 
 /**
- * @file Bridge.tsx
+ * @file Portal.tsx
  * @copyright SKALE Labs 2023-Present
 */
 
@@ -34,33 +34,18 @@ import TermsModal from './components/TermsModal';
 import { useMetaportStore, useWagmiAccount } from '@skalenetwork/metaport'
 
 
-export default function Bridge() {
-
+export default function Portal() {
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
-
   const mpc = useMetaportStore((state) => state.mpc)
   const { address } = useWagmiAccount()
-
   if (!mpc) return <div></div>
-
   return (
-    <Box
-      sx={{ display: 'flex' }}
-      className='AppWrap'
-    >
+    <Box sx={{ display: 'flex' }} className='AppWrap'>
       <CssBaseline />
-      <TermsModal
-        mpc={mpc}
-        termsAccepted={termsAccepted}
-        setTermsAccepted={setTermsAccepted}
-      />
-
-      <Header
-        address={address}
-      />
+      <TermsModal mpc={mpc} termsAccepted={termsAccepted} setTermsAccepted={setTermsAccepted} />
+      <Header address={address} />
       <SkDrawer />
       <Router />
     </Box >
-
   )
 }

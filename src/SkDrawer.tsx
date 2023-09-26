@@ -15,12 +15,10 @@ import ListItemText from '@mui/material/ListItemText';
 import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontalCircleOutlined';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import HistoryIcon from '@mui/icons-material/History';
-import SpaceDashboardOutlinedIcon from '@mui/icons-material/SpaceDashboardOutlined';
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined';
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
-
+import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined';
 
 const drawerWidth = 240;
 
@@ -65,6 +63,18 @@ export default function SkDrawer() {
                                         <HistoryIcon />
                                     </ListItemIcon>
                                     <ListItemText primary={'History ' + (transfersHistory.length !== 0 ? `(${transfersHistory.length})` : '')} />
+                                </ListItemButton>
+                            </Link>
+                        </ListItem>
+                        <ListItem  >
+                            <Link to="/portfolio" className="undec fullWidth">
+                                <ListItemButton
+                                    className={cls(cmn.pPrim)}
+                                    selected={location.pathname === "/portfolio"}>
+                                    <ListItemIcon>
+                                        <WalletOutlinedIcon />
+                                    </ListItemIcon>
+                                    <ListItemText primary='Portfolio' />
                                 </ListItemButton>
                             </Link>
                         </ListItem>
@@ -122,7 +132,7 @@ export default function SkDrawer() {
                                 </ListItemButton>
                             </Link>
                         </ListItem>
-                        <ListItem>
+                        {/* <ListItem>
                             <a className="undec fullWidth" target="_blank" href='https://dune.com/manel/skale-analytics'>
                                 <ListItemButton className={cls(cmn.pPrim)}>
                                     <ListItemIcon>
@@ -132,7 +142,7 @@ export default function SkDrawer() {
                                     <ArrowOutwardIcon className="drawerIconRi" />
                                 </ListItemButton>
                             </a>
-                        </ListItem>
+                        </ListItem> */}
                     </List>
                 </Box>
             </Drawer >

@@ -29,7 +29,7 @@ import '@skalenetwork/metaport/dist/style.css'
 import { StyledEngineProvider } from '@mui/material/styles'
 import { ThemeProvider } from '@mui/material/styles'
 
-import Bridge from './Bridge';
+import Portal from './Portal';
 
 import { METAPORT_CONFIG } from './metadata/metaportConfig';
 import { createMuiTheme } from './core/themes';
@@ -42,11 +42,14 @@ const isDarkMode = mpTheme.mode === 'dark';
 
 export default function App() {
   return (
-    <div className={'bridge ' + (isDarkMode ? 'bridge-dark' : 'bridge-light')} style={{ background: mpTheme.background }}>
+    <div
+      className={'bridge ' + (isDarkMode ? 'bridge-dark' : 'bridge-light')}
+      style={{ background: mpTheme.background }}
+    >
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={muiTheme}>
           <MetaportProvider config={METAPORT_CONFIG}>
-            <Bridge />
+            <Portal />
           </MetaportProvider>
         </ThemeProvider>
       </StyledEngineProvider>
