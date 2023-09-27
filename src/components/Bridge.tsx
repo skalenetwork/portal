@@ -65,6 +65,19 @@ export default function Bridge() {
   const tokens = useMetaportStore((state) => state.tokens)
   const setToken = useMetaportStore((state) => state.setToken)
 
+  function validChainName(chainName: string | null): boolean {
+    if (!chainName) return false
+    return mpc.config.chains.includes(chainName)
+  }
+
+  function validAppName(chainName: string | null, appName: string | null): boolean {
+    if (!chainName || !appName) return false
+    const chainMeta = CHAINS_META[mpc.config.skaleNetwork];
+    const apps = chainMeta && chainMeta[chainName] && chainMeta[chainName].apps
+    return !!(apps && apps[appName])
+  }
+
+
   useEffect(() => {
     const params: any = {
       from: chainName1,
@@ -84,17 +97,12 @@ export default function Bridge() {
     const toApp = searchParams.get('to-app')
     const keyname = searchParams.get('token')
     const type = searchParams.get('type')
-    const chainMeta = CHAINS_META[mpc.config.skaleNetwork];
-    if (from) {
-      if (mpc.config.chains.includes(from)) setChainName1(from);
-      const apps = fromApp && chainMeta && chainMeta[from] && chainMeta[from].apps;
-      if (apps && apps[fromApp]) setAppName1(fromApp);
-    }
-    if (to) {
-      if (mpc.config.chains.includes(to)) setChainName2(to);
-      const apps = toApp && chainMeta && chainMeta[to] && chainMeta[to].apps;
-      if (apps && apps[toApp]) setAppName2(toApp);
-    }
+
+    setChainName1(validChainName(from) ? from! : mpc.config.chains[0])
+    setChainName2(validChainName(to) ? to! : mpc.config.chains[1])
+    setAppName1(validAppName(from, fromApp) ? fromApp! : undefined!)
+    setAppName2(validAppName(to, toApp) ? toApp! : undefined!)
+
     if (keyname) setTokenParams({ keyname: keyname, type: type as dataclasses.TokenType })
   }, [])
 
@@ -103,6 +111,10 @@ export default function Bridge() {
       tokens[tokenParams.type][tokenParams.keyname]) {
       setToken(tokens[tokenParams.type][tokenParams.keyname])
       setTokenParams(getEmptyTokenParams())
+      return
+    }
+    if (tokens && tokens.erc20 && Object.values(tokens.erc20)[0] && !token) {
+      setToken(Object.values(tokens.erc20)[0])
     }
   }, [tokenParams, tokens])
 

@@ -78,8 +78,6 @@ export default function Main() {
   const setAppName2 = useMetaportStore((state) => state.setAppName2)
 
   const mpc = useMetaportStore((state) => state.mpc)
-  const tokens = useMetaportStore((state) => state.tokens)
-  const setToken = useMetaportStore((state) => state.setToken)
   const tokenBalances = useMetaportStore((state) => state.tokenBalances)
 
   const errorMessage = useMetaportStore((state) => state.errorMessage)
@@ -91,17 +89,6 @@ export default function Main() {
   const theme = useUIStore((state) => state.theme)
 
   const { address } = useWagmiAccount()
-
-  useEffect(() => {
-    setChainName1(mpc.config.chains ? mpc.config.chains[0] : '')
-    setChainName2(mpc.config.chains ? mpc.config.chains[1] : '')
-  }, [])
-
-  useEffect(() => {
-    if (tokens && tokens.erc20 && Object.values(tokens.erc20)[0] && !token) {
-      setToken(Object.values(tokens.erc20)[0])
-    }
-  }, [tokens])
 
   const showFrom = !expandedTo && !expandedTokens && !errorMessage && !expandedCP && !expandedTH
   const showTo =
