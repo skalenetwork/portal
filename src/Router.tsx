@@ -1,6 +1,8 @@
 import './App.scss';
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { Routes, Route } from "react-router-dom";
+import { useMetaportStore, PROXY_ENDPOINTS, MetaportState } from '@skalenetwork/metaport';
 
 import Bridge from './components/Bridge';
 import Faq from './components/Faq';
@@ -12,15 +14,29 @@ import Apps from './components/Apps';
 import App from './components/App';
 import History from './components/History';
 import Portfolio from './components/Portfolio';
+import Admin from './components/Admin';
 
-import { useMetaportStore, PROXY_ENDPOINTS, MetaportState } from '@skalenetwork/metaport';
-import { Routes, Route } from "react-router-dom";
+import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
 
 
 export default function Router() {
     const [schains, setSchains] = useState<any[]>([])
+
     const mpc = useMetaportStore((state: MetaportState) => state.mpc)
+    const transfersHistory = useMetaportStore((state) => state.transfersHistory)
+    const setTransfersHistory = useMetaportStore((state) => state.setTransfersHistory)
+
     const endpoint = PROXY_ENDPOINTS[mpc.config.skaleNetwork]
+
+    useEffect(() => {
+        setTransfersHistory(getHistoryFromStorage(mpc.config.skaleNetwork))
+    }, []);
+
+    useEffect(() => {
+        if (transfersHistory.length !== 0) {
+            setHistoryToStorage(transfersHistory, mpc.config.skaleNetwork)
+        }
+    }, [transfersHistory]);
 
     async function loadSchains() {
         let response = await fetch(`https://${endpoint}/files/chains.json`);
@@ -66,6 +82,10 @@ export default function Router() {
             <Route path="other" >
                 <Route path="faq" element={<Faq />} />
                 <Route path="terms-of-service" element={<Terms />} />
+            </Route>
+            <Route path="admin" >
+                <Route path=":name" element={<Admin mpc={mpc} />}
+                />
             </Route>
         </Routes>
         //     </CSSTransition>

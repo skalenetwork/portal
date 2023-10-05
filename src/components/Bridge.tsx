@@ -31,7 +31,7 @@ import GradeRoundedIcon from '@mui/icons-material/GradeRounded';
 import Message from './Message';
 import BridgeBody from './BridgeBody';
 
-import { CHAINS_META, cls, cmn, dataclasses, useMetaportStore } from '@skalenetwork/metaport';
+import { CHAINS_META, cls, cmn, dataclasses, useMetaportStore, SkPaper, interfaces, TransactionData } from '@skalenetwork/metaport';
 
 
 interface TokenParams {
@@ -65,6 +65,9 @@ export default function Bridge() {
   const tokens = useMetaportStore((state) => state.tokens)
   const setToken = useMetaportStore((state) => state.setToken)
 
+  const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
+  const setTransactionsHistory = useMetaportStore((state) => state.setTransactionsHistory)
+
   function validChainName(chainName: string | null): boolean {
     if (!chainName) return false
     return mpc.config.chains.includes(chainName)
@@ -76,7 +79,6 @@ export default function Bridge() {
     const apps = chainMeta && chainMeta[chainName] && chainMeta[chainName].apps
     return !!(apps && apps[appName])
   }
-
 
   useEffect(() => {
     const params: any = {
@@ -103,7 +105,7 @@ export default function Bridge() {
     setAppName1(validAppName(from, fromApp) ? fromApp! : undefined!)
     setAppName2(validAppName(to, toApp) ? toApp! : undefined!)
 
-    if (keyname) setTokenParams({ keyname: keyname, type: type as dataclasses.TokenType })
+    if (keyname) setTokenParams({ keyname: keyname, type: type as dataclasses.TokenType }) 
   }, [])
 
   useEffect(() => {
@@ -131,6 +133,19 @@ export default function Bridge() {
             icon={<GradeRoundedIcon color="primary" />}
           />
           <BridgeBody />
+          {transactionsHistory.length !== 0 ? <div>
+            <p className={cls(cmn.p, cmn.p2, cmn.pPrim, cmn.p700, cmn.mtop20, cmn.mbott10)}>
+              Completed transactions
+            </p>
+            <SkPaper gray>
+              {transactionsHistory.map((transactionData: interfaces.TransactionHistory) => (
+                <TransactionData
+                  key={transactionData.transactionHash}
+                  transactionData={transactionData}
+                  config={mpc.config}
+                />
+              ))}
+            </SkPaper></div> : null}
         </div>
       </Stack>
     </Container>)

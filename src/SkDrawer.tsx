@@ -62,7 +62,7 @@ export default function SkDrawer() {
                                     <ListItemIcon>
                                         <HistoryIcon />
                                     </ListItemIcon>
-                                    <ListItemText primary={'History ' + (transfersHistory.length !== 0 ? `(${transfersHistory.length})` : '')} />
+                                    <ListItemText primary='History' />
                                 </ListItemButton>
                             </Link>
                         </ListItem>

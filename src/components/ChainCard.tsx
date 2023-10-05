@@ -63,9 +63,7 @@ export default function ChainCard(props: {
         <p className={cls(cmn.p, cmn.pCent, cmn.p3, cmn.pPrim, cmn.mtop10, cmn.p600)}>
           {getChainAlias(props.skaleNetwork, props.schain[0])}
         </p>
-
       </div>
-
     </div>
   );
 }

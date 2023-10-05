@@ -14,7 +14,7 @@ import SignalCellularAltOutlinedIcon from '@mui/icons-material/SignalCellularAlt
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined';
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 
-import { cls, styles, cmn } from '@skalenetwork/metaport';
+import { cls, styles, cmn, RainbowConnectButton } from '@skalenetwork/metaport';
 
 export default function AccountMenu(props: any) {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -78,15 +78,19 @@ export default function AccountMenu(props: any) {
                 transformOrigin={{ horizontal: 'right', vertical: 'top' }}
                 anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-                <MenuItem onClick={handleClose}>
-                    <AccountCircleRoundedIcon className={cmn.mri10} /> Account info
-                </MenuItem>
+                <RainbowConnectButton.Custom>
+                    {({ openAccountModal }) => {
+                        return <MenuItem onClick={() => { openAccountModal(); handleClose() }}>
+                            <AccountCircleRoundedIcon className={cmn.mri10} /> Account info
+                        </MenuItem>
+                    }}
+                </RainbowConnectButton.Custom>
                 <Link to="/bridge/history" className="undec fullWidth">
                     <MenuItem onClick={handleClose}>
                         <HistoryIcon className={cmn.mri10} /> Transfers history
                     </MenuItem>
                 </Link>
-                <Link to="/bridge/overview" className="undec fullWidth">
+                <Link to="/portfolio" className="undec fullWidth">
                     <MenuItem onClick={handleClose}>
                         <AppsOutlinedIcon className={cmn.mri10} /> Assets overview
                     </MenuItem>

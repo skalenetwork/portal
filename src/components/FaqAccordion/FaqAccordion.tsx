@@ -2,8 +2,8 @@ import * as React from 'react';
 import Accordion from '@mui/material/Accordion';
 import AccordionDetails from '@mui/material/AccordionDetails';
 import AccordionSummary from '@mui/material/AccordionSummary';
-import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { cls, cmn } from '@skalenetwork/metaport'
 
 import { FAQ } from '../../core/constants';
 
@@ -24,14 +24,14 @@ export default function FaqAccordion() {
                         aria-controls="panel1bh-content"
                         id={"panel1bh-header-" + index}
                     >
-                        <Typography sx={{ width: '100%', flexShrink: 0 }}>
+                        <p className={cls(cmn.p, cmn.p2, cmn.pPrim, cmn.mtop5, cmn.mbott5)}>
                             {question.question}
-                        </Typography>
+                        </p>
                     </AccordionSummary>
                     <AccordionDetails>
-                        <Typography>
+                        <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.mleft20, cmn.mri20)}>
                             {question.answer}
-                        </Typography>
+                        </p>
                     </AccordionDetails>
                 </Accordion>
             ))}
