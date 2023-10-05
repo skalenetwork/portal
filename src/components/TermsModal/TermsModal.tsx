@@ -22,18 +22,18 @@
 */
 
 import React, { Dispatch, SetStateAction } from 'react';
+import { useLocation } from "react-router-dom";
 
 import Modal from '@mui/material/Modal';
 import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Link from '@mui/material/Link';
 
-import { MAINNET_CHAIN_NAME } from '../../core/constants';
-
-import TermsOfService from '../Terms/terms-of-service.mdx'
-
-import logo from '../../assets/skale_lg.svg';
 import { MetaportCore, SkPaper, cls, cmn, styles } from '@skalenetwork/metaport';
+
+import { MAINNET_CHAIN_NAME, BRIDGE_PAGES } from '../../core/constants';
+import TermsOfService from '../Terms/terms-of-service.mdx'
+import logo from '../../assets/skale_lg.svg';
 
 
 const style = {
@@ -50,6 +50,7 @@ export default function TermsModal(props: {
     termsAccepted: boolean,
     setTermsAccepted: Dispatch<SetStateAction<boolean>>
 }) {
+    const location = useLocation();
     const [scrolled, setScrolled] = React.useState<boolean>(false);
 
     function getAgreeButtonText() {
@@ -57,12 +58,18 @@ export default function TermsModal(props: {
         return 'Agree to terms';
     }
 
+    function isBridgePage(): boolean {
+        return BRIDGE_PAGES.some(pathname =>
+            location.pathname === pathname || location.pathname.includes(pathname)
+        ) || location.pathname === '/';
+    }
+
     function handleTermsScroll(e: any) {
         const diff = e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight;
         const bottom = Math.abs(diff) < 15;
         setScrolled(bottom);
     }
-    if (props.termsAccepted) return null;
+    if (props.termsAccepted || !isBridgePage()) return null;
     return (<Modal open={!props.termsAccepted} className='br__modal'>
         <div style={style} className={cls(cmn.flex, cmn.flexcv)}>
             <Container maxWidth="md">
