@@ -21,6 +21,8 @@
  * @copyright SKALE Labs 2022-Present
  */
 
+import FAQ from "../faq.json";
+
 export const MAINNET_CHAIN_NAME = "mainnet";
 
 export const DASHBOARD_URL =
@@ -32,7 +34,5 @@ export const BRIDGE_PAGES = [
   "/portfolio",
   "/other/faq",
 ];
-
-import FAQ from "../faq.json";
 
 export { FAQ };

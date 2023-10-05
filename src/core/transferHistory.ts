@@ -20,7 +20,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { interfaces } from "@skalenetwork/metaport";
+import { type interfaces } from "@skalenetwork/metaport";
 
 function getKeyName(skaleNetwork: interfaces.SkaleNetwork): string {
   return `br__transfersHistory_${skaleNetwork}`;
@@ -29,9 +29,9 @@ function getKeyName(skaleNetwork: interfaces.SkaleNetwork): string {
 export function getHistoryFromStorage(
   skaleNetwork: interfaces.SkaleNetwork,
 ): interfaces.TransferHistory[] {
-  const br__transfersHistory = localStorage.getItem(getKeyName(skaleNetwork));
-  if (!br__transfersHistory) return [];
-  return JSON.parse(br__transfersHistory)["data"];
+  const transfersHistory = localStorage.getItem(getKeyName(skaleNetwork));
+  if (transfersHistory == null) return [];
+  return JSON.parse(transfersHistory).data;
 }
 
 export function setHistoryToStorage(

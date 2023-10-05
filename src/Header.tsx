@@ -52,7 +52,7 @@ export default function Header(props: { address: `0x${string}` | undefined }) {
           </Link>
         </div>
         <div className={cls(cmn.flex, cmn.flexg, cmn.mleft10)}>
-          {"mainnet" !== MAINNET_CHAIN_NAME ? (
+          {MAINNET_CHAIN_NAME !== "mainnet" ? (
             <Chip
               label="TESTNET"
               color="primary"

@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom";
 import {
   useMetaportStore,
   PROXY_ENDPOINTS,
-  MetaportState,
+  type MetaportState,
 } from "@skalenetwork/metaport";
 
 import Bridge from "./components/Bridge";
@@ -47,10 +47,10 @@ export default function Router() {
   }, [transfersHistory]);
 
   async function loadSchains() {
-    let response = await fetch(`https://${endpoint}/files/chains.json`);
-    let chainsJson = await response.json();
-    let schains = [];
-    for (let chain of chainsJson) {
+    const response = await fetch(`https://${endpoint}/files/chains.json`);
+    const chainsJson = await response.json();
+    const schains = [];
+    for (const chain of chainsJson) {
       schains.push(chain.schain);
     }
     setSchains(schains);

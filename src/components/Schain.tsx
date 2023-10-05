@@ -32,9 +32,9 @@ import CircularProgress from "@mui/material/CircularProgress";
 import {
   cmn,
   cls,
-  MetaportCore,
+  type MetaportCore,
   CHAINS_META,
-  interfaces,
+  type interfaces,
 } from "@skalenetwork/metaport";
 
 export default function Schain(props: {

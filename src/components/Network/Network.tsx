@@ -8,9 +8,9 @@ import CategorySection from "../CategorySection";
 import {
   cmn,
   cls,
-  MetaportCore,
+  type MetaportCore,
   CHAINS_META,
-  interfaces,
+  type interfaces,
 } from "@skalenetwork/metaport";
 
 export default function Chains(props: {
@@ -22,7 +22,7 @@ export default function Chains(props: {
 
   useEffect(() => {
     props.loadSchains();
-    let intervalId = setInterval(props.loadSchains, 10000);
+    const intervalId = setInterval(props.loadSchains, 10000);
     setIntervalId(intervalId);
   }, []);
 

@@ -118,7 +118,7 @@ export default function AccountMenu(props: any) {
         <a
           className="undec fullWidth"
           target="_blank"
-          href={"https://etherscan.io/address/" + props.address}
+          href={"https://etherscan.io/address/" + props.address} rel="noreferrer"
         >
           <MenuItem onClick={handleClose}>
             <div className={cmn.flex}>

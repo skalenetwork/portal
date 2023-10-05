@@ -26,8 +26,7 @@ import "./App.scss";
 import { MetaportProvider, getMetaportTheme } from "@skalenetwork/metaport";
 import "@skalenetwork/metaport/dist/style.css";
 
-import { StyledEngineProvider } from "@mui/material/styles";
-import { ThemeProvider } from "@mui/material/styles";
+import { StyledEngineProvider , ThemeProvider } from "@mui/material/styles";
 
 import Portal from "./Portal";
 

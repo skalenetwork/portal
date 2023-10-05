@@ -21,8 +21,6 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { useEffect } from "react";
-
 import Collapse from "@mui/material/Collapse";
 import { MAINNET_CHAIN_NAME } from "../core/constants";
 

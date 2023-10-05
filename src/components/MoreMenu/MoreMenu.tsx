@@ -87,7 +87,7 @@ export default function MoreMenu() {
         <a
           className="undec fullWidth"
           target="_blank"
-          href="https://skale.space/"
+          href="https://skale.space/" rel="noreferrer"
         >
           <MenuItem onClick={handleClose}>
             <div className={cmn.flex}>
@@ -102,7 +102,7 @@ export default function MoreMenu() {
         <a
           className="undec fullWidth"
           target="_blank"
-          href="https://docs.skale.network/"
+          href="https://docs.skale.network/" rel="noreferrer"
         >
           <MenuItem onClick={handleClose} className="undec">
             <div className={cmn.flex}>

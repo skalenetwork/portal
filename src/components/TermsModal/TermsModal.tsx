@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import React, { Dispatch, SetStateAction } from "react";
+import React, { type Dispatch, type SetStateAction } from "react";
 import { useLocation } from "react-router-dom";
 
 import Modal from "@mui/material/Modal";
@@ -30,7 +30,7 @@ import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
 
 import {
-  MetaportCore,
+  type MetaportCore,
   SkPaper,
   cls,
   cmn,
@@ -57,7 +57,7 @@ export default function TermsModal(props: {
   const location = useLocation();
   const [scrolled, setScrolled] = React.useState<boolean>(false);
 
-  function getAgreeButtonText() {
+  function getAgreeButtonText(): string {
     if (!scrolled) return "⬆️ Read Terms of Service to continue ⬆️";
     return "Agree to terms";
   }
@@ -72,7 +72,7 @@ export default function TermsModal(props: {
     );
   }
 
-  function handleTermsScroll(e: any) {
+  function handleTermsScroll(e: any): void {
     const diff =
       e.target.scrollHeight - e.target.scrollTop - e.target.clientHeight;
     const bottom = Math.abs(diff) < 15;

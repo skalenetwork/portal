@@ -1,5 +1,5 @@
 import { Link, useLocation } from "react-router-dom";
-import { cls, cmn, useMetaportStore } from "@skalenetwork/metaport";
+import { cls, cmn } from "@skalenetwork/metaport";
 
 import Box from "@mui/material/Box";
 
@@ -24,7 +24,6 @@ const drawerWidth = 240;
 
 export default function SkDrawer() {
   const location = useLocation();
-  const transfersHistory = useMetaportStore((state) => state.transfersHistory);
   return (
     <Box display={{ sm: "block", xs: "none" }} m={1}>
       <Drawer

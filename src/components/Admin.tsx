@@ -26,7 +26,7 @@ import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import { useParams } from "react-router-dom";
 
-import { cmn, cls, MetaportCore, getChainAlias } from "@skalenetwork/metaport";
+import { cmn, cls, type MetaportCore, getChainAlias } from "@skalenetwork/metaport";
 
 export default function Admin(props: { mpc: MetaportCore }) {
   let { name } = useParams();

@@ -36,12 +36,10 @@ import {
   cls,
   PROXY_ENDPOINTS,
   BASE_EXPLORER_URLS,
-  MetaportCore,
+  type MetaportCore,
   SkPaper,
 } from "@skalenetwork/metaport";
 
-//const BASE_PROXY_URL = process.env["REACT_APP_BASE_PROXY_URL"];
-// const EXPLORER_URL = process.env["REACT_APP_EXPLORER_URL"];
 
 const HTTP_PREFIX = "http://";
 const HTTPS_PREFIX = "https://";
@@ -115,7 +113,7 @@ export default function SchainDetails(props: {
   const checked = true;
 
   const networkParams = {
-    chainId: chainId,
+    chainId,
     chainName: "[S]" + getChainName(props.schainName),
     rpcUrls: [rpcUrl],
     nativeCurrency: {
@@ -127,7 +125,7 @@ export default function SchainDetails(props: {
 
   function getChainName(schainName: string) {
     if (props.chainMeta) {
-      return props.chainMeta["alias"];
+      return props.chainMeta.alias;
     }
     return schainName;
   }
@@ -144,7 +142,7 @@ export default function SchainDetails(props: {
       <div className={cls(cmn.flex)}>
         <h2 className={cls(cmn.nom)}>{getChainName(props.schainName)}</h2>
       </div>
-      {props.chainMeta && props.chainMeta.description ? (
+      {props.chainMeta?.description ? (
         <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
           {props.chainMeta.description}
         </p>
@@ -179,7 +177,7 @@ export default function SchainDetails(props: {
                 Add network
               </Button>
             </div>
-            {props.chainMeta && props.chainMeta.url ? (
+            {props.chainMeta?.url ? (
               <div className={cls(cmn.mleft10)}>
                 <a
                   target="_blank"

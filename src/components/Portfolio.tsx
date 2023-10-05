@@ -28,13 +28,13 @@ import Stack from "@mui/material/Stack";
 import {
   cmn,
   cls,
-  MetaportCore,
+  type MetaportCore,
   getChainAlias,
   ChainIcon,
   TokenIcon,
   SkPaper,
   dataclasses,
-  interfaces,
+  type interfaces,
   useWagmiAccount,
 } from "@skalenetwork/metaport";
 
@@ -64,7 +64,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
           async (
             chainContracts: interfaces.TokenContractsMap,
           ): Promise<interfaces.TokenBalancesMap> =>
-            props.mpc.tokenBalances(chainContracts, address!),
+            await props.mpc.tokenBalances(chainContracts, address!),
         ),
       ),
     );

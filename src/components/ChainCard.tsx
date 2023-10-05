@@ -29,11 +29,10 @@ import {
   chainBg,
   getChainAlias,
   BASE_EXPLORER_URLS,
-  interfaces,
+  type interfaces,
 } from "@skalenetwork/metaport";
 
 import Button from "@mui/material/Button";
-import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import UnfoldMoreRoundedIcon from "@mui/icons-material/UnfoldMoreRounded";
 

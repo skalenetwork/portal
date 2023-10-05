@@ -1,4 +1,4 @@
-import { interfaces } from '@skalenetwork/metaport'
+import { type interfaces } from '@skalenetwork/metaport'
 
 export const METAPORT_CONFIG: interfaces.MetaportConfig = {
   theme: {

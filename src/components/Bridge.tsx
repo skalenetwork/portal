@@ -35,10 +35,10 @@ import {
   CHAINS_META,
   cls,
   cmn,
-  dataclasses,
+  type dataclasses,
   useMetaportStore,
   SkPaper,
-  interfaces,
+  type interfaces,
   TransactionData,
 } from "@skalenetwork/metaport";
 
@@ -52,7 +52,7 @@ function getEmptyTokenParams(): TokenParams {
 }
 
 export default function Bridge() {
-  let [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
   const [tokenParams, setTokenParams] = useState<TokenParams>(
     getEmptyTokenParams(),
   );
@@ -76,9 +76,6 @@ export default function Bridge() {
   const transactionsHistory = useMetaportStore(
     (state) => state.transactionsHistory,
   );
-  const setTransactionsHistory = useMetaportStore(
-    (state) => state.setTransactionsHistory,
-  );
 
   function validChainName(chainName: string | null): boolean {
     if (!chainName) return false;
@@ -91,8 +88,8 @@ export default function Bridge() {
   ): boolean {
     if (!chainName || !appName) return false;
     const chainMeta = CHAINS_META[mpc.config.skaleNetwork];
-    const apps = chainMeta && chainMeta[chainName] && chainMeta[chainName].apps;
-    return !!(apps && apps[appName]);
+    const apps = chainMeta?.[chainName]?.apps;
+    return !!(apps?.[appName]);
   }
 
   useEffect(() => {
@@ -121,13 +118,13 @@ export default function Bridge() {
     setAppName2(validAppName(to, toApp) ? toApp! : undefined!);
 
     if (keyname)
-      setTokenParams({ keyname: keyname, type: type as dataclasses.TokenType });
+      setTokenParams({ keyname, type: type as dataclasses.TokenType });
   }, []);
 
   useEffect(() => {
     if (
       tokens &&
-      tokenParams.type &&
+      (tokenParams.type != null) &&
       tokenParams.keyname &&
       tokens[tokenParams.type] &&
       tokens[tokenParams.type][tokenParams.keyname]
