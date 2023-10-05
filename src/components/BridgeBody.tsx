@@ -19,12 +19,12 @@
 /**
  * @file Portfolio.tsx
  * @copyright SKALE Labs 2023-Present
-*/
+ */
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
-import Collapse from '@mui/material/Collapse';
-import { MAINNET_CHAIN_NAME } from '../core/constants'
+import Collapse from "@mui/material/Collapse";
+import { MAINNET_CHAIN_NAME } from "../core/constants";
 
 import {
   SkPaper,
@@ -47,54 +47,70 @@ import {
   CommunityPool,
   SFuelWarning,
   WrappedTokens,
-  chainBg
-} from '@skalenetwork/metaport';
-
+  chainBg,
+} from "@skalenetwork/metaport";
 
 export default function Main() {
-  const expandedFrom = useCollapseStore((state) => state.expandedFrom)
-  const setExpandedFrom = useCollapseStore((state) => state.setExpandedFrom)
+  const expandedFrom = useCollapseStore((state) => state.expandedFrom);
+  const setExpandedFrom = useCollapseStore((state) => state.setExpandedFrom);
 
-  const expandedTo = useCollapseStore((state) => state.expandedTo)
-  const setExpandedTo = useCollapseStore((state) => state.setExpandedTo)
+  const expandedTo = useCollapseStore((state) => state.expandedTo);
+  const setExpandedTo = useCollapseStore((state) => state.setExpandedTo);
 
-  const expandedCP = useCollapseStore((state) => state.expandedCP)
-  const expandedWT = useCollapseStore((state) => state.expandedWT)
-  const expandedTokens = useCollapseStore((state) => state.expandedTokens)
-  const expandedTH = useCollapseStore((state) => state.expandedTH)
+  const expandedCP = useCollapseStore((state) => state.expandedCP);
+  const expandedWT = useCollapseStore((state) => state.expandedWT);
+  const expandedTokens = useCollapseStore((state) => state.expandedTokens);
+  const expandedTH = useCollapseStore((state) => state.expandedTH);
 
-  const destChains = useMetaportStore((state) => state.destChains)
+  const destChains = useMetaportStore((state) => state.destChains);
 
-  const token = useMetaportStore((state) => state.token)
+  const token = useMetaportStore((state) => state.token);
 
-  const chainName1 = useMetaportStore((state) => state.chainName1)
-  const chainName2 = useMetaportStore((state) => state.chainName2)
-  const setChainName1 = useMetaportStore((state) => state.setChainName1)
-  const setChainName2 = useMetaportStore((state) => state.setChainName2)
+  const chainName1 = useMetaportStore((state) => state.chainName1);
+  const chainName2 = useMetaportStore((state) => state.chainName2);
+  const setChainName1 = useMetaportStore((state) => state.setChainName1);
+  const setChainName2 = useMetaportStore((state) => state.setChainName2);
 
-  const appName1 = useMetaportStore((state) => state.appName1)
-  const appName2 = useMetaportStore((state) => state.appName2)
-  const setAppName1 = useMetaportStore((state) => state.setAppName1)
-  const setAppName2 = useMetaportStore((state) => state.setAppName2)
+  const appName1 = useMetaportStore((state) => state.appName1);
+  const appName2 = useMetaportStore((state) => state.appName2);
+  const setAppName1 = useMetaportStore((state) => state.setAppName1);
+  const setAppName2 = useMetaportStore((state) => state.setAppName2);
 
-  const mpc = useMetaportStore((state) => state.mpc)
-  const tokenBalances = useMetaportStore((state) => state.tokenBalances)
+  const mpc = useMetaportStore((state) => state.mpc);
+  const tokenBalances = useMetaportStore((state) => state.tokenBalances);
 
-  const errorMessage = useMetaportStore((state) => state.errorMessage)
+  const errorMessage = useMetaportStore((state) => state.errorMessage);
 
-  const transferInProgress = useMetaportStore((state) => state.transferInProgress)
+  const transferInProgress = useMetaportStore(
+    (state) => state.transferInProgress,
+  );
 
-  const sFuelOk = useSFuelStore((state) => state.sFuelOk)
+  const sFuelOk = useSFuelStore((state) => state.sFuelOk);
 
-  const theme = useUIStore((state) => state.theme)
+  const theme = useUIStore((state) => state.theme);
 
-  const { address } = useWagmiAccount()
+  const { address } = useWagmiAccount();
 
-  const showFrom = !expandedTo && !expandedTokens && !errorMessage && !expandedCP && !expandedTH
+  const showFrom =
+    !expandedTo &&
+    !expandedTokens &&
+    !errorMessage &&
+    !expandedCP &&
+    !expandedTH;
   const showTo =
-    !expandedFrom && !expandedTokens && !errorMessage && !expandedCP && !expandedWT && !expandedTH
+    !expandedFrom &&
+    !expandedTokens &&
+    !errorMessage &&
+    !expandedCP &&
+    !expandedWT &&
+    !expandedTH;
   const showInput =
-    !expandedFrom && !expandedTo && !errorMessage && !expandedCP && !expandedWT && !expandedTH
+    !expandedFrom &&
+    !expandedTo &&
+    !errorMessage &&
+    !expandedCP &&
+    !expandedWT &&
+    !expandedTH;
   const showSwitch =
     !expandedFrom &&
     !expandedTo &&
@@ -102,7 +118,7 @@ export default function Main() {
     !errorMessage &&
     !expandedCP &&
     !expandedWT &&
-    !expandedTH
+    !expandedTH;
   const showStepper =
     !expandedFrom &&
     !expandedTo &&
@@ -112,14 +128,14 @@ export default function Main() {
     sFuelOk &&
     !expandedWT &&
     !expandedTH &&
-    !!address
+    !!address;
   const showCP =
     !expandedFrom &&
     !expandedTo &&
     !expandedTokens &&
     !expandedTH &&
     chainName2 === MAINNET_CHAIN_NAME &&
-    !expandedWT
+    !expandedWT;
   const showWT =
     !expandedFrom &&
     !expandedTo &&
@@ -128,12 +144,16 @@ export default function Main() {
     !expandedCP &&
     !expandedTH &&
     sFuelOk &&
-    !!address
-  const showError = !!errorMessage
+    !!address;
+  const showError = !!errorMessage;
 
-  const grayBg = 'rgb(136 135 135 / 15%)'
-  const sourceBg = theme.vibrant ? chainBg(mpc.config.skaleNetwork, chainName1, appName1) : grayBg
-  const destBg = theme.vibrant ? chainBg(mpc.config.skaleNetwork, chainName2, appName2) : grayBg
+  const grayBg = "rgb(136 135 135 / 15%)";
+  const sourceBg = theme.vibrant
+    ? chainBg(mpc.config.skaleNetwork, chainName1, appName1)
+    : grayBg;
+  const destBg = theme.vibrant
+    ? chainBg(mpc.config.skaleNetwork, chainName2, appName2)
+    : grayBg;
 
   return (
     <div>
@@ -143,12 +163,25 @@ export default function Main() {
       <SkPaper background={sourceBg} className={cmn.nop}>
         <Collapse in={showFrom}>
           <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
-            <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>From</p>
-            {token ? <TokenBalance
-              balance={tokenBalances[token.keyname]}
-              symbol={token.meta.symbol}
-              decimals={token.meta.decimals ?? ''}
-            /> : null}
+            <p
+              className={cls(
+                cmn.nom,
+                cmn.p,
+                cmn.p4,
+                cmn.pSec,
+                cmn.flex,
+                cmn.flexg,
+              )}
+            >
+              From
+            </p>
+            {token ? (
+              <TokenBalance
+                balance={tokenBalances[token.keyname]}
+                symbol={token.meta.symbol}
+                decimals={token.meta.decimals ?? ""}
+              />
+            ) : null}
           </div>
           <ChainsList
             config={mpc.config}
@@ -162,7 +195,7 @@ export default function Main() {
             disabledChain={chainName2}
             disabled={transferInProgress}
             from={true}
-            size='md'
+            size="md"
           />
         </Collapse>
 
@@ -174,14 +207,25 @@ export default function Main() {
         </Collapse>
       </SkPaper>
 
-      <Collapse in={showSwitch} >
+      <Collapse in={showSwitch}>
         <SwitchDirection />
       </Collapse>
 
       <Collapse in={showTo}>
         <SkPaper background={destBg} className={cmn.nop}>
           <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
-            <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>To</p>
+            <p
+              className={cls(
+                cmn.nom,
+                cmn.p,
+                cmn.p4,
+                cmn.pSec,
+                cmn.flex,
+                cmn.flexg,
+              )}
+            >
+              To
+            </p>
             <DestTokenBalance />
           </div>
           <ChainsList
@@ -195,7 +239,7 @@ export default function Main() {
             app={appName2}
             disabledChain={chainName1}
             disabled={transferInProgress}
-            size='md'
+            size="md"
           />
         </SkPaper>
       </Collapse>
@@ -211,15 +255,15 @@ export default function Main() {
         </SkPaper>
       </Collapse>
 
-      <Collapse in={!!address} >
+      <Collapse in={!!address}>
         <SFuelWarning />
       </Collapse>
 
       {!address ? <SkConnect /> : null}
 
-      <Collapse in={showStepper} className={cmn.mtop20} >
+      <Collapse in={showStepper} className={cmn.mtop20}>
         <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
       </Collapse>
-
-    </div>)
+    </div>
+  );
 }

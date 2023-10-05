@@ -19,32 +19,37 @@
 /**
  * @file Schain.tsx
  * @copyright SKALE Labs 2022-Present
-*/
+ */
 
-import { useEffect } from 'react';
+import { useEffect } from "react";
 
 import { useParams } from "react-router-dom";
-import Container from '@mui/material/Container';
-import Stack from '@mui/material/Stack';
-import SchainDetails from './SchainDetails';
-import CircularProgress from '@mui/material/CircularProgress';
+import Container from "@mui/material/Container";
+import Stack from "@mui/material/Stack";
+import SchainDetails from "./SchainDetails";
+import CircularProgress from "@mui/material/CircularProgress";
 
-import { cmn, cls, MetaportCore, CHAINS_META, interfaces } from '@skalenetwork/metaport';
-
+import {
+  cmn,
+  cls,
+  MetaportCore,
+  CHAINS_META,
+  interfaces,
+} from "@skalenetwork/metaport";
 
 export default function Schain(props: {
-  loadSchains: any,
-  schains: any[],
-  mpc: MetaportCore
+  loadSchains: any;
+  schains: any[];
+  mpc: MetaportCore;
 }) {
   let { name } = useParams();
-  name = name ?? ''
+  name = name ?? "";
 
-  const chain = props.schains.find(schain => schain[0] === name);
+  const chain = props.schains.find((schain) => schain[0] === name);
 
   useEffect(() => {
     if (props.schains.length === 0) {
-      props.loadSchains()
+      props.loadSchains();
     }
   }, []);
 
@@ -53,27 +58,24 @@ export default function Schain(props: {
       <div className="fullscreen-msg">
         <div className={cls(cmn.flex)}>
           <div className={cls(cmn.flex, cmn.flexcv)}>
-            <CircularProgress className='fullscreen-spin' />
+            <CircularProgress className="fullscreen-spin" />
           </div>
           <div className={cls(cmn.flex, cmn.flexcv)}>
-            <h3 className='fullscreen-msg-text'>
-              Loading SKALE Chain
-            </h3>
+            <h3 className="fullscreen-msg-text">Loading SKALE Chain</h3>
           </div>
         </div>
-
       </div>
     );
-  };
+  }
 
   if (!chain) {
     return <h1>No such chain: {name}</h1>;
   }
 
-  const chainsMeta: interfaces.ChainsMetadataMap = CHAINS_META[props.mpc.config.skaleNetwork]
+  const chainsMeta: interfaces.ChainsMetadataMap =
+    CHAINS_META[props.mpc.config.skaleNetwork];
 
   return (
-
     <Container maxWidth="md">
       <Stack spacing={0}>
         <SchainDetails
@@ -83,6 +85,5 @@ export default function Schain(props: {
         />
       </Stack>
     </Container>
-  )
+  );
 }
-

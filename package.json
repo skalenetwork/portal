@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\""
   },
   "dependencies": {
     "@mdx-js/rollup": "^2.3.0",
@@ -16,6 +17,9 @@
     "@skalenetwork/metaport": "2.0.0-preview.8",
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@vercel/analytics": "^1.0.2",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-standard-with-typescript": "^39.1.0",
+    "prettier": "^3.0.3",
     "react": "^18.2.0",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",

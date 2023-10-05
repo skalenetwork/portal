@@ -19,25 +19,29 @@
 /**
  * @file CategorySection.tsx
  * @copyright SKALE Labs 2022-Present
-*/
+ */
 
-import Box from '@mui/material/Box';
-import Grid from '@mui/material/Grid';
+import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
 
-import ChainCard from './ChainCard';
-
+import ChainCard from "./ChainCard";
 
 export default function CategorySection(props: any) {
   if (!props.schains || props.schains.length === 0) return;
   return (
     <div className="marg-top-40">
-      <h3 className='card-header no-marg-top'>
-        {props.category}
-      </h3>
+      <h3 className="card-header no-marg-top">{props.category}</h3>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={3}>
           {props.schains.map((schain: any[]) => (
-            <Grid key={schain[0]} className='fl-centered dappCard' item md={3} sm={6} xs={6}>
+            <Grid
+              key={schain[0]}
+              className="fl-centered dappCard"
+              item
+              md={3}
+              sm={6}
+              xs={6}
+            >
               <ChainCard skaleNetwork={props.skaleNetwork} schain={schain} />
             </Grid>
           ))}

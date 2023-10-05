@@ -19,24 +19,23 @@
 /**
  * @file Header.js
  * @copyright SKALE Labs 2021-Present
-*/
+ */
 
-import AppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
-import Chip from '@mui/material/Chip';
+import AppBar from "@mui/material/AppBar";
+import Toolbar from "@mui/material/Toolbar";
+import Chip from "@mui/material/Chip";
 
 import { Link } from "react-router-dom";
 
-import logo from './assets/skale_lg.svg';
+import logo from "./assets/skale_lg.svg";
 
-import { cmn, cls } from '@skalenetwork/metaport';
+import { cmn, cls } from "@skalenetwork/metaport";
 
-import HelpZen from './components/HelpZen';
-import MoreMenu from './components/MoreMenu';
-import AccountMenu from './components/AccountMenu';
+import HelpZen from "./components/HelpZen";
+import MoreMenu from "./components/MoreMenu";
+import AccountMenu from "./components/AccountMenu";
 
-import { MAINNET_CHAIN_NAME } from './core/constants';
-
+import { MAINNET_CHAIN_NAME } from "./core/constants";
 
 export default function Header(props: { address: `0x${string}` | undefined }) {
   return (
@@ -53,21 +52,19 @@ export default function Header(props: { address: `0x${string}` | undefined }) {
           </Link>
         </div>
         <div className={cls(cmn.flex, cmn.flexg, cmn.mleft10)}>
-          {
-            'mainnet' !== MAINNET_CHAIN_NAME ?
-              <Chip
-                label="TESTNET"
-                color="primary"
-                size='small'
-                className='br__chipXs br__chipGray'
-              /> : null
-          }
+          {"mainnet" !== MAINNET_CHAIN_NAME ? (
+            <Chip
+              label="TESTNET"
+              color="primary"
+              size="small"
+              className="br__chipXs br__chipGray"
+            />
+          ) : null}
         </div>
         <AccountMenu address={props.address} />
         <HelpZen />
         <MoreMenu />
       </Toolbar>
     </AppBar>
-  )
-
+  );
 }

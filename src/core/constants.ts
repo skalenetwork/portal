@@ -19,20 +19,20 @@
 /**
  * @file constants.js
  * @copyright SKALE Labs 2022-Present
-*/
+ */
 
+export const MAINNET_CHAIN_NAME = "mainnet";
 
-export const MAINNET_CHAIN_NAME = 'mainnet'
-
-export const DASHBOARD_URL = "https://app.geckoboard.com/v5/dashboards/LISYTRBEVGCVGL57/inception"
+export const DASHBOARD_URL =
+  "https://app.geckoboard.com/v5/dashboards/LISYTRBEVGCVGL57/inception";
 
 export const BRIDGE_PAGES = [
-    "/transfer",
-    "/bridge/history",
-    "/portfolio",
-    "/other/faq"
-]
+  "/transfer",
+  "/bridge/history",
+  "/portfolio",
+  "/other/faq",
+];
 
-import FAQ from '../faq.json'
+import FAQ from "../faq.json";
 
-export { FAQ }
+export { FAQ };

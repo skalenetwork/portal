@@ -19,33 +19,36 @@
 /**
  * @file Portal.tsx
  * @copyright SKALE Labs 2023-Present
-*/
+ */
 
-import { useState } from 'react';
+import { useState } from "react";
 
-import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
 
-import Header from './Header';
-import SkDrawer from './SkDrawer';
-import Router from './Router';
-import TermsModal from './components/TermsModal';
+import Header from "./Header";
+import SkDrawer from "./SkDrawer";
+import Router from "./Router";
+import TermsModal from "./components/TermsModal";
 
-import { useMetaportStore, useWagmiAccount } from '@skalenetwork/metaport'
-
+import { useMetaportStore, useWagmiAccount } from "@skalenetwork/metaport";
 
 export default function Portal() {
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
-  const mpc = useMetaportStore((state) => state.mpc)
-  const { address } = useWagmiAccount()
-  if (!mpc) return <div></div>
+  const mpc = useMetaportStore((state) => state.mpc);
+  const { address } = useWagmiAccount();
+  if (!mpc) return <div></div>;
   return (
-    <Box sx={{ display: 'flex' }} className='AppWrap'>
+    <Box sx={{ display: "flex" }} className="AppWrap">
       <CssBaseline />
-      <TermsModal mpc={mpc} termsAccepted={termsAccepted} setTermsAccepted={setTermsAccepted} />
+      <TermsModal
+        mpc={mpc}
+        termsAccepted={termsAccepted}
+        setTermsAccepted={setTermsAccepted}
+      />
       <Header address={address} />
       <SkDrawer />
       <Router />
-    </Box >
-  )
+    </Box>
+  );
 }

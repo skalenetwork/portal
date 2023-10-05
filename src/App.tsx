@@ -19,31 +19,31 @@
 /**
  * @file App.tsx
  * @copyright SKALE Labs 2023-Present
-*/
+ */
 
-import './App.scss';
+import "./App.scss";
 
-import { MetaportProvider, getMetaportTheme } from '@skalenetwork/metaport';
-import '@skalenetwork/metaport/dist/style.css'
+import { MetaportProvider, getMetaportTheme } from "@skalenetwork/metaport";
+import "@skalenetwork/metaport/dist/style.css";
 
-import { StyledEngineProvider } from '@mui/material/styles'
-import { ThemeProvider } from '@mui/material/styles'
+import { StyledEngineProvider } from "@mui/material/styles";
+import { ThemeProvider } from "@mui/material/styles";
 
-import Portal from './Portal';
+import Portal from "./Portal";
 
-import { METAPORT_CONFIG } from './metadata/metaportConfig';
-import { createMuiTheme } from './core/themes';
+import { METAPORT_CONFIG } from "./metadata/metaportConfig";
+import { createMuiTheme } from "./core/themes";
 
 METAPORT_CONFIG.mainnetEndpoint = import.meta.env.VITE_MAINNET_ENDPOINT;
 
 const mpTheme = getMetaportTheme(METAPORT_CONFIG.theme);
 const muiTheme = createMuiTheme(mpTheme);
-const isDarkMode = mpTheme.mode === 'dark';
+const isDarkMode = mpTheme.mode === "dark";
 
 export default function App() {
   return (
     <div
-      className={'bridge ' + (isDarkMode ? 'bridge-dark' : 'bridge-light')}
+      className={"bridge " + (isDarkMode ? "bridge-dark" : "bridge-light")}
       style={{ background: mpTheme.background }}
     >
       <StyledEngineProvider injectFirst>
@@ -54,5 +54,5 @@ export default function App() {
         </ThemeProvider>
       </StyledEngineProvider>
     </div>
-  )
+  );
 }

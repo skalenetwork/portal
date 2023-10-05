@@ -297,12 +297,14 @@ body::-webkit-scrollbar {
   font-size: 0.7125rem !important;
 
   svg {
-    width: 12pt;
-    height: 12pt;
+    width: 10pt;
+    height: 10pt;
   }
 
   .MuiButton-endIcon {
-    margin: 0 !important;
+    margin-left: 5px !important;
+    margin-right: 2px !important;
+    // margin: 0 !important;
   }
 }
 
@@ -314,8 +316,8 @@ body::-webkit-scrollbar {
 
   svg {
     color: white !important;
-    width: 14pt;
-    height: 14pt;
+    width: 12pt;
+    height: 12pt;
   }
 }
 

@@ -19,21 +19,20 @@
 /**
  * @file CopySurface.tsx
  * @copyright SKALE Labs 2021-Present
-*/
+ */
 
-import React, { useState } from 'react';
+import React, { useState } from "react";
 
-import { CopyToClipboard } from 'react-copy-to-clipboard';
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
-import Tooltip from '@mui/material/Tooltip';
-import Snackbar from '@mui/material/Snackbar';
-import ButtonBase from '@mui/material/ButtonBase';
+import Tooltip from "@mui/material/Tooltip";
+import Snackbar from "@mui/material/Snackbar";
+import ButtonBase from "@mui/material/ButtonBase";
 
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-
+import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
 export default function CopySurface(props: any) {
   const [copy, setCopied] = useState(false);
@@ -43,7 +42,7 @@ export default function CopySurface(props: any) {
   };
 
   const handleClose = (_: any, reason: any) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
     setCopied(false);
@@ -52,10 +51,10 @@ export default function CopySurface(props: any) {
   const action = (
     <React.Fragment>
       <IconButton
-        // size="small"
-        // aria-label="close"
-        // color="inherit"
-        // onClick={handleClose}
+      // size="small"
+      // aria-label="close"
+      // color="inherit"
+      // onClick={handleClose}
       >
         <CloseIcon fontSize="small" />
       </IconButton>
@@ -64,18 +63,14 @@ export default function CopySurface(props: any) {
 
   return (
     <div>
-      <CopyToClipboard text={props.url}
-        onCopy={handleClick}>
+      <CopyToClipboard text={props.url} onCopy={handleClick}>
         <Tooltip title="Click to copy to clipboard">
-          <ButtonBase className='copyBoard flex-container'>
-
+          <ButtonBase className="copyBoard flex-container">
             <div className="overflow-auto flex-container fl-centered-vert fl-grow">
-              <code>
-                {props.url}
-              </code>
+              <code>{props.url}</code>
             </div>
             <div className="flex-container">
-              <ContentCopyIcon className='copy-icon marg-left-10' />
+              <ContentCopyIcon className="copy-icon marg-left-10" />
             </div>
           </ButtonBase>
         </Tooltip>
@@ -84,11 +79,10 @@ export default function CopySurface(props: any) {
         open={copy}
         autoHideDuration={6000}
         onClose={handleClose}
-        message='URL copied to clipboard'
+        message="URL copied to clipboard"
         action={action}
         // severity="success"
       />
     </div>
-
   );
 }

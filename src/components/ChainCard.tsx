@@ -19,48 +19,107 @@
 /**
  * @file ChainCard.tsx
  * @copyright SKALE Labs 2022-Present
-*/
+ */
 
 import { Link } from "react-router-dom";
-import { cmn, cls, ChainIcon, chainBg, getChainAlias, BASE_EXPLORER_URLS, interfaces } from '@skalenetwork/metaport';
+import {
+  cmn,
+  cls,
+  ChainIcon,
+  chainBg,
+  getChainAlias,
+  BASE_EXPLORER_URLS,
+  interfaces,
+} from "@skalenetwork/metaport";
 
-import Button from '@mui/material/Button';
-import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded';
+import Button from "@mui/material/Button";
+import KeyboardArrowRightRoundedIcon from "@mui/icons-material/KeyboardArrowRightRounded";
+import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
+import UnfoldMoreRoundedIcon from "@mui/icons-material/UnfoldMoreRounded";
 
-import { getExplorerUrl } from './SchainDetails'
+import { getExplorerUrl } from "./SchainDetails";
 
 export default function ChainCard(props: {
-  skaleNetwork: interfaces.SkaleNetwork,
-  schain: any[]
+  skaleNetwork: interfaces.SkaleNetwork;
+  schain: any[];
 }) {
   const explorerUrl = getExplorerUrl(
     BASE_EXPLORER_URLS[props.skaleNetwork],
-    props.schain[0]
-  )
+    props.schain[0],
+  );
   return (
     <div>
-      <div className='fl-centered'>
-        <div className={cls('br__tile', cmn.flex)} style={{ background: chainBg(props.skaleNetwork, props.schain[0]) }}>
-          <Link to={'/chains/' + props.schain[0]} className={cls(cmn.flex, cmn.flexg, cmn.flexc, 'br__tileLogo')}>
+      <div className="fl-centered">
+        <div
+          className={cls("br__tile", cmn.flex)}
+          style={{ background: chainBg(props.skaleNetwork, props.schain[0]) }}
+        >
+          <Link
+            to={"/chains/" + props.schain[0]}
+            className={cls(cmn.flex, cmn.flexg, cmn.flexc, "br__tileLogo")}
+          >
             <div className={cls(cmn.flex, cmn.flexg, cmn.flexc)}>
               <ChainIcon
                 skaleNetwork={props.skaleNetwork}
                 chainName={props.schain[0]}
-                size='lg'
+                size="lg"
               />
             </div>
           </Link>
-          <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mleft10, 'br__tileBott', 'fullWidth')}>
-            <div className={cls(cmn.flex, cmn.flexg)}>
-              <a target="_blank" rel="noreferrer" href={explorerUrl} className='undec'>
-                <Button endIcon={<KeyboardArrowRightRoundedIcon />} size='small' className='cardBtn'>
-                  Explorer
-                </Button>
-              </a>
+          <div
+            className={cls(
+              cmn.flex,
+              cmn.flexcv,
+              cmn.mbott10,
+              cmn.mleft10,
+              "br__tileBott",
+              "fullWidth",
+            )}
+          >
+            <div className={cls(cmn.fflex, cmn.flexg)}>
+              <div>
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href={explorerUrl}
+                  className="undec"
+                >
+                  <Button
+                    endIcon={<ArrowOutwardIcon />}
+                    size="small"
+                    className="cardBtn"
+                  >
+                    Explorer
+                  </Button>
+                </a>
+                <a
+                  target="_blank"
+                  rel="noreferrer"
+                  href={explorerUrl}
+                  className={cls(cmn.mleft5)}
+                >
+                  <Button
+                    endIcon={<UnfoldMoreRoundedIcon />}
+                    size="small"
+                    className="cardBtn"
+                  >
+                    Info
+                  </Button>
+                </a>
+              </div>
             </div>
           </div>
         </div>
-        <p className={cls(cmn.p, cmn.pCent, cmn.p3, cmn.pPrim, cmn.mtop10, cmn.p600)}>
+        <p
+          className={cls(
+            cmn.p,
+            cmn.pCent,
+            cmn.p3,
+            cmn.pPrim,
+            cmn.mtop10,
+            cmn.p600,
+          )}
+        >
           {getChainAlias(props.skaleNetwork, props.schain[0])}
         </p>
       </div>
