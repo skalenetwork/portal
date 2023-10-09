@@ -24,23 +24,53 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
-import ChainCard from "./ChainCard";
+import VideogameAssetRoundedIcon from '@mui/icons-material/VideogameAssetRounded';
+import HubRoundedIcon from '@mui/icons-material/HubRounded';
+import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
+import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded';
 
-export default function CategorySection(props: any) {
+import ChainCard from "./ChainCard";
+import { cls, cmn, interfaces, styles, getChainAlias } from "@skalenetwork/metaport";
+
+
+const CATEGORY_ICON: any = {
+  hubs: <HubRoundedIcon />,
+  games: <VideogameAssetRoundedIcon />,
+  apps: <ExploreRoundedIcon />,
+  other: <GridViewRoundedIcon />
+}
+
+
+export default function CategorySection(props: {
+  schains: any,
+  category: string,
+  skaleNetwork: interfaces.SkaleNetwork
+}) {
   if (!props.schains || props.schains.length === 0) return;
+  const schains = props.schains.sort((a: any[], b: any[]) => {
+    const aliasA = getChainAlias(props.skaleNetwork, a[0]);
+    const aliasB = getChainAlias(props.skaleNetwork, b[0]);
+    return aliasA.localeCompare(aliasB);
+  });
   return (
-    <div className="marg-top-40">
-      <h3 className="card-header no-marg-top">{props.category}</h3>
+    <div>
+      <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop20, cmn.mbott20)}>
+        <div className={cls(cmn.mri5, cmn.flexcv, cmn.flex, styles.chainIcons)}>
+          {CATEGORY_ICON[props.category]}
+        </div>
+        <h3 className={cls(cmn.nom, cmn.cap)}>{props.category}</h3>
+      </div>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={3}>
-          {props.schains.map((schain: any[]) => (
+          {schains.map((schain: any[]) => (
             <Grid
               key={schain[0]}
               className="fl-centered dappCard"
               item
-              md={3}
+              lg={3}
+              md={4}
               sm={6}
-              xs={6}
+              xs={12}
             >
               <ChainCard skaleNetwork={props.skaleNetwork} schain={schain} />
             </Grid>

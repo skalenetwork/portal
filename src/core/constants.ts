@@ -21,18 +21,20 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import FAQ from "../faq.json";
+import FAQ from "../faq.json"
 
-export const MAINNET_CHAIN_NAME = "mainnet";
+export const MAINNET_CHAIN_NAME = "mainnet"
 
 export const DASHBOARD_URL =
-  "https://app.geckoboard.com/v5/dashboards/LISYTRBEVGCVGL57/inception";
+  "https://app.geckoboard.com/v5/dashboards/LISYTRBEVGCVGL57/inception"
 
 export const BRIDGE_PAGES = [
   "/transfer",
   "/bridge/history",
   "/portfolio",
   "/other/faq",
-];
+]
 
-export { FAQ };
+import * as MAINNET_CHAIN_LOGOS from '../meta/logos'
+
+export { FAQ, MAINNET_CHAIN_LOGOS };

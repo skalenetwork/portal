@@ -25,7 +25,6 @@ import { Link } from "react-router-dom";
 import {
   cmn,
   cls,
-  ChainIcon,
   chainBg,
   getChainAlias,
   BASE_EXPLORER_URLS,
@@ -36,7 +35,11 @@ import Button from "@mui/material/Button";
 import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import UnfoldMoreRoundedIcon from "@mui/icons-material/UnfoldMoreRounded";
 
+import ChainLogo from "./ChainLogo";
 import { getExplorerUrl } from "./SchainDetails";
+
+import { MAINNET_CHAIN_LOGOS } from '../core/constants'
+
 
 export default function ChainCard(props: {
   skaleNetwork: interfaces.SkaleNetwork;
@@ -50,20 +53,21 @@ export default function ChainCard(props: {
     <div>
       <div className="fl-centered">
         <div
-          className={cls("br__tile", cmn.flex)}
+          className={cls("br__tile")}
           style={{ background: chainBg(props.skaleNetwork, props.schain[0]) }}
         >
           <Link
             to={"/chains/" + props.schain[0]}
-            className={cls(cmn.flex, cmn.flexg, cmn.flexc, "br__tileLogo")}
+            className={cls("br__tileLogo", cmn.flex)}
           >
-            <div className={cls(cmn.flex, cmn.flexg, cmn.flexc)}>
-              <ChainIcon
-                skaleNetwork={props.skaleNetwork}
+            <div className={cls(cmn.flex, cmn.flexg)}></div>
+            <div className={cls(cmn.flex, cmn.flexcv, 'inheritSize')}>
+              <ChainLogo
                 chainName={props.schain[0]}
-                size="lg"
+                logos={MAINNET_CHAIN_LOGOS}
               />
             </div>
+            <div className={cls(cmn.flex, cmn.flexg)}></div>
           </Link>
           <div
             className={cls(
@@ -91,11 +95,9 @@ export default function ChainCard(props: {
                     Explorer
                   </Button>
                 </a>
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  href={explorerUrl}
-                  className={cls(cmn.mleft5)}
+                <Link
+                  to={"/chains/" + props.schain[0]}
+                  style={{ marginLeft: '3px' }}
                 >
                   <Button
                     endIcon={<UnfoldMoreRoundedIcon />}
@@ -104,7 +106,7 @@ export default function ChainCard(props: {
                   >
                     Info
                   </Button>
-                </a>
+                </Link>
               </div>
             </div>
           </div>

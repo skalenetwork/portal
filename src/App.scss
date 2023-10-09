@@ -116,18 +116,58 @@ body {
   z-index: 99999 !important;
 }
 
+
+.br__modalWrap {
+  height: 85vh;
+  padding: 20px !important;
+  display: flex;
+  /* relevant part */
+  flex-direction: column;
+  /* relevant part */
+  overflow: hidden;
+  /* relevant part */
+}
+
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .br__modalWrap {
+    height: 100vh;
+  }
+}
+
+
+
+.br__modalInner {
+  max-height: calc(90vh - 300px);
+  display: flex;
+  /* relevant part */
+  flex-direction: column;
+  /* relevant part */
+  overflow: hidden;
+}
+
+.scrollable {
+  display: flex;
+  /* relevant part */
+  flex-direction: column;
+  /* relevant part */
+  overflow: hidden;
+}
+
 .br__modal {
   .MuiContainer-root {
     padding: 0px !important;
   }
 
   .br__modalScroll {
-    height: 25vh;
-    overflow-y: scroll !important;
+    height: 100%;
+    overflow-y: auto;
   }
 
   p {
-    font-size: 0.9rem;
+    font-size: .8025rem !important;
+    letter-spacing: .02857em !important;
+    line-height: 1.6 !important;
+    font-weight: 500;
   }
 
   h2 {
@@ -196,8 +236,6 @@ body::-webkit-scrollbar {
 }
 
 .br__tile {
-  position: relative;
-  width: 100%;
   height: 140px;
   border-radius: 25px !important;
   border: 1px $border-color solid !important;
@@ -207,9 +245,9 @@ body::-webkit-scrollbar {
   height: 95px;
 
   img {
-    max-height: 80%;
-    max-width: 80%;
-    text-align: center;
+    max-height: 100%;
+    max-width: 100%;
+    padding: 20px;
   }
 }
 
@@ -294,7 +332,7 @@ body::-webkit-scrollbar {
   text-transform: none !important;
   color: white !important;
   padding: 5px 10px 5px 15px !important;
-  font-size: 0.7125rem !important;
+  font-size: 0.6125rem !important;
 
   svg {
     width: 10pt;
@@ -342,4 +380,49 @@ code {
 
 .overflow-auto {
   overflow: auto;
+}
+
+
+.inheritSize {
+  width: inherit;
+  height: inherit;
+}
+
+.br__tileDefaultLogo {
+  height: inherit !important;
+  width: inherit !important;
+
+  .paper {
+    text-align: center !important;
+    border-radius: 20px !important;
+    height: inherit !important;
+    width: inherit !important;
+    margin: 20px !important;
+  }
+}
+
+.modalBlock {
+  background-color: rgb(10 10 10 / 85%) !important;
+
+  svg {
+    width: 20pt;
+    height: 20pt;
+
+  }
+}
+
+.modalBlock1 {
+  background: linear-gradient(151deg, rgb(22 15 32 / 85%) 10%, rgba(10, 10, 10, 0.85) 100%) !important;
+}
+
+.modalBlock2 {
+  background: linear-gradient(151deg, rgb(27 24 11 / 85%) 10%, rgb(10 10 10 / 85%) 100%) !important;
+}
+
+.modalBlock3 {
+  background: linear-gradient(151deg, rgb(10 25 16 / 85%), rgba(10, 10, 10, 0.85) 100%) !important;
+}
+
+.modalBlock4 {
+  background: linear-gradient(151deg, rgb(12 24 34 / 95%), rgba(10, 10, 10, 0.95) 100%) !important;
 }

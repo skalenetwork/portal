@@ -33,7 +33,7 @@ export default function Chains(props: {
     return (
       <div className="fullscreen-msg">
         <div className={cls(cmn.flex)}>
-          <div className={cls(cmn.flex, cmn.flexcv)}>
+          <div className={cls(cmn.flex, cmn.flexcv, cmn.mri20)}>
             <CircularProgress className="fullscreen-spin" />
           </div>
           <div className={cls(cmn.flex, cmn.flexcv)}>
@@ -48,15 +48,15 @@ export default function Chains(props: {
     <Container maxWidth="md">
       <Stack spacing={0}>
         <div className={cls(cmn.flex)}>
-          <h2 className={cls(cmn.nom)}>Chains</h2>
+          <h2 className={cls(cmn.nom)}>SKALE Chains</h2>
         </div>
         <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-          SKALE Chains overview - block explorer links, endpoints and more
+          Connect, get block explorer links and endpoints
         </p>
         <div className={cls(cmn.mbott20)}>
           <CategorySection
             skaleNetwork={props.mpc.config.skaleNetwork}
-            category="Hubs"
+            category="hubs"
             schains={props.schains.filter(
               (schain) =>
                 chainsMeta[schain[0]] &&
@@ -65,7 +65,7 @@ export default function Chains(props: {
           />
           <CategorySection
             skaleNetwork={props.mpc.config.skaleNetwork}
-            category="Games"
+            category="games"
             schains={props.schains.filter(
               (schain) =>
                 chainsMeta[schain[0]] &&
@@ -74,7 +74,7 @@ export default function Chains(props: {
           />
           <CategorySection
             skaleNetwork={props.mpc.config.skaleNetwork}
-            category="Apps"
+            category="apps"
             schains={props.schains.filter(
               (schain) =>
                 chainsMeta[schain[0]] &&
@@ -83,7 +83,7 @@ export default function Chains(props: {
           />
           <CategorySection
             skaleNetwork={props.mpc.config.skaleNetwork}
-            category="Other chains"
+            category="other"
             schains={props.schains.filter((schain) => !chainsMeta[schain[0]])}
           />
         </div>

@@ -24,6 +24,8 @@ import {
   getHistoryFromStorage,
   setHistoryToStorage,
 } from "./core/transferHistory";
+import chainsJson from './chainsJson.json';
+
 
 export default function Router() {
   const [schains, setSchains] = useState<any[]>([]);
@@ -47,8 +49,8 @@ export default function Router() {
   }, [transfersHistory]);
 
   async function loadSchains() {
-    const response = await fetch(`https://${endpoint}/files/chains.json`);
-    const chainsJson = await response.json();
+    // const response = await fetch(`https://${endpoint}/files/chains.json`);
+    // const chainsJson = await response.json();
     const schains = [];
     for (const chain of chainsJson) {
       schains.push(chain.schain);

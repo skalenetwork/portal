@@ -1,0 +1,4 @@
+[submodule "skale-network"]
+	path = skale-network
+	url = https://github.com/skalenetwork/skale-network.git
+	branch = add-additional-metadata

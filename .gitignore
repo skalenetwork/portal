@@ -30,3 +30,5 @@ src/meta/
 src/metadata/chainsData.json
 src/metadata/faucet.json
 .vercel
+
+chainsJson.json

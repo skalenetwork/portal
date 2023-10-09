@@ -28,7 +28,13 @@ import Modal from "@mui/material/Modal";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import Link from "@mui/material/Link";
+import Grid from "@mui/material/Grid";
+import Box from "@mui/material/Box";
 
+import DesktopMacRoundedIcon from '@mui/icons-material/DesktopMacRounded';
+import KeyRoundedIcon from '@mui/icons-material/KeyRounded';
+import LockRoundedIcon from '@mui/icons-material/LockRounded';
+import GradingRoundedIcon from '@mui/icons-material/GradingRounded';
 import {
   type MetaportCore,
   SkPaper,
@@ -37,7 +43,7 @@ import {
   styles,
 } from "@skalenetwork/metaport";
 
-import { MAINNET_CHAIN_NAME, BRIDGE_PAGES } from "../../core/constants";
+import { BRIDGE_PAGES } from "../../core/constants";
 import TermsOfService from "../Terms/terms-of-service.mdx";
 import logo from "../../assets/skale_lg.svg";
 
@@ -83,51 +89,70 @@ export default function TermsModal(props: {
     <Modal open={!props.termsAccepted} className="br__modal">
       <div style={style} className={cls(cmn.flex, cmn.flexcv)}>
         <Container maxWidth="md">
-          <SkPaper gray>
-            <SkPaper>
-              <div className={cls(cmn.mtop20, cmn.mleft20)}>
-                <img
-                  src={logo}
-                  className={cls(cmn.mbott20, "logo")}
-                  alt="logo"
-                />
-                {props.mpc.config.skaleNetwork !== MAINNET_CHAIN_NAME ? (
-                  <p className={cls(cmn.p, cmn.p2)}>
-                    ❗ THIS IS A TEST WEBSITE
-                  </p>
-                ) : (
-                  <div></div>
-                )}
-                <p className={cls(cmn.p, cmn.p2, cmn.nom)}>
-                  🖥️ For Desktop Use Only <br />
-                  <br />
-                  SKALE will NEVER ask you for your seed phrase or private keys.{" "}
-                  <br />
-                  <br />
-                  Please make sure you are connected to the correct bridge and
-                  only use this official link:{" "}
-                  <Link
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://bridge.skale.space/"
-                  >
-                    https://bridge.skale.space/
-                  </Link>
-                  <br />
+          <SkPaper gray className='br__modalWrap'>
+            <img
+              src={logo}
+              className={cls(cmn.mbott20, cmn.mtop10, cmn.mleft5, "logo")}
+              alt="logo"
+            />
+            <Box >
+              <Grid container spacing={2}>
+                <Grid item md={3} sm={6} xs={12}>
+                  <SkPaper className={cls(styles.fullHeight, 'modalBlock modalBlock1')} >
+                    <div className={cls(cmn.m10)}>
+                      <DesktopMacRoundedIcon style={{ color: 'rgb(163 96 255)' }} />
+                      <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.mtop5)}>
+                        This website is for Desktop Use Only
+                      </p>
+                    </div>
+                  </SkPaper>
+                </Grid>
+                <Grid item md={3} sm={6} xs={12}>
+                  <SkPaper className={cls(styles.fullHeight, 'modalBlock modalBlock2')} >
+                    <div className={cls(cmn.m10)}>
+                      <KeyRoundedIcon style={{ color: 'rgb(238 195 0)' }} />
+                      <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.mtop5)}>
+                        SKALE will NEVER ask you for your seed phrase or private keys
+                      </p>
+                    </div>
+                  </SkPaper>
+                </Grid>
+                <Grid item md={6} sm={6} xs={12}>
+                  <SkPaper className={cls(styles.fullHeight, 'modalBlock modalBlock3')} >
+                    <div className={cls(cmn.m10)}>
+                      <LockRoundedIcon style={{ color: '#14e96a' }} />
+                      <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.mtop5)}>
+                        Make sure you are connected to the correct bridge and only use this official link:
+                        <br />
+                        <Link
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          href="https://bridge.skale.space/"
+                        >
+                          https://bridge.skale.space/
+                        </Link>
+                      </p>
+                    </div>
+                  </SkPaper>
+                </Grid>
+              </Grid>
+            </Box>
+            <SkPaper className={cls(cmn.mtop20, 'br__modalInner modalBlock modalBlock4')} >
+              <div className={cls(cmn.m10, 'scrollable')}>
+                <GradingRoundedIcon style={{ color: '#329cff' }} />
+                <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.p700, cmn.mtop10, 'modalP')}>
                   Before you use the SKALE Bridge, you must review the terms of
                   service carefully and confirm below.
                 </p>
-              </div>
-              <SkPaper background="transparent">
-                <div
-                  id="terms"
-                  className={cls("br__modalScroll", cmn.mtop20, cmn.mleft10)}
-                  style={{ paddingRight: "20px" }}
-                  onScroll={handleTermsScroll}
-                >
-                  <TermsOfService />
+                <div onScroll={handleTermsScroll} className={cls("br__modalScroll", cmn.mtop20)}>
+                  <div
+                    id="terms"
+                    style={{ paddingRight: "20px" }}
+                  >
+                    <TermsOfService />
+                  </div>
                 </div>
-              </SkPaper>
+              </div>
             </SkPaper>
             <Button
               onClick={() => {
@@ -135,7 +160,7 @@ export default function TermsModal(props: {
               }}
               variant="contained"
               disabled={!scrolled}
-              className={cls(styles.btnAction, cmn.mtop10)}
+              className={cls(styles.btnAction, cmn.mtop20)}
               size="large"
             >
               {getAgreeButtonText()}
