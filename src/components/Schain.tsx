@@ -80,6 +80,7 @@ export default function Schain(props: {
       <Stack spacing={0}>
         <SchainDetails
           schainName={name}
+          chain={chain}
           chainMeta={chainsMeta[name]}
           mpc={props.mpc}
         />

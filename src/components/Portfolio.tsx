@@ -36,6 +36,7 @@ import {
   dataclasses,
   type interfaces,
   useWagmiAccount,
+  fromWei
 } from "@skalenetwork/metaport";
 
 export default function Portfolio(props: { mpc: MetaportCore }) {
@@ -68,6 +69,21 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
         ),
       ),
     );
+  }
+
+  function getTotalBalance(token: string) {
+    const totalBalance: bigint = props.mpc.config.chains.reduce((sum: bigint, _, chainIndex) => {
+      if (!balances[chainIndex]) return sum;  // If there's no balance, return the current sum
+      const chainBalance: bigint = balances[chainIndex][token] ? BigInt(balances[chainIndex][token]) : 0n;
+      return sum + chainBalance;
+    }, 0n);  // Initial value as bigint§
+    return totalBalance;
+  }
+
+  function getTokenDecimals(token: string) {
+    const tokenMetadata = props.mpc.config.tokens[token]
+    if (!tokenMetadata || !tokenMetadata.decimals) return '18'
+    return tokenMetadata.decimals
   }
 
   return (
@@ -115,7 +131,11 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                         cmn.pri,
                       )}
                     >
-                      550 {props.mpc.config.tokens[token].symbol}
+                      {fromWei(
+                        getTotalBalance(token).toString(),
+                        getTokenDecimals(token)
+                      )}{" "}
+                      {props.mpc.config.tokens[token].symbol}
                     </p>
                     <p
                       className={cls(
@@ -123,7 +143,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                         cmn.pSec,
                         cmn.p5,
                         cmn.p600,
-                        cmn.pri,
+                        cmn.pri
                       )}
                     >
                       On 2 chains
@@ -132,7 +152,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                 </div>
 
                 <SkPaper gray className={cmn.n}>
-                  {props.mpc.config.chains?.map(
+                  {props.mpc.config.chains.map(
                     (chain: string, index: number) => (
                       <div key={index}>
                         <div
@@ -156,13 +176,10 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                                 cmn.p,
                                 cmn.pPrim,
                                 cmn.p3,
-                                cmn.p600,
+                                cmn.p600
                               )}
                             >
-                              {getChainAlias(
-                                props.mpc.config.skaleNetwork,
-                                chain,
-                              )}
+                              {getChainAlias(props.mpc.config.skaleNetwork, chain)}
                             </p>
                           </div>
                           <div>
@@ -172,12 +189,12 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                                 cmn.pSec,
                                 cmn.p3,
                                 cmn.p600,
-                                cmn.mri5,
+                                cmn.mri5
                               )}
                             >
                               {balances[index] && balances[index][token]
-                                ? balances[index][token].toString()
-                                : ""}{" "}
+                                ? fromWei(balances[index][token].toString(), getTokenDecimals(token)) // todo: use correct decimals
+                                : "0"}{" "}
                               {props.mpc.config.tokens[token].symbol}
                             </p>
                           </div>

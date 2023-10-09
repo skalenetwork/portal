@@ -80,34 +80,32 @@ export default function ChainCard(props: {
             )}
           >
             <div className={cls(cmn.fflex, cmn.flexg)}>
-              <div>
-                <a
-                  target="_blank"
-                  rel="noreferrer"
-                  href={explorerUrl}
-                  className="undec"
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href={explorerUrl}
+                className="undec"
+              >
+                <Button
+                  endIcon={<ArrowOutwardIcon />}
+                  size="small"
+                  className="cardBtn"
                 >
-                  <Button
-                    endIcon={<ArrowOutwardIcon />}
-                    size="small"
-                    className="cardBtn"
-                  >
-                    Explorer
-                  </Button>
-                </a>
-                <Link
-                  to={"/chains/" + props.schain[0]}
-                  style={{ marginLeft: '3px' }}
+                  Explorer
+                </Button>
+              </a>
+              <Link
+                to={"/chains/" + props.schain[0]}
+                style={{ marginLeft: '3px' }}
+              >
+                <Button
+                  endIcon={<UnfoldMoreRoundedIcon />}
+                  size="small"
+                  className="cardBtn"
                 >
-                  <Button
-                    endIcon={<UnfoldMoreRoundedIcon />}
-                    size="small"
-                    className="cardBtn"
-                  >
-                    Info
-                  </Button>
-                </Link>
-              </div>
+                  Info
+                </Button>
+              </Link>
             </div>
           </div>
         </div>
@@ -121,7 +119,7 @@ export default function ChainCard(props: {
             cmn.p600,
           )}
         >
-          {getChainAlias(props.skaleNetwork, props.schain[0])}
+          {getChainAlias(props.skaleNetwork, props.schain[0], undefined, true)}
         </p>
       </div>
     </div>

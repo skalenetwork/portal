@@ -45,10 +45,10 @@ export default function Chains(props: {
   }
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" className={cls(cmn.mbott20)}>
       <Stack spacing={0}>
         <div className={cls(cmn.flex)}>
-          <h2 className={cls(cmn.nom)}>SKALE Chains</h2>
+          <h2 className={cls(cmn.nom)}>Chains</h2>
         </div>
         <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
           Connect, get block explorer links and endpoints

@@ -238,7 +238,7 @@ body::-webkit-scrollbar {
 .br__tile {
   height: 140px;
   border-radius: 25px !important;
-  border: 1px $border-color solid !important;
+  border: 1px rgb(44 44 44) solid !important;
 }
 
 .br__tileLogo {
@@ -388,16 +388,18 @@ code {
   height: inherit;
 }
 
+.inheritSize:has(.br__tileDefaultLogo) {
+  width: 100% !important;
+}
+
 .br__tileDefaultLogo {
-  height: inherit !important;
-  width: inherit !important;
+  width: 100% !important;
+  padding: 10px 10px 0 10px !important;
 
   .paper {
-    text-align: center !important;
     border-radius: 20px !important;
-    height: inherit !important;
-    width: inherit !important;
-    margin: 20px !important;
+    width: 100% !important;
+    filter: saturate(0.9) brightness(0.9);
   }
 }
 
@@ -425,4 +427,35 @@ code {
 
 .modalBlock4 {
   background: linear-gradient(151deg, rgb(12 24 34 / 95%), rgba(10, 10, 10, 0.95) 100%) !important;
+}
+
+.chainDetails {
+  .logo {
+    height: 60pt;
+    margin: 30px 0;
+    width: 100%;
+    text-align: center;
+
+    img,
+    svg {
+      max-height: 90%;
+      max-width: 90%;
+    }
+  }
+
+  .titleSection {
+    background: rgba(0, 0, 0, 0.6) !important;
+    border-radius: 25px;
+    padding: 20px;
+  }
+}
+
+button:focus {
+  outline: none !important;
+}
+
+.shortP {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }

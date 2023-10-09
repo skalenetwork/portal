@@ -43,9 +43,9 @@ import {
   styles,
 } from "@skalenetwork/metaport";
 
-import { BRIDGE_PAGES } from "../../core/constants";
-import TermsOfService from "../Terms/terms-of-service.mdx";
-import logo from "../../assets/skale_lg.svg";
+import { BRIDGE_PAGES } from "../core/constants";
+import TermsOfService from "./Terms/terms-of-service.mdx";
+import logo from "../assets/skale_lg.svg";
 
 const style = {
   width: "100vw",

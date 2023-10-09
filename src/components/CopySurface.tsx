@@ -21,68 +21,52 @@
  * @copyright SKALE Labs 2021-Present
  */
 
-import React, { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { CopyToClipboard } from "react-copy-to-clipboard";
-
 import Tooltip from "@mui/material/Tooltip";
-import Snackbar from "@mui/material/Snackbar";
 import ButtonBase from "@mui/material/ButtonBase";
-
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
-
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
-export default function CopySurface(props: any) {
-  const [copy, setCopied] = useState(false);
+import { cmn, cls, styles } from "@skalenetwork/metaport";
+
+
+export default function CopySurface(props: {
+  title: string,
+  value: string,
+  className?: string
+}) {
+  const [copied, setCopied] = useState(false);
 
   const handleClick = () => {
     setCopied(true);
   };
 
-  const handleClose = (_: any, reason: any) => {
-    if (reason === "clickaway") {
-      return;
+  useEffect(() => {
+    if (copied) {
+      const timer = setTimeout(() => {
+        setCopied(false);
+      }, 1000);
+      return () => clearTimeout(timer);
     }
-    setCopied(false);
-  };
-
-  const action = (
-    <React.Fragment>
-      <IconButton
-      // size="small"
-      // aria-label="close"
-      // color="inherit"
-      // onClick={handleClose}
-      >
-        <CloseIcon fontSize="small" />
-      </IconButton>
-    </React.Fragment>
-  );
+  }, [copied]);
 
   return (
-    <div>
-      <CopyToClipboard text={props.url} onCopy={handleClick}>
-        <Tooltip title="Click to copy to clipboard">
-          <ButtonBase className="copyBoard flex-container">
-            <div className="overflow-auto flex-container fl-centered-vert fl-grow">
-              <code>{props.url}</code>
+    <div className={props.className}>
+      <CopyToClipboard text={props.value} onCopy={handleClick}>
+        <Tooltip title={copied ? "Copied!" : "Click to copy to clipboard"}>
+          <ButtonBase className="titleSection" style={{ width: '100%' }}>
+            <div style={{ textAlign: 'left', overflow: 'auto' }} className={cmn.flexg}>
+              <p className={cls(cmn.p, cmn.p4, cmn.pSec, cmn.mbott5)}>{props.title}</p>
+              <p className={cls(cmn.p, cmn.p2, cmn.p600, 'shortP')}>{props.value}</p>
             </div>
-            <div className="flex-container">
-              <ContentCopyIcon className="copy-icon marg-left-10" />
-            </div>
+            {copied ? <CheckCircleRoundedIcon
+              color='success' className={cls(cmn.mleft20, styles.chainIconxs)} /> :
+              <ContentCopyIcon className={cls(cmn.pSec, cmn.mleft20, styles.chainIconxs)} />}
           </ButtonBase>
         </Tooltip>
       </CopyToClipboard>
-      <Snackbar
-        open={copy}
-        autoHideDuration={6000}
-        onClose={handleClose}
-        message="URL copied to clipboard"
-        action={action}
-        // severity="success"
-      />
     </div>
   );
 }

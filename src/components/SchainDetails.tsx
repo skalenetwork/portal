@@ -21,30 +21,36 @@
  * @copyright SKALE Labs 2021-Present
  */
 
-import { id } from "ethers";
+import { id, toBeHex } from "ethers";
 
 import CopySurface from "./CopySurface";
 
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
-import WidgetsIcon from "@mui/icons-material/Widgets";
-import LanguageIcon from "@mui/icons-material/Language";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
-
+import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
+import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
+import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded';
+import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded';
 import {
   cmn,
   cls,
+  styles,
   PROXY_ENDPOINTS,
   BASE_EXPLORER_URLS,
   type MetaportCore,
   SkPaper,
+  getChainAlias,
+  chainBg
 } from "@skalenetwork/metaport";
 
+import ChainLogo from "./ChainLogo";
 
-const HTTP_PREFIX = "http://";
+import { MAINNET_CHAIN_LOGOS } from '../core/constants'
+
+
 const HTTPS_PREFIX = "https://";
-const WS_PREFIX = "ws://";
 const WSS_PREFIX = "wss://";
+
 
 function getRpcUrl(
   proxyUrl: string,
@@ -54,6 +60,7 @@ function getRpcUrl(
   return prefix + proxyUrl + "/v1/" + schainName;
 }
 
+
 function getRpcWsUrl(
   proxyUrl: string,
   schainName: string,
@@ -61,6 +68,7 @@ function getRpcWsUrl(
 ): string {
   return prefix + proxyUrl + "/v1/ws/" + schainName;
 }
+
 
 function getFsUrl(
   proxyUrl: string,
@@ -70,6 +78,7 @@ function getFsUrl(
   return prefix + proxyUrl + "/fs/" + schainName;
 }
 
+
 export function getExplorerUrl(
   explorerUrl: string,
   schainName: string,
@@ -77,40 +86,30 @@ export function getExplorerUrl(
   return HTTPS_PREFIX + schainName + "." + explorerUrl;
 }
 
+
 function getChainId(schainName: string): string {
-  // let hash = Web3.utils.soliditySha3(schainName).substring(0, 15);
-  // return rmPad0x(hash);
-  return id(schainName);
+  return toBeHex(id(schainName).substring(0, 15));
 }
 
-function getSchainHash(schainName: string): string {
-  // return Web3.utils.sha3(schainName);
-  return "0xxx234" + schainName; // todo!
-}
 
 export default function SchainDetails(props: {
   schainName: string;
   chainMeta: any;
+  chain: any;
   mpc: MetaportCore;
 }) {
   const proxyBase = PROXY_ENDPOINTS[props.mpc.config.skaleNetwork];
   const explorerBase = BASE_EXPLORER_URLS[props.mpc.config.skaleNetwork];
 
   const rpcUrl = getRpcUrl(proxyBase, props.schainName, HTTPS_PREFIX);
-  const rpcHttpUrl = getRpcUrl(proxyBase, props.schainName, HTTP_PREFIX);
-
   const rpcWssUrl = getRpcWsUrl(proxyBase, props.schainName, WSS_PREFIX);
-  const rpcWsUrl = getRpcWsUrl(proxyBase, props.schainName, WS_PREFIX);
-
   const fsUrl = getFsUrl(proxyBase, props.schainName, HTTPS_PREFIX);
-  const fsHttpUrl = getFsUrl(proxyBase, props.schainName, HTTP_PREFIX);
 
   const explorerUrl = getExplorerUrl(explorerBase, props.schainName);
   const chainId = getChainId(props.schainName);
-  const schainHash = getSchainHash(props.schainName);
+  const chainIdInt = parseInt(chainId)
 
-  // const [checked, setChecked] = React.useState(true);
-  const checked = true;
+  const network = props.mpc.config.skaleNetwork
 
   const networkParams = {
     chainId,
@@ -137,21 +136,34 @@ export default function SchainDetails(props: {
     });
   }
 
-  return (
-    <div className="schain-details">
-      <div className={cls(cmn.flex)}>
-        <h2 className={cls(cmn.nom)}>{getChainName(props.schainName)}</h2>
-      </div>
-      {props.chainMeta?.description ? (
-        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-          {props.chainMeta.description}
-        </p>
-      ) : null}
+  function timestampToDate(ts: number) {
+    return new Intl.DateTimeFormat(
+      'en-US', { year: '2-digit', month: '2-digit', day: '2-digit' }).format(ts * 1000)
+  }
 
-      <SkPaper gray className={cls(cmn.mtop20, cmn.nop)}>
-        <SkPaper gray>
+  return (<div className='chainDetails'>
+    <SkPaper background={chainBg(network, props.schainName)} className={cls(cmn.mtop10)}>
+      <div className={cls('logo', cmn.flex, cmn.flexcv)} >
+        <div className={cls(cmn.flex, cmn.flexg)}></div>
+        <ChainLogo
+          chainName={props.schainName}
+          logos={MAINNET_CHAIN_LOGOS}
+        />
+        <div className={cls(cmn.flex, cmn.flexg)}></div>
+      </div>
+      <div className={cls('titleSection')}>
+        <h2 className={cls(cmn.nom)}>{getChainAlias(
+          props.mpc.config.skaleNetwork, props.schainName, undefined, true)}
+        </h2>
+        <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec)}>
+          {props.chainMeta?.description ? props.chainMeta.description :
+            `Chain was created on ${timestampToDate(props.chain[5])}`}
+        </p>
+      </div>
+      <div className={cls(cmn.flex, cmn.flexcv, cmn.flexw)}>
+        <div className={cls('titleSection', cmn.mtop10)}>
           <div className={cls(cmn.flex)}>
-            <div className={cls(cmn.mleft10)}>
+            <div className={cls(cmn.mleft5)}>
               <a
                 target="_blank"
                 rel="noreferrer"
@@ -159,26 +171,26 @@ export default function SchainDetails(props: {
                 className="undec"
               >
                 <Button
-                  size="medium"
-                  // variant="contained website-btn actions-btn"
-                  startIcon={<WidgetsIcon />}
+                  size="large"
+                  className={styles.btnAction}
+                  startIcon={<WidgetsRoundedIcon />}
                 >
-                  Explorer
+                  Block Explorer
                 </Button>
               </a>
             </div>
-            <div className={cls(cmn.mleft10)}>
+            <div className={cls(cmn.mleft20)}>
               <Button
-                startIcon={<AddCircleIcon />}
-                size="medium"
-                // variant="contained website-btn actions-btn"
+                startIcon={<AddCircleRoundedIcon />}
+                size="large"
+                className={styles.btnAction}
                 onClick={addNetwork}
               >
                 Add network
               </Button>
             </div>
             {props.chainMeta?.url ? (
-              <div className={cls(cmn.mleft10)}>
+              <div className={cls(cmn.mleft20)}>
                 <a
                   target="_blank"
                   rel="noreferrer"
@@ -186,43 +198,51 @@ export default function SchainDetails(props: {
                   className="undec"
                 >
                   <Button
-                    size="medium"
-                    // variant="contained website-btn actions-btn"
-                    startIcon={<LanguageIcon />}
+                    size="large"
+                    className={styles.btnAction}
+                    startIcon={<ArrowOutwardRoundedIcon />}
                   >
-                    Open dApp
+                    Open website
                   </Button>
                 </a>
               </div>
             ) : null}
           </div>
-        </SkPaper>
-        <SkPaper background="transparent">
-          <h3 className="card-header no-marg-top">Dev</h3>
-          <CopySurface url={checked ? rpcUrl : rpcHttpUrl} />
-          <Grid container spacing={2}>
-            <Grid item md={6} xs={12}>
-              <h4 className="no-marg-bott secondary-text">Websocket</h4>
-              <CopySurface url={checked ? rpcWssUrl : rpcWsUrl} />
-            </Grid>
-            <Grid item md={6} xs={12}>
-              <h4 className="no-marg-bott secondary-text">Filestorage</h4>
-              <CopySurface url={checked ? fsUrl : fsHttpUrl} />
-            </Grid>
-          </Grid>
-
-          <Grid container spacing={2}>
-            <Grid item md={6} xs={12}>
-              <h4 className="no-marg-bott secondary-text">Chain ID</h4>
-              <CopySurface url={chainId} />
-            </Grid>
-            <Grid item md={6} xs={12}>
-              <h4 className="no-marg-bott secondary-text">Chain name hash</h4>
-              <CopySurface url={schainHash} />
-            </Grid>
-          </Grid>
-        </SkPaper>
-      </SkPaper>
-    </div>
-  );
+        </div>
+        <CopySurface
+          className={cls(cmn.mtop10, cmn.mleft10, cmn.flexg)}
+          title='Chain ID'
+          value={chainIdInt.toString()}
+        />
+      </div>
+    </SkPaper>
+    <SkPaper gray className={cls(cmn.mtop20)}>
+      <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10, cmn.mbott5, cmn.mleft10)}>
+        <div className={cls(cmn.mri5, cmn.flexcv, cmn.flex, styles.chainIcons)}>
+          <SettingsRoundedIcon />
+        </div>
+        <h3 className={cls(cmn.nom, cmn.cap)}>Developer info</h3>
+      </div>
+      <Grid container spacing={2} className={cls(cmn.full)}>
+        <Grid item md={12} xs={12} className={cmn.mtop10}>
+          <CopySurface className={cls(styles.fullHeight)} title='Endpoint' value={rpcUrl} />
+        </Grid>
+        <Grid item md={6} xs={12}>
+          <CopySurface className={cls(styles.fullHeight)} title='Websocket' value={rpcWssUrl} />
+        </Grid>
+        <Grid item md={6} xs={12}>
+          <CopySurface className={cls(styles.fullHeight)} title='Filestorage' value={fsUrl} />
+        </Grid>
+        <Grid item md={6} xs={12}>
+          <CopySurface className={cls(styles.fullHeight)}
+            title='SKALE Manager name'
+            value={props.schainName}
+          />
+        </Grid>
+        <Grid item md={6} xs={12}>
+          <CopySurface className={cls(styles.fullHeight)} title='Chain ID Hex' value={chainId} />
+        </Grid>
+      </Grid>
+    </SkPaper>
+  </div >)
 }
