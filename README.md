@@ -1,8 +1,8 @@
-# SKALE Bridge UI
+# SKALE Portal
 
 [![Discord](https://img.shields.io/discord/534485763354787851.svg)](https://discord.gg/vvUtWJB)
 
-The SKALE Bridge UI is a web-based interface that allows users to interact with the SKALE IMA contracts. The Bridge UI provides a user-friendly way for users to transfer assets and data between different SKALE chains and Ethereum Mainnet, enabling greater flexibility and scalability for decentralized applications.
+The SKALE Portal is a web-based interface that allows users to interact with the SKALE IMA contracts. SKALE Portal provides a user-friendly way for users to transfer assets and data between different SKALE chains and Ethereum Mainnet, enabling greater flexibility and scalability for decentralized applications.
 
 ## How It Works
 

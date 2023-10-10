@@ -1,21 +1,17 @@
-import { useEffect } from 'react';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
 
-import Container from '@mui/material/Container';
-import Stack from '@mui/material/Stack';
+import { BrowserRouter } from "react-router-dom";
+import { inject } from "@vercel/analytics";
 
-import TransferFrom from './components/TransferFrom';
+inject();
 
-
-
-export default function Main(props: any) {
-  useEffect(() => {
-    props.metaport.close();
-  }, []);
-
-  return (
-    <Container maxWidth="md">
-      <Stack spacing={2}>
-        <TransferFrom />
-      </Stack>
-    </Container>)
-}
+ReactDOM.createRoot(document.getElementById("root")!).render(
+  <React.StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </React.StrictMode>,
+);

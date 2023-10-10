@@ -1,0 +1,54 @@
+/**
+ * @license
+ * SKALE bridge-ui
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/**
+ * @file Portal.tsx
+ * @copyright SKALE Labs 2023-Present
+ */
+
+import { useState } from "react";
+
+import Box from "@mui/material/Box";
+import CssBaseline from "@mui/material/CssBaseline";
+
+import Header from "./Header";
+import SkDrawer from "./SkDrawer";
+import Router from "./Router";
+import TermsModal from "./components/TermsModal";
+
+import { useMetaportStore, useWagmiAccount } from "@skalenetwork/metaport";
+
+export default function Portal() {
+  const [termsAccepted, setTermsAccepted] = useState<boolean>(false);
+  const mpc = useMetaportStore((state) => state.mpc);
+  const { address } = useWagmiAccount();
+  if (!mpc) return <div></div>;
+  return (
+    <Box sx={{ display: "flex" }} className="AppWrap">
+      <CssBaseline />
+      <TermsModal
+        mpc={mpc}
+        termsAccepted={termsAccepted}
+        setTermsAccepted={setTermsAccepted}
+      />
+      <Header address={address} />
+      <SkDrawer />
+      <Router />
+    </Box>
+  );
+}

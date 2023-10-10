@@ -15,37 +15,37 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 /**
  * @file transferHistory.ts
  * @copyright SKALE Labs 2023-Present
-*/
+ */
 
-import { METAPORT_CONFIG } from './constants';
+import { type interfaces } from "@skalenetwork/metaport";
 
-
-const KEY_NAME = `br__transfersHistory_${METAPORT_CONFIG.skaleNetwork}`;
-
-
-export function getTransferHistory(): Array<any> {
-    const br__transfersHistory = localStorage.getItem(KEY_NAME);
-    if (!br__transfersHistory) return [];
-    return JSON.parse(br__transfersHistory)['data'];
+function getKeyName(skaleNetwork: interfaces.SkaleNetwork): string {
+  return `br__transfersHistory_${skaleNetwork}`;
 }
 
-
-export function setTransferHistory(transferHistory: Array<any>): void {
-    localStorage.setItem(KEY_NAME, JSON.stringify({ data: transferHistory }));
+export function getHistoryFromStorage(
+  skaleNetwork: interfaces.SkaleNetwork,
+): interfaces.TransferHistory[] {
+  const transfersHistory = localStorage.getItem(getKeyName(skaleNetwork));
+  if (transfersHistory == null) return [];
+  return JSON.parse(transfersHistory).data;
 }
 
-
-export function addToTransferHistory(transfer: any): void {
-    const transferHistory = getTransferHistory();
-    transferHistory.push(transfer);
-    setTransferHistory(transferHistory);
+export function setHistoryToStorage(
+  transferHistory: interfaces.TransferHistory[],
+  skaleNetwork: interfaces.SkaleNetwork,
+): void {
+  localStorage.setItem(
+    getKeyName(skaleNetwork),
+    JSON.stringify({ data: transferHistory }),
+  );
 }
 
-
-export function clearTransferHistory(): void {
-    localStorage.removeItem(KEY_NAME);
+export function clearTransferHistory(
+  skaleNetwork: interfaces.SkaleNetwork,
+): void {
+  localStorage.removeItem(getKeyName(skaleNetwork));
 }

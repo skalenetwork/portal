@@ -1,21 +1,17 @@
 import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
-
 import { cmn, cls } from "@skalenetwork/metaport";
 
-import TermsOfService from "./terms-of-service.mdx";
-
-export default function Terms() {
+export default function Apps() {
   return (
-    <Container maxWidth="md" className="textPage">
+    <Container maxWidth="md">
       <Stack spacing={0}>
         <div className={cls(cmn.flex)}>
-          <h2 className={cls(cmn.nom)}>Terms of Service</h2>
+          <h2 className={cls(cmn.nom)}>Apps</h2>
         </div>
         <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-          SKALE Network Blockchain Bridge Terms of Service
+          Apps on SKALE Network
         </p>
-        <TermsOfService />
       </Stack>
     </Container>
   );
