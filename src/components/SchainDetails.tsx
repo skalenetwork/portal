@@ -32,6 +32,7 @@ import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded';
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded';
 import EditRoundedIcon from '@mui/icons-material/EditRounded';
+import TollRoundedIcon from '@mui/icons-material/TollRounded';
 
 import {
   cmn,
@@ -112,6 +113,9 @@ export default function SchainDetails(props: {
   const chainIdInt = parseInt(chainId)
 
   const network = props.mpc.config.skaleNetwork
+
+  const tokenConnections = props.mpc.config.connections[props.schainName] ?? {}
+  const chainTokens = tokenConnections.erc20 ?? {}
 
   const networkParams = {
     chainId,
@@ -227,13 +231,13 @@ export default function SchainDetails(props: {
       </div>
       <Grid container spacing={2} className={cls(cmn.full)}>
         <Grid item md={12} xs={12} className={cmn.mtop10}>
-          <CopySurface className={cls(styles.fullHeight)} title='Endpoint' value={rpcUrl} />
+          <CopySurface className={cls(styles.fullHeight)} title='RPC Endpoint' value={rpcUrl} />
         </Grid>
         <Grid item md={6} xs={12}>
-          <CopySurface className={cls(styles.fullHeight)} title='Websocket' value={rpcWssUrl} />
+          <CopySurface className={cls(styles.fullHeight)} title='Websocket Endpoint' value={rpcWssUrl} />
         </Grid>
         <Grid item md={6} xs={12}>
-          <CopySurface className={cls(styles.fullHeight)} title='Filestorage' value={fsUrl} />
+          <CopySurface className={cls(styles.fullHeight)} title='Filestorage Endpoint' value={fsUrl} />
         </Grid>
         <Grid item md={6} xs={12}>
           <CopySurface className={cls(styles.fullHeight)}
@@ -245,6 +249,25 @@ export default function SchainDetails(props: {
           <CopySurface className={cls(styles.fullHeight)} title='Chain ID Hex' value={chainId} />
         </Grid>
       </Grid>
+      {Object.keys(chainTokens).length !== 0 ? <div>
+        <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop20, cmn.mbott20, cmn.mleft10)}>
+          <div className={cls(cmn.mri5, cmn.flexcv, cmn.flex, styles.chainIcons)}>
+            <TollRoundedIcon />
+          </div>
+          <h3 className={cls(cmn.nom, cmn.cap)}>Available tokens</h3>
+        </div>
+        <Grid container spacing={2} className={cls(cmn.full)}>
+          {Object.keys(chainTokens).map((tokenSymbol: string) => (
+            <Grid key={tokenSymbol} item md={3} xs={12}>
+              <CopySurface
+                className={cls(styles.fullHeight)}
+                title={tokenSymbol.toUpperCase()}
+                value={chainTokens[tokenSymbol].address as string}
+              />
+            </Grid>
+          ))}
+        </Grid>
+      </div> : <div></div>}
       <a
         target="_blank"
         rel="noreferrer"
