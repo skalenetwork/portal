@@ -13,6 +13,7 @@ import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined';
 import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined';
 import HubOutlinedIcon from '@mui/icons-material/HubOutlined';
+import PrivacyTipOutlinedIcon from '@mui/icons-material/PrivacyTipOutlined';
 
 import { METAPORT_CONFIG } from '../../core/constants';
 import { getProxyEndpoint } from '../../core/network';
@@ -84,6 +85,11 @@ export default function MoreMenu() {
                 <Link to="/other/terms-of-service" className="undec fullWidth">
                     <MenuItem onClick={handleClose}>
                         <InventoryOutlinedIcon className='mp__margRi10' /> Terms of service
+                    </MenuItem>
+                </Link>
+                <Link to="/other/privacy-policy" className="undec fullWidth">
+                    <MenuItem onClick={handleClose}>
+                        <PrivacyTipOutlinedIcon className='mp__margRi10' /> Privacy policy
                     </MenuItem>
                 </Link>
                 <a className="undec fullWidth" target="_blank" href='https://skale.space/'>
