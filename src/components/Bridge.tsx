@@ -152,7 +152,7 @@ export default function Bridge() {
           />
           <BridgeBody />
           {transactionsHistory.length !== 0 ? (
-            <div>
+            <div className={cls(cmn.mbott20)}>
               <p
                 className={cls(
                   cmn.p,

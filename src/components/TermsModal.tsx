@@ -101,7 +101,7 @@ export default function TermsModal(props: {
                   <SkPaper className={cls(styles.fullHeight, 'modalBlock modalBlock1')} >
                     <div className={cls(cmn.m10)}>
                       <DesktopMacRoundedIcon style={{ color: 'rgb(163 96 255)' }} />
-                      <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.mtop5)}>
+                      <p className={cls(cmn.p, cmn.p3, cmn.p700, cmn.mtop5)}>
                         This website is for Desktop Use Only
                       </p>
                     </div>
@@ -111,7 +111,7 @@ export default function TermsModal(props: {
                   <SkPaper className={cls(styles.fullHeight, 'modalBlock modalBlock2')} >
                     <div className={cls(cmn.m10)}>
                       <KeyRoundedIcon style={{ color: 'rgb(238 195 0)' }} />
-                      <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.mtop5)}>
+                      <p className={cls(cmn.p, cmn.p3, cmn.p700, cmn.mtop5)}>
                         SKALE will NEVER ask you for your seed phrase or private keys
                       </p>
                     </div>
@@ -121,7 +121,7 @@ export default function TermsModal(props: {
                   <SkPaper className={cls(styles.fullHeight, 'modalBlock modalBlock3')} >
                     <div className={cls(cmn.m10)}>
                       <LockRoundedIcon style={{ color: '#14e96a' }} />
-                      <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.mtop5)}>
+                      <p className={cls(cmn.p, cmn.p3, cmn.p700, cmn.mtop5)}>
                         Make sure you are connected to the correct bridge and only use this official link:
                         <br />
                         <Link

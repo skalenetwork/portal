@@ -157,21 +157,9 @@ body {
   .MuiContainer-root {
     padding: 0px !important;
   }
-
   .br__modalScroll {
     height: 100%;
     overflow-y: auto;
-  }
-
-  p {
-    font-size: .8025rem !important;
-    letter-spacing: .02857em !important;
-    line-height: 1.6 !important;
-    font-weight: 500;
-  }
-
-  h2 {
-    margin-top: 0 !important;
   }
 }
 
@@ -405,11 +393,9 @@ code {
 
 .modalBlock {
   background-color: rgb(10 10 10 / 85%) !important;
-
   svg {
     width: 20pt;
     height: 20pt;
-
   }
 }
 
@@ -458,4 +444,9 @@ button:focus {
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+.transferImg{
+  height: 350px;
+  margin-right: -10px;
 }

@@ -221,7 +221,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       // Chaos connections
       erc20: {
         ubxs: {
-          address: '0x1b54d4b074fed0cd6a0b5836fc82af13a7f9288a',
+          address: '0xB430a748Af4Ed4E07BA53454a8247f4FA0da7484',
           chains: {
             mainnet: {
               clone: true,
@@ -354,7 +354,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           }
         },
         ubxs: {
-          address: '0x5A4957cc54B21e1fa72BA549392f213030d34804',
+          address: '0xaB5149362daCcC086bC4ABDde80aB6b09cBc118E',
           chains: {
             mainnet: {
               clone: true

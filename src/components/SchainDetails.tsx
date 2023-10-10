@@ -31,6 +31,8 @@ import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded';
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded';
+import EditRoundedIcon from '@mui/icons-material/EditRounded';
+
 import {
   cmn,
   cls,
@@ -141,7 +143,7 @@ export default function SchainDetails(props: {
       'en-US', { year: '2-digit', month: '2-digit', day: '2-digit' }).format(ts * 1000)
   }
 
-  return (<div className='chainDetails'>
+  return (<div className={cls('chainDetails', cmn.mbott20)}>
     <SkPaper background={chainBg(network, props.schainName)} className={cls(cmn.mtop10)}>
       <div className={cls('logo', cmn.flex, cmn.flexcv)} >
         <div className={cls(cmn.flex, cmn.flexg)}></div>
@@ -216,7 +218,7 @@ export default function SchainDetails(props: {
         />
       </div>
     </SkPaper>
-    <SkPaper gray className={cls(cmn.mtop20)}>
+    <SkPaper gray className={cls(cmn.mtop20, cmn.mbott20)}>
       <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10, cmn.mbott5, cmn.mleft10)}>
         <div className={cls(cmn.mri5, cmn.flexcv, cmn.flex, styles.chainIcons)}>
           <SettingsRoundedIcon />
@@ -243,6 +245,21 @@ export default function SchainDetails(props: {
           <CopySurface className={cls(styles.fullHeight)} title='Chain ID Hex' value={chainId} />
         </Grid>
       </Grid>
+      <a
+        target="_blank"
+        rel="noreferrer"
+        href="https://docs.skale.network/skale-chain-administration/submit-metadata"
+        className="undec"
+      >
+        <Button
+          color="primary"
+          size="small"
+          className={cls(styles.btnAction, cmn.mtop20)}
+          startIcon={<EditRoundedIcon />}
+        >
+          Update chain metadata
+        </Button>
+      </a>
     </SkPaper>
   </div >)
 }
