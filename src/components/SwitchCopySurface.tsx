@@ -18,7 +18,7 @@
 
 /**
  * @file CopySurface.tsx
- * @copyright SKALE Labs 2021-Present
+ * @copyright SKALE Labs 2023-Present
  */
 
 import { useState, useEffect } from "react";
@@ -29,9 +29,10 @@ import ButtonBase from "@mui/material/ButtonBase";
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
 import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 
-import { cmn, cls, styles, TokenIcon, interfaces } from "@skalenetwork/metaport";
+import { styled } from '@mui/material/styles';
+import Switch from '@mui/material/Switch';
 
-import { DEFAULT_ERC20_DECIMALS } from '../core/constants'
+import { cmn, cls, styles, interfaces } from "@skalenetwork/metaport";
 
 
 export default function CopySurface(props: {
@@ -55,25 +56,62 @@ export default function CopySurface(props: {
     }
   }, [copied]);
 
+  const AntSwitch = styled(Switch)(({ theme }) => ({
+    width: 28,
+    height: 16,
+    padding: 0,
+    display: 'flex',
+    '&:active': {
+      '& .MuiSwitch-thumb': {
+        width: 15,
+      },
+      '& .MuiSwitch-switchBase.Mui-checked': {
+        transform: 'translateX(9px)',
+      },
+    },
+    '& .MuiSwitch-switchBase': {
+      padding: 2,
+      '&.Mui-checked': {
+        transform: 'translateX(12px)',
+        color: '#fff',
+        '& + .MuiSwitch-track': {
+          opacity: 1,
+          backgroundColor: theme.palette.mode === 'dark' ? '#2ECA45' : '#65C466',
+        },
+      },
+    },
+    '& .MuiSwitch-thumb': {
+      boxShadow: '0 2px 4px 0 rgb(0 35 11 / 20%)',
+      width: 12,
+      height: 12,
+      borderRadius: 6,
+      transition: theme.transitions.create(['width'], {
+        duration: 200,
+      }),
+    },
+    '& .MuiSwitch-track': {
+      borderRadius: 16 / 2,
+      opacity: 1,
+      backgroundColor:
+        theme.palette.mode === 'dark' ? 'rgba(255,255,255,.30)' : 'rgba(0,0,0,.25)',
+      boxSizing: 'border-box',
+    },
+  }));
+
   if (!props.value) return
   return (
-    <div className={props.className}>
+    <div className={cls(props.className, "titleSection")}>
+      <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott5)}>
+        <p className={cls(cmn.p, cmn.p4, cmn.pSec, cmn.flexg)}>{props.title}</p>
+        <p className={cls(cmn.p, cmn.p4, cmn.pSec, cmn.mri5)}>
+          Decimal / Hex
+        </p>
+        <AntSwitch inputProps={{ 'aria-label': 'ant design' }} />
+      </div>
       <CopyToClipboard text={props.value} onCopy={handleClick}>
         <Tooltip title={copied ? "Copied!" : "Click to copy to clipboard"}>
-          <ButtonBase className="titleSection" style={{ width: '100%' }}>
+          <ButtonBase style={{ width: '100%' }}>
             <div style={{ textAlign: 'left', overflow: 'auto' }} className={cmn.flexg}>
-              <div className={cls(cmn.flex)}>
-                {props.tokenMetadata ? <div className={cls(cmn.mri5)}>
-                  <TokenIcon
-                    size='xs'
-                    tokenSymbol={props.tokenMetadata.symbol}
-                    iconUrl={props.tokenMetadata.iconUrl}
-                  />
-                </div> : null}
-                <p className={cls(cmn.p, cmn.p4, cmn.pSec, cmn.mbott5)}>{props.title}
-                  {props.tokenMetadata ? ` (${props.tokenMetadata.decimals ?? DEFAULT_ERC20_DECIMALS})` : null}
-                </p>
-              </div>
               <p className={cls(cmn.p, cmn.p2, cmn.p600, 'shortP')}>{props.value}</p>
             </div>
             {copied ? <CheckCircleRoundedIcon

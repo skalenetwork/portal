@@ -1,44 +1,54 @@
-import * as React from "react";
-import Accordion from "@mui/material/Accordion";
-import AccordionDetails from "@mui/material/AccordionDetails";
-import AccordionSummary from "@mui/material/AccordionSummary";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { cls, cmn } from "@skalenetwork/metaport";
+/**
+ * @license
+ * SKALE bridge-ui
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
 
+/**
+ * @file FaqAccordion.tsx
+ * @copyright SKALE Labs 2023-Present
+ */
+
+import * as React from "react";
+import { cls, cmn, SkPaper } from "@skalenetwork/metaport";
+
+import AccordionSection from "../AccordionSection";
 import { FAQ } from "../../core/constants";
+
 
 export default function FaqAccordion() {
   const [expanded, setExpanded] = React.useState<string | false>(false);
 
-  const handleChange =
-    (panel: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
-      setExpanded(isExpanded ? panel : false);
-    };
+  function handleChange(panel: string | false) {
+    setExpanded(expanded && panel === expanded ? false : panel);
+  }
 
   return (
-    <div>
+    <SkPaper gray className={cls(cmn.mtop20, cmn.mbott20)}>
       {FAQ.map((question: any, index: number) => (
-        <Accordion
-          key={index}
-          expanded={expanded === `panel${index}`}
-          onChange={handleChange(`panel${index}`)}
+        <AccordionSection
+          handleChange={handleChange}
+          expanded={expanded}
+          panel={`panel${index}`}
+          title={question.question}
         >
-          <AccordionSummary
-            expandIcon={<ExpandMoreIcon />}
-            aria-controls="panel1bh-content"
-            id={"panel1bh-header-" + index}
-          >
-            <p className={cls(cmn.p, cmn.p2, cmn.pPrim, cmn.mtop5, cmn.mbott5)}>
-              {question.question}
-            </p>
-          </AccordionSummary>
-          <AccordionDetails>
-            <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.mleft20, cmn.mri20)}>
-              {question.answer}
-            </p>
-          </AccordionDetails>
-        </Accordion>
+          <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.mleft10, cmn.mri10)}>
+            {question.answer}
+          </p>
+        </AccordionSection>
       ))}
-    </div>
+    </SkPaper>
   );
 }

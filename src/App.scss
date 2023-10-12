@@ -135,7 +135,6 @@ body {
 }
 
 
-
 .br__modalInner {
   max-height: calc(90vh - 300px);
   display: flex;
@@ -456,4 +455,8 @@ button:focus {
 .transferImg {
   height: 350px;
   margin-right: -10px;
+}
+
+.MuiAccordion-rounded {
+  box-shadow: none !important;
 }

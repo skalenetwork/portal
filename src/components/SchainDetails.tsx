@@ -21,18 +21,10 @@
  * @copyright SKALE Labs 2021-Present
  */
 
-import { id, toBeHex } from "ethers";
-
-import CopySurface from "./CopySurface";
-
-import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded';
-import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded';
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded';
-import EditRoundedIcon from '@mui/icons-material/EditRounded';
-import TollRoundedIcon from '@mui/icons-material/TollRounded';
 
 import {
   cmn,
@@ -47,52 +39,11 @@ import {
 } from "@skalenetwork/metaport";
 
 import ChainLogo from "./ChainLogo";
+import CopySurface from "./CopySurface";
+import ChainAccordion from "./ChainAccordion";
 
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
-
-
-const HTTPS_PREFIX = "https://";
-const WSS_PREFIX = "wss://";
-
-
-function getRpcUrl(
-  proxyUrl: string,
-  schainName: string,
-  prefix: string,
-): string {
-  return prefix + proxyUrl + "/v1/" + schainName;
-}
-
-
-function getRpcWsUrl(
-  proxyUrl: string,
-  schainName: string,
-  prefix: string,
-): string {
-  return prefix + proxyUrl + "/v1/ws/" + schainName;
-}
-
-
-function getFsUrl(
-  proxyUrl: string,
-  schainName: string,
-  prefix: string,
-): string {
-  return prefix + proxyUrl + "/fs/" + schainName;
-}
-
-
-export function getExplorerUrl(
-  explorerUrl: string,
-  schainName: string,
-): string {
-  return HTTPS_PREFIX + schainName + "." + explorerUrl;
-}
-
-
-function getChainId(schainName: string): string {
-  return toBeHex(id(schainName).substring(0, 15));
-}
+import { getRpcUrl, getExplorerUrl, getChainId, HTTPS_PREFIX } from '../core/chain'
 
 
 export default function SchainDetails(props: {
@@ -101,25 +52,21 @@ export default function SchainDetails(props: {
   chain: any;
   mpc: MetaportCore;
 }) {
+
+
   const proxyBase = PROXY_ENDPOINTS[props.mpc.config.skaleNetwork];
   const explorerBase = BASE_EXPLORER_URLS[props.mpc.config.skaleNetwork];
 
   const rpcUrl = getRpcUrl(proxyBase, props.schainName, HTTPS_PREFIX);
-  const rpcWssUrl = getRpcWsUrl(proxyBase, props.schainName, WSS_PREFIX);
-  const fsUrl = getFsUrl(proxyBase, props.schainName, HTTPS_PREFIX);
-
   const explorerUrl = getExplorerUrl(explorerBase, props.schainName);
   const chainId = getChainId(props.schainName);
   const chainIdInt = parseInt(chainId)
 
   const network = props.mpc.config.skaleNetwork
 
-  const tokenConnections = props.mpc.config.connections[props.schainName] ?? {}
-  const chainTokens = tokenConnections.erc20 ?? {}
-
   const networkParams = {
     chainId,
-    chainName: "[S]" + getChainName(props.schainName),
+    chainName: "[S]" + getChainAlias(props.mpc.config.skaleNetwork, props.schainName),
     rpcUrls: [rpcUrl],
     nativeCurrency: {
       name: "sFUEL",
@@ -128,11 +75,9 @@ export default function SchainDetails(props: {
     },
   };
 
-  function getChainName(schainName: string) {
-    if (props.chainMeta) {
-      return props.chainMeta.alias;
-    }
-    return schainName;
+  function timestampToDate(ts: number) {
+    return new Intl.DateTimeFormat(
+      'en-US', { year: '2-digit', month: '2-digit', day: '2-digit' }).format(ts * 1000)
   }
 
   async function addNetwork() {
@@ -140,11 +85,6 @@ export default function SchainDetails(props: {
       method: "wallet_addEthereumChain",
       params: [networkParams],
     });
-  }
-
-  function timestampToDate(ts: number) {
-    return new Intl.DateTimeFormat(
-      'en-US', { year: '2-digit', month: '2-digit', day: '2-digit' }).format(ts * 1000)
   }
 
   return (<div className={cls('chainDetails', cmn.mbott20)}>
@@ -222,67 +162,6 @@ export default function SchainDetails(props: {
         />
       </div>
     </SkPaper>
-    <SkPaper gray className={cls(cmn.mtop20, cmn.mbott20)}>
-      <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10, cmn.mbott5, cmn.mleft10)}>
-        <div className={cls(cmn.mri5, cmn.flexcv, cmn.flex, styles.chainIcons)}>
-          <SettingsRoundedIcon />
-        </div>
-        <h3 className={cls(cmn.nom, cmn.cap)}>Developer info</h3>
-      </div>
-      <Grid container spacing={2} className={cls(cmn.full)}>
-        <Grid item md={12} xs={12} className={cmn.mtop10}>
-          <CopySurface className={cls(styles.fullHeight)} title='RPC Endpoint' value={rpcUrl} />
-        </Grid>
-        <Grid item md={6} xs={12}>
-          <CopySurface className={cls(styles.fullHeight)} title='Websocket Endpoint' value={rpcWssUrl} />
-        </Grid>
-        <Grid item md={6} xs={12}>
-          <CopySurface className={cls(styles.fullHeight)} title='Filestorage Endpoint' value={fsUrl} />
-        </Grid>
-        <Grid item md={6} xs={12}>
-          <CopySurface className={cls(styles.fullHeight)}
-            title='SKALE Manager name'
-            value={props.schainName}
-          />
-        </Grid>
-        <Grid item md={6} xs={12}>
-          <CopySurface className={cls(styles.fullHeight)} title='Chain ID Hex' value={chainId} />
-        </Grid>
-      </Grid>
-      {Object.keys(chainTokens).length !== 0 ? <div>
-        <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop20, cmn.mbott20, cmn.mleft10)}>
-          <div className={cls(cmn.mri5, cmn.flexcv, cmn.flex, styles.chainIcons)}>
-            <TollRoundedIcon />
-          </div>
-          <h3 className={cls(cmn.nom, cmn.cap)}>Available tokens</h3>
-        </div>
-        <Grid container spacing={2} className={cls(cmn.full)}>
-          {Object.keys(chainTokens).map((tokenSymbol: string) => (
-            <Grid key={tokenSymbol} item md={3} xs={12}>
-              <CopySurface
-                className={cls(styles.fullHeight)}
-                title={tokenSymbol.toUpperCase()}
-                value={chainTokens[tokenSymbol].address as string}
-              />
-            </Grid>
-          ))}
-        </Grid>
-      </div> : <div></div>}
-      <a
-        target="_blank"
-        rel="noreferrer"
-        href="https://docs.skale.network/skale-chain-administration/submit-metadata"
-        className="undec"
-      >
-        <Button
-          color="primary"
-          size="small"
-          className={cls(styles.btnAction, cmn.mtop20)}
-          startIcon={<EditRoundedIcon />}
-        >
-          Update chain metadata
-        </Button>
-      </a>
-    </SkPaper>
+    <ChainAccordion mpc={props.mpc} schainName={props.schainName} />
   </div >)
 }
