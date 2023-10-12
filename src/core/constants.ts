@@ -17,7 +17,7 @@
  */
 
 /**
- * @file constants.js
+ * @file constants.ts
  * @copyright SKALE Labs 2022-Present
  */
 
@@ -34,6 +34,8 @@ export const BRIDGE_PAGES = [
   "/portfolio",
   "/other/faq",
 ]
+
+export const DEFAULT_ERC20_DECIMALS = '18'
 
 import * as MAINNET_CHAIN_LOGOS from '../meta/logos'
 

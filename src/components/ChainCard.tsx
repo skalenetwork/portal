@@ -36,7 +36,7 @@ import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
 import UnfoldMoreRoundedIcon from "@mui/icons-material/UnfoldMoreRounded";
 
 import ChainLogo from "./ChainLogo";
-import { getExplorerUrl } from "./SchainDetails";
+import { getExplorerUrl } from "../core/chain";
 
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 

@@ -59,6 +59,7 @@ body {
   font-weight: 600 !important;
   font-size: .8rem !important;
   line-height: 1.6 !important;
+  font-family: inherit !important;
 }
 
 .fullWidth {
@@ -135,7 +136,6 @@ body {
 }
 
 
-
 .br__modalInner {
   max-height: calc(90vh - 300px);
   display: flex;
@@ -157,6 +157,7 @@ body {
   .MuiContainer-root {
     padding: 0px !important;
   }
+
   .br__modalScroll {
     height: 100%;
     overflow-y: auto;
@@ -393,9 +394,15 @@ code {
 
 .modalBlock {
   background-color: rgb(10 10 10 / 85%) !important;
+
   svg {
     width: 20pt;
     height: 20pt;
+  }
+
+  p {
+    font-size: .9025rem;
+    letter-spacing: .02857em;
   }
 }
 
@@ -446,7 +453,11 @@ button:focus {
   white-space: nowrap;
 }
 
-.transferImg{
+.transferImg {
   height: 350px;
   margin-right: -10px;
+}
+
+.MuiAccordion-rounded {
+  box-shadow: none !important;
 }
