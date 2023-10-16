@@ -28,6 +28,7 @@ import {
   chainBg,
   getChainAlias,
   BASE_EXPLORER_URLS,
+  CHAINS_META,
   type interfaces,
 } from "@skalenetwork/metaport";
 
@@ -49,6 +50,16 @@ export default function ChainCard(props: {
     BASE_EXPLORER_URLS[props.skaleNetwork],
     props.schain[0],
   );
+
+  function getChainShortAlias(meta: interfaces.ChainsMetadataMap, name: string): string {
+    return meta[name] && meta[name].shortAlias !== undefined ? meta[name].shortAlias! : name;
+  }
+
+  const chainsMeta: interfaces.ChainsMetadataMap =
+    CHAINS_META[props.skaleNetwork]
+
+  const shortAlias = getChainShortAlias(chainsMeta, props.schain[0])
+
   return (
     <div>
       <div className="fl-centered">
@@ -57,7 +68,7 @@ export default function ChainCard(props: {
           style={{ background: chainBg(props.skaleNetwork, props.schain[0]) }}
         >
           <Link
-            to={"/chains/" + props.schain[0]}
+            to={"/chains/" + shortAlias}
             className={cls("br__tileLogo", cmn.flex)}
           >
             <div className={cls(cmn.flex, cmn.flexg)}></div>
@@ -95,7 +106,7 @@ export default function ChainCard(props: {
                 </Button>
               </a>
               <Link
-                to={"/chains/" + props.schain[0]}
+                to={"/chains/" + shortAlias}
                 style={{ marginLeft: '3px' }}
               >
                 <Button

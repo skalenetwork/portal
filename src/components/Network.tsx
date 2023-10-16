@@ -3,7 +3,8 @@ import Container from "@mui/material/Container";
 import Stack from "@mui/material/Stack";
 import CircularProgress from "@mui/material/CircularProgress";
 
-import CategorySection from "../CategorySection";
+import CategorySection from "./CategorySection";
+import { getPrimaryCategory } from "./CategoryBadge";
 
 import {
   cmn,
@@ -60,7 +61,7 @@ export default function Chains(props: {
             schains={props.schains.filter(
               (schain) =>
                 chainsMeta[schain[0]] &&
-                chainsMeta[schain[0]].category === "hub",
+                getPrimaryCategory(chainsMeta[schain[0]].category) === "Hub",
             )}
           />
           <CategorySection
@@ -69,7 +70,7 @@ export default function Chains(props: {
             schains={props.schains.filter(
               (schain) =>
                 chainsMeta[schain[0]] &&
-                chainsMeta[schain[0]].category === "games",
+                getPrimaryCategory(chainsMeta[schain[0]].category) === "Game",
             )}
           />
           <CategorySection
@@ -78,7 +79,7 @@ export default function Chains(props: {
             schains={props.schains.filter(
               (schain) =>
                 chainsMeta[schain[0]] &&
-                chainsMeta[schain[0]].category === "apps",
+                getPrimaryCategory(chainsMeta[schain[0]].category) === "dApp",
             )}
           />
           <CategorySection

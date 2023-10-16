@@ -42,8 +42,20 @@ export default function Schain(props: {
   schains: any[];
   mpc: MetaportCore;
 }) {
+  function findChainName(meta: interfaces.ChainsMetadataMap, name: string): string {
+    for (const key in meta) {
+      if (meta[key].shortAlias === name) {
+        return key;
+      }
+    }
+    return name;
+  }
+
+  const chainsMeta: interfaces.ChainsMetadataMap =
+    CHAINS_META[props.mpc.config.skaleNetwork];
+
   let { name } = useParams();
-  name = name ?? "";
+  name = findChainName(chainsMeta, name ?? "");
 
   const chain = props.schains.find((schain) => schain[0] === name);
 
@@ -71,9 +83,6 @@ export default function Schain(props: {
   if (!chain) {
     return <h1>No such chain: {name}</h1>;
   }
-
-  const chainsMeta: interfaces.ChainsMetadataMap =
-    CHAINS_META[props.mpc.config.skaleNetwork];
 
   return (
     <Container maxWidth="md">

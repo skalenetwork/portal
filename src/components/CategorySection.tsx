@@ -24,21 +24,10 @@
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
-import VideogameAssetRoundedIcon from '@mui/icons-material/VideogameAssetRounded';
-import HubRoundedIcon from '@mui/icons-material/HubRounded';
-import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded';
-import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded';
-
 import ChainCard from "./ChainCard";
 import { cls, cmn, interfaces, styles, getChainAlias } from "@skalenetwork/metaport";
 
-
-const CATEGORY_ICON: any = {
-  hubs: <HubRoundedIcon />,
-  games: <VideogameAssetRoundedIcon />,
-  apps: <ExploreRoundedIcon />,
-  other: <GridViewRoundedIcon />
-}
+import { CATEGORY_ICON } from "./CategoryBadge";
 
 
 export default function CategorySection(props: {
