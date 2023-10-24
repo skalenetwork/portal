@@ -35,12 +35,14 @@ import {
   type MetaportCore,
   SkPaper,
   getChainAlias,
-  chainBg
+  chainBg,
+  interfaces
 } from "@skalenetwork/metaport";
 
 import ChainLogo from "./ChainLogo";
 import CopySurface from "./CopySurface";
 import ChainAccordion from "./ChainAccordion";
+import ChainCategories from "./ChainCategories";
 
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 import { getRpcUrl, getExplorerUrl, getChainId, HTTPS_PREFIX } from '../core/chain'
@@ -48,11 +50,10 @@ import { getRpcUrl, getExplorerUrl, getChainId, HTTPS_PREFIX } from '../core/cha
 
 export default function SchainDetails(props: {
   schainName: string;
-  chainMeta: any;
+  chainMeta: interfaces.ChainMetadata;
   chain: any;
   mpc: MetaportCore;
 }) {
-
 
   const proxyBase = PROXY_ENDPOINTS[props.mpc.config.skaleNetwork];
   const explorerBase = BASE_EXPLORER_URLS[props.mpc.config.skaleNetwork];
@@ -89,6 +90,7 @@ export default function SchainDetails(props: {
 
   return (<div className={cls('chainDetails', cmn.mbott20)}>
     <SkPaper background={chainBg(network, props.schainName)} className={cls(cmn.mtop10)}>
+      <ChainCategories category={props.chainMeta?.category ?? 'Other'} />
       <div className={cls('logo', cmn.flex, cmn.flexcv)} >
         <div className={cls(cmn.flex, cmn.flexg)}></div>
         <ChainLogo
@@ -161,7 +163,7 @@ export default function SchainDetails(props: {
           value={chainIdInt.toString()}
         />
       </div>
-    </SkPaper>
+    </SkPaper >
     <ChainAccordion mpc={props.mpc} schainName={props.schainName} />
   </div >)
 }
