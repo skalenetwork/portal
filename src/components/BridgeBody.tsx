@@ -142,7 +142,8 @@ export default function Main() {
     !expandedCP &&
     !expandedTH &&
     sFuelOk &&
-    !!address;
+    !!address &&
+    !!token;
   const showError = !!errorMessage;
 
   const grayBg = "rgb(136 135 135 / 15%)";
