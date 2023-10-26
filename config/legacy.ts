@@ -8,7 +8,8 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
   chains: [
     'mainnet',
     'skale-innocent-nasty', // europa
-    'international-villainous-zaurak' // calypso
+    'international-villainous-zaurak', // calypso
+    'big-majestic-oval-SKALE' // qa chain
   ],
   tokens: {
     eth: {
@@ -23,6 +24,12 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       decimals: '6',
       symbol: 'USDC',
       name: 'USD Coin'
+    },
+    trt: {
+      decimals: '18',
+      symbol: 'TRT',
+      name: 'Turtle Coin',
+      iconUrl: 'https://github.com/microsoft/fluentui-emoji/blob/main/assets/Turtle/3D/turtle_3d.png?raw=true'
     }
   },
   connections: {
@@ -58,6 +65,16 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         // }
       }
     },
+    'big-majestic-oval-SKALE': {
+      erc20: {
+        trt: {
+          address: '0xbb2c9411079c6ddCd19c74e8442f77b70Ae74267',
+          chains: {
+            'international-villainous-zaurak': {}
+          }
+        }
+      }
+    },
     'international-villainous-zaurak': {
       // Calypso connections
       eth: {
@@ -87,6 +104,13 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             }
           }
         },
+        trt: {
+          address: '0x45f7CA2Ace063867E8E1378F0f2cFa86D8f591DE',
+          chains: {
+            'big-majestic-oval-SKALE': {}
+          }
+        }
+
         // usdc: {
         //   address: '0x49c37d0Bb6238933eEe2157e9Df417fd62723fF6',
         //   chains: {
