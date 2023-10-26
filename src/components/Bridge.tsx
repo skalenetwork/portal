@@ -21,15 +21,15 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
+import { useEffect, useState } from 'react'
+import { useSearchParams } from 'react-router-dom'
 
-import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
-import GradeRoundedIcon from "@mui/icons-material/GradeRounded";
+import Container from '@mui/material/Container'
+import Stack from '@mui/material/Stack'
+import GradeRoundedIcon from '@mui/icons-material/GradeRounded'
 
-import Message from "./Message";
-import BridgeBody from "./BridgeBody";
+import Message from './Message'
+import BridgeBody from './BridgeBody'
 
 import {
   CHAINS_META,
@@ -39,109 +39,115 @@ import {
   useMetaportStore,
   SkPaper,
   type interfaces,
-  TransactionData,
-} from "@skalenetwork/metaport";
+  TransactionData
+} from '@skalenetwork/metaport'
 
 interface TokenParams {
-  keyname: string | null;
-  type: dataclasses.TokenType | null;
+  keyname: string | null
+  type: dataclasses.TokenType | null
 }
 
 function getEmptyTokenParams(): TokenParams {
-  return { keyname: null, type: null };
+  return { keyname: null, type: null }
 }
 
 export default function Bridge() {
-  const [searchParams, setSearchParams] = useSearchParams();
-  const [tokenParams, setTokenParams] = useState<TokenParams>(
-    getEmptyTokenParams(),
-  );
+  const [searchParams, setSearchParams] = useSearchParams()
+  const [tokenParams, setTokenParams] = useState<TokenParams>(getEmptyTokenParams())
 
-  const mpc = useMetaportStore((state) => state.mpc);
+  const mpc = useMetaportStore((state) => state.mpc)
 
-  const chainName1 = useMetaportStore((state) => state.chainName1);
-  const chainName2 = useMetaportStore((state) => state.chainName2);
-  const setChainName1 = useMetaportStore((state) => state.setChainName1);
-  const setChainName2 = useMetaportStore((state) => state.setChainName2);
+  const chainName1 = useMetaportStore((state) => state.chainName1)
+  const chainName2 = useMetaportStore((state) => state.chainName2)
+  const setChainName1 = useMetaportStore((state) => state.setChainName1)
+  const setChainName2 = useMetaportStore((state) => state.setChainName2)
 
-  const appName1 = useMetaportStore((state) => state.appName1);
-  const appName2 = useMetaportStore((state) => state.appName2);
-  const setAppName1 = useMetaportStore((state) => state.setAppName1);
-  const setAppName2 = useMetaportStore((state) => state.setAppName2);
+  const appName1 = useMetaportStore((state) => state.appName1)
+  const appName2 = useMetaportStore((state) => state.appName2)
+  const setAppName1 = useMetaportStore((state) => state.setAppName1)
+  const setAppName2 = useMetaportStore((state) => state.setAppName2)
 
-  const token = useMetaportStore((state) => state.token);
-  const tokens = useMetaportStore((state) => state.tokens);
-  const setToken = useMetaportStore((state) => state.setToken);
+  const token = useMetaportStore((state) => state.token)
+  const tokens = useMetaportStore((state) => state.tokens)
+  const setToken = useMetaportStore((state) => state.setToken)
 
-  const transactionsHistory = useMetaportStore(
-    (state) => state.transactionsHistory,
-  );
+  const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
 
   function validChainName(chainName: string | null): boolean {
-    if (!chainName) return false;
-    return mpc.config.chains.includes(chainName);
+    if (!chainName) return false
+    return mpc.config.chains.includes(chainName)
   }
 
-  function validAppName(
-    chainName: string | null,
-    appName: string | null,
-  ): boolean {
-    if (!chainName || !appName) return false;
-    const chainMeta = CHAINS_META[mpc.config.skaleNetwork];
-    const apps = chainMeta?.[chainName]?.apps;
-    return !!(apps?.[appName]);
+  function validAppName(chainName: string | null, appName: string | null): boolean {
+    if (!chainName || !appName) return false
+    const chainMeta = CHAINS_META[mpc.config.skaleNetwork]
+    const apps = chainMeta?.[chainName]?.apps
+    return !!apps?.[appName]
   }
 
-  useEffect(() => {
+  function validKeyname(keyname: string, type: string, from: string, to: string): boolean {
+    return !!mpc.config.connections[from]?.[type]?.[keyname]?.chains?.[to]
+  }
+
+  function updateSearchParams() {
     const params: any = {
       from: chainName1,
       to: chainName2,
       token: token?.keyname,
-      type: token?.type,
-    };
-    if (appName1) params["from-app"] = appName1;
-    if (appName2) params["to-app"] = appName2;
-    setSearchParams(params);
-  }, [chainName1, chainName2, appName1, appName2, token]);
+      type: token?.type
+    }
+    if (appName1) params['from-app'] = appName1
+    if (appName2) params['to-app'] = appName2
+    setSearchParams(params)
+  }
 
   useEffect(() => {
-    const from = searchParams.get("from");
-    const to = searchParams.get("to");
-    const fromApp = searchParams.get("from-app");
-    const toApp = searchParams.get("to-app");
-    const keyname = searchParams.get("token");
-    const type = searchParams.get("type");
+    updateSearchParams()
+  }, [chainName1, chainName2, appName1, appName2, token])
 
-    setChainName1(validChainName(from) ? from! : mpc.config.chains[0]);
-    setChainName2(validChainName(to) ? to! : mpc.config.chains[1]);
-    setAppName1(validAppName(from, fromApp) ? fromApp! : undefined!);
-    setAppName2(validAppName(to, toApp) ? toApp! : undefined!);
+  useEffect(() => {
+    if (chainName1 && chainName2 && token) return
+    const from = searchParams.get('from')
+    const to = searchParams.get('to')
+    const fromApp = searchParams.get('from-app')
+    const toApp = searchParams.get('to-app')
+    const keyname = searchParams.get('token')
+    const type = searchParams.get('type')
 
-    if (keyname)
-      setTokenParams({ keyname, type: type as dataclasses.TokenType });
-  }, []);
+    const chain1 = validChainName(from) ? from! : mpc.config.chains[0]
+    const chain2 = validChainName(to) ? to! : mpc.config.chains[1]
+
+    setChainName1(chain1)
+    setChainName2(chain2)
+    setAppName1(validAppName(from, fromApp) ? fromApp! : undefined!)
+    setAppName2(validAppName(to, toApp) ? toApp! : undefined!)
+
+    if (keyname && type && validKeyname(keyname, type, chain1, chain2))
+      setTokenParams({ keyname, type: type as dataclasses.TokenType })
+  }, [])
 
   useEffect(() => {
     if (
       tokens &&
-      (tokenParams.type != null) &&
+      tokenParams.type != null &&
       tokenParams.keyname &&
       tokens[tokenParams.type] &&
-      tokens[tokenParams.type][tokenParams.keyname]
+      tokens[tokenParams.type][tokenParams.keyname] &&
+      validKeyname(tokenParams.keyname, tokenParams.type, chainName1, chainName2)
     ) {
-      setToken(tokens[tokenParams.type][tokenParams.keyname]);
-      setTokenParams(getEmptyTokenParams());
-      return;
+      setToken(tokens[tokenParams.type][tokenParams.keyname])
+      setTokenParams(getEmptyTokenParams())
+      return
     }
     if (tokens && tokens.erc20 && Object.values(tokens.erc20)[0] && !token) {
-      setToken(Object.values(tokens.erc20)[0]);
+      setToken(Object.values(tokens.erc20)[0])
     }
-  }, [tokenParams, tokens]);
+  }, [tokenParams, tokens])
 
   return (
     <Container maxWidth="sm">
       <Stack spacing={0}>
-        <div className={cls(cmn.flex, cmn.mbott20)}>
+        <div className={cls(cmn.flex, cmn.mbott10)}>
           <h2 className={cls(cmn.nom)}>Transfer</h2>
         </div>
         <div>
@@ -153,33 +159,22 @@ export default function Bridge() {
           <BridgeBody />
           {transactionsHistory.length !== 0 ? (
             <div className={cls(cmn.mbott20)}>
-              <p
-                className={cls(
-                  cmn.p,
-                  cmn.p2,
-                  cmn.pPrim,
-                  cmn.p700,
-                  cmn.mtop20,
-                  cmn.mbott10,
-                )}
-              >
+              <p className={cls(cmn.p, cmn.p2, cmn.pPrim, cmn.p700, cmn.mtop20, cmn.mbott10)}>
                 Completed transactions
               </p>
               <SkPaper gray>
-                {transactionsHistory.map(
-                  (transactionData: interfaces.TransactionHistory) => (
-                    <TransactionData
-                      key={transactionData.transactionHash}
-                      transactionData={transactionData}
-                      config={mpc.config}
-                    />
-                  ),
-                )}
+                {transactionsHistory.map((transactionData: interfaces.TransactionHistory) => (
+                  <TransactionData
+                    key={transactionData.transactionHash}
+                    transactionData={transactionData}
+                    config={mpc.config}
+                  />
+                ))}
               </SkPaper>
             </div>
           ) : null}
         </div>
       </Stack>
     </Container>
-  );
+  )
 }

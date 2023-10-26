@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom'
 import {
   cmn,
   cls,
@@ -29,34 +29,26 @@ import {
   getChainAlias,
   BASE_EXPLORER_URLS,
   CHAINS_META,
-  type interfaces,
-} from "@skalenetwork/metaport";
+  type interfaces
+} from '@skalenetwork/metaport'
 
-import Button from "@mui/material/Button";
-import ArrowOutwardIcon from "@mui/icons-material/ArrowOutward";
-import UnfoldMoreRoundedIcon from "@mui/icons-material/UnfoldMoreRounded";
+import Button from '@mui/material/Button'
+import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
+import UnfoldMoreRoundedIcon from '@mui/icons-material/UnfoldMoreRounded'
 
-import ChainLogo from "./ChainLogo";
-import { getExplorerUrl } from "../core/chain";
+import ChainLogo from './ChainLogo'
+import { getExplorerUrl } from '../core/chain'
 
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 
-
-export default function ChainCard(props: {
-  skaleNetwork: interfaces.SkaleNetwork;
-  schain: any[];
-}) {
-  const explorerUrl = getExplorerUrl(
-    BASE_EXPLORER_URLS[props.skaleNetwork],
-    props.schain[0],
-  );
+export default function ChainCard(props: { skaleNetwork: interfaces.SkaleNetwork; schain: any[] }) {
+  const explorerUrl = getExplorerUrl(BASE_EXPLORER_URLS[props.skaleNetwork], props.schain[0])
 
   function getChainShortAlias(meta: interfaces.ChainsMetadataMap, name: string): string {
-    return meta[name] && meta[name].shortAlias !== undefined ? meta[name].shortAlias! : name;
+    return meta[name] && meta[name].shortAlias !== undefined ? meta[name].shortAlias! : name
   }
 
-  const chainsMeta: interfaces.ChainsMetadataMap =
-    CHAINS_META[props.skaleNetwork]
+  const chainsMeta: interfaces.ChainsMetadataMap = CHAINS_META[props.skaleNetwork]
 
   const shortAlias = getChainShortAlias(chainsMeta, props.schain[0])
 
@@ -64,19 +56,13 @@ export default function ChainCard(props: {
     <div>
       <div className="fl-centered">
         <div
-          className={cls("br__tile")}
+          className={cls('br__tile')}
           style={{ background: chainBg(props.skaleNetwork, props.schain[0]) }}
         >
-          <Link
-            to={"/chains/" + shortAlias}
-            className={cls("br__tileLogo", cmn.flex)}
-          >
+          <Link to={'/chains/' + shortAlias} className={cls('br__tileLogo', cmn.flex)}>
             <div className={cls(cmn.flex, cmn.flexg)}></div>
             <div className={cls(cmn.flex, cmn.flexcv, 'inheritSize')}>
-              <ChainLogo
-                chainName={props.schain[0]}
-                logos={MAINNET_CHAIN_LOGOS}
-              />
+              <ChainLogo chainName={props.schain[0]} logos={MAINNET_CHAIN_LOGOS} />
             </div>
             <div className={cls(cmn.flex, cmn.flexg)}></div>
           </Link>
@@ -86,53 +72,28 @@ export default function ChainCard(props: {
               cmn.flexcv,
               cmn.mbott10,
               cmn.mleft10,
-              "br__tileBott",
-              "fullWidth",
+              'br__tileBott',
+              'fullWidth'
             )}
           >
             <div className={cls(cmn.fflex, cmn.flexg)}>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href={explorerUrl}
-                className="undec"
-              >
-                <Button
-                  endIcon={<ArrowOutwardIcon />}
-                  size="small"
-                  className="cardBtn"
-                >
+              <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
+                <Button endIcon={<ArrowOutwardIcon />} size="small" className="cardBtn">
                   Explorer
                 </Button>
               </a>
-              <Link
-                to={"/chains/" + shortAlias}
-                style={{ marginLeft: '3px' }}
-              >
-                <Button
-                  endIcon={<UnfoldMoreRoundedIcon />}
-                  size="small"
-                  className="cardBtn"
-                >
+              <Link to={'/chains/' + shortAlias} style={{ marginLeft: '3px' }}>
+                <Button endIcon={<UnfoldMoreRoundedIcon />} size="small" className="cardBtn">
                   Info
                 </Button>
               </Link>
             </div>
           </div>
         </div>
-        <p
-          className={cls(
-            cmn.p,
-            cmn.pCent,
-            cmn.p3,
-            cmn.pPrim,
-            cmn.mtop10,
-            cmn.p600,
-          )}
-        >
+        <p className={cls(cmn.p, cmn.pCent, cmn.p3, cmn.pPrim, cmn.mtop10, cmn.p600)}>
           {getChainAlias(props.skaleNetwork, props.schain[0], undefined, true)}
         </p>
       </div>
     </div>
-  );
+  )
 }

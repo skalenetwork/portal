@@ -21,63 +21,45 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { type ReactElement, useState } from "react";
-import IconButton from "@mui/material/IconButton";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import Collapse from "@mui/material/Collapse";
+import { type ReactElement, useState } from 'react'
+import IconButton from '@mui/material/IconButton'
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
+import Collapse from '@mui/material/Collapse'
 
-import { SkPaper, cls, cmn } from "@skalenetwork/metaport";
+import { SkPaper, cls, cmn } from '@skalenetwork/metaport'
 
 export default function Message(props: {
-  text: string;
-  icon: ReactElement;
-  className?: string | undefined;
-  showOnLoad?: boolean | undefined;
+  text: string
+  icon: ReactElement
+  className?: string | undefined
+  showOnLoad?: boolean | undefined
 }) {
-  const [show, setShow] = useState<boolean>(true);
+  const [show, setShow] = useState<boolean>(true)
   return (
     <Collapse in={show}>
       <SkPaper gray className={props.className}>
         <div
-          className={cls(
-            cmn.flex,
-            cmn.fullWidth,
-            cmn.flexcv,
-            cmn.mtop10,
-            cmn.mbott10,
-            cmn.mleft10,
-          )}
+          className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv, cmn.mtop10, cmn.mbott10, cmn.mleft10)}
         >
-          <div className={cls(cmn.flex, cmn.flexc, cmn.mri10)}>
-            {props.icon}
-          </div>
-          <p
-            className={cls(
-              cmn.p,
-              cmn.p3,
-              cmn.p600,
-              cmn.pPrim,
-              cmn.mri10,
-              cmn.flexg,
-            )}
-          >
+          <div className={cls(cmn.flex, cmn.flexc, cmn.mri10)}>{props.icon}</div>
+          <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.pPrim, cmn.mri10, cmn.flexg)}>
             {props.text}
           </p>
           <div className={cls(cmn.mri20)}>
             <IconButton
               onClick={() => {
-                setShow(false);
+                setShow(false)
               }}
               className={cls(cmn.paperGrey, cmn.pPrim, cmn.mleft10)}
             >
               <CloseRoundedIcon
                 className={cls(cmn.pSec)}
-                style={{ height: "16px", width: "16px" }}
+                style={{ height: '16px', width: '16px' }}
               />
             </IconButton>
           </div>
         </div>
       </SkPaper>
     </Collapse>
-  );
+  )
 }

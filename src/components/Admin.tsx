@@ -21,19 +21,19 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { useEffect } from "react";
-import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
-import { useParams } from "react-router-dom";
+import { useEffect } from 'react'
+import Container from '@mui/material/Container'
+import Stack from '@mui/material/Stack'
+import { useParams } from 'react-router-dom'
 
-import { cmn, cls, type MetaportCore, getChainAlias } from "@skalenetwork/metaport";
+import { cmn, cls, type MetaportCore, getChainAlias } from '@skalenetwork/metaport'
 
 export default function Admin(props: { mpc: MetaportCore }) {
-  let { name } = useParams();
-  name = name ?? "";
-  const alias = getChainAlias(props.mpc.config.skaleNetwork, name);
+  let { name } = useParams()
+  name = name ?? ''
+  const alias = getChainAlias(props.mpc.config.skaleNetwork, name)
 
-  useEffect(() => {}, []);
+  useEffect(() => {}, [])
 
   return (
     <Container maxWidth="md">
@@ -41,11 +41,9 @@ export default function Admin(props: { mpc: MetaportCore }) {
         <div className={cls(cmn.flex)}>
           <h2 className={cls(cmn.nom, cmn.flexg)}>Manage {alias}</h2>
         </div>
-        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-          Manage your SKALE Chain
-        </p>
+        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>Manage your SKALE Chain</p>
         <div></div>
       </Stack>
     </Container>
-  );
+  )
 }

@@ -1,34 +1,23 @@
-import { useState, useEffect } from "react";
-import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
-import CircularProgress from "@mui/material/CircularProgress";
+import { useState, useEffect } from 'react'
+import Container from '@mui/material/Container'
+import Stack from '@mui/material/Stack'
+import CircularProgress from '@mui/material/CircularProgress'
 
-import CategorySection from "./CategorySection";
-import { getPrimaryCategory } from "./CategoryBadge";
+import CategorySection from './CategorySection'
+import { getPrimaryCategory } from './CategoryBadge'
 
-import {
-  cmn,
-  cls,
-  type MetaportCore,
-  CHAINS_META,
-  type interfaces,
-} from "@skalenetwork/metaport";
+import { cmn, cls, type MetaportCore, CHAINS_META, type interfaces } from '@skalenetwork/metaport'
 
-export default function Chains(props: {
-  loadSchains: any;
-  schains: any[];
-  mpc: MetaportCore;
-}) {
-  const [_, setIntervalId] = useState<NodeJS.Timeout>();
+export default function Chains(props: { loadSchains: any; schains: any[]; mpc: MetaportCore }) {
+  const [_, setIntervalId] = useState<NodeJS.Timeout>()
 
   useEffect(() => {
-    props.loadSchains();
-    const intervalId = setInterval(props.loadSchains, 10000);
-    setIntervalId(intervalId);
-  }, []);
+    props.loadSchains()
+    const intervalId = setInterval(props.loadSchains, 10000)
+    setIntervalId(intervalId)
+  }, [])
 
-  const chainsMeta: interfaces.ChainsMetadataMap =
-    CHAINS_META[props.mpc.config.skaleNetwork];
+  const chainsMeta: interfaces.ChainsMetadataMap = CHAINS_META[props.mpc.config.skaleNetwork]
 
   if (props.schains.length === 0) {
     return (
@@ -42,7 +31,7 @@ export default function Chains(props: {
           </div>
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -61,7 +50,7 @@ export default function Chains(props: {
             schains={props.schains.filter(
               (schain) =>
                 chainsMeta[schain[0]] &&
-                getPrimaryCategory(chainsMeta[schain[0]].category) === "Hub",
+                getPrimaryCategory(chainsMeta[schain[0]].category) === 'Hub'
             )}
           />
           <CategorySection
@@ -70,7 +59,7 @@ export default function Chains(props: {
             schains={props.schains.filter(
               (schain) =>
                 chainsMeta[schain[0]] &&
-                getPrimaryCategory(chainsMeta[schain[0]].category) === "Game",
+                getPrimaryCategory(chainsMeta[schain[0]].category) === 'Game'
             )}
           />
           <CategorySection
@@ -79,7 +68,7 @@ export default function Chains(props: {
             schains={props.schains.filter(
               (schain) =>
                 chainsMeta[schain[0]] &&
-                getPrimaryCategory(chainsMeta[schain[0]].category) === "dApp",
+                getPrimaryCategory(chainsMeta[schain[0]].category) === 'dApp'
             )}
           />
           <CategorySection
@@ -90,5 +79,5 @@ export default function Chains(props: {
         </div>
       </Stack>
     </Container>
-  );
+  )
 }

@@ -21,34 +21,27 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import Tooltip from "@mui/material/Tooltip";
-import ButtonBase from "@mui/material/ButtonBase";
-import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded';
+import Tooltip from '@mui/material/Tooltip'
+import ButtonBase from '@mui/material/ButtonBase'
+import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 
-import { cmn, cls, styles } from "@skalenetwork/metaport";
-
+import { cmn, cls, styles } from '@skalenetwork/metaport'
 
 export default function LinkSurface(props: {
-  title: string,
-  value: string | null | undefined,
-  url: string,
+  title: string
+  value: string | null | undefined
+  url: string
   className?: string
 }) {
   if (!props.value) return
   return (
     <div className={props.className}>
-      <a
-        target="_blank"
-        rel="noreferrer"
-        href={props.url}
-        className={cls("undec", cmn.pPrim)}
-      >
+      <a target="_blank" rel="noreferrer" href={props.url} className={cls('undec', cmn.pPrim)}>
         <Tooltip title={'Clicl to see contract'}>
           <ButtonBase className="titleSection" style={{ width: '100%' }}>
             <div style={{ textAlign: 'left', overflow: 'auto' }} className={cmn.flexg}>
               <div className={cls(cmn.flex)}>
-                <p className={cls(cmn.p, cmn.pPrim, cmn.p4, cmn.pSec, cmn.mbott5)}>{props.title}
-                </p>
+                <p className={cls(cmn.p, cmn.pPrim, cmn.p4, cmn.pSec, cmn.mbott5)}>{props.title}</p>
               </div>
               <p className={cls(cmn.p, cmn.p2, cmn.p600, 'shortP')}>{props.value}</p>
             </div>
@@ -57,5 +50,5 @@ export default function LinkSurface(props: {
         </Tooltip>
       </a>
     </div>
-  );
+  )
 }

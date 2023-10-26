@@ -1,9 +1,9 @@
-import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
+import Container from '@mui/material/Container'
+import Stack from '@mui/material/Stack'
 
-import { cmn, cls } from "@skalenetwork/metaport";
+import { cmn, cls } from '@skalenetwork/metaport'
 
-import TermsOfService from "./terms-of-service.mdx";
+import TermsOfService from './terms-of-service.mdx'
 
 export default function Terms() {
   return (
@@ -18,5 +18,5 @@ export default function Terms() {
         <TermsOfService />
       </Stack>
     </Container>
-  );
+  )
 }

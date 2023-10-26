@@ -1,7 +1,7 @@
-import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
+import Container from '@mui/material/Container'
+import Stack from '@mui/material/Stack'
 
-import { cmn, cls } from "@skalenetwork/metaport";
+import { cmn, cls } from '@skalenetwork/metaport'
 
 export default function App() {
   return (
@@ -13,5 +13,5 @@ export default function App() {
         <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>Test app</p>
       </Stack>
     </Container>
-  );
+  )
 }

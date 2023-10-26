@@ -21,21 +21,26 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { cmn } from "@skalenetwork/metaport";
-import CategoryBadge, { isString } from "./CategoryBadge";
+import { cmn } from '@skalenetwork/metaport'
+import CategoryBadge, { isString } from './CategoryBadge'
 
 export default function ChainCategories(props: {
-  category: string | string[] | undefined, className?: string
+  category: string | string[] | undefined
+  className?: string
 }) {
   if (!props.category) return
-  return (<div className={cmn.flex}>
-    <div className={cmn.flexg}></div>
+  return (
     <div className={cmn.flex}>
-      {isString(props.category) ? <CategoryBadge category={props.category} className={cmn.mleft5} /> :
-        props.category.map((cat: string) => (
-          <CategoryBadge category={cat} className={cmn.mleft5} />
-        ))
-      }
+      <div className={cmn.flexg}></div>
+      <div className={cmn.flex}>
+        {isString(props.category) ? (
+          <CategoryBadge category={props.category} className={cmn.mleft5} />
+        ) : (
+          props.category.map((cat: string) => (
+            <CategoryBadge category={cat} className={cmn.mleft5} />
+          ))
+        )}
+      </div>
     </div>
-  </div>)
+  )
 }
