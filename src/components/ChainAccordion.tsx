@@ -21,12 +21,12 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { useState } from "react";
+import { useState } from 'react'
 
-import Grid from "@mui/material/Grid";
-import ConstructionRoundedIcon from '@mui/icons-material/ConstructionRounded';
-import PlaylistAddCheckCircleRoundedIcon from '@mui/icons-material/PlaylistAddCheckCircleRounded';
-import AccountBalanceWalletRoundedIcon from '@mui/icons-material/AccountBalanceWalletRounded';
+import Grid from '@mui/material/Grid'
+import ConstructionRoundedIcon from '@mui/icons-material/ConstructionRounded'
+import PlaylistAddCheckCircleRoundedIcon from '@mui/icons-material/PlaylistAddCheckCircleRounded'
+import AccountBalanceWalletRoundedIcon from '@mui/icons-material/AccountBalanceWalletRounded'
 
 import {
   cmn,
@@ -37,42 +37,46 @@ import {
   type MetaportCore,
   SkPaper,
   interfaces
-} from "@skalenetwork/metaport";
+} from '@skalenetwork/metaport'
 
-import VerifiedContracts from "./VerifiedContracts";
-import CopySurface from "./CopySurface";
-import AccordionSection from "./AccordionSection";
+import VerifiedContracts from './VerifiedContracts'
+import CopySurface from './CopySurface'
+import AccordionSection from './AccordionSection'
 
 import {
-  getRpcUrl, getRpcWsUrl, getFsUrl, getExplorerUrl, getChainId, HTTPS_PREFIX, WSS_PREFIX
+  getRpcUrl,
+  getRpcWsUrl,
+  getFsUrl,
+  getExplorerUrl,
+  getChainId,
+  HTTPS_PREFIX,
+  WSS_PREFIX
 } from '../core/chain'
 
-
 export default function ChainAccordion(props: {
-  schainName: string;
-  mpc: MetaportCore;
+  schainName: string
+  mpc: MetaportCore
   className?: string
 }) {
+  const proxyBase = PROXY_ENDPOINTS[props.mpc.config.skaleNetwork]
+  const explorerBase = BASE_EXPLORER_URLS[props.mpc.config.skaleNetwork]
 
-  const proxyBase = PROXY_ENDPOINTS[props.mpc.config.skaleNetwork];
-  const explorerBase = BASE_EXPLORER_URLS[props.mpc.config.skaleNetwork];
+  const rpcUrl = getRpcUrl(proxyBase, props.schainName, HTTPS_PREFIX)
+  const rpcWssUrl = getRpcWsUrl(proxyBase, props.schainName, WSS_PREFIX)
+  const fsUrl = getFsUrl(proxyBase, props.schainName, HTTPS_PREFIX)
 
-  const rpcUrl = getRpcUrl(proxyBase, props.schainName, HTTPS_PREFIX);
-  const rpcWssUrl = getRpcWsUrl(proxyBase, props.schainName, WSS_PREFIX);
-  const fsUrl = getFsUrl(proxyBase, props.schainName, HTTPS_PREFIX);
-
-  const explorerUrl = getExplorerUrl(explorerBase, props.schainName);
-  const chainId = getChainId(props.schainName);
+  const explorerUrl = getExplorerUrl(explorerBase, props.schainName)
+  const chainId = getChainId(props.schainName)
 
   function findWrapperAddress(token: interfaces.Token): `0x${string}` | null | undefined {
-    const chainWithWrapper = Object.values(token.chains).find(chain => chain.wrapper);
-    return chainWithWrapper ? chainWithWrapper.wrapper : null;
+    const chainWithWrapper = Object.values(token.chains).find((chain) => chain.wrapper)
+    return chainWithWrapper ? chainWithWrapper.wrapper : null
   }
 
-  const [expanded, setExpanded] = useState<string | false>('panel1');
+  const [expanded, setExpanded] = useState<string | false>('panel1')
 
   function handleChange(panel: string | false) {
-    setExpanded(expanded && panel === expanded ? false : panel);
+    setExpanded(expanded && panel === expanded ? false : panel)
   }
 
   const tokenConnections = props.mpc.config.connections[props.schainName] ?? {}
@@ -83,83 +87,107 @@ export default function ChainAccordion(props: {
       <AccordionSection
         handleChange={handleChange}
         expanded={expanded}
-        panel='panel1'
-        title='Developer info'
+        panel="panel1"
+        title="Developer info"
         icon={<ConstructionRoundedIcon />}
       >
         <Grid container spacing={2} className={cls(cmn.full)}>
-          <Grid item md={12} xs={12} >
-            <CopySurface
-              className={cls(styles.fullHeight)} title='RPC Endpoint' value={rpcUrl} />
-          </Grid>
-          <Grid item md={6} xs={12}>
-            <CopySurface
-              className={cls(styles.fullHeight)} title='Websocket Endpoint' value={rpcWssUrl} />
-          </Grid>
-          <Grid item md={6} xs={12}>
-            <CopySurface
-              className={cls(styles.fullHeight)} title='Filestorage Endpoint' value={fsUrl} />
+          <Grid item md={12} xs={12}>
+            <CopySurface className={cls(styles.fullHeight)} title="RPC Endpoint" value={rpcUrl} />
           </Grid>
           <Grid item md={6} xs={12}>
             <CopySurface
               className={cls(styles.fullHeight)}
-              title='SKALE Manager name'
+              title="Websocket Endpoint"
+              value={rpcWssUrl}
+            />
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <CopySurface
+              className={cls(styles.fullHeight)}
+              title="Filestorage Endpoint"
+              value={fsUrl}
+            />
+          </Grid>
+          <Grid item md={6} xs={12}>
+            <CopySurface
+              className={cls(styles.fullHeight)}
+              title="SKALE Manager name"
               value={props.schainName}
             />
           </Grid>
           <Grid item md={6} xs={12}>
-            <CopySurface className={cls(styles.fullHeight)} title='Chain ID Hex' value={chainId} />
+            <CopySurface className={cls(styles.fullHeight)} title="Chain ID Hex" value={chainId} />
           </Grid>
         </Grid>
       </AccordionSection>
       <AccordionSection
         handleChange={handleChange}
         expanded={expanded}
-        panel='panel2'
-        title='Available tokens'
+        panel="panel2"
+        title="Available tokens"
         icon={<AccountBalanceWalletRoundedIcon />}
       >
-        {Object.keys(chainTokens).length !== 0 ? <div>
-          <Grid container spacing={2} className={cls(cmn.full)}>
-            {Object.keys(chainTokens).flatMap((tokenSymbol: string) => {
-              const wrapperAddress = findWrapperAddress(chainTokens[tokenSymbol]);
-              return [
-                <Grid key={tokenSymbol} item lg={3} md={4} sm={6} xs={12}>
-                  <CopySurface
-                    className={cls(styles.fullHeight)}
-                    title={tokenSymbol.toUpperCase()}
-                    value={chainTokens[tokenSymbol].address as string}
-                    tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
-                  />
-                </Grid>,
-                ...(wrapperAddress ? [
-                  <Grid key={`w${tokenSymbol}`} item lg={3} md={4} sm={6} xs={12}>
+        {Object.keys(chainTokens).length !== 0 ? (
+          <div>
+            <Grid container spacing={2} className={cls(cmn.full)}>
+              {Object.keys(chainTokens).flatMap((tokenSymbol: string) => {
+                const wrapperAddress = findWrapperAddress(chainTokens[tokenSymbol])
+                return [
+                  <Grid key={tokenSymbol} item lg={3} md={4} sm={6} xs={12}>
                     <CopySurface
                       className={cls(styles.fullHeight)}
-                      title={`w${tokenSymbol.toUpperCase()}`}
-                      value={wrapperAddress}
+                      title={tokenSymbol.toUpperCase()}
+                      value={chainTokens[tokenSymbol].address as string}
                       tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
                     />
-                  </Grid>
-                ] : [])
-              ];
-            })}
-          </Grid>
-        </div> : <p className={cls(
-          cmn.p, cmn.p2, cmn.p700, cmn.pSec, cmn.fullWidth, cmn.mtop20, cmn.mbott20, cmn.pCent)}>
-          No mapped tokens
-        </p>}
+                  </Grid>,
+                  ...(wrapperAddress
+                    ? [
+                        <Grid key={`w${tokenSymbol}`} item lg={3} md={4} sm={6} xs={12}>
+                          <CopySurface
+                            className={cls(styles.fullHeight)}
+                            title={`w${tokenSymbol.toUpperCase()}`}
+                            value={wrapperAddress}
+                            tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
+                          />
+                        </Grid>
+                      ]
+                    : [])
+                ]
+              })}
+            </Grid>
+          </div>
+        ) : (
+          <p
+            className={cls(
+              cmn.p,
+              cmn.p2,
+              cmn.p700,
+              cmn.pSec,
+              cmn.fullWidth,
+              cmn.mtop20,
+              cmn.mbott20,
+              cmn.pCent
+            )}
+          >
+            No mapped tokens
+          </p>
+        )}
       </AccordionSection>
       <AccordionSection
         handleChange={handleChange}
         expanded={expanded}
-        panel='panel3'
-        title='Verified contracts'
+        panel="panel3"
+        title="Verified contracts"
         icon={<PlaylistAddCheckCircleRoundedIcon />}
       >
         <VerifiedContracts
-          mpc={props.mpc} schainName={props.schainName} explorerUrl={explorerUrl} />
+          mpc={props.mpc}
+          schainName={props.schainName}
+          explorerUrl={explorerUrl}
+        />
       </AccordionSection>
-    </SkPaper >
-  );
+    </SkPaper>
+  )
 }

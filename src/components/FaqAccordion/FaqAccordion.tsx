@@ -21,18 +21,17 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import * as React from "react";
-import { cls, cmn, SkPaper } from "@skalenetwork/metaport";
+import * as React from 'react'
+import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
 
-import AccordionSection from "../AccordionSection";
-import { FAQ } from "../../core/constants";
-
+import AccordionSection from '../AccordionSection'
+import { FAQ } from '../../core/constants'
 
 export default function FaqAccordion() {
-  const [expanded, setExpanded] = React.useState<string | false>(false);
+  const [expanded, setExpanded] = React.useState<string | false>(false)
 
   function handleChange(panel: string | false) {
-    setExpanded(expanded && panel === expanded ? false : panel);
+    setExpanded(expanded && panel === expanded ? false : panel)
   }
 
   return (
@@ -44,11 +43,9 @@ export default function FaqAccordion() {
           panel={`panel${index}`}
           title={question.question}
         >
-          <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.mleft10, cmn.mri10)}>
-            {question.answer}
-          </p>
+          <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.mleft10, cmn.mri10)}>{question.answer}</p>
         </AccordionSection>
       ))}
     </SkPaper>
-  );
+  )
 }

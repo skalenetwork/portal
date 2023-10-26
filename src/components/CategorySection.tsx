@@ -21,26 +21,25 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import Box from '@mui/material/Box'
+import Grid from '@mui/material/Grid'
 
-import ChainCard from "./ChainCard";
-import { cls, cmn, interfaces, styles, getChainAlias } from "@skalenetwork/metaport";
+import ChainCard from './ChainCard'
+import { cls, cmn, interfaces, styles, getChainAlias } from '@skalenetwork/metaport'
 
-import { CATEGORY_ICON } from "./CategoryBadge";
-
+import { CATEGORY_ICON } from './CategoryBadge'
 
 export default function CategorySection(props: {
-  schains: any,
-  category: string,
+  schains: any
+  category: string
   skaleNetwork: interfaces.SkaleNetwork
 }) {
-  if (!props.schains || props.schains.length === 0) return;
+  if (!props.schains || props.schains.length === 0) return
   const schains = props.schains.sort((a: any[], b: any[]) => {
-    const aliasA = getChainAlias(props.skaleNetwork, a[0]);
-    const aliasB = getChainAlias(props.skaleNetwork, b[0]);
-    return aliasA.localeCompare(aliasB);
-  });
+    const aliasA = getChainAlias(props.skaleNetwork, a[0])
+    const aliasB = getChainAlias(props.skaleNetwork, b[0])
+    return aliasA.localeCompare(aliasB)
+  })
   return (
     <div>
       <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop20, cmn.mbott20)}>
@@ -67,5 +66,5 @@ export default function CategorySection(props: {
         </Grid>
       </Box>
     </div>
-  );
+  )
 }

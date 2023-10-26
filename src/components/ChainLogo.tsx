@@ -21,15 +21,14 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import Jazzicon from "react-jazzicon";
-
+import Jazzicon from 'react-jazzicon'
 
 function hashCode(str: string) {
-  let hash = 0;
+  let hash = 0
   for (var i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash);
+    hash = str.charCodeAt(i) + ((hash << 5) - hash)
   }
-  return hash;
+  return hash
 }
 
 function getPseudoRandomNumber(
@@ -37,49 +36,53 @@ function getPseudoRandomNumber(
   min: number = 1000000000,
   max: number = 100000000000000
 ): number {
-  const seedValue = hashCode(seed);
-  const range = max - min;
-  const rng = Math.sin(seedValue) * 10000;
-  const randomInt = min + Math.floor((rng - Math.floor(rng)) * range);
-  return randomInt;
+  const seedValue = hashCode(seed)
+  const range = max - min
+  const rng = Math.sin(seedValue) * 10000
+  const randomInt = min + Math.floor((rng - Math.floor(rng)) * range)
+  return randomInt
 }
 
-
 export default function ChainLogo(props: {
-  chainName: string,
-  app?: string,
-  className?: string,
+  chainName: string
+  app?: string
+  className?: string
   logos: any
 }) {
-
   function getIcon(schainName: string, app?: string): any {
-    let iconPath = schainName;
+    let iconPath = schainName
     if (app) {
-      iconPath += `-${app}`;
+      iconPath += `-${app}`
     }
 
     iconPath = iconPath.replace(/-([a-z])/g, (_, g) => g.toUpperCase())
 
-    let pngPath = iconPath + '.png';
-    let gifPath = iconPath + '.gif';
-    let svgPath = iconPath + '.svg';
+    let pngPath = iconPath + '.png'
+    let gifPath = iconPath + '.gif'
+    let svgPath = iconPath + '.svg'
     if (props.logos[pngPath]) {
-      iconPath = pngPath;
+      iconPath = pngPath
     } else if (props.logos[gifPath]) {
-      iconPath = gifPath;
+      iconPath = gifPath
     } else if (props.logos[svgPath]) {
-      iconPath = svgPath;
+      iconPath = svgPath
     }
     const iconModule = props.logos[iconPath]
     if (iconModule) {
       return <img className={props.className} src={iconModule.default ?? iconModule} />
     }
-    return <div className="br__tileDefaultLogo">
-      <Jazzicon diameter={80} svgStyles={{
-        width: '100%',
-        height: '100%',
-      }} seed={getPseudoRandomNumber(schainName)} />
-    </div>;
+    return (
+      <div className="br__tileDefaultLogo">
+        <Jazzicon
+          diameter={80}
+          svgStyles={{
+            width: '100%',
+            height: '100%'
+          }}
+          seed={getPseudoRandomNumber(schainName)}
+        />
+      </div>
+    )
   }
   return getIcon(props.chainName, props.app)
 }

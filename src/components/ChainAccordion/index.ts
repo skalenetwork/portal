@@ -1,1 +1,1 @@
-export { default } from "../ChainAccordion";
+export { default } from '../ChainAccordion'

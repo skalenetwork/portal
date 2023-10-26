@@ -21,8 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import Collapse from "@mui/material/Collapse";
-import { MAINNET_CHAIN_NAME } from "../core/constants";
+import Collapse from '@mui/material/Collapse'
 
 import {
   SkPaper,
@@ -33,7 +32,6 @@ import {
   SkConnect,
   useCollapseStore,
   useMetaportStore,
-  useSFuelStore,
   useUIStore,
   useWagmiAccount,
   cls,
@@ -46,139 +44,62 @@ import {
   SFuelWarning,
   WrappedTokens,
   chainBg,
-} from "@skalenetwork/metaport";
+  useDisplayFunctions,
+  GRAY_BG
+} from '@skalenetwork/metaport'
 
 export default function Main() {
-  const expandedFrom = useCollapseStore((state) => state.expandedFrom);
-  const setExpandedFrom = useCollapseStore((state) => state.setExpandedFrom);
+  const { showFrom, showTo, showInput, showSwitch, showStepper, showCP, showWT } =
+    useDisplayFunctions()
 
-  const expandedTo = useCollapseStore((state) => state.expandedTo);
-  const setExpandedTo = useCollapseStore((state) => state.setExpandedTo);
+  const expandedFrom = useCollapseStore((state) => state.expandedFrom)
+  const setExpandedFrom = useCollapseStore((state) => state.setExpandedFrom)
 
-  const expandedCP = useCollapseStore((state) => state.expandedCP);
-  const expandedWT = useCollapseStore((state) => state.expandedWT);
-  const expandedTokens = useCollapseStore((state) => state.expandedTokens);
-  const expandedTH = useCollapseStore((state) => state.expandedTH);
+  const expandedTo = useCollapseStore((state) => state.expandedTo)
+  const setExpandedTo = useCollapseStore((state) => state.setExpandedTo)
 
-  const destChains = useMetaportStore((state) => state.destChains);
+  const destChains = useMetaportStore((state) => state.destChains)
 
-  const token = useMetaportStore((state) => state.token);
+  const token = useMetaportStore((state) => state.token)
 
-  const chainName1 = useMetaportStore((state) => state.chainName1);
-  const chainName2 = useMetaportStore((state) => state.chainName2);
-  const setChainName1 = useMetaportStore((state) => state.setChainName1);
-  const setChainName2 = useMetaportStore((state) => state.setChainName2);
+  const chainName1 = useMetaportStore((state) => state.chainName1)
+  const chainName2 = useMetaportStore((state) => state.chainName2)
+  const setChainName1 = useMetaportStore((state) => state.setChainName1)
+  const setChainName2 = useMetaportStore((state) => state.setChainName2)
 
-  const appName1 = useMetaportStore((state) => state.appName1);
-  const appName2 = useMetaportStore((state) => state.appName2);
-  const setAppName1 = useMetaportStore((state) => state.setAppName1);
-  const setAppName2 = useMetaportStore((state) => state.setAppName2);
+  const appName1 = useMetaportStore((state) => state.appName1)
+  const appName2 = useMetaportStore((state) => state.appName2)
+  const setAppName1 = useMetaportStore((state) => state.setAppName1)
+  const setAppName2 = useMetaportStore((state) => state.setAppName2)
 
-  const mpc = useMetaportStore((state) => state.mpc);
-  const tokenBalances = useMetaportStore((state) => state.tokenBalances);
+  const mpc = useMetaportStore((state) => state.mpc)
+  const tokenBalances = useMetaportStore((state) => state.tokenBalances)
 
-  const errorMessage = useMetaportStore((state) => state.errorMessage);
+  const errorMessage = useMetaportStore((state) => state.errorMessage)
 
-  const transferInProgress = useMetaportStore(
-    (state) => state.transferInProgress,
-  );
+  const transferInProgress = useMetaportStore((state) => state.transferInProgress)
 
-  const sFuelOk = useSFuelStore((state) => state.sFuelOk);
+  const theme = useUIStore((state) => state.theme)
 
-  const theme = useUIStore((state) => state.theme);
+  const { address } = useWagmiAccount()
 
-  const { address } = useWagmiAccount();
-
-  const showFrom =
-    !expandedTo &&
-    !expandedTokens &&
-    !errorMessage &&
-    !expandedCP &&
-    !expandedTH;
-  const showTo =
-    !expandedFrom &&
-    !expandedTokens &&
-    !errorMessage &&
-    !expandedCP &&
-    !expandedWT &&
-    !expandedTH;
-  const showInput =
-    !expandedFrom &&
-    !expandedTo &&
-    !errorMessage &&
-    !expandedCP &&
-    !expandedWT &&
-    !expandedTH;
-  const showSwitch =
-    !expandedFrom &&
-    !expandedTo &&
-    !expandedTokens &&
-    !errorMessage &&
-    !expandedCP &&
-    !expandedWT &&
-    !expandedTH;
-  const showStepper =
-    !expandedFrom &&
-    !expandedTo &&
-    !expandedTokens &&
-    !errorMessage &&
-    !expandedCP &&
-    sFuelOk &&
-    !expandedWT &&
-    !expandedTH &&
-    !!address;
-  const showCP =
-    !expandedFrom &&
-    !expandedTo &&
-    !expandedTokens &&
-    !expandedTH &&
-    chainName2 === MAINNET_CHAIN_NAME &&
-    !expandedWT;
-  const showWT =
-    !expandedFrom &&
-    !expandedTo &&
-    !expandedTokens &&
-    !errorMessage &&
-    !expandedCP &&
-    !expandedTH &&
-    sFuelOk &&
-    !!address &&
-    !!token;
-  const showError = !!errorMessage;
-
-  const grayBg = "rgb(136 135 135 / 15%)";
-  const sourceBg = theme.vibrant
-    ? chainBg(mpc.config.skaleNetwork, chainName1, appName1)
-    : grayBg;
-  const destBg = theme.vibrant
-    ? chainBg(mpc.config.skaleNetwork, chainName2, appName2)
-    : grayBg;
+  const sourceBg = theme.vibrant ? chainBg(mpc.config.skaleNetwork, chainName1, appName1) : GRAY_BG
+  const destBg = theme.vibrant ? chainBg(mpc.config.skaleNetwork, chainName2, appName2) : GRAY_BG
 
   return (
     <div>
-      <Collapse in={showError}>
+      <Collapse in={!!errorMessage}>
         <ErrorMessage errorMessage={errorMessage} />
       </Collapse>
       <SkPaper background={sourceBg} className={cmn.nop}>
-        <Collapse in={showFrom}>
+        <Collapse in={showFrom()}>
           <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
-            <p
-              className={cls(
-                cmn.nom,
-                cmn.p,
-                cmn.p4,
-                cmn.pSec,
-                cmn.flex,
-                cmn.flexg,
-              )}
-            >
-              From
-            </p>
+            <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>From</p>
             {token ? (
               <TokenBalance
                 balance={tokenBalances[token.keyname]}
                 symbol={token.meta.symbol}
-                decimals={token.meta.decimals ?? ""}
+                decimals={token.meta.decimals ?? ''}
               />
             ) : null}
           </div>
@@ -198,7 +119,7 @@ export default function Main() {
           />
         </Collapse>
 
-        <Collapse in={showInput}>
+        <Collapse in={showInput()}>
           <SkPaper gray className={cls()}>
             <AmountInput />
             <AmountErrorMessage />
@@ -206,25 +127,14 @@ export default function Main() {
         </Collapse>
       </SkPaper>
 
-      <Collapse in={showSwitch}>
+      <Collapse in={showSwitch()}>
         <SwitchDirection />
       </Collapse>
 
-      <Collapse in={showTo}>
+      <Collapse in={showTo()}>
         <SkPaper background={destBg} className={cmn.nop}>
           <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
-            <p
-              className={cls(
-                cmn.nom,
-                cmn.p,
-                cmn.p4,
-                cmn.pSec,
-                cmn.flex,
-                cmn.flexg,
-              )}
-            >
-              To
-            </p>
+            <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>To</p>
             <DestTokenBalance />
           </div>
           <ChainsList
@@ -242,13 +152,13 @@ export default function Main() {
           />
         </SkPaper>
       </Collapse>
-      <Collapse in={showCP}>
+      <Collapse in={showCP()}>
         <SkPaper gray className={cmn.nop}>
           <CommunityPool />
         </SkPaper>
       </Collapse>
 
-      <Collapse in={showWT}>
+      <Collapse in={showWT(address!)}>
         <SkPaper gray className={cmn.nop}>
           <WrappedTokens />
         </SkPaper>
@@ -260,9 +170,9 @@ export default function Main() {
 
       {!address ? <SkConnect /> : null}
 
-      <Collapse in={showStepper} className={cmn.mtop20}>
+      <Collapse in={showStepper(address!)} className={cmn.mtop20}>
         <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
       </Collapse>
     </div>
-  );
+  )
 }

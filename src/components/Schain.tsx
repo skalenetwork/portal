@@ -21,49 +21,38 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import { useEffect } from "react";
+import { useEffect } from 'react'
 
-import { useParams } from "react-router-dom";
-import Container from "@mui/material/Container";
-import Stack from "@mui/material/Stack";
-import SchainDetails from "./SchainDetails";
-import CircularProgress from "@mui/material/CircularProgress";
+import { useParams } from 'react-router-dom'
+import Container from '@mui/material/Container'
+import Stack from '@mui/material/Stack'
+import SchainDetails from './SchainDetails'
+import CircularProgress from '@mui/material/CircularProgress'
 
-import {
-  cmn,
-  cls,
-  type MetaportCore,
-  CHAINS_META,
-  type interfaces,
-} from "@skalenetwork/metaport";
+import { cmn, cls, type MetaportCore, CHAINS_META, type interfaces } from '@skalenetwork/metaport'
 
-export default function Schain(props: {
-  loadSchains: any;
-  schains: any[];
-  mpc: MetaportCore;
-}) {
+export default function Schain(props: { loadSchains: any; schains: any[]; mpc: MetaportCore }) {
   function findChainName(meta: interfaces.ChainsMetadataMap, name: string): string {
     for (const key in meta) {
       if (meta[key].shortAlias === name) {
-        return key;
+        return key
       }
     }
-    return name;
+    return name
   }
 
-  const chainsMeta: interfaces.ChainsMetadataMap =
-    CHAINS_META[props.mpc.config.skaleNetwork];
+  const chainsMeta: interfaces.ChainsMetadataMap = CHAINS_META[props.mpc.config.skaleNetwork]
 
-  let { name } = useParams();
-  name = findChainName(chainsMeta, name ?? "");
+  let { name } = useParams()
+  name = findChainName(chainsMeta, name ?? '')
 
-  const chain = props.schains.find((schain) => schain[0] === name);
+  const chain = props.schains.find((schain) => schain[0] === name)
 
   useEffect(() => {
     if (props.schains.length === 0) {
-      props.loadSchains();
+      props.loadSchains()
     }
-  }, []);
+  }, [])
 
   if (props.schains.length === 0) {
     return (
@@ -77,11 +66,11 @@ export default function Schain(props: {
           </div>
         </div>
       </div>
-    );
+    )
   }
 
   if (!chain) {
-    return <h1>No such chain: {name}</h1>;
+    return <h1>No such chain: {name}</h1>
   }
 
   return (
@@ -95,5 +84,5 @@ export default function Schain(props: {
         />
       </Stack>
     </Container>
-  );
+  )
 }

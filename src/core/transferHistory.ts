@@ -20,32 +20,27 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { type interfaces } from "@skalenetwork/metaport";
+import { type interfaces } from '@skalenetwork/metaport'
 
 function getKeyName(skaleNetwork: interfaces.SkaleNetwork): string {
-  return `br__transfersHistory_${skaleNetwork}`;
+  return `br__transfersHistory_${skaleNetwork}`
 }
 
 export function getHistoryFromStorage(
-  skaleNetwork: interfaces.SkaleNetwork,
+  skaleNetwork: interfaces.SkaleNetwork
 ): interfaces.TransferHistory[] {
-  const transfersHistory = localStorage.getItem(getKeyName(skaleNetwork));
-  if (transfersHistory == null) return [];
-  return JSON.parse(transfersHistory).data;
+  const transfersHistory = localStorage.getItem(getKeyName(skaleNetwork))
+  if (transfersHistory == null) return []
+  return JSON.parse(transfersHistory).data
 }
 
 export function setHistoryToStorage(
   transferHistory: interfaces.TransferHistory[],
-  skaleNetwork: interfaces.SkaleNetwork,
+  skaleNetwork: interfaces.SkaleNetwork
 ): void {
-  localStorage.setItem(
-    getKeyName(skaleNetwork),
-    JSON.stringify({ data: transferHistory }),
-  );
+  localStorage.setItem(getKeyName(skaleNetwork), JSON.stringify({ data: transferHistory }))
 }
 
-export function clearTransferHistory(
-  skaleNetwork: interfaces.SkaleNetwork,
-): void {
-  localStorage.removeItem(getKeyName(skaleNetwork));
+export function clearTransferHistory(skaleNetwork: interfaces.SkaleNetwork): void {
+  localStorage.removeItem(getKeyName(skaleNetwork))
 }

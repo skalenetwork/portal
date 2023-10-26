@@ -21,33 +21,29 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import Stack from "@mui/material/Stack";
-import Button from "@mui/material/Button";
-import Container from "@mui/material/Container";
-import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
+import Stack from '@mui/material/Stack'
+import Button from '@mui/material/Button'
+import Container from '@mui/material/Container'
+import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import {
   cmn,
   cls,
   styles,
   History as TransfersHistory,
-  useMetaportStore,
-} from "@skalenetwork/metaport";
+  useMetaportStore
+} from '@skalenetwork/metaport'
 
-import { setHistoryToStorage } from "../core/transferHistory";
+import { setHistoryToStorage } from '../core/transferHistory'
 
 export default function History() {
-  const mpc = useMetaportStore((state) => state.mpc);
-  const transfersHistory = useMetaportStore((state) => state.transfersHistory);
-  const transactionsHistory = useMetaportStore(
-    (state) => state.transactionsHistory,
-  );
-  const clearTransactionsHistory = useMetaportStore(
-    (state) => state.clearTransactionsHistory,
-  );
+  const mpc = useMetaportStore((state) => state.mpc)
+  const transfersHistory = useMetaportStore((state) => state.transfersHistory)
+  const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
+  const clearTransactionsHistory = useMetaportStore((state) => state.clearTransactionsHistory)
 
   function clearTransferHistory() {
-    clearTransactionsHistory();
-    setHistoryToStorage(transfersHistory, mpc.config.skaleNetwork);
+    clearTransactionsHistory()
+    setHistoryToStorage(transfersHistory, mpc.config.skaleNetwork)
   }
 
   return (
@@ -58,9 +54,7 @@ export default function History() {
             <h2 className={cls(cmn.nom)}>
               History ({transfersHistory.length + transactionsHistory.length})
             </h2>
-            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-              SKALE Bridge transfers history
-            </p>
+            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>SKALE Bridge transfers history</p>
           </div>
           <div className={cls(cmn.flex)}></div>
         </div>
@@ -84,5 +78,5 @@ export default function History() {
         </div>
       </Stack>
     </Container>
-  );
+  )
 }

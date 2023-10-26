@@ -21,48 +21,27 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { id, toBeHex } from "ethers";
+import { id, toBeHex } from 'ethers'
 
+export const HTTPS_PREFIX = 'https://'
+export const WSS_PREFIX = 'wss://'
 
-export const HTTPS_PREFIX = "https://";
-export const WSS_PREFIX = "wss://";
-
-
-export function getRpcUrl(
-    proxyUrl: string,
-    schainName: string,
-    prefix: string,
-): string {
-    return prefix + proxyUrl + "/v1/" + schainName;
+export function getRpcUrl(proxyUrl: string, schainName: string, prefix: string): string {
+  return prefix + proxyUrl + '/v1/' + schainName
 }
 
-
-export function getRpcWsUrl(
-    proxyUrl: string,
-    schainName: string,
-    prefix: string,
-): string {
-    return prefix + proxyUrl + "/v1/ws/" + schainName;
+export function getRpcWsUrl(proxyUrl: string, schainName: string, prefix: string): string {
+  return prefix + proxyUrl + '/v1/ws/' + schainName
 }
 
-
-export function getFsUrl(
-    proxyUrl: string,
-    schainName: string,
-    prefix: string,
-): string {
-    return prefix + proxyUrl + "/fs/" + schainName;
+export function getFsUrl(proxyUrl: string, schainName: string, prefix: string): string {
+  return prefix + proxyUrl + '/fs/' + schainName
 }
 
-
-export function getExplorerUrl(
-    explorerUrl: string,
-    schainName: string,
-): string {
-    return HTTPS_PREFIX + schainName + "." + explorerUrl;
+export function getExplorerUrl(explorerUrl: string, schainName: string): string {
+  return HTTPS_PREFIX + schainName + '.' + explorerUrl
 }
-
 
 export function getChainId(schainName: string): string {
-    return toBeHex(id(schainName).substring(0, 15));
+  return toBeHex(id(schainName).substring(0, 15))
 }
