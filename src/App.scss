@@ -74,12 +74,13 @@ body {
 
   text-align: center;
 
-  height: 37px;
+  height: 36px;
 
-
-  font-size: .7225rem;
+  font-size: .7rem;
   line-height: 1.6;
   font-weight: 600;
+  padding-right: 12px;
+  padding-left: 8px;
 
   .mp__iconConnect {
     margin-left: 10px;
@@ -269,6 +270,8 @@ body::-webkit-scrollbar {
 .mp__moreMenu {
   .MuiList-root {
     padding: 8px !important;
+    background-color: RGB(136 135 135/15%) !important;
+    border-radius: 15px;
   }
 
   .MuiMenuItem-root,
@@ -446,6 +449,7 @@ code {
     background: rgba(0, 0, 0, 0.6) !important;
     border-radius: 25px;
     padding: 10px 15px;
+
     svg {
       width: 12px;
       height: 12px;

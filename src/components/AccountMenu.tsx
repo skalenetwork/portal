@@ -11,7 +11,6 @@ import Button from '@mui/material/Button'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
 import HistoryIcon from '@mui/icons-material/History'
 import SignalCellularAltOutlinedIcon from '@mui/icons-material/SignalCellularAltOutlined'
-import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 
 import { cls, styles, cmn, RainbowConnectButton } from '@skalenetwork/metaport'
@@ -30,7 +29,7 @@ export default function AccountMenu(props: any) {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip arrow title="Click to expand">
+        <Tooltip arrow title="Account info">
           <Button
             onClick={handleClick}
             className={cls('mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex)}

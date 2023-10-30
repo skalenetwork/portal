@@ -145,7 +145,7 @@ export default function SkDrawer() {
                   <ListItemIcon>
                     <DonutLargeRoundedIcon />
                   </ListItemIcon>
-                  <ListItemText primary='Dune Analytics' />
+                  <ListItemText primary='Analytics' />
                   <ArrowOutwardRoundedIcon className="drawerIconRi" />
                 </ListItemButton>
               </a>
