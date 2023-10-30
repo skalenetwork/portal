@@ -29,15 +29,16 @@ import { Link } from 'react-router-dom'
 
 import logo from './assets/skale_lg.svg'
 
-import { cmn, cls } from '@skalenetwork/metaport'
+import { cmn, cls, MetaportCore } from '@skalenetwork/metaport'
 
 import HelpZen from './components/HelpZen'
 import MoreMenu from './components/MoreMenu'
 import AccountMenu from './components/AccountMenu'
+import NetworkSwitch from './components/NetworkSwitch'
 
 import { MAINNET_CHAIN_NAME } from './core/constants'
 
-export default function Header(props: { address: `0x${string}` | undefined }) {
+export default function Header(props: { address: `0x${string}` | undefined; mpc: MetaportCore }) {
   return (
     <AppBar
       elevation={0}
@@ -62,6 +63,7 @@ export default function Header(props: { address: `0x${string}` | undefined }) {
           ) : null}
         </div>
         <AccountMenu address={props.address} />
+        <NetworkSwitch mpc={props.mpc} />
         <HelpZen />
         <MoreMenu />
       </Toolbar>

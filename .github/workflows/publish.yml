@@ -1,0 +1,48 @@
+name: Build and publish
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - develop
+      - beta
+      - stable
+
+jobs:
+  build:
+    if: github.event.pull_request.merged
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          registry-url: 'https://registry.npmjs.org'
+      - name: Set version and branch
+        run: |
+          export BRANCH=${GITHUB_REF##*/}
+          export VERSION=$(npm run --silent version)
+          echo "Branch: $BRANCH"
+          echo "Base version: $VERSION"
+          export VERSION=$(bash ./helper-scripts/calculate_version.sh)
+          echo "VERSION=$VERSION" >> $GITHUB_ENV
+          echo "BRANCH=$BRANCH" >> $GITHUB_ENV
+          echo "Version $VERSION"
+      - name: Set release
+        run: |
+          if [[ "$BRANCH" == "stable" ]]; then
+            export PRERELEASE=false
+          else
+            export PRERELEASE=true
+          fi
+          echo "PRERELEASE=$PRERELEASE" >> $GITHUB_ENV
+      - name: Create Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ env.VERSION }}
+          release_name: ${{ env.VERSION }}
+          draft: false
+          prerelease: ${{ env.PRERELEASE }}

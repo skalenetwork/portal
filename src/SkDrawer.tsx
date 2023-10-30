@@ -17,8 +17,11 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import HistoryIcon from '@mui/icons-material/History'
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
-import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined'
-import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined'
+// import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined'
+// import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined'
+import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
+import DonutLargeRoundedIcon from '@mui/icons-material/DonutLargeRounded'
+import { DUNE_SKALE_URL } from './core/constants'
 
 const drawerWidth = 240
 
@@ -67,7 +70,7 @@ export default function SkDrawer() {
                 </ListItemButton>
               </Link>
             </ListItem>
-            <ListItem>
+            {/* <ListItem>
               <Link to="/portfolio" className="undec fullWidth">
                 <ListItemButton
                   className={cls(cmn.pPrim)}
@@ -79,7 +82,7 @@ export default function SkDrawer() {
                   <ListItemText primary="Portfolio" />
                 </ListItemButton>
               </Link>
-            </ListItem>
+            </ListItem> */}
             <ListItem>
               <Link to="/other/faq" className="undec fullWidth">
                 <ListItemButton
@@ -109,7 +112,7 @@ export default function SkDrawer() {
                 </ListItemButton>
               </Link>
             </ListItem>
-            <ListItem>
+            {/* <ListItem>
               <Link to="/apps" className="undec fullWidth">
                 <ListItemButton
                   className={cls(cmn.pPrim)}
@@ -121,8 +124,7 @@ export default function SkDrawer() {
                   <ListItemText primary="Apps" />
                 </ListItemButton>
               </Link>
-            </ListItem>
-
+            </ListItem> */}
             <ListItem>
               <Link to="/stats" className="undec fullWidth">
                 <ListItemButton
@@ -136,17 +138,17 @@ export default function SkDrawer() {
                 </ListItemButton>
               </Link>
             </ListItem>
-            {/* <ListItem>
-                            <a className="undec fullWidth" target="_blank" href='https://dune.com/manel/skale-analytics'>
-                                <ListItemButton className={cls(cmn.pPrim)}>
-                                    <ListItemIcon>
-                                        <SpaceDashboardOutlinedIcon />
-                                    </ListItemIcon>
-                                    <ListItemText primary='Dune Dashboard' />
-                                    <ArrowOutwardIcon className="drawerIconRi" />
-                                </ListItemButton>
-                            </a>
-                        </ListItem> */}
+            <ListItem>
+              <a className="undec fullWidth" target="_blank" href={DUNE_SKALE_URL}>
+                <ListItemButton className={cls(cmn.pPrim)}>
+                  <ListItemIcon>
+                    <DonutLargeRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Analytics" />
+                  <ArrowOutwardRoundedIcon className="drawerIconRi" />
+                </ListItemButton>
+              </a>
+            </ListItem>
           </List>
         </Box>
       </Drawer>

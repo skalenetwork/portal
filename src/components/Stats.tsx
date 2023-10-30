@@ -11,12 +11,15 @@ export default function Stats() {
         <div className={cls(cmn.flex)}>
           <h2 className={cls(cmn.nom)}>Stats</h2>
         </div>
-        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>SKALE Network statistics</p>
+        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)} style={{ zIndex: '2' }}>
+          SKALE Network statistics
+        </p>
         <iframe
           style={{
             height: 'calc(100vh - 170px)',
             border: 'none',
-            margin: '0 -15px'
+            margin: '-15px -15px',
+            zIndex: '1'
           }}
           src={DASHBOARD_URL}
         ></iframe>

@@ -42,7 +42,7 @@ export default function Portal() {
     <Box sx={{ display: 'flex' }} className="AppWrap">
       <CssBaseline />
       <TermsModal mpc={mpc} termsAccepted={termsAccepted} setTermsAccepted={setTermsAccepted} />
-      <Header address={address} />
+      <Header address={address} mpc={mpc} />
       <SkDrawer />
       <div className={cls(cmn.fullWidth)}>
         <Router />

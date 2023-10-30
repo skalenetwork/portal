@@ -29,14 +29,14 @@ export default function HelpZen() {
         className={cmn.mleft10}
         sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}
       >
-        <Tooltip arrow title={open ? 'Click to hide chat' : 'Click to open chat'}>
+        <Tooltip arrow title={open ? 'Hide support chat' : 'Open support chat'}>
           <Button
             onClick={handleClick}
             className={cls('mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex)}
           >
             <ContactSupportRoundedIcon
               className={cmn.mri5}
-              style={{ height: '20px', width: '20px' }}
+              style={{ height: '18px', width: '18px' }}
             />
             Get help
           </Button>
