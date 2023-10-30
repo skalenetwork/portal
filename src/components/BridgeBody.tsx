@@ -17,7 +17,7 @@
  */
 
 /**
- * @file Portfolio.tsx
+ * @file BridgeBody.tsx
  * @copyright SKALE Labs 2023-Present
  */
 
