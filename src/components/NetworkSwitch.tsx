@@ -6,12 +6,11 @@ import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'
 
-import SensorsRoundedIcon from '@mui/icons-material/SensorsRounded';
-import ChangeCircleRoundedIcon from '@mui/icons-material/ChangeCircleRounded';
+import SensorsRoundedIcon from '@mui/icons-material/SensorsRounded'
+import ChangeCircleRoundedIcon from '@mui/icons-material/ChangeCircleRounded'
 import { cls, styles, cmn, MetaportCore } from '@skalenetwork/metaport'
 
 import { PORTAL_URLS } from '../core/constants'
-
 
 export default function NetworkSwitch(props: { mpc: MetaportCore }) {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
@@ -25,17 +24,19 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
 
   return (
     <div>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }} className={cls(cmn.mleft10)}>
+      <Box
+        sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}
+        className={cls(cmn.mleft10)}
+      >
         <Tooltip arrow title="Switch SKALE Network">
           <Button
             onClick={handleClick}
             className={cls('mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex, cmn.cap)}
           >
-            <SensorsRoundedIcon
-              className={cmn.mri5}
-              style={{ height: '18px', width: '18px' }}
-            />
-            {props.mpc.config.skaleNetwork === 'staging' ? 'testnet' : props.mpc.config.skaleNetwork}
+            <SensorsRoundedIcon className={cmn.mri5} style={{ height: '18px', width: '18px' }} />
+            {props.mpc.config.skaleNetwork === 'staging'
+              ? 'testnet'
+              : props.mpc.config.skaleNetwork}
           </Button>
         </Tooltip>
       </Box>
@@ -75,14 +76,19 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        {Object.keys(PORTAL_URLS).map((network: string) => (
-          props.mpc.config.skaleNetwork !== network ? <a rel="noreferrer" href={PORTAL_URLS.mainnet} className="undec">
-            <MenuItem onClick={handleClose}>
-              <ChangeCircleRoundedIcon className={cmn.mri10} />
-              Switch to <div className={cls(cmn.cap, cmn.mleft5)}> {network === 'staging' ? 'testnet' : network} Portal</div>
-            </MenuItem>
-          </a> : null
-        )
+        {Object.keys(PORTAL_URLS).map((network: string) =>
+          props.mpc.config.skaleNetwork !== network ? (
+            <a rel="noreferrer" href={PORTAL_URLS.mainnet} className="undec">
+              <MenuItem onClick={handleClose}>
+                <ChangeCircleRoundedIcon className={cmn.mri10} />
+                Switch to{' '}
+                <div className={cls(cmn.cap, cmn.mleft5)}>
+                  {' '}
+                  {network === 'staging' ? 'testnet' : network} Portal
+                </div>
+              </MenuItem>
+            </a>
+          ) : null
         )}
       </Menu>
     </div>

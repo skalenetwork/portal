@@ -38,8 +38,7 @@ import NetworkSwitch from './components/NetworkSwitch'
 
 import { MAINNET_CHAIN_NAME } from './core/constants'
 
-
-export default function Header(props: { address: `0x${string}` | undefined, mpc: MetaportCore }) {
+export default function Header(props: { address: `0x${string}` | undefined; mpc: MetaportCore }) {
   return (
     <AppBar
       elevation={0}

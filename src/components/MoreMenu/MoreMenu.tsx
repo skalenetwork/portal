@@ -35,7 +35,7 @@ export default function MoreMenu() {
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
             className={cls(styles.paperGrey, cmn.pPrim, cmn.mleft10)}
-            style={{ width: '34px', height: '34px'}}
+            style={{ width: '34px', height: '34px' }}
           >
             <MoreVertIcon className={cls(cmn.pPrim)} style={{ height: '18px', width: '18px' }} />
           </IconButton>

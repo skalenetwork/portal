@@ -33,8 +33,8 @@ export const BRIDGE_PAGES = ['/transfer', '/bridge/history', '/portfolio', '/oth
 export const DEFAULT_ERC20_DECIMALS = '18'
 
 export const PORTAL_URLS = {
-    mainnet: 'https://portal.skale.space/chains',
-    staging: 'https://testnet.portal.skale.space/chains'
+  mainnet: 'https://portal.skale.space/chains',
+  staging: 'https://testnet.portal.skale.space/chains'
 }
 
 import * as MAINNET_CHAIN_LOGOS from '../meta/logos'

@@ -19,12 +19,11 @@ import HistoryIcon from '@mui/icons-material/History'
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
 // import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined'
 // import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined'
-import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded';
-import DonutLargeRoundedIcon from '@mui/icons-material/DonutLargeRounded';
+import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
+import DonutLargeRoundedIcon from '@mui/icons-material/DonutLargeRounded'
 import { DUNE_SKALE_URL } from './core/constants'
 
 const drawerWidth = 240
-
 
 export default function SkDrawer() {
   const location = useLocation()
@@ -145,7 +144,7 @@ export default function SkDrawer() {
                   <ListItemIcon>
                     <DonutLargeRoundedIcon />
                   </ListItemIcon>
-                  <ListItemText primary='Analytics' />
+                  <ListItemText primary="Analytics" />
                   <ArrowOutwardRoundedIcon className="drawerIconRi" />
                 </ListItemButton>
               </a>
