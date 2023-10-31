@@ -1,6 +1,6 @@
 /**
  * @license
- * SKALE bridge-ui
+ * SKALE portal
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -17,55 +17,26 @@
  */
 
 /**
- * @file constants.js
+ * @file constants.ts
  * @copyright SKALE Labs 2022-Present
-*/
+ */
 
-import { importAll } from './helper';
+import FAQ from '../faq.json'
 
-export const CHAINS_META = require('../meta/chains.json');
-export const SEARCH_SUGGESTIONS = require('../searchSuggestions.json');
-export const FAQ = require('../faq.json');
-export const EXTERNAL_TOKEN_ICONS = require('../externalTokenIcons.json');
+export const MAINNET_CHAIN_NAME = 'mainnet'
 
-export const BASE_EXPLORER_URLS = require('../metadata/explorer.json');
+export const DASHBOARD_URL = 'https://app.geckoboard.com/v5/dashboards/LISYTRBEVGCVGL57/inception'
+export const DUNE_SKALE_URL = 'https://dune.com/projects/SKALE'
 
-export const FAUCET_DATA = require('../metadata/faucet.json');
-export const CHAINS = require('../metadata/chainsData.json');
-export const METAPORT_CONFIG = require('../metadata/metaportConfig.json');
-METAPORT_CONFIG.mainnetEndpoint = process.env.REACT_APP_MAINNET_ENDPOINT;
+export const BRIDGE_PAGES = ['/transfer', '/bridge/history', '/portfolio', '/other/faq']
 
-export const ICONS = importAll(require.context('../meta/logos', false, /\.(png|jpe?g|svg|gif)$/));
-export const CHAIN_ICONS = importAll(require.context('../meta/icons', false, /\.(png|jpe?g|svg)$/));
-export const TOKEN_ICONS = importAll(require.context('../icons', false, /\.(png|jpe?g|svg)$/));
+export const DEFAULT_ERC20_DECIMALS = '18'
 
-export const CHAIN_ID = process.env["REACT_APP_CHAIN_ID"];
-export const NETWORK_NAME = process.env["REACT_APP_NETWORK_NAME"];
+export const PORTAL_URLS = {
+  mainnet: 'https://portal.skale.space/chains',
+  staging: 'https://testnet.portal.skale.space/chains'
+}
 
-export const MAINNET_CHAIN_NAME = 'mainnet';
+import * as MAINNET_CHAIN_LOGOS from '../meta/logos'
 
-export const DEFAULT_ERC20_DECIMALS = '18';
-
-export const SUCCESS_EMOJIS = ['🎉', '👌', '✅', '🙌', '🎊'];
-
-export const HTTPS_PREFIX = 'https://';
-
-export const MAINNET_EXPLORER_URLS: { [networkName: string]: string } = {
-    mainnet: 'https://etherscan.io',
-    staging3: 'https://goerli.etherscan.io/',
-    legacy: 'https://goerli.etherscan.io/',
-    regression: 'https://goerli.etherscan.io/'
-};
-
-export const MAINNET_EXPLORER_URL = MAINNET_EXPLORER_URLS[METAPORT_CONFIG.skaleNetwork];
-export const CHAIN_EXPLORER_BASE_URL = BASE_EXPLORER_URLS[METAPORT_CONFIG.skaleNetwork];
-
-export const ICONS_BASE_URL = 'https://raw.githubusercontent.com/spothq/cryptocurrency-icons/master/128/color/';
-export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000';
-export const ZERO_FUNCSIG = '0x00000000';
-
-export const COMMUNITY_POOL_WITHDRAW_GAS_LIMIT = '1500000';
-
-export const BALANCE_UPDATE_INTERVAL_SECONDS = 10;
-
-export const SFUEL_RESERVE_AMOUNT = 0.02;
+export { FAQ, MAINNET_CHAIN_LOGOS }

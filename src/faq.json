@@ -1,11 +1,11 @@
 [
   {
-    "question": "What is SKALE Bridge",
-    "answer": "SKALE Bridge is the underlying technology built to increase the interoperability between SKALE Chains and/or the Ethereum mainnet by allowing for the secure transfer of interchain messages: payment tokens, NFTs, or custom data between."
+    "question": "What is SKALE Portal",
+    "answer": "SKALE Portal is the underlying technology built to increase the interoperability between SKALE Chains and/or the Ethereum mainnet by allowing for the secure transfer of interchain messages: payment tokens, NFTs, or custom data between."
   },
   {
-    "question": "What is Metaport? How is it different from SKALE Bridge?",
-    "answer": "Metaport is a tool implemented on top of SKALE Bridges and dapps within the SKALE Network to simplify the process of token transfers between chains to provide users with a streamlined and consistent bridging experience throughout the SKALE Network"
+    "question": "What is Metaport? How is it different from SKALE Portal?",
+    "answer": "Metaport is a tool implemented on top of SKALE Portal and dapps within the SKALE Network to simplify the process of token transfers between chains to provide users with a streamlined and consistent bridging experience throughout the SKALE Network"
   },
   {
     "question": "What are the benefits of using a SKALE Bridge?",
@@ -21,7 +21,7 @@
   },
   {
     "question": "Which wallets are supported?",
-    "answer": "Currently, Metamask is the only supported wallet. Additional support for other wallets will be added soon or requested: https://github.com/skalenetwork/bridge-ui/issues"
+    "answer": "Currently, Metamask is the only supported wallet. Additional support for other wallets will be added soon or requested: https://github.com/skalenetwork/portal/issues"
   },
   {
     "question": "Who can use a SKALE Bridge?",
@@ -61,6 +61,6 @@
   },
   {
     "question": "I found a bug or have suggestions on how to improve SKALE Bridge. When can I submit these?",
-    "answer": "Please submit bugs and suggestions here: https://github.com/skalenetwork/bridge-ui/issues"
+    "answer": "Please submit bugs and suggestions here: https://github.com/skalenetwork/portal/issues"
   }
 ]
