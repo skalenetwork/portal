@@ -10,36 +10,64 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
   openButton: true,
   openOnLoad: true,
   chains: [
-    // "mainnet",
-    "elated-tan-skat", // europa hub
+    "mainnet",
     "honorable-steel-rasalhague", // calypso hub
+    "elated-tan-skat", // europa hub
     "green-giddy-denebola", // nebula hub
     "wan-red-ain", // human protocol
   ],
   "tokens": {
     eth: {
-      symbol: "ETH",
-      name: "Ethereum"
+      symbol: 'ETH'
     },
     skl: {
-      decimals: "18",
-      name: "SKALE",
-      symbol: "SKL"
+      decimals: '18',
+      name: 'SKALE',
+      symbol: 'SKL'
     },
     usdc: {
-      decimals: "6",
-      symbol: "USDC",
-      name: "USD Coin"
+      decimals: '6',
+      symbol: 'USDC',
+      name: 'USD Coin'
+    },
+    usdt: {
+      decimals: '6',
+      symbol: 'USDT',
+      name: 'Tether USD'
+    },
+    wbtc: {
+      decimals: '18',
+      symbol: 'WBTC',
+      name: 'WBTC'
+    },
+    ruby: {
+      name: 'Ruby Token',
+      iconUrl: 'https://ruby.exchange/images/tokens/ruby-square.png',
+      symbol: 'RUBY'
+    },
+    dai: {
+      name: 'DAI Stablecoin',
+      symbol: 'DAI'
+    },
+    usdp: {
+      name: 'Pax Dollar',
+      symbol: 'USDP',
+      iconUrl: 'https://ruby.exchange/images/tokens/usdp-square.png'
     },
     hmt: {
-      decimals: "18",
-      symbol: "HMT",
-      name: "Human Token",
-      iconUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/10347.png"
+      name: 'Human Token',
+      symbol: 'HMT',
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/10347.png'
+    },
+    ubxs: {
+      name: 'UBXS Token',
+      symbol: 'UBXS',
+      decimals: '6',
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/17242.png'
     }
   },
   "connections": {
-    "mainnet": {
+    mainnet: {
       eth: {
         eth: {
           chains: {
@@ -49,7 +77,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       },
       erc20: {
         skl: {
-          address: "0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",  // uni: 0x1f9840a85d5af5bf1d1762f925bdaddc4201f984
+          address: "0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
           chains: {
             "elated-tan-skat": {},
             "honorable-steel-rasalhague": {
@@ -58,9 +86,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             "green-giddy-denebola": {
               hub: "elated-tan-skat"
             }
-          } // weth 0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2
+          }
         },
-        usdc: { // usdt 0xdAC17F958D2ee523a2206206994597C13D831ec7
+        usdc: {
           address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
           chains: {
             "elated-tan-skat": {},

@@ -1,6 +1,6 @@
 /**
  * @license
- * SKALE bridge-ui
+ * SKALE portal
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
@@ -21,14 +21,14 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import * as React from 'react'
+import { useState } from 'react'
 import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
 
 import AccordionSection from '../AccordionSection'
 import { FAQ } from '../../core/constants'
 
 export default function FaqAccordion() {
-  const [expanded, setExpanded] = React.useState<string | false>(false)
+  const [expanded, setExpanded] = useState<string | false>(false)
 
   function handleChange(panel: string | false) {
     setExpanded(expanded && panel === expanded ? false : panel)

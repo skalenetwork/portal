@@ -1,4 +1,27 @@
-import * as React from 'react'
+/**
+ * @license
+ * SKALE portal
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/**
+ * @file MoreMenu.tsx
+ * @copyright SKALE Labs 2023-Present
+ */
+
+import { useState, MouseEvent } from 'react'
 import Box from '@mui/material/Box'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
@@ -16,16 +39,16 @@ import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined'
 import { cls, styles, cmn } from '@skalenetwork/metaport'
 
 export default function MoreMenu() {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
   const handleClose = () => {
     setAnchorEl(null)
   }
   return (
-    <React.Fragment>
+    <div>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         <Tooltip arrow title="Useful links">
           <IconButton
@@ -109,18 +132,7 @@ export default function MoreMenu() {
             </div>
           </MenuItem>
         </a>
-        {/* <MenuItem onClick={handleClose} className='undec fullWidth'>
-                    <div className={cmn.flex}>
-                        <HubOutlinedIcon className={cmn.mri10} />
-                    </div>
-                    <div className={cls(cmn.flex, cmn.flexg)}>
-                        Endpoints
-                    </div>
-                    <div className={cls(cmn.flex, cmn.mleft10)}>
-                        <ArrowOutwardIcon className="menuIconRi" />
-                    </div>
-                </MenuItem> */}
       </Menu>
-    </React.Fragment>
+    </div>
   )
 }

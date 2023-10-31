@@ -1,4 +1,27 @@
-import * as React from 'react'
+/**
+ * @license
+ * SKALE portal
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/**
+ * @file AccountMenu.tsx
+ * @copyright SKALE Labs 2023-Present
+ */
+
+import { useState, MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 
@@ -16,9 +39,9 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import { cls, styles, cmn, RainbowConnectButton } from '@skalenetwork/metaport'
 
 export default function AccountMenu(props: any) {
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
-  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+  const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
   const handleClose = () => {
@@ -27,7 +50,7 @@ export default function AccountMenu(props: any) {
 
   if (!props.address) return
   return (
-    <React.Fragment>
+    <div>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         <Tooltip arrow title="Account info">
           <Button
@@ -120,6 +143,6 @@ export default function AccountMenu(props: any) {
           </MenuItem>
         </a>
       </Menu>
-    </React.Fragment>
+    </div>
   )
 }
