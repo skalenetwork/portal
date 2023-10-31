@@ -2,7 +2,8 @@ import React, { useEffect } from 'react'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
-import ContactSupportRoundedIcon from '@mui/icons-material/ContactSupportRounded'
+import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded'
+import QuestionMarkRoundedIcon from '@mui/icons-material/QuestionMarkRounded'
 
 import { cls, styles, cmn } from '@skalenetwork/metaport'
 
@@ -34,7 +35,7 @@ export default function HelpZen() {
             onClick={handleClick}
             className={cls('mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex)}
           >
-            <ContactSupportRoundedIcon
+            <HelpOutlineRoundedIcon
               className={cmn.mri5}
               style={{ height: '18px', width: '18px' }}
             />
