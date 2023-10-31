@@ -3,7 +3,6 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
 import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded'
-import QuestionMarkRoundedIcon from '@mui/icons-material/QuestionMarkRounded'
 
 import { cls, styles, cmn } from '@skalenetwork/metaport'
 
