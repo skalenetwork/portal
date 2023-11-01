@@ -10,6 +10,7 @@
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
@@ -23,9 +24,11 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
-src/metadata/metaportConfig*.json
+src/metadata/metaportConfig*.ts
 src/meta/
 
 src/metadata/chainsData.json
 src/metadata/faucet.json
 .vercel
+
+chainsJson.json
