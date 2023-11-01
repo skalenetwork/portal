@@ -11,10 +11,14 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
   openOnLoad: true,
   chains: [
     "mainnet",
-    "honorable-steel-rasalhague", // calypso hub
     "elated-tan-skat", // europa hub
+    "honorable-steel-rasalhague", // calypso hub
     "green-giddy-denebola", // nebula hub
+    // "frayed-decent-antares", // brawlers
+    "affectionate-immediate-pollux", // cryptoblades
     "wan-red-ain", // human protocol
+    "turbulent-unique-scheat", // razor
+    "adorable-quaint-bellatrix" // streammyscreen
   ],
   "tokens": {
     eth: {
@@ -64,14 +68,24 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       symbol: 'UBXS',
       decimals: '6',
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/17242.png'
-    }
+    },
+    razor: {
+      "decimals": "18",
+      "name": "RAZOR Network",
+      "symbol": "RAZOR",
+      "iconUrl": "https://assets.coingecko.com/coins/images/13797/small/icon.png"
+    },
   },
   "connections": {
     mainnet: {
       eth: {
         eth: {
           chains: {
-            "elated-tan-skat": {}
+            "elated-tan-skat": {},
+            "adorable-quaint-bellatrix": {},
+            "honorable-steel-rasalhague": {
+              hub: "elated-tan-skat"
+            }
           }
         }
       },
@@ -86,6 +100,54 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             "green-giddy-denebola": {
               hub: "elated-tan-skat"
             }
+          }
+        },
+        wbtc: {
+          address: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
+          chains: {
+            "elated-tan-skat": {},
+            "green-giddy-denebola": {
+              hub: "elated-tan-skat"
+            }
+          }
+        },
+        usdt: {
+          address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+          chains: {
+            "elated-tan-skat": {},
+            "honorable-steel-rasalhague": {
+              hub: "elated-tan-skat"
+            },
+            "green-giddy-denebola": {
+              hub: "elated-tan-skat"
+            }
+          }
+        },
+        usdp: {
+          address: '0x8E870D67F660D95d5be530380D0eC0bd388289E1',
+          chains: {
+            "elated-tan-skat": {}
+          }
+        },
+        ruby: {
+          address: '0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23',
+          chains: {
+            "elated-tan-skat": {}
+          }
+        },
+        dai: {
+          address: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
+          chains: {
+            "elated-tan-skat": {},
+            "honorable-steel-rasalhague": {
+              hub: "elated-tan-skat"
+            }
+          }
+        },
+        razor: {
+          address: '0x50DE6856358Cc35f3A9a57eAAA34BD4cB707d2cd',
+          chains: {
+            "turbulent-unique-scheat": {}
           }
         },
         usdc: {
@@ -118,6 +180,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           chains: {
             mainnet: {
               clone: true
+            },
+            'honorable-steel-rasalhague': {
+              wrapper: '0xa5274efA35EbeFF47C1510529D9a8812F95F5735'
             }
           }
         }
@@ -134,6 +199,58 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             },
             "green-giddy-denebola": {
               wrapper: "0xD162bB5c75FE99144295b03510bAb2DF99617440"
+            }
+          }
+        },
+        wbtc: {
+          address: '0xcb011E86DF014a46F4e3AC3F3cbB114A4EB80870',
+          chains: {
+            "mainnet": {
+              clone: true
+            },
+            'green-giddy-denebola': {
+              wrapper: '0x497C476bcABB2F7D50afF99ca3Ae9354451Ff7d0'
+            }
+          }
+        },
+        usdt: {
+          address: '0x1c0491E3396AD6a35f061c62387a95d7218FC515',
+          chains: {
+            "mainnet": {
+              clone: true
+            },
+            'honorable-steel-rasalhague': {
+              wrapper: '0x42dDeBDa2195FaEDAEC1cf24c19B42da1c881feB'
+            },
+            'green-giddy-denebola': {
+              wrapper: '0x42dDeBDa2195FaEDAEC1cf24c19B42da1c881feB'
+            }
+          }
+        },
+        usdp: {
+          address: '0x73d22d8a2D1f59Bf5Bcf62cA382481a2073FAF58',
+          chains: {
+            "mainnet": {
+              clone: true
+            }
+          }
+        },
+        ruby: {
+          address: '0x2B4e4899b53E8b7958c4591a6d02f9C0b5c50F8f',
+          chains: {
+            "mainnet": {
+              clone: true
+            }
+          }
+        },
+        dai: {
+          address: '0xD05C4be5f3be302d376518c9492EC0147Fa5A718',
+          chains: {
+            "mainnet": {
+              clone: true
+            },
+            'honorable-steel-rasalhague': {
+              wrapper: '0x9E7563B0D51F9B6dFB1917F97D29D50804300d28'
             }
           }
         },
@@ -165,9 +282,47 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       }
     },
     "honorable-steel-rasalhague": { // calypso connections
+      eth: {
+        eth: {
+          address: '0x59ab97Ee239e02112652587F9Ef86CB6F762983b',
+          chains: {
+            'elated-tan-skat': {
+              clone: true
+            },
+            mainnet: {
+              clone: true,
+              hub: 'elated-tan-skat'
+            }
+          }
+        }
+      },
       erc20: {
         skl: {
           address: "0x4048C4dd6eccF1Dc23b068211fDf20AD19602e50",
+          chains: {
+            "elated-tan-skat": {
+              clone: true
+            },
+            "mainnet": {
+              clone: true,
+              hub: "elated-tan-skat"
+            }
+          }
+        },
+        usdt: {
+          address: '0xf9B5736E74b37Ec2EDd37B1B3c8e1aF9fa426F2A',
+          chains: {
+            "elated-tan-skat": {
+              clone: true
+            },
+            "mainnet": {
+              clone: true,
+              hub: "elated-tan-skat"
+            }
+          }
+        },
+        dai: {
+          address: '0x941C0Dd6055787aE9D417620E8F4F540d8B9D9E5',
           chains: {
             "elated-tan-skat": {
               clone: true
@@ -217,7 +372,36 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               hub: "elated-tan-skat"
             }
           }
+        },
+        usdt: {
+          address: '0x932427E1f1Ea096e2bb05C7dE937d083ddb8Ff83',
+          chains: {
+            "elated-tan-skat": {
+              clone: true
+            },
+            "mainnet": {
+              clone: true,
+              hub: "elated-tan-skat"
+            }
+          }
+        },
+        wbtc: {
+          address: '0x64d2EebA8B02f2aB19e2238f1655A8409dB64817',
+          chains: {
+            "elated-tan-skat": {
+              clone: true
+            },
+            "mainnet": {
+              clone: true,
+              hub: "elated-tan-skat"
+            }
+          }
         }
+      }
+    },
+    "affectionate-immediate-pollux": { // cryptoblades connections
+      erc20: {
+
       }
     },
     "wan-red-ain": { // human connections
@@ -235,7 +419,28 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           }
         }
       }
+    },
+    "turbulent-unique-scheat": { // razor connections
+      erc20: {
+        razor: {
+          address: '0xcbf70914Fae03B3acB91E953De60CfDAaCA8145f',
+          chains: {
+            "mainnet": {}
+          }
+        },
+      }
+    },
+    "adorable-quaint-bellatrix": { // streammyscreen connections
+      eth: {
+        eth: {
+          address: '0xD2Aaa00700000000000000000000000000000000',
+          chains: {
+            mainnet: {
+              clone: true
+            }
+          }
+        }
+      }
     }
   }
 }
-

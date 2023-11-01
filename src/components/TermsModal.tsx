@@ -37,7 +37,7 @@ import LockRoundedIcon from '@mui/icons-material/LockRounded'
 import GradingRoundedIcon from '@mui/icons-material/GradingRounded'
 import { type MetaportCore, SkPaper, cls, cmn, styles } from '@skalenetwork/metaport'
 
-import { BRIDGE_PAGES } from '../core/constants'
+import { BRIDGE_PAGES, PORTAL_URLS } from '../core/constants'
 import TermsOfService from './Terms/terms-of-service.mdx'
 import logo from '../assets/skale_lg.svg'
 
@@ -56,6 +56,8 @@ export default function TermsModal(props: {
 }) {
   const location = useLocation()
   const [scrolled, setScrolled] = React.useState<boolean>(false)
+
+  const portalUrl = PORTAL_URLS[props.mpc.config.skaleNetwork] ?? PORTAL_URLS.mainnet
 
   function getAgreeButtonText(): string {
     if (!scrolled) return '⬆️ Read Terms of Service to continue ⬆️'
@@ -116,12 +118,8 @@ export default function TermsModal(props: {
                         Make sure you are connected to the correct bridge and only use this official
                         link:
                         <br />
-                        <Link
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          href="https://bridge.skale.space/"
-                        >
-                          https://bridge.skale.space/
+                        <Link target="_blank" rel="noopener noreferrer" href={portalUrl}>
+                          {portalUrl}
                         </Link>
                       </p>
                     </div>

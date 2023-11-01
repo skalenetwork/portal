@@ -142,7 +142,8 @@ export default function Main() {
             expanded={expandedTo}
             setExpanded={setExpandedTo}
             chain={chainName2}
-            chains={destChains}
+            chains={mpc.config.chains}
+            destChains={destChains}
             setChain={setChainName2}
             setApp={setAppName2}
             app={appName2}

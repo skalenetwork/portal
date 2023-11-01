@@ -139,8 +139,16 @@ export default function Bridge() {
       setTokenParams(getEmptyTokenParams())
       return
     }
-    if (tokens && tokens.erc20 && Object.values(tokens.erc20)[0] && !token) {
-      setToken(Object.values(tokens.erc20)[0])
+
+    if (tokens && !token) {
+      if (tokens.erc20 && Object.values(tokens.erc20)[0]) {
+        setToken(Object.values(tokens.erc20)[0])
+        return
+      }
+      if (tokens.eth && tokens.eth.eth) {
+        setToken(tokens.eth.eth)
+        return
+      }
     }
   }, [tokenParams, tokens])
 
