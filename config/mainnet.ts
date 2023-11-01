@@ -75,6 +75,11 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       "symbol": "RAZOR",
       "iconUrl": "https://assets.coingecko.com/coins/images/13797/small/icon.png"
     },
+    skill: {
+      "name": "SKILL",
+      "symbol": "SKILL",
+      "iconUrl": "https://ruby.exchange/images/tokens/skill-square.png"
+    }
   },
   "connections": {
     mainnet: {
@@ -98,6 +103,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               hub: "elated-tan-skat"
             },
             "green-giddy-denebola": {
+              hub: "elated-tan-skat"
+            },
+            "affectionate-immediate-pollux": {
               hub: "elated-tan-skat"
             }
           }
@@ -199,6 +207,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             },
             "green-giddy-denebola": {
               wrapper: "0xD162bB5c75FE99144295b03510bAb2DF99617440"
+            },
+            'affectionate-immediate-pollux': {
+              wrapper: "0xD162bB5c75FE99144295b03510bAb2DF99617440"
             }
           }
         },
@@ -278,6 +289,14 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               wrapper: "0xA0f4D4db1457E442b83555cb92aaBB8DE959Aa75"
             }
           }
+        },
+        skill: {
+          address: '0xBDDad45160E10C3738785d9dD7F30b4B2a5Eeba8',
+          chains: {
+            'affectionate-immediate-pollux': {
+              clone: true
+            }
+          }
         }
       }
     },
@@ -318,6 +337,10 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             "mainnet": {
               clone: true,
               hub: "elated-tan-skat"
+            },
+            "green-giddy-denebola": {
+              clone: true,
+              hub: "elated-tan-skat"
             }
           }
         },
@@ -340,6 +363,10 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               clone: true
             },
             "mainnet": {
+              clone: true,
+              hub: "elated-tan-skat"
+            },
+            "green-giddy-denebola": {
               clone: true,
               hub: "elated-tan-skat"
             }
@@ -370,6 +397,10 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             "mainnet": {
               clone: true,
               hub: "elated-tan-skat"
+            },
+            "honorable-steel-rasalhague": {
+              clone: true,
+              hub: "elated-tan-skat"
             }
           }
         },
@@ -380,6 +411,10 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               clone: true
             },
             "mainnet": {
+              clone: true,
+              hub: "elated-tan-skat"
+            },
+            "honorable-steel-rasalhague": {
               clone: true,
               hub: "elated-tan-skat"
             }
@@ -401,7 +436,24 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
     },
     "affectionate-immediate-pollux": { // cryptoblades connections
       erc20: {
-
+        skl: {
+          address: '0x9FeF16c2Fe0dCB261cfD39e0B618c69A73feB3FE',
+          chains: {
+            'elated-tan-skat': {
+              clone: true
+            },
+            'mainnet': {
+              clone: true,
+              hub: 'elated-tan-skat'
+            }
+          }
+        },
+        skill: {
+          address: '0x5F6E97612482095C0c2C02BC495C0171e61017d7',
+          chains: {
+            'elated-tan-skat': {}
+          }
+        }
       }
     },
     "wan-red-ain": { // human connections
