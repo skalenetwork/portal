@@ -83,9 +83,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             'staging-utter-unripe-menkar': {
               hub: 'staging-legal-crazy-castor'
             }
-            // 'staging-faint-slimy-achird': {
-            //   hub: 'staging-legal-crazy-castor'
-            // }
           }
         }
       },
@@ -131,6 +128,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           chains: {
             'staging-legal-crazy-castor': {},
             'staging-utter-unripe-menkar': {
+              hub: 'staging-legal-crazy-castor'
+            },
+            'staging-faint-slimy-achird': {
               hub: 'staging-legal-crazy-castor'
             }
           }
@@ -232,22 +232,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         }
       }
     },
-    'staging-faint-slimy-achird': {
-      // Nebula connections
-      // eth: {
-      //   eth: {
-      //     address: '0x',
-      //     chains: {
-      //       'staging-legal-crazy-castor': {
-      //         clone: true
-      //       },
-      //       mainnet: {
-      //         hub: 'staging-legal-crazy-castor',
-      //         clone: true
-      //       },
-      //     }
-      //   }
-      // },
+    'staging-faint-slimy-achird': { // nebula connections
       erc20: {
         skl: {
           address: '0x7F73B66d4e6e67bCdeaF277b9962addcDabBFC4d',
@@ -260,6 +245,18 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               clone: true
             },
             'staging-utter-unripe-menkar': {
+              hub: 'staging-legal-crazy-castor',
+              clone: true
+            }
+          }
+        },
+        usdc: {
+          address: '0x717d43399ab3a8aada669CDC9560a6BAfdeA9796',
+          chains: {
+            'staging-legal-crazy-castor': {
+              clone: true
+            },
+            mainnet: {
               hub: 'staging-legal-crazy-castor',
               clone: true
             }
@@ -279,9 +276,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             'staging-utter-unripe-menkar': {
               wrapper: '0xa270484784f043e159f74C03B691F80B6F6e3c24'
             }
-            // 'staging-faint-slimy-achird': {
-            //   wrapper: '0xa270484784f043e159f74C03B691F80B6F6e3c24'
-            // }
           }
         }
       },
@@ -339,6 +333,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               clone: true
             },
             'staging-utter-unripe-menkar': {
+              wrapper: '0x4f250cCE5b8B39caA96D1144b9A32E1c6a9f97b0'
+            },
+            'staging-faint-slimy-achird': {
               wrapper: '0x4f250cCE5b8B39caA96D1144b9A32E1c6a9f97b0'
             }
           }

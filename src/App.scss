@@ -1,5 +1,9 @@
 @import './variables';
 
+:root {
+  background: black;
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -363,7 +367,6 @@ body::-webkit-scrollbar {
 }
 
 code {
-  text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

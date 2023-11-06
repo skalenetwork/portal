@@ -101,7 +101,7 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
       >
         {Object.keys(PORTAL_URLS).map((network: string) =>
           props.mpc.config.skaleNetwork !== network ? (
-            <a rel="noreferrer" href={PORTAL_URLS.mainnet} className="undec">
+            <a rel="noreferrer" href={PORTAL_URLS[network]} className="undec" key={network}>
               <MenuItem onClick={handleClose}>
                 <ChangeCircleRoundedIcon className={cmn.mri10} />
                 Switch to{' '}

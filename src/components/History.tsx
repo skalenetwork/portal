@@ -58,7 +58,9 @@ export default function History() {
           </div>
           <div className={cls(cmn.flex)}></div>
         </div>
-        <TransfersHistory size="md" />
+        <div className={cls([cmn.mtop20, transactionsHistory.length !== 0])}>
+          <TransfersHistory size="md" />
+        </div>
         <div>
           {transfersHistory.length !== 0 ? (
             <Button
