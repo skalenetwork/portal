@@ -40,3 +40,5 @@ export const PORTAL_URLS: { [network: string]: string } = {
 import * as MAINNET_CHAIN_LOGOS from '../meta/logos'
 
 export { FAQ, MAINNET_CHAIN_LOGOS }
+
+export const DISCORD_INVITE_URL = 'https://discord.com/invite/gM5XBy6'

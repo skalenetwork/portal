@@ -68,9 +68,11 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
     'big-majestic-oval-SKALE': {
       erc20: {
         trt: {
-          address: '0xbb2c9411079c6ddCd19c74e8442f77b70Ae74267',
+          address: '0xbb2c9411079c6ddcd19c74e8442f77b70ae74267',
           chains: {
-            'international-villainous-zaurak': {}
+            'international-villainous-zaurak': {
+              clone: true
+            }
           }
         }
       }
@@ -105,7 +107,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           }
         },
         trt: {
-          address: '0x45f7CA2Ace063867E8E1378F0f2cFa86D8f591DE',
+          address: '0x45f7ca2ace063867e8e1378f0f2cfa86d8f591de',
           chains: {
             'big-majestic-oval-SKALE': {}
           }
