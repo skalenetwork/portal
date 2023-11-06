@@ -52,7 +52,7 @@ export default function History() {
         <div className={cls(cmn.flex, cmn.flexcv)}>
           <div className={cls(cmn.flexg)}>
             <h2 className={cls(cmn.nom)}>
-              History ({transfersHistory.length + transactionsHistory.length})
+              History ({transfersHistory.length + (transactionsHistory.length !== 0 ? 1 : 0)})
             </h2>
             <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>SKALE Bridge transfers history</p>
           </div>
