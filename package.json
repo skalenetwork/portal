@@ -1,76 +1,44 @@
 {
-  "name": "bridge-ui",
-  "version": "1.0.1",
+  "name": "portal",
   "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\"",
+    "version": "node -e \"console.log(require('./package.json').version);\""
+  },
   "dependencies": {
-    "@emotion/react": "^11.10.5",
-    "@emotion/styled": "^11.10.5",
-    "@fontsource/roboto": "^4.5.8",
-    "@mdx-js/loader": "^2.3.0",
-    "@mdx-js/react": "^2.3.0",
-    "@mui/icons-material": "^5.11.0",
-    "@mui/lab": "^5.0.0-alpha.120",
-    "@mui/material": "^5.11.4",
-    "@skalenetwork/ima-js": "1.1.2-develop.3",
-    "@skalenetwork/metaport": "1.2.0-develop.21",
-    "@skaleproject/pow-ethers": "0.2.4",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.2.1",
-    "@types/jest": "^27.0.1",
-    "@types/mdx": "^2.0.3",
-    "@types/node": "^16.7.13",
-    "@types/react": "^18.0.0",
-    "@types/react-dom": "^18.0.0",
-    "@types/react-router-dom": "^5.3.3",
-    "@types/webpack-env": "^1.18.0",
-    "@vercel/analytics": "^0.1.10",
-    "crypto-browserify": "^3.12.0",
-    "debug": "^4.3.4",
-    "fuzzysort": "^2.0.4",
-    "https-browserify": "^1.0.0",
-    "os-browserify": "^0.3.0",
-    "path-browserify": "^1.0.1",
+    "@mdx-js/rollup": "^2.3.0",
+    "@mui/icons-material": "^5.14.8",
+    "@mui/material": "^5.14.5",
+    "@skalenetwork/metaport": "2.0.0-develop.13",
+    "@types/react-copy-to-clipboard": "^5.0.4",
+    "@vercel/analytics": "^1.0.2",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-config-standard-with-typescript": "^39.1.0",
+    "prettier": "^3.0.3",
     "react": "^18.2.0",
-    "react-app-rewired": "^2.2.1",
+    "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "^18.2.0",
     "react-jazzicon": "^1.0.4",
-    "react-router-dom": "^6.6.2",
-    "react-scripts": "5.0.1",
-    "sass": "^1.57.1",
-    "stream-browserify": "^3.0.0",
-    "stream-http": "^3.2.0",
-    "tinycolor2": "^1.5.2",
-    "typescript": "^4.4.2",
-    "web-vitals": "^2.1.0"
-  },
-  "scripts": {
-    "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
-    "test": "react-app-rewired test",
-    "eject": "react-app-rewired eject"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
+    "react-router-dom": "^6.15.0"
   },
   "devDependencies": {
-    "@types/debug": "^4.1.7",
-    "assert": "^2.0.0",
-    "buffer": "^6.0.3"
+    "@types/react": "^18.2.15",
+    "@types/react-dom": "^18.2.7",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0",
+    "@vitejs/plugin-react": "^4.0.4",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "sass": "^1.65.1",
+    "typescript": "^5.0.2",
+    "vite": "^4.4.9",
+    "vite-plugin-vercel": "^0.2.1"
   }
 }
