@@ -1,1 +1,1 @@
-export { default } from "./FaqAccordion";
+export { default } from './FaqAccordion'
