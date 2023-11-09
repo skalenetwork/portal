@@ -15,6 +15,7 @@ import App from './components/App'
 import History from './components/History'
 import Portfolio from './components/Portfolio'
 import Admin from './components/Admin'
+import Start from './components/Start'
 
 import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
 // import chainsJson from './chainsJson.json';
@@ -50,7 +51,8 @@ export default function Router() {
 
   return (
     <Routes>
-      <Route index element={<Bridge />} />
+      <Route index element={<Start />} />
+      <Route path="bridge" element={<Bridge />} />
       <Route path="bridge">
         <Route path="history" element={<History />} />
       </Route>

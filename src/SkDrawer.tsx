@@ -21,9 +21,11 @@ import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
 // import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import DonutLargeRoundedIcon from '@mui/icons-material/DonutLargeRounded'
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
+
 import { DUNE_SKALE_URL } from './core/constants'
 
-const drawerWidth = 240
+const drawerWidth = 220
 
 export default function SkDrawer() {
   const location = useLocation()
@@ -42,13 +44,27 @@ export default function SkDrawer() {
       >
         <Toolbar />
         <Box sx={{ overflow: 'auto' }} className={cmn.mtop20}>
-          <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Bridge</h4>
           <List>
             <ListItem>
               <Link to="/" className="undec fullWidth">
+                <ListItemButton className={cls(cmn.pPrim)} selected={location.pathname === '/'}>
+                  <ListItemIcon>
+                    <HomeOutlinedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Home" />
+                </ListItemButton>
+              </Link>
+            </ListItem>
+          </List>
+          <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Bridge</h4>
+          <List>
+            <ListItem>
+              <Link to="/bridge" className="undec fullWidth">
                 <ListItemButton
                   className={cls(cmn.pPrim)}
-                  selected={location.pathname === '/' || location.pathname.includes('/transfer')}
+                  selected={
+                    location.pathname === '/bridge' || location.pathname.includes('/transfer')
+                  }
                 >
                   <ListItemIcon>
                     <SwapHorizontalCircleOutlinedIcon />

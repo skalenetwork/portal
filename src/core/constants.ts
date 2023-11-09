@@ -28,7 +28,7 @@ export const MAINNET_CHAIN_NAME = 'mainnet'
 export const DASHBOARD_URL = 'https://app.geckoboard.com/v5/dashboards/LISYTRBEVGCVGL57/inception'
 export const DUNE_SKALE_URL = 'https://dune.com/projects/SKALE'
 
-export const BRIDGE_PAGES = ['/transfer', '/bridge/history', '/portfolio', '/other/faq']
+export const BRIDGE_PAGES = ['/bridge', '/transfer', '/bridge/history', '/portfolio', '/other/faq']
 
 export const DEFAULT_ERC20_DECIMALS = '18'
 

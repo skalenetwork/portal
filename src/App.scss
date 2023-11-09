@@ -235,6 +235,19 @@ body::-webkit-scrollbar {
   border: 1px rgb(44 44 44) solid !important;
 }
 
+.pageCard {
+  height: 100% !important;
+  border-radius: 25px !important;
+  border: 1px rgb(44 44 44) solid !important;
+
+  svg {
+    width: 24px;
+    height: 24px;
+    // margin-top: 60px;
+    color: white;
+  }
+}
+
 .br__tileLogo {
   height: 95px;
 

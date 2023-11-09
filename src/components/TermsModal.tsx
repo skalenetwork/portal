@@ -65,10 +65,8 @@ export default function TermsModal(props: {
   }
 
   function isBridgePage(): boolean {
-    return (
-      BRIDGE_PAGES.some(
-        (pathname) => location.pathname === pathname || location.pathname.includes(pathname)
-      ) || location.pathname === '/'
+    return BRIDGE_PAGES.some(
+      (pathname) => location.pathname === pathname || location.pathname.includes(pathname)
     )
   }
 
