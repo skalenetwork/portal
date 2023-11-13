@@ -455,11 +455,7 @@ code {
     }
   }
 
-  .titleSection {
-    background: rgba(0, 0, 0, 0.6) !important;
-    border-radius: 25px;
-    padding: 20px;
-  }
+
 
   .titleBadge {
     background: rgba(0, 0, 0, 0.6) !important;
@@ -471,6 +467,12 @@ code {
       height: 12px;
     }
   }
+}
+
+.titleSection {
+  background: rgba(0, 0, 0, 0.6) !important;
+  border-radius: 25px;
+  padding: 20px;
 }
 
 button:focus {
