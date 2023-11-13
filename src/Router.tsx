@@ -1,6 +1,8 @@
 import './App.scss'
 
 import { useState, useEffect } from 'react'
+import { Helmet } from 'react-helmet'
+import { useLocation } from 'react-router-dom'
 import { Routes, Route } from 'react-router-dom'
 import { useMetaportStore, PROXY_ENDPOINTS, type MetaportState } from '@skalenetwork/metaport'
 
@@ -20,6 +22,9 @@ import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHisto
 // import chainsJson from './chainsJson.json';
 
 export default function Router() {
+  const location = useLocation()
+  const currentUrl = `${window.location.origin}${location.pathname}${location.search}`
+
   const [schains, setSchains] = useState<any[]>([])
 
   const mpc = useMetaportStore((state: MetaportState) => state.mpc)
@@ -49,36 +54,39 @@ export default function Router() {
   }
 
   return (
-    <Routes>
-      <Route index element={<Bridge />} />
-      <Route path="bridge">
-        <Route path="history" element={<History />} />
-      </Route>
-      <Route path="portfolio" element={<Portfolio mpc={mpc} />} />
-      <Route
-        path="chains"
-        element={<Network loadSchains={loadSchains} schains={schains} mpc={mpc} />}
-      />
-      <Route path="chains">
+    <div>
+      <Helmet>
+        <meta property="og:url" content={currentUrl} />
+      </Helmet>
+      <Routes>
+        <Route index element={<Bridge />} />
+        <Route path="bridge">
+          <Route path="history" element={<History />} />
+        </Route>
+        <Route path="portfolio" element={<Portfolio mpc={mpc} />} />
         <Route
-          path=":name"
-          element={<Schain loadSchains={loadSchains} schains={schains} mpc={mpc} />}
+          path="chains"
+          element={<Network loadSchains={loadSchains} schains={schains} mpc={mpc} />}
         />
-      </Route>
-      <Route path="apps" element={<Apps />} />
-      <Route path="apps">
-        <Route path=":name" element={<App />} />
-      </Route>
-      <Route path="stats" element={<Stats />} />
-      <Route path="other">
-        <Route path="faq" element={<Faq />} />
-        <Route path="terms-of-service" element={<Terms />} />
-      </Route>
-      <Route path="admin">
-        <Route path=":name" element={<Admin mpc={mpc} />} />
-      </Route>
-    </Routes>
-    //     </CSSTransition>
-    // </TransitionGroup>
+        <Route path="chains">
+          <Route
+            path=":name"
+            element={<Schain loadSchains={loadSchains} schains={schains} mpc={mpc} />}
+          />
+        </Route>
+        <Route path="apps" element={<Apps />} />
+        <Route path="apps">
+          <Route path=":name" element={<App />} />
+        </Route>
+        <Route path="stats" element={<Stats />} />
+        <Route path="other">
+          <Route path="faq" element={<Faq />} />
+          <Route path="terms-of-service" element={<Terms />} />
+        </Route>
+        <Route path="admin">
+          <Route path=":name" element={<Admin mpc={mpc} />} />
+        </Route>
+      </Routes>
+    </div>
   )
 }
