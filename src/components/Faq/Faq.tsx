@@ -21,16 +21,25 @@
  * @copyright SKALE Labs 2023-Present
  */
 
+import { Helmet } from 'react-helmet'
+
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 
 import { cmn, cls } from '@skalenetwork/metaport'
 
 import FaqAccordion from '../FaqAccordion'
+import { META_TAGS } from '../../core/meta'
 
 export default function Faq() {
   return (
     <Container maxWidth="md">
+      <Helmet>
+        <title>{META_TAGS.faq.title}</title>
+        <meta name="description" content={META_TAGS.faq.description} />
+        <meta property="og:title" content={META_TAGS.faq.title} />
+        <meta property="og:description" content={META_TAGS.faq.description} />
+      </Helmet>
       <Stack spacing={0}>
         <div className={cls(cmn.flex)}>
           <h2 className={cls(cmn.nom)}>FAQ</h2>
