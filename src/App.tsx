@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import './App.scss'
+import { Helmet } from 'react-helmet'
 
 import { MetaportProvider, getMetaportTheme } from '@skalenetwork/metaport'
 import '@skalenetwork/metaport/dist/style.css'
@@ -32,6 +32,8 @@ import Portal from './Portal'
 
 import { METAPORT_CONFIG } from './metadata/metaportConfig'
 import { createMuiTheme } from './core/themes'
+
+import { META_TAGS } from './core/meta'
 
 METAPORT_CONFIG.mainnetEndpoint = import.meta.env.VITE_MAINNET_ENDPOINT
 METAPORT_CONFIG.projectId = import.meta.env.VITE_WC_PROJECT_ID
@@ -46,6 +48,16 @@ export default function App() {
       className={'bridge ' + (isDarkMode ? 'bridge-dark' : 'bridge-light')}
       style={{ background: mpTheme.background }}
     >
+      <Helmet>
+        <title>{META_TAGS.main.title}</title>
+        <meta name="description" content={META_TAGS.main.description} />
+        <meta property="og:title" content={META_TAGS.main.title} />
+        <meta property="og:description" content={META_TAGS.main.description} />
+        <meta
+          property="og:image"
+          content="https://portal-o53ney3q4-skale-network.vercel.app/chains.jpg"
+        />
+      </Helmet>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={muiTheme}>
           <MetaportProvider config={METAPORT_CONFIG}>

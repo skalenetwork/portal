@@ -22,10 +22,10 @@
  */
 
 import Button from '@mui/material/Button'
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded';
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
 import { cmn, cls } from '@skalenetwork/metaport'
 import CategoryBadge, { isString } from './CategoryBadge'
-import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom'
 
 export default function ChainCategories(props: {
   category: string | string[] | undefined
@@ -35,7 +35,7 @@ export default function ChainCategories(props: {
   return (
     <div className={cmn.flex}>
       <Link to="/chains" className="undec fullWidth">
-        <Button className='titleBadge'>
+        <Button className="titleBadge">
           <ArrowBackIosNewRoundedIcon className={cls(cmn.pPdrim)} />
           <p className={cls(cmn.p, cmn.p4, cmn.pPdrim, cmn.mleft5)}>All Chains</p>
         </Button>
