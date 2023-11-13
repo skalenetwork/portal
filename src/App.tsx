@@ -53,10 +53,6 @@ export default function App() {
         <meta name="description" content={META_TAGS.main.description} />
         <meta property="og:title" content={META_TAGS.main.title} />
         <meta property="og:description" content={META_TAGS.main.description} />
-        <meta
-          property="og:image"
-          content="https://portal-git-hotfix-safari-images-bug-skale-network.vercel.app/chains.jpg"
-        />
       </Helmet>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={muiTheme}>
