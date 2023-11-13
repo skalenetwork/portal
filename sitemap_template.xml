@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+    <url>
+        <loc>
+            {BASE_URL}
+        </loc>
+    </url>
+    <url>
+        <loc>
+            {BASE_URL}/chains
+        </loc>
+    </url>
+    <url>
+        <loc>
+            {BASE_URL}/bridge/history
+        </loc>
+    </url>
+    <url>
+        <loc>
+            {BASE_URL}/other/faq
+        </loc>
+    </url>
+    <url>
+        <loc>
+            {BASE_URL}/stats
+        </loc>
+    </url>
+    <url>
+        <loc>
+            {BASE_URL}/portfolio
+        </loc>
+    </url>
+</urlset>
