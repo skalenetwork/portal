@@ -55,7 +55,7 @@ export default function App() {
         <meta property="og:description" content={META_TAGS.main.description} />
         <meta
           property="og:image"
-          content="https://portal-o53ney3q4-skale-network.vercel.app/chains.jpg"
+          content="https://portal-git-hotfix-safari-images-bug-skale-network.vercel.app/chains.jpg"
         />
       </Helmet>
       <StyledEngineProvider injectFirst>
