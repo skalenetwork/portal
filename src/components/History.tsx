@@ -21,6 +21,8 @@
  * @copyright SKALE Labs 2023-Present
  */
 
+import { Helmet } from 'react-helmet'
+
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
@@ -34,6 +36,7 @@ import {
 } from '@skalenetwork/metaport'
 
 import { setHistoryToStorage } from '../core/transferHistory'
+import { META_TAGS } from '../core/meta'
 
 export default function History() {
   const mpc = useMetaportStore((state) => state.mpc)
@@ -48,11 +51,17 @@ export default function History() {
 
   return (
     <Container maxWidth="md">
+      <Helmet>
+        <title>{META_TAGS.history.title}</title>
+        <meta name="description" content={META_TAGS.history.description} />
+        <meta property="og:title" content={META_TAGS.history.title} />
+        <meta property="og:description" content={META_TAGS.history.description} />
+      </Helmet>
       <Stack spacing={0}>
         <div className={cls(cmn.flex, cmn.flexcv)}>
           <div className={cls(cmn.flexg)}>
             <h2 className={cls(cmn.nom)}>
-              History ({transfersHistory.length + transactionsHistory.length})
+              History ({transfersHistory.length + (transactionsHistory.length !== 0 ? 1 : 0)})
             </h2>
             <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>SKALE Bridge transfers history</p>
           </div>
