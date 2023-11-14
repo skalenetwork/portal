@@ -21,6 +21,8 @@
  * @copyright SKALE Labs 2021-Present
  */
 
+import { Helmet } from 'react-helmet'
+
 import Button from '@mui/material/Button'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
@@ -89,8 +91,19 @@ export default function SchainDetails(props: {
     })
   }
 
+  const chainAlias = getChainAlias(props.mpc.config.skaleNetwork, props.schainName, undefined, true)
+  const chainDescription = props.chainMeta?.description
+    ? props.chainMeta.description
+    : `Chain was created on ${timestampToDate(props.chain[5])}`
+
   return (
     <div className={cls('chainDetails', cmn.mbott20)}>
+      <Helmet>
+        <title>SKALE Portal - {chainAlias}</title>
+        <meta name="description" content={chainDescription} />
+        <meta property="og:title" content={`SKALE Portal - ${chainAlias}`} />
+        <meta property="og:description" content={chainDescription} />
+      </Helmet>
       <SkPaper background={chainBg(network, props.schainName)} className={cls(cmn.mtop10)}>
         <ChainCategories category={props.chainMeta?.category ?? 'Other'} />
         <div className={cls('logo', cmn.flex, cmn.flexcv)}>
@@ -99,14 +112,8 @@ export default function SchainDetails(props: {
           <div className={cls(cmn.flex, cmn.flexg)}></div>
         </div>
         <div className={cls('titleSection')}>
-          <h2 className={cls(cmn.nom)}>
-            {getChainAlias(props.mpc.config.skaleNetwork, props.schainName, undefined, true)}
-          </h2>
-          <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec)}>
-            {props.chainMeta?.description
-              ? props.chainMeta.description
-              : `Chain was created on ${timestampToDate(props.chain[5])}`}
-          </p>
+          <h2 className={cls(cmn.nom)}>{chainAlias}</h2>
+          <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec)}>{chainDescription}</p>
         </div>
         <div className={cls(cmn.flex, cmn.flexcv, cmn.flexw)}>
           <div className={cls('titleSection', cmn.mtop10)}>
