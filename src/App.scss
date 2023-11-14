@@ -490,3 +490,20 @@ button:focus {
 .MuiAccordion-rounded {
   box-shadow: none !important;
 }
+
+.startCardText {
+  margin: 120px 10px 10px 10px;
+  background: #00000066;
+  backdrop-filter: blur(15px) brightness(0.6);
+  border-radius: 25px;
+  padding: 10px 15px;
+}
+
+.startCardBg {
+  background-image: url(bg.jpeg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: none !important;
+  border: 1px rgb(26 26 26) solid !important;
+  box-shadow: none !important;
+}

@@ -28,24 +28,9 @@ export default function PageCard(props: { name: string; icon: any; description: 
   return (
     <div>
       <div className="fl-centered">
-        <div
-          className={cls('br__tile pageCard')}
-          style={{
-            background:
-              'linear-gradient(151deg, rgba(22, 15, 32, 0.85) 10%, rgba(10, 10, 10, 0.85) 100%)'
-          }}
-        >
-          <Link to={props.name}>
-            <div
-              className={cls(
-                // cmn.flex,
-                // cmn.flexcv,
-                cmn.mtop20,
-                cmn.mbott20,
-                cmn.mleft20,
-                'fullWidth'
-              )}
-            >
+        <Link to={props.name}>
+          <div className={cls('br__tile pageCard startCardBg')}>
+            <div className="startCardText">
               <div className={cls(cmn.flex, cmn.flexg, cmn.flexcv)}>
                 <div className={cls(cmn.mri5, cmn.flex, cmn.flexcv)}>{props.icon}</div>
                 <p
@@ -57,8 +42,8 @@ export default function PageCard(props: { name: string; icon: any; description: 
               </div>
               <p className={cls(cmn.p, cmn.p3, cmn.pSec)}>{props.description}</p>
             </div>
-          </Link>
-        </div>
+          </div>
+        </Link>
       </div>
     </div>
   )
