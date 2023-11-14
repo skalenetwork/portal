@@ -21,15 +21,14 @@
  * @copyright SKALE Labs 2023-Present
  */
 
+import { Helmet } from 'react-helmet'
+
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import GradeRoundedIcon from '@mui/icons-material/GradeRounded'
-
-import Message from './Message'
-import BridgeBody from './BridgeBody'
 
 import {
   CHAINS_META,
@@ -41,6 +40,11 @@ import {
   type interfaces,
   TransactionData
 } from '@skalenetwork/metaport'
+
+import Message from './Message'
+import BridgeBody from './BridgeBody'
+
+import { META_TAGS } from '../core/meta'
 
 interface TokenParams {
   keyname: string | null
@@ -154,6 +158,12 @@ export default function Bridge() {
 
   return (
     <Container maxWidth="sm">
+      <Helmet>
+        <title>{META_TAGS.bridge.title}</title>
+        <meta name="description" content={META_TAGS.bridge.description} />
+        <meta property="og:title" content={META_TAGS.bridge.title} />
+        <meta property="og:description" content={META_TAGS.bridge.description} />
+      </Helmet>
       <Stack spacing={0}>
         <div className={cls(cmn.flex, cmn.mbott10)}>
           <h2 className={cls(cmn.nom)}>Transfer</h2>

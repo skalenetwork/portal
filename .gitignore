@@ -32,3 +32,6 @@ src/metadata/faucet.json
 .vercel
 
 chainsJson.json
+
+public/sitemap.xml
+public/robots.txt
