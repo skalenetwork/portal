@@ -29,7 +29,7 @@ export default function PageCard(props: { name: string; icon: any; description: 
     <div>
       <div className="fl-centered">
         <Link to={props.name}>
-          <div className={cls('br__tile pageCard startCardBg')}>
+          <div className={cls('br__tile pageCard startCardBg ' + `startCard${props.name}`)}>
             <div className="startCardText">
               <div className={cls(cmn.flex, cmn.flexg, cmn.flexcv)}>
                 <div className={cls(cmn.mri5, cmn.flex, cmn.flexcv)}>{props.icon}</div>

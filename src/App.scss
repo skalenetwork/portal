@@ -500,10 +500,26 @@ button:focus {
 }
 
 .startCardBg {
-  background-image: url(/bg.jpeg);
   background-repeat: no-repeat;
   background-size: cover;
   border: none !important;
   border: 1px rgb(26 26 26) solid !important;
   box-shadow: none !important;
+}
+
+.startCardbridge {
+  background-image: url(/bridge.png);
+}
+
+.startCardchains {
+  background-image: url(/chains.png);
+}
+
+.startCardapps {
+  background-image: url(/apps.png);
+}
+
+
+.startCardstats {
+  background-image: url(/stats.png);
 }
