@@ -13,7 +13,6 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 
 import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontalCircleOutlined'
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import HistoryIcon from '@mui/icons-material/History'
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
@@ -99,7 +98,7 @@ export default function SkDrawer() {
                 </ListItemButton>
               </Link>
             </ListItem>
-            <ListItem>
+            {/* <ListItem>
               <Link to="/other/faq" className="undec fullWidth">
                 <ListItemButton
                   className={cls(cmn.pPrim)}
@@ -111,7 +110,7 @@ export default function SkDrawer() {
                   <ListItemText primary="FAQ" />
                 </ListItemButton>
               </Link>
-            </ListItem>
+            </ListItem> */}
           </List>
           <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Network</h4>
           <List>
