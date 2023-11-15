@@ -7,6 +7,7 @@ import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontal
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined'
+import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined'
 
 import PageCard from './PageCard'
 
@@ -50,6 +51,13 @@ export default function Start() {
                 description="SKALE Network statistics"
                 name="stats"
                 icon={<InsertChartOutlinedIcon />}
+              />
+            </Grid>
+            <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
+              <PageCard
+                description="Assets overview across all SKALE Chains"
+                name="portfolio"
+                icon={<WalletOutlinedIcon />}
               />
             </Grid>
           </Grid>

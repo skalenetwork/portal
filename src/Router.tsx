@@ -9,7 +9,7 @@ import { useMetaportStore, PROXY_ENDPOINTS, type MetaportState } from '@skalenet
 import Bridge from './components/Bridge'
 import Faq from './components/Faq'
 import Terms from './components/Terms'
-import Network from './components/Network'
+import Network from './components/Chains'
 import Schain from './components/Schain'
 import Stats from './components/Stats'
 import Apps from './components/Apps'
