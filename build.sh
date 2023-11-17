@@ -32,5 +32,7 @@ fi
 
 node generate-imports.cjs ./src/meta/logos
 
+bash generate_sitemap.sh
+
 echo "Building..."
 yarn build

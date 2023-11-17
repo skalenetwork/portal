@@ -1,0 +1,2 @@
+User-agent: *
+Sitemap: {BASE_URL}/sitemap.xml

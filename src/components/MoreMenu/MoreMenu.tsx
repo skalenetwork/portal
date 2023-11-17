@@ -41,7 +41,6 @@ import { cls, styles, cmn } from '@skalenetwork/metaport'
 import { DISCORD_INVITE_URL } from '../../core/constants'
 import discordLogo from '../../assets/discord-mark-white.svg'
 
-
 export default function MoreMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
@@ -136,18 +135,15 @@ export default function MoreMenu() {
             </div>
           </MenuItem>
         </a>
-        <a
-          className="undec fullWidth"
-          target="_blank"
-          href={DISCORD_INVITE_URL}
-          rel="noreferrer"
-        >
+        <a className="undec fullWidth" target="_blank" href={DISCORD_INVITE_URL} rel="noreferrer">
           <MenuItem onClick={handleClose} className="undec">
             <div className={cmn.flex}>
               <img
                 src={discordLogo}
                 className={cmn.mri10}
-                style={{ width: '22px', height: '22px' }} alt="discord logo" />
+                style={{ width: '22px', height: '22px' }}
+                alt="discord logo"
+              />
             </div>
             <div className={cls(cmn.flex, cmn.flexg)}>Discord</div>
             <div className={cls(cmn.flex, cmn.mleft10)}>
