@@ -183,10 +183,14 @@ body {
   margin-right: 12px !important;
 }
 
-.br__modalScroll {
-  ::-webkit-scrollbar {
-    display: unset !important;
-  }
+// .br__modalScroll {
+//   ::-webkit-scrollbar {
+//     display: unset !important;
+//   }
+// }
+
+::-webkit-scrollbar-track {
+  height: 5px !important;
 }
 
 ::-webkit-scrollbar-thumb {
