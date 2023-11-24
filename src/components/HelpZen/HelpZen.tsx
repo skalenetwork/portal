@@ -6,13 +6,12 @@ import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import QuestionMarkRoundedIcon from '@mui/icons-material/QuestionMarkRounded';
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
-import MarkUnreadChatAltRoundedIcon from '@mui/icons-material/MarkUnreadChatAltRounded';
+import QuestionMarkRoundedIcon from '@mui/icons-material/QuestionMarkRounded'
+import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
+import MarkUnreadChatAltRoundedIcon from '@mui/icons-material/MarkUnreadChatAltRounded'
 import { cls, styles, cmn } from '@skalenetwork/metaport'
 
 export default function HelpZen() {
-
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [openZen, setOpenZen] = React.useState<boolean>(false)
 
@@ -45,7 +44,7 @@ export default function HelpZen() {
         className={cmn.mleft5}
         sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}
       >
-        <Tooltip arrow title='Get help'>
+        <Tooltip arrow title="Get help">
           <IconButton
             id="basic-button"
             aria-controls={open ? 'basic-menu' : undefined}

@@ -144,7 +144,7 @@ body {
 
 
 .br__modalInner {
-  max-height: calc(90vh - 300px);
+  max-height: calc(90vh - 250px);
   display: flex;
   /* relevant part */
   flex-direction: column;
@@ -160,15 +160,20 @@ body {
   overflow: hidden;
 }
 
-.br__modal {
-  .MuiContainer-root {
-    padding: 0px !important;
+.br__modalScroll {
+  @media screen and (min-height: 200px) {
+    max-height: calc(75vh - 180px);
   }
 
-  .br__modalScroll {
-    height: 100%;
-    overflow-y: auto;
+  @media screen and (min-height: 670px) and (min-width: 300px) {
+    max-height: calc(75vh - 520px);
   }
+
+  @media screen and (min-height: 670px) and (min-width: 900px) {
+    max-height: calc(75vh - 350px);
+  }
+
+  overflow-y: auto;
 }
 
 .drawerIconRi {

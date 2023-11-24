@@ -18,8 +18,11 @@ import History from './components/History'
 import Portfolio from './components/Portfolio'
 import Admin from './components/Admin'
 import Start from './components/Start'
+import TermsModal from './components/TermsModal'
 
 import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
+import { BRIDGE_PAGES } from './core/constants'
+
 // import chainsJson from './chainsJson.json';
 
 export default function Router() {
@@ -27,6 +30,7 @@ export default function Router() {
   const currentUrl = `${window.location.origin}${location.pathname}${location.search}`
 
   const [schains, setSchains] = useState<any[]>([])
+  const [termsAccepted, setTermsAccepted] = useState<boolean>(false)
 
   const mpc = useMetaportStore((state: MetaportState) => state.mpc)
   const transfersHistory = useMetaportStore((state) => state.transfersHistory)
@@ -52,6 +56,18 @@ export default function Router() {
       schains.push(chain.schain)
     }
     setSchains(schains)
+  }
+
+  function isBridgePage(): boolean {
+    return BRIDGE_PAGES.some(
+      (pathname) => location.pathname === pathname || location.pathname.includes(pathname)
+    )
+  }
+
+  if (!termsAccepted && isBridgePage()) {
+    return (
+      <TermsModal mpc={mpc} termsAccepted={termsAccepted} setTermsAccepted={setTermsAccepted} />
+    )
   }
 
   return (

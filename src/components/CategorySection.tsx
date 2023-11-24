@@ -51,15 +51,7 @@ export default function CategorySection(props: {
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           {schains.map((schain: any[]) => (
-            <Grid
-              key={schain[0]}
-              className="fl-centered dappCard"
-              item
-              lg={3}
-              md={4}
-              sm={6}
-              xs={6}
-            >
+            <Grid key={schain[0]} className="fl-centered dappCard" item lg={3} md={4} sm={6} xs={6}>
               <ChainCard skaleNetwork={props.skaleNetwork} schain={schain} />
             </Grid>
           ))}
