@@ -2,8 +2,7 @@ import './App.scss'
 
 import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
-import { useLocation } from 'react-router-dom'
-import { Routes, Route } from 'react-router-dom'
+import { useLocation, Routes, Route } from 'react-router-dom'
 import { useMetaportStore, PROXY_ENDPOINTS, type MetaportState } from '@skalenetwork/metaport'
 
 import Bridge from './components/Bridge'

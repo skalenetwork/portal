@@ -27,6 +27,7 @@ import Grid from '@mui/material/Grid'
 import ConstructionRoundedIcon from '@mui/icons-material/ConstructionRounded'
 import PlaylistAddCheckCircleRoundedIcon from '@mui/icons-material/PlaylistAddCheckCircleRounded'
 import AccountBalanceWalletRoundedIcon from '@mui/icons-material/AccountBalanceWalletRounded'
+import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded'
 
 import {
   cmn,
@@ -42,6 +43,7 @@ import {
 import VerifiedContracts from './VerifiedContracts'
 import CopySurface from './CopySurface'
 import AccordionSection from './AccordionSection'
+import AccordionLink from './AccordionLink'
 
 import {
   getRpcUrl,
@@ -188,6 +190,11 @@ export default function ChainAccordion(props: {
           explorerUrl={explorerUrl}
         />
       </AccordionSection>
+      <AccordionLink
+        title="Admin area"
+        icon={<AdminPanelSettingsRoundedIcon />}
+        url={`/admin/${props.schainName}`}
+      />
     </SkPaper>
   )
 }

@@ -105,7 +105,7 @@ export default function SchainDetails(props: {
         <meta property="og:description" content={chainDescription} />
       </Helmet>
       <SkPaper background={chainBg(network, props.schainName)} className={cls(cmn.mtop10)}>
-        <ChainCategories category={props.chainMeta?.category ?? 'Other'} />
+        <ChainCategories category={props.chainMeta?.category ?? 'Other'} alias={chainAlias} />
         <div className={cls('logo', cmn.flex, cmn.flexcv)}>
           <div className={cls(cmn.flex, cmn.flexg)}></div>
           <ChainLogo chainName={props.schainName} logos={MAINNET_CHAIN_LOGOS} />
@@ -117,7 +117,7 @@ export default function SchainDetails(props: {
         </div>
         <div className={cls(cmn.flex, cmn.flexcv, cmn.flexw)}>
           <div className={cls('titleSection', cmn.mtop10)}>
-            <div className={cls(cmn.flex)}>
+            <div className={cls(cmn.flex, cmn.flexw)}>
               <div className={cls(cmn.mleft5)}>
                 <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
                   <Button

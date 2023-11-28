@@ -236,14 +236,13 @@ body::-webkit-scrollbar {
 }
 
 .br__tile:hover {
-  box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.1);
   transform: scale(1.05);
 }
 
 .br__tile {
   height: 140px;
   border-radius: 25px !important;
-  border: 1px rgb(44 44 44) solid !important;
+  border: 1px solid #171616 !important
 }
 
 .pageCard {
@@ -348,21 +347,20 @@ body::-webkit-scrollbar {
 
 .cardBtn {
   background: rgba(0, 0, 0, .506) !important;
-  border: 1px solid hsla(0, 0%, 51%, .35) !important;
+  border: 1px solid hsla(0, 0%, 51%, .1) !important;
   text-transform: none !important;
   color: white !important;
-  padding: 5px 10px 5px 15px !important;
-  font-size: 0.6125rem !important;
+  padding: 6px 10px 6px 12px !important;
+  font-size: 0.6rem !important;
+  min-width: 55px;
 
   svg {
-    width: 10pt;
-    height: 10pt;
+    width: 8pt;
+    height: 8pt;
   }
 
-  .MuiButton-endIcon {
-    margin-left: 5px !important;
-    margin-right: 2px !important;
-    // margin: 0 !important;
+  .MuiButton-startIcon {
+    margin-right: 5px !important;
   }
 }
 
@@ -461,12 +459,10 @@ code {
     }
   }
 
-
-
   .titleBadge {
     background: rgba(0, 0, 0, 0.6) !important;
     border-radius: 25px;
-    padding: 10px 15px;
+    padding: 5px;
 
     svg {
       width: 12px;

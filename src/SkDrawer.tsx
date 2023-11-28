@@ -1,5 +1,5 @@
-import { Link, useLocation } from 'react-router-dom'
 import { cls, cmn } from '@skalenetwork/metaport'
+import { useLocation, Link } from 'react-router-dom'
 
 import Box from '@mui/material/Box'
 
@@ -118,7 +118,9 @@ export default function SkDrawer() {
               <Link to="/chains" className="undec fullWidth">
                 <ListItemButton
                   className={cls(cmn.pPrim)}
-                  selected={location.pathname.includes('/chains')}
+                  selected={
+                    location.pathname.includes('/chains') || location.pathname.includes('/admin')
+                  }
                 >
                   <ListItemIcon>
                     <PublicOutlinedIcon />

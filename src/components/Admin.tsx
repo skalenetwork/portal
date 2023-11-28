@@ -21,29 +21,82 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { useEffect } from 'react'
+import { useState } from 'react'
 import Container from '@mui/material/Container'
-import Stack from '@mui/material/Stack'
 import { useParams } from 'react-router-dom'
+import Button from '@mui/material/Button'
 
-import { cmn, cls, type MetaportCore, getChainAlias } from '@skalenetwork/metaport'
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
+import PaymentsRoundedIcon from '@mui/icons-material/PaymentsRounded'
+import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded'
+
+import { Link } from 'react-router-dom'
+import { cmn, cls, type MetaportCore, getChainAlias, SkPaper } from '@skalenetwork/metaport'
+
+import AccordionSection from './AccordionSection'
 
 export default function Admin(props: { mpc: MetaportCore }) {
   let { name } = useParams()
   name = name ?? ''
-  const alias = getChainAlias(props.mpc.config.skaleNetwork, name)
 
-  useEffect(() => {}, [])
+  const [expanded, setExpanded] = useState<string | false>('panel1')
+
+  function handleChange(panel: string | false) {
+    setExpanded(expanded && panel === expanded ? false : panel)
+  }
+
+  const network = props.mpc.config.skaleNetwork
+  const alias = getChainAlias(network, name)
 
   return (
-    <Container maxWidth="md">
-      <Stack spacing={0}>
-        <div className={cls(cmn.flex)}>
-          <h2 className={cls(cmn.nom, cmn.flexg)}>Manage {alias}</h2>
+    <Container maxWidth="md" className="chainDetails">
+      {/* <SkPaper background={chainBg(network, name)} className={cls(cmn.mtop10)}> */}
+      <SkPaper gray className={cls(cmn.mtop10)}>
+        <div className={cls(cmn.flex, cmn.flexcv)}>
+          <div className={cls(cmn.flex, cmn.flexcv, 'titleBadge')}>
+            <div className={cmn.flex}>
+              <Link to={'/chains/'} className="undec fullWidth">
+                <Button>
+                  <ArrowBackIosNewRoundedIcon />
+                  <p className={cls(cmn.p, cmn.p4, cmn.mleft5)}>All chains</p>
+                </Button>
+              </Link>
+            </div>
+            <p className={cls(cmn.p, cmn.p4)}>|</p>
+            <div className={cmn.flex}>
+              <Link to={'/chains/' + name} className="undec fullWidth">
+                <Button>
+                  <p className={cls(cmn.p, cmn.p4)}>{alias}</p>
+                </Button>
+              </Link>
+            </div>
+            <p className={cls(cmn.p, cmn.p4)}>|</p>
+            <div className={cmn.flex}>
+              <div className={cls('titleBadged', cmn.flex, cmn.flexcv, cmn.mleft10, cmn.mri10)}>
+                <AdminPanelSettingsRoundedIcon />
+                <p className={cls(cmn.p, cmn.p4, cmn.mleft5)}>Admin Area</p>
+              </div>
+            </div>
+          </div>
         </div>
-        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>Manage your SKALE Chain</p>
-        <div></div>
-      </Stack>
+
+        <div className={cls('titleSection', cmn.mtop10)}>
+          <h3 className={cls(cmn.nom)}>Manage {alias}</h3>
+          <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec)}>
+            This is {alias} admin area - you can manage your chain here.
+          </p>
+        </div>
+        <AccordionSection
+          className={cls(cmn.mtop10)}
+          handleChange={handleChange}
+          expanded={expanded}
+          panel="panel1"
+          title="Chain Top-up"
+          icon={<PaymentsRoundedIcon />}
+        >
+          <div>!!!!</div>
+        </AccordionSection>
+      </SkPaper>
     </Container>
   )
 }
