@@ -41,7 +41,7 @@ export default function AccordionSection(props: {
   className?: string
 }) {
   return (
-    <div className={props.className}>
+    <div className={cls(props.className)}>
       <ButtonBase
         onClick={() => props.handleChange(props.panel)}
         className={cls(cmn.fullWidth, cmn.flex, cmn.pleft, cmn.bordRad)}

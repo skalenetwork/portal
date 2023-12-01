@@ -24,6 +24,8 @@
 import { Helmet } from 'react-helmet'
 
 import Button from '@mui/material/Button'
+import Stack from '@mui/material/Stack'
+
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
@@ -111,55 +113,63 @@ export default function SchainDetails(props: {
           <ChainLogo chainName={props.schainName} logos={MAINNET_CHAIN_LOGOS} />
           <div className={cls(cmn.flex, cmn.flexg)}></div>
         </div>
-        <div className={cls('titleSection')}>
-          <h2 className={cls(cmn.nom)}>{chainAlias}</h2>
-          <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec)}>{chainDescription}</p>
-        </div>
-        <div className={cls(cmn.flex, cmn.flexcv, cmn.flexw)}>
-          <div className={cls('titleSection', cmn.mtop10)}>
-            <div className={cls(cmn.flex, cmn.flexw)}>
-              <div className={cls(cmn.mleft5)}>
-                <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
-                  <Button
-                    size="large"
-                    className={styles.btnAction}
-                    startIcon={<WidgetsRoundedIcon />}
-                  >
-                    Block Explorer
-                  </Button>
-                </a>
-              </div>
-              <div className={cls(cmn.mleft20)}>
-                <Button
-                  startIcon={<AddCircleRoundedIcon />}
-                  size="large"
-                  className={styles.btnAction}
-                  onClick={addNetwork}
-                >
-                  Add network
-                </Button>
-              </div>
-              {props.chainMeta?.url ? (
-                <div className={cls(cmn.mleft20)}>
-                  <a target="_blank" rel="noreferrer" href={props.chainMeta.url} className="undec">
+
+        <Stack spacing={1}>
+          <div className={cls('titleSection')}>
+            <h2 className={cls(cmn.nom)}>{chainAlias}</h2>
+            <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec)}>{chainDescription}</p>
+          </div>
+          <Stack spacing={1} direction={{ xs: 'column', sm: 'row' }} useFlexGap flexWrap="wrap">
+            <div className={cls('titleSection')}>
+              <Stack spacing={1} direction={{ xs: 'column', sm: 'row' }} useFlexGap flexWrap="wrap">
+                <div className={cls(cmn.mleft5)}>
+                  <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
                     <Button
                       size="large"
                       className={styles.btnAction}
-                      startIcon={<ArrowOutwardRoundedIcon />}
+                      startIcon={<WidgetsRoundedIcon />}
                     >
-                      Open website
+                      Block Explorer
                     </Button>
                   </a>
                 </div>
-              ) : null}
+                <div className={cls(cmn.mleft20)}>
+                  <Button
+                    startIcon={<AddCircleRoundedIcon />}
+                    size="large"
+                    className={styles.btnAction}
+                    onClick={addNetwork}
+                  >
+                    Add network
+                  </Button>
+                </div>
+                {props.chainMeta?.url ? (
+                  <div className={cls(cmn.mleft20)}>
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      href={props.chainMeta.url}
+                      className="undec"
+                    >
+                      <Button
+                        size="large"
+                        className={styles.btnAction}
+                        startIcon={<ArrowOutwardRoundedIcon />}
+                      >
+                        Open website
+                      </Button>
+                    </a>
+                  </div>
+                ) : null}
+              </Stack>
             </div>
-          </div>
-          <CopySurface
-            className={cls(cmn.mtop10, cmn.mleft10, cmn.flexg)}
-            title="Chain ID"
-            value={chainIdInt.toString()}
-          />
-        </div>
+            <CopySurface
+              className={cls(cmn.flexg)}
+              title="Chain ID"
+              value={chainIdInt.toString()}
+            />
+          </Stack>
+        </Stack>
       </SkPaper>
       <ChainAccordion mpc={props.mpc} schainName={props.schainName} />
     </div>

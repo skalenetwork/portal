@@ -32,7 +32,7 @@ export default function PageCard(props: { name: string; icon: any; description: 
           <div className={cls('br__tile pageCard startCardBg ' + `startCard${props.name}`)}>
             <div className="startCardText">
               <div className={cls(cmn.flex, cmn.flexg, cmn.flexcv)}>
-                <div className={cls(cmn.mri5, cmn.flex, cmn.flexcv)}>{props.icon}</div>
+                {/* <div className={cls(cmn.mri5, cmn.flex, cmn.flexcv)}>{props.icon}</div> */}
                 <p
                   className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p)}
                   style={{ fontSize: '1.5rem', fontWeight: 700 }}

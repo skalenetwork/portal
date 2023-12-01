@@ -191,7 +191,7 @@ export default function ChainAccordion(props: {
         />
       </AccordionSection>
       <AccordionLink
-        title="Admin area"
+        title="Manage chain"
         icon={<AdminPanelSettingsRoundedIcon />}
         url={`/admin/${props.schainName}`}
       />

@@ -35,7 +35,7 @@ import GradingRoundedIcon from '@mui/icons-material/GradingRounded'
 import { type MetaportCore, SkPaper, cls, cmn, styles } from '@skalenetwork/metaport'
 
 import { PORTAL_URLS } from '../core/constants'
-import TermsOfService from './Terms/terms-of-service.mdx'
+import TermsOfService from '../terms-of-service.mdx'
 
 export default function TermsModal(props: {
   mpc: MetaportCore

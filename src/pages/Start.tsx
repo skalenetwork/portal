@@ -9,7 +9,7 @@ import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
 import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined'
 import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined'
 
-import PageCard from './PageCard'
+import PageCard from '../components/PageCard'
 
 import { cmn, cls } from '@skalenetwork/metaport'
 

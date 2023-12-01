@@ -230,7 +230,7 @@ body::-webkit-scrollbar {
 }
 
 .br__tile {
-  box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.05);
+  // box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.05);
   transform-style: preserve-3d;
   transition: all 0.3s ease;
 }
@@ -349,7 +349,7 @@ body::-webkit-scrollbar {
   background: rgba(0, 0, 0, .506) !important;
   border: 1px solid hsla(0, 0%, 51%, .1) !important;
   text-transform: none !important;
-  color: white !important;
+  color: #ffffffe6 !important;
   padding: 6px 10px 6px 12px !important;
   font-size: 0.6rem !important;
   min-width: 55px;
@@ -472,7 +472,7 @@ code {
 }
 
 .titleSection {
-  background: rgba(0, 0, 0, 0.6) !important;
+  background: rgba(0, 0, 0, 0.6);
   border-radius: 25px;
   padding: 20px;
 }
@@ -499,7 +499,7 @@ button:focus {
 .startCardText {
   margin: 120px 10px 10px 10px;
   background: #00000066;
-  backdrop-filter: blur(15px) brightness(0.6);
+  backdrop-filter: blur(10px) brightness(0.8);
   border-radius: 25px;
   padding: 10px 15px;
 }
@@ -531,4 +531,14 @@ button:focus {
 
 .startCardportfolio {
   background-image: url(/portfolio.png);
+}
+
+
+.blackP {
+  color: #000000 
+}
+
+.divider {
+  border-bottom: 1px $border-color solid;
+  padding-bottom: 10px;
 }

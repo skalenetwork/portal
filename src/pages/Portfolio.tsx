@@ -40,7 +40,7 @@ import {
   fromWei
 } from '@skalenetwork/metaport'
 
-import TokenSurface from './TokenSurface'
+import TokenSurface from '../components/TokenSurface'
 
 export default function Portfolio(props: { mpc: MetaportCore }) {
   const { address } = useWagmiAccount()

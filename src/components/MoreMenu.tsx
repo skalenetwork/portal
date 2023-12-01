@@ -38,8 +38,8 @@ import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined'
 
 import { cls, styles, cmn } from '@skalenetwork/metaport'
 
-import { DISCORD_INVITE_URL } from '../../core/constants'
-import discordLogo from '../../assets/discord-mark-white.svg'
+import { DISCORD_INVITE_URL } from '../core/constants'
+import discordLogo from '../assets/discord-mark-white.svg'
 
 export default function MoreMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
