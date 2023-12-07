@@ -41,6 +41,7 @@ import {
 } from '@skalenetwork/metaport'
 
 import TokenSurface from '../components/TokenSurface'
+import ConnectWallet from '../components/ConnectWallet'
 
 export default function Portfolio(props: { mpc: MetaportCore }) {
   const { address } = useWagmiAccount()
@@ -107,6 +108,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
         </div>
         <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>Your assets across all SKALE Chains</p>
         <div>
+          {!address ? <ConnectWallet className={cmn.mtop20} /> : null}
           {Object.keys(props.mpc.config.tokens)?.map((token: string, index: number) => (
             <div key={index} className={cls(cmn.mtop20)}>
               <SkPaper gray className={cmn.n}>

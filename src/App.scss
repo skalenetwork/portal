@@ -345,6 +345,26 @@ body::-webkit-scrollbar {
   width: 100%;
 }
 
+.btn {
+  text-transform: none !important;
+  font-size: 0.8025rem !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0.02857em !important;
+  font-weight: 600 !important;
+  padding: 0.9em 3.5em !important;
+  border-radius: $sk-border-radius !important;
+  box-shadow: none !important;
+}
+
+.outlined {
+  background: rgba(41, 255, 148, 0.08)
+}
+
+.roundBtn {
+  min-width: 40px !important;
+  padding: 8px 11px !important;
+}
+
 .cardBtn {
   background: rgba(0, 0, 0, .506) !important;
   border: 1px solid hsla(0, 0%, 51%, .1) !important;
@@ -535,7 +555,7 @@ button:focus {
 
 
 .blackP {
-  color: #000000 
+  color: #000000;
 }
 
 .divider {

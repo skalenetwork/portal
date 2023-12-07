@@ -26,14 +26,17 @@ import { useTheme } from '@mui/material/styles'
 import LinearProgress from '@mui/material/LinearProgress'
 import { cmn, cls, styles } from '@skalenetwork/metaport'
 
+import { DueDateStatus } from '../core/paymaster'
+
 export default function Tile(props: {
   text: string
-  value: string
+  value?: string
   textRi?: string
   icon?: ReactElement
   className?: string
   grow?: boolean
-  color?: 'primary' | 'warning' | 'error'
+  color?: DueDateStatus
+  progressColor?: DueDateStatus
   progress?: number
   children?: ReactElement | ReactElement[]
 }) {
@@ -60,22 +63,24 @@ export default function Tile(props: {
         <p className={cls(cmn.p, cmn.p4, cmn.flex, cmn.mleft5)}>{props.textRi}</p>
       </div>
       <div className={cls(cmn.flex, cmn.flexcv)}>
-        <p
-          className={cls(
-            cmn.p,
-            cmn.p1,
-            cmn.p700,
-            [cmn.pPrim, !props.color],
-            ['blackP', props.color]
-          )}
-        >
-          {props.value}
-        </p>
+        {props.value ? (
+          <p
+            className={cls(
+              cmn.p,
+              cmn.p1,
+              cmn.p700,
+              [cmn.pPrim, !props.color],
+              ['blackP', props.color]
+            )}
+          >
+            {props.value}
+          </p>
+        ) : null}
         {props.progress ? (
           <LinearProgress
             variant="determinate"
             value={props.progress}
-            color="primary"
+            color={props.progressColor}
             style={{ height: '20px' }}
             className={cls(cmn.flexg, cmn.mleft10)}
           />

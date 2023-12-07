@@ -26,30 +26,22 @@ import { useParams } from 'react-router-dom'
 import Button from '@mui/material/Button'
 
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
-import PaymentsRoundedIcon from '@mui/icons-material/PaymentsRounded'
 import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded'
 
 import { Link } from 'react-router-dom'
-import { cmn, cls, styles, type MetaportCore, getChainAlias, SkPaper } from '@skalenetwork/metaport'
+import { cmn, cls, type MetaportCore, getChainAlias, SkPaper } from '@skalenetwork/metaport'
 
-import Topup from '../components/Topup'
+import Paymaster from '../components/Paymaster'
 
 export default function Admin(props: { mpc: MetaportCore }) {
   let { name } = useParams()
   name = name ?? ''
-
-  // const [expanded, setExpanded] = useState<string | false>('panel1')
-
-  // function handleChange(panel: string | false) {
-  //   setExpanded(expanded && panel === expanded ? false : panel)
-  // }
 
   const network = props.mpc.config.skaleNetwork
   const alias = getChainAlias(network, name)
 
   return (
     <Container maxWidth="md" className="chainDetails">
-      {/* <SkPaper background={chainBg(network, name)} className={cls(cmn.mtop10)}> */}
       <SkPaper gray className={cls(cmn.mtop10)}>
         <div className={cls(cmn.flex, cmn.flexcv)}>
           <div className={cls(cmn.flex, cmn.flexcv, 'titleBadge')}>
@@ -78,40 +70,13 @@ export default function Admin(props: { mpc: MetaportCore }) {
             </div>
           </div>
         </div>
-        <SkPaper background="transparent" className={cls(cmn.mtop10, cmn.mbott20)}>
+        <div className={cls(cmn.mtop20, cmn.mleft5)}>
           <h2 className={cls(cmn.nom)}>Manage {alias}</h2>
           <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec)}>
             This is {alias} admin area - you can manage your chain here.
           </p>
-        </SkPaper>
-
-        <div className={cls(cmn.m10, cmn.flex, cmn.flexg, cmn.flexcv, 'divider')}>
-          <div className={cls(cmn.mri10, cmn.flexcv, cmn.flex, styles.chainIconxs)}>
-            <PaymentsRoundedIcon />
-          </div>
-          <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.flexg)}>Chain top-up</p>
         </div>
-        <Topup mpc={props.mpc} name={name} />
-
-        {/* <AccordionSection
-          // className={cls(cmn.mtop10)}
-          handleChange={handleChange}
-          expanded={expanded}
-          panel="panel1"
-          title="Chain Top-up"
-          icon={<PaymentsRoundedIcon />}
-        >
-          <Topup mpc={props.mpc} name={name} />
-        </AccordionSection> */}
-        {/* <AccordionSection
-          handleChange={handleChange}
-          expanded={expanded}
-          panel="panel2"
-          title="Link tokens"
-          icon={<AddLinkRoundedIcon />}
-        >
-          <p>Will be available soon</p>
-        </AccordionSection> */}
+        <Paymaster mpc={props.mpc} name={name} />
       </SkPaper>
     </Container>
   )
