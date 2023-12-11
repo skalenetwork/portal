@@ -28,8 +28,8 @@ import Stack from '@mui/material/Stack'
 
 import { cmn, cls } from '@skalenetwork/metaport'
 
-import FaqAccordion from '../FaqAccordion'
-import { META_TAGS } from '../../core/meta'
+import FaqAccordion from '../components/FaqAccordion'
+import { META_TAGS } from '../core/meta'
 
 export default function Faq() {
   return (

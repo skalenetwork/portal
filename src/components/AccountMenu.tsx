@@ -35,6 +35,7 @@ import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
 import HistoryIcon from '@mui/icons-material/History'
 import SignalCellularAltOutlinedIcon from '@mui/icons-material/SignalCellularAltOutlined'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
+import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
 
 import { cls, styles, cmn, RainbowConnectButton } from '@skalenetwork/metaport'
 
@@ -48,23 +49,47 @@ export default function AccountMenu(props: any) {
     setAnchorEl(null)
   }
 
-  if (!props.address) return
   return (
     <div>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <Tooltip arrow title="Account info">
-          <Button
-            onClick={handleClick}
-            className={cls('mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex)}
-          >
-            <div className={cls(cmn.mri10, cmn.flexcv)} style={{ height: '20px' }}>
-              <Jazzicon diameter={20} seed={jsNumberForAddress(props.address)} />
+        {!props.address ? (
+          <Tooltip arrow title="Click to connect wallet">
+            <div>
+              <RainbowConnectButton.Custom>
+                {({ openConnectModal }) => {
+                  return (
+                    <Button
+                      onClick={() => {
+                        openConnectModal()
+                      }}
+                      className={cls(styles.paperGrey, cmn.pPrim, 'mp__btnConnect', cmn.flex)}
+                    >
+                      <LooksRoundedIcon
+                        className={cmn.mri5}
+                        style={{ height: '18px', width: '18px' }}
+                      />
+                      Connect wallet
+                    </Button>
+                  )
+                }}
+              </RainbowConnectButton.Custom>
             </div>
-            {props.address.substring(0, 5) +
-              '...' +
-              props.address.substring(props.address.length - 3)}
-          </Button>
-        </Tooltip>
+          </Tooltip>
+        ) : (
+          <Tooltip arrow title="Account info">
+            <Button
+              onClick={handleClick}
+              className={cls('mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex)}
+            >
+              <div className={cls(cmn.mri10, cmn.flexcv)} style={{ height: '20px' }}>
+                <Jazzicon diameter={20} seed={jsNumberForAddress(props.address)} />
+              </div>
+              {props.address.substring(0, 5) +
+                '...' +
+                props.address.substring(props.address.length - 3)}
+            </Button>
+          </Tooltip>
+        )}
       </Box>
       <Menu
         className="mp__moreMenu"

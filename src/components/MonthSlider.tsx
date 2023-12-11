@@ -17,34 +17,52 @@
  */
 
 /**
- * @file Portal.tsx
+ * @file LinkSurface.tsx
  * @copyright SKALE Labs 2023-Present
  */
 
 import Box from '@mui/material/Box'
-import CssBaseline from '@mui/material/CssBaseline'
+import Slider from '@mui/material/Slider'
 
-import Header from './Header'
-import SkDrawer from './SkDrawer'
-import Router from './Router'
+const marks = [
+  {
+    value: 1,
+    label: '1m'
+  },
+  {
+    value: 3,
+    label: '3m'
+  },
+  {
+    value: 6,
+    label: '6m'
+  },
+  {
+    value: 9,
+    label: '9m'
+  },
+  {
+    value: 12,
+    label: '12m'
+  }
+]
 
-import { useMetaportStore, useWagmiAccount, Debug, cls, cmn } from '@skalenetwork/metaport'
+function valuetext(value: number) {
+  return `${value}°C`
+}
 
-export default function Portal() {
-  const mpc = useMetaportStore((state) => state.mpc)
-  const { address } = useWagmiAccount()
-  if (!mpc) return <div></div>
+export default function DiscreteSliderMarks() {
   return (
-    <Box sx={{ display: 'flex' }} className="AppWrap">
-      <CssBaseline />
-      <Header address={address} mpc={mpc} />
-      <SkDrawer />
-      <div className={cls(cmn.fullWidth)}>
-        <Router />
-        <div className={cls(cmn.mtop20, cmn.fullWidth)}>
-          <Debug />
-        </div>
-      </div>
+    <Box>
+      <Slider
+        max={12}
+        aria-label="Custom marks"
+        defaultValue={3}
+        getAriaValueText={valuetext}
+        step={1}
+        valueLabelDisplay="auto"
+        marks={marks}
+      />
     </Box>
   )
 }

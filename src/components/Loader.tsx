@@ -17,34 +17,24 @@
  */
 
 /**
- * @file Portal.tsx
+ * @file Loader.tsx
  * @copyright SKALE Labs 2023-Present
  */
 
-import Box from '@mui/material/Box'
-import CssBaseline from '@mui/material/CssBaseline'
+import { cmn, cls } from '@skalenetwork/metaport'
+import CircularProgress from '@mui/material/CircularProgress'
 
-import Header from './Header'
-import SkDrawer from './SkDrawer'
-import Router from './Router'
-
-import { useMetaportStore, useWagmiAccount, Debug, cls, cmn } from '@skalenetwork/metaport'
-
-export default function Portal() {
-  const mpc = useMetaportStore((state) => state.mpc)
-  const { address } = useWagmiAccount()
-  if (!mpc) return <div></div>
+export default function Loader(props: { text: string }) {
   return (
-    <Box sx={{ display: 'flex' }} className="AppWrap">
-      <CssBaseline />
-      <Header address={address} mpc={mpc} />
-      <SkDrawer />
-      <div className={cls(cmn.fullWidth)}>
-        <Router />
-        <div className={cls(cmn.mtop20, cmn.fullWidth)}>
-          <Debug />
-        </div>
+    <div className={cls(cmn.flex, cmn.mtop20, cmn.mbott20)}>
+      <div className={cls(cmn.flexg)}></div>
+      <div className={cls(cmn.flex, cmn.flexcv, cmn.mri20)}>
+        <CircularProgress className="fullscreen-spin" />
       </div>
-    </Box>
+      <div className={cls(cmn.flex, cmn.flexcv)}>
+        <h3 className="fullscreen-msg-text">{props.text}</h3>
+      </div>
+      <div className={cls(cmn.flexg)}></div>
+    </div>
   )
 }

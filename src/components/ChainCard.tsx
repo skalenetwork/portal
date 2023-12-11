@@ -33,8 +33,8 @@ import {
 } from '@skalenetwork/metaport'
 
 import Button from '@mui/material/Button'
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
-import UnfoldMoreRoundedIcon from '@mui/icons-material/UnfoldMoreRounded'
+import WidgetsOutlinedIcon from '@mui/icons-material/WidgetsOutlined'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 import ChainLogo from './ChainLogo'
 import { getExplorerUrl } from '../core/chain'
@@ -78,12 +78,16 @@ export default function ChainCard(props: { skaleNetwork: interfaces.SkaleNetwork
           >
             <div className={cls(cmn.fflex, cmn.flexg)}>
               <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
-                <Button endIcon={<ArrowOutwardIcon />} size="small" className="cardBtn">
+                <Button startIcon={<WidgetsOutlinedIcon />} size="small" className="cardBtn">
                   Explorer
                 </Button>
               </a>
-              <Link to={'/chains/' + shortAlias} style={{ marginLeft: '3px' }}>
-                <Button endIcon={<UnfoldMoreRoundedIcon />} size="small" className="cardBtn">
+              <Link to={'/chains/' + shortAlias}>
+                <Button
+                  startIcon={<InfoOutlinedIcon />}
+                  size="small"
+                  className={cls(cmn.mleft5, 'cardBtn')}
+                >
                   Info
                 </Button>
               </Link>

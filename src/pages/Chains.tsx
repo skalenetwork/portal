@@ -28,8 +28,8 @@ import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
 
-import CategorySection from './CategorySection'
-import { getPrimaryCategory } from './CategoryBadge'
+import CategorySection from '../components/CategorySection'
+import { getPrimaryCategory } from '../components/CategoryBadge'
 
 import { cmn, cls, type MetaportCore, CHAINS_META, type interfaces } from '@skalenetwork/metaport'
 

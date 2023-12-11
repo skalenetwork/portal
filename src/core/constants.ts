@@ -21,14 +21,14 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import FAQ from '../faq.json'
+import FAQ from '../data/faq.json'
 
 export const MAINNET_CHAIN_NAME = 'mainnet'
 
 export const DASHBOARD_URL = 'https://app.geckoboard.com/v5/dashboards/LISYTRBEVGCVGL57/inception'
 export const DUNE_SKALE_URL = 'https://dune.com/projects/SKALE'
 
-export const BRIDGE_PAGES = ['/transfer', '/bridge/history', '/portfolio', '/other/faq']
+export const BRIDGE_PAGES = ['/bridge', '/transfer', '/bridge/history', '/portfolio', '/other/faq']
 
 export const DEFAULT_ERC20_DECIMALS = '18'
 
@@ -42,3 +42,6 @@ import * as MAINNET_CHAIN_LOGOS from '../meta/logos'
 export { FAQ, MAINNET_CHAIN_LOGOS }
 
 export const DISCORD_INVITE_URL = 'https://discord.com/invite/gM5XBy6'
+
+const _DEFAULT_UPDATE_INTERVAL_SECONDS = 10
+export const DEFAULT_UPDATE_INTERVAL_MS = _DEFAULT_UPDATE_INTERVAL_SECONDS * 1000
