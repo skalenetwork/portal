@@ -32,11 +32,7 @@ import {
   cls,
   type MetaportCore,
   fromWei,
-  toWei,
-  walletClientToSigner,
-  enforceNetwork,
-  useWagmiWalletClient,
-  useWagmiSwitchNetwork
+  toWei
 } from '@skalenetwork/metaport'
 
 import Tile from './Tile'

@@ -44,7 +44,7 @@ import PricingInfo from './PricingInfo'
 import Topup from './Topup'
 import Loader from './Loader'
 
-import { DEFAULT_UPDATE_INTERVAL_MS } from '../core/constants'
+import { DEFAULT_UPDATE_INTERVAL_MS, DEFAULT_ERC20_DECIMALS } from '../core/constants'
 import {
   initPaymaster,
   getPaymasterChain,
@@ -52,10 +52,12 @@ import {
   PaymasterInfo,
   DEFAULT_PAYMASTER_INFO,
   getPaymasterAddress,
-  getPaymasterAbi
+  getPaymasterAbi,
+  divideBigInts
 } from '../core/paymaster'
 
 const DEFAULT_TOPUP_PERIOD = 3
+const APPROVE_MULTIPLIER = 2n
 
 export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
   const { address } = useWagmiAccount()
@@ -105,16 +107,25 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
     setErrorMsg(undefined)
     try {
       const { chainId } = await paymaster.runner.provider.getNetwork()
+      const paymasterAddress = getPaymasterAddress(network)
+
       await enforceNetwork(chainId, walletClient, switchNetworkAsync, network, paymasterChain)
       setBtnText('Sending transaction...')
       const signer = walletClientToSigner(walletClient)
-      const connectedPaymaster = new Contract(
-        getPaymasterAddress(network),
-        getPaymasterAbi(),
-        signer
-      )
-      // const res = await sendTransaction(connectedPaymaster.pay, [id(props.name), topupPeriod])
-      const res = await sendTransaction(connectedPaymaster.setSchainPrice, [toWei('3600', '18')])
+      const connectedPaymaster = new Contract(paymasterAddress, getPaymasterAbi(), signer)
+      const connectedToken = new Contract(info.skaleToken, ERC_ABIS.erc20.abi, signer)
+
+      const allowance = await connectedToken.allowance(address, paymasterAddress)
+      const totalPriceWei = getTotalPriceWei()
+      if (allowance <= totalPriceWei) {
+        const approveRes = await sendTransaction(
+          connectedToken.approve, [paymasterAddress, totalPriceWei * APPROVE_MULTIPLIER])
+        if (!approveRes.status) {
+          setErrorMsg(approveRes.err?.name)
+          return
+        }
+      }
+      const res = await sendTransaction(connectedPaymaster.pay, [id(props.name), topupPeriod])
       if (!res.status) {
         setErrorMsg(res.err?.name)
         return
@@ -127,6 +138,12 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
       setLoading(false)
       setBtnText(undefined)
     }
+  }
+
+  function getTotalPriceWei() {
+    const chainPriceSkl = divideBigInts(info.schainPricePerMonth, info.oneSklPrice)
+    const totalPriceSkl = chainPriceSkl * topupPeriod
+    return toWei(totalPriceSkl.toString(), DEFAULT_ERC20_DECIMALS)
   }
 
   if (info.oneSklPrice === 0n) return <Loader text="Loading pricing info" />
