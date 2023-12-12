@@ -29,8 +29,10 @@ import { cmn, TokenIcon, fromWei } from '@skalenetwork/metaport'
 import { truncateDecimals, PaymasterInfo, DueDateStatus, divideBigInts } from '../core/paymaster'
 import {
   daysBetweenNowAndTimestamp,
+  monthsBetweenNowAndTimestamp,
   calculateElapsedPercentage,
-  formatBigIntTimestampSeconds
+  formatBigIntTimestampSeconds,
+  formatTimePeriod
 } from '../core/timeHelper'
 import { DEFAULT_ERC20_DECIMALS } from '../core/constants'
 
@@ -43,8 +45,9 @@ export default function PricingInfo(props: { info: PaymasterInfo }) {
   const chainPriceSkl = divideBigInts(props.info.schainPricePerMonth, props.info.oneSklPrice)
 
   const untilDueDateDays = daysBetweenNowAndTimestamp(props.info.schain.paidUntil)
+  const untilDueDateMonths = monthsBetweenNowAndTimestamp(props.info.schain.paidUntil)
   const dueDateStatus = getDueDateStatus(untilDueDateDays)
-  const dueDateText = untilDueDateDays < 0 ? 'Payment overdue' : 'Until due date'
+  const dueDateText = untilDueDateDays < 0 ? 'Payment overdue' : 'Paid for'
 
   const elapsedPercentage = calculateElapsedPercentage(
     props.info.schain.paidUntil,
@@ -88,14 +91,17 @@ export default function PricingInfo(props: { info: PaymasterInfo }) {
         <Tile
           value={formatBigIntTimestampSeconds(props.info.schain.paidUntil)}
           text="Paid until"
-          textRi={`Max top-up period: ${props.info.maxReplenishmentPeriod} months`}
+          textRi={`Max top-up period: ${formatTimePeriod(
+            props.info.maxReplenishmentPeriod,
+            'month'
+          )}`}
           grow
           progressColor={dueDateStatus}
           progress={elapsedPercentage || 0.001}
           icon={<AvTimerRoundedIcon />}
         />
         <Tile
-          value={`${Math.abs(untilDueDateDays)} days`}
+          value={`${formatTimePeriod(Math.abs(untilDueDateMonths), 'month')} `}
           text={dueDateText}
           color={dueDateStatus}
         />

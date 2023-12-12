@@ -21,40 +21,96 @@
  * @copyright SKALE Labs 2023-Present
  */
 
+import { useState } from 'react'
 import Button from '@mui/material/Button'
+import TextField from '@mui/material/TextField'
+
 import { cmn, cls } from '@skalenetwork/metaport'
 
-const MONTH_RECOMENDATIONS = [1, 2, 3, 6, 12, 18, 24]
+import { formatTimePeriod } from '../core/timeHelper'
+
+const _MONTH_RECOMMENDATIONS = [1, 2, 3, 6, 12, 18, 24]
 
 export default function MonthSelector(props: {
   max: number
   topupPeriod: number
   setTopupPeriod: any
+  setErrorMsg: (errorMsg: string | undefined) => void
   className?: string
 }) {
+  const [monthRecommendations, setMonthRecommendations] = useState<number[]>(_MONTH_RECOMMENDATIONS)
+  const [openCustom, setOpenCustom] = useState<boolean>(false)
+  const [customPeriod, setCustomPeriod] = useState<number | undefined>()
+  const [textPeriod, setTextPeriod] = useState<number | undefined>()
+
+  if (!monthRecommendations.includes(props.max) && props.max > 0) {
+    setMonthRecommendations([...monthRecommendations, props.max])
+  }
+
+  if (props.max <= 0) {
+    return <p className={cls(cmn.p, cmn.p1, cmn.p700, cmn.mtop5)}>No topup periods available</p>
+  }
+
   return (
     <div className={props.className}>
-      {MONTH_RECOMENDATIONS.filter((x) => x <= props.max).map((month: any, i: number) => (
+      {monthRecommendations
+        .filter((x) => x <= props.max)
+        .map((month: any, i: number) => (
+          <Button
+            variant={props.topupPeriod === month ? 'contained' : 'text'}
+            className={cls(cmn.mri10, 'roundBtn', ['outlined', props.topupPeriod !== month])}
+            key={i}
+            onClick={() => {
+              props.setTopupPeriod(month)
+            }}
+          >
+            <p className={cls(cmn.p, cmn.p2)}>{month}</p>
+          </Button>
+        ))}
+      {openCustom ? (
+        <div className={cls('flexi', cmn.flexcv)}>
+          <TextField
+            size="small"
+            variant="standard"
+            value={textPeriod}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+              setTextPeriod(Number(event.target.value))
+            }}
+            className={cls(cmn.mri10)}
+          />
+          <Button
+            variant="text"
+            className={cls(cmn.mri10, 'roundBtn', 'outlined')}
+            onClick={() => {
+              if (textPeriod === undefined || !Number.isInteger(textPeriod) || textPeriod <= 0) {
+                props.setErrorMsg('Incorrect top-up period')
+                return
+              }
+              if (props.max < textPeriod) {
+                props.setErrorMsg(`Max topup amount: ${formatTimePeriod(props.max, 'month')}`)
+                return
+              }
+              setOpenCustom(false)
+              if (!monthRecommendations.includes(textPeriod)) {
+                setCustomPeriod(textPeriod)
+              }
+              props.setTopupPeriod(textPeriod)
+            }}
+          >
+            <p className={cls(cmn.p, cmn.p2)}>Apply</p>
+          </Button>
+        </div>
+      ) : (
         <Button
-          variant={props.topupPeriod === month ? 'contained' : 'text'}
-          className={cls(cmn.mri10, 'roundBtn', ['outlined', props.topupPeriod !== month])}
-          key={i}
+          variant={props.topupPeriod === customPeriod ? 'contained' : 'text'}
+          className={cls(cmn.mri10, 'roundBtn', ['outlined', props.topupPeriod !== customPeriod])}
           onClick={() => {
-            props.setTopupPeriod(month)
+            setOpenCustom(true)
           }}
         >
-          <p className={cls(cmn.p, cmn.p2)}>{month}</p>
+          <p className={cls(cmn.p, cmn.p2)}>{customPeriod ? `${customPeriod} (Edit)` : 'Custom'}</p>
         </Button>
-      ))}
-      <Button
-        variant={'text'}
-        className={cls(cmn.mri10, 'roundBtn', 'outlined')}
-        onClick={() => {
-          props.setTopupPeriod(2)
-        }}
-      >
-        <p className={cls(cmn.p, cmn.p2)}>Custom</p>
-      </Button>
+      )}
     </div>
   )
 }

@@ -24,16 +24,12 @@
 import { Link } from 'react-router-dom'
 import Button from '@mui/material/Button'
 
+import { Collapse } from '@mui/material'
 import TollIcon from '@mui/icons-material/Toll'
 import MoreTimeIcon from '@mui/icons-material/MoreTime'
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
-import {
-  cmn,
-  cls,
-  type MetaportCore,
-  fromWei,
-  toWei
-} from '@skalenetwork/metaport'
+
+import { cmn, cls, type MetaportCore, fromWei, toWei } from '@skalenetwork/metaport'
 
 import Tile from './Tile'
 import SkStack from './SkStack'
@@ -42,7 +38,7 @@ import Loader from './Loader'
 
 import { PaymasterInfo, divideBigInts, truncateDecimals } from '../core/paymaster'
 import { DEFAULT_ERC20_DECIMALS } from '../core/constants'
-import { Collapse } from '@mui/material'
+import { formatTimePeriod, monthsBetweenNowAndTimestamp } from '../core/timeHelper'
 
 export default function Topup(props: {
   mpc: MetaportCore
@@ -65,11 +61,14 @@ export default function Topup(props: {
 
   const tokenBalanceSkl = fromWei(props.tokenBalance, DEFAULT_ERC20_DECIMALS)
 
-  const topupPeriodText = `${props.topupPeriod} ${props.topupPeriod === 1 ? 'month' : 'months'}`
+  const topupPeriodText = formatTimePeriod(props.topupPeriod, 'month')
   const helperText = `${truncateDecimals(chainPriceSkl.toString(), 6)} SKL x ${topupPeriodText}`
 
   const balanceOk = props.tokenBalance >= totalPriceWei
   const topupBtnText = balanceOk ? 'Top-up chain' : 'Insufficient funds'
+
+  const untilDueDateMonths = monthsBetweenNowAndTimestamp(props.info.schain.paidUntil)
+  const maxTopupPeriod = Number(props.info.maxReplenishmentPeriod) - untilDueDateMonths
 
   return (
     <div>
@@ -79,10 +78,11 @@ export default function Topup(props: {
           icon={<MoreTimeIcon />}
           children={
             <MonthSelector
-              className={cls(cmn.mtop10)}
-              max={Number(props.info.maxReplenishmentPeriod)}
+              className={cmn.mtop10}
+              max={maxTopupPeriod}
               topupPeriod={props.topupPeriod}
               setTopupPeriod={props.setTopupPeriod}
+              setErrorMsg={props.setErrorMsg}
             />
           }
           grow
@@ -129,7 +129,7 @@ export default function Topup(props: {
           <Button
             variant="contained"
             className={cls('btn')}
-            disabled={!balanceOk || props.loading}
+            disabled={!balanceOk || props.loading || maxTopupPeriod <= 0}
             onClick={props.topupChain}
           >
             {props.btnText ?? topupBtnText}
