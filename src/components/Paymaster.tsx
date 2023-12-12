@@ -118,12 +118,16 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
       const allowance = await connectedToken.allowance(address, paymasterAddress)
       const totalPriceWei = getTotalPriceWei()
       if (allowance <= totalPriceWei) {
-        const approveRes = await sendTransaction(
-          connectedToken.approve, [paymasterAddress, totalPriceWei * APPROVE_MULTIPLIER])
+        setBtnText('Waiting for approval...')
+        const approveRes = await sendTransaction(connectedToken.approve, [
+          paymasterAddress,
+          totalPriceWei * APPROVE_MULTIPLIER
+        ])
         if (!approveRes.status) {
           setErrorMsg(approveRes.err?.name)
           return
         }
+        setBtnText('Sending transaction...')
       }
       const res = await sendTransaction(connectedPaymaster.pay, [id(props.name), topupPeriod])
       if (!res.status) {

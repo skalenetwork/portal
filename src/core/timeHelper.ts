@@ -20,6 +20,8 @@
  * @copyright SKALE Labs 2022-Present
  */
 
+import { AVG_MONTH_LENGTH } from './constants'
+
 export function formatBigIntTimestampSeconds(timestamp: bigint): string {
   const date = new Date(Number(timestamp * 1000n))
   const day = date.getUTCDate().toString().padStart(2, '0')
@@ -28,12 +30,29 @@ export function formatBigIntTimestampSeconds(timestamp: bigint): string {
   return `${day}.${month}.${year}`
 }
 
-export function daysBetweenNowAndTimestamp(timestamp: bigint): number {
-  const timestampDate = new Date(Number(timestamp * 1000n))
-  const currentDate = new Date()
-  const diffInMs = currentDate.getTime() - timestampDate.getTime()
+export function daysBetweenTimestamps(from: bigint, to: bigint): number {
+  const fromDate = new Date(Number(from * 1000n))
+  const toDate = new Date(Number(to * 1000n))
+  const diffInMs = fromDate.getTime() - toDate.getTime()
   const diffInDays = diffInMs / (1000 * 60 * 60 * 24)
   return Math.round(diffInDays) * -1
+}
+
+export function monthsBetweenTimestamps(from: bigint, to: bigint): number {
+  const diffInDays = daysBetweenTimestamps(from, to)
+  return Math.round(diffInDays / AVG_MONTH_LENGTH)
+}
+
+export function getCurrentTsBigInt(): bigint {
+  return BigInt(Math.round(new Date().getTime() / 1000))
+}
+
+export function daysBetweenNowAndTimestamp(timestamp: bigint): number {
+  return daysBetweenTimestamps(getCurrentTsBigInt(), timestamp)
+}
+
+export function monthsBetweenNowAndTimestamp(timestamp: bigint): number {
+  return monthsBetweenTimestamps(getCurrentTsBigInt(), timestamp)
 }
 
 export function calculateElapsedPercentage(
@@ -57,4 +76,18 @@ export function calculateElapsedPercentage(
   percentage = Math.max(0, Math.min(percentage, 100))
 
   return percentage
+}
+
+export function formatTimePeriod(count: number | bigint, type: 'day' | 'month'): string {
+  count = Number(count)
+  if (count === 0) {
+    return `>1 ${type}`
+  }
+  if (type === 'day') {
+    return Math.abs(count) === 1 ? `${count} day` : `${count} days`
+  } else if (type === 'month') {
+    return Math.abs(count) === 1 ? `${count} month` : `${count} months`
+  } else {
+    throw new Error('Invalid type provided. Type must be "day" or "month".')
+  }
 }
