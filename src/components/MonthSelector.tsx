@@ -41,7 +41,7 @@ export default function MonthSelector(props: {
   const [monthRecommendations, setMonthRecommendations] = useState<number[]>(_MONTH_RECOMMENDATIONS)
   const [openCustom, setOpenCustom] = useState<boolean>(false)
   const [customPeriod, setCustomPeriod] = useState<number | undefined>()
-  const [textPeriod, setTextPeriod] = useState<number | undefined>()
+  const [textPeriod, setTextPeriod] = useState<string | undefined>()
 
   if (!monthRecommendations.includes(props.max) && props.max > 0) {
     setMonthRecommendations([...monthRecommendations, props.max])
@@ -72,9 +72,17 @@ export default function MonthSelector(props: {
           <TextField
             size="small"
             variant="standard"
+            type="number"
             value={textPeriod}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              setTextPeriod(Number(event.target.value))
+              if (
+                parseFloat(event.target.value) < 0 ||
+                !Number.isInteger(Number(event.target.value))
+              ) {
+                setTextPeriod('')
+                return
+              }
+              setTextPeriod(event.target.value)
             }}
             className={cls(cmn.mri10)}
           />
@@ -82,19 +90,24 @@ export default function MonthSelector(props: {
             variant="text"
             className={cls(cmn.mri10, 'roundBtn', 'outlined')}
             onClick={() => {
-              if (textPeriod === undefined || !Number.isInteger(textPeriod) || textPeriod <= 0) {
+              if (
+                textPeriod === undefined ||
+                textPeriod === '' ||
+                !Number.isInteger(Number(textPeriod)) ||
+                Number(textPeriod) <= 0
+              ) {
                 props.setErrorMsg('Incorrect top-up period')
                 return
               }
-              if (props.max < textPeriod) {
+              if (props.max < Number(textPeriod)) {
                 props.setErrorMsg(`Max topup amount: ${formatTimePeriod(props.max, 'month')}`)
                 return
               }
               setOpenCustom(false)
-              if (!monthRecommendations.includes(textPeriod)) {
-                setCustomPeriod(textPeriod)
+              if (!monthRecommendations.includes(Number(textPeriod))) {
+                setCustomPeriod(Number(textPeriod))
               }
-              props.setTopupPeriod(textPeriod)
+              props.setTopupPeriod(Number(textPeriod))
             }}
           >
             <p className={cls(cmn.p, cmn.p2)}>Apply</p>
