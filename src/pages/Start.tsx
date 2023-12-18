@@ -6,8 +6,8 @@ import Grid from '@mui/material/Grid'
 import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontalCircleOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
-import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined'
-import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined'
+// import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined'
+// import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined'
 
 import PageCard from '../components/PageCard'
 
