@@ -10,7 +10,7 @@ export default {
     },
     legacy: {
       chain: 'skale-innocent-nasty',
-      address: '0xBf4A0f6CCAb9A52b75CD19BBe762Ac26a7871513'
+      address: '0x2FB18c4F7eBd9943C7c174f63a7554d9321082a0'
     },
     regression: {
       chain: '',
@@ -458,6 +458,44 @@ export default {
       "type": "function"
     },
     {
+      "inputs": [
+        {
+          "internalType": "ValidatorId",
+          "name": "validatorId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getActiveNodesNumber",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "number",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "ValidatorId",
+          "name": "validatorId",
+          "type": "uint256"
+        }
+      ],
+      "name": "getNodesNumber",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "number",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [],
       "name": "getRewardAmount",
       "outputs": [
@@ -502,6 +540,45 @@ export default {
         {
           "internalType": "Timestamp",
           "name": "expiration",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getSchainsNames",
+      "outputs": [
+        {
+          "internalType": "string[]",
+          "name": "names",
+          "type": "string[]"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getSchainsNumber",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "number",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "getValidatorsNumber",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "number",
           "type": "uint256"
         }
       ],
