@@ -6,8 +6,8 @@ import Grid from '@mui/material/Grid'
 import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontalCircleOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
-import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined'
-import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined'
+// import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined'
+// import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined'
 
 import PageCard from '../components/PageCard'
 
@@ -34,18 +34,18 @@ export default function Start() {
             </Grid>
             <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
               <PageCard
-                description="Connect, get block explorer links and endpoints"
+                description="Chains list, block explorers and endpoints"
                 name="chains"
                 icon={<PublicOutlinedIcon />}
               />
             </Grid>
-            <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
+            {/* <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
               <PageCard
                 description="Apps and games on SKALE Network"
                 name="apps"
                 icon={<AppsOutlinedIcon />}
               />
-            </Grid>
+            </Grid> */}
             <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
               <PageCard
                 description="SKALE Network statistics"
@@ -53,13 +53,13 @@ export default function Start() {
                 icon={<InsertChartOutlinedIcon />}
               />
             </Grid>
-            <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
+            {/* <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
               <PageCard
                 description="Assets overview across all SKALE Chains"
                 name="portfolio"
                 icon={<WalletOutlinedIcon />}
               />
-            </Grid>
+            </Grid> */}
           </Grid>
         </Box>
       </Stack>
