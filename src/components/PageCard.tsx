@@ -23,6 +23,7 @@
 
 import { Link } from 'react-router-dom'
 import { cmn, cls } from '@skalenetwork/metaport'
+import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
 
 export default function PageCard(props: { name: string; icon: any; description: string }) {
   return (
@@ -30,17 +31,21 @@ export default function PageCard(props: { name: string; icon: any; description: 
       <div className="fl-centered">
         <Link to={props.name}>
           <div className={cls('br__tile pageCard startCardBg ' + `startCard${props.name}`)}>
-            <div className="startCardText">
-              <div className={cls(cmn.flex, cmn.flexg, cmn.flexcv)}>
-                {/* <div className={cls(cmn.mri5, cmn.flex, cmn.flexcv)}>{props.icon}</div> */}
-                <p
-                  className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p)}
-                  style={{ fontSize: '1.5rem', fontWeight: 700 }}
-                >
-                  {props.name}
-                </p>
+            <div className={cls('startCardText', cmn.flex, cmn.flexcv)}>
+              <div className={cls(cmn.flexg)}>
+                <div className={cls(cmn.flex, cmn.flexg, cmn.flexcv)}>
+                  <p
+                    className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p)}
+                    style={{ fontSize: '1.5rem', fontWeight: 700 }}
+                  >
+                    {props.name}
+                  </p>
+                </div>
+                <p className={cls(cmn.p, cmn.p3, cmn.pSec)}>{props.description}</p>
               </div>
-              <p className={cls(cmn.p, cmn.p3, cmn.pSec)}>{props.description}</p>
+              <div className={cls(cmn.mleft10, cmn.mri5, cmn.flex, cmn.flexcv)}>
+                <ArrowForwardIosRoundedIcon className={cls(cmn.pSec)} />
+              </div>
             </div>
           </div>
         </Link>
