@@ -23,6 +23,7 @@
 
 import { Contract, id } from 'ethers'
 import { useState, useEffect } from 'react'
+import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
 
 import {
   cmn,
@@ -43,6 +44,7 @@ import ConnectWallet from './ConnectWallet'
 import PricingInfo from './PricingInfo'
 import Topup from './Topup'
 import Loader from './Loader'
+import Tile from './Tile'
 
 import { DEFAULT_UPDATE_INTERVAL_MS, DEFAULT_ERC20_DECIMALS } from '../core/constants'
 import {
@@ -68,6 +70,7 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
   const [btnText, setBtnText] = useState<string | undefined>()
   const [errorMsg, setErrorMsg] = useState<string | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
+  const [inited, setInited] = useState<boolean>(false)
 
   const [sklToken, setSklToken] = useState<Contract | undefined>()
   const [tokenBalance, setTokenBalance] = useState<bigint | undefined>()
@@ -78,14 +81,12 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
   const { switchNetworkAsync } = useWagmiSwitchNetwork()
 
   useEffect(() => {
-    if (paymaster === undefined) return
     loadPaymasterInfo()
     const intervalId = setInterval(loadPaymasterInfo, DEFAULT_UPDATE_INTERVAL_MS)
     return () => clearInterval(intervalId)
-  }, [sklToken, paymaster, address])
+  }, [sklToken, address])
 
   async function loadPaymasterInfo() {
-    if (paymaster === undefined) return
     const info = await getPaymasterInfo(paymaster, props.name)
     let skl = sklToken
     if (skl === undefined) {
@@ -95,6 +96,7 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
       setTokenBalance(await skl.balanceOf(address))
     }
     setInfo(info)
+    setInited(true)
   }
 
   async function topupChain() {
@@ -150,7 +152,28 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
     return toWei(totalPriceSkl.toString(), DEFAULT_ERC20_DECIMALS)
   }
 
-  if (info.oneSklPrice === 0n) return <Loader text="Loading pricing info" />
+  if (!inited) return <Loader text="Loading pricing info" />
+
+  if (info.schain.name === '')
+    return (
+      <Tile
+        value="SKALE Chain is not added to Paymaster"
+        text="Error occurred"
+        icon={<ErrorRoundedIcon />}
+        color="error"
+        className={cls(cmn.mtop20)}
+      />
+    )
+  if (info.oneSklPrice === 0n)
+    return (
+      <Tile
+        value="Need to set oneSklPrice on contracts"
+        text="Error occurred"
+        icon={<ErrorRoundedIcon />}
+        color="error"
+        className={cls(cmn.mtop20)}
+      />
+    )
 
   return (
     <div>
