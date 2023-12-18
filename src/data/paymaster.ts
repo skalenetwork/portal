@@ -10,7 +10,7 @@ export default {
     },
     legacy: {
       chain: 'skale-innocent-nasty',
-      address: '0x2FB18c4F7eBd9943C7c174f63a7554d9321082a0'
+      address: '0xd0293699637b537D7113a4a4feCfcabD39664ba0'
     },
     regression: {
       chain: '',
