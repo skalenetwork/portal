@@ -10,7 +10,7 @@ export default {
     },
     legacy: {
       chain: 'skale-innocent-nasty',
-      address: '0xd0293699637b537D7113a4a4feCfcabD39664ba0'
+      address: '0xdB4fa1c7589860723bA4eb100CA62E257F5E0402'
     },
     regression: {
       chain: '',
@@ -262,6 +262,22 @@ export default {
         }
       ],
       "name": "ValidatorDeletionError",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "ValidatorId",
+          "name": "id",
+          "type": "uint256"
+        },
+        {
+          "internalType": "Timestamp",
+          "name": "when",
+          "type": "uint256"
+        }
+      ],
+      "name": "ValidatorHasBeenRemoved",
       "type": "error"
     },
     {
