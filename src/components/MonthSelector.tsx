@@ -29,7 +29,7 @@ import { cmn, cls } from '@skalenetwork/metaport'
 
 import { formatTimePeriod } from '../core/timeHelper'
 
-const _MONTH_RECOMMENDATIONS = [1, 2, 3, 6, 12, 18, 24]
+const MONTH_RECOMMENDATIONS = [1, 2, 3, 6, 12, 18, 24]
 
 export default function MonthSelector(props: {
   max: number
@@ -38,7 +38,7 @@ export default function MonthSelector(props: {
   setErrorMsg: (errorMsg: string | undefined) => void
   className?: string
 }) {
-  const [monthRecommendations, setMonthRecommendations] = useState<number[]>(_MONTH_RECOMMENDATIONS)
+  const [monthRecommendations, setMonthRecommendations] = useState<number[]>(MONTH_RECOMMENDATIONS)
   const [openCustom, setOpenCustom] = useState<boolean>(false)
   const [customPeriod, setCustomPeriod] = useState<number | undefined>()
   const [textPeriod, setTextPeriod] = useState<string | undefined>()

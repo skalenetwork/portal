@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import React, { useEffect, useState, MouseEvent } from 'react'
+import { useEffect, useState, MouseEvent } from 'react'
 import Box from '@mui/material/Box'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
@@ -13,7 +13,7 @@ import { cls, styles, cmn } from '@skalenetwork/metaport'
 
 export default function HelpZen() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const [openZen, setOpenZen] = React.useState<boolean>(false)
+  const [openZen, setOpenZen] = useState<boolean>(false)
 
   const open = Boolean(anchorEl)
 
@@ -39,7 +39,7 @@ export default function HelpZen() {
   }, [])
 
   return (
-    <React.Fragment>
+    <div>
       <Box
         className={cmn.mleft5}
         sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}
@@ -106,6 +106,6 @@ export default function HelpZen() {
           </MenuItem>
         </Link>
       </Menu>
-    </React.Fragment>
+    </div>
   )
 }

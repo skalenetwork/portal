@@ -1,9 +1,9 @@
-import * as React from 'react'
+import { useState } from 'react'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 
 export default function ToggleButtons() {
-  const [alignment, setAlignment] = React.useState<string | null>('left')
+  const [alignment, setAlignment] = useState<string | null>('left')
 
   const handleAlignment = (_: React.MouseEvent<HTMLElement>, newAlignment: string | null) => {
     setAlignment(newAlignment)
