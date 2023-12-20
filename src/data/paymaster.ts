@@ -9,8 +9,8 @@ export default {
       address: '0xeF18D694e7659C1Ed5dE7e83E72e871b32f3fE69'
     },
     legacy: {
-      chain: 'skale-innocent-nasty',
-      address: '0xdB4fa1c7589860723bA4eb100CA62E257F5E0402'
+      chain: 'international-villainous-zaurak',
+      address: '0x71953d158Bda1CC5Fc92Ad45b59454CB9960C71b'
     },
     regression: {
       chain: '',
