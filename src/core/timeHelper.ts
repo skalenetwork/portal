@@ -43,16 +43,17 @@ export function monthsBetweenTimestamps(from: bigint, to: bigint): number {
   return Math.round(diffInDays / AVG_MONTH_LENGTH)
 }
 
-export function getCurrentTsBigInt(): bigint {
+export function getCurrentTsBigInt(customCurrentTs?: bigint): bigint {
+  if (customCurrentTs !== undefined && customCurrentTs !== null) return customCurrentTs
   return BigInt(Math.round(new Date().getTime() / 1000))
 }
 
-export function daysBetweenNowAndTimestamp(timestamp: bigint): number {
-  return daysBetweenTimestamps(getCurrentTsBigInt(), timestamp)
+export function daysBetweenNowAndTimestamp(timestamp: bigint, customCurrentTs?: bigint): number {
+  return daysBetweenTimestamps(getCurrentTsBigInt(customCurrentTs), timestamp)
 }
 
-export function monthsBetweenNowAndTimestamp(timestamp: bigint): number {
-  return monthsBetweenTimestamps(getCurrentTsBigInt(), timestamp)
+export function monthsBetweenNowAndTimestamp(timestamp: bigint, customCurrentTs?: bigint): number {
+  return monthsBetweenTimestamps(getCurrentTsBigInt(customCurrentTs), timestamp)
 }
 
 export function calculateElapsedPercentage(

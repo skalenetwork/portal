@@ -33,6 +33,7 @@ export interface PaymasterInfo {
     name: string
     paidUntil: bigint
   }
+  effectiveTimestamp?: bigint
 }
 
 export type DueDateStatus = 'primary' | 'warning' | 'error' | 'success'
@@ -74,7 +75,8 @@ export function initPaymaster(mpc: MetaportCore): Contract {
 
 export async function getPaymasterInfo(
   paymaster: Contract,
-  targetChainName: string
+  targetChainName: string,
+  skaleNetwork: interfaces.SkaleNetwork
 ): Promise<PaymasterInfo> {
   const rawData = await Promise.all([
     paymaster.maxReplenishmentPeriod(),
@@ -83,6 +85,12 @@ export async function getPaymasterInfo(
     paymaster.skaleToken(),
     paymaster.schains(id(targetChainName))
   ])
+
+  let effectiveTimestamp
+  if (skaleNetwork === 'legacy') {
+    effectiveTimestamp = await paymaster.effectiveTimestamp()
+  }
+
   return {
     maxReplenishmentPeriod: rawData[0],
     oneSklPrice: rawData[1],
@@ -91,7 +99,8 @@ export async function getPaymasterInfo(
     schain: {
       name: rawData[4][1],
       paidUntil: rawData[4][2]
-    }
+    },
+    effectiveTimestamp
   }
 }
 

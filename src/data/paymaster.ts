@@ -176,6 +176,11 @@ export default {
     },
     {
       inputs: [],
+      name: 'SklPriceIsOutdated',
+      type: 'error'
+    },
+    {
+      inputs: [],
       name: 'TimeIntervalIsAlreadyProcessed',
       type: 'error'
     },
@@ -265,6 +270,22 @@ export default {
           internalType: 'ValidatorId',
           name: 'id',
           type: 'uint256'
+        },
+        {
+          internalType: 'Timestamp',
+          name: 'when',
+          type: 'uint256'
+        }
+      ],
+      name: 'ValidatorHasBeenRemoved',
+      type: 'error'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'ValidatorId',
+          name: 'id',
+          type: 'uint256'
         }
       ],
       name: 'ValidatorNotFound',
@@ -325,6 +346,19 @@ export default {
       name: 'addValidator',
       outputs: [],
       stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'allowedSklPriceLag',
+      outputs: [
+        {
+          internalType: 'Seconds',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
       type: 'function'
     },
     {
@@ -442,6 +476,134 @@ export default {
     {
       inputs: [
         {
+          internalType: 'ValidatorId',
+          name: 'validatorId',
+          type: 'uint256'
+        }
+      ],
+      name: 'getActiveNodesNumber',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: 'number',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'ValidatorId',
+          name: 'validatorId',
+          type: 'uint256'
+        }
+      ],
+      name: 'getNodesNumber',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: 'number',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'getRewardAmount',
+      outputs: [
+        {
+          internalType: 'SKL',
+          name: 'reward',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'ValidatorId',
+          name: 'validatorId',
+          type: 'uint256'
+        }
+      ],
+      name: 'getRewardAmountFor',
+      outputs: [
+        {
+          internalType: 'SKL',
+          name: 'reward',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'SchainHash',
+          name: 'schainHash',
+          type: 'bytes32'
+        }
+      ],
+      name: 'getSchainExpirationTimestamp',
+      outputs: [
+        {
+          internalType: 'Timestamp',
+          name: 'expiration',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'getSchainsNames',
+      outputs: [
+        {
+          internalType: 'string[]',
+          name: 'names',
+          type: 'string[]'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'getSchainsNumber',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: 'number',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'getValidatorsNumber',
+      outputs: [
+        {
+          internalType: 'uint256',
+          name: 'number',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
           internalType: 'address',
           name: 'initialAuthority',
           type: 'address'
@@ -484,6 +646,18 @@ export default {
       outputs: [
         {
           internalType: 'USD',
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'effectiveTimestamp',
+      outputs: [
+        {
           name: '',
           type: 'uint256'
         }
@@ -581,7 +755,7 @@ export default {
       inputs: [
         {
           internalType: 'ValidatorId',
-          name: 'id',
+          name: 'validatorId',
           type: 'uint256'
         },
         {
@@ -591,6 +765,19 @@ export default {
         }
       ],
       name: 'setActiveNodes',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'Seconds',
+          name: 'lagSeconds',
+          type: 'uint256'
+        }
+      ],
+      name: 'setAllowedSklPriceLag',
       outputs: [],
       stateMutability: 'nonpayable',
       type: 'function'
@@ -625,7 +812,7 @@ export default {
       inputs: [
         {
           internalType: 'ValidatorId',
-          name: 'id',
+          name: 'validatorId',
           type: 'uint256'
         },
         {
@@ -679,6 +866,19 @@ export default {
       type: 'function'
     },
     {
+      inputs: [
+        {
+          internalType: 'string',
+          name: 'newVersion',
+          type: 'string'
+        }
+      ],
+      name: 'setVersion',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
+    },
+    {
       inputs: [],
       name: 'skaleToken',
       outputs: [
@@ -699,6 +899,19 @@ export default {
           internalType: 'Timestamp',
           name: '',
           type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [],
+      name: 'version',
+      outputs: [
+        {
+          internalType: 'string',
+          name: '',
+          type: 'string'
         }
       ],
       stateMutability: 'view',

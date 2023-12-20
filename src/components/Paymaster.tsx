@@ -87,7 +87,7 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
   }, [sklToken, address])
 
   async function loadPaymasterInfo() {
-    const info = await getPaymasterInfo(paymaster, props.name)
+    const info = await getPaymasterInfo(paymaster, props.name, network)
     let skl = sklToken
     if (skl === undefined) {
       skl = new Contract(info.skaleToken, ERC_ABIS.erc20.abi, paymaster.runner)
