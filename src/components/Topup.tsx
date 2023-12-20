@@ -67,7 +67,10 @@ export default function Topup(props: {
   const balanceOk = props.tokenBalance >= totalPriceWei
   const topupBtnText = balanceOk ? 'Top-up chain' : 'Insufficient funds'
 
-  const untilDueDateMonths = monthsBetweenNowAndTimestamp(props.info.schain.paidUntil)
+  const untilDueDateMonths = monthsBetweenNowAndTimestamp(
+    props.info.schain.paidUntil,
+    props.info.effectiveTimestamp
+  )
   const maxTopupPeriod = Number(props.info.maxReplenishmentPeriod) - untilDueDateMonths
 
   return (

@@ -19,891 +19,903 @@ export default {
   },
   abi: [
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "authority",
-          "type": "address"
+          internalType: 'address',
+          name: 'authority',
+          type: 'address'
         }
       ],
-      "name": "AccessManagedInvalidAuthority",
-      "type": "error"
+      name: 'AccessManagedInvalidAuthority',
+      type: 'error'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "caller",
-          "type": "address"
+          internalType: 'address',
+          name: 'caller',
+          type: 'address'
         },
         {
-          "internalType": "uint32",
-          "name": "delay",
-          "type": "uint32"
+          internalType: 'uint32',
+          name: 'delay',
+          type: 'uint32'
         }
       ],
-      "name": "AccessManagedRequiredDelay",
-      "type": "error"
+      name: 'AccessManagedRequiredDelay',
+      type: 'error'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "caller",
-          "type": "address"
+          internalType: 'address',
+          name: 'caller',
+          type: 'address'
         }
       ],
-      "name": "AccessManagedUnauthorized",
-      "type": "error"
+      name: 'AccessManagedUnauthorized',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "AccessToEmptyHeap",
-      "type": "error"
+      inputs: [],
+      name: 'AccessToEmptyHeap',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "AccessToEmptyPriorityQueue",
-      "type": "error"
+      inputs: [],
+      name: 'AccessToEmptyPriorityQueue',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "CannotAddToThePast",
-      "type": "error"
+      inputs: [],
+      name: 'CannotAddToThePast',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "CannotSetValueInThePast",
-      "type": "error"
+      inputs: [],
+      name: 'CannotSetValueInThePast',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "ClearUnprocessed",
-      "type": "error"
+      inputs: [],
+      name: 'ClearUnprocessed',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "ImportantDataRemoving",
-      "type": "error"
+      inputs: [],
+      name: 'ImportantDataRemoving',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "IncorrectTimeInterval",
-      "type": "error"
+      inputs: [],
+      name: 'IncorrectTimeInterval',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "InvalidInitialization",
-      "type": "error"
+      inputs: [],
+      name: 'InvalidInitialization',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "NotInitializing",
-      "type": "error"
+      inputs: [],
+      name: 'NotInitializing',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "QueueEmpty",
-      "type": "error"
+      inputs: [],
+      name: 'QueueEmpty',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "QueueFull",
-      "type": "error"
+      inputs: [],
+      name: 'QueueFull',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "QueueOutOfBounds",
-      "type": "error"
+      inputs: [],
+      name: 'QueueOutOfBounds',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "ReplenishmentPeriodIsTooBig",
-      "type": "error"
+      inputs: [],
+      name: 'ReplenishmentPeriodIsTooBig',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "RootDoesNotHaveParent",
-      "type": "error"
+      inputs: [],
+      name: 'RootDoesNotHaveParent',
+      type: 'error'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "SchainHash",
-          "name": "hash",
-          "type": "bytes32"
+          internalType: 'SchainHash',
+          name: 'hash',
+          type: 'bytes32'
         }
       ],
-      "name": "SchainAddingError",
-      "type": "error"
+      name: 'SchainAddingError',
+      type: 'error'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "SchainHash",
-          "name": "hash",
-          "type": "bytes32"
+          internalType: 'SchainHash',
+          name: 'hash',
+          type: 'bytes32'
         }
       ],
-      "name": "SchainDeletionError",
-      "type": "error"
+      name: 'SchainDeletionError',
+      type: 'error'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "SchainHash",
-          "name": "hash",
-          "type": "bytes32"
+          internalType: 'SchainHash',
+          name: 'hash',
+          type: 'bytes32'
         }
       ],
-      "name": "SchainNotFound",
-      "type": "error"
+      name: 'SchainNotFound',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "SchainPriceIsNotSet",
-      "type": "error"
+      inputs: [],
+      name: 'SchainPriceIsNotSet',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "SkaleTokenIsNotSet",
-      "type": "error"
+      inputs: [],
+      name: 'SkaleTokenIsNotSet',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "SklPriceIsNotSet",
-      "type": "error"
+      inputs: [],
+      name: 'SklPriceIsNotSet',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "SklPriceIsOutdated",
-      "type": "error"
+      inputs: [],
+      name: 'SklPriceIsOutdated',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "TimeIntervalIsAlreadyProcessed",
-      "type": "error"
+      inputs: [],
+      name: 'TimeIntervalIsAlreadyProcessed',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "TimeIntervalIsNotProcessed",
-      "type": "error"
+      inputs: [],
+      name: 'TimeIntervalIsNotProcessed',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "TimestampIsOutOfValues",
-      "type": "error"
+      inputs: [],
+      name: 'TimestampIsOutOfValues',
+      type: 'error'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "spender",
-          "type": "address"
+          internalType: 'address',
+          name: 'spender',
+          type: 'address'
         },
         {
-          "internalType": "uint256",
-          "name": "required",
-          "type": "uint256"
+          internalType: 'uint256',
+          name: 'required',
+          type: 'uint256'
         },
         {
-          "internalType": "uint256",
-          "name": "allowed",
-          "type": "uint256"
+          internalType: 'uint256',
+          name: 'allowed',
+          type: 'uint256'
         }
       ],
-      "name": "TooSmallAllowance",
-      "type": "error"
+      name: 'TooSmallAllowance',
+      type: 'error'
     },
     {
-      "inputs": [],
-      "name": "TransferFailure",
-      "type": "error"
+      inputs: [],
+      name: 'TransferFailure',
+      type: 'error'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "ValidatorId",
-          "name": "id",
-          "type": "uint256"
+          internalType: 'ValidatorId',
+          name: 'id',
+          type: 'uint256'
         }
       ],
-      "name": "ValidatorAddingError",
-      "type": "error"
+      name: 'ValidatorAddingError',
+      type: 'error'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "validatorAddress",
-          "type": "address"
+          internalType: 'address',
+          name: 'validatorAddress',
+          type: 'address'
         }
       ],
-      "name": "ValidatorAddressAlreadyExists",
-      "type": "error"
+      name: 'ValidatorAddressAlreadyExists',
+      type: 'error'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "validatorAddress",
-          "type": "address"
+          internalType: 'address',
+          name: 'validatorAddress',
+          type: 'address'
         }
       ],
-      "name": "ValidatorAddressNotFound",
-      "type": "error"
+      name: 'ValidatorAddressNotFound',
+      type: 'error'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "ValidatorId",
-          "name": "id",
-          "type": "uint256"
+          internalType: 'ValidatorId',
+          name: 'id',
+          type: 'uint256'
         }
       ],
-      "name": "ValidatorDeletionError",
-      "type": "error"
+      name: 'ValidatorDeletionError',
+      type: 'error'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "ValidatorId",
-          "name": "id",
-          "type": "uint256"
+          internalType: 'ValidatorId',
+          name: 'id',
+          type: 'uint256'
         },
         {
-          "internalType": "Timestamp",
-          "name": "when",
-          "type": "uint256"
+          internalType: 'Timestamp',
+          name: 'when',
+          type: 'uint256'
         }
       ],
-      "name": "ValidatorHasBeenRemoved",
-      "type": "error"
+      name: 'ValidatorHasBeenRemoved',
+      type: 'error'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "ValidatorId",
-          "name": "id",
-          "type": "uint256"
+          internalType: 'ValidatorId',
+          name: 'id',
+          type: 'uint256'
         }
       ],
-      "name": "ValidatorNotFound",
-      "type": "error"
+      name: 'ValidatorNotFound',
+      type: 'error'
     },
     {
-      "anonymous": false,
-      "inputs": [
+      anonymous: false,
+      inputs: [
         {
-          "indexed": false,
-          "internalType": "address",
-          "name": "authority",
-          "type": "address"
+          indexed: false,
+          internalType: 'address',
+          name: 'authority',
+          type: 'address'
         }
       ],
-      "name": "AuthorityUpdated",
-      "type": "event"
+      name: 'AuthorityUpdated',
+      type: 'event'
     },
     {
-      "anonymous": false,
-      "inputs": [
+      anonymous: false,
+      inputs: [
         {
-          "indexed": false,
-          "internalType": "uint64",
-          "name": "version",
-          "type": "uint64"
+          indexed: false,
+          internalType: 'uint64',
+          name: 'version',
+          type: 'uint64'
         }
       ],
-      "name": "Initialized",
-      "type": "event"
+      name: 'Initialized',
+      type: 'event'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "string",
-          "name": "name",
-          "type": "string"
+          internalType: 'string',
+          name: 'name',
+          type: 'string'
         }
       ],
-      "name": "addSchain",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'addSchain',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "ValidatorId",
-          "name": "id",
-          "type": "uint256"
+          internalType: 'ValidatorId',
+          name: 'id',
+          type: 'uint256'
         },
         {
-          "internalType": "address",
-          "name": "validatorAddress",
-          "type": "address"
+          internalType: 'address',
+          name: 'validatorAddress',
+          type: 'address'
         }
       ],
-      "name": "addValidator",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'addValidator',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
     },
     {
-      "inputs": [],
-      "name": "allowedSklPriceLag",
-      "outputs": [
+      inputs: [],
+      name: 'allowedSklPriceLag',
+      outputs: [
         {
-          "internalType": "Seconds",
-          "name": "",
-          "type": "uint256"
+          internalType: 'Seconds',
+          name: '',
+          type: 'uint256'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [],
-      "name": "authority",
-      "outputs": [
+      inputs: [],
+      name: 'authority',
+      outputs: [
         {
-          "internalType": "address",
-          "name": "",
-          "type": "address"
+          internalType: 'address',
+          name: '',
+          type: 'address'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
+          internalType: 'address',
+          name: 'to',
+          type: 'address'
         }
       ],
-      "name": "claim",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'claim',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "ValidatorId",
-          "name": "validatorId",
-          "type": "uint256"
+          internalType: 'ValidatorId',
+          name: 'validatorId',
+          type: 'uint256'
         },
         {
-          "internalType": "address",
-          "name": "to",
-          "type": "address"
+          internalType: 'address',
+          name: 'to',
+          type: 'address'
         }
       ],
-      "name": "claimFor",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'claimFor',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "Timestamp",
-          "name": "before",
-          "type": "uint256"
+          internalType: 'Timestamp',
+          name: 'before',
+          type: 'uint256'
         }
       ],
-      "name": "clearHistory",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'clearHistory',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "Paymaster.DebtId",
-          "name": "",
-          "type": "uint256"
+          internalType: 'Paymaster.DebtId',
+          name: '',
+          type: 'uint256'
         }
       ],
-      "name": "debts",
-      "outputs": [
+      name: 'debts',
+      outputs: [
         {
-          "internalType": "Timestamp",
-          "name": "from",
-          "type": "uint256"
+          internalType: 'Timestamp',
+          name: 'from',
+          type: 'uint256'
         },
         {
-          "internalType": "Timestamp",
-          "name": "to",
-          "type": "uint256"
+          internalType: 'Timestamp',
+          name: 'to',
+          type: 'uint256'
         },
         {
-          "internalType": "SKL",
-          "name": "amount",
-          "type": "uint256"
+          internalType: 'SKL',
+          name: 'amount',
+          type: 'uint256'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [],
-      "name": "debtsBegin",
-      "outputs": [
+      inputs: [],
+      name: 'debtsBegin',
+      outputs: [
         {
-          "internalType": "Paymaster.DebtId",
-          "name": "",
-          "type": "uint256"
+          internalType: 'Paymaster.DebtId',
+          name: '',
+          type: 'uint256'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [],
-      "name": "debtsEnd",
-      "outputs": [
+      inputs: [],
+      name: 'debtsEnd',
+      outputs: [
         {
-          "internalType": "Paymaster.DebtId",
-          "name": "",
-          "type": "uint256"
+          internalType: 'Paymaster.DebtId',
+          name: '',
+          type: 'uint256'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "ValidatorId",
-          "name": "validatorId",
-          "type": "uint256"
+          internalType: 'ValidatorId',
+          name: 'validatorId',
+          type: 'uint256'
         }
       ],
-      "name": "getActiveNodesNumber",
-      "outputs": [
+      name: 'getActiveNodesNumber',
+      outputs: [
         {
-          "internalType": "uint256",
-          "name": "number",
-          "type": "uint256"
+          internalType: 'uint256',
+          name: 'number',
+          type: 'uint256'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "ValidatorId",
-          "name": "validatorId",
-          "type": "uint256"
+          internalType: 'ValidatorId',
+          name: 'validatorId',
+          type: 'uint256'
         }
       ],
-      "name": "getNodesNumber",
-      "outputs": [
+      name: 'getNodesNumber',
+      outputs: [
         {
-          "internalType": "uint256",
-          "name": "number",
-          "type": "uint256"
+          internalType: 'uint256',
+          name: 'number',
+          type: 'uint256'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [],
-      "name": "getRewardAmount",
-      "outputs": [
+      inputs: [],
+      name: 'getRewardAmount',
+      outputs: [
         {
-          "internalType": "SKL",
-          "name": "reward",
-          "type": "uint256"
+          internalType: 'SKL',
+          name: 'reward',
+          type: 'uint256'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "ValidatorId",
-          "name": "validatorId",
-          "type": "uint256"
+          internalType: 'ValidatorId',
+          name: 'validatorId',
+          type: 'uint256'
         }
       ],
-      "name": "getRewardAmountFor",
-      "outputs": [
+      name: 'getRewardAmountFor',
+      outputs: [
         {
-          "internalType": "SKL",
-          "name": "reward",
-          "type": "uint256"
+          internalType: 'SKL',
+          name: 'reward',
+          type: 'uint256'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "SchainHash",
-          "name": "schainHash",
-          "type": "bytes32"
+          internalType: 'SchainHash',
+          name: 'schainHash',
+          type: 'bytes32'
         }
       ],
-      "name": "getSchainExpirationTimestamp",
-      "outputs": [
+      name: 'getSchainExpirationTimestamp',
+      outputs: [
         {
-          "internalType": "Timestamp",
-          "name": "expiration",
-          "type": "uint256"
+          internalType: 'Timestamp',
+          name: 'expiration',
+          type: 'uint256'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [],
-      "name": "getSchainsNames",
-      "outputs": [
+      inputs: [],
+      name: 'getSchainsNames',
+      outputs: [
         {
-          "internalType": "string[]",
-          "name": "names",
-          "type": "string[]"
+          internalType: 'string[]',
+          name: 'names',
+          type: 'string[]'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [],
-      "name": "getSchainsNumber",
-      "outputs": [
+      inputs: [],
+      name: 'getSchainsNumber',
+      outputs: [
         {
-          "internalType": "uint256",
-          "name": "number",
-          "type": "uint256"
+          internalType: 'uint256',
+          name: 'number',
+          type: 'uint256'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [],
-      "name": "getValidatorsNumber",
-      "outputs": [
+      inputs: [],
+      name: 'getValidatorsNumber',
+      outputs: [
         {
-          "internalType": "uint256",
-          "name": "number",
-          "type": "uint256"
+          internalType: 'uint256',
+          name: 'number',
+          type: 'uint256'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "initialAuthority",
-          "type": "address"
+          internalType: 'address',
+          name: 'initialAuthority',
+          type: 'address'
         }
       ],
-      "name": "initialize",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'initialize',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
     },
     {
-      "inputs": [],
-      "name": "isConsumingScheduledOp",
-      "outputs": [
+      inputs: [],
+      name: 'isConsumingScheduledOp',
+      outputs: [
         {
-          "internalType": "bytes4",
-          "name": "",
-          "type": "bytes4"
+          internalType: 'bytes4',
+          name: '',
+          type: 'bytes4'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [],
-      "name": "maxReplenishmentPeriod",
-      "outputs": [
+      inputs: [],
+      name: 'maxReplenishmentPeriod',
+      outputs: [
         {
-          "internalType": "Months",
-          "name": "",
-          "type": "uint256"
+          internalType: 'Months',
+          name: '',
+          type: 'uint256'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [],
-      "name": "oneSklPrice",
-      "outputs": [
+      inputs: [],
+      name: 'oneSklPrice',
+      outputs: [
         {
-          "internalType": "USD",
-          "name": "",
-          "type": "uint256"
+          internalType: 'USD',
+          name: '',
+          type: 'uint256'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [],
+      name: 'effectiveTimestamp',
+      outputs: [
         {
-          "internalType": "SchainHash",
-          "name": "schainHash",
-          "type": "bytes32"
+          name: '',
+          type: 'uint256'
+        }
+      ],
+      stateMutability: 'view',
+      type: 'function'
+    },
+    {
+      inputs: [
+        {
+          internalType: 'SchainHash',
+          name: 'schainHash',
+          type: 'bytes32'
         },
         {
-          "internalType": "Months",
-          "name": "duration",
-          "type": "uint256"
+          internalType: 'Months',
+          name: 'duration',
+          type: 'uint256'
         }
       ],
-      "name": "pay",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'pay',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "SchainHash",
-          "name": "schainHash",
-          "type": "bytes32"
+          internalType: 'SchainHash',
+          name: 'schainHash',
+          type: 'bytes32'
         }
       ],
-      "name": "removeSchain",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'removeSchain',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "ValidatorId",
-          "name": "id",
-          "type": "uint256"
+          internalType: 'ValidatorId',
+          name: 'id',
+          type: 'uint256'
         }
       ],
-      "name": "removeValidator",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'removeValidator',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
     },
     {
-      "inputs": [],
-      "name": "schainPricePerMonth",
-      "outputs": [
+      inputs: [],
+      name: 'schainPricePerMonth',
+      outputs: [
         {
-          "internalType": "USD",
-          "name": "",
-          "type": "uint256"
+          internalType: 'USD',
+          name: '',
+          type: 'uint256'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "SchainHash",
-          "name": "",
-          "type": "bytes32"
+          internalType: 'SchainHash',
+          name: '',
+          type: 'bytes32'
         }
       ],
-      "name": "schains",
-      "outputs": [
+      name: 'schains',
+      outputs: [
         {
-          "internalType": "SchainHash",
-          "name": "hash",
-          "type": "bytes32"
+          internalType: 'SchainHash',
+          name: 'hash',
+          type: 'bytes32'
         },
         {
-          "internalType": "string",
-          "name": "name",
-          "type": "string"
+          internalType: 'string',
+          name: 'name',
+          type: 'string'
         },
         {
-          "internalType": "Timestamp",
-          "name": "paidUntil",
-          "type": "uint256"
+          internalType: 'Timestamp',
+          name: 'paidUntil',
+          type: 'uint256'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "ValidatorId",
-          "name": "validatorId",
-          "type": "uint256"
+          internalType: 'ValidatorId',
+          name: 'validatorId',
+          type: 'uint256'
         },
         {
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
+          internalType: 'uint256',
+          name: 'amount',
+          type: 'uint256'
         }
       ],
-      "name": "setActiveNodes",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'setActiveNodes',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "Seconds",
-          "name": "lagSeconds",
-          "type": "uint256"
+          internalType: 'Seconds',
+          name: 'lagSeconds',
+          type: 'uint256'
         }
       ],
-      "name": "setAllowedSklPriceLag",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'setAllowedSklPriceLag',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "address",
-          "name": "newAuthority",
-          "type": "address"
+          internalType: 'address',
+          name: 'newAuthority',
+          type: 'address'
         }
       ],
-      "name": "setAuthority",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'setAuthority',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "Months",
-          "name": "months",
-          "type": "uint256"
+          internalType: 'Months',
+          name: 'months',
+          type: 'uint256'
         }
       ],
-      "name": "setMaxReplenishmentPeriod",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'setMaxReplenishmentPeriod',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "ValidatorId",
-          "name": "validatorId",
-          "type": "uint256"
+          internalType: 'ValidatorId',
+          name: 'validatorId',
+          type: 'uint256'
         },
         {
-          "internalType": "uint256",
-          "name": "amount",
-          "type": "uint256"
+          internalType: 'uint256',
+          name: 'amount',
+          type: 'uint256'
         }
       ],
-      "name": "setNodesAmount",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'setNodesAmount',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "USD",
-          "name": "price",
-          "type": "uint256"
+          internalType: 'USD',
+          name: 'price',
+          type: 'uint256'
         }
       ],
-      "name": "setSchainPrice",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'setSchainPrice',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "contract IERC20",
-          "name": "token",
-          "type": "address"
+          internalType: 'contract IERC20',
+          name: 'token',
+          type: 'address'
         }
       ],
-      "name": "setSkaleToken",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'setSkaleToken',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "USD",
-          "name": "price",
-          "type": "uint256"
+          internalType: 'USD',
+          name: 'price',
+          type: 'uint256'
         }
       ],
-      "name": "setSklPrice",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'setSklPrice',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
     },
     {
-      "inputs": [
+      inputs: [
         {
-          "internalType": "string",
-          "name": "newVersion",
-          "type": "string"
+          internalType: 'string',
+          name: 'newVersion',
+          type: 'string'
         }
       ],
-      "name": "setVersion",
-      "outputs": [],
-      "stateMutability": "nonpayable",
-      "type": "function"
+      name: 'setVersion',
+      outputs: [],
+      stateMutability: 'nonpayable',
+      type: 'function'
     },
     {
-      "inputs": [],
-      "name": "skaleToken",
-      "outputs": [
+      inputs: [],
+      name: 'skaleToken',
+      outputs: [
         {
-          "internalType": "contract IERC20",
-          "name": "",
-          "type": "address"
+          internalType: 'contract IERC20',
+          name: '',
+          type: 'address'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [],
-      "name": "sklPriceTimestamp",
-      "outputs": [
+      inputs: [],
+      name: 'sklPriceTimestamp',
+      outputs: [
         {
-          "internalType": "Timestamp",
-          "name": "",
-          "type": "uint256"
+          internalType: 'Timestamp',
+          name: '',
+          type: 'uint256'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     },
     {
-      "inputs": [],
-      "name": "version",
-      "outputs": [
+      inputs: [],
+      name: 'version',
+      outputs: [
         {
-          "internalType": "string",
-          "name": "",
-          "type": "string"
+          internalType: 'string',
+          name: '',
+          type: 'string'
         }
       ],
-      "stateMutability": "view",
-      "type": "function"
+      stateMutability: 'view',
+      type: 'function'
     }
   ]
 }

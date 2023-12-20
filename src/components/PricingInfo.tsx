@@ -44,8 +44,14 @@ export default function PricingInfo(props: { info: PaymasterInfo }) {
   const chainPriceUsd = fromWei(props.info.schainPricePerMonth, DEFAULT_ERC20_DECIMALS)
   const chainPriceSkl = divideBigInts(props.info.schainPricePerMonth, props.info.oneSklPrice)
 
-  const untilDueDateDays = daysBetweenNowAndTimestamp(props.info.schain.paidUntil)
-  const untilDueDateMonths = monthsBetweenNowAndTimestamp(props.info.schain.paidUntil)
+  const untilDueDateDays = daysBetweenNowAndTimestamp(
+    props.info.schain.paidUntil,
+    props.info.effectiveTimestamp
+  )
+  const untilDueDateMonths = monthsBetweenNowAndTimestamp(
+    props.info.schain.paidUntil,
+    props.info.effectiveTimestamp
+  )
   const dueDateStatus = getDueDateStatus(untilDueDateDays)
   const dueDateText = untilDueDateDays < 0 ? 'Payment overdue' : 'Paid for'
 
