@@ -24,8 +24,8 @@
 import { useState } from 'react'
 import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
 
-import AccordionSection from '../AccordionSection'
-import { FAQ } from '../../core/constants'
+import AccordionSection from './AccordionSection'
+import { FAQ } from '../core/constants'
 
 export default function FaqAccordion() {
   const [expanded, setExpanded] = useState<string | false>(false)

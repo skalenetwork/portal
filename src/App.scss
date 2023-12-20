@@ -86,6 +86,8 @@ body {
   padding-right: 12px;
   padding-left: 8px;
 
+  min-height: 0 !important;
+
   .mp__iconConnect {
     margin-left: 10px;
     width: 18pt !important;
@@ -142,7 +144,7 @@ body {
 
 
 .br__modalInner {
-  max-height: calc(90vh - 300px);
+  max-height: calc(90vh - 250px);
   display: flex;
   /* relevant part */
   flex-direction: column;
@@ -158,15 +160,20 @@ body {
   overflow: hidden;
 }
 
-.br__modal {
-  .MuiContainer-root {
-    padding: 0px !important;
+.br__modalScroll {
+  @media screen and (min-height: 200px) {
+    max-height: calc(75vh - 180px);
   }
 
-  .br__modalScroll {
-    height: 100%;
-    overflow-y: auto;
+  @media screen and (min-height: 670px) and (min-width: 300px) {
+    max-height: calc(75vh - 520px);
   }
+
+  @media screen and (min-height: 670px) and (min-width: 900px) {
+    max-height: calc(75vh - 350px);
+  }
+
+  overflow-y: auto;
 }
 
 .drawerIconRi {
@@ -176,10 +183,14 @@ body {
   margin-right: 12px !important;
 }
 
-.br__modalScroll {
-  ::-webkit-scrollbar {
-    display: unset !important;
-  }
+// .br__modalScroll {
+//   ::-webkit-scrollbar {
+//     display: unset !important;
+//   }
+// }
+
+::-webkit-scrollbar-track {
+  height: 5px !important;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -219,24 +230,34 @@ body::-webkit-scrollbar {
 }
 
 .br__tile {
-  box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.05);
+  // box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.05);
   transform-style: preserve-3d;
   transition: all 0.3s ease;
 }
 
 .br__tile:hover {
-  box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.1);
   transform: scale(1.05);
 }
 
 .br__tile {
-  height: 140px;
+  height: 150px;
+  border-radius: 25px !important;
+  border: 1px solid #171616 !important;
+}
+
+.pageCard {
+  height: 100% !important;
   border-radius: 25px !important;
   border: 1px rgb(44 44 44) solid !important;
+
+  svg {
+    width: 20px;
+    height: 20px;
+  }
 }
 
 .br__tileLogo {
-  height: 95px;
+  height: 105px;
 
   img {
     max-height: 100%;
@@ -322,23 +343,46 @@ body::-webkit-scrollbar {
   width: 100%;
 }
 
+.btn {
+  text-transform: none !important;
+  font-size: 0.8025rem !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0.02857em !important;
+  font-weight: 600 !important;
+  padding: 0.9em 3.5em !important;
+  border-radius: $sk-border-radius !important;
+  box-shadow: none !important;
+}
+
+.outlined {
+  background: rgba(41, 255, 148, 0.08)
+}
+
+.roundBtn {
+  min-width: 40px !important;
+  padding: 8px 11px !important;
+}
+
 .cardBtn {
   background: rgba(0, 0, 0, .506) !important;
-  border: 1px solid hsla(0, 0%, 51%, .35) !important;
+  border: 1px solid hsla(0, 0%, 51%, .1) !important;
   text-transform: none !important;
-  color: white !important;
-  padding: 5px 10px 5px 15px !important;
-  font-size: 0.6125rem !important;
+  color: #ffffffe6 !important;
+  padding: 6px 10px 6px 12px !important;
+  font-size: 0.7rem !important;
+  min-width: 55px;
+
+  width: 100%;
+
+  font-weight: 700 !important;
 
   svg {
-    width: 10pt;
-    height: 10pt;
+    width: 8pt;
+    height: 8pt;
   }
 
-  .MuiButton-endIcon {
-    margin-left: 5px !important;
-    margin-right: 2px !important;
-    // margin: 0 !important;
+  .MuiButton-startIcon {
+    margin-right: 5px !important;
   }
 }
 
@@ -437,22 +481,22 @@ code {
     }
   }
 
-  .titleSection {
-    background: rgba(0, 0, 0, 0.6) !important;
-    border-radius: 25px;
-    padding: 20px;
-  }
-
   .titleBadge {
     background: rgba(0, 0, 0, 0.6) !important;
     border-radius: 25px;
-    padding: 10px 15px;
+    padding: 5px;
 
     svg {
       width: 12px;
       height: 12px;
     }
   }
+}
+
+.titleSection {
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: 25px;
+  padding: 20px;
 }
 
 button:focus {
@@ -472,4 +516,68 @@ button:focus {
 
 .MuiAccordion-rounded {
   box-shadow: none !important;
+}
+
+.startCardText {
+  margin: 120px 10px 10px 10px;
+  background: #00000066;
+  backdrop-filter: blur(10px) brightness(0.8);
+  border-radius: 25px;
+  padding: 10px 15px;
+}
+
+.startCardBg {
+  background-repeat: no-repeat;
+  background-size: cover;
+  border: none !important;
+  border: 1px solid #171616 !important;
+  box-shadow: none !important;
+}
+
+.startCardbridge {
+  background-image: url(/bridge.png);
+}
+
+.startCardchains {
+  background-image: url(/chains.png);
+}
+
+.startCardapps {
+  background-image: url(/apps.png);
+}
+
+
+.startCardstats {
+  background-image: url(/stats.png);
+}
+
+.startCardportfolio {
+  background-image: url(/portfolio.png);
+}
+
+
+.blackP {
+  color: #000000;
+}
+
+.divider {
+  border-bottom: 1px $border-color solid;
+  padding-bottom: 10px;
+}
+
+.flexi {
+  display: inline-flex;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  /* display: none; <- Crashes Chrome on hover */
+  -webkit-appearance: none;
+  margin: 0;
+  /* <-- Apparently some margin are still there even though it's hidden */
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+  /* Firefox */
 }

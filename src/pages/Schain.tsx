@@ -26,7 +26,7 @@ import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
-import SchainDetails from './SchainDetails'
+import SchainDetails from '../components/SchainDetails'
 import CircularProgress from '@mui/material/CircularProgress'
 
 import { cmn, cls, type MetaportCore, CHAINS_META, type interfaces } from '@skalenetwork/metaport'
@@ -58,7 +58,7 @@ export default function Schain(props: { loadSchains: any; schains: any[]; mpc: M
     return (
       <div className="fullscreen-msg">
         <div className={cls(cmn.flex)}>
-          <div className={cls(cmn.flex, cmn.flexcv)}>
+          <div className={cls(cmn.flex, cmn.flexcv, cmn.mri20)}>
             <CircularProgress className="fullscreen-spin" />
           </div>
           <div className={cls(cmn.flex, cmn.flexcv)}>

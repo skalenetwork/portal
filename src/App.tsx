@@ -30,7 +30,7 @@ import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
 
 import Portal from './Portal'
 
-import { METAPORT_CONFIG } from './metadata/metaportConfig'
+import { METAPORT_CONFIG } from './data/metaportConfig'
 import { createMuiTheme } from './core/themes'
 
 import { META_TAGS } from './core/meta'
