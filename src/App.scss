@@ -240,7 +240,7 @@ body::-webkit-scrollbar {
 }
 
 .br__tile {
-  height: 140px;
+  height: 150px;
   border-radius: 25px !important;
   border: 1px solid #171616 !important
 }
@@ -257,7 +257,7 @@ body::-webkit-scrollbar {
 }
 
 .br__tileLogo {
-  height: 95px;
+  height: 105px;
 
   img {
     max-height: 100%;
@@ -369,8 +369,12 @@ body::-webkit-scrollbar {
   text-transform: none !important;
   color: #ffffffe6 !important;
   padding: 6px 10px 6px 12px !important;
-  font-size: 0.6rem !important;
+  font-size: 0.75rem !important;
   min-width: 55px;
+
+  width: 100%;
+
+  font-weight: 700 !important;
 
   svg {
     width: 8pt;
