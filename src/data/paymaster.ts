@@ -2,19 +2,23 @@ export default {
   networks: {
     mainnet: {
       chain: 'elated-tan-skat',
-      address: '0x'
+      address: '0x',
+      launchTs: '0'
     },
     staging: {
       chain: 'staging-perfect-parallel-gacrux',
-      address: '0xeF18D694e7659C1Ed5dE7e83E72e871b32f3fE69'
+      address: '0xeF18D694e7659C1Ed5dE7e83E72e871b32f3fE69',
+      launchTs: '0'
     },
     legacy: {
       chain: 'skale-innocent-nasty',
-      address: '0xCa1B0A6236BBA2b30F7260863b56209a97351853'
+      address: '0xCa1B0A6236BBA2b30F7260863b56209a97351853',
+      launchTs: '1708521648'
     },
     regression: {
       chain: '',
-      address: '0x'
+      address: '0x',
+      launchTs: '0'
     }
   },
   abi: [
