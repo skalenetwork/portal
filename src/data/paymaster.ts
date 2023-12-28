@@ -19,6 +19,18 @@ export default {
   },
   abi: [
     {
+      "inputs": [],
+      "name": "effectiveTimestamp",
+      "outputs": [
+        {
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
       "inputs": [
         {
           "internalType": "address",
