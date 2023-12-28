@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import React, { type Dispatch, type SetStateAction } from 'react'
+import { useState, type Dispatch, type SetStateAction } from 'react'
 
 import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
@@ -42,7 +42,7 @@ export default function TermsModal(props: {
   termsAccepted: boolean
   setTermsAccepted: Dispatch<SetStateAction<boolean>>
 }) {
-  const [scrolled, setScrolled] = React.useState<boolean>(false)
+  const [scrolled, setScrolled] = useState<boolean>(false)
 
   const portalUrl = PORTAL_URLS[props.mpc.config.skaleNetwork] ?? PORTAL_URLS.mainnet
 

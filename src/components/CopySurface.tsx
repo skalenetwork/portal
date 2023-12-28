@@ -59,7 +59,7 @@ export default function CopySurface(props: {
     <div className={props.className}>
       <CopyToClipboard text={props.value} onCopy={handleClick}>
         <Tooltip title={copied ? 'Copied!' : 'Click to copy to clipboard'}>
-          <ButtonBase className="titleSection" style={{ width: '100%' }}>
+          <ButtonBase className="titleSection" style={{ width: '100%', height: '100%' }}>
             <div style={{ textAlign: 'left', overflow: 'auto' }} className={cmn.flexg}>
               <div className={cls(cmn.flex)}>
                 {props.tokenMetadata ? (

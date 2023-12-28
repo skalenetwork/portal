@@ -37,8 +37,6 @@ import ChainLogo from './ChainLogo'
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 
 export default function ChainCard(props: { skaleNetwork: interfaces.SkaleNetwork; schain: any[] }) {
-  // const explorerUrl = getExplorerUrl(BASE_EXPLORER_URLS[props.skaleNetwork], props.schain[0])
-
   function getChainShortAlias(meta: interfaces.ChainsMetadataMap, name: string): string {
     return meta[name] && meta[name].shortAlias !== undefined ? meta[name].shortAlias! : name
   }

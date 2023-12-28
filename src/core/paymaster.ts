@@ -23,6 +23,7 @@
 import { Contract, id, InterfaceAbi } from 'ethers'
 import { MetaportCore, interfaces } from '@skalenetwork/metaport'
 import PAYMASTER_INFO from '../data/paymaster'
+import { getCurrentTsBigInt } from './timeHelper'
 
 export interface PaymasterInfo {
   maxReplenishmentPeriod: bigint
@@ -61,6 +62,10 @@ export function getPaymasterAddress(skaleNetwork: interfaces.SkaleNetwork): stri
   return PAYMASTER_INFO.networks[skaleNetwork].address
 }
 
+export function getPaymasterLaunchTs(skaleNetwork: interfaces.SkaleNetwork): bigint {
+  return BigInt(PAYMASTER_INFO.networks[skaleNetwork].launchTs)
+}
+
 export function getPaymasterAbi(): InterfaceAbi {
   return PAYMASTER_INFO.abi
 }
@@ -71,6 +76,10 @@ export function initPaymaster(mpc: MetaportCore): Contract {
   const paymasterChain = getPaymasterChain(network)
   const provider = mpc.provider(paymasterChain)
   return new Contract(paymasterAddress, getPaymasterAbi(), provider)
+}
+
+export function pricingLaunchTsReached(skaleNetwork: interfaces.SkaleNetwork): boolean {
+  return getPaymasterLaunchTs(skaleNetwork) < getCurrentTsBigInt()
 }
 
 export async function getPaymasterInfo(

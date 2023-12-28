@@ -21,6 +21,7 @@ import TermsModal from './components/TermsModal'
 
 import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
 import { BRIDGE_PAGES } from './core/constants'
+import { pricingLaunchTsReached } from './core/paymaster'
 
 // import chainsJson from './chainsJson.json';
 
@@ -100,9 +101,11 @@ export default function Router() {
           <Route path="faq" element={<Faq />} />
           <Route path="terms-of-service" element={<Terms />} />
         </Route>
-        <Route path="admin">
-          <Route path=":name" element={<Admin mpc={mpc} />} />
-        </Route>
+        {pricingLaunchTsReached(mpc.config.skaleNetwork) ? (
+          <Route path="admin">
+            <Route path=":name" element={<Admin mpc={mpc} />} />
+          </Route>
+        ) : null}
       </Routes>
     </div>
   )

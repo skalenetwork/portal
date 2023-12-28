@@ -24,7 +24,6 @@
 import { Helmet } from 'react-helmet'
 
 import Button from '@mui/material/Button'
-import Stack from '@mui/material/Stack'
 
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
@@ -43,10 +42,12 @@ import {
   interfaces
 } from '@skalenetwork/metaport'
 
+import SkStack from './SkStack'
 import ChainLogo from './ChainLogo'
 import CopySurface from './CopySurface'
 import ChainAccordion from './ChainAccordion'
 import ChainCategories from './ChainCategories'
+import Tile from './Tile'
 
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 import { getRpcUrl, getExplorerUrl, getChainId, HTTPS_PREFIX } from '../core/chain'
@@ -113,19 +114,20 @@ export default function SchainDetails(props: {
           <ChainLogo chainName={props.schainName} logos={MAINNET_CHAIN_LOGOS} />
           <div className={cls(cmn.flex, cmn.flexg)}></div>
         </div>
-
-        <Stack spacing={1}>
+        <SkStack>
           <div className={cls('titleSection')}>
             <h2 className={cls(cmn.nom)}>{chainAlias}</h2>
             <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec)}>{chainDescription}</p>
           </div>
-          <Stack spacing={1} direction={{ xs: 'column', sm: 'row' }} useFlexGap flexWrap="wrap">
-            <div className={cls('titleSection')}>
-              <Stack spacing={1} direction={{ xs: 'column', sm: 'row' }} useFlexGap flexWrap="wrap">
-                <div className={cls(cmn.mleft5)}>
+        </SkStack>
+        <SkStack className={cmn.mtop10}>
+          <Tile
+            children={
+              <SkStack>
+                <div>
                   <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
                     <Button
-                      size="large"
+                      size="medium"
                       className={styles.btnAction}
                       startIcon={<WidgetsRoundedIcon />}
                     >
@@ -133,18 +135,18 @@ export default function SchainDetails(props: {
                     </Button>
                   </a>
                 </div>
-                <div className={cls(cmn.mleft20)}>
+                <div>
                   <Button
                     startIcon={<AddCircleRoundedIcon />}
-                    size="large"
+                    size="medium"
                     className={styles.btnAction}
                     onClick={addNetwork}
                   >
                     Add network
                   </Button>
                 </div>
-                {props.chainMeta?.url ? (
-                  <div className={cls(cmn.mleft20)}>
+                <div>
+                  {props.chainMeta?.url ? (
                     <a
                       target="_blank"
                       rel="noreferrer"
@@ -152,24 +154,20 @@ export default function SchainDetails(props: {
                       className="undec"
                     >
                       <Button
-                        size="large"
+                        size="medium"
                         className={styles.btnAction}
                         startIcon={<ArrowOutwardRoundedIcon />}
                       >
                         Open website
                       </Button>
                     </a>
-                  </div>
-                ) : null}
-              </Stack>
-            </div>
-            <CopySurface
-              className={cls(cmn.flexg)}
-              title="Chain ID"
-              value={chainIdInt.toString()}
-            />
-          </Stack>
-        </Stack>
+                  ) : null}
+                </div>
+              </SkStack>
+            }
+          />
+          <CopySurface className={cls(cmn.flexg)} title="Chain ID" value={chainIdInt.toString()} />
+        </SkStack>
       </SkPaper>
       <ChainAccordion mpc={props.mpc} schainName={props.schainName} />
     </div>
