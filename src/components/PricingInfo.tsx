@@ -57,7 +57,8 @@ export default function PricingInfo(props: { info: PaymasterInfo }) {
 
   const elapsedPercentage = calculateElapsedPercentage(
     props.info.schain.paidUntil,
-    props.info.maxReplenishmentPeriod
+    props.info.maxReplenishmentPeriod,
+    props.info.effectiveTimestamp
   )
 
   function getDueDateStatus(days: number): DueDateStatus {
@@ -110,6 +111,11 @@ export default function PricingInfo(props: { info: PaymasterInfo }) {
           value={`${formatTimePeriod(Math.abs(untilDueDateMonths), 'month')} `}
           text={dueDateText}
           color={dueDateStatus}
+          textRi={
+            props.info.effectiveTimestamp
+              ? '// Current ts: ' + formatBigIntTimestampSeconds(props.info.effectiveTimestamp)
+              : ''
+          }
         />
       </SkStack>
     </div>

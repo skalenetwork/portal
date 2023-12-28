@@ -29,7 +29,7 @@ import { cmn, cls, styles } from '@skalenetwork/metaport'
 import { DueDateStatus } from '../core/paymaster'
 
 export default function Tile(props: {
-  text: string
+  text?: string
   value?: string
   textRi?: string
   icon?: ReactElement
@@ -44,24 +44,26 @@ export default function Tile(props: {
   const color = props.color ? theme.palette[props.color].main : 'rgba(0, 0, 0, 0.6)'
   return (
     <div
-      className={cls(props.className, styles.fullHeight, 'titleSection', [cmn.flexg, props.grow])}
+      className={cls(props.className, styles.fullHefight, 'titleSection', [cmn.flexg, props.grow])}
       style={{ background: color }}
     >
-      <div
-        className={cls(
-          cmn.flex,
-          cmn.flexcv,
-          cmn.mbott5,
-          [cmn.pSec, !props.color],
-          ['blackP', props.color]
-        )}
-      >
-        {props.icon ? (
-          <div className={cls(cmn.mri5, cmn.flex, styles.chainIconxs)}>{props.icon}</div>
-        ) : null}
-        <p className={cls(cmn.p, cmn.p4, cmn.flex, cmn.flexg)}>{props.text}</p>
-        <p className={cls(cmn.p, cmn.p4, cmn.flex, cmn.mleft5)}>{props.textRi}</p>
-      </div>
+      {props.text ? (
+        <div
+          className={cls(
+            cmn.flex,
+            cmn.flexcv,
+            cmn.mbott5,
+            [cmn.pSec, !props.color],
+            ['blackP', props.color]
+          )}
+        >
+          {props.icon ? (
+            <div className={cls(cmn.mri5, cmn.flex, styles.chainIconxs)}>{props.icon}</div>
+          ) : null}
+          <p className={cls(cmn.p, cmn.p4, cmn.flex, cmn.flexg)}>{props.text}</p>
+          <p className={cls(cmn.p, cmn.p4, cmn.flex, cmn.mleft5)}>{props.textRi}</p>
+        </div>
+      ) : null}
       <div className={cls(cmn.flex, cmn.flexcv)}>
         {props.value ? (
           <p

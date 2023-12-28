@@ -30,6 +30,7 @@ export default function SkStack(props: {
 }) {
   return (
     <Stack
+      style={{ alignItems: 'stretch' }}
       spacing={1}
       direction={{ xs: 'column', md: 'row' }}
       useFlexGap

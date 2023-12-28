@@ -25,7 +25,6 @@ import { useEffect } from 'react'
 
 import { useParams } from 'react-router-dom'
 import Container from '@mui/material/Container'
-import Stack from '@mui/material/Stack'
 import SchainDetails from '../components/SchainDetails'
 import CircularProgress from '@mui/material/CircularProgress'
 
@@ -75,14 +74,7 @@ export default function Schain(props: { loadSchains: any; schains: any[]; mpc: M
 
   return (
     <Container maxWidth="md">
-      <Stack spacing={0}>
-        <SchainDetails
-          schainName={name}
-          chain={chain}
-          chainMeta={chainsMeta[name]}
-          mpc={props.mpc}
-        />
-      </Stack>
+      <SchainDetails schainName={name} chain={chain} chainMeta={chainsMeta[name]} mpc={props.mpc} />
     </Container>
   )
 }

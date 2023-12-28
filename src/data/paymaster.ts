@@ -11,9 +11,9 @@ export default {
       launchTs: '0'
     },
     legacy: {
-      chain: 'skale-innocent-nasty',
-      address: '0xCa1B0A6236BBA2b30F7260863b56209a97351853',
-      launchTs: '1708521648'
+      chain: 'international-villainous-zaurak',
+      address: '0x1f55e3Bce4B973dcC8540188f8F2038DC89891E6',
+      launchTs: '0'
     },
     regression: {
       chain: '',
