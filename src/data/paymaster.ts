@@ -12,7 +12,7 @@ export default {
     },
     legacy: {
       chain: 'international-villainous-zaurak',
-      address: '0x84aD2742Cf5E7D0e98c1e1748Fe8d661F6038860',
+      address: '0x1f55e3Bce4B973dcC8540188f8F2038DC89891E6',
       launchTs: '0'
     },
     regression: {
