@@ -468,6 +468,8 @@ code {
 }
 
 .chainDetails {
+  max-width: calc(100vw - 32px);
+
   .logo {
     height: 60pt;
     margin: 30px 0;
@@ -491,6 +493,37 @@ code {
       height: 12px;
     }
   }
+
+  .monthInputWrap {
+    border-radius: 25px;
+    background: rgba(41, 255, 148, 0.08);
+    padding-left: 20px;
+  }
+
+  .monthInput {
+    width: 35pt;
+
+    input {
+      font-weight: 500;
+      line-height: 0.9;
+    }
+
+    .MuiInputBase-input {
+      padding: 0 !important;
+    }
+
+    .MuiInput-root::after {
+      display: none !important;
+      border-bottom: none !important;
+    }
+
+    .MuiInput-root::before {
+      display: none !important;
+      border-bottom: none !important;
+    }
+  }
+
+
 }
 
 .titleSection {
