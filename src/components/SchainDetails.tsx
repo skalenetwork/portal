@@ -115,10 +115,13 @@ export default function SchainDetails(props: {
           <div className={cls(cmn.flex, cmn.flexg)}></div>
         </div>
         <SkStack>
-          <div className={cls('titleSection')}>
-            <h2 className={cls(cmn.nom)}>{chainAlias}</h2>
-            <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec)}>{chainDescription}</p>
-          </div>
+          <Tile
+            grow
+            children={<div>
+              <h2 className={cls(cmn.nom)}>{chainAlias}</h2>
+              <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec)}>{chainDescription}</p>
+            </div>}
+          />
         </SkStack>
         <SkStack className={cmn.mtop10}>
           <Tile

@@ -468,6 +468,8 @@ code {
 }
 
 .chainDetails {
+  max-width: calc(100vw - 32px);
+
   .logo {
     height: 60pt;
     margin: 30px 0;
