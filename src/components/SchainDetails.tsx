@@ -117,10 +117,12 @@ export default function SchainDetails(props: {
         <SkStack>
           <Tile
             grow
-            children={<div>
-              <h2 className={cls(cmn.nom)}>{chainAlias}</h2>
-              <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec)}>{chainDescription}</p>
-            </div>}
+            children={
+              <div>
+                <h2 className={cls(cmn.nom)}>{chainAlias}</h2>
+                <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec)}>{chainDescription}</p>
+              </div>
+            }
           />
         </SkStack>
         <SkStack className={cmn.mtop10}>

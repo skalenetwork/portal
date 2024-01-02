@@ -41,8 +41,8 @@ export default function Admin(props: { mpc: MetaportCore }) {
   const alias = getChainAlias(network, name)
 
   return (
-    <Container maxWidth="md" className="chainDetails">
-      <SkPaper gray className={cls(cmn.mtop10)}>
+    <Container maxWidth="md">
+      <SkPaper gray className={cls(cmn.mtop10, 'chainDetails')}>
         <div className={cls(cmn.flex, cmn.flexcv)}>
           <div className={cls(cmn.flex, cmn.flexcv, 'titleBadge')}>
             <div className={cmn.flex}>
