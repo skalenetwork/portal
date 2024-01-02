@@ -31,10 +31,8 @@ export function formatBigIntTimestampSeconds(timestamp: bigint): string {
 }
 
 export function daysBetweenTimestamps(from: bigint, to: bigint): number {
-  const fromDate = new Date(Number(from * 1000n))
-  const toDate = new Date(Number(to * 1000n))
-  const diffInMs = fromDate.getTime() - toDate.getTime()
-  const diffInDays = diffInMs / (1000 * 60 * 60 * 24)
+  const diffInSec = Number(from - to)
+  const diffInDays = diffInSec / (60 * 60 * 24)
   return Math.round(diffInDays) * -1
 }
 
@@ -58,16 +56,17 @@ export function monthsBetweenNowAndTimestamp(timestamp: bigint, customCurrentTs?
 
 export function calculateElapsedPercentage(
   tsInSeconds: bigint,
-  maxReplenishmentPeriod: bigint
+  maxReplenishmentPeriod: bigint,
+  customCurrentTs?: bigint
 ): number {
   const tsDate = new Date(Number(tsInSeconds * 1000n))
   const futureTime = new Date()
   futureTime.setMonth(futureTime.getMonth() + Number(maxReplenishmentPeriod))
 
   const currentTime = new Date()
+  const currentTimeMs = customCurrentTs ? Number(customCurrentTs) * 1000 : currentTime.getTime()
 
   const tsTimeMs = tsDate.getTime()
-  const currentTimeMs = currentTime.getTime()
   const futureTimeMs = futureTime.getTime()
 
   const totalDuration = futureTimeMs - currentTimeMs

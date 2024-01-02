@@ -24,7 +24,8 @@
 import { useState } from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-
+import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined'
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import { cmn, cls } from '@skalenetwork/metaport'
 
 import { formatTimePeriod } from '../core/timeHelper'
@@ -52,7 +53,7 @@ export default function MonthSelector(props: {
   }
 
   return (
-    <div className={props.className}>
+    <div className={cls(props.className, cmn.flexcv, cmn.flex)}>
       {monthRecommendations
         .filter((x) => x <= props.max)
         .map((month: any, i: number) => (
@@ -69,48 +70,61 @@ export default function MonthSelector(props: {
         ))}
       {openCustom ? (
         <div className={cls('flexi', cmn.flexcv)}>
-          <TextField
-            size="small"
-            variant="standard"
-            type="number"
-            value={textPeriod}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
-              if (
-                parseFloat(event.target.value) < 0 ||
-                !Number.isInteger(Number(event.target.value))
-              ) {
-                setTextPeriod('')
-                return
-              }
-              setTextPeriod(event.target.value)
-            }}
-            className={cls(cmn.mri10)}
-          />
+          <div className={cls('monthInputWrap', cmn.flex, cmn.flexcv)}>
+            <TextField
+              variant="standard"
+              type="number"
+              value={textPeriod}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                if (
+                  parseFloat(event.target.value) < 0 ||
+                  !Number.isInteger(Number(event.target.value))
+                ) {
+                  setTextPeriod('')
+                  return
+                }
+                setTextPeriod(event.target.value)
+              }}
+              className={cls(cmn.mri10, 'monthInput')}
+              placeholder="0"
+            />
+            <Button
+              variant="text"
+              startIcon={<CheckCircleRoundedIcon />}
+              className={cls('roundBtn', 'outlined')}
+              onClick={() => {
+                if (
+                  textPeriod === undefined ||
+                  textPeriod === '' ||
+                  !Number.isInteger(Number(textPeriod)) ||
+                  Number(textPeriod) <= 0
+                ) {
+                  props.setErrorMsg('Incorrect top-up period')
+                  return
+                }
+                if (props.max < Number(textPeriod)) {
+                  props.setErrorMsg(`Max topup amount: ${formatTimePeriod(props.max, 'month')}`)
+                  return
+                }
+                setOpenCustom(false)
+                if (!monthRecommendations.includes(Number(textPeriod))) {
+                  setCustomPeriod(Number(textPeriod))
+                }
+                props.setTopupPeriod(Number(textPeriod))
+              }}
+            >
+              <p className={cls(cmn.p, cmn.p2)}>Apply</p>
+            </Button>
+          </div>
           <Button
+            startIcon={<CancelOutlinedIcon />}
             variant="text"
-            className={cls(cmn.mri10, 'roundBtn', 'outlined')}
+            className={cls('roundBtn', cmn.mleft5)}
             onClick={() => {
-              if (
-                textPeriod === undefined ||
-                textPeriod === '' ||
-                !Number.isInteger(Number(textPeriod)) ||
-                Number(textPeriod) <= 0
-              ) {
-                props.setErrorMsg('Incorrect top-up period')
-                return
-              }
-              if (props.max < Number(textPeriod)) {
-                props.setErrorMsg(`Max topup amount: ${formatTimePeriod(props.max, 'month')}`)
-                return
-              }
               setOpenCustom(false)
-              if (!monthRecommendations.includes(Number(textPeriod))) {
-                setCustomPeriod(Number(textPeriod))
-              }
-              props.setTopupPeriod(Number(textPeriod))
             }}
           >
-            <p className={cls(cmn.p, cmn.p2)}>Apply</p>
+            <p className={cls(cmn.p, cmn.p2)}>Close</p>
           </Button>
         </div>
       ) : (
