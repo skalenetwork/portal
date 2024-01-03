@@ -133,7 +133,7 @@ export default function SchainDetails(props: {
                   <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
                     <Button
                       size="medium"
-                      className={styles.btnAction}
+                      className={cls(styles.btnAction, cmn.mri10)}
                       startIcon={<WidgetsRoundedIcon />}
                     >
                       Block Explorer
@@ -144,10 +144,10 @@ export default function SchainDetails(props: {
                   <Button
                     startIcon={<AddCircleRoundedIcon />}
                     size="medium"
-                    className={styles.btnAction}
+                    className={cls(styles.btnAction, cmn.mri10)}
                     onClick={addNetwork}
                   >
-                    Add network
+                    Connect Wallet
                   </Button>
                 </div>
                 <div>
@@ -160,10 +160,10 @@ export default function SchainDetails(props: {
                     >
                       <Button
                         size="medium"
-                        className={styles.btnAction}
+                        className={cls(styles.btnAction, cmn.mri10)}
                         startIcon={<ArrowOutwardRoundedIcon />}
                       >
-                        Open website
+                        Open Website
                       </Button>
                     </a>
                   ) : null}
