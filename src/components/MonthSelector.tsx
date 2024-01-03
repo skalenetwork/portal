@@ -111,6 +111,7 @@ export default function MonthSelector(props: {
                   setCustomPeriod(Number(textPeriod))
                 }
                 props.setTopupPeriod(Number(textPeriod))
+                props.setErrorMsg(undefined)
               }}
             >
               <p className={cls(cmn.p, cmn.p2)}>Apply</p>
