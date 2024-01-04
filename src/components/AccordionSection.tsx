@@ -35,12 +35,13 @@ export default function AccordionSection(props: {
   expanded: string | false
   panel: string
   title: string
+  subtitle?: string
   children: ReactElement | ReactElement[]
   icon?: ReactElement
   className?: string
 }) {
   return (
-    <div className={props.className}>
+    <div className={cls(props.className)}>
       <ButtonBase
         onClick={() => props.handleChange(props.panel)}
         className={cls(cmn.fullWidth, cmn.flex, cmn.pleft, cmn.bordRad)}
@@ -52,6 +53,7 @@ export default function AccordionSection(props: {
             </div>
           ) : null}
           <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.flexg)}>{props.title}</p>
+          <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.pPrim, cmn.mri10)}>{props.subtitle}</p>
           {props.expanded === props.panel ? (
             <RemoveCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
           ) : (

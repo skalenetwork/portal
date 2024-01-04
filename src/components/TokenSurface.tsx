@@ -17,7 +17,7 @@
  */
 
 /**
- * @file CopySurface.tsx
+ * @file TokenSurface.tsx
  * @copyright SKALE Labs 2021-Present
  */
 
@@ -27,17 +27,18 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Tooltip from '@mui/material/Tooltip'
 import ButtonBase from '@mui/material/ButtonBase'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
-import ContentCopyIcon from '@mui/icons-material/ContentCopy'
-
-import { cmn, cls, styles, TokenIcon, interfaces } from '@skalenetwork/metaport'
+import UnfoldMoreRoundedIcon from '@mui/icons-material/UnfoldMoreRounded'
+import { cmn, cls, styles, TokenIcon, ChainIcon, interfaces } from '@skalenetwork/metaport'
 
 import { DEFAULT_ERC20_DECIMALS } from '../core/constants'
 
-export default function CopySurface(props: {
+export default function TokenSurface(props: {
   title: string
   value: string | null | undefined
   className?: string
   tokenMetadata?: interfaces.TokenMetadata
+  chainName?: string
+  skaleNetwork?: interfaces.SkaleNetwork
 }) {
   const [copied, setCopied] = useState(false)
 
@@ -59,7 +60,7 @@ export default function CopySurface(props: {
     <div className={props.className}>
       <CopyToClipboard text={props.value} onCopy={handleClick}>
         <Tooltip title={copied ? 'Copied!' : 'Click to copy to clipboard'}>
-          <ButtonBase className="titleSection" style={{ width: '100%', height: '100%' }}>
+          <ButtonBase className="titleSection" style={{ width: '100%' }}>
             <div style={{ textAlign: 'left', overflow: 'auto' }} className={cmn.flexg}>
               <div className={cls(cmn.flex)}>
                 {props.tokenMetadata ? (
@@ -71,7 +72,17 @@ export default function CopySurface(props: {
                     />
                   </div>
                 ) : null}
-                <p className={cls(cmn.p, cmn.p4, cmn.pSec, cmn.mbott5)}>
+
+                {props.chainName && props.skaleNetwork ? (
+                  <div className={cls(cmn.mri5)}>
+                    <ChainIcon
+                      size="xs"
+                      skaleNetwork={props.skaleNetwork}
+                      chainName={props.chainName}
+                    />
+                  </div>
+                ) : null}
+                <p className={cls(cmn.p, cmn.p4, cmn.pSec, cmn.mbott5, 'shortP')}>
                   {props.title}
                   {props.tokenMetadata
                     ? ` (${props.tokenMetadata.decimals ?? DEFAULT_ERC20_DECIMALS})`
@@ -86,7 +97,7 @@ export default function CopySurface(props: {
                 className={cls(cmn.mleft20, styles.chainIconxs)}
               />
             ) : (
-              <ContentCopyIcon className={cls(cmn.pSec, cmn.mleft20, styles.chainIconxs)} />
+              <UnfoldMoreRoundedIcon className={cls(cmn.pSec, cmn.mleft20, styles.chainIconxs)} />
             )}
           </ButtonBase>
         </Tooltip>

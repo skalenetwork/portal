@@ -38,8 +38,8 @@ import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined'
 
 import { cls, styles, cmn } from '@skalenetwork/metaport'
 
-import { DISCORD_INVITE_URL } from '../../core/constants'
-import discordLogo from '../../assets/discord-mark-white.svg'
+import { DISCORD_INVITE_URL } from '../core/constants'
+import discordLogo from '../assets/discord-mark-white.svg'
 
 export default function MoreMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -60,7 +60,7 @@ export default function MoreMenu() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
-            className={cls(styles.paperGrey, cmn.pPrim, cmn.mleft10)}
+            className={cls(styles.paperGrey, cmn.pPrim, cmn.mleft5)}
             style={{ width: '34px', height: '34px' }}
           >
             <MoreVertIcon className={cls(cmn.pPrim)} style={{ height: '18px', width: '18px' }} />
