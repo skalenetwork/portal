@@ -40,7 +40,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       name: 'Tether USD'
     },
     wbtc: {
-      decimals: '18',
+      decimals: '8',
       symbol: 'WBTC',
       name: 'WBTC'
     },
