@@ -6,8 +6,8 @@ export default {
       launchTs: '0'
     },
     staging: {
-      chain: 'staging-perfect-parallel-gacrux',
-      address: '0xeF18D694e7659C1Ed5dE7e83E72e871b32f3fE69',
+      chain: 'staging-legal-crazy-castor',
+      address: '0x9E444978d11E7e753017ce3329B01663D5D78240',
       launchTs: '0'
     },
     legacy: {
