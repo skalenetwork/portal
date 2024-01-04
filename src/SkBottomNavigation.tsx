@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import Box from '@mui/material/Box'
@@ -9,7 +9,7 @@ import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined'
 
 export default function SkBottomNavigation() {
-  const [value, setValue] = React.useState(0)
+  const [value, setValue] = useState(0)
   const navigate = useNavigate()
   const location = useLocation()
 

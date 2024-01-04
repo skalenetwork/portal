@@ -41,8 +41,8 @@ import {
   TransactionData
 } from '@skalenetwork/metaport'
 
-import Message from './Message'
-import BridgeBody from './BridgeBody'
+import Message from '../components/Message'
+import BridgeBody from '../components/BridgeBody'
 
 import { META_TAGS } from '../core/meta'
 

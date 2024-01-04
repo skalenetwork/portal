@@ -63,12 +63,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       symbol: 'HMT',
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/10347.png'
     },
-    ubxs: {
-      name: 'UBXS Token',
-      symbol: 'UBXS',
-      decimals: '6',
-      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/17242.png'
-    },
     razor: {
       "decimals": "18",
       "name": "RAZOR Network",

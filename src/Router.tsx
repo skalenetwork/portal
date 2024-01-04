@@ -2,23 +2,27 @@ import './App.scss'
 
 import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
-import { useLocation } from 'react-router-dom'
-import { Routes, Route } from 'react-router-dom'
+import { useLocation, Routes, Route } from 'react-router-dom'
 import { useMetaportStore, PROXY_ENDPOINTS, type MetaportState } from '@skalenetwork/metaport'
 
-import Bridge from './components/Bridge'
-import Faq from './components/Faq'
-import Terms from './components/Terms'
-import Network from './components/Network'
-import Schain from './components/Schain'
-import Stats from './components/Stats'
-import Apps from './components/Apps'
+import Bridge from './pages/Bridge'
+import Faq from './pages/Faq'
+import Terms from './pages/Terms'
+import Network from './pages/Chains'
+import Schain from './pages/Schain'
+import Stats from './pages/Stats'
+import Apps from './pages/Apps'
 import App from './components/App'
-import History from './components/History'
-import Portfolio from './components/Portfolio'
-import Admin from './components/Admin'
+import History from './pages/History'
+import Portfolio from './pages/Portfolio'
+import Admin from './pages/Admin'
+import Start from './pages/Start'
+import TermsModal from './components/TermsModal'
 
 import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
+import { BRIDGE_PAGES } from './core/constants'
+import { pricingLaunchTsReached } from './core/paymaster'
+
 // import chainsJson from './chainsJson.json';
 
 export default function Router() {
@@ -26,6 +30,7 @@ export default function Router() {
   const currentUrl = `${window.location.origin}${location.pathname}${location.search}`
 
   const [schains, setSchains] = useState<any[]>([])
+  const [termsAccepted, setTermsAccepted] = useState<boolean>(false)
 
   const mpc = useMetaportStore((state: MetaportState) => state.mpc)
   const transfersHistory = useMetaportStore((state) => state.transfersHistory)
@@ -53,13 +58,26 @@ export default function Router() {
     setSchains(schains)
   }
 
+  function isBridgePage(): boolean {
+    return BRIDGE_PAGES.some(
+      (pathname) => location.pathname === pathname || location.pathname.includes(pathname)
+    )
+  }
+
+  if (!termsAccepted && isBridgePage()) {
+    return (
+      <TermsModal mpc={mpc} termsAccepted={termsAccepted} setTermsAccepted={setTermsAccepted} />
+    )
+  }
+
   return (
     <div>
       <Helmet>
         <meta property="og:url" content={currentUrl} />
       </Helmet>
       <Routes>
-        <Route index element={<Bridge />} />
+        <Route index element={<Start />} />
+        <Route path="bridge" element={<Bridge />} />
         <Route path="bridge">
           <Route path="history" element={<History />} />
         </Route>
@@ -83,9 +101,11 @@ export default function Router() {
           <Route path="faq" element={<Faq />} />
           <Route path="terms-of-service" element={<Terms />} />
         </Route>
-        <Route path="admin">
-          <Route path=":name" element={<Admin mpc={mpc} />} />
-        </Route>
+        {pricingLaunchTsReached(mpc.config.skaleNetwork) ? (
+          <Route path="admin">
+            <Route path=":name" element={<Admin mpc={mpc} />} />
+          </Route>
+        ) : null}
       </Routes>
     </div>
   )

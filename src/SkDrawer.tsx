@@ -1,5 +1,5 @@
-import { Link, useLocation } from 'react-router-dom'
 import { cls, cmn } from '@skalenetwork/metaport'
+import { useLocation, Link } from 'react-router-dom'
 
 import Box from '@mui/material/Box'
 
@@ -13,7 +13,6 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 
 import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontalCircleOutlined'
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import HistoryIcon from '@mui/icons-material/History'
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
@@ -21,9 +20,11 @@ import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
 // import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import DonutLargeRoundedIcon from '@mui/icons-material/DonutLargeRounded'
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
+
 import { DUNE_SKALE_URL } from './core/constants'
 
-const drawerWidth = 240
+const drawerWidth = 220
 
 export default function SkDrawer() {
   const location = useLocation()
@@ -42,13 +43,27 @@ export default function SkDrawer() {
       >
         <Toolbar />
         <Box sx={{ overflow: 'auto' }} className={cmn.mtop20}>
-          <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Bridge</h4>
           <List>
             <ListItem>
               <Link to="/" className="undec fullWidth">
+                <ListItemButton className={cls(cmn.pPrim)} selected={location.pathname === '/'}>
+                  <ListItemIcon>
+                    <HomeOutlinedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Home" />
+                </ListItemButton>
+              </Link>
+            </ListItem>
+          </List>
+          <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Bridge</h4>
+          <List>
+            <ListItem>
+              <Link to="/bridge" className="undec fullWidth">
                 <ListItemButton
                   className={cls(cmn.pPrim)}
-                  selected={location.pathname === '/' || location.pathname.includes('/transfer')}
+                  selected={
+                    location.pathname === '/bridge' || location.pathname.includes('/transfer')
+                  }
                 >
                   <ListItemIcon>
                     <SwapHorizontalCircleOutlinedIcon />
@@ -83,7 +98,7 @@ export default function SkDrawer() {
                 </ListItemButton>
               </Link>
             </ListItem> */}
-            <ListItem>
+            {/* <ListItem>
               <Link to="/other/faq" className="undec fullWidth">
                 <ListItemButton
                   className={cls(cmn.pPrim)}
@@ -95,7 +110,7 @@ export default function SkDrawer() {
                   <ListItemText primary="FAQ" />
                 </ListItemButton>
               </Link>
-            </ListItem>
+            </ListItem> */}
           </List>
           <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Network</h4>
           <List>
@@ -103,7 +118,9 @@ export default function SkDrawer() {
               <Link to="/chains" className="undec fullWidth">
                 <ListItemButton
                   className={cls(cmn.pPrim)}
-                  selected={location.pathname.includes('/chains')}
+                  selected={
+                    location.pathname.includes('/chains') || location.pathname.includes('/admin')
+                  }
                 >
                   <ListItemIcon>
                     <PublicOutlinedIcon />
