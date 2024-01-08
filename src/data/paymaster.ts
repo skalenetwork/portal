@@ -2,7 +2,7 @@ export default {
   networks: {
     mainnet: {
       chain: 'elated-tan-skat',
-      address: '0x',
+      address: '0x0d66cA00CbAD4219734D7FDF921dD7Caadc1F78D',
       launchTs: '0'
     },
     staging: {
