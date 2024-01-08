@@ -27,23 +27,16 @@ import {
   cls,
   chainBg,
   getChainAlias,
-  BASE_EXPLORER_URLS,
   CHAINS_META,
   type interfaces
 } from '@skalenetwork/metaport'
 
 import Button from '@mui/material/Button'
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
-import UnfoldMoreRoundedIcon from '@mui/icons-material/UnfoldMoreRounded'
-
 import ChainLogo from './ChainLogo'
-import { getExplorerUrl } from '../core/chain'
 
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 
 export default function ChainCard(props: { skaleNetwork: interfaces.SkaleNetwork; schain: any[] }) {
-  const explorerUrl = getExplorerUrl(BASE_EXPLORER_URLS[props.skaleNetwork], props.schain[0])
-
   function getChainShortAlias(meta: interfaces.ChainsMetadataMap, name: string): string {
     return meta[name] && meta[name].shortAlias !== undefined ? meta[name].shortAlias! : name
   }
@@ -71,28 +64,33 @@ export default function ChainCard(props: { skaleNetwork: interfaces.SkaleNetwork
               cmn.flex,
               cmn.flexcv,
               cmn.mbott10,
-              cmn.mleft10,
+
               'br__tileBott',
               'fullWidth'
             )}
           >
-            <div className={cls(cmn.fflex, cmn.flexg)}>
-              <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
-                <Button endIcon={<ArrowOutwardIcon />} size="small" className="cardBtn">
-                  Explorer
-                </Button>
-              </a>
-              <Link to={'/chains/' + shortAlias} style={{ marginLeft: '3px' }}>
-                <Button endIcon={<UnfoldMoreRoundedIcon />} size="small" className="cardBtn">
-                  Info
-                </Button>
-              </Link>
-            </div>
+            <Link
+              to={'/chains/' + shortAlias}
+              style={{
+                width: '100%',
+                padding: '20px 10px 0'
+              }}
+            >
+              <Button size="small" className={'cardBtn'}>
+                <span
+                  style={{
+                    overflow: 'hidden',
+                    whiteSpace: 'nowrap',
+                    display: 'block',
+                    textOverflow: 'ellipsis'
+                  }}
+                >
+                  {getChainAlias(props.skaleNetwork, props.schain[0], undefined, true)}
+                </span>
+              </Button>
+            </Link>
           </div>
         </div>
-        <p className={cls(cmn.p, cmn.pCent, cmn.p3, cmn.pPrim, cmn.mtop10, cmn.p600)}>
-          {getChainAlias(props.skaleNetwork, props.schain[0], undefined, true)}
-        </p>
       </div>
     </div>
   )

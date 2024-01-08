@@ -66,7 +66,10 @@ export default function CategoryBadge(props: { category: string; className?: str
   }
 
   return (
-    <div className={cls(props.className, 'titleBadge', cmn.flex, cmn.flexcv)}>
+    <div
+      className={cls(props.className, 'titleBadge', cmn.flex, cmn.flexcv)}
+      style={{ padding: '10px 15px' }}
+    >
       {getCategoryIcon(props.category)}
       <p className={cls(cmn.p, cmn.p4, cmn.mleft5)}>{props.category}</p>
     </div>

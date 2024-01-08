@@ -27,6 +27,7 @@ import Grid from '@mui/material/Grid'
 import ConstructionRoundedIcon from '@mui/icons-material/ConstructionRounded'
 import PlaylistAddCheckCircleRoundedIcon from '@mui/icons-material/PlaylistAddCheckCircleRounded'
 import AccountBalanceWalletRoundedIcon from '@mui/icons-material/AccountBalanceWalletRounded'
+import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded'
 
 import {
   cmn,
@@ -42,6 +43,7 @@ import {
 import VerifiedContracts from './VerifiedContracts'
 import CopySurface from './CopySurface'
 import AccordionSection from './AccordionSection'
+import AccordionLink from './AccordionLink'
 
 import {
   getRpcUrl,
@@ -52,14 +54,16 @@ import {
   HTTPS_PREFIX,
   WSS_PREFIX
 } from '../core/chain'
+import { pricingLaunchTsReached } from '../core/paymaster'
 
 export default function ChainAccordion(props: {
   schainName: string
   mpc: MetaportCore
   className?: string
 }) {
-  const proxyBase = PROXY_ENDPOINTS[props.mpc.config.skaleNetwork]
-  const explorerBase = BASE_EXPLORER_URLS[props.mpc.config.skaleNetwork]
+  const network = props.mpc.config.skaleNetwork
+  const proxyBase = PROXY_ENDPOINTS[network]
+  const explorerBase = BASE_EXPLORER_URLS[network]
 
   const rpcUrl = getRpcUrl(proxyBase, props.schainName, HTTPS_PREFIX)
   const rpcWssUrl = getRpcWsUrl(proxyBase, props.schainName, WSS_PREFIX)
@@ -188,6 +192,15 @@ export default function ChainAccordion(props: {
           explorerUrl={explorerUrl}
         />
       </AccordionSection>
+      {pricingLaunchTsReached(network) ? (
+        <AccordionLink
+          title="Manage chain"
+          icon={<AdminPanelSettingsRoundedIcon />}
+          url={`/admin/${props.schainName}`}
+        />
+      ) : (
+        <div></div>
+      )}
     </SkPaper>
   )
 }

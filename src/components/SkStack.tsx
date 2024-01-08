@@ -17,33 +17,27 @@
  */
 
 /**
- * @file Admin.tsx
+ * @file SkStack.tsx
  * @copyright SKALE Labs 2023-Present
  */
 
-import { useEffect } from 'react'
-import Container from '@mui/material/Container'
+import { ReactElement } from 'react'
 import Stack from '@mui/material/Stack'
-import { useParams } from 'react-router-dom'
 
-import { cmn, cls, type MetaportCore, getChainAlias } from '@skalenetwork/metaport'
-
-export default function Admin(props: { mpc: MetaportCore }) {
-  let { name } = useParams()
-  name = name ?? ''
-  const alias = getChainAlias(props.mpc.config.skaleNetwork, name)
-
-  useEffect(() => {}, [])
-
+export default function SkStack(props: {
+  className?: string
+  children?: ReactElement | ReactElement[]
+}) {
   return (
-    <Container maxWidth="md">
-      <Stack spacing={0}>
-        <div className={cls(cmn.flex)}>
-          <h2 className={cls(cmn.nom, cmn.flexg)}>Manage {alias}</h2>
-        </div>
-        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>Manage your SKALE Chain</p>
-        <div></div>
-      </Stack>
-    </Container>
+    <Stack
+      style={{ alignItems: 'stretch' }}
+      spacing={1}
+      direction={{ xs: 'column', md: 'row' }}
+      useFlexGap
+      flexWrap="wrap"
+      className={props.className}
+    >
+      {props.children}
+    </Stack>
   )
 }
