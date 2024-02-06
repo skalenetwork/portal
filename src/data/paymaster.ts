@@ -19,6 +19,11 @@ export default {
       chain: '',
       address: '0x',
       launchTs: '0'
+    },
+    testnet: {
+      chain: '',
+      address: '0x',
+      launchTs: '0'
     }
   },
   abi: [
