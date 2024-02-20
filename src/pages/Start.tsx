@@ -9,11 +9,31 @@ import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
 // import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined'
 // import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined'
 
+import { JsonRpcProvider } from 'ethers'
+import { useEffect } from 'react'
+import { skaleContracts } from "@skalenetwork/skale-contracts-ethers-v6";
+
 import PageCard from '../components/PageCard'
 
 import { cmn, cls } from '@skalenetwork/metaport'
 
 export default function Start() {
+
+
+  useEffect(() => {
+    load()
+  }, [])
+
+  async function load() {
+    const provider = new JsonRpcProvider('https://cloudflare-eth.com/')
+    const network = await skaleContracts.getNetworkByProvider(provider)
+    const project = await network.getProject("skale-manager")
+    const instance = await project.getInstance("production")
+    const distributor = await instance.getContract("Distributor")
+    const fee = await distributor.getEarnedFeeAmount()
+    console.log('fee', fee.toString())
+  }
+
   return (
     <Container maxWidth="md">
       <Stack spacing={0}>
