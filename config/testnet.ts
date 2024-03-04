@@ -68,6 +68,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         eth: {
           chains: {
             'juicy-low-small-testnet': {},
+            'lanky-ill-funny-testnet': {
+              hub: 'juicy-low-small-testnet'
+            }
             // 'giant-half-dual-testnet': {
             //   hub: 'juicy-low-small-testnet'
             // }
