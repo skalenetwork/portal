@@ -84,6 +84,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             "adorable-quaint-bellatrix": {},
             "honorable-steel-rasalhague": {
               hub: "elated-tan-skat"
+            },
+            "green-giddy-denebola": {
+              hub: "elated-tan-skat"
             }
           }
         }
@@ -184,6 +187,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               clone: true
             },
             'honorable-steel-rasalhague': {
+              wrapper: '0xa5274efA35EbeFF47C1510529D9a8812F95F5735'
+            },
+            'green-giddy-denebola': {
               wrapper: '0xa5274efA35EbeFF47C1510529D9a8812F95F5735'
             }
           }
@@ -305,6 +311,10 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             mainnet: {
               clone: true,
               hub: 'elated-tan-skat'
+            },
+            "green-giddy-denebola": {
+              clone: true,
+              hub: "elated-tan-skat"
             }
           }
         }
@@ -369,6 +379,24 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       }
     },
     "green-giddy-denebola": { // nebula connections
+      eth: {
+        eth: {
+          address: '0xaB01BAd2C86e24D371A13eD6367bdCa819589C5D',
+          chains: {
+            'elated-tan-skat': {
+              clone: true
+            },
+            mainnet: {
+              clone: true,
+              hub: 'elated-tan-skat'
+            },
+            "honorable-steel-rasalhague": {
+              clone: true,
+              hub: "elated-tan-skat"
+            }
+          }
+        }
+      },
       erc20: {
         skl: {
           address: "0x7F73B66d4e6e67bCdeaF277b9962addcDabBFC4d",
