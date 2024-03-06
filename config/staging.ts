@@ -32,7 +32,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       name: 'Tether USD'
     },
     wbtc: {
-      decimals: '18',
+      decimals: '8',
       symbol: 'WBTC',
       name: 'WBTC'
     },
@@ -108,7 +108,10 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         dai: {
           address: '0x83B38f79cFFB47CF74f7eC8a5F8D7DD69349fBf7',
           chains: {
-            'staging-legal-crazy-castor': {}
+            'staging-legal-crazy-castor': {},
+            'staging-fast-active-bellatrix': {
+              hub: 'staging-legal-crazy-castor'
+            }
           }
         },
         usdp: {
@@ -120,7 +123,10 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         usdt: {
           address: '0xD1E44e3afd6d3F155e7704c67705E3bAC2e491b6',
           chains: {
-            'staging-legal-crazy-castor': {}
+            'staging-legal-crazy-castor': {},
+            'staging-fast-active-bellatrix': {
+              hub: 'staging-legal-crazy-castor'
+            }
           }
         },
         usdc: {
@@ -229,6 +235,30 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               clone: true
             }
           }
+        },
+        usdt: {
+          address: '0x082081c8e607ca6c1c53ac093cab3847ed59c0b0',
+          chains: {
+            mainnet: {
+              clone: true,
+              hub: 'staging-legal-crazy-castor'
+            },
+            'staging-legal-crazy-castor': {
+              clone: true
+            }
+          }
+        },
+        dai: {
+          address: '0x08f98Af60eb83C18184231591A8F89577E46A4B9',
+          chains: {
+            mainnet: {
+              clone: true,
+              hub: 'staging-legal-crazy-castor'
+            },
+            'staging-legal-crazy-castor': {
+              clone: true
+            }
+          }
         }
       }
     },
@@ -307,6 +337,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           chains: {
             mainnet: {
               clone: true
+            },
+            'staging-fast-active-bellatrix': {
+              wrapper: '0x6075f63de307DC2280b7b1b98948885200B03093'
             }
           }
         },
@@ -323,6 +356,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           chains: {
             mainnet: {
               clone: true
+            },
+            'staging-fast-active-bellatrix': {
+              wrapper: '0xf8179aD86A964f2E856d11Dd7f4a280dCd721Aa3'
             }
           }
         },
