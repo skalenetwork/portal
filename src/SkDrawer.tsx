@@ -185,7 +185,7 @@ export default function SkDrawer() {
               </Link>
             </ListItem>
             <ListItem>
-              <a className="undec fullWidth" target="_blank" href={DUNE_SKALE_URL}>
+              <a className="undec fullWidth" target="_blank" href={DUNE_SKALE_URL} rel="noreferrer">
                 <ListItemButton className={cls(cmn.pPrim)}>
                   <ListItemIcon>
                     <DonutLargeRoundedIcon />

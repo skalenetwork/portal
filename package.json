@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
+    "lint": "eslint ./src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\"",
     "version": "node -e \"console.log(require('./package.json').version);\""
@@ -15,7 +15,7 @@
     "@mdx-js/rollup": "^2.3.0",
     "@mui/icons-material": "^5.14.8",
     "@mui/material": "^5.14.5",
-    "@skalenetwork/metaport": "../metaport",
+    "@skalenetwork/metaport": "todo",
     "@skalenetwork/skale-contracts-ethers-v6": "1.0.1-develop.2",
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@vercel/analytics": "^1.0.2",

@@ -25,7 +25,7 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 
 import ChainCard from './ChainCard'
-import { cls, cmn, interfaces, styles, getChainAlias } from '@skalenetwork/metaport'
+import { cls, cmn, type interfaces, styles, getChainAlias } from '@skalenetwork/metaport'
 
 import { CATEGORY_ICON } from './CategoryBadge'
 

@@ -21,12 +21,12 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import { useTheme } from '@mui/material/styles'
 import LinearProgress from '@mui/material/LinearProgress'
 import { cmn, cls, styles } from '@skalenetwork/metaport'
 
-import { DueDateStatus } from '../core/paymaster'
+import { type DueDateStatus } from '../core/paymaster'
 import { Skeleton } from '@mui/material'
 
 export default function Tile(props: {

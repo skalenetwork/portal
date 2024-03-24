@@ -25,7 +25,7 @@ import Jazzicon from 'react-jazzicon'
 
 function hashCode(str: string) {
   let hash = 0
-  for (var i = 0; i < str.length; i++) {
+  for (let i = 0; i < str.length; i++) {
     hash = str.charCodeAt(i) + ((hash << 5) - hash)
   }
   return hash
@@ -57,9 +57,9 @@ export default function ChainLogo(props: {
 
     iconPath = iconPath.replace(/-([a-z])/g, (_, g) => g.toUpperCase())
 
-    let pngPath = iconPath + '.png'
-    let gifPath = iconPath + '.gif'
-    let svgPath = iconPath + '.svg'
+    const pngPath = iconPath + '.png'
+    const gifPath = iconPath + '.gif'
+    const svgPath = iconPath + '.svg'
     if (props.logos[pngPath]) {
       iconPath = pngPath
     } else if (props.logos[gifPath]) {

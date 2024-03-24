@@ -14,7 +14,7 @@ import {
   useWagmiSwitchNetwork,
   walletClientToSigner,
   enforceNetwork,
-  interfaces
+  type interfaces
 } from '@skalenetwork/metaport'
 
 import Bridge from './pages/Bridge'
@@ -37,7 +37,7 @@ import TermsModal from './components/TermsModal'
 
 import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
 import { BRIDGE_PAGES, MAINNET_CHAIN_NAME } from './core/constants'
-import { IValidator, ISkaleContractsMap, StakingInfoMap } from './core/interfaces'
+import { type IValidator, type ISkaleContractsMap, type StakingInfoMap } from './core/interfaces'
 import { getValidators } from './core/delegation/validators'
 import Changelog from './pages/Changelog'
 import { initContracts } from './core/contracts'

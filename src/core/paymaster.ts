@@ -20,10 +20,9 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import { Contract, id, InterfaceAbi } from 'ethers'
-import { MetaportCore, interfaces } from '@skalenetwork/metaport'
+import { Contract, id, type InterfaceAbi } from 'ethers'
+import { type MetaportCore, type interfaces } from '@skalenetwork/metaport'
 import PAYMASTER_INFO from '../data/paymaster'
-import { getCurrentTsBigInt } from './timeHelper'
 
 export interface PaymasterInfo {
   maxReplenishmentPeriod: bigint

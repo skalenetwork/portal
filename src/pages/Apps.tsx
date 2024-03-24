@@ -20,7 +20,7 @@
  * @file Apps.tsx
  * @copyright SKALE Labs 2024-Present
  */
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import { Helmet } from 'react-helmet'
 
 import Container from '@mui/material/Container'
@@ -28,7 +28,6 @@ import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 
-import ChainCard from '../components/ChainCard'
 import AppCard from '../components/AppCard'
 
 import { cmn, cls, type MetaportCore, CHAINS_META, type interfaces } from '@skalenetwork/metaport'

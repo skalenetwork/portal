@@ -37,7 +37,7 @@ import {
   BASE_EXPLORER_URLS,
   type MetaportCore,
   SkPaper,
-  interfaces
+  type interfaces
 } from '@skalenetwork/metaport'
 
 import VerifiedContracts from './VerifiedContracts'

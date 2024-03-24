@@ -36,7 +36,7 @@ import SkStack from './SkStack'
 import MonthSelector from './MonthSelector'
 import Loader from './Loader'
 
-import { PaymasterInfo, divideBigInts } from '../core/paymaster'
+import { type PaymasterInfo, divideBigInts } from '../core/paymaster'
 import { truncateDecimals } from '../core/helper'
 import { DEFAULT_ERC20_DECIMALS } from '../core/constants'
 import { formatTimePeriod, monthsBetweenNowAndTimestamp } from '../core/timeHelper'
@@ -118,7 +118,9 @@ export default function Topup(props: {
             children={
               <Button
                 size="small"
-                onClick={() => props.setErrorMsg(undefined)}
+                onClick={() => {
+                  props.setErrorMsg(undefined)
+                }}
                 className={cls('blackP', cmn.p, cmn.p4, cmn.mtop10)}
                 style={{ background: 'rgba(0, 0, 0, 0.3)' }}
               >

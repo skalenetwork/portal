@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 import Stack from '@mui/material/Stack'
 
 export default function SkStack(props: {

@@ -23,6 +23,11 @@
 
 import FAQ from '../data/faq.json'
 
+import * as MAINNET_CHAIN_LOGOS from '../meta/logos'
+import * as VALIDATOR_LOGOS from '../assets/validators'
+
+import { CONTRACTS_META } from '../data/contractsMeta.ts'
+
 export const MAINNET_CHAIN_NAME = 'mainnet'
 
 export const DASHBOARD_URL = 'https://app.geckoboard.com/v5/dashboards/LISYTRBEVGCVGL57/inception'
@@ -32,15 +37,10 @@ export const BRIDGE_PAGES = ['/bridge', '/transfer', '/bridge/history', '/portfo
 
 export const DEFAULT_ERC20_DECIMALS = '18'
 
-export const PORTAL_URLS: { [network: string]: string } = {
+export const PORTAL_URLS: Record<string, string> = {
   mainnet: 'https://portal.skale.space/',
   staging: 'https://testnet.portal.skale.space/'
 }
-
-import * as MAINNET_CHAIN_LOGOS from '../meta/logos'
-import * as VALIDATOR_LOGOS from '../assets/validators'
-
-import { CONTRACTS_META } from '../data/contractsMeta.ts'
 
 export { FAQ, MAINNET_CHAIN_LOGOS, VALIDATOR_LOGOS, CONTRACTS_META }
 

@@ -52,7 +52,7 @@ import {
   initPaymaster,
   getPaymasterChain,
   getPaymasterInfo,
-  PaymasterInfo,
+  type PaymasterInfo,
   DEFAULT_PAYMASTER_INFO,
   getPaymasterAddress,
   getPaymasterAbi,
@@ -85,7 +85,9 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
   useEffect(() => {
     loadPaymasterInfo()
     const intervalId = setInterval(loadPaymasterInfo, DEFAULT_UPDATE_INTERVAL_MS)
-    return () => clearInterval(intervalId)
+    return () => {
+      clearInterval(intervalId)
+    }
   }, [sklToken, address])
 
   async function loadPaymasterInfo() {

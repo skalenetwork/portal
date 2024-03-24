@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { ReactElement, useState } from 'react'
+import { type ReactElement, useState } from 'react'
 
 import Collapse from '@mui/material/Collapse'
 import ButtonBase from '@mui/material/ButtonBase'
@@ -59,7 +59,9 @@ export default function AccordionSection(props: {
   return (
     <div className={cls(props.className)}>
       <ButtonBase
-        onClick={() => handleChange(panel)}
+        onClick={() => {
+          handleChange(panel)
+        }}
         className={cls(cmn.fullWidth, cmn.flex, cmn.pleft, cmn.bordRad)}
       >
         <div className={cls(cmn.m10, cmn.flex, cmn.flexg, cmn.flexcv)}>

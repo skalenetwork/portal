@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 
 import ButtonBase from '@mui/material/ButtonBase'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'

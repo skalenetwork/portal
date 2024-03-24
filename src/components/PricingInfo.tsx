@@ -26,7 +26,7 @@ import AvTimerRoundedIcon from '@mui/icons-material/AvTimerRounded'
 
 import { cmn, TokenIcon, fromWei } from '@skalenetwork/metaport'
 
-import { PaymasterInfo, DueDateStatus, divideBigInts } from '../core/paymaster'
+import { type PaymasterInfo, type DueDateStatus, divideBigInts } from '../core/paymaster'
 import { truncateDecimals } from '../core/helper'
 import {
   daysBetweenNowAndTimestamp,
