@@ -27,9 +27,9 @@ import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
 import { ESCROW_VALIDATORS } from '../../core/delegation/validators'
-import { type Validator } from '../../core/interfaces'
+import { type IValidator } from '../../core/interfaces'
 
-export function ValidatorBadge(props: { validator: Validator; className?: string }) {
+export function ValidatorBadge(props: { validator: IValidator; className?: string }) {
   if (ESCROW_VALIDATORS.includes(props.validator.id)) {
     return (
       <Tooltip title="Escrow validator">
@@ -42,7 +42,7 @@ export function ValidatorBadge(props: { validator: Validator; className?: string
   return null
 }
 
-export function TrustBadge(props: { validator: Validator }) {
+export function TrustBadge(props: { validator: IValidator }) {
   if (props.validator.trusted) {
     return (
       <Tooltip title="Trusted validator">

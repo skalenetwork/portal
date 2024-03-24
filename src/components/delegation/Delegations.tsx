@@ -26,6 +26,9 @@ import Skeleton from '@mui/material/Skeleton'
 import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
 import PieChartRoundedIcon from '@mui/icons-material/PieChartRounded'
 
+import Headline from '../Headline'
+import DelegationsToValidator from './DelegationsToValidator'
+
 import {
   DelegationType,
   type IDelegationInfo,
@@ -35,9 +38,6 @@ import {
   type StakingInfoMap
 } from '../../core/interfaces'
 
-import Headline from '../Headline'
-import DelegationsToValidator from './DelegationsToValidator'
-import ErrorTile from '../ErrorTile'
 
 export default function Delegations(props: {
   si: StakingInfoMap

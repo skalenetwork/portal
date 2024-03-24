@@ -22,17 +22,14 @@
  */
 
 import { cmn, cls, styles, TokenIcon } from '@skalenetwork/metaport'
-import Button from '@mui/material/Button'
 
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
 import EventAvailableRoundedIcon from '@mui/icons-material/EventAvailableRounded'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
-import DoubleArrowRoundedIcon from '@mui/icons-material/DoubleArrowRounded'
 import ApartmentRoundedIcon from '@mui/icons-material/ApartmentRounded'
 import LockOpenRoundedIcon from '@mui/icons-material/LockOpenRounded'
 import ControlPointDuplicateRoundedIcon from '@mui/icons-material/ControlPointDuplicateRounded'
-import CardGiftcardRoundedIcon from '@mui/icons-material/CardGiftcardRounded'
 
 import SkStack from '../SkStack'
 import Tile from '../Tile'

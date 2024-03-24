@@ -20,36 +20,25 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, TokenIcon, fromWei, styles } from '@skalenetwork/metaport'
+import { cmn, cls, styles } from '@skalenetwork/metaport'
+
+import { Grid } from '@mui/material'
 import Button from '@mui/material/Button'
 import LoadingButton from '@mui/lab/LoadingButton'
 
-import Tile from '../Tile'
-import SkStack from '../SkStack'
-import TollIcon from '@mui/icons-material/Toll'
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
 
+import ValidatorLogo from './ValidatorLogo'
+
 import {
   type DelegationType,
-  IDelegation,
   type IDelegationInfo,
   type IDelegationsToValidator,
   type IRewardInfo,
   type IValidator
 } from '../../core/interfaces'
-import { DEFAULT_ERC20_DECIMALS } from '../../core/constants'
-import ValidatorLogo from './ValidatorLogo'
-import { Grid } from '@mui/material'
-import {
-  DelegationSource,
-  DelegationState,
-  getDelegationSource,
-  getKeyByValue,
-  getValidatorById
-} from '../../core/delegation'
-import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
+import { getValidatorById } from '../../core/delegation'
 import { formatBalance } from '../../core/helper'
 
 export default function Reward(props: {
@@ -62,7 +51,6 @@ export default function Reward(props: {
   delType: DelegationType
 }) {
   const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
-  // const numberOfDelegations = props.delegationsToValidator.delegations.length
   const rewardsAmount = formatBalance(props.delegationsToValidator.rewards, 'SKL')
   if (!validator) return
 

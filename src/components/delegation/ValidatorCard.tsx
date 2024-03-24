@@ -21,43 +21,18 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
-import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
-import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded'
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-import StickyNote2RoundedIcon from '@mui/icons-material/StickyNote2Rounded'
-import SupervisorAccountRoundedIcon from '@mui/icons-material/SupervisorAccountRounded'
-import Button from '@mui/material/Button'
-import Box from '@mui/material/Box'
+import { Link } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
 import Tooltip from '@mui/material/Tooltip'
 
-import validatorLogo from '../../assets/validators/v3.webp'
-import CategoryBadge from '../CategoryBadge'
-import ValidatorLogo from './ValidatorLogo'
+import { cmn, cls, styles, fromWei } from '@skalenetwork/metaport'
 
-import {
-  cmn,
-  cls,
-  styles,
-  type MetaportCore,
-  useWagmiAccount,
-  ERC_ABIS,
-  enforceNetwork,
-  useWagmiWalletClient,
-  useWagmiSwitchNetwork,
-  walletClientToSigner,
-  sendTransaction,
-  getChainAlias,
-  toWei,
-  fromWei
-} from '@skalenetwork/metaport'
+import ValidatorLogo from './ValidatorLogo'
+import { TrustBadge, ValidatorBadge } from './ValidatorBadges'
 
 import { type DelegationType, type IValidator } from '../../core/interfaces'
-import { ESCROW_VALIDATORS } from '../../core/delegation/validators'
 import { DEFAULT_ERC20_DECIMALS } from '../../core/constants'
-import { Link } from 'react-router-dom'
-import { TrustBadge, ValidatorBadge } from './ValidatorBadges'
+
 
 export default function ValidatorCard(props: {
   validator: IValidator
@@ -66,7 +41,6 @@ export default function ValidatorCard(props: {
   delegationType: DelegationType
   size?: 'md' | 'lg'
 }) {
-  // const currentValidator = props.validatorId === props.validator.id
   if (!props.validator.trusted) return
 
   const size = props.size ?? 'md'

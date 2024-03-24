@@ -177,7 +177,7 @@ export async function groupDelegationsByValidator1(
 
   // Fetch rewards asynchronously for each validator
   const promises: Array<Promise<[bigint, bigint]>> = []
-  groupedDelegations.forEach((delegations, validatorId) => {
+  groupedDelegations.forEach((_, validatorId) => {
     promises.push(
       new Promise(async (resolve) => {
         const rewards = await distributor.getAndUpdateEarnedBountyAmountOf(address, validatorId)

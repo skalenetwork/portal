@@ -21,28 +21,19 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
-import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
-import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded'
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-import StickyNote2RoundedIcon from '@mui/icons-material/StickyNote2Rounded'
-import SupervisorAccountRoundedIcon from '@mui/icons-material/SupervisorAccountRounded'
-import Button from '@mui/material/Button'
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
-import Tooltip from '@mui/material/Tooltip'
+import { cmn, cls, fromWei, TokenIcon } from '@skalenetwork/metaport'
 
 import PercentRoundedIcon from '@mui/icons-material/PercentRounded'
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
+
 import ValidatorLogo from './ValidatorLogo'
 import { ValidatorBadge, TrustBadge } from './ValidatorBadges'
 import Tile from '../Tile'
 import SkStack from '../SkStack'
 
-import { cmn, cls, fromWei, TokenIcon } from '@skalenetwork/metaport'
-
 import { type IValidator } from '../../core/interfaces'
 import { DEFAULT_ERC20_DECIMALS } from '../../core/constants'
+
 
 export default function ValidatorInfo(props: { validator: IValidator; className?: string }) {
   const description = props.validator.description ? props.validator.description : 'No description'

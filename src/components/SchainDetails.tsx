@@ -21,7 +21,6 @@
  * @copyright SKALE Labs 2021-Present
  */
 
-import { useState } from 'react'
 import { Helmet } from 'react-helmet'
 
 import Button from '@mui/material/Button'

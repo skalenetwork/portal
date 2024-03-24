@@ -20,16 +20,16 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, TokenIcon, fromWei, styles, SkPaper } from '@skalenetwork/metaport'
-import Button from '@mui/material/Button'
+import { useState } from 'react'
+import { cmn, cls, styles } from '@skalenetwork/metaport'
 
-import UndoRoundedIcon from '@mui/icons-material/UndoRounded'
-import HighlightOffRoundedIcon from '@mui/icons-material/HighlightOffRounded'
+import { Collapse, Grid, Tooltip } from '@mui/material'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
 import ApartmentRoundedIcon from '@mui/icons-material/ApartmentRounded'
-import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded'
-import EventRepeatRoundedIcon from '@mui/icons-material/EventRepeatRounded'
+
+import SkBtn from '../SkBtn'
+import ValidatorLogo from './ValidatorLogo'
 
 import {
   DelegationType,
@@ -38,9 +38,6 @@ import {
   type IRewardInfo,
   type IValidator
 } from '../../core/interfaces'
-import { DEFAULT_ERC20_DECIMALS } from '../../core/constants'
-import ValidatorLogo from './ValidatorLogo'
-import { Collapse, Grid, Tooltip } from '@mui/material'
 import {
   DelegationSource,
   DelegationState,
@@ -49,10 +46,9 @@ import {
   getValidatorById
 } from '../../core/delegation'
 import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
-import { useState } from 'react'
-import Headline from '../Headline'
+
 import { convertMonthIndexToText, formatBalance } from '../../core/helper'
-import SkBtn from '../SkBtn'
+
 
 export default function Delegation(props: {
   delegation: IDelegation
@@ -185,7 +181,7 @@ export default function Delegation(props: {
             />
           ) : null}
           {Number(props.delegation.stateId) !== DelegationState.PROPOSED &&
-          Number(props.delegation.stateId) !== DelegationState.DELEGATED ? (
+            Number(props.delegation.stateId) !== DelegationState.DELEGATED ? (
             <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent, cmn.mtop20)}>
               No actions available
             </p>
