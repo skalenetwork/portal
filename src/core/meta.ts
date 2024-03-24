@@ -49,6 +49,10 @@ export const META_TAGS = {
     description:
       'Connect to SKALE Chains, get block explorer links, endpoints, linked tokens and verified contracts info.'
   },
+  apps: {
+    title: 'SKALE Portal - Apps',
+    description: 'Apps on SKALE Network. Explore and interact with dApps on SKALE Network.'
+  },
   faq: {
     title: 'SKALE Portal - Bridge FAQ',
     description: 'Common questions about SKALE Bridge and transfers on SKALE.'

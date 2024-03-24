@@ -17,7 +17,7 @@
  */
 
 /**
- * @file Network.tsx
+ * @file Chains.tsx
  * @copyright SKALE Labs 2023-Present
  */
 

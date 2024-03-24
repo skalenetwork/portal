@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { ReactElement } from 'react'
+import { ReactElement, useState } from 'react'
 
 import Collapse from '@mui/material/Collapse'
 import ButtonBase from '@mui/material/ButtonBase'
@@ -31,38 +31,54 @@ import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
 import { cmn, cls, styles } from '@skalenetwork/metaport'
 
 export default function AccordionSection(props: {
-  handleChange: (panel: string | false) => void
-  expanded: string | false
-  panel: string
   title: string
+  handleChange?: (panel: string | false) => void
+  expanded?: string | false
+  panel?: string
   subtitle?: string
-  children: ReactElement | ReactElement[]
+  children?: ReactElement | ReactElement[] | null
   icon?: ReactElement
   className?: string
+  expandedByDefault?: boolean
+  marg?: boolean
 }) {
+  const marg = props.marg ?? true
+
+  const [expandedInternal, setExpandedInternal] = useState<string | false>(
+    props.expandedByDefault ? 'panel1' : false
+  )
+
+  function handleChangeInternal(panel: string | false) {
+    setExpandedInternal(expanded && panel === expanded ? false : panel)
+  }
+
+  const handleChange = props.handleChange ?? handleChangeInternal
+  const expanded = props.expanded ?? expandedInternal
+  const panel = props.panel ?? 'panel1'
+
   return (
     <div className={cls(props.className)}>
       <ButtonBase
-        onClick={() => props.handleChange(props.panel)}
+        onClick={() => handleChange(panel)}
         className={cls(cmn.fullWidth, cmn.flex, cmn.pleft, cmn.bordRad)}
       >
         <div className={cls(cmn.m10, cmn.flex, cmn.flexg, cmn.flexcv)}>
           {props.icon ? (
-            <div className={cls(cmn.mri10, cmn.flexcv, cmn.flex, styles.chainIconxs)}>
+            <div className={cls(cmn.mri10, cmn.flexcv, cmn.flex, styles.chainIconxs, cmn.pSec)}>
               {props.icon}
             </div>
           ) : null}
           <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.flexg)}>{props.title}</p>
           <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.pPrim, cmn.mri10)}>{props.subtitle}</p>
-          {props.expanded === props.panel ? (
+          {expanded === panel ? (
             <RemoveCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
           ) : (
             <AddCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
           )}
         </div>
       </ButtonBase>
-      <Collapse in={props.expanded === props.panel}>
-        <div className={cls(cmn.mtop10, cmn.mbott10)}>{props.children}</div>
+      <Collapse in={expanded === panel}>
+        <div className={cls([cmn.mtop10, marg], [cmn.mbott10, marg])}>{props.children}</div>
       </Collapse>
     </div>
   )

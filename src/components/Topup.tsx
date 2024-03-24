@@ -36,7 +36,8 @@ import SkStack from './SkStack'
 import MonthSelector from './MonthSelector'
 import Loader from './Loader'
 
-import { PaymasterInfo, divideBigInts, truncateDecimals } from '../core/paymaster'
+import { PaymasterInfo, divideBigInts } from '../core/paymaster'
+import { truncateDecimals } from '../core/helper'
 import { DEFAULT_ERC20_DECIMALS } from '../core/constants'
 import { formatTimePeriod, monthsBetweenNowAndTimestamp } from '../core/timeHelper'
 

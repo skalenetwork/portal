@@ -24,6 +24,7 @@
 import { Contract, id } from 'ethers'
 import { useState, useEffect } from 'react'
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
+import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
 
 import {
   cmn,
@@ -57,6 +58,7 @@ import {
   getPaymasterAbi,
   divideBigInts
 } from '../core/paymaster'
+import Headline from './Headline'
 
 const DEFAULT_TOPUP_PERIOD = 3
 const APPROVE_MULTIPLIER = 2n
@@ -177,13 +179,8 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
 
   return (
     <div>
-      <p className={cls(cmn.p, cmn.p2, cmn.mtop20, cmn.p700, cmn.mleft5, cmn.mbott10)}>
-        Pricing info
-      </p>
       <PricingInfo info={info} />
-      <p className={cls(cmn.p, cmn.p2, cmn.mtop20, cmn.p700, cmn.mleft5, cmn.mbott10)}>
-        Top-up chain
-      </p>
+      <Headline text="Top-up chain" icon={<MonetizationOnRoundedIcon />} />
       {!address ? (
         <ConnectWallet tile className={cls(cmn.flexg)} />
       ) : (

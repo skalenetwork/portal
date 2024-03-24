@@ -78,10 +78,6 @@ export function initPaymaster(mpc: MetaportCore): Contract {
   return new Contract(paymasterAddress, getPaymasterAbi(), provider)
 }
 
-export function pricingLaunchTsReached(skaleNetwork: interfaces.SkaleNetwork): boolean {
-  return getPaymasterLaunchTs(skaleNetwork) < getCurrentTsBigInt()
-}
-
 export async function getPaymasterInfo(
   paymaster: Contract,
   targetChainName: string,
@@ -111,10 +107,4 @@ export async function getPaymasterInfo(
     },
     effectiveTimestamp
   }
-}
-
-export function truncateDecimals(input: string, numDecimals: number): string {
-  const delimiter = input.includes(',') ? ',' : '.'
-  const [integerPart, decimalPart = ''] = input.split(delimiter)
-  return `${integerPart}${delimiter}${decimalPart.slice(0, numDecimals)}`
 }

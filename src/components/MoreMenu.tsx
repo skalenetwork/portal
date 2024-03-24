@@ -29,6 +29,7 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
+import FormatListBulletedRoundedIcon from '@mui/icons-material/FormatListBulletedRounded'
 
 import { Link } from 'react-router-dom'
 
@@ -106,6 +107,11 @@ export default function MoreMenu() {
         <Link to="/other/terms-of-service" className="undec fullWidth">
           <MenuItem onClick={handleClose}>
             <InventoryOutlinedIcon className={cmn.mri10} /> Terms of service
+          </MenuItem>
+        </Link>
+        <Link to="/other/changelog" className="undec fullWidth">
+          <MenuItem onClick={handleClose}>
+            <FormatListBulletedRoundedIcon className={cmn.mri10} /> Changelog
           </MenuItem>
         </Link>
         <a className="undec fullWidth" target="_blank" href="https://skale.space/" rel="noreferrer">

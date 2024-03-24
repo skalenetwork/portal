@@ -54,7 +54,6 @@ import {
   HTTPS_PREFIX,
   WSS_PREFIX
 } from '../core/chain'
-import { pricingLaunchTsReached } from '../core/paymaster'
 
 export default function ChainAccordion(props: {
   schainName: string
@@ -192,15 +191,11 @@ export default function ChainAccordion(props: {
           explorerUrl={explorerUrl}
         />
       </AccordionSection>
-      {pricingLaunchTsReached(network) ? (
-        <AccordionLink
-          title="Manage chain"
-          icon={<AdminPanelSettingsRoundedIcon />}
-          url={`/admin/${props.schainName}`}
-        />
-      ) : (
-        <div></div>
-      )}
+      <AccordionLink
+        title="Manage chain"
+        icon={<AdminPanelSettingsRoundedIcon />}
+        url={`/admin/${props.schainName}`}
+      />
     </SkPaper>
   )
 }

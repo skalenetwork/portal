@@ -16,11 +16,11 @@ import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontal
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import HistoryIcon from '@mui/icons-material/History'
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
-// import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined'
-// import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined'
+import PieChartOutlineOutlinedIcon from '@mui/icons-material/PieChartOutlineOutlined'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import DonutLargeRoundedIcon from '@mui/icons-material/DonutLargeRounded'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
+import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined'
 
 import { DUNE_SKALE_URL } from './core/constants'
 
@@ -126,6 +126,35 @@ export default function SkDrawer() {
                     <PublicOutlinedIcon />
                   </ListItemIcon>
                   <ListItemText primary="Chains" />
+                </ListItemButton>
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link to="/staking" className="undec fullWidth">
+                <ListItemButton
+                  className={cls(cmn.pPrim)}
+                  selected={location.pathname.includes('/staking')}
+                >
+                  <ListItemIcon>
+                    <PieChartOutlineOutlinedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Staking" />
+                  <div className="shipNew">
+                    <p className={cls(cmn.p, cmn.p5)}>NEW</p>
+                  </div>
+                </ListItemButton>
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link to="/validators" className="undec fullWidth">
+                <ListItemButton
+                  className={cls(cmn.pPrim)}
+                  selected={location.pathname.includes('/validators')}
+                >
+                  <ListItemIcon>
+                    <GroupOutlinedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Validators" />
                 </ListItemButton>
               </Link>
             </ListItem>

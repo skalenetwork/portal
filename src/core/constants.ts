@@ -38,8 +38,11 @@ export const PORTAL_URLS: { [network: string]: string } = {
 }
 
 import * as MAINNET_CHAIN_LOGOS from '../meta/logos'
+import * as VALIDATOR_LOGOS from '../assets/validators'
 
-export { FAQ, MAINNET_CHAIN_LOGOS }
+import { CONTRACTS_META } from '../data/contractsMeta.ts'
+
+export { FAQ, MAINNET_CHAIN_LOGOS, VALIDATOR_LOGOS, CONTRACTS_META }
 
 export const DISCORD_INVITE_URL = 'https://discord.com/invite/gM5XBy6'
 
@@ -48,3 +51,13 @@ export const AVG_MONTH_LENGTH = 30.436875
 
 const _DEFAULT_UPDATE_INTERVAL_SECONDS = 10
 export const DEFAULT_UPDATE_INTERVAL_MS = _DEFAULT_UPDATE_INTERVAL_SECONDS * MS_MULTIPLIER
+
+export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
+
+export const DEFAULT_ERROR_MSG = 'Something went wrong'
+
+export const DEFAULT_DELEGATION_PERIOD = 2n
+export const DEFAULT_DELEGATION_INFO = 'portal'
+
+const _BALANCE_UPDATE_INTERVAL_SECONDS = 25
+export const BALANCE_UPDATE_INTERVAL_MS = _BALANCE_UPDATE_INTERVAL_SECONDS * 1000
