@@ -34,7 +34,6 @@ import SkStack from '../SkStack'
 import { type IValidator } from '../../core/interfaces'
 import { DEFAULT_ERC20_DECIMALS } from '../../core/constants'
 
-
 export default function ValidatorInfo(props: { validator: IValidator; className?: string }) {
   const description = props.validator.description ? props.validator.description : 'No description'
   const minDelegation = fromWei(props.validator.minimumDelegationAmount, DEFAULT_ERC20_DECIMALS)

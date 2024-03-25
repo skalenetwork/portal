@@ -21,6 +21,8 @@
  * @copyright SKALE Labs 2024-Present
  */
 
+import { interfaces } from '@skalenetwork/metaport'
+
 export interface IDelegatorInfo {
   balance: bigint
   staked: bigint
@@ -30,6 +32,7 @@ export interface IDelegatorInfo {
   vested?: bigint
   fullAmount?: bigint
   unlocked?: bigint
+  address: interfaces.AddressType
 }
 
 // export interface IDelegatorInfo {

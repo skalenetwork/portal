@@ -30,6 +30,7 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import ApartmentRoundedIcon from '@mui/icons-material/ApartmentRounded'
 import LockOpenRoundedIcon from '@mui/icons-material/LockOpenRounded'
 import ControlPointDuplicateRoundedIcon from '@mui/icons-material/ControlPointDuplicateRounded'
+import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded'
 
 import SkStack from '../SkStack'
 import Tile from '../Tile'
@@ -41,7 +42,7 @@ import {
   type IDelegatorInfo,
   type IRewardInfo
 } from '../../core/interfaces'
-import { formatBalance } from '../../core/helper'
+import { formatBalance, shortAddress } from '../../core/helper'
 import SkBtn from '../SkBtn'
 
 const icons: { [key in DelegationType]: any } = {
@@ -91,8 +92,24 @@ export default function Summary(props: {
             grow
             icon={<TokenIcon tokenSymbol="skl" size="xs" />}
             childrenRi={
-              <div className={cls(cmn.flex, cmn.flexcvd)}>
-                {/* <div className={cls('borderVert', cmn.mleft20)}></div> */}
+              <SkStack className={cls(cmn.flex)}>
+                {props.type !== DelegationType.REGULAR ? (
+                  <div className={cls(cmn.flex)}>
+                    <Tile
+                      size="md"
+                      className={cls(cmn.nop, cmn.mri20, cmn.mleft20)}
+                      value={shortAddress(props.accountInfo?.address)}
+                      text="Escrow"
+                      grow
+                      ri
+                      copy={props.accountInfo?.address}
+                      icon={<ContentCopyRoundedIcon />}
+                    />
+                    <div className="borderVert"></div>
+                  </div>
+                ) : (
+                  <div></div>
+                )}
                 <Tile
                   size="md"
                   className={cls(cmn.nop, cmn.mri20, cmn.mleft20)}
@@ -118,7 +135,7 @@ export default function Summary(props: {
                   text="Available to stake"
                   icon={<ControlPointDuplicateRoundedIcon />}
                 />
-              </div>
+              </SkStack>
             }
           />
         </SkStack>

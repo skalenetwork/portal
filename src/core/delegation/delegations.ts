@@ -221,7 +221,8 @@ export async function getDelegatorInfo(
     forbiddenToDelegate: (
       await sc.tokenState.getAndUpdateForbiddenForDelegationAmount.staticCallResult(address)
     )[0],
-    rewards
+    rewards,
+    address
   }
 
   info.allowedToDelegate = maxBigInt(info.balance - info.forbiddenToDelegate, 0n)
@@ -229,11 +230,13 @@ export async function getDelegatorInfo(
   if (beneficiary) {
     if (type === DelegationType.ESCROW) {
       info.vested = await getVestedAmount(sc.allocator, address, beneficiary)
+      info.fullAmount = await sc.allocator.getFullAmount(beneficiary)
     }
     if (type === DelegationType.ESCROW2) {
       info.vested = await getVestedAmount(sc.grantsAllocator, address, beneficiary)
+      info.fullAmount = await sc.grantsAllocator.getFullAmount(beneficiary)
     }
-    info.fullAmount = await sc.allocator.getFullAmount(beneficiary)
+
     const locked = maxBigInt(info.fullAmount! - info.vested!, info.forbiddenToDelegate)
     info.unlocked = maxBigInt(info.balance - locked, 0n)
   }

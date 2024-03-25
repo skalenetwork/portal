@@ -49,7 +49,6 @@ import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
 
 import { convertMonthIndexToText, formatBalance } from '../../core/helper'
 
-
 export default function Delegation(props: {
   delegation: IDelegation
   validators: IValidator[]
@@ -88,7 +87,7 @@ export default function Delegation(props: {
           setOpen(!open)
         }}
       >
-        <Grid item md={3} xs={4}>
+        <Grid item md={3} xs={12}>
           <div className={cls(cmn.flex, cmn.flexcv)}>
             <ValidatorLogo validatorId={Number(props.delegation.id + 500n)} size="md" />
             <ValidatorLogo
@@ -114,7 +113,7 @@ export default function Delegation(props: {
             ) : null}
           </div>
         </Grid>
-        <Grid item md={3} xs={4}>
+        <Grid item md={3} xs={6}>
           <div className={cls(cmn.flex)}>
             <div className={cls(cmn.flexg)}></div>
             <div className={cls(`ship ship_${props.delegation.state}`)}>
@@ -125,7 +124,7 @@ export default function Delegation(props: {
             <div className={cls(cmn.flexg)}></div>
           </div>
         </Grid>
-        <Grid item md={2} xs={4}>
+        <Grid item md={2} xs={6}>
           <div className={cls(cmn.flex)}>
             <div className={cls(cmn.flexg)}></div>
             <div className={cls(`ship ship_${getKeyByValue(DelegationSource, source)}`)}>
@@ -134,7 +133,7 @@ export default function Delegation(props: {
             <div className={cls(cmn.flexg)}></div>
           </div>
         </Grid>
-        <Grid item md={4} xs={4}>
+        <Grid item md={4} xs={12}>
           <div className={cls(cmn.flex, cmn.flexcv, cmn.mri5)}>
             <div className={cls(cmn.mleft20, cmn.flexg, cmn.mri20)}>
               <h4 className={cls(cmn.p, cmn.p700, cmn.pri)}>{delegationAmount}</h4>
@@ -181,7 +180,7 @@ export default function Delegation(props: {
             />
           ) : null}
           {Number(props.delegation.stateId) !== DelegationState.PROPOSED &&
-            Number(props.delegation.stateId) !== DelegationState.DELEGATED ? (
+          Number(props.delegation.stateId) !== DelegationState.DELEGATED ? (
             <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent, cmn.mtop20)}>
               No actions available
             </p>

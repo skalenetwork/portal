@@ -21,13 +21,17 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { type ReactElement } from 'react'
+import { useState, useEffect, type ReactElement } from 'react'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { useTheme } from '@mui/material/styles'
-import LinearProgress from '@mui/material/LinearProgress'
 import { cmn, cls, styles } from '@skalenetwork/metaport'
 
+import LinearProgress from '@mui/material/LinearProgress'
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
+
 import { type DueDateStatus } from '../core/paymaster'
-import { Skeleton } from '@mui/material'
+import { Skeleton, Tooltip } from '@mui/material'
+import SkStack from './SkStack'
 
 export default function Tile(props: {
   text?: string
@@ -45,10 +49,46 @@ export default function Tile(props: {
   textColor?: string
   disabled?: boolean | null
   ri?: boolean
+  copy?: string | undefined
 }) {
   const theme = useTheme()
   const color = props.color ? theme.palette[props.color].main : 'rgba(0, 0, 0, 0.6)'
   const size = props.size ?? 'lg'
+
+  const [copied, setCopied] = useState(false)
+
+  const handleClick = () => {
+    setCopied(true)
+  }
+
+  useEffect(() => {
+    if (copied) {
+      const timer = setTimeout(() => {
+        setCopied(false)
+      }, 1000)
+      return () => {
+        clearTimeout(timer)
+      }
+    }
+  }, [copied])
+
+  const value = (
+    <p
+      className={cls(
+        cmn.p,
+        [cmn.p1, size == 'lg'],
+        [cmn.p2, size == 'md'],
+        cmn.p700,
+        [cmn.pPrim, !props.color && !props.disabled],
+        [cmn.pSec, props.disabled],
+        ['blackP', props.color],
+        ['pointer', props.copy]
+      )}
+    >
+      {props.value}
+    </p>
+  )
+
   return (
     <div
       className={cls(props.className, styles.fullHefight, 'titleSection', `titleSection_${size}`, [
@@ -57,7 +97,7 @@ export default function Tile(props: {
       ])}
       style={{ background: color }}
     >
-      <div className={cls(cmn.flex, cmn.flexcv)}>
+      <SkStack className={cls(cmn.flex, cmn.flexcv)}>
         <div className={cls(cmn.flexg)}>
           {props.text ? (
             <div
@@ -75,7 +115,7 @@ export default function Tile(props: {
                   className={cls(cmn.mri5, cmn.flex, styles.chainIconxs)}
                   style={{ color: props.textColor }}
                 >
-                  {props.icon}
+                  {copied ? <CheckCircleRoundedIcon color="success" /> : props.icon}
                 </div>
               ) : null}
               <p
@@ -102,21 +142,16 @@ export default function Tile(props: {
           ) : null}
           <div className={cls(cmn.flex, cmn.flexcv)}>
             {props.ri ? <div className={cls(cmn.flexg)}></div> : null}
-            {props.value ? (
-              <p
-                className={cls(
-                  cmn.p,
-                  [cmn.p1, size == 'lg'],
-                  [cmn.p2, size == 'md'],
-                  cmn.p700,
-                  [cmn.pPrim, !props.color && !props.disabled],
-                  [cmn.pSec, props.disabled],
-                  ['blackP', props.color]
-                )}
-              >
-                {props.value}
-              </p>
+            {props.value && props.copy ? (
+              <Tooltip arrow title={copied ? 'Copied' : 'Click to copy'}>
+                <div>
+                  <CopyToClipboard text={props.copy ?? ''} onCopy={handleClick}>
+                    {value}
+                  </CopyToClipboard>
+                </div>
+              </Tooltip>
             ) : null}
+            {props.value && !props.copy ? value : null}
             {!props.value && !props.children ? (
               <Skeleton variant="rectangular" width={150} height={33} />
             ) : null}
@@ -132,7 +167,7 @@ export default function Tile(props: {
           </div>
         </div>
         {props.childrenRi}
-      </div>
+      </SkStack>
       {props.children}
     </div>
   )

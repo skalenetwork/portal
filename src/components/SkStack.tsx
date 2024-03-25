@@ -21,16 +21,11 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { type ReactElement } from 'react'
 import Stack from '@mui/material/Stack'
 
-export default function SkStack(props: {
-  className?: string
-  children?: ReactElement | ReactElement[]
-}) {
+export default function SkStack(props: { className?: string; children?: any }) {
   return (
     <Stack
-      style={{ alignItems: 'stretch' }}
       spacing={1}
       direction={{ xs: 'column', md: 'row' }}
       useFlexGap

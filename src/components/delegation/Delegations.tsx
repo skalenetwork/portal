@@ -38,7 +38,6 @@ import {
   type StakingInfoMap
 } from '../../core/interfaces'
 
-
 export default function Delegations(props: {
   si: StakingInfoMap
   validators: IValidator[]

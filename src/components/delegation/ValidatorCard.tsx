@@ -33,7 +33,6 @@ import { TrustBadge, ValidatorBadge } from './ValidatorBadges'
 import { type DelegationType, type IValidator } from '../../core/interfaces'
 import { DEFAULT_ERC20_DECIMALS } from '../../core/constants'
 
-
 export default function ValidatorCard(props: {
   validator: IValidator
   validatorId: number | undefined

@@ -450,6 +450,10 @@ body::-webkit-scrollbar {
   font-size: 0.9rem !important;
 }
 
+.pointer {
+  cursor: pointer;
+}
+
 code {
   overflow: hidden;
   white-space: nowrap;

@@ -63,7 +63,7 @@ export default function Reward(props: {
   return (
     <div className={cls(cmn.mbott10, 'titleSection validatorCard')}>
       <Grid container spacing={0} alignItems="center">
-        <Grid item md={4} xs={4}>
+        <Grid item md={4} xs={12}>
           <div className={cls(cmn.flex, cmn.flexcv)}>
             <ValidatorLogo validatorId={validator.id} size="lg" />
             <div className={cls(cmn.mleft10)}>
@@ -72,8 +72,8 @@ export default function Reward(props: {
             </div>
           </div>
         </Grid>
-        <Grid item md={1} xs={4}></Grid>
-        <Grid item md={7} xs={4}>
+        <Grid item md={1} xs={0}></Grid>
+        <Grid item md={7} xs={12}>
           <div className={cls(cmn.flex, cmn.flexcv)}>
             <div className={cls(cmn.mleft20, cmn.flexg, cmn.mri20)}>
               <p className={cls(cmn.p, cmn.p4, cmn.pri, cmn.pSec)}>Rewards available</p>

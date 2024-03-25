@@ -71,7 +71,7 @@ export default function AccordionSection(props: {
             </div>
           ) : null}
           <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.flexg)}>{props.title}</p>
-          <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.pPrim, cmn.mri10)}>{props.subtitle}</p>
+          <p className={cls(cmn.p, cmn.p5, cmn.p600, cmn.pSec, cmn.mri20)}>{props.subtitle}</p>
           {expanded === panel ? (
             <RemoveCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
           ) : (
