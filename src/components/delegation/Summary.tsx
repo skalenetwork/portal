@@ -58,6 +58,7 @@ export default function Summary(props: {
   accountInfo: IDelegatorInfo | undefined
   retrieveUnlocked: (rewardInfo: IRewardInfo) => Promise<void>
   loading: IRewardInfo | IDelegationInfo | false
+  isXs: boolean
 }) {
   function getTitle() {
     if (props.type === DelegationType.ESCROW) return 'Escrow'
@@ -97,33 +98,38 @@ export default function Summary(props: {
                   <div className={cls(cmn.flex)}>
                     <Tile
                       size="md"
-                      className={cls(cmn.nop, cmn.mri20, cmn.mleft20)}
+                      transparent
+                      className={cls(cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs])}
                       value={shortAddress(props.accountInfo?.address)}
                       text="Escrow"
                       grow
-                      ri
+                      ri={!props.isXs}
                       copy={props.accountInfo?.address}
                       icon={<ContentCopyRoundedIcon />}
                     />
-                    <div className="borderVert"></div>
+                    <div
+                      className={cls(['borderVert', !props.isXs], [cmn.mleft10, !props.isXs])}
+                    ></div>
                   </div>
                 ) : (
                   <div></div>
                 )}
                 <Tile
                   size="md"
-                  className={cls(cmn.nop, cmn.mri20, cmn.mleft20)}
+                  transparent
+                  className={cls(cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs])}
                   disabled={props.accountInfo?.staked === 0n}
                   value={props.accountInfo ? formatBalance(props.accountInfo.staked, 'SKL') : null}
                   text="Staked Tokens"
                   grow
-                  ri
+                  ri={!props.isXs}
                   icon={<ArrowOutwardRoundedIcon />}
                 />
                 <div className="borderVert"></div>
                 <Tile
-                  className={cls(cmn.nop, cmn.mri10, cmn.mleft20)}
+                  className={cls(cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs])}
                   size="md"
+                  transparent
                   grow
                   disabled={props.accountInfo?.allowedToDelegate === 0n}
                   value={
@@ -131,7 +137,7 @@ export default function Summary(props: {
                       ? formatBalance(props.accountInfo.allowedToDelegate, 'SKL')
                       : null
                   }
-                  ri
+                  ri={!props.isXs}
                   text="Available to stake"
                   icon={<ControlPointDuplicateRoundedIcon />}
                 />
@@ -149,7 +155,7 @@ export default function Summary(props: {
               icon={<EventAvailableRoundedIcon />}
               grow
               childrenRi={
-                <div className={cls(cmn.flex)}>
+                <SkStack className={cls(cmn.flex)}>
                   {props.accountInfo?.fullAmount !== undefined ? (
                     <Tile
                       disabled={props.accountInfo?.fullAmount === 0n}
@@ -162,8 +168,9 @@ export default function Summary(props: {
                       icon={<AccountBalanceRoundedIcon />}
                       grow
                       size="md"
-                      className={cls(cmn.nop, cmn.mri20, cmn.mleft20)}
-                      ri
+                      transparent
+                      className={cls(cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs])}
+                      ri={!props.isXs}
                     />
                   ) : (
                     <div></div>
@@ -171,15 +178,16 @@ export default function Summary(props: {
                   <div className="borderVert"></div>
                   <Tile
                     size="md"
+                    transparent
                     disabled={props.accountInfo?.unlocked === 0n}
-                    className={cls(cmn.nop, cmn.mleft20)}
+                    className={cls(cmn.nop, [cmn.mleft20, !props.isXs])}
                     value={
                       props.accountInfo ? formatBalance(props.accountInfo.unlocked, 'SKL') : null
                     }
                     text="Unlocked Tokens"
                     icon={<LockOpenRoundedIcon />}
                     grow
-                    ri
+                    ri={!props.isXs}
                     childrenRi={
                       <div className={cls(cmn.flexcv, cmn.flex)}>
                         <SkBtn
@@ -187,7 +195,7 @@ export default function Summary(props: {
                           text={loading ? 'Retrieving' : 'Retrieve'}
                           variant="contained"
                           size="sm"
-                          className={cls(cmn.mleft20, cmn.flexcv)}
+                          className={cls([cmn.mleft20, !props.isXs], cmn.flexcv)}
                           disabled={props.accountInfo?.unlocked === 0n || props.loading !== false}
                           onClick={() => {
                             props.retrieveUnlocked(rewardInfo)
@@ -196,7 +204,7 @@ export default function Summary(props: {
                       </div>
                     }
                   />
-                </div>
+                </SkStack>
               }
             />
           </SkStack>

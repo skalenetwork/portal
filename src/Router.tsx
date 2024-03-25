@@ -5,6 +5,9 @@ import { Helmet } from 'react-helmet'
 import { useLocation, Routes, Route, useSearchParams } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
+import { useTheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
+
 import {
   useMetaportStore,
   PROXY_ENDPOINTS,
@@ -48,6 +51,9 @@ import { getStakingInfoMap } from './core/delegation/staking'
 export default function Router() {
   const location = useLocation()
   const currentUrl = `${window.location.origin}${location.pathname}${location.search}`
+
+  const theme = useTheme()
+  const isXs = useMediaQuery(theme.breakpoints.down('sm'))
 
   const [schains, setSchains] = useState<any[]>([])
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false)
@@ -174,6 +180,7 @@ export default function Router() {
               path="staking"
               element={
                 <Staking
+                  isXs={isXs}
                   mpc={mpc}
                   validators={validators}
                   loadValidators={loadValidators}

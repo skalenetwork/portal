@@ -44,6 +44,7 @@ export default function DelegationsToValidator(props: {
   loading: IRewardInfo | IDelegationInfo | false
   unstake: (delegationInfo: IDelegationInfo) => Promise<void>
   cancelRequest: (delegationInfo: IDelegationInfo) => Promise<void>
+  isXs: boolean
 }) {
   const [open, setOpen] = useState(true)
   return (
@@ -56,6 +57,7 @@ export default function DelegationsToValidator(props: {
         retrieveRewards={props.retrieveRewards}
         loading={props.loading}
         delType={props.delegationType}
+        isXs={props.isXs}
       />
 
       <Collapse in={open}>
@@ -70,6 +72,7 @@ export default function DelegationsToValidator(props: {
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
                 loading={props.loading}
+                isXs={props.isXs}
               />
             )
           )}

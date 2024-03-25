@@ -76,5 +76,5 @@ export function minBigInt(a: bigint, b: bigint): bigint {
 
 export function shortAddress(address: interfaces.AddressType | undefined): string {
   if (!address) return ''
-  return `${address.slice(0, 5)}...${address.slice(-3)}`
+  return `${address.slice(0, 4)}...${address.slice(-2)}`
 }

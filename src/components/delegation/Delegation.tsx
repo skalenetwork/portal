@@ -56,6 +56,7 @@ export default function Delegation(props: {
   unstake: (delegationInfo: IDelegationInfo) => Promise<void>
   cancelRequest: (delegationInfo: IDelegationInfo) => Promise<void>
   loading: IRewardInfo | IDelegationInfo | false
+  isXs: boolean
 }) {
   const validator = getValidatorById(props.validators, props.delegation.validator_id)
   const source = getDelegationSource(props.delegation)
@@ -114,30 +115,37 @@ export default function Delegation(props: {
           </div>
         </Grid>
         <Grid item md={3} xs={6}>
-          <div className={cls(cmn.flex)}>
-            <div className={cls(cmn.flexg)}></div>
+          <div className={cls(cmn.flex, [cmn.mtop10, props.isXs])}>
+            <div className={cls([cmn.flexg, !props.isXs])}></div>
             <div className={cls(`ship ship_${props.delegation.state}`)}>
               <p className={cls(cmn.p, cmn.p4, 'pOneLine')}>
                 {props.delegation.state.replace(/_/g, ' ')}
               </p>
             </div>
-            <div className={cls(cmn.flexg)}></div>
+            <div className={cls([cmn.flexg, !props.isXs])}></div>
           </div>
         </Grid>
         <Grid item md={2} xs={6}>
-          <div className={cls(cmn.flex)}>
-            <div className={cls(cmn.flexg)}></div>
+          <div className={cls(cmn.flex, [cmn.mtop10, props.isXs])}>
+            <div className={cls([cmn.flexg, !props.isXs])}></div>
             <div className={cls(`ship ship_${getKeyByValue(DelegationSource, source)}`)}>
               <p className={cls(cmn.p, cmn.p4)}>{source}</p>
             </div>
-            <div className={cls(cmn.flexg)}></div>
+            <div className={cls([cmn.flexg, !props.isXs])}></div>
           </div>
         </Grid>
         <Grid item md={4} xs={12}>
-          <div className={cls(cmn.flex, cmn.flexcv, cmn.mri5)}>
-            <div className={cls(cmn.mleft20, cmn.flexg, cmn.mri20)}>
-              <h4 className={cls(cmn.p, cmn.p700, cmn.pri)}>{delegationAmount}</h4>
-              <p className={cls(cmn.p, cmn.p4, cmn.pri, cmn.pSec)}>Staked</p>
+          <div className={cls(cmn.flex, cmn.flexcv, cmn.mri5, [cmn.mtop10, props.isXs])}>
+            <div
+              className={cls(
+                cmn.flexg,
+                cmn.mri20,
+                [cmn.pri, !props.isXs],
+                [cmn.mleft20, !props.isXs]
+              )}
+            >
+              <h4 className={cls(cmn.p, cmn.p700)}>{delegationAmount}</h4>
+              <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Staked</p>
             </div>
             <ArrowForwardIosRoundedIcon
               className={cls(cmn.pSec, styles.chainIconxs, 'rotate-90', ['active', open])}

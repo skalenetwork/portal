@@ -76,6 +76,7 @@ export default function Staking(props: {
   si: StakingInfoMap
   address: interfaces.AddressType | undefined
   getMainnetSigner: () => Promise<Signer>
+  isXs: boolean
 }) {
   const [loading, setLoading] = useState<IRewardInfo | IDelegationInfo | false>(false)
   const [errorMsg, setErrorMsg] = useState<string | undefined>()
@@ -192,6 +193,7 @@ export default function Staking(props: {
             accountInfo={props.si[0]?.info}
             loading={loading}
             retrieveUnlocked={retrieveUnlocked}
+            isXs={props.isXs}
           />
         </Collapse>
         <Collapse in={props.address === undefined}>
@@ -207,6 +209,7 @@ export default function Staking(props: {
             accountInfo={props.si[1]?.info}
             loading={loading}
             retrieveUnlocked={retrieveUnlocked}
+            isXs={props.isXs}
           />
         </SkPaper>
       </Collapse>
@@ -218,6 +221,7 @@ export default function Staking(props: {
             accountInfo={props.si[2]?.info}
             loading={loading}
             retrieveUnlocked={retrieveUnlocked}
+            isXs={props.isXs}
           />
         </SkPaper>
       </Collapse>
@@ -235,6 +239,7 @@ export default function Staking(props: {
             errorMsg={errorMsg}
             unstake={unstake}
             cancelRequest={cancelRequest}
+            isXs={props.isXs}
           />
         </Collapse>
         <Collapse in={props.address === undefined}>

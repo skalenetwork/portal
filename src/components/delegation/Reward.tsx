@@ -49,6 +49,7 @@ export default function Reward(props: {
   retrieveRewards: (rewardInfo: IRewardInfo) => Promise<void>
   loading: IRewardInfo | IDelegationInfo | false
   delType: DelegationType
+  isXs: boolean
 }) {
   const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
   const rewardsAmount = formatBalance(props.delegationsToValidator.rewards, 'SKL')
@@ -73,11 +74,18 @@ export default function Reward(props: {
           </div>
         </Grid>
         <Grid item md={1} xs={0}></Grid>
-        <Grid item md={7} xs={12}>
+        <Grid item md={7} xs={12} className={cls([cmn.mtop20, props.isXs])}>
           <div className={cls(cmn.flex, cmn.flexcv)}>
-            <div className={cls(cmn.mleft20, cmn.flexg, cmn.mri20)}>
-              <p className={cls(cmn.p, cmn.p4, cmn.pri, cmn.pSec)}>Rewards available</p>
-              <h3 className={cls(cmn.p, cmn.p700, cmn.pri)}>{rewardsAmount}</h3>
+            <div
+              className={cls(
+                cmn.flexg,
+                cmn.mri20,
+                [cmn.pri, !props.isXs],
+                [cmn.mleft20, !props.isXs]
+              )}
+            >
+              <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Rewards available</p>
+              <h3 className={cls(cmn.p, cmn.p700)}>{rewardsAmount}</h3>
             </div>
             {loading ? (
               <LoadingButton

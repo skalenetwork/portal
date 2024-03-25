@@ -40,6 +40,7 @@ import Validators from '../components/delegation/Validators'
 import DelegationTypeSelect from '../components/delegation/DelegationTypeSelect'
 import Breadcrumbs from '../components/Breadcrumbs'
 import { compareEnum } from '../core/helper'
+import SkStack from '../components/SkStack'
 
 export default function StakeValidator(props: {
   mpc: MetaportCore
@@ -66,7 +67,7 @@ export default function StakeValidator(props: {
   return (
     <Container maxWidth="md">
       <SkPaper gray className={cls(cmn.mtop10, 'chainDetails')}>
-        <div className={cls(cmn.flex, cmn.flexcv)}>
+        <SkStack>
           <div className={cls(cmn.flex, cmn.flexg)}>
             <Breadcrumbs
               sections={[
@@ -89,7 +90,7 @@ export default function StakeValidator(props: {
               si={props.si}
             />
           </div>
-        </div>
+        </SkStack>
         <div className={cls(cmn.mtop10, cmn.mleft5, cmn.mbott10)} style={{ paddingBottom: '5px' }}>
           <h2 className={cls(cmn.nom)}>Stake SKL</h2>
           <p className={cls(cmn.p, cmn.p3, cmn.pSec)}>Choose a validator to delegate your SKL</p>

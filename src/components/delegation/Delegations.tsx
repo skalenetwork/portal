@@ -47,6 +47,7 @@ export default function Delegations(props: {
   errorMsg: string | undefined
   unstake: (delegationInfo: IDelegationInfo) => Promise<void>
   cancelRequest: (delegationInfo: IDelegationInfo) => Promise<void>
+  isXs: boolean
 }) {
   const loaded = props.si[DelegationType.REGULAR] !== null
   const noDelegations =
@@ -88,6 +89,7 @@ export default function Delegations(props: {
                 loading={props.loading}
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
+                isXs={props.isXs}
               />
             )
           )}
@@ -102,6 +104,7 @@ export default function Delegations(props: {
                 loading={props.loading}
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
+                isXs={props.isXs}
               />
             )
           )}
@@ -116,6 +119,7 @@ export default function Delegations(props: {
                 loading={props.loading}
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
+                isXs={props.isXs}
               />
             )
           )}

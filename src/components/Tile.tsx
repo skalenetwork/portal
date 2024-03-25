@@ -24,6 +24,7 @@
 import { useState, useEffect, type ReactElement } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { useTheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { cmn, cls, styles } from '@skalenetwork/metaport'
 
 import LinearProgress from '@mui/material/LinearProgress'
@@ -50,12 +51,15 @@ export default function Tile(props: {
   disabled?: boolean | null
   ri?: boolean
   copy?: string | undefined
+  transparent?: boolean
 }) {
   const theme = useTheme()
-  const color = props.color ? theme.palette[props.color].main : 'rgba(0, 0, 0, 0.6)'
+  let color = props.color ? theme.palette[props.color].main : 'rgba(0, 0, 0, 0.6)'
+  color = props.transparent ? 'transparent' : color
   const size = props.size ?? 'lg'
 
   const [copied, setCopied] = useState(false)
+  const isXs = useMediaQuery(theme.breakpoints.down('sm'))
 
   const handleClick = () => {
     setCopied(true)
@@ -97,7 +101,7 @@ export default function Tile(props: {
       ])}
       style={{ background: color }}
     >
-      <SkStack className={cls(cmn.flex, cmn.flexcv)}>
+      <SkStack className={cls(cmn.flex, [cmn.flexcv, !isXs])}>
         <div className={cls(cmn.flexg)}>
           {props.text ? (
             <div
