@@ -38,7 +38,7 @@ import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 
 export default function ChainCard(props: { skaleNetwork: interfaces.SkaleNetwork; schain: any[] }) {
   function getChainShortAlias(meta: interfaces.ChainsMetadataMap, name: string): string {
-    return meta[name] && meta[name].shortAlias !== undefined ? meta[name].shortAlias! : name
+    return meta[name]?.shortAlias !== undefined ? meta[name].shortAlias! : name
   }
 
   const chainsMeta: interfaces.ChainsMetadataMap = CHAINS_META[props.skaleNetwork]

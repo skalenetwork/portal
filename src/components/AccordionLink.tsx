@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { ReactElement } from 'react'
+import { type ReactElement } from 'react'
 
 import ButtonBase from '@mui/material/ButtonBase'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
@@ -41,7 +41,7 @@ export default function AccordionLink(props: {
         <ButtonBase className={cls(cmn.fullWidth, cmn.flex, cmn.pleft, cmn.bordRad)}>
           <div className={cls(cmn.m10, cmn.flex, cmn.flexg, cmn.flexcv)}>
             {props.icon ? (
-              <div className={cls(cmn.mri10, cmn.flexcv, cmn.flex, styles.chainIconxs)}>
+              <div className={cls(cmn.mri10, cmn.flexcv, cmn.flex, styles.chainIconxs, cmn.pSec)}>
                 {props.icon}
               </div>
             ) : null}

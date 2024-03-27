@@ -31,8 +31,9 @@ else
 fi
 
 node generate-imports.cjs ./src/meta/logos
+node generate-imports.cjs ./src/assets/validators
 
 bash generate_sitemap.sh
 
 echo "Building..."
-yarn build
+bun run build

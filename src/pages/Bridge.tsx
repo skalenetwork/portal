@@ -151,7 +151,6 @@ export default function Bridge() {
       }
       if (tokens.eth && tokens.eth.eth) {
         setToken(tokens.eth.eth)
-        return
       }
     }
   }, [tokenParams, tokens])

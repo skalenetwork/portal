@@ -21,11 +21,12 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import Button from '@mui/material/Button'
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
 import { cmn, cls } from '@skalenetwork/metaport'
+import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
+
 import CategoryBadge, { isString } from './CategoryBadge'
-import { Link } from 'react-router-dom'
+import Breadcrumbs from './Breadcrumbs'
 
 export default function ChainCategories(props: {
   category: string | string[] | undefined
@@ -34,29 +35,29 @@ export default function ChainCategories(props: {
   if (!props.category) return
   return (
     <div className={cls(cmn.flex, cmn.flexw)}>
-      <div className={cls(cmn.flex, 'titleBadge', cmn.flexcv, cmn.mbott10)}>
-        <div className={cmn.flex}>
-          <Link to={'/chains/'} className="undec fullWidth">
-            <Button>
-              <ArrowBackIosNewRoundedIcon className={cls(cmn.pPdrim)} />
-              <p className={cls(cmn.p, cmn.p4, cmn.mleft5)}>All chains</p>
-            </Button>
-          </Link>
-        </div>
-        <p className={cls(cmn.p, cmn.p4)}>|</p>
-        <div className={cmn.flex}>
-          <div className={cls(cmn.flex, cmn.flexcv, cmn.mleft5, cmn.mri10)}>
-            <p className={cls(cmn.p, cmn.p4, cmn.mleft5)}>{props.alias}</p>
-          </div>
-        </div>
+      <div>
+        <Breadcrumbs
+          sections={[
+            {
+              text: 'All chains',
+              icon: <ArrowBackIosNewRoundedIcon />,
+              url: '/chains'
+            },
+            {
+              text: props.alias,
+              icon: <LinkRoundedIcon />
+            }
+          ]}
+        />
       </div>
+
       <div className={cmn.flexg}></div>
       <div className={cls(cmn.flex, cmn.mbott10)}>
         {isString(props.category) ? (
           <CategoryBadge category={props.category} className={cmn.mleft5} />
         ) : (
           props.category.map((cat: string) => (
-            <CategoryBadge category={cat} className={cmn.mleft5} />
+            <CategoryBadge category={cat} className={cmn.mleft5} key={cat} />
           ))
         )}
       </div>

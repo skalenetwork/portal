@@ -32,7 +32,7 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { styled } from '@mui/material/styles'
 import Switch from '@mui/material/Switch'
 
-import { cmn, cls, styles, interfaces } from '@skalenetwork/metaport'
+import { cmn, cls, styles, type interfaces } from '@skalenetwork/metaport'
 
 export default function CopySurface(props: {
   title: string
@@ -51,7 +51,9 @@ export default function CopySurface(props: {
       const timer = setTimeout(() => {
         setCopied(false)
       }, 1000)
-      return () => clearTimeout(timer)
+      return () => {
+        clearTimeout(timer)
+      }
     }
   }, [copied])
 

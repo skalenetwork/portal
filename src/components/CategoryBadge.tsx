@@ -62,7 +62,7 @@ function isStringArray(value: any): value is string[] {
 
 export default function CategoryBadge(props: { category: string; className?: string }) {
   function getCategoryIcon(category: string) {
-    return CATEGORY_ICON[category] ?? CATEGORY_ICON['other']
+    return CATEGORY_ICON[category] ?? CATEGORY_ICON.other
   }
 
   return (

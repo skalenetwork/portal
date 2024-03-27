@@ -11,7 +11,7 @@ if (!rootDir) {
 const getSvgFilesInDir = (dir) => {
     return fs.readdirSync(dir).filter(file => {
         const ext = path.extname(file);
-        return ['.png', '.svg', '.gif'].includes(ext);
+        return ['.png', '.svg', '.gif', '.webp', '.jpeg', '.jpg'].includes(ext);
     }).map(file => path.join(dir, file))
 };
 
