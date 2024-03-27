@@ -76,7 +76,7 @@ export async function getStakingInfo(
 }
 
 export function isDelegationTypeAvailable(si: StakingInfoMap, type: DelegationType): boolean {
-  return si[DelegationType.REGULAR] !== null && si[type] !== undefined
+  return si[DelegationType.REGULAR] !== null && si[type] !== undefined && si[type] !== null
 }
 
 export function isLoaded(si: StakingInfoMap): boolean {

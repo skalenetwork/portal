@@ -195,7 +195,9 @@ export default function Delegate(props: {
                 className={cls('btnSm', 'outlined', cmn.mleft20, cmn.flexcv)}
                 disabled={info.allowedToDelegate === 0n || loading}
                 onClick={() => {
+                  if (!info.allowedToDelegate) return
                   setAmount(fromWei(info.allowedToDelegate ?? 0n, DEFAULT_ERC20_DECIMALS))
+                  setAmountWei(info.allowedToDelegate)
                 }}
               >
                 Max
