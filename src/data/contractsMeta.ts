@@ -34,7 +34,10 @@ export const CONTRACTS_META: { [key in interfaces.SkaleNetwork]: any } = {
     grants: null
   },
   legacy: {
-    auto: true
+    auto: false,
+    manager: '0x27C393Cd6CBD071E5F5F2227a915d3fF3650aeaE',
+    allocator: '0xCEabf2b0c4F9d75A49a7B1E3e3c3179cDe949C9F',
+    grants: '0x3982411D90792aCDaCBa37b1fE2f23E4A3E97429'
   },
   regression: {
     auto: true

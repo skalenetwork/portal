@@ -168,10 +168,9 @@ export default function Staking(props: {
           <div className={cls(cmn.flexg)}>
             <h2 className={cls(cmn.nom)}>Staking</h2>
             <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-              Delegate, review delegations and withdraw staking rewards
-            </p>
+              {props.isXs ? 'Manage your delegations' : 'Delegate, review delegations and withdraw staking rewards'}</p>
           </div>
-          <div>
+          <div >
             <Link to="/staking/new">
               <Button
                 variant="contained"
