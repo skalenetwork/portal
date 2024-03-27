@@ -21,16 +21,22 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { ReactElement } from 'react'
+import { useState, useEffect, type ReactElement } from 'react'
+import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { useTheme } from '@mui/material/styles'
-import LinearProgress from '@mui/material/LinearProgress'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { cmn, cls, styles } from '@skalenetwork/metaport'
 
-import { DueDateStatus } from '../core/paymaster'
+import LinearProgress from '@mui/material/LinearProgress'
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
+
+import { type DueDateStatus } from '../core/paymaster'
+import { Skeleton, Tooltip } from '@mui/material'
+import SkStack from './SkStack'
 
 export default function Tile(props: {
   text?: string
-  value?: string
+  value?: string | null
   textRi?: string
   icon?: ReactElement
   className?: string
@@ -39,55 +45,133 @@ export default function Tile(props: {
   progressColor?: DueDateStatus
   progress?: number
   children?: ReactElement | ReactElement[]
+  childrenRi?: ReactElement | ReactElement[]
+  size?: 'lg' | 'md'
+  textColor?: string
+  disabled?: boolean | null
+  ri?: boolean
+  copy?: string | undefined
+  transparent?: boolean
 }) {
   const theme = useTheme()
-  const color = props.color ? theme.palette[props.color].main : 'rgba(0, 0, 0, 0.6)'
+  let color = props.color ? theme.palette[props.color].main : 'rgba(0, 0, 0, 0.6)'
+  color = props.transparent ? 'transparent' : color
+  const size = props.size ?? 'lg'
+
+  const [copied, setCopied] = useState(false)
+  const isXs = useMediaQuery(theme.breakpoints.down('sm'))
+
+  const handleClick = () => {
+    setCopied(true)
+  }
+
+  useEffect(() => {
+    if (copied) {
+      const timer = setTimeout(() => {
+        setCopied(false)
+      }, 1000)
+      return () => {
+        clearTimeout(timer)
+      }
+    }
+  }, [copied])
+
+  const value = (
+    <p
+      className={cls(
+        cmn.p,
+        [cmn.p1, size == 'lg'],
+        [cmn.p2, size == 'md'],
+        cmn.p700,
+        [cmn.pPrim, !props.color && !props.disabled],
+        [cmn.pSec, props.disabled],
+        ['blackP', props.color],
+        ['pointer', props.copy]
+      )}
+    >
+      {props.value}
+    </p>
+  )
+
   return (
     <div
-      className={cls(props.className, styles.fullHefight, 'titleSection', [cmn.flexg, props.grow])}
+      className={cls(props.className, styles.fullHefight, 'titleSection', `titleSection_${size}`, [
+        cmn.flexg,
+        props.grow
+      ])}
       style={{ background: color }}
     >
-      {props.text ? (
-        <div
-          className={cls(
-            cmn.flex,
-            cmn.flexcv,
-            cmn.mbott5,
-            [cmn.pSec, !props.color],
-            ['blackP', props.color]
-          )}
-        >
-          {props.icon ? (
-            <div className={cls(cmn.mri5, cmn.flex, styles.chainIconxs)}>{props.icon}</div>
+      <SkStack className={cls(cmn.flex, [cmn.flexcv, !isXs])}>
+        <div className={cls(cmn.flexg)}>
+          {props.text ? (
+            <div
+              className={cls(
+                cmn.flex,
+                cmn.flexcv,
+                cmn.mbott5,
+                [cmn.pSec, !props.color],
+                ['blackP', props.color]
+              )}
+            >
+              {props.ri ? <div className={cls(cmn.flexg)}></div> : null}
+              {props.icon ? (
+                <div
+                  className={cls(cmn.mri5, cmn.flex, styles.chainIconxs)}
+                  style={{ color: props.textColor }}
+                >
+                  {copied ? <CheckCircleRoundedIcon color="success" /> : props.icon}
+                </div>
+              ) : null}
+              <p
+                className={cls(
+                  cmn.p,
+                  cmn.p4,
+                  cmn.flex,
+                  [cmn.flexg, !props.ri],
+                  [cmn.p600, props.textColor]
+                )}
+                style={{ color: props.textColor }}
+              >
+                {props.text}
+              </p>
+              {props.textRi ? (
+                <p
+                  className={cls(cmn.p, cmn.p4, cmn.flex, cmn.mleft5)}
+                  style={{ color: props.textColor }}
+                >
+                  {props.textRi}
+                </p>
+              ) : null}
+            </div>
           ) : null}
-          <p className={cls(cmn.p, cmn.p4, cmn.flex, cmn.flexg)}>{props.text}</p>
-          <p className={cls(cmn.p, cmn.p4, cmn.flex, cmn.mleft5)}>{props.textRi}</p>
+          <div className={cls(cmn.flex, cmn.flexcv)}>
+            {props.ri ? <div className={cls(cmn.flexg)}></div> : null}
+            {props.value && props.copy ? (
+              <Tooltip arrow title={copied ? 'Copied' : 'Click to copy'}>
+                <div>
+                  <CopyToClipboard text={props.copy ?? ''} onCopy={handleClick}>
+                    {value}
+                  </CopyToClipboard>
+                </div>
+              </Tooltip>
+            ) : null}
+            {props.value && !props.copy ? value : null}
+            {!props.value && !props.children ? (
+              <Skeleton variant="rectangular" width={150} height={33} />
+            ) : null}
+            {props.progress ? (
+              <LinearProgress
+                variant="determinate"
+                value={props.progress}
+                color={props.progressColor}
+                style={{ height: '20px' }}
+                className={cls(cmn.flexg, cmn.mleft10)}
+              />
+            ) : null}
+          </div>
         </div>
-      ) : null}
-      <div className={cls(cmn.flex, cmn.flexcv)}>
-        {props.value ? (
-          <p
-            className={cls(
-              cmn.p,
-              cmn.p1,
-              cmn.p700,
-              [cmn.pPrim, !props.color],
-              ['blackP', props.color]
-            )}
-          >
-            {props.value}
-          </p>
-        ) : null}
-        {props.progress ? (
-          <LinearProgress
-            variant="determinate"
-            value={props.progress}
-            color={props.progressColor}
-            style={{ height: '20px' }}
-            className={cls(cmn.flexg, cmn.mleft10)}
-          />
-        ) : null}
-      </div>
+        {props.childrenRi}
+      </SkStack>
       {props.children}
     </div>
   )

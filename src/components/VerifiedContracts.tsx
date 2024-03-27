@@ -26,7 +26,7 @@ import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import ExpandCircleDownRoundedIcon from '@mui/icons-material/ExpandCircleDownRounded'
 import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded'
-import { cmn, cls, styles, MetaportCore } from '@skalenetwork/metaport'
+import { cmn, cls, styles, type MetaportCore } from '@skalenetwork/metaport'
 
 import LinkSurface from './LinkSurface'
 
@@ -59,8 +59,8 @@ export default function VerifiedContracts(props: {
     try {
       const response = await fetch(`${props.explorerUrl}${getApiParams()}`)
       const contractsJson = await response.json()
-      setContracts([...contracts, ...contractsJson['result']])
-      setAllLoaded(contractsJson['result'].length === 0)
+      setContracts([...contracts, ...contractsJson.result])
+      setAllLoaded(contractsJson.result.length === 0)
     } catch {
       console.error('Failed to fetch verified contracts!')
     } finally {
@@ -79,9 +79,9 @@ export default function VerifiedContracts(props: {
           <Grid key={index} item lg={6} md={6} sm={6} xs={12}>
             <LinkSurface
               className={cls(styles.fullHeight)}
-              title={contract['ContractName']}
-              value={contract['Address']}
-              url={addressUrl(contract['Address'])}
+              title={contract.ContractName}
+              value={contract.Address}
+              url={addressUrl(contract.Address)}
             />
           </Grid>
         ))}

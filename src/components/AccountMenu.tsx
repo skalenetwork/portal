@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { useState, MouseEvent } from 'react'
+import { useState, type MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 
