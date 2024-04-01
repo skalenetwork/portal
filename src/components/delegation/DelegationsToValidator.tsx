@@ -61,7 +61,7 @@ export default function DelegationsToValidator(props: {
       />
 
       <Collapse in={open}>
-        <div className={cls('nestedSection')}>
+        <div className={cls('nestedSection', ['nestedSectionXs', props.isXs])}>
           {props.delegationsToValidator.delegations.map(
             (delegation: IDelegation, index: number) => (
               <Delegation

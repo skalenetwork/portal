@@ -64,7 +64,7 @@ export default function Delegations(props: {
       {!loaded ? (
         <div>
           <Skeleton variant="rectangular" height={86} className={cls(cmn.mbott10)} />
-          <div className="nestedSection">
+          <div className={cls('nestedSection', ['nestedSectionXs', props.isXs])}>
             <Skeleton variant="rectangular" height={83} className={cls(cmn.mbott10)} />
           </div>
         </div>

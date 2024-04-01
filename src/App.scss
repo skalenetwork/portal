@@ -1001,6 +1001,12 @@ a {
   margin-left: 41px !important;
 }
 
+.nestedSectionXs {
+  border-left: 3px $border-color solid;
+  padding-left: 20px;
+  margin-left: 20px !important;
+}
+
 .borderVert {
   border-left: 2px $border-color solid;
 }

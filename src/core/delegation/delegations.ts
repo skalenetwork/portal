@@ -141,7 +141,8 @@ export async function groupDelegationsByValidator(
     ([validatorId, delegations]) => ({
       validatorId,
       delegations,
-      rewards: 0n
+      rewards: 0n,
+      staked: 0n
     })
   )
 
@@ -156,45 +157,19 @@ export async function groupDelegationsByValidator(
   )
   delegationsArray.forEach((delegationsToValidator, index) => {
     delegationsToValidator.rewards = res[index][0]
-  })
-
-  return delegationsArray
-}
-
-export async function groupDelegationsByValidator1(
-  delegations: IDelegation[],
-  distributor: any,
-  address: string
-): Promise<IDelegationsToValidator[]> {
-  const groupedDelegations = new Map<bigint, IDelegation[]>()
-
-  // Group delegations by validator_id
-  delegations.forEach((delegation) => {
-    const { validator_id } = delegation
-    const existingDelegations = groupedDelegations.get(validator_id) || []
-    groupedDelegations.set(validator_id, [...existingDelegations, delegation])
-  })
-
-  // Fetch rewards asynchronously for each validator
-  const promises: Array<Promise<[bigint, bigint]>> = []
-  groupedDelegations.forEach((_, validatorId) => {
-    promises.push(
-      new Promise(async (resolve) => {
-        const rewards = await distributor.getAndUpdateEarnedBountyAmountOf(address, validatorId)
-        resolve([validatorId, rewards])
-      })
+    delegationsToValidator.staked = delegationsToValidator.delegations.reduce(
+      (total, delegation) => {
+        if (Number(delegation.stateId) === DelegationState.DELEGATED) {
+          return total + delegation.amount
+        } else {
+          return total
+        }
+      },
+      0n
     )
   })
 
-  // Wait for all promises to resolve
-  const rewardsArray = await Promise.all(promises)
-
-  // Convert grouped delegations into IDelegationsToValidator[]
-  return rewardsArray.map(([validatorId, rewards]) => ({
-    validatorId,
-    delegations,
-    rewards
-  }))
+  return delegationsArray
 }
 
 export const sumRewards = (delegations: IDelegationsToValidator[]): bigint =>

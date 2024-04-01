@@ -188,7 +188,8 @@ export default function Delegation(props: {
             />
           ) : null}
           {Number(props.delegation.stateId) !== DelegationState.PROPOSED &&
-          Number(props.delegation.stateId) !== DelegationState.DELEGATED ? (
+          Number(props.delegation.stateId) !== DelegationState.DELEGATED &&
+          !isCompleted ? (
             <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent, cmn.mtop20)}>
               No actions available
             </p>

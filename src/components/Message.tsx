@@ -30,7 +30,7 @@ import { SkPaper, cls, cmn } from '@skalenetwork/metaport'
 import { Link } from 'react-router-dom'
 
 export default function Message(props: {
-  text: string
+  text: string | null
   linkText?: string
   link?: string
   icon: ReactElement
@@ -45,7 +45,9 @@ export default function Message(props: {
           className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv, cmn.mtopd5, cmn.mbotdt5, cmn.mleft10)}
         >
           <div className={cls(cmn.flex, cmn.flexc, cmn.mri10)}>{props.icon}</div>
-          <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.pPrim, cmn.mri5)}>{props.text}</p>
+          {props.text ? (
+            <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.pPrim, cmn.mri5)}>{props.text}</p>
+          ) : null}
           {props.link ? (
             <div className={cls(cmn.flex, cmn.flexcv, cmn.flexg)}>
               <Link to={props.link}>

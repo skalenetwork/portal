@@ -53,6 +53,7 @@ export default function Reward(props: {
 }) {
   const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
   const rewardsAmount = formatBalance(props.delegationsToValidator.rewards, 'SKL')
+  const totalStakedAmount = formatBalance(props.delegationsToValidator.staked, 'SKL')
   if (!validator) return
 
   const loading =
@@ -61,24 +62,49 @@ export default function Reward(props: {
     'validatorId' in props.loading &&
     props.loading.validatorId === validator.id
 
+  const minimizeBtn = (
+    <div
+      className={cls(cmn.mleft20, styles.chainIconxs, 'pointer')}
+      onClick={() => {
+        props.setOpen(!props.open)
+      }}
+    >
+      {props.open ? (
+        <RemoveCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
+      ) : (
+        <AddCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
+      )}
+    </div>
+  )
+
   return (
-    <div className={cls(cmn.mbott10, 'titleSection validatorCard')}>
+    <div className={cls(cmn.mbott10, 'titleSection')}>
       <Grid container spacing={0} alignItems="center">
         <Grid item md={4} xs={12}>
           <div className={cls(cmn.flex, cmn.flexcv)}>
             <ValidatorLogo validatorId={validator.id} size="lg" />
-            <div className={cls(cmn.mleft10)}>
+            <div className={cls(cmn.mleft10, [cmn.flexg, props.isXs])}>
               <h4 className={cls(cmn.p, cmn.p700, 'pOneLine')}>{validator.name}</h4>
               <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Validator ID: {Number(validator.id)}</p>
             </div>
+            {props.isXs ? minimizeBtn : null}
           </div>
         </Grid>
-        <Grid item md={1} xs={0}></Grid>
-        <Grid item md={7} xs={12} className={cls([cmn.mtop20, props.isXs])}>
+        <Grid item md={8} xs={12} className={cls([cmn.mtop20, props.isXs])}>
           <div className={cls(cmn.flex, cmn.flexcv)}>
+            <div className={cls([cmn.flexg, !props.isXs])}></div>
+            {!props.isXs && !props.open ? (
+              <div className={cls([cmn.pri, !props.isXs], cmn.flex)}>
+                <div>
+                  <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Total staked</p>
+                  <h3 className={cls(cmn.p, cmn.p700)}>{totalStakedAmount}</h3>
+                </div>
+                <div className={cls('borderVert', cmn.mleft20)}></div>
+              </div>
+            ) : null}
             <div
               className={cls(
-                cmn.flexg,
+                [cmn.flexg, props.isXs],
                 cmn.mri20,
                 [cmn.pri, !props.isXs],
                 [cmn.mleft20, !props.isXs]
@@ -112,18 +138,7 @@ export default function Reward(props: {
                 Retrieve
               </Button>
             )}
-            <div
-              className={cls(cmn.mleft20, styles.chainIconxs)}
-              onClick={() => {
-                props.setOpen(!props.open)
-              }}
-            >
-              {props.open ? (
-                <RemoveCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
-              ) : (
-                <AddCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
-              )}
-            </div>
+            {!props.isXs ? minimizeBtn : null}
           </div>
         </Grid>
       </Grid>

@@ -146,7 +146,7 @@ export default function Router() {
       <TransitionGroup>
         <CSSTransition key={location.pathname} classNames="fade" timeout={300} component={null}>
           <Routes>
-            <Route index element={<Start />} />
+            <Route index element={<Start isXs={isXs} />} />
             <Route path="bridge" element={<Bridge />} />
             <Route path="bridge">
               <Route path="history" element={<History />} />
