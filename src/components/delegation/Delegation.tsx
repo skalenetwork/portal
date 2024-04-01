@@ -64,7 +64,13 @@ export default function Delegation(props: {
   const delegationAmount = formatBalance(props.delegation.amount, 'SKL')
   const [open, setOpen] = useState(false)
 
-  const isCompleted = Number(props.delegation.stateId) === DelegationState.COMPLETED
+  const delId = Number(props.delegation.stateId)
+  const isCompleted = delId === DelegationState.COMPLETED
+  const isActive =
+    delId === DelegationState.DELEGATED ||
+    delId === DelegationState.UNDELEGATION_REQUESTED ||
+    delId === DelegationState.PROPOSED ||
+    delId === DelegationState.ACCEPTED
 
   const delegationInfo: IDelegationInfo = {
     delegationId: props.delegation.id,
@@ -76,6 +82,21 @@ export default function Delegation(props: {
     props.loading.delegationType === props.delegationType &&
     'delegationId' in props.loading &&
     props.loading.delegationId === props.delegation.id
+
+  function getStakingText() {
+    if (delId === DelegationState.PROPOSED || delId === DelegationState.ACCEPTED) {
+      return 'Will be staked'
+    } else if (delId === DelegationState.CANCELED || delId === DelegationState.REJECTED) {
+      return 'Staking amount'
+    } else if (
+      delId === DelegationState.DELEGATED ||
+      delId === DelegationState.UNDELEGATION_REQUESTED
+    ) {
+      return 'Staked'
+    } else {
+      return 'Was staked'
+    }
+  }
 
   if (!validator) return
   return (
@@ -145,8 +166,8 @@ export default function Delegation(props: {
                 [cmn.mleft20, !props.isXs]
               )}
             >
-              <h4 className={cls(cmn.p, cmn.p700)}>{delegationAmount}</h4>
-              <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Staked</p>
+              <h4 className={cls(cmn.p, cmn.p700, [cmn.pSec, !isActive])}>{delegationAmount}</h4>
+              <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>{getStakingText()}</p>
             </div>
             <ArrowForwardIosRoundedIcon
               className={cls(cmn.pSec, styles.chainIconxs, 'rotate-90', ['active', open])}
@@ -158,7 +179,7 @@ export default function Delegation(props: {
         <div className={cls(cmn.mtop20)}>
           {isCompleted ? (
             <div className={cls(cmn.mbfott20)}>
-              <p className={cls(cmn.p, cmn.p3, cmn.pSec)}>Delegation completed</p>
+              <p className={cls(cmn.p, cmn.p3)}>Delegation completed</p>
               <p className={cls(cmn.p, cmn.p2, cmn.p700)}>
                 {convertMonthIndexToText(Number(props.delegation.finished))}
               </p>
