@@ -37,7 +37,7 @@ import Message from '../components/Message'
 
 import { cmn, cls } from '@skalenetwork/metaport'
 
-export default function Start() {
+export default function Start(props: { isXs: boolean }) {
   return (
     <Container maxWidth="md">
       <Stack spacing={0}>
@@ -49,8 +49,8 @@ export default function Start() {
         </p>
         <Message
           className={cls(cmn.mtop10, cmn.mbott10d)}
-          text="Portal has been updated, "
-          linkText="see what's new"
+          text={props.isXs ? null : 'Portal has been updated, '}
+          linkText={props.isXs ? 'Portal has been updated' : "see what's new"}
           link="/other/changelog"
           icon={
             <div className="shipNew">

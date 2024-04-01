@@ -52,6 +52,7 @@ export interface IDelegationsToValidator {
   validatorId: bigint
   delegations: IDelegation[]
   rewards: bigint
+  staked: bigint
 }
 
 export enum DelegationType {

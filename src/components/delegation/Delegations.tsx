@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, styles } from '@skalenetwork/metaport'
+import { cmn, cls, styles, interfaces } from '@skalenetwork/metaport'
 import Skeleton from '@mui/material/Skeleton'
 import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
 import PieChartRoundedIcon from '@mui/icons-material/PieChartRounded'
@@ -48,6 +48,7 @@ export default function Delegations(props: {
   unstake: (delegationInfo: IDelegationInfo) => Promise<void>
   cancelRequest: (delegationInfo: IDelegationInfo) => Promise<void>
   isXs: boolean
+  customAddress: interfaces.AddressType | undefined
 }) {
   const loaded = props.si[DelegationType.REGULAR] !== null
   const noDelegations =
@@ -64,7 +65,7 @@ export default function Delegations(props: {
       {!loaded ? (
         <div>
           <Skeleton variant="rectangular" height={86} className={cls(cmn.mbott10)} />
-          <div className="nestedSection">
+          <div className={cls('nestedSection', ['nestedSectionXs', props.isXs])}>
             <Skeleton variant="rectangular" height={83} className={cls(cmn.mbott10)} />
           </div>
         </div>
@@ -90,6 +91,7 @@ export default function Delegations(props: {
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
                 isXs={props.isXs}
+                customAddress={props.customAddress}
               />
             )
           )}
@@ -105,6 +107,7 @@ export default function Delegations(props: {
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
                 isXs={props.isXs}
+                customAddress={props.customAddress}
               />
             )
           )}
@@ -120,6 +123,7 @@ export default function Delegations(props: {
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
                 isXs={props.isXs}
+                customAddress={props.customAddress}
               />
             )
           )}

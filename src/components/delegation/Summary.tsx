@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, styles, TokenIcon } from '@skalenetwork/metaport'
+import { cmn, cls, styles, TokenIcon, interfaces } from '@skalenetwork/metaport'
 
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
@@ -58,6 +58,7 @@ export default function Summary(props: {
   accountInfo: IDelegatorInfo | undefined
   retrieveUnlocked: (rewardInfo: IRewardInfo) => Promise<void>
   loading: IRewardInfo | IDelegationInfo | false
+  customAddress: interfaces.AddressType | undefined
   isXs: boolean
 }) {
   function getTitle() {
@@ -196,7 +197,11 @@ export default function Summary(props: {
                           variant="contained"
                           size="sm"
                           className={cls([cmn.mleft20, !props.isXs], cmn.flexcv)}
-                          disabled={props.accountInfo?.unlocked === 0n || props.loading !== false}
+                          disabled={
+                            props.accountInfo?.unlocked === 0n ||
+                            props.loading !== false ||
+                            props.customAddress !== undefined
+                          }
                           onClick={() => {
                             props.retrieveUnlocked(rewardInfo)
                           }}

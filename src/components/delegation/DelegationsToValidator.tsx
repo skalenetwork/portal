@@ -22,7 +22,7 @@
  */
 
 import { useState } from 'react'
-import { cls } from '@skalenetwork/metaport'
+import { cls, interfaces } from '@skalenetwork/metaport'
 import { Collapse } from '@mui/material'
 import {
   type DelegationType,
@@ -45,6 +45,7 @@ export default function DelegationsToValidator(props: {
   unstake: (delegationInfo: IDelegationInfo) => Promise<void>
   cancelRequest: (delegationInfo: IDelegationInfo) => Promise<void>
   isXs: boolean
+  customAddress: interfaces.AddressType | undefined
 }) {
   const [open, setOpen] = useState(true)
   return (
@@ -58,10 +59,11 @@ export default function DelegationsToValidator(props: {
         loading={props.loading}
         delType={props.delegationType}
         isXs={props.isXs}
+        customAddress={props.customAddress}
       />
 
       <Collapse in={open}>
-        <div className={cls('nestedSection')}>
+        <div className={cls('nestedSection', ['nestedSectionXs', props.isXs])}>
           {props.delegationsToValidator.delegations.map(
             (delegation: IDelegation, index: number) => (
               <Delegation
@@ -73,6 +75,7 @@ export default function DelegationsToValidator(props: {
                 cancelRequest={props.cancelRequest}
                 loading={props.loading}
                 isXs={props.isXs}
+                customAddress={props.customAddress}
               />
             )
           )}
