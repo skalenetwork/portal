@@ -63,6 +63,8 @@ export default function Router() {
   const [validators, setValidators] = useState<IValidator[]>([])
   const [si, setSi] = useState<StakingInfoMap>({ 0: null, 1: null, 2: null })
 
+  const [customAddress, setCustomAddress] = useState<interfaces.AddressType | undefined>(undefined)
+
   const mpc = useMetaportStore((state: MetaportState) => state.mpc)
   const transfersHistory = useMetaportStore((state) => state.transfersHistory)
   const setTransfersHistory = useMetaportStore((state) => state.setTransfersHistory)
@@ -72,14 +74,16 @@ export default function Router() {
   const { switchNetworkAsync } = useWagmiSwitchNetwork()
 
   const [searchParams, _] = useSearchParams()
-  const addr = (searchParams.get('_customAddress') as interfaces.AddressType | undefined) ?? address
-
   const endpoint = PROXY_ENDPOINTS[mpc.config.skaleNetwork]
 
   useEffect(() => {
     setTransfersHistory(getHistoryFromStorage(mpc.config.skaleNetwork))
     initSkaleContracts()
   }, [])
+
+  useEffect(() => {
+    setCustomAddress((searchParams.get('_customAddress') as interfaces.AddressType) ?? undefined)
+  }, [location])
 
   useEffect(() => {
     if (transfersHistory.length !== 0) {
@@ -123,7 +127,7 @@ export default function Router() {
 
   async function loadStakingInfo() {
     if (!sc) return
-    setSi(await getStakingInfoMap(sc, addr))
+    setSi(await getStakingInfoMap(sc, customAddress ?? address))
   }
 
   function isBridgePage(): boolean {
@@ -187,7 +191,8 @@ export default function Router() {
                   loadStakingInfo={loadStakingInfo}
                   sc={sc}
                   si={si}
-                  address={addr}
+                  address={customAddress ?? address}
+                  customAddress={customAddress}
                   getMainnetSigner={getMainnetSigner}
                 />
               }

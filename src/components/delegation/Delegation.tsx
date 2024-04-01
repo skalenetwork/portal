@@ -21,7 +21,7 @@
  */
 
 import { useState } from 'react'
-import { cmn, cls, styles } from '@skalenetwork/metaport'
+import { cmn, cls, styles, interfaces } from '@skalenetwork/metaport'
 
 import { Collapse, Grid, Tooltip } from '@mui/material'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
@@ -57,6 +57,7 @@ export default function Delegation(props: {
   cancelRequest: (delegationInfo: IDelegationInfo) => Promise<void>
   loading: IRewardInfo | IDelegationInfo | false
   isXs: boolean
+  customAddress: interfaces.AddressType | undefined
 }) {
   const validator = getValidatorById(props.validators, props.delegation.validator_id)
   const source = getDelegationSource(props.delegation)
@@ -172,7 +173,7 @@ export default function Delegation(props: {
               onClick={async () => {
                 await props.unstake(delegationInfo)
               }}
-              disabled={props.loading !== false}
+              disabled={props.loading !== false || props.customAddress !== undefined}
             />
           ) : null}
           {Number(props.delegation.stateId) === DelegationState.PROPOSED ? (
@@ -184,7 +185,7 @@ export default function Delegation(props: {
               onClick={async () => {
                 await props.cancelRequest(delegationInfo)
               }}
-              disabled={props.loading !== false}
+              disabled={props.loading !== false || props.customAddress !== undefined}
             />
           ) : null}
           {Number(props.delegation.stateId) !== DelegationState.PROPOSED &&

@@ -812,7 +812,8 @@ input[type=number] {
 
 // md styling
 
-a {
+a,
+.a {
   color: #71ffb8 !important;
 }
 
@@ -1035,5 +1036,25 @@ a {
 .amountInput {
   input {
     padding: 3px 10px 0 5px !important
+  }
+}
+
+
+.warningMsg {
+  background-color: #43391d !important;
+
+  p,
+  svg {
+    color: #f9e09c !important;
+  }
+
+  a,
+  .a {
+    color: #ffc832 !important;
+
+    p,
+    svg {
+      color: #ffc832 !important;
+    }
   }
 }

@@ -39,6 +39,7 @@ import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 
+import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
 import QueueRoundedIcon from '@mui/icons-material/QueueRounded'
@@ -63,6 +64,7 @@ import { BALANCE_UPDATE_INTERVAL_MS, DEFAULT_ERROR_MSG } from '../core/constants
 import ErrorTile from '../components/ErrorTile'
 import ConnectWallet from '../components/ConnectWallet'
 import Headline from '../components/Headline'
+import Message from '../components/Message'
 
 debug.enable('*')
 const log = debug('portal:pages:Staking')
@@ -75,6 +77,7 @@ export default function Staking(props: {
   sc: ISkaleContractsMap | null
   si: StakingInfoMap
   address: interfaces.AddressType | undefined
+  customAddress: interfaces.AddressType | undefined
   getMainnetSigner: () => Promise<Signer>
   isXs: boolean
 }) {
@@ -174,19 +177,41 @@ export default function Staking(props: {
             </p>
           </div>
           <div>
-            <Link to="/staking/new">
+            {loading !== false || props.customAddress !== undefined ? (
               <Button
                 variant="contained"
                 className={cls('btnMd', cmn.mtop10)}
                 startIcon={<QueueRoundedIcon />}
-                disabled={loading !== false}
+                disabled={loading !== false || props.customAddress !== undefined}
               >
                 Stake SKL
               </Button>
-            </Link>
+            ) : (
+              <Link to="/staking/new">
+                <Button
+                  variant="contained"
+                  className={cls('btnMd', cmn.mtop10)}
+                  startIcon={<QueueRoundedIcon />}
+                  disabled={loading !== false || props.customAddress !== undefined}
+                >
+                  Stake SKL
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </Stack>
+
+      {props.customAddress !== undefined ? (
+        <Message
+          className={cls(cmn.mtop20)}
+          text={props.isXs ? 'Preview mode, ' : 'Previewing staking page in read-only mode, '}
+          icon={<VisibilityRoundedIcon />}
+          link="/staking"
+          linkText="click to exit"
+          type="warning"
+        />
+      ) : null}
 
       <SkPaper gray className={cls(cmn.mtop20)}>
         <Collapse in={props.address !== undefined}>
@@ -196,6 +221,7 @@ export default function Staking(props: {
             loading={loading}
             retrieveUnlocked={retrieveUnlocked}
             isXs={props.isXs}
+            customAddress={props.customAddress}
           />
         </Collapse>
         <Collapse in={props.address === undefined}>
@@ -212,6 +238,7 @@ export default function Staking(props: {
             loading={loading}
             retrieveUnlocked={retrieveUnlocked}
             isXs={props.isXs}
+            customAddress={props.customAddress}
           />
         </SkPaper>
       </Collapse>
@@ -224,6 +251,7 @@ export default function Staking(props: {
             loading={loading}
             retrieveUnlocked={retrieveUnlocked}
             isXs={props.isXs}
+            customAddress={props.customAddress}
           />
         </SkPaper>
       </Collapse>
@@ -242,6 +270,7 @@ export default function Staking(props: {
             unstake={unstake}
             cancelRequest={cancelRequest}
             isXs={props.isXs}
+            customAddress={props.customAddress}
           />
         </Collapse>
         <Collapse in={props.address === undefined}>

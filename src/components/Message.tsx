@@ -36,28 +36,30 @@ export default function Message(props: {
   icon: ReactElement
   className?: string | undefined
   showOnLoad?: boolean | undefined
+  type?: 'warning' | 'info'
 }) {
+  const type = props.type || 'info'
   const [show, setShow] = useState<boolean>(true)
   return (
     <Collapse in={show}>
-      <SkPaper gray className={cls(props.className, 'border')}>
+      <SkPaper gray className={cls(props.className, 'border', ['warningMsg', type === 'warning'])}>
         <div
           className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv, cmn.mtopd5, cmn.mbotdt5, cmn.mleft10)}
         >
           <div className={cls(cmn.flex, cmn.flexc, cmn.mri10)}>{props.icon}</div>
           {props.text ? (
-            <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.pPrim, cmn.mri5)}>{props.text}</p>
+            <p className={cls(cmn.p, cmn.p3, cmn.p600, [cmn.pPrim, type !== 'warning'], cmn.mri5)}>
+              {props.text}
+            </p>
           ) : null}
           {props.link ? (
             <div className={cls(cmn.flex, cmn.flexcv, cmn.flexg)}>
               <Link to={props.link}>
-                <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.mri5)} style={{ color: '#71ffb8' }}>
-                  {props.linkText}
-                </p>
+                <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.mri5)}>{props.linkText}</p>
               </Link>
               <ArrowOutwardRoundedIcon
-                className={cls(cmn.flex, cmn.flexcv)}
-                style={{ height: '14px', width: '14px', color: '#71ffb8' }}
+                className={cls(cmn.flex, cmn.flexcv, 'a')}
+                style={{ height: '14px', width: '14px' }}
               />
             </div>
           ) : null}
@@ -68,10 +70,10 @@ export default function Message(props: {
               onClick={() => {
                 setShow(false)
               }}
-              className={cls(cmn.paperGrey, cmn.pPrim, cmn.mleft10)}
+              className={cls(cmn.paperGrey, cmn.mleft10)}
             >
               <CloseRoundedIcon
-                className={cls(cmn.pSec)}
+                className={cls([cmn.pSec, type !== 'warning'])}
                 style={{ height: '16px', width: '16px' }}
               />
             </IconButton>

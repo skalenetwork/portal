@@ -20,7 +20,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, styles } from '@skalenetwork/metaport'
+import { cmn, cls, styles, interfaces } from '@skalenetwork/metaport'
 
 import { Grid } from '@mui/material'
 import Button from '@mui/material/Button'
@@ -50,6 +50,7 @@ export default function Reward(props: {
   loading: IRewardInfo | IDelegationInfo | false
   delType: DelegationType
   isXs: boolean
+  customAddress: interfaces.AddressType | undefined
 }) {
   const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
   const rewardsAmount = formatBalance(props.delegationsToValidator.rewards, 'SKL')
@@ -127,7 +128,11 @@ export default function Reward(props: {
               <Button
                 variant="contained"
                 className={cls('btnSm')}
-                disabled={props.delegationsToValidator.rewards === 0n || props.loading !== false}
+                disabled={
+                  props.delegationsToValidator.rewards === 0n ||
+                  props.loading !== false ||
+                  props.customAddress !== undefined
+                }
                 onClick={() => {
                   props.retrieveRewards({
                     validatorId: validator.id,
