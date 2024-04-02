@@ -68,7 +68,7 @@ export default function Schain(props: { loadSchains: any; schains: any[]; mpc: M
     )
   }
 
-  if (!chain) {
+  if (chain === undefined || chain === null) {
     return <h1>No such chain: {name}</h1>
   }
 

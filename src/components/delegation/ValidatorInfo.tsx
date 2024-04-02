@@ -79,30 +79,6 @@ export default function ValidatorInfo(props: { validator: IValidator; className?
           icon={<TokenIcon tokenSymbol="skl" size="xs" />}
         />
       </SkStack>
-      {/* <SkStack className={cls(cmn.mtop10)}>
-        <Tile
-          value={props.validator.validatorAddress}
-          text="Validator address"
-          grow
-          className='border'
-          size='md'
-        // icon={<TokenIcon tokenSymbol="skl" size="xs" />}
-        />
-        <Tile
-          value={props.validator.linkedNodes.toString()}
-          text="Linked nodes"
-          grow
-          className='border'
-          size='md'
-        // icon={<TokenIcon tokenSymbol="skl" size="xs" />}
-        />
-      </SkStack>
- */}
-
-      {/* 
-      <div className={cls('shipAddress', cmn.mtop10)} >
-        <p className={cls(cmn.p, cmn.p3, cmn.pCent, 'pOneLine')}>Address: {props.validator.validatorAddress}</p>
-      </div> */}
     </div>
   )
 }

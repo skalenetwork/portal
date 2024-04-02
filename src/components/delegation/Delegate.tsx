@@ -59,10 +59,8 @@ import {
 } from '../../core/constants'
 import { initActionContract } from '../../core/contracts'
 
-
 debug.enable('*')
 const log = debug('portal:pages:Delegate')
-
 
 export default function Delegate(props: {
   mpc: MetaportCore

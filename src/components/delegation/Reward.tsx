@@ -20,7 +20,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, styles, interfaces } from '@skalenetwork/metaport'
+import { cmn, cls, styles, type interfaces } from '@skalenetwork/metaport'
 
 import { Grid } from '@mui/material'
 import Button from '@mui/material/Button'

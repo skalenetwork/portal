@@ -72,8 +72,8 @@ const log = debug('portal:pages:Staking')
 export default function Staking(props: {
   mpc: MetaportCore
   validators: IValidator[]
-  loadValidators: () => void
-  loadStakingInfo: () => void
+  loadValidators: () => Promise<void>
+  loadStakingInfo: () => Promise<void>
   sc: ISkaleContractsMap | null
   si: StakingInfoMap
   address: interfaces.AddressType | undefined
@@ -90,9 +90,9 @@ export default function Staking(props: {
     const intervalId = setInterval(() => {
       props.loadStakingInfo()
     }, BALANCE_UPDATE_INTERVAL_MS)
-    log(`Updating staking info interval: ${intervalId}`)
+    log(`Updating staking info interval: ${Number(intervalId)}`)
     return () => {
-      log(`Clearing interval: ${intervalId}`)
+      log(`Clearing interval: ${Number(intervalId)}`)
       clearInterval(intervalId) // Clear interval on component unmount
     }
   }, [props.address, props.sc])
@@ -103,7 +103,7 @@ export default function Staking(props: {
     txArgs: any[],
     contractType: ContractType
   ) {
-    if (!props.sc || !props.address) return
+    if (props.sc === null || props.address === undefined) return
     log('processTx:', txName, txArgs, contractType, delegationType)
     try {
       const signer = await props.getMainnetSigner()
@@ -192,7 +192,7 @@ export default function Staking(props: {
                   variant="contained"
                   className={cls('btnMd', cmn.mtop10)}
                   startIcon={<QueueRoundedIcon />}
-                  disabled={loading !== false || props.customAddress !== undefined}
+                  disabled={loading || props.customAddress !== undefined}
                 >
                   Stake SKL
                 </Button>

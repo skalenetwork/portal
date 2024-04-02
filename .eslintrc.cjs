@@ -6,10 +6,14 @@ module.exports = {
   extends: [
     'plugin:react/recommended',
     'standard-with-typescript',
-    'prettier',
-    'plugin:storybook/recommended'
+    'prettier'
   ],
-  overrides: [],
+  overrides: [{
+    files: ['*.jsx', '*.tsx'],
+    rules: {
+      '@typescript-eslint/explicit-function-return-type': ['off'],
+    },
+  }],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
@@ -18,8 +22,7 @@ module.exports = {
   rules: {
     'react/jsx-key': 'off',
     'react/react-in-jsx-scope': 'off',
-    'no-unused-vars': 'off',
-    '@typescript-eslint/no-unused-vars': 'warn',
     'no-console': 'warn',
+    '@typescript-eslint/triple-slash-reference': 'off'
   },
 }

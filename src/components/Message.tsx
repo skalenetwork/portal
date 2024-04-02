@@ -38,7 +38,7 @@ export default function Message(props: {
   showOnLoad?: boolean | undefined
   type?: 'warning' | 'info'
 }) {
-  const type = props.type || 'info'
+  const type = props.type ?? 'info'
   const [show, setShow] = useState<boolean>(true)
   return (
     <Collapse in={show}>

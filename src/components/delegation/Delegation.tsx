@@ -21,7 +21,7 @@
  */
 
 import { useState } from 'react'
-import { cmn, cls, styles, interfaces } from '@skalenetwork/metaport'
+import { cmn, cls, styles, type interfaces } from '@skalenetwork/metaport'
 
 import { Collapse, Grid, Tooltip } from '@mui/material'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'

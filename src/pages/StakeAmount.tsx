@@ -76,7 +76,7 @@ export default function StakeAmount(props: {
   }, [])
 
   useEffect(() => {
-    if (props.sc) {
+    if (props.sc !== null) {
       props.loadValidators()
       props.loadStakingInfo()
     }
@@ -138,7 +138,9 @@ export default function StakeAmount(props: {
           </div>
           {loaded && available ? (
             <div className="titleBadge" style={{ padding: '10px 15px' }}>
-              <p className={cls(cmn.p, cmn.p4)}>{getDelegationTypeAlias(delegationType)} delegation</p>
+              <p className={cls(cmn.p, cmn.p4)}>
+                {getDelegationTypeAlias(delegationType)} delegation
+              </p>
             </div>
           ) : null}
         </div>
@@ -171,14 +173,6 @@ export default function StakeAmount(props: {
         ) : (
           <ConnectWallet tile className={cls(cmn.flexg)} />
         )}
-
-        {/* {!address ? (
-          <ConnectWallet tile className={cls(cmn.flexg)} />
-        ) : currentValidator && loaded ? (
-          <Delegate validator={currentValidator} />
-        ) : (
-          <Loader text="Loading staking info" />
-        )} */}
       </SkPaper>
     </Container>
   )

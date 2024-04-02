@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { interfaces } from '@skalenetwork/metaport'
+import { type interfaces } from '@skalenetwork/metaport'
 
 export interface IDelegatorInfo {
   balance: bigint

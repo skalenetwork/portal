@@ -80,8 +80,8 @@ export default function Tile(props: {
     <p
       className={cls(
         cmn.p,
-        [cmn.p1, size == 'lg'],
-        [cmn.p2, size == 'md'],
+        [cmn.p1, size === 'lg'],
+        [cmn.p2, size === 'md'],
         cmn.p700,
         [cmn.pPrim, !props.color && !props.disabled],
         [cmn.pSec, props.disabled],

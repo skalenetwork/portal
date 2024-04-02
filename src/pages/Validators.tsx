@@ -37,7 +37,7 @@ export default function ValidatorsPage(props: {
   loadValidators: () => void
 }) {
   useEffect(() => {
-    if (props.sc) {
+    if (props.sc !== null) {
       props.loadValidators()
     }
   }, [props.sc])

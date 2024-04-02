@@ -98,19 +98,6 @@ export default function SkDrawer() {
                 </ListItemButton>
               </Link>
             </ListItem> */}
-            {/* <ListItem>
-              <Link to="/other/faq" className="undec fullWidth">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={location.pathname === '/other/faq'}
-                >
-                  <ListItemIcon>
-                    <HelpOutlineOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="FAQ" />
-                </ListItemButton>
-              </Link>
-            </ListItem> */}
           </List>
           <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Network</h4>
           <List>

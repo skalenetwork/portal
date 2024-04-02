@@ -22,7 +22,7 @@
  */
 
 import { useState } from 'react'
-import { cls, interfaces } from '@skalenetwork/metaport'
+import { cls, type interfaces } from '@skalenetwork/metaport'
 import { Collapse } from '@mui/material'
 import {
   type DelegationType,

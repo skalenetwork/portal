@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, styles, interfaces } from '@skalenetwork/metaport'
+import { cmn, cls, styles, type interfaces } from '@skalenetwork/metaport'
 import Skeleton from '@mui/material/Skeleton'
 import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
 import PieChartRoundedIcon from '@mui/icons-material/PieChartRounded'
