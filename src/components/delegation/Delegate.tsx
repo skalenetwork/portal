@@ -101,6 +101,11 @@ export default function Delegate(props: {
 
   async function stake() {
     setLoading(true)
+    if (props.validator === undefined) {
+      props.setErrorMsg('Validator not found')
+      setLoading(false)
+      return
+    }
     try {
       log(`Delegating SKL: ${amountWei} to ${props.validator?.id} - type ${props.delegationType}`)
       const signer = await props.getMainnetSigner()
@@ -112,7 +117,7 @@ export default function Delegate(props: {
         'delegation'
       )
       const res = await sendTransaction(delegationContract.delegate, [
-        props.validator?.id,
+        props.validator.id,
         amountWei,
         DEFAULT_DELEGATION_PERIOD,
         DEFAULT_DELEGATION_INFO
