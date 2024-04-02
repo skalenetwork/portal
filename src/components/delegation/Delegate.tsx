@@ -20,6 +20,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
+import debug from 'debug'
 import { useState } from 'react'
 import { type Signer } from 'ethers'
 import { useNavigate } from 'react-router-dom'
@@ -57,6 +58,11 @@ import {
   DEFAULT_ERROR_MSG
 } from '../../core/constants'
 import { initActionContract } from '../../core/contracts'
+
+
+debug.enable('*')
+const log = debug('portal:pages:Delegate')
+
 
 export default function Delegate(props: {
   mpc: MetaportCore
@@ -96,7 +102,7 @@ export default function Delegate(props: {
   async function stake() {
     setLoading(true)
     try {
-      console.log(`Delegating SKL...`)
+      log(`Delegating SKL: ${amountWei} to ${props.validator?.id} - type ${props.delegationType}`)
       const signer = await props.getMainnetSigner()
       const delegationContract = await initActionContract(
         signer,

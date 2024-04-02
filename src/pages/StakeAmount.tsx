@@ -61,9 +61,9 @@ export default function StakeAmount(props: {
   address: interfaces.AddressType | undefined
   getMainnetSigner: () => Promise<Signer>
 }) {
-  const { id, delegationType } = useParams()
+  const { id, delType } = useParams()
   const validatorId = Number(id) ?? -1
-  const delegationType = Number(delegationType) ?? DelegationType.REGULAR
+  const delegationType = Number(delType) ?? DelegationType.REGULAR
 
   const [currentValidator, setCurrentValidator] = useState<IValidator | undefined>(undefined)
   const [errorMsg, setErrorMsg] = useState<string | undefined>()

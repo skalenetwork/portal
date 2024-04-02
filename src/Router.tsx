@@ -210,7 +210,7 @@ export default function Router() {
             />
             <Route path="staking">
               <Route
-                path="new/:delegationType/:id"
+                path="new/:delType/:id"
                 element={
                   <StakeAmount
                     mpc={mpc}
