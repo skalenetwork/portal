@@ -48,7 +48,7 @@ export default function Reward(props: {
   open: boolean
   retrieveRewards: (rewardInfo: IRewardInfo) => Promise<void>
   loading: IRewardInfo | IDelegationInfo | false
-  delType: DelegationType
+  delegationType: DelegationType
   isXs: boolean
   customAddress: interfaces.AddressType | undefined
 }) {
@@ -59,7 +59,7 @@ export default function Reward(props: {
 
   const loading =
     props.loading &&
-    props.loading.delegationType === props.delType &&
+    props.loading.delegationType === props.delegationType &&
     'validatorId' in props.loading &&
     props.loading.validatorId === validator.id
 
@@ -136,7 +136,7 @@ export default function Reward(props: {
                 onClick={() => {
                   props.retrieveRewards({
                     validatorId: validator.id,
-                    delegationType: props.delType
+                    delegationType: props.delegationType
                   })
                 }}
               >

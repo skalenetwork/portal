@@ -57,7 +57,7 @@ export default function DelegationsToValidator(props: {
         delegationsToValidator={props.delegationsToValidator}
         retrieveRewards={props.retrieveRewards}
         loading={props.loading}
-        delType={props.delegationType}
+        delegationType={props.delegationType}
         isXs={props.isXs}
         customAddress={props.customAddress}
       />

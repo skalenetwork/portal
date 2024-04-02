@@ -64,7 +64,7 @@ export default function Delegate(props: {
   si: StakingInfoMap
   getMainnetSigner: () => Promise<Signer>
   address: interfaces.AddressType
-  delType: DelegationType
+  delegationType: DelegationType
   loaded: boolean
   delegationTypeAvailable: boolean
   errorMsg: string | undefined
@@ -100,7 +100,7 @@ export default function Delegate(props: {
       const signer = await props.getMainnetSigner()
       const delegationContract = await initActionContract(
         signer,
-        props.delType,
+        props.delegationType,
         props.address,
         props.mpc.config.skaleNetwork,
         'delegation'
@@ -133,7 +133,7 @@ export default function Delegate(props: {
     return 'Stake SKL'
   }
 
-  const info = props.si[props.delType]!.info
+  const info = props.si[props.delegationType]!.info
 
   return (
     <div>

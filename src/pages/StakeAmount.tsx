@@ -63,13 +63,13 @@ export default function StakeAmount(props: {
 }) {
   const { id, delegationType } = useParams()
   const validatorId = Number(id) ?? -1
-  const delType = Number(delegationType) ?? DelegationType.REGULAR
+  const delegationType = Number(delegationType) ?? DelegationType.REGULAR
 
   const [currentValidator, setCurrentValidator] = useState<IValidator | undefined>(undefined)
   const [errorMsg, setErrorMsg] = useState<string | undefined>()
 
   const loaded = isLoaded(props.si)
-  const available = isDelegationTypeAvailable(props.si, delType)
+  const available = isDelegationTypeAvailable(props.si, delegationType)
 
   useEffect(() => {
     updateCurrentValidator()
@@ -138,7 +138,7 @@ export default function StakeAmount(props: {
           </div>
           {loaded && available ? (
             <div className="titleBadge" style={{ padding: '10px 15px' }}>
-              <p className={cls(cmn.p, cmn.p4)}>{getDelegationTypeAlias(delType)} delegation</p>
+              <p className={cls(cmn.p, cmn.p4)}>{getDelegationTypeAlias(delegationType)} delegation</p>
             </div>
           ) : null}
         </div>
@@ -161,7 +161,7 @@ export default function StakeAmount(props: {
             validator={currentValidator}
             address={props.address}
             si={props.si}
-            delType={delType}
+            delegationType={delegationType}
             errorMsg={errorMsg}
             setErrorMsg={setErrorMsg}
             loaded={loaded}
