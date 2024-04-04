@@ -34,9 +34,3 @@ export interface IDelegatorInfo {
   unlocked?: bigint
   address: interfaces.AddressType
 }
-
-// export interface IDelegatorInfo {
-//     balance: bigint
-//     staked: bigint
-//     rewards: bigint
-// }
