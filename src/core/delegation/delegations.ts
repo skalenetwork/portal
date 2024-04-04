@@ -121,7 +121,6 @@ export function getDelegationSource(delegation: IDelegation): DelegationSource {
 }
 
 export function getKeyByValue(enumType: any, enumValue: string): string | undefined {
-  // todo: helper
   return Object.keys(enumType).find((key) => enumType[key] === enumValue)
 }
 
@@ -187,7 +186,6 @@ export async function getDelegatorInfo(
   beneficiary?: interfaces.AddressType,
   type?: DelegationType
 ): Promise<IDelegatorInfo> {
-  // type
   const info: IDelegatorInfo = {
     balance: await sc.skaleToken.balanceOf(address),
     staked: (
