@@ -48,7 +48,6 @@ import CopySurface from './CopySurface'
 import ChainAccordion from './ChainAccordion'
 import ChainCategories from './ChainCategories'
 import Tile from './Tile'
-// import AccordionSection from './AccordionSection'
 
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 import { getRpcUrl, getExplorerUrl, getChainId, HTTPS_PREFIX } from '../core/chain'

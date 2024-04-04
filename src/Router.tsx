@@ -46,7 +46,6 @@ import Changelog from './pages/Changelog'
 import { initContracts } from './core/contracts'
 import { getStakingInfoMap } from './core/delegation/staking'
 
-
 export default function Router() {
   const location = useLocation()
   const currentUrl = `${window.location.origin}${location.pathname}${location.search}`
