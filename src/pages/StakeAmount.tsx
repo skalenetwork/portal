@@ -100,18 +100,6 @@ export default function StakeAmount(props: {
     return <ErrorTile errorMsg="Validator ID is not found" setErrorMsg={setErrorMsg} />
   }
 
-  // if (!currentValidator) {
-  //   return <Loader text="Loading validator info" />
-  // }
-
-  // if (loaded && !available) {
-  //   return <div>
-  //     <Container maxWidth="md">
-  //       <ErrorTile errorMsg="Delegation type is not available" setErrorMsg={setErrorMsg} />
-  //     </Container>
-  //   </div>
-  // }
-
   return (
     <Container maxWidth="md">
       <SkPaper gray className={cls(cmn.mtop10, 'chainDetails')}>
