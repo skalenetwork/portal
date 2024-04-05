@@ -46,8 +46,6 @@ import Changelog from './pages/Changelog'
 import { initContracts } from './core/contracts'
 import { getStakingInfoMap } from './core/delegation/staking'
 
-// import chainsJson from './chainsJson.json';
-
 export default function Router() {
   const location = useLocation()
   const currentUrl = `${window.location.origin}${location.pathname}${location.search}`
@@ -210,7 +208,7 @@ export default function Router() {
             />
             <Route path="staking">
               <Route
-                path="new/:delegationType/:id"
+                path="new/:delType/:id"
                 element={
                   <StakeAmount
                     mpc={mpc}

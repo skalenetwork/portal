@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, styles, TokenIcon, interfaces } from '@skalenetwork/metaport'
+import { cmn, cls, styles, TokenIcon, type interfaces } from '@skalenetwork/metaport'
 
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'

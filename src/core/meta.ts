@@ -38,7 +38,7 @@ export const META_TAGS = {
   history: {
     title: 'SKALE Portal - Bridge History',
     description:
-      'SKALE Bridge transfers history - detailed overview of past transactions and links to block expolorers.'
+      'SKALE Bridge transfers history - detailed overview of past transactions and links to block explorers.'
   },
   portfolio: {
     title: 'SKALE Portal - Portfolio',

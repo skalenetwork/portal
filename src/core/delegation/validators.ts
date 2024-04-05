@@ -90,10 +90,6 @@ function sortValidators(validatorsData: IValidator[]): IValidator[] {
       return a.acceptNewRequests ? -1 : 1
     }
 
-    // if (ESCROW_VALIDATORS.includes(a.id) !== ESCROW_VALIDATORS.includes(b.id)) {
-    //   return a.acceptNewRequests ? -1 : 1
-    // }
-
     const nameComparison = a.name.localeCompare(b.name)
     if (nameComparison !== 0) {
       return nameComparison

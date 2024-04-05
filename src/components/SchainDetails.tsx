@@ -28,7 +28,6 @@ import Button from '@mui/material/Button'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
-// import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined'
 
 import {
   cmn,
@@ -49,7 +48,6 @@ import CopySurface from './CopySurface'
 import ChainAccordion from './ChainAccordion'
 import ChainCategories from './ChainCategories'
 import Tile from './Tile'
-// import AccordionSection from './AccordionSection'
 
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 import { getRpcUrl, getExplorerUrl, getChainId, HTTPS_PREFIX } from '../core/chain'
@@ -182,18 +180,6 @@ export default function SchainDetails(props: {
           <CopySurface className={cls(cmn.flexg)} title="Chain ID" value={chainIdInt.toString()} />
         </SkStack>
       </SkPaper>
-      {/* <SkPaper gray className={cls(cmn.mtop20, cmn.mbott20)}>
-        <AccordionSection
-          // handleChange={handleChange}
-          // expanded={expanded}
-          // panel="panel1"
-          expandedByDefault={true}
-          title="Apps"
-          icon={<AppsOutlinedIcon />}
-        >
-          <p>!!</p>
-        </AccordionSection>
-      </SkPaper> */}
       <ChainAccordion mpc={props.mpc} schainName={props.schainName} />
     </div>
   )

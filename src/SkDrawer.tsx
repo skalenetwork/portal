@@ -85,32 +85,6 @@ export default function SkDrawer() {
                 </ListItemButton>
               </Link>
             </ListItem>
-            {/* <ListItem>
-              <Link to="/portfolio" className="undec fullWidth">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={location.pathname === '/portfolio'}
-                >
-                  <ListItemIcon>
-                    <WalletOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Portfolio" />
-                </ListItemButton>
-              </Link>
-            </ListItem> */}
-            {/* <ListItem>
-              <Link to="/other/faq" className="undec fullWidth">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={location.pathname === '/other/faq'}
-                >
-                  <ListItemIcon>
-                    <HelpOutlineOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="FAQ" />
-                </ListItemButton>
-              </Link>
-            </ListItem> */}
           </List>
           <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Network</h4>
           <List>
@@ -158,19 +132,6 @@ export default function SkDrawer() {
                 </ListItemButton>
               </Link>
             </ListItem>
-            {/* <ListItem>
-              <Link to="/apps" className="undec fullWidth">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={location.pathname.includes('/apps')}
-                >
-                  <ListItemIcon>
-                    <AppsOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Apps" />
-                </ListItemButton>
-              </Link>
-            </ListItem> */}
             <ListItem>
               <Link to="/stats" className="undec fullWidth">
                 <ListItemButton

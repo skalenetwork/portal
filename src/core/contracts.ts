@@ -77,38 +77,6 @@ export async function initActionContract(
   return connectedContract(contract, signer)
 }
 
-// export async function initDelegationContract(
-//   signer: Signer,
-//   delegationType: DelegationType,
-//   beneficiary: interfaces.AddressType,
-//   skaleNetwork: interfaces.SkaleNetwork
-// ): Promise<Contract> {
-//   const network = await skaleContracts.getNetworkByProvider(signer.provider!)
-//   let contract: Contract
-//   if (delegationType === DelegationType.REGULAR) {
-//     contract = await getManagerContract(network, skaleNetwork, 'DelegationController')
-//   } else {
-//     contract = await getEscrowContract(network, skaleNetwork, delegationType, beneficiary)
-//   }
-//   return connectedContract(contract, signer)
-// }
-
-// export async function initRewardsContract(
-//   signer: Signer,
-//   delegationType: DelegationType,
-//   beneficiary: interfaces.AddressType,
-//   skaleNetwork: interfaces.SkaleNetwork
-// ): Promise<Contract> {
-//   const network = await skaleContracts.getNetworkByProvider(signer.provider!)
-//   let contract: Contract
-//   if (delegationType === DelegationType.REGULAR) {
-//     contract = await getManagerContract(network, skaleNetwork, 'DelegationController')
-//   } else {
-//     contract = await getEscrowContract(network, skaleNetwork, delegationType, beneficiary)
-//   }
-//   return connectedContract(contract, signer)
-// }
-
 function getInstanceTag(skaleNetwork: interfaces.SkaleNetwork, projectName: PROJECT_TYPE): string {
   if (CONTRACTS_META[skaleNetwork].auto) {
     if (projectName === 'grants') return 'grants'

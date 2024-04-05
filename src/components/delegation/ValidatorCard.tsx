@@ -118,7 +118,6 @@ export default function ValidatorCard(props: {
                 </p>
               </div>
             ) : null}
-            {/* <div className={cls(cmn.flexg)}></div> */}
           </div>
 
           {size !== 'lg' ? (

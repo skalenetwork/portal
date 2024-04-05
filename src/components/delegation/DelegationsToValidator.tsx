@@ -22,7 +22,7 @@
  */
 
 import { useState } from 'react'
-import { cls, interfaces } from '@skalenetwork/metaport'
+import { cls, type interfaces } from '@skalenetwork/metaport'
 import { Collapse } from '@mui/material'
 import {
   type DelegationType,
@@ -57,7 +57,7 @@ export default function DelegationsToValidator(props: {
         delegationsToValidator={props.delegationsToValidator}
         retrieveRewards={props.retrieveRewards}
         loading={props.loading}
-        delType={props.delegationType}
+        delegationType={props.delegationType}
         isXs={props.isXs}
         customAddress={props.customAddress}
       />

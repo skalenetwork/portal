@@ -61,22 +61,22 @@ export default function StakeAmount(props: {
   address: interfaces.AddressType | undefined
   getMainnetSigner: () => Promise<Signer>
 }) {
-  const { id, delegationType } = useParams()
+  const { id, delType } = useParams()
   const validatorId = Number(id) ?? -1
-  const delType = Number(delegationType) ?? DelegationType.REGULAR
+  const delegationType = Number(delType) ?? DelegationType.REGULAR
 
   const [currentValidator, setCurrentValidator] = useState<IValidator | undefined>(undefined)
   const [errorMsg, setErrorMsg] = useState<string | undefined>()
 
   const loaded = isLoaded(props.si)
-  const available = isDelegationTypeAvailable(props.si, delType)
+  const available = isDelegationTypeAvailable(props.si, delegationType)
 
   useEffect(() => {
     updateCurrentValidator()
   }, [])
 
   useEffect(() => {
-    if (props.sc) {
+    if (props.sc !== null) {
       props.loadValidators()
       props.loadStakingInfo()
     }
@@ -99,18 +99,6 @@ export default function StakeAmount(props: {
   if (validatorId === -1) {
     return <ErrorTile errorMsg="Validator ID is not found" setErrorMsg={setErrorMsg} />
   }
-
-  // if (!currentValidator) {
-  //   return <Loader text="Loading validator info" />
-  // }
-
-  // if (loaded && !available) {
-  //   return <div>
-  //     <Container maxWidth="md">
-  //       <ErrorTile errorMsg="Delegation type is not available" setErrorMsg={setErrorMsg} />
-  //     </Container>
-  //   </div>
-  // }
 
   return (
     <Container maxWidth="md">
@@ -138,7 +126,9 @@ export default function StakeAmount(props: {
           </div>
           {loaded && available ? (
             <div className="titleBadge" style={{ padding: '10px 15px' }}>
-              <p className={cls(cmn.p, cmn.p4)}>{getDelegationTypeAlias(delType)} delegation</p>
+              <p className={cls(cmn.p, cmn.p4)}>
+                {getDelegationTypeAlias(delegationType)} delegation
+              </p>
             </div>
           ) : null}
         </div>
@@ -161,7 +151,7 @@ export default function StakeAmount(props: {
             validator={currentValidator}
             address={props.address}
             si={props.si}
-            delType={delType}
+            delegationType={delegationType}
             errorMsg={errorMsg}
             setErrorMsg={setErrorMsg}
             loaded={loaded}
@@ -171,14 +161,6 @@ export default function StakeAmount(props: {
         ) : (
           <ConnectWallet tile className={cls(cmn.flexg)} />
         )}
-
-        {/* {!address ? (
-          <ConnectWallet tile className={cls(cmn.flexg)} />
-        ) : currentValidator && loaded ? (
-          <Delegate validator={currentValidator} />
-        ) : (
-          <Loader text="Loading staking info" />
-        )} */}
       </SkPaper>
     </Container>
   )

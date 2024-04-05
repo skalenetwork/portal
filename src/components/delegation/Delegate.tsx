@@ -20,6 +20,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
+import debug from 'debug'
 import { useState } from 'react'
 import { type Signer } from 'ethers'
 import { useNavigate } from 'react-router-dom'
@@ -58,13 +59,16 @@ import {
 } from '../../core/constants'
 import { initActionContract } from '../../core/contracts'
 
+debug.enable('*')
+const log = debug('portal:pages:Delegate')
+
 export default function Delegate(props: {
   mpc: MetaportCore
   validator: IValidator | undefined
   si: StakingInfoMap
   getMainnetSigner: () => Promise<Signer>
   address: interfaces.AddressType
-  delType: DelegationType
+  delegationType: DelegationType
   loaded: boolean
   delegationTypeAvailable: boolean
   errorMsg: string | undefined
@@ -95,18 +99,23 @@ export default function Delegate(props: {
 
   async function stake() {
     setLoading(true)
+    if (props.validator === undefined) {
+      props.setErrorMsg('Validator not found')
+      setLoading(false)
+      return
+    }
     try {
-      console.log(`Delegating SKL...`)
+      log(`Delegating SKL: ${amountWei} to ${props.validator?.id} - type ${props.delegationType}`)
       const signer = await props.getMainnetSigner()
       const delegationContract = await initActionContract(
         signer,
-        props.delType,
+        props.delegationType,
         props.address,
         props.mpc.config.skaleNetwork,
         'delegation'
       )
       const res = await sendTransaction(delegationContract.delegate, [
-        props.validator?.id,
+        props.validator.id,
         amountWei,
         DEFAULT_DELEGATION_PERIOD,
         DEFAULT_DELEGATION_INFO
@@ -133,7 +142,7 @@ export default function Delegate(props: {
     return 'Stake SKL'
   }
 
-  const info = props.si[props.delType]!.info
+  const info = props.si[props.delegationType]!.info
 
   return (
     <div>
