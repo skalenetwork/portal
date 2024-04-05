@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { useState, MouseEvent } from 'react'
+import { useState, type MouseEvent } from 'react'
 import { Link } from 'react-router-dom'
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 
@@ -146,11 +146,6 @@ export default function AccountMenu(props: any) {
             <HistoryIcon className={cmn.mri10} /> Transfers history
           </MenuItem>
         </Link>
-        {/* <Link to="/portfolio" className="undec fullWidth">
-          <MenuItem onClick={handleClose}>
-            <AppsOutlinedIcon className={cmn.mri10} /> Assets overview
-          </MenuItem>
-        </Link> */}
         <a
           className="undec fullWidth"
           target="_blank"

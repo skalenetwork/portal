@@ -236,12 +236,16 @@ body::-webkit-scrollbar {
 }
 
 .br__tile:hover {
-  transform: scale(1.05);
+  transform: scale(1.03);
 }
 
 .br__tile {
   height: 150px;
   border-radius: 25px !important;
+  border: 1px solid #171616 !important;
+}
+
+.border {
   border: 1px solid #171616 !important;
 }
 
@@ -251,8 +255,8 @@ body::-webkit-scrollbar {
   border: 1px rgb(44 44 44) solid !important;
 
   svg {
-    width: 20px;
-    height: 20px;
+    width: 15px;
+    height: 15px;
   }
 }
 
@@ -354,6 +358,42 @@ body::-webkit-scrollbar {
   box-shadow: none !important;
 }
 
+
+.btnSm {
+  text-transform: none !important;
+  font-size: 0.8025rem !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.02857em !important;
+  font-weight: 600 !important;
+  padding: 0.5em 1.5em !important;
+  border-radius: $sk-border-radius !important;
+  box-shadow: none !important;
+}
+
+.btnerror {
+  background: #f4433621;
+}
+
+.btnwarning {
+  background: rgb(244 139 54 / 13%);
+}
+
+.btnSmLoading {
+  padding: 0.5em 1.5em 0.5em 3em !important;
+}
+
+.btnMd {
+  text-transform: none !important;
+  font-size: 0.8025rem !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.02857em !important;
+  font-weight: 600 !important;
+  padding: 0.6em 2em !important;
+  border-radius: $sk-border-radius !important;
+  box-shadow: none !important;
+}
+
+
 .outlined {
   background: rgba(41, 255, 148, 0.08)
 }
@@ -408,6 +448,10 @@ body::-webkit-scrollbar {
   cursor: pointer !important;
   width: 100%;
   font-size: 0.9rem !important;
+}
+
+.pointer {
+  cursor: pointer;
 }
 
 code {
@@ -527,7 +571,7 @@ code {
 }
 
 .titleSection {
-  background: rgba(0, 0, 0, 0.6);
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
   border-radius: 25px;
   padding: 20px;
 }
@@ -552,11 +596,11 @@ button:focus {
 }
 
 .startCardText {
-  margin: 120px 10px 10px 10px;
+  margin: 125px 10px 10px 10px;
   background: #00000066;
   backdrop-filter: blur(10px) brightness(0.8);
   border-radius: 25px;
-  padding: 10px 15px;
+  padding: 15px 20px;
 }
 
 .startCardBg {
@@ -579,6 +623,9 @@ button:focus {
   background-image: url(/apps.png);
 }
 
+.startCardstaking {
+  background-image: url(/staking.png);
+}
 
 .startCardstats {
   background-image: url(/stats.png);
@@ -598,6 +645,10 @@ button:focus {
   padding-bottom: 10px;
 }
 
+.whiteLink {
+  border-bottom: 1px #ffffff solid;
+}
+
 .flexi {
   display: inline-flex;
 }
@@ -613,4 +664,397 @@ input::-webkit-inner-spin-button {
 input[type=number] {
   -moz-appearance: textfield;
   /* Firefox */
+}
+
+.shipNew {
+  margin-right: 5px;
+  background: linear-gradient(180deg, #4e0000, #400000);
+  border-radius: 20px;
+  padding: 3px 6px;
+
+  p {
+    color: #fc8181 !important
+  }
+}
+
+
+.ship {
+  border-radius: 20px;
+  padding: 6px 12px;
+  width: max-content;
+
+  p {
+
+    font-weight: 600 !important;
+  }
+}
+
+.ship_DELEGATED {
+  background: linear-gradient(180deg, #0f3d29, #0a2a1c);
+  color: #3cda94;
+}
+
+.ship_ACCEPTED {
+  background: linear-gradient(180deg, #233d0f, #0a1b07);
+  color: #3cda4e;
+}
+
+.ship_REJECTED {
+  background: linear-gradient(180deg, #4e0000, #330000);
+  color: #fc8181;
+}
+
+.ship_COMPLETED {
+  background: linear-gradient(180deg, #4e3300, #372400);
+  color: #fcbb81;
+}
+
+.ship_UNDELEGATION_REQUESTED {
+  color: rgb(252 248 129);
+  background: linear-gradient(rgb(78 71 0), rgb(36 39 0));
+}
+
+.ship_CANCELED {
+  color: rgb(219 219 219);
+  background: linear-gradient(rgb(59 59 59), rgb(36 36 36));
+}
+
+.ship_PROPOSED {
+  color: rgb(57 218 248);
+  background: linear-gradient(rgb(20 66 59), rgb(11 36 33));
+}
+
+.ship_DELEGATION_UI {
+  background: linear-gradient(180deg, #1e1b37, #131123);
+  color: #8c81fc;
+
+}
+
+.ship_MEW_WALLET {
+  background: linear-gradient(180deg, #144348, #0c2326);
+  color: #4bd9e9;
+}
+
+.ship_ACTIVATE {
+  background: linear-gradient(180deg, #101635, #0a0e23);
+  color: #6f82f4;
+
+}
+
+.ship_PORTAL {
+  background: linear-gradient(180deg, #221d3c, #151225);
+  color: #9681fc;
+  // background: linear-gradient(180deg, #103324, #091d14);
+  // color: #81fcd1;
+}
+
+.ship_SELF {
+  background: linear-gradient(180deg, #4e3300, #372400);
+  color: #fcbb81;
+}
+
+.ship_OTHER {
+  background: linear-gradient(180deg, #3e1f3f, #2b152b);
+  color: #f681fc;
+}
+
+.ship_ETHERSCAN {
+  background: linear-gradient(180deg, #1f203f, #15172b);
+  color: #8199fc;
+}
+
+.shipFee {
+  margin-right: 5px;
+  background: linear-gradient(180deg, #1e4e00, #163800);
+
+  border-radius: 20px;
+  padding: 3px 6px;
+
+  p {
+    color: #cef79b !important;
+  }
+}
+
+.shipId {
+  margin-right: 5px;
+  background: linear-gradient(180deg, #333333, #212121);
+  border-radius: 20px;
+  padding: 3px 6px;
+
+  p {
+    color: #cecece !important;
+  }
+}
+
+
+
+.shipNodes {
+  margin-right: 5px;
+  background: linear-gradient(180deg, #301f35, #1f1322);
+  border-radius: 20px;
+  padding: 3px 6px;
+
+  p {
+    color: #e887ff !important
+  }
+}
+
+.shipAddress {
+  margin-right: 5px;
+  background: #1f3533;
+  border-radius: 20px;
+  padding: 3px 12px;
+
+  p {
+    color: #87e5ff !important;
+  }
+}
+
+// md styling
+
+a,
+.a {
+  color: #71ffb8 !important;
+}
+
+.markdown {
+  hr {
+    border-color: $border-color;
+    width: 100%;
+    margin-block-start: 2em;
+    margin-block-end: 1em;
+  }
+
+  ul,
+  p {
+    margin-block-start: 0.5em;
+    margin-block-end: 0.5em;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  h2 {
+    margin-block-start: 0.7em;
+    margin-block-end: 0.7em;
+  }
+
+  h3 {
+    margin-block-start: 1em;
+    margin-block-end: 0.7em;
+  }
+
+  ul {
+    padding-inline-start: 20px;
+  }
+
+  li {
+    list-style: none;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+    font-size: 1rem;
+    letter-spacing: 0.02857em;
+  }
+
+  li::marker {
+    width: 0;
+    display: none !important;
+  }
+
+  code {
+    color: #fc8180;
+  }
+
+  blockquote {
+    background: #2d2d2d;
+    border-radius: 25px;
+    padding: 10px 20px;
+    margin: 0;
+  }
+}
+
+
+
+
+
+.page {
+  position: absolute;
+  left: 15px;
+  right: 15px;
+}
+
+.page-enter {
+  opacity: 0;
+  transform: scale(1.05);
+}
+
+.page-enter-active {
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 100ms, transform 100ms;
+}
+
+.page-exit {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.page-exit-active {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 100ms, transform 100ms;
+}
+
+
+.fade-enter {
+  opacity: 0;
+  transform: translate(0, 25px);
+  z-index: 1;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transform: translate(0, 0);
+
+  transition: opacity 150ms ease-out, transform 200ms ease;
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translate(0, 0);
+}
+
+.fade-exit.fade-exit-active {
+  opacity: 0;
+  transform: translate(0, 30px);
+
+  transition: opacity 150ms ease-out, transform 200ms ease;
+}
+
+
+.sk-select {
+  .MuiSelect-select {
+    border: none !important;
+    // padding: 6px 20px 6px 6px !important;
+  }
+
+  .MuiInputBase-root:after,
+  .MuiInputBase-root:before {
+    display: none !important;
+  }
+
+  .MuiNativeSelect-standard {
+    background: none !important;
+    padding: 7px 25px 7px 15px !important;
+  }
+
+  svg {
+    margin-right: 5px !important;
+    padding-right: 5px !important;
+    width: 1em !important;
+    height: 1em !important;
+  }
+}
+
+
+.trustedBadge {
+  color: #0095f6;
+}
+
+.untrustedBadge {
+  color: #ffb817;
+}
+
+.validatorCard {
+  height: 100% !important;
+  cursor: pointer;
+}
+
+
+.pOneLine {
+  overflow: hidden;
+  white-space: nowrap;
+  display: block;
+  text-overflow: ellipsis;
+}
+
+.disabledCard {
+  filter: saturate(0) !important;
+  cursor: not-allowed !important;
+}
+
+.selectedValidator {
+  background: rgb(12 41 24) !important;
+}
+
+.pbott5 {
+  padding-bottom: 5px;
+}
+
+.validatorIcon {
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+}
+
+.nestedSection {
+  border-left: 4px $border-color solid;
+  padding-left: 20px;
+  margin-left: 41px !important;
+}
+
+.nestedSectionXs {
+  border-left: 3px $border-color solid;
+  padding-left: 20px;
+  margin-left: 20px !important;
+}
+
+.borderVert {
+  border-left: 2px $border-color solid;
+}
+
+.validatorIconDelegation {
+  margin-left: -15px;
+  margin-top: -15px;
+}
+
+
+.rotate-90 {
+  transition: transform 0.5s ease;
+  /* Adjust duration and easing as needed */
+}
+
+.rotate-90.active {
+  transform: rotate(90deg);
+}
+
+.MuiSkeleton-root {
+  border-radius: 25px !important;
+  width: 100% !important;
+}
+
+
+.amountInput {
+  input {
+    padding: 3px 10px 0 5px !important
+  }
+}
+
+
+.warningMsg {
+  background-color: #43391d !important;
+
+  p,
+  svg {
+    color: #f9e09c !important;
+  }
+
+  a,
+  .a {
+    color: #ffc832 !important;
+
+    p,
+    svg {
+      color: #ffc832 !important;
+    }
+  }
 }

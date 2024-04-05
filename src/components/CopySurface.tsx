@@ -29,7 +29,7 @@ import ButtonBase from '@mui/material/ButtonBase'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 
-import { cmn, cls, styles, TokenIcon, interfaces } from '@skalenetwork/metaport'
+import { cmn, cls, styles, TokenIcon, type interfaces } from '@skalenetwork/metaport'
 
 import { DEFAULT_ERC20_DECIMALS } from '../core/constants'
 
@@ -50,7 +50,9 @@ export default function CopySurface(props: {
       const timer = setTimeout(() => {
         setCopied(false)
       }, 1000)
-      return () => clearTimeout(timer)
+      return () => {
+        clearTimeout(timer)
+      }
     }
   }, [copied])
 

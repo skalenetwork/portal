@@ -23,15 +23,14 @@
 
 import Container from '@mui/material/Container'
 import { useParams } from 'react-router-dom'
-import Button from '@mui/material/Button'
-
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
-import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded'
-
-import { Link } from 'react-router-dom'
 import { cmn, cls, type MetaportCore, getChainAlias, SkPaper } from '@skalenetwork/metaport'
 
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
+import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
+import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded'
+
 import Paymaster from '../components/Paymaster'
+import Breadcrumbs from '../components/Breadcrumbs'
 
 export default function Admin(props: { mpc: MetaportCore }) {
   let { name } = useParams()
@@ -43,37 +42,30 @@ export default function Admin(props: { mpc: MetaportCore }) {
   return (
     <Container maxWidth="md">
       <SkPaper gray className={cls(cmn.mtop10, 'chainDetails')}>
-        <div className={cls(cmn.flex, cmn.flexcv)}>
-          <div className={cls(cmn.flex, cmn.flexcv, 'titleBadge')}>
-            <div className={cmn.flex}>
-              <Link to={'/chains/'} className="undec fullWidth">
-                <Button>
-                  <ArrowBackIosNewRoundedIcon />
-                  <p className={cls(cmn.p, cmn.p4, cmn.mleft5)}>All chains</p>
-                </Button>
-              </Link>
-            </div>
-            <p className={cls(cmn.p, cmn.p4)}>|</p>
-            <div className={cmn.flex}>
-              <Link to={'/chains/' + name} className="undec fullWidth">
-                <Button>
-                  <p className={cls(cmn.p, cmn.p4)}>{alias}</p>
-                </Button>
-              </Link>
-            </div>
-            <p className={cls(cmn.p, cmn.p4)}>|</p>
-            <div className={cmn.flex}>
-              <div className={cls('titleBadged', cmn.flex, cmn.flexcv, cmn.mleft10, cmn.mri10)}>
-                <AdminPanelSettingsRoundedIcon />
-                <p className={cls(cmn.p, cmn.p4, cmn.mleft5)}>Manage</p>
-              </div>
-            </div>
-          </div>
+        <div className={cls(cmn.flex)}>
+          <Breadcrumbs
+            sections={[
+              {
+                text: 'All chains',
+                icon: <ArrowBackIosNewRoundedIcon />,
+                url: '/chains'
+              },
+              {
+                text: alias,
+                icon: <LinkRoundedIcon />,
+                url: `/chains/${name}`
+              },
+              {
+                text: 'Manage',
+                icon: <AdminPanelSettingsRoundedIcon />
+              }
+            ]}
+          />
         </div>
-        <div className={cls(cmn.mtop20, cmn.mleft5)}>
+        <div className={cls(cmn.mtop10, cmn.mleft5)}>
           <h2 className={cls(cmn.nom)}>Manage {alias}</h2>
-          <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec)}>
-            This is {alias} admin area - you can manage your chain here.
+          <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec, cmn.mbott10, 'pbott5')}>
+            {alias} admin area - you can manage the chain here
           </p>
         </div>
         <Paymaster mpc={props.mpc} name={name} />
