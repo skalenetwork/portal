@@ -7,9 +7,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
   debug: false,
   chains: [
     'mainnet',
-    'skale-innocent-nasty', // europa
-    'international-villainous-zaurak', // calypso
-    'big-majestic-oval-SKALE' // qa chain
+    'these-long-sadalsuud', // europa
+    'adorable-quaint-bellatrix', // nebula
+    'spanish-smug-auva' // calypso
   ],
   tokens: {
     eth: {
@@ -19,17 +19,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       decimals: '18',
       name: 'SKALE',
       symbol: 'SKL'
-    },
-    usdc: {
-      decimals: '6',
-      symbol: 'USDC',
-      name: 'USD Coin'
-    },
-    trt: {
-      decimals: '18',
-      symbol: 'TRT',
-      name: 'Turtle Coin',
-      iconUrl: 'https://github.com/microsoft/fluentui-emoji/blob/main/assets/Turtle/3D/turtle_3d.png?raw=true'
     }
   },
   connections: {
@@ -37,58 +26,41 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       eth: {
         eth: {
           chains: {
-            'skale-innocent-nasty': {},
-            'international-villainous-zaurak': {
-              hub: 'skale-innocent-nasty'
+            'these-long-sadalsuud': {},
+            'adorable-quaint-bellatrix': {
+              hub: 'these-long-sadalsuud'
             }
           }
         }
       },
       erc20: {
         skl: {
-          address: '0x17A7Cf31a11554e75246973663262dA56F84F89b',
+          address: '0x0E53fDa415cc6b2a7D9495D4a1F0659F0Ee45e0d',
           chains: {
-            'skale-innocent-nasty': {},
-            'international-villainous-zaurak': {
-              hub: 'skale-innocent-nasty'
-            }
-          }
-        },
-        // usdc: {
-        //   address: '0x85dedAA65D33210E15911Da5E9dc29F5C93a50A9',
-        //   chains: {
-        //     'skale-innocent-nasty': {},
-        //     'international-villainous-zaurak': {
-        //       hub: 'skale-innocent-nasty'
-        //     }
-        //   }
-        // }
-      }
-    },
-    'big-majestic-oval-SKALE': {
-      erc20: {
-        trt: {
-          address: '0xbb2c9411079c6ddcd19c74e8442f77b70ae74267',
-          chains: {
-            'international-villainous-zaurak': {
-              clone: true
+            'these-long-sadalsuud': {},
+            'adorable-quaint-bellatrix': {
+              hub: 'these-long-sadalsuud'
             }
           }
         }
       }
     },
-    'international-villainous-zaurak': {
-      // Calypso connections
+    'spanish-smug-auva': {
+      erc20: {
+      }
+    },
+    'adorable-quaint-bellatrix': {
+      // Nebula connections
       eth: {
         eth: {
           address: '0x9C0e8bC2B2D403299214c80081F93fAB5e10b593',
           chains: {
-            'skale-innocent-nasty': {
+            'these-long-sadalsuud': {
               clone: true
             },
             mainnet: {
               clone: true,
-              hub: 'skale-innocent-nasty'
+              hub: 'these-long-sadalsuud'
             }
           }
         }
@@ -97,37 +69,18 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         skl: {
           address: '0xFbbDF9aC97093b1E88aB79F7D0c296d9cc5eD0d0',
           chains: {
-            'skale-innocent-nasty': {
+            'these-long-sadalsuud': {
               clone: true
             },
             mainnet: {
-              hub: 'skale-innocent-nasty',
+              hub: 'these-long-sadalsuud',
               clone: true
             }
           }
-        },
-        trt: {
-          address: '0x45f7ca2ace063867e8e1378f0f2cfa86d8f591de',
-          chains: {
-            'big-majestic-oval-SKALE': {}
-          }
         }
-
-        // usdc: {
-        //   address: '0x49c37d0Bb6238933eEe2157e9Df417fd62723fF6',
-        //   chains: {
-        //     'skale-innocent-nasty': {
-        //       clone: true
-        //     },
-        //     mainnet: {
-        //       hub: 'skale-innocent-nasty',
-        //       clone: true
-        //     }
-        //   }
-        // }
       }
     },
-    'skale-innocent-nasty': {
+    'these-long-sadalsuud': {
       // Europa connections
       eth: {
         eth: {
@@ -136,35 +89,24 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             mainnet: {
               clone: true
             },
-            'international-villainous-zaurak': {
-              wrapper: '0x321e1aa81B4c6CC3B8EFe3D9c0AD67E6eC949c2c'
+            'adorable-quaint-bellatrix': {
+              wrapper: '0x3a830008c24300Dd8F469EBFEd13E4854409440D'
             }
           }
         }
       },
       erc20: {
         skl: {
-          address: '0xa101902B3119f4830292bb79ebAB56967229207B',
+          address: '0xDeCcD09457Bd23c4CDD3C6E07a00053Ff54869dd',
           chains: {
             mainnet: {
               clone: true
             },
-            'international-villainous-zaurak': {
-              wrapper: '0x51A1eD016633Afb00C25Eb404745C61D8c16BBd4'
+            'adorable-quaint-bellatrix': {
+              wrapper: '0xEc656cc30205479C5DAa3aDac7b4D9d0fe0FDc51'
             }
           }
-        },
-        // usdc: {
-        //   address: '0x5d42495D417fcd9ECf42F3EA8a55FcEf44eD9B33',
-        //   chains: {
-        //     mainnet: {
-        //       clone: true
-        //     },
-        //     'international-villainous-zaurak': {
-        //       wrapper: '0x4f250cCE5b8B39caA96D1144b9A32E1c6a9f97b0'
-        //     }
-        //   }
-        // }
+        }
       }
     }
   },
