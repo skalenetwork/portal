@@ -29,7 +29,7 @@ import { Link } from 'react-router-dom'
 
 import logo from './assets/skale_lg.svg'
 
-import { cmn, cls, MetaportCore } from '@skalenetwork/metaport'
+import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
 
 import HelpZen from './components/HelpZen'
 import MoreMenu from './components/MoreMenu'

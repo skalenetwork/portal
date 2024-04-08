@@ -17,7 +17,7 @@
  */
 
 /**
- * @file Network.tsx
+ * @file Chains.tsx
  * @copyright SKALE Labs 2023-Present
  */
 
@@ -35,7 +35,11 @@ import { cmn, cls, type MetaportCore, CHAINS_META, type interfaces } from '@skal
 
 import { META_TAGS } from '../core/meta'
 
-export default function Chains(props: { loadSchains: any; schains: any[]; mpc: MetaportCore }) {
+export default function Chains(props: {
+  loadSchains: () => Promise<void>
+  schains: any[]
+  mpc: MetaportCore
+}) {
   const [_, setIntervalId] = useState<NodeJS.Timeout>()
 
   useEffect(() => {
@@ -81,27 +85,21 @@ export default function Chains(props: { loadSchains: any; schains: any[]; mpc: M
             skaleNetwork={props.mpc.config.skaleNetwork}
             category="hubs"
             schains={props.schains.filter(
-              (schain) =>
-                chainsMeta[schain[0]] &&
-                getPrimaryCategory(chainsMeta[schain[0]].category) === 'Hub'
+              (schain) => getPrimaryCategory(chainsMeta[schain[0]].category) === 'Hub'
             )}
           />
           <CategorySection
             skaleNetwork={props.mpc.config.skaleNetwork}
             category="games"
             schains={props.schains.filter(
-              (schain) =>
-                chainsMeta[schain[0]] &&
-                getPrimaryCategory(chainsMeta[schain[0]].category) === 'Game'
+              (schain) => getPrimaryCategory(chainsMeta[schain[0]].category) === 'Game'
             )}
           />
           <CategorySection
             skaleNetwork={props.mpc.config.skaleNetwork}
             category="apps"
             schains={props.schains.filter(
-              (schain) =>
-                chainsMeta[schain[0]] &&
-                getPrimaryCategory(chainsMeta[schain[0]].category) === 'dApp'
+              (schain) => getPrimaryCategory(chainsMeta[schain[0]].category) === 'dApp'
             )}
           />
           <CategorySection
