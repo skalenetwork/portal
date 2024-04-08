@@ -85,21 +85,27 @@ export default function Chains(props: {
             skaleNetwork={props.mpc.config.skaleNetwork}
             category="hubs"
             schains={props.schains.filter(
-              (schain) => getPrimaryCategory(chainsMeta[schain[0]].category) === 'Hub'
+              (schain) =>
+                chainsMeta[schain[0]] &&
+                getPrimaryCategory(chainsMeta[schain[0]].category) === 'Hub'
             )}
           />
           <CategorySection
             skaleNetwork={props.mpc.config.skaleNetwork}
             category="games"
             schains={props.schains.filter(
-              (schain) => getPrimaryCategory(chainsMeta[schain[0]].category) === 'Game'
+              (schain) =>
+                chainsMeta[schain[0]] &&
+                getPrimaryCategory(chainsMeta[schain[0]].category) === 'Game'
             )}
           />
           <CategorySection
             skaleNetwork={props.mpc.config.skaleNetwork}
             category="apps"
             schains={props.schains.filter(
-              (schain) => getPrimaryCategory(chainsMeta[schain[0]].category) === 'dApp'
+              (schain) =>
+                chainsMeta[schain[0]] &&
+                getPrimaryCategory(chainsMeta[schain[0]].category) === 'dApp'
             )}
           />
           <CategorySection
