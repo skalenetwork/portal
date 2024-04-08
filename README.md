@@ -82,3 +82,4 @@ The SKALE Portal and code is WITHOUT ANY WARRANTY; without even the implied warr
 ![GitHub](https://img.shields.io/github/license/skalenetwork/portal.svg)
 
 All contributions are made under the [GNU Lesser General Public License v3](https://www.gnu.org/licenses/lgpl-3.0.en.html). See [LICENSE](LICENSE).
+
