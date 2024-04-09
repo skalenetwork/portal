@@ -34,6 +34,7 @@ export const DASHBOARD_URL = 'https://app.geckoboard.com/v5/dashboards/LISYTRBEV
 export const DUNE_SKALE_URL = 'https://dune.com/projects/SKALE'
 
 export const BRIDGE_PAGES = ['/bridge', '/transfer', '/bridge/history', '/portfolio', '/other/faq']
+export const STAKING_PAGES = ['/staking']
 
 export const DEFAULT_ERC20_DECIMALS = '18'
 

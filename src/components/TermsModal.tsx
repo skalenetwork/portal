@@ -35,12 +35,14 @@ import GradingRoundedIcon from '@mui/icons-material/GradingRounded'
 import { type MetaportCore, SkPaper, cls, cmn, styles } from '@skalenetwork/metaport'
 
 import { PORTAL_URLS } from '../core/constants'
-import TermsOfService from '../data/terms-of-service.mdx'
+import TermsOfServiceBridge from '../data/terms-of-service.mdx'
+import TermsOfServiceStaking from '../data/terms-of-service-staking.mdx'
 
 export default function TermsModal(props: {
   mpc: MetaportCore
   termsAccepted: boolean
   setTermsAccepted: Dispatch<SetStateAction<boolean>>
+  type: 'bridge' | 'staking'
 }) {
   const [scrolled, setScrolled] = useState<boolean>(false)
 
@@ -56,12 +58,13 @@ export default function TermsModal(props: {
     const bottom = Math.abs(diff) < 15
     setScrolled(bottom)
   }
+  const title = props.type === 'bridge' ? 'Bridge' : 'Staking'
   if (props.termsAccepted) return null
   return (
     <div>
       <Container maxWidth="md" className={cls(cmn.mdtop5)}>
         <div className={cls(cmn.flex)}>
-          <h2 className={cls(cmn.nom)}>SKALE Bridge Terms of Use</h2>
+          <h2 className={cls(cmn.nom)}>{title}</h2>
         </div>
         <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.mbott20)}>
           Review the terms of service carefully and confirm
@@ -83,8 +86,7 @@ export default function TermsModal(props: {
                 <div className={cls(cmn.m10)}>
                   <LockRoundedIcon style={{ color: '#14e96a' }} />
                   <p className={cls(cmn.p, cmn.p3, cmn.p700, cmn.mtop5)}>
-                    Make sure you are connected to the correct bridge and only use this official
-                    link:
+                    Make sure you are connected to the correct URL and only use this official link:
                     <Link
                       target="_blank"
                       rel="noopener noreferrer"
@@ -103,12 +105,12 @@ export default function TermsModal(props: {
           <div className={cls(cmn.m10, 'scrollable')}>
             <GradingRoundedIcon style={{ color: '#329cff' }} />
             <p className={cls(cmn.p, cmn.p3, cmn.p700, cmn.mtop10, cmn.pPrim)}>
-              Before you use the SKALE Bridge, you must review the terms of service carefully and
+              Before you use the SKALE {title}, you must review the terms of service carefully and
               confirm below.
             </p>
             <div onScroll={handleTermsScroll} className={cls('br__modalScroll', cmn.mtop20)}>
               <div id="terms" style={{ paddingRight: '20px' }}>
-                <TermsOfService />
+                {props.type === 'bridge' ? <TermsOfServiceBridge /> : <TermsOfServiceStaking />}
               </div>
             </div>
           </div>
