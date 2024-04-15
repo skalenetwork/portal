@@ -393,6 +393,17 @@ body::-webkit-scrollbar {
   box-shadow: none !important;
 }
 
+.btnLg {
+  text-transform: none !important;
+  font-size: 0.9025rem !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.02857em !important;
+  font-weight: 600 !important;
+  padding: 0.6em 2em !important;
+  border-radius: $sk-border-radius !important;
+  box-shadow: none !important;
+}
+
 
 .outlined {
   background: rgba(41, 255, 148, 0.08)
@@ -1057,4 +1068,12 @@ a,
       color: #ffc832 !important;
     }
   }
+}
+
+
+.appIconHub {
+  border-radius: 25px;
+  background: rgba(0, 0, 0, 0.506) !important;
+  padding: 8px 11px;
+  margin-right: 10px;
 }

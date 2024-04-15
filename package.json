@@ -16,7 +16,7 @@
     "@mui/icons-material": "^5.15.14",
     "@mui/material": "^5.15.14",
     "@skalenetwork/skale-contracts-ethers-v6": "1.0.1-develop.2",
-    "@skalenetwork/metaport": "2.1.0-develop.3",
+    "@skalenetwork/metaport": "2.1.0-develop.5",
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@vercel/analytics": "^1.0.2",
     "eslint-config-prettier": "^9.0.0",
