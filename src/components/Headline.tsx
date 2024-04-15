@@ -34,7 +34,7 @@ export default function Headline(props: {
       <div className={cls(cmn.mri10, cmn.flexcv, cmn.flex, styles.chainIconxs, cmn.pSec)}>
         {props.icon}
       </div>
-      <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.flexg)}>{props.text}</p>
+      <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.flexg, cmn.cap)}>{props.text}</p>
     </div>
   )
 }
