@@ -35,8 +35,7 @@ import GradingRoundedIcon from '@mui/icons-material/GradingRounded'
 import { type MetaportCore, SkPaper, cls, cmn, styles } from '@skalenetwork/metaport'
 
 import { PORTAL_URLS } from '../core/constants'
-import TermsOfServiceBridge from '../data/terms-of-service.mdx'
-import TermsOfServiceStaking from '../data/terms-of-service-staking.mdx'
+import TermsOfService from '../data/terms-of-service.mdx'
 
 export default function TermsModal(props: {
   mpc: MetaportCore
@@ -103,14 +102,14 @@ export default function TermsModal(props: {
         </Box>
         <SkPaper className={cls(cmn.mtop20, 'modalBlock modalBlock4')}>
           <div className={cls(cmn.m10, 'scrollable')}>
-            <GradingRoundedIcon style={{ color: '#329cff' }} />
+            <GradingRoundedIcon style={{ color: 'rgb(148 148 148)' }} />
             <p className={cls(cmn.p, cmn.p3, cmn.p700, cmn.mtop10, cmn.pPrim)}>
               Before you use the SKALE {title}, you must review the terms of service carefully and
               confirm below.
             </p>
             <div onScroll={handleTermsScroll} className={cls('br__modalScroll', cmn.mtop20)}>
               <div id="terms" style={{ paddingRight: '20px' }}>
-                {props.type === 'bridge' ? <TermsOfServiceBridge /> : <TermsOfServiceStaking />}
+                <TermsOfService />
               </div>
             </div>
           </div>
