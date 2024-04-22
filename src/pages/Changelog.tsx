@@ -10,7 +10,9 @@ export default function ChangelogPage() {
         <div className={cls(cmn.flex)}>
           <h2 className={cls(cmn.nom)}>Changelog</h2>
         </div>
-        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>Gateway to the SKALE Ecosystem</p>
+        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+          Stay informed with our latest updates
+        </p>
         <SkPaper gray className={cls('markdown', cmn.mtop20)}>
           <div className={cls(cmn.mleft10, cmn.mri10)}>
             <Changelog />

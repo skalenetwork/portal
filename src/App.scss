@@ -393,6 +393,17 @@ body::-webkit-scrollbar {
   box-shadow: none !important;
 }
 
+.btnLg {
+  text-transform: none !important;
+  font-size: 0.9025rem !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.02857em !important;
+  font-weight: 600 !important;
+  padding: 0.6em 2em !important;
+  border-radius: $sk-border-radius !important;
+  box-shadow: none !important;
+}
+
 
 .outlined {
   background: rgba(41, 255, 148, 0.08)
@@ -500,15 +511,15 @@ code {
 }
 
 .modalBlock2 {
-  background: linear-gradient(151deg, rgb(27 24 11 / 85%) 10%, rgb(10 10 10 / 85%) 100%) !important;
+  background: linear-gradient(180deg, rgb(43 38 17 / 85%) 10%, rgb(24 21 9 / 85%) 100%) !important;
 }
 
 .modalBlock3 {
-  background: linear-gradient(151deg, rgb(10 25 16 / 85%), rgba(10, 10, 10, 0.85) 100%) !important;
+  background: linear-gradient(180deg, rgb(17 42 27 / 85%), rgb(11 28 18 / 85%) 100%) !important
 }
 
 .modalBlock4 {
-  background: linear-gradient(151deg, rgb(12 24 34 / 95%), rgba(10, 10, 10, 0.95) 100%) !important;
+  background: linear-gradient(180deg, rgb(25 25 25 / 95%), rgb(17 17 17 / 95%) 100%) !important;
 }
 
 .chainDetails {
@@ -1057,4 +1068,12 @@ a,
       color: #ffc832 !important;
     }
   }
+}
+
+
+.appIconHub {
+  border-radius: 25px;
+  background: rgba(0, 0, 0, 0.506) !important;
+  padding: 8px 11px;
+  margin-right: 10px;
 }

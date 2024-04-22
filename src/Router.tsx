@@ -39,7 +39,7 @@ import Validators from './pages/Validators'
 import TermsModal from './components/TermsModal'
 
 import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
-import { BRIDGE_PAGES, MAINNET_CHAIN_NAME } from './core/constants'
+import { BRIDGE_PAGES, MAINNET_CHAIN_NAME, STAKING_PAGES } from './core/constants'
 import { type IValidator, type ISkaleContractsMap, type StakingInfoMap } from './core/interfaces'
 import { getValidators } from './core/delegation/validators'
 import Changelog from './pages/Changelog'
@@ -55,6 +55,7 @@ export default function Router() {
 
   const [schains, setSchains] = useState<any[]>([])
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false)
+  const [stakingTermsAccepted, setStakingTermsAccepted] = useState<boolean>(false)
 
   const [loadCalled, setLoadCalled] = useState<boolean>(false)
   const [sc, setSc] = useState<ISkaleContractsMap | null>(null)
@@ -128,15 +129,31 @@ export default function Router() {
     setSi(await getStakingInfoMap(sc, customAddress ?? address))
   }
 
-  function isBridgePage(): boolean {
-    return BRIDGE_PAGES.some(
-      (pathname) => location.pathname === pathname || location.pathname.includes(pathname)
+  function isToSPage(pages: any): boolean {
+    return pages.some(
+      (pathname: string) => location.pathname === pathname || location.pathname.includes(pathname)
     )
   }
 
-  if (!termsAccepted && isBridgePage()) {
+  if (!termsAccepted && isToSPage(BRIDGE_PAGES)) {
     return (
-      <TermsModal mpc={mpc} termsAccepted={termsAccepted} setTermsAccepted={setTermsAccepted} />
+      <TermsModal
+        mpc={mpc}
+        termsAccepted={termsAccepted}
+        setTermsAccepted={setTermsAccepted}
+        type="bridge"
+      />
+    )
+  }
+
+  if (!stakingTermsAccepted && isToSPage(STAKING_PAGES)) {
+    return (
+      <TermsModal
+        mpc={mpc}
+        termsAccepted={stakingTermsAccepted}
+        setTermsAccepted={setStakingTermsAccepted}
+        type="staking"
+      />
     )
   }
 
