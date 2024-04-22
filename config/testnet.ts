@@ -71,31 +71,10 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             'lanky-ill-funny-testnet': {
               hub: 'juicy-low-small-testnet'
             }
-            // 'giant-half-dual-testnet': {
-            //   hub: 'juicy-low-small-testnet'
-            // }
           }
         }
       },
       erc20: {
-        // skl: {
-        //   address: '0x',
-        //   chains: {
-        //     'juicy-low-small-testnet': {},
-        //     'giant-half-dual-testnet': {
-        //       hub: 'juicy-low-small-testnet'
-        //     },
-        //     'lanky-ill-funny-testnet': {
-        //       hub: 'juicy-low-small-testnet'
-        //     }
-        //   }
-        // },
-        // ruby: {
-        //   address: '0x',
-        //   chains: {
-        //     'juicy-low-small-testnet': {}
-        //   }
-        // },
         dai: {
           address: '0x366727B410fE55774C8b0B5b5A6E2d74199a088A',
           chains: {
@@ -108,12 +87,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             'juicy-low-small-testnet': {}
           }
         },
-        // usdt: {
-        //   address: '0x',
-        //   chains: {
-        //     'juicy-low-small-testnet': {}
-        //   }
-        // },
         usdc: {
           address: '0xaB2F91FCc18B1271Ce10BF99e4a20b2652273803',
           chains: {
@@ -128,23 +101,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               hub: 'juicy-low-small-testnet'
             }
           }
-        },
-        // wbtc: {
-        //   address: '0x',
-        //   chains: {
-        //     'juicy-low-small-testnet': {}
-        //   }
-        // },
-        // hmt: {
-        //   address: '0x',
-        //   chains: {}
-        // },
-        // ubxs: {
-        //   address: '0x',
-        //   chains: {
-        //     'juicy-low-small-testnet': {}
-        //   }
-        // }
+        }
       },
       erc721meta: {
       },
@@ -168,22 +125,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         }
       },
       erc20: {
-        // skl: {
-        //   address: '0x',
-        //   chains: {
-        //     'juicy-low-small-testnet': {
-        //       clone: true
-        //     },
-        //     'lanky-ill-funny-testnet': {
-        //       hub: 'juicy-low-small-testnet',
-        //       clone: true
-        //     },
-        //     mainnet: {
-        //       hub: 'juicy-low-small-testnet',
-        //       clone: true
-        //     }
-        //   }
-        // },
         usdc: {
           address: '0x2aebcdc4f9f9149a50422fff86198cb0939ea165',
           chains: {
@@ -217,22 +158,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         }
       },
       erc20: {
-        // skl: {
-        //   address: '0x',
-        //   chains: {
-        //     'juicy-low-small-testnet': {
-        //       clone: true
-        //     },
-        //     mainnet: {
-        //       hub: 'juicy-low-small-testnet',
-        //       clone: true
-        //     },
-        //     'giant-half-dual-testnet': {
-        //       hub: 'juicy-low-small-testnet',
-        //       clone: true
-        //     }
-        //   }
-        // },
         usdc: {
           address: '0x5eaf4e5a908ba87abf3de768cb0da517db45db48',
           chains: {
@@ -285,28 +210,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         }
       },
       erc20: {
-        // skl: {
-        //   address: '0x',
-        //   chains: {
-        //     mainnet: {
-        //       clone: true
-        //     },
-        //     'giant-half-dual-testnet': {
-        //       wrapper: '0x'
-        //     },
-        //     'lanky-ill-funny-testnet': {
-        //       wrapper: '0x'
-        //     }
-        //   }
-        // },
-        // ruby: {
-        //   address: '0x',
-        //   chains: {
-        //     mainnet: {
-        //       clone: true
-        //     }
-        //   }
-        // },
         dai: {
           address: '0x7aE734db73c57F3D16f5F141BAf6CfABD9E693bf',
           chains: {
@@ -323,14 +226,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             }
           }
         },
-        // usdt: {
-        //   address: '0x',
-        //   chains: {
-        //     mainnet: {
-        //       clone: true
-        //     }
-        //   }
-        // },
         usdc: {
           address: '0x6CE77Fc7970F6984eF3E8748A3826972Ec409Fb9',
           chains: {
@@ -347,23 +242,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               wrapper: '0xa6be26f2914a17fc4e8d21a1ce2ec4079eeb990c'
             }
           }
-        },
-        // wbtc: {
-        //   address: '0x',
-        //   chains: {
-        //     mainnet: {
-        //       clone: true
-        //     }
-        //   }
-        // },
-        // ubxs: {
-        //   address: '0x',
-        //   chains: {
-        //     mainnet: {
-        //       clone: true
-        //     }
-        //   }
-        // }
+        }
       }
     }
   },
