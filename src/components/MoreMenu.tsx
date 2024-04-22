@@ -119,7 +119,7 @@ export default function MoreMenu() {
             <div className={cmn.flex}>
               <PublicOutlinedIcon className={cmn.mri10} />
             </div>
-            <div className={cls(cmn.flex, cmn.flexg)}>Main website</div>
+            <div className={cls(cmn.flex, cmn.flexg)}>SKALE Website</div>
             <div className={cls(cmn.flex, cmn.mleft10)}>
               <ArrowOutwardIcon className="menuIconRi" />
             </div>
