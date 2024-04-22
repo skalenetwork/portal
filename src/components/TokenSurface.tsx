@@ -28,7 +28,7 @@ import Tooltip from '@mui/material/Tooltip'
 import ButtonBase from '@mui/material/ButtonBase'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import UnfoldMoreRoundedIcon from '@mui/icons-material/UnfoldMoreRounded'
-import { cmn, cls, styles, TokenIcon, ChainIcon, interfaces } from '@skalenetwork/metaport'
+import { cmn, cls, styles, TokenIcon, ChainIcon, type interfaces } from '@skalenetwork/metaport'
 
 import { DEFAULT_ERC20_DECIMALS } from '../core/constants'
 
@@ -51,7 +51,9 @@ export default function TokenSurface(props: {
       const timer = setTimeout(() => {
         setCopied(false)
       }, 1000)
-      return () => clearTimeout(timer)
+      return () => {
+        clearTimeout(timer)
+      }
     }
   }, [copied])
 

@@ -25,7 +25,7 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 
 import ChainCard from './ChainCard'
-import { cls, cmn, interfaces, styles, getChainAlias } from '@skalenetwork/metaport'
+import { cls, cmn, type interfaces, styles, getChainAlias } from '@skalenetwork/metaport'
 
 import { CATEGORY_ICON } from './CategoryBadge'
 
@@ -40,18 +40,25 @@ export default function CategorySection(props: {
     const aliasB = getChainAlias(props.skaleNetwork, b[0])
     return aliasA.localeCompare(aliasB)
   })
+  const isHub = props.category === 'hubs'
   return (
     <div>
       <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop20, cmn.mbott20)}>
-        <div className={cls(cmn.mri5, cmn.flexcv, cmn.flex, styles.chainIcons)}>
+        <div className={cls(cmn.mri10, cmn.flexcv, cmn.flex, styles.chainIconxs, cmn.pSec)}>
           {CATEGORY_ICON[props.category]}
         </div>
-        <h3 className={cls(cmn.nom, cmn.cap)}>{props.category}</h3>
+        <h4 className={cls(cmn.nom, cmn.cap)}>{props.category}</h4>
       </div>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           {schains.map((schain: any[]) => (
-            <Grid key={schain[0]} className="fl-centered dappCard" item lg={3} md={4} sm={6} xs={6}>
+            <Grid
+              key={schain[0]}
+              className="fl-centered dappCard"
+              item
+              lg={isHub ? 6 : 3}
+              xs={isHub ? 12 : 6}
+            >
               <ChainCard skaleNetwork={props.skaleNetwork} schain={schain} />
             </Grid>
           ))}

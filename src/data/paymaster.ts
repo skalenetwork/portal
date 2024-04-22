@@ -11,11 +11,16 @@ export default {
       launchTs: '0'
     },
     legacy: {
-      chain: 'international-villainous-zaurak',
-      address: '0x1f55e3Bce4B973dcC8540188f8F2038DC89891E6',
+      chain: '',
+      address: '0x',
       launchTs: '0'
     },
     regression: {
+      chain: '',
+      address: '0x',
+      launchTs: '0'
+    },
+    testnet: {
       chain: '',
       address: '0x',
       launchTs: '0'

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-import { useEffect, useState, MouseEvent } from 'react'
+import { useEffect, useState, type MouseEvent } from 'react'
 import Box from '@mui/material/Box'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'

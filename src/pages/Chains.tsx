@@ -17,7 +17,7 @@
  */
 
 /**
- * @file Network.tsx
+ * @file Chains.tsx
  * @copyright SKALE Labs 2023-Present
  */
 
@@ -27,15 +27,29 @@ import { useState, useEffect } from 'react'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
+import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 
 import CategorySection from '../components/CategorySection'
 import { getPrimaryCategory } from '../components/CategoryBadge'
 
-import { cmn, cls, type MetaportCore, CHAINS_META, type interfaces } from '@skalenetwork/metaport'
+import {
+  cmn,
+  cls,
+  styles,
+  type MetaportCore,
+  CHAINS_META,
+  type interfaces
+} from '@skalenetwork/metaport'
 
 import { META_TAGS } from '../core/meta'
+import { MAINNET_CHAIN_NAME } from '../core/constants'
+import { Button } from '@mui/material'
 
-export default function Chains(props: { loadSchains: any; schains: any[]; mpc: MetaportCore }) {
+export default function Chains(props: {
+  loadSchains: () => Promise<void>
+  schains: any[]
+  mpc: MetaportCore
+}) {
   const [_, setIntervalId] = useState<NodeJS.Timeout>()
 
   useEffect(() => {
@@ -88,27 +102,42 @@ export default function Chains(props: { loadSchains: any; schains: any[]; mpc: M
           />
           <CategorySection
             skaleNetwork={props.mpc.config.skaleNetwork}
-            category="games"
+            category="appChains"
             schains={props.schains.filter(
               (schain) =>
                 chainsMeta[schain[0]] &&
-                getPrimaryCategory(chainsMeta[schain[0]].category) === 'Game'
+                getPrimaryCategory(chainsMeta[schain[0]].category) === 'AppChain'
             )}
           />
-          <CategorySection
-            skaleNetwork={props.mpc.config.skaleNetwork}
-            category="apps"
-            schains={props.schains.filter(
-              (schain) =>
-                chainsMeta[schain[0]] &&
-                getPrimaryCategory(chainsMeta[schain[0]].category) === 'dApp'
-            )}
-          />
-          <CategorySection
-            skaleNetwork={props.mpc.config.skaleNetwork}
-            category="other"
-            schains={props.schains.filter((schain) => !chainsMeta[schain[0]])}
-          />
+          {props.mpc.config.skaleNetwork !== MAINNET_CHAIN_NAME ? (
+            <CategorySection
+              skaleNetwork={props.mpc.config.skaleNetwork}
+              category="other"
+              schains={props.schains.filter((schain) => !chainsMeta[schain[0]])}
+            />
+          ) : null}
+        </div>
+        <div className={cls(cmn.mbott20)}>
+          <div className={cls(cmn.flex)}>
+            <div className={cls(cmn.flex, cmn.flexg)}></div>
+            <div className={cls(cmn.flex, cmn.mtop10)}>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://skale.space/ecosystem"
+                className="undec"
+              >
+                <Button
+                  size="medium"
+                  className={cls(styles.btnAction, 'btnMd', 'outlined', cmn.mri10)}
+                  endIcon={<ArrowOutwardRoundedIcon className={cls(styles.chainIconxs)} />}
+                >
+                  Explore All SKALE Projects
+                </Button>
+              </a>
+            </div>
+            <div className={cls(cmn.flex, cmn.flexg)}></div>
+          </div>
         </div>
       </Stack>
     </Container>
