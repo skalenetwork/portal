@@ -30,6 +30,7 @@ import ColorLensRoundedIcon from '@mui/icons-material/ColorLensRounded'
 import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded'
 import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded'
 import AccountTreeRoundedIcon from '@mui/icons-material/AccountTreeRounded'
+import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
 import { cmn, cls } from '@skalenetwork/metaport'
 
 export const CATEGORY_ICON: any = {
@@ -43,7 +44,9 @@ export const CATEGORY_ICON: any = {
   NFT: <ColorLensRoundedIcon />,
   dApp: <ExtensionRoundedIcon />,
   Community: <PeopleRoundedIcon />,
-  Data: <AccountTreeRoundedIcon />
+  Data: <AccountTreeRoundedIcon />,
+  appChains: <WidgetsRoundedIcon />,
+  AppChain: <WidgetsRoundedIcon />
 }
 
 export function getPrimaryCategory(category: string | string[] | undefined) {
@@ -62,7 +65,7 @@ function isStringArray(value: any): value is string[] {
 
 export default function CategoryBadge(props: { category: string; className?: string }) {
   function getCategoryIcon(category: string) {
-    return CATEGORY_ICON[category] ?? CATEGORY_ICON['other']
+    return CATEGORY_ICON[category] ?? CATEGORY_ICON.other
   }
 
   return (

@@ -31,7 +31,7 @@ import Button from '@mui/material/Button'
 
 import SensorsRoundedIcon from '@mui/icons-material/SensorsRounded'
 import ChangeCircleRoundedIcon from '@mui/icons-material/ChangeCircleRounded'
-import { cls, styles, cmn, MetaportCore } from '@skalenetwork/metaport'
+import { cls, styles, cmn, type MetaportCore } from '@skalenetwork/metaport'
 
 import { PORTAL_URLS } from '../core/constants'
 

@@ -33,12 +33,13 @@ import {
 
 import Button from '@mui/material/Button'
 import ChainLogo from './ChainLogo'
+import HubApps from './HubApps'
 
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 
 export default function ChainCard(props: { skaleNetwork: interfaces.SkaleNetwork; schain: any[] }) {
   function getChainShortAlias(meta: interfaces.ChainsMetadataMap, name: string): string {
-    return meta[name] && meta[name].shortAlias !== undefined ? meta[name].shortAlias! : name
+    return meta[name]?.shortAlias !== undefined ? meta[name].shortAlias! : name
   }
 
   const chainsMeta: interfaces.ChainsMetadataMap = CHAINS_META[props.skaleNetwork]
@@ -52,6 +53,15 @@ export default function ChainCard(props: { skaleNetwork: interfaces.SkaleNetwork
           className={cls('br__tile')}
           style={{ background: chainBg(props.skaleNetwork, props.schain[0]) }}
         >
+          {chainsMeta[props.schain[0]]?.apps ? (
+            <Link to={'/chains/' + shortAlias} className={cls(cmn.flex, cmn.pPrim)}>
+              <HubApps
+                chainName={props.schain[0]}
+                skaleNetwork={props.skaleNetwork}
+                meta={chainsMeta[props.schain[0]]}
+              />
+            </Link>
+          ) : null}
           <Link to={'/chains/' + shortAlias} className={cls('br__tileLogo', cmn.flex)}>
             <div className={cls(cmn.flex, cmn.flexg)}></div>
             <div className={cls(cmn.flex, cmn.flexcv, 'inheritSize')}>
@@ -59,16 +69,7 @@ export default function ChainCard(props: { skaleNetwork: interfaces.SkaleNetwork
             </div>
             <div className={cls(cmn.flex, cmn.flexg)}></div>
           </Link>
-          <div
-            className={cls(
-              cmn.flex,
-              cmn.flexcv,
-              cmn.mbott10,
-
-              'br__tileBott',
-              'fullWidth'
-            )}
-          >
+          <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, 'br__tileBott', 'fullWidth')}>
             <Link
               to={'/chains/' + shortAlias}
               style={{

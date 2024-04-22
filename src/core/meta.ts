@@ -38,7 +38,7 @@ export const META_TAGS = {
   history: {
     title: 'SKALE Portal - Bridge History',
     description:
-      'SKALE Bridge transfers history - detailed overview of past transactions and links to block expolorers.'
+      'SKALE Bridge transfers history - detailed overview of past transactions and links to block explorers.'
   },
   portfolio: {
     title: 'SKALE Portal - Portfolio',
@@ -48,6 +48,10 @@ export const META_TAGS = {
     title: 'SKALE Portal - Chains',
     description:
       'Connect to SKALE Chains, get block explorer links, endpoints, linked tokens and verified contracts info.'
+  },
+  apps: {
+    title: 'SKALE Portal - Apps',
+    description: 'Apps on SKALE Network. Explore and interact with dApps on SKALE Network.'
   },
   faq: {
     title: 'SKALE Portal - Bridge FAQ',

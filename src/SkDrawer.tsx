@@ -16,11 +16,11 @@ import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontal
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import HistoryIcon from '@mui/icons-material/History'
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
-// import AppsOutlinedIcon from '@mui/icons-material/AppsOutlined'
-// import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined'
+import PieChartOutlineOutlinedIcon from '@mui/icons-material/PieChartOutlineOutlined'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import DonutLargeRoundedIcon from '@mui/icons-material/DonutLargeRounded'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
+import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined'
 
 import { DUNE_SKALE_URL } from './core/constants'
 
@@ -85,32 +85,6 @@ export default function SkDrawer() {
                 </ListItemButton>
               </Link>
             </ListItem>
-            {/* <ListItem>
-              <Link to="/portfolio" className="undec fullWidth">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={location.pathname === '/portfolio'}
-                >
-                  <ListItemIcon>
-                    <WalletOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Portfolio" />
-                </ListItemButton>
-              </Link>
-            </ListItem> */}
-            {/* <ListItem>
-              <Link to="/other/faq" className="undec fullWidth">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={location.pathname === '/other/faq'}
-                >
-                  <ListItemIcon>
-                    <HelpOutlineOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="FAQ" />
-                </ListItemButton>
-              </Link>
-            </ListItem> */}
           </List>
           <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Network</h4>
           <List>
@@ -129,19 +103,35 @@ export default function SkDrawer() {
                 </ListItemButton>
               </Link>
             </ListItem>
-            {/* <ListItem>
-              <Link to="/apps" className="undec fullWidth">
+            <ListItem>
+              <Link to="/staking" className="undec fullWidth">
                 <ListItemButton
                   className={cls(cmn.pPrim)}
-                  selected={location.pathname.includes('/apps')}
+                  selected={location.pathname.includes('/staking')}
                 >
                   <ListItemIcon>
-                    <AppsOutlinedIcon />
+                    <PieChartOutlineOutlinedIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Apps" />
+                  <ListItemText primary="Staking" />
+                  <div className="shipNew">
+                    <p className={cls(cmn.p, cmn.p5)}>NEW</p>
+                  </div>
                 </ListItemButton>
               </Link>
-            </ListItem> */}
+            </ListItem>
+            <ListItem>
+              <Link to="/validators" className="undec fullWidth">
+                <ListItemButton
+                  className={cls(cmn.pPrim)}
+                  selected={location.pathname.includes('/validators')}
+                >
+                  <ListItemIcon>
+                    <GroupOutlinedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Validators" />
+                </ListItemButton>
+              </Link>
+            </ListItem>
             <ListItem>
               <Link to="/stats" className="undec fullWidth">
                 <ListItemButton
@@ -156,12 +146,12 @@ export default function SkDrawer() {
               </Link>
             </ListItem>
             <ListItem>
-              <a className="undec fullWidth" target="_blank" href={DUNE_SKALE_URL}>
+              <a className="undec fullWidth" target="_blank" href={DUNE_SKALE_URL} rel="noreferrer">
                 <ListItemButton className={cls(cmn.pPrim)}>
                   <ListItemIcon>
                     <DonutLargeRoundedIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Analytics" />
+                  <ListItemText primary="Dune" />
                   <ArrowOutwardRoundedIcon className="drawerIconRi" />
                 </ListItemButton>
               </a>

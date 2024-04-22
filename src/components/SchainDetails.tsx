@@ -39,7 +39,7 @@ import {
   SkPaper,
   getChainAlias,
   chainBg,
-  interfaces
+  type interfaces
 } from '@skalenetwork/metaport'
 
 import SkStack from './SkStack'
@@ -67,6 +67,12 @@ export default function SchainDetails(props: {
   const chainIdInt = parseInt(chainId)
 
   const network = props.mpc.config.skaleNetwork
+
+  // const [expanded, setExpanded] = useState<string | false>('panel1')
+
+  // function handleChange(panel: string | false) {
+  //   setExpanded(expanded && panel === expanded ? false : panel)
+  // }
 
   const networkParams = {
     chainId,

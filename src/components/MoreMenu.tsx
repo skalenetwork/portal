@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { useState, MouseEvent } from 'react'
+import { useState, type MouseEvent } from 'react'
 import Box from '@mui/material/Box'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
@@ -29,6 +29,7 @@ import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
+import FormatListBulletedRoundedIcon from '@mui/icons-material/FormatListBulletedRounded'
 
 import { Link } from 'react-router-dom'
 
@@ -108,12 +109,17 @@ export default function MoreMenu() {
             <InventoryOutlinedIcon className={cmn.mri10} /> Terms of service
           </MenuItem>
         </Link>
+        <Link to="/other/changelog" className="undec fullWidth">
+          <MenuItem onClick={handleClose}>
+            <FormatListBulletedRoundedIcon className={cmn.mri10} /> Changelog
+          </MenuItem>
+        </Link>
         <a className="undec fullWidth" target="_blank" href="https://skale.space/" rel="noreferrer">
           <MenuItem onClick={handleClose}>
             <div className={cmn.flex}>
               <PublicOutlinedIcon className={cmn.mri10} />
             </div>
-            <div className={cls(cmn.flex, cmn.flexg)}>Main website</div>
+            <div className={cls(cmn.flex, cmn.flexg)}>SKALE Website</div>
             <div className={cls(cmn.flex, cmn.mleft10)}>
               <ArrowOutwardIcon className="menuIconRi" />
             </div>

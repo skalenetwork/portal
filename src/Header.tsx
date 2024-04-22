@@ -25,18 +25,16 @@ import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Chip from '@mui/material/Chip'
 
-import { Link } from 'react-router-dom'
-
 import logo from './assets/skale_lg.svg'
 
-import { cmn, cls, MetaportCore } from '@skalenetwork/metaport'
+import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
 
 import HelpZen from './components/HelpZen'
 import MoreMenu from './components/MoreMenu'
 import AccountMenu from './components/AccountMenu'
 import NetworkSwitch from './components/NetworkSwitch'
 
-import { MAINNET_CHAIN_NAME } from './core/constants'
+import { MAINNET_CHAIN_NAME, MAIN_SKALE_URL } from './core/constants'
 
 export default function Header(props: { address: `0x${string}` | undefined; mpc: MetaportCore }) {
   return (
@@ -48,9 +46,14 @@ export default function Header(props: { address: `0x${string}` | undefined; mpc:
     >
       <Toolbar className={cmn.flex}>
         <div className={cls(cmn.flex, cmn.flexcv)}>
-          <Link to="/" className={cls(cmn.flex, cmn.flexcv)}>
+          <a
+            className={cls(cmn.flex, cmn.flexcv)}
+            target="_blank"
+            href={MAIN_SKALE_URL}
+            rel="noreferrer"
+          >
             <img src={logo} className="logo" alt="logo" />
-          </Link>
+          </a>
         </div>
         <div className={cls(cmn.flex, cmn.flexg, cmn.mleft10)}>
           {MAINNET_CHAIN_NAME !== 'mainnet' ? (
