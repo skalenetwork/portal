@@ -60,6 +60,12 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       symbol: 'UBXS',
       decimals: '6',
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/17242.png'
+    },
+    trbp: {
+      name: 'Tellor Playground',
+      symbol: 'TRBP',
+      decimals: '18',
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/4944.png'
     }
   },
   connections: {
@@ -98,6 +104,15 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               hub: 'juicy-low-small-testnet'
             },
             'aware-fake-trim-testnet': {
+              hub: 'juicy-low-small-testnet'
+            }
+          }
+        },
+        trbp: {
+          address: '0x34fae97547e990ef0e05e05286c51e4645bf1a85',
+          chains: {
+            'juicy-low-small-testnet': {},
+            'lanky-ill-funny-testnet': {
               hub: 'juicy-low-small-testnet'
             }
           }
@@ -165,6 +180,18 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               clone: true
             },
             'aware-fake-trim-testnet': {
+              clone: true
+            },
+            mainnet: {
+              hub: 'juicy-low-small-testnet',
+              clone: true
+            }
+          }
+        },
+        trbp: {
+          address: '0x703b996c6634194778666b7eadb177cb49b2d277',
+          chains: {
+            'juicy-low-small-testnet': {
               clone: true
             },
             mainnet: {
@@ -240,6 +267,17 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             },
             'aware-fake-trim-testnet': {
               wrapper: '0xa6be26f2914a17fc4e8d21a1ce2ec4079eeb990c'
+            }
+          }
+        },
+        trbp: {
+          address: '0x92732c3e59af2ea6aa2e886da5959fe952ce2d24',
+          chains: {
+            mainnet: {
+              clone: true
+            },
+            'lanky-ill-funny-testnet': {
+              wrapper: '0x65f2acbe95cb70d702a6eef307f6f88c636d7cb4'
             }
           }
         }
