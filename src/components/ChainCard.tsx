@@ -33,7 +33,6 @@ import {
 
 import Button from '@mui/material/Button'
 import ChainLogo from './ChainLogo'
-import HubApps from './HubApps'
 
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 
@@ -53,15 +52,6 @@ export default function ChainCard(props: { skaleNetwork: interfaces.SkaleNetwork
           className={cls('br__tile')}
           style={{ background: chainBg(props.skaleNetwork, props.schain[0]) }}
         >
-          {chainsMeta[props.schain[0]]?.apps ? (
-            <Link to={'/chains/' + shortAlias} className={cls(cmn.flex, cmn.pPrim)}>
-              <HubApps
-                chainName={props.schain[0]}
-                skaleNetwork={props.skaleNetwork}
-                meta={chainsMeta[props.schain[0]]}
-              />
-            </Link>
-          ) : null}
           <Link to={'/chains/' + shortAlias} className={cls('br__tileLogo', cmn.flex)}>
             <div className={cls(cmn.flex, cmn.flexg)}></div>
             <div className={cls(cmn.flex, cmn.flexcv, 'inheritSize')}>
@@ -69,29 +59,24 @@ export default function ChainCard(props: { skaleNetwork: interfaces.SkaleNetwork
             </div>
             <div className={cls(cmn.flex, cmn.flexg)}></div>
           </Link>
-          <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, 'br__tileBott', 'fullWidth')}>
-            <Link
-              to={'/chains/' + shortAlias}
+          <div
+            className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, 'br__tileBott', 'fullWidth')}
+          ></div>
+        </div>
+        <Link to={'/chains/' + shortAlias}>
+          <Button size="small" className={'cardBtn'}>
+            <span
               style={{
-                width: '100%',
-                padding: '20px 10px 0'
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+                display: 'block',
+                textOverflow: 'ellipsis'
               }}
             >
-              <Button size="small" className={'cardBtn'}>
-                <span
-                  style={{
-                    overflow: 'hidden',
-                    whiteSpace: 'nowrap',
-                    display: 'block',
-                    textOverflow: 'ellipsis'
-                  }}
-                >
-                  {getChainAlias(props.skaleNetwork, props.schain[0], undefined, true)}
-                </span>
-              </Button>
-            </Link>
-          </div>
-        </div>
+              {getChainAlias(props.skaleNetwork, props.schain[0], undefined, true)}
+            </span>
+          </Button>
+        </Link>
       </div>
     </div>
   )

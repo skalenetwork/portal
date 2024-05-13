@@ -28,11 +28,14 @@ import {
   chainBg,
   getChainAlias,
   CHAINS_META,
-  ChainIcon,
   type interfaces
 } from '@skalenetwork/metaport'
 
 import Button from '@mui/material/Button'
+import ChainLogo from './ChainLogo'
+
+import { MAINNET_CHAIN_LOGOS } from '../core/constants'
+
 
 export default function AppCard(props: {
   skaleNetwork: interfaces.SkaleNetwork
@@ -47,6 +50,8 @@ export default function AppCard(props: {
 
   const shortAlias = getChainShortAlias(chainsMeta, props.schainName)
 
+  const url = `/apps/${shortAlias}/${props.appName}`
+
   return (
     <div>
       <div className="fl-centered">
@@ -54,14 +59,13 @@ export default function AppCard(props: {
           className={cls('br__tile')}
           style={{ background: chainBg(props.skaleNetwork, props.schainName, props.appName) }}
         >
-          <Link to={'/chains/' + shortAlias} className={cls('br__tileLogo', cmn.flex)}>
+          <Link to={url} className={cls('br__tileLogo', cmn.flex)}>
             <div className={cls(cmn.flex, cmn.flexg)}></div>
             <div className={cls(cmn.flex, cmn.flexcv, 'inheritSize')}>
-              <ChainIcon
+              <ChainLogo
                 chainName={props.schainName}
                 app={props.appName}
-                skaleNetwork={props.skaleNetwork}
-                size="lg"
+                logos={MAINNET_CHAIN_LOGOS}
               />
             </div>
             <div className={cls(cmn.flex, cmn.flexg)}></div>
@@ -75,29 +79,22 @@ export default function AppCard(props: {
               'br__tileBott',
               'fullWidth'
             )}
-          >
-            <Link
-              to={'/chains/' + shortAlias}
+          ></div>
+        </div>
+        <Link to={url}>
+          <Button size="small" className={cls('cardBtn', cmn.mtopd5)}>
+            <span
               style={{
-                width: '100%',
-                padding: '20px 10px 0'
+                overflow: 'hidden',
+                whiteSpace: 'nowrap',
+                display: 'block',
+                textOverflow: 'ellipsis'
               }}
             >
-              <Button size="small" className={'cardBtn'}>
-                <span
-                  style={{
-                    overflow: 'hidden',
-                    whiteSpace: 'nowrap',
-                    display: 'block',
-                    textOverflow: 'ellipsis'
-                  }}
-                >
-                  {getChainAlias(props.skaleNetwork, props.schainName, props.appName, true)}
-                </span>
-              </Button>
-            </Link>
-          </div>
-        </div>
+              {getChainAlias(props.skaleNetwork, props.schainName, props.appName, true)}
+            </span>
+          </Button>
+        </Link>
       </div>
     </div>
   )

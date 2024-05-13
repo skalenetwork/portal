@@ -56,5 +56,9 @@ export const META_TAGS = {
   faq: {
     title: 'SKALE Portal - Bridge FAQ',
     description: 'Common questions about SKALE Bridge and transfers on SKALE.'
+  },
+  staking: {
+    title: 'SKALE Portal - Staking',
+    description: 'Delegate, review delegations and withdraw staking rewards'
   }
 }

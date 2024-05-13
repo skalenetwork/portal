@@ -29,6 +29,7 @@ import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 
+import HubsSection from '../components/HubsSection'
 import CategorySection from '../components/CategorySection'
 import { getPrimaryCategory } from '../components/CategoryBadge'
 
@@ -44,6 +45,7 @@ import {
 import { META_TAGS } from '../core/meta'
 import { MAINNET_CHAIN_NAME } from '../core/constants'
 import { Button } from '@mui/material'
+import AppChains from '../components/AppChains'
 
 export default function Chains(props: {
   loadSchains: () => Promise<void>
@@ -91,7 +93,7 @@ export default function Chains(props: {
           Connect, get block explorer links and endpoints
         </p>
         <div className={cls(cmn.mbott20)}>
-          <CategorySection
+          <HubsSection
             skaleNetwork={props.mpc.config.skaleNetwork}
             category="hubs"
             schains={props.schains.filter(
@@ -100,9 +102,8 @@ export default function Chains(props: {
                 getPrimaryCategory(chainsMeta[schain[0]].category) === 'Hub'
             )}
           />
-          <CategorySection
+          <AppChains
             skaleNetwork={props.mpc.config.skaleNetwork}
-            category="appChains"
             schains={props.schains.filter(
               (schain) =>
                 chainsMeta[schain[0]] &&

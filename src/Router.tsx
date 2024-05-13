@@ -183,7 +183,7 @@ export default function Router() {
             </Route>
             <Route path="apps" element={<Apps mpc={mpc} />} />
             <Route path="apps">
-              <Route path=":name" element={<App />} />
+              <Route path=":chain/:app" element={<App />} />
             </Route>
             <Route path="stats" element={<Stats />} />
             <Route path="other">

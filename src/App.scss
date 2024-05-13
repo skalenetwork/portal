@@ -230,7 +230,6 @@ body::-webkit-scrollbar {
 }
 
 .br__tile {
-  // box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.05);
   transform-style: preserve-3d;
   transition: all 0.3s ease;
 }
@@ -239,8 +238,17 @@ body::-webkit-scrollbar {
   transform: scale(1.03);
 }
 
+.hoverable {
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+}
+
+.hoverable:hover {
+  transform: scale(1.01);
+}
+
 .br__tile {
-  height: 150px;
+  // height: 150px;
   border-radius: 25px !important;
   border: 1px solid #171616 !important;
 }
@@ -409,6 +417,10 @@ body::-webkit-scrollbar {
   background: rgba(41, 255, 148, 0.08)
 }
 
+.outlinedGray {
+  background: rgb(126 126 126 / 15%);
+}
+
 .roundBtn {
   min-width: 40px !important;
   padding: 8px 11px !important;
@@ -483,7 +495,7 @@ code {
 
 .br__tileDefaultLogo {
   width: 100% !important;
-  padding: 10px 10px 0 10px !important;
+  padding: 10px 10px 5px 10px !important;
 
   .paper {
     border-radius: 20px !important;
@@ -522,6 +534,17 @@ code {
   background: linear-gradient(180deg, rgb(25 25 25 / 95%), rgb(17 17 17 / 95%) 100%) !important;
 }
 
+.titleBadge {
+  background: rgba(22, 22, 22, 0.7) !important;
+  border-radius: 25px;
+  padding: 5px;
+
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
 .chainDetails {
   max-width: calc(100vw - 32px);
 
@@ -535,17 +558,6 @@ code {
     svg {
       max-height: 90%;
       max-width: 90%;
-    }
-  }
-
-  .titleBadge {
-    background: rgba(0, 0, 0, 0.6) !important;
-    border-radius: 25px;
-    padding: 5px;
-
-    svg {
-      width: 12px;
-      height: 12px;
     }
   }
 
@@ -585,6 +597,17 @@ code {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
   border-radius: 25px;
   padding: 20px;
+}
+
+.titleSectionBg {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+  border-radius: 25px;
+}
+
+.titleSectionOut {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+  border-radius: 25px;
+  padding: 0;
 }
 
 button:focus {
@@ -1076,4 +1099,8 @@ a,
   background: rgba(0, 0, 0, 0.506) !important;
   padding: 8px 11px;
   margin-right: 10px;
+}
+
+.pbott20 {
+  padding-bottom: 20px;
 }

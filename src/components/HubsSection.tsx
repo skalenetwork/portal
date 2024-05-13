@@ -17,18 +17,17 @@
  */
 
 /**
- * @file CategorySection.tsx
- * @copyright SKALE Labs 2022-Present
+ * @file HubsSection.tsx
+ * @copyright SKALE Labs 2024-Present
  */
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 
-import ChainCard from './ChainCard'
-import { type interfaces, getChainAlias } from '@skalenetwork/metaport'
+import HubCard from './HubCard'
+import { cls, cmn, type interfaces, getChainAlias } from '@skalenetwork/metaport'
 
-
-export default function CategorySection(props: {
+export default function HubsSection(props: {
   schains: any
   category: string
   skaleNetwork: interfaces.SkaleNetwork
@@ -39,20 +38,14 @@ export default function CategorySection(props: {
     const aliasB = getChainAlias(props.skaleNetwork, b[0])
     return aliasA.localeCompare(aliasB)
   })
-  const isHub = props.category === 'hubs'
+
   return (
-    <div>
+    <div className={cls(cmn.mtop20)}>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
           {schains.map((schain: any[]) => (
-            <Grid
-              key={schain[0]}
-              className="fl-centered dappCard"
-              item
-              lg={isHub ? 6 : 3}
-              xs={isHub ? 12 : 6}
-            >
-              <ChainCard skaleNetwork={props.skaleNetwork} schain={schain} />
+            <Grid key={schain[0]} className="fl-centered dappCard" item xs={12}>
+              <HubCard skaleNetwork={props.skaleNetwork} schain={schain} />
             </Grid>
           ))}
         </Grid>

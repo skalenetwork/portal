@@ -51,6 +51,7 @@ import Tile from './Tile'
 
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 import { getRpcUrl, getExplorerUrl, getChainId, HTTPS_PREFIX } from '../core/chain'
+import { timestampToDate } from '../core/helper'
 
 export default function SchainDetails(props: {
   schainName: string
@@ -68,11 +69,6 @@ export default function SchainDetails(props: {
 
   const network = props.mpc.config.skaleNetwork
 
-  // const [expanded, setExpanded] = useState<string | false>('panel1')
-
-  // function handleChange(panel: string | false) {
-  //   setExpanded(expanded && panel === expanded ? false : panel)
-  // }
 
   const networkParams = {
     chainId,
@@ -83,14 +79,6 @@ export default function SchainDetails(props: {
       symbol: 'sFUEL',
       decimals: 18
     }
-  }
-
-  function timestampToDate(ts: number) {
-    return new Intl.DateTimeFormat('en-US', {
-      year: '2-digit',
-      month: '2-digit',
-      day: '2-digit'
-    }).format(ts * 1000)
   }
 
   async function addNetwork() {

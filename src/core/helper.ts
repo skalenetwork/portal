@@ -78,3 +78,11 @@ export function shortAddress(address: interfaces.AddressType | undefined): strin
   if (!address) return ''
   return `${address.slice(0, 4)}...${address.slice(-2)}`
 }
+
+export function timestampToDate(ts: number) {
+  return new Intl.DateTimeFormat('en-US', {
+    year: '2-digit',
+    month: '2-digit',
+    day: '2-digit'
+  }).format(ts * 1000)
+}
