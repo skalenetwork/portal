@@ -56,5 +56,9 @@ export const META_TAGS = {
   faq: {
     title: 'SKALE Portal - Bridge FAQ',
     description: 'Common questions about SKALE Bridge and transfers on SKALE.'
+  },
+  onramp: {
+    title: 'SKALE Portal - Onramp',
+    description: 'Transfer your assets to SKALE Europa Hub using Transak onramp.'
   }
 }

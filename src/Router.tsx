@@ -36,6 +36,7 @@ import Staking from './pages/Staking'
 import StakeValidator from './pages/StakeValidator'
 import StakeAmount from './pages/StakeAmount'
 import Validators from './pages/Validators'
+import Onramp from './pages/Onramp'
 import TermsModal from './components/TermsModal'
 
 import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
@@ -185,6 +186,7 @@ export default function Router() {
             <Route path="apps">
               <Route path=":name" element={<App />} />
             </Route>
+            <Route path="onramp" element={<Onramp mpc={mpc} />} />
             <Route path="stats" element={<Stats />} />
             <Route path="other">
               <Route path="faq" element={<Faq />} />
