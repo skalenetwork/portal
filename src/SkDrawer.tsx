@@ -21,6 +21,7 @@ import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import DonutLargeRoundedIcon from '@mui/icons-material/DonutLargeRounded'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined'
+import AddCardRoundedIcon from '@mui/icons-material/AddCardRounded'
 
 import { DUNE_SKALE_URL } from './core/constants'
 
@@ -85,6 +86,22 @@ export default function SkDrawer() {
                 </ListItemButton>
               </Link>
             </ListItem>
+            <ListItem>
+              <Link to="/onramp" className="undec fullWidth">
+                <ListItemButton
+                  className={cls(cmn.pPrim)}
+                  selected={location.pathname === '/onramp'}
+                >
+                  <ListItemIcon>
+                    <AddCardRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="On-Ramp" />
+                  <div className="shipNew">
+                    <p className={cls(cmn.p, cmn.p5)}>NEW</p>
+                  </div>
+                </ListItemButton>
+              </Link>
+            </ListItem>
           </List>
           <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Network</h4>
           <List>
@@ -113,9 +130,6 @@ export default function SkDrawer() {
                     <PieChartOutlineOutlinedIcon />
                   </ListItemIcon>
                   <ListItemText primary="Staking" />
-                  <div className="shipNew">
-                    <p className={cls(cmn.p, cmn.p5)}>NEW</p>
-                  </div>
                 </ListItemButton>
               </Link>
             </ListItem>

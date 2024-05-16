@@ -25,12 +25,18 @@ import Button from '@mui/material/Button'
 import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
 import { cmn, cls, SkPaper, RainbowConnectButton } from '@skalenetwork/metaport'
 
-export default function ConnectWallet(props: { tile?: boolean; className?: string }) {
+export default function ConnectWallet(props: {
+  tile?: boolean
+  className?: string
+  customText?: string
+}) {
   return (
     <div className={cls(props.className)}>
       <SkPaper gray={!props.tile} className={cls(['titleSection', props.tile])}>
         <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent)}>Connect your wallet to continue</p>
+          <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent)}>
+            {props.customText ?? 'Connect your wallet to continue'}
+          </p>
           <div className={cls(cmn.flex)}>
             <div className={cls(cmn.flex, cmn.flexg)}></div>
             <div className={cls(cmn.flex)}>
