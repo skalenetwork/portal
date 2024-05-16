@@ -229,6 +229,15 @@ body::-webkit-scrollbar {
   width: 100%;
 }
 
+.MuiBottomNavigation-root {
+  height: 50px !important;
+
+  span {
+    font-size: 0.6rem !important;
+    font-weight: 600 !important;
+  }
+}
+
 .br__tile {
   // box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.05);
   transform-style: preserve-3d;

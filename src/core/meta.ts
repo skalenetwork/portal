@@ -59,6 +59,6 @@ export const META_TAGS = {
   },
   onramp: {
     title: 'SKALE Portal - Onramp',
-    description: 'Transfer your assets to SKALE Europa Hub using Transak onramp.'
+    description: 'Purchase crypto directly on SKALE Europa Hub using the Transak onramp.'
   }
 }

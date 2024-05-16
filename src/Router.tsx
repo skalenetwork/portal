@@ -159,7 +159,7 @@ export default function Router() {
   }
 
   return (
-    <div>
+    <div style={{ marginBottom: isXs ? '55px' : '' }}>
       <Helmet>
         <meta property="og:url" content={currentUrl} />
       </Helmet>
