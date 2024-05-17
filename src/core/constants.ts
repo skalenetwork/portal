@@ -38,6 +38,7 @@ export const BRIDGE_PAGES = ['/bridge', '/transfer', '/bridge/history', '/portfo
 export const STAKING_PAGES = ['/staking']
 
 export const DEFAULT_ERC20_DECIMALS = '18'
+export const USDC_DECIMALS = '6'
 
 export const PORTAL_URLS: Record<string, string> = {
   mainnet: 'https://portal.skale.space/',
@@ -63,3 +64,6 @@ export const DEFAULT_DELEGATION_INFO = 'portal'
 
 const _BALANCE_UPDATE_INTERVAL_SECONDS = 25
 export const BALANCE_UPDATE_INTERVAL_MS = _BALANCE_UPDATE_INTERVAL_SECONDS * 1000
+
+export const TRANSAK_STAGING_ENV = import.meta.env.VITE_TRANSAK_STAGING_ENV === 'true'
+export const TRANSAK_API_KEY = import.meta.env.VITE_TRANSAK_API_KEY

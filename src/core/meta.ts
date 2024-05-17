@@ -60,5 +60,9 @@ export const META_TAGS = {
   staking: {
     title: 'SKALE Portal - Staking',
     description: 'Delegate, review delegations and withdraw staking rewards'
+  },
+  onramp: {
+    title: 'SKALE Portal - Onramp',
+    description: 'Purchase crypto directly on SKALE Europa Hub using the Transak onramp.'
   }
 }

@@ -33,8 +33,14 @@ export function truncateDecimals(input: string, numDecimals: number): string {
   return `${integerPart}${delimiter}${decimalPart.slice(0, numDecimals)}`
 }
 
-export function formatBalance(value: bigint, tokenSymbol?: string): string {
-  const res = Number(truncateDecimals(fromWei(value, DEFAULT_ERC20_DECIMALS), 5)).toLocaleString()
+export function formatBalance(
+  value: bigint,
+  tokenSymbol?: string,
+  customDecimals?: string
+): string {
+  const res = Number(
+    truncateDecimals(fromWei(value, customDecimals ?? DEFAULT_ERC20_DECIMALS), 5)
+  ).toLocaleString()
   return res + (tokenSymbol ? ` ${tokenSymbol}` : '')
 }
 
