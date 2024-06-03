@@ -65,6 +65,10 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       name: 'Unipoly Token',
       symbol: 'UNP',
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/28735.png'
+    },
+    trc: {
+      name: "TheRealCoin",
+      symbol: "TRC"
     }
   },
   connections: {
@@ -102,6 +106,12 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             'aware-fake-trim-testnet': {
               hub: 'juicy-low-small-testnet'
             }
+          }
+        },
+        trc: {
+          address: '0x9536285e9fDb702517b1158A4da48420e7BE250e',
+          chains: {
+            'juicy-low-small-testnet': {}
           }
         },
         usdp: {
@@ -304,6 +314,14 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       erc20: {
         dai: {
           address: '0x7aE734db73c57F3D16f5F141BAf6CfABD9E693bf',
+          chains: {
+            mainnet: {
+              clone: true
+            }
+          }
+        },
+        trc: {
+          address: '0x7ebf7fde04cbe629c5b26829d6582b22e5e0ae4c',
           chains: {
             mainnet: {
               clone: true
