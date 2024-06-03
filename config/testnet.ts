@@ -81,6 +81,21 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             'juicy-low-small-testnet': {}
           }
         },
+        skl: {
+          address: '0x1b662EB5624f6B2BB46d384DB9ab7F09AF15C84A',
+          chains: {
+            'juicy-low-small-testnet': {},
+            'giant-half-dual-testnet': {
+              hub: 'juicy-low-small-testnet'
+            },
+            'lanky-ill-funny-testnet': {
+              hub: 'juicy-low-small-testnet'
+            },
+            'aware-fake-trim-testnet': {
+              hub: 'juicy-low-small-testnet'
+            }
+          }
+        },
         usdp: {
           address: '0x30355486440774f5b01B0B69656A70d16A5771A6',
           chains: {
@@ -125,6 +140,21 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         }
       },
       erc20: {
+        skl: {
+          address: '0x5770da059492b04a79dbad38d909a64bffa4173e',
+          chains: {
+            'juicy-low-small-testnet': {
+              clone: true
+            },
+            'aware-fake-trim-testnet': {
+              clone: true
+            },
+            mainnet: {
+              hub: 'juicy-low-small-testnet',
+              clone: true
+            }
+          }
+        },
         usdc: {
           address: '0x2aebcdc4f9f9149a50422fff86198cb0939ea165',
           chains: {
@@ -158,6 +188,21 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         }
       },
       erc20: {
+        skl: {
+          address: '0x6742a7e1b38ab3b54f9a3257be51f25eeada07a1',
+          chains: {
+            'juicy-low-small-testnet': {
+              clone: true
+            },
+            'aware-fake-trim-testnet': {
+              clone: true
+            },
+            mainnet: {
+              hub: 'juicy-low-small-testnet',
+              clone: true
+            }
+          }
+        },
         usdc: {
           address: '0x5eaf4e5a908ba87abf3de768cb0da517db45db48',
           chains: {
@@ -177,6 +222,21 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
     },
     'aware-fake-trim-testnet': { // titan connections
       erc20: {
+        skl: {
+          address: '0xf6bd6ac09bb59306dae68e31df9bd4059e0ce6d1',
+          chains: {
+            'juicy-low-small-testnet': {
+              clone: true
+            },
+            'aware-fake-trim-testnet': {
+              clone: true
+            },
+            mainnet: {
+              hub: 'juicy-low-small-testnet',
+              clone: true
+            }
+          }
+        },
         usdc: {
           address: '0x10a30e73ab2da5328fc09b06443dde3e656e82f4',
           chains: {
@@ -215,6 +275,23 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           chains: {
             mainnet: {
               clone: true
+            }
+          }
+        },
+        skl: {
+          address: '0x6c71319b1F910Cf989AD386CcD4f8CC8573027aB',
+          chains: {
+            mainnet: {
+              clone: true
+            },
+            'giant-half-dual-testnet': {
+              wrapper: '0xba05e3c8033705017ea734f4041fcce7f5d43271'
+            },
+            'lanky-ill-funny-testnet': {
+              wrapper: '0xba05e3c8033705017ea734f4041fcce7f5d43271'
+            },
+            'aware-fake-trim-testnet': {
+              wrapper: '0xba05e3c8033705017ea734f4041fcce7f5d43271'
             }
           }
         },
