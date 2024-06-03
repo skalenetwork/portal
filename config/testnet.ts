@@ -60,6 +60,11 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       symbol: 'UBXS',
       decimals: '6',
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/17242.png'
+    },
+    unp: {
+      name: 'Unipoly Token',
+      symbol: 'UNP',
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/28735.png'
     }
   },
   connections: {
@@ -69,6 +74,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           chains: {
             'juicy-low-small-testnet': {},
             'lanky-ill-funny-testnet': {
+              hub: 'juicy-low-small-testnet'
+            },
+            'giant-half-dual-testnet': {
               hub: 'juicy-low-small-testnet'
             }
           }
@@ -116,6 +124,15 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               hub: 'juicy-low-small-testnet'
             }
           }
+        },
+        unp: {
+          address: '0xE0F8f9256c95ff1DAf010D9A9269Df1794b9Df40',
+          chains: {
+            'juicy-low-small-testnet': {},
+            'lanky-ill-funny-testnet': {
+              hub: 'juicy-low-small-testnet'
+            }
+          }
         }
       },
       erc721meta: {
@@ -127,7 +144,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       // Calypso connections
       eth: {
         eth: {
-          address: '0x',
+          address: '0x92561a12ef92311c28d530210f0c4c712468461c',
           chains: {
             'juicy-low-small-testnet': {
               clone: true
@@ -217,6 +234,18 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               clone: true
             }
           }
+        },
+        unp: {
+          address: '0x553392363e79f9b490f9f480b073e525849fc043',
+          chains: {
+            'juicy-low-small-testnet': {
+              clone: true
+            },
+            mainnet: {
+              hub: 'juicy-low-small-testnet',
+              clone: true
+            }
+          }
         }
       }
     },
@@ -264,6 +293,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               clone: true
             },
             'lanky-ill-funny-testnet': {
+              wrapper: '0x7Dcc444B1B94ACcf24C39C2ff2C0465D640cFC3F'
+            },
+            'giant-half-dual-testnet': {
               wrapper: '0x7Dcc444B1B94ACcf24C39C2ff2C0465D640cFC3F'
             }
           }
@@ -317,6 +349,17 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             },
             'aware-fake-trim-testnet': {
               wrapper: '0xa6be26f2914a17fc4e8d21a1ce2ec4079eeb990c'
+            }
+          }
+        },
+        unp: {
+          address: '0x5c06e36479a19f56a5b577fcb08e4a474b74e63f',
+          chains: {
+            mainnet: {
+              clone: true
+            },
+            'lanky-ill-funny-testnet': {
+              wrapper: '0x0dcf41c15e20ae9a366cd3eaf2f25108e9c86b68'
             }
           }
         }
