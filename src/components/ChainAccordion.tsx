@@ -34,7 +34,6 @@ import {
   cls,
   styles,
   PROXY_ENDPOINTS,
-  BASE_EXPLORER_URLS,
   type MetaportCore,
   SkPaper,
   type interfaces
@@ -49,11 +48,11 @@ import {
   getRpcUrl,
   getRpcWsUrl,
   getFsUrl,
-  getExplorerUrl,
   getChainId,
   HTTPS_PREFIX,
   WSS_PREFIX
 } from '../core/chain'
+import { getExplorerUrl } from '../core/explorer'
 
 export default function ChainAccordion(props: {
   schainName: string
@@ -62,13 +61,12 @@ export default function ChainAccordion(props: {
 }) {
   const network = props.mpc.config.skaleNetwork
   const proxyBase = PROXY_ENDPOINTS[network]
-  const explorerBase = BASE_EXPLORER_URLS[network]
 
   const rpcUrl = getRpcUrl(proxyBase, props.schainName, HTTPS_PREFIX)
   const rpcWssUrl = getRpcWsUrl(proxyBase, props.schainName, WSS_PREFIX)
   const fsUrl = getFsUrl(proxyBase, props.schainName, HTTPS_PREFIX)
 
-  const explorerUrl = getExplorerUrl(explorerBase, props.schainName)
+  const explorerUrl = getExplorerUrl(network, props.schainName)
   const chainId = getChainId(props.schainName)
 
   function findWrapperAddress(token: interfaces.Token): `0x${string}` | null | undefined {

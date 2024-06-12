@@ -21,24 +21,20 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import {
-  cmn,
-  cls,
-  type interfaces,
-  SkPaper,
-  styles
-} from '@skalenetwork/metaport'
+import { cmn, cls, type interfaces, SkPaper, styles } from '@skalenetwork/metaport'
 
 import CategorySection from './CategorySection'
 import appChainsIcon from '../assets/appChains.png'
-
+import { IMetrics } from '../core/types'
 
 export default function AppChains(props: {
   skaleNetwork: interfaces.SkaleNetwork
   schains: any[]
+  metrics: IMetrics | null
+  chainsMeta: interfaces.ChainsMetadataMap
 }) {
   return (
-    <div>
+    <div className={cls(cmn.mtop20)}>
       <div>
         <SkPaper
           gray
@@ -69,6 +65,8 @@ export default function AppChains(props: {
             skaleNetwork={props.skaleNetwork}
             category="appChains"
             schains={props.schains}
+            metrics={props.metrics}
+            chainsMeta={props.chainsMeta}
           />
         </div>
       </div>

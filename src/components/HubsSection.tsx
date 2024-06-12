@@ -25,27 +25,41 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 
 import HubCard from './HubCard'
-import { cls, cmn, type interfaces, getChainAlias } from '@skalenetwork/metaport'
+import { cls, cmn, type interfaces } from '@skalenetwork/metaport'
+import { IMetrics, ISChain } from '../core/types'
 
 export default function HubsSection(props: {
-  schains: any
+  schains: ISChain[]
+  metrics: IMetrics | null
   category: string
   skaleNetwork: interfaces.SkaleNetwork
+  isXs: boolean
+  chainsMeta: interfaces.ChainsMetadataMap
 }) {
+  function getMaxLength(schain: string, chainsMeta: interfaces.ChainsMetadataMap): number {
+    return Object.keys(chainsMeta[schain].apps || {}).length
+  }
+
   if (!props.schains || props.schains.length === 0) return
-  const schains = props.schains.sort((a: any[], b: any[]) => {
-    const aliasA = getChainAlias(props.skaleNetwork, a[0])
-    const aliasB = getChainAlias(props.skaleNetwork, b[0])
-    return aliasA.localeCompare(aliasB)
+  props.schains.sort((chainA: any, chainB: any) => {
+    const maxLengthA = getMaxLength(chainA.name, props.chainsMeta)
+    const maxLengthB = getMaxLength(chainB.name, props.chainsMeta)
+    return maxLengthB - maxLengthA
   })
 
   return (
     <div className={cls(cmn.mtop20)}>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-          {schains.map((schain: any[]) => (
-            <Grid key={schain[0]} className="fl-centered dappCard" item xs={12}>
-              <HubCard skaleNetwork={props.skaleNetwork} schain={schain} />
+          {props.schains.map((schain: ISChain) => (
+            <Grid key={schain.name} className="fl-centered dappCard" item xs={12}>
+              <HubCard
+                isXs={props.isXs}
+                skaleNetwork={props.skaleNetwork}
+                schain={schain}
+                metrics={props.metrics}
+                chainsMeta={props.chainsMeta}
+              />
             </Grid>
           ))}
         </Grid>

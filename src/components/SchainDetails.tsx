@@ -28,13 +28,19 @@ import Button from '@mui/material/Button'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
+import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
+import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
+import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
+import DataSaverOffRoundedIcon from '@mui/icons-material/DataSaverOffRounded'
+import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded'
 
 import {
   cmn,
   cls,
   styles,
   PROXY_ENDPOINTS,
-  BASE_EXPLORER_URLS,
   type MetaportCore,
   SkPaper,
   getChainAlias,
@@ -44,31 +50,32 @@ import {
 
 import SkStack from './SkStack'
 import ChainLogo from './ChainLogo'
-import CopySurface from './CopySurface'
 import ChainAccordion from './ChainAccordion'
 import ChainCategories from './ChainCategories'
 import Tile from './Tile'
 
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
-import { getRpcUrl, getExplorerUrl, getChainId, HTTPS_PREFIX } from '../core/chain'
-import { timestampToDate } from '../core/helper'
+import { getRpcUrl, getChainId, HTTPS_PREFIX, getChainDescription } from '../core/chain'
+import { getExplorerUrl } from '../core/explorer'
+import Breadcrumbs from './Breadcrumbs'
+import { Container } from '@mui/material'
+import { IChainMetrics, IStatsData } from '../core/types'
+import { formatNumber } from '../core/timeHelper'
 
 export default function SchainDetails(props: {
   schainName: string
   chainMeta: interfaces.ChainMetadata
+  schainStats: IStatsData | null
+  schainMetrics: IChainMetrics | null
   chain: any
   mpc: MetaportCore
 }) {
   const proxyBase = PROXY_ENDPOINTS[props.mpc.config.skaleNetwork]
-  const explorerBase = BASE_EXPLORER_URLS[props.mpc.config.skaleNetwork]
-
-  const rpcUrl = getRpcUrl(proxyBase, props.schainName, HTTPS_PREFIX)
-  const explorerUrl = getExplorerUrl(explorerBase, props.schainName)
-  const chainId = getChainId(props.schainName)
-  const chainIdInt = parseInt(chainId)
-
   const network = props.mpc.config.skaleNetwork
 
+  const rpcUrl = getRpcUrl(proxyBase, props.schainName, HTTPS_PREFIX)
+  const explorerUrl = getExplorerUrl(network, props.schainName)
+  const chainId = getChainId(props.schainName)
 
   const networkParams = {
     chainId,
@@ -89,9 +96,7 @@ export default function SchainDetails(props: {
   }
 
   const chainAlias = getChainAlias(props.mpc.config.skaleNetwork, props.schainName, undefined, true)
-  const chainDescription = props.chainMeta?.description
-    ? props.chainMeta.description
-    : `Chain was created on ${timestampToDate(props.chain[5])}`
+  const chainDescription = getChainDescription(props.chainMeta)
 
   return (
     <div className={cls('chainDetails', cmn.mbott20)}>
@@ -102,12 +107,30 @@ export default function SchainDetails(props: {
         <meta property="og:description" content={chainDescription} />
       </Helmet>
       <SkPaper background={chainBg(network, props.schainName)} className={cls(cmn.mtop10)}>
-        <ChainCategories category={props.chainMeta?.category ?? 'Other'} alias={chainAlias} />
-        <div className={cls('logo', cmn.flex, cmn.flexcv)}>
-          <div className={cls(cmn.flex, cmn.flexg)}></div>
-          <ChainLogo chainName={props.schainName} logos={MAINNET_CHAIN_LOGOS} />
-          <div className={cls(cmn.flex, cmn.flexg)}></div>
+        <div className={cls(cmn.flex, cmn.flexcv)}>
+          <Breadcrumbs
+            sections={[
+              {
+                text: 'Ecosystem',
+                icon: <ArrowBackIosNewRoundedIcon />,
+                url: '/ecosystem'
+              },
+              {
+                text: chainAlias,
+                icon: <LinkRoundedIcon />
+              }
+            ]}
+          />
+          <div className={cls(cmn.flexg)}></div>
+          <ChainCategories category={props.chainMeta?.category ?? 'Other'} alias={chainAlias} />
         </div>
+        <Container className="logo">
+          <ChainLogo
+            network={props.mpc.config.skaleNetwork}
+            chainName={props.schainName}
+            logos={MAINNET_CHAIN_LOGOS}
+          />
+        </Container>
         <SkStack>
           <Tile
             grow
@@ -121,8 +144,10 @@ export default function SchainDetails(props: {
         </SkStack>
         <SkStack className={cmn.mtop10}>
           <Tile
+            className={cls(cmn.nop, cmn.flex, cmn.flexcv)}
+            //className={cls()}
             children={
-              <SkStack>
+              <SkStack className={cls(cmn.m10, cmn.mleft20, cmn.mri20, cmn.flex, cmn.flexcv)}>
                 <div>
                   <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
                     <Button
@@ -165,7 +190,50 @@ export default function SchainDetails(props: {
               </SkStack>
             }
           />
-          <CopySurface className={cls(cmn.flexg)} title="Chain ID" value={chainIdInt.toString()} />
+          <Tile
+            size="md"
+            grow
+            text="Daily transactions"
+            value={
+              props.schainMetrics
+                ? formatNumber(props.schainMetrics.chain_stats.transactions_today)
+                : ''
+            }
+            icon={<TrendingUpRoundedIcon />}
+          />
+        </SkStack>
+
+        <SkStack className={cmn.mtop10}>
+          <Tile
+            size="md"
+            grow
+            text="Total transactions"
+            value={props.schainStats ? formatNumber(props.schainStats.tx_count_total) : ''}
+            icon={<DataSaverOffRoundedIcon />}
+          />
+          <Tile
+            size="md"
+            grow
+            text="Gas saved"
+            value={
+              props.schainStats ? `${formatNumber(props.schainStats.gas_fees_total_eth)} ETH` : ''
+            }
+            icon={<SavingsRoundedIcon />}
+          />
+          <Tile
+            size="md"
+            grow
+            text="Unique active wallets"
+            value={props.schainStats ? formatNumber(props.schainStats.users_count_total) : ''}
+            icon={<PersonRoundedIcon />}
+          />
+          <Tile
+            size="md"
+            grow
+            text="Total blocks"
+            value={props.schainStats ? formatNumber(props.schainStats.block_count_total) : ''}
+            icon={<GridViewRoundedIcon />}
+          />
         </SkStack>
       </SkPaper>
       <ChainAccordion mpc={props.mpc} schainName={props.schainName} />

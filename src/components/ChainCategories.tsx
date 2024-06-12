@@ -21,12 +21,8 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
 import { cmn, cls } from '@skalenetwork/metaport'
-import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
-
 import CategoryBadge, { isString } from './CategoryBadge'
-import Breadcrumbs from './Breadcrumbs'
 
 export default function ChainCategories(props: {
   category: string | string[] | undefined
@@ -35,32 +31,13 @@ export default function ChainCategories(props: {
   if (!props.category) return
   return (
     <div className={cls(cmn.flex, cmn.flexw)}>
-      <div>
-        <Breadcrumbs
-          sections={[
-            {
-              text: 'All chains',
-              icon: <ArrowBackIosNewRoundedIcon />,
-              url: '/chains'
-            },
-            {
-              text: props.alias,
-              icon: <LinkRoundedIcon />
-            }
-          ]}
-        />
-      </div>
-
-      <div className={cmn.flexg}></div>
-      <div className={cls(cmn.flex, cmn.mbott10)}>
-        {isString(props.category) ? (
-          <CategoryBadge category={props.category} className={cmn.mleft5} />
-        ) : (
-          props.category.map((cat: string) => (
-            <CategoryBadge category={cat} className={cmn.mleft5} key={cat} />
-          ))
-        )}
-      </div>
+      {isString(props.category) ? (
+        <CategoryBadge category={props.category} className={cmn.mleft5} />
+      ) : (
+        props.category.map((cat: string) => (
+          <CategoryBadge category={cat} className={cmn.mleft5} key={cat} />
+        ))
+      )}
     </div>
   )
 }

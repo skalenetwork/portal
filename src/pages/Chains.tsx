@@ -33,34 +33,29 @@ import HubsSection from '../components/HubsSection'
 import CategorySection from '../components/CategorySection'
 import { getPrimaryCategory } from '../components/CategoryBadge'
 
-import {
-  cmn,
-  cls,
-  styles,
-  type MetaportCore,
-  CHAINS_META,
-  type interfaces
-} from '@skalenetwork/metaport'
+import { cmn, cls, styles, type MetaportCore, type interfaces } from '@skalenetwork/metaport'
 
 import { META_TAGS } from '../core/meta'
 import { MAINNET_CHAIN_NAME } from '../core/constants'
 import { Button } from '@mui/material'
 import AppChains from '../components/AppChains'
+import { IMetrics, ISChain } from '../core/types'
 
 export default function Chains(props: {
-  loadSchains: () => Promise<void>
-  schains: any[]
+  loadData: () => Promise<void>
+  schains: ISChain[]
+  metrics: IMetrics | null
   mpc: MetaportCore
+  isXs: boolean
+  chainsMeta: interfaces.ChainsMetadataMap
 }) {
   const [_, setIntervalId] = useState<NodeJS.Timeout>()
 
   useEffect(() => {
-    props.loadSchains()
-    const intervalId = setInterval(props.loadSchains, 10000)
+    props.loadData()
+    const intervalId = setInterval(props.loadData, 10000)
     setIntervalId(intervalId)
   }, [])
-
-  const chainsMeta: interfaces.ChainsMetadataMap = CHAINS_META[props.mpc.config.skaleNetwork]
 
   if (props.schains.length === 0) {
     return (
@@ -80,41 +75,47 @@ export default function Chains(props: {
   return (
     <Container maxWidth="md" className={cls(cmn.mbott20)}>
       <Helmet>
-        <title>{META_TAGS.chains.title}</title>
-        <meta name="description" content={META_TAGS.chains.description} />
-        <meta property="og:title" content={META_TAGS.chains.title} />
-        <meta property="og:description" content={META_TAGS.chains.description} />
+        <title>{META_TAGS.ecosystem.title}</title>
+        <meta name="description" content={META_TAGS.ecosystem.description} />
+        <meta property="og:title" content={META_TAGS.ecosystem.title} />
+        <meta property="og:description" content={META_TAGS.ecosystem.description} />
       </Helmet>
       <Stack spacing={0}>
         <div className={cls(cmn.flex)}>
-          <h2 className={cls(cmn.nom)}>Chains</h2>
+          <h2 className={cls(cmn.nom)}>Ecosystem</h2>
         </div>
         <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-          Connect, get block explorer links and endpoints
+          Explore SKALE Hubs, AppChains, connect, get block explorer links and endpoints
         </p>
         <div className={cls(cmn.mbott20)}>
           <HubsSection
             skaleNetwork={props.mpc.config.skaleNetwork}
             category="hubs"
+            isXs={props.isXs}
+            metrics={props.metrics}
             schains={props.schains.filter(
               (schain) =>
-                chainsMeta[schain[0]] &&
-                getPrimaryCategory(chainsMeta[schain[0]].category) === 'Hub'
+                props.chainsMeta[schain.name] &&
+                getPrimaryCategory(props.chainsMeta[schain.name].category) === 'Hub'
             )}
+            chainsMeta={props.chainsMeta}
           />
           <AppChains
             skaleNetwork={props.mpc.config.skaleNetwork}
+            metrics={props.metrics}
+            chainsMeta={props.chainsMeta}
             schains={props.schains.filter(
               (schain) =>
-                chainsMeta[schain[0]] &&
-                getPrimaryCategory(chainsMeta[schain[0]].category) === 'AppChain'
+                props.chainsMeta[schain.name] &&
+                getPrimaryCategory(props.chainsMeta[schain.name].category) === 'AppChain'
             )}
           />
           {props.mpc.config.skaleNetwork !== MAINNET_CHAIN_NAME ? (
             <CategorySection
               skaleNetwork={props.mpc.config.skaleNetwork}
               category="other"
-              schains={props.schains.filter((schain) => !chainsMeta[schain[0]])}
+              schains={props.schains.filter((schain) => !props.chainsMeta[schain.name])}
+              chainsMeta={props.chainsMeta}
             />
           ) : null}
         </div>

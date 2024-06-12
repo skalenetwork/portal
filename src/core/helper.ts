@@ -92,3 +92,14 @@ export function timestampToDate(ts: number) {
     day: '2-digit'
   }).format(ts * 1000)
 }
+
+export function sortObjectByKeys(obj: { [key: string]: any }): { [key: string]: any } {
+  const sortedKeys = Object.keys(obj).sort()
+  const sortedObject: { [key: string]: any } = {}
+
+  for (const key of sortedKeys) {
+    sortedObject[key] = obj[key]
+  }
+
+  return sortedObject
+}

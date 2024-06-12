@@ -22,40 +22,43 @@
  */
 
 import { Link } from 'react-router-dom'
-import {
-  cmn,
-  cls,
-  chainBg,
-  getChainAlias,
-  CHAINS_META,
-  type interfaces
-} from '@skalenetwork/metaport'
+import { cmn, cls, chainBg, getChainAlias, type interfaces } from '@skalenetwork/metaport'
 
 import Button from '@mui/material/Button'
+
 import ChainLogo from './ChainLogo'
 
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
+import { ISChain } from '../core/types'
+import { getChainShortAlias } from '../core/chain'
+import { formatNumber } from '../core/timeHelper'
 
-export default function ChainCard(props: { skaleNetwork: interfaces.SkaleNetwork; schain: any[] }) {
-  function getChainShortAlias(meta: interfaces.ChainsMetadataMap, name: string): string {
-    return meta[name]?.shortAlias !== undefined ? meta[name].shortAlias! : name
-  }
-
-  const chainsMeta: interfaces.ChainsMetadataMap = CHAINS_META[props.skaleNetwork]
-
-  const shortAlias = getChainShortAlias(chainsMeta, props.schain[0])
-
+export default function ChainCard(props: {
+  skaleNetwork: interfaces.SkaleNetwork
+  schain: ISChain
+  chainsMeta: interfaces.ChainsMetadataMap
+  transactions?: number
+}) {
+  // const chainsMeta: interfaces.ChainsMetadataMap = CHAINS_META[props.skaleNetwork]
+  const shortAlias = getChainShortAlias(props.chainsMeta, props.schain.name)
   return (
     <div>
       <div className="fl-centered">
         <div
           className={cls('br__tile')}
-          style={{ background: chainBg(props.skaleNetwork, props.schain[0]) }}
+          style={{ background: chainBg(props.skaleNetwork, props.schain.name) }}
         >
-          <Link to={'/chains/' + shortAlias} className={cls('br__tileLogo', cmn.flex)}>
+          <Link
+            to={'/ecosystem/' + shortAlias}
+            className={cls('br__tileLogo', 'br__tileIns', cmn.flex)}
+          >
             <div className={cls(cmn.flex, cmn.flexg)}></div>
             <div className={cls(cmn.flex, cmn.flexcv, 'inheritSize')}>
-              <ChainLogo chainName={props.schain[0]} logos={MAINNET_CHAIN_LOGOS} />
+              <ChainLogo
+                network={props.skaleNetwork}
+                chainName={props.schain.name}
+                logos={MAINNET_CHAIN_LOGOS}
+              />
             </div>
             <div className={cls(cmn.flex, cmn.flexg)}></div>
           </Link>
@@ -63,7 +66,7 @@ export default function ChainCard(props: { skaleNetwork: interfaces.SkaleNetwork
             className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, 'br__tileBott', 'fullWidth')}
           ></div>
         </div>
-        <Link to={'/chains/' + shortAlias}>
+        <Link to={'/ecosystem/' + shortAlias}>
           <Button size="small" className={'cardBtn'}>
             <span
               style={{
@@ -73,9 +76,18 @@ export default function ChainCard(props: { skaleNetwork: interfaces.SkaleNetwork
                 textOverflow: 'ellipsis'
               }}
             >
-              {getChainAlias(props.skaleNetwork, props.schain[0], undefined, true)}
+              {getChainAlias(props.skaleNetwork, props.schain.name, undefined, true)}
             </span>
           </Button>
+          {props.transactions ? (
+            <div>
+              <p className={cls(cmn.p, cmn.p5, cmn.pSec, cmn.pCent)}>
+                {formatNumber(props.transactions)}+ Daily Tx
+              </p>
+            </div>
+          ) : (
+            <div></div>
+          )}
         </Link>
       </div>
     </div>

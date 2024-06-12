@@ -31,11 +31,23 @@ import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded'
 import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded'
 import AccountTreeRoundedIcon from '@mui/icons-material/AccountTreeRounded'
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
+import SwapCallsRoundedIcon from '@mui/icons-material/SwapCallsRounded'
+import SurroundSoundRoundedIcon from '@mui/icons-material/SurroundSoundRounded'
+import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
+import StoreRoundedIcon from '@mui/icons-material/StoreRounded'
+import GroupRoundedIcon from '@mui/icons-material/GroupRounded'
+import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded'
+import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
+import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded'
+import SportsBasketballRoundedIcon from '@mui/icons-material/SportsBasketballRounded'
+import AgricultureRoundedIcon from '@mui/icons-material/AgricultureRounded'
+
 import { cmn, cls } from '@skalenetwork/metaport'
 
 export const CATEGORY_ICON: any = {
   hubs: <HubRoundedIcon />,
   games: <VideogameAssetRoundedIcon />,
+  Games: <VideogameAssetRoundedIcon />,
   apps: <ExploreRoundedIcon />,
   other: <GridViewRoundedIcon />,
   Hub: <HubRoundedIcon />,
@@ -46,7 +58,18 @@ export const CATEGORY_ICON: any = {
   Community: <PeopleRoundedIcon />,
   Data: <AccountTreeRoundedIcon />,
   appChains: <WidgetsRoundedIcon />,
-  AppChain: <WidgetsRoundedIcon />
+  AppChain: <WidgetsRoundedIcon />,
+  Exchanges: <SwapCallsRoundedIcon />,
+  Staking: <SurroundSoundRoundedIcon />,
+  Yield: <AllInboxRoundedIcon />,
+  Pools: <AllInboxRoundedIcon />,
+  Marketplaces: <StoreRoundedIcon />,
+  Social: <GroupRoundedIcon />,
+  Metaverse: <LanguageRoundedIcon />,
+  Governance: <AccountBalanceRoundedIcon />,
+  Knowledge: <MenuBookRoundedIcon />,
+  Sports: <SportsBasketballRoundedIcon />,
+  Farming: <AgricultureRoundedIcon />
 }
 
 export function getPrimaryCategory(category: string | string[] | undefined) {

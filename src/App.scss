@@ -19,7 +19,7 @@ body {
   min-width: 100vw;
 }
 
-.logo {
+.skLogo {
   width: 75pt;
 }
 
@@ -277,9 +277,11 @@ body::-webkit-scrollbar {
   }
 }
 
-.br__tileLogo {
-  height: 105px;
+.br__tileIns {
+  height: 115px;
+}
 
+.br__tileLogo {
   img {
     max-height: 100%;
     max-width: 100%;
@@ -437,10 +439,9 @@ body::-webkit-scrollbar {
 
 .cardBtn {
   background: rgba(0, 0, 0, .506) !important;
-  border: 1px solid hsla(0, 0%, 51%, .1) !important;
   text-transform: none !important;
   color: #ffffffe6 !important;
-  padding: 6px 10px 6px 12px !important;
+  padding: 6px 10px 0px 12px !important;
   font-size: 0.7rem !important;
   min-width: 55px;
 
@@ -544,7 +545,7 @@ code {
 }
 
 .titleBadge {
-  background: rgba(22, 22, 22, 0.7) !important;
+  background: rgba(0, 0, 0, 0.6) !important;
   border-radius: 25px;
   padding: 5px;
 
@@ -555,51 +556,46 @@ code {
 }
 
 .chainDetails {
-  max-width: calc(100vw - 32px);
-
   .logo {
-    height: 65pt;
-    margin: 35px 0;
-    width: 100%;
+    height: 100pt;
+    line-height: 100pt;
     text-align: center;
-
-    img,
-    svg {
-      max-height: 90%;
-      max-width: 90%;
+    img, svg {
+      max-height: 100%;
+      max-width: 100%;
+      vertical-align: middle;
     }
+    margin: 35px auto;
+  }
+}
+
+.monthInputWrap {
+  border-radius: 25px;
+  background: rgba(41, 255, 148, 0.08);
+  padding-left: 20px;
+}
+
+.monthInput {
+  width: 35pt;
+
+  input {
+    font-weight: 500;
+    line-height: 0.9;
   }
 
-  .monthInputWrap {
-    border-radius: 25px;
-    background: rgba(41, 255, 148, 0.08);
-    padding-left: 20px;
+  .MuiInputBase-input {
+    padding: 0 !important;
   }
 
-  .monthInput {
-    width: 35pt;
-
-    input {
-      font-weight: 500;
-      line-height: 0.9;
-    }
-
-    .MuiInputBase-input {
-      padding: 0 !important;
-    }
-
-    .MuiInput-root::after {
-      display: none !important;
-      border-bottom: none !important;
-    }
-
-    .MuiInput-root::before {
-      display: none !important;
-      border-bottom: none !important;
-    }
+  .MuiInput-root::after {
+    display: none !important;
+    border-bottom: none !important;
   }
 
-
+  .MuiInput-root::before {
+    display: none !important;
+    border-bottom: none !important;
+  }
 }
 
 .titleSection {
@@ -658,8 +654,8 @@ button:focus {
   background-image: url(/bridge.png);
 }
 
-.startCardchains {
-  background-image: url(/chains.png);
+.startCardecosystem {
+  background-image: url(/ecosystem.png);
 }
 
 .startCardapps {
@@ -717,6 +713,34 @@ input[type=number] {
 
   p {
     color: #fcb381 !important
+  }
+}
+
+.shipXs {
+  border-radius: 20px;
+  padding: 3px 6px;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.shipSm {
+  border-radius: 20px;
+  padding: 6px 12px;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.shipHot {
+  background: linear-gradient(180deg, #2b2b2b87, #0000008a);
+
+  p {
+    color: #dcdcdc !important
   }
 }
 
@@ -1104,10 +1128,9 @@ a,
 
 
 .appIconHub {
-  border-radius: 25px;
-  background: rgba(0, 0, 0, 0.506) !important;
-  padding: 8px 11px;
-  margin-right: 10px;
+  border-radius: 50%;
+  //background: rgba(0, 0, 0, 0.506) !important;
+  padding: 10px;
 }
 
 .pbott20 {

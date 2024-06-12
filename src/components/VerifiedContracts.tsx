@@ -29,6 +29,7 @@ import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRound
 import { cmn, cls, styles, type MetaportCore } from '@skalenetwork/metaport'
 
 import LinkSurface from './LinkSurface'
+import { addressUrl } from '../core/explorer'
 
 const BLOCKSCOUT_OFFSET = 20
 
@@ -68,10 +69,6 @@ export default function VerifiedContracts(props: {
     }
   }
 
-  function addressUrl(address: string) {
-    return `${props.explorerUrl}/address/${address}`
-  }
-
   return (
     <div>
       <Grid container spacing={2} className={cls(cmn.full)}>
@@ -81,7 +78,7 @@ export default function VerifiedContracts(props: {
               className={cls(styles.fullHeight)}
               title={contract.ContractName}
               value={contract.Address}
-              url={addressUrl(contract.Address)}
+              url={addressUrl(props.explorerUrl, contract.Address)}
             />
           </Grid>
         ))}

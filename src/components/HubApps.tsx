@@ -39,32 +39,24 @@ export default function HubApps(props: {
     const intervalId = setInterval(() => {
       if (!props.meta.apps) return
       setAppNames(Object.keys(props.meta.apps).sort(() => 0.5 - Math.random()))
-    }, 3000)
+    }, 5000)
     return () => {
       clearInterval(intervalId) // Clear interval on component unmount
     }
   }, [])
 
   return (
-    <div
-      className={cls(cmn.flex, cmn.flexcv, cmn.mtop10, cmn.mri10)}
-      style={{ position: 'absolute', display: 'flex', justifyContent: 'end', width: '100%' }}
-    >
-      <div className={cls('appIconHub', cmn.flex, cmn.flexcv)}>
-        {appNames.slice(0, 2).map((appName: string) => (
-          <div className={cls(cmn.flex, cmn.mri5)}>
-            <ChainIcon
-              skaleNetwork={props.skaleNetwork}
-              chainName={props.chainName}
-              app={appName}
-              size="xs"
-            />
-          </div>
-        ))}
-        <p className={cls(cmn.nom, cmn.p, cmn.p5)}>
-          {appNames.length === 1 ? props.meta.apps![appNames[0]].alias : `${appNames.length}+ apps`}
-        </p>
-      </div>
+    <div className={cls(cmn.flex, cmn.flexcv)}>
+      {appNames.slice(0, 3).map((appName: string) => (
+        <div className={cls(cmn.flex, cmn.mrid5, 'appIconHub')}>
+          <ChainIcon
+            skaleNetwork={props.skaleNetwork}
+            chainName={props.chainName}
+            app={appName}
+            size="sm"
+          />
+        </div>
+      ))}
     </div>
   )
 }

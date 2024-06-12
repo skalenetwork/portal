@@ -26,17 +26,19 @@ import Grid from '@mui/material/Grid'
 
 import ChainCard from './ChainCard'
 import { type interfaces, getChainAlias } from '@skalenetwork/metaport'
-
+import { IMetrics, ISChain } from '../core/types'
 
 export default function CategorySection(props: {
   schains: any
   category: string
   skaleNetwork: interfaces.SkaleNetwork
+  chainsMeta: interfaces.ChainsMetadataMap
+  metrics?: IMetrics | null
 }) {
   if (!props.schains || props.schains.length === 0) return
-  const schains = props.schains.sort((a: any[], b: any[]) => {
-    const aliasA = getChainAlias(props.skaleNetwork, a[0])
-    const aliasB = getChainAlias(props.skaleNetwork, b[0])
+  const schains = props.schains.sort((a: ISChain, b: ISChain) => {
+    const aliasA = getChainAlias(props.skaleNetwork, a.name)
+    const aliasB = getChainAlias(props.skaleNetwork, b.name)
     return aliasA.localeCompare(aliasB)
   })
   const isHub = props.category === 'hubs'
@@ -44,15 +46,24 @@ export default function CategorySection(props: {
     <div>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-          {schains.map((schain: any[]) => (
+          {schains.map((schain: ISChain) => (
             <Grid
-              key={schain[0]}
+              key={schain.name}
               className="fl-centered dappCard"
               item
               lg={isHub ? 6 : 3}
               xs={isHub ? 12 : 6}
             >
-              <ChainCard skaleNetwork={props.skaleNetwork} schain={schain} />
+              <ChainCard
+                skaleNetwork={props.skaleNetwork}
+                schain={schain}
+                chainsMeta={props.chainsMeta}
+                transactions={
+                  props.metrics
+                    ? props.metrics.metrics[schain.name].chain_stats.transactions_today
+                    : null
+                }
+              />
             </Grid>
           ))}
         </Grid>
