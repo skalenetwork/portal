@@ -28,7 +28,6 @@ import { useSearchParams } from 'react-router-dom'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
-import GradeRoundedIcon from '@mui/icons-material/GradeRounded'
 
 import {
   CHAINS_META,
@@ -41,7 +40,6 @@ import {
   TransactionData
 } from '@skalenetwork/metaport'
 
-import Message from '../components/Message'
 import BridgeBody from '../components/BridgeBody'
 
 import { META_TAGS } from '../core/meta'
@@ -164,15 +162,11 @@ export default function Bridge() {
         <meta property="og:description" content={META_TAGS.bridge.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className={cls(cmn.flex, cmn.mbott10)}>
+        <div className={cls(cmn.flex)}>
           <h2 className={cls(cmn.nom)}>Transfer</h2>
         </div>
-        <div>
-          <Message
-            className={cmn.mbott20}
-            text="Zero Gas Fees between SKALE Chains"
-            icon={<GradeRoundedIcon color="primary" />}
-          />
+        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>Zero Gas Fees between SKALE Chains</p>
+        <div className={cls(cmn.mtop20)}>
           <BridgeBody />
           {transactionsHistory.length !== 0 ? (
             <div className={cls(cmn.mbott20)}>

@@ -73,6 +73,16 @@ The SKALE Portal is built using the Create React App TypeScript template and use
 
 To contribute to the project, create a new branch with a descriptive name for your changes, make your changes, and submit a pull request.
 
+## Environment Variables
+
+```bash
+VITE_MAINNET_ENDPOINT= # mainnet endpoint, required
+VITE_WC_PROJECT_ID= # walletconnect project ID, optional
+VITE_TRANSAK_STAGING_ENV=true # set test env for transak, optional
+VITE_TRANSAK_API_KEY= # onramp API key, optional
+```
+
+
 ## Security and Liability
 
 The SKALE Portal and code is WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
