@@ -48,12 +48,12 @@ export default function Start(props: { isXs: boolean }) {
         </p>
         <Message
           className={cls(cmn.mtop10, cmn.mbott10d)}
-          text={props.isXs ? null : 'Portal has been updated, '}
-          linkText={props.isXs ? 'Portal has been updated' : "see what's new"}
+          text={props.isXs ? null : 'Transak onramp is live, '}
+          linkText={props.isXs ? 'Transak onramp' : 'see changelog'}
           link="/other/changelog"
           icon={
             <div className="shipNew">
-              <p className={cls(cmn.p, cmn.p5)}>Update 2.2</p>
+              <p className={cls(cmn.p, cmn.p5)}>Update 2.2.1</p>
             </div>
           }
         />
