@@ -45,8 +45,7 @@ export default function Schain(props: {
 
   let { name } = useParams()
   const chainName: string = findChainName(props.chainsMeta, name ?? '')
-
-  const chain = props.schains.find((schain) => schain.name === name)
+  const chain = props.schains.find((schain) => schain.name === chainName)
 
   useEffect(() => {
     props.loadData()
@@ -80,7 +79,7 @@ export default function Schain(props: {
   }
 
   if (chain === undefined || chain === null) {
-    return <h1>No such chain: {name}</h1>
+    return <h1>No such chain: {chainName}</h1>
   }
 
   return (
