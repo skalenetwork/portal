@@ -85,6 +85,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             'juicy-low-small-testnet': {},
             'lanky-ill-funny-testnet': {
               hub: 'juicy-low-small-testnet'
+            },
+            'giant-half-dual-testnet': {
+              hub: 'juicy-low-small-testnet'
             }
           }
         }
@@ -92,12 +95,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       erc20: {
         dai: {
           address: '0x366727B410fE55774C8b0B5b5A6E2d74199a088A',
-          chains: {
-            'juicy-low-small-testnet': {}
-          }
-        },
-        usdp: {
-          address: '0x30355486440774f5b01B0B69656A70d16A5771A6',
           chains: {
             'juicy-low-small-testnet': {}
           }
@@ -119,6 +116,12 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         },
         trc: {
           address: '0x9536285e9fDb702517b1158A4da48420e7BE250e',
+          chains: {
+            'juicy-low-small-testnet': {}
+          }
+        },
+        usdp: {
+          address: '0x30355486440774f5b01B0B69656A70d16A5771A6',
           chains: {
             'juicy-low-small-testnet': {}
           }
@@ -344,14 +347,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             }
           }
         },
-        usdp: {
-          address: '0xbEE0FB0C095405A17c079Cd5C3cc89525e5A9a8C',
-          chains: {
-            mainnet: {
-              clone: true
-            }
-          }
-        },
         trc: {
           address: '0x7ebf7fde04cbe629c5b26829d6582b22e5e0ae4c',
           chains: {
@@ -374,6 +369,14 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             },
             'aware-fake-trim-testnet': {
               wrapper: '0xba05e3c8033705017ea734f4041fcce7f5d43271'
+            }
+          }
+        },
+        usdp: {
+          address: '0xbEE0FB0C095405A17c079Cd5C3cc89525e5A9a8C',
+          chains: {
+            mainnet: {
+              clone: true
             }
           }
         },

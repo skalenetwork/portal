@@ -229,6 +229,15 @@ body::-webkit-scrollbar {
   width: 100%;
 }
 
+.MuiBottomNavigation-root {
+  height: 50px !important;
+
+  span {
+    font-size: 0.6rem !important;
+    font-weight: 600 !important;
+  }
+}
+
 .br__tile {
   // box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.05);
   transform-style: preserve-3d;
@@ -679,12 +688,12 @@ input[type=number] {
 
 .shipNew {
   margin-right: 5px;
-  background: linear-gradient(180deg, #4e0000, #400000);
+  background: linear-gradient(180deg, #4e2600, #401200);
   border-radius: 20px;
   padding: 3px 6px;
 
   p {
-    color: #fc8181 !important
+    color: #fcb381 !important
   }
 }
 
@@ -1076,4 +1085,14 @@ a,
   background: rgba(0, 0, 0, 0.506) !important;
   padding: 8px 11px;
   margin-right: 10px;
+}
+
+.transakFrame {
+  iframe {
+    border-radius: 25px;
+  }
+
+  height: calc(100vh - 340px);
+  border: none;
+  z-Index: 1
 }
