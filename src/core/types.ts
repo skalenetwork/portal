@@ -21,6 +21,7 @@
  */
 
 import { interfaces } from '@skalenetwork/metaport'
+import { ReactElement } from 'react'
 
 export type TSChainArray = [
   string,
@@ -150,4 +151,10 @@ export interface ITopAppInfo {
   app: string
   chain: string
   totalTransactions: number
+}
+
+export interface BreadcrumbSection {
+  icon: ReactElement
+  text: string
+  url?: string
 }

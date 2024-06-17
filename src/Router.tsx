@@ -26,10 +26,10 @@ import Bridge from './pages/Bridge'
 import Faq from './pages/Faq'
 import Terms from './pages/Terms'
 import Chains from './pages/Chains'
-import Schain from './pages/Schain'
+import Chain from './pages/Chain'
 import Stats from './pages/Stats'
 import Apps from './pages/Apps'
-import App from './components/App'
+import App from './pages/App'
 import History from './pages/History'
 import Portfolio from './pages/Portfolio'
 import Admin from './pages/Admin'
@@ -254,7 +254,7 @@ export default function Router() {
               <Route
                 path=":name"
                 element={
-                  <Schain
+                  <Chain
                     loadData={loadData}
                     schains={schains}
                     stats={stats}

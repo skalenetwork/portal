@@ -32,6 +32,7 @@ export default function AppChains(props: {
   schains: any[]
   metrics: IMetrics | null
   chainsMeta: interfaces.ChainsMetadataMap
+  isXs: boolean
 }) {
   return (
     <div className={cls(cmn.mtop20)}>
@@ -52,22 +53,16 @@ export default function AppChains(props: {
             </div>
           </div>
         </SkPaper>
-        <div
-          className={cls(
-            'nestedSection',
-            ['nestedSectionXs', false],
-            cmn.mtop20,
-            cmn.ptop20,
-            cmn.mbott5
-          )}
-        >
-          <CategorySection
-            skaleNetwork={props.skaleNetwork}
-            category="appChains"
-            schains={props.schains}
-            metrics={props.metrics}
-            chainsMeta={props.chainsMeta}
-          />
+        <div className={cls(['nestedSection', !props.isXs], cmn.mtop20, cmn.ptop20, cmn.mbott5)}>
+          <div className={cls([cmn.mleft10, props.isXs])}>
+            <CategorySection
+              skaleNetwork={props.skaleNetwork}
+              category="appChains"
+              schains={props.schains}
+              metrics={props.metrics}
+              chainsMeta={props.chainsMeta}
+            />
+          </div>
         </div>
       </div>
     </div>

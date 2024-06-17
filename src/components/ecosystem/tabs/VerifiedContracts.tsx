@@ -26,10 +26,12 @@ import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import ExpandCircleDownRoundedIcon from '@mui/icons-material/ExpandCircleDownRounded'
 import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded'
-import { cmn, cls, styles, type MetaportCore } from '@skalenetwork/metaport'
+import PlaylistAddCheckCircleRoundedIcon from '@mui/icons-material/PlaylistAddCheckCircleRounded'
+import { cmn, cls, styles, type MetaportCore, SkPaper } from '@skalenetwork/metaport'
 
-import LinkSurface from './LinkSurface'
-import { addressUrl } from '../core/explorer'
+import LinkSurface from '../../LinkSurface'
+import { addressUrl } from '../../../core/explorer'
+import Headline from '../../Headline'
 
 const BLOCKSCOUT_OFFSET = 20
 
@@ -70,7 +72,12 @@ export default function VerifiedContracts(props: {
   }
 
   return (
-    <div>
+    <SkPaper gray className={cls(cmn.mtop20)}>
+      <Headline
+        text="Verified contracts"
+        icon={<PlaylistAddCheckCircleRoundedIcon />}
+        className={cls(cmn.mbott20)}
+      />
       <Grid container spacing={2} className={cls(cmn.full)}>
         {contracts.map((contract: any, index: number) => (
           <Grid key={index} item lg={6} md={6} sm={6} xs={12}>
@@ -98,7 +105,9 @@ export default function VerifiedContracts(props: {
         >
           No verified contracts
         </p>
-      ) : null}
+      ) : (
+        <div></div>
+      )}
       {!allLoaded ? (
         <Button
           onClick={() => {
@@ -112,7 +121,9 @@ export default function VerifiedContracts(props: {
         >
           {loading ? 'Loading contracts' : 'Load more contracts'}
         </Button>
-      ) : null}
-    </div>
+      ) : (
+        <div></div>
+      )}
+    </SkPaper>
   )
 }

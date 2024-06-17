@@ -39,7 +39,6 @@ export default function ChainCard(props: {
   chainsMeta: interfaces.ChainsMetadataMap
   transactions?: number
 }) {
-  // const chainsMeta: interfaces.ChainsMetadataMap = CHAINS_META[props.skaleNetwork]
   const shortAlias = getChainShortAlias(props.chainsMeta, props.schain.name)
   return (
     <div>

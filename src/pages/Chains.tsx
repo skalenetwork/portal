@@ -85,7 +85,9 @@ export default function Chains(props: {
           <h2 className={cls(cmn.nom)}>Ecosystem</h2>
         </div>
         <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-          Explore SKALE Hubs, AppChains, connect, get block explorer links and endpoints
+          {props.isXs
+            ? 'Explore dApps, get block explorer links and endpoints'
+            : 'Explore SKALE Hubs, AppChains, connect, get block explorer links and endpoints'}
         </p>
         <div className={cls(cmn.mbott20)}>
           <HubsSection
@@ -109,6 +111,7 @@ export default function Chains(props: {
                 props.chainsMeta[schain.name] &&
                 getPrimaryCategory(props.chainsMeta[schain.name].category) === 'AppChain'
             )}
+            isXs={props.isXs}
           />
           {props.mpc.config.skaleNetwork !== MAINNET_CHAIN_NAME ? (
             <CategorySection

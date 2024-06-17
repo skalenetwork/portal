@@ -438,7 +438,7 @@ body::-webkit-scrollbar {
 }
 
 .cardBtn {
-  background: rgba(0, 0, 0, .506) !important;
+  background: transparent !important;
   text-transform: none !important;
   color: #ffffffe6 !important;
   padding: 6px 10px 0px 12px !important;
@@ -557,15 +557,18 @@ code {
 
 .chainDetails {
   .logo {
-    height: 100pt;
-    line-height: 100pt;
+    height: 90pt;
+    line-height: 90pt;
     text-align: center;
-    img, svg {
+
+    img,
+    svg {
       max-height: 100%;
       max-width: 100%;
       vertical-align: middle;
     }
-    margin: 35px auto;
+
+    margin: 45px auto;
   }
 }
 
@@ -1145,4 +1148,41 @@ a,
   height: calc(100vh - 340px);
   border: none;
   z-Index: 1
+}
+
+.tab {
+  svg {
+    width: 17px;
+    height: 17px;
+  }
+
+  min-height: 48px !important;
+
+
+
+}
+
+.tab.Mui-selected {
+  background-color: rgba(41, 255, 148, 0.16) !important;
+}
+
+.MuiTabs-indicator {
+  display: none !important;
+}
+
+.MuiTabs-root {
+  min-height: 48px;
+}
+
+.undec {
+  color: unset !important;
+}
+
+.tabLink {
+
+  button,
+  p,
+  svg {
+    color: white !important
+  }
 }

@@ -87,7 +87,7 @@ export default function Schain(props: {
       <SchainDetails
         schainName={chainName}
         chain={chain}
-        chainMeta={props.chainsMeta[chainName]}
+        chainsMeta={props.chainsMeta}
         schainStats={schainStats}
         schainMetrics={schainMetrics}
         mpc={props.mpc}

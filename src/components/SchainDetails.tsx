@@ -23,19 +23,6 @@
 
 import { Helmet } from 'react-helmet'
 
-import Button from '@mui/material/Button'
-
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
-import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
-import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
-import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
-import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
-import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
-import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
-import DataSaverOffRoundedIcon from '@mui/icons-material/DataSaverOffRounded'
-import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded'
-
 import {
   cmn,
   cls,
@@ -48,23 +35,37 @@ import {
   type interfaces
 } from '@skalenetwork/metaport'
 
+import Button from '@mui/material/Button'
+import { Container } from '@mui/material'
+
+import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
+import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
+import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
+import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
+import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
+import DataSaverOffRoundedIcon from '@mui/icons-material/DataSaverOffRounded'
+import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded'
+import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
+
 import SkStack from './SkStack'
 import ChainLogo from './ChainLogo'
-import ChainAccordion from './ChainAccordion'
 import ChainCategories from './ChainCategories'
 import Tile from './Tile'
+import Breadcrumbs from './Breadcrumbs'
+import CollapsibleDescription from './CollapsibleDescription'
 
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 import { getRpcUrl, getChainId, HTTPS_PREFIX, getChainDescription } from '../core/chain'
 import { getExplorerUrl } from '../core/explorer'
-import Breadcrumbs from './Breadcrumbs'
-import { Container } from '@mui/material'
 import { IChainMetrics, IStatsData } from '../core/types'
 import { formatNumber } from '../core/timeHelper'
+import ChainTabsSection from './ecosystem/tabs/ChainTabsSection'
 
 export default function SchainDetails(props: {
   schainName: string
-  chainMeta: interfaces.ChainMetadata
+  chainsMeta: interfaces.ChainsMetadataMap
   schainStats: IStatsData | null
   schainMetrics: IChainMetrics | null
   chain: any
@@ -95,8 +96,10 @@ export default function SchainDetails(props: {
     })
   }
 
+  const chainMeta = props.chainsMeta[props.schainName]
+
   const chainAlias = getChainAlias(props.mpc.config.skaleNetwork, props.schainName, undefined, true)
-  const chainDescription = getChainDescription(props.chainMeta)
+  const chainDescription = getChainDescription(chainMeta)
 
   return (
     <div className={cls('chainDetails', cmn.mbott20)}>
@@ -122,7 +125,7 @@ export default function SchainDetails(props: {
             ]}
           />
           <div className={cls(cmn.flexg)}></div>
-          <ChainCategories category={props.chainMeta?.category ?? 'Other'} alias={chainAlias} />
+          <ChainCategories category={chainMeta?.category ?? 'Other'} alias={chainAlias} />
         </div>
         <Container className="logo">
           <ChainLogo
@@ -137,7 +140,7 @@ export default function SchainDetails(props: {
             children={
               <div>
                 <h2 className={cls(cmn.nom)}>{chainAlias}</h2>
-                <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec)}>{chainDescription}</p>
+                <CollapsibleDescription text={chainDescription} />
               </div>
             }
           />
@@ -145,7 +148,6 @@ export default function SchainDetails(props: {
         <SkStack className={cmn.mtop10}>
           <Tile
             className={cls(cmn.nop, cmn.flex, cmn.flexcv)}
-            //className={cls()}
             children={
               <SkStack className={cls(cmn.m10, cmn.mleft20, cmn.mri20, cmn.flex, cmn.flexcv)}>
                 <div>
@@ -153,7 +155,7 @@ export default function SchainDetails(props: {
                     <Button
                       size="medium"
                       className={cls(styles.btnAction, cmn.mri10)}
-                      startIcon={<WidgetsRoundedIcon />}
+                      startIcon={<ViewInArRoundedIcon />}
                     >
                       Block Explorer
                     </Button>
@@ -170,13 +172,8 @@ export default function SchainDetails(props: {
                   </Button>
                 </div>
                 <div>
-                  {props.chainMeta?.url ? (
-                    <a
-                      target="_blank"
-                      rel="noreferrer"
-                      href={props.chainMeta.url}
-                      className="undec"
-                    >
+                  {chainMeta?.url ? (
+                    <a target="_blank" rel="noreferrer" href={chainMeta.url} className="undec">
                       <Button
                         size="medium"
                         className={cls(styles.btnAction, cmn.mri10)}
@@ -236,7 +233,11 @@ export default function SchainDetails(props: {
           />
         </SkStack>
       </SkPaper>
-      <ChainAccordion mpc={props.mpc} schainName={props.schainName} />
+      <ChainTabsSection
+        chainsMeta={props.chainsMeta}
+        mpc={props.mpc}
+        schainName={props.schainName}
+      />
     </div>
   )
 }

@@ -44,6 +44,7 @@ export function getTotalAppCounters(countersArray: IAppCounters | null): IAddres
   for (const address in countersArray) {
     if (countersArray.hasOwnProperty(address)) {
       const addressCounters = countersArray[address as interfaces.AddressType]
+      if (addressCounters.gas_usage_count === undefined) continue
       totalCounters.gas_usage_count = (
         parseInt(totalCounters.gas_usage_count) + parseInt(addressCounters.gas_usage_count)
       ).toString()

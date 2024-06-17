@@ -21,12 +21,21 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { MetaportCore, fromWei, interfaces, styles } from '@skalenetwork/metaport'
-
-import { cmn, cls, SkPaper } from '@skalenetwork/metaport'
+import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useParams } from 'react-router-dom'
 
+import {
+  MetaportCore,
+  fromWei,
+  interfaces,
+  styles,
+  cmn,
+  cls,
+  SkPaper
+} from '@skalenetwork/metaport'
+
+import { Button, Grid } from '@mui/material'
 import Container from '@mui/material/Container'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import TrackChangesRoundedIcon from '@mui/icons-material/TrackChangesRounded'
@@ -37,25 +46,25 @@ import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRound
 import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
 import InfoRoundedIcon from '@mui/icons-material/InfoRounded'
-
 import HubRoundedIcon from '@mui/icons-material/HubRounded'
 
-import ChainCategories from './ChainCategories'
-import ChainLogo from './ChainLogo'
-import { DAPP_RADAR_BASE_URL, MAINNET_CHAIN_LOGOS } from '../core/constants'
-import SkStack from './SkStack'
-import Tile from './Tile'
-import { Button, Grid } from '@mui/material'
+import ChainCategories from '../components/ChainCategories'
+import ChainLogo from '../components/ChainLogo'
+import SkStack from '../components/SkStack'
+import Tile from '../components/Tile'
+import LinkSurface from '../components/LinkSurface'
+import Breadcrumbs from '../components/Breadcrumbs'
+import CollapsibleDescription from '../components/CollapsibleDescription'
+import HubTile from '../components/ecosystem/HubTile'
+import AccordionSection from '../components/AccordionSection'
+
 import { findChainName } from '../core/chain'
-import HubTile from './ecosystem/HubTile'
-import AccordionSection from './AccordionSection'
-import { useEffect, useState } from 'react'
-import LinkSurface from './LinkSurface'
-import { addressUrl, getExplorerUrl, getTotalAppCounters } from '../core/explorer'
-import Breadcrumbs from './Breadcrumbs'
+
 import { IAddressCounters, IMetrics } from '../core/types'
 import { formatNumber } from '../core/timeHelper'
 import { chainBg, getChainAlias } from '../core/metadata'
+import { addressUrl, getExplorerUrl, getTotalAppCounters } from '../core/explorer'
+import { DAPP_RADAR_BASE_URL, MAINNET_CHAIN_LOGOS } from '../core/constants'
 
 export default function App(props: {
   mpc: MetaportCore
@@ -107,6 +116,12 @@ export default function App(props: {
     return formatNumber(Number(fromWei(gasSpentGwei, '9')))
   }
 
+  // const breadcrumbs: BreadcrumbSection[] = [{
+  //   text: 'Ecosystem',
+  //   icon: <ArrowBackIosNewRoundedIcon />,
+  //   url: '/ecosystem'
+  // }]
+
   return (
     <Container maxWidth="md">
       <div className={cls('chainDetails', cmn.mbott20)}>
@@ -121,12 +136,12 @@ export default function App(props: {
             <Breadcrumbs
               sections={[
                 {
-                  text: 'Ecosystem',
+                  text: props.isXs ? '' : 'Ecosystem',
                   icon: <ArrowBackIosNewRoundedIcon />,
                   url: '/ecosystem'
                 },
                 {
-                  text: chainAlias,
+                  text: props.isXs ? '' : chainAlias,
                   icon: <LinkRoundedIcon />,
                   url: `/ecosystem/${chain}`
                 },
@@ -157,7 +172,7 @@ export default function App(props: {
               children={
                 <div>
                   <h2 className={cls(cmn.nom)}>{appAlias}</h2>
-                  <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec)}>{appDescription}</p>
+                  <CollapsibleDescription text={appDescription} />
                 </div>
               }
             />

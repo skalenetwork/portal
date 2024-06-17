@@ -70,7 +70,7 @@ export default function SkBottomNavigation() {
           }}
         />
         <BottomNavigationAction
-          label="Chains"
+          label="Ecosystem"
           icon={<PublicOutlinedIcon />}
           onClick={() => {
             navigate('/ecosystem')

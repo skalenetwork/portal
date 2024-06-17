@@ -20,6 +20,7 @@
  * @file Apps.tsx
  * @copyright SKALE Labs 2024-Present
  */
+
 import { type ReactElement } from 'react'
 import { Helmet } from 'react-helmet'
 

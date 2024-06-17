@@ -41,6 +41,8 @@ import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded'
 import SportsBasketballRoundedIcon from '@mui/icons-material/SportsBasketballRounded'
 import AgricultureRoundedIcon from '@mui/icons-material/AgricultureRounded'
+import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded'
+import PhotoCameraRoundedIcon from '@mui/icons-material/PhotoCameraRounded'
 
 import { cmn, cls } from '@skalenetwork/metaport'
 
@@ -69,7 +71,9 @@ export const CATEGORY_ICON: any = {
   Governance: <AccountBalanceRoundedIcon />,
   Knowledge: <MenuBookRoundedIcon />,
   Sports: <SportsBasketballRoundedIcon />,
-  Farming: <AgricultureRoundedIcon />
+  Farming: <AgricultureRoundedIcon />,
+  AI: <AutoAwesomeRoundedIcon />,
+  Photos: <PhotoCameraRoundedIcon />
 }
 
 export function getPrimaryCategory(category: string | string[] | undefined) {

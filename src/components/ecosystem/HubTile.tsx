@@ -25,15 +25,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Tooltip } from '@mui/material'
 
-import {
-  cmn,
-  cls,
-  chainBg,
-  getChainAlias,
-  type interfaces,
-  SkPaper,
-  styles
-} from '@skalenetwork/metaport'
+import { cmn, cls, getChainAlias, type interfaces, SkPaper, styles } from '@skalenetwork/metaport'
 
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
@@ -44,6 +36,7 @@ import { formatNumber } from '../../core/timeHelper'
 import { MAINNET_CHAIN_LOGOS } from '../../core/constants'
 import { IChainMetrics, IMetrics } from '../../core/types'
 import { getChainDescription, getChainShortAlias } from '../../core/chain'
+import { chainBg } from '../../core/metadata'
 
 export default function HubTile(props: {
   network: interfaces.SkaleNetwork
@@ -74,7 +67,7 @@ export default function HubTile(props: {
         <SkPaper
           gray
           className={cls('titleSectionOut', 'border', 'hoverable', 'pointer')}
-          background={props.bg ? chainBg(props.network, props.schainName) : ''}
+          background={props.bg ? chainBg(props.chainsMeta, props.schainName) : ''}
         >
           <Tooltip title="Click to see Hub details">
             <div className={cls('titleSectionBg', cmn.flex, cmn.flexcv)}>
