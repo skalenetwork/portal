@@ -167,7 +167,7 @@ export default function Router() {
         <CSSTransition key={location.pathname} classNames="fade" timeout={300} component={null}>
           <Routes>
             <Route index element={<Start isXs={isXs} />} />
-            <Route path="bridge" element={<Bridge />} />
+            <Route path="bridge" element={<Bridge isXs={isXs} />} />
             <Route path="bridge">
               <Route path="history" element={<History />} />
             </Route>
