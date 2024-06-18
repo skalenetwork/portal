@@ -73,6 +73,10 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       "name": "SKILL",
       "symbol": "SKILL",
       "iconUrl": "https://ruby.exchange/images/tokens/skill-square.png"
+    },
+    sushi: {
+      name: "SUSHI",
+      symbol: "SUSHI"
     }
   },
   "connections": {
@@ -136,6 +140,12 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         },
         ruby: {
           address: '0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23',
+          chains: {
+            "elated-tan-skat": {}
+          }
+        },
+        sushi: {
+          address: '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2',
           chains: {
             "elated-tan-skat": {}
           }
@@ -248,6 +258,14 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         },
         ruby: {
           address: '0x2B4e4899b53E8b7958c4591a6d02f9C0b5c50F8f',
+          chains: {
+            "mainnet": {
+              clone: true
+            }
+          }
+        },
+        sushi: {
+          address: '0xcec20381ac92d610ac444f6d73c1d40726650259',
           chains: {
             "mainnet": {
               clone: true
