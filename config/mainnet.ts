@@ -110,6 +110,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             "elated-tan-skat": {},
             "green-giddy-denebola": {
               hub: "elated-tan-skat"
+            },
+            "honorable-steel-rasalhague": {
+              hub: "elated-tan-skat"
             }
           }
         },
@@ -214,6 +217,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               clone: true
             },
             'green-giddy-denebola': {
+              wrapper: '0x497C476bcABB2F7D50afF99ca3Ae9354451Ff7d0'
+            },
+            'honorable-steel-rasalhague': {
               wrapper: '0x497C476bcABB2F7D50afF99ca3Ae9354451Ff7d0'
             }
           }
@@ -361,6 +367,18 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               hub: "elated-tan-skat"
             },
             "green-giddy-denebola": {
+              clone: true,
+              hub: "elated-tan-skat"
+            }
+          }
+        },
+        wbtc: {
+          address: "0x98f7d76CfFaD0263Ddb30B10244C02530Ba704c4",
+          chains: {
+            "elated-tan-skat": {
+              clone: true
+            },
+            "mainnet": {
               clone: true,
               hub: "elated-tan-skat"
             }
