@@ -121,6 +121,7 @@ export default function TermsModal(props: {
           variant="contained"
           disabled={!scrolled}
           className={cls(styles.btnAction, cmn.mtop20)}
+          style={{ marginBottom: '40px' }}
           size="large"
         >
           {getAgreeButtonText()}
