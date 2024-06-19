@@ -1186,3 +1186,16 @@ a,
     color: white !important
   }
 }
+
+.hoverable {
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+}
+
+.hoverable:hover {
+  transform: scale(1.03);
+}
+
+.paddBott60 {
+  padding-bottom: 60px;
+}

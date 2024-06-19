@@ -43,6 +43,7 @@ import {
 import BridgeBody from '../components/BridgeBody'
 
 import { META_TAGS } from '../core/meta'
+import Meson from '../components/Meson'
 
 interface TokenParams {
   keyname: string | null
@@ -53,7 +54,7 @@ function getEmptyTokenParams(): TokenParams {
   return { keyname: null, type: null }
 }
 
-export default function Bridge() {
+export default function Bridge(props: { isXs: boolean }) {
   const [searchParams, setSearchParams] = useSearchParams()
   const [tokenParams, setTokenParams] = useState<TokenParams>(getEmptyTokenParams())
 
@@ -186,6 +187,7 @@ export default function Bridge() {
           ) : null}
         </div>
       </Stack>
+      <Meson className={cls(cmn.mtop20)} skaleNetwork={mpc.config.skaleNetwork} isXs={props.isXs} />
     </Container>
   )
 }

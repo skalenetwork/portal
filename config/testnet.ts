@@ -70,6 +70,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             'juicy-low-small-testnet': {},
             'lanky-ill-funny-testnet': {
               hub: 'juicy-low-small-testnet'
+            },
+            'giant-half-dual-testnet': {
+              hub: 'juicy-low-small-testnet'
             }
           }
         }
@@ -77,6 +80,27 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       erc20: {
         dai: {
           address: '0x366727B410fE55774C8b0B5b5A6E2d74199a088A',
+          chains: {
+            'juicy-low-small-testnet': {}
+          }
+        },
+        skl: {
+          address: '0x1b662EB5624f6B2BB46d384DB9ab7F09AF15C84A',
+          chains: {
+            'juicy-low-small-testnet': {},
+            'giant-half-dual-testnet': {
+              hub: 'juicy-low-small-testnet'
+            },
+            'lanky-ill-funny-testnet': {
+              hub: 'juicy-low-small-testnet'
+            },
+            'aware-fake-trim-testnet': {
+              hub: 'juicy-low-small-testnet'
+            }
+          }
+        },
+        trc: {
+          address: '0x9536285e9fDb702517b1158A4da48420e7BE250e',
           chains: {
             'juicy-low-small-testnet': {}
           }
@@ -215,6 +239,31 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           chains: {
             mainnet: {
               clone: true
+            }
+          }
+        },
+        trc: {
+          address: '0x7ebf7fde04cbe629c5b26829d6582b22e5e0ae4c',
+          chains: {
+            mainnet: {
+              clone: true
+            }
+          }
+        },
+        skl: {
+          address: '0x6c71319b1F910Cf989AD386CcD4f8CC8573027aB',
+          chains: {
+            mainnet: {
+              clone: true
+            },
+            'giant-half-dual-testnet': {
+              wrapper: '0xba05e3c8033705017ea734f4041fcce7f5d43271'
+            },
+            'lanky-ill-funny-testnet': {
+              wrapper: '0xba05e3c8033705017ea734f4041fcce7f5d43271'
+            },
+            'aware-fake-trim-testnet': {
+              wrapper: '0xba05e3c8033705017ea734f4041fcce7f5d43271'
             }
           }
         },

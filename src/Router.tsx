@@ -232,7 +232,7 @@ export default function Router() {
                 />
               }
             />
-            <Route path="bridge" element={<Bridge />} />
+            <Route path="bridge" element={<Bridge isXs={isXs} />} />
             <Route path="bridge">
               <Route path="history" element={<History />} />
             </Route>

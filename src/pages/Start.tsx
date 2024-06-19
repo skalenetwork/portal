@@ -103,7 +103,7 @@ export default function Start(props: {
             <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
               <PageCard
                 name="bridge"
-                description="Transfer tokens without gas fees"
+                description="Transfer tokens between 50+ chains"
                 icon={<SwapHorizontalCircleOutlinedIcon />}
               />
             </Grid>
