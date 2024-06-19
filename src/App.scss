@@ -239,7 +239,6 @@ body::-webkit-scrollbar {
 }
 
 .br__tile {
-  // box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.05);
   transform-style: preserve-3d;
   transition: all 0.3s ease;
 }
@@ -1095,4 +1094,19 @@ a,
   height: calc(100vh - 340px);
   border: none;
   z-Index: 1
+}
+
+
+
+.hoverable {
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+}
+
+.hoverable:hover {
+  transform: scale(1.03);
+}
+
+.paddBott60 {
+  padding-bottom: 60px;
 }
