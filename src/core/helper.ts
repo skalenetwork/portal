@@ -85,12 +85,20 @@ export function shortAddress(address: interfaces.AddressType | undefined): strin
   return `${address.slice(0, 4)}...${address.slice(-2)}`
 }
 
-export function timestampToDate(ts: number) {
-  return new Intl.DateTimeFormat('en-US', {
+export function timestampToDate(ts: number, includeTime?: boolean) {
+  const options: Intl.DateTimeFormatOptions = {
     year: '2-digit',
     month: '2-digit',
     day: '2-digit'
-  }).format(ts * 1000)
+  }
+
+  if (includeTime) {
+    options.hour = '2-digit'
+    options.minute = '2-digit'
+    options.second = '2-digit'
+  }
+
+  return new Intl.DateTimeFormat('en-US', options).format(ts * 1000)
 }
 
 export function sortObjectByKeys(obj: { [key: string]: any }): { [key: string]: any } {

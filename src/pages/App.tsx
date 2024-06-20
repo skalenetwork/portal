@@ -133,28 +133,30 @@ export default function App(props: {
         </Helmet>
         <SkPaper background={chainBg(props.chainsMeta, chain, app)} className={cls(cmn.mtop10)}>
           <SkStack>
-            <Breadcrumbs
-              sections={[
-                {
-                  text: props.isXs ? '' : 'Ecosystem',
-                  icon: <ArrowBackIosNewRoundedIcon />,
-                  url: '/ecosystem'
-                },
-                {
-                  text: props.isXs ? '' : chainAlias,
-                  icon: <LinkRoundedIcon />,
-                  url: `/ecosystem/${chain}`
-                },
-                {
-                  text: appAlias,
-                  icon: <WidgetsRoundedIcon />
-                }
-              ]}
-            />
+            <div className={cls(cmn.flex)}>
+              <Breadcrumbs
+                sections={[
+                  {
+                    text: props.isXs ? 'Ecosystem' : 'Ecosystem',
+                    icon: <ArrowBackIosNewRoundedIcon />,
+                    url: '/ecosystem'
+                  },
+                  {
+                    text: props.isXs ? 'Hub' : chainAlias,
+                    icon: <LinkRoundedIcon />,
+                    url: `/ecosystem/${chain}`
+                  },
+                  {
+                    text: appAlias,
+                    icon: <WidgetsRoundedIcon />
+                  }
+                ]}
+              />
+              <div className={cls(cmn.flexg)}></div>
+            </div>
             <div className={cls(cmn.flexg)}></div>
-            <ChainCategories category={appMeta.tags} alias={appAlias} />
+            <ChainCategories category={appMeta.tags} alias={appAlias} isXs={props.isXs} />
           </SkStack>
-
           <div className={cls(cmn.pCent)}>
             <Container maxWidth="sm" className={cls('logo', cmn.pCent)}>
               <ChainLogo
@@ -165,7 +167,6 @@ export default function App(props: {
               />
             </Container>
           </div>
-
           <SkStack>
             <Tile
               grow
@@ -182,34 +183,30 @@ export default function App(props: {
               className={cls(cmn.flex, cmn.flexcv)}
               grow={!appMeta.contracts}
               children={
-                <SkStack>
-                  <div>
-                    {appMeta.url ? (
-                      <a target="_blank" rel="noreferrer" href={appMeta.url} className="undec">
-                        <Button
-                          size="medium"
-                          className={cls(styles.btnAction, cmn.mri10)}
-                          startIcon={<ArrowOutwardRoundedIcon />}
-                        >
-                          Open Website
-                        </Button>
-                      </a>
-                    ) : null}
-                  </div>
-                  <div>
-                    {appMeta.url ? (
-                      <a target="_blank" rel="noreferrer" href={dAppRadarUrl} className="undec">
-                        <Button
-                          size="medium"
-                          className={cls(styles.btnAction, cmn.mri10)}
-                          startIcon={<TrackChangesRoundedIcon />}
-                        >
-                          Open DappRadar
-                        </Button>
-                      </a>
-                    ) : null}
-                  </div>
-                </SkStack>
+                <div className={cls([cmn.flex, !props.isXs], cmn.flexcv)}>
+                  {appMeta.url ? (
+                    <a target="_blank" rel="noreferrer" href={appMeta.url} className="undec">
+                      <Button
+                        size="medium"
+                        className={cls(styles.btnAction, cmn.mri10)}
+                        startIcon={<ArrowOutwardRoundedIcon />}
+                      >
+                        Open Website
+                      </Button>
+                    </a>
+                  ) : null}
+                  {!appMeta.dappradar ? (
+                    <a target="_blank" rel="noreferrer" href={dAppRadarUrl} className="undec">
+                      <Button
+                        size="medium"
+                        className={cls(styles.btnAction, cmn.mri10)}
+                        startIcon={<TrackChangesRoundedIcon />}
+                      >
+                        Open DappRadar
+                      </Button>
+                    </a>
+                  ) : null}
+                </div>
               }
             />
             {appMeta.contracts ? (
@@ -225,7 +222,9 @@ export default function App(props: {
                 grow
                 text="Gas saved"
                 childrenRi={
-                  <InfoRoundedIcon className={cls(cmn.pSec, styles.chainIconxs, cmn.mleft10)} />
+                  !props.isXs ? (
+                    <InfoRoundedIcon className={cls(cmn.pSec, styles.chainIconxs, cmn.mleft10)} />
+                  ) : undefined
                 }
                 tooltip={
                   props.metrics && counters
@@ -239,7 +238,7 @@ export default function App(props: {
           </SkStack>
           <div></div>
         </SkPaper>
-        <SkPaper gray className={cls(cmn.mtop20)}>
+        <SkPaper gray className={cls(cmn.mtop20, 'fwmobile')}>
           <AccordionSection
             handleChange={handleChange}
             expanded={expanded}

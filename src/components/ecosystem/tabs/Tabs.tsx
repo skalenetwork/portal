@@ -37,14 +37,17 @@ export default function ChainTabs(props: {
   tabs: any[]
   tab: number
   schainName: string
+  isXs: boolean
 }) {
   return (
     <div className={cls(cmn.mtop10, cmn.fullWidth)}>
       <Tabs
+        variant={props.isXs ? 'scrollable' : 'standard'}
         centered
         value={props.tab}
         onChange={props.handleChange}
         scrollButtons="auto"
+        style={{ maxWidth: 'calc(100vw - 32px)' }}
       >
         {props.tabs.map((tab, index) =>
           tab ? (
@@ -53,7 +56,7 @@ export default function ChainTabs(props: {
               label={tab.label}
               icon={tab.icon}
               iconPosition="start"
-              className={cls('btn', 'btnSm', cmn.mri10, cmn.mleft10, 'tab')}
+              className={cls('btn', 'btnSm', cmn.mri10, cmn.mleft10, 'tab', 'fwmobile')}
             />
           ) : null
         )}

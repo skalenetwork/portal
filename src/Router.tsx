@@ -7,6 +7,7 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import { CircularProgress } from '@mui/material'
 
 import {
   useMetaportStore,
@@ -40,19 +41,20 @@ import StakeAmount from './pages/StakeAmount'
 import Validators from './pages/Validators'
 import Onramp from './pages/Onramp'
 import TermsModal from './components/TermsModal'
+import Changelog from './pages/Changelog'
+
+import MetricsWarning from './components/MetricsWarning'
+import ScrollToTop from './components/ScrollToTop'
 
 import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
 import { BRIDGE_PAGES, MAINNET_CHAIN_NAME, STAKING_PAGES, STATS_API } from './core/constants'
 import { type IValidator, type ISkaleContractsMap, type StakingInfoMap } from './core/interfaces'
 import { getValidators } from './core/delegation/validators'
-import Changelog from './pages/Changelog'
 import { initContracts } from './core/contracts'
 import { getStakingInfoMap } from './core/delegation/staking'
 import { formatSChains } from './core/chain'
 import { IMetrics, ISChain, IStats, ITopAppInfo } from './core/types'
-import ScrollToTop from './components/ScrollToTop'
 import { getTopAppsByTransactions } from './core/explorer'
-import { CircularProgress } from '@mui/material'
 import { loadMeta } from './core/metadata'
 
 export default function Router() {
@@ -138,7 +140,7 @@ export default function Router() {
       const response = await fetch(`https://${endpoint}/files/metrics.json`)
       const metricsJson = await response.json()
       setMetrics(metricsJson)
-      setTopApps(getTopAppsByTransactions(metricsJson.metrics, 6))
+      setTopApps(getTopAppsByTransactions(metricsJson.metrics, 10))
     } catch (e) {
       console.log('Failed to load metrics')
       console.error(e)
@@ -216,6 +218,7 @@ export default function Router() {
       <Helmet>
         <meta property="og:url" content={currentUrl} />
       </Helmet>
+      <MetricsWarning metrics={metrics} />
       <ScrollToTop />
       <TransitionGroup>
         <CSSTransition key={location.pathname} classNames="fade" timeout={300} component={null}>
@@ -261,12 +264,10 @@ export default function Router() {
                     metrics={metrics}
                     mpc={mpc}
                     chainsMeta={chainsMeta}
+                    isXs={isXs}
                   />
                 }
               />
-            </Route>
-            <Route path="apps" element={<Apps mpc={mpc} chainsMeta={chainsMeta} />} />
-            <Route path="apps">
               <Route
                 path=":chain/:app"
                 element={
@@ -280,6 +281,7 @@ export default function Router() {
                 }
               />
             </Route>
+            <Route path="apps" element={<Apps mpc={mpc} chainsMeta={chainsMeta} />} />
             <Route path="onramp" element={<Onramp mpc={mpc} />} />
             <Route path="stats" element={<Stats />} />
             <Route path="other">

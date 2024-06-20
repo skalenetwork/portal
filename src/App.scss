@@ -1199,3 +1199,7 @@ a,
 .paddBott60 {
   padding-bottom: 60px;
 }
+
+.fwmobile {
+  max-width: calc(100vw - 32px);
+}

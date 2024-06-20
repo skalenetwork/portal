@@ -49,52 +49,33 @@ export default function Tokens(props: {
         icon={<AccountBalanceWalletRoundedIcon />}
         className={cls(cmn.mbott20)}
       />
-      {Object.keys(chainTokens).length !== 0 ? (
-        <div>
-          <Grid container spacing={2} className={cls(cmn.full)}>
-            {Object.keys(chainTokens).flatMap((tokenSymbol: string) => {
-              const wrapperAddress = findWrapperAddress(chainTokens[tokenSymbol])
-              return [
-                <Grid key={tokenSymbol} item lg={3} md={4} sm={6} xs={12}>
-                  <CopySurface
-                    className={cls(styles.fullHeight)}
-                    title={tokenSymbol.toUpperCase()}
-                    value={chainTokens[tokenSymbol].address as string}
-                    tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
-                  />
-                </Grid>,
-                ...(wrapperAddress
-                  ? [
-                      <Grid key={`w${tokenSymbol}`} item lg={3} md={4} sm={6} xs={12}>
-                        <CopySurface
-                          className={cls(styles.fullHeight)}
-                          title={`w${tokenSymbol.toUpperCase()}`}
-                          value={wrapperAddress}
-                          tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
-                        />
-                      </Grid>
-                    ]
-                  : [])
-              ]
-            })}
-          </Grid>
-        </div>
-      ) : (
-        <p
-          className={cls(
-            cmn.p,
-            cmn.p2,
-            cmn.p700,
-            cmn.pSec,
-            cmn.fullWidth,
-            cmn.mtop20,
-            cmn.mbott20,
-            cmn.pCent
-          )}
-        >
-          No mapped tokens
-        </p>
-      )}
+      <Grid container spacing={2}>
+        {Object.keys(chainTokens).flatMap((tokenSymbol: string) => {
+          const wrapperAddress = findWrapperAddress(chainTokens[tokenSymbol])
+          return [
+            <Grid key={tokenSymbol} item lg={3} md={4} sm={6} xs={12}>
+              <CopySurface
+                className={cls(styles.fullHeight)}
+                title={tokenSymbol.toUpperCase()}
+                value={chainTokens[tokenSymbol].address as string}
+                tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
+              />
+            </Grid>,
+            ...(wrapperAddress
+              ? [
+                  <Grid key={`w${tokenSymbol}`} item lg={3} md={4} sm={6} xs={12}>
+                    <CopySurface
+                      className={cls(styles.fullHeight)}
+                      title={`w${tokenSymbol.toUpperCase()}`}
+                      value={wrapperAddress}
+                      tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
+                    />
+                  </Grid>
+                ]
+              : [])
+          ]
+        })}
+      </Grid>
     </SkPaper>
   )
 }

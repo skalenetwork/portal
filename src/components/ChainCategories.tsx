@@ -27,15 +27,16 @@ import CategoryBadge, { isString } from './CategoryBadge'
 export default function ChainCategories(props: {
   category: string | string[] | undefined
   alias: string
+  isXs: boolean
 }) {
   if (!props.category) return
   return (
     <div className={cls(cmn.flex, cmn.flexw)}>
       {isString(props.category) ? (
-        <CategoryBadge category={props.category} className={cmn.mleft5} />
+        <CategoryBadge category={props.category} className={cmn.mleft5} isXs={props.isXs} />
       ) : (
         props.category.map((cat: string) => (
-          <CategoryBadge category={cat} className={cmn.mleft5} key={cat} />
+          <CategoryBadge category={cat} className={cmn.mleft5} key={cat} isXs={props.isXs} />
         ))
       )}
     </div>

@@ -90,14 +90,21 @@ function isStringArray(value: any): value is string[] {
   return Array.isArray(value) && value.every((item) => typeof item === 'string')
 }
 
-export default function CategoryBadge(props: { category: string; className?: string }) {
+export default function CategoryBadge(props: {
+  category: string
+  isXs: boolean
+  className?: string
+}) {
   function getCategoryIcon(category: string) {
     return CATEGORY_ICON[category] ?? CATEGORY_ICON.other
   }
 
   return (
     <div
-      className={cls(props.className, 'titleBadge', cmn.flex, cmn.flexcv)}
+      className={cls(props.className, 'titleBadge', cmn.flex, cmn.flexcv, [
+        cmn.mbott10,
+        props.isXs
+      ])}
       style={{ padding: '10px 15px' }}
     >
       {getCategoryIcon(props.category)}

@@ -61,27 +61,30 @@ export default function Start(props: {
     return !!props.chainsMeta[chain].apps![app].legacy
   }
 
-  if (props.topApps) {
-    appCards = props.topApps.map((topApp: ITopAppInfo) =>
-      !isLegacyApp(topApp.chain, topApp.app) ? (
-        <Grid key={topApp.app} className="fl-centered dappCard" item lg={3} md={4} sm={6} xs={6}>
-          <AppCard
-            skaleNetwork={props.skaleNetwork}
-            schainName={topApp.chain}
-            appName={topApp.app}
-            transactions={topApp.totalTransactions}
-            chainsMeta={props.chainsMeta}
-          />
-        </Grid>
-      ) : null
-    )
+  const apps = props.topApps
+    ? props.topApps.filter((topApp) => !isLegacyApp(topApp.chain, topApp.app))
+    : null
+
+  if (apps) {
+    appCards = apps.slice(0, 4).map((topApp: ITopAppInfo) => (
+      <Grid key={topApp.app} className="fl-centered dappCard" item lg={3} md={4} sm={6} xs={6}>
+        <AppCard
+          skaleNetwork={props.skaleNetwork}
+          schainName={topApp.chain}
+          appName={topApp.app}
+          transactions={topApp.totalTransactions}
+          chainsMeta={props.chainsMeta}
+        />
+      </Grid>
+    ))
+
   }
 
   return (
     <Container maxWidth="md">
       <Stack spacing={0}>
-        <div className={cls(cmn.flex, cmn.mdtop20, cmn.ptdop20)}>
-          <h3 className={cls(cmn.nom)}>🔥 Top apps on SKALE</h3>
+        <div className={cls(cmn.flex)}>
+          <h3 className={cls(cmn.nom)}>🔥 Top Apps on SKALE</h3>
         </div>
         <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec)}>
           Apps and games with the most transactions

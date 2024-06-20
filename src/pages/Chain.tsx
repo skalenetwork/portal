@@ -32,13 +32,14 @@ import { cmn, cls, type MetaportCore, type interfaces } from '@skalenetwork/meta
 import { IChainMetrics, IMetrics, ISChain, IStats, IStatsData } from '../core/types'
 import { findChainName } from '../core/chain'
 
-export default function Schain(props: {
+export default function Chain(props: {
   loadData: any
   schains: ISChain[]
   stats: IStats | null
   metrics: IMetrics | null
   mpc: MetaportCore
   chainsMeta: interfaces.ChainsMetadataMap
+  isXs: boolean
 }) {
   const [schainStats, setSchainStats] = useState<IStatsData | null>(null)
   const [schainMetrics, setSchainMetrics] = useState<IChainMetrics | null>(null)
@@ -91,6 +92,7 @@ export default function Schain(props: {
         schainStats={schainStats}
         schainMetrics={schainMetrics}
         mpc={props.mpc}
+        isXs={props.isXs}
       />
     </Container>
   )

@@ -88,10 +88,24 @@ export default function HubTile(props: {
                     logos={MAINNET_CHAIN_LOGOS}
                     className={cls(styles.chainIconlg)}
                   />
-                  <div className={cls(cmn.mleft20, [cmn.flexg, true])}>
+                  <div
+                    className={cls(
+                      [cmn.mleft20, !props.isXs],
+                      [cmn.mleft10, props.isXs],
+                      cmn.flexg
+                    )}
+                  >
                     <h4 className={cls(cmn.p, cmn.p700, 'pOneLine')}>{alias}</h4>
-                    <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>
-                      {props.isXs ? '' : chainDescription.split('.', 1)[0]}
+                    <p
+                      className={cls(
+                        cmn.p,
+                        [cmn.p4, !props.isXs],
+                        [cmn.p5, props.isXs],
+                        [cmn.mri10, props.isXs],
+                        cmn.pSec
+                      )}
+                    >
+                      {chainDescription.split('.', 1)[0]}
                     </p>
                   </div>
                 </div>
@@ -107,9 +121,11 @@ export default function HubTile(props: {
                   </p>
                 </div>
               )}
-              <div className={cls(cmn.mri20, styles.chainIconxs)}>
-                <ArrowForwardIosRoundedIcon className={cls(cmn.pSec)} />
-              </div>
+              {!props.isXs && (
+                <div className={cls(cmn.mri20, styles.chainIconxs)}>
+                  <ArrowForwardIosRoundedIcon className={cls(cmn.pSec)} />
+                </div>
+              )}
             </div>
           </Tooltip>
         </SkPaper>

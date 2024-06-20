@@ -65,8 +65,9 @@ function CustomTabPanel(props: TabPanelProps) {
       id={`simple-tabpanel-${index}`}
       aria-labelledby={`simple-tab-${index}`}
       {...other}
+      className="fwmobile"
     >
-      {value === index && <div>{children}</div>}
+      {value === index && children}
     </div>
   )
 }
@@ -75,6 +76,7 @@ export default function ChainTabsSection(props: {
   mpc: MetaportCore
   chainsMeta: interfaces.ChainsMetadataMap
   schainName: string
+  isXs: boolean
 }) {
   const network = props.mpc.config.skaleNetwork
   const chainMeta = props.chainsMeta[props.schainName]
@@ -110,6 +112,7 @@ export default function ChainTabsSection(props: {
         tab={tab}
         tabs={tabs}
         schainName={props.schainName}
+        isXs={props.isXs}
       />
       <CustomTabPanel value={tab} index={tabs.length - 4}>
         <SkPaper gray className={cls(cmn.mtop20)}>

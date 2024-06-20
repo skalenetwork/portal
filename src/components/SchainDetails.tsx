@@ -70,6 +70,7 @@ export default function SchainDetails(props: {
   schainMetrics: IChainMetrics | null
   chain: any
   mpc: MetaportCore
+  isXs: boolean
 }) {
   const proxyBase = PROXY_ENDPOINTS[props.mpc.config.skaleNetwork]
   const network = props.mpc.config.skaleNetwork
@@ -110,23 +111,30 @@ export default function SchainDetails(props: {
         <meta property="og:description" content={chainDescription} />
       </Helmet>
       <SkPaper background={chainBg(network, props.schainName)} className={cls(cmn.mtop10)}>
-        <div className={cls(cmn.flex, cmn.flexcv)}>
-          <Breadcrumbs
-            sections={[
-              {
-                text: 'Ecosystem',
-                icon: <ArrowBackIosNewRoundedIcon />,
-                url: '/ecosystem'
-              },
-              {
-                text: chainAlias,
-                icon: <LinkRoundedIcon />
-              }
-            ]}
-          />
+        <SkStack>
+          <div className={cls(cmn.flex)}>
+            <Breadcrumbs
+              sections={[
+                {
+                  text: 'Ecosystem',
+                  icon: <ArrowBackIosNewRoundedIcon />,
+                  url: '/ecosystem'
+                },
+                {
+                  text: chainAlias,
+                  icon: <LinkRoundedIcon />
+                }
+              ]}
+            />
+            <div className={cls(cmn.flexg)}></div>
+          </div>
           <div className={cls(cmn.flexg)}></div>
-          <ChainCategories category={chainMeta?.category ?? 'Other'} alias={chainAlias} />
-        </div>
+          <ChainCategories
+            category={chainMeta?.category ?? 'Other'}
+            alias={chainAlias}
+            isXs={props.isXs}
+          />
+        </SkStack>
         <Container className="logo">
           <ChainLogo
             network={props.mpc.config.skaleNetwork}
@@ -149,42 +157,45 @@ export default function SchainDetails(props: {
           <Tile
             className={cls(cmn.nop, cmn.flex, cmn.flexcv)}
             children={
-              <SkStack className={cls(cmn.m10, cmn.mleft20, cmn.mri20, cmn.flex, cmn.flexcv)}>
-                <div>
-                  <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
+              <div
+                className={cls(
+                  cmn.m10,
+                  cmn.mleft20,
+                  cmn.mri20,
+                  [cmn.flex, !props.isXs],
+                  cmn.flexcv
+                )}
+              >
+                <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
+                  <Button
+                    size="medium"
+                    className={cls(styles.btnAction, cmn.mri10)}
+                    startIcon={<ViewInArRoundedIcon />}
+                  >
+                    Block Explorer
+                  </Button>
+                </a>
+                <Button
+                  startIcon={<AddCircleRoundedIcon />}
+                  size="medium"
+                  className={cls(styles.btnAction, cmn.mri10)}
+                  style={{ width: props.isXs ? '100%' : 'inherit' }}
+                  onClick={addNetwork}
+                >
+                  Connect Wallet
+                </Button>
+                {chainMeta?.url && (
+                  <a target="_blank" rel="noreferrer" href={chainMeta.url} className="undec">
                     <Button
                       size="medium"
                       className={cls(styles.btnAction, cmn.mri10)}
-                      startIcon={<ViewInArRoundedIcon />}
+                      startIcon={<ArrowOutwardRoundedIcon />}
                     >
-                      Block Explorer
+                      Open Website
                     </Button>
                   </a>
-                </div>
-                <div>
-                  <Button
-                    startIcon={<AddCircleRoundedIcon />}
-                    size="medium"
-                    className={cls(styles.btnAction, cmn.mri10)}
-                    onClick={addNetwork}
-                  >
-                    Connect Wallet
-                  </Button>
-                </div>
-                <div>
-                  {chainMeta?.url ? (
-                    <a target="_blank" rel="noreferrer" href={chainMeta.url} className="undec">
-                      <Button
-                        size="medium"
-                        className={cls(styles.btnAction, cmn.mri10)}
-                        startIcon={<ArrowOutwardRoundedIcon />}
-                      >
-                        Open Website
-                      </Button>
-                    </a>
-                  ) : null}
-                </div>
-              </SkStack>
+                )}
+              </div>
             }
           />
           <Tile
@@ -237,6 +248,7 @@ export default function SchainDetails(props: {
         chainsMeta={props.chainsMeta}
         mpc={props.mpc}
         schainName={props.schainName}
+        isXs={props.isXs}
       />
     </div>
   )
