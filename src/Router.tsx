@@ -2,7 +2,7 @@ import './App.scss'
 
 import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
-import { useLocation, Routes, Route, useSearchParams } from 'react-router-dom'
+import { useLocation, Routes, Route, useSearchParams, Navigate, useParams } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { useTheme } from '@mui/material/styles'
@@ -56,6 +56,11 @@ import { formatSChains } from './core/chain'
 import { IMetrics, ISChain, IStats, ITopAppInfo } from './core/types'
 import { getTopAppsByTransactions } from './core/explorer'
 import { loadMeta } from './core/metadata'
+
+const ChainRedirect = () => {
+  const { name } = useParams()
+  return <Navigate to={`/ecosystem/${name}`} replace />
+}
 
 export default function Router() {
   const location = useLocation()
@@ -223,6 +228,8 @@ export default function Router() {
       <TransitionGroup>
         <CSSTransition key={location.pathname} classNames="fade" timeout={300} component={null}>
           <Routes>
+            <Route path="/chains" element={<Navigate to="/ecosystem" />} />
+            <Route path="/chains/:name" element={<ChainRedirect />} />
             <Route
               index
               element={
