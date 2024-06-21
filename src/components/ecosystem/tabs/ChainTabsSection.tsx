@@ -83,38 +83,28 @@ export default function ChainTabsSection(props: {
 
   const explorerUrl = getExplorerUrl(network, props.schainName)
 
+  const BASE_TABS_CONTENT = [
+    <DeveloperInfo schainName={props.schainName} skaleNetwork={network} />,
+    <VerifiedContracts mpc={props.mpc} schainName={props.schainName} explorerUrl={explorerUrl} />
+  ]
+
   const [tab, setTab] = useState<number>(0)
   const [tabs, setTabs] = useState<any[]>(BASE_TABS)
+  const [tabsContent, setTabsContent] = useState<any[]>(BASE_TABS_CONTENT)
 
   useEffect(() => {
     const tokenConnections = props.mpc.config.connections[props.schainName] ?? {}
     const chainTokens = tokenConnections.erc20 ?? {}
     const hasTokens = Object.keys(chainTokens).length !== 0
     const currentTabs = [...BASE_TABS]
+    const currentTabsContent = [...BASE_TABS_CONTENT]
     if (hasTokens) {
       currentTabs.unshift({ label: 'Tokens', icon: <AccountBalanceWalletRoundedIcon /> })
+      currentTabsContent.unshift(<Tokens mpc={props.mpc} schainName={props.schainName} />)
     }
     if (props.chainsMeta[props.schainName].apps) {
       currentTabs.unshift({ label: 'Apps', icon: <WidgetsRoundedIcon /> })
-    }
-    setTabs(currentTabs)
-  }, [])
-
-  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
-    setTab(newValue)
-  }
-
-  return (
-    <div className={cls(cmn.mtop20)} style={{ paddingBottom: '60px' }}>
-      <ChainTabs
-        chainMeta={chainMeta}
-        handleChange={handleChange}
-        tab={tab}
-        tabs={tabs}
-        schainName={props.schainName}
-        isXs={props.isXs}
-      />
-      <CustomTabPanel value={tab} index={tabs.length - 4}>
+      currentTabsContent.unshift(
         <SkPaper gray className={cls(cmn.mtop20)}>
           <Headline
             text="Apps on the Hub"
@@ -131,20 +121,31 @@ export default function ChainTabsSection(props: {
             />
           </div>
         </SkPaper>
-      </CustomTabPanel>
-      <CustomTabPanel value={tab} index={tabs.length - 3}>
-        <Tokens mpc={props.mpc} schainName={props.schainName} />
-      </CustomTabPanel>
-      <CustomTabPanel value={tab} index={tabs.length - 2}>
-        <DeveloperInfo schainName={props.schainName} skaleNetwork={network} />
-      </CustomTabPanel>
-      <CustomTabPanel value={tab} index={tabs.length - 1}>
-        <VerifiedContracts
-          mpc={props.mpc}
-          schainName={props.schainName}
-          explorerUrl={explorerUrl}
-        />
-      </CustomTabPanel>
+      )
+    }
+    setTabs(currentTabs)
+    setTabsContent(currentTabsContent)
+  }, [])
+
+  const handleChange = (_: React.SyntheticEvent, newValue: number) => {
+    setTab(newValue)
+  }
+
+  return (
+    <div className={cls(cmn.mtop20)} style={{ paddingBottom: '60px' }}>
+      <ChainTabs
+        chainMeta={chainMeta}
+        handleChange={handleChange}
+        tab={tab}
+        tabs={tabs}
+        schainName={props.schainName}
+        isXs={props.isXs}
+      />
+      {tabsContent.map((content, index) => (
+        <CustomTabPanel key={index} value={tab} index={index}>
+          {content}
+        </CustomTabPanel>
+      ))}
     </div>
   )
 }

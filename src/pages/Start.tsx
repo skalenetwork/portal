@@ -77,7 +77,6 @@ export default function Start(props: {
         />
       </Grid>
     ))
-
   }
 
   return (
