@@ -31,7 +31,6 @@ import ChainLogo from './ChainLogo'
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 import { ISChain } from '../core/types'
 import { getChainShortAlias } from '../core/chain'
-import { formatNumber } from '../core/timeHelper'
 
 export default function ChainCard(props: {
   skaleNetwork: interfaces.SkaleNetwork
@@ -78,15 +77,6 @@ export default function ChainCard(props: {
               {getChainAlias(props.skaleNetwork, props.schain.name, undefined, true)}
             </span>
           </Button>
-          {props.transactions ? (
-            <div>
-              <p className={cls(cmn.p, cmn.p5, cmn.pSec, cmn.pCent)}>
-                {formatNumber(props.transactions)}+ Daily Tx
-              </p>
-            </div>
-          ) : (
-            <div></div>
-          )}
         </Link>
       </div>
     </div>

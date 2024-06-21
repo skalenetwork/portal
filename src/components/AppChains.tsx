@@ -44,10 +44,23 @@ export default function AppChains(props: {
         >
           <div className={cls(cmn.flex, cmn.flexcv, cmn.flexg, 'titleSection')}>
             <img className={cls(styles.chainIconlg)} src={appChainsIcon} />
-            <div className={cls(cmn.mleft20, [cmn.flexg, true])}>
+            <div
+              className={cls(
+                [cmn.mleft20, !props.isXs],
+                [cmn.mleft10, props.isXs],
+                [cmn.flexg, true]
+              )}
+            >
               <h4 className={cls(cmn.p, cmn.p700, 'pOneLine')}>AppChains</h4>
-
-              <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>
+              <p
+                className={cls(
+                  cmn.p,
+                  [cmn.p4, !props.isXs],
+                  [cmn.p5, props.isXs],
+                  [cmn.mri10, props.isXs],
+                  cmn.pSec
+                )}
+              >
                 Apps and games hosted on dedicated SKALE Chains
               </p>
             </div>
