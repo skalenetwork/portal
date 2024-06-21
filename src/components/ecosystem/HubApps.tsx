@@ -65,7 +65,7 @@ export default function HubApps(props: {
   return (
     <Grid container spacing={2}>
       {show || props.all ? appCards : appCards.length === 4 ? appCards : appCards.slice(0, 3)}
-      {!props.all && appCards.length > 7 ? (
+      {!props.all && appCards.length > 4 ? (
         <Grid className="fl-centered dappCard" item lg={3} md={4} sm={6} xs={6}>
           <Tooltip title={show ? 'Click hide apps' : 'Click to show more apps'}>
             <div

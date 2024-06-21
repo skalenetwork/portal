@@ -86,7 +86,7 @@ export default function App(props: {
   const appAlias = getChainAlias(props.chainsMeta, chain, app)
   const appMeta = props.chainsMeta[chain]?.apps?.[app]!
   const appDescription = appMeta.description ?? 'No description'
-  const dAppRadarUrl = `${DAPP_RADAR_BASE_URL}${app}`
+  const dAppRadarUrl = `${DAPP_RADAR_BASE_URL}${appMeta.dappradar ?? app}`
 
   const expolorerUrl = getExplorerUrl(network, chain)
 
@@ -195,7 +195,7 @@ export default function App(props: {
                       </Button>
                     </a>
                   ) : null}
-                  {!appMeta.dappradar ? (
+                  {appMeta.dappradar === undefined || appMeta.dappradar !== false ? (
                     <a target="_blank" rel="noreferrer" href={dAppRadarUrl} className="undec">
                       <Button
                         size="medium"
