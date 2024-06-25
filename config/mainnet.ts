@@ -77,6 +77,11 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
     sushi: {
       name: "SUSHI",
       symbol: "SUSHI"
+    },
+    cmps: {
+      name: "Compass",
+      symbol: "CMPS",
+      iconUrl: "https://assets.coingecko.com/coins/images/38439/standard/CompassLogo.png"
     }
   },
   "connections": {
@@ -315,6 +320,12 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               clone: true
             }
           }
+        },
+        cmps: {
+          address: '0x31E0B85Eff93fc3cb5423cd3E23868F5B18fF0bB',
+          chains: {
+            "green-giddy-denebola": {}
+          }
         }
       }
     },
@@ -459,6 +470,14 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             "mainnet": {
               clone: true,
               hub: "elated-tan-skat"
+            }
+          }
+        },
+        cmps: {
+          address: "0x3e1463814c83cD9dC25F1595314e62557588Ddde",
+          chains: {
+            "elated-tan-skat": {
+              clone: true
             }
           }
         }
