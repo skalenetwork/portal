@@ -82,6 +82,11 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       name: "Compass",
       symbol: "CMPS",
       iconUrl: "https://assets.coingecko.com/coins/images/38439/standard/CompassLogo.png"
+    },
+    exd: {
+      name: "Exorde",
+      symbol: "EXD",
+      iconUrl: "https://assets.coingecko.com/coins/images/28684/standard/logo-exorde.png"
     }
   },
   "connections": {
@@ -189,6 +194,12 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             "wan-red-ain": {
               "hub": "elated-tan-skat"
             }
+          }
+        },
+        exd: {
+          address: "0x02de007d412266a2e0fa9287c103474170f06560",
+          chains: {
+            "elated-tan-skat": {}
           }
         }
       }
@@ -325,6 +336,14 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           address: '0x31E0B85Eff93fc3cb5423cd3E23868F5B18fF0bB',
           chains: {
             "green-giddy-denebola": {}
+          }
+        },
+        exd: {
+          address: "0xCfEBA92BD362B2F76fC30a89C433DE50a1D62BcA",
+          chains: {
+            "mainnet": {
+              clone: true
+            }
           }
         }
       }
