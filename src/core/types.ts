@@ -147,10 +147,10 @@ export interface IStatsData {
   users_count_total: number
 }
 
-export interface ITopAppInfo {
+export interface IAppId {
   app: string
   chain: string
-  totalTransactions: number
+  totalTransactions?: number
 }
 
 export interface BreadcrumbSection {

@@ -22,7 +22,7 @@
 
 import { BASE_EXPLORER_URLS, interfaces } from '@skalenetwork/metaport'
 import { HTTPS_PREFIX } from './chain'
-import { IAddressCounters, IAppCounters, IMetricsChainMap, ITopAppInfo } from './types'
+import { IAddressCounters, IAppCounters, IMetricsChainMap, IAppId } from './types'
 
 export function addressUrl(explorerUrl: string, address: string): string {
   return `${explorerUrl}/address/${address}`
@@ -63,10 +63,7 @@ export function getTotalAppCounters(countersArray: IAppCounters | null): IAddres
   return totalCounters
 }
 
-export function getTopAppsByTransactions(
-  metrics: IMetricsChainMap,
-  topN: number
-): Array<ITopAppInfo> {
+export function getTopAppsByTransactions(metrics: IMetricsChainMap, topN: number): Array<IAppId> {
   let appsWithCounters = []
   for (let chain in metrics) {
     for (let app in metrics[chain].apps_counters) {

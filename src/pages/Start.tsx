@@ -35,13 +35,14 @@ import PageCard from '../components/PageCard'
 
 import { cmn, cls, interfaces } from '@skalenetwork/metaport'
 import AppCard from '../components/AppCard'
-import { ITopAppInfo } from '../core/types'
+import { IAppId } from '../core/types'
 import { useEffect, useState } from 'react'
+import FeaturedApps from '../components/FeaturedApps'
 
 export default function Start(props: {
   isXs: boolean
   skaleNetwork: interfaces.SkaleNetwork
-  topApps: ITopAppInfo[] | null
+  topApps: IAppId[] | null
   loadData: () => Promise<void>
   chainsMeta: interfaces.ChainsMetadataMap
 }) {
@@ -66,7 +67,7 @@ export default function Start(props: {
     : null
 
   if (apps) {
-    appCards = apps.slice(0, 4).map((topApp: ITopAppInfo) => (
+    appCards = apps.slice(0, 4).map((topApp: IAppId) => (
       <Grid key={topApp.app} className="fl-centered dappCard" item lg={3} md={4} sm={6} xs={6}>
         <AppCard
           skaleNetwork={props.skaleNetwork}
@@ -80,27 +81,20 @@ export default function Start(props: {
   }
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="md" className="paddBott60">
       <Stack spacing={0}>
-        <div className={cls(cmn.flex)}>
-          <h3 className={cls(cmn.nom)}>🔥 Top Apps on SKALE</h3>
-        </div>
-        <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec)}>
-          Apps and games with the most transactions
-        </p>
-
-        <Grid container spacing={2} className={cls(cmn.mtop5)}>
+        <h3 className={cls(cmn.p, cmn.p700, cmn.mbott10)}>🔥 Top Apps on SKALE</h3>
+        <Grid container spacing={2}>
           {appCards}
         </Grid>
-
-        <div className={cls(cmn.flex, cmn.mtop10, cmn.ptop20)}>
-          <h3 className={cls(cmn.nom)}>🪐 Explore Portal</h3>
-        </div>
-        <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec)}>
-          Popular apps and games on the SKALE Network
-        </p>
-
-        <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20)}>
+        <h3 className={cls(cmn.p, cmn.p700, cmn.mbott10, cmn.mtop20, cmn.ptop10)}>
+          ⭐ Featured Apps
+        </h3>
+        <FeaturedApps chainsMeta={props.chainsMeta} skaleNetwork={props.skaleNetwork} />
+        <h3 className={cls(cmn.p, cmn.p700, cmn.mbott10, cmn.mtop20, cmn.ptop10)}>
+          🪐 Explore Portal
+        </h3>
+        <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={3}>
             <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
               <PageCard

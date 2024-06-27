@@ -53,7 +53,7 @@ import { getValidators } from './core/delegation/validators'
 import { initContracts } from './core/contracts'
 import { getStakingInfoMap } from './core/delegation/staking'
 import { formatSChains } from './core/chain'
-import { IMetrics, ISChain, IStats, ITopAppInfo } from './core/types'
+import { IMetrics, ISChain, IStats, IAppId } from './core/types'
 import { getTopAppsByTransactions } from './core/explorer'
 import { loadMeta } from './core/metadata'
 
@@ -72,7 +72,7 @@ export default function Router() {
   const [chainsMeta, setChainsMeta] = useState<interfaces.ChainsMetadataMap | null>(null)
   const [schains, setSchains] = useState<ISChain[]>([])
   const [metrics, setMetrics] = useState<IMetrics | null>(null)
-  const [topApps, setTopApps] = useState<ITopAppInfo[] | null>(null)
+  const [topApps, setTopApps] = useState<IAppId[] | null>(null)
   const [stats, setStats] = useState<IStats | null>(null)
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false)
   const [stakingTermsAccepted, setStakingTermsAccepted] = useState<boolean>(false)
