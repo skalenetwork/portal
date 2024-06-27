@@ -90,7 +90,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
     },
     hmkr: {
       name: "Hitmakr",
-      decimals: 9,
+      decimals: "9",
       symbol: "HMKR",
       iconUrl: "https://assets.coingecko.com/coins/images/36660/standard/HITMAKR_logo.png"
     },
