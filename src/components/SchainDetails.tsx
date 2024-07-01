@@ -21,6 +21,7 @@
  * @copyright SKALE Labs 2021-Present
  */
 
+import { useState } from 'react'
 import { Helmet } from 'react-helmet'
 
 import Button from '@mui/material/Button'
@@ -28,6 +29,7 @@ import Button from '@mui/material/Button'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
 import {
   cmn,
@@ -48,6 +50,7 @@ import CopySurface from './CopySurface'
 import ChainAccordion from './ChainAccordion'
 import ChainCategories from './ChainCategories'
 import Tile from './Tile'
+import SkBtn from './SkBtn'
 
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 import { getRpcUrl, getExplorerUrl, getChainId, HTTPS_PREFIX } from '../core/chain'
@@ -58,6 +61,9 @@ export default function SchainDetails(props: {
   chain: any
   mpc: MetaportCore
 }) {
+  const [loading, setLoading] = useState<boolean>(false)
+  const [added, setAdded] = useState<boolean>(false)
+
   const proxyBase = PROXY_ENDPOINTS[props.mpc.config.skaleNetwork]
   const explorerBase = BASE_EXPLORER_URLS[props.mpc.config.skaleNetwork]
 
@@ -68,15 +74,12 @@ export default function SchainDetails(props: {
 
   const network = props.mpc.config.skaleNetwork
 
-  // const [expanded, setExpanded] = useState<string | false>('panel1')
-
-  // function handleChange(panel: string | false) {
-  //   setExpanded(expanded && panel === expanded ? false : panel)
-  // }
-
   const networkParams = {
     chainId,
-    chainName: '[S]' + getChainAlias(props.mpc.config.skaleNetwork, props.schainName),
+    chainName:
+      'SKALE' +
+      (network === 'testnet' ? ' Testnet ' : ' ') +
+      getChainAlias(props.mpc.config.skaleNetwork, props.schainName),
     rpcUrls: [rpcUrl],
     nativeCurrency: {
       name: 'sFUEL',
@@ -94,10 +97,21 @@ export default function SchainDetails(props: {
   }
 
   async function addNetwork() {
-    await window.ethereum.request({
-      method: 'wallet_addEthereumChain',
-      params: [networkParams]
-    })
+    setLoading(true)
+    try {
+      await window.ethereum.request({
+        method: 'wallet_addEthereumChain',
+        params: [networkParams]
+      })
+      setAdded(true)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  function connectBtnText() {
+    if (added) return 'Chain Connected'
+    return loading ? 'Connecting Chain' : 'Connect to Chain'
   }
 
   const chainAlias = getChainAlias(props.mpc.config.skaleNetwork, props.schainName, undefined, true)
@@ -147,14 +161,18 @@ export default function SchainDetails(props: {
                   </a>
                 </div>
                 <div>
-                  <Button
-                    startIcon={<AddCircleRoundedIcon />}
-                    size="medium"
-                    className={cls(styles.btnAction, cmn.mri10)}
+                  <SkBtn
+                    startIcon={added ? <CheckCircleRoundedIcon /> : <AddCircleRoundedIcon />}
+                    size="md"
+                    className={cls(styles.btnAction, cmn.mri10, 'btnPadd', [
+                      'btnPaddLoading',
+                      loading
+                    ])}
                     onClick={addNetwork}
-                  >
-                    Connect Wallet
-                  </Button>
+                    disabled={loading}
+                    text={connectBtnText()}
+                    loading={loading}
+                  />
                 </div>
                 <div>
                   {props.chainMeta?.url ? (

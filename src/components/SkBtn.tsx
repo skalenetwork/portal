@@ -35,6 +35,7 @@ export default function SkBtn(props: {
   color?: 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning' | undefined
   size?: 'sm' | 'md'
   variant?: 'contained' | 'outlined' | 'text'
+  startIcon?: React.ReactNode
 }) {
   const size = props.size ?? 'md'
   return props.loading ? (
@@ -60,6 +61,7 @@ export default function SkBtn(props: {
       className={cls('btn', 'btn' + props.color, props.className, ['btnSm', size === 'sm'])}
       disabled={props.disabled}
       onClick={props.onClick}
+      startIcon={props.startIcon}
     >
       {props.text}
     </Button>
