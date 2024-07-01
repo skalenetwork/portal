@@ -28,7 +28,6 @@ import { useMetaportStore, useWagmiAccount, Debug, cls, cmn } from '@skalenetwor
 import Header from './Header'
 import SkDrawer from './SkDrawer'
 import Router from './Router'
-import ScrollToTop from './components/ScrollToTop'
 import SkBottomNavigation from './SkBottomNavigation'
 
 export default function Portal() {
@@ -38,7 +37,6 @@ export default function Portal() {
   return (
     <Box sx={{ display: 'flex' }} className="AppWrap">
       <CssBaseline />
-      <ScrollToTop />
       <Header address={address} mpc={mpc} />
       <SkDrawer />
       <div className={cls(cmn.fullWidth)} id="appContentScroll">

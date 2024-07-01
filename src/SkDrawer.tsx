@@ -96,9 +96,6 @@ export default function SkDrawer() {
                     <AddCardRoundedIcon />
                   </ListItemIcon>
                   <ListItemText primary="On-Ramp" />
-                  <div className="shipNew">
-                    <p className={cls(cmn.p, cmn.p5)}>NEW</p>
-                  </div>
                 </ListItemButton>
               </Link>
             </ListItem>
@@ -106,17 +103,22 @@ export default function SkDrawer() {
           <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Network</h4>
           <List>
             <ListItem>
-              <Link to="/chains" className="undec fullWidth">
+              <Link to="/ecosystem" className="undec fullWidth">
                 <ListItemButton
                   className={cls(cmn.pPrim)}
                   selected={
-                    location.pathname.includes('/chains') || location.pathname.includes('/admin')
+                    location.pathname.includes('/ecosystem') ||
+                    location.pathname.includes('/admin') ||
+                    location.pathname.includes('/apps')
                   }
                 >
                   <ListItemIcon>
                     <PublicOutlinedIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Chains" />
+                  <ListItemText primary="Ecosystem" />
+                  <div className="shipNew">
+                    <p className={cls(cmn.p, cmn.p5)}>NEW</p>
+                  </div>
                 </ListItemButton>
               </Link>
             </ListItem>

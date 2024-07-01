@@ -21,7 +21,10 @@
  * @copyright SKALE Labs 2022-Present
  */
 
+import { useEffect, useState } from 'react'
 import Jazzicon from 'react-jazzicon'
+import { getMetaLogoUrl } from '../core/metadata'
+import { interfaces } from '@skalenetwork/metaport'
 
 function hashCode(str: string) {
   let hash = 0
@@ -44,45 +47,61 @@ function getPseudoRandomNumber(
 }
 
 export default function ChainLogo(props: {
+  network: interfaces.SkaleNetwork
   chainName: string
   app?: string
   className?: string
   logos: any
 }) {
-  function getIcon(schainName: string, app?: string): any {
-    let iconPath = schainName
-    if (app) {
-      iconPath += `-${app}`
-    }
-
-    iconPath = iconPath.replace(/-([a-z])/g, (_, g) => g.toUpperCase())
-
-    const pngPath = iconPath + '.png'
-    const gifPath = iconPath + '.gif'
-    const svgPath = iconPath + '.svg'
-    if (props.logos[pngPath]) {
-      iconPath = pngPath
-    } else if (props.logos[gifPath]) {
-      iconPath = gifPath
-    } else if (props.logos[svgPath]) {
-      iconPath = svgPath
-    }
-    const iconModule = props.logos[iconPath]
-    if (iconModule) {
-      return <img className={props.className} src={iconModule.default ?? iconModule} />
-    }
-    return (
-      <div className="br__tileDefaultLogo">
-        <Jazzicon
-          diameter={80}
-          svgStyles={{
-            width: '100%',
-            height: '100%'
-          }}
-          seed={getPseudoRandomNumber(schainName)}
-        />
-      </div>
-    )
+  let logoName = props.chainName
+  if (props.app) {
+    logoName += `-${props.app}`
   }
-  return getIcon(props.chainName, props.app)
+  const baseLocalPath = logoName.replace(/-([a-z])/g, (_, g) => g.toUpperCase())
+
+  const [url, setUrl] = useState<any | null>(props.logos[baseLocalPath])
+
+  useEffect(() => {
+    loadLogo()
+  }, [])
+
+  async function checkUrl(url: string): Promise<boolean> {
+    try {
+      const response = await fetch(url, { method: 'GET' })
+      return response.status === 200
+    } catch (error) {
+      console.error(`Error checking URL: ${url}`, error)
+      return false
+    }
+  }
+
+  async function loadLogo() {
+    if (url) return
+    const baseUrl = getMetaLogoUrl(props.network, logoName)
+    const pngPath = baseUrl + '.png'
+    const svgPath = baseUrl + '.svg'
+    if (await checkUrl(pngPath)) {
+      setUrl(pngPath)
+      return
+    } else if (await checkUrl(svgPath)) {
+      setUrl(svgPath)
+      return
+    }
+  }
+
+  if (url) {
+    return <img className={props.className} src={url.default ? url.default : url} />
+  }
+  return (
+    <div className="br__tileDefaultLogo">
+      <Jazzicon
+        diameter={80}
+        svgStyles={{
+          width: '100%',
+          height: '100%'
+        }}
+        seed={getPseudoRandomNumber(props.chainName)}
+      />
+    </div>
+  )
 }

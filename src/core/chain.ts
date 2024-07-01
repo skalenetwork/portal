@@ -22,9 +22,33 @@
  */
 
 import { id, toBeHex } from 'ethers'
+import { ISChain, ISChainData, TSChainArray } from './types'
+import { interfaces } from '@skalenetwork/metaport'
 
 export const HTTPS_PREFIX = 'https://'
 export const WSS_PREFIX = 'wss://'
+
+export function formatSChains(schainsData: ISChainData[]): ISChain[] {
+  return schainsData.map((schainData) => formatSChain(schainData.schain))
+}
+
+function formatSChain(schainArray: TSChainArray): ISChain {
+  return {
+    name: schainArray[0],
+    mainnetOwner: schainArray[1],
+    indexInOwnerList: schainArray[2],
+    partOfNode: schainArray[3],
+    lifetime: schainArray[4],
+    startDate: schainArray[5],
+    startBlock: schainArray[6],
+    deposit: schainArray[7],
+    index: schainArray[8],
+    generation: schainArray[9],
+    originator: schainArray[10],
+    multitransactionMode: schainArray[11],
+    thresholdEncryption: schainArray[12]
+  }
+}
 
 export function getRpcUrl(proxyUrl: string, schainName: string, prefix: string): string {
   return prefix + proxyUrl + '/v1/' + schainName
@@ -38,10 +62,23 @@ export function getFsUrl(proxyUrl: string, schainName: string, prefix: string): 
   return prefix + proxyUrl + '/fs/' + schainName
 }
 
-export function getExplorerUrl(explorerUrl: string, schainName: string): string {
-  return HTTPS_PREFIX + schainName + '.' + explorerUrl
-}
-
 export function getChainId(schainName: string): string {
   return toBeHex(id(schainName).substring(0, 15))
+}
+
+export function getChainShortAlias(meta: interfaces.ChainsMetadataMap, name: string): string {
+  return meta[name]?.shortAlias !== undefined ? meta[name].shortAlias! : name
+}
+
+export function getChainDescription(meta: interfaces.ChainMetadata | undefined): string {
+  return meta && meta.description ? meta.description : 'No description'
+}
+
+export function findChainName(meta: interfaces.ChainsMetadataMap, name: string): string {
+  for (const key in meta) {
+    if (meta[key].shortAlias === name) {
+      return key
+    }
+  }
+  return name
 }

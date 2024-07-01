@@ -21,6 +21,8 @@
  * @copyright SKALE Labs 2024-Present
  */
 
+import { Helmet } from 'react-helmet'
+
 import { Link } from 'react-router-dom'
 import { type Signer } from 'ethers'
 import debug from 'debug'
@@ -65,6 +67,7 @@ import ErrorTile from '../components/ErrorTile'
 import ConnectWallet from '../components/ConnectWallet'
 import Headline from '../components/Headline'
 import Message from '../components/Message'
+import { META_TAGS } from '../core/meta'
 
 debug.enable('*')
 const log = debug('portal:pages:Staking')
@@ -166,6 +169,12 @@ export default function Staking(props: {
 
   return (
     <Container maxWidth="md">
+      <Helmet>
+        <title>{META_TAGS.staking.title}</title>
+        <meta name="description" content={META_TAGS.staking.description} />
+        <meta property="og:title" content={META_TAGS.staking.title} />
+        <meta property="og:description" content={META_TAGS.staking.description} />
+      </Helmet>
       <Stack spacing={0}>
         <div className={cls(cmn.flex, cmn.flexcv)}>
           <div className={cls(cmn.flexg)}>

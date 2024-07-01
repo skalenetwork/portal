@@ -120,6 +120,7 @@ export default function Meson(props: {
                     <SkPaper gray className={cls('hoverable pointer')}>
                       <div className={cls(cmn.pCent, cmn.mtop10, cmn.mbott10)}>
                         <ChainLogo
+                          network={props.skaleNetwork}
                           className={cls(styles.chainIconlg)}
                           chainName={chain}
                           logos={MAINNET_CHAIN_LOGOS}
