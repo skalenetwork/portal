@@ -21,6 +21,7 @@
  * @copyright SKALE Labs 2021-Present
  */
 
+import { useState } from 'react'
 import { Helmet } from 'react-helmet'
 
 import {
@@ -48,6 +49,7 @@ import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
 import DataSaverOffRoundedIcon from '@mui/icons-material/DataSaverOffRounded'
 import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded'
 import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
 import SkStack from './SkStack'
 import ChainLogo from './ChainLogo'
@@ -55,6 +57,7 @@ import ChainCategories from './ChainCategories'
 import Tile from './Tile'
 import Breadcrumbs from './Breadcrumbs'
 import CollapsibleDescription from './CollapsibleDescription'
+import SkBtn from './SkBtn'
 
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 import { getRpcUrl, getChainId, HTTPS_PREFIX, getChainDescription } from '../core/chain'
@@ -72,6 +75,9 @@ export default function SchainDetails(props: {
   mpc: MetaportCore
   isXs: boolean
 }) {
+  const [loading, setLoading] = useState<boolean>(false)
+  const [added, setAdded] = useState<boolean>(false)
+
   const proxyBase = PROXY_ENDPOINTS[props.mpc.config.skaleNetwork]
   const network = props.mpc.config.skaleNetwork
 
@@ -81,7 +87,10 @@ export default function SchainDetails(props: {
 
   const networkParams = {
     chainId,
-    chainName: '[S]' + getChainAlias(props.mpc.config.skaleNetwork, props.schainName),
+    chainName:
+      'SKALE' +
+      (network === 'testnet' ? ' Testnet ' : ' ') +
+      getChainAlias(props.mpc.config.skaleNetwork, props.schainName),
     rpcUrls: [rpcUrl],
     nativeCurrency: {
       name: 'sFUEL',
@@ -91,10 +100,24 @@ export default function SchainDetails(props: {
   }
 
   async function addNetwork() {
-    await window.ethereum.request({
-      method: 'wallet_addEthereumChain',
-      params: [networkParams]
-    })
+    setLoading(true)
+    try {
+      await window.ethereum.request({
+        method: 'wallet_addEthereumChain',
+        params: [networkParams]
+      })
+      setAdded(true)
+    } catch (e) {
+      console.error(e)
+    } 
+    finally {
+      setLoading(false)
+    }
+  }
+
+  function connectBtnText() {
+    if (added) return 'Chain Connected'
+    return loading ? 'Connecting Chain' : 'Connect to Chain'
   }
 
   const chainMeta = props.chainsMeta[props.schainName]
@@ -175,20 +198,23 @@ export default function SchainDetails(props: {
                     Block Explorer
                   </Button>
                 </a>
-                <Button
-                  startIcon={<AddCircleRoundedIcon />}
-                  size="medium"
-                  className={cls(styles.btnAction, cmn.mri10)}
-                  style={{ width: props.isXs ? '100%' : 'inherit' }}
+                <SkBtn
+                  startIcon={added ? <CheckCircleRoundedIcon /> : <AddCircleRoundedIcon />}
+                  size="md"
+                  className={cls(styles.btnAction, cmn.mri10, 'btnPadd', [
+                    'btnPaddLoading',
+                    loading
+                  ])}
                   onClick={addNetwork}
-                >
-                  Connect Wallet
-                </Button>
+                  disabled={loading}
+                  text={connectBtnText()}
+                  loading={loading}
+                />
                 {chainMeta?.url && (
                   <a target="_blank" rel="noreferrer" href={chainMeta.url} className="undec">
                     <Button
                       size="medium"
-                      className={cls(styles.btnAction, cmn.mri10)}
+                      className={cls(styles.btnAction)}
                       startIcon={<ArrowOutwardRoundedIcon />}
                     >
                       Open Website

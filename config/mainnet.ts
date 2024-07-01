@@ -77,6 +77,27 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
     sushi: {
       name: "SUSHI",
       symbol: "SUSHI"
+    },
+    cmps: {
+      name: "Compass",
+      symbol: "CMPS",
+      iconUrl: "https://assets.coingecko.com/coins/images/38439/standard/CompassLogo.png"
+    },
+    exd: {
+      name: "Exorde",
+      symbol: "EXD",
+      iconUrl: "https://assets.coingecko.com/coins/images/28684/standard/logo-exorde.png"
+    },
+    hmkr: {
+      name: "Hitmakr",
+      decimals: "9",
+      symbol: "HMKR",
+      iconUrl: "https://assets.coingecko.com/coins/images/36660/standard/HITMAKR_logo.png"
+    },
+    paxg: {
+      name: "PAX Gold",
+      symbol: "PAXG",
+      iconUrl: "https://assets.coingecko.com/coins/images/9519/standard/paxgold.png"
     }
   },
   "connections": {
@@ -184,6 +205,24 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             "wan-red-ain": {
               "hub": "elated-tan-skat"
             }
+          }
+        },
+        exd: {
+          address: "0x02de007d412266a2e0fa9287c103474170f06560",
+          chains: {
+            "elated-tan-skat": {}
+          }
+        },
+        hmkr: {
+          address: "0x3300b02efa180c99a2f61f4731665b51e4e254c4",
+          chains: {
+            "elated-tan-skat": {}
+          }
+        },
+        paxg: {
+          address: "0x45804880De22913dAFE09f4980848ECE6EcbAf78",
+          chains: {
+            "elated-tan-skat": {}
           }
         }
       }
@@ -312,6 +351,36 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           address: '0xBDDad45160E10C3738785d9dD7F30b4B2a5Eeba8',
           chains: {
             'affectionate-immediate-pollux': {
+              clone: true
+            }
+          }
+        },
+        cmps: {
+          address: '0x31E0B85Eff93fc3cb5423cd3E23868F5B18fF0bB',
+          chains: {
+            "green-giddy-denebola": {}
+          }
+        },
+        exd: {
+          address: "0xCfEBA92BD362B2F76fC30a89C433DE50a1D62BcA",
+          chains: {
+            "mainnet": {
+              clone: true
+            }
+          }
+        },
+        hmkr: {
+          address: "0x57a3d5faa172f5984cdcd4885fd4f0baac88e558",
+          chains: {
+            "mainnet": {
+              clone: true
+            }
+          }
+        },
+        paxg: {
+          address: "0x18478516f526b7947d995e04871562adbeeaa62d",
+          chains: {
+            "mainnet": {
               clone: true
             }
           }
@@ -459,6 +528,14 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             "mainnet": {
               clone: true,
               hub: "elated-tan-skat"
+            }
+          }
+        },
+        cmps: {
+          address: "0x3e1463814c83cD9dC25F1595314e62557588Ddde",
+          chains: {
+            "elated-tan-skat": {
+              clone: true
             }
           }
         }

@@ -412,6 +412,16 @@ body::-webkit-scrollbar {
   box-shadow: none !important;
 }
 
+.btnPadd{
+  width: inherit !important;
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+.btnPaddLoading {
+  padding-left: 25px !important;
+}
+
 .btnLg {
   text-transform: none !important;
   font-size: 0.9025rem !important;

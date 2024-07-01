@@ -4,6 +4,8 @@
   "version": "2.3.0",
   "type": "module",
   "scripts": {
+    "build-testnet": "NETWORK_NAME=testnet bash build.sh",
+    "build-mainnet": "NETWORK_NAME=mainnet bash build.sh",
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint ./src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
