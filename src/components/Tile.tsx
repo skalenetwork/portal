@@ -84,7 +84,7 @@ export default function Tile(props: {
         [cmn.p2, size === 'md'],
         cmn.p700,
         [cmn.pPrim, !props.color && !props.disabled],
-        [cmn.pSec, props.disabled],
+        ['pSec', props.disabled],
         ['blackP', props.color],
         ['pointer', props.copy]
       )}
@@ -109,7 +109,7 @@ export default function Tile(props: {
                 cmn.flex,
                 cmn.flexcv,
                 cmn.mbott5,
-                [cmn.pSec, !props.color],
+                ['pSec', !props.color],
                 ['blackP', props.color]
               )}
             >

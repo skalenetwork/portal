@@ -401,7 +401,7 @@ body::-webkit-scrollbar {
   box-shadow: none !important;
 }
 
-.btnPadd{
+.btnPadd {
   padding-left: 8px !important;
   padding-right: 8px !important;
 }
@@ -1088,6 +1088,26 @@ a,
 }
 
 
+.errorMsg {
+  background-color: #431d1d !important;
+
+  p,
+  svg {
+    color: #f99c9c !important;
+  }
+
+  a,
+  .a {
+    color: #f99c9c !important;
+
+    p,
+    svg {
+      color: #f99c9c !important;
+    }
+  }
+}
+
+
 .appIconHub {
   border-radius: 25px;
   background: rgba(0, 0, 0, 0.506) !important;
@@ -1118,4 +1138,23 @@ a,
 
 .paddBott60 {
   padding-bottom: 60px;
+}
+
+
+.MuiBackdrop-root {
+  backdrop-filter: blur(3px) !important;
+}
+
+.pSec {
+  color: RGB(255 255 255 / 65%);
+}
+
+.addressInput {
+  input {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  .Mui-disabled {
+    -webkit-text-fill-color: #ffffff;
+  }
 }
