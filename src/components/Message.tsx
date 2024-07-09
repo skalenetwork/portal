@@ -36,13 +36,23 @@ export default function Message(props: {
   icon: ReactElement
   className?: string | undefined
   showOnLoad?: boolean | undefined
-  type?: 'warning' | 'info'
+  type?: 'warning' | 'info' | 'error'
+  closable?: boolean
 }) {
   const type = props.type ?? 'info'
   const [show, setShow] = useState<boolean>(true)
+  const closable = props.closable ?? true
   return (
     <Collapse in={show}>
-      <SkPaper gray className={cls(props.className, 'border', ['warningMsg', type === 'warning'])}>
+      <SkPaper
+        gray
+        className={cls(
+          props.className,
+          'border',
+          ['warningMsg', type === 'warning'],
+          ['errorMsg', type === 'error']
+        )}
+      >
         <div
           className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv, cmn.mtopd5, cmn.mbotdt5, cmn.mleft10)}
         >
@@ -65,19 +75,21 @@ export default function Message(props: {
           ) : null}
 
           <div className={cmn.flexg}></div>
-          <div className={cls(cmn.mri20)}>
-            <IconButton
-              onClick={() => {
-                setShow(false)
-              }}
-              className={cls(cmn.paperGrey, cmn.mleft10)}
-            >
-              <CloseRoundedIcon
-                className={cls([cmn.pSec, type !== 'warning'])}
-                style={{ height: '16px', width: '16px' }}
-              />
-            </IconButton>
-          </div>
+          {closable ? (
+            <div className={cls(cmn.mri20)}>
+              <IconButton
+                onClick={() => {
+                  setShow(false)
+                }}
+                className={cls(cmn.paperGrey, cmn.mleft10)}
+              >
+                <CloseRoundedIcon
+                  className={cls([cmn.pSec, type !== 'warning'])}
+                  style={{ height: '16px', width: '16px' }}
+                />
+              </IconButton>
+            </div>
+          ) : null}
         </div>
       </SkPaper>
     </Collapse>
