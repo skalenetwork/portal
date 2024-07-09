@@ -21,7 +21,7 @@
  */
 
 import { fromWei, type interfaces } from '@skalenetwork/metaport'
-import { DEFAULT_ERC20_DECIMALS, ZERO_ADDRESS } from './constants'
+import { DEFAULT_ERC20_DECIMALS, ZERO_ADDRESS, DEFAULT_FRACTION_DIGITS } from './constants'
 
 export function isZeroAddr(address: interfaces.AddressType): boolean {
   return address === ZERO_ADDRESS
@@ -39,8 +39,13 @@ export function formatBalance(
   customDecimals?: string
 ): string {
   const res = Number(
-    truncateDecimals(fromWei(value, customDecimals ?? DEFAULT_ERC20_DECIMALS), 5)
-  ).toLocaleString()
+    truncateDecimals(
+      fromWei(value, customDecimals ?? DEFAULT_ERC20_DECIMALS),
+      DEFAULT_FRACTION_DIGITS
+    )
+  ).toLocaleString(undefined, {
+    maximumFractionDigits: DEFAULT_FRACTION_DIGITS
+  })
   return res + (tokenSymbol ? ` ${tokenSymbol}` : '')
 }
 
