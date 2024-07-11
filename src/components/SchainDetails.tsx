@@ -59,7 +59,7 @@ import Breadcrumbs from './Breadcrumbs'
 import CollapsibleDescription from './CollapsibleDescription'
 import SkBtn from './SkBtn'
 
-import { MAINNET_CHAIN_LOGOS } from '../core/constants'
+import { MAINNET_CHAIN_LOGOS, MAINNET_CHAIN_NAME } from '../core/constants'
 import { getRpcUrl, getChainId, HTTPS_PREFIX, getChainDescription } from '../core/chain'
 import { getExplorerUrl } from '../core/explorer'
 import { IChainMetrics, IStatsData } from '../core/types'
@@ -109,8 +109,7 @@ export default function SchainDetails(props: {
       setAdded(true)
     } catch (e) {
       console.error(e)
-    } 
-    finally {
+    } finally {
       setLoading(false)
     }
   }
@@ -124,6 +123,26 @@ export default function SchainDetails(props: {
 
   const chainAlias = getChainAlias(props.mpc.config.skaleNetwork, props.schainName, undefined, true)
   const chainDescription = getChainDescription(chainMeta)
+
+  const isMainnet = props.mpc.config.skaleNetwork === MAINNET_CHAIN_NAME
+
+  const getTxCount = () => {
+    return isMainnet
+      ? props.schainStats?.tx_count_total
+      : props.schainMetrics?.chain_stats?.total_transactions
+  }
+
+  const getUAW = () => {
+    return isMainnet
+      ? props.schainStats?.users_count_total
+      : props.schainMetrics?.chain_stats?.total_addresses
+  }
+
+  const getTotalBlocks = () => {
+    return isMainnet
+      ? props.schainStats?.block_count_total
+      : props.schainMetrics?.chain_stats?.total_blocks
+  }
 
   return (
     <div className={cls('chainDetails', cmn.mbott20)}>
@@ -236,39 +255,46 @@ export default function SchainDetails(props: {
             icon={<TrendingUpRoundedIcon />}
           />
         </SkStack>
-
-        <SkStack className={cmn.mtop10}>
-          <Tile
-            size="md"
-            grow
-            text="Total transactions"
-            value={props.schainStats ? formatNumber(props.schainStats.tx_count_total) : ''}
-            icon={<DataSaverOffRoundedIcon />}
-          />
-          <Tile
-            size="md"
-            grow
-            text="Gas saved"
-            value={
-              props.schainStats ? `${formatNumber(props.schainStats.gas_fees_total_eth)} ETH` : ''
-            }
-            icon={<SavingsRoundedIcon />}
-          />
-          <Tile
-            size="md"
-            grow
-            text="Unique active wallets"
-            value={props.schainStats ? formatNumber(props.schainStats.users_count_total) : ''}
-            icon={<PersonRoundedIcon />}
-          />
-          <Tile
-            size="md"
-            grow
-            text="Total blocks"
-            value={props.schainStats ? formatNumber(props.schainStats.block_count_total) : ''}
-            icon={<GridViewRoundedIcon />}
-          />
-        </SkStack>
+        {props.mpc.config.skaleNetwork !== MAINNET_CHAIN_NAME ? (
+          <SkStack className={cmn.mtop10}>
+            <Tile
+              size="md"
+              grow
+              text="Total transactions"
+              value={formatNumber(getTxCount())}
+              icon={<DataSaverOffRoundedIcon />}
+            />
+            {isMainnet && (
+              <Tile
+                size="md"
+                grow
+                text="Gas saved"
+                value={
+                  props.schainStats
+                    ? `${formatNumber(props.schainStats.gas_fees_total_eth)} ETH`
+                    : ''
+                }
+                icon={<SavingsRoundedIcon />}
+              />
+            )}
+            <Tile
+              size="md"
+              grow
+              text="Unique active wallets"
+              value={formatNumber(getUAW())}
+              icon={<PersonRoundedIcon />}
+            />
+            <Tile
+              size="md"
+              grow
+              text="Total blocks"
+              value={formatNumber(getTotalBlocks())}
+              icon={<GridViewRoundedIcon />}
+            />
+          </SkStack>
+        ) : (
+          <div></div>
+        )}
       </SkPaper>
       <ChainTabsSection
         chainsMeta={props.chainsMeta}
