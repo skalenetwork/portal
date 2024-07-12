@@ -59,7 +59,9 @@ export default function CategorySection(props: {
                 schain={schain}
                 chainsMeta={props.chainsMeta}
                 transactions={
-                  props.metrics
+                  props.metrics &&
+                  props.metrics.metrics[schain.name] &&
+                  props.metrics.metrics[schain.name].chain_stats
                     ? props.metrics.metrics[schain.name].chain_stats.transactions_today
                     : null
                 }
