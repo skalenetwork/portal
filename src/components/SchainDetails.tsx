@@ -255,46 +255,41 @@ export default function SchainDetails(props: {
             icon={<TrendingUpRoundedIcon />}
           />
         </SkStack>
-        {props.mpc.config.skaleNetwork !== MAINNET_CHAIN_NAME ? (
-          <SkStack className={cmn.mtop10}>
+
+        <SkStack className={cmn.mtop10}>
+          <Tile
+            size="md"
+            grow
+            text="Total transactions"
+            value={formatNumber(getTxCount())}
+            icon={<DataSaverOffRoundedIcon />}
+          />
+          {isMainnet && (
             <Tile
               size="md"
               grow
-              text="Total transactions"
-              value={formatNumber(getTxCount())}
-              icon={<DataSaverOffRoundedIcon />}
+              text="Gas saved"
+              value={
+                props.schainStats ? `${formatNumber(props.schainStats.gas_fees_total_eth)} ETH` : ''
+              }
+              icon={<SavingsRoundedIcon />}
             />
-            {isMainnet && (
-              <Tile
-                size="md"
-                grow
-                text="Gas saved"
-                value={
-                  props.schainStats
-                    ? `${formatNumber(props.schainStats.gas_fees_total_eth)} ETH`
-                    : ''
-                }
-                icon={<SavingsRoundedIcon />}
-              />
-            )}
-            <Tile
-              size="md"
-              grow
-              text="Unique active wallets"
-              value={formatNumber(getUAW())}
-              icon={<PersonRoundedIcon />}
-            />
-            <Tile
-              size="md"
-              grow
-              text="Total blocks"
-              value={formatNumber(getTotalBlocks())}
-              icon={<GridViewRoundedIcon />}
-            />
-          </SkStack>
-        ) : (
-          <div></div>
-        )}
+          )}
+          <Tile
+            size="md"
+            grow
+            text="Unique active wallets"
+            value={formatNumber(getUAW())}
+            icon={<PersonRoundedIcon />}
+          />
+          <Tile
+            size="md"
+            grow
+            text="Total blocks"
+            value={formatNumber(getTotalBlocks())}
+            icon={<GridViewRoundedIcon />}
+          />
+        </SkStack>
       </SkPaper>
       <ChainTabsSection
         chainsMeta={props.chainsMeta}
