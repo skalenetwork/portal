@@ -1,3 +1,26 @@
+/**
+ * @license
+ * SKALE portal
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/**
+ * @file SkBottomNavigation.tsx
+ * @copyright SKALE Labs 2024-Present
+ */
+
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
@@ -5,8 +28,9 @@ import Box from '@mui/material/Box'
 import BottomNavigation from '@mui/material/BottomNavigation'
 import BottomNavigationAction from '@mui/material/BottomNavigationAction'
 import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontalCircleOutlined'
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
-import AccountBalanceWalletOutlinedIcon from '@mui/icons-material/AccountBalanceWalletOutlined'
+import PieChartOutlineOutlinedIcon from '@mui/icons-material/PieChartOutlineOutlined'
+import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
+import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 
 export default function SkBottomNavigation() {
   const [value, setValue] = useState(0)
@@ -14,9 +38,12 @@ export default function SkBottomNavigation() {
   const location = useLocation()
 
   useEffect(() => {
-    if (location.pathname === '/' || location.pathname.includes('/transfer')) setValue(0)
-    if (location.pathname === '/bridge/exit') setValue(1)
-    if (location.pathname === '/other/faq') setValue(2)
+    setValue(500)
+    if (location.pathname === '/') setValue(0)
+    if (location.pathname === '/bridge' || location.pathname.includes('/transfer')) setValue(1)
+    if (location.pathname.includes('/ecosystem') || location.pathname.includes('/admin'))
+      setValue(2)
+    if (location.pathname.includes('/staking')) setValue(3)
   }, [location])
 
   return (
@@ -29,24 +56,31 @@ export default function SkBottomNavigation() {
         }}
       >
         <BottomNavigationAction
-          label="Transfer"
-          icon={<SwapHorizontalCircleOutlinedIcon />}
+          label="Home"
+          icon={<HomeOutlinedIcon />}
           onClick={() => {
             navigate('/')
           }}
         />
         <BottomNavigationAction
-          label="Exit gas"
-          icon={<AccountBalanceWalletOutlinedIcon />}
+          label="Bridge"
+          icon={<SwapHorizontalCircleOutlinedIcon />}
           onClick={() => {
-            navigate('/bridge/exit')
+            navigate('/bridge')
           }}
         />
         <BottomNavigationAction
-          label="FAQ"
-          icon={<HelpOutlineOutlinedIcon />}
+          label="Ecosystem"
+          icon={<PublicOutlinedIcon />}
           onClick={() => {
-            navigate('/other/faq')
+            navigate('/ecosystem')
+          }}
+        />
+        <BottomNavigationAction
+          label="Staking"
+          icon={<PieChartOutlineOutlinedIcon />}
+          onClick={() => {
+            navigate('/staking')
           }}
         />
       </BottomNavigation>

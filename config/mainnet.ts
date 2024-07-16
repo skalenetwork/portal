@@ -73,6 +73,31 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       "name": "SKILL",
       "symbol": "SKILL",
       "iconUrl": "https://ruby.exchange/images/tokens/skill-square.png"
+    },
+    sushi: {
+      name: "SUSHI",
+      symbol: "SUSHI"
+    },
+    cmps: {
+      name: "Compass",
+      symbol: "CMPS",
+      iconUrl: "https://assets.coingecko.com/coins/images/38439/standard/CompassLogo.png"
+    },
+    exd: {
+      name: "Exorde",
+      symbol: "EXD",
+      iconUrl: "https://assets.coingecko.com/coins/images/28684/standard/logo-exorde.png"
+    },
+    hmkr: {
+      name: "Hitmakr",
+      decimals: "9",
+      symbol: "HMKR",
+      iconUrl: "https://assets.coingecko.com/coins/images/36660/standard/HITMAKR_logo.png"
+    },
+    paxg: {
+      name: "PAX Gold",
+      symbol: "PAXG",
+      iconUrl: "https://assets.coingecko.com/coins/images/9519/standard/paxgold.png"
     }
   },
   "connections": {
@@ -110,6 +135,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             "elated-tan-skat": {},
             "green-giddy-denebola": {
               hub: "elated-tan-skat"
+            },
+            "honorable-steel-rasalhague": {
+              hub: "elated-tan-skat"
             }
           }
         },
@@ -133,6 +161,12 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         },
         ruby: {
           address: '0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23',
+          chains: {
+            "elated-tan-skat": {}
+          }
+        },
+        sushi: {
+          address: '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2',
           chains: {
             "elated-tan-skat": {}
           }
@@ -171,6 +205,24 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             "wan-red-ain": {
               "hub": "elated-tan-skat"
             }
+          }
+        },
+        exd: {
+          address: "0x02de007d412266a2e0fa9287c103474170f06560",
+          chains: {
+            "elated-tan-skat": {}
+          }
+        },
+        hmkr: {
+          address: "0x3300b02efa180c99a2f61f4731665b51e4e254c4",
+          chains: {
+            "elated-tan-skat": {}
+          }
+        },
+        paxg: {
+          address: "0x45804880De22913dAFE09f4980848ECE6EcbAf78",
+          chains: {
+            "elated-tan-skat": {}
           }
         }
       }
@@ -215,6 +267,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             },
             'green-giddy-denebola': {
               wrapper: '0x497C476bcABB2F7D50afF99ca3Ae9354451Ff7d0'
+            },
+            'honorable-steel-rasalhague': {
+              wrapper: '0x497C476bcABB2F7D50afF99ca3Ae9354451Ff7d0'
             }
           }
         },
@@ -242,6 +297,14 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         },
         ruby: {
           address: '0x2B4e4899b53E8b7958c4591a6d02f9C0b5c50F8f',
+          chains: {
+            "mainnet": {
+              clone: true
+            }
+          }
+        },
+        sushi: {
+          address: '0xcec20381ac92d610ac444f6d73c1d40726650259',
           chains: {
             "mainnet": {
               clone: true
@@ -288,6 +351,36 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           address: '0xBDDad45160E10C3738785d9dD7F30b4B2a5Eeba8',
           chains: {
             'affectionate-immediate-pollux': {
+              clone: true
+            }
+          }
+        },
+        cmps: {
+          address: '0x31E0B85Eff93fc3cb5423cd3E23868F5B18fF0bB',
+          chains: {
+            "green-giddy-denebola": {}
+          }
+        },
+        exd: {
+          address: "0xCfEBA92BD362B2F76fC30a89C433DE50a1D62BcA",
+          chains: {
+            "mainnet": {
+              clone: true
+            }
+          }
+        },
+        hmkr: {
+          address: "0x57a3d5faa172f5984cdcd4885fd4f0baac88e558",
+          chains: {
+            "mainnet": {
+              clone: true
+            }
+          }
+        },
+        paxg: {
+          address: "0x18478516f526b7947d995e04871562adbeeaa62d",
+          chains: {
+            "mainnet": {
               clone: true
             }
           }
@@ -365,6 +458,18 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               hub: "elated-tan-skat"
             }
           }
+        },
+        wbtc: {
+          address: "0x98f7d76CfFaD0263Ddb30B10244C02530Ba704c4",
+          chains: {
+            "elated-tan-skat": {
+              clone: true
+            },
+            "mainnet": {
+              clone: true,
+              hub: "elated-tan-skat"
+            }
+          }
         }
       }
     },
@@ -423,6 +528,14 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             "mainnet": {
               clone: true,
               hub: "elated-tan-skat"
+            }
+          }
+        },
+        cmps: {
+          address: "0x3e1463814c83cD9dC25F1595314e62557588Ddde",
+          chains: {
+            "elated-tan-skat": {
+              clone: true
             }
           }
         }

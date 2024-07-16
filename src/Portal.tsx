@@ -23,13 +23,12 @@
 
 import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
+import { useMetaportStore, useWagmiAccount, Debug, cls, cmn } from '@skalenetwork/metaport'
 
 import Header from './Header'
 import SkDrawer from './SkDrawer'
 import Router from './Router'
-import ScrollToTop from './components/ScrollToTop'
-
-import { useMetaportStore, useWagmiAccount, Debug, cls, cmn } from '@skalenetwork/metaport'
+import SkBottomNavigation from './SkBottomNavigation'
 
 export default function Portal() {
   const mpc = useMetaportStore((state) => state.mpc)
@@ -38,7 +37,6 @@ export default function Portal() {
   return (
     <Box sx={{ display: 'flex' }} className="AppWrap">
       <CssBaseline />
-      <ScrollToTop />
       <Header address={address} mpc={mpc} />
       <SkDrawer />
       <div className={cls(cmn.fullWidth)} id="appContentScroll">
@@ -47,6 +45,7 @@ export default function Portal() {
           <Debug />
         </div>
       </div>
+      <SkBottomNavigation />
     </Box>
   )
 }
