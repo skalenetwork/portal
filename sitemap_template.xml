@@ -35,4 +35,9 @@
             {BASE_URL}/onramp
         </loc>
     </url>
+     <url>
+        <loc>
+            {BASE_URL}/staking
+        </loc>
+    </url>
 </urlset>

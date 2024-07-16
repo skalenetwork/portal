@@ -20,6 +20,7 @@
  * @file Apps.tsx
  * @copyright SKALE Labs 2024-Present
  */
+
 import { type ReactElement } from 'react'
 import { Helmet } from 'react-helmet'
 
@@ -30,16 +31,18 @@ import Grid from '@mui/material/Grid'
 
 import AppCard from '../components/AppCard'
 
-import { cmn, cls, type MetaportCore, CHAINS_META, type interfaces } from '@skalenetwork/metaport'
+import { cmn, cls, type MetaportCore, type interfaces } from '@skalenetwork/metaport'
 import { META_TAGS } from '../core/meta'
 
-export default function Apps(props: { mpc: MetaportCore }) {
-  const chainsMeta: interfaces.ChainsMetadataMap = CHAINS_META[props.mpc.config.skaleNetwork]
+export default function Apps(props: {
+  mpc: MetaportCore
+  chainsMeta: interfaces.ChainsMetadataMap
+}) {
   const appCards: ReactElement[] = []
 
-  for (const schainName in chainsMeta) {
-    if (chainsMeta.hasOwnProperty(schainName)) {
-      const schain = chainsMeta[schainName]
+  for (const schainName in props.chainsMeta) {
+    if (props.chainsMeta.hasOwnProperty(schainName)) {
+      const schain = props.chainsMeta[schainName]
       if (schain.apps) {
         for (const appName in schain.apps) {
           if (schain.apps.hasOwnProperty(appName)) {
@@ -49,6 +52,7 @@ export default function Apps(props: { mpc: MetaportCore }) {
                   skaleNetwork={props.mpc.config.skaleNetwork}
                   schainName={schainName}
                   appName={appName}
+                  chainsMeta={props.chainsMeta}
                 />
               </Grid>
             )
@@ -61,7 +65,7 @@ export default function Apps(props: { mpc: MetaportCore }) {
   return (
     <Container maxWidth="md">
       <Helmet>
-        <title>{META_TAGS.chains.title}</title>
+        <title>{META_TAGS.apps.title}</title>
         <meta name="description" content={META_TAGS.apps.description} />
         <meta property="og:title" content={META_TAGS.apps.title} />
         <meta property="og:description" content={META_TAGS.apps.description} />

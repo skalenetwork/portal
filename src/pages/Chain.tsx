@@ -21,37 +21,48 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 import { useParams } from 'react-router-dom'
 import Container from '@mui/material/Container'
 import SchainDetails from '../components/SchainDetails'
 import CircularProgress from '@mui/material/CircularProgress'
 
-import { cmn, cls, type MetaportCore, CHAINS_META, type interfaces } from '@skalenetwork/metaport'
+import { cmn, cls, type MetaportCore, type interfaces } from '@skalenetwork/metaport'
+import { IChainMetrics, IMetrics, ISChain, IStats, IStatsData } from '../core/types'
+import { findChainName } from '../core/chain'
 
-export default function Schain(props: { loadSchains: any; schains: any[]; mpc: MetaportCore }) {
-  function findChainName(meta: interfaces.ChainsMetadataMap, name: string): string {
-    for (const key in meta) {
-      if (meta[key].shortAlias === name) {
-        return key
-      }
-    }
-    return name
-  }
-
-  const chainsMeta: interfaces.ChainsMetadataMap = CHAINS_META[props.mpc.config.skaleNetwork]
+export default function Chain(props: {
+  loadData: any
+  schains: ISChain[]
+  stats: IStats | null
+  metrics: IMetrics | null
+  mpc: MetaportCore
+  chainsMeta: interfaces.ChainsMetadataMap
+  isXs: boolean
+}) {
+  const [schainStats, setSchainStats] = useState<IStatsData | null>(null)
+  const [schainMetrics, setSchainMetrics] = useState<IChainMetrics | null>(null)
 
   let { name } = useParams()
-  name = findChainName(chainsMeta, name ?? '')
-
-  const chain = props.schains.find((schain) => schain[0] === name)
+  const chainName: string = findChainName(props.chainsMeta, name ?? '')
+  const chain = props.schains.find((schain) => schain.name === chainName)
 
   useEffect(() => {
-    if (props.schains.length === 0) {
-      props.loadSchains()
-    }
+    props.loadData()
   }, [])
+
+  useEffect(() => {
+    if (props.stats !== null && props.stats.schains[chainName]) {
+      setSchainStats(props.stats.schains[chainName].total)
+    }
+  }, [props.stats])
+
+  useEffect(() => {
+    if (props.metrics !== null && props.metrics.metrics[chainName]) {
+      setSchainMetrics(props.metrics.metrics[chainName])
+    }
+  }, [props.metrics])
 
   if (props.schains.length === 0) {
     return (
@@ -69,12 +80,20 @@ export default function Schain(props: { loadSchains: any; schains: any[]; mpc: M
   }
 
   if (chain === undefined || chain === null) {
-    return <h1>No such chain: {name}</h1>
+    return <h1>No such chain: {chainName}</h1>
   }
 
   return (
     <Container maxWidth="md">
-      <SchainDetails schainName={name} chain={chain} chainMeta={chainsMeta[name]} mpc={props.mpc} />
+      <SchainDetails
+        schainName={chainName}
+        chain={chain}
+        chainsMeta={props.chainsMeta}
+        schainStats={schainStats}
+        schainMetrics={schainMetrics}
+        mpc={props.mpc}
+        isXs={props.isXs}
+      />
     </Container>
   )
 }

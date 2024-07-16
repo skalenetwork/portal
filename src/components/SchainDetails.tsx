@@ -24,19 +24,11 @@
 import { useState } from 'react'
 import { Helmet } from 'react-helmet'
 
-import Button from '@mui/material/Button'
-
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
-import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
-import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
-
 import {
   cmn,
   cls,
   styles,
   PROXY_ENDPOINTS,
-  BASE_EXPLORER_URLS,
   type MetaportCore,
   SkPaper,
   getChainAlias,
@@ -44,35 +36,54 @@ import {
   type interfaces
 } from '@skalenetwork/metaport'
 
+import Button from '@mui/material/Button'
+import { Container } from '@mui/material'
+
+import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
+import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
+import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
+import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
+import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
+import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
+import DataSaverOffRoundedIcon from '@mui/icons-material/DataSaverOffRounded'
+import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded'
+import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
+
 import SkStack from './SkStack'
 import ChainLogo from './ChainLogo'
-import CopySurface from './CopySurface'
-import ChainAccordion from './ChainAccordion'
 import ChainCategories from './ChainCategories'
 import Tile from './Tile'
+import Breadcrumbs from './Breadcrumbs'
+import CollapsibleDescription from './CollapsibleDescription'
 import SkBtn from './SkBtn'
 
-import { MAINNET_CHAIN_LOGOS } from '../core/constants'
-import { getRpcUrl, getExplorerUrl, getChainId, HTTPS_PREFIX } from '../core/chain'
+import { MAINNET_CHAIN_LOGOS, MAINNET_CHAIN_NAME } from '../core/constants'
+import { getRpcUrl, getChainId, HTTPS_PREFIX, getChainDescription } from '../core/chain'
+import { getExplorerUrl } from '../core/explorer'
+import { IChainMetrics, IStatsData } from '../core/types'
+import { formatNumber } from '../core/timeHelper'
+import ChainTabsSection from './ecosystem/tabs/ChainTabsSection'
 
 export default function SchainDetails(props: {
   schainName: string
-  chainMeta: interfaces.ChainMetadata
+  chainsMeta: interfaces.ChainsMetadataMap
+  schainStats: IStatsData | null
+  schainMetrics: IChainMetrics | null
   chain: any
   mpc: MetaportCore
+  isXs: boolean
 }) {
   const [loading, setLoading] = useState<boolean>(false)
   const [added, setAdded] = useState<boolean>(false)
 
   const proxyBase = PROXY_ENDPOINTS[props.mpc.config.skaleNetwork]
-  const explorerBase = BASE_EXPLORER_URLS[props.mpc.config.skaleNetwork]
+  const network = props.mpc.config.skaleNetwork
 
   const rpcUrl = getRpcUrl(proxyBase, props.schainName, HTTPS_PREFIX)
-  const explorerUrl = getExplorerUrl(explorerBase, props.schainName)
+  const explorerUrl = getExplorerUrl(network, props.schainName)
   const chainId = getChainId(props.schainName)
-  const chainIdInt = parseInt(chainId)
-
-  const network = props.mpc.config.skaleNetwork
 
   const networkParams = {
     chainId,
@@ -88,14 +99,6 @@ export default function SchainDetails(props: {
     }
   }
 
-  function timestampToDate(ts: number) {
-    return new Intl.DateTimeFormat('en-US', {
-      year: '2-digit',
-      month: '2-digit',
-      day: '2-digit'
-    }).format(ts * 1000)
-  }
-
   async function addNetwork() {
     setLoading(true)
     try {
@@ -104,6 +107,8 @@ export default function SchainDetails(props: {
         params: [networkParams]
       })
       setAdded(true)
+    } catch (e) {
+      console.error(e)
     } finally {
       setLoading(false)
     }
@@ -114,10 +119,30 @@ export default function SchainDetails(props: {
     return loading ? 'Connecting Chain' : 'Connect to Chain'
   }
 
+  const chainMeta = props.chainsMeta[props.schainName]
+
   const chainAlias = getChainAlias(props.mpc.config.skaleNetwork, props.schainName, undefined, true)
-  const chainDescription = props.chainMeta?.description
-    ? props.chainMeta.description
-    : `Chain was created on ${timestampToDate(props.chain[5])}`
+  const chainDescription = getChainDescription(chainMeta)
+
+  const isMainnet = props.mpc.config.skaleNetwork === MAINNET_CHAIN_NAME
+
+  const getTxCount = () => {
+    return isMainnet
+      ? props.schainStats?.tx_count_total
+      : props.schainMetrics?.chain_stats?.total_transactions
+  }
+
+  const getUAW = () => {
+    return isMainnet
+      ? props.schainStats?.users_count_total
+      : props.schainMetrics?.chain_stats?.total_addresses
+  }
+
+  const getTotalBlocks = () => {
+    return isMainnet
+      ? props.schainStats?.block_count_total
+      : props.schainMetrics?.chain_stats?.total_blocks
+  }
 
   return (
     <div className={cls('chainDetails', cmn.mbott20)}>
@@ -128,77 +153,150 @@ export default function SchainDetails(props: {
         <meta property="og:description" content={chainDescription} />
       </Helmet>
       <SkPaper background={chainBg(network, props.schainName)} className={cls(cmn.mtop10)}>
-        <ChainCategories category={props.chainMeta?.category ?? 'Other'} alias={chainAlias} />
-        <div className={cls('logo', cmn.flex, cmn.flexcv)}>
-          <div className={cls(cmn.flex, cmn.flexg)}></div>
-          <ChainLogo chainName={props.schainName} logos={MAINNET_CHAIN_LOGOS} />
-          <div className={cls(cmn.flex, cmn.flexg)}></div>
-        </div>
+        <SkStack>
+          <div className={cls(cmn.flex)}>
+            <Breadcrumbs
+              sections={[
+                {
+                  text: 'Ecosystem',
+                  icon: <ArrowBackIosNewRoundedIcon />,
+                  url: '/ecosystem'
+                },
+                {
+                  text: chainAlias,
+                  icon: <LinkRoundedIcon />
+                }
+              ]}
+            />
+            <div className={cls(cmn.flexg)}></div>
+          </div>
+          <div className={cls(cmn.flexg)}></div>
+          <ChainCategories
+            category={chainMeta?.category ?? 'Other'}
+            alias={chainAlias}
+            isXs={props.isXs}
+          />
+        </SkStack>
+        <Container className="logo">
+          <ChainLogo
+            network={props.mpc.config.skaleNetwork}
+            chainName={props.schainName}
+            logos={MAINNET_CHAIN_LOGOS}
+          />
+        </Container>
         <SkStack>
           <Tile
             grow
             children={
               <div>
                 <h2 className={cls(cmn.nom)}>{chainAlias}</h2>
-                <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec)}>{chainDescription}</p>
+                <CollapsibleDescription text={chainDescription} />
               </div>
             }
           />
         </SkStack>
         <SkStack className={cmn.mtop10}>
           <Tile
+            className={cls(cmn.nop, cmn.flex, cmn.flexcv)}
             children={
-              <SkStack>
-                <div>
-                  <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
+              <div
+                className={cls(
+                  cmn.m10,
+                  cmn.mleft20,
+                  cmn.mri20,
+                  [cmn.flex, !props.isXs],
+                  cmn.flexcv
+                )}
+              >
+                <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
+                  <Button
+                    size="medium"
+                    className={cls(styles.btnAction, cmn.mri10)}
+                    startIcon={<ViewInArRoundedIcon />}
+                  >
+                    Block Explorer
+                  </Button>
+                </a>
+                <SkBtn
+                  startIcon={added ? <CheckCircleRoundedIcon /> : <AddCircleRoundedIcon />}
+                  size="md"
+                  className={cls(styles.btnAction, cmn.mri10, 'btnPadd', [
+                    'btnPaddLoading',
+                    loading
+                  ])}
+                  onClick={addNetwork}
+                  disabled={loading}
+                  text={connectBtnText()}
+                  loading={loading}
+                />
+                {chainMeta?.url && (
+                  <a target="_blank" rel="noreferrer" href={chainMeta.url} className="undec">
                     <Button
                       size="medium"
-                      className={cls(styles.btnAction, cmn.mri10)}
-                      startIcon={<WidgetsRoundedIcon />}
+                      className={cls(styles.btnAction)}
+                      startIcon={<ArrowOutwardRoundedIcon />}
                     >
-                      Block Explorer
+                      Open Website
                     </Button>
                   </a>
-                </div>
-                <div>
-                  <SkBtn
-                    startIcon={added ? <CheckCircleRoundedIcon /> : <AddCircleRoundedIcon />}
-                    size="md"
-                    className={cls(styles.btnAction, cmn.mri10, 'btnPadd', [
-                      'btnPaddLoading',
-                      loading
-                    ])}
-                    onClick={addNetwork}
-                    disabled={loading}
-                    text={connectBtnText()}
-                    loading={loading}
-                  />
-                </div>
-                <div>
-                  {props.chainMeta?.url ? (
-                    <a
-                      target="_blank"
-                      rel="noreferrer"
-                      href={props.chainMeta.url}
-                      className="undec"
-                    >
-                      <Button
-                        size="medium"
-                        className={cls(styles.btnAction, cmn.mri10)}
-                        startIcon={<ArrowOutwardRoundedIcon />}
-                      >
-                        Open Website
-                      </Button>
-                    </a>
-                  ) : null}
-                </div>
-              </SkStack>
+                )}
+              </div>
             }
           />
-          <CopySurface className={cls(cmn.flexg)} title="Chain ID" value={chainIdInt.toString()} />
+          <Tile
+            size="md"
+            grow
+            text="Daily transactions"
+            value={
+              props.schainMetrics
+                ? formatNumber(props.schainMetrics.chain_stats.transactions_today)
+                : ''
+            }
+            icon={<TrendingUpRoundedIcon />}
+          />
+        </SkStack>
+
+        <SkStack className={cmn.mtop10}>
+          <Tile
+            size="md"
+            grow
+            text="Total transactions"
+            value={formatNumber(getTxCount())}
+            icon={<DataSaverOffRoundedIcon />}
+          />
+          {isMainnet && (
+            <Tile
+              size="md"
+              grow
+              text="Gas saved"
+              value={
+                props.schainStats ? `${formatNumber(props.schainStats.gas_fees_total_eth)} ETH` : ''
+              }
+              icon={<SavingsRoundedIcon />}
+            />
+          )}
+          <Tile
+            size="md"
+            grow
+            text="Unique active wallets"
+            value={formatNumber(getUAW())}
+            icon={<PersonRoundedIcon />}
+          />
+          <Tile
+            size="md"
+            grow
+            text="Total blocks"
+            value={formatNumber(getTotalBlocks())}
+            icon={<GridViewRoundedIcon />}
+          />
         </SkStack>
       </SkPaper>
-      <ChainAccordion mpc={props.mpc} schainName={props.schainName} />
+      <ChainTabsSection
+        chainsMeta={props.chainsMeta}
+        mpc={props.mpc}
+        schainName={props.schainName}
+        isXs={props.isXs}
+      />
     </div>
   )
 }

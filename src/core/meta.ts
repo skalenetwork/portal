@@ -44,10 +44,10 @@ export const META_TAGS = {
     title: 'SKALE Portal - Portfolio',
     description: 'Assets overview across all SKALE Chains.'
   },
-  chains: {
-    title: 'SKALE Portal - Chains',
+  ecosystem: {
+    title: 'SKALE Portal - Ecosystem',
     description:
-      'Connect to SKALE Chains, get block explorer links, endpoints, linked tokens and verified contracts info.'
+      'Explore SKALE Hubs, AppChains, connect to SKALE Chains, get block explorer links, endpoints, linked tokens and verified contracts info.'
   },
   apps: {
     title: 'SKALE Portal - Apps',
@@ -56,6 +56,10 @@ export const META_TAGS = {
   faq: {
     title: 'SKALE Portal - Bridge FAQ',
     description: 'Common questions about SKALE Bridge and transfers on SKALE.'
+  },
+  staking: {
+    title: 'SKALE Portal - Staking',
+    description: 'Delegate, review delegations and withdraw staking rewards'
   },
   onramp: {
     title: 'SKALE Portal - Onramp',

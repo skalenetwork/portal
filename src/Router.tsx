@@ -2,11 +2,12 @@ import './App.scss'
 
 import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
-import { useLocation, Routes, Route, useSearchParams } from 'react-router-dom'
+import { useLocation, Routes, Route, useSearchParams, Navigate, useParams } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
+import { CircularProgress } from '@mui/material'
 
 import {
   useMetaportStore,
@@ -17,17 +18,19 @@ import {
   useWagmiSwitchNetwork,
   walletClientToSigner,
   enforceNetwork,
-  type interfaces
+  type interfaces,
+  cls,
+  cmn
 } from '@skalenetwork/metaport'
 
 import Bridge from './pages/Bridge'
 import Faq from './pages/Faq'
 import Terms from './pages/Terms'
-import Network from './pages/Chains'
-import Schain from './pages/Schain'
+import Chains from './pages/Chains'
+import Chain from './pages/Chain'
 import Stats from './pages/Stats'
 import Apps from './pages/Apps'
-import App from './components/App'
+import App from './pages/App'
 import History from './pages/History'
 import Portfolio from './pages/Portfolio'
 import Admin from './pages/Admin'
@@ -38,14 +41,26 @@ import StakeAmount from './pages/StakeAmount'
 import Validators from './pages/Validators'
 import Onramp from './pages/Onramp'
 import TermsModal from './components/TermsModal'
+import Changelog from './pages/Changelog'
+
+import MetricsWarning from './components/MetricsWarning'
+import ScrollToTop from './components/ScrollToTop'
 
 import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
-import { BRIDGE_PAGES, MAINNET_CHAIN_NAME, STAKING_PAGES } from './core/constants'
+import { BRIDGE_PAGES, MAINNET_CHAIN_NAME, STAKING_PAGES, STATS_API } from './core/constants'
 import { type IValidator, type ISkaleContractsMap, type StakingInfoMap } from './core/interfaces'
 import { getValidators } from './core/delegation/validators'
-import Changelog from './pages/Changelog'
 import { initContracts } from './core/contracts'
 import { getStakingInfoMap } from './core/delegation/staking'
+import { formatSChains } from './core/chain'
+import { IMetrics, ISChain, IStats, IAppId } from './core/types'
+import { getTopAppsByTransactions } from './core/explorer'
+import { loadMeta } from './core/metadata'
+
+const ChainRedirect = () => {
+  const { name } = useParams()
+  return <Navigate to={`/ecosystem/${name}`} replace />
+}
 
 export default function Router() {
   const location = useLocation()
@@ -54,7 +69,11 @@ export default function Router() {
   const theme = useTheme()
   const isXs = useMediaQuery(theme.breakpoints.down('sm'))
 
-  const [schains, setSchains] = useState<any[]>([])
+  const [chainsMeta, setChainsMeta] = useState<interfaces.ChainsMetadataMap | null>(null)
+  const [schains, setSchains] = useState<ISChain[]>([])
+  const [metrics, setMetrics] = useState<IMetrics | null>(null)
+  const [topApps, setTopApps] = useState<IAppId[] | null>(null)
+  const [stats, setStats] = useState<IStats | null>(null)
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false)
   const [stakingTermsAccepted, setStakingTermsAccepted] = useState<boolean>(false)
 
@@ -75,10 +94,12 @@ export default function Router() {
 
   const [searchParams, _] = useSearchParams()
   const endpoint = PROXY_ENDPOINTS[mpc.config.skaleNetwork]
+  const statsApi = STATS_API[mpc.config.skaleNetwork]
 
   useEffect(() => {
     setTransfersHistory(getHistoryFromStorage(mpc.config.skaleNetwork))
     initSkaleContracts()
+    loadMetadata()
   }, [])
 
   useEffect(() => {
@@ -103,14 +124,39 @@ export default function Router() {
     return walletClientToSigner(walletClient!)
   }
 
-  async function loadSchains() {
+  async function loadData() {
+    loadChains()
+    loadMetrics()
+    loadStats()
+  }
+
+  async function loadMetadata() {
+    setChainsMeta(await loadMeta(mpc.config.skaleNetwork))
+  }
+
+  async function loadChains() {
     const response = await fetch(`https://${endpoint}/files/chains.json`)
     const chainsJson = await response.json()
-    const schains = []
-    for (const chain of chainsJson) {
-      schains.push(chain.schain)
+    setSchains(formatSChains(chainsJson))
+  }
+
+  async function loadMetrics() {
+    try {
+      const response = await fetch(`https://${endpoint}/files/metrics.json`)
+      const metricsJson = await response.json()
+      setMetrics(metricsJson)
+      setTopApps(getTopAppsByTransactions(metricsJson.metrics, 10))
+    } catch (e) {
+      console.log('Failed to load metrics')
+      console.error(e)
     }
-    setSchains(schains)
+  }
+
+  async function loadStats() {
+    if (statsApi === null) return
+    const response = await fetch(statsApi)
+    const statsResp = await response.json()
+    setStats(statsResp.payload)
   }
 
   async function initSkaleContracts() {
@@ -158,34 +204,91 @@ export default function Router() {
     )
   }
 
+  if (!chainsMeta)
+    return (
+      <div className="fullscreen-msg">
+        <div className={cls(cmn.flex)}>
+          <div className={cls(cmn.flex, cmn.flexcv, cmn.mri20)}>
+            <CircularProgress className="fullscreen-spin" />
+          </div>
+          <div className={cls(cmn.flex, cmn.flexcv)}>
+            <h3 className="fullscreen-msg-text">Loading SKALE Chains</h3>
+          </div>
+        </div>
+      </div>
+    )
+
   return (
     <div style={{ marginBottom: isXs ? '55px' : '' }}>
       <Helmet>
         <meta property="og:url" content={currentUrl} />
       </Helmet>
+      <MetricsWarning metrics={metrics} />
+      <ScrollToTop />
       <TransitionGroup>
         <CSSTransition key={location.pathname} classNames="fade" timeout={300} component={null}>
           <Routes>
-            <Route index element={<Start isXs={isXs} />} />
+            <Route path="/chains" element={<Navigate to="/ecosystem" />} />
+            <Route path="/chains/:name" element={<ChainRedirect />} />
+            <Route
+              index
+              element={
+                <Start
+                  isXs={isXs}
+                  skaleNetwork={mpc.config.skaleNetwork}
+                  topApps={topApps}
+                  loadData={loadData}
+                  chainsMeta={chainsMeta}
+                />
+              }
+            />
             <Route path="bridge" element={<Bridge isXs={isXs} />} />
             <Route path="bridge">
               <Route path="history" element={<History />} />
             </Route>
             <Route path="portfolio" element={<Portfolio mpc={mpc} />} />
             <Route
-              path="chains"
-              element={<Network loadSchains={loadSchains} schains={schains} mpc={mpc} />}
+              path="ecosystem"
+              element={
+                <Chains
+                  chainsMeta={chainsMeta}
+                  loadData={loadData}
+                  schains={schains}
+                  metrics={metrics}
+                  mpc={mpc}
+                  isXs={isXs}
+                />
+              }
             />
-            <Route path="chains">
+            <Route path="ecosystem">
               <Route
                 path=":name"
-                element={<Schain loadSchains={loadSchains} schains={schains} mpc={mpc} />}
+                element={
+                  <Chain
+                    loadData={loadData}
+                    schains={schains}
+                    stats={stats}
+                    metrics={metrics}
+                    mpc={mpc}
+                    chainsMeta={chainsMeta}
+                    isXs={isXs}
+                  />
+                }
+              />
+              <Route
+                path=":chain/:app"
+                element={
+                  <App
+                    chainsMeta={chainsMeta}
+                    mpc={mpc}
+                    isXs={isXs}
+                    metrics={metrics}
+                    loadData={loadData}
+                  />
+                }
               />
             </Route>
-            <Route path="apps" element={<Apps mpc={mpc} />} />
-            <Route path="apps">
-              <Route path=":name" element={<App />} />
-            </Route>
+            <Route path="apps" element={<Apps mpc={mpc} chainsMeta={chainsMeta} />} />
             <Route path="onramp" element={<Onramp mpc={mpc} />} />
             <Route path="stats" element={<Stats />} />
             <Route path="other">
