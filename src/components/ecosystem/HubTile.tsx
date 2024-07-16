@@ -115,7 +115,7 @@ export default function HubTile(props: {
                   <TrendingUpRoundedIcon />
                   <p className={cls(cmn.p, cmn.p5, cmn.mleft10)}>
                     {schainMetrics
-                      ? formatNumber(schainMetrics.chain_stats.transactions_today)
+                      ? formatNumber(schainMetrics.chain_stats?.transactions_today)
                       : '...'}
                     + Daily Tx
                   </p>

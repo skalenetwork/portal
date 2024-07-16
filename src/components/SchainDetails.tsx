@@ -249,7 +249,7 @@ export default function SchainDetails(props: {
             text="Daily transactions"
             value={
               props.schainMetrics
-                ? formatNumber(props.schainMetrics.chain_stats.transactions_today)
+                ? formatNumber(props.schainMetrics.chain_stats?.transactions_today)
                 : ''
             }
             icon={<TrendingUpRoundedIcon />}
