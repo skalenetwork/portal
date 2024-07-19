@@ -21,8 +21,7 @@
  */
 
 import debug from 'debug'
-import { type Contract, type AbstractProvider, type Signer } from 'ethers'
-import { MulticallWrapper } from 'ethers-multicall-provider'
+import { type Contract, type Signer } from 'ethers'
 import { skaleContracts, type Instance } from '@skalenetwork/skale-contracts-ethers-v6'
 import { type MetaportCore, type interfaces } from '@skalenetwork/metaport'
 
@@ -37,7 +36,7 @@ type PROJECT_TYPE = 'manager' | 'allocator' | 'grants'
 
 export async function initContracts(mpc: MetaportCore): Promise<ISkaleContractsMap> {
   log('Initializing contracts')
-  const provider = MulticallWrapper.wrap(mpc.provider('mainnet') as AbstractProvider)
+  const provider = mpc.provider('mainnet')
   const network = await skaleContracts.getNetworkByProvider(provider)
   const managerProject = await network.getProject('skale-manager')
   const manager = await getInstance(managerProject, mpc.config.skaleNetwork, 'manager')
