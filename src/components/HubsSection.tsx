@@ -17,54 +17,48 @@
  */
 
 /**
- * @file CategorySection.tsx
- * @copyright SKALE Labs 2022-Present
+ * @file HubsSection.tsx
+ * @copyright SKALE Labs 2024-Present
  */
 
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 
-import ChainCard from './ChainCard'
-import { type interfaces, getChainAlias } from '@skalenetwork/metaport'
+import HubCard from './HubCard'
+import { cls, cmn, type interfaces } from '@skalenetwork/metaport'
 import { IMetrics, ISChain } from '../core/types'
 
-export default function CategorySection(props: {
-  schains: any
+export default function HubsSection(props: {
+  schains: ISChain[]
+  metrics: IMetrics | null
   category: string
   skaleNetwork: interfaces.SkaleNetwork
+  isXs: boolean
   chainsMeta: interfaces.ChainsMetadataMap
-  metrics?: IMetrics | null
 }) {
+  function getMaxLength(schain: string, chainsMeta: interfaces.ChainsMetadataMap): number {
+    return Object.keys(chainsMeta[schain].apps || {}).length
+  }
+
   if (!props.schains || props.schains.length === 0) return
-  const schains = props.schains.sort((a: ISChain, b: ISChain) => {
-    const aliasA = getChainAlias(props.skaleNetwork, a.name)
-    const aliasB = getChainAlias(props.skaleNetwork, b.name)
-    return aliasA.localeCompare(aliasB)
+  props.schains.sort((chainA: any, chainB: any) => {
+    const maxLengthA = getMaxLength(chainA.name, props.chainsMeta)
+    const maxLengthB = getMaxLength(chainB.name, props.chainsMeta)
+    return maxLengthB - maxLengthA
   })
-  const isHub = props.category === 'hubs'
+
   return (
-    <div>
+    <div className={cls(cmn.mtop20)}>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-          {schains.map((schain: ISChain) => (
-            <Grid
-              key={schain.name}
-              className="fl-centered dappCard"
-              item
-              lg={isHub ? 6 : 3}
-              xs={isHub ? 12 : 6}
-            >
-              <ChainCard
+          {props.schains.map((schain: ISChain) => (
+            <Grid key={schain.name} className="fl-centered dappCard" item xs={12}>
+              <HubCard
+                isXs={props.isXs}
                 skaleNetwork={props.skaleNetwork}
                 schain={schain}
+                metrics={props.metrics}
                 chainsMeta={props.chainsMeta}
-                transactions={
-                  props.metrics &&
-                  props.metrics.metrics[schain.name] &&
-                  props.metrics.metrics[schain.name].chain_stats
-                    ? props.metrics.metrics[schain.name].chain_stats.transactions_today
-                    : null
-                }
               />
             </Grid>
           ))}

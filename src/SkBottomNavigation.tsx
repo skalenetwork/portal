@@ -41,7 +41,8 @@ export default function SkBottomNavigation() {
     setValue(500)
     if (location.pathname === '/') setValue(0)
     if (location.pathname === '/bridge' || location.pathname.includes('/transfer')) setValue(1)
-    if (location.pathname.includes('/chains') || location.pathname.includes('/admin')) setValue(2)
+    if (location.pathname.includes('/ecosystem') || location.pathname.includes('/admin'))
+      setValue(2)
     if (location.pathname.includes('/staking')) setValue(3)
   }, [location])
 
@@ -69,10 +70,10 @@ export default function SkBottomNavigation() {
           }}
         />
         <BottomNavigationAction
-          label="Chains"
+          label="Ecosystem"
           icon={<PublicOutlinedIcon />}
           onClick={() => {
-            navigate('/chains')
+            navigate('/ecosystem')
           }}
         />
         <BottomNavigationAction

@@ -37,7 +37,7 @@ export default function LinkSurface(props: {
   return (
     <div className={props.className}>
       <a target="_blank" rel="noreferrer" href={props.url} className={cls('undec', cmn.pPrim)}>
-        <Tooltip title={'Clicl to see contract'}>
+        <Tooltip title={'Click to see contract'}>
           <ButtonBase className="titleSection" style={{ width: '100%' }}>
             <div style={{ textAlign: 'left', overflow: 'auto' }} className={cmn.flexg}>
               <div className={cls(cmn.flex)}>

@@ -1,7 +1,7 @@
 {
   "name": "portal",
   "private": true,
-  "version": "2.2.1",
+  "version": "2.3.0",
   "type": "module",
   "scripts": {
     "build-testnet": "NETWORK_NAME=testnet bash build.sh",
@@ -17,7 +17,7 @@
     "@mdx-js/rollup": "^2.3.0",
     "@mui/icons-material": "^5.15.14",
     "@mui/material": "^5.15.14",
-    "@skalenetwork/metaport": "2.1.1-develop.2",
+    "@skalenetwork/metaport": "2.3.0-develop.0",
     "@skalenetwork/skale-contracts-ethers-v6": "1.0.1",
     "@transak/transak-sdk": "^3.1.1",
     "@types/react-copy-to-clipboard": "^5.0.4",
