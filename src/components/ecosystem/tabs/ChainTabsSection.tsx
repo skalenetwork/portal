@@ -102,7 +102,7 @@ export default function ChainTabsSection(props: {
       currentTabs.unshift({ label: 'Tokens', icon: <AccountBalanceWalletRoundedIcon /> })
       currentTabsContent.unshift(<Tokens mpc={props.mpc} schainName={props.schainName} />)
     }
-    if (props.chainsMeta[props.schainName].apps) {
+    if (props.chainsMeta[props.schainName] && props.chainsMeta[props.schainName].apps) {
       currentTabs.unshift({ label: 'Apps', icon: <WidgetsRoundedIcon /> })
       currentTabsContent.unshift(
         <SkPaper gray className={cls(cmn.mtop20)}>
