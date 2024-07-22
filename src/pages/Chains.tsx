@@ -30,13 +30,11 @@ import CircularProgress from '@mui/material/CircularProgress'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 
 import HubsSection from '../components/HubsSection'
-import CategorySection from '../components/CategorySection'
 import { getPrimaryCategory } from '../components/CategoryBadge'
 
 import { cmn, cls, styles, type MetaportCore, type interfaces } from '@skalenetwork/metaport'
 
 import { META_TAGS } from '../core/meta'
-import { MAINNET_CHAIN_NAME } from '../core/constants'
 import { Button } from '@mui/material'
 import AppChains from '../components/AppChains'
 import { IMetrics, ISChain } from '../core/types'
