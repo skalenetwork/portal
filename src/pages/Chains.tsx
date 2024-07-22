@@ -30,13 +30,11 @@ import CircularProgress from '@mui/material/CircularProgress'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 
 import HubsSection from '../components/HubsSection'
-import CategorySection from '../components/CategorySection'
 import { getPrimaryCategory } from '../components/CategoryBadge'
 
 import { cmn, cls, styles, type MetaportCore, type interfaces } from '@skalenetwork/metaport'
 
 import { META_TAGS } from '../core/meta'
-import { MAINNET_CHAIN_NAME } from '../core/constants'
 import { Button } from '@mui/material'
 import AppChains from '../components/AppChains'
 import { IMetrics, ISChain } from '../core/types'
@@ -108,19 +106,12 @@ export default function Chains(props: {
             chainsMeta={props.chainsMeta}
             schains={props.schains.filter(
               (schain) =>
-                props.chainsMeta[schain.name] &&
-                getPrimaryCategory(props.chainsMeta[schain.name].category) === 'AppChain'
+                (props.chainsMeta[schain.name] &&
+                  getPrimaryCategory(props.chainsMeta[schain.name].category) === 'AppChain') ||
+                !props.chainsMeta[schain.name]
             )}
             isXs={props.isXs}
           />
-          {props.mpc.config.skaleNetwork !== MAINNET_CHAIN_NAME ? (
-            <CategorySection
-              skaleNetwork={props.mpc.config.skaleNetwork}
-              category="other"
-              schains={props.schains.filter((schain) => !props.chainsMeta[schain.name])}
-              chainsMeta={props.chainsMeta}
-            />
-          ) : null}
         </div>
         <div className={cls(cmn.mbott20)}>
           <div className={cls(cmn.flex)}>

@@ -250,7 +250,7 @@ export default function SchainDetails(props: {
             value={
               props.schainMetrics
                 ? formatNumber(props.schainMetrics.chain_stats?.transactions_today)
-                : ''
+                : '0'
             }
             icon={<TrendingUpRoundedIcon />}
           />
