@@ -26,6 +26,7 @@ import { cmn, cls, type interfaces, SkPaper, styles } from '@skalenetwork/metapo
 import CategorySection from './CategorySection'
 import appChainsIcon from '../assets/appChains.png'
 import { IMetrics } from '../core/types'
+import { MAINNET_CHAIN_NAME } from '../core/constants'
 
 export default function AppChains(props: {
   skaleNetwork: interfaces.SkaleNetwork
@@ -66,12 +67,16 @@ export default function AppChains(props: {
             </div>
           </div>
         </SkPaper>
-        <div className={cls(['nestedSection', !props.isXs], cmn.mtop20, cmn.ptop20, cmn.mbott5)}>
+        <div className={cls(['nestedSection', !props.isXs], cmn.mtop20, cmn.ptop10, cmn.mbott5)}>
           <div className={cls([cmn.mleft10, props.isXs])}>
             <CategorySection
               skaleNetwork={props.skaleNetwork}
               category="appChains"
-              schains={props.schains}
+              schains={
+                props.skaleNetwork === MAINNET_CHAIN_NAME
+                  ? props.schains.filter((schain) => props.chainsMeta[schain.name])
+                  : props.schains
+              }
               metrics={props.metrics}
               chainsMeta={props.chainsMeta}
             />
