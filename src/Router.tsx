@@ -2,7 +2,7 @@ import './App.scss'
 
 import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
-import { useLocation, Routes, Route, useSearchParams, Navigate, useParams } from 'react-router-dom'
+import { useLocation, Routes, Route, useSearchParams } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { useTheme } from '@mui/material/styles'
@@ -56,11 +56,6 @@ import { formatSChains } from './core/chain'
 import { IMetrics, ISChain, IStats, IAppId } from './core/types'
 import { getTopAppsByTransactions } from './core/explorer'
 import { loadMeta } from './core/metadata'
-
-const ChainRedirect = () => {
-  const { name } = useParams()
-  return <Navigate to={`/ecosystem/${name}`} replace />
-}
 
 export default function Router() {
   const location = useLocation()
@@ -228,8 +223,6 @@ export default function Router() {
       <TransitionGroup>
         <CSSTransition key={location.pathname} classNames="fade" timeout={300} component={null}>
           <Routes>
-            <Route path="/chains" element={<Navigate to="/ecosystem" />} />
-            <Route path="/chains/:name" element={<ChainRedirect />} />
             <Route
               index
               element={
@@ -248,7 +241,7 @@ export default function Router() {
             </Route>
             <Route path="portfolio" element={<Portfolio mpc={mpc} />} />
             <Route
-              path="ecosystem"
+              path="chains"
               element={
                 <Chains
                   chainsMeta={chainsMeta}
@@ -260,7 +253,7 @@ export default function Router() {
                 />
               }
             />
-            <Route path="ecosystem">
+            <Route path="chains">
               <Route
                 path=":name"
                 element={
@@ -288,7 +281,7 @@ export default function Router() {
                 }
               />
             </Route>
-            <Route path="apps" element={<Apps mpc={mpc} chainsMeta={chainsMeta} />} />
+            <Route path="ecosystem" element={<Apps mpc={mpc} chainsMeta={chainsMeta} />} />
             <Route path="onramp" element={<Onramp mpc={mpc} />} />
             <Route path="stats" element={<Stats />} />
             <Route path="other">

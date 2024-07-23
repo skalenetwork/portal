@@ -23,8 +23,8 @@
 
 import { cmn, cls, type interfaces } from '@skalenetwork/metaport'
 
-import HubTile from './ecosystem/HubTile'
-import HubApps from './ecosystem/HubApps'
+import HubTile from './chains/HubTile'
+import HubApps from './chains/HubApps'
 
 import { IMetrics, ISChain } from '../core/types'
 

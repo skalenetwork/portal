@@ -46,7 +46,7 @@ export default function Apps(props: {
       if (schain.apps) {
         for (const appName in schain.apps) {
           if (schain.apps.hasOwnProperty(appName)) {
-            appCards.push(
+            const card = (
               <Grid key={appName} className="fl-centered dappCard" item lg={3} md={4} sm={6} xs={6}>
                 <AppCard
                   skaleNetwork={props.mpc.config.skaleNetwork}
@@ -56,6 +56,7 @@ export default function Apps(props: {
                 />
               </Grid>
             )
+            appCards.push(card)
           }
         }
       }
@@ -72,10 +73,10 @@ export default function Apps(props: {
       </Helmet>
       <Stack spacing={0}>
         <div className={cls(cmn.flex)}>
-          <h2 className={cls(cmn.nom)}>Apps</h2>
+          <h2 className={cls(cmn.nom)}>Ecosystem</h2>
         </div>
         <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-          Explore and interact with dApps on SKALE Network.
+          Explore and interact with apps and games on SKALE Network
         </p>
         <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20)}>
           <Grid container spacing={2}>

@@ -55,7 +55,7 @@ import Tile from '../components/Tile'
 import LinkSurface from '../components/LinkSurface'
 import Breadcrumbs from '../components/Breadcrumbs'
 import CollapsibleDescription from '../components/CollapsibleDescription'
-import HubTile from '../components/ecosystem/HubTile'
+import HubTile from '../components/chains/HubTile'
 import AccordionSection from '../components/AccordionSection'
 
 import { findChainName } from '../core/chain'
@@ -116,12 +116,6 @@ export default function App(props: {
     return formatNumber(Number(fromWei(gasSpentGwei, '9')))
   }
 
-  // const breadcrumbs: BreadcrumbSection[] = [{
-  //   text: 'Ecosystem',
-  //   icon: <ArrowBackIosNewRoundedIcon />,
-  //   url: '/ecosystem'
-  // }]
-
   return (
     <Container maxWidth="md">
       <div className={cls('chainDetails', cmn.mbott20)}>
@@ -137,14 +131,14 @@ export default function App(props: {
               <Breadcrumbs
                 sections={[
                   {
-                    text: props.isXs ? 'Ecosystem' : 'Ecosystem',
+                    text: 'Chains',
                     icon: <ArrowBackIosNewRoundedIcon />,
-                    url: '/ecosystem'
+                    url: '/chains'
                   },
                   {
                     text: props.isXs ? 'Hub' : chainAlias,
                     icon: <LinkRoundedIcon />,
-                    url: `/ecosystem/${chain}`
+                    url: `/chains/${chain}`
                   },
                   {
                     text: appAlias,
