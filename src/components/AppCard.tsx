@@ -39,7 +39,7 @@ export default function AppCard(props: {
   transactions?: number
 }) {
   const shortAlias = getChainShortAlias(props.chainsMeta, props.schainName)
-  const url = `/ecosystem/${shortAlias}/${props.appName}`
+  const url = `/chains/${shortAlias}/${props.appName}`
 
   return (
     <div>
