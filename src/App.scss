@@ -239,7 +239,6 @@ body::-webkit-scrollbar {
 }
 
 .br__tile {
-  // box-shadow: 0px -4px 6px rgba(255, 255, 255, 0.05);
   transform-style: preserve-3d;
   transition: all 0.3s ease;
 }
@@ -400,6 +399,15 @@ body::-webkit-scrollbar {
   padding: 0.6em 2em !important;
   border-radius: $sk-border-radius !important;
   box-shadow: none !important;
+}
+
+.btnPadd{
+  padding-left: 8px !important;
+  padding-right: 8px !important;
+}
+
+.btnPaddLoading {
+  padding-left: 25px !important;
 }
 
 .btnLg {
@@ -1095,4 +1103,19 @@ a,
   height: calc(100vh - 340px);
   border: none;
   z-Index: 1
+}
+
+
+
+.hoverable {
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+}
+
+.hoverable:hover {
+  transform: scale(1.03);
+}
+
+.paddBott60 {
+  padding-bottom: 60px;
 }
