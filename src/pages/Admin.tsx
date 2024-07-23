@@ -48,12 +48,12 @@ export default function Admin(props: { mpc: MetaportCore }) {
               {
                 text: 'All chains',
                 icon: <ArrowBackIosNewRoundedIcon />,
-                url: '/ecosystem'
+                url: '/chains'
               },
               {
                 text: alias,
                 icon: <LinkRoundedIcon />,
-                url: `/ecosystem/${name}`
+                url: `/chains/${name}`
               },
               {
                 text: 'Manage',

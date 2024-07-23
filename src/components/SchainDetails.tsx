@@ -64,7 +64,7 @@ import { getRpcUrl, getChainId, HTTPS_PREFIX, getChainDescription } from '../cor
 import { getExplorerUrl } from '../core/explorer'
 import { IChainMetrics, IStatsData } from '../core/types'
 import { formatNumber } from '../core/timeHelper'
-import ChainTabsSection from './ecosystem/tabs/ChainTabsSection'
+import ChainTabsSection from './chains/tabs/ChainTabsSection'
 
 export default function SchainDetails(props: {
   schainName: string
@@ -158,9 +158,9 @@ export default function SchainDetails(props: {
             <Breadcrumbs
               sections={[
                 {
-                  text: 'Ecosystem',
+                  text: 'chains',
                   icon: <ArrowBackIosNewRoundedIcon />,
-                  url: '/ecosystem'
+                  url: '/chains'
                 },
                 {
                   text: chainAlias,

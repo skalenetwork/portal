@@ -44,8 +44,8 @@ export const META_TAGS = {
     title: 'SKALE Portal - Portfolio',
     description: 'Assets overview across all SKALE Chains.'
   },
-  ecosystem: {
-    title: 'SKALE Portal - Ecosystem',
+  chains: {
+    title: 'SKALE Portal - Chains',
     description:
       'Explore SKALE Hubs, AppChains, connect to SKALE Chains, get block explorer links, endpoints, linked tokens and verified contracts info.'
   },

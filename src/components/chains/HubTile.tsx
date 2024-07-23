@@ -71,7 +71,7 @@ export default function HubTile(props: {
         >
           <Tooltip title="Click to see Hub details">
             <div className={cls('titleSectionBg', cmn.flex, cmn.flexcv)}>
-              <Link to={'/ecosystem/' + shortAlias} className={cls(cmn.flex, cmn.pPrim, cmn.flexg)}>
+              <Link to={'/chains/' + shortAlias} className={cls(cmn.flex, cmn.pPrim, cmn.flexg)}>
                 <div
                   className={cls(
                     cmn.flex,

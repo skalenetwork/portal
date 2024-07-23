@@ -47,7 +47,7 @@ export default function ChainCard(props: {
           style={{ background: chainBg(props.skaleNetwork, props.schain.name) }}
         >
           <Link
-            to={'/ecosystem/' + shortAlias}
+            to={'/chains/' + shortAlias}
             className={cls('br__tileLogo', 'br__tileIns', cmn.flex)}
           >
             <div className={cls(cmn.flex, cmn.flexg)}></div>
@@ -64,7 +64,7 @@ export default function ChainCard(props: {
             className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, 'br__tileBott', 'fullWidth')}
           ></div>
         </div>
-        <Link to={'/ecosystem/' + shortAlias}>
+        <Link to={'/chains/' + shortAlias}>
           <Button size="small" className={'cardBtn'}>
             <span
               style={{
