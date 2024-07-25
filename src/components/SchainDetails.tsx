@@ -158,7 +158,7 @@ export default function SchainDetails(props: {
             <Breadcrumbs
               sections={[
                 {
-                  text: 'chains',
+                  text: 'Chains',
                   icon: <ArrowBackIosNewRoundedIcon />,
                   url: '/chains'
                 },

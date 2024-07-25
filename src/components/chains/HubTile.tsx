@@ -62,74 +62,71 @@ export default function HubTile(props: {
   const chainDescription = getChainDescription(chainMeta)
 
   return (
-    <div>
-      <div>
-        <SkPaper
-          gray
-          className={cls('titleSectionOut', 'border', 'hoverable', 'pointer')}
-          background={props.bg ? chainBg(props.chainsMeta, props.schainName) : ''}
-        >
-          <Tooltip title="Click to see Hub details">
-            <div className={cls('titleSectionBg', cmn.flex, cmn.flexcv)}>
-              <Link to={'/chains/' + shortAlias} className={cls(cmn.flex, cmn.pPrim, cmn.flexg)}>
-                <div
+    <Link to={'/chains/' + shortAlias} className={cls(cmn.flex, cmn.pPrim, cmn.flexg)}>
+      <SkPaper
+        gray
+        className={cls('titleSectionOut', 'border', 'hoverable', 'pointer', cmn.flexg)}
+        background={props.bg ? chainBg(props.chainsMeta, props.schainName) : ''}
+      >
+        <Tooltip title="Click to see Hub details">
+          <div className={cls('titleSectionBg', cmn.flex, cmn.flexcv)}>
+
+            <div
+              className={cls(
+                cmn.flex,
+                cmn.flexcv,
+                cmn.flexg,
+                cmn.mtop20,
+                cmn.mbott20,
+                cmn.mleft20
+              )}
+            >
+              <ChainLogo
+                network={props.network}
+                chainName={props.schainName}
+                logos={MAINNET_CHAIN_LOGOS}
+                className={cls(styles.chainIconlg)}
+              />
+              <div
+                className={cls(
+                  [cmn.mleft20, !props.isXs],
+                  [cmn.mleft10, props.isXs],
+                  cmn.flexg
+                )}
+              >
+                <h4 className={cls(cmn.p, cmn.p700, 'pOneLine')}>{alias}</h4>
+                <p
                   className={cls(
-                    cmn.flex,
-                    cmn.flexcv,
-                    cmn.flexg,
-                    cmn.mtop20,
-                    cmn.mbott20,
-                    cmn.mleft20
+                    cmn.p,
+                    [cmn.p4, !props.isXs],
+                    [cmn.p5, props.isXs],
+                    [cmn.mri10, props.isXs],
+                    cmn.pSec
                   )}
                 >
-                  <ChainLogo
-                    network={props.network}
-                    chainName={props.schainName}
-                    logos={MAINNET_CHAIN_LOGOS}
-                    className={cls(styles.chainIconlg)}
-                  />
-                  <div
-                    className={cls(
-                      [cmn.mleft20, !props.isXs],
-                      [cmn.mleft10, props.isXs],
-                      cmn.flexg
-                    )}
-                  >
-                    <h4 className={cls(cmn.p, cmn.p700, 'pOneLine')}>{alias}</h4>
-                    <p
-                      className={cls(
-                        cmn.p,
-                        [cmn.p4, !props.isXs],
-                        [cmn.p5, props.isXs],
-                        [cmn.mri10, props.isXs],
-                        cmn.pSec
-                      )}
-                    >
-                      {chainDescription.split('.', 1)[0]}
-                    </p>
-                  </div>
-                </div>
-              </Link>
-              {props.isXs || !props.showStats ? null : (
-                <div className={cls('shipHot', 'shipSm', cmn.mri10, cmn.flex, cmn.flexcv)}>
-                  <TrendingUpRoundedIcon />
-                  <p className={cls(cmn.p, cmn.p5, cmn.mleft10)}>
-                    {schainMetrics
-                      ? formatNumber(schainMetrics.chain_stats?.transactions_today)
-                      : '...'}
-                    + Daily Tx
-                  </p>
-                </div>
-              )}
-              {!props.isXs && (
-                <div className={cls(cmn.mri20, styles.chainIconxs)}>
-                  <ArrowForwardIosRoundedIcon className={cls(cmn.pSec)} />
-                </div>
-              )}
+                  {chainDescription.split('.', 1)[0]}
+                </p>
+              </div>
             </div>
-          </Tooltip>
-        </SkPaper>
-      </div>
-    </div>
+            {props.isXs || !props.showStats ? null : (
+              <div className={cls('shipHot', 'shipSm', cmn.mri10, cmn.flex, cmn.flexcv)}>
+                <TrendingUpRoundedIcon />
+                <p className={cls(cmn.p, cmn.p5, cmn.mleft10)}>
+                  {schainMetrics
+                    ? formatNumber(schainMetrics.chain_stats?.transactions_today)
+                    : '...'}
+                  + Daily Tx
+                </p>
+              </div>
+            )}
+            {!props.isXs && (
+              <div className={cls(cmn.mri20, styles.chainIconxs)}>
+                <ArrowForwardIosRoundedIcon className={cls(cmn.pSec)} />
+              </div>
+            )}
+          </div>
+        </Tooltip>
+      </SkPaper>
+    </Link>
   )
 }
