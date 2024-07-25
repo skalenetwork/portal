@@ -40,14 +40,6 @@ import Message from '../Message'
 import { ZERO_ADDRESS } from '../../core/constants'
 import SkBtn from '../SkBtn'
 
-const style = {
-  position: 'absolute' as 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  minWidth: '100vw'
-}
-
 export default function RetrieveRewardModal(props: {
   address: interfaces.AddressType | undefined
   customRewardAddress: interfaces.AddressType | undefined
@@ -97,7 +89,16 @@ export default function RetrieveRewardModal(props: {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box
+          sx={{
+            position: 'absolute' as 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            minWidth: { xs: '100%', md: 'max-content' }
+          }}
+          className={cls(cmn.flexg, cmn.flexcv, cmn.flex, cmn.flexc)}
+        >
           <Container maxWidth="md">
             <SkPaper className={cls(cmn.nop)}>
               <SkPaper gray>

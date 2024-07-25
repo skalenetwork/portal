@@ -27,7 +27,8 @@ import { useState, useEffect } from 'react'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
-import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
+import EditRoundedIcon from '@mui/icons-material/EditRounded'
+import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded'
 
 import HubsSection from '../components/HubsSection'
 import { getPrimaryCategory } from '../components/CategoryBadge'
@@ -116,7 +117,7 @@ export default function Chains(props: {
         <div className={cls(cmn.mbott20)}>
           <div className={cls(cmn.flex)}>
             <div className={cls(cmn.flex, cmn.flexg)}></div>
-            <div className={cls(cmn.flex, cmn.mtop10)}>
+            <div className={cls(cmn.flex, cmn.mtop10, cmn.mri10)}>
               <a
                 target="_blank"
                 rel="noreferrer"
@@ -126,9 +127,25 @@ export default function Chains(props: {
                 <Button
                   size="medium"
                   className={cls(styles.btnAction, 'btnMd', 'outlined', cmn.mri10)}
-                  endIcon={<ArrowOutwardRoundedIcon className={cls(styles.chainIconxs)} />}
+                  startIcon={<LanguageRoundedIcon className={cls(styles.chainIconxs)} />}
                 >
                   Explore All SKALE Projects
+                </Button>
+              </a>
+            </div>
+            <div className={cls(cmn.flex, cmn.mtop10, cmn.mleft10)}>
+              <a
+                target="_blank"
+                rel="noreferrer"
+                href="https://github.com/skalenetwork/skale-network/issues/new?assignees=dmytrotkk&labels=metadata&projects=&template=app_submission.yml&title=App+Metadata+Submission"
+                className="undec"
+              >
+                <Button
+                  size="medium"
+                  className={cls(styles.btnAction, 'btnMd', 'outlined', cmn.mri10)}
+                  startIcon={<EditRoundedIcon className={cls(styles.chainIconxs)} />}
+                >
+                  Submit Your Project
                 </Button>
               </a>
             </div>

@@ -70,16 +70,8 @@ export default function HubTile(props: {
       >
         <Tooltip title="Click to see Hub details">
           <div className={cls('titleSectionBg', cmn.flex, cmn.flexcv)}>
-
             <div
-              className={cls(
-                cmn.flex,
-                cmn.flexcv,
-                cmn.flexg,
-                cmn.mtop20,
-                cmn.mbott20,
-                cmn.mleft20
-              )}
+              className={cls(cmn.flex, cmn.flexcv, cmn.flexg, cmn.mtop20, cmn.mbott20, cmn.mleft20)}
             >
               <ChainLogo
                 network={props.network}
@@ -88,11 +80,7 @@ export default function HubTile(props: {
                 className={cls(styles.chainIconlg)}
               />
               <div
-                className={cls(
-                  [cmn.mleft20, !props.isXs],
-                  [cmn.mleft10, props.isXs],
-                  cmn.flexg
-                )}
+                className={cls([cmn.mleft20, !props.isXs], [cmn.mleft10, props.isXs], cmn.flexg)}
               >
                 <h4 className={cls(cmn.p, cmn.p700, 'pOneLine')}>{alias}</h4>
                 <p
