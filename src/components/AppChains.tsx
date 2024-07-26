@@ -35,6 +35,8 @@ export default function AppChains(props: {
   chainsMeta: interfaces.ChainsMetadataMap
   isXs: boolean
 }) {
+  if (props.schains.length === 0) return
+
   return (
     <div className={cls(cmn.mtop20)}>
       <div>
