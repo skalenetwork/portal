@@ -278,7 +278,7 @@ export default function SchainDetails(props: {
           <Tile
             size="md"
             grow
-            text="Unique active wallets"
+            text={isMainnet ? 'Unique active wallets' : 'Total addresses'}
             value={formatNumber(getUAW())}
             icon={<PersonRoundedIcon />}
           />
