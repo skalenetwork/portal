@@ -31,11 +31,25 @@ import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded'
 import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded'
 import AccountTreeRoundedIcon from '@mui/icons-material/AccountTreeRounded'
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
+import SwapCallsRoundedIcon from '@mui/icons-material/SwapCallsRounded'
+import SurroundSoundRoundedIcon from '@mui/icons-material/SurroundSoundRounded'
+import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
+import StoreRoundedIcon from '@mui/icons-material/StoreRounded'
+import GroupRoundedIcon from '@mui/icons-material/GroupRounded'
+import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded'
+import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
+import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded'
+import SportsBasketballRoundedIcon from '@mui/icons-material/SportsBasketballRounded'
+import AgricultureRoundedIcon from '@mui/icons-material/AgricultureRounded'
+import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded'
+import PhotoCameraRoundedIcon from '@mui/icons-material/PhotoCameraRounded'
+
 import { cmn, cls } from '@skalenetwork/metaport'
 
 export const CATEGORY_ICON: any = {
   hubs: <HubRoundedIcon />,
   games: <VideogameAssetRoundedIcon />,
+  Games: <VideogameAssetRoundedIcon />,
   apps: <ExploreRoundedIcon />,
   other: <GridViewRoundedIcon />,
   Hub: <HubRoundedIcon />,
@@ -46,7 +60,20 @@ export const CATEGORY_ICON: any = {
   Community: <PeopleRoundedIcon />,
   Data: <AccountTreeRoundedIcon />,
   appChains: <WidgetsRoundedIcon />,
-  AppChain: <WidgetsRoundedIcon />
+  AppChain: <WidgetsRoundedIcon />,
+  Exchanges: <SwapCallsRoundedIcon />,
+  Staking: <SurroundSoundRoundedIcon />,
+  Yield: <AllInboxRoundedIcon />,
+  Pools: <AllInboxRoundedIcon />,
+  Marketplaces: <StoreRoundedIcon />,
+  Social: <GroupRoundedIcon />,
+  Metaverse: <LanguageRoundedIcon />,
+  Governance: <AccountBalanceRoundedIcon />,
+  Knowledge: <MenuBookRoundedIcon />,
+  Sports: <SportsBasketballRoundedIcon />,
+  Farming: <AgricultureRoundedIcon />,
+  AI: <AutoAwesomeRoundedIcon />,
+  Photos: <PhotoCameraRoundedIcon />
 }
 
 export function getPrimaryCategory(category: string | string[] | undefined) {
@@ -63,14 +90,21 @@ function isStringArray(value: any): value is string[] {
   return Array.isArray(value) && value.every((item) => typeof item === 'string')
 }
 
-export default function CategoryBadge(props: { category: string; className?: string }) {
+export default function CategoryBadge(props: {
+  category: string
+  isXs: boolean
+  className?: string
+}) {
   function getCategoryIcon(category: string) {
     return CATEGORY_ICON[category] ?? CATEGORY_ICON.other
   }
 
   return (
     <div
-      className={cls(props.className, 'titleBadge', cmn.flex, cmn.flexcv)}
+      className={cls(props.className, 'titleBadge', cmn.flex, cmn.flexcv, [
+        cmn.mbott10,
+        props.isXs
+      ])}
       style={{ padding: '10px 15px' }}
     >
       {getCategoryIcon(props.category)}

@@ -20,6 +20,7 @@
  * @file Apps.tsx
  * @copyright SKALE Labs 2024-Present
  */
+
 import { type ReactElement } from 'react'
 import { Helmet } from 'react-helmet'
 
@@ -30,28 +31,32 @@ import Grid from '@mui/material/Grid'
 
 import AppCard from '../components/AppCard'
 
-import { cmn, cls, type MetaportCore, CHAINS_META, type interfaces } from '@skalenetwork/metaport'
+import { cmn, cls, type MetaportCore, type interfaces } from '@skalenetwork/metaport'
 import { META_TAGS } from '../core/meta'
 
-export default function Apps(props: { mpc: MetaportCore }) {
-  const chainsMeta: interfaces.ChainsMetadataMap = CHAINS_META[props.mpc.config.skaleNetwork]
+export default function Apps(props: {
+  mpc: MetaportCore
+  chainsMeta: interfaces.ChainsMetadataMap
+}) {
   const appCards: ReactElement[] = []
 
-  for (const schainName in chainsMeta) {
-    if (chainsMeta.hasOwnProperty(schainName)) {
-      const schain = chainsMeta[schainName]
+  for (const schainName in props.chainsMeta) {
+    if (props.chainsMeta.hasOwnProperty(schainName)) {
+      const schain = props.chainsMeta[schainName]
       if (schain.apps) {
         for (const appName in schain.apps) {
           if (schain.apps.hasOwnProperty(appName)) {
-            appCards.push(
+            const card = (
               <Grid key={appName} className="fl-centered dappCard" item lg={3} md={4} sm={6} xs={6}>
                 <AppCard
                   skaleNetwork={props.mpc.config.skaleNetwork}
                   schainName={schainName}
                   appName={appName}
+                  chainsMeta={props.chainsMeta}
                 />
               </Grid>
             )
+            appCards.push(card)
           }
         }
       }
@@ -61,17 +66,17 @@ export default function Apps(props: { mpc: MetaportCore }) {
   return (
     <Container maxWidth="md">
       <Helmet>
-        <title>{META_TAGS.chains.title}</title>
+        <title>{META_TAGS.apps.title}</title>
         <meta name="description" content={META_TAGS.apps.description} />
         <meta property="og:title" content={META_TAGS.apps.title} />
         <meta property="og:description" content={META_TAGS.apps.description} />
       </Helmet>
       <Stack spacing={0}>
         <div className={cls(cmn.flex)}>
-          <h2 className={cls(cmn.nom)}>Apps</h2>
+          <h2 className={cls(cmn.nom)}>Ecosystem</h2>
         </div>
         <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-          Explore and interact with dApps on SKALE Network.
+          Explore and interact with apps and games on SKALE Network
         </p>
         <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20)}>
           <Grid container spacing={2}>

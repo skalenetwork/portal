@@ -96,9 +96,6 @@ export default function SkDrawer() {
                     <AddCardRoundedIcon />
                   </ListItemIcon>
                   <ListItemText primary="On-Ramp" />
-                  <div className="shipNew">
-                    <p className={cls(cmn.p, cmn.p5)}>NEW</p>
-                  </div>
                 </ListItemButton>
               </Link>
             </ListItem>
@@ -110,13 +107,18 @@ export default function SkDrawer() {
                 <ListItemButton
                   className={cls(cmn.pPrim)}
                   selected={
-                    location.pathname.includes('/chains') || location.pathname.includes('/admin')
+                    location.pathname.includes('/chains') ||
+                    location.pathname.includes('/admin') ||
+                    location.pathname.includes('/apps')
                   }
                 >
                   <ListItemIcon>
                     <PublicOutlinedIcon />
                   </ListItemIcon>
                   <ListItemText primary="Chains" />
+                  <div className="shipNew">
+                    <p className={cls(cmn.p, cmn.p5)}>NEW</p>
+                  </div>
                 </ListItemButton>
               </Link>
             </ListItem>

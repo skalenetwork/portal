@@ -60,21 +60,20 @@ export default function Bridge(props: { isXs: boolean }) {
 
   const mpc = useMetaportStore((state) => state.mpc)
 
-  const chainName1 = useMetaportStore((state) => state.chainName1)
-  const chainName2 = useMetaportStore((state) => state.chainName2)
-  const setChainName1 = useMetaportStore((state) => state.setChainName1)
-  const setChainName2 = useMetaportStore((state) => state.setChainName2)
-
-  const appName1 = useMetaportStore((state) => state.appName1)
-  const appName2 = useMetaportStore((state) => state.appName2)
-  const setAppName1 = useMetaportStore((state) => state.setAppName1)
-  const setAppName2 = useMetaportStore((state) => state.setAppName2)
-
-  const token = useMetaportStore((state) => state.token)
-  const tokens = useMetaportStore((state) => state.tokens)
-  const setToken = useMetaportStore((state) => state.setToken)
-
-  const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
+  const {
+    chainName1,
+    chainName2,
+    setChainName1,
+    setChainName2,
+    appName1,
+    appName2,
+    setAppName1,
+    setAppName2,
+    token,
+    tokens,
+    setToken,
+    transactionsHistory
+  } = useMetaportStore((state) => state)
 
   function validChainName(chainName: string | null): boolean {
     if (!chainName) return false

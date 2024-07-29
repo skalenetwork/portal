@@ -25,15 +25,17 @@ import { cls, cmn, styles } from '@skalenetwork/metaport'
 import { type ReactElement } from 'react'
 
 export default function Headline(props: {
-  icon: ReactElement | undefined
   text: string
   className?: string | undefined
+  icon?: ReactElement | undefined
 }) {
   return (
     <div className={cls(cmn.m10, cmn.flex, cmn.flexg, cmn.flexcv, props.className)}>
-      <div className={cls(cmn.mri10, cmn.flexcv, cmn.flex, styles.chainIconxs, cmn.pSec)}>
-        {props.icon}
-      </div>
+      {props.icon ? (
+        <div className={cls(cmn.mri10, cmn.flexcv, cmn.flex, styles.chainIconxs, cmn.pSec)}>
+          {props.icon}
+        </div>
+      ) : null}
       <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.flexg, cmn.cap)}>{props.text}</p>
     </div>
   )

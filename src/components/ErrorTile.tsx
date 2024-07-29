@@ -31,7 +31,7 @@ import Tile from './Tile'
 
 export default function ErrorTile(props: {
   errorMsg: string | undefined
-  setErrorMsg: (errorMsg: string | undefined) => void
+  setErrorMsg?: (errorMsg: string | undefined) => void
   className?: string | undefined
 }) {
   return (
@@ -44,16 +44,19 @@ export default function ErrorTile(props: {
         color="error"
         grow
         children={
-          <Button
-            size="small"
-            onClick={() => {
-              props.setErrorMsg(undefined)
-            }}
-            className={cls('blackP', cmn.p, cmn.p4, cmn.mtop10)}
-            style={{ background: 'rgba(0, 0, 0, 0.3)' }}
-          >
-            Close
-          </Button>
+          props.setErrorMsg && (
+            <Button
+              size="small"
+              onClick={() => {
+                if (props.setErrorMsg === undefined) return
+                props.setErrorMsg(undefined)
+              }}
+              className={cls('blackP', cmn.p, cmn.p4, cmn.mtop10)}
+              style={{ background: 'rgba(0, 0, 0, 0.3)' }}
+            >
+              Close
+            </Button>
+          )
         }
       />
     </Collapse>

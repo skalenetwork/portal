@@ -48,7 +48,10 @@ export default function Delegations(props: {
   unstake: (delegationInfo: IDelegationInfo) => Promise<void>
   cancelRequest: (delegationInfo: IDelegationInfo) => Promise<void>
   isXs: boolean
+  address: interfaces.AddressType | undefined
   customAddress: interfaces.AddressType | undefined
+  customRewardAddress: interfaces.AddressType | undefined
+  setCustomRewardAddress: (customRewardAddress: interfaces.AddressType | undefined) => void
 }) {
   const loaded = props.si[DelegationType.REGULAR] !== null
   const noDelegations =
@@ -91,7 +94,10 @@ export default function Delegations(props: {
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
                 isXs={props.isXs}
+                address={props.address}
                 customAddress={props.customAddress}
+                customRewardAddress={props.customRewardAddress}
+                setCustomRewardAddress={props.setCustomRewardAddress}
               />
             )
           )}
@@ -107,7 +113,10 @@ export default function Delegations(props: {
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
                 isXs={props.isXs}
+                address={props.address}
                 customAddress={props.customAddress}
+                customRewardAddress={props.customRewardAddress}
+                setCustomRewardAddress={props.setCustomRewardAddress}
               />
             )
           )}
@@ -123,7 +132,10 @@ export default function Delegations(props: {
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
                 isXs={props.isXs}
+                address={props.address}
                 customAddress={props.customAddress}
+                customRewardAddress={props.customRewardAddress}
+                setCustomRewardAddress={props.setCustomRewardAddress}
               />
             )
           )}
