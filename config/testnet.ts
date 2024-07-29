@@ -60,6 +60,10 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       symbol: 'UBXS',
       decimals: '6',
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/17242.png'
+    },
+    trc: {
+      name: "TheRealCoin",
+      symbol: "TRC"
     }
   },
   connections: {
