@@ -52,7 +52,7 @@ export default function Header(props: { address: `0x${string}` | undefined; mpc:
             href={MAIN_SKALE_URL}
             rel="noreferrer"
           >
-            <img src={logo} className="logo" alt="logo" />
+            <img src={logo} className="skLogo" alt="logo" />
           </a>
         </div>
         <div className={cls(cmn.flex, cmn.flexg, cmn.mleft10)}>

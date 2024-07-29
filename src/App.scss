@@ -19,7 +19,7 @@ body {
   min-width: 100vw;
 }
 
-.logo {
+.skLogo {
   width: 75pt;
 }
 
@@ -247,8 +247,17 @@ body::-webkit-scrollbar {
   transform: scale(1.03);
 }
 
+.hoverable {
+  transform-style: preserve-3d;
+  transition: all 0.3s ease;
+}
+
+.hoverable:hover {
+  transform: scale(1.01);
+}
+
 .br__tile {
-  height: 150px;
+  // height: 150px;
   border-radius: 25px !important;
   border: 1px solid #171616 !important;
 }
@@ -268,9 +277,11 @@ body::-webkit-scrollbar {
   }
 }
 
-.br__tileLogo {
-  height: 105px;
+.br__tileIns {
+  height: 115px;
+}
 
+.br__tileLogo {
   img {
     max-height: 100%;
     max-width: 100%;
@@ -401,7 +412,8 @@ body::-webkit-scrollbar {
   box-shadow: none !important;
 }
 
-.btnPadd{
+.btnPadd {
+  width: inherit !important;
   padding-left: 8px !important;
   padding-right: 8px !important;
 }
@@ -426,17 +438,20 @@ body::-webkit-scrollbar {
   background: rgba(41, 255, 148, 0.08)
 }
 
+.outlinedGray {
+  background: rgb(126 126 126 / 15%);
+}
+
 .roundBtn {
   min-width: 40px !important;
   padding: 8px 11px !important;
 }
 
 .cardBtn {
-  background: rgba(0, 0, 0, .506) !important;
-  border: 1px solid hsla(0, 0%, 51%, .1) !important;
+  background: transparent !important;
   text-transform: none !important;
   color: #ffffffe6 !important;
-  padding: 6px 10px 6px 12px !important;
+  padding: 6px 10px 0px 12px !important;
   font-size: 0.7rem !important;
   min-width: 55px;
 
@@ -500,7 +515,7 @@ code {
 
 .br__tileDefaultLogo {
   width: 100% !important;
-  padding: 10px 10px 0 10px !important;
+  padding: 10px 10px 5px 10px !important;
 
   .paper {
     border-radius: 20px !important;
@@ -539,69 +554,78 @@ code {
   background: linear-gradient(180deg, rgb(25 25 25 / 95%), rgb(17 17 17 / 95%) 100%) !important;
 }
 
-.chainDetails {
-  max-width: calc(100vw - 32px);
+.titleBadge {
+  background: rgba(0, 0, 0, 0.6) !important;
+  border-radius: 25px;
+  padding: 5px;
 
+  svg {
+    width: 12px;
+    height: 12px;
+  }
+}
+
+.chainDetails {
   .logo {
-    height: 65pt;
-    margin: 35px 0;
-    width: 100%;
+    height: 90pt;
+    line-height: 90pt;
     text-align: center;
 
     img,
     svg {
-      max-height: 90%;
-      max-width: 90%;
+      max-height: 100%;
+      max-width: 100%;
+      vertical-align: middle;
     }
+
+    margin: 45px auto;
+  }
+}
+
+.monthInputWrap {
+  border-radius: 25px;
+  background: rgba(41, 255, 148, 0.08);
+  padding-left: 20px;
+}
+
+.monthInput {
+  width: 35pt;
+
+  input {
+    font-weight: 500;
+    line-height: 0.9;
   }
 
-  .titleBadge {
-    background: rgba(0, 0, 0, 0.6) !important;
-    border-radius: 25px;
-    padding: 5px;
-
-    svg {
-      width: 12px;
-      height: 12px;
-    }
+  .MuiInputBase-input {
+    padding: 0 !important;
   }
 
-  .monthInputWrap {
-    border-radius: 25px;
-    background: rgba(41, 255, 148, 0.08);
-    padding-left: 20px;
+  .MuiInput-root::after {
+    display: none !important;
+    border-bottom: none !important;
   }
 
-  .monthInput {
-    width: 35pt;
-
-    input {
-      font-weight: 500;
-      line-height: 0.9;
-    }
-
-    .MuiInputBase-input {
-      padding: 0 !important;
-    }
-
-    .MuiInput-root::after {
-      display: none !important;
-      border-bottom: none !important;
-    }
-
-    .MuiInput-root::before {
-      display: none !important;
-      border-bottom: none !important;
-    }
+  .MuiInput-root::before {
+    display: none !important;
+    border-bottom: none !important;
   }
-
-
 }
 
 .titleSection {
   background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
   border-radius: 25px;
   padding: 20px;
+}
+
+.titleSectionBg {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+  border-radius: 25px;
+}
+
+.titleSectionOut {
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+  border-radius: 25px;
+  padding: 0;
 }
 
 button:focus {
@@ -702,6 +726,34 @@ input[type=number] {
 
   p {
     color: #fcb381 !important
+  }
+}
+
+.shipXs {
+  border-radius: 20px;
+  padding: 3px 6px;
+
+  svg {
+    width: 14px;
+    height: 14px;
+  }
+}
+
+.shipSm {
+  border-radius: 20px;
+  padding: 6px 12px;
+
+  svg {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+.shipHot {
+  background: linear-gradient(180deg, #2b2b2b87, #0000008a);
+
+  p {
+    color: #dcdcdc !important
   }
 }
 
@@ -1088,11 +1140,34 @@ a,
 }
 
 
+.errorMsg {
+  background-color: #431d1d !important;
+
+  p,
+  svg {
+    color: #f99c9c !important;
+  }
+
+  a,
+  .a {
+    color: #f99c9c !important;
+
+    p,
+    svg {
+      color: #f99c9c !important;
+    }
+  }
+}
+
+
 .appIconHub {
-  border-radius: 25px;
-  background: rgba(0, 0, 0, 0.506) !important;
-  padding: 8px 11px;
-  margin-right: 10px;
+  border-radius: 50%;
+  //background: rgba(0, 0, 0, 0.506) !important;
+  padding: 10px;
+}
+
+.pbott20 {
+  padding-bottom: 20px;
 }
 
 .transakFrame {
@@ -1102,10 +1177,45 @@ a,
 
   height: calc(100vh - 340px);
   border: none;
-  z-Index: 1
+  z-index: 1;
 }
 
+.tab {
+  svg {
+    width: 17px;
+    height: 17px;
+  }
 
+  min-height: 48px !important;
+
+
+
+}
+
+.tab.Mui-selected {
+  background-color: rgba(41, 255, 148, 0.16) !important;
+}
+
+.MuiTabs-indicator {
+  display: none !important;
+}
+
+.MuiTabs-root {
+  min-height: 48px;
+}
+
+.undec {
+  color: unset !important;
+}
+
+.tabLink {
+
+  button,
+  p,
+  svg {
+    color: white !important
+  }
+}
 
 .hoverable {
   transform-style: preserve-3d;
@@ -1118,4 +1228,26 @@ a,
 
 .paddBott60 {
   padding-bottom: 60px;
+}
+
+.fwmobile {
+  max-width: calc(100vw - 32px);
+}
+
+.MuiBackdrop-root {
+  backdrop-filter: blur(3px) !important;
+}
+
+.pSec {
+  color: RGB(255 255 255 / 65%);
+}
+
+.addressInput {
+  input {
+    color: rgba(255, 255, 255, 0.8) !important;
+  }
+
+  .Mui-disabled {
+    -webkit-text-fill-color: #ffffff;
+  }
 }

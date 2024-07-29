@@ -85,7 +85,7 @@ export default function Delegate(props: {
     return <Loader text="Loading staking info" />
   }
   if (props.loaded && !props.delegationTypeAvailable && props.address) {
-    return <ErrorTile errorMsg="Delegation type is not available" setErrorMsg={props.setErrorMsg} />
+    return <ErrorTile errorMsg="Delegation type is not available" />
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {

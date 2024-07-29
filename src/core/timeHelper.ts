@@ -91,3 +91,17 @@ export function formatTimePeriod(count: number | bigint, type: 'day' | 'month'):
     throw new Error('Invalid type provided. Type must be "day" or "month".')
   }
 }
+
+export function formatNumber(num: number, decimals: number = 1): string {
+  if (isNaN(num)) return '0'
+  const absNum = Math.abs(num)
+  num = Number(num)
+  if (absNum < 1000) {
+    return num % 1 !== 0 ? num.toFixed(decimals).toString() : num.toString()
+  }
+  const suffixes = ['', 'K', 'M', 'B', 'T']
+  const exponent = (Math.log10(absNum) / 3) | 0
+  const scaledNum = absNum / Math.pow(10, exponent * 3)
+  const formattedNum = scaledNum % 1 !== 0 ? scaledNum.toFixed(decimals) : scaledNum
+  return formattedNum.toString() + suffixes[exponent]
+}

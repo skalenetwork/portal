@@ -21,8 +21,10 @@
  * @copyright SKALE Labs 2024-Present
  */
 
+import { Helmet } from 'react-helmet'
+
 import { Link } from 'react-router-dom'
-import { type Signer } from 'ethers'
+import { type Signer, isAddress } from 'ethers'
 import debug from 'debug'
 import { useEffect, useState } from 'react'
 import {
@@ -44,6 +46,7 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
 import QueueRoundedIcon from '@mui/icons-material/QueueRounded'
 import PieChartRoundedIcon from '@mui/icons-material/PieChartRounded'
+import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 
 import Delegations from '../components/delegation/Delegations'
 
@@ -65,6 +68,7 @@ import ErrorTile from '../components/ErrorTile'
 import ConnectWallet from '../components/ConnectWallet'
 import Headline from '../components/Headline'
 import Message from '../components/Message'
+import { META_TAGS } from '../core/meta'
 
 debug.enable('*')
 const log = debug('portal:pages:Staking')
@@ -84,6 +88,10 @@ export default function Staking(props: {
   const [loading, setLoading] = useState<IRewardInfo | IDelegationInfo | false>(false)
   const [errorMsg, setErrorMsg] = useState<string | undefined>()
 
+  const [customRewardAddress, setCustomRewardAddress] = useState<
+    interfaces.AddressType | undefined
+  >(props.address)
+
   useEffect(() => {
     props.loadValidators()
     props.loadStakingInfo()
@@ -96,6 +104,10 @@ export default function Staking(props: {
       clearInterval(intervalId) // Clear interval on component unmount
     }
   }, [props.address, props.sc])
+
+  useEffect(() => {
+    setCustomRewardAddress(props.address)
+  }, [props.address])
 
   async function processTx(
     delegationType: DelegationType,
@@ -131,10 +143,15 @@ export default function Staking(props: {
 
   async function retrieveRewards(rewardInfo: IRewardInfo) {
     setLoading(rewardInfo)
+    if (!isAddress(customRewardAddress)) {
+      setErrorMsg('Invalid address')
+      setLoading(false)
+      return
+    }
     processTx(
       rewardInfo.delegationType,
       'withdrawBounty',
-      [rewardInfo.validatorId, props.address],
+      [rewardInfo.validatorId, customRewardAddress],
       'distributor'
     )
   }
@@ -166,6 +183,12 @@ export default function Staking(props: {
 
   return (
     <Container maxWidth="md">
+      <Helmet>
+        <title>{META_TAGS.staking.title}</title>
+        <meta name="description" content={META_TAGS.staking.description} />
+        <meta property="og:title" content={META_TAGS.staking.title} />
+        <meta property="og:description" content={META_TAGS.staking.description} />
+      </Helmet>
       <Stack spacing={0}>
         <div className={cls(cmn.flex, cmn.flexcv)}>
           <div className={cls(cmn.flexg)}>
@@ -210,6 +233,16 @@ export default function Staking(props: {
           link="/staking"
           linkText="click to exit"
           type="warning"
+        />
+      ) : null}
+
+      {props.address !== customRewardAddress ? (
+        <Message
+          className={cls(cmn.mtop20)}
+          text={`Custom address will be used for rewards withdrawal: ${customRewardAddress}`}
+          icon={<WarningRoundedIcon />}
+          type="warning"
+          closable={false}
         />
       ) : null}
 
@@ -270,7 +303,10 @@ export default function Staking(props: {
             unstake={unstake}
             cancelRequest={cancelRequest}
             isXs={props.isXs}
+            address={props.address}
             customAddress={props.customAddress}
+            customRewardAddress={customRewardAddress}
+            setCustomRewardAddress={setCustomRewardAddress}
           />
         </Collapse>
         <Collapse in={props.address === undefined}>
