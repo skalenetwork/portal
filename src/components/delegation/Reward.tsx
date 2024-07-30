@@ -23,7 +23,6 @@
 import { cmn, cls, styles, type interfaces } from '@skalenetwork/metaport'
 
 import { Grid } from '@mui/material'
-import Button from '@mui/material/Button'
 import LoadingButton from '@mui/lab/LoadingButton'
 
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
@@ -40,6 +39,7 @@ import {
 } from '../../core/interfaces'
 import { getValidatorById } from '../../core/delegation'
 import { formatBalance } from '../../core/helper'
+import RetrieveRewardModal from './RetrieveRewardModal'
 
 export default function Reward(props: {
   validators: IValidator[]
@@ -50,7 +50,10 @@ export default function Reward(props: {
   loading: IRewardInfo | IDelegationInfo | false
   delegationType: DelegationType
   isXs: boolean
+  address: interfaces.AddressType | undefined
   customAddress: interfaces.AddressType | undefined
+  customRewardAddress: interfaces.AddressType | undefined
+  setCustomRewardAddress: (customRewardAddress: interfaces.AddressType | undefined) => void
 }) {
   const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
   const rewardsAmount = formatBalance(props.delegationsToValidator.rewards, 'SKL')
@@ -78,75 +81,81 @@ export default function Reward(props: {
     </div>
   )
 
+  function retrieveRewards() {
+    if (!validator) return
+    props.retrieveRewards({
+      validatorId: validator.id,
+      delegationType: props.delegationType
+    })
+  }
+
+  const retrieveDisabled =
+    props.delegationsToValidator.rewards === 0n ||
+    props.loading !== false ||
+    props.customAddress !== undefined
+
   return (
-    <div className={cls(cmn.mbott10, 'titleSection')}>
-      <Grid container spacing={0} alignItems="center">
-        <Grid item md={4} xs={12}>
-          <div className={cls(cmn.flex, cmn.flexcv)}>
-            <ValidatorLogo validatorId={validator.id} size="lg" />
-            <div className={cls(cmn.mleft10, [cmn.flexg, props.isXs])}>
-              <h4 className={cls(cmn.p, cmn.p700, 'pOneLine')}>{validator.name}</h4>
-              <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Validator ID: {Number(validator.id)}</p>
-            </div>
-            {props.isXs ? minimizeBtn : null}
-          </div>
-        </Grid>
-        <Grid item md={8} xs={12} className={cls([cmn.mtop20, props.isXs])}>
-          <div className={cls(cmn.flex, cmn.flexcv)}>
-            <div className={cls([cmn.flexg, !props.isXs])}></div>
-            {!props.isXs && !props.open ? (
-              <div className={cls([cmn.pri, !props.isXs], cmn.flex)}>
-                <div>
-                  <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Total staked</p>
-                  <h3 className={cls(cmn.p, cmn.p700)}>{totalStakedAmount}</h3>
-                </div>
-                <div className={cls('borderVert', cmn.mleft20)}></div>
+    <div>
+      <div className={cls(cmn.mbott10, 'titleSection')}>
+        <Grid container spacing={0} alignItems="center">
+          <Grid item md={4} xs={12}>
+            <div className={cls(cmn.flex, cmn.flexcv)}>
+              <ValidatorLogo validatorId={validator.id} size="lg" />
+              <div className={cls(cmn.mleft10, [cmn.flexg, props.isXs])}>
+                <h4 className={cls(cmn.p, cmn.p700, 'pOneLine')}>{validator.name}</h4>
+                <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Validator ID: {Number(validator.id)}</p>
               </div>
-            ) : null}
-            <div
-              className={cls(
-                [cmn.flexg, props.isXs],
-                cmn.mri20,
-                [cmn.pri, !props.isXs],
-                [cmn.mleft20, !props.isXs]
-              )}
-            >
-              <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Rewards available</p>
-              <h3 className={cls(cmn.p, cmn.p700)}>{rewardsAmount}</h3>
+              {props.isXs ? minimizeBtn : null}
             </div>
-            {loading ? (
-              <LoadingButton
-                loading
-                loadingPosition="start"
-                size="small"
-                variant="contained"
-                className={cls('btnSm btnSmLoading')}
+          </Grid>
+          <Grid item md={8} xs={12} className={cls([cmn.mtop20, props.isXs])}>
+            <div className={cls(cmn.flex, cmn.flexcv)}>
+              <div className={cls([cmn.flexg, !props.isXs])}></div>
+              {!props.isXs && !props.open ? (
+                <div className={cls([cmn.pri, !props.isXs], cmn.flex)}>
+                  <div>
+                    <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Total staked</p>
+                    <h3 className={cls(cmn.p, cmn.p700)}>{totalStakedAmount}</h3>
+                  </div>
+                  <div className={cls('borderVert', cmn.mleft20)}></div>
+                </div>
+              ) : null}
+              <div
+                className={cls(
+                  [cmn.flexg, props.isXs],
+                  cmn.mri20,
+                  [cmn.pri, !props.isXs],
+                  [cmn.mleft20, !props.isXs]
+                )}
               >
-                Retrieving
-              </LoadingButton>
-            ) : (
-              <Button
-                variant="contained"
-                className={cls('btnSm')}
-                disabled={
-                  props.delegationsToValidator.rewards === 0n ||
-                  props.loading !== false ||
-                  props.customAddress !== undefined
-                }
-                onClick={() => {
-                  props.retrieveRewards({
-                    validatorId: validator.id,
-                    delegationType: props.delegationType
-                  })
-                }}
-              >
-                Retrieve
-              </Button>
-            )}
-            {!props.isXs ? minimizeBtn : null}
-          </div>
+                <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Rewards available</p>
+                <h3 className={cls(cmn.p, cmn.p700)}>{rewardsAmount}</h3>
+              </div>
+              {loading ? (
+                <LoadingButton
+                  loading
+                  loadingPosition="start"
+                  size="small"
+                  variant="contained"
+                  className={cls('btnSm btnSmLoading')}
+                >
+                  Retrieving
+                </LoadingButton>
+              ) : (
+                <RetrieveRewardModal
+                  address={props.address}
+                  disabled={retrieveDisabled}
+                  customRewardAddress={props.customRewardAddress}
+                  setCustomRewardAddress={props.setCustomRewardAddress}
+                  retrieveRewards={retrieveRewards}
+                  loading={loading}
+                />
+              )}
+              {!props.isXs ? minimizeBtn : null}
+            </div>
+          </Grid>
         </Grid>
-      </Grid>
+      </div>
     </div>
   )
 }

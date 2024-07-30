@@ -32,32 +32,69 @@ import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
 import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined'
 
 import PageCard from '../components/PageCard'
-import Message from '../components/Message'
 
-import { cmn, cls } from '@skalenetwork/metaport'
+import { cmn, cls, interfaces } from '@skalenetwork/metaport'
+import AppCard from '../components/AppCard'
+import { IAppId } from '../core/types'
+import { useEffect, useState } from 'react'
+import FeaturedApps from '../components/FeaturedApps'
 
-export default function Start(props: { isXs: boolean }) {
-  return (
-    <Container maxWidth="md">
-      <Stack spacing={0}>
-        <div className={cls(cmn.flex)}>
-          <h2 className={cls(cmn.nom)}>SKALE Portal</h2>
-        </div>
-        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)} style={{ zIndex: '2' }}>
-          Gateway to the SKALE Ecosystem
-        </p>
-        <Message
-          className={cls(cmn.mtop10, cmn.mbott10d)}
-          text={props.isXs ? null : 'Transak onramp is live, '}
-          linkText={props.isXs ? 'Transak onramp' : 'see changelog'}
-          link="/other/changelog"
-          icon={
-            <div className="shipNew">
-              <p className={cls(cmn.p, cmn.p5)}>Update 2.2.1</p>
-            </div>
-          }
+export default function Start(props: {
+  isXs: boolean
+  skaleNetwork: interfaces.SkaleNetwork
+  topApps: IAppId[] | null
+  loadData: () => Promise<void>
+  chainsMeta: interfaces.ChainsMetadataMap
+}) {
+  const [_, setIntervalId] = useState<NodeJS.Timeout>()
+
+  useEffect(() => {
+    props.loadData()
+    const intervalId = setInterval(props.loadData, 10000)
+    setIntervalId(intervalId)
+  }, [])
+
+  let appCards: any = []
+
+  function isLegacyApp(chain: string, app: string): boolean {
+    if (props.chainsMeta[chain].apps === undefined) return false
+    if (!props.chainsMeta[chain].apps![app]) return false
+    return !!props.chainsMeta[chain].apps![app].legacy
+  }
+
+  const apps = props.topApps
+    ? props.topApps.filter((topApp) => !isLegacyApp(topApp.chain, topApp.app))
+    : null
+
+  if (apps) {
+    appCards = apps.slice(0, 4).map((topApp: IAppId) => (
+      <Grid key={topApp.app} className="fl-centered dappCard" item lg={3} md={4} sm={6} xs={6}>
+        <AppCard
+          skaleNetwork={props.skaleNetwork}
+          schainName={topApp.chain}
+          appName={topApp.app}
+          transactions={topApp.totalTransactions}
+          chainsMeta={props.chainsMeta}
         />
-        <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20)}>
+      </Grid>
+    ))
+  }
+
+  return (
+    <Container maxWidth="md" className="paddBott60">
+      <Stack spacing={0}>
+        <h3 className={cls(cmn.p, cmn.p700, cmn.mbott10)}>🔥 Top Apps on SKALE</h3>
+        <Grid container spacing={2}>
+          {appCards}
+        </Grid>
+        <h3 className={cls(cmn.p, cmn.p700, cmn.mbott10, cmn.mtop20, cmn.ptop10)}>
+          ⭐ Featured Apps
+        </h3>
+        <FeaturedApps chainsMeta={props.chainsMeta} skaleNetwork={props.skaleNetwork} />
+        <h3 className={cls(cmn.p, cmn.p700, cmn.mbott10, cmn.mtop20, cmn.ptop10)}>
+          🪐 Explore Portal
+        </h3>
+        <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={3}>
             <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
               <PageCard
@@ -68,7 +105,7 @@ export default function Start(props: { isXs: boolean }) {
             </Grid>
             <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
               <PageCard
-                description="Chains list, block explorers and endpoints"
+                description="Apps, games, block explorers and endpoints"
                 name="chains"
                 icon={<PublicOutlinedIcon />}
               />

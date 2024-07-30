@@ -21,21 +21,15 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { type ReactElement } from 'react'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
 import { cmn, cls } from '@skalenetwork/metaport'
+import { BreadcrumbSection } from '../core/types'
 
-interface Section {
-  icon: ReactElement
-  text: string
-  url?: string
-}
-
-export default function Breadcrumbs(props: { sections: Section[]; className?: string }) {
+export default function Breadcrumbs(props: { sections: BreadcrumbSection[]; className?: string }) {
   return (
     <div className={cls(cmn.flex, cmn.flexcv, 'titleBadge', props.className)}>
-      {props.sections.map((section: Section, index) => (
+      {props.sections.map((section: BreadcrumbSection, index) => (
         <div className={cls(cmn.flex, cmn.flexcv)} key={index}>
           {section.url ? (
             <Link to={section.url} className="undec fullWidth">

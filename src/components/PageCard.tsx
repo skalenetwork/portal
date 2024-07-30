@@ -36,7 +36,7 @@ export default function PageCard(props: { name: string; icon: any; description: 
                 <div className={cls(cmn.flex, cmn.flexg, cmn.flexcv)}>
                   <p
                     className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p)}
-                    style={{ fontSize: '1.3rem', fontWeight: 700 }}
+                    style={{ fontSize: '1.2rem', fontWeight: 700 }}
                   >
                     {props.name}
                   </p>
