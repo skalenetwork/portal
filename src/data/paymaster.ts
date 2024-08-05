@@ -12,7 +12,7 @@ export default {
     },
     legacy: {
       chain: 'adorable-quaint-bellatrix',
-      address: '0x8dA92df95a34f46b0AA58a9B888376464412811E',
+      address: '0xb76A448071Ed77d22cAa1669567B5D28f5448d99',
       launchTs: '0'
     },
     regression: {
