@@ -11,8 +11,8 @@ export default {
       launchTs: '0'
     },
     legacy: {
-      chain: '',
-      address: '0x',
+      chain: 'adorable-quaint-bellatrix',
+      address: '0x8dA92df95a34f46b0AA58a9B888376464412811E',
       launchTs: '0'
     },
     regression: {
