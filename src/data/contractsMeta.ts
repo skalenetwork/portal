@@ -21,9 +21,9 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import { type interfaces } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
-export const CONTRACTS_META: { [key in interfaces.SkaleNetwork]: any } = {
+export const CONTRACTS_META: { [key in types.SkaleNetwork]: any } = {
   mainnet: {
     auto: true
   },

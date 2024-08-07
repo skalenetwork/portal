@@ -23,7 +23,8 @@
 
 import { useEffect, useState } from 'react'
 
-import { cmn, cls, type interfaces, MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { cmn, cls, MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
 import ConstructionRoundedIcon from '@mui/icons-material/ConstructionRounded'
@@ -74,7 +75,7 @@ function CustomTabPanel(props: TabPanelProps) {
 
 export default function ChainTabsSection(props: {
   mpc: MetaportCore
-  chainsMeta: interfaces.ChainsMetadataMap
+  chainsMeta: types.ChainsMetadataMap
   schainName: string
   isXs: boolean
 }) {

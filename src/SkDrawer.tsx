@@ -22,6 +22,7 @@ import DonutLargeRoundedIcon from '@mui/icons-material/DonutLargeRounded'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined'
 import AddCardRoundedIcon from '@mui/icons-material/AddCardRounded'
+import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
 
 import { DUNE_SKALE_URL } from './core/constants'
 
@@ -113,9 +114,22 @@ export default function SkDrawer() {
                   }
                 >
                   <ListItemIcon>
-                    <PublicOutlinedIcon />
+                    <LinkRoundedIcon />
                   </ListItemIcon>
                   <ListItemText primary="Chains" />
+                </ListItemButton>
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link to="/ecosystem" className="undec fullWidth">
+                <ListItemButton
+                  className={cls(cmn.pPrim)}
+                  selected={location.pathname.includes('/ecosystem')}
+                >
+                  <ListItemIcon>
+                    <PublicOutlinedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Ecosystem" />
                   <div className="shipNew">
                     <p className={cls(cmn.p, cmn.p5)}>NEW</p>
                   </div>

@@ -25,7 +25,8 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Tooltip } from '@mui/material'
 
-import { cmn, cls, getChainAlias, type interfaces, SkPaper, styles } from '@skalenetwork/metaport'
+import { cmn, cls, getChainAlias, SkPaper, styles } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
@@ -34,20 +35,19 @@ import ChainLogo from '../ChainLogo'
 import { formatNumber } from '../../core/timeHelper'
 
 import { MAINNET_CHAIN_LOGOS } from '../../core/constants'
-import { IChainMetrics, IMetrics } from '../../core/types'
 import { getChainDescription, getChainShortAlias } from '../../core/chain'
 import { chainBg } from '../../core/metadata'
 
 export default function HubTile(props: {
-  network: interfaces.SkaleNetwork
-  metrics: IMetrics | null
+  network: types.SkaleNetwork
+  metrics: types.IMetrics | null
   schainName: string
   isXs: boolean
-  chainsMeta: interfaces.ChainsMetadataMap
+  chainsMeta: types.ChainsMetadataMap
   bg?: boolean
   showStats?: boolean
 }) {
-  const [schainMetrics, setSchainMetrics] = useState<IChainMetrics | null>(null)
+  const [schainMetrics, setSchainMetrics] = useState<types.IChainMetrics | null>(null)
 
   useEffect(() => {
     if (props.metrics !== null && props.metrics.metrics[props.schainName]) {

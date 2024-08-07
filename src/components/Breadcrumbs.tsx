@@ -21,10 +21,16 @@
  * @copyright SKALE Labs 2024-Present
  */
 
+import { ReactElement } from 'react'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
 import { cmn, cls } from '@skalenetwork/metaport'
-import { BreadcrumbSection } from '../core/types'
+
+export interface BreadcrumbSection {
+  icon: ReactElement
+  text: string
+  url?: string
+}
 
 export default function Breadcrumbs(props: { sections: BreadcrumbSection[]; className?: string }) {
   return (

@@ -21,22 +21,23 @@
  * @copyright SKALE Labs 2022-Present
  */
 
+import { getChainAlias } from '@skalenetwork/metaport'
+import { type types } from '@/core'
+
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 
 import ChainCard from './ChainCard'
-import { type interfaces, getChainAlias } from '@skalenetwork/metaport'
-import { IMetrics, ISChain } from '../core/types'
 
 export default function CategorySection(props: {
   schains: any
   category: string
-  skaleNetwork: interfaces.SkaleNetwork
-  chainsMeta: interfaces.ChainsMetadataMap
-  metrics?: IMetrics | null
+  skaleNetwork: types.SkaleNetwork
+  chainsMeta: types.ChainsMetadataMap
+  metrics?: types.IMetrics | null
 }) {
   if (!props.schains || props.schains.length === 0) return
-  const schains = props.schains.sort((a: ISChain, b: ISChain) => {
+  const schains = props.schains.sort((a: types.ISChain, b: types.ISChain) => {
     const aliasA = getChainAlias(props.skaleNetwork, a.name)
     const aliasB = getChainAlias(props.skaleNetwork, b.name)
     return aliasA.localeCompare(aliasB)
@@ -46,7 +47,7 @@ export default function CategorySection(props: {
     <div>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-          {schains.map((schain: ISChain) => (
+          {schains.map((schain: types.ISChain) => (
             <Grid
               key={schain.name}
               className="fl-centered dappCard"

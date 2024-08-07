@@ -22,20 +22,20 @@
  */
 
 import { Link } from 'react-router-dom'
-import { cmn, cls, chainBg, getChainAlias, type interfaces } from '@skalenetwork/metaport'
+import { cmn, cls, chainBg, getChainAlias } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
 import Button from '@mui/material/Button'
 
 import ChainLogo from './ChainLogo'
 
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
-import { ISChain } from '../core/types'
 import { getChainShortAlias } from '../core/chain'
 
 export default function ChainCard(props: {
-  skaleNetwork: interfaces.SkaleNetwork
-  schain: ISChain
-  chainsMeta: interfaces.ChainsMetadataMap
+  skaleNetwork: types.SkaleNetwork
+  schain: types.ISChain
+  chainsMeta: types.ChainsMetadataMap
   transactions?: number
 }) {
   const shortAlias = getChainShortAlias(props.chainsMeta, props.schain.name)

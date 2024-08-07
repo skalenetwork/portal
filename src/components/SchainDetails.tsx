@@ -32,9 +32,9 @@ import {
   type MetaportCore,
   SkPaper,
   getChainAlias,
-  chainBg,
-  type interfaces
+  chainBg
 } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
 import Button from '@mui/material/Button'
 import { Container } from '@mui/material'
@@ -62,15 +62,14 @@ import SkBtn from './SkBtn'
 import { MAINNET_CHAIN_LOGOS, MAINNET_CHAIN_NAME } from '../core/constants'
 import { getRpcUrl, getChainId, HTTPS_PREFIX, getChainDescription } from '../core/chain'
 import { getExplorerUrl } from '../core/explorer'
-import { IChainMetrics, IStatsData } from '../core/types'
 import { formatNumber } from '../core/timeHelper'
 import ChainTabsSection from './chains/tabs/ChainTabsSection'
 
 export default function SchainDetails(props: {
   schainName: string
-  chainsMeta: interfaces.ChainsMetadataMap
-  schainStats: IStatsData | null
-  schainMetrics: IChainMetrics | null
+  chainsMeta: types.ChainsMetadataMap
+  schainStats: types.IStatsData | null
+  schainMetrics: types.IChainMetrics | null
   chain: any
   mpc: MetaportCore
   isXs: boolean
@@ -190,7 +189,7 @@ export default function SchainDetails(props: {
             children={
               <div>
                 <h2 className={cls(cmn.nom)}>{chainAlias}</h2>
-                <CollapsibleDescription text={chainDescription} />
+                <CollapsibleDescription text={chainDescription} expandable />
               </div>
             }
           />

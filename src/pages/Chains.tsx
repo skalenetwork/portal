@@ -24,6 +24,10 @@
 import { Helmet } from 'react-helmet'
 
 import { useState, useEffect } from 'react'
+
+import { cmn, cls, styles, type MetaportCore } from '@skalenetwork/metaport'
+import { type types } from '@/core'
+
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -33,20 +37,17 @@ import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded'
 import HubsSection from '../components/HubsSection'
 import { getPrimaryCategory } from '../components/CategoryBadge'
 
-import { cmn, cls, styles, type MetaportCore, type interfaces } from '@skalenetwork/metaport'
-
 import { META_TAGS } from '../core/meta'
 import { Button } from '@mui/material'
 import AppChains from '../components/AppChains'
-import { IMetrics, ISChain } from '../core/types'
 
 export default function Chains(props: {
   loadData: () => Promise<void>
-  schains: ISChain[]
-  metrics: IMetrics | null
+  schains: types.ISChain[]
+  metrics: types.IMetrics | null
   mpc: MetaportCore
   isXs: boolean
-  chainsMeta: interfaces.ChainsMetadataMap
+  chainsMeta: types.ChainsMetadataMap
 }) {
   const [_, setIntervalId] = useState<NodeJS.Timeout>()
 

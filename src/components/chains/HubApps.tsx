@@ -22,9 +22,10 @@
  */
 
 import { useState, ReactElement } from 'react'
-import { Grid, Tooltip } from '@mui/material'
+import { cmn, cls } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
-import { cmn, cls, type interfaces } from '@skalenetwork/metaport'
+import { Grid, Tooltip } from '@mui/material'
 
 import { chainBg } from '../../core/metadata'
 import { sortObjectByKeys } from '../../core/helper'
@@ -32,9 +33,9 @@ import { sortObjectByKeys } from '../../core/helper'
 import AppCard from '../AppCard'
 
 export default function HubApps(props: {
-  skaleNetwork: interfaces.SkaleNetwork
+  skaleNetwork: types.SkaleNetwork
   schainName: string
-  chainsMeta: interfaces.ChainsMetadataMap
+  chainsMeta: types.ChainsMetadataMap
   bg?: boolean
   all?: boolean
 }) {

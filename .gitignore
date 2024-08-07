@@ -35,3 +35,6 @@ src/metadata/faucet.json
 
 public/sitemap.xml
 public/robots.txt
+
+packages/*/node_modules
+packages/*/dist

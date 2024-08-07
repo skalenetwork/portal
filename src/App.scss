@@ -1,4 +1,5 @@
 @import './variables';
+@import './styles/components';
 
 :root {
   background: black;
@@ -257,7 +258,6 @@ body::-webkit-scrollbar {
 }
 
 .br__tile {
-  // height: 150px;
   border-radius: 25px !important;
   border: 1px solid #171616 !important;
 }
@@ -431,11 +431,6 @@ body::-webkit-scrollbar {
   padding: 0.6em 2em !important;
   border-radius: $sk-border-radius !important;
   box-shadow: none !important;
-}
-
-
-.outlined {
-  background: rgba(41, 255, 148, 0.08)
 }
 
 .outlinedGray {
@@ -720,12 +715,13 @@ input[type=number] {
 
 .shipNew {
   margin-right: 5px;
-  background: linear-gradient(180deg, #4e2600, #401200);
+  background: #93B8EC;
   border-radius: 20px;
   padding: 3px 6px;
 
   p {
-    color: #fcb381 !important
+    color: #000000de !important;
+    font-weight: 600 !important;
   }
 }
 
@@ -767,6 +763,16 @@ input[type=number] {
 
     font-weight: 600 !important;
   }
+}
+
+.ship_pretge {
+  background: linear-gradient(180deg, #E7B443, #b1882f);
+  color: #201808;
+}
+
+.ship_new {
+  color: rgb(57 218 248);
+  background: linear-gradient(rgb(20 66 59), rgb(11 36 33));
 }
 
 .ship_DELEGATED {
@@ -1186,14 +1192,11 @@ a,
     height: 17px;
   }
 
-  min-height: 48px !important;
-
-
-
+  min-height: 45px !important;
 }
 
 .tab.Mui-selected {
-  background-color: rgba(41, 255, 148, 0.16) !important;
+  background-color: rgba(147, 184, 236, 0.16) !important;
 }
 
 .MuiTabs-indicator {
@@ -1234,12 +1237,28 @@ a,
   max-width: calc(100vw - 32px);
 }
 
-.MuiBackdrop-root {
-  backdrop-filter: blur(3px) !important;
+.skPopup {
+  .MuiBackdrop-root {
+    backdrop-filter: blur(3px) !important;
+  }
+}
+
+.socialIcon {
+  width: 30px !important;
+  height: 30px !important;
+  svg {
+    width: 30px !important;
+    height: 30px !important;
+  }
 }
 
 .pSec {
   color: RGB(255 255 255 / 65%);
+
+  svg {
+    fill: RGB(255 255 255 / 65%);
+  }
+
 }
 
 .addressInput {
@@ -1250,4 +1269,17 @@ a,
   .Mui-disabled {
     -webkit-text-fill-color: #ffffff;
   }
+}
+
+
+.bg {
+  background: $sk-bg !important;
+}
+
+.bgPrim {
+  background: $sk-bg-prim !important;
+}
+
+.hidden {
+  display: none;
 }

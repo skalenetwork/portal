@@ -21,18 +21,18 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, type interfaces, SkPaper, styles } from '@skalenetwork/metaport'
+import { cmn, cls, SkPaper, styles } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
 import CategorySection from './CategorySection'
 import appChainsIcon from '../assets/appChains.png'
-import { IMetrics } from '../core/types'
 import { MAINNET_CHAIN_NAME } from '../core/constants'
 
 export default function AppChains(props: {
-  skaleNetwork: interfaces.SkaleNetwork
+  skaleNetwork: types.SkaleNetwork
   schains: any[]
-  metrics: IMetrics | null
-  chainsMeta: interfaces.ChainsMetadataMap
+  metrics: types.IMetrics | null
+  chainsMeta: types.ChainsMetadataMap
   isXs: boolean
 }) {
   if (props.schains.length === 0) return

@@ -21,13 +21,12 @@
  */
 
 import { Grid } from '@mui/material'
-import { interfaces } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
-import AppCard from './AppCard'
-import { IAppId } from '../core/types'
+import AppCard from './ecosystem/AppCardV2'
 
-function getFeaturedApps(chainsMeta: interfaces.ChainsMetadataMap): IAppId[] {
-  const featuredApps: IAppId[] = []
+function getFeaturedApps(chainsMeta: types.ChainsMetadataMap): types.IAppId[] {
+  const featuredApps: types.IAppId[] = []
   for (const chain in chainsMeta) {
     const apps = chainsMeta[chain].apps
     for (const appKey in apps) {
@@ -44,14 +43,14 @@ function getFeaturedApps(chainsMeta: interfaces.ChainsMetadataMap): IAppId[] {
 }
 
 export default function FeaturedApps(props: {
-  skaleNetwork: interfaces.SkaleNetwork
-  chainsMeta: interfaces.ChainsMetadataMap
+  skaleNetwork: types.SkaleNetwork
+  chainsMeta: types.ChainsMetadataMap
 }) {
   const featuredApps = getFeaturedApps(props.chainsMeta)
   return (
     <Grid container spacing={2}>
-      {featuredApps.map((appId, index) => (
-        <Grid key={index} className="fl-centered dappCard" item lg={3} md={4} sm={6} xs={6}>
+      {featuredApps.slice(0, 3).map((appId, index) => (
+        <Grid key={index} className="fl-centered dappCard" item lg={4} md={4} sm={6} xs={6}>
           <AppCard
             skaleNetwork={props.skaleNetwork}
             schainName={appId.chain}

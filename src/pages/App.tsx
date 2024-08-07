@@ -25,15 +25,8 @@ import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useParams } from 'react-router-dom'
 
-import {
-  MetaportCore,
-  fromWei,
-  interfaces,
-  styles,
-  cmn,
-  cls,
-  SkPaper
-} from '@skalenetwork/metaport'
+import { MetaportCore, fromWei, styles, cmn, cls, SkPaper } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
 import { Button, Grid } from '@mui/material'
 import Container from '@mui/material/Container'
@@ -60,7 +53,6 @@ import AccordionSection from '../components/AccordionSection'
 
 import { findChainName } from '../core/chain'
 
-import { IAddressCounters, IMetrics } from '../core/types'
 import { formatNumber } from '../core/timeHelper'
 import { chainBg, getChainAlias } from '../core/metadata'
 import { addressUrl, getExplorerUrl, getTotalAppCounters } from '../core/explorer'
@@ -69,16 +61,16 @@ import { DAPP_RADAR_BASE_URL, MAINNET_CHAIN_LOGOS } from '../core/constants'
 export default function App(props: {
   mpc: MetaportCore
   loadData: () => Promise<void>
-  metrics: IMetrics | null
+  metrics: types.IMetrics | null
   isXs: boolean
-  chainsMeta: interfaces.ChainsMetadataMap
+  chainsMeta: types.ChainsMetadataMap
 }) {
   let { chain, app } = useParams()
   if (chain === undefined || app === undefined) return 'No such app'
 
   const network = props.mpc.config.skaleNetwork
   const [expanded, setExpanded] = useState<string | false>('panel3')
-  const [counters, setCounters] = useState<IAddressCounters | null>(null)
+  const [counters, setCounters] = useState<types.IAddressCounters | null>(null)
 
   chain = findChainName(props.chainsMeta, chain ?? '')
 
@@ -167,7 +159,7 @@ export default function App(props: {
               children={
                 <div>
                   <h2 className={cls(cmn.nom)}>{appAlias}</h2>
-                  <CollapsibleDescription text={appDescription} />
+                  <CollapsibleDescription text={appDescription} expandable />
                 </div>
               }
             />
@@ -178,8 +170,13 @@ export default function App(props: {
               grow={!appMeta.contracts}
               children={
                 <div className={cls([cmn.flex, !props.isXs], cmn.flexcv)}>
-                  {appMeta.url ? (
-                    <a target="_blank" rel="noreferrer" href={appMeta.url} className="undec">
+                  {appMeta.social?.website ? (
+                    <a
+                      target="_blank"
+                      rel="noreferrer"
+                      href={appMeta.social.website}
+                      className="undec"
+                    >
                       <Button
                         size="medium"
                         className={cls(styles.btnAction, cmn.mri10)}

@@ -21,19 +21,18 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, type interfaces } from '@skalenetwork/metaport'
+import { cmn, cls } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
 import HubTile from './chains/HubTile'
 import HubApps from './chains/HubApps'
 
-import { IMetrics, ISChain } from '../core/types'
-
 export default function HubCard(props: {
-  skaleNetwork: interfaces.SkaleNetwork
-  schain: ISChain
-  metrics: IMetrics | null
+  skaleNetwork: types.SkaleNetwork
+  schain: types.ISChain
+  metrics: types.IMetrics | null
   isXs: boolean
-  chainsMeta: interfaces.ChainsMetadataMap
+  chainsMeta: types.ChainsMetadataMap
 }) {
   return (
     <div>

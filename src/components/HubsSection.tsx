@@ -21,22 +21,23 @@
  * @copyright SKALE Labs 2024-Present
  */
 
+import { cls, cmn } from '@skalenetwork/metaport'
+import { type types } from '@/core'
+
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 
 import HubCard from './HubCard'
-import { cls, cmn, type interfaces } from '@skalenetwork/metaport'
-import { IMetrics, ISChain } from '../core/types'
 
 export default function HubsSection(props: {
-  schains: ISChain[]
-  metrics: IMetrics | null
+  schains: types.ISChain[]
+  metrics: types.IMetrics | null
   category: string
-  skaleNetwork: interfaces.SkaleNetwork
+  skaleNetwork: types.SkaleNetwork
   isXs: boolean
-  chainsMeta: interfaces.ChainsMetadataMap
+  chainsMeta: types.ChainsMetadataMap
 }) {
-  function getMaxLength(schain: string, chainsMeta: interfaces.ChainsMetadataMap): number {
+  function getMaxLength(schain: string, chainsMeta: types.ChainsMetadataMap): number {
     return Object.keys(chainsMeta[schain].apps || {}).length
   }
 
@@ -51,7 +52,7 @@ export default function HubsSection(props: {
     <div className={cls(cmn.mtop20)}>
       <Box sx={{ flexGrow: 1 }}>
         <Grid container spacing={2}>
-          {props.schains.map((schain: ISChain) => (
+          {props.schains.map((schain: types.ISChain) => (
             <Grid key={schain.name} className="fl-centered dappCard" item xs={12}>
               <HubCard
                 isXs={props.isXs}

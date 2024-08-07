@@ -22,7 +22,8 @@
  */
 
 import { Link } from 'react-router-dom'
-import { cmn, cls, type interfaces } from '@skalenetwork/metaport'
+import { cmn, cls } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
 import Button from '@mui/material/Button'
 import ChainLogo from './ChainLogo'
@@ -32,10 +33,10 @@ import { formatNumber } from '../core/timeHelper'
 import { chainBg, getChainAlias } from '../core/metadata'
 
 export default function AppCard(props: {
-  skaleNetwork: interfaces.SkaleNetwork
+  skaleNetwork: types.SkaleNetwork
   schainName: string
   appName: string
-  chainsMeta: interfaces.ChainsMetadataMap
+  chainsMeta: types.ChainsMetadataMap
   transactions?: number
 }) {
   const shortAlias = getChainShortAlias(props.chainsMeta, props.schainName)

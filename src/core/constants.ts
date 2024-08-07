@@ -21,13 +21,13 @@
  * @copyright SKALE Labs 2022-Present
  */
 
+import { type types } from '@/core'
 import FAQ from '../data/faq.json'
 
 import * as MAINNET_CHAIN_LOGOS from '../meta/logos'
 import * as VALIDATOR_LOGOS from '../assets/validators'
 
 import { CONTRACTS_META } from '../data/contractsMeta.ts'
-import { interfaces } from '@skalenetwork/metaport'
 
 export const MAINNET_CHAIN_NAME = 'mainnet'
 
@@ -72,7 +72,7 @@ export const TRANSAK_API_KEY = import.meta.env.VITE_TRANSAK_API_KEY
 
 export const DAPP_RADAR_BASE_URL = 'https://dappradar.com/dapp/'
 
-export const STATS_API: { [key in interfaces.SkaleNetwork]: string | null } = {
+export const STATS_API: { [key in types.SkaleNetwork]: string | null } = {
   mainnet: 'https://stats.explorer.mainnet.skalenodes.com/v2/stats/',
   testnet: null,
   staging: null,
@@ -81,4 +81,4 @@ export const STATS_API: { [key in interfaces.SkaleNetwork]: string | null } = {
 }
 
 export const BASE_METADATA_URL =
-  'https://raw.githubusercontent.com/skalenetwork/skale-network/master/metadata/'
+  'https://raw.githubusercontent.com/skalenetwork/skale-network/metadata-v2/metadata/' // todo: tmp
