@@ -37,7 +37,7 @@ export interface Categories {
 export const categories: Categories = {
   'hub-chains': { name: 'Hub Chains', subcategories: {} },
   ai: { name: 'AI', subcategories: {} },
-  'bridges-onramps': { name: 'Bridges + On-ramps', subcategories: {} },
+  'bridges-onramps': { name: 'Bridges', subcategories: {} },
   cex: { name: 'CEX', subcategories: ['Add Later'] },
   consumer: { name: 'Consumer', subcategories: ['Add Later'] },
   defi: {

@@ -37,12 +37,14 @@ import RocketLaunchRoundedIcon from '@mui/icons-material/RocketLaunchRounded'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
 import PieChartOutlineRoundedIcon from '@mui/icons-material/PieChartOutlineRounded'
+import OutboundRoundedIcon from '@mui/icons-material/OutboundRounded'
 
 import PageCard from '../components/PageCard'
 import AppCard from '../components/ecosystem/AppCardV2'
 
 import { useEffect, useState } from 'react'
 import FeaturedApps from '../components/FeaturedApps'
+import CategoryCardsGrid from '../components/ecosystem/CategoryCardsGrid'
 
 export default function Start(props: {
   isXs: boolean
@@ -73,7 +75,7 @@ export default function Start(props: {
 
   if (apps) {
     appCards = apps.slice(0, 3).map((topApp: types.IAppId) => (
-      <Grid key={topApp.app} className="fl-centered dappCard" item lg={4} md={4} sm={6} xs={6}>
+      <Grid key={topApp.app} className="fl-centered dappCard" item lg={4} md={4} sm={6} xs={12}>
         <AppCard
           skaleNetwork={props.skaleNetwork}
           schainName={topApp.chain}
@@ -142,6 +144,12 @@ export default function Start(props: {
           {appCards}
         </Grid>
       </Stack>
+
+      <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
+        <OutboundRoundedIcon color="primary" />
+        <h3 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.mleft10)}>Top Categories</h3>
+      </div>
+      <CategoryCardsGrid chainsMeta={props.chainsMeta} />
     </Container>
   )
 }
