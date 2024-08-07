@@ -54,16 +54,23 @@ import {
 import SearchComponent from '../components/ecosystem/AppSearch'
 import SelectedCategories from '../components/ecosystem/SelectedCategories'
 import SkStack from '../components/SkStack'
+import { useUrlParams } from '../core/ecosystem/urlParamsUtil'
 
 export default function Ecosystem(props: {
   mpc: MetaportCore
   chainsMeta: types.ChainsMetadataMap
   isXs: boolean
 }) {
+  const { getCheckedItemsFromUrl, setCheckedItemsInUrl } = useUrlParams()
   const allApps = sortAppsByAlias(getAllApps(props.chainsMeta))
   const [checkedItems, setCheckedItems] = useState<string[]>([])
   const [apps, setApps] = useState<AppWithChainAndName[]>([])
   const [searchTerm, setSearchTerm] = useState('')
+
+  useEffect(() => {
+    const initialCheckedItems = getCheckedItemsFromUrl()
+    setCheckedItems(initialCheckedItems)
+  }, [])
 
   useEffect(() => {
     setApps(allApps)
@@ -72,6 +79,11 @@ export default function Ecosystem(props: {
   useEffect(() => {
     setApps(filterAppsBySearchTerm(filterAppsByCategory(allApps, checkedItems), searchTerm))
   }, [checkedItems, searchTerm])
+
+  const handleSetCheckedItems = (newCheckedItems: string[]) => {
+    setCheckedItems(newCheckedItems)
+    setCheckedItemsInUrl(newCheckedItems)
+  }
 
   console.log('render Ecosystem') // todo: optimize renders
 
@@ -97,17 +109,17 @@ export default function Ecosystem(props: {
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
             />
-            <CategoryDisplay checkedItems={checkedItems} setCheckedItems={setCheckedItems} />
+            <CategoryDisplay checkedItems={checkedItems} setCheckedItems={handleSetCheckedItems} />
           </SkStack>
           <SelectedCategories
             checkedItems={checkedItems}
-            setCheckedItems={setCheckedItems}
+            setCheckedItems={handleSetCheckedItems}
             filteredAppsCount={apps.length}
           />
           <Tabs
             variant={props.isXs ? 'scrollable' : 'standard'}
             value={0}
-            onChange={() => { }}
+            onChange={() => {}}
             scrollButtons="auto"
             className={cls(
               cmn.mbott20,

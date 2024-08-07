@@ -25,11 +25,11 @@ import React from 'react'
 import { cmn, cls, styles } from '@skalenetwork/metaport'
 import { Chip, Typography, Box } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
-import { categories, Category, Subcategory } from '../../core/ecosystem/categories'
+import { categories } from '../../core/ecosystem/categories'
 
 interface SelectedCategoriesProps {
   checkedItems: string[]
-  setCheckedItems: React.Dispatch<React.SetStateAction<string[]>>
+  setCheckedItems: (items: string[]) => void
   filteredAppsCount: number
 }
 
@@ -61,7 +61,7 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
   filteredAppsCount
 }) => {
   const handleDelete = (itemToDelete: string) => {
-    setCheckedItems((prev) => prev.filter((item) => item !== itemToDelete))
+    setCheckedItems(checkedItems.filter((item) => item !== itemToDelete))
   }
 
   const clearAll = () => {
@@ -71,10 +71,13 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
   const getCategoryName = (key: string): string => categories[key]?.name || key
 
   const getSubcategoryName = (categoryKey: string, subcategoryKey: string): string => {
-    const category = categories[categoryKey] as Category
-    if (category && 'subcategories' in category) {
-      const subcategories = category.subcategories as { [key: string]: Subcategory }
-      return subcategories[subcategoryKey]?.name || subcategoryKey
+    const category = categories[categoryKey]
+    if (
+      category &&
+      typeof category.subcategories === 'object' &&
+      !Array.isArray(category.subcategories)
+    ) {
+      return category.subcategories[subcategoryKey]?.name || subcategoryKey
     }
     return subcategoryKey
   }

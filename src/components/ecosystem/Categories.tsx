@@ -20,11 +20,9 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import React, { useState, useMemo, useRef, useEffect } from 'react'
+import React, { useState, useMemo, useRef } from 'react'
 import { cmn, cls } from '@skalenetwork/metaport'
-
 import { filterCategories } from '../../core/ecosystem/categoryUtils'
-
 import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import IconButton from '@mui/material/IconButton'
@@ -35,53 +33,56 @@ import Menu from '@mui/material/Menu'
 import Button from '@mui/material/Button'
 import ManageSearchRoundedIcon from '@mui/icons-material/ManageSearchRounded'
 import { categories, type Category } from '../../core/ecosystem/categories'
-
 import SearchBar, { highlightMatch } from './SearchBar'
 import SubcategoryList from './SubcategoryList'
 
 interface CategoryDisplayProps {
   checkedItems: string[]
-  setCheckedItems: React.Dispatch<React.SetStateAction<string[]>>
+  setCheckedItems: (items: string[]) => void
 }
 
 const CategoryDisplay: React.FC<CategoryDisplayProps> = ({ checkedItems, setCheckedItems }) => {
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({})
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [searchTerm, setSearchTerm] = useState('')
-  const [buttonWidth, setButtonWidth] = useState<number | undefined>(undefined)
   const buttonRef = useRef<HTMLButtonElement>(null)
 
-  useEffect(() => {
-    if (buttonRef.current != null) {
-      setButtonWidth(buttonRef.current.offsetWidth)
-    }
-  }, [])
+  const filteredCategories = useMemo(() => filterCategories(searchTerm), [searchTerm])
 
   const handleCheck = (category: string, subcategory: string | null = null): void => {
-    setCheckedItems((prev) => {
-      let newCheckedItems = [...prev]
-      const itemToToggle = subcategory ? `${category}_${subcategory}` : category
+    const newCheckedItems = [...checkedItems]
+    const itemToToggle = subcategory ? `${category}_${subcategory}` : category
 
-      if (newCheckedItems.includes(itemToToggle)) {
-        return newCheckedItems.filter((item) => item !== itemToToggle)
-      } else {
-        if (subcategory) {
-          // Remove the main category if it was checked
-          const mainCategoryIndex = newCheckedItems.indexOf(category)
-          if (mainCategoryIndex !== -1) {
-            newCheckedItems.splice(mainCategoryIndex, 1)
-          }
-        } else {
-          // Remove all subcategories of this category
-          newCheckedItems = newCheckedItems.filter((item) => !item.startsWith(`${category}_`))
-        }
-        return [...newCheckedItems, itemToToggle]
+    if (newCheckedItems.includes(itemToToggle)) {
+      const index = newCheckedItems.indexOf(itemToToggle)
+      newCheckedItems.splice(index, 1)
+
+      if (!subcategory) {
+        setExpandedItems((prev) => ({ ...prev, [category]: false }))
       }
-    })
-
-    if (!subcategory) {
-      setExpandedItems((prev) => ({ ...prev, [category]: true }))
+    } else {
+      if (subcategory) {
+        const mainCategoryIndex = newCheckedItems.indexOf(category)
+        if (mainCategoryIndex !== -1) {
+          newCheckedItems.splice(mainCategoryIndex, 1)
+        }
+        newCheckedItems.push(itemToToggle)
+      } else {
+        const subcategoriesToRemove = newCheckedItems.filter((item) =>
+          item.startsWith(`${category}_`)
+        )
+        subcategoriesToRemove.forEach((item) => {
+          const index = newCheckedItems.indexOf(item)
+          if (index !== -1) {
+            newCheckedItems.splice(index, 1)
+          }
+        })
+        newCheckedItems.push(category)
+        setExpandedItems((prev) => ({ ...prev, [category]: true }))
+      }
     }
+
+    setCheckedItems(newCheckedItems)
   }
 
   const toggleExpand = (category: string): void => {
@@ -100,23 +101,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({ checkedItems, setChec
   }
 
   const handleSearch = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    const newSearchTerm = event.target.value
-    setSearchTerm(newSearchTerm)
-
-    const newExpandedItems = { ...expandedItems }
-    Object.entries(categories).forEach(([shortName, data]) => {
-      const subs = data.subcategories
-      if (typeof subs === 'object' && !Array.isArray(subs)) {
-        const hasMatchingSubcategory = Object.values(subs).some((sub) =>
-          sub.name.toLowerCase().includes(newSearchTerm.toLowerCase())
-        )
-        const categoryMatches = data.name.toLowerCase().includes(newSearchTerm.toLowerCase())
-
-        newExpandedItems[shortName] =
-          hasMatchingSubcategory || (categoryMatches && newSearchTerm !== '')
-      }
-    })
-    setExpandedItems(newExpandedItems)
+    setSearchTerm(event.target.value)
   }
 
   const handleClearSearch = (): void => {
@@ -124,7 +109,9 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({ checkedItems, setChec
     setExpandedItems({})
   }
 
-  const filteredCategories = useMemo(() => filterCategories(searchTerm), [searchTerm])
+  const getSelectedSubcategoriesCount = (category: string): number => {
+    return checkedItems.filter((item) => item.startsWith(`${category}_`)).length
+  }
 
   const renderSubcategories = (shortName: string, data: Category): JSX.Element | null => {
     const subs = data.subcategories
@@ -158,10 +145,6 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({ checkedItems, setChec
     )
   }
 
-  const getSelectedSubcategoriesCount = (category: string): number => {
-    return checkedItems.filter((item) => item.startsWith(`${category}_`)).length
-  }
-
   return (
     <div>
       <Button
@@ -182,7 +165,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({ checkedItems, setChec
         PaperProps={{
           style: {
             maxHeight: '500pt',
-            width: buttonWidth,
+            width: buttonRef.current?.offsetWidth,
             borderRadius: '25px',
             margin: '10px 0'
           }
