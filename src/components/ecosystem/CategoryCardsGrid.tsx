@@ -46,7 +46,7 @@ const CategoryCardsGrid: React.FC<CategoryCardsGridProps> = ({ chainsMeta, maxCa
       Object.values(chainsMeta).forEach((chain) => {
         if (chain.apps) {
           Object.values(chain.apps).forEach((app) => {
-            if (app.categories && app.categories[categoryName]) {
+            if (app.categories && app.categories[categoryName] !== undefined) {
               count++
             }
           })
