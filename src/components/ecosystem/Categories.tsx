@@ -32,7 +32,7 @@ import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import Menu from '@mui/material/Menu'
 import Button from '@mui/material/Button'
 import ManageSearchRoundedIcon from '@mui/icons-material/ManageSearchRounded'
-import { categories, type Category } from '../../core/ecosystem/categories'
+import { type Category } from '../../core/ecosystem/categories'
 import SearchBar, { highlightMatch } from './SearchBar'
 import SubcategoryList from './SubcategoryList'
 
