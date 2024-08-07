@@ -23,15 +23,13 @@
 
 import React from 'react'
 import { cmn, cls, styles } from '@skalenetwork/metaport'
-
 import { Chip, Typography, Box } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
-import { CheckedItems } from '../../core/ecosystem/categoryUtils'
 import { categories, Category, Subcategory } from '../../core/ecosystem/categories'
 
 interface SelectedCategoriesProps {
-  checkedItems: CheckedItems
-  setCheckedItems: React.Dispatch<React.SetStateAction<CheckedItems>>
+  checkedItems: string[]
+  setCheckedItems: React.Dispatch<React.SetStateAction<string[]>>
   filteredAppsCount: number
 }
 
@@ -62,25 +60,12 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
   setCheckedItems,
   filteredAppsCount
 }) => {
-  const handleDelete = (category: string, fullSubcategory?: string) => {
-    setCheckedItems((prev) => {
-      const newCheckedItems = { ...prev }
-      if (fullSubcategory) {
-        delete newCheckedItems[fullSubcategory]
-      } else {
-        Object.keys(newCheckedItems).forEach((key) => {
-          if (key.startsWith(`${category}_`)) {
-            delete newCheckedItems[key]
-          }
-        })
-        delete newCheckedItems[category]
-      }
-      return newCheckedItems
-    })
+  const handleDelete = (itemToDelete: string) => {
+    setCheckedItems((prev) => prev.filter((item) => item !== itemToDelete))
   }
 
   const clearAll = () => {
-    setCheckedItems({})
+    setCheckedItems([])
   }
 
   const getCategoryName = (key: string): string => categories[key]?.name || key
@@ -94,25 +79,23 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
     return subcategoryKey
   }
 
-  const selectedItems = Object.entries(checkedItems).filter(([_, value]) => value)
-
-  if (selectedItems.length === 0) return
+  if (checkedItems.length === 0) return null
 
   return (
     <Box className={cls(cmn.flex, cmn.flexcv, cmn.mbottf10)}>
-      {selectedItems.map(([key, _]) => {
-        const [category, subcategory] = key.split('_')
+      {checkedItems.map((item) => {
+        const [category, subcategory] = item.split('_')
         return (
           <Chip
             variant="outlined"
-            key={key}
+            key={item}
             label={
               <CustomChipLabel
                 category={getCategoryName(category)}
                 subcategory={subcategory ? getSubcategoryName(category, subcategory) : undefined}
               />
             }
-            onDelete={() => handleDelete(category, key)}
+            onDelete={() => handleDelete(item)}
             deleteIcon={<CloseIcon className={cls(styles.chainIconxs)} />}
             className={cls(cmn.mri10, 'outlined', cmn.p600)}
           />

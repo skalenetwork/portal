@@ -25,20 +25,17 @@ import { Helmet } from 'react-helmet'
 
 import { useState, useEffect } from 'react'
 
-import { cmn, cls, styles, type MetaportCore } from '@skalenetwork/metaport'
+import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
-import EditRoundedIcon from '@mui/icons-material/EditRounded'
-import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded'
 
 import HubsSection from '../components/HubsSection'
 import { getPrimaryCategory } from '../components/CategoryBadge'
 
 import { META_TAGS } from '../core/meta'
-import { Button } from '@mui/material'
 import AppChains from '../components/AppChains'
 
 export default function Chains(props: {
@@ -85,9 +82,7 @@ export default function Chains(props: {
           <h2 className={cls(cmn.nom)}>Chains</h2>
         </div>
         <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-          {props.isXs
-            ? 'Explore dApps, get block explorer links and endpoints'
-            : 'Explore SKALE Hubs, AppChains, connect, get block explorer links and endpoints'}
+          Chains info, block explorers and endpoints
         </p>
         <div className={cls(cmn.mbott20)}>
           <HubsSection
@@ -114,44 +109,6 @@ export default function Chains(props: {
             )}
             isXs={props.isXs}
           />
-        </div>
-        <div className={cls(cmn.mbott20)}>
-          <div className={cls(cmn.flex)}>
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
-            <div className={cls(cmn.flex, cmn.mtop10, cmn.mri10)}>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href="https://skale.space/ecosystem"
-                className="undec"
-              >
-                <Button
-                  size="medium"
-                  className={cls(styles.btnAction, 'btnMd', 'outlined', cmn.mri10)}
-                  startIcon={<LanguageRoundedIcon className={cls(styles.chainIconxs)} />}
-                >
-                  Explore All SKALE Projects
-                </Button>
-              </a>
-            </div>
-            <div className={cls(cmn.flex, cmn.mtop10, cmn.mleft10)}>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href="https://github.com/skalenetwork/skale-network/issues/new?assignees=dmytrotkk&labels=metadata&projects=&template=app_submission.yml&title=App+Metadata+Submission"
-                className="undec"
-              >
-                <Button
-                  size="medium"
-                  className={cls(styles.btnAction, 'btnMd', 'outlined', cmn.mri10)}
-                  startIcon={<EditRoundedIcon className={cls(styles.chainIconxs)} />}
-                >
-                  Submit Your Project
-                </Button>
-              </a>
-            </div>
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
-          </div>
         </div>
       </Stack>
     </Container>

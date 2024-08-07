@@ -23,32 +23,27 @@
 
 import { categories } from './categories'
 
-export interface CheckedItems {
-  [key: string]: boolean
-}
-
 export interface ExpandedItems {
   [key: string]: boolean
 }
 
-export const getSelectedSubcategoriesCount = (
-  category: string,
-  checkedItems: CheckedItems
-): number => {
+export const getSelectedSubcategoriesCount = (category: string, checkedItems: string[]): number => {
   const subcategories = categories[category].subcategories
   if (typeof subcategories === 'object' && !Array.isArray(subcategories)) {
-    return Object.keys(subcategories).filter((subKey) => checkedItems[`${category}_${subKey}`])
-      .length
+    return checkedItems.filter((item) => item.startsWith(`${category}_`)).length
   }
   return 0
 }
 
-export const getSelectedCategoriesCount = (checkedItems: CheckedItems): number => {
-  return Object.keys(categories).filter(
-    (category) =>
-      checkedItems[category] ||
-      Object.keys(checkedItems).some((key) => key.startsWith(`${category}_`))
-  ).length
+export const getSelectedCategoriesCount = (checkedItems: string[]): number => {
+  const selectedCategories = new Set<string>()
+
+  checkedItems.forEach((item) => {
+    const [category] = item.split('_')
+    selectedCategories.add(category)
+  })
+
+  return selectedCategories.size
 }
 
 export const filterCategories = (searchTerm: string) => {

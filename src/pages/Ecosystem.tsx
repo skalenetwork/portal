@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 
 import Container from '@mui/material/Container'
@@ -50,7 +50,7 @@ import {
   getAllApps,
   sortAppsByAlias
 } from '../core/ecosystem/apps'
-import { CheckedItems } from '../core/ecosystem/categoryUtils'
+
 import SearchComponent from '../components/ecosystem/AppSearch'
 import SelectedCategories from '../components/ecosystem/SelectedCategories'
 import SkStack from '../components/SkStack'
@@ -61,7 +61,7 @@ export default function Ecosystem(props: {
   isXs: boolean
 }) {
   const allApps = sortAppsByAlias(getAllApps(props.chainsMeta))
-  const [checkedItems, setCheckedItems] = useState<CheckedItems>({})
+  const [checkedItems, setCheckedItems] = useState<string[]>([])
   const [apps, setApps] = useState<AppWithChainAndName[]>([])
   const [searchTerm, setSearchTerm] = useState('')
 
@@ -73,8 +73,7 @@ export default function Ecosystem(props: {
     setApps(filterAppsBySearchTerm(filterAppsByCategory(allApps, checkedItems), searchTerm))
   }, [checkedItems, searchTerm])
 
-  console.log('render Ecosystem')
-  console.log(checkedItems)
+  console.log('render Ecosystem') // todo: optimize renders
 
   return (
     <Container maxWidth="md">
@@ -108,7 +107,7 @@ export default function Ecosystem(props: {
           <Tabs
             variant={props.isXs ? 'scrollable' : 'standard'}
             value={0}
-            onChange={() => {}}
+            onChange={() => { }}
             scrollButtons="auto"
             className={cls(
               cmn.mbott20,

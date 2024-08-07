@@ -112,7 +112,7 @@ export default function Start(props: {
             </Grid>
             <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
               <PageCard
-                description="Apps, games, block explorers and endpoints"
+                description="Chains info, block explorers and endpoints"
                 name="chains"
                 icon={<LinkRoundedIcon />}
               />

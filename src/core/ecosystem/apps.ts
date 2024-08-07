@@ -27,10 +27,6 @@ export interface AppWithChainAndName extends types.AppMetadata {
   appName: string
 }
 
-interface CategoryFilter {
-  [key: string]: boolean
-}
-
 export function getAllApps(chainsMetadata: types.ChainsMetadataMap): AppWithChainAndName[] {
   const allApps: AppWithChainAndName[] = []
 
@@ -55,22 +51,21 @@ export function sortAppsByAlias(apps: AppWithChainAndName[]): AppWithChainAndNam
 
 export function filterAppsByCategory(
   apps: AppWithChainAndName[],
-  filter: CategoryFilter
+  checkedItems: string[]
 ): AppWithChainAndName[] {
-  if (Object.keys(filter).length === 0) return apps
+  if (checkedItems.length === 0) return apps
   return apps.filter((app) => {
     if (!app.categories || Object.keys(app.categories).length === 0) return false
     return Object.entries(app.categories).some(([category, subcategories]) => {
-      // Check if the main category is selected in the filter
-      if (filter[category] === true) return true
+      // Check if the main category is in checkedItems
+      if (checkedItems.includes(category)) return true
       // If the main category isn't selected, check subcategories
       if (Array.isArray(subcategories)) {
         return subcategories.some((subcategory) => {
           const subcategoryKey = `${category}_${subcategory}`
-          return filter[subcategoryKey] === true
+          return checkedItems.includes(subcategoryKey)
         })
       }
-
       return false
     })
   })

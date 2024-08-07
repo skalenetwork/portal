@@ -21,17 +21,18 @@
  */
 
 import React from 'react'
-import Checkbox from '@mui/material/Checkbox'
-import FormControlLabel from '@mui/material/FormControlLabel'
-import { type Subcategory } from '../../core/ecosystem/categories'
-import { type CheckedItems } from '../../core/ecosystem/categoryUtils'
+import { FormControlLabel, Checkbox } from '@mui/material'
+import { cls, cmn } from '@skalenetwork/metaport'
 import { highlightMatch } from './SearchBar'
-import { cmn, cls } from '@skalenetwork/metaport'
+
+interface Subcategory {
+  name: string
+}
 
 interface SubcategoryListProps {
   category: string
   subcategories: Record<string, Subcategory>
-  checkedItems: CheckedItems
+  checkedItems: string[]
   onCheck: (category: string, subcategory: string) => void
   searchTerm: string
 }
@@ -52,7 +53,7 @@ const SubcategoryList: React.FC<SubcategoryListProps> = ({
         <FormControlLabel
           control={
             <Checkbox
-              checked={Boolean(checkedItems[`${category}_${shortName}`])}
+              checked={checkedItems.includes(`${category}_${shortName}`)}
               onChange={() => {
                 onCheck(category, shortName)
               }}
