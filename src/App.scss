@@ -366,6 +366,17 @@ body::-webkit-scrollbar {
   width: 100%;
 }
 
+.skArrows {
+  .MuiIconButton-root {
+    svg {
+      color: white;
+      font-size: 14pt;
+      padding: 2px;
+    }
+  }
+
+}
+
 .btn {
   text-transform: none !important;
   font-size: 0.8025rem !important;

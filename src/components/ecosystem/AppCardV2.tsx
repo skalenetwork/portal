@@ -81,7 +81,7 @@ export default function AppCard(props: {
           <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri5)}>
             {getChainAlias(props.chainsMeta, props.schainName, props.appName)}
           </p>
-          {isNew && <Chip label="NEW" size="small" className='ship_new' />}
+          {isNew && <Chip label="NEW" size="small" className="ship_new" />}
           {appMeta.tags?.includes('pretge') && (
             <Chip label="Pre-TGE" size="small" className={cls(cmn.mleft5, 'ship_pretge')} />
           )}

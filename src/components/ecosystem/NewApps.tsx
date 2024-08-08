@@ -22,37 +22,52 @@
  */
 
 import React from 'react'
-import { Grid } from '@mui/material'
+import { Grid, Box } from '@mui/material'
 import { cls } from '@skalenetwork/metaport'
-import { type types } from '@/core'
 import AppCard from './AppCardV2'
+import Carousel from '../Carousel'
+import { type types } from '@/core'
 
 interface NewAppsProps {
   newApps: { chain: string; app: string; added: number }[]
   skaleNetwork: types.SkaleNetwork
   chainsMeta: types.ChainsMetadataMap
+  useCarousel?: boolean
 }
 
-const NewApps: React.FC<NewAppsProps> = ({ newApps, skaleNetwork, chainsMeta }) => {
+const NewApps: React.FC<NewAppsProps> = ({
+  newApps,
+  skaleNetwork,
+  chainsMeta,
+  useCarousel = false
+}) => {
+  const appCards = newApps.map((app) => (
+    <Box key={`${app.chain}-${app.app}`} className={cls('fl-centered dappCard')}>
+      <AppCard
+        skaleNetwork={skaleNetwork}
+        schainName={app.chain}
+        appName={app.app}
+        chainsMeta={chainsMeta}
+      />
+    </Box>
+  ))
+
+  if (useCarousel) {
+    return <Carousel>{appCards}</Carousel>
+  }
+
   return (
     <Grid container spacing={2}>
       {newApps.map((app) => (
-        <Grid
-          key={`${app.chain}-${app.app}`}
-          className={cls('fl-centered dappCard')}
-          item
-          lg={4}
-          md={4}
-          sm={6}
-          xs={12}
-        >
-          <AppCard
-            skaleNetwork={skaleNetwork}
-            schainName={app.chain}
-            appName={app.app}
-            chainsMeta={chainsMeta}
-            newApps={newApps}
-          />
+        <Grid key={`${app.chain}-${app.app}`} item xs={12} sm={6} md={4} lg={4}>
+          <Box className={cls('fl-centered dappCard')}>
+            <AppCard
+              skaleNetwork={skaleNetwork}
+              schainName={app.chain}
+              appName={app.app}
+              chainsMeta={chainsMeta}
+            />
+          </Box>
         </Grid>
       ))}
     </Grid>

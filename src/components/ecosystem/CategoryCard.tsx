@@ -23,8 +23,7 @@
 
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { cmn, cls, styles, SkPaper } from '@skalenetwork/metaport'
-import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
+import { cmn, cls, SkPaper } from '@skalenetwork/metaport'
 
 interface CategoryCardProps {
   categoryName: string
@@ -46,9 +45,6 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ categoryName, fullName, pro
             <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.mtop5)}>
               {projectCount} project{projectCount !== 1 ? 's' : ''}
             </p>
-          </div>
-          <div className={cls(cmn.mleft10, cmn.mri5, cmn.flex, cmn.flexcv)}>
-            <ArrowForwardRoundedIcon className={cls(cmn.pSec, styles.chainIconxs)} />
           </div>
         </div>
       </SkPaper>

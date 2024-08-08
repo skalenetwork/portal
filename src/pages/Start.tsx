@@ -47,6 +47,7 @@ import CategoryCardsGrid from '../components/ecosystem/CategoryCardsGrid'
 import { getRecentApps } from '../core/ecosystem/utils'
 import { MAX_APPS_DEFAULT } from '../core/constants'
 import NewApps from '../components/ecosystem/NewApps'
+import Carousel from '../components/Carousel'
 
 export default function Start(props: {
   isXs: boolean
@@ -80,17 +81,20 @@ export default function Start(props: {
     : null
 
   if (apps) {
-    appCards = apps.slice(0, 3).map((topApp: types.IAppId) => (
-      <Grid key={topApp.app} className="fl-centered dappCard" item lg={4} md={4} sm={6} xs={12}>
+    appCards = apps.slice(0, 11).map(
+      (
+        topApp: types.IAppId // todo: use max apps!
+      ) => (
         <AppCard
+          key={topApp.chain + topApp.app}
           skaleNetwork={props.skaleNetwork}
           schainName={topApp.chain}
           appName={topApp.app}
           transactions={topApp.totalTransactions}
           chainsMeta={props.chainsMeta}
         />
-      </Grid>
-    ))
+      )
+    )
   }
 
   return (
@@ -143,16 +147,14 @@ export default function Start(props: {
           newApps={newApps}
           skaleNetwork={props.skaleNetwork}
           chainsMeta={props.chainsMeta}
+          useCarousel={true}
         />
 
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
           <TrendingUpRoundedIcon color="primary" />
           <h3 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.mleft10)}>Trending dApps on SKALE</h3>
         </div>
-
-        <Grid container spacing={2}>
-          {appCards}
-        </Grid>
+        <Carousel>{appCards}</Carousel>
       </Stack>
 
       <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
