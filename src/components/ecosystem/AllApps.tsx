@@ -40,7 +40,7 @@ const AllApps: React.FC<AllAppsProps> = ({ apps, skaleNetwork, chainsMeta, newAp
     <Grid container spacing={2}>
       {apps.map((app) => (
         <Grid
-          key={`${app.chain}-${app.alias}`}
+          key={`${app.chain}-${app.appName}`}
           className={cls('fl-centered dappCard')}
           item
           lg={4}

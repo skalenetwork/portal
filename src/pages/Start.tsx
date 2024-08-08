@@ -48,6 +48,7 @@ import { getRecentApps } from '../core/ecosystem/utils'
 import { MAX_APPS_DEFAULT } from '../core/constants'
 import NewApps from '../components/ecosystem/NewApps'
 import Carousel from '../components/Carousel'
+import { Button } from '@mui/material'
 
 export default function Start(props: {
   isXs: boolean
@@ -141,7 +142,8 @@ export default function Start(props: {
 
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
           <LabelImportantRoundedIcon color="primary" />
-          <h3 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.mleft10)}>New dApps on SKALE</h3>
+          <h3 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.mleft10, cmn.flexg)}>New dApps on SKALE</h3>
+          <Button className={cls('btn btnSm bg', cmn.pPrim)}>See all</Button>
         </div>
         <NewApps
           newApps={newApps}
@@ -149,10 +151,10 @@ export default function Start(props: {
           chainsMeta={props.chainsMeta}
           useCarousel={true}
         />
-
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
           <TrendingUpRoundedIcon color="primary" />
-          <h3 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.mleft10)}>Trending dApps on SKALE</h3>
+          <h3 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.mleft10, cmn.flexg)}>Trending dApps on SKALE</h3>
+          <Button className={cls('btn btnSm bg', cmn.pPrim)}>See all</Button>
         </div>
         <Carousel>{appCards}</Carousel>
       </Stack>
