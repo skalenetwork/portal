@@ -58,6 +58,11 @@ export interface AppSocials {
   discord?: string;
   swell?: string;
 }
+export interface AppWithTimestamp {
+  chain: string
+  app: string
+  added: number
+}
 
 export interface CategoriesMap {
   [category: string]: string[] | null

@@ -21,13 +21,13 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
+import { Button, Tab, Tabs } from '@mui/material'
 
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
@@ -37,11 +37,8 @@ import StarRoundedIcon from '@mui/icons-material/StarRounded'
 
 import { type types } from '@/core'
 
-import AppCard from '../components/ecosystem/AppCardV2'
-
 import { cmn, cls, type MetaportCore, styles } from '@skalenetwork/metaport'
 import { META_TAGS } from '../core/meta'
-import { Button, Tab, Tabs } from '@mui/material'
 import CategoryDisplay from '../components/ecosystem/Categories'
 import {
   AppWithChainAndName,
@@ -55,6 +52,12 @@ import SearchComponent from '../components/ecosystem/AppSearch'
 import SelectedCategories from '../components/ecosystem/SelectedCategories'
 import SkStack from '../components/SkStack'
 import { useUrlParams } from '../core/ecosystem/urlParamsUtil'
+import { getRecentApps } from '../core/ecosystem/utils'
+
+import AllApps from '../components/ecosystem/AllApps'
+import NewApps from '../components/ecosystem/NewApps'
+import FavoriteApps from '../components/ecosystem/FavoriteApps'
+import TrendingApps from '../components/ecosystem/TrendingApps'
 
 export default function Ecosystem(props: {
   mpc: MetaportCore
@@ -62,10 +65,13 @@ export default function Ecosystem(props: {
   isXs: boolean
 }) {
   const { getCheckedItemsFromUrl, setCheckedItemsInUrl } = useUrlParams()
-  const allApps = sortAppsByAlias(getAllApps(props.chainsMeta))
+  const allApps = useMemo(() => sortAppsByAlias(getAllApps(props.chainsMeta)), [props.chainsMeta])
   const [checkedItems, setCheckedItems] = useState<string[]>([])
-  const [apps, setApps] = useState<AppWithChainAndName[]>([])
+  const [filteredApps, setFilteredApps] = useState<AppWithChainAndName[]>([])
   const [searchTerm, setSearchTerm] = useState('')
+  const [activeTab, setActiveTab] = useState(0)
+
+  const newApps = useMemo(() => getRecentApps(props.chainsMeta, 12), [props.chainsMeta])
 
   useEffect(() => {
     const initialCheckedItems = getCheckedItemsFromUrl()
@@ -73,19 +79,26 @@ export default function Ecosystem(props: {
   }, [])
 
   useEffect(() => {
-    setApps(allApps)
-  }, [props.chainsMeta])
-
-  useEffect(() => {
-    setApps(filterAppsBySearchTerm(filterAppsByCategory(allApps, checkedItems), searchTerm))
-  }, [checkedItems, searchTerm])
+    const filtered = filterAppsBySearchTerm(filterAppsByCategory(allApps, checkedItems), searchTerm)
+    setFilteredApps(filtered)
+  }, [allApps, checkedItems, searchTerm])
 
   const handleSetCheckedItems = (newCheckedItems: string[]) => {
     setCheckedItems(newCheckedItems)
     setCheckedItemsInUrl(newCheckedItems)
   }
 
-  console.log('render Ecosystem') // todo: optimize renders
+  const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
+    setActiveTab(newValue)
+  }
+
+  const filteredNewApps = useMemo(() => {
+    return newApps.filter((app) =>
+      filteredApps.some(
+        (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.app
+      )
+    )
+  }, [newApps, filteredApps])
 
   return (
     <Container maxWidth="md">
@@ -114,12 +127,12 @@ export default function Ecosystem(props: {
           <SelectedCategories
             checkedItems={checkedItems}
             setCheckedItems={handleSetCheckedItems}
-            filteredAppsCount={apps.length}
+            filteredAppsCount={filteredApps.length}
           />
           <Tabs
             variant={props.isXs ? 'scrollable' : 'standard'}
-            value={0}
-            onChange={() => {}}
+            value={activeTab}
+            onChange={handleTabChange}
             scrollButtons="auto"
             className={cls(
               cmn.mbott20,
@@ -153,26 +166,24 @@ export default function Ecosystem(props: {
             />
           </Tabs>
 
-          <Grid container spacing={2}>
-            {apps.map((app) => (
-              <Grid
-                key={`${app.chain}-${app.alias}`}
-                className={cls('fl-centered dappCard')}
-                item
-                lg={4}
-                md={4}
-                sm={6}
-                xs={12}
-              >
-                <AppCard
-                  skaleNetwork={props.mpc.config.skaleNetwork}
-                  schainName={app.chain}
-                  appName={app.appName}
-                  chainsMeta={props.chainsMeta}
-                />
-              </Grid>
-            ))}
-          </Grid>
+          {activeTab === 0 && (
+            <AllApps
+              apps={filteredApps}
+              skaleNetwork={props.mpc.config.skaleNetwork}
+              chainsMeta={props.chainsMeta}
+              newApps={newApps}
+            />
+          )}
+          {activeTab === 1 && (
+            <NewApps
+              newApps={filteredNewApps}
+              skaleNetwork={props.mpc.config.skaleNetwork}
+              chainsMeta={props.chainsMeta}
+            />
+          )}
+          {activeTab === 2 && <FavoriteApps />}
+          {activeTab === 3 && <TrendingApps />}
+
           <div className={cls(cmn.flex)}>
             <div className={cls(cmn.flex, cmn.flexg)}></div>
             <div className={cls(cmn.flex, cmn.mtop20, cmn.ptop20, cmn.mbott20)}>

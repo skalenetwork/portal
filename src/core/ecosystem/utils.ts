@@ -17,10 +17,11 @@
  */
 
 /**
- * @file categoryUtils.tsx
+ * @file utils.tsx
  * @copyright SKALE Labs 2024-Present
  */
 
+import { type types } from '@/core'
 import { categories } from './categories'
 
 export interface ExpandedItems {
@@ -57,4 +58,34 @@ export const filterCategories = (searchTerm: string) => {
       )
     return categoryMatch || subcategoryMatch
   })
+}
+
+export const getRecentApps = (
+  chainsMeta: types.ChainsMetadataMap,
+  count: number = 12
+): types.AppWithTimestamp[] => {
+  const appsWithTimestamp: types.AppWithTimestamp[] = []
+
+  Object.entries(chainsMeta).forEach(([chainName, chainData]) => {
+    if (chainData.apps) {
+      Object.entries(chainData.apps).forEach(([appName, appData]) => {
+        if (appData.added) {
+          appsWithTimestamp.push({
+            chain: chainName,
+            app: appName,
+            added: appData.added
+          })
+        }
+      })
+    }
+  })
+
+  return appsWithTimestamp.sort((a, b) => b.added - a.added).slice(0, count)
+}
+
+export const isNewApp = (
+  app: { chain: string; app: string },
+  newApps: types.AppWithTimestamp[]
+): boolean => {
+  return newApps.some((newApp) => newApp.chain === app.chain && newApp.app === app.app)
 }

@@ -771,8 +771,8 @@ input[type=number] {
 }
 
 .ship_new {
-  color: rgb(57 218 248);
-  background: linear-gradient(rgb(20 66 59), rgb(11 36 33));
+  color: #09100b;
+  background: linear-gradient(#5C9B6A, #477a52);
 }
 
 .ship_DELEGATED {
@@ -1246,6 +1246,7 @@ a,
 .socialIcon {
   width: 30px !important;
   height: 30px !important;
+
   svg {
     width: 30px !important;
     height: 30px !important;

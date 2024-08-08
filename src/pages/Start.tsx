@@ -42,9 +42,11 @@ import OutboundRoundedIcon from '@mui/icons-material/OutboundRounded'
 import PageCard from '../components/PageCard'
 import AppCard from '../components/ecosystem/AppCardV2'
 
-import { useEffect, useState } from 'react'
-import FeaturedApps from '../components/FeaturedApps'
+import { useEffect, useMemo, useState } from 'react'
 import CategoryCardsGrid from '../components/ecosystem/CategoryCardsGrid'
+import { getRecentApps } from '../core/ecosystem/utils'
+import { MAX_APPS_DEFAULT } from '../core/constants'
+import NewApps from '../components/ecosystem/NewApps'
 
 export default function Start(props: {
   isXs: boolean
@@ -54,6 +56,10 @@ export default function Start(props: {
   chainsMeta: types.ChainsMetadataMap
 }) {
   const [_, setIntervalId] = useState<NodeJS.Timeout>()
+  const newApps = useMemo(
+    () => getRecentApps(props.chainsMeta, MAX_APPS_DEFAULT),
+    [props.chainsMeta]
+  )
 
   useEffect(() => {
     props.loadData()
@@ -133,7 +139,11 @@ export default function Start(props: {
           <LabelImportantRoundedIcon color="primary" />
           <h3 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.mleft10)}>New dApps on SKALE</h3>
         </div>
-        <FeaturedApps chainsMeta={props.chainsMeta} skaleNetwork={props.skaleNetwork} />
+        <NewApps
+          newApps={newApps}
+          skaleNetwork={props.skaleNetwork}
+          chainsMeta={props.chainsMeta}
+        />
 
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
           <TrendingUpRoundedIcon color="primary" />

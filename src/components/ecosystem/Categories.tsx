@@ -22,7 +22,7 @@
 
 import React, { useState, useMemo, useRef } from 'react'
 import { cmn, cls } from '@skalenetwork/metaport'
-import { filterCategories } from '../../core/ecosystem/categoryUtils'
+import { filterCategories } from '../../core/ecosystem/utils'
 import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import IconButton from '@mui/material/IconButton'

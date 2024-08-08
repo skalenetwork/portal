@@ -15,50 +15,50 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
 /**
- * @file FeaturedApps.tsx
+ * @file AllApps.tsx
  * @copyright SKALE Labs 2024-Present
  */
 
+import React from 'react'
 import { Grid } from '@mui/material'
+import { cls } from '@skalenetwork/metaport'
 import { type types } from '@/core'
+import AppCard from './AppCardV2'
+import { AppWithChainAndName } from '../../core/ecosystem/apps'
 
-import AppCard from './ecosystem/AppCardV2'
-
-function getFeaturedApps(chainsMeta: types.ChainsMetadataMap): types.IAppId[] {
-  const featuredApps: types.IAppId[] = []
-  for (const chain in chainsMeta) {
-    const apps = chainsMeta[chain].apps
-    for (const appKey in apps) {
-      const app = apps[appKey]
-      if (app.featured) {
-        featuredApps.push({
-          chain: chain,
-          app: appKey
-        })
-      }
-    }
-  }
-  return featuredApps.sort((a, b) => a.app.localeCompare(b.app))
-}
-
-export default function FeaturedApps(props: {
+interface AllAppsProps {
+  apps: AppWithChainAndName[]
   skaleNetwork: types.SkaleNetwork
   chainsMeta: types.ChainsMetadataMap
-}) {
-  const featuredApps = getFeaturedApps(props.chainsMeta)
+  newApps: { chain: string; app: string; added: number }[]
+}
+
+const AllApps: React.FC<AllAppsProps> = ({ apps, skaleNetwork, chainsMeta, newApps }) => {
   return (
     <Grid container spacing={2}>
-      {featuredApps.slice(0, 3).map((appId, index) => (
-        <Grid key={index} className="fl-centered dappCard" item lg={4} md={4} sm={6} xs={12}>
+      {apps.map((app) => (
+        <Grid
+          key={`${app.chain}-${app.alias}`}
+          className={cls('fl-centered dappCard')}
+          item
+          lg={4}
+          md={4}
+          sm={6}
+          xs={12}
+        >
           <AppCard
-            skaleNetwork={props.skaleNetwork}
-            schainName={appId.chain}
-            appName={appId.app}
-            chainsMeta={props.chainsMeta}
+            skaleNetwork={skaleNetwork}
+            schainName={app.chain}
+            appName={app.appName}
+            chainsMeta={chainsMeta}
+            newApps={newApps}
           />
         </Grid>
       ))}
     </Grid>
   )
 }
+
+export default AllApps

@@ -20,7 +20,15 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-export { ChainsMetadataMap, ChainMetadata, AppMetadata, AppMetadataMap, AppSocials, NetworksMetadataMap } from './ChainsMetadata'
+export { 
+    ChainsMetadataMap,
+    ChainMetadata,
+    AppMetadata,
+    AppMetadataMap,
+    AppSocials,
+    NetworksMetadataMap,
+    AppWithTimestamp
+} from './ChainsMetadata'
 export * as staking from './staking'
 
 export type AddressType = `0x${string}`

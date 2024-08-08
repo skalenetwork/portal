@@ -34,6 +34,7 @@ import CollapsibleDescription from '../CollapsibleDescription'
 import AppCategoriesChips from './CategoriesShips'
 import SocialButtons from './Socials'
 import { Chip } from '@mui/material'
+import { isNewApp } from '../../core/ecosystem/utils'
 
 export default function AppCard(props: {
   skaleNetwork: types.SkaleNetwork
@@ -41,10 +42,13 @@ export default function AppCard(props: {
   appName: string
   chainsMeta: types.ChainsMetadataMap
   transactions?: number
+  newApps?: types.AppWithTimestamp[]
 }) {
   const shortAlias = getChainShortAlias(props.chainsMeta, props.schainName)
   const url = `/chains/${shortAlias}/${props.appName}`
   const appMeta = props.chainsMeta[props.schainName]?.apps?.[props.appName]!
+  const isNew =
+    props.newApps && isNewApp({ chain: props.schainName, app: props.appName }, props.newApps)
 
   const appDescription = appMeta.description ?? 'No description'
 
@@ -77,8 +81,9 @@ export default function AppCard(props: {
           <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri5)}>
             {getChainAlias(props.chainsMeta, props.schainName, props.appName)}
           </p>
+          {isNew && <Chip label="NEW" size="small" className='ship_new' />}
           {appMeta.tags?.includes('pretge') && (
-            <Chip label="Pre-TGE" size="small" className="ship_pretge" />
+            <Chip label="Pre-TGE" size="small" className={cls(cmn.mleft5, 'ship_pretge')} />
           )}
         </div>
         <CollapsibleDescription text={appDescription} />
