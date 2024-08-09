@@ -21,6 +21,8 @@
  * @copyright SKALE Labs 2023-Present
  */
 
+import { Link } from 'react-router-dom'
+
 import { cmn, cls } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
@@ -28,6 +30,7 @@ import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
+import { Button } from '@mui/material'
 
 import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontalCircleOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
@@ -48,7 +51,6 @@ import { getRecentApps } from '../core/ecosystem/utils'
 import { MAX_APPS_DEFAULT } from '../core/constants'
 import NewApps from '../components/ecosystem/NewApps'
 import Carousel from '../components/Carousel'
-import { Button } from '@mui/material'
 
 export default function Start(props: {
   isXs: boolean
@@ -142,8 +144,12 @@ export default function Start(props: {
 
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
           <LabelImportantRoundedIcon color="primary" />
-          <h3 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.mleft10, cmn.flexg)}>New dApps on SKALE</h3>
-          <Button className={cls('btn btnSm bg', cmn.pPrim)}>See all</Button>
+          <h3 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.mleft10, cmn.flexg)}>
+            New dApps on SKALE
+          </h3>
+          <Link to={`/ecosystem?tab=1`}>
+            <Button className={cls('btn btnSm bg', cmn.pPrim)}>See all</Button>
+          </Link>
         </div>
         <NewApps
           newApps={newApps}
@@ -153,8 +159,12 @@ export default function Start(props: {
         />
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
           <TrendingUpRoundedIcon color="primary" />
-          <h3 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.mleft10, cmn.flexg)}>Trending dApps on SKALE</h3>
-          <Button className={cls('btn btnSm bg', cmn.pPrim)}>See all</Button>
+          <h3 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.mleft10, cmn.flexg)}>
+            Trending dApps on SKALE
+          </h3>
+          <Link to={`/ecosystem?tab=3`}>
+            <Button className={cls('btn btnSm bg', cmn.pPrim)}>See all</Button>
+          </Link>
         </div>
         <Carousel>{appCards}</Carousel>
       </Stack>

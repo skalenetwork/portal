@@ -44,5 +44,22 @@ export const useUrlParams = () => {
     [searchParams, setSearchParams]
   )
 
-  return { getCheckedItemsFromUrl, setCheckedItemsInUrl }
+  const getTabIndexFromUrl = () => {
+    const params = new URLSearchParams(window.location.search)
+    const tabIndex = params.get('tab')
+    return tabIndex ? parseInt(tabIndex, 10) : 0
+  }
+
+  const setTabIndexInUrl = (tabIndex: number) => {
+    const params = new URLSearchParams(window.location.search)
+    params.set('tab', tabIndex.toString())
+    window.history.replaceState({}, '', `${window.location.pathname}?${params}`)
+  }
+
+  return {
+    getCheckedItemsFromUrl,
+    setCheckedItemsInUrl,
+    getTabIndexFromUrl,
+    setTabIndexInUrl
+  }
 }

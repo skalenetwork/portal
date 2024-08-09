@@ -64,7 +64,8 @@ export default function Ecosystem(props: {
   chainsMeta: types.ChainsMetadataMap
   isXs: boolean
 }) {
-  const { getCheckedItemsFromUrl, setCheckedItemsInUrl } = useUrlParams()
+  const { getCheckedItemsFromUrl, setCheckedItemsInUrl, getTabIndexFromUrl, setTabIndexInUrl } =
+    useUrlParams()
   const allApps = useMemo(() => sortAppsByAlias(getAllApps(props.chainsMeta)), [props.chainsMeta])
   const [checkedItems, setCheckedItems] = useState<string[]>([])
   const [filteredApps, setFilteredApps] = useState<AppWithChainAndName[]>([])
@@ -76,6 +77,8 @@ export default function Ecosystem(props: {
   useEffect(() => {
     const initialCheckedItems = getCheckedItemsFromUrl()
     setCheckedItems(initialCheckedItems)
+    const initialTabIndex = getTabIndexFromUrl()
+    setActiveTab(initialTabIndex)
   }, [])
 
   useEffect(() => {
@@ -90,6 +93,7 @@ export default function Ecosystem(props: {
 
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue)
+    setTabIndexInUrl(newValue)
   }
 
   const filteredNewApps = useMemo(() => {
