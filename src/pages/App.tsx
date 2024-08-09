@@ -30,18 +30,15 @@ import { type types } from '@/core'
 
 import { Button, Grid } from '@mui/material'
 import Container from '@mui/material/Container'
-import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
-import TrackChangesRoundedIcon from '@mui/icons-material/TrackChangesRounded'
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded'
 import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded'
 import DataSaverOffRoundedIcon from '@mui/icons-material/DataSaverOffRounded'
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
-import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
-import InfoRoundedIcon from '@mui/icons-material/InfoRounded'
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import HubRoundedIcon from '@mui/icons-material/HubRounded'
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 
-import ChainCategories from '../components/ChainCategories'
 import ChainLogo from '../components/ChainLogo'
 import SkStack from '../components/SkStack'
 import Tile from '../components/Tile'
@@ -56,8 +53,9 @@ import { findChainName } from '../core/chain'
 import { formatNumber } from '../core/timeHelper'
 import { chainBg, getChainAlias } from '../core/metadata'
 import { addressUrl, getExplorerUrl, getTotalAppCounters } from '../core/explorer'
-import { DAPP_RADAR_BASE_URL, MAINNET_CHAIN_LOGOS, OFFCHAIN_APP } from '../core/constants'
+import { MAINNET_CHAIN_LOGOS, OFFCHAIN_APP } from '../core/constants'
 import SocialButtons from '../components/ecosystem/Socials'
+import AppCategoriesChips from '../components/ecosystem/CategoriesShips'
 
 export default function App(props: {
   mpc: MetaportCore
@@ -77,11 +75,10 @@ export default function App(props: {
   const chainMeta = props.chainsMeta[chain]
   if (!chainMeta) return 'No such chain'
 
-  const chainAlias = getChainAlias(props.chainsMeta, chain)
   const appAlias = getChainAlias(props.chainsMeta, chain, app)
   const appMeta = chainMeta.apps?.[app]!
   const appDescription = appMeta.description ?? 'No description'
-  const dAppRadarUrl = `${DAPP_RADAR_BASE_URL}${appMeta.dappradar ?? app}`
+  // const dAppRadarUrl = `${DAPP_RADAR_BASE_URL}${appMeta.dappradar ?? app}`
 
   const expolorerUrl = getExplorerUrl(network, chain)
 
@@ -122,84 +119,67 @@ export default function App(props: {
           <meta property="og:title" content={`SKALE Portal - ${appAlias}`} />
           <meta property="og:description" content={appDescription} />
         </Helmet>
-        <SkPaper background={chainBg(props.chainsMeta, chain, app)} className={cls(cmn.mtop10)}>
-          <SkStack>
-            <div className={cls(cmn.flex)}>
-              <Breadcrumbs
-                sections={[
-                  {
-                    text: 'Ecosystem',
-                    icon: <ArrowBackIosNewRoundedIcon />,
-                    url: '/ecosystem'
-                  },
-                  {
-                    text: appAlias,
-                    icon: <WidgetsRoundedIcon />
-                  }
-                ]}
-              />
-              <div className={cls(cmn.flexg)}></div>
+
+        <div className={cls(cmn.flex)}>
+          <Breadcrumbs
+            className="bg"
+            sections={[
+              {
+                text: 'Ecosystem',
+                icon: <ArrowBackIosNewRoundedIcon />,
+                url: '/ecosystem'
+              },
+              {
+                text: appAlias,
+                icon: <WidgetsRoundedIcon />
+              }
+            ]}
+          />
+          <div className={cls(cmn.flexg)}></div>
+        </div>
+        <SkPaper gray className={cls(cmn.mtop10)}>
+          <div className={cls(cmn.m10)}>
+            <div className={cls('responsive-app-header', cmn.flex, cmn.flexcvd)}>
+              <div className={cls('sk-app-logo', 'sk-logo-md')}>
+                <div
+                  className={cls('logo-wrapper')}
+                  style={{
+                    background: chainBg(props.chainsMeta, chain, app),
+                    flexShrink: 0
+                  }}
+                >
+                  <ChainLogo
+                    className={cls('responsive-logo')}
+                    network={network}
+                    chainName={chain}
+                    app={app}
+                    logos={MAINNET_CHAIN_LOGOS}
+                  />
+                </div>
+              </div>
+              <div className={cls('app-info', cmn.flexg)}>
+                <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10)}>
+                  <div className={cmn.flexg}>
+                    <AppCategoriesChips app={appMeta} />
+                  </div>
+                  <Button
+                    className="btn btnSm"
+                    variant="contained"
+                    startIcon={<FavoriteRoundedIcon />}
+                  >
+                    Add to Favorites
+                  </Button>
+                </div>
+
+                <h2 className={cls(cmn.nom, cmn.p1)}>{appAlias}</h2>
+                <CollapsibleDescription text={appDescription} expandable />
+                <SocialButtons size="md" social={appMeta.social} className={cls(cmn.mtop20)} />
+              </div>
             </div>
-            <div className={cls(cmn.flexg)}></div>
-            <ChainCategories category={appMeta.tags} alias={appAlias} isXs={props.isXs} />
-          </SkStack>
-          <div className={cls(cmn.pCent)}>
-            <Container maxWidth="sm" className={cls('logo', cmn.pCent)}>
-              <ChainLogo
-                network={props.mpc.config.skaleNetwork}
-                chainName={chain}
-                logos={MAINNET_CHAIN_LOGOS}
-                app={app}
-              />
-            </Container>
           </div>
-          <SkStack>
-            <Tile
-              grow
-              children={
-                <div>
-                  <h2 className={cls(cmn.nom)}>{appAlias}</h2>
-                  <CollapsibleDescription text={appDescription} expandable />
-                </div>
-              }
-            />
-          </SkStack>
+        </SkPaper>
+        <SkPaper gray className={cls(cmn.mtop10)}>
           <SkStack className={cmn.mtop10}>
-            <Tile
-              className={cls(cmn.flex, cmn.flexcv)}
-              grow={!appMeta.contracts}
-              children={
-                <div className={cls([cmn.flex, !props.isXs], cmn.flexcv)}>
-                  {appMeta.social?.website ? (
-                    <a
-                      target="_blank"
-                      rel="noreferrer"
-                      href={appMeta.social.website}
-                      className="undec"
-                    >
-                      <Button
-                        size="medium"
-                        className={cls(styles.btnAction, cmn.mri10)}
-                        startIcon={<ArrowOutwardRoundedIcon />}
-                      >
-                        Open Website
-                      </Button>
-                    </a>
-                  ) : null}
-                  {appMeta.dappradar === undefined || appMeta.dappradar !== false ? (
-                    <a target="_blank" rel="noreferrer" href={dAppRadarUrl} className="undec">
-                      <Button
-                        size="medium"
-                        className={cls(styles.btnAction, cmn.mri10)}
-                        startIcon={<TrackChangesRoundedIcon />}
-                      >
-                        Open DappRadar
-                      </Button>
-                    </a>
-                  ) : null}
-                </div>
-              }
-            />
             {appMeta.contracts ? (
               <Tile
                 grow
@@ -214,7 +194,7 @@ export default function App(props: {
                 text="Gas saved"
                 childrenRi={
                   !props.isXs ? (
-                    <InfoRoundedIcon className={cls(cmn.pSec, styles.chainIconxs, cmn.mleft10)} />
+                    <InfoOutlinedIcon className={cls(cmn.pSec, styles.chainIconxs, cmn.mleft10)} />
                   ) : undefined
                 }
                 tooltip={
@@ -226,13 +206,11 @@ export default function App(props: {
                 icon={<SavingsRoundedIcon />}
               />
             ) : null}
-
-            <SocialButtons size="md" social={appMeta.social} className={cls(cmn.mtop20)} />
+            <Tile grow text="Favorites" value="125" icon={<FavoriteRoundedIcon />} />
           </SkStack>
-          <div></div>
         </SkPaper>
         {chain !== OFFCHAIN_APP && (
-          <SkPaper gray className={cls(cmn.mtop20, 'fwmobile')}>
+          <SkPaper gray className={cls(cmn.mtop10, 'fwmobile')}>
             <AccordionSection
               handleChange={handleChange}
               expanded={expanded}

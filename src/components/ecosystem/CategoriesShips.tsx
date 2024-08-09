@@ -26,6 +26,7 @@ import { type types } from '@/core'
 import { Chip, Box } from '@mui/material'
 
 import { categories } from '../../core/ecosystem/categories'
+import { cls, cmn } from '@skalenetwork/metaport'
 
 interface AppCategoriesChipsProps {
   app: types.AppMetadata
@@ -48,10 +49,16 @@ const AppCategoriesChips: React.FC<AppCategoriesChipsProps> = ({ app, className 
 
     return Object.entries(app.categories)
       .flatMap(([categoryTag, subcategories]) => [
-        <Chip key={categoryTag} label={getCategoryName(categoryTag)} size="small" />,
+        <Chip
+          key={categoryTag}
+          label={getCategoryName(categoryTag)}
+          size="small"
+          className={cls(cmn.p, cmn.p600)}
+        />,
         ...(Array.isArray(subcategories)
           ? subcategories.map((subTag) => (
               <Chip
+                className={cls(cmn.p, cmn.p600)}
                 key={`${categoryTag}-${subTag}`}
                 label={getSubcategoryName(categoryTag, subTag)}
                 size="small"
@@ -59,7 +66,7 @@ const AppCategoriesChips: React.FC<AppCategoriesChipsProps> = ({ app, className 
             ))
           : [])
       ])
-      .slice(0, 3) // Limit to 3 chips
+      .slice(0, 3) // Limit to 3 chips // todo: remove restriction!
   }, [app.categories])
 
   if (chips.length === 0) return null

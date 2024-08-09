@@ -53,10 +53,10 @@ export default function AppCard(props: {
   const appDescription = appMeta.description ?? 'No description'
 
   return (
-    <SkPaper gray fullHeight className="skAppCard">
+    <SkPaper gray fullHeight className="sk-app-card">
       <Link to={url}>
         <div className={cls(cmn.flex)}>
-          <div className={cls('logo-container', 'br__tile')}>
+          <div className="sk-app-logo sk-logo-sm br__tile">
             <div
               className={cls('logo-wrapper')}
               style={{ background: chainBg(props.chainsMeta, props.schainName, props.appName) }}
