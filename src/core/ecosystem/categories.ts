@@ -55,7 +55,7 @@ export const categories: Categories = {
     subcategories: {
       'action-adventure': { name: 'Action/Adventure' },
       'battle-royale': { name: 'Battle Royale' },
-      'cards-deck-building': { name: 'Cards + Deck Building' },
+      'cards_deck-building': { name: 'Cards + Deck Building' },
       casual: { name: 'Casual' },
       console: { name: 'Console' },
       fighting: { name: 'Fighting' },

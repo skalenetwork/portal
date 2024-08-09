@@ -56,7 +56,8 @@ import { findChainName } from '../core/chain'
 import { formatNumber } from '../core/timeHelper'
 import { chainBg, getChainAlias } from '../core/metadata'
 import { addressUrl, getExplorerUrl, getTotalAppCounters } from '../core/explorer'
-import { DAPP_RADAR_BASE_URL, MAINNET_CHAIN_LOGOS } from '../core/constants'
+import { DAPP_RADAR_BASE_URL, MAINNET_CHAIN_LOGOS, OFFCHAIN_APP } from '../core/constants'
+import SocialButtons from '../components/ecosystem/Socials'
 
 export default function App(props: {
   mpc: MetaportCore
@@ -73,14 +74,18 @@ export default function App(props: {
   const [counters, setCounters] = useState<types.IAddressCounters | null>(null)
 
   chain = findChainName(props.chainsMeta, chain ?? '')
+  const chainMeta = props.chainsMeta[chain]
+  if (!chainMeta) return 'No such chain'
 
   const chainAlias = getChainAlias(props.chainsMeta, chain)
   const appAlias = getChainAlias(props.chainsMeta, chain, app)
-  const appMeta = props.chainsMeta[chain]?.apps?.[app]!
+  const appMeta = chainMeta.apps?.[app]!
   const appDescription = appMeta.description ?? 'No description'
   const dAppRadarUrl = `${DAPP_RADAR_BASE_URL}${appMeta.dappradar ?? app}`
 
   const expolorerUrl = getExplorerUrl(network, chain)
+
+  const isAppChain = chainMeta.apps && Object.keys(chainMeta.apps).length === 1
 
   useEffect(() => {
     props.loadData()
@@ -123,14 +128,9 @@ export default function App(props: {
               <Breadcrumbs
                 sections={[
                   {
-                    text: 'Chains',
+                    text: 'Ecosystem',
                     icon: <ArrowBackIosNewRoundedIcon />,
-                    url: '/chains'
-                  },
-                  {
-                    text: props.isXs ? 'Hub' : chainAlias,
-                    icon: <LinkRoundedIcon />,
-                    url: `/chains/${chain}`
+                    url: '/ecosystem'
                   },
                   {
                     text: appAlias,
@@ -226,50 +226,54 @@ export default function App(props: {
                 icon={<SavingsRoundedIcon />}
               />
             ) : null}
+
+            <SocialButtons size="md" social={appMeta.social} className={cls(cmn.mtop20)} />
           </SkStack>
           <div></div>
         </SkPaper>
-        <SkPaper gray className={cls(cmn.mtop20, 'fwmobile')}>
-          <AccordionSection
-            handleChange={handleChange}
-            expanded={expanded}
-            panel="panel3"
-            title="Runs on SKALE Hub"
-            icon={<HubRoundedIcon />}
-          >
-            <HubTile
-              network={props.mpc.config.skaleNetwork}
-              schainName={chain}
-              isXs={props.isXs}
-              metrics={null}
-              chainsMeta={props.chainsMeta}
-            />
-          </AccordionSection>
-          {appMeta.contracts ? (
+        {chain !== OFFCHAIN_APP && (
+          <SkPaper gray className={cls(cmn.mtop20, 'fwmobile')}>
             <AccordionSection
-              expandedByDefault={true}
-              title="Smart contracts"
-              icon={<ArticleRoundedIcon />}
+              handleChange={handleChange}
+              expanded={expanded}
+              panel="panel3"
+              title={`Runs on SKALE ${isAppChain ? 'Chain' : 'Hub'}`}
+              icon={<HubRoundedIcon />}
             >
-              <div>
-                <Grid container spacing={2} className={cls(cmn.full)}>
-                  {appMeta.contracts.map((contractAddress: string, index: number) => (
-                    <Grid key={contractAddress} item lg={6} xs={12}>
-                      <LinkSurface
-                        className={cls(styles.fullHeight)}
-                        title={`Contract ${index + 1}`}
-                        value={contractAddress}
-                        url={addressUrl(expolorerUrl, contractAddress)}
-                      />
-                    </Grid>
-                  ))}
-                </Grid>
-              </div>
+              <HubTile
+                network={props.mpc.config.skaleNetwork}
+                schainName={chain}
+                isXs={props.isXs}
+                metrics={null}
+                chainsMeta={props.chainsMeta}
+              />
             </AccordionSection>
-          ) : (
-            <div></div>
-          )}
-        </SkPaper>
+            {appMeta.contracts ? (
+              <AccordionSection
+                expandedByDefault={true}
+                title="Smart contracts"
+                icon={<ArticleRoundedIcon />}
+              >
+                <div>
+                  <Grid container spacing={2} className={cls(cmn.full)}>
+                    {appMeta.contracts.map((contractAddress: string, index: number) => (
+                      <Grid key={contractAddress} item lg={6} xs={12}>
+                        <LinkSurface
+                          className={cls(styles.fullHeight)}
+                          title={`Contract ${index + 1}`}
+                          value={contractAddress}
+                          url={addressUrl(expolorerUrl, contractAddress)}
+                        />
+                      </Grid>
+                    ))}
+                  </Grid>
+                </div>
+              </AccordionSection>
+            ) : (
+              <div></div>
+            )}
+          </SkPaper>
+        )}
       </div>
     </Container>
   )

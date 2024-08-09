@@ -141,7 +141,8 @@ export default function Ecosystem(props: {
             className={cls(
               cmn.mbott20,
               [cmn.mtop20, Object.keys(checkedItems).length !== 0],
-              'skTabs'
+              'skTabs',
+              'fwmobile'
             )}
           >
             <Tab

@@ -279,6 +279,12 @@ export default function Router() {
                   />
                 }
               />
+            </Route>
+            <Route
+              path="ecosystem"
+              element={<Ecosystem isXs={isXs} mpc={mpc} chainsMeta={chainsMeta} />}
+            />
+            <Route path="ecosystem">
               <Route
                 path=":chain/:app"
                 element={
@@ -292,10 +298,6 @@ export default function Router() {
                 }
               />
             </Route>
-            <Route
-              path="ecosystem"
-              element={<Ecosystem isXs={isXs} mpc={mpc} chainsMeta={chainsMeta} />}
-            />
             <Route path="onramp" element={<Onramp mpc={mpc} />} />
             <Route path="stats" element={<Stats />} />
             <Route path="other">

@@ -26,7 +26,7 @@ import { cmn, cls, SkPaper, ChainIcon } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
 import ChainLogo from '../ChainLogo'
-import { MAINNET_CHAIN_LOGOS } from '../../core/constants'
+import { MAINNET_CHAIN_LOGOS, OFFCHAIN_APP } from '../../core/constants'
 import { getChainShortAlias } from '../../core/chain'
 import { chainBg, getChainAlias } from '../../core/metadata'
 
@@ -45,7 +45,7 @@ export default function AppCard(props: {
   newApps?: types.AppWithTimestamp[]
 }) {
   const shortAlias = getChainShortAlias(props.chainsMeta, props.schainName)
-  const url = `/chains/${shortAlias}/${props.appName}`
+  const url = `/ecosystem/${shortAlias}/${props.appName}`
   const appMeta = props.chainsMeta[props.schainName]?.apps?.[props.appName]!
   const isNew =
     props.newApps && isNewApp({ chain: props.schainName, app: props.appName }, props.newApps)
@@ -73,7 +73,9 @@ export default function AppCard(props: {
           </div>
 
           <div className={cls(cmn.flexg)}></div>
-          <ChainIcon skaleNetwork={props.skaleNetwork} chainName={props.schainName} />
+          {props.schainName !== OFFCHAIN_APP && (
+            <ChainIcon skaleNetwork={props.skaleNetwork} chainName={props.schainName} />
+          )}
         </div>
       </Link>
       <div>

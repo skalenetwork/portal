@@ -22,128 +22,99 @@
  */
 
 import React from 'react'
-import { type types } from '@/core'
-
 import { IconButton, Tooltip } from '@mui/material'
 import { LanguageRounded, FavoriteBorderOutlined, WavesRounded } from '@mui/icons-material'
-import { cmn, cls } from '@skalenetwork/metaport'
-
 import { SocialIcon } from 'react-social-icons/component'
 import 'react-social-icons/discord'
 import 'react-social-icons/github'
 import 'react-social-icons/telegram'
 import 'react-social-icons/x'
+import { cmn, cls } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
 interface SocialButtonsProps {
   social?: types.AppSocials
   onAddToFavorites?: () => void
   isFavorite?: boolean
   className?: string
+  size?: 'sm' | 'md'
 }
 
 const SocialButtons: React.FC<SocialButtonsProps> = ({
   social,
   onAddToFavorites,
   isFavorite = false,
-  className
+  className,
+  size = 'sm'
 }) => {
-  if (!social) return undefined
+  const isMd = size === 'md'
+
+  const socialLinks = [
+    {
+      key: 'website',
+      icon: (
+        <LanguageRounded
+          className={cls([cmn.pPrim, isMd], [cmn.pSec, !isMd])}
+          fontSize={isMd ? 'medium' : 'small'}
+        />
+      ),
+      title: 'Website'
+    },
+    { key: 'x', network: 'x', title: 'X (Twitter)' },
+    { key: 'telegram', network: 'telegram', title: 'Telegram' },
+    { key: 'discord', network: 'discord', title: 'Discord' },
+    { key: 'github', network: 'github', title: 'GitHub' },
+    {
+      key: 'swell',
+      icon: (
+        <WavesRounded
+          className={cls([cmn.pPrim, isMd], [cmn.pSec, !isMd])}
+          fontSize={isMd ? 'medium' : 'small'}
+        />
+      ),
+      title: 'Swell'
+    }
+  ]
+
   return (
     <div className={cls(cmn.flex, cmn.flexcv, className)}>
-      <div className={cls(cmn.flex, cmn.flexg)}>
-        {social.website && (
-          <Tooltip title="Website">
-            <IconButton
-              size="small"
-              href={social.website}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <LanguageRounded className={cls(cmn.pSec)} fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        )}
-        {social.x && (
-          <Tooltip title="X (Twitter)">
-            <IconButton
-              size="small"
-              href={social.x}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cls(cmn.nop)}
-            >
-              <SocialIcon
-                network="x"
-                bgColor="transparent"
-                className={cls('socialIcon')}
-                fgColor="rgb(255 255 255 / 65%)"
-              />
-            </IconButton>
-          </Tooltip>
-        )}
-        {social.telegram && (
-          <Tooltip title="Telegram">
-            <IconButton
-              size="small"
-              href={social.telegram}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cls(cmn.nop)}
-            >
-              <SocialIcon
-                network="telegram"
-                bgColor="transparent"
-                className={cls('socialIcon')}
-                fgColor="rgb(255 255 255 / 65%)"
-              />
-            </IconButton>
-          </Tooltip>
-        )}
-        {social.discord && (
-          <Tooltip title="Discord">
-            <IconButton
-              size="small"
-              href={social.discord}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cls(cmn.nop)}
-            >
-              <SocialIcon
-                network="discord"
-                bgColor="transparent"
-                className={cls('socialIcon')}
-                fgColor="rgb(255 255 255 / 65%)"
-              />
-            </IconButton>
-          </Tooltip>
-        )}
-        {social.github && (
-          <Tooltip title="GitHub">
-            <IconButton
-              size="small"
-              href={social.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cls(cmn.nop)}
-            >
-              <SocialIcon
-                network="github"
-                bgColor="transparent"
-                className={cls('socialIcon')}
-                fgColor="rgb(255 255 255 / 65%)"
-              />
-            </IconButton>
-          </Tooltip>
-        )}
-        {social.swell && (
-          <Tooltip title="Swell">
-            <IconButton size="small" href={social.swell} target="_blank" rel="noopener noreferrer">
-              <WavesRounded className={cls(cmn.pSec)} fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        )}
-      </div>
-      <div>
+      {social && (
+        <div className={cls(cmn.flex, cmn.flexg)}>
+          {socialLinks.map(({ key, icon, network, title }) => {
+            const link = social[key as keyof types.AppSocials]
+            if (!link) return null
+
+            return (
+              <div className={cls([cmn.mri10, isMd])}>
+                <Tooltip key={key} title={title}>
+                  <IconButton
+                    size={isMd ? 'medium' : 'small'}
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cls(
+                      network ? cmn.nop : undefined,
+                      [cmn.pPrim, isMd],
+                      ['bgBlack', isMd]
+                    )}
+                  >
+                    {icon || (
+                      <SocialIcon
+                        network={network}
+                        bgColor={isMd ? 'black' : 'transparent'}
+                        className={cls('socialIcon', isMd && 'socialIconMd')}
+                        fgColor={isMd ? '' : 'rgb(255 255 255 / 65%)'}
+                      />
+                    )}
+                  </IconButton>
+                </Tooltip>
+              </div>
+            )
+          })}
+        </div>
+      )}
+      {!social && <div className={cmn.flexg}></div>}
+      {!isMd && (
         <Tooltip title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}>
           <IconButton size="small" onClick={onAddToFavorites} className={cls('bgPrim')}>
             <FavoriteBorderOutlined
@@ -153,7 +124,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
             />
           </IconButton>
         </Tooltip>
-      </div>
+      )}
     </div>
   )
 }

@@ -84,3 +84,5 @@ export const BASE_METADATA_URL =
   'https://raw.githubusercontent.com/skalenetwork/skale-network/add-new-categories/metadata/' // todo: tmp
 
 export const MAX_APPS_DEFAULT = 12
+
+export const OFFCHAIN_APP = '__offchain'

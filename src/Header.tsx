@@ -34,7 +34,8 @@ import MoreMenu from './components/MoreMenu'
 import AccountMenu from './components/AccountMenu'
 import NetworkSwitch from './components/NetworkSwitch'
 
-import { MAINNET_CHAIN_NAME, MAIN_SKALE_URL } from './core/constants'
+import { MAINNET_CHAIN_NAME } from './core/constants'
+import { Link } from 'react-router-dom'
 
 export default function Header(props: { address: `0x${string}` | undefined; mpc: MetaportCore }) {
   return (
@@ -46,14 +47,9 @@ export default function Header(props: { address: `0x${string}` | undefined; mpc:
     >
       <Toolbar className={cmn.flex}>
         <div className={cls(cmn.flex, cmn.flexcv)}>
-          <a
-            className={cls(cmn.flex, cmn.flexcv)}
-            target="_blank"
-            href={MAIN_SKALE_URL}
-            rel="noreferrer"
-          >
+          <Link to="/" className={cls(cmn.flex, cmn.flexcv)}>
             <img src={logo} className="skLogo" alt="logo" />
-          </a>
+          </Link>
         </div>
         <div className={cls(cmn.flex, cmn.flexg, cmn.mleft10)}>
           {MAINNET_CHAIN_NAME !== 'mainnet' ? (

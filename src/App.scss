@@ -1264,6 +1264,15 @@ a,
   }
 }
 
+.socialIconMd {
+  width: 40px !important;
+  height: 40px !important;
+  svg {
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
 .pSec {
   color: RGB(255 255 255 / 65%);
 
@@ -1281,6 +1290,10 @@ a,
   .Mui-disabled {
     -webkit-text-fill-color: #ffffff;
   }
+}
+
+.bgBlack {
+  background: black !important;
 }
 
 

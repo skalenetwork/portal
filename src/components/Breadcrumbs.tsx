@@ -39,13 +39,13 @@ export default function Breadcrumbs(props: { sections: BreadcrumbSection[]; clas
         <div className={cls(cmn.flex, cmn.flexcv)} key={index}>
           {section.url ? (
             <Link to={section.url} className="undec fullWidth">
-              <Button>
+              <Button className={cmn.pPrim}>
                 {section.icon}
                 <p className={cls(cmn.p, cmn.p4, cmn.mleft5)}>{section.text}</p>
               </Button>
             </Link>
           ) : (
-            <Button className={cls(cmn.pPrim)}>
+            <Button>
               {section.icon}
               <p className={cls(cmn.p, cmn.p4, cmn.mleft5)}>{section.text}</p>
             </Button>
