@@ -23,10 +23,10 @@
 
 import React, { useMemo } from 'react'
 import { type types } from '@/core'
-import { Chip, Box } from '@mui/material'
+import { Box } from '@mui/material'
 
 import { categories } from '../../core/ecosystem/categories'
-import { cls, cmn } from '@skalenetwork/metaport'
+import Ship from '../Ship'
 
 interface AppCategoriesChipsProps {
   app: types.AppMetadata
@@ -49,19 +49,12 @@ const AppCategoriesChips: React.FC<AppCategoriesChipsProps> = ({ app, className 
 
     return Object.entries(app.categories)
       .flatMap(([categoryTag, subcategories]) => [
-        <Chip
-          key={categoryTag}
-          label={getCategoryName(categoryTag)}
-          size="small"
-          className={cls(cmn.p, cmn.p600)}
-        />,
+        <Ship key={categoryTag} label={getCategoryName(categoryTag)} />,
         ...(Array.isArray(subcategories)
           ? subcategories.map((subTag) => (
-              <Chip
-                className={cls(cmn.p, cmn.p600)}
+              <Ship
                 key={`${categoryTag}-${subTag}`}
                 label={getSubcategoryName(categoryTag, subTag)}
-                size="small"
               />
             ))
           : [])

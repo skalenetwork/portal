@@ -51,6 +51,7 @@ import { getRecentApps } from '../core/ecosystem/utils'
 import { MAX_APPS_DEFAULT } from '../core/constants'
 import NewApps from '../components/ecosystem/NewApps'
 import Carousel from '../components/Carousel'
+import Headline from '../components/Headline'
 
 export default function Start(props: {
   isXs: boolean
@@ -74,10 +75,9 @@ export default function Start(props: {
   let appCards: any = []
 
   if (props.topApps) {
-    appCards = props.topApps.slice(0, 11).map(
-      (
-        topApp: types.IAppId
-      ) => (
+    appCards = props.topApps
+      .slice(0, 11)
+      .map((topApp: types.IAppId) => (
         <AppCard
           key={topApp.chain + topApp.app}
           skaleNetwork={props.skaleNetwork}
@@ -86,19 +86,18 @@ export default function Start(props: {
           transactions={topApp.totalTransactions}
           chainsMeta={props.chainsMeta}
         />
-      )
-    )
+      ))
   }
 
   return (
     <Container maxWidth="md" className="paddBott60">
       <Stack spacing={0}>
         <h2 className={cls(cmn.nom)}>Welcome to SKALE</h2>
-        <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20)}>
-          <RocketLaunchRoundedIcon color="primary" />
-          <h3 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.mleft10)}>Explore Portal</h3>
-        </div>
-
+        <Headline
+          text="Explore Portal"
+          icon={<RocketLaunchRoundedIcon color="primary" />}
+          className={cls(cmn.mbott10, cmn.mtop20)}
+        />
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={3}>
             <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
@@ -133,10 +132,10 @@ export default function Start(props: {
         </Box>
 
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
-          <LabelImportantRoundedIcon color="primary" />
-          <h3 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.mleft10, cmn.flexg)}>
-            New dApps on SKALE
-          </h3>
+          <Headline
+            text="New dApps on SKALE"
+            icon={<LabelImportantRoundedIcon color="primary" />}
+          />
           <Link to={`/ecosystem?tab=1`}>
             <Button className={cls('btn btnSm bg', cmn.pPrim)}>See all</Button>
           </Link>
@@ -148,21 +147,21 @@ export default function Start(props: {
           useCarousel={true}
         />
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
-          <TrendingUpRoundedIcon color="primary" />
-          <h3 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.mleft10, cmn.flexg)}>
-            Trending dApps on SKALE
-          </h3>
+          <Headline
+            text="Trending dApps on SKALE"
+            icon={<TrendingUpRoundedIcon color="primary" />}
+          />
           <Link to={`/ecosystem?tab=3`}>
             <Button className={cls('btn btnSm bg', cmn.pPrim)}>See all</Button>
           </Link>
         </div>
         <Carousel>{appCards}</Carousel>
       </Stack>
-
-      <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
-        <OutboundRoundedIcon color="primary" />
-        <h3 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.mleft10)}>Top Categories</h3>
-      </div>
+      <Headline
+        text="Top Categories"
+        icon={<OutboundRoundedIcon color="primary" />}
+        className={cls(cmn.mbott10, cmn.mtop20, cmn.ptop20)}
+      />
       <CategoryCardsGrid chainsMeta={props.chainsMeta} />
     </Container>
   )

@@ -76,18 +76,8 @@ export const CATEGORY_ICON: any = {
   Photos: <PhotoCameraRoundedIcon />
 }
 
-export function getPrimaryCategory(category: string | string[] | undefined) {
-  if (!category) return 'other'
-  if (isString(category)) return category
-  if (isStringArray(category) && category.length !== 0) return category[0]
-}
-
 export function isString(value: any): value is string {
   return typeof value === 'string'
-}
-
-function isStringArray(value: any): value is string[] {
-  return Array.isArray(value) && value.every((item) => typeof item === 'string')
 }
 
 export default function CategoryBadge(props: {

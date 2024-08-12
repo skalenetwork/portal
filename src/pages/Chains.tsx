@@ -32,11 +32,11 @@ import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
 
-import HubsSection from '../components/HubsSection'
-import { getPrimaryCategory } from '../components/CategoryBadge'
+import StarRoundedIcon from '@mui/icons-material/StarRounded'
+import HubRoundedIcon from '@mui/icons-material/HubRounded'
 
+import ChainsSection from '../components/chains/ChainsSection'
 import { META_TAGS } from '../core/meta'
-import AppChains from '../components/AppChains'
 
 export default function Chains(props: {
   loadData: () => Promise<void>
@@ -82,34 +82,38 @@ export default function Chains(props: {
           <h2 className={cls(cmn.nom)}>Chains</h2>
         </div>
         <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-          Chains info, block explorers and endpoints
+          Connect, get block explorer links and endpoints
         </p>
-        <div className={cls(cmn.mbott20)}>
-          <HubsSection
-            skaleNetwork={props.mpc.config.skaleNetwork}
-            category="hubs"
-            isXs={props.isXs}
-            metrics={props.metrics}
-            schains={props.schains.filter(
-              (schain) =>
-                props.chainsMeta[schain.name] &&
-                getPrimaryCategory(props.chainsMeta[schain.name].category) === 'Hub'
-            )}
-            chainsMeta={props.chainsMeta}
-          />
-          <AppChains
-            skaleNetwork={props.mpc.config.skaleNetwork}
-            metrics={props.metrics}
-            chainsMeta={props.chainsMeta}
-            schains={props.schains.filter(
-              (schain) =>
-                (props.chainsMeta[schain.name] &&
-                  getPrimaryCategory(props.chainsMeta[schain.name].category) === 'AppChain') ||
-                !props.chainsMeta[schain.name]
-            )}
-            isXs={props.isXs}
-          />
-        </div>
+
+        <ChainsSection
+          name="SKALE Hubs"
+          schains={props.schains.filter(
+            (schain) =>
+              props.chainsMeta[schain.name] &&
+              props.chainsMeta[schain.name].apps &&
+              Object.keys(props.chainsMeta[schain.name].apps!).length > 1
+          )}
+          chainsMeta={props.chainsMeta}
+          metrics={props.metrics}
+          skaleNetwork={props.mpc.config.skaleNetwork}
+          size="lg"
+          icon={<HubRoundedIcon color="primary" />}
+        />
+        <ChainsSection
+          name="App Chains"
+          schains={props.schains.filter(
+            (schain) =>
+              props.chainsMeta[schain.name] &&
+              (!props.chainsMeta[schain.name].apps ||
+                (!props.chainsMeta[schain.name].apps &&
+                  Object.keys(props.chainsMeta[schain.name].apps!).length === 1))
+          )}
+          chainsMeta={props.chainsMeta}
+          metrics={props.metrics}
+          skaleNetwork={props.mpc.config.skaleNetwork}
+          size="md"
+          icon={<StarRoundedIcon color="primary" />}
+        />
       </Stack>
     </Container>
   )

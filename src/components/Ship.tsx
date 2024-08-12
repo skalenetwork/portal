@@ -15,24 +15,23 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 /**
- * @file Headline.tsx
+ * @file Ship.tsx
  * @copyright SKALE Labs 2024-Present
  */
 
 import { cls, cmn } from '@skalenetwork/metaport'
-import { type ReactElement } from 'react'
 
-export default function Headline(props: {
-  text: string
-  className?: string | undefined
-  icon?: ReactElement | undefined
-}) {
+const Ship: React.FC<{
+  label: string
+  icon?: React.ReactNode
+}> = ({ label, icon }) => {
   return (
-    <div className={cls(cmn.flex, cmn.flexcv, cmn.flexg, props.className)}>
-      {props.icon}
-      <h3 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.mleft10)}>{props.text}</h3>
+    <div className={cls('skShip', 'shipSm', cmn.flex, cmn.flexcv, cmn.pPrim)}>
+      {icon && <div className={cls(cmn.mri10, cmn.flex)}>{icon}</div>}
+      <p className={cls(cmn.p, cmn.p5)}>{label}</p>
     </div>
   )
 }
+
+export default Ship

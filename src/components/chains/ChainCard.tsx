@@ -17,40 +17,42 @@
  */
 
 /**
- * @file AppCardV2.tsx
+ * @file ChainCard.tsx
  * @copyright SKALE Labs 2024-Present
  */
 
 import { Link } from 'react-router-dom'
-import { cmn, cls, SkPaper, ChainIcon } from '@skalenetwork/metaport'
+import { cmn, cls, SkPaper } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
-import ChainLogo from '../ChainLogo'
-import { MAINNET_CHAIN_LOGOS, OFFCHAIN_APP } from '../../core/constants'
+import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
+
+import { MAINNET_CHAIN_LOGOS } from '../../core/constants'
 import { getChainShortAlias } from '../../core/chain'
 import { chainBg, getChainAlias } from '../../core/metadata'
 
+import ChainLogo from '../ChainLogo'
 import CollapsibleDescription from '../CollapsibleDescription'
-import AppCategoriesChips from './CategoriesShips'
-import SocialButtons from './Socials'
-import { Chip } from '@mui/material'
-import { isNewApp } from '../../core/ecosystem/utils'
+import ChainActions from './ChainActions'
+import Ship from '../Ship'
 
-export default function AppCard(props: {
+import { formatNumber } from '../../core/timeHelper'
+
+const ChainCard: React.FC<{
   skaleNetwork: types.SkaleNetwork
-  schainName: string
-  appName: string
+  schain: types.ISChain
   chainsMeta: types.ChainsMetadataMap
-  transactions?: number
-  newApps?: types.AppWithTimestamp[]
-}) {
-  const shortAlias = getChainShortAlias(props.chainsMeta, props.schainName)
-  const url = `/ecosystem/${shortAlias}/${props.appName}`
-  const appMeta = props.chainsMeta[props.schainName]?.apps?.[props.appName]!
-  const isNew =
-    props.newApps && isNewApp({ chain: props.schainName, app: props.appName }, props.newApps)
+  transactions: number | null
+}> = ({ skaleNetwork, schain, chainsMeta, transactions }) => {
+  const shortAlias = getChainShortAlias(chainsMeta, schain.name)
+  const url = `/chains/${shortAlias}`
 
-  const appDescription = appMeta.description ?? 'No description'
+  const chainMeta = chainsMeta[schain.name]
+
+  const handleConnectChain = () => {
+    // Implement the logic to connect to the chain
+    console.log(`Connecting to chain: ${schain.name}`)
+  }
 
   return (
     <SkPaper gray fullHeight className="sk-app-card">
@@ -59,36 +61,41 @@ export default function AppCard(props: {
           <div className="sk-app-logo sk-logo-sm br__tile">
             <div
               className={cls('logo-wrapper')}
-              style={{ background: chainBg(props.chainsMeta, props.schainName, props.appName) }}
+              style={{ background: chainBg(chainsMeta, schain.name) }}
             >
               <ChainLogo
                 className={cls('responsive-logo')}
-                network={props.skaleNetwork}
-                chainName={props.schainName}
-                app={props.appName}
+                network={skaleNetwork}
+                chainName={schain.name}
                 logos={MAINNET_CHAIN_LOGOS}
               />
             </div>
             <div className={cls(cmn.flex, cmn.flexg)}></div>
           </div>
           <div className={cls(cmn.flexg)}></div>
-          {props.schainName !== OFFCHAIN_APP && (
-            <ChainIcon skaleNetwork={props.skaleNetwork} chainName={props.schainName} />
-          )}
+          <div>
+            <Ship
+              label={`${transactions ? formatNumber(transactions) : '...'} + Daily Tx`}
+              icon={<TrendingUpRoundedIcon />}
+            />
+          </div>
         </div>
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10)}>
           <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri5)}>
-            {getChainAlias(props.chainsMeta, props.schainName, props.appName)}
+            {getChainAlias(chainsMeta, schain.name)}
           </p>
-          {isNew && <Chip label="NEW" size="small" className="ship_new" />}
-          {appMeta.tags?.includes('pretge') && (
-            <Chip label="Pre-TGE" size="small" className={cls(cmn.mleft5, 'ship_pretge')} />
-          )}
         </div>
-        <CollapsibleDescription text={appDescription} />
-        <AppCategoriesChips app={appMeta} className={cls(cmn.mtop20)} />
+        <CollapsibleDescription text={chainMeta.description || 'No description'} />
       </Link>
-      <SocialButtons social={appMeta.social} className={cls(cmn.mtop20)} />
+      <ChainActions
+        className={cls(cmn.mtop20)}
+        chainMeta={chainsMeta[schain.name]}
+        schainName={schain.name}
+        skaleNetwork={skaleNetwork}
+        onConnectChain={handleConnectChain}
+      />
     </SkPaper>
   )
 }
+
+export default ChainCard
