@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Grid } from '@mui/material'
 import { cls } from '@skalenetwork/metaport'
 import { type types } from '@/core'
@@ -35,10 +35,10 @@ interface AllAppsProps {
   newApps: { chain: string; app: string; added: number }[]
 }
 
-const AllApps: React.FC<AllAppsProps> = ({ apps, skaleNetwork, chainsMeta, newApps }) => {
-  return (
-    <Grid container spacing={2}>
-      {apps.map((app) => (
+const AllApps: React.FC<AllAppsProps> = React.memo(
+  ({ apps, skaleNetwork, chainsMeta, newApps }) => {
+    const memoizedApps = useMemo(() => {
+      return apps.map((app) => (
         <Grid
           key={`${app.chain}-${app.appName}`}
           className={cls('fl-centered dappCard')}
@@ -56,9 +56,17 @@ const AllApps: React.FC<AllAppsProps> = ({ apps, skaleNetwork, chainsMeta, newAp
             newApps={newApps}
           />
         </Grid>
-      ))}
-    </Grid>
-  )
-}
+      ))
+    }, [apps, skaleNetwork, chainsMeta, newApps])
+
+    return (
+      <Grid container spacing={2}>
+        {memoizedApps}
+      </Grid>
+    )
+  }
+)
+
+AllApps.displayName = 'AllApps'
 
 export default AllApps

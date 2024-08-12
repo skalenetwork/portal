@@ -86,3 +86,6 @@ export const BASE_METADATA_URL =
 export const MAX_APPS_DEFAULT = 12
 
 export const OFFCHAIN_APP = '__offchain'
+
+export const SUBMIT_PROJECT_URL =
+  'https://github.com/skalenetwork/skale-network/issues/new?assignees=dmytrotkk&labels=metadata&projects=&template=app_submission.yml&title=App+Metadata+Submission'

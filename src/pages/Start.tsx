@@ -73,20 +73,10 @@ export default function Start(props: {
 
   let appCards: any = []
 
-  function isLegacyApp(chain: string, app: string): boolean {
-    if (props.chainsMeta[chain].apps === undefined) return false
-    if (!props.chainsMeta[chain].apps![app]) return false
-    return !!props.chainsMeta[chain].apps![app].legacy
-  }
-
-  const apps = props.topApps
-    ? props.topApps.filter((topApp) => !isLegacyApp(topApp.chain, topApp.app))
-    : null
-
-  if (apps) {
-    appCards = apps.slice(0, 11).map(
+  if (props.topApps) {
+    appCards = props.topApps.slice(0, 11).map(
       (
-        topApp: types.IAppId // todo: use max apps!
+        topApp: types.IAppId
       ) => (
         <AppCard
           key={topApp.chain + topApp.app}

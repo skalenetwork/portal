@@ -23,7 +23,12 @@
 
 import React from 'react'
 import { IconButton, Tooltip } from '@mui/material'
-import { LanguageRounded, FavoriteBorderOutlined, WavesRounded } from '@mui/icons-material'
+import {
+  LanguageRounded,
+  FavoriteBorderOutlined,
+  WavesRounded,
+  TrackChangesRounded
+} from '@mui/icons-material'
 import { SocialIcon } from 'react-social-icons/component'
 import 'react-social-icons/discord'
 import 'react-social-icons/github'
@@ -59,6 +64,16 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
         />
       ),
       title: 'Website'
+    },
+    {
+      key: 'dappradar',
+      icon: (
+        <TrackChangesRounded
+          className={cls([cmn.pPrim, isMd], [cmn.pSec, !isMd])}
+          fontSize={isMd ? 'medium' : 'small'}
+        />
+      ),
+      title: 'dAppRadar'
     },
     { key: 'x', network: 'x', title: 'X (Twitter)' },
     { key: 'telegram', network: 'telegram', title: 'Telegram' },

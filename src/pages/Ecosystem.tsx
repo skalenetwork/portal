@@ -58,6 +58,7 @@ import AllApps from '../components/ecosystem/AllApps'
 import NewApps from '../components/ecosystem/NewApps'
 import FavoriteApps from '../components/ecosystem/FavoriteApps'
 import TrendingApps from '../components/ecosystem/TrendingApps'
+import { MAX_APPS_DEFAULT, SUBMIT_PROJECT_URL } from '../core/constants'
 
 export default function Ecosystem(props: {
   mpc: MetaportCore
@@ -72,7 +73,10 @@ export default function Ecosystem(props: {
   const [searchTerm, setSearchTerm] = useState('')
   const [activeTab, setActiveTab] = useState(0)
 
-  const newApps = useMemo(() => getRecentApps(props.chainsMeta, 12), [props.chainsMeta])
+  const newApps = useMemo(
+    () => getRecentApps(props.chainsMeta, MAX_APPS_DEFAULT),
+    [props.chainsMeta]
+  )
 
   useEffect(() => {
     const initialCheckedItems = getCheckedItemsFromUrl()
@@ -192,12 +196,7 @@ export default function Ecosystem(props: {
           <div className={cls(cmn.flex)}>
             <div className={cls(cmn.flex, cmn.flexg)}></div>
             <div className={cls(cmn.flex, cmn.mtop20, cmn.ptop20, cmn.mbott20)}>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href="https://github.com/skalenetwork/skale-network/issues/new?assignees=dmytrotkk&labels=metadata&projects=&template=app_submission.yml&title=App+Metadata+Submission"
-                className="undec"
-              >
+              <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">
                 <Button
                   variant="contained"
                   size="medium"

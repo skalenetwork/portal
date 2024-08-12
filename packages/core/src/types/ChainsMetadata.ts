@@ -41,9 +41,6 @@ export interface AppMetadata {
   gradientBackground?: string
   description?: string
   contracts?: string[]
-  dappradar?: string | boolean
-  legacy?: boolean
-  featured?: boolean
   social?: AppSocials
   tags?: string[]
   added?: number
@@ -57,6 +54,7 @@ export interface AppSocials {
   github?: string;
   discord?: string;
   swell?: string;
+  dappradar?: string;
 }
 export interface AppWithTimestamp {
   chain: string
