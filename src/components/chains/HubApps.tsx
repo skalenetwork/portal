@@ -30,7 +30,7 @@ import { Grid, Tooltip } from '@mui/material'
 import { chainBg } from '../../core/metadata'
 import { sortObjectByKeys } from '../../core/helper'
 
-import AppCard from '../AppCard'
+import AppCard from '../ecosystem/AppCard'
 
 export default function HubApps(props: {
   skaleNetwork: types.SkaleNetwork
