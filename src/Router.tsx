@@ -86,7 +86,7 @@ export default function Router() {
 
   const { address } = useWagmiAccount()
   const { data: walletClient } = useWagmiWalletClient()
-  const { switchNetworkAsync } = useWagmiSwitchNetwork()
+  const { switchChainAsync } = useWagmiSwitchNetwork()
 
   const [searchParams, _] = useSearchParams()
   const endpoint = PROXY_ENDPOINTS[mpc.config.skaleNetwork]
@@ -113,7 +113,7 @@ export default function Router() {
     await enforceNetwork(
       chainId,
       walletClient,
-      switchNetworkAsync!,
+      switchChainAsync!,
       mpc.config.skaleNetwork,
       MAINNET_CHAIN_NAME
     )
