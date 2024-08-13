@@ -37,7 +37,6 @@ import DeveloperInfo from './DeveloperInfo'
 import Tokens from './Tokens'
 import VerifiedContracts from './VerifiedContracts'
 import { getExplorerUrl } from '../../../core/explorer'
-import Headline from '../../Headline'
 
 const BASE_TABS = [
   {
@@ -107,11 +106,6 @@ export default function ChainTabsSection(props: {
       currentTabs.unshift({ label: 'Apps', icon: <WidgetsRoundedIcon /> })
       currentTabsContent.unshift(
         <SkPaper gray className={cls(cmn.mtop20)}>
-          <Headline
-            text="Apps on the Hub"
-            icon={<WidgetsRoundedIcon />}
-            className={cls(cmn.mbott20)}
-          />
           <div className={cls(cmn.mtop20, cmn.mleft5, cmn.mri5)}>
             <HubApps
               skaleNetwork={network}

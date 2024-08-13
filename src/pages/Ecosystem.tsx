@@ -86,7 +86,11 @@ export default function Ecosystem(props: {
   }, [])
 
   useEffect(() => {
-    const filtered = filterAppsBySearchTerm(filterAppsByCategory(allApps, checkedItems), searchTerm)
+    const filtered = filterAppsBySearchTerm(
+      filterAppsByCategory(allApps, checkedItems),
+      searchTerm,
+      props.chainsMeta
+    )
     setFilteredApps(filtered)
   }, [allApps, checkedItems, searchTerm])
 
@@ -123,7 +127,7 @@ export default function Ecosystem(props: {
         <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
           Explore dApps across the SKALE ecosystem
         </p>
-        <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20)}>
+        <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20, 'fwmobile')}>
           <SkStack className={cls(cmn.mbott20, cmn.flex, cmn.flexcv)}>
             <SearchComponent
               className={cls(cmn.flexg, cmn.mri20)}

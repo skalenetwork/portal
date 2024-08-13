@@ -75,7 +75,7 @@ const ChainCard: React.FC<{
           <div className={cls(cmn.flexg)}></div>
           <div>
             <Ship
-              label={`${transactions ? formatNumber(transactions) : '...'} + Daily Tx`}
+              label={`${transactions ? formatNumber(transactions) : '...'}+ Daily Tx`}
               icon={<TrendingUpRoundedIcon />}
             />
           </div>

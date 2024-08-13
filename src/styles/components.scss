@@ -1,5 +1,5 @@
 .skTabs {
-    .MuiTab-root {
+    .MuiTab-root, .MuiButton-root {
         background-color: $sk-bg !important;
     }
 }
@@ -53,6 +53,9 @@
 .sk-logo-md {
     width: 170px;
     height: 170px;
+    .responsive-logo {
+        padding: 20px !important;
+    }
 }
 
 .sk-app-logo {

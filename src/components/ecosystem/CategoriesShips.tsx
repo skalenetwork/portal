@@ -24,9 +24,9 @@
 import React, { useMemo } from 'react'
 import { type types } from '@/core'
 import { Box } from '@mui/material'
-
 import { categories } from '../../core/ecosystem/categories'
 import Ship from '../Ship'
+import { CategoryIcons } from './CategoryIcons'
 
 interface AppCategoriesChipsProps {
   app: types.AppMetadata
@@ -47,44 +47,27 @@ const AppCategoriesChips: React.FC<AppCategoriesChipsProps> = ({ app, className 
       return category.subcategories[subcategoryTag]?.name ?? subcategoryTag
     }
 
-    return Object.entries(app.categories)
-      .flatMap(([categoryTag, subcategories]) => [
-        <Ship key={categoryTag} label={getCategoryName(categoryTag)} />,
-        ...(Array.isArray(subcategories)
-          ? subcategories.map((subTag) => (
-              <Ship
-                key={`${categoryTag}-${subTag}`}
-                label={getSubcategoryName(categoryTag, subTag)}
-              />
-            ))
-          : [])
-      ])
-      .slice(0, 3) // Limit to 3 chips // todo: remove restriction!
+    return Object.entries(app.categories).flatMap(([categoryTag, subcategories]) => [
+      <Ship
+        key={categoryTag}
+        label={getCategoryName(categoryTag)}
+        icon={<CategoryIcons category={categoryTag} />}
+      />,
+      ...(Array.isArray(subcategories)
+        ? subcategories.map((subTag) => (
+            <Ship
+              key={`${categoryTag}-${subTag}`}
+              label={getSubcategoryName(categoryTag, subTag)}
+              icon={<CategoryIcons category={subTag} />}
+            />
+          ))
+        : [])
+    ])
   }, [app.categories])
 
   if (chips.length === 0) return null
 
-  return (
-    <Box
-      sx={{
-        display: 'flex',
-        overflowX: 'auto',
-        whiteSpace: 'nowrap',
-        '&::-webkit-scrollbar': {
-          display: 'none'
-        },
-        scrollbarWidth: 'none',
-        msOverflowStyle: 'none',
-        '& > *': {
-          flex: '0 0 auto'
-        },
-        gap: 1
-      }}
-      className={className}
-    >
-      {chips}
-    </Box>
-  )
+  return <Box className={`chipContainer ${className}`}>{chips}</Box>
 }
 
 export default AppCategoriesChips

@@ -30,14 +30,11 @@ import {
   styles,
   PROXY_ENDPOINTS,
   type MetaportCore,
-  SkPaper,
-  getChainAlias,
-  chainBg
+  SkPaper
 } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
 import Button from '@mui/material/Button'
-import { Container } from '@mui/material'
 
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
@@ -59,11 +56,14 @@ import Breadcrumbs from './Breadcrumbs'
 import CollapsibleDescription from './CollapsibleDescription'
 import SkBtn from './SkBtn'
 
+import { chainBg, getChainAlias } from '../core/metadata'
+
 import { MAINNET_CHAIN_LOGOS, MAINNET_CHAIN_NAME } from '../core/constants'
 import { getRpcUrl, getChainId, HTTPS_PREFIX, getChainDescription } from '../core/chain'
 import { getExplorerUrl } from '../core/explorer'
 import { formatNumber } from '../core/timeHelper'
 import ChainTabsSection from './chains/tabs/ChainTabsSection'
+import Ship from './Ship'
 
 export default function SchainDetails(props: {
   schainName: string
@@ -89,7 +89,7 @@ export default function SchainDetails(props: {
     chainName:
       'SKALE' +
       (network === 'testnet' ? ' Testnet ' : ' ') +
-      getChainAlias(props.mpc.config.skaleNetwork, props.schainName),
+      getChainAlias(props.chainsMeta, props.schainName),
     rpcUrls: [rpcUrl],
     nativeCurrency: {
       name: 'sFUEL',
@@ -120,7 +120,7 @@ export default function SchainDetails(props: {
 
   const chainMeta = props.chainsMeta[props.schainName]
 
-  const chainAlias = getChainAlias(props.mpc.config.skaleNetwork, props.schainName, undefined, true)
+  const chainAlias = getChainAlias(props.chainsMeta, props.schainName)
   const chainDescription = getChainDescription(chainMeta)
 
   const isMainnet = props.mpc.config.skaleNetwork === MAINNET_CHAIN_NAME
@@ -145,56 +145,77 @@ export default function SchainDetails(props: {
 
   return (
     <div className={cls('chainDetails', cmn.mbott20)}>
+      <div className={cls(cmn.flex)}>
+        <Breadcrumbs
+          className="bg"
+          sections={[
+            {
+              text: 'Chains',
+              icon: <ArrowBackIosNewRoundedIcon />,
+              url: '/chains'
+            },
+            {
+              text: chainAlias,
+              icon: <LinkRoundedIcon />
+            }
+          ]}
+        />
+        <div className={cls(cmn.flexg)}></div>
+      </div>
       <Helmet>
         <title>SKALE Portal - {chainAlias}</title>
         <meta name="description" content={chainDescription} />
         <meta property="og:title" content={`SKALE Portal - ${chainAlias}`} />
         <meta property="og:description" content={chainDescription} />
       </Helmet>
-      <SkPaper background={chainBg(network, props.schainName)} className={cls(cmn.mtop10)}>
-        <SkStack>
-          <div className={cls(cmn.flex)}>
-            <Breadcrumbs
-              sections={[
-                {
-                  text: 'Chains',
-                  icon: <ArrowBackIosNewRoundedIcon />,
-                  url: '/chains'
-                },
-                {
-                  text: chainAlias,
-                  icon: <LinkRoundedIcon />
-                }
-              ]}
-            />
-            <div className={cls(cmn.flexg)}></div>
-          </div>
-          <div className={cls(cmn.flexg)}></div>
-          <ChainCategories
-            category={chainMeta?.category ?? 'Other'}
-            alias={chainAlias}
-            isXs={props.isXs}
-          />
-        </SkStack>
-        <Container className="logo">
-          <ChainLogo
-            network={props.mpc.config.skaleNetwork}
-            chainName={props.schainName}
-            logos={MAINNET_CHAIN_LOGOS}
-          />
-        </Container>
-        <SkStack>
-          <Tile
-            grow
-            children={
-              <div>
-                <h2 className={cls(cmn.nom)}>{chainAlias}</h2>
-                <CollapsibleDescription text={chainDescription} expandable />
+      <SkPaper gray className={cls(cmn.mtop10)}>
+        <div className={cls(cmn.m10)}>
+          <div className={cls('responsive-app-header', cmn.flex, cmn.flexcvd)}>
+            <div className={cls('sk-app-logo', 'sk-logo-md')}>
+              <div
+                className={cls('logo-wrapper')}
+                style={{
+                  background: chainBg(props.chainsMeta, props.schainName),
+                  flexShrink: 0
+                }}
+              >
+                <ChainLogo
+                  className={cls('responsive-logo')}
+                  network={network}
+                  chainName={props.schainName}
+                  logos={MAINNET_CHAIN_LOGOS}
+                />
               </div>
-            }
-          />
-        </SkStack>
-        <SkStack className={cmn.mtop10}>
+            </div>
+            <div className={cls('app-info', cmn.flexg)}>
+              <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10)}>
+                <div className={cmn.flexg}>
+                  <ChainCategories
+                    category={chainMeta?.category ?? 'Other'}
+                    alias={chainAlias}
+                    isXs={props.isXs}
+                  />
+                </div>
+
+                <Ship
+                  label={
+                    props.schainMetrics
+                      ? formatNumber(props.schainMetrics.chain_stats?.transactions_today) +
+                        '+ Daily Tx'
+                      : '0'
+                  }
+                  icon={<TrendingUpRoundedIcon />}
+                />
+              </div>
+
+              <h2 className={cls(cmn.nom, cmn.p1)}>{chainAlias}</h2>
+              <CollapsibleDescription text={chainDescription} expandable />
+            </div>
+          </div>
+        </div>
+      </SkPaper>
+      <SkPaper gray className={cls(cmn.mtop10)}>
+        <SkStack className={cmn.mbott10}>
           <Tile
             className={cls(cmn.nop, cmn.flex, cmn.flexcv)}
             children={
@@ -255,7 +276,7 @@ export default function SchainDetails(props: {
           />
         </SkStack>
 
-        <SkStack className={cmn.mtop10}>
+        <SkStack className={cmn.md10}>
           <Tile
             size="md"
             grow

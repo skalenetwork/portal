@@ -46,9 +46,11 @@ export default function AppCard(props: {
 }) {
   const shortAlias = getChainShortAlias(props.chainsMeta, props.schainName)
   const url = `/ecosystem/${shortAlias}/${props.appName}`
-  const appMeta = props.chainsMeta[props.schainName]?.apps?.[props.appName]!
+  const appMeta = props.chainsMeta[props.schainName]?.apps?.[props.appName]
   const isNew =
     props.newApps && isNewApp({ chain: props.schainName, app: props.appName }, props.newApps)
+
+  if (!appMeta) return
 
   const appDescription = appMeta.description ?? 'No description'
 

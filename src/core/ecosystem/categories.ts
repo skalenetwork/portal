@@ -83,5 +83,6 @@ export const categories: Categories = {
   security: { name: 'Security', subcategories: {} },
   'social-network': { name: 'Social Network', subcategories: {} },
   tools: { name: 'Tools', subcategories: {} },
-  wallet: { name: 'Wallet', subcategories: {} }
+  wallet: { name: 'Wallet', subcategories: {} },
+  metaverse: { name: 'Metaverse', subcategories: {} }
 }

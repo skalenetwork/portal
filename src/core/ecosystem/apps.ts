@@ -21,6 +21,7 @@
  */
 
 import { type types } from '@/core'
+import { getChainAlias } from '../metadata'
 
 export interface AppWithChainAndName extends types.AppMetadata {
   chain: string
@@ -73,12 +74,15 @@ export function filterAppsByCategory(
 
 export function filterAppsBySearchTerm(
   apps: AppWithChainAndName[],
-  searchTerm: string
+  searchTerm: string,
+  chainsMeta: types.ChainsMetadataMap
 ): AppWithChainAndName[] {
   if (!searchTerm || searchTerm === '') return apps
+  const st = searchTerm.toLowerCase()
   return apps.filter(
     (app) =>
-      app.alias.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      app.chain.toLowerCase().includes(searchTerm.toLowerCase())
+      app.alias.toLowerCase().includes(st) ||
+      app.chain.toLowerCase().includes(st) ||
+      getChainAlias(chainsMeta, app.chain).toLowerCase().includes(st)
   )
 }

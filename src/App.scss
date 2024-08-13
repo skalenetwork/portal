@@ -1,5 +1,6 @@
 @import './variables';
 @import './styles/components';
+@import './styles/ship';
 
 :root {
   background: black;
@@ -259,6 +260,10 @@ body::-webkit-scrollbar {
 
 .border {
   border: 1px solid #171616 !important;
+}
+
+.radius {
+  border-radius: $sk-border-radius !important;
 }
 
 .pageCard {
@@ -1233,6 +1238,10 @@ a,
 
 .paddBott60 {
   padding-bottom: 60px;
+}
+
+.m5 {
+  margin: 5px;
 }
 
 .fwmobile {

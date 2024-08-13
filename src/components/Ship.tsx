@@ -28,7 +28,7 @@ const Ship: React.FC<{
 }> = ({ label, icon }) => {
   return (
     <div className={cls('skShip', 'shipSm', cmn.flex, cmn.flexcv, cmn.pPrim)}>
-      {icon && <div className={cls(cmn.mri10, cmn.flex)}>{icon}</div>}
+      {icon && <div className={cls(cmn.mri5, cmn.flex)}>{icon}</div>}
       <p className={cls(cmn.p, cmn.p5)}>{label}</p>
     </div>
   )

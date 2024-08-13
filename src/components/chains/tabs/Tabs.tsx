@@ -31,6 +31,7 @@ import { cls, cmn } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
 import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded'
+import { Button } from '@mui/material'
 
 export default function ChainTabs(props: {
   chainMeta: types.ChainMetadata
@@ -61,13 +62,13 @@ export default function ChainTabs(props: {
             />
           ) : null
         )}
-        <Link to={`/admin/${props.schainName}`} className="tabLink">
-          <Tab
-            label="Manage"
-            icon={<AdminPanelSettingsRoundedIcon />}
-            iconPosition="start"
-            className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab')}
-          />
+        <Link to={`/admin/${props.schainName}`}>
+          <Button
+            startIcon={<AdminPanelSettingsRoundedIcon />}
+            className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', cmn.pSec, cmn.p500)}
+          >
+            Manage
+          </Button>
         </Link>
       </Tabs>
     </div>

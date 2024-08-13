@@ -44,7 +44,7 @@ import AgricultureRoundedIcon from '@mui/icons-material/AgricultureRounded'
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded'
 import PhotoCameraRoundedIcon from '@mui/icons-material/PhotoCameraRounded'
 
-import { cmn, cls } from '@skalenetwork/metaport'
+import Ship from './Ship'
 
 export const CATEGORY_ICON: any = {
   hubs: <HubRoundedIcon />,
@@ -90,15 +90,8 @@ export default function CategoryBadge(props: {
   }
 
   return (
-    <div
-      className={cls(props.className, 'titleBadge', cmn.flex, cmn.flexcv, [
-        cmn.mbott10,
-        props.isXs
-      ])}
-      style={{ padding: '10px 15px' }}
-    >
-      {getCategoryIcon(props.category)}
-      <p className={cls(cmn.p, cmn.p4, cmn.mleft5)}>{props.category}</p>
+    <div className={props.className}>
+      <Ship label={props.category} icon={getCategoryIcon(props.category)} />
     </div>
   )
 }

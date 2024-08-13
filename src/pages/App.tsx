@@ -179,7 +179,7 @@ export default function App(props: {
           </div>
         </SkPaper>
         <SkPaper gray className={cls(cmn.mtop10)}>
-          <SkStack className={cmn.mtop10}>
+          <SkStack>
             {appMeta.contracts ? (
               <Tile
                 grow
