@@ -85,7 +85,7 @@ export default function Router() {
 
   const { address } = useWagmiAccount()
   const { data: walletClient } = useWagmiWalletClient()
-  const { switchNetworkAsync } = useWagmiSwitchNetwork()
+  const { switchChainAsync } = useWagmiSwitchNetwork()
 
   const [searchParams, _] = useSearchParams()
   const endpoint = PROXY_ENDPOINTS[mpc.config.skaleNetwork]
@@ -112,7 +112,7 @@ export default function Router() {
     await enforceNetwork(
       chainId,
       walletClient,
-      switchNetworkAsync!,
+      switchChainAsync!,
       mpc.config.skaleNetwork,
       MAINNET_CHAIN_NAME
     )
@@ -130,9 +130,14 @@ export default function Router() {
   }
 
   async function loadChains() {
-    const response = await fetch(`https://${endpoint}/files/chains.json`)
-    const chainsJson = await response.json()
-    setSchains(formatSChains(chainsJson))
+    try {
+      const response = await fetch(`https://${endpoint}/files/chains.json`)
+      const chainsJson = await response.json()
+      setSchains(formatSChains(chainsJson))
+    } catch (e) {
+      console.log('Failed to load chains')
+      console.error(e)
+    }
   }
 
   async function loadMetrics() {
@@ -149,9 +154,14 @@ export default function Router() {
 
   async function loadStats() {
     if (statsApi === null) return
-    const response = await fetch(statsApi)
-    const statsResp = await response.json()
-    setStats(statsResp.payload)
+    try {
+      const response = await fetch(statsApi)
+      const statsResp = await response.json()
+      setStats(statsResp.payload)
+    } catch (e) {
+      console.log('Failed to load stats')
+      console.error(e)
+    }
   }
 
   async function initSkaleContracts() {
