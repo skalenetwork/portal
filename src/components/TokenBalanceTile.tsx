@@ -51,7 +51,7 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
 
   const { address } = useWagmiAccount()
   const { data: walletClient } = useWagmiWalletClient()
-  const { switchNetworkAsync } = useWagmiSwitchNetwork()
+  const { switchChainAsync } = useWagmiSwitchNetwork()
 
   useEffect(() => {
     setTokenContract(
@@ -86,7 +86,7 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
       await enforceNetwork(
         chainId,
         walletClient,
-        switchNetworkAsync!,
+        switchChainAsync!,
         props.mpc.config.skaleNetwork,
         props.chain
       )

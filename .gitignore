@@ -35,3 +35,4 @@ src/metadata/faucet.json
 
 public/sitemap.xml
 public/robots.txt
+tools/*
