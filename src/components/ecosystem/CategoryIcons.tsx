@@ -54,13 +54,14 @@ import {
   DirectionsCarOutlined,
   AutoStoriesOutlined,
   BedroomChildOutlined,
-  SportsSoccerOutlined,
   PsychologyOutlined,
   SportsBaseballOutlined,
   PrecisionManufacturingOutlined,
   AutoAwesomeRounded,
   HikingRounded,
-  PaymentsRounded
+  PaymentsRounded,
+  FlagRounded,
+  FlareRounded
 } from '@mui/icons-material'
 
 export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
@@ -132,11 +133,13 @@ export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
     case 'sandbox':
       return <BedroomChildOutlined />
     case 'shooter':
-      return <SportsSoccerOutlined />
+      return <FlareRounded />
     case 'simulation':
       return <PsychologyOutlined />
     case 'sports':
       return <SportsBaseballOutlined />
+    case 'strategy':
+      return <FlagRounded />
 
     // DeFi subcategories
     case 'custody':

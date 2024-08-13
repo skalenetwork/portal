@@ -65,7 +65,7 @@ export default function HubTile(props: {
     <Link to={'/chains/' + shortAlias} className={cls(cmn.flex, cmn.pPrim, cmn.flexg)}>
       <SkPaper
         gray
-        className={cls('titleSectionOut', 'border', 'hoverable', 'pointer', cmn.flexg)}
+        className={cls('titleSectionOut', 'hoverable', 'pointer', cmn.flexg)}
         background={props.bg ? chainBg(props.chainsMeta, props.schainName) : ''}
       >
         <Tooltip title="Click to see Hub details">

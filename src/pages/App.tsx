@@ -142,7 +142,7 @@ export default function App(props: {
             <div className={cls('responsive-app-header', cmn.flex, cmn.flexcvd)}>
               <div className={cls('sk-app-logo', 'sk-logo-md')}>
                 <div
-                  className={cls('logo-wrapper')}
+                  className={cls('logo-wrapper borderLight')}
                   style={{
                     background: chainBg(props.chainsMeta, chain, app),
                     flexShrink: 0
@@ -158,19 +158,18 @@ export default function App(props: {
                 </div>
               </div>
               <div className={cls('app-info', cmn.flexg)}>
-                <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10)}>
-                  <div className={cmn.flexg}>
+                <SkStack>
+                  <div className={cls(cmn.flexg, cmn.mbott10)}>
                     <AppCategoriesChips app={appMeta} />
                   </div>
                   <Button
-                    className="btn btnSm"
+                    className={cls(cmn.mbott10, 'btn btnSm')}
                     variant="contained"
                     startIcon={<FavoriteRoundedIcon />}
                   >
                     Add to Favorites
                   </Button>
-                </div>
-
+                </SkStack>
                 <h2 className={cls(cmn.nom, cmn.p1)}>{appAlias}</h2>
                 <CollapsibleDescription text={appDescription} expandable />
                 <SocialButtons size="md" social={appMeta.social} className={cls(cmn.mtop20)} />

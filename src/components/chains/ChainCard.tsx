@@ -60,7 +60,7 @@ const ChainCard: React.FC<{
         <div className={cls(cmn.flex)}>
           <div className="sk-app-logo sk-logo-sm br__tile">
             <div
-              className={cls('logo-wrapper')}
+              className={cls('logo-wrapper borderLight')}
               style={{ background: chainBg(chainsMeta, schain.name) }}
             >
               <ChainLogo

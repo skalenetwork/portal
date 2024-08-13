@@ -173,7 +173,7 @@ export default function SchainDetails(props: {
           <div className={cls('responsive-app-header', cmn.flex, cmn.flexcvd)}>
             <div className={cls('sk-app-logo', 'sk-logo-md')}>
               <div
-                className={cls('logo-wrapper')}
+                className={cls('logo-wrapper borderLight')}
                 style={{
                   background: chainBg(props.chainsMeta, props.schainName),
                   flexShrink: 0

@@ -77,6 +77,7 @@ export default function Start(props: {
   if (props.topApps) {
     appCards = props.topApps
       .slice(0, 11)
+      .filter((app) => props.chainsMeta[app.chain]?.apps?.[app.app])
       .map((topApp: types.IAppId) => (
         <AppCard
           key={topApp.chain + topApp.app}

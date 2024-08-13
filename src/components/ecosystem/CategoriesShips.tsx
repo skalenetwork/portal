@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import React, { useMemo } from 'react'
+import React, { useMemo, useState } from 'react'
 import { type types } from '@/core'
 import { Box } from '@mui/material'
 import { categories } from '../../core/ecosystem/categories'
@@ -34,6 +34,8 @@ interface AppCategoriesChipsProps {
 }
 
 const AppCategoriesChips: React.FC<AppCategoriesChipsProps> = ({ app, className }) => {
+  const [expanded, setExpanded] = useState(false)
+
   const chips = useMemo(() => {
     if (!app.categories) return []
 
@@ -67,7 +69,20 @@ const AppCategoriesChips: React.FC<AppCategoriesChipsProps> = ({ app, className 
 
   if (chips.length === 0) return null
 
-  return <Box className={`chipContainer ${className}`}>{chips}</Box>
+  const visibleChips = expanded ? chips : chips.slice(0, 2)
+  const remainingChips = chips.length - 2
+
+  return (
+    <Box className={`chipContainer ${className}`}>
+      {visibleChips}
+      {remainingChips > 0 && (
+        <Ship
+          label={expanded ? 'Hide' : `+${remainingChips}`}
+          onClick={() => setExpanded(!expanded)}
+        />
+      )}
+    </Box>
+  )
 }
 
 export default AppCategoriesChips

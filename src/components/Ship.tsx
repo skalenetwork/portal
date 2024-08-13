@@ -25,9 +25,16 @@ import { cls, cmn } from '@skalenetwork/metaport'
 const Ship: React.FC<{
   label: string
   icon?: React.ReactNode
-}> = ({ label, icon }) => {
+  onClick?: () => void
+}> = ({ label, icon, onClick }) => {
   return (
-    <div className={cls('skShip', 'shipSm', cmn.flex, cmn.flexcv, cmn.pPrim)}>
+    <div
+      className={cls('skShip', 'shipSm', cmn.flex, cmn.flexcv, cmn.pPrim, [
+        'pointer',
+        onClick !== undefined
+      ])}
+      onClick={onClick}
+    >
       {icon && <div className={cls(cmn.mri5, cmn.flex)}>{icon}</div>}
       <p className={cls(cmn.p, cmn.p5)}>{label}</p>
     </div>
