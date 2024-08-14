@@ -90,7 +90,12 @@ export default function AppCard(props: {
         <CollapsibleDescription text={appDescription} />
         <AppCategoriesChips app={appMeta} className={cls(cmn.mtop20)} />
       </Link>
-      <SocialButtons social={appMeta.social} className={cls(cmn.mtop20)} />
+      <SocialButtons
+        social={appMeta.social}
+        chainName={props.schainName}
+        appName={props.appName}
+        className={cls(cmn.mtop20)}
+      />
     </SkPaper>
   )
 }

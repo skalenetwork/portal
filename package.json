@@ -20,7 +20,7 @@
     "@mdx-js/rollup": "^2.3.0",
     "@mui/icons-material": "^5.15.14",
     "@mui/material": "^5.15.14",
-    "@skalenetwork/metaport": "3.0.0-develop.0",
+    "@skalenetwork/metaport": "3.0.0-develop.2",
     "@skalenetwork/skale-contracts-ethers-v6": "1.0.1",
     "@transak/transak-sdk": "^3.1.1",
     "@types/react-copy-to-clipboard": "^5.0.4",
@@ -35,7 +35,8 @@
     "react-jazzicon": "^1.0.4",
     "react-router-dom": "^6.15.0",
     "react-social-icons": "^6.17.0",
-    "react-transition-group": "^4.4.5"
+    "react-transition-group": "^4.4.5",
+    "siwe": "^2.3.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

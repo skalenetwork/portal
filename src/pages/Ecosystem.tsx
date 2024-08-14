@@ -27,17 +27,16 @@ import { Helmet } from 'react-helmet'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
-import { Button, Tab, Tabs } from '@mui/material'
+import { Tab, Tabs } from '@mui/material'
 
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
-import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import TimelineRoundedIcon from '@mui/icons-material/TimelineRounded'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
 
 import { type types } from '@/core'
 
-import { cmn, cls, type MetaportCore, styles } from '@skalenetwork/metaport'
+import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
 import { META_TAGS } from '../core/meta'
 import CategoryDisplay from '../components/ecosystem/Categories'
 import {
@@ -58,7 +57,7 @@ import AllApps from '../components/ecosystem/AllApps'
 import NewApps from '../components/ecosystem/NewApps'
 import FavoriteApps from '../components/ecosystem/FavoriteApps'
 import TrendingApps from '../components/ecosystem/TrendingApps'
-import { MAX_APPS_DEFAULT, SUBMIT_PROJECT_URL } from '../core/constants'
+import { MAX_APPS_DEFAULT } from '../core/constants'
 
 export default function Ecosystem(props: {
   mpc: MetaportCore
@@ -194,25 +193,13 @@ export default function Ecosystem(props: {
               chainsMeta={props.chainsMeta}
             />
           )}
-          {activeTab === 2 && <FavoriteApps />}
+          {activeTab === 2 && (
+            <FavoriteApps
+              chainsMeta={props.chainsMeta}
+              skaleNetwork={props.mpc.config.skaleNetwork}
+            />
+          )}
           {activeTab === 3 && <TrendingApps />}
-
-          <div className={cls(cmn.flex)}>
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
-            <div className={cls(cmn.flex, cmn.mtop20, cmn.ptop20, cmn.mbott20)}>
-              <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">
-                <Button
-                  variant="contained"
-                  size="medium"
-                  className={cls('btn')}
-                  startIcon={<EditRoundedIcon className={cls(styles.chainIconxs)} />}
-                >
-                  Submit Your Project
-                </Button>
-              </a>
-            </div>
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
-          </div>
         </Box>
       </Stack>
     </Container>

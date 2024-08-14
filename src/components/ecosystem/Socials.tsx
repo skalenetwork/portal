@@ -23,12 +23,7 @@
 
 import React from 'react'
 import { IconButton, Tooltip } from '@mui/material'
-import {
-  LanguageRounded,
-  FavoriteBorderOutlined,
-  WavesRounded,
-  TrackChangesRounded
-} from '@mui/icons-material'
+import { LanguageRounded, WavesRounded, TrackChangesRounded } from '@mui/icons-material'
 import { SocialIcon } from 'react-social-icons/component'
 import 'react-social-icons/discord'
 import 'react-social-icons/github'
@@ -36,19 +31,20 @@ import 'react-social-icons/telegram'
 import 'react-social-icons/x'
 import { cmn, cls } from '@skalenetwork/metaport'
 import { type types } from '@/core'
+import FavoriteIconButton from './FavoriteIconButton'
 
 interface SocialButtonsProps {
   social?: types.AppSocials
-  onAddToFavorites?: () => void
-  isFavorite?: boolean
+  chainName?: string
+  appName?: string
   className?: string
   size?: 'sm' | 'md'
 }
 
 const SocialButtons: React.FC<SocialButtonsProps> = ({
   social,
-  onAddToFavorites,
-  isFavorite = false,
+  chainName,
+  appName,
   className,
   size = 'sm'
 }) => {
@@ -100,7 +96,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
             if (!link) return null
 
             return (
-              <div className={cls([cmn.mri10, isMd])}>
+              <div className={cls([cmn.mri10, isMd])} key={key}>
                 <Tooltip key={key} title={title}>
                   <IconButton
                     size={isMd ? 'medium' : 'small'}
@@ -129,17 +125,9 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
         </div>
       )}
       {!social && <div className={cmn.flexg}></div>}
-      {!isMd && (
-        <Tooltip title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}>
-          <IconButton size="small" onClick={onAddToFavorites} className={cls('bgPrim')}>
-            <FavoriteBorderOutlined
-              className={cls(cmn.pSec)}
-              fontSize="small"
-              color={isFavorite ? 'secondary' : 'action'}
-            />
-          </IconButton>
-        </Tooltip>
-      )}
+      {!isMd && chainName && appName ? (
+        <FavoriteIconButton chainName={chainName} appName={appName} />
+      ) : null}
     </div>
   )
 }

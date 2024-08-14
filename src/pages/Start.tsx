@@ -35,6 +35,7 @@ import { Button } from '@mui/material'
 import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontalCircleOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import LabelImportantRoundedIcon from '@mui/icons-material/LabelImportantRounded'
 import RocketLaunchRoundedIcon from '@mui/icons-material/RocketLaunchRounded'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
@@ -52,6 +53,7 @@ import { MAX_APPS_DEFAULT } from '../core/constants'
 import NewApps from '../components/ecosystem/NewApps'
 import Carousel from '../components/Carousel'
 import Headline from '../components/Headline'
+import FavoriteApps from '../components/ecosystem/FavoriteApps'
 
 export default function Start(props: {
   isXs: boolean
@@ -131,7 +133,17 @@ export default function Start(props: {
             </Grid>
           </Grid>
         </Box>
-
+        <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
+          <Headline text="Your Favorites" icon={<FavoriteRoundedIcon color="primary" />} />
+          <Link to={`/ecosystem?tab=2`}>
+            <Button className={cls('btn btnSm bg', cmn.pPrim)}>See all</Button>
+          </Link>
+        </div>
+        <FavoriteApps
+          skaleNetwork={props.skaleNetwork}
+          chainsMeta={props.chainsMeta}
+          useCarousel={true}
+        />
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
           <Headline
             text="New dApps on SKALE"

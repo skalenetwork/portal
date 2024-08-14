@@ -38,6 +38,7 @@ import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import HubRoundedIcon from '@mui/icons-material/HubRounded'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
+import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
 
 import ChainLogo from '../components/ChainLogo'
 import SkStack from '../components/SkStack'
@@ -56,6 +57,8 @@ import { addressUrl, getExplorerUrl, getTotalAppCounters } from '../core/explore
 import { MAINNET_CHAIN_LOGOS, OFFCHAIN_APP } from '../core/constants'
 import SocialButtons from '../components/ecosystem/Socials'
 import AppCategoriesChips from '../components/ecosystem/CategoriesShips'
+import { useLikedApps } from '../LikedAppsContext'
+import { useAuth } from '../AuthContext'
 
 export default function App(props: {
   mpc: MetaportCore
@@ -65,6 +68,9 @@ export default function App(props: {
   chainsMeta: types.ChainsMetadataMap
 }) {
   let { chain, app } = useParams()
+  const { likedApps, toggleLikedApp, getAppId } = useLikedApps()
+  const { isSignedIn, handleSignIn } = useAuth()
+
   if (chain === undefined || app === undefined) return 'No such app'
 
   const network = props.mpc.config.skaleNetwork
@@ -78,9 +84,18 @@ export default function App(props: {
   const appAlias = getChainAlias(props.chainsMeta, chain, app)
   const appMeta = chainMeta.apps?.[app]!
   const appDescription = appMeta.description ?? 'No description'
-  // const dAppRadarUrl = `${DAPP_RADAR_BASE_URL}${appMeta.dappradar ?? app}`
 
-  const expolorerUrl = getExplorerUrl(network, chain)
+  const appId = getAppId(chain, app)
+  const isLiked = likedApps.includes(appId)
+
+  const handleFavoriteClick = async () => {
+    if (!isSignedIn) {
+      await handleSignIn()
+    }
+    await toggleLikedApp(appId)
+  }
+
+  const explorerUrl = getExplorerUrl(network, chain)
 
   const isAppChain = chainMeta.apps && Object.keys(chainMeta.apps).length === 1
 
@@ -165,9 +180,10 @@ export default function App(props: {
                   <Button
                     className={cls(cmn.mbott10, 'btn btnSm')}
                     variant="contained"
-                    startIcon={<FavoriteRoundedIcon />}
+                    startIcon={isLiked ? <FavoriteRoundedIcon /> : <FavoriteBorderOutlinedIcon />}
+                    onClick={handleFavoriteClick}
                   >
-                    Add to Favorites
+                    {isLiked ? 'Favorite' : 'Add to favorites'}
                   </Button>
                 </SkStack>
                 <h2 className={cls(cmn.nom, cmn.p1)}>{appAlias}</h2>
@@ -239,7 +255,7 @@ export default function App(props: {
                           className={cls(styles.fullHeight)}
                           title={`Contract ${index + 1}`}
                           value={contractAddress}
-                          url={addressUrl(expolorerUrl, contractAddress)}
+                          url={addressUrl(explorerUrl, contractAddress)}
                         />
                       </Grid>
                     ))}

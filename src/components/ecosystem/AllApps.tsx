@@ -22,11 +22,14 @@
  */
 
 import React, { useMemo } from 'react'
-import { Grid } from '@mui/material'
-import { cls } from '@skalenetwork/metaport'
+import { Button, Grid } from '@mui/material'
+import EditRoundedIcon from '@mui/icons-material/EditRounded'
+
+import { cls, cmn, styles } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 import AppCard from './AppCardV2'
 import { AppWithChainAndName } from '../../core/ecosystem/apps'
+import { SUBMIT_PROJECT_URL } from '../../core/constants'
 
 interface AllAppsProps {
   apps: AppWithChainAndName[]
@@ -60,9 +63,27 @@ const AllApps: React.FC<AllAppsProps> = React.memo(
     }, [apps, skaleNetwork, chainsMeta, newApps])
 
     return (
-      <Grid container spacing={2}>
-        {memoizedApps}
-      </Grid>
+      <div>
+        <Grid container spacing={2}>
+          {memoizedApps}
+        </Grid>
+        <div className={cls(cmn.flex)}>
+          <div className={cls(cmn.flex, cmn.flexg)}></div>
+          <div className={cls(cmn.flex, cmn.mtop20, cmn.ptop20, cmn.mbott20)}>
+            <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">
+              <Button
+                variant="contained"
+                size="medium"
+                className={cls('btn')}
+                startIcon={<EditRoundedIcon className={cls(styles.chainIconxs)} />}
+              >
+                Submit Your Project
+              </Button>
+            </a>
+          </div>
+          <div className={cls(cmn.flex, cmn.flexg)}></div>
+        </div>
+      </div>
     )
   }
 )
