@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 import { types } from '@/core'
 import { useLikedApps } from '../../LikedAppsContext'
 import AppCard from './AppCardV2'
@@ -33,14 +33,17 @@ import { useAuth } from '../../AuthContext'
 import Carousel from '../Carousel'
 import ConnectWallet from '../ConnectWallet'
 import { Link } from 'react-router-dom'
+import { isNewApp } from '../../core/ecosystem/utils'
 
 export default function FavoriteApps(props: {
   skaleNetwork: types.SkaleNetwork
   chainsMeta: types.ChainsMetadataMap
   useCarousel?: boolean
+  newApps: types.AppWithTimestamp[]
 }) {
-  const { likedApps, error, refreshLikedApps } = useLikedApps()
+  const { likedApps, error, refreshLikedApps, getAppInfoById, getTrendingApps } = useLikedApps()
   const { isSignedIn } = useAuth()
+  const trendingAppIds = useMemo(() => getTrendingApps(), [getTrendingApps])
 
   useEffect(() => {
     if (isSignedIn) {
@@ -52,10 +55,12 @@ export default function FavoriteApps(props: {
   if (error) return <div>Error: {error}</div>
 
   const appCards = likedApps.map((appId) => {
-    const [chainName, appName] = appId.split('--')
+    const { chain, app } = getAppInfoById(appId)
+    const isTrending = trendingAppIds.includes(appId)
+    const isNew = isNewApp({ chain, app }, props.newApps)
     return (
       <Grid
-        key={`${appName}-${chainName}`}
+        key={`${app}-${chain}`}
         className={cls('fl-centered dappCard')}
         item
         lg={4}
@@ -65,10 +70,12 @@ export default function FavoriteApps(props: {
       >
         <AppCard
           key={appId}
-          schainName={chainName}
-          appName={appName}
+          schainName={chain}
+          appName={app}
           skaleNetwork={props.skaleNetwork}
           chainsMeta={props.chainsMeta}
+          isNew={isNew}
+          isTrending={isTrending}
         />
       </Grid>
     )

@@ -200,12 +200,14 @@ export default function Ecosystem(props: {
             <FavoriteApps
               chainsMeta={props.chainsMeta}
               skaleNetwork={props.mpc.config.skaleNetwork}
+              newApps={newApps}
             />
           )}
           {activeTab === 3 && (
             <TrendingApps
               chainsMeta={props.chainsMeta}
               skaleNetwork={props.mpc.config.skaleNetwork}
+              newApps={newApps}
             />
           )}
         </Box>

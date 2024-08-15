@@ -123,6 +123,7 @@ export default function Start(props: {
           skaleNetwork={props.skaleNetwork}
           chainsMeta={props.chainsMeta}
           useCarousel={true}
+          newApps={newApps}
         />
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
           <Headline
@@ -148,7 +149,12 @@ export default function Start(props: {
             <Button className={cls('btn btnSm bg', cmn.pPrim)}>See all</Button>
           </Link>
         </div>
-        <TrendingApps chainsMeta={props.chainsMeta} skaleNetwork={props.skaleNetwork} useCarousel />
+        <TrendingApps
+          chainsMeta={props.chainsMeta}
+          skaleNetwork={props.skaleNetwork}
+          newApps={newApps}
+          useCarousel
+        />
       </Stack>
       <Headline
         text="Top Categories"

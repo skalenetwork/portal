@@ -21,12 +21,13 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import React from 'react'
+import React, { useMemo } from 'react'
 import { Grid, Box } from '@mui/material'
 import { cls } from '@skalenetwork/metaport'
 import AppCard from './AppCardV2'
 import Carousel from '../Carousel'
 import { type types } from '@/core'
+import { useLikedApps } from '../../LikedAppsContext'
 
 interface NewAppsProps {
   newApps: { chain: string; app: string; added: number }[]
@@ -41,33 +42,32 @@ const NewApps: React.FC<NewAppsProps> = ({
   chainsMeta,
   useCarousel = false
 }) => {
-  const appCards = newApps.map((app) => (
-    <Box key={`${app.chain}-${app.app}`} className={cls('fl-centered dappCard')}>
+  const { getTrendingApps, getAppId } = useLikedApps()
+  const trendingAppIds = useMemo(() => getTrendingApps(), [getTrendingApps])
+  const renderAppCard = (app: { chain: string; app: string }) => {
+    const appId = getAppId(app.chain, app.app)
+    const isTrending = trendingAppIds.includes(appId)
+    return (
       <AppCard
+        key={`${app.chain}-${app.app}`}
         skaleNetwork={skaleNetwork}
         schainName={app.chain}
         appName={app.app}
         chainsMeta={chainsMeta}
+        isTrending={isTrending}
       />
-    </Box>
-  ))
+    )
+  }
 
   if (useCarousel) {
-    return <Carousel>{appCards}</Carousel>
+    return <Carousel>{newApps.map(renderAppCard)}</Carousel>
   }
 
   return (
     <Grid container spacing={2}>
       {newApps.map((app) => (
         <Grid key={`${app.chain}-${app.app}`} item xs={12} sm={6} md={4} lg={4}>
-          <Box className={cls('fl-centered dappCard')}>
-            <AppCard
-              skaleNetwork={skaleNetwork}
-              schainName={app.chain}
-              appName={app.app}
-              chainsMeta={chainsMeta}
-            />
-          </Box>
+          <Box className={cls('fl-centered dappCard')}>{renderAppCard(app)}</Box>
         </Grid>
       ))}
     </Grid>

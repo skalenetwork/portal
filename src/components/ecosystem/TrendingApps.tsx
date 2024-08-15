@@ -28,14 +28,21 @@ import AppCard from './AppCardV2'
 import { Box, Grid } from '@mui/material'
 import { cls } from '@skalenetwork/metaport'
 import Carousel from '../Carousel'
+import { isNewApp } from '../../core/ecosystem/utils'
 
 interface TrendingAppsProps {
   skaleNetwork: types.SkaleNetwork
   chainsMeta: types.ChainsMetadataMap
   useCarousel?: boolean
+  newApps: types.AppWithTimestamp[]
 }
 
-const TrendingApps: React.FC<TrendingAppsProps> = ({ skaleNetwork, chainsMeta, useCarousel }) => {
+const TrendingApps: React.FC<TrendingAppsProps> = ({
+  skaleNetwork,
+  chainsMeta,
+  useCarousel,
+  newApps
+}) => {
   const { getTrendingApps, getAppInfoById } = useLikedApps()
   const trendingAppIds = getTrendingApps()
 
@@ -59,6 +66,7 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({ skaleNetwork, chainsMeta, u
     <Grid container spacing={2}>
       {trendingAppIds.map((appId) => {
         const { chain, app } = getAppInfoById(appId)
+        const isNew = isNewApp({ chain, app }, newApps)
         return (
           <Grid key={appId} item xs={12} sm={6} md={4} lg={4}>
             <Box className={cls('fl-centered dappCard')}>
@@ -67,6 +75,7 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({ skaleNetwork, chainsMeta, u
                 schainName={chain}
                 appName={app}
                 chainsMeta={chainsMeta}
+                isNew={isNew}
               />
             </Box>
           </Grid>
