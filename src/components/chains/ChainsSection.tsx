@@ -26,6 +26,8 @@ import { Grid } from '@mui/material'
 import { cls, cmn } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
+import { getChainAlias } from '../../core/metadata'
+
 import ChainCard from './ChainCard'
 import Headline from '../Headline'
 
@@ -50,11 +52,18 @@ const ChainsSection: React.FC<ChainsSectionProps> = ({
 }) => {
   const gridSize = size === 'lg' ? { xs: 12, md: 6 } : { xs: 12, md: 4 }
 
+  // Sort schains based on chain alias
+  const sortedSchains = [...schains].sort((a, b) => {
+    const aliasA = getChainAlias(chainsMeta, a.name).toLowerCase()
+    const aliasB = getChainAlias(chainsMeta, b.name).toLowerCase()
+    return aliasA.localeCompare(aliasB)
+  })
+
   return (
     <div className={cls(cmn.mtop20)}>
       <Headline className={cls(cmn.mbott10, cmn.mtop5)} text={name} icon={icon} />
       <Grid container spacing={2}>
-        {schains.map((schain) => (
+        {sortedSchains.map((schain) => (
           <Grid key={schain.name} item {...gridSize}>
             <ChainCard
               skaleNetwork={skaleNetwork}

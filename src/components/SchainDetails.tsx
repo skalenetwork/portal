@@ -50,7 +50,6 @@ import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
 import SkStack from './SkStack'
 import ChainLogo from './ChainLogo'
-import ChainCategories from './ChainCategories'
 import Tile from './Tile'
 import Breadcrumbs from './Breadcrumbs'
 import CollapsibleDescription from './CollapsibleDescription'
@@ -63,7 +62,7 @@ import { getRpcUrl, getChainId, HTTPS_PREFIX, getChainDescription } from '../cor
 import { getExplorerUrl } from '../core/explorer'
 import { formatNumber } from '../core/timeHelper'
 import ChainTabsSection from './chains/tabs/ChainTabsSection'
-import Ship from './Ship'
+import CategoriesChips from './ecosystem/CategoriesShips'
 
 export default function SchainDetails(props: {
   schainName: string
@@ -190,22 +189,8 @@ export default function SchainDetails(props: {
             <div className={cls('app-info', cmn.flexg)}>
               <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10)}>
                 <div className={cmn.flexg}>
-                  <ChainCategories
-                    category={chainMeta?.category ?? 'Other'}
-                    alias={chainAlias}
-                    isXs={props.isXs}
-                  />
+                  <CategoriesChips categories={chainMeta?.categories} />
                 </div>
-
-                <Ship
-                  label={
-                    props.schainMetrics
-                      ? formatNumber(props.schainMetrics.chain_stats?.transactions_today) +
-                        '+ Daily Tx'
-                      : '0'
-                  }
-                  icon={<TrendingUpRoundedIcon />}
-                />
               </div>
 
               <h2 className={cls(cmn.nom, cmn.p1)}>{chainAlias}</h2>

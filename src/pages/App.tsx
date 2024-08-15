@@ -176,7 +176,7 @@ export default function App(props: {
               <div className={cls('app-info', cmn.flexg)}>
                 <SkStack>
                   <div className={cls(cmn.flexg, cmn.mbott10)}>
-                    <AppCategoriesChips app={appMeta} />
+                    <AppCategoriesChips categories={appMeta.categories} />
                   </div>
                   <Button
                     className={cls(cmn.mbott10, 'btn btnSm')}

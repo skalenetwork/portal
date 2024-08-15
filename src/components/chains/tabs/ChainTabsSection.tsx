@@ -111,8 +111,6 @@ export default function ChainTabsSection(props: {
               skaleNetwork={network}
               chainsMeta={props.chainsMeta}
               schainName={props.schainName}
-              bg={true}
-              all={true}
             />
           </div>
         </SkPaper>

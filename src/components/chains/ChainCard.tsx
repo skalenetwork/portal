@@ -37,6 +37,7 @@ import ChainActions from './ChainActions'
 import Ship from '../Ship'
 
 import { formatNumber } from '../../core/timeHelper'
+import CategoriesChips from '../ecosystem/CategoriesShips'
 
 const ChainCard: React.FC<{
   skaleNetwork: types.SkaleNetwork
@@ -46,13 +47,7 @@ const ChainCard: React.FC<{
 }> = ({ skaleNetwork, schain, chainsMeta, transactions }) => {
   const shortAlias = getChainShortAlias(chainsMeta, schain.name)
   const url = `/chains/${shortAlias}`
-
   const chainMeta = chainsMeta[schain.name]
-
-  const handleConnectChain = () => {
-    // Implement the logic to connect to the chain
-    console.log(`Connecting to chain: ${schain.name}`)
-  }
 
   return (
     <SkPaper gray fullHeight className="sk-app-card">
@@ -87,12 +82,12 @@ const ChainCard: React.FC<{
         </div>
         <CollapsibleDescription text={chainMeta.description || 'No description'} />
       </Link>
+      <CategoriesChips categories={chainMeta.categories} className={cls(cmn.mtop20)} />
       <ChainActions
         className={cls(cmn.mtop20)}
         chainMeta={chainsMeta[schain.name]}
         schainName={schain.name}
         skaleNetwork={skaleNetwork}
-        onConnectChain={handleConnectChain}
       />
     </SkPaper>
   )

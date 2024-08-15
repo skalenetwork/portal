@@ -27,14 +27,12 @@ import { cls, cmn } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 import LanguageIcon from '@mui/icons-material/Language'
 import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
-import AddCircleOutlineOutlinedIcon from '@mui/icons-material/AddCircleOutlineOutlined'
 import { getExplorerUrl } from '../../core/explorer'
 
 interface ChainActionsProps {
   chainMeta: types.ChainMetadata
   schainName: string
   skaleNetwork: types.SkaleNetwork
-  onConnectChain: () => void
   className?: string
 }
 
@@ -42,7 +40,6 @@ const ChainActions: React.FC<ChainActionsProps> = ({
   chainMeta,
   schainName,
   skaleNetwork,
-  onConnectChain,
   className
 }) => {
   const explorerUrl = getExplorerUrl(skaleNetwork, schainName)
@@ -72,15 +69,6 @@ const ChainActions: React.FC<ChainActionsProps> = ({
           className={cls([cmn.pPrim, isMd], ['bgBlack', isMd])}
         >
           <ViewInArRoundedIcon className={cls(cmn.pSec)} fontSize="small" />
-        </IconButton>
-      </Tooltip>
-      <Tooltip title="Connect to Chain">
-        <IconButton
-          size="small"
-          onClick={() => onConnectChain()}
-          className={cls([cmn.pPrim, isMd], ['bgBlack', isMd])}
-        >
-          <AddCircleOutlineOutlinedIcon className={cls(cmn.pSec)} fontSize="small" />
         </IconButton>
       </Tooltip>
     </div>

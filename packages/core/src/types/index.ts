@@ -27,7 +27,8 @@ export {
     AppMetadataMap,
     AppSocials,
     NetworksMetadataMap,
-    AppWithTimestamp
+    AppWithTimestamp,
+    CategoriesMap
 } from './ChainsMetadata'
 export * as staking from './staking'
 

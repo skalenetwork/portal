@@ -22,50 +22,62 @@
  */
 
 import React, { useMemo, useState } from 'react'
-import { type types } from '@/core'
 import { Box } from '@mui/material'
-import { categories } from '../../core/ecosystem/categories'
+import { type types } from '@/core'
+import { categories as categoriesData } from '../../core/ecosystem/categories'
 import Ship from '../Ship'
 import { CategoryIcons } from './CategoryIcons'
 
-interface AppCategoriesChipsProps {
-  app: types.AppMetadata
+interface CategoriesChipsProps {
+  categories: string[] | types.CategoriesMap
   className?: string
 }
 
-const AppCategoriesChips: React.FC<AppCategoriesChipsProps> = ({ app, className }) => {
+const CategoriesChips: React.FC<CategoriesChipsProps> = ({ categories, className }) => {
   const [expanded, setExpanded] = useState(false)
 
   const chips = useMemo(() => {
-    if (!app.categories) return []
+    if (!categories) return []
 
-    const getCategoryName = (tag: string) => categories[tag]?.name ?? tag
+    const getCategoryName = (tag: string) => categoriesData[tag]?.name ?? tag
     const getSubcategoryName = (categoryTag: string, subcategoryTag: string): string => {
-      const category = categories[categoryTag]
+      const category = categoriesData[categoryTag]
       if (!category) return subcategoryTag
       if (Array.isArray(category.subcategories)) {
         return category.subcategories.includes(subcategoryTag) ? subcategoryTag : subcategoryTag
       }
-      return category.subcategories[subcategoryTag]?.name ?? subcategoryTag
+      return category.subcategories && typeof category.subcategories === 'object'
+        ? category.subcategories[subcategoryTag]?.name ?? subcategoryTag
+        : subcategoryTag
     }
 
-    return Object.entries(app.categories).flatMap(([categoryTag, subcategories]) => [
-      <Ship
-        key={categoryTag}
-        label={getCategoryName(categoryTag)}
-        icon={<CategoryIcons category={categoryTag} />}
-      />,
-      ...(Array.isArray(subcategories)
-        ? subcategories.map((subTag) => (
-            <Ship
-              key={`${categoryTag}-${subTag}`}
-              label={getSubcategoryName(categoryTag, subTag)}
-              icon={<CategoryIcons category={subTag} />}
-            />
-          ))
-        : [])
-    ])
-  }, [app.categories])
+    if (Array.isArray(categories)) {
+      return categories.map((categoryTag) => (
+        <Ship
+          key={categoryTag}
+          label={getCategoryName(categoryTag)}
+          icon={<CategoryIcons category={categoryTag} />}
+        />
+      ))
+    } else {
+      return Object.entries(categories).flatMap(([categoryTag, subcategories]) => [
+        <Ship
+          key={categoryTag}
+          label={getCategoryName(categoryTag)}
+          icon={<CategoryIcons category={categoryTag} />}
+        />,
+        ...(Array.isArray(subcategories)
+          ? subcategories.map((subTag) => (
+              <Ship
+                key={`${categoryTag}-${subTag}`}
+                label={getSubcategoryName(categoryTag, subTag)}
+                icon={<CategoryIcons category={subTag} />}
+              />
+            ))
+          : [])
+      ])
+    }
+  }, [categories])
 
   if (chips.length === 0) return null
 
@@ -85,4 +97,4 @@ const AppCategoriesChips: React.FC<AppCategoriesChipsProps> = ({ app, className 
   )
 }
 
-export default AppCategoriesChips
+export default CategoriesChips

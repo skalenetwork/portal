@@ -55,20 +55,20 @@ import {
   PsychologyOutlined,
   SportsBaseballOutlined,
   PrecisionManufacturingOutlined,
-  AutoAwesomeRounded,
+  AutoAwesomeOutlined,
   HikingRounded,
   FlagRounded,
   FlareRounded,
   CandlestickChartRounded,
   JoinRightRounded,
   PhoneIphoneOutlined,
-  DiamondRounded
+  DiamondOutlined
 } from '@mui/icons-material'
 
 export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
   switch (category) {
     case 'ai':
-      return <AutoAwesomeRounded />
+      return <AutoAwesomeOutlined />
     case 'dao':
       return <AccountBalanceOutlined />
     case 'data-information':
@@ -76,7 +76,7 @@ export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
     case 'defi':
       return <ShowChartOutlined />
     case 'digital-collectibles':
-      return <DiamondRounded />
+      return <DiamondOutlined />
     case 'entertainment':
       return <TheaterComedyOutlined />
     case 'explorer':

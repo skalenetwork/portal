@@ -28,7 +28,7 @@ export interface ChainMetadata {
   shortAlias?: string
   minSfuelWei?: string
   faucetUrl?: string
-  category: string | string[]
+  categories: CategoriesMap
   background?: string
   gradientBackground?: string
   description?: string
