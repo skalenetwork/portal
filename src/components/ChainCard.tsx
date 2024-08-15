@@ -60,9 +60,7 @@ export default function ChainCard(props: {
             </div>
             <div className={cls(cmn.flex, cmn.flexg)}></div>
           </Link>
-          <div
-            className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, 'br__tileBott', 'fullWidth')}
-          ></div>
+          <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, 'br__tileBott', 'fullW')}></div>
         </div>
         <Link to={'/chains/' + shortAlias}>
           <Button size="small" className={'cardBtn'}>

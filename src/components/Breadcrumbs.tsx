@@ -38,7 +38,7 @@ export default function Breadcrumbs(props: { sections: BreadcrumbSection[]; clas
       {props.sections.map((section: BreadcrumbSection, index) => (
         <div className={cls(cmn.flex, cmn.flexcv)} key={index}>
           {section.url ? (
-            <Link to={section.url} className="undec fullWidth">
+            <Link to={section.url} className="undec fullW">
               <Button className={cmn.pPrim}>
                 {section.icon}
                 <p className={cls(cmn.p, cmn.p4, cmn.mleft5)}>{section.text}</p>

@@ -190,7 +190,7 @@ export default function Delegation(props: {
               loading={loading}
               text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
               color="error"
-              className="fullWidth"
+              className="fullW"
               onClick={async () => {
                 await props.unstake(delegationInfo)
               }}
@@ -202,7 +202,7 @@ export default function Delegation(props: {
               loading={loading}
               text={loading ? 'Canceling staking request' : 'Cancel staking request'}
               color="warning"
-              className="fullWidth"
+              className="fullW"
               onClick={async () => {
                 await props.cancelRequest(delegationInfo)
               }}

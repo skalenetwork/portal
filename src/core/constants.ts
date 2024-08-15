@@ -89,3 +89,6 @@ export const OFFCHAIN_APP = '__offchain'
 
 export const SUBMIT_PROJECT_URL =
   'https://github.com/skalenetwork/skale-network/issues/new?assignees=dmytrotkk&labels=metadata&projects=&template=app_submission.yml&title=App+Metadata+Submission'
+
+export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost/api'
+export const LIKES_REFRESH_INTERVAL = 20000

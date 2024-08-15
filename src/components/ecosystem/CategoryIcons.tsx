@@ -26,7 +26,6 @@ import {
   AccountBalanceOutlined,
   StorageOutlined,
   ShowChartOutlined,
-  CollectionsOutlined,
   TheaterComedyOutlined,
   ExploreOutlined,
   SportsEsportsOutlined,
@@ -47,7 +46,6 @@ import {
   TvOutlined,
   SportsHandballOutlined,
   VrpanoOutlined,
-  PhoneAndroidOutlined,
   ComputerOutlined,
   GamesOutlined,
   ExtensionOutlined,
@@ -59,9 +57,12 @@ import {
   PrecisionManufacturingOutlined,
   AutoAwesomeRounded,
   HikingRounded,
-  PaymentsRounded,
   FlagRounded,
-  FlareRounded
+  FlareRounded,
+  CandlestickChartRounded,
+  JoinRightRounded,
+  PhoneIphoneOutlined,
+  DiamondRounded
 } from '@mui/icons-material'
 
 export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
@@ -75,7 +76,7 @@ export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
     case 'defi':
       return <ShowChartOutlined />
     case 'digital-collectibles':
-      return <CollectionsOutlined />
+      return <DiamondRounded />
     case 'entertainment':
       return <TheaterComedyOutlined />
     case 'explorer':
@@ -100,6 +101,8 @@ export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
       return <BuildOutlined />
     case 'wallet':
       return <AccountBalanceWalletOutlined />
+    case 'web3':
+      return <JoinRightRounded />
 
     // Gaming subcategories
     case 'action-adventure':
@@ -117,7 +120,7 @@ export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
     case 'metaverse':
       return <VrpanoOutlined />
     case 'mobile':
-      return <PhoneAndroidOutlined />
+      return <PhoneIphoneOutlined />
     case 'mmorpg':
       return <HikingRounded />
     case 'pc':
@@ -145,7 +148,7 @@ export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
     case 'custody':
       return <SecurityOutlined />
     case 'dex':
-      return <PaymentsRounded />
+      return <CandlestickChartRounded />
     case 'yield':
       return <PrecisionManufacturingOutlined />
 

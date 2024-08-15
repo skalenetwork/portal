@@ -39,9 +39,14 @@ import SubcategoryList from './SubcategoryList'
 interface CategoryDisplayProps {
   checkedItems: string[]
   setCheckedItems: (items: string[]) => void
+  isXs?: boolean
 }
 
-const CategoryDisplay: React.FC<CategoryDisplayProps> = ({ checkedItems, setCheckedItems }) => {
+const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
+  checkedItems,
+  setCheckedItems,
+  isXs
+}) => {
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({})
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [searchTerm, setSearchTerm] = useState('')
@@ -146,13 +151,13 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({ checkedItems, setChec
   }
 
   return (
-    <div>
+    <div className={cls(['fullW', isXs])}>
       <Button
         variant="text"
         ref={buttonRef}
         onClick={handleMenuOpen}
         startIcon={<ManageSearchRoundedIcon />}
-        className={cls('outlined', 'skMenuBtn', 'btn', cmn.pPrim)}
+        className={cls('outlined', 'skMenuBtn', 'btn', cmn.pPrim, ['fullW', isXs])}
         style={{ background: 'transparent' }}
       >
         Browse by categories

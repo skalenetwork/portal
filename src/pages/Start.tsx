@@ -44,21 +44,19 @@ import PieChartOutlineRoundedIcon from '@mui/icons-material/PieChartOutlineRound
 import OutboundRoundedIcon from '@mui/icons-material/OutboundRounded'
 
 import PageCard from '../components/PageCard'
-import AppCard from '../components/ecosystem/AppCardV2'
 
 import { useEffect, useMemo, useState } from 'react'
 import CategoryCardsGrid from '../components/ecosystem/CategoryCardsGrid'
 import { getRecentApps } from '../core/ecosystem/utils'
 import { MAX_APPS_DEFAULT } from '../core/constants'
 import NewApps from '../components/ecosystem/NewApps'
-import Carousel from '../components/Carousel'
 import Headline from '../components/Headline'
 import FavoriteApps from '../components/ecosystem/FavoriteApps'
+import TrendingApps from '../components/ecosystem/TrendingApps'
 
 export default function Start(props: {
   isXs: boolean
   skaleNetwork: types.SkaleNetwork
-  topApps: types.IAppId[] | null
   loadData: () => Promise<void>
   chainsMeta: types.ChainsMetadataMap
 }) {
@@ -73,24 +71,6 @@ export default function Start(props: {
     const intervalId = setInterval(props.loadData, 10000)
     setIntervalId(intervalId)
   }, [])
-
-  let appCards: any = []
-
-  if (props.topApps) {
-    appCards = props.topApps
-      .slice(0, 11)
-      .filter((app) => props.chainsMeta[app.chain]?.apps?.[app.app])
-      .map((topApp: types.IAppId) => (
-        <AppCard
-          key={topApp.chain + topApp.app}
-          skaleNetwork={props.skaleNetwork}
-          schainName={topApp.chain}
-          appName={topApp.app}
-          transactions={topApp.totalTransactions}
-          chainsMeta={props.chainsMeta}
-        />
-      ))
-  }
 
   return (
     <Container maxWidth="md" className="paddBott60">
@@ -168,7 +148,7 @@ export default function Start(props: {
             <Button className={cls('btn btnSm bg', cmn.pPrim)}>See all</Button>
           </Link>
         </div>
-        <Carousel>{appCards}</Carousel>
+        <TrendingApps chainsMeta={props.chainsMeta} skaleNetwork={props.skaleNetwork} useCarousel />
       </Stack>
       <Headline
         text="Top Categories"

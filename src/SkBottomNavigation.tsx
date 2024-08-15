@@ -31,6 +31,7 @@ import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontal
 import PieChartOutlineOutlinedIcon from '@mui/icons-material/PieChartOutlineOutlined'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
+import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
 
 export default function SkBottomNavigation() {
   const [value, setValue] = useState(0)
@@ -69,8 +70,15 @@ export default function SkBottomNavigation() {
           }}
         />
         <BottomNavigationAction
-          label="Chains"
+          label="Ecosystem"
           icon={<PublicOutlinedIcon />}
+          onClick={() => {
+            navigate('/ecosystem')
+          }}
+        />
+        <BottomNavigationAction
+          label="Chains"
+          icon={<LinkRoundedIcon />}
           onClick={() => {
             navigate('/chains')
           }}

@@ -68,7 +68,7 @@ export default function App(props: {
   chainsMeta: types.ChainsMetadataMap
 }) {
   let { chain, app } = useParams()
-  const { likedApps, toggleLikedApp, getAppId } = useLikedApps()
+  const { likedApps, appLikes, toggleLikedApp, getAppId } = useLikedApps()
   const { isSignedIn, handleSignIn } = useAuth()
 
   if (chain === undefined || app === undefined) return 'No such app'
@@ -87,6 +87,7 @@ export default function App(props: {
 
   const appId = getAppId(chain, app)
   const isLiked = likedApps.includes(appId)
+  const likesCount = appLikes[appId] || 0
 
   const handleFavoriteClick = async () => {
     if (!isSignedIn) {
@@ -221,7 +222,12 @@ export default function App(props: {
                 icon={<SavingsRoundedIcon />}
               />
             ) : null}
-            <Tile grow text="Favorites" value="125" icon={<FavoriteRoundedIcon />} />
+            <Tile
+              grow
+              text="Favorites"
+              value={likesCount.toString()}
+              icon={<FavoriteRoundedIcon />}
+            />
           </SkStack>
         </SkPaper>
         {chain !== OFFCHAIN_APP && (

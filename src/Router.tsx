@@ -54,7 +54,6 @@ import { getValidators } from './core/delegation/validators'
 import { initContracts } from './core/contracts'
 import { getStakingInfoMap } from './core/delegation/staking'
 import { formatSChains } from './core/chain'
-import { getTopAppsByTransactions } from './core/explorer'
 
 import { loadMeta } from './core/metadata'
 
@@ -68,7 +67,6 @@ export default function Router() {
   const [chainsMeta, setChainsMeta] = useState<types.ChainsMetadataMap | null>(null)
   const [schains, setSchains] = useState<types.ISChain[]>([])
   const [metrics, setMetrics] = useState<types.IMetrics | null>(null)
-  const [topApps, setTopApps] = useState<types.IAppId[] | null>(null)
   const [stats, setStats] = useState<types.IStats | null>(null)
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false)
   const [stakingTermsAccepted, setStakingTermsAccepted] = useState<boolean>(false)
@@ -146,7 +144,6 @@ export default function Router() {
       const response = await fetch(`https://${endpoint}/files/metrics.json`)
       const metricsJson = await response.json()
       setMetrics(metricsJson)
-      setTopApps(getTopAppsByTransactions(metricsJson.metrics, 10))
     } catch (e) {
       console.log('Failed to load metrics')
       console.error(e)
@@ -240,7 +237,6 @@ export default function Router() {
                 <Start
                   isXs={isXs}
                   skaleNetwork={mpc.config.skaleNetwork}
-                  topApps={topApps}
                   loadData={loadData}
                   chainsMeta={chainsMeta}
                 />

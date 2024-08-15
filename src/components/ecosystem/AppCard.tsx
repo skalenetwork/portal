@@ -68,7 +68,7 @@ export default function AppCard(props: {
               cmn.mbott10,
 
               'br__tileBott',
-              'fullWidth'
+              'fullW'
             )}
           ></div>
         </div>

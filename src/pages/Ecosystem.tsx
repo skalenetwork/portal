@@ -129,11 +129,15 @@ export default function Ecosystem(props: {
         <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20, 'fwmobile')}>
           <SkStack className={cls(cmn.mbott20, cmn.flex, cmn.flexcv)}>
             <SearchComponent
-              className={cls(cmn.flexg, cmn.mri20)}
+              className={cls(cmn.flexg, [cmn.mri10, !props.isXs], ['fullW', props.isXs])}
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
             />
-            <CategoryDisplay checkedItems={checkedItems} setCheckedItems={handleSetCheckedItems} />
+            <CategoryDisplay
+              checkedItems={checkedItems}
+              setCheckedItems={handleSetCheckedItems}
+              isXs={props.isXs}
+            />
           </SkStack>
           <SelectedCategories
             checkedItems={checkedItems}
@@ -199,7 +203,12 @@ export default function Ecosystem(props: {
               skaleNetwork={props.mpc.config.skaleNetwork}
             />
           )}
-          {activeTab === 3 && <TrendingApps />}
+          {activeTab === 3 && (
+            <TrendingApps
+              chainsMeta={props.chainsMeta}
+              skaleNetwork={props.mpc.config.skaleNetwork}
+            />
+          )}
         </Box>
       </Stack>
     </Container>

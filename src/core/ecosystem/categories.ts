@@ -71,7 +71,8 @@ export const categories: Categories = {
       shooter: { name: 'Shooter' },
       simulation: { name: 'Simulation' },
       sports: { name: 'Sports' },
-      strategy: { name: 'Strategy' }
+      strategy: { name: 'Strategy' },
+      web3: { name: 'Web3' }
     }
   },
   hub: { name: 'Hub', subcategories: {} },
@@ -84,5 +85,6 @@ export const categories: Categories = {
   'social-network': { name: 'Social Network', subcategories: {} },
   tools: { name: 'Tools', subcategories: {} },
   wallet: { name: 'Wallet', subcategories: {} },
-  metaverse: { name: 'Metaverse', subcategories: {} }
+  metaverse: { name: 'Metaverse', subcategories: {} },
+  web3: { name: 'Web3', subcategories: {} }
 }

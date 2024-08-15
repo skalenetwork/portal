@@ -20,7 +20,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '@mui/material'
 import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
 import { cmn, cls, SkPaper, useWagmiAccount, RainbowConnectButton } from '@skalenetwork/metaport'
@@ -34,9 +34,12 @@ export default function ConnectWallet(props: {
   const { address } = useWagmiAccount()
   const { isSignedIn, handleSignIn } = useAuth()
 
+  const [signInRequested, setSignInRequested] = useState(false)
+
   useEffect(() => {
-    if (address && !isSignedIn) {
+    if (address && !isSignedIn && signInRequested) {
       handleSignIn()
+      setSignInRequested(false)
     }
   }, [address])
 
@@ -47,6 +50,7 @@ export default function ConnectWallet(props: {
       }
     } else {
       openConnectModal()
+      setSignInRequested(true)
     }
   }
 
