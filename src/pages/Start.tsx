@@ -94,13 +94,15 @@ export default function Start(props: {
               <PageCard
                 description="Manage delegations and validators"
                 name="stake"
+                url="/staking"
                 icon={<PieChartOutlineRoundedIcon />}
               />
             </Grid>
             <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
               <PageCard
                 description="Chains info, block explorers and endpoints"
-                name="chains"
+                name="SKALE Chains"
+                url="/chains"
                 icon={<LinkRoundedIcon />}
               />
             </Grid>

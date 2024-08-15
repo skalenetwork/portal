@@ -25,9 +25,14 @@ import { Link } from 'react-router-dom'
 import { cmn, cls, SkPaper, styles } from '@skalenetwork/metaport'
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 
-export default function PageCard(props: { name: string; icon: any; description: string }) {
+export default function PageCard(props: {
+  name: string
+  icon: any
+  description: string
+  url?: string
+}) {
   return (
-    <Link to={props.name}>
+    <Link to={props.url ?? props.name}>
       <SkPaper gray className={cls('br__tile')}>
         <div className={cls(cmn.flex, cmn.flexcv, cmn.m10)}>
           <div className={cls(cmn.flexg)}>

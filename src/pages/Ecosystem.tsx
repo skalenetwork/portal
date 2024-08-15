@@ -56,7 +56,8 @@ import AllApps from '../components/ecosystem/AllApps'
 import NewApps from '../components/ecosystem/NewApps'
 import FavoriteApps from '../components/ecosystem/FavoriteApps'
 import TrendingApps from '../components/ecosystem/TrendingApps'
-import { MAX_APPS_DEFAULT } from '../core/constants'
+import { MAX_APPS_DEFAULT, SKALE_SOCIAL_LINKS } from '../core/constants'
+import SocialButtons from '../components/ecosystem/Socials'
 
 export default function Ecosystem(props: {
   mpc: MetaportCore
@@ -119,12 +120,17 @@ export default function Ecosystem(props: {
         <meta property="og:description" content={META_TAGS.apps.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className={cls(cmn.flex)}>
-          <h2 className={cls(cmn.nom)}>Ecosystem</h2>
+        <div className={cls(cmn.flex, cmn.flexcv)}>
+          <div className={cls(cmn.flexg)}>
+            <h2 className={cls(cmn.nom)}>Ecosystem</h2>
+            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+              Explore dApps across the SKALE ecosystem
+            </p>
+          </div>
+          <div>
+            <SocialButtons social={SKALE_SOCIAL_LINKS} />
+          </div>
         </div>
-        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-          Explore dApps across the SKALE ecosystem
-        </p>
         <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20, 'fwmobile')}>
           <SkStack className={cls(cmn.mbott20, cmn.flex, cmn.flexcv)}>
             <SearchComponent

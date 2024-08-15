@@ -92,3 +92,12 @@ export const SUBMIT_PROJECT_URL =
 
 export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost/api'
 export const LIKES_REFRESH_INTERVAL = 20000
+
+export const SKALE_SOCIAL_LINKS = {
+  x: 'https://twitter.com/skalenetwork',
+  telegram: 'https://t.me/skaleofficial',
+  discord: 'https://discord.com/invite/gM5XBy6',
+  github: 'https://github.com/skalenetwork',
+  swell: 'https://swell.skale.space/',
+  website: 'https://skale.space/'
+}

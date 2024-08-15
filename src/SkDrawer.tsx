@@ -108,15 +108,13 @@ export default function SkDrawer() {
                 <ListItemButton
                   className={cls(cmn.pPrim)}
                   selected={
-                    location.pathname.includes('/chains') ||
-                    location.pathname.includes('/admin') ||
-                    location.pathname.includes('/apps')
+                    location.pathname.includes('/chains') || location.pathname.includes('/admin')
                   }
                 >
                   <ListItemIcon>
                     <LinkRoundedIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Chains" />
+                  <ListItemText primary="SKALE Chains" />
                 </ListItemButton>
               </Link>
             </ListItem>
