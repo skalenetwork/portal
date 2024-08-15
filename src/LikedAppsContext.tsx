@@ -22,7 +22,8 @@
 import React, { createContext, useState, useContext, useEffect, useCallback } from 'react'
 import { useWagmiAccount } from '@skalenetwork/metaport'
 import { useAuth } from './AuthContext'
-import { API_URL, LIKES_REFRESH_INTERVAL } from './core/constants'
+import { API_URL, LIKES_REFRESH_INTERVAL, MAX_APPS_DEFAULT } from './core/constants'
+import { types } from '@/core'
 
 interface AppLikes {
   [appId: string]: number
@@ -36,6 +37,8 @@ interface LikedAppsContextType {
   toggleLikedApp: (appId: string) => Promise<void>
   refreshLikedApps: () => Promise<void>
   getAppId: (chainName: string, appName: string) => string
+  getAppInfoById: (appId: string) => types.IAppId
+  getTrendingApps: () => string[]
 }
 
 const LikedAppsContext = createContext<LikedAppsContextType | undefined>(undefined)
@@ -124,6 +127,17 @@ export const LikedAppsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
   }, [isSignedIn, address, fetchLikedApps])
 
   const getAppId = (chainName: string, appName: string) => `${chainName}--${appName}`
+  const getAppInfoById = (appId: string) => {
+    const [chain, app] = appId.split('--')
+    return { chain, app }
+  }
+
+  const getTrendingApps = useCallback(() => {
+    return Object.entries(appLikes)
+      .sort(([, likesA], [, likesB]) => likesB - likesA)
+      .slice(0, MAX_APPS_DEFAULT)
+      .map(([appId]) => appId)
+  }, [appLikes])
 
   return (
     <LikedAppsContext.Provider
@@ -134,7 +148,9 @@ export const LikedAppsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         error,
         toggleLikedApp,
         refreshLikedApps: fetchLikedApps,
-        getAppId
+        getAppId,
+        getAppInfoById,
+        getTrendingApps
       }}
     >
       {children}

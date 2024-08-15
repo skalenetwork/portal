@@ -46,7 +46,10 @@ export interface AppMetadata {
   added?: number
   categories: CategoriesMap
 }
-
+export interface AppWithChainAndName extends AppMetadata {
+  chain: string
+  appName: string
+}
 export interface AppSocials {
   website?: string;
   x?: string;

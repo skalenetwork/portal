@@ -23,13 +23,8 @@
 import { type types } from '@/core'
 import { getChainAlias } from '../metadata'
 
-export interface AppWithChainAndName extends types.AppMetadata {
-  chain: string
-  appName: string
-}
-
-export function getAllApps(chainsMetadata: types.ChainsMetadataMap): AppWithChainAndName[] {
-  const allApps: AppWithChainAndName[] = []
+export function getAllApps(chainsMetadata: types.ChainsMetadataMap): types.AppWithChainAndName[] {
+  const allApps: types.AppWithChainAndName[] = []
 
   for (const [chainName, chainData] of Object.entries(chainsMetadata)) {
     if (chainData.apps) {
@@ -46,14 +41,14 @@ export function getAllApps(chainsMetadata: types.ChainsMetadataMap): AppWithChai
   return allApps
 }
 
-export function sortAppsByAlias(apps: AppWithChainAndName[]): AppWithChainAndName[] {
+export function sortAppsByAlias(apps: types.AppWithChainAndName[]): types.AppWithChainAndName[] {
   return apps.sort((a, b) => a.alias.localeCompare(b.alias))
 }
 
 export function filterAppsByCategory(
-  apps: AppWithChainAndName[],
+  apps: types.AppWithChainAndName[],
   checkedItems: string[]
-): AppWithChainAndName[] {
+): types.AppWithChainAndName[] {
   if (checkedItems.length === 0) return apps
   return apps.filter((app) => {
     if (!app.categories || Object.keys(app.categories).length === 0) return false
@@ -73,10 +68,10 @@ export function filterAppsByCategory(
 }
 
 export function filterAppsBySearchTerm(
-  apps: AppWithChainAndName[],
+  apps: types.AppWithChainAndName[],
   searchTerm: string,
   chainsMeta: types.ChainsMetadataMap
-): AppWithChainAndName[] {
+): types.AppWithChainAndName[] {
   if (!searchTerm || searchTerm === '') return apps
   const st = searchTerm.toLowerCase()
   return apps.filter(

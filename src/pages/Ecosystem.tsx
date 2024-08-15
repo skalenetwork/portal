@@ -40,7 +40,6 @@ import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
 import { META_TAGS } from '../core/meta'
 import CategoryDisplay from '../components/ecosystem/Categories'
 import {
-  AppWithChainAndName,
   filterAppsByCategory,
   filterAppsBySearchTerm,
   getAllApps,
@@ -68,7 +67,7 @@ export default function Ecosystem(props: {
     useUrlParams()
   const allApps = useMemo(() => sortAppsByAlias(getAllApps(props.chainsMeta)), [props.chainsMeta])
   const [checkedItems, setCheckedItems] = useState<string[]>([])
-  const [filteredApps, setFilteredApps] = useState<AppWithChainAndName[]>([])
+  const [filteredApps, setFilteredApps] = useState<types.AppWithChainAndName[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [activeTab, setActiveTab] = useState(0)
 

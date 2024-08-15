@@ -26,19 +26,34 @@ const Ship: React.FC<{
   label: string
   icon?: React.ReactNode
   onClick?: () => void
-}> = ({ label, icon, onClick }) => {
+  className?: string
+}> = ({ label, icon, onClick, className }) => {
   return (
     <div
-      className={cls('skShip', 'shipSm', cmn.flex, cmn.flexcv, cmn.pPrim, [
+      className={cls('skShip', 'shipSm', className, cmn.flex, cmn.flexcv, cmn.pPrim, [
         'pointer',
         onClick !== undefined
       ])}
       onClick={onClick}
     >
       {icon && <div className={cls(cmn.mri5, cmn.flex)}>{icon}</div>}
-      <p className={cls(cmn.p, cmn.p5)}>{label}</p>
+      <p className={cls(cmn.p, cmn.p5)} style={{ whiteSpace: 'nowrap' }}>
+        {label}
+      </p>
     </div>
   )
+}
+
+export const ShipTrending: React.FC<{}> = ({}) => {
+  return <Ship label="Trending" className={cls(cmn.mleft5, 'shipTrending', 'shipXs')} />
+}
+
+export const ShipNew: React.FC<{}> = ({}) => {
+  return <Ship label="NEW" className={cls(cmn.mleft5, 'shipNewApp', 'shipXs')} />
+}
+
+export const ShipPreTge: React.FC<{}> = ({}) => {
+  return <Ship label="Pre-TGE" className={cls(cmn.mleft5, 'shipPreTge', 'shipXs')} />
 }
 
 export default Ship

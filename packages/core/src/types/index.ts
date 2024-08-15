@@ -20,7 +20,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-export { 
+export {
     ChainsMetadataMap,
     ChainMetadata,
     AppMetadata,
@@ -28,7 +28,8 @@ export {
     AppSocials,
     NetworksMetadataMap,
     AppWithTimestamp,
-    CategoriesMap
+    CategoriesMap,
+    AppWithChainAndName
 } from './ChainsMetadata'
 export * as staking from './staking'
 
