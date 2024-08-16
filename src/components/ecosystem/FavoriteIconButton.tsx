@@ -77,7 +77,7 @@ const FavoriteIconButton: React.FC<FavoriteIconButtonProps> = ({ chainName, appN
     <Tooltip title={isLiked ? 'Remove from favorites' : 'Add to favorites'}>
       <IconButton onClick={handleToggleLike} className={cls('bgPrim')}>
         {isLiked ? (
-          <FavoriteIcon className={cls(cmn.pSec)} color="secondary" />
+          <FavoriteIcon className='iconRed' />
         ) : (
           <FavoriteBorderIcon className={cls(cmn.pSec)} />
         )}

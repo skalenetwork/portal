@@ -875,8 +875,6 @@ input[type=number] {
 .ship_PORTAL {
   background: linear-gradient(180deg, #221d3c, #151225);
   color: #9681fc;
-  // background: linear-gradient(180deg, #103324, #091d14);
-  // color: #81fcd1;
 }
 
 .ship_SELF {
@@ -917,7 +915,16 @@ input[type=number] {
   }
 }
 
+.iconRed {
+  color: #da3a34 !important;
+  svg {
+    color: #da3a34 !important;
+  }
+}
 
+.btnRed {
+  background-color: #da3a34 !important;
+}
 
 .shipNodes {
   margin-right: 5px;
