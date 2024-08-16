@@ -59,6 +59,7 @@ import SocialButtons from '../components/ecosystem/Socials'
 import AppCategoriesChips from '../components/ecosystem/CategoriesShips'
 import { useLikedApps } from '../LikedAppsContext'
 import { useAuth } from '../AuthContext'
+import ErrorTile from '../components/ErrorTile'
 
 export default function App(props: {
   mpc: MetaportCore
@@ -79,10 +80,23 @@ export default function App(props: {
 
   chain = findChainName(props.chainsMeta, chain ?? '')
   const chainMeta = props.chainsMeta[chain]
-  if (!chainMeta) return 'No such chain'
+  if (!chainMeta)
+    return (
+      <Container maxWidth="md">
+        <ErrorTile errorMsg={`No such chain: ${chain}`} />
+      </Container>
+    )
 
   const appAlias = getChainAlias(props.chainsMeta, chain, app)
-  const appMeta = chainMeta.apps?.[app]!
+  const appMeta = chainMeta.apps?.[app]
+
+  if (!appMeta)
+    return (
+      <Container maxWidth="md">
+        <ErrorTile errorMsg={`No such app: ${app}`} />
+      </Container>
+    )
+
   const appDescription = appMeta.description ?? 'No description'
 
   const appId = getAppId(chain, app)

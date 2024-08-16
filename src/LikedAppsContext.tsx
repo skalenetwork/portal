@@ -77,7 +77,7 @@ export const LikedAppsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
 
   const fetchAppLikes = useCallback(async () => {
     try {
-      const response = await fetch(`${API_URL}/apps/likes`)
+      const response = await fetch(`${API_URL}/apps/all`)
       if (!response.ok) {
         throw new Error('Failed to fetch app likes')
       }

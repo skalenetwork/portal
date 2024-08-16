@@ -112,6 +112,8 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
   },
   theme: {
     mode: 'dark',
-    vibrant: true
-  }
+    vibrant: true,
+    primary: '#93B8EC',
+    background: '#000000',
+  },
 }
