@@ -81,7 +81,6 @@ export const STATS_API: { [key in types.SkaleNetwork]: string | null } = {
 }
 
 export const BASE_METADATA_URL =
-<<<<<<< HEAD
   'https://raw.githubusercontent.com/skalenetwork/skale-network/master/metadata/'
 
 export const MAX_APPS_DEFAULT = 12
@@ -102,6 +101,3 @@ export const SKALE_SOCIAL_LINKS = {
   swell: 'https://swell.skale.space/',
   website: 'https://skale.space/'
 }
-=======
-  'https://raw.githubusercontent.com/skalenetwork/skale-network/old-main/metadata/'
->>>>>>> 73e5b7c005a37263b2863abc80d4b67579c32008

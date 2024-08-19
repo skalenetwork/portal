@@ -17,7 +17,7 @@
  */
 
 /**
- * @file constants.ts
+ * @file contractsMeta.ts
  * @copyright SKALE Labs 2022-Present
  */
 

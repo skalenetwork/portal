@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 /**
- * @file constants.ts
+ * @file paymaster.ts
  * @copyright SKALE Labs 2022-Present
  */
 
