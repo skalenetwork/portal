@@ -34,9 +34,11 @@ import CircularProgress from '@mui/material/CircularProgress'
 
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
 import HubRoundedIcon from '@mui/icons-material/HubRounded'
+import CategoryRoundedIcon from '@mui/icons-material/CategoryRounded'
 
 import ChainsSection from '../components/chains/ChainsSection'
 import { META_TAGS } from '../core/meta'
+import { MAINNET_CHAIN_NAME } from '../core/constants'
 
 export default function Chains(props: {
   loadData: () => Promise<void>
@@ -48,11 +50,23 @@ export default function Chains(props: {
 }) {
   const [_, setIntervalId] = useState<NodeJS.Timeout>()
 
+  const network = props.mpc.config.skaleNetwork
+
   useEffect(() => {
     props.loadData()
     const intervalId = setInterval(props.loadData, 10000)
     setIntervalId(intervalId)
   }, [])
+
+  const appChains = props.schains.filter(
+    (schain) =>
+      props.chainsMeta[schain.name] &&
+      (!props.chainsMeta[schain.name].apps ||
+        (props.chainsMeta[schain.name].apps &&
+          Object.keys(props.chainsMeta[schain.name].apps!).length === 1))
+  )
+
+  const otherChains = props.schains.filter((schain) => !props.chainsMeta[schain.name])
 
   if (props.schains.length === 0) {
     return (
@@ -95,25 +109,32 @@ export default function Chains(props: {
           )}
           chainsMeta={props.chainsMeta}
           metrics={props.metrics}
-          skaleNetwork={props.mpc.config.skaleNetwork}
+          skaleNetwork={network}
           size="lg"
           icon={<HubRoundedIcon color="primary" />}
         />
-        <ChainsSection
-          name="App Chains"
-          schains={props.schains.filter(
-            (schain) =>
-              props.chainsMeta[schain.name] &&
-              (!props.chainsMeta[schain.name].apps ||
-                (!props.chainsMeta[schain.name].apps &&
-                  Object.keys(props.chainsMeta[schain.name].apps!).length === 1))
-          )}
-          chainsMeta={props.chainsMeta}
-          metrics={props.metrics}
-          skaleNetwork={props.mpc.config.skaleNetwork}
-          size="md"
-          icon={<StarRoundedIcon color="primary" />}
-        />
+        {appChains.length !== 0 && (
+          <ChainsSection
+            name="App Chains"
+            schains={appChains}
+            chainsMeta={props.chainsMeta}
+            metrics={props.metrics}
+            skaleNetwork={network}
+            size="md"
+            icon={<StarRoundedIcon color="primary" />}
+          />
+        )}
+        {network !== MAINNET_CHAIN_NAME && otherChains.length !== 0 && (
+          <ChainsSection
+            name="Other Chains"
+            schains={otherChains}
+            chainsMeta={props.chainsMeta}
+            metrics={props.metrics}
+            skaleNetwork={network}
+            size="md"
+            icon={<CategoryRoundedIcon color="primary" />}
+          />
+        )}
       </Stack>
     </Container>
   )

@@ -44,7 +44,7 @@ import AgricultureRoundedIcon from '@mui/icons-material/AgricultureRounded'
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded'
 import PhotoCameraRoundedIcon from '@mui/icons-material/PhotoCameraRounded'
 
-import Ship from './Ship'
+import Chip from './Chip'
 
 export const CATEGORY_ICON: any = {
   hubs: <HubRoundedIcon />,
@@ -91,7 +91,7 @@ export default function CategoryBadge(props: {
 
   return (
     <div className={props.className}>
-      <Ship label={props.category} icon={getCategoryIcon(props.category)} />
+      <Chip label={props.category} icon={getCategoryIcon(props.category)} />
     </div>
   )
 }

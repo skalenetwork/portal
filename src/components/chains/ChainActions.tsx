@@ -30,7 +30,7 @@ import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
 import { getExplorerUrl } from '../../core/explorer'
 
 interface ChainActionsProps {
-  chainMeta: types.ChainMetadata
+  chainMeta?: types.ChainMetadata
   schainName: string
   skaleNetwork: types.SkaleNetwork
   className?: string
@@ -47,7 +47,7 @@ const ChainActions: React.FC<ChainActionsProps> = ({
 
   return (
     <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10, className)}>
-      {chainMeta.url && (
+      {chainMeta && chainMeta.url && (
         <Tooltip title="Website">
           <IconButton
             size="small"

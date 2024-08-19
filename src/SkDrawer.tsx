@@ -128,7 +128,7 @@ export default function SkDrawer() {
                     <PublicOutlinedIcon />
                   </ListItemIcon>
                   <ListItemText primary="Ecosystem" />
-                  <div className="shipNew">
+                  <div className="ChipNew">
                     <p className={cls(cmn.p, cmn.p5)}>NEW</p>
                   </div>
                 </ListItemButton>

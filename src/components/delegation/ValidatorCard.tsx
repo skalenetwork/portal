@@ -106,16 +106,16 @@ export default function ValidatorCard(props: {
             <div className={cls(cmn.flexg)}></div>
           </div>
           <div className={cls(cmn.flex, cmn.mtop10)}>
-            <div className={cls('shipFee', cmn.flexg)}>
+            <div className={cls('chipFee', cmn.flexg)}>
               <p className={cls(cmn.p, cmn.p4, cmn.pCent)}>
                 {Number(props.validator.feeRate) / 10}% fee
               </p>
             </div>
-            <div className={cls('shipId', cmn.mleft5, cmn.flexg, cmn.pCent)}>
+            <div className={cls('chipId', cmn.mleft5, cmn.flexg, cmn.pCent)}>
               <p className={cls(cmn.p, cmn.p4)}>ID: {props.validator.id}</p>
             </div>
             {size === 'lg' ? (
-              <div className={cls('shipNodes', cmn.mleft5, cmn.flexg)}>
+              <div className={cls('chipNodes', cmn.mleft5, cmn.flexg)}>
                 <p className={cls(cmn.p, cmn.p4, cmn.pCent)}>
                   Nodes: {props.validator.linkedNodes}
                 </p>
@@ -125,7 +125,7 @@ export default function ValidatorCard(props: {
           <div>
             {size !== 'lg' && (
               <Tooltip title={`Minimum delegation amount: ${minDelegation} SKL`}>
-                <div className={cls('shipNodes', cmn.mtop10)}>
+                <div className={cls('chipNodes', cmn.mtop10)}>
                   <p className={cls(cmn.p, cmn.p4, cmn.pCent, 'pOneLine')}>
                     Min: {minDelegation} SKL
                   </p>
@@ -134,7 +134,7 @@ export default function ValidatorCard(props: {
             )}
             {size === 'lg' && (
               <Tooltip title={props.validator.validatorAddress}>
-                <div className={cls('shipId', cmn.mtop10)}>
+                <div className={cls('chipId', cmn.mtop10)}>
                   <p className={cls(cmn.p, cmn.p4, cmn.pCent, 'pOneLine')}>
                     Address: {props.validator.validatorAddress}
                   </p>

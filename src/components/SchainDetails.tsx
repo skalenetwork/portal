@@ -62,7 +62,7 @@ import { getRpcUrl, getChainId, HTTPS_PREFIX, getChainDescription } from '../cor
 import { getExplorerUrl } from '../core/explorer'
 import { formatNumber } from '../core/timeHelper'
 import ChainTabsSection from './chains/tabs/ChainTabsSection'
-import CategoriesChips from './ecosystem/CategoriesShips'
+import CategoriesChips from './ecosystem/CategoriesChips'
 
 export default function SchainDetails(props: {
   schainName: string

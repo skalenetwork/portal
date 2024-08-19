@@ -31,9 +31,9 @@ import { getChainShortAlias } from '../../core/chain'
 import { chainBg, getChainAlias } from '../../core/metadata'
 
 import CollapsibleDescription from '../CollapsibleDescription'
-import AppCategoriesChips from './CategoriesShips'
+import AppCategoriesChips from './CategoriesChips'
 import SocialButtons from './Socials'
-import { ShipTrending, ShipNew, ShipPreTge } from '../Ship'
+import { ChipTrending, ChipNew, ChipPreTge } from '../Chip'
 
 export default function AppCard(props: {
   skaleNetwork: types.SkaleNetwork
@@ -81,9 +81,9 @@ export default function AppCard(props: {
           <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri5)}>
             {getChainAlias(props.chainsMeta, props.schainName, props.appName)}
           </p>
-          {props.isTrending && <ShipTrending />}
-          {props.isNew && <ShipNew />}
-          {appMeta.tags?.includes('pretge') && <ShipPreTge />}
+          {props.isTrending && <ChipTrending />}
+          {props.isNew && <ChipNew />}
+          {appMeta.tags?.includes('pretge') && <ChipPreTge />}
         </div>
         <CollapsibleDescription text={appDescription} />
         <AppCategoriesChips categories={appMeta.categories} className={cls(cmn.mtop20)} />

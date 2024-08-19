@@ -16,13 +16,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 /**
- * @file Ship.tsx
+ * @file Chip.tsx
  * @copyright SKALE Labs 2024-Present
  */
 
 import { cls, cmn } from '@skalenetwork/metaport'
 
-const Ship: React.FC<{
+const Chip: React.FC<{
   label: string
   icon?: React.ReactNode
   onClick?: () => void
@@ -30,7 +30,7 @@ const Ship: React.FC<{
 }> = ({ label, icon, onClick, className }) => {
   return (
     <div
-      className={cls('skShip', 'shipSm', className, cmn.flex, cmn.flexcv, cmn.pPrim, [
+      className={cls('skChip', 'chipSm', className, cmn.flex, cmn.flexcv, cmn.pPrim, [
         'pointer',
         onClick !== undefined
       ])}
@@ -44,16 +44,16 @@ const Ship: React.FC<{
   )
 }
 
-export const ShipTrending: React.FC<{}> = ({}) => {
-  return <Ship label="Trending" className={cls(cmn.mleft5, 'shipTrending', 'shipXs')} />
+export const ChipTrending: React.FC<{}> = ({}) => {
+  return <Chip label="Trending" className={cls(cmn.mleft5, 'chipTrending', 'chipXs')} />
 }
 
-export const ShipNew: React.FC<{}> = ({}) => {
-  return <Ship label="NEW" className={cls(cmn.mleft5, 'shipNewApp', 'shipXs')} />
+export const ChipNew: React.FC<{}> = ({}) => {
+  return <Chip label="NEW" className={cls(cmn.mleft5, 'chipNewApp', 'chipXs')} />
 }
 
-export const ShipPreTge: React.FC<{}> = ({}) => {
-  return <Ship label="Pre-TGE" className={cls(cmn.mleft5, 'shipPreTge', 'shipXs')} />
+export const ChipPreTge: React.FC<{}> = ({}) => {
+  return <Chip label="Pre-TGE" className={cls(cmn.mleft5, 'chipPreTge', 'chipXs')} />
 }
 
-export default Ship
+export default Chip

@@ -52,11 +52,6 @@ export default function DeveloperInfo(props: {
 
   return (
     <SkPaper gray className={cls(cmn.mtop20)}>
-      {/* <Headline
-        text="Developer info"
-        icon={<ConstructionRoundedIcon />}
-        className={cls(cmn.mbott20)}
-      /> */}
       <Grid container spacing={2} className={cls(cmn.full)}>
         <Grid item md={12} xs={12}>
           <CopySurface className={cls(styles.fullHeight)} title="RPC Endpoint" value={rpcUrl} />

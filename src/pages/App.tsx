@@ -56,11 +56,11 @@ import { chainBg, getChainAlias } from '../core/metadata'
 import { addressUrl, getExplorerUrl, getTotalAppCounters } from '../core/explorer'
 import { MAINNET_CHAIN_LOGOS, MAX_APPS_DEFAULT, OFFCHAIN_APP } from '../core/constants'
 import SocialButtons from '../components/ecosystem/Socials'
-import AppCategoriesChips from '../components/ecosystem/CategoriesShips'
+import AppCategoriesChips from '../components/ecosystem/CategoriesChips'
 import { useLikedApps } from '../LikedAppsContext'
 import { useAuth } from '../AuthContext'
 import ErrorTile from '../components/ErrorTile'
-import { ShipNew, ShipPreTge, ShipTrending } from '../components/Ship'
+import { ChipNew, ChipPreTge, ChipTrending } from '../components/Chip'
 import { getRecentApps, isNewApp } from '../core/ecosystem/utils'
 
 export default function App(props: {
@@ -215,9 +215,9 @@ export default function App(props: {
                 <div className={cls(cmn.flex, cmn.flexcv)}>
                   <h2 className={cls(cmn.nom, cmn.p1)}>{appAlias}</h2>
                   <div className={cls(cmn.flex, cmn.mleft10)}>
-                    {trendingAppIds.includes(appId) && <ShipTrending />}
-                    {isNew && <ShipNew />}
-                    {appMeta.tags?.includes('pretge') && <ShipPreTge />}
+                    {trendingAppIds.includes(appId) && <ChipTrending />}
+                    {isNew && <ChipNew />}
+                    {appMeta.tags?.includes('pretge') && <ChipPreTge />}
                   </div>
                 </div>
 

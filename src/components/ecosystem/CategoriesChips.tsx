@@ -17,7 +17,7 @@
  */
 
 /**
- * @file CategoriesShips.tsx
+ * @file CategoriesChips.tsx
  * @copyright SKALE Labs 2024-Present
  */
 
@@ -25,7 +25,7 @@ import React, { useMemo, useState } from 'react'
 import { Box } from '@mui/material'
 import { type types } from '@/core'
 import { categories as categoriesData } from '../../core/ecosystem/categories'
-import Ship from '../Ship'
+import Chip from '../Chip'
 import { CategoryIcons } from './CategoryIcons'
 
 interface CategoriesChipsProps {
@@ -53,7 +53,7 @@ const CategoriesChips: React.FC<CategoriesChipsProps> = ({ categories, className
 
     if (Array.isArray(categories)) {
       return categories.map((categoryTag) => (
-        <Ship
+        <Chip
           key={categoryTag}
           label={getCategoryName(categoryTag)}
           icon={<CategoryIcons category={categoryTag} />}
@@ -61,14 +61,14 @@ const CategoriesChips: React.FC<CategoriesChipsProps> = ({ categories, className
       ))
     } else {
       return Object.entries(categories).flatMap(([categoryTag, subcategories]) => [
-        <Ship
+        <Chip
           key={categoryTag}
           label={getCategoryName(categoryTag)}
           icon={<CategoryIcons category={categoryTag} />}
         />,
         ...(Array.isArray(subcategories)
           ? subcategories.map((subTag) => (
-              <Ship
+              <Chip
                 key={`${categoryTag}-${subTag}`}
                 label={getSubcategoryName(categoryTag, subTag)}
                 icon={<CategoryIcons category={subTag} />}
@@ -88,7 +88,7 @@ const CategoriesChips: React.FC<CategoriesChipsProps> = ({ categories, className
     <Box className={`chipContainer ${className}`}>
       {visibleChips}
       {remainingChips > 0 && (
-        <Ship
+        <Chip
           label={expanded ? 'Hide' : `+${remainingChips}`}
           onClick={() => setExpanded(!expanded)}
         />

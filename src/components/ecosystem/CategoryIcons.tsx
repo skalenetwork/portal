@@ -39,7 +39,6 @@ import {
   PeopleOutlined,
   BuildOutlined,
   AccountBalanceWalletOutlined,
-  SportsKabaddiOutlined,
   CasinoOutlined,
   StyleOutlined,
   BeachAccessOutlined,
@@ -51,7 +50,7 @@ import {
   ExtensionOutlined,
   DirectionsCarOutlined,
   AutoStoriesOutlined,
-  BedroomChildOutlined,
+  WallpaperOutlined,
   PsychologyOutlined,
   SportsBaseballOutlined,
   PrecisionManufacturingOutlined,
@@ -62,7 +61,8 @@ import {
   CandlestickChartRounded,
   JoinRightRounded,
   PhoneIphoneOutlined,
-  DiamondOutlined
+  DiamondOutlined,
+  SailingOutlined
 } from '@mui/icons-material'
 
 export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
@@ -106,7 +106,7 @@ export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
 
     // Gaming subcategories
     case 'action-adventure':
-      return <SportsKabaddiOutlined />
+      return <SailingOutlined />
     case 'battle-royale':
       return <CasinoOutlined />
     case 'cards_deck-building':
@@ -134,7 +134,7 @@ export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
     case 'rpg':
       return <AutoStoriesOutlined />
     case 'sandbox':
-      return <BedroomChildOutlined />
+      return <WallpaperOutlined />
     case 'shooter':
       return <FlareRounded />
     case 'simulation':

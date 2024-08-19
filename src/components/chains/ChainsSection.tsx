@@ -52,7 +52,6 @@ const ChainsSection: React.FC<ChainsSectionProps> = ({
 }) => {
   const gridSize = size === 'lg' ? { xs: 12, md: 6 } : { xs: 12, md: 4 }
 
-  // Sort schains based on chain alias
   const sortedSchains = [...schains].sort((a, b) => {
     const aliasA = getChainAlias(chainsMeta, a.name).toLowerCase()
     const aliasB = getChainAlias(chainsMeta, b.name).toLowerCase()

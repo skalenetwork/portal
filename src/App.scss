@@ -1,6 +1,6 @@
 @import './variables';
 @import './styles/components';
-@import './styles/ship';
+@import './styles/chip';
 
 :root {
   background: black;
@@ -729,7 +729,7 @@ input[type=number] {
   /* Firefox */
 }
 
-.shipNew {
+.ChipNew {
   margin-right: 5px;
   background: #93B8EC;
   border-radius: 20px;
@@ -741,7 +741,7 @@ input[type=number] {
   }
 }
 
-.shipTrending {
+.chipTrending {
   background: linear-gradient(180deg, #e56d36, #D0602D) !important;
 
   p {
@@ -749,7 +749,7 @@ input[type=number] {
   }
 }
 
-.shipNewApp {
+.chipNewApp {
   background: linear-gradient(180deg, #65a974, #508d5e) !important;
 
   p {
@@ -757,14 +757,14 @@ input[type=number] {
   }
 }
 
-.shipPreTge {
+.chipPreTge {
   background: linear-gradient(180deg, #EBB84F, #bc923b) !important;
   p {
     color: black !important
   }
 }
 
-.shipXs {
+.chipXs {
   border-radius: 20px;
   padding: 3px 6px;
 
@@ -774,7 +774,7 @@ input[type=number] {
   }
 }
 
-.shipSm {
+.chipSm {
   border-radius: 20px;
   padding: 6px 12px;
 
@@ -784,7 +784,7 @@ input[type=number] {
   }
 }
 
-.shipXs {
+.chipXs {
   border-radius: 15px;
   padding: 4px 8px;
 
@@ -794,12 +794,12 @@ input[type=number] {
   }
 }
 
-.skShip {
+.skChip {
   background: linear-gradient(180deg, rgb(52 52 52), rgb(31 31 31));
 }
 
 
-.ship {
+.chip {
   border-radius: 20px;
   padding: 6px 12px;
   width: max-content;
@@ -810,89 +810,89 @@ input[type=number] {
   }
 }
 
-.ship_pretge {
+.chip_pretge {
   background: linear-gradient(180deg, #E7B443, #b1882f);
   color: #201808;
 }
 
-.ship_new {
+.chip_new {
   color: #09100b;
   background: linear-gradient(#5C9B6A, #477a52);
 }
 
-.ship_DELEGATED {
+.chip_DELEGATED {
   background: linear-gradient(180deg, #0f3d29, #0a2a1c);
   color: #3cda94;
 }
 
-.ship_ACCEPTED {
+.chip_ACCEPTED {
   background: linear-gradient(180deg, #233d0f, #0a1b07);
   color: #3cda4e;
 }
 
-.ship_REJECTED {
+.chip_REJECTED {
   background: linear-gradient(180deg, #4e0000, #330000);
   color: #fc8181;
 }
 
-.ship_COMPLETED {
+.chip_COMPLETED {
   background: linear-gradient(180deg, #4e3300, #372400);
   color: #fcbb81;
 }
 
-.ship_UNDELEGATION_REQUESTED {
+.chip_UNDELEGATION_REQUESTED {
   color: rgb(252 248 129);
   background: linear-gradient(rgb(78 71 0), rgb(36 39 0));
 }
 
-.ship_CANCELED {
+.chip_CANCELED {
   color: rgb(219 219 219);
   background: linear-gradient(rgb(59 59 59), rgb(36 36 36));
 }
 
-.ship_PROPOSED {
+.chip_PROPOSED {
   color: rgb(57 218 248);
   background: linear-gradient(rgb(20 66 59), rgb(11 36 33));
 }
 
-.ship_DELEGATION_UI {
+.chip_DELEGATION_UI {
   background: linear-gradient(180deg, #1e1b37, #131123);
   color: #8c81fc;
 
 }
 
-.ship_MEW_WALLET {
+.chip_MEW_WALLET {
   background: linear-gradient(180deg, #144348, #0c2326);
   color: #4bd9e9;
 }
 
-.ship_ACTIVATE {
+.chip_ACTIVATE {
   background: linear-gradient(180deg, #101635, #0a0e23);
   color: #6f82f4;
 
 }
 
-.ship_PORTAL {
+.chip_PORTAL {
   background: linear-gradient(180deg, #221d3c, #151225);
   color: #9681fc;
 }
 
-.ship_SELF {
+.chip_SELF {
   background: linear-gradient(180deg, #4e3300, #372400);
   color: #fcbb81;
 }
 
-.ship_OTHER {
+.chip_OTHER {
   background: linear-gradient(180deg, #3e1f3f, #2b152b);
   color: #f681fc;
 }
 
-.ship_ETHERSCAN {
+.chip_ETHERSCAN {
   background: linear-gradient(180deg, #1f203f, #15172b);
   color: #8199fc;
 }
 
-.shipFee {
+.chipFee {
   margin-right: 5px;
   background: linear-gradient(180deg, #1e4e00, #163800);
 
@@ -904,7 +904,7 @@ input[type=number] {
   }
 }
 
-.shipId {
+.chipId {
   margin-right: 5px;
   background: linear-gradient(180deg, #333333, #212121);
   border-radius: 20px;
@@ -926,7 +926,7 @@ input[type=number] {
   background-color: #da3a34 !important;
 }
 
-.shipNodes {
+.chipNodes {
   margin-right: 5px;
   background: linear-gradient(180deg, #301f35, #1f1322);
   border-radius: 20px;
@@ -937,7 +937,7 @@ input[type=number] {
   }
 }
 
-.shipAddress {
+.chipAddress {
   margin-right: 5px;
   background: #1f3533;
   border-radius: 20px;

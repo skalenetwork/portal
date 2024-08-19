@@ -34,10 +34,10 @@ import { chainBg, getChainAlias } from '../../core/metadata'
 import ChainLogo from '../ChainLogo'
 import CollapsibleDescription from '../CollapsibleDescription'
 import ChainActions from './ChainActions'
-import Ship from '../Ship'
+import Chip from '../Chip'
 
 import { formatNumber } from '../../core/timeHelper'
-import CategoriesChips from '../ecosystem/CategoriesShips'
+import CategoriesChips from '../ecosystem/CategoriesChips'
 
 const ChainCard: React.FC<{
   skaleNetwork: types.SkaleNetwork
@@ -68,24 +68,26 @@ const ChainCard: React.FC<{
             <div className={cls(cmn.flex, cmn.flexg)}></div>
           </div>
           <div className={cls(cmn.flexg)}></div>
-          <div>
-            <Ship
-              label={`${transactions ? formatNumber(transactions) : '...'}+ Daily Tx`}
-              icon={<TrendingUpRoundedIcon />}
-            />
-          </div>
+          {chainMeta && (
+            <div>
+              <Chip
+                label={`${transactions ? formatNumber(transactions) : '...'}+ Daily Tx`}
+                icon={<TrendingUpRoundedIcon />}
+              />
+            </div>
+          )}
         </div>
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10)}>
           <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri5)}>
             {getChainAlias(chainsMeta, schain.name)}
           </p>
         </div>
-        <CollapsibleDescription text={chainMeta.description || 'No description'} />
+        <CollapsibleDescription text={chainMeta?.description ?? 'No description'} />
       </Link>
-      <CategoriesChips categories={chainMeta.categories} className={cls(cmn.mtop20)} />
+      <CategoriesChips categories={chainMeta?.categories} className={cls(cmn.mtop20)} />
       <ChainActions
         className={cls(cmn.mtop20)}
-        chainMeta={chainsMeta[schain.name]}
+        chainMeta={chainMeta}
         schainName={schain.name}
         skaleNetwork={skaleNetwork}
       />
