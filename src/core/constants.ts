@@ -81,7 +81,7 @@ export const STATS_API: { [key in types.SkaleNetwork]: string | null } = {
 }
 
 export const BASE_METADATA_URL =
-  'https://raw.githubusercontent.com/skalenetwork/skale-network/add-new-categories/metadata/' // todo: tmp
+  'https://raw.githubusercontent.com/skalenetwork/skale-network/master/metadata/'
 
 export const MAX_APPS_DEFAULT = 12
 

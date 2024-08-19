@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useParams } from 'react-router-dom'
 
@@ -54,12 +54,14 @@ import { findChainName } from '../core/chain'
 import { formatNumber } from '../core/timeHelper'
 import { chainBg, getChainAlias } from '../core/metadata'
 import { addressUrl, getExplorerUrl, getTotalAppCounters } from '../core/explorer'
-import { MAINNET_CHAIN_LOGOS, OFFCHAIN_APP } from '../core/constants'
+import { MAINNET_CHAIN_LOGOS, MAX_APPS_DEFAULT, OFFCHAIN_APP } from '../core/constants'
 import SocialButtons from '../components/ecosystem/Socials'
 import AppCategoriesChips from '../components/ecosystem/CategoriesShips'
 import { useLikedApps } from '../LikedAppsContext'
 import { useAuth } from '../AuthContext'
 import ErrorTile from '../components/ErrorTile'
+import { ShipNew, ShipPreTge, ShipTrending } from '../components/Ship'
+import { getRecentApps, isNewApp } from '../core/ecosystem/utils'
 
 export default function App(props: {
   mpc: MetaportCore
@@ -69,8 +71,13 @@ export default function App(props: {
   chainsMeta: types.ChainsMetadataMap
 }) {
   let { chain, app } = useParams()
-  const { likedApps, appLikes, toggleLikedApp, getAppId } = useLikedApps()
+  const { likedApps, appLikes, toggleLikedApp, getAppId, getTrendingApps } = useLikedApps()
   const { isSignedIn, handleSignIn } = useAuth()
+
+  const newApps = useMemo(
+    () => getRecentApps(props.chainsMeta, MAX_APPS_DEFAULT),
+    [props.chainsMeta]
+  )
 
   if (chain === undefined || app === undefined) return 'No such app'
 
@@ -102,6 +109,9 @@ export default function App(props: {
   const appId = getAppId(chain, app)
   const isLiked = likedApps.includes(appId)
   const likesCount = appLikes[appId] || 0
+
+  const trendingAppIds = useMemo(() => getTrendingApps(), [getTrendingApps])
+  const isNew = isNewApp({ chain, app }, newApps)
 
   const handleFavoriteClick = async () => {
     if (!isSignedIn) {
@@ -201,7 +211,16 @@ export default function App(props: {
                     {isLiked ? 'Favorite' : 'Add to favorites'}
                   </Button>
                 </SkStack>
-                <h2 className={cls(cmn.nom, cmn.p1)}>{appAlias}</h2>
+
+                <div className={cls(cmn.flex, cmn.flexcv)}>
+                  <h2 className={cls(cmn.nom, cmn.p1)}>{appAlias}</h2>
+                  <div className={cls(cmn.flex, cmn.mleft10)}>
+                    {trendingAppIds.includes(appId) && <ShipTrending />}
+                    {isNew && <ShipNew />}
+                    {appMeta.tags?.includes('pretge') && <ShipPreTge />}
+                  </div>
+                </div>
+
                 <CollapsibleDescription text={appDescription} expandable />
                 <SocialButtons size="md" social={appMeta.social} className={cls(cmn.mtop20)} />
               </div>

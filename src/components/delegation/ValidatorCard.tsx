@@ -25,7 +25,7 @@ import { Link } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
 import Tooltip from '@mui/material/Tooltip'
 
-import { cmn, cls, styles, fromWei } from '@skalenetwork/metaport'
+import { cmn, cls, styles, fromWei, SkPaper } from '@skalenetwork/metaport'
 
 import ValidatorLogo from './ValidatorLogo'
 import { TrustBadge, ValidatorBadge } from './ValidatorBadges'
@@ -49,17 +49,20 @@ export default function ValidatorCard(props: {
 
   return (
     <Grid className="fl-centered" item lg={size === 'md' ? 3 : 4} md={4} sm={6} xs={12}>
-      <Link to={`/staking/new/${props.delegationType}/${props.validator.id}`}>
-        <div
+      <Link
+        to={
+          props.validator.acceptNewRequests
+            ? `/staking/new/${props.delegationType}/${props.validator.id}`
+            : '/staking/new'
+        }
+      >
+        <SkPaper
           className={cls(
             'br__tile titleSection validatorCard',
             [styles.paperGrey, size === 'lg'],
             ['disabledCard', !props.validator.acceptNewRequests],
             ['selectedValidator', props.validatorId === props.validator.id]
           )}
-          onClick={() => {
-            props.validator.acceptNewRequests ? props.setValidatorId(props.validator.id) : null
-          }}
         >
           <div className={cls(cmn.flex)} style={{ marginBottom: '-20px' }}>
             <ValidatorBadge validator={props.validator} />
@@ -119,26 +122,27 @@ export default function ValidatorCard(props: {
               </div>
             ) : null}
           </div>
-
-          {size !== 'lg' ? (
-            <Tooltip title={`Minimum delegation amount: ${minDelegation} SKL`}>
-              <div className={cls('shipNodes', cmn.mtop10)}>
-                <p className={cls(cmn.p, cmn.p4, cmn.pCent, 'pOneLine')}>
-                  Min: {minDelegation} SKL
-                </p>
-              </div>
-            </Tooltip>
-          ) : null}
-          {size === 'lg' ? (
-            <Tooltip title={props.validator.validatorAddress}>
-              <div className={cls('shipId', cmn.mtop10)}>
-                <p className={cls(cmn.p, cmn.p4, cmn.pCent, 'pOneLine')}>
-                  Address: {props.validator.validatorAddress}
-                </p>
-              </div>
-            </Tooltip>
-          ) : null}
-        </div>
+          <div>
+            {size !== 'lg' && (
+              <Tooltip title={`Minimum delegation amount: ${minDelegation} SKL`}>
+                <div className={cls('shipNodes', cmn.mtop10)}>
+                  <p className={cls(cmn.p, cmn.p4, cmn.pCent, 'pOneLine')}>
+                    Min: {minDelegation} SKL
+                  </p>
+                </div>
+              </Tooltip>
+            )}
+            {size === 'lg' && (
+              <Tooltip title={props.validator.validatorAddress}>
+                <div className={cls('shipId', cmn.mtop10)}>
+                  <p className={cls(cmn.p, cmn.p4, cmn.pCent, 'pOneLine')}>
+                    Address: {props.validator.validatorAddress}
+                  </p>
+                </div>
+              </Tooltip>
+            )}
+          </div>
+        </SkPaper>
       </Link>
     </Grid>
   )
