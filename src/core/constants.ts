@@ -69,6 +69,7 @@ export const BALANCE_UPDATE_INTERVAL_MS = _BALANCE_UPDATE_INTERVAL_SECONDS * 100
 
 export const TRANSAK_STAGING_ENV = import.meta.env.VITE_TRANSAK_STAGING_ENV === 'true'
 export const TRANSAK_API_KEY = import.meta.env.VITE_TRANSAK_API_KEY
+export const DISABLE_TRANSAK = import.meta.env.VITE_DISABLE_TRANSAK === 'true'
 
 export const DAPP_RADAR_BASE_URL = 'https://dappradar.com/dapp/'
 
@@ -80,6 +81,7 @@ export const STATS_API: { [key in types.SkaleNetwork]: string | null } = {
 }
 
 export const BASE_METADATA_URL =
+<<<<<<< HEAD
   'https://raw.githubusercontent.com/skalenetwork/skale-network/master/metadata/'
 
 export const MAX_APPS_DEFAULT = 12
@@ -100,3 +102,6 @@ export const SKALE_SOCIAL_LINKS = {
   swell: 'https://swell.skale.space/',
   website: 'https://skale.space/'
 }
+=======
+  'https://raw.githubusercontent.com/skalenetwork/skale-network/old-main/metadata/'
+>>>>>>> 73e5b7c005a37263b2863abc80d4b67579c32008
