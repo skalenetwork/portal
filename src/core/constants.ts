@@ -81,4 +81,4 @@ export const STATS_API: { [key in interfaces.SkaleNetwork]: string | null } = {
 }
 
 export const BASE_METADATA_URL =
-  'https://raw.githubusercontent.com/skalenetwork/skale-network/master/metadata/'
+  'https://raw.githubusercontent.com/skalenetwork/skale-network/old-main/metadata/'
