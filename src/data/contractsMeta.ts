@@ -27,12 +27,6 @@ export const CONTRACTS_META: { [key in types.SkaleNetwork]: any } = {
   mainnet: {
     auto: true
   },
-  staging: {
-    auto: false,
-    manager: '',
-    allocator: '',
-    grants: null
-  },
   legacy: {
     auto: false,
     manager: '0x27C393Cd6CBD071E5F5F2227a915d3fF3650aeaE',

@@ -75,7 +75,6 @@ export const DAPP_RADAR_BASE_URL = 'https://dappradar.com/dapp/'
 export const STATS_API: { [key in types.SkaleNetwork]: string | null } = {
   mainnet: 'https://stats.explorer.mainnet.skalenodes.com/v2/stats/',
   testnet: null,
-  staging: null,
   legacy: null,
   regression: null
 }

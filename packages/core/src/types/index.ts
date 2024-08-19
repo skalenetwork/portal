@@ -35,7 +35,7 @@ export * as staking from './staking'
 
 export type AddressType = `0x${string}`
 export type Size = 'xs' | 'sm' | 'md' | 'lg'
-export type SkaleNetwork = 'mainnet' | 'staging' | 'legacy' | 'regression' | 'testnet'
+export type SkaleNetwork = 'mainnet' | 'legacy' | 'regression' | 'testnet'
 
 export type TSChainArray = [
     string,
