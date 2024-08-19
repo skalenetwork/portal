@@ -39,7 +39,12 @@ import TokenBalanceTile from '../components/TokenBalanceTile'
 import ConnectWallet from '../components/ConnectWallet'
 import Message from '../components/Message'
 import { getPaymasterChain } from '../core/paymaster'
-import { MAINNET_CHAIN_NAME, TRANSAK_STAGING_ENV, TRANSAK_API_KEY } from '../core/constants'
+import {
+  MAINNET_CHAIN_NAME,
+  TRANSAK_STAGING_ENV,
+  TRANSAK_API_KEY,
+  DISABLE_TRANSAK
+} from '../core/constants'
 import Tile from '../components/Tile'
 
 const MOUNT_ID = 'transakMount'
@@ -51,6 +56,19 @@ export default function Onramp(props: { mpc: MetaportCore }) {
 
   const chain = getPaymasterChain(props.mpc.config.skaleNetwork)
   const isProd = props.mpc.config.skaleNetwork === MAINNET_CHAIN_NAME && !TRANSAK_STAGING_ENV
+
+  if (DISABLE_TRANSAK)
+    return (
+      <Container maxWidth="md">
+        <Tile
+          value="The SKALE On-ramp is currently unavailable for maintenance."
+          text="Temporary unavailable"
+          icon={<ErrorRoundedIcon />}
+          color="warning"
+          className={cls(cmn.mtop20)}
+        />
+      </Container>
+    )
 
   if (!chain)
     return (
