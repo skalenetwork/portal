@@ -24,10 +24,8 @@
 import { cmn, cls, styles, type MetaportCore, interfaces, SkPaper } from '@skalenetwork/metaport'
 
 import Grid from '@mui/material/Grid'
-import AccountBalanceWalletRoundedIcon from '@mui/icons-material/AccountBalanceWalletRounded'
 
 import CopySurface from '../../CopySurface'
-import Headline from '../../Headline'
 
 export default function Tokens(props: {
   schainName: string
@@ -44,11 +42,6 @@ export default function Tokens(props: {
 
   return (
     <SkPaper gray className={cls(cmn.mtop20)}>
-      <Headline
-        text="Available tokens"
-        icon={<AccountBalanceWalletRoundedIcon />}
-        className={cls(cmn.mbott20)}
-      />
       <Grid container spacing={2}>
         {Object.keys(chainTokens).flatMap((tokenSymbol: string) => {
           const wrapperAddress = findWrapperAddress(chainTokens[tokenSymbol])

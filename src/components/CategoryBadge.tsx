@@ -44,7 +44,7 @@ import AgricultureRoundedIcon from '@mui/icons-material/AgricultureRounded'
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded'
 import PhotoCameraRoundedIcon from '@mui/icons-material/PhotoCameraRounded'
 
-import { cmn, cls } from '@skalenetwork/metaport'
+import Chip from './Chip'
 
 export const CATEGORY_ICON: any = {
   hubs: <HubRoundedIcon />,
@@ -76,18 +76,8 @@ export const CATEGORY_ICON: any = {
   Photos: <PhotoCameraRoundedIcon />
 }
 
-export function getPrimaryCategory(category: string | string[] | undefined) {
-  if (!category) return 'other'
-  if (isString(category)) return category
-  if (isStringArray(category) && category.length !== 0) return category[0]
-}
-
 export function isString(value: any): value is string {
   return typeof value === 'string'
-}
-
-function isStringArray(value: any): value is string[] {
-  return Array.isArray(value) && value.every((item) => typeof item === 'string')
 }
 
 export default function CategoryBadge(props: {
@@ -100,15 +90,8 @@ export default function CategoryBadge(props: {
   }
 
   return (
-    <div
-      className={cls(props.className, 'titleBadge', cmn.flex, cmn.flexcv, [
-        cmn.mbott10,
-        props.isXs
-      ])}
-      style={{ padding: '10px 15px' }}
-    >
-      {getCategoryIcon(props.category)}
-      <p className={cls(cmn.p, cmn.p4, cmn.mleft5)}>{props.category}</p>
+    <div className={props.className}>
+      <Chip label={props.category} icon={getCategoryIcon(props.category)} />
     </div>
   )
 }

@@ -21,10 +21,10 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, styles, PROXY_ENDPOINTS, interfaces, SkPaper } from '@skalenetwork/metaport'
+import { cmn, cls, styles, PROXY_ENDPOINTS, SkPaper } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
 import Grid from '@mui/material/Grid'
-import ConstructionRoundedIcon from '@mui/icons-material/ConstructionRounded'
 
 import CopySurface from '../../CopySurface'
 
@@ -36,11 +36,10 @@ import {
   HTTPS_PREFIX,
   WSS_PREFIX
 } from '../../../core/chain'
-import Headline from '../../Headline'
 
 export default function DeveloperInfo(props: {
   schainName: string
-  skaleNetwork: interfaces.SkaleNetwork
+  skaleNetwork: types.SkaleNetwork
   className?: string
 }) {
   const proxyBase = PROXY_ENDPOINTS[props.skaleNetwork]
@@ -53,11 +52,6 @@ export default function DeveloperInfo(props: {
 
   return (
     <SkPaper gray className={cls(cmn.mtop20)}>
-      <Headline
-        text="Developer info"
-        icon={<ConstructionRoundedIcon />}
-        className={cls(cmn.mbott20)}
-      />
       <Grid container spacing={2} className={cls(cmn.full)}>
         <Grid item md={12} xs={12}>
           <CopySurface className={cls(styles.fullHeight)} title="RPC Endpoint" value={rpcUrl} />

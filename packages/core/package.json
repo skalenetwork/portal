@@ -1,0 +1,17 @@
+{
+  "name": "@/core",
+  "version": "1.0.0",
+  "description": "Core package for SKALE portal",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc && bun build ./src/index.ts --outdir ./dist --target node",
+    "type-check": "tsc --noEmit"
+  },
+  "author": "SKALE Labs",
+  "devDependencies": {
+    "ethers": "*.*.*",
+    "typescript": "^4.9.5"
+  }
+}

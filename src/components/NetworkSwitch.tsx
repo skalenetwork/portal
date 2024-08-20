@@ -57,9 +57,7 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
             className={cls('mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex, cmn.cap)}
           >
             <SensorsRoundedIcon className={cmn.mri5} style={{ height: '18px', width: '18px' }} />
-            {props.mpc.config.skaleNetwork === 'staging'
-              ? 'testnet'
-              : props.mpc.config.skaleNetwork}
+            {props.mpc.config.skaleNetwork}
           </Button>
         </Tooltip>
       </Box>

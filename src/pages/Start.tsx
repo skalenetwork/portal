@@ -21,32 +21,50 @@
  * @copyright SKALE Labs 2023-Present
  */
 
+import { Link } from 'react-router-dom'
+
+import { cmn, cls } from '@skalenetwork/metaport'
+import { type types } from '@/core'
+
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
+import { Button } from '@mui/material'
 
 import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontalCircleOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
-import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
-import WalletOutlinedIcon from '@mui/icons-material/WalletOutlined'
+
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
+import LabelImportantRoundedIcon from '@mui/icons-material/LabelImportantRounded'
+import RocketLaunchRoundedIcon from '@mui/icons-material/RocketLaunchRounded'
+import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
+import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
+import PieChartOutlineRoundedIcon from '@mui/icons-material/PieChartOutlineRounded'
+import OutboundRoundedIcon from '@mui/icons-material/OutboundRounded'
 
 import PageCard from '../components/PageCard'
 
-import { cmn, cls, interfaces } from '@skalenetwork/metaport'
-import AppCard from '../components/AppCard'
-import { IAppId } from '../core/types'
-import { useEffect, useState } from 'react'
-import FeaturedApps from '../components/FeaturedApps'
+import { useEffect, useMemo, useState } from 'react'
+import CategoryCardsGrid from '../components/ecosystem/CategoryCardsGrid'
+import { getRecentApps } from '../core/ecosystem/utils'
+import { MAX_APPS_DEFAULT } from '../core/constants'
+import NewApps from '../components/ecosystem/NewApps'
+import Headline from '../components/Headline'
+import FavoriteApps from '../components/ecosystem/FavoriteApps'
+import TrendingApps from '../components/ecosystem/TrendingApps'
 
 export default function Start(props: {
   isXs: boolean
-  skaleNetwork: interfaces.SkaleNetwork
-  topApps: IAppId[] | null
+  skaleNetwork: types.SkaleNetwork
   loadData: () => Promise<void>
-  chainsMeta: interfaces.ChainsMetadataMap
+  chainsMeta: types.ChainsMetadataMap
 }) {
   const [_, setIntervalId] = useState<NodeJS.Timeout>()
+  const newApps = useMemo(
+    () => getRecentApps(props.chainsMeta, MAX_APPS_DEFAULT),
+    [props.chainsMeta]
+  )
 
   useEffect(() => {
     props.loadData()
@@ -54,46 +72,15 @@ export default function Start(props: {
     setIntervalId(intervalId)
   }, [])
 
-  let appCards: any = []
-
-  function isLegacyApp(chain: string, app: string): boolean {
-    if (props.chainsMeta[chain].apps === undefined) return false
-    if (!props.chainsMeta[chain].apps![app]) return false
-    return !!props.chainsMeta[chain].apps![app].legacy
-  }
-
-  const apps = props.topApps
-    ? props.topApps.filter((topApp) => !isLegacyApp(topApp.chain, topApp.app))
-    : null
-
-  if (apps) {
-    appCards = apps.slice(0, 4).map((topApp: IAppId) => (
-      <Grid key={topApp.app} className="fl-centered dappCard" item lg={3} md={4} sm={6} xs={6}>
-        <AppCard
-          skaleNetwork={props.skaleNetwork}
-          schainName={topApp.chain}
-          appName={topApp.app}
-          transactions={topApp.totalTransactions}
-          chainsMeta={props.chainsMeta}
-        />
-      </Grid>
-    ))
-  }
-
   return (
     <Container maxWidth="md" className="paddBott60">
       <Stack spacing={0}>
-        <h3 className={cls(cmn.p, cmn.p700, cmn.mbott10)}>🔥 Top Apps on SKALE</h3>
-        <Grid container spacing={2}>
-          {appCards}
-        </Grid>
-        <h3 className={cls(cmn.p, cmn.p700, cmn.mbott10, cmn.mtop20, cmn.ptop10)}>
-          ⭐ Featured Apps
-        </h3>
-        <FeaturedApps chainsMeta={props.chainsMeta} skaleNetwork={props.skaleNetwork} />
-        <h3 className={cls(cmn.p, cmn.p700, cmn.mbott10, cmn.mtop20, cmn.ptop10)}>
-          🪐 Explore Portal
-        </h3>
+        <h2 className={cls(cmn.nom)}>Welcome to SKALE</h2>
+        <Headline
+          text="Explore Portal"
+          icon={<RocketLaunchRoundedIcon color="primary" />}
+          className={cls(cmn.mbott10, cmn.mtop20)}
+        />
         <Box sx={{ flexGrow: 1 }}>
           <Grid container spacing={3}>
             <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
@@ -105,28 +92,78 @@ export default function Start(props: {
             </Grid>
             <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
               <PageCard
-                description="Apps, games, block explorers and endpoints"
-                name="chains"
-                icon={<PublicOutlinedIcon />}
-              />
-            </Grid>
-            <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
-              <PageCard
-                description="SKALE Network statistics"
-                name="stats"
-                icon={<InsertChartOutlinedIcon />}
-              />
-            </Grid>
-            <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
-              <PageCard
                 description="Manage delegations and validators"
-                name="staking"
-                icon={<WalletOutlinedIcon />}
+                name="stake"
+                url="/staking"
+                icon={<PieChartOutlineRoundedIcon />}
+              />
+            </Grid>
+            <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
+              <PageCard
+                description="Chains info, block explorers and endpoints"
+                name="SKALE Chains"
+                url="/chains"
+                icon={<LinkRoundedIcon />}
+              />
+            </Grid>
+            <Grid className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
+              <PageCard
+                description="Discover apps and games on SKALE"
+                name="ecosystem"
+                icon={<PublicOutlinedIcon />}
               />
             </Grid>
           </Grid>
         </Box>
+        <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
+          <Headline text="Your Favorites" icon={<FavoriteRoundedIcon color="primary" />} />
+          <Link to={`/ecosystem?tab=2`}>
+            <Button className={cls('btn btnSm bg', cmn.pPrim)}>See all</Button>
+          </Link>
+        </div>
+        <FavoriteApps
+          skaleNetwork={props.skaleNetwork}
+          chainsMeta={props.chainsMeta}
+          useCarousel={true}
+          newApps={newApps}
+        />
+        <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
+          <Headline
+            text="New dApps on SKALE"
+            icon={<LabelImportantRoundedIcon color="primary" />}
+          />
+          <Link to={`/ecosystem?tab=1`}>
+            <Button className={cls('btn btnSm bg', cmn.pPrim)}>See all</Button>
+          </Link>
+        </div>
+        <NewApps
+          newApps={newApps}
+          skaleNetwork={props.skaleNetwork}
+          chainsMeta={props.chainsMeta}
+          useCarousel={true}
+        />
+        <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
+          <Headline
+            text="Trending dApps on SKALE"
+            icon={<TrendingUpRoundedIcon color="primary" />}
+          />
+          <Link to={`/ecosystem?tab=3`}>
+            <Button className={cls('btn btnSm bg', cmn.pPrim)}>See all</Button>
+          </Link>
+        </div>
+        <TrendingApps
+          chainsMeta={props.chainsMeta}
+          skaleNetwork={props.skaleNetwork}
+          newApps={newApps}
+          useCarousel
+        />
       </Stack>
+      <Headline
+        text="Top Categories"
+        icon={<OutboundRoundedIcon color="primary" />}
+        className={cls(cmn.mbott10, cmn.mtop20, cmn.ptop20)}
+      />
+      <CategoryCardsGrid chainsMeta={props.chainsMeta} />
     </Container>
   )
 }

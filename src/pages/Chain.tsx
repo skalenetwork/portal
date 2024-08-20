@@ -28,21 +28,22 @@ import Container from '@mui/material/Container'
 import SchainDetails from '../components/SchainDetails'
 import CircularProgress from '@mui/material/CircularProgress'
 
-import { cmn, cls, type MetaportCore, type interfaces } from '@skalenetwork/metaport'
-import { IChainMetrics, IMetrics, ISChain, IStats, IStatsData } from '../core/types'
+import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
+import { type types } from '@/core'
+
 import { findChainName } from '../core/chain'
 
 export default function Chain(props: {
   loadData: any
-  schains: ISChain[]
-  stats: IStats | null
-  metrics: IMetrics | null
+  schains: types.ISChain[]
+  stats: types.IStats | null
+  metrics: types.IMetrics | null
   mpc: MetaportCore
-  chainsMeta: interfaces.ChainsMetadataMap
+  chainsMeta: types.ChainsMetadataMap
   isXs: boolean
 }) {
-  const [schainStats, setSchainStats] = useState<IStatsData | null>(null)
-  const [schainMetrics, setSchainMetrics] = useState<IChainMetrics | null>(null)
+  const [schainStats, setSchainStats] = useState<types.IStatsData | null>(null)
+  const [schainMetrics, setSchainMetrics] = useState<types.IChainMetrics | null>(null)
 
   let { name } = useParams()
   const chainName: string = findChainName(props.chainsMeta, name ?? '')

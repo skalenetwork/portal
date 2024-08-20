@@ -22,30 +22,31 @@
  */
 
 import { Link } from 'react-router-dom'
-import { cmn, cls, type interfaces } from '@skalenetwork/metaport'
+import { cmn, cls } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
 import Button from '@mui/material/Button'
-import ChainLogo from './ChainLogo'
-import { MAINNET_CHAIN_LOGOS } from '../core/constants'
-import { getChainShortAlias } from '../core/chain'
-import { formatNumber } from '../core/timeHelper'
-import { chainBg, getChainAlias } from '../core/metadata'
+import ChainLogo from '../ChainLogo'
+import { MAINNET_CHAIN_LOGOS } from '../../core/constants'
+import { getChainShortAlias } from '../../core/chain'
+import { formatNumber } from '../../core/timeHelper'
+import { chainBg, getChainAlias } from '../../core/metadata'
 
 export default function AppCard(props: {
-  skaleNetwork: interfaces.SkaleNetwork
+  skaleNetwork: types.SkaleNetwork
   schainName: string
   appName: string
-  chainsMeta: interfaces.ChainsMetadataMap
+  chainsMeta: types.ChainsMetadataMap
   transactions?: number
 }) {
   const shortAlias = getChainShortAlias(props.chainsMeta, props.schainName)
-  const url = `/chains/${shortAlias}/${props.appName}`
+  const url = `/ecosystem/${shortAlias}/${props.appName}`
 
   return (
     <div>
       <div className="fl-centered">
         <div
-          className={cls('br__tile')}
+          className={cls('br__tile borderLight radius')}
           style={{ background: chainBg(props.chainsMeta, props.schainName, props.appName) }}
         >
           <Link to={url} className={cls('br__tileLogo', 'br__tileIns', cmn.flex)}>
@@ -67,7 +68,7 @@ export default function AppCard(props: {
               cmn.mbott10,
 
               'br__tileBott',
-              'fullWidth'
+              'fullW'
             )}
           ></div>
         </div>

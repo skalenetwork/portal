@@ -22,9 +22,9 @@
  */
 
 import { useEffect, useState } from 'react'
+import { type types } from '@/core'
 import Jazzicon from 'react-jazzicon'
 import { getMetaLogoUrl } from '../core/metadata'
-import { interfaces } from '@skalenetwork/metaport'
 
 function hashCode(str: string) {
   let hash = 0
@@ -47,7 +47,7 @@ function getPseudoRandomNumber(
 }
 
 export default function ChainLogo(props: {
-  network: interfaces.SkaleNetwork
+  network: types.SkaleNetwork
   chainName: string
   app?: string
   className?: string
@@ -95,12 +95,12 @@ export default function ChainLogo(props: {
   return (
     <div className="br__tileDefaultLogo">
       <Jazzicon
-        diameter={80}
+        diameter={55}
         svgStyles={{
           width: '100%',
           height: '100%'
         }}
-        seed={getPseudoRandomNumber(props.chainName)}
+        seed={getPseudoRandomNumber(props.chainName + props.app)}
       />
     </div>
   )

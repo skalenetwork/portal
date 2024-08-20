@@ -15,21 +15,47 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 /**
  * @file ConnectWallet.tsx
  * @copyright SKALE Labs 2023-Present
  */
 
-import Button from '@mui/material/Button'
+import { useEffect, useState } from 'react'
+import { Button } from '@mui/material'
 import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
-import { cmn, cls, SkPaper, RainbowConnectButton } from '@skalenetwork/metaport'
+import { cmn, cls, SkPaper, useWagmiAccount, RainbowConnectButton } from '@skalenetwork/metaport'
+import { useAuth } from '../AuthContext'
 
 export default function ConnectWallet(props: {
   tile?: boolean
   className?: string
   customText?: string
 }) {
+  const { address } = useWagmiAccount()
+  const { isSignedIn, handleSignIn } = useAuth()
+
+  const [signInRequested, setSignInRequested] = useState(false)
+
+  useEffect(() => {
+    if (address && !isSignedIn && signInRequested) {
+      handleSignIn()
+      setSignInRequested(false)
+    }
+  }, [address])
+
+  const handleButtonClick = (openConnectModal: any) => {
+    if (address) {
+      if (!isSignedIn) {
+        handleSignIn()
+      }
+    } else {
+      openConnectModal()
+      setSignInRequested(true)
+    }
+  }
+
+  if (isSignedIn) return null
+
   return (
     <div className={cls(props.className)}>
       <SkPaper gray={!props.tile} className={cls(['titleSection', props.tile])}>
@@ -44,9 +70,7 @@ export default function ConnectWallet(props: {
                 {({ openConnectModal }) => {
                   return (
                     <Button
-                      onClick={() => {
-                        openConnectModal()
-                      }}
+                      onClick={() => handleButtonClick(openConnectModal)}
                       variant="contained"
                       className={cls(cmn.pCent, cmn.mtop10, cmn.flex, 'btn')}
                     >
