@@ -1,23 +1,26 @@
 {
   "name": "portal",
   "private": true,
-  "version": "2.3.0",
+  "version": "3.0.0",
   "type": "module",
   "scripts": {
-    "build-testnet": "NETWORK_NAME=testnet bash build.sh",
-    "build-mainnet": "NETWORK_NAME=mainnet bash build.sh",
+    "build:testnet": "NETWORK_NAME=testnet bash build.sh",
+    "build:mainnet": "NETWORK_NAME=mainnet bash build.sh",
+    "build:portal": "tsc && vite build",
+    "build:packages": "bun run build:core",
+    "build:core": "cd packages/core && bun install && bun run build",
     "dev": "vite",
-    "build": "tsc && vite build",
     "lint": "eslint ./src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\"",
     "version": "node -e \"console.log(require('./package.json').version);\""
   },
   "dependencies": {
+    "@/core": "file:packages/core",
     "@mdx-js/rollup": "^2.3.0",
     "@mui/icons-material": "^5.15.14",
     "@mui/material": "^5.15.14",
-    "@skalenetwork/metaport": "3.0.0-develop.0",
+    "@skalenetwork/metaport": "3.0.0-develop.3",
     "@skalenetwork/skale-contracts-ethers-v6": "1.0.1",
     "@transak/transak-sdk": "^3.1.1",
     "@types/react-copy-to-clipboard": "^5.0.4",
@@ -31,7 +34,9 @@
     "react-helmet": "^6.1.0",
     "react-jazzicon": "^1.0.4",
     "react-router-dom": "^6.15.0",
-    "react-transition-group": "^4.4.5"
+    "react-social-icons": "^6.17.0",
+    "react-transition-group": "^4.4.5",
+    "siwe": "^2.3.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

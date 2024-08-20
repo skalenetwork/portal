@@ -144,7 +144,11 @@ export default function StakeAmount(props: {
           <Loader text="Loading validator info" />
         )}
 
-        <Headline text="Staking details" icon={<MonetizationOnRoundedIcon />} />
+        <Headline
+          text="Staking details"
+          icon={<MonetizationOnRoundedIcon color="primary" />}
+          className={cls(cmn.mtop20, cmn.mbott10)}
+        />
         {props.address ? (
           <Delegate
             mpc={props.mpc}

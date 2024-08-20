@@ -22,17 +22,17 @@
  */
 
 import { cmn, cls } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 import { Container } from '@mui/material'
 import RestoreRoundedIcon from '@mui/icons-material/RestoreRounded'
 
 import Message from './Message'
 
-import { IMetrics } from '../core/types'
 import { timestampToDate } from '../core/helper'
 
 const FOUR_HOURS_IN_SECONDS = 4 * 60 * 60
 
-export default function MetricsWarning(props: { metrics: IMetrics | null }) {
+export default function MetricsWarning(props: { metrics: types.IMetrics | null }) {
   if (!props.metrics || Date.now() / 1000 - props.metrics.last_updated < FOUR_HOURS_IN_SECONDS)
     return
   return (

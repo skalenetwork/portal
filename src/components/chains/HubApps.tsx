@@ -21,73 +21,42 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { useState, ReactElement } from 'react'
-import { Grid, Tooltip } from '@mui/material'
+import { ReactElement } from 'react'
+import { type types } from '@/core'
 
-import { cmn, cls, type interfaces } from '@skalenetwork/metaport'
-
-import { chainBg } from '../../core/metadata'
+import { Grid } from '@mui/material'
 import { sortObjectByKeys } from '../../core/helper'
 
-import AppCard from '../AppCard'
+import AppCard from '../ecosystem/AppCard'
 
 export default function HubApps(props: {
-  skaleNetwork: interfaces.SkaleNetwork
+  skaleNetwork: types.SkaleNetwork
   schainName: string
-  chainsMeta: interfaces.ChainsMetadataMap
-  bg?: boolean
-  all?: boolean
+  chainsMeta: types.ChainsMetadataMap
 }) {
-  const [show, setShow] = useState<boolean>(false)
-
   const chainMeta = props.chainsMeta[props.schainName]
   const appCards: ReactElement[] = []
 
-  if (chainMeta.apps) {
-    for (const appName in sortObjectByKeys(chainMeta.apps)) {
-      if (chainMeta.apps.hasOwnProperty(appName)) {
-        appCards.push(
-          <Grid key={appName} className="fl-centered dappCard" item lg={3} md={4} sm={6} xs={6}>
-            <AppCard
-              skaleNetwork={props.skaleNetwork}
-              schainName={props.schainName}
-              appName={appName}
-              chainsMeta={props.chainsMeta}
-            />
-          </Grid>
-        )
-      }
+  if (!chainMeta.apps) return
+
+  for (const appName in sortObjectByKeys(chainMeta.apps)) {
+    if (chainMeta.apps.hasOwnProperty(appName)) {
+      appCards.push(
+        <Grid key={appName} className="fl-centered dappCard" item lg={3} md={4} sm={6} xs={6}>
+          <AppCard
+            skaleNetwork={props.skaleNetwork}
+            schainName={props.schainName}
+            appName={appName}
+            chainsMeta={props.chainsMeta}
+          />
+        </Grid>
+      )
     }
-  } else {
-    return
   }
 
   return (
     <Grid container spacing={2}>
-      {show || props.all ? appCards : appCards.length === 4 ? appCards : appCards.slice(0, 3)}
-      {!props.all && appCards.length > 4 ? (
-        <Grid className="fl-centered dappCard" item lg={3} md={4} sm={6} xs={6}>
-          <Tooltip title={show ? 'Click hide apps' : 'Click to show more apps'}>
-            <div
-              onClick={() => {
-                setShow(!show)
-              }}
-              className={cls('br__tile', 'pointer')}
-              style={{ background: props.bg ? chainBg(props.chainsMeta, props.schainName) : '' }}
-            >
-              <div className={cls('titleSectionBg', 'br__tileIns', cmn.flex)}>
-                <div className={cls(cmn.flex, cmn.flexg)}></div>
-                <div className={cls(cmn.flex, cmn.flexcv, 'inheritSize')}>
-                  <p className={cls(cmn.p, cmn.p2, cmn.p700)}>
-                    {show ? 'Hide apps' : `+${appCards.length - 3} Apps`}
-                  </p>
-                </div>
-                <div className={cls(cmn.flex, cmn.flexg)}></div>
-              </div>
-            </div>
-          </Tooltip>
-        </Grid>
-      ) : null}
+      {appCards}
     </Grid>
   )
 }

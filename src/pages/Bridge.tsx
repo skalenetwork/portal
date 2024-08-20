@@ -26,9 +26,6 @@ import { Helmet } from 'react-helmet'
 import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import Container from '@mui/material/Container'
-import Stack from '@mui/material/Stack'
-
 import {
   CHAINS_META,
   cls,
@@ -39,6 +36,10 @@ import {
   type interfaces,
   TransactionData
 } from '@skalenetwork/metaport'
+import { type types } from '@/core'
+
+import Container from '@mui/material/Container'
+import Stack from '@mui/material/Stack'
 
 import BridgeBody from '../components/BridgeBody'
 
@@ -54,7 +55,7 @@ function getEmptyTokenParams(): TokenParams {
   return { keyname: null, type: null }
 }
 
-export default function Bridge(props: { isXs: boolean }) {
+export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsMetadataMap }) {
   const [searchParams, setSearchParams] = useSearchParams()
   const [tokenParams, setTokenParams] = useState<TokenParams>(getEmptyTokenParams())
 
@@ -186,7 +187,12 @@ export default function Bridge(props: { isXs: boolean }) {
           ) : null}
         </div>
       </Stack>
-      <Meson className={cls(cmn.mtop20)} skaleNetwork={mpc.config.skaleNetwork} isXs={props.isXs} />
+      <Meson
+        chainsMeta={props.chainsMeta}
+        className={cls(cmn.mtop20)}
+        skaleNetwork={mpc.config.skaleNetwork}
+        isXs={props.isXs}
+      />
     </Container>
   )
 }

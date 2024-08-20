@@ -1,4 +1,6 @@
 @import './variables';
+@import './styles/components';
+@import './styles/chip';
 
 :root {
   background: black;
@@ -66,7 +68,7 @@ body {
   font-family: inherit !important;
 }
 
-.fullWidth {
+.fullW {
   width: 100%;
 }
 
@@ -256,14 +258,17 @@ body::-webkit-scrollbar {
   transform: scale(1.01);
 }
 
-.br__tile {
-  // height: 150px;
-  border-radius: 25px !important;
-  border: 1px solid #171616 !important;
+.border {
+  border: 1px solid $border-color !important;
 }
 
-.border {
-  border: 1px solid #171616 !important;
+
+.borderLight {
+  border: 1px solid $border-color-light !important;
+}
+
+.radius {
+  border-radius: $sk-border-radius !important;
 }
 
 .pageCard {
@@ -366,6 +371,17 @@ body::-webkit-scrollbar {
   width: 100%;
 }
 
+.skArrows {
+  .MuiIconButton-root {
+    svg {
+      color: white;
+      font-size: 14pt;
+      padding: 2px;
+    }
+  }
+
+}
+
 .btn {
   text-transform: none !important;
   font-size: 0.8025rem !important;
@@ -380,7 +396,7 @@ body::-webkit-scrollbar {
 
 .btnSm {
   text-transform: none !important;
-  font-size: 0.8025rem !important;
+  font-size: 0.7025rem !important;
   line-height: 1.5 !important;
   letter-spacing: 0.02857em !important;
   font-weight: 600 !important;
@@ -431,11 +447,6 @@ body::-webkit-scrollbar {
   padding: 0.6em 2em !important;
   border-radius: $sk-border-radius !important;
   box-shadow: none !important;
-}
-
-
-.outlined {
-  background: rgba(41, 255, 148, 0.08)
 }
 
 .outlinedGray {
@@ -584,7 +595,7 @@ code {
 
 .monthInputWrap {
   border-radius: 25px;
-  background: rgba(41, 255, 148, 0.08);
+  background: rgba(147, 184, 236, 0.16);
   padding-left: 20px;
 }
 
@@ -718,18 +729,42 @@ input[type=number] {
   /* Firefox */
 }
 
-.shipNew {
+.chipNew {
   margin-right: 5px;
-  background: linear-gradient(180deg, #4e2600, #401200);
+  background: #93B8EC;
   border-radius: 20px;
   padding: 3px 6px;
 
   p {
-    color: #fcb381 !important
+    color: #000000de !important;
+    font-weight: 600 !important;
   }
 }
 
-.shipXs {
+.chipTrending {
+  background: linear-gradient(180deg, #e56d36, #D0602D) !important;
+
+  p {
+    color: black !important
+  }
+}
+
+.chipNewApp {
+  background: linear-gradient(180deg, #65a974, #508d5e) !important;
+
+  p {
+    color: black !important
+  }
+}
+
+.chipPreTge {
+  background: linear-gradient(180deg, #EBB84F, #bc923b) !important;
+  p {
+    color: black !important
+  }
+}
+
+.chipXs {
   border-radius: 20px;
   padding: 3px 6px;
 
@@ -739,7 +774,7 @@ input[type=number] {
   }
 }
 
-.shipSm {
+.chipSm {
   border-radius: 20px;
   padding: 6px 12px;
 
@@ -749,16 +784,22 @@ input[type=number] {
   }
 }
 
-.shipHot {
-  background: linear-gradient(180deg, #2b2b2b87, #0000008a);
+.chipXs {
+  border-radius: 15px;
+  padding: 4px 8px;
 
-  p {
-    color: #dcdcdc !important
+  svg {
+    width: 12px;
+    height: 12px;
   }
 }
 
+.skChip {
+  background: linear-gradient(180deg, rgb(52 52 52), rgb(31 31 31));
+}
 
-.ship {
+
+.chip {
   border-radius: 20px;
   padding: 6px 12px;
   width: max-content;
@@ -769,81 +810,89 @@ input[type=number] {
   }
 }
 
-.ship_DELEGATED {
+.chip_pretge {
+  background: linear-gradient(180deg, #E7B443, #b1882f);
+  color: #201808;
+}
+
+.chip_new {
+  color: #09100b;
+  background: linear-gradient(#5C9B6A, #477a52);
+}
+
+.chip_DELEGATED {
   background: linear-gradient(180deg, #0f3d29, #0a2a1c);
   color: #3cda94;
 }
 
-.ship_ACCEPTED {
+.chip_ACCEPTED {
   background: linear-gradient(180deg, #233d0f, #0a1b07);
   color: #3cda4e;
 }
 
-.ship_REJECTED {
+.chip_REJECTED {
   background: linear-gradient(180deg, #4e0000, #330000);
   color: #fc8181;
 }
 
-.ship_COMPLETED {
+.chip_COMPLETED {
   background: linear-gradient(180deg, #4e3300, #372400);
   color: #fcbb81;
 }
 
-.ship_UNDELEGATION_REQUESTED {
+.chip_UNDELEGATION_REQUESTED {
   color: rgb(252 248 129);
   background: linear-gradient(rgb(78 71 0), rgb(36 39 0));
 }
 
-.ship_CANCELED {
+.chip_CANCELED {
   color: rgb(219 219 219);
   background: linear-gradient(rgb(59 59 59), rgb(36 36 36));
 }
 
-.ship_PROPOSED {
+.chip_PROPOSED {
   color: rgb(57 218 248);
   background: linear-gradient(rgb(20 66 59), rgb(11 36 33));
 }
 
-.ship_DELEGATION_UI {
+.chip_DELEGATION_UI {
   background: linear-gradient(180deg, #1e1b37, #131123);
   color: #8c81fc;
 
 }
 
-.ship_MEW_WALLET {
+.chip_MEW_WALLET {
   background: linear-gradient(180deg, #144348, #0c2326);
   color: #4bd9e9;
 }
 
-.ship_ACTIVATE {
+.chip_ACTIVATE {
   background: linear-gradient(180deg, #101635, #0a0e23);
   color: #6f82f4;
 
 }
 
-.ship_PORTAL {
+.chip_PORTAL {
   background: linear-gradient(180deg, #221d3c, #151225);
   color: #9681fc;
-  // background: linear-gradient(180deg, #103324, #091d14);
-  // color: #81fcd1;
 }
 
-.ship_SELF {
+.chip_SELF {
   background: linear-gradient(180deg, #4e3300, #372400);
   color: #fcbb81;
 }
 
-.ship_OTHER {
+.chip_OTHER {
   background: linear-gradient(180deg, #3e1f3f, #2b152b);
   color: #f681fc;
 }
 
-.ship_ETHERSCAN {
+.chip_ETHERSCAN {
   background: linear-gradient(180deg, #1f203f, #15172b);
   color: #8199fc;
 }
 
-.shipFee {
+.chipFee {
   margin-right: 5px;
   background: linear-gradient(180deg, #1e4e00, #163800);
 
@@ -855,7 +904,7 @@ input[type=number] {
   }
 }
 
-.shipId {
+.chipId {
   margin-right: 5px;
   background: linear-gradient(180deg, #333333, #212121);
   border-radius: 20px;
@@ -866,9 +915,18 @@ input[type=number] {
   }
 }
 
+.iconRed {
+  color: #da3a34 !important;
+  svg {
+    color: #da3a34 !important;
+  }
+}
 
+.btnRed {
+  background-color: #da3a34 !important;
+}
 
-.shipNodes {
+.chipNodes {
   margin-right: 5px;
   background: linear-gradient(180deg, #301f35, #1f1322);
   border-radius: 20px;
@@ -879,7 +937,7 @@ input[type=number] {
   }
 }
 
-.shipAddress {
+.chipAddress {
   margin-right: 5px;
   background: #1f3533;
   border-radius: 20px;
@@ -891,11 +949,6 @@ input[type=number] {
 }
 
 // md styling
-
-a,
-.a {
-  color: #71ffb8 !important;
-}
 
 .markdown {
   hr {
@@ -1186,14 +1239,11 @@ a,
     height: 17px;
   }
 
-  min-height: 48px !important;
-
-
-
+  min-height: 45px !important;
 }
 
 .tab.Mui-selected {
-  background-color: rgba(41, 255, 148, 0.16) !important;
+  background-color: rgba(147, 184, 236, 0.16) !important;
 }
 
 .MuiTabs-indicator {
@@ -1230,16 +1280,47 @@ a,
   padding-bottom: 60px;
 }
 
+.m5 {
+  margin: 5px;
+}
+
 .fwmobile {
   max-width: calc(100vw - 32px);
 }
 
-.MuiBackdrop-root {
-  backdrop-filter: blur(3px) !important;
+.skPopup {
+  .MuiBackdrop-root {
+    backdrop-filter: blur(3px) !important;
+  }
+}
+
+.socialIcon {
+  width: 30px !important;
+  height: 30px !important;
+
+  svg {
+    width: 30px !important;
+    height: 30px !important;
+  }
+}
+
+.socialIconMd {
+  width: 40px !important;
+  height: 40px !important;
+
+  svg {
+    width: 40px !important;
+    height: 40px !important;
+  }
 }
 
 .pSec {
   color: RGB(255 255 255 / 65%);
+
+  svg {
+    fill: RGB(255 255 255 / 65%);
+  }
+
 }
 
 .addressInput {
@@ -1250,4 +1331,21 @@ a,
   .Mui-disabled {
     -webkit-text-fill-color: #ffffff;
   }
+}
+
+.bgBlack {
+  background: black !important;
+}
+
+
+.bg {
+  background: $sk-bg !important;
+}
+
+.bgPrim {
+  background: $sk-bg-prim !important;
+}
+
+.hidden {
+  display: none;
 }

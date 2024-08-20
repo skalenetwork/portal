@@ -141,13 +141,13 @@ export default function AccountMenu(props: any) {
             )
           }}
         </RainbowConnectButton.Custom>
-        <Link to="/bridge/history" className="undec fullWidth">
+        <Link to="/bridge/history" className="undec fullW">
           <MenuItem onClick={handleClose}>
             <HistoryIcon className={cmn.mri10} /> Transfers history
           </MenuItem>
         </Link>
         <a
-          className="undec fullWidth"
+          className="undec fullW"
           target="_blank"
           href={'https://etherscan.io/address/' + props.address}
           rel="noreferrer"

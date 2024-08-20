@@ -21,10 +21,16 @@
  * @copyright SKALE Labs 2024-Present
  */
 
+import { ReactElement } from 'react'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
 import { cmn, cls } from '@skalenetwork/metaport'
-import { BreadcrumbSection } from '../core/types'
+
+export interface BreadcrumbSection {
+  icon: ReactElement
+  text: string
+  url?: string
+}
 
 export default function Breadcrumbs(props: { sections: BreadcrumbSection[]; className?: string }) {
   return (
@@ -32,14 +38,14 @@ export default function Breadcrumbs(props: { sections: BreadcrumbSection[]; clas
       {props.sections.map((section: BreadcrumbSection, index) => (
         <div className={cls(cmn.flex, cmn.flexcv)} key={index}>
           {section.url ? (
-            <Link to={section.url} className="undec fullWidth">
-              <Button>
+            <Link to={section.url} className="undec fullW">
+              <Button className={cmn.pPrim}>
                 {section.icon}
                 <p className={cls(cmn.p, cmn.p4, cmn.mleft5)}>{section.text}</p>
               </Button>
             </Link>
           ) : (
-            <Button className={cls(cmn.pPrim)}>
+            <Button>
               {section.icon}
               <p className={cls(cmn.p, cmn.p4, cmn.mleft5)}>{section.text}</p>
             </Button>

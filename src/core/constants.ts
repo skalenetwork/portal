@@ -21,13 +21,13 @@
  * @copyright SKALE Labs 2022-Present
  */
 
+import { type types } from '@/core'
 import FAQ from '../data/faq.json'
 
 import * as MAINNET_CHAIN_LOGOS from '../meta/logos'
 import * as VALIDATOR_LOGOS from '../assets/validators'
 
 import { CONTRACTS_META } from '../data/contractsMeta.ts'
-import { interfaces } from '@skalenetwork/metaport'
 
 export const MAINNET_CHAIN_NAME = 'mainnet'
 
@@ -69,16 +69,35 @@ export const BALANCE_UPDATE_INTERVAL_MS = _BALANCE_UPDATE_INTERVAL_SECONDS * 100
 
 export const TRANSAK_STAGING_ENV = import.meta.env.VITE_TRANSAK_STAGING_ENV === 'true'
 export const TRANSAK_API_KEY = import.meta.env.VITE_TRANSAK_API_KEY
+export const DISABLE_TRANSAK = import.meta.env.VITE_DISABLE_TRANSAK === 'true'
 
 export const DAPP_RADAR_BASE_URL = 'https://dappradar.com/dapp/'
 
-export const STATS_API: { [key in interfaces.SkaleNetwork]: string | null } = {
+export const STATS_API: { [key in types.SkaleNetwork]: string | null } = {
   mainnet: 'https://stats.explorer.mainnet.skalenodes.com/v2/stats/',
   testnet: null,
-  staging: null,
   legacy: null,
   regression: null
 }
 
 export const BASE_METADATA_URL =
   'https://raw.githubusercontent.com/skalenetwork/skale-network/master/metadata/'
+
+export const MAX_APPS_DEFAULT = 12
+
+export const OFFCHAIN_APP = '__offchain'
+
+export const SUBMIT_PROJECT_URL =
+  'https://github.com/skalenetwork/skale-network/issues/new?assignees=dmytrotkk&labels=metadata&projects=&template=app_submission.yml&title=App+Metadata+Submission'
+
+export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost/api'
+export const LIKES_REFRESH_INTERVAL = 20000
+
+export const SKALE_SOCIAL_LINKS = {
+  x: 'https://twitter.com/skalenetwork',
+  telegram: 'https://t.me/skaleofficial',
+  discord: 'https://discord.com/invite/gM5XBy6',
+  github: 'https://github.com/skalenetwork',
+  swell: 'https://swell.skale.space/',
+  website: 'https://skale.space/'
+}

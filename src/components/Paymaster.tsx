@@ -182,7 +182,11 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
   return (
     <div>
       <PricingInfo info={info} />
-      <Headline text="Top-up chain" icon={<MonetizationOnRoundedIcon />} />
+      <Headline
+        text="Top-up chain"
+        icon={<MonetizationOnRoundedIcon color="primary" />}
+        className={cls(cmn.mtop20, cmn.mbott10)}
+      />
       {!address ? (
         <ConnectWallet tile className={cls(cmn.flexg)} />
       ) : (

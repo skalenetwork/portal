@@ -139,7 +139,7 @@ export default function Delegation(props: {
         <Grid item md={3} xs={6}>
           <div className={cls(cmn.flex, [cmn.mtop10, props.isXs])}>
             <div className={cls([cmn.flexg, !props.isXs])}></div>
-            <div className={cls(`ship ship_${props.delegation.state}`)}>
+            <div className={cls(`chip chip_${props.delegation.state}`)}>
               <p className={cls(cmn.p, cmn.p4, 'pOneLine')}>
                 {props.delegation.state.replace(/_/g, ' ')}
               </p>
@@ -150,7 +150,7 @@ export default function Delegation(props: {
         <Grid item md={2} xs={6}>
           <div className={cls(cmn.flex, [cmn.mtop10, props.isXs])}>
             <div className={cls([cmn.flexg, !props.isXs])}></div>
-            <div className={cls(`ship ship_${getKeyByValue(DelegationSource, source)}`)}>
+            <div className={cls(`chip chip_${getKeyByValue(DelegationSource, source)}`)}>
               <p className={cls(cmn.p, cmn.p4)}>{source}</p>
             </div>
             <div className={cls([cmn.flexg, !props.isXs])}></div>
@@ -190,7 +190,7 @@ export default function Delegation(props: {
               loading={loading}
               text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
               color="error"
-              className="fullWidth"
+              className="fullW"
               onClick={async () => {
                 await props.unstake(delegationInfo)
               }}
@@ -202,7 +202,7 @@ export default function Delegation(props: {
               loading={loading}
               text={loading ? 'Canceling staking request' : 'Cancel staking request'}
               color="warning"
-              className="fullWidth"
+              className="fullW"
               onClick={async () => {
                 await props.cancelRequest(delegationInfo)
               }}
