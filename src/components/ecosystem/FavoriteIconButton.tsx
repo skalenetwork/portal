@@ -45,33 +45,24 @@ const FavoriteIconButton: React.FC<FavoriteIconButtonProps> = ({ chainName, appN
   const [asyncLike, setAsyncLike] = React.useState(false)
 
   const handleToggleLike = async () => {
+    const status = await getSignInStatus()
+    if (!status && address) handleSignIn()
     setAsyncLike(true)
+  }
+
+  const handleAsyncLike = async () => {
     if (!address) {
       openConnectModal?.()
       return
     }
+    setAsyncLike(false)
     await toggleLikedApp(appId)
     refreshLikedApps()
   }
 
-  const handleAsyncLike = async () => {
-    if (!isSignedIn) {
-      await handleSignIn()
-      const status = await getSignInStatus()
-      if (!status) {
-        console.log('Sign-in failed or was cancelled')
-        return
-      }
-    }
-    await toggleLikedApp(appId)
-  }
-
   useEffect(() => {
-    if (asyncLike) {
-      setAsyncLike(false)
-      handleAsyncLike()
-    }
-  }, [address, isSignedIn])
+    if (asyncLike) handleAsyncLike()
+  }, [address, isSignedIn, asyncLike])
 
   return (
     <Tooltip title={isLiked ? 'Remove from favorites' : 'Add to favorites'}>
