@@ -94,7 +94,8 @@ export default function SchainDetails(props: {
       name: 'sFUEL',
       symbol: 'sFUEL',
       decimals: 18
-    }
+    },
+    blockExplorerUrls: [explorerUrl]
   }
 
   async function addNetwork() {
@@ -225,10 +226,13 @@ export default function SchainDetails(props: {
                 <SkBtn
                   startIcon={added ? <CheckCircleRoundedIcon /> : <AddCircleRoundedIcon />}
                   size="md"
-                  className={cls(styles.btnAction, cmn.mri10, 'btnPadd', [
-                    'btnPaddLoading',
-                    loading
-                  ])}
+                  className={cls(
+                    styles.btnAction,
+                    cmn.mri10,
+                    'btnPadd',
+                    ['btnPaddLoading', loading],
+                    [cmn.fullWidth, props.isXs]
+                  )}
                   onClick={addNetwork}
                   disabled={loading}
                   text={connectBtnText()}
