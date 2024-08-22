@@ -25,7 +25,16 @@ import { useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useParams } from 'react-router-dom'
 
-import { MetaportCore, fromWei, styles, cmn, cls, SkPaper } from '@skalenetwork/metaport'
+import {
+  MetaportCore,
+  fromWei,
+  styles,
+  cmn,
+  cls,
+  SkPaper,
+  useWagmiAccount,
+  useConnectModal
+} from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
 import { Button, Grid } from '@mui/material'
@@ -71,8 +80,12 @@ export default function App(props: {
   chainsMeta: types.ChainsMetadataMap
 }) {
   let { chain, app } = useParams()
-  const { likedApps, appLikes, toggleLikedApp, getAppId, getTrendingApps } = useLikedApps()
+  const { likedApps, appLikes, toggleLikedApp, getAppId, getTrendingApps, refreshLikedApps } =
+    useLikedApps()
   const { isSignedIn, handleSignIn } = useAuth()
+
+  const { address } = useWagmiAccount()
+  const { openConnectModal } = useConnectModal()
 
   const newApps = useMemo(
     () => getRecentApps(props.chainsMeta, MAX_APPS_DEFAULT),
@@ -113,11 +126,17 @@ export default function App(props: {
   const trendingAppIds = useMemo(() => getTrendingApps(), [getTrendingApps])
   const isNew = isNewApp({ chain, app }, newApps)
 
-  const handleFavoriteClick = async () => {
+  const handleToggleLike = async () => {
+    if (!address) {
+      openConnectModal?.()
+      return
+    }
     if (!isSignedIn) {
       await handleSignIn()
+      return
     }
     await toggleLikedApp(appId)
+    refreshLikedApps()
   }
 
   const explorerUrl = getExplorerUrl(network, chain)
@@ -206,7 +225,7 @@ export default function App(props: {
                     className={cls(cmn.mbott10, 'btn btnSm')}
                     variant="contained"
                     startIcon={isLiked ? <FavoriteRoundedIcon /> : <FavoriteBorderOutlinedIcon />}
-                    onClick={handleFavoriteClick}
+                    onClick={handleToggleLike}
                   >
                     {isLiked ? 'Favorite' : 'Add to favorites'}
                   </Button>

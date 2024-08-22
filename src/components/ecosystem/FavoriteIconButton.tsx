@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import React, { useEffect } from 'react'
+import React from 'react'
 import { IconButton, Tooltip } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
@@ -36,36 +36,32 @@ interface FavoriteIconButtonProps {
 
 const FavoriteIconButton: React.FC<FavoriteIconButtonProps> = ({ chainName, appName }) => {
   const { likedApps, toggleLikedApp, refreshLikedApps, getAppId } = useLikedApps()
-  const { isSignedIn, handleSignIn, getSignInStatus } = useAuth()
+  const { isSignedIn, handleSignIn } = useAuth()
   const { address } = useWagmiAccount()
   const { openConnectModal } = useConnectModal()
   const appId = getAppId(chainName, appName)
   const isLiked = likedApps.includes(appId)
 
-  const [asyncLike, setAsyncLike] = React.useState(false)
-
   const handleToggleLike = async () => {
-    const status = await getSignInStatus()
-    if (!status && address) handleSignIn()
-    setAsyncLike(true)
-  }
-
-  const handleAsyncLike = async () => {
     if (!address) {
       openConnectModal?.()
       return
     }
-    setAsyncLike(false)
+    if (!isSignedIn) {
+      await handleSignIn()
+      return
+    }
     await toggleLikedApp(appId)
     refreshLikedApps()
   }
 
-  useEffect(() => {
-    if (asyncLike) handleAsyncLike()
-  }, [address, isSignedIn, asyncLike])
+  const getTooltipTitle = () => {
+    if (!isSignedIn) return 'Sign in to add to favorites'
+    return isLiked ? 'Remove from favorites' : 'Add to favorites'
+  }
 
   return (
-    <Tooltip title={isLiked ? 'Remove from favorites' : 'Add to favorites'}>
+    <Tooltip title={getTooltipTitle()}>
       <IconButton onClick={handleToggleLike} className={cls('bgPrim')}>
         {isLiked ? (
           <FavoriteIcon className="iconRed" />
