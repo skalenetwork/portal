@@ -36,7 +36,8 @@
     "react-router-dom": "^6.15.0",
     "react-social-icons": "^6.17.0",
     "react-transition-group": "^4.4.5",
-    "siwe": "^2.3.2"
+    "siwe": "^2.3.2",
+    "tslog": "^4.9.3"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

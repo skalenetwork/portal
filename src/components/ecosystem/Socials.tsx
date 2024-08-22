@@ -23,7 +23,7 @@
 
 import React from 'react'
 import { IconButton, Tooltip } from '@mui/material'
-import { LanguageRounded, WavesRounded, TrackChangesRounded } from '@mui/icons-material'
+import { LanguageRounded, TrackChangesRounded } from '@mui/icons-material'
 import { SocialIcon } from 'react-social-icons/component'
 import 'react-social-icons/discord'
 import 'react-social-icons/github'
@@ -32,6 +32,7 @@ import 'react-social-icons/x'
 import { cmn, cls } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 import FavoriteIconButton from './FavoriteIconButton'
+import SwellIcon from './SwellIcon'
 
 interface SocialButtonsProps {
   social?: types.AppSocials
@@ -78,10 +79,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
     {
       key: 'swell',
       icon: (
-        <WavesRounded
-          className={cls([cmn.pPrim, isMd], [cmn.pSec, !isMd])}
-          fontSize={isMd ? 'medium' : 'small'}
-        />
+        <SwellIcon size={isMd ? 'medium' : 'small'} style={{ padding: '2px', color: '#93B8EC' }} />
       ),
       title: 'Swell'
     }

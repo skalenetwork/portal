@@ -73,6 +73,8 @@ body {
 }
 
 .mp__btnConnect {
+  position: relative;
+
   width: 100%;
   border-radius: 18px !important;
 
@@ -105,6 +107,12 @@ body {
 
   .mp__iconGray {
     width: 12pt;
+  }
+
+  .icon-overlay {
+    position: absolute;
+    top: -6px;
+    right: -6px;
   }
 }
 
@@ -759,6 +767,7 @@ input[type=number] {
 
 .chipPreTge {
   background: linear-gradient(180deg, #EBB84F, #bc923b) !important;
+
   p {
     color: black !important
   }
@@ -917,6 +926,7 @@ input[type=number] {
 
 .iconRed {
   color: #da3a34 !important;
+
   svg {
     color: #da3a34 !important;
   }
