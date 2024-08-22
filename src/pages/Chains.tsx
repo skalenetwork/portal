@@ -135,6 +135,7 @@ export default function Chains(props: {
             icon={<CategoryRoundedIcon color="primary" />}
           />
         )}
+        <div className={cls(cmn.mbott20, cmn.mtop20)}></div>
       </Stack>
     </Container>
   )
