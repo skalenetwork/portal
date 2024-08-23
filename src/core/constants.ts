@@ -101,3 +101,5 @@ export const SKALE_SOCIAL_LINKS = {
   swell: 'https://swell.skale.space/',
   website: 'https://skale.space/'
 }
+
+export const DEFAULT_SWELL_URL = 'https://swell.skale.space/'

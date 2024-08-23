@@ -20,7 +20,6 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { useEffect, useState } from 'react'
 import { Button } from '@mui/material'
 import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
 import { cmn, cls, SkPaper, useWagmiAccount, RainbowConnectButton } from '@skalenetwork/metaport'
@@ -34,15 +33,6 @@ export default function ConnectWallet(props: {
   const { address } = useWagmiAccount()
   const { isSignedIn, handleSignIn } = useAuth()
 
-  const [signInRequested, setSignInRequested] = useState(false)
-
-  useEffect(() => {
-    if (address && !isSignedIn && signInRequested) {
-      handleSignIn()
-      setSignInRequested(false)
-    }
-  }, [address])
-
   const handleButtonClick = (openConnectModal: any) => {
     if (address) {
       if (!isSignedIn) {
@@ -50,7 +40,6 @@ export default function ConnectWallet(props: {
       }
     } else {
       openConnectModal()
-      setSignInRequested(true)
     }
   }
 
@@ -75,7 +64,7 @@ export default function ConnectWallet(props: {
                       className={cls(cmn.pCent, cmn.mtop10, cmn.flex, 'btn')}
                     >
                       <LooksRoundedIcon className={cls(cmn.mri10)} />
-                      Connect wallet
+                      {address ? 'Sign in' : 'Connect Wallet'}
                     </Button>
                   )
                 }}

@@ -22,9 +22,7 @@
  */
 
 import { cmn, cls, styles, type MetaportCore, interfaces, SkPaper } from '@skalenetwork/metaport'
-
 import Grid from '@mui/material/Grid'
-
 import CopySurface from '../../CopySurface'
 
 export default function Tokens(props: {
@@ -34,40 +32,47 @@ export default function Tokens(props: {
 }) {
   const tokenConnections = props.mpc.config.connections[props.schainName] ?? {}
   const chainTokens = tokenConnections.erc20 ?? {}
+  const ethToken = tokenConnections.eth ?? {}
 
   function findWrapperAddress(token: interfaces.Token): `0x${string}` | null | undefined {
+    if (!token || !token.chains) return null
     const chainWithWrapper = Object.values(token.chains).find((chain) => chain.wrapper)
     return chainWithWrapper ? chainWithWrapper.wrapper : null
+  }
+
+  const renderTokens = (tokens: any) => {
+    return Object.entries(tokens).flatMap(([tokenSymbol, tokenData]: [string, any]) => {
+      const wrapperAddress = findWrapperAddress(tokenData)
+      return [
+        <Grid key={`${tokenSymbol}`} item lg={3} md={4} sm={6} xs={12}>
+          <CopySurface
+            className={cls(styles.fullHeight)}
+            title={`${tokenSymbol.toUpperCase()}`}
+            value={tokenData.address}
+            tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
+          />
+        </Grid>,
+        ...(wrapperAddress
+          ? [
+              <Grid key={`w${tokenSymbol}`} item lg={3} md={4} sm={6} xs={12}>
+                <CopySurface
+                  className={cls(styles.fullHeight)}
+                  title={`w${tokenSymbol.toUpperCase()}`}
+                  value={wrapperAddress}
+                  tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
+                />
+              </Grid>
+            ]
+          : [])
+      ]
+    })
   }
 
   return (
     <SkPaper gray className={cls(cmn.mtop20)}>
       <Grid container spacing={2}>
-        {Object.keys(chainTokens).flatMap((tokenSymbol: string) => {
-          const wrapperAddress = findWrapperAddress(chainTokens[tokenSymbol])
-          return [
-            <Grid key={tokenSymbol} item lg={3} md={4} sm={6} xs={12}>
-              <CopySurface
-                className={cls(styles.fullHeight)}
-                title={tokenSymbol.toUpperCase()}
-                value={chainTokens[tokenSymbol].address as string}
-                tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
-              />
-            </Grid>,
-            ...(wrapperAddress
-              ? [
-                  <Grid key={`w${tokenSymbol}`} item lg={3} md={4} sm={6} xs={12}>
-                    <CopySurface
-                      className={cls(styles.fullHeight)}
-                      title={`w${tokenSymbol.toUpperCase()}`}
-                      value={wrapperAddress}
-                      tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
-                    />
-                  </Grid>
-                ]
-              : [])
-          ]
-        })}
+        {renderTokens(ethToken)}
+        {renderTokens(chainTokens)}
       </Grid>
     </SkPaper>
   )
