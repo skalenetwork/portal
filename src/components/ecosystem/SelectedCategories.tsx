@@ -85,7 +85,7 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
   if (checkedItems.length === 0) return null
 
   return (
-    <Box className={cls(cmn.flex, cmn.flexcv, cmn.mbottf10)}>
+    <Box className={cls(cmn.flex, cmn.flexcv, 'flex-w', cmn.mbottf10)}>
       {checkedItems.map((item) => {
         const [category, subcategory] = item.split('_')
         return (
@@ -100,11 +100,11 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
             }
             onDelete={() => handleDelete(item)}
             deleteIcon={<CloseIcon className={cls(styles.chainIconxs)} />}
-            className={cls(cmn.mri10, 'outlined', cmn.p600)}
+            className={cls('outlined', cmn.p600)}
           />
         )
       })}
-      <Typography className={cls(cmn.p, cmn.p4, cmn.pPrim, cmn.mleft10, cmn.mri20)}>
+      <Typography className={cls(cmn.p, cmn.p4, cmn.pPrim, cmn.mleft10, cmn.mri10)}>
         {filteredAppsCount} project{filteredAppsCount !== 1 ? 's' : ''}
       </Typography>
       <Typography

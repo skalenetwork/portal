@@ -146,6 +146,7 @@ body {
 .flex-w {
   display: flex;
   flex-wrap: wrap;
+  gap: 10px;
 }
 
 @media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
