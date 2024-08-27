@@ -27,7 +27,6 @@ export {
     AppMetadataMap,
     AppSocials,
     NetworksMetadataMap,
-    AppWithTimestamp,
     CategoriesMap,
     AppWithChainAndName
 } from './ChainsMetadata'

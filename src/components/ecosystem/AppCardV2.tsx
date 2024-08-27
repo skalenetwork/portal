@@ -41,7 +41,7 @@ export default function AppCard(props: {
   appName: string
   chainsMeta: types.ChainsMetadataMap
   transactions?: number
-  newApps?: types.AppWithTimestamp[]
+  newApps?: types.AppWithChainAndName[]
   isTrending?: boolean
   isNew?: boolean
 }) {

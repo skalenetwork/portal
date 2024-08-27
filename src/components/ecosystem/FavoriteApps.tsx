@@ -20,16 +20,13 @@
  * @file FavoriteApps.tsx
  * @copyright SKALE Labs 2024-Present
  */
-
-import { useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import { types } from '@/core'
 import { useLikedApps } from '../../LikedAppsContext'
 import AppCard from './AppCardV2'
 import { Button, Grid } from '@mui/material'
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
-
 import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
-import { useAuth } from '../../AuthContext'
 import Carousel from '../Carousel'
 import ConnectWallet from '../ConnectWallet'
 import { Link } from 'react-router-dom'
@@ -39,28 +36,23 @@ export default function FavoriteApps(props: {
   skaleNetwork: types.SkaleNetwork
   chainsMeta: types.ChainsMetadataMap
   useCarousel?: boolean
-  newApps: types.AppWithTimestamp[]
+  newApps: types.AppWithChainAndName[]
+  filteredApps: types.AppWithChainAndName[]
+  isSignedIn: boolean
+  error: string | null
 }) {
-  const { likedApps, error, refreshLikedApps, getAppInfoById, getTrendingApps } = useLikedApps()
-  const { isSignedIn } = useAuth()
+  const { getTrendingApps } = useLikedApps()
   const trendingAppIds = useMemo(() => getTrendingApps(), [getTrendingApps])
 
-  useEffect(() => {
-    if (isSignedIn) {
-      refreshLikedApps()
-    }
-  }, [isSignedIn, refreshLikedApps])
+  if (!props.isSignedIn) return <ConnectWallet customText="Sign in to see your favorite dApps" />
+  if (props.error) return <div>Error: {props.error}</div>
 
-  if (!isSignedIn) return <ConnectWallet customText="Sign in to see your favorite dApps" />
-  if (error) return <div>Error: {error}</div>
-
-  const appCards = likedApps.map((appId) => {
-    const { chain, app } = getAppInfoById(appId)
-    const isTrending = trendingAppIds.includes(appId)
-    const isNew = isNewApp({ chain, app }, props.newApps)
+  const appCards = props.filteredApps.map((app) => {
+    const isTrending = trendingAppIds.includes(`${app.chain}-${app.appName}`)
+    const isNew = isNewApp({ chain: app.chain, app: app.appName }, props.newApps)
     return (
       <Grid
-        key={`${app}-${chain}`}
+        key={`${app.appName}-${app.chain}`}
         className={cls('fl-centered dappCard')}
         item
         lg={4}
@@ -69,9 +61,9 @@ export default function FavoriteApps(props: {
         xs={12}
       >
         <AppCard
-          key={appId}
-          schainName={chain}
-          appName={app}
+          key={`${app.chain}-${app.appName}`}
+          schainName={app.chain}
+          appName={app.appName}
           skaleNetwork={props.skaleNetwork}
           chainsMeta={props.chainsMeta}
           isNew={isNew}
@@ -86,7 +78,9 @@ export default function FavoriteApps(props: {
       <SkPaper gray className="titleSection">
         <div className={cls(cmn.mtop20, cmn.mbott20)}>
           <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent)}>
-            You don't have any favorites yet
+            {props.filteredApps.length === 0
+              ? "You don't have any favorites yet"
+              : 'No favorite apps match your current filters'}
           </p>
           {props.useCarousel && (
             <div className={cls(cmn.flex)}>
