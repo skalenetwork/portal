@@ -59,11 +59,6 @@ export interface AppSocials {
   swell?: string;
   dappradar?: string;
 }
-export interface AppWithTimestamp {
-  chain: string
-  app: string
-  added: number
-}
 
 export interface CategoriesMap {
   [category: string]: string[] | null

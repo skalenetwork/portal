@@ -9,54 +9,41 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-
 /**
  * @file Ecosystem.tsx
  * @copyright SKALE Labs 2024-Present
  */
 
-import { useState, useEffect, useMemo } from 'react'
+import React, { useState, useEffect, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
-
-import Container from '@mui/material/Container'
-import Stack from '@mui/material/Stack'
-import Box from '@mui/material/Box'
-import { Tab, Tabs } from '@mui/material'
-
+import { Container, Stack, Box, Tab, Tabs } from '@mui/material'
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import TimelineRoundedIcon from '@mui/icons-material/TimelineRounded'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
 
 import { type types } from '@/core'
-
 import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
 import { META_TAGS } from '../core/meta'
-import CategoryDisplay from '../components/ecosystem/Categories'
-import {
-  filterAppsByCategory,
-  filterAppsBySearchTerm,
-  getAllApps,
-  sortAppsByAlias
-} from '../core/ecosystem/apps'
+import { filterAppsByCategory, filterAppsBySearchTerm } from '../core/ecosystem/apps'
+import { useUrlParams } from '../core/ecosystem/urlParamsUtil'
+import { SKALE_SOCIAL_LINKS } from '../core/constants'
+import { useApps } from '../useApps'
 
+import CategoryDisplay from '../components/ecosystem/Categories'
 import SearchComponent from '../components/ecosystem/AppSearch'
 import SelectedCategories from '../components/ecosystem/SelectedCategories'
 import SkStack from '../components/SkStack'
-import { useUrlParams } from '../core/ecosystem/urlParamsUtil'
-import { getRecentApps } from '../core/ecosystem/utils'
-
 import AllApps from '../components/ecosystem/AllApps'
 import NewApps from '../components/ecosystem/NewApps'
 import FavoriteApps from '../components/ecosystem/FavoriteApps'
 import TrendingApps from '../components/ecosystem/TrendingApps'
-import { MAX_APPS_DEFAULT, SKALE_SOCIAL_LINKS } from '../core/constants'
 import SocialButtons from '../components/ecosystem/Socials'
 
 export default function Ecosystem(props: {
@@ -66,16 +53,13 @@ export default function Ecosystem(props: {
 }) {
   const { getCheckedItemsFromUrl, setCheckedItemsInUrl, getTabIndexFromUrl, setTabIndexInUrl } =
     useUrlParams()
-  const allApps = useMemo(() => sortAppsByAlias(getAllApps(props.chainsMeta)), [props.chainsMeta])
+  const { allApps, newApps, trendingApps, favoriteApps, isSignedIn } = useApps(props.chainsMeta)
+
   const [checkedItems, setCheckedItems] = useState<string[]>([])
   const [filteredApps, setFilteredApps] = useState<types.AppWithChainAndName[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [activeTab, setActiveTab] = useState(0)
-
-  const newApps = useMemo(
-    () => getRecentApps(props.chainsMeta, MAX_APPS_DEFAULT),
-    [props.chainsMeta]
-  )
+  const [loaded, setLoaded] = useState<boolean>(false)
 
   useEffect(() => {
     const initialCheckedItems = getCheckedItemsFromUrl()
@@ -91,7 +75,8 @@ export default function Ecosystem(props: {
       props.chainsMeta
     )
     setFilteredApps(filtered)
-  }, [allApps, checkedItems, searchTerm])
+    setLoaded(true)
+  }, [allApps, checkedItems, searchTerm, props.chainsMeta])
 
   const handleSetCheckedItems = (newCheckedItems: string[]) => {
     setCheckedItems(newCheckedItems)
@@ -103,13 +88,42 @@ export default function Ecosystem(props: {
     setTabIndexInUrl(newValue)
   }
 
-  const filteredNewApps = useMemo(() => {
-    return newApps.filter((app) =>
-      filteredApps.some(
-        (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.app
-      )
-    )
-  }, [newApps, filteredApps])
+  const getFilteredAppsByTab = useMemo(() => {
+    const filterMap = new Map([
+      [0, filteredApps], // All Apps
+      [
+        1,
+        newApps.filter((app) =>
+          filteredApps.some(
+            (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
+          )
+        )
+      ], // New Apps
+      [
+        2,
+        isSignedIn
+          ? favoriteApps.filter((app) =>
+              filteredApps.some(
+                (filteredApp) =>
+                  filteredApp.chain === app.chain && filteredApp.appName === app.appName
+              )
+            )
+          : []
+      ], // Favorite Apps
+      [
+        3,
+        trendingApps.filter((app) =>
+          filteredApps.some(
+            (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
+          )
+        )
+      ] // Trending Apps
+    ])
+
+    return (tabIndex: number) => filterMap.get(tabIndex) || filteredApps
+  }, [filteredApps, newApps, favoriteApps, trendingApps, isSignedIn])
+
+  const currentFilteredApps = getFilteredAppsByTab(activeTab)
 
   return (
     <Container maxWidth="md">
@@ -147,7 +161,7 @@ export default function Ecosystem(props: {
           <SelectedCategories
             checkedItems={checkedItems}
             setCheckedItems={handleSetCheckedItems}
-            filteredAppsCount={filteredApps.length}
+            filteredAppsCount={currentFilteredApps.length}
           />
           <Tabs
             variant={props.isXs ? 'scrollable' : 'standard'}
@@ -189,15 +203,16 @@ export default function Ecosystem(props: {
 
           {activeTab === 0 && (
             <AllApps
-              apps={filteredApps}
+              apps={currentFilteredApps}
               skaleNetwork={props.mpc.config.skaleNetwork}
               chainsMeta={props.chainsMeta}
               newApps={newApps}
+              loaded={loaded}
             />
           )}
           {activeTab === 1 && (
             <NewApps
-              newApps={filteredNewApps}
+              newApps={currentFilteredApps}
               skaleNetwork={props.mpc.config.skaleNetwork}
               chainsMeta={props.chainsMeta}
             />
@@ -207,6 +222,9 @@ export default function Ecosystem(props: {
               chainsMeta={props.chainsMeta}
               skaleNetwork={props.mpc.config.skaleNetwork}
               newApps={newApps}
+              filteredApps={currentFilteredApps}
+              isSignedIn={isSignedIn}
+              error={null}
             />
           )}
           {activeTab === 3 && (
@@ -214,6 +232,7 @@ export default function Ecosystem(props: {
               chainsMeta={props.chainsMeta}
               skaleNetwork={props.mpc.config.skaleNetwork}
               newApps={newApps}
+              trendingApps={currentFilteredApps}
             />
           )}
         </Box>

@@ -63,29 +63,28 @@ export const filterCategories = (searchTerm: string) => {
 export const getRecentApps = (
   chainsMeta: types.ChainsMetadataMap,
   count: number = 12
-): types.AppWithTimestamp[] => {
-  const appsWithTimestamp: types.AppWithTimestamp[] = []
+): types.AppWithChainAndName[] => {
+  const appsWithTimestamp: types.AppWithChainAndName[] = []
 
   Object.entries(chainsMeta).forEach(([chainName, chainData]) => {
     if (chainData.apps) {
       Object.entries(chainData.apps).forEach(([appName, appData]) => {
         if (appData.added) {
           appsWithTimestamp.push({
+            ...appData,
             chain: chainName,
-            app: appName,
-            added: appData.added
+            appName: appName
           })
         }
       })
     }
   })
-
-  return appsWithTimestamp.sort((a, b) => b.added - a.added).slice(0, count)
+  return appsWithTimestamp.sort((a, b) => b.added! - a.added!).slice(0, count)
 }
 
 export const isNewApp = (
   app: { chain: string; app: string },
-  newApps: types.AppWithTimestamp[]
+  newApps: types.AppWithChainAndName[]
 ): boolean => {
-  return newApps.some((newApp) => newApp.chain === app.chain && newApp.app === app.app)
+  return newApps.some((newApp) => newApp.chain === app.chain && newApp.appName === app.app)
 }

@@ -9,13 +9,12 @@
  *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
  *
  * You should have received a copy of the GNU Affero General Public License
- * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ * along with this program. If not, see <https://www.gnu.org/licenses/>.
  */
-
 /**
  * @file NewApps.tsx
  * @copyright SKALE Labs 2024-Present
@@ -23,14 +22,14 @@
 
 import React, { useMemo } from 'react'
 import { Grid, Box } from '@mui/material'
-import { cls } from '@skalenetwork/metaport'
+import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
 import AppCard from './AppCardV2'
 import Carousel from '../Carousel'
 import { type types } from '@/core'
 import { useLikedApps } from '../../LikedAppsContext'
 
 interface NewAppsProps {
-  newApps: { chain: string; app: string; added: number }[]
+  newApps: types.AppWithChainAndName[]
   skaleNetwork: types.SkaleNetwork
   chainsMeta: types.ChainsMetadataMap
   useCarousel?: boolean
@@ -44,15 +43,16 @@ const NewApps: React.FC<NewAppsProps> = ({
 }) => {
   const { getTrendingApps, getAppId } = useLikedApps()
   const trendingAppIds = useMemo(() => getTrendingApps(), [getTrendingApps])
-  const renderAppCard = (app: { chain: string; app: string }) => {
-    const appId = getAppId(app.chain, app.app)
+
+  const renderAppCard = (app: types.AppWithChainAndName) => {
+    const appId = getAppId(app.chain, app.appName)
     const isTrending = trendingAppIds.includes(appId)
     return (
       <AppCard
-        key={`${app.chain}-${app.app}`}
+        key={`${app.chain}-${app.appName}`}
         skaleNetwork={skaleNetwork}
         schainName={app.chain}
-        appName={app.app}
+        appName={app.appName}
         chainsMeta={chainsMeta}
         isTrending={isTrending}
       />
@@ -63,10 +63,22 @@ const NewApps: React.FC<NewAppsProps> = ({
     return <Carousel>{newApps.map(renderAppCard)}</Carousel>
   }
 
+  if (newApps.length === 0) {
+    return (
+      <SkPaper gray className="titleSection">
+        <div className={cls(cmn.mtop20, cmn.mbott20)}>
+          <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent)}>
+            No new apps match your current filters
+          </p>
+        </div>
+      </SkPaper>
+    )
+  }
+
   return (
     <Grid container spacing={2}>
       {newApps.map((app) => (
-        <Grid key={`${app.chain}-${app.app}`} item xs={12} sm={6} md={4} lg={4}>
+        <Grid key={`${app.chain}-${app.appName}`} item xs={12} sm={6} md={4} lg={4}>
           <Box className={cls('fl-centered dappCard')}>{renderAppCard(app)}</Box>
         </Grid>
       ))}

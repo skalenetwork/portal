@@ -81,3 +81,11 @@ export function filterAppsBySearchTerm(
       getChainAlias(chainsMeta, app.chain).toLowerCase().includes(st)
   )
 }
+
+export function getAppMeta(
+  chainsMeta: types.ChainsMetadataMap,
+  chain: string,
+  app: string
+): types.AppMetadata | undefined {
+  return chainsMeta[chain]?.apps?.[app]
+}
