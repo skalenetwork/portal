@@ -169,7 +169,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
         className="skMenu outlined"
         PaperProps={{
           style: {
-            maxHeight: '500pt',
+            maxHeight: 'calc(80vh - 100px)',
             width: buttonRef.current?.offsetWidth,
             borderRadius: '25px',
             margin: '10px 0'
@@ -177,6 +177,11 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
         }}
       >
         <div className={cls(cmn.padd10)}>
+          {isXs && (
+            <Button className={cls('btn fullW outlined', cmn.mbott10)} onClick={handleMenuClose}>
+              Close
+            </Button>
+          )}
           <SearchBar
             className={cls(cmn.mbott10)}
             searchTerm={searchTerm}
