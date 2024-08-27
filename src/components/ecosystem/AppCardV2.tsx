@@ -31,7 +31,7 @@ import { getChainShortAlias } from '../../core/chain'
 import { chainBg, getChainAlias } from '../../core/metadata'
 
 import CollapsibleDescription from '../CollapsibleDescription'
-import AppCategoriesChips from './CategoriesChips'
+import CategoriesChips from './CategoriesChips'
 import SocialButtons from './Socials'
 import { ChipTrending, ChipNew, ChipPreTge } from '../Chip'
 
@@ -41,7 +41,7 @@ export default function AppCard(props: {
   appName: string
   chainsMeta: types.ChainsMetadataMap
   transactions?: number
-  newApps?: types.AppWithTimestamp[]
+  newApps?: types.AppWithChainAndName[]
   isTrending?: boolean
   isNew?: boolean
 }) {
@@ -86,7 +86,7 @@ export default function AppCard(props: {
           {appMeta.tags?.includes('pretge') && <ChipPreTge />}
         </div>
         <CollapsibleDescription text={appDescription} />
-        <AppCategoriesChips categories={appMeta.categories} className={cls(cmn.mtop20)} />
+        <CategoriesChips categories={appMeta.categories} className={cls(cmn.mtop20)} />
       </Link>
       <SocialButtons
         social={appMeta.social}

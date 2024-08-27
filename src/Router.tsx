@@ -1,3 +1,25 @@
+/**
+ * @license
+ * SKALE portal
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+/**
+ * @file Router.tsx
+ * @copyright SKALE Labs 2024-Present
+ */
+
 import './App.scss'
 
 import { useState, useEffect } from 'react'
@@ -35,7 +57,7 @@ import App from './pages/App'
 import History from './pages/History'
 import Portfolio from './pages/Portfolio'
 import Admin from './pages/Admin'
-import Start from './pages/Start'
+import Start from './pages/Home'
 import Staking from './pages/Staking'
 import StakeValidator from './pages/StakeValidator'
 import StakeAmount from './pages/StakeAmount'
@@ -233,14 +255,7 @@ export default function Router() {
           <Routes>
             <Route
               index
-              element={
-                <Start
-                  isXs={isXs}
-                  skaleNetwork={mpc.config.skaleNetwork}
-                  loadData={loadData}
-                  chainsMeta={chainsMeta}
-                />
-              }
+              element={<Start skaleNetwork={mpc.config.skaleNetwork} chainsMeta={chainsMeta} />}
             />
             <Route path="bridge" element={<Bridge isXs={isXs} chainsMeta={chainsMeta} />} />
             <Route path="bridge">
