@@ -81,9 +81,7 @@ export default function AppCard(props: {
           <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri5)}>
             {getChainAlias(props.chainsMeta, props.schainName, props.appName)}
           </p>
-          {props.trending && props.trending !== -1 ? (
-            <ChipTrending trending={props.trending} />
-          ) : null}
+          {props.trending !== undefined && <ChipTrending />}
           {props.isNew && <ChipNew />}
           {appMeta.tags?.includes('pretge') && <ChipPreTge />}
         </div>

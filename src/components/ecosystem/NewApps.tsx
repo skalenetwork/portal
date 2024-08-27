@@ -41,12 +41,11 @@ const NewApps: React.FC<NewAppsProps> = ({
   chainsMeta,
   useCarousel = false
 }) => {
-  const { getTrendingApps, getAppId } = useLikedApps()
+  const { getTrendingApps, getAppId, getTrendingRank } = useLikedApps()
   const trendingAppIds = useMemo(() => getTrendingApps(), [getTrendingApps])
 
   const renderAppCard = (app: types.AppWithChainAndName) => {
     const appId = getAppId(app.chain, app.appName)
-    const trendingIndex = trendingAppIds.indexOf(appId)
     return (
       <AppCard
         key={`${app.chain}-${app.appName}`}
@@ -54,7 +53,7 @@ const NewApps: React.FC<NewAppsProps> = ({
         schainName={app.chain}
         appName={app.appName}
         chainsMeta={chainsMeta}
-        trending={trendingIndex + 1}
+        trending={getTrendingRank(trendingAppIds, appId)}
       />
     )
   }
