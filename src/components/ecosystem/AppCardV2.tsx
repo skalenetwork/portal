@@ -42,8 +42,8 @@ export default function AppCard(props: {
   chainsMeta: types.ChainsMetadataMap
   transactions?: number
   newApps?: types.AppWithChainAndName[]
-  isTrending?: boolean
   isNew?: boolean
+  trending?: number
 }) {
   const shortAlias = getChainShortAlias(props.chainsMeta, props.schainName)
   const url = `/ecosystem/${shortAlias}/${props.appName}`
@@ -81,7 +81,9 @@ export default function AppCard(props: {
           <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri5)}>
             {getChainAlias(props.chainsMeta, props.schainName, props.appName)}
           </p>
-          {props.isTrending && <ChipTrending />}
+          {props.trending && props.trending !== -1 ? (
+            <ChipTrending trending={props.trending} />
+          ) : null}
           {props.isNew && <ChipNew />}
           {appMeta.tags?.includes('pretge') && <ChipPreTge />}
         </div>

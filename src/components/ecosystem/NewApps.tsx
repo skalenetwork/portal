@@ -46,7 +46,7 @@ const NewApps: React.FC<NewAppsProps> = ({
 
   const renderAppCard = (app: types.AppWithChainAndName) => {
     const appId = getAppId(app.chain, app.appName)
-    const isTrending = trendingAppIds.includes(appId)
+    const trendingIndex = trendingAppIds.indexOf(appId)
     return (
       <AppCard
         key={`${app.chain}-${app.appName}`}
@@ -54,7 +54,7 @@ const NewApps: React.FC<NewAppsProps> = ({
         schainName={app.chain}
         appName={app.appName}
         chainsMeta={chainsMeta}
-        isTrending={isTrending}
+        trending={trendingIndex + 1}
       />
     )
   }

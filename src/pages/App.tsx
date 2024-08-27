@@ -124,6 +124,7 @@ export default function App(props: {
   const likesCount = appLikes[appId] || 0
 
   const trendingAppIds = useMemo(() => getTrendingApps(), [getTrendingApps])
+  const trendingIndex = trendingAppIds.indexOf(appId)
   const isNew = isNewApp({ chain, app }, newApps)
 
   const handleToggleLike = async () => {
@@ -234,7 +235,9 @@ export default function App(props: {
                 <div className={cls(cmn.flex, cmn.flexcv)}>
                   <h2 className={cls(cmn.nom, cmn.p1)}>{appAlias}</h2>
                   <div className={cls(cmn.flex, cmn.mleft10)}>
-                    {trendingAppIds.includes(appId) && <ChipTrending />}
+                    {trendingIndex && trendingIndex !== -1 ? (
+                      <ChipTrending trending={trendingIndex + 1} />
+                    ) : null}
                     {isNew && <ChipNew />}
                     {appMeta.tags?.includes('pretge') && <ChipPreTge />}
                   </div>

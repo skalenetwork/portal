@@ -41,14 +41,14 @@ export default function FavoriteApps(props: {
   isSignedIn: boolean
   error: string | null
 }) {
-  const { getTrendingApps } = useLikedApps()
+  const { getTrendingApps, getAppId } = useLikedApps()
   const trendingAppIds = useMemo(() => getTrendingApps(), [getTrendingApps])
 
   if (!props.isSignedIn) return <ConnectWallet customText="Sign in to see your favorite dApps" />
   if (props.error) return <div>Error: {props.error}</div>
 
   const appCards = props.filteredApps.map((app) => {
-    const isTrending = trendingAppIds.includes(`${app.chain}-${app.appName}`)
+    const trendingIndex = trendingAppIds.indexOf(getAppId(app.chain, app.appName))
     const isNew = isNewApp({ chain: app.chain, app: app.appName }, props.newApps)
     return (
       <Grid
@@ -67,7 +67,7 @@ export default function FavoriteApps(props: {
           skaleNetwork={props.skaleNetwork}
           chainsMeta={props.chainsMeta}
           isNew={isNew}
-          isTrending={isTrending}
+          trending={trendingIndex + 1}
         />
       </Grid>
     )
