@@ -23,7 +23,7 @@
 
 import React from 'react'
 import { cmn, cls, styles } from '@skalenetwork/metaport'
-import { Chip, Typography, Box } from '@mui/material'
+import { Chip, Box } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { categories } from '../../core/ecosystem/categories'
 
@@ -104,17 +104,16 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
           />
         )
       })}
-      <Typography className={cls(cmn.p, cmn.p4, cmn.pPrim, cmn.mleft10, cmn.mri10)}>
+      <p className={cls(cmn.p, cmn.p4, cmn.pPrim, cmn.mleft10, cmn.mri10)}>
         {filteredAppsCount} project{filteredAppsCount !== 1 ? 's' : ''}
-      </Typography>
-      <Typography
-        variant="body2"
+      </p>
+      <p
         className={cls(cmn.p, cmn.p500, cmn.p4, cmn.nop, cmn.nom, cmn.pSec, cmn.mleft20)}
         style={{ cursor: 'pointer' }}
         onClick={clearAll}
       >
         Clear all
-      </Typography>
+      </p>
     </Box>
   )
 }

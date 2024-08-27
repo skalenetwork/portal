@@ -1,7 +1,7 @@
 import React from 'react'
 import { type types } from '@/core'
 import AppCard from './AppCardV2'
-import { Box, Grid, Typography } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
 import Carousel from '../Carousel'
 import { isNewApp } from '../../core/ecosystem/utils'
