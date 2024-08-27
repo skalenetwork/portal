@@ -21,21 +21,21 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import React, { useMemo, useState } from 'react'
+import React, { useMemo } from 'react'
 import { Box } from '@mui/material'
 import { type types } from '@/core'
 import { categories as categoriesData } from '../../core/ecosystem/categories'
 import Chip from '../Chip'
 import { CategoryIcons } from './CategoryIcons'
+import { cls } from '@skalenetwork/metaport'
 
 interface CategoriesChipsProps {
   categories: string[] | types.CategoriesMap
+  all?: boolean
   className?: string
 }
 
-const CategoriesChips: React.FC<CategoriesChipsProps> = ({ categories, className }) => {
-  const [expanded, setExpanded] = useState(false)
-
+const CategoriesChips: React.FC<CategoriesChipsProps> = ({ categories, all, className }) => {
   const chips = useMemo(() => {
     if (!categories) return []
 
@@ -81,18 +81,13 @@ const CategoriesChips: React.FC<CategoriesChipsProps> = ({ categories, className
 
   if (chips.length === 0) return null
 
-  const visibleChips = expanded ? chips : chips.slice(0, 2)
+  const visibleChips = all ? chips : chips.slice(0, 2)
   const remainingChips = chips.length - 2
 
   return (
-    <Box className={`chipContainer ${className}`}>
+    <Box className={cls(`chipContainer ${className}`, ['flex-w', all])}>
       {visibleChips}
-      {remainingChips > 0 && (
-        <Chip
-          label={expanded ? 'Hide' : `+${remainingChips}`}
-          onClick={() => setExpanded(!expanded)}
-        />
-      )}
+      {remainingChips > 0 && !all && <Chip label={`+${remainingChips}`} />}
     </Box>
   )
 }

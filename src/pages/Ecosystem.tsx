@@ -71,6 +71,7 @@ export default function Ecosystem(props: {
   const [filteredApps, setFilteredApps] = useState<types.AppWithChainAndName[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [activeTab, setActiveTab] = useState(0)
+  const [loaded, setLoaded] = useState<boolean>(false)
 
   const newApps = useMemo(
     () => getRecentApps(props.chainsMeta, MAX_APPS_DEFAULT),
@@ -91,6 +92,7 @@ export default function Ecosystem(props: {
       props.chainsMeta
     )
     setFilteredApps(filtered)
+    setLoaded(true)
   }, [allApps, checkedItems, searchTerm])
 
   const handleSetCheckedItems = (newCheckedItems: string[]) => {
@@ -193,6 +195,7 @@ export default function Ecosystem(props: {
               skaleNetwork={props.mpc.config.skaleNetwork}
               chainsMeta={props.chainsMeta}
               newApps={newApps}
+              loaded={loaded}
             />
           )}
           {activeTab === 1 && (

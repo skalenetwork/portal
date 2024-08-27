@@ -65,7 +65,7 @@ import { chainBg, getChainAlias } from '../core/metadata'
 import { addressUrl, getExplorerUrl, getTotalAppCounters } from '../core/explorer'
 import { MAINNET_CHAIN_LOGOS, MAX_APPS_DEFAULT, OFFCHAIN_APP } from '../core/constants'
 import SocialButtons from '../components/ecosystem/Socials'
-import AppCategoriesChips from '../components/ecosystem/CategoriesChips'
+import CategoriesChips from '../components/ecosystem/CategoriesChips'
 import { useLikedApps } from '../LikedAppsContext'
 import { useAuth } from '../AuthContext'
 import ErrorTile from '../components/ErrorTile'
@@ -217,19 +217,19 @@ export default function App(props: {
                 </div>
               </div>
               <div className={cls('app-info', cmn.flexg)}>
-                <SkStack>
+                <div className={cls([cmn.flex, !props.isXs])}>
                   <div className={cls(cmn.flexg, cmn.mbott10)}>
-                    <AppCategoriesChips categories={appMeta.categories} />
+                    <CategoriesChips categories={appMeta.categories} all />
                   </div>
                   <Button
-                    className={cls(cmn.mbott10, 'btn btnSm')}
+                    className={cls(cmn.mbott10, [cmn.mtop10, props.isXs], 'btn btnSm favsBtn')}
                     variant="contained"
                     startIcon={isLiked ? <FavoriteRoundedIcon /> : <FavoriteBorderOutlinedIcon />}
                     onClick={handleToggleLike}
                   >
                     {isLiked ? 'Favorite' : 'Add to favorites'}
                   </Button>
-                </SkStack>
+                </div>
 
                 <div className={cls(cmn.flex, cmn.flexcv)}>
                   <h2 className={cls(cmn.nom, cmn.p1)}>{appAlias}</h2>

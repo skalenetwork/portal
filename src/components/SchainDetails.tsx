@@ -190,7 +190,7 @@ export default function SchainDetails(props: {
             <div className={cls('app-info', cmn.flexg)}>
               <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10)}>
                 <div className={cmn.flexg}>
-                  <CategoriesChips categories={chainMeta?.categories} />
+                  <CategoriesChips categories={chainMeta?.categories} all />
                 </div>
               </div>
 

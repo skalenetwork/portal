@@ -22,23 +22,31 @@
  */
 
 import React, { useMemo } from 'react'
+import { cls, cmn } from '@skalenetwork/metaport'
 import { type types } from '@/core'
+
 import { useLikedApps } from '../../LikedAppsContext'
 import AppCardV2 from './AppCardV2'
 import { Grid } from '@mui/material'
 import { isNewApp } from '../../core/ecosystem/utils'
+import Loader from '../Loader'
 
 interface AllAppsProps {
   skaleNetwork: types.SkaleNetwork
   chainsMeta: types.ChainsMetadataMap
   apps: types.AppWithChainAndName[]
   newApps: types.AppWithTimestamp[]
+  loaded: boolean
 }
 
-const AllApps: React.FC<AllAppsProps> = ({ skaleNetwork, chainsMeta, apps, newApps }) => {
+const AllApps: React.FC<AllAppsProps> = ({ skaleNetwork, chainsMeta, apps, newApps, loaded }) => {
   const { getTrendingApps, getAppId } = useLikedApps()
 
   const trendingAppIds = useMemo(() => getTrendingApps(), [getTrendingApps])
+
+  if (!loaded) return <Loader text="Loading apps" />
+  if (apps.length === 0)
+    return <h3 className={cls(cmn.pSec, cmn.pCent, cmn.mtop20, cmn.ptop20)}>No apps found</h3>
 
   return (
     <Grid container spacing={2}>
