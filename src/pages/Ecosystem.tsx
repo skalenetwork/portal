@@ -22,18 +22,19 @@
 
 import React, { useState, useEffect, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
-import { Container, Stack, Box, Tab, Tabs } from '@mui/material'
+import { Container, Stack, Box, Tab, Tabs, Button } from '@mui/material'
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import TimelineRoundedIcon from '@mui/icons-material/TimelineRounded'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded'
 
 import { type types } from '@/core'
 import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
 import { META_TAGS } from '../core/meta'
 import { filterAppsByCategory, filterAppsBySearchTerm } from '../core/ecosystem/apps'
 import { useUrlParams } from '../core/ecosystem/urlParamsUtil'
-import { SKALE_SOCIAL_LINKS } from '../core/constants'
+import { SKALE_SOCIAL_LINKS, SUBMIT_PROJECT_URL } from '../core/constants'
 import { useApps } from '../useApps'
 
 import CategoryDisplay from '../components/ecosystem/Categories'
@@ -237,6 +238,22 @@ export default function Ecosystem(props: {
           )}
         </Box>
       </Stack>
+      <div className={cls(cmn.flex, cmn.mtop20, cmn.mbott20)}>
+        <div className={cls(cmn.flexg)}></div>
+        <div>
+          <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">
+            <Button
+              size="medium"
+              variant="contained"
+              className={cls('btn', cmn.mtop20, cmn.mbott20, cmn.pCent)}
+              startIcon={<AddCircleOutlineRoundedIcon />}
+            >
+              Submit Your Project
+            </Button>
+          </a>
+        </div>
+        <div className={cls(cmn.flexg)}></div>
+      </div>
     </Container>
   )
 }
