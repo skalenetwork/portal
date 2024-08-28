@@ -23,6 +23,8 @@
 import './App.scss'
 
 import { useState, useEffect } from 'react'
+import { WalletClient } from 'viem'
+
 import { Helmet } from 'react-helmet'
 import { useLocation, Routes, Route, useSearchParams } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
@@ -132,7 +134,7 @@ export default function Router() {
     const { chainId } = await mpc.mainnet().provider.getNetwork()
     await enforceNetwork(
       chainId,
-      walletClient,
+      walletClient as WalletClient,
       switchChainAsync!,
       mpc.config.skaleNetwork,
       MAINNET_CHAIN_NAME

@@ -39,7 +39,7 @@ interface AllAppsProps {
 }
 
 const AllApps: React.FC<AllAppsProps> = ({ skaleNetwork, chainsMeta, apps, newApps, loaded }) => {
-  const { getTrendingApps, getAppId } = useLikedApps()
+  const { getTrendingApps, getAppId, getTrendingRank } = useLikedApps()
 
   const trendingAppIds = useMemo(() => getTrendingApps(), [getTrendingApps])
 
@@ -59,7 +59,6 @@ const AllApps: React.FC<AllAppsProps> = ({ skaleNetwork, chainsMeta, apps, newAp
     <Grid container spacing={2}>
       {apps.map((app: types.AppWithChainAndName) => {
         const appId = getAppId(app.chain, app.appName)
-        const isTrending = trendingAppIds.includes(appId)
         const isNew = isNewApp({ chain: app.chain, app: app.appName }, newApps)
         return (
           <Grid key={appId} item xs={12} sm={6} md={4} lg={4}>
@@ -68,7 +67,7 @@ const AllApps: React.FC<AllAppsProps> = ({ skaleNetwork, chainsMeta, apps, newAp
               schainName={app.chain}
               appName={app.appName}
               chainsMeta={chainsMeta}
-              isTrending={isTrending}
+              trending={getTrendingRank(trendingAppIds, appId)}
               isNew={isNew}
             />
           </Grid>

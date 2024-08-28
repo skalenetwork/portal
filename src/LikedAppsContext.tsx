@@ -39,6 +39,7 @@ interface LikedAppsContextType {
   getAppId: (chainName: string, appName: string) => string
   getAppInfoById: (appId: string) => types.IAppId
   getTrendingApps: () => string[]
+  getTrendingRank: (trendingAppIds: string[], appId: string) => number | undefined
 }
 
 const LikedAppsContext = createContext<LikedAppsContextType | undefined>(undefined)
@@ -139,6 +140,11 @@ export const LikedAppsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
       .map(([appId]) => appId)
   }, [appLikes])
 
+  const getTrendingRank = (trendingAppIds: string[], appId: string): number | undefined => {
+    const idx = trendingAppIds.indexOf(appId)
+    return idx === -1 ? undefined : idx + 1
+  }
+
   return (
     <LikedAppsContext.Provider
       value={{
@@ -150,7 +156,8 @@ export const LikedAppsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         refreshLikedApps: fetchLikedApps,
         getAppId,
         getAppInfoById,
-        getTrendingApps
+        getTrendingApps,
+        getTrendingRank
       }}
     >
       {children}
