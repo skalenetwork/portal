@@ -22,6 +22,7 @@
  */
 
 import { Contract } from 'ethers'
+import { WalletClient } from 'viem'
 import { useState, useEffect } from 'react'
 
 import {
@@ -85,7 +86,7 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
       const { chainId } = await props.mpc.provider(props.chain).getNetwork()
       await enforceNetwork(
         chainId,
-        walletClient,
+        walletClient as WalletClient,
         switchChainAsync!,
         props.mpc.config.skaleNetwork,
         props.chain

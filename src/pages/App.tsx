@@ -80,8 +80,15 @@ export default function App(props: {
   chainsMeta: types.ChainsMetadataMap
 }) {
   let { chain, app } = useParams()
-  const { likedApps, appLikes, toggleLikedApp, getAppId, getTrendingApps, refreshLikedApps } =
-    useLikedApps()
+  const {
+    likedApps,
+    appLikes,
+    toggleLikedApp,
+    getAppId,
+    getTrendingApps,
+    refreshLikedApps,
+    getTrendingRank
+  } = useLikedApps()
   const { isSignedIn, handleSignIn } = useAuth()
 
   const { address } = useWagmiAccount()
@@ -124,6 +131,7 @@ export default function App(props: {
   const likesCount = appLikes[appId] || 0
 
   const trendingAppIds = useMemo(() => getTrendingApps(), [getTrendingApps])
+  const trendingIndex = getTrendingRank(trendingAppIds, appId)
   const isNew = isNewApp({ chain, app }, newApps)
 
   const handleToggleLike = async () => {
@@ -234,7 +242,7 @@ export default function App(props: {
                 <div className={cls(cmn.flex, cmn.flexcv)}>
                   <h2 className={cls(cmn.nom, cmn.p1)}>{appAlias}</h2>
                   <div className={cls(cmn.flex, cmn.mleft10)}>
-                    {trendingAppIds.includes(appId) && <ChipTrending />}
+                    {trendingIndex !== undefined && <ChipTrending trending={trendingIndex} />}
                     {isNew && <ChipNew />}
                     {appMeta.tags?.includes('pretge') && <ChipPreTge />}
                   </div>
