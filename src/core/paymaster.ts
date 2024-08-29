@@ -16,12 +16,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 /**
- * @file constants.ts
+ * @file paymaster.ts
  * @copyright SKALE Labs 2022-Present
  */
 
 import { Contract, id, type InterfaceAbi } from 'ethers'
-import { type MetaportCore, type interfaces } from '@skalenetwork/metaport'
+import { type MetaportCore } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 import PAYMASTER_INFO from '../data/paymaster'
 
 export interface PaymasterInfo {
@@ -53,15 +54,15 @@ export function divideBigInts(a: bigint, b: bigint): number {
   return Number((a * 10000n) / b) / 10000
 }
 
-export function getPaymasterChain(skaleNetwork: interfaces.SkaleNetwork): string {
+export function getPaymasterChain(skaleNetwork: types.SkaleNetwork): string {
   return PAYMASTER_INFO.networks[skaleNetwork].chain
 }
 
-export function getPaymasterAddress(skaleNetwork: interfaces.SkaleNetwork): string {
+export function getPaymasterAddress(skaleNetwork: types.SkaleNetwork): string {
   return PAYMASTER_INFO.networks[skaleNetwork].address
 }
 
-export function getPaymasterLaunchTs(skaleNetwork: interfaces.SkaleNetwork): bigint {
+export function getPaymasterLaunchTs(skaleNetwork: types.SkaleNetwork): bigint {
   return BigInt(PAYMASTER_INFO.networks[skaleNetwork].launchTs)
 }
 
@@ -80,7 +81,7 @@ export function initPaymaster(mpc: MetaportCore): Contract {
 export async function getPaymasterInfo(
   paymaster: Contract,
   targetChainName: string,
-  skaleNetwork: interfaces.SkaleNetwork
+  skaleNetwork: types.SkaleNetwork
 ): Promise<PaymasterInfo> {
   const rawData = await Promise.all([
     paymaster.maxReplenishmentPeriod(),

@@ -88,6 +88,7 @@ export default function RetrieveRewardModal(props: {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        className="skPopup"
       >
         <Box
           sx={{

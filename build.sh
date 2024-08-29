@@ -35,5 +35,9 @@ node generate-imports.cjs ./src/assets/validators
 
 bash generate_sitemap.sh
 
+echo "Building packages..."
+bun run build:packages
+bun i
+
 echo "Building..."
-bun run build
+bun run build:portal

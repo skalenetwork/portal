@@ -24,6 +24,7 @@ import debug from 'debug'
 import { type Contract, type Signer } from 'ethers'
 import { skaleContracts, type Instance } from '@skalenetwork/skale-contracts-ethers-v6'
 import { type MetaportCore, type interfaces } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
 import { initSkaleToken } from './delegation'
 import { type ContractType, DelegationType, type ISkaleContractsMap } from './interfaces'
@@ -58,7 +59,7 @@ export async function initActionContract(
   signer: Signer,
   delegationType: DelegationType,
   beneficiary: interfaces.AddressType,
-  skaleNetwork: interfaces.SkaleNetwork,
+  skaleNetwork: types.SkaleNetwork,
   contractType: ContractType
 ): Promise<Contract> {
   log('initActionContract:', skaleNetwork, beneficiary, contractType, delegationType)
@@ -76,7 +77,7 @@ export async function initActionContract(
   return connectedContract(contract, signer)
 }
 
-function getInstanceTag(skaleNetwork: interfaces.SkaleNetwork, projectName: PROJECT_TYPE): string {
+function getInstanceTag(skaleNetwork: types.SkaleNetwork, projectName: PROJECT_TYPE): string {
   if (CONTRACTS_META[skaleNetwork].auto) {
     if (projectName === 'grants') return 'grants'
     return 'production'
@@ -90,7 +91,7 @@ function connectedContract(contract: Contract, signer: Signer): Contract {
 
 async function getEscrowContract(
   network: any,
-  skaleNetwork: interfaces.SkaleNetwork,
+  skaleNetwork: types.SkaleNetwork,
   delegationType: DelegationType,
   beneficiary: interfaces.AddressType
 ): Promise<Contract> {
@@ -105,7 +106,7 @@ async function getEscrowContract(
 
 async function getManagerContract(
   network: any,
-  skaleNetwork: interfaces.SkaleNetwork,
+  skaleNetwork: types.SkaleNetwork,
   name: string
 ): Promise<Contract> {
   const managerProject = await network.getProject('skale-manager')
@@ -115,7 +116,7 @@ async function getManagerContract(
 
 async function getInstance(
   project: any,
-  skaleNetwork: interfaces.SkaleNetwork,
+  skaleNetwork: types.SkaleNetwork,
   tag: PROJECT_TYPE
 ): Promise<Instance> {
   return project.getInstance(getInstanceTag(skaleNetwork, tag))

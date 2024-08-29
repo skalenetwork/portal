@@ -258,7 +258,11 @@ export default function Staking(props: {
           />
         </Collapse>
         <Collapse in={props.address === undefined}>
-          <Headline text="Account info" icon={<AccountCircleRoundedIcon />} />
+          <Headline
+            text="Account info"
+            icon={<AccountCircleRoundedIcon className={cls(styles.chainIconxs)} />}
+            size="small"
+          />
           <ConnectWallet tile className={cls(cmn.flexg, cmn.mtop10)} />
         </Collapse>
       </SkPaper>
@@ -310,7 +314,11 @@ export default function Staking(props: {
           />
         </Collapse>
         <Collapse in={props.address === undefined}>
-          <Headline text="Delegations" icon={<AllInboxRoundedIcon />} />
+          <Headline
+            text="Delegations"
+            icon={<AllInboxRoundedIcon className={cls(styles.chainIconxs)} />}
+            size="small"
+          />
           <div className={cls(cmn.mtop20)}>
             <PieChartRoundedIcon className={cls(cmn.pSec, styles.chainIconmd, cmn.fullWidth)} />
             <h5 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.pCent, cmn.mtop5, cmn.mbott20)}>

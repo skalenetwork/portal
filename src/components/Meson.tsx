@@ -21,19 +21,11 @@
  */
 
 import { useState } from 'react'
+import { cmn, cls, styles, SkPaper, getChainAlias, useWagmiAccount } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
 import { Collapse, Grid } from '@mui/material'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
-import {
-  cmn,
-  cls,
-  styles,
-  interfaces,
-  SkPaper,
-  getChainAlias,
-  CHAINS_META,
-  useWagmiAccount
-} from '@skalenetwork/metaport'
 
 import SkStack from './SkStack'
 import ChainLogo from './ChainLogo'
@@ -44,20 +36,20 @@ import ConnectWallet from './ConnectWallet'
 const SUPPORTED_CHAINS = ['elated-tan-skat', 'honorable-steel-rasalhague', 'green-giddy-denebola']
 
 export default function Meson(props: {
-  skaleNetwork: interfaces.SkaleNetwork
+  skaleNetwork: types.SkaleNetwork
+  chainsMeta: types.ChainsMetadataMap
   isXs?: boolean
   className?: string
 }) {
   const [show, setShow] = useState<boolean>(false)
-  const chainsMeta: interfaces.ChainsMetadataMap = CHAINS_META[props.skaleNetwork]
   const { address } = useWagmiAccount()
 
-  function getChainShortAlias(meta: interfaces.ChainsMetadataMap, name: string): string {
+  function getChainShortAlias(meta: types.ChainsMetadataMap, name: string): string {
     return meta[name]?.shortAlias !== undefined ? meta[name].shortAlias! : name
   }
 
   function openMeson(chain: string) {
-    const shortAlias = getChainShortAlias(chainsMeta, chain)
+    const shortAlias = getChainShortAlias(props.chainsMeta, chain)
     const link = `https://meson.to/skale-${shortAlias}/${address}`
     window.open(link, 'meson.to', 'width=375,height=640')
   }

@@ -1,6 +1,30 @@
+/**
+ * @license
+ * SKALE portal
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+/**
+ * @file Router.tsx
+ * @copyright SKALE Labs 2024-Present
+ */
+
 import './App.scss'
 
 import { useState, useEffect } from 'react'
+import { WalletClient } from 'viem'
+
 import { Helmet } from 'react-helmet'
 import { useLocation, Routes, Route, useSearchParams } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
@@ -18,10 +42,11 @@ import {
   useWagmiSwitchNetwork,
   walletClientToSigner,
   enforceNetwork,
-  type interfaces,
   cls,
   cmn
 } from '@skalenetwork/metaport'
+
+import { type types } from '@/core'
 
 import Bridge from './pages/Bridge'
 import Faq from './pages/Faq'
@@ -29,12 +54,12 @@ import Terms from './pages/Terms'
 import Chains from './pages/Chains'
 import Chain from './pages/Chain'
 import Stats from './pages/Stats'
-import Apps from './pages/Apps'
+import Ecosystem from './pages/Ecosystem'
 import App from './pages/App'
 import History from './pages/History'
 import Portfolio from './pages/Portfolio'
 import Admin from './pages/Admin'
-import Start from './pages/Start'
+import Start from './pages/Home'
 import Staking from './pages/Staking'
 import StakeValidator from './pages/StakeValidator'
 import StakeAmount from './pages/StakeAmount'
@@ -53,8 +78,7 @@ import { getValidators } from './core/delegation/validators'
 import { initContracts } from './core/contracts'
 import { getStakingInfoMap } from './core/delegation/staking'
 import { formatSChains } from './core/chain'
-import { IMetrics, ISChain, IStats, IAppId } from './core/types'
-import { getTopAppsByTransactions } from './core/explorer'
+
 import { loadMeta } from './core/metadata'
 
 export default function Router() {
@@ -64,11 +88,10 @@ export default function Router() {
   const theme = useTheme()
   const isXs = useMediaQuery(theme.breakpoints.down('sm'))
 
-  const [chainsMeta, setChainsMeta] = useState<interfaces.ChainsMetadataMap | null>(null)
-  const [schains, setSchains] = useState<ISChain[]>([])
-  const [metrics, setMetrics] = useState<IMetrics | null>(null)
-  const [topApps, setTopApps] = useState<IAppId[] | null>(null)
-  const [stats, setStats] = useState<IStats | null>(null)
+  const [chainsMeta, setChainsMeta] = useState<types.ChainsMetadataMap | null>(null)
+  const [schains, setSchains] = useState<types.ISChain[]>([])
+  const [metrics, setMetrics] = useState<types.IMetrics | null>(null)
+  const [stats, setStats] = useState<types.IStats | null>(null)
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false)
   const [stakingTermsAccepted, setStakingTermsAccepted] = useState<boolean>(false)
 
@@ -77,7 +100,7 @@ export default function Router() {
   const [validators, setValidators] = useState<IValidator[]>([])
   const [si, setSi] = useState<StakingInfoMap>({ 0: null, 1: null, 2: null })
 
-  const [customAddress, setCustomAddress] = useState<interfaces.AddressType | undefined>(undefined)
+  const [customAddress, setCustomAddress] = useState<types.AddressType | undefined>(undefined)
 
   const mpc = useMetaportStore((state: MetaportState) => state.mpc)
   const transfersHistory = useMetaportStore((state) => state.transfersHistory)
@@ -85,7 +108,7 @@ export default function Router() {
 
   const { address } = useWagmiAccount()
   const { data: walletClient } = useWagmiWalletClient()
-  const { switchNetworkAsync } = useWagmiSwitchNetwork()
+  const { switchChainAsync } = useWagmiSwitchNetwork()
 
   const [searchParams, _] = useSearchParams()
   const endpoint = PROXY_ENDPOINTS[mpc.config.skaleNetwork]
@@ -98,7 +121,7 @@ export default function Router() {
   }, [])
 
   useEffect(() => {
-    setCustomAddress((searchParams.get('_customAddress') as interfaces.AddressType) ?? undefined)
+    setCustomAddress((searchParams.get('_customAddress') as types.AddressType) ?? undefined)
   }, [location])
 
   useEffect(() => {
@@ -111,8 +134,8 @@ export default function Router() {
     const { chainId } = await mpc.mainnet().provider.getNetwork()
     await enforceNetwork(
       chainId,
-      walletClient,
-      switchNetworkAsync!,
+      walletClient as WalletClient,
+      switchChainAsync!,
       mpc.config.skaleNetwork,
       MAINNET_CHAIN_NAME
     )
@@ -145,7 +168,6 @@ export default function Router() {
       const response = await fetch(`https://${endpoint}/files/metrics.json`)
       const metricsJson = await response.json()
       setMetrics(metricsJson)
-      setTopApps(getTopAppsByTransactions(metricsJson.metrics, 10))
     } catch (e) {
       console.log('Failed to load metrics')
       console.error(e)
@@ -235,17 +257,9 @@ export default function Router() {
           <Routes>
             <Route
               index
-              element={
-                <Start
-                  isXs={isXs}
-                  skaleNetwork={mpc.config.skaleNetwork}
-                  topApps={topApps}
-                  loadData={loadData}
-                  chainsMeta={chainsMeta}
-                />
-              }
+              element={<Start skaleNetwork={mpc.config.skaleNetwork} chainsMeta={chainsMeta} />}
             />
-            <Route path="bridge" element={<Bridge isXs={isXs} />} />
+            <Route path="bridge" element={<Bridge isXs={isXs} chainsMeta={chainsMeta} />} />
             <Route path="bridge">
               <Route path="history" element={<History />} />
             </Route>
@@ -278,6 +292,12 @@ export default function Router() {
                   />
                 }
               />
+            </Route>
+            <Route
+              path="ecosystem"
+              element={<Ecosystem isXs={isXs} mpc={mpc} chainsMeta={chainsMeta} />}
+            />
+            <Route path="ecosystem">
               <Route
                 path=":chain/:app"
                 element={
@@ -291,7 +311,6 @@ export default function Router() {
                 }
               />
             </Route>
-            <Route path="ecosystem" element={<Apps mpc={mpc} chainsMeta={chainsMeta} />} />
             <Route path="onramp" element={<Onramp mpc={mpc} />} />
             <Route path="stats" element={<Stats />} />
             <Route path="other">

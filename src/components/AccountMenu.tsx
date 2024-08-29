@@ -22,7 +22,6 @@
  */
 
 import { useState, type MouseEvent } from 'react'
-import { Link } from 'react-router-dom'
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 
 import Box from '@mui/material/Box'
@@ -32,14 +31,19 @@ import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'
 
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
-import HistoryIcon from '@mui/icons-material/History'
 import SignalCellularAltOutlinedIcon from '@mui/icons-material/SignalCellularAltOutlined'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
+import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined'
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'
+import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 
 import { cls, styles, cmn, RainbowConnectButton } from '@skalenetwork/metaport'
 
+import { useAuth } from '../AuthContext'
+
 export default function AccountMenu(props: any) {
+  const { isSignedIn, handleSignIn, handleSignOut } = useAuth()
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const handleClick = (event: MouseEvent<HTMLElement>) => {
@@ -76,13 +80,32 @@ export default function AccountMenu(props: any) {
             </div>
           </Tooltip>
         ) : (
-          <Tooltip arrow title="Account info">
+          <Tooltip
+            arrow
+            title={isSignedIn ? 'Conneced and signed-in' : 'Wallet connect, signed-out'}
+          >
             <Button
               onClick={handleClick}
               className={cls('mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex)}
             >
-              <div className={cls(cmn.mri10, cmn.flexcv)} style={{ height: '20px' }}>
+              <div
+                className={cls(cmn.mri5, cmn.flexcv)}
+                style={{ height: '20px', position: 'relative' }}
+              >
                 <Jazzicon diameter={20} seed={jsNumberForAddress(props.address)} />
+                <div className={cls('icon-overlay', cmn.flex, cmn.flexcv)}>
+                  {isSignedIn ? (
+                    <FiberManualRecordRoundedIcon
+                      color="success"
+                      className={cls(styles.chainIconxs)}
+                    />
+                  ) : (
+                    <FiberManualRecordRoundedIcon
+                      color="warning"
+                      className={cls(styles.chainIconxs)}
+                    />
+                  )}
+                </div>
               </div>
               {props.address.substring(0, 5) +
                 '...' +
@@ -141,13 +164,8 @@ export default function AccountMenu(props: any) {
             )
           }}
         </RainbowConnectButton.Custom>
-        <Link to="/bridge/history" className="undec fullWidth">
-          <MenuItem onClick={handleClose}>
-            <HistoryIcon className={cmn.mri10} /> Transfers history
-          </MenuItem>
-        </Link>
         <a
-          className="undec fullWidth"
+          className="undec fullW"
           target="_blank"
           href={'https://etherscan.io/address/' + props.address}
           rel="noreferrer"
@@ -162,6 +180,25 @@ export default function AccountMenu(props: any) {
             </div>
           </MenuItem>
         </a>
+        <MenuItem
+          onClick={() => {
+            if (isSignedIn) {
+              handleSignOut()
+            } else {
+              handleSignIn()
+            }
+            handleClose()
+          }}
+        >
+          <div className={cmn.flex}>
+            {isSignedIn ? (
+              <LogoutOutlinedIcon className={cmn.mri10} />
+            ) : (
+              <LoginOutlinedIcon className={cmn.mri10} />
+            )}
+          </div>
+          <div className={cls(cmn.flex, cmn.flexg)}>Sign {isSignedIn ? 'out' : 'in'}</div>
+        </MenuItem>
       </Menu>
     </div>
   )

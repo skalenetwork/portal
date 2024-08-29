@@ -27,9 +27,14 @@ import { cls, cmn } from '@skalenetwork/metaport'
 interface TruncateTextProps {
   text: string
   lines?: number
+  expandable?: boolean
 }
 
-const CollapsibleDescription: React.FC<TruncateTextProps> = ({ text, lines = 2 }) => {
+const CollapsibleDescription: React.FC<TruncateTextProps> = ({
+  text,
+  lines = 2,
+  expandable = false
+}) => {
   const [isExpanded, setIsExpanded] = useState(false)
   const [isTruncated, setIsTruncated] = useState(false)
   const textRef = useRef<HTMLParagraphElement>(null)
@@ -70,7 +75,7 @@ const CollapsibleDescription: React.FC<TruncateTextProps> = ({ text, lines = 2 }
       >
         {text}
       </p>
-      {isTruncated && (
+      {isTruncated && expandable && (
         <p className={cls(cmn.mtop5, cmn.p, cmn.p3, 'pointer')} onClick={toggleExpansion}>
           Show {isExpanded ? 'less' : 'more'}
         </p>

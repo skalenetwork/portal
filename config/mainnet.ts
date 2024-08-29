@@ -3,7 +3,9 @@ import { type interfaces } from '@skalenetwork/metaport'
 export const METAPORT_CONFIG: interfaces.MetaportConfig = {
   theme: {
     mode: 'dark',
-    vibrant: true
+    vibrant: true,
+    primary: '#93B8EC',
+    background: '#000000',
   },
   mainnetEndpoint: 'https://cloudflare-eth.com/',
   skaleNetwork: "mainnet",
@@ -98,6 +100,26 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       name: "PAX Gold",
       symbol: "PAXG",
       iconUrl: "https://assets.coingecko.com/coins/images/9519/standard/paxgold.png"
+    },
+    link: {
+      name: "ChainLink Token",
+      symbol: "LINK"
+    },
+    pepe: {
+      name: "Pepe",
+      symbol: "PEPE",
+      iconUrl: "https://assets.coingecko.com/coins/images/29850/standard/pepe-token.jpeg"
+    },
+    cgt: {
+      name: "Curio Gas Token",
+      symbol: "CGT",
+      iconUrl: "https://assets.coingecko.com/coins/images/37476/standard/Screenshot_2024-05-04_004346.png"
+    },
+    wct1: {
+      name: "Wrapped Car Token 1",
+      symbol: "wCT1",
+      iconUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/12648.png",
+      decimals: "2"
     }
   },
   "connections": {
@@ -108,6 +130,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             "elated-tan-skat": {},
             "adorable-quaint-bellatrix": {},
             "honorable-steel-rasalhague": {
+              hub: "elated-tan-skat"
+            },
+            "green-giddy-denebola": {
               hub: "elated-tan-skat"
             }
           }
@@ -167,6 +192,30 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         },
         sushi: {
           address: '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2',
+          chains: {
+            "elated-tan-skat": {}
+          }
+        },
+        link: {
+          address: '0x514910771af9ca656af840dff83e8264ecf986ca',
+          chains: {
+            "elated-tan-skat": {}
+          }
+        },
+        pepe: {
+          address: '0x6982508145454ce325ddbe47a25d4ec3d2311933',
+          chains: {
+            "elated-tan-skat": {}
+          }
+        },
+        cgt: {
+          address: '0x0E186357c323c806C1efdad36D217F7a54b63D18',
+          chains: {
+            "elated-tan-skat": {}
+          }
+        },
+        wct1: {
+          address: '0x46683747B55C4A0fF783B1A502cE682eB819eb75',
           chains: {
             "elated-tan-skat": {}
           }
@@ -237,6 +286,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             },
             'honorable-steel-rasalhague': {
               wrapper: '0xa5274efA35EbeFF47C1510529D9a8812F95F5735'
+            },
+            'green-giddy-denebola': {
+              wrapper: '0xa5274efA35EbeFF47C1510529D9a8812F95F5735'
             }
           }
         }
@@ -305,6 +357,38 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         },
         sushi: {
           address: '0xcec20381ac92d610ac444f6d73c1d40726650259',
+          chains: {
+            "mainnet": {
+              clone: true
+            }
+          }
+        },
+        link: {
+          address: '0x688B6B03E3ff9E9b38a9a05cCDC653D37e13fbE0',
+          chains: {
+            "mainnet": {
+              clone: true
+            }
+          }
+        },
+        pepe: {
+          address: '0x95DEFbe12A9ef1A2B5372cbDd8aDd5ddC29CF247',
+          chains: {
+            "mainnet": {
+              clone: true
+            }
+          }
+        },
+        cgt: {
+          address: '0xf97a23a0E49e5E0028F8Ce89F7be9a9FD5942Cf6',
+          chains: {
+            "mainnet": {
+              clone: true
+            }
+          }
+        },
+        wct1: {
+          address: '0xF9c46D87b25E772BEaA2349EA49C46d7CB4d2B29',
           chains: {
             "mainnet": {
               clone: true
@@ -398,6 +482,10 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             mainnet: {
               clone: true,
               hub: 'elated-tan-skat'
+            },
+            "green-giddy-denebola": {
+              clone: true,
+              hub: "elated-tan-skat"
             }
           }
         }
@@ -474,6 +562,24 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       }
     },
     "green-giddy-denebola": { // nebula connections
+      eth: {
+        eth: {
+          address: '0xaB01BAd2C86e24D371A13eD6367bdCa819589C5D',
+          chains: {
+            'elated-tan-skat': {
+              clone: true
+            },
+            mainnet: {
+              clone: true,
+              hub: 'elated-tan-skat'
+            },
+            "honorable-steel-rasalhague": {
+              clone: true,
+              hub: "elated-tan-skat"
+            }
+          }
+        }
+      },
       erc20: {
         skl: {
           address: "0x7F73B66d4e6e67bCdeaF277b9962addcDabBFC4d",

@@ -22,6 +22,7 @@
  */
 
 import { Contract } from 'ethers'
+import { WalletClient } from 'viem'
 import { useState, useEffect } from 'react'
 
 import {
@@ -51,7 +52,7 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
 
   const { address } = useWagmiAccount()
   const { data: walletClient } = useWagmiWalletClient()
-  const { switchNetworkAsync } = useWagmiSwitchNetwork()
+  const { switchChainAsync } = useWagmiSwitchNetwork()
 
   useEffect(() => {
     setTokenContract(
@@ -85,8 +86,8 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
       const { chainId } = await props.mpc.provider(props.chain).getNetwork()
       await enforceNetwork(
         chainId,
-        walletClient,
-        switchNetworkAsync!,
+        walletClient as WalletClient,
+        switchChainAsync!,
         props.mpc.config.skaleNetwork,
         props.chain
       )

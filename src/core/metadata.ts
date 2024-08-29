@@ -20,32 +20,27 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { type interfaces } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 import { BASE_METADATA_URL, MAINNET_CHAIN_NAME } from './constants'
 
 export function chainBg(
-  chainsMeta: interfaces.ChainsMetadataMap,
+  chainsMeta: types.ChainsMetadataMap,
   chainName: string,
   app?: string
-): string {
+): string | undefined {
   const chainData = chainsMeta[chainName]
 
   if (chainData) {
     const appData = chainData.apps && app ? chainData.apps[app] : null
 
-    return (
-      appData?.gradientBackground ||
-      appData?.background ||
-      chainData.gradientBackground ||
-      chainData.background
-    )
+    return appData?.gradientBackground || chainData.gradientBackground || chainData.background
   }
 
   return 'linear-gradient(273.67deg, rgb(47 50 80), rgb(39 43 68))'
 }
 
 export function getChainAlias(
-  chainsMeta: interfaces.ChainsMetadataMap,
+  chainsMeta: types.ChainsMetadataMap,
   chainName: string,
   app?: string
 ): string {
@@ -66,13 +61,11 @@ function transformChainName(chainName: string): string {
     .join(' ')
 }
 
-export async function loadMeta(
-  skaleNetwork: interfaces.SkaleNetwork
-): Promise<interfaces.ChainsMetadataMap> {
+export async function loadMeta(skaleNetwork: types.SkaleNetwork): Promise<types.ChainsMetadataMap> {
   const response = await fetch(`${BASE_METADATA_URL}${skaleNetwork}/chains.json`)
   return await response.json()
 }
 
-export function getMetaLogoUrl(skaleNetwork: interfaces.SkaleNetwork, logoName: string): string {
+export function getMetaLogoUrl(skaleNetwork: types.SkaleNetwork, logoName: string): string {
   return `${BASE_METADATA_URL}${skaleNetwork}/logos/${logoName}`
 }

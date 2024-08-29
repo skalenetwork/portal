@@ -38,7 +38,8 @@ import {
   walletClientToSigner,
   sendTransaction,
   getChainAlias,
-  toWei
+  toWei,
+  styles
 } from '@skalenetwork/metaport'
 
 import ConnectWallet from './ConnectWallet'
@@ -80,7 +81,7 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
   const [info, setInfo] = useState<PaymasterInfo>(DEFAULT_PAYMASTER_INFO)
 
   const { data: walletClient } = useWagmiWalletClient()
-  const { switchNetworkAsync } = useWagmiSwitchNetwork()
+  const { switchChainAsync } = useWagmiSwitchNetwork()
 
   useEffect(() => {
     loadPaymasterInfo()
@@ -104,7 +105,7 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
   }
 
   async function topupChain() {
-    if (!paymaster.runner?.provider || !walletClient || !switchNetworkAsync) {
+    if (!paymaster.runner?.provider || !walletClient || !switchChainAsync) {
       setErrorMsg('Something is wrong with your wallet, try again')
       return
     }
@@ -115,7 +116,7 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
       const { chainId } = await paymaster.runner.provider.getNetwork()
       const paymasterAddress = getPaymasterAddress(network)
 
-      await enforceNetwork(chainId, walletClient, switchNetworkAsync, network, paymasterChain)
+      await enforceNetwork(chainId, walletClient, switchChainAsync, network, paymasterChain)
       setBtnText('Sending transaction...')
       const signer = walletClientToSigner(walletClient)
       const connectedPaymaster = new Contract(paymasterAddress, getPaymasterAbi(), signer)
@@ -182,7 +183,12 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
   return (
     <div>
       <PricingInfo info={info} />
-      <Headline text="Top-up chain" icon={<MonetizationOnRoundedIcon />} />
+      <Headline
+        text="Top-up chain"
+        className={cls(cmn.mtop20, cmn.mbott10)}
+        icon={<MonetizationOnRoundedIcon className={cls(styles.chainIconxs)} />}
+        size="small"
+      />
       {!address ? (
         <ConnectWallet tile className={cls(cmn.flexg)} />
       ) : (
