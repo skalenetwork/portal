@@ -104,21 +104,6 @@ export default function SkDrawer() {
           <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Network</h4>
           <List>
             <ListItem>
-              <Link to="/chains" className="undec fullW">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={
-                    location.pathname.includes('/chains') || location.pathname.includes('/admin')
-                  }
-                >
-                  <ListItemIcon>
-                    <LinkRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="SKALE Chains" />
-                </ListItemButton>
-              </Link>
-            </ListItem>
-            <ListItem>
               <Link to="/ecosystem" className="undec fullW">
                 <ListItemButton
                   className={cls(cmn.pPrim)}
@@ -131,6 +116,21 @@ export default function SkDrawer() {
                   <div className="chipNew">
                     <p className={cls(cmn.p, cmn.p5)}>NEW</p>
                   </div>
+                </ListItemButton>
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link to="/chains" className="undec fullW">
+                <ListItemButton
+                  className={cls(cmn.pPrim)}
+                  selected={
+                    location.pathname.includes('/chains') || location.pathname.includes('/admin')
+                  }
+                >
+                  <ListItemIcon>
+                    <LinkRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="SKALE Chains" />
                 </ListItemButton>
               </Link>
             </ListItem>

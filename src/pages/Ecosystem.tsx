@@ -25,7 +25,7 @@ import { Helmet } from 'react-helmet'
 import { Container, Stack, Box, Tab, Tabs, Button } from '@mui/material'
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
-import TimelineRoundedIcon from '@mui/icons-material/TimelineRounded'
+import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded'
 
@@ -196,7 +196,7 @@ export default function Ecosystem(props: {
             />
             <Tab
               label="Trending"
-              icon={<TimelineRoundedIcon />}
+              icon={<TrendingUpRoundedIcon />}
               iconPosition="start"
               className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
             />
