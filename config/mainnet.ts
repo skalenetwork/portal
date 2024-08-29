@@ -116,7 +116,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       iconUrl: "https://assets.coingecko.com/coins/images/37476/standard/Screenshot_2024-05-04_004346.png"
     },
     wct1: {
-      name: "Wrapped Curio Ferrari F12tdf",
+      name: "Wrapped Car Token 1",
       symbol: "wCT1",
       iconUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/12648.png",
       decimals: "2"

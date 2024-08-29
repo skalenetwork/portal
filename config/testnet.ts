@@ -140,7 +140,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       // Calypso connections
       eth: {
         eth: {
-          address: '0x',
+          address: '0x2aebcdc4f9f9149a50422fff86198cb0939ea165',
           chains: {
             'juicy-low-small-testnet': {
               clone: true
