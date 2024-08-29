@@ -54,6 +54,7 @@ const NewApps: React.FC<NewAppsProps> = ({
         appName={app.appName}
         chainsMeta={chainsMeta}
         trending={getTrendingRank(trendingAppIds, appId)}
+        isNew={true}
       />
     )
   }
