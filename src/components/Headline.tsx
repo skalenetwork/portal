@@ -21,22 +21,45 @@
  * @copyright SKALE Labs 2024-Present
  */
 
+import React from 'react'
 import { cls, cmn, styles } from '@skalenetwork/metaport'
-import { type ReactElement } from 'react'
 
-export default function Headline(props: {
+interface HeadlineProps {
   text: string
-  className?: string | undefined
-  icon?: ReactElement | undefined
-}) {
+  className?: string
+  icon?: React.ReactElement
+  size?: 'small' | 'medium'
+}
+
+const Headline: React.FC<HeadlineProps> = ({ text, className, icon, size = 'medium' }) => {
+  const commonClasses = cls(cmn.flex, cmn.flexcv, cmn.flexg, className)
+
+  const textElement =
+    size === 'small' ? (
+      <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.flexg, cmn.cap)}>{text}</p>
+    ) : (
+      <h3 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.mleft10)}>{text}</h3>
+    )
+
+  const iconElement = icon && (
+    <div
+      className={cls(
+        cmn.flexcv,
+        cmn.flex,
+        cmn.pSec,
+        size === 'small' && [cmn.mri10, styles.chainIconxs]
+      )}
+    >
+      {icon}
+    </div>
+  )
+
   return (
-    <div className={cls(cmn.m10, cmn.flex, cmn.flexg, cmn.flexcv, props.className)}>
-      {props.icon ? (
-        <div className={cls(cmn.mri10, cmn.flexcv, cmn.flex, styles.chainIconxs, cmn.pSec)}>
-          {props.icon}
-        </div>
-      ) : null}
-      <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.flexg, cmn.cap)}>{props.text}</p>
+    <div className={cls(commonClasses, size === 'small' && cmn.m10)}>
+      {iconElement}
+      {textElement}
     </div>
   )
 }
+
+export default Headline

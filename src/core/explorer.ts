@@ -22,20 +22,22 @@
 
 import { BASE_EXPLORER_URLS, interfaces } from '@skalenetwork/metaport'
 import { HTTPS_PREFIX } from './chain'
-import { IAddressCounters, IAppCounters, IMetricsChainMap, IAppId } from './types'
+import { type types } from '@/core'
 
 export function addressUrl(explorerUrl: string, address: string): string {
   return `${explorerUrl}/address/${address}`
 }
 
-export function getExplorerUrl(network: interfaces.SkaleNetwork, chainName: string): string {
+export function getExplorerUrl(network: types.SkaleNetwork, chainName: string): string {
   const explorerBaseUrl = BASE_EXPLORER_URLS[network]
   return HTTPS_PREFIX + chainName + '.' + explorerBaseUrl
 }
 
-export function getTotalAppCounters(countersArray: IAppCounters | null): IAddressCounters | null {
+export function getTotalAppCounters(
+  countersArray: types.IAppCounters | null
+): types.IAddressCounters | null {
   if (countersArray === null) return null
-  const totalCounters: IAddressCounters = {
+  const totalCounters: types.IAddressCounters = {
     gas_usage_count: '0',
     token_transfers_count: '0',
     transactions_count: '0',
@@ -63,7 +65,10 @@ export function getTotalAppCounters(countersArray: IAppCounters | null): IAddres
   return totalCounters
 }
 
-export function getTopAppsByTransactions(metrics: IMetricsChainMap, topN: number): Array<IAppId> {
+export function getTopAppsByTransactions(
+  metrics: types.IMetricsChainMap,
+  topN: number
+): Array<types.IAppId> {
   let appsWithCounters = []
   for (let chain in metrics) {
     for (let app in metrics[chain].apps_counters) {

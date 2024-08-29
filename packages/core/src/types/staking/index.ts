@@ -15,30 +15,14 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 /**
- * @file CategoryBadge.tsx
- * @copyright SKALE Labs 2023-Present
+ * @file index.ts
+ * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls } from '@skalenetwork/metaport'
-import CategoryBadge, { isString } from './CategoryBadge'
-
-export default function ChainCategories(props: {
-  category: string | string[] | undefined
-  alias: string
-  isXs: boolean
-}) {
-  if (!props.category) return
-  return (
-    <div className={cls(cmn.flex, cmn.flexw)}>
-      {isString(props.category) ? (
-        <CategoryBadge category={props.category} className={cmn.mleft5} isXs={props.isXs} />
-      ) : (
-        props.category.map((cat: string) => (
-          <CategoryBadge category={cat} className={cmn.mleft5} key={cat} isXs={props.isXs} />
-        ))
-      )}
-    </div>
-  )
-}
+export * from './Beneficiary'
+export * from './Delegator'
+export * from './Delegation'
+export * from './SkaleContract'
+export * from './Staking'
+export * from './Validator'

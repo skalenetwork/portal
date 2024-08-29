@@ -71,9 +71,9 @@ export default function TermsModal(props: {
         <Box>
           <Grid container spacing={2}>
             <Grid item md={6} xs={12}>
-              <SkPaper className={cls(styles.fullHeight, 'modalBlock modalBlock2')}>
+              <SkPaper gray className={cls(styles.fullHeight)}>
                 <div className={cls(cmn.m10)}>
-                  <KeyRoundedIcon style={{ color: 'rgb(238 195 0)' }} />
+                  <KeyRoundedIcon color="primary" />
                   <p className={cls(cmn.p, cmn.p3, cmn.p700, cmn.mtop5)}>
                     SKALE will NEVER ask you for your seed phrase or private keys
                   </p>
@@ -81,9 +81,9 @@ export default function TermsModal(props: {
               </SkPaper>
             </Grid>
             <Grid item md={6} xs={12}>
-              <SkPaper className={cls(styles.fullHeight, 'modalBlock modalBlock3')}>
+              <SkPaper gray className={cls(styles.fullHeight)}>
                 <div className={cls(cmn.m10)}>
-                  <LockRoundedIcon style={{ color: '#14e96a' }} />
+                  <LockRoundedIcon color="primary" />
                   <p className={cls(cmn.p, cmn.p3, cmn.p700, cmn.mtop5)}>
                     Make sure you are connected to the correct URL and only use this official link:
                     <Link
@@ -100,9 +100,9 @@ export default function TermsModal(props: {
             </Grid>
           </Grid>
         </Box>
-        <SkPaper className={cls(cmn.mtop20, 'modalBlock modalBlock4')}>
+        <SkPaper gray className={cls(cmn.mtop20)}>
           <div className={cls(cmn.m10, 'scrollable')}>
-            <GradingRoundedIcon style={{ color: 'rgb(148 148 148)' }} />
+            <GradingRoundedIcon color="primary" />
             <p className={cls(cmn.p, cmn.p3, cmn.p700, cmn.mtop10, cmn.pPrim)}>
               Before you use the SKALE {title}, you must review the terms of service carefully and
               confirm below.
