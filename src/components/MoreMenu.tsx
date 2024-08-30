@@ -104,17 +104,17 @@ export default function MoreMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <Link to="/other/terms-of-service" className="undec fullWidth">
+        <Link to="/other/terms-of-service" className="undec fullW">
           <MenuItem onClick={handleClose}>
             <InventoryOutlinedIcon className={cmn.mri10} /> Terms of service
           </MenuItem>
         </Link>
-        <Link to="/other/changelog" className="undec fullWidth">
+        <Link to="/other/changelog" className="undec fullW">
           <MenuItem onClick={handleClose}>
             <FormatListBulletedRoundedIcon className={cmn.mri10} /> Changelog
           </MenuItem>
         </Link>
-        <a className="undec fullWidth" target="_blank" href="https://skale.space/" rel="noreferrer">
+        <a className="undec fullW" target="_blank" href="https://skale.space/" rel="noreferrer">
           <MenuItem onClick={handleClose}>
             <div className={cmn.flex}>
               <PublicOutlinedIcon className={cmn.mri10} />
@@ -126,7 +126,7 @@ export default function MoreMenu() {
           </MenuItem>
         </a>
         <a
-          className="undec fullWidth"
+          className="undec fullW"
           target="_blank"
           href="https://docs.skale.network/"
           rel="noreferrer"
@@ -141,7 +141,7 @@ export default function MoreMenu() {
             </div>
           </MenuItem>
         </a>
-        <a className="undec fullWidth" target="_blank" href={DISCORD_INVITE_URL} rel="noreferrer">
+        <a className="undec fullW" target="_blank" href={DISCORD_INVITE_URL} rel="noreferrer">
           <MenuItem onClick={handleClose} className="undec">
             <div className={cmn.flex}>
               <img

@@ -31,6 +31,7 @@ import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontal
 import PieChartOutlineOutlinedIcon from '@mui/icons-material/PieChartOutlineOutlined'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
+import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
 
 export default function SkBottomNavigation() {
   const [value, setValue] = useState(0)
@@ -41,8 +42,9 @@ export default function SkBottomNavigation() {
     setValue(500)
     if (location.pathname === '/') setValue(0)
     if (location.pathname === '/bridge' || location.pathname.includes('/transfer')) setValue(1)
-    if (location.pathname.includes('/chains') || location.pathname.includes('/admin')) setValue(2)
-    if (location.pathname.includes('/staking')) setValue(3)
+    if (location.pathname.includes('/ecosystem') || location.pathname.includes('/apps')) setValue(2)
+    if (location.pathname.includes('/chains') || location.pathname.includes('/admin')) setValue(3)
+    if (location.pathname.includes('/staking')) setValue(4)
   }, [location])
 
   return (
@@ -69,8 +71,15 @@ export default function SkBottomNavigation() {
           }}
         />
         <BottomNavigationAction
-          label="Chains"
+          label="Ecosystem"
           icon={<PublicOutlinedIcon />}
+          onClick={() => {
+            navigate('/ecosystem')
+          }}
+        />
+        <BottomNavigationAction
+          label="Chains"
+          icon={<LinkRoundedIcon />}
           onClick={() => {
             navigate('/chains')
           }}

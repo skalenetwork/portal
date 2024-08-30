@@ -58,7 +58,6 @@ export default function ValidatorInfo(props: { validator: IValidator; className?
           value={`${Number(props.validator.feeRate) / 10}% fee`}
           text="Validator fee"
           grow
-          className="border"
           size="md"
           icon={<PercentRoundedIcon />}
         />
@@ -66,7 +65,6 @@ export default function ValidatorInfo(props: { validator: IValidator; className?
           value={props.validator.id.toString()}
           text="Validator ID"
           grow
-          className="border"
           size="md"
           icon={<PersonRoundedIcon />}
         />
@@ -74,7 +72,6 @@ export default function ValidatorInfo(props: { validator: IValidator; className?
           value={`${minDelegation} SKL`}
           text="Minimum delegation amount"
           grow
-          className="border"
           size="md"
           icon={<TokenIcon tokenSymbol="skl" size="xs" />}
         />

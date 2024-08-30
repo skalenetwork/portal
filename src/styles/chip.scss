@@ -1,0 +1,20 @@
+.chipContainer {
+    display: flex;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 8px;
+    position: relative;
+}
+
+.chipContainer::-webkit-scrollbar {
+    display: none;
+}
+
+.chipContainer {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.chipContainer>* {
+    flex: 0 0 auto;
+}

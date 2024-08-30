@@ -22,34 +22,31 @@
  */
 
 import { Link } from 'react-router-dom'
-import { cmn, cls } from '@skalenetwork/metaport'
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
+import { cmn, cls, SkPaper, styles } from '@skalenetwork/metaport'
+import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 
-export default function PageCard(props: { name: string; icon: any; description: string }) {
+export default function PageCard(props: {
+  name: string
+  icon: any
+  description: string
+  url?: string
+}) {
   return (
-    <div>
-      <div className="fl-centered">
-        <Link to={props.name}>
-          <div className={cls('br__tile pageCard startCardBg ' + `startCard${props.name}`)}>
-            <div className={cls('startCardText', cmn.flex, cmn.flexcv)}>
-              <div className={cls(cmn.flexg)}>
-                <div className={cls(cmn.flex, cmn.flexg, cmn.flexcv)}>
-                  <p
-                    className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p)}
-                    style={{ fontSize: '1.2rem', fontWeight: 700 }}
-                  >
-                    {props.name}
-                  </p>
-                </div>
-                <p className={cls(cmn.p, cmn.p3, cmn.pSec)}>{props.description}</p>
-              </div>
-              <div className={cls(cmn.mleft10, cmn.mri5, cmn.flex, cmn.flexcv)}>
-                <ArrowForwardIosRoundedIcon className={cls(cmn.pSec)} />
-              </div>
+    <Link to={props.url ?? props.name}>
+      <SkPaper gray className={cls('br__tile')}>
+        <div className={cls(cmn.flex, cmn.flexcv, cmn.m10)}>
+          <div className={cls(cmn.flexg)}>
+            <div className={cls(cmn.flex, cmn.flexg, cmn.flexcv)}>
+              <div className={cls(styles.chainIcons, cmn.mri10, cmn.pPrim)}>{props.icon}</div>
+              <h3 className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p, cmn.p600)}>{props.name}</h3>
             </div>
+            <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.mtop5)}>{props.description}</p>
           </div>
-        </Link>
-      </div>
-    </div>
+          <div className={cls(cmn.mleft10, cmn.mri5, cmn.flex, cmn.flexcv)}>
+            <ArrowForwardRoundedIcon className={cls(cmn.pSec, styles.chainIconxs)} />
+          </div>
+        </div>
+      </SkPaper>
+    </Link>
   )
 }

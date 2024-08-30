@@ -27,12 +27,14 @@ import { Link } from 'react-router-dom'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 
-import { cls, cmn, interfaces } from '@skalenetwork/metaport'
+import { cls, cmn } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
 import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded'
+import { Button } from '@mui/material'
 
 export default function ChainTabs(props: {
-  chainMeta: interfaces.ChainMetadata
+  chainMeta: types.ChainMetadata
   handleChange: (event: React.SyntheticEvent, newValue: number) => void
   tabs: any[]
   tab: number
@@ -43,11 +45,11 @@ export default function ChainTabs(props: {
     <div className={cls(cmn.mtop10, cmn.fullWidth)}>
       <Tabs
         variant={props.isXs ? 'scrollable' : 'standard'}
-        centered
         value={props.tab}
         onChange={props.handleChange}
         scrollButtons="auto"
-        style={{ maxWidth: 'calc(100vw - 32px)' }}
+        style={{ maxWidth: 'calc(100vw - 32px)', marginLeft: '-5px' }}
+        className="skTabs"
       >
         {props.tabs.map((tab, index) =>
           tab ? (
@@ -56,17 +58,17 @@ export default function ChainTabs(props: {
               label={tab.label}
               icon={tab.icon}
               iconPosition="start"
-              className={cls('btn', 'btnSm', cmn.mri10, cmn.mleft10, 'tab', 'fwmobile')}
+              className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
             />
           ) : null
         )}
-        <Link to={`/admin/${props.schainName}`} className="tabLink">
-          <Tab
-            label="Manage"
-            icon={<AdminPanelSettingsRoundedIcon />}
-            iconPosition="start"
-            className={cls('btn', 'btnSm', cmn.mri10, cmn.mleft10, 'tab')}
-          />
+        <Link to={`/admin/${props.schainName}`}>
+          <Button
+            startIcon={<AdminPanelSettingsRoundedIcon />}
+            className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', cmn.pSec, cmn.p500)}
+          >
+            Manage
+          </Button>
         </Link>
       </Tabs>
     </div>

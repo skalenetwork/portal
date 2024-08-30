@@ -24,37 +24,49 @@
 import { Helmet } from 'react-helmet'
 
 import { useState, useEffect } from 'react'
+
+import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
+import { type types } from '@/core'
+
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
-import EditRoundedIcon from '@mui/icons-material/EditRounded'
-import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded'
 
-import HubsSection from '../components/HubsSection'
-import { getPrimaryCategory } from '../components/CategoryBadge'
+import StarRoundedIcon from '@mui/icons-material/StarRounded'
+import HubRoundedIcon from '@mui/icons-material/HubRounded'
+import CategoryRoundedIcon from '@mui/icons-material/CategoryRounded'
 
-import { cmn, cls, styles, type MetaportCore, type interfaces } from '@skalenetwork/metaport'
-
+import ChainsSection from '../components/chains/ChainsSection'
 import { META_TAGS } from '../core/meta'
-import { Button } from '@mui/material'
-import AppChains from '../components/AppChains'
-import { IMetrics, ISChain } from '../core/types'
+import { MAINNET_CHAIN_NAME } from '../core/constants'
 
 export default function Chains(props: {
   loadData: () => Promise<void>
-  schains: ISChain[]
-  metrics: IMetrics | null
+  schains: types.ISChain[]
+  metrics: types.IMetrics | null
   mpc: MetaportCore
   isXs: boolean
-  chainsMeta: interfaces.ChainsMetadataMap
+  chainsMeta: types.ChainsMetadataMap
 }) {
   const [_, setIntervalId] = useState<NodeJS.Timeout>()
+
+  const network = props.mpc.config.skaleNetwork
 
   useEffect(() => {
     props.loadData()
     const intervalId = setInterval(props.loadData, 10000)
     setIntervalId(intervalId)
   }, [])
+
+  const appChains = props.schains.filter(
+    (schain) =>
+      props.chainsMeta[schain.name] &&
+      (!props.chainsMeta[schain.name].apps ||
+        (props.chainsMeta[schain.name].apps &&
+          Object.keys(props.chainsMeta[schain.name].apps!).length === 1))
+  )
+
+  const otherChains = props.schains.filter((schain) => !props.chainsMeta[schain.name])
 
   if (props.schains.length === 0) {
     return (
@@ -81,77 +93,49 @@ export default function Chains(props: {
       </Helmet>
       <Stack spacing={0}>
         <div className={cls(cmn.flex)}>
-          <h2 className={cls(cmn.nom)}>Chains</h2>
+          <h2 className={cls(cmn.nom)}>SKALE Chains</h2>
         </div>
         <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-          {props.isXs
-            ? 'Explore dApps, get block explorer links and endpoints'
-            : 'Explore SKALE Hubs, AppChains, connect, get block explorer links and endpoints'}
+          Connect, get block explorer links and endpoints
         </p>
-        <div className={cls(cmn.mbott20)}>
-          <HubsSection
-            skaleNetwork={props.mpc.config.skaleNetwork}
-            category="hubs"
-            isXs={props.isXs}
-            metrics={props.metrics}
-            schains={props.schains.filter(
-              (schain) =>
-                props.chainsMeta[schain.name] &&
-                getPrimaryCategory(props.chainsMeta[schain.name].category) === 'Hub'
-            )}
+
+        <ChainsSection
+          name="SKALE Hubs"
+          schains={props.schains.filter(
+            (schain) =>
+              props.chainsMeta[schain.name] &&
+              props.chainsMeta[schain.name].apps &&
+              Object.keys(props.chainsMeta[schain.name].apps!).length > 1
+          )}
+          chainsMeta={props.chainsMeta}
+          metrics={props.metrics}
+          skaleNetwork={network}
+          size="lg"
+          icon={<HubRoundedIcon color="primary" />}
+        />
+        {appChains.length !== 0 && (
+          <ChainsSection
+            name="App Chains"
+            schains={appChains}
             chainsMeta={props.chainsMeta}
-          />
-          <AppChains
-            skaleNetwork={props.mpc.config.skaleNetwork}
             metrics={props.metrics}
-            chainsMeta={props.chainsMeta}
-            schains={props.schains.filter(
-              (schain) =>
-                (props.chainsMeta[schain.name] &&
-                  getPrimaryCategory(props.chainsMeta[schain.name].category) === 'AppChain') ||
-                !props.chainsMeta[schain.name]
-            )}
-            isXs={props.isXs}
+            skaleNetwork={network}
+            size="md"
+            icon={<StarRoundedIcon color="primary" />}
           />
-        </div>
-        <div className={cls(cmn.mbott20)}>
-          <div className={cls(cmn.flex)}>
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
-            <div className={cls(cmn.flex, cmn.mtop10, cmn.mri10)}>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href="https://skale.space/ecosystem"
-                className="undec"
-              >
-                <Button
-                  size="medium"
-                  className={cls(styles.btnAction, 'btnMd', 'outlined', cmn.mri10)}
-                  startIcon={<LanguageRoundedIcon className={cls(styles.chainIconxs)} />}
-                >
-                  Explore All SKALE Projects
-                </Button>
-              </a>
-            </div>
-            <div className={cls(cmn.flex, cmn.mtop10, cmn.mleft10)}>
-              <a
-                target="_blank"
-                rel="noreferrer"
-                href="https://github.com/skalenetwork/skale-network/issues/new?assignees=dmytrotkk&labels=metadata&projects=&template=app_submission.yml&title=App+Metadata+Submission"
-                className="undec"
-              >
-                <Button
-                  size="medium"
-                  className={cls(styles.btnAction, 'btnMd', 'outlined', cmn.mri10)}
-                  startIcon={<EditRoundedIcon className={cls(styles.chainIconxs)} />}
-                >
-                  Submit Your Project
-                </Button>
-              </a>
-            </div>
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
-          </div>
-        </div>
+        )}
+        {network !== MAINNET_CHAIN_NAME && otherChains.length !== 0 && (
+          <ChainsSection
+            name="Other Chains"
+            schains={otherChains}
+            chainsMeta={props.chainsMeta}
+            metrics={props.metrics}
+            skaleNetwork={network}
+            size="md"
+            icon={<CategoryRoundedIcon color="primary" />}
+          />
+        )}
+        <div className={cls(cmn.mbott20, cmn.mtop20)}></div>
       </Stack>
     </Container>
   )

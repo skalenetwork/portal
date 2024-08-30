@@ -100,7 +100,7 @@ export default function HelpZen() {
         <MenuItem onClick={handleClickZen}>
           <MarkUnreadChatAltRoundedIcon className={cmn.mri10} /> Open support chat
         </MenuItem>
-        <Link to="/other/faq" className="undec fullWidth">
+        <Link to="/other/faq" className="undec fullW">
           <MenuItem onClick={handleClose}>
             <HelpOutlineOutlinedIcon className={cmn.mri10} /> Bridge FAQ
           </MenuItem>

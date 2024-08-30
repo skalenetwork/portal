@@ -24,7 +24,14 @@
 import { useState, useEffect } from 'react'
 import { type Signer } from 'ethers'
 import { useParams } from 'react-router-dom'
-import { cmn, cls, type MetaportCore, SkPaper, type interfaces } from '@skalenetwork/metaport'
+import {
+  cmn,
+  cls,
+  type MetaportCore,
+  SkPaper,
+  type interfaces,
+  styles
+} from '@skalenetwork/metaport'
 
 import Container from '@mui/material/Container'
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
@@ -144,7 +151,12 @@ export default function StakeAmount(props: {
           <Loader text="Loading validator info" />
         )}
 
-        <Headline text="Staking details" icon={<MonetizationOnRoundedIcon />} />
+        <Headline
+          text="Staking details"
+          icon={<MonetizationOnRoundedIcon className={cls(styles.chainIconxs)} />}
+          className={cls(cmn.mtop20, cmn.mbott10)}
+          size="small"
+        />
         {props.address ? (
           <Delegate
             mpc={props.mpc}
