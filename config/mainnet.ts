@@ -20,7 +20,8 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
     "affectionate-immediate-pollux", // cryptoblades
     "wan-red-ain", // human protocol
     "turbulent-unique-scheat", // razor
-    "adorable-quaint-bellatrix" // streammyscreen
+    "adorable-quaint-bellatrix", // streammyscreen
+    "parallel-stormy-spica" // titan hub
   ],
   "tokens": {
     eth: {
@@ -244,6 +245,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             },
             "green-giddy-denebola": {
               hub: "elated-tan-skat"
+            },
+            "parallel-stormy-spica": {
+              hub: "elated-tan-skat"
             }
           }
         },
@@ -417,6 +421,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             },
             "green-giddy-denebola": {
               wrapper: "0x1c566a47e1baC535Ca616373146e3BE024F88Aa4"
+            },
+            "parallel-stormy-spica": {
+              wrapper: "0x1c566a47e1baC535Ca616373146e3BE024F88Aa4"
             }
           }
         },
@@ -544,6 +551,10 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             "green-giddy-denebola": {
               clone: true,
               hub: "elated-tan-skat"
+            },
+            "parallel-stormy-spica": {
+              clone: true,
+              hub: "elated-tan-skat"
             }
           }
         },
@@ -606,6 +617,10 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             "honorable-steel-rasalhague": {
               clone: true,
               hub: "elated-tan-skat"
+            },
+            "parallel-stormy-spica": {
+              clone: true,
+              hub: "elated-tan-skat"
             }
           }
         },
@@ -642,6 +657,30 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           chains: {
             "elated-tan-skat": {
               clone: true
+            }
+          }
+        }
+      }
+    },
+    "parallel-stormy-spica": {
+      erc20: {
+        usdc: {
+          address: "0x5ff56d3796cc17104de84365a00473232edddd9a",
+          chains: {
+            "elated-tan-skat": {
+              clone: true
+            },
+            "mainnet": {
+              clone: true,
+              hub: "elated-tan-skat"
+            },
+            "green-giddy-denebola": {
+              clone: true,
+              hub: "elated-tan-skat"
+            },
+            "honorable-steel-rasalhague": {
+              clone: true,
+              hub: "elated-tan-skat"
             }
           }
         }
