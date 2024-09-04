@@ -23,11 +23,13 @@
 
 import { Box, Button, Tooltip } from '@mui/material'
 import BoltRoundedIcon from '@mui/icons-material/BoltRounded'
-import { cls, styles, cmn, type MetaportCore } from '@skalenetwork/metaport'
+import { cls, styles, cmn, type MetaportCore, useWagmiAccount } from '@skalenetwork/metaport'
 import { usesFuel } from '../useSFuel'
 
 export default function GetSFuel({ mpc }: { mpc: MetaportCore }) {
   const { sFuelOk, isMining, mineSFuel } = usesFuel(mpc)
+  const { address } = useWagmiAccount()
+  if (!address) return null
   return (
     <Box
       sx={{ alignItems: 'center', textAlign: 'center', display: { xs: 'none', sm: 'flex' } }}
