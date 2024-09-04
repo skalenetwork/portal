@@ -23,7 +23,7 @@
 
 import React from 'react'
 import { IconButton, Tooltip } from '@mui/material'
-import { LanguageRounded, TrackChangesRounded } from '@mui/icons-material'
+import { LanguageRounded, TrackChangesRounded, JoinLeftRounded } from '@mui/icons-material'
 import { SocialIcon } from 'react-social-icons/component'
 import 'react-social-icons/discord'
 import 'react-social-icons/github'
@@ -76,6 +76,16 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
     { key: 'telegram', network: 'telegram', title: 'Telegram' },
     { key: 'discord', network: 'discord', title: 'Discord' },
     { key: 'github', network: 'github', title: 'GitHub' },
+    {
+      key: 'dune',
+      icon: (
+        <JoinLeftRounded
+          className={cls([cmn.pPrim, isMd], [cmn.pSec, !isMd])}
+          fontSize={isMd ? 'medium' : 'small'}
+        />
+      ),
+      title: 'Dune Analytics'
+    },
     {
       key: 'swell',
       icon: (

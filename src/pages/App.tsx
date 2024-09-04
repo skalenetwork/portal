@@ -244,7 +244,9 @@ export default function App(props: {
                   <div className={cls(cmn.flex, cmn.mleft10)}>
                     {trendingIndex !== undefined && <ChipTrending trending={trendingIndex} />}
                     {isNew && <ChipNew />}
-                    {appMeta.tags?.includes('pretge') && <ChipPreTge />}
+                    {appMeta.categories && Object.keys(appMeta.categories).includes('pretge') && (
+                      <ChipPreTge />
+                    )}
                   </div>
                 </div>
 

@@ -62,7 +62,9 @@ import {
   JoinRightRounded,
   PhoneIphoneOutlined,
   DiamondOutlined,
-  SailingOutlined
+  SailingOutlined,
+  SellOutlined,
+  HomeRepairServiceOutlined
 } from '@mui/icons-material'
 
 export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
@@ -103,6 +105,10 @@ export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
       return <AccountBalanceWalletOutlined />
     case 'web3':
       return <JoinRightRounded />
+    case 'pretge':
+      return <SellOutlined />
+    case 'utility':
+      return <HomeRepairServiceOutlined />
 
     // Gaming subcategories
     case 'action-adventure':
