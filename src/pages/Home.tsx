@@ -1,6 +1,29 @@
+/**
+ * @license
+ * SKALE portal
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/**
+ * @file Home.tsx
+ * @copyright SKALE Labs 2024-Present
+ */
+
 import { Link } from 'react-router-dom'
 import { Container, Stack, Box, Grid, Button } from '@mui/material'
-import { cmn, cls } from '@skalenetwork/metaport'
+import { cmn, cls, SkPaper } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
 import { useApps } from '../useApps'
@@ -13,6 +36,8 @@ import FavoriteApps from '../components/ecosystem/FavoriteApps'
 import TrendingApps from '../components/ecosystem/TrendingApps'
 
 import { SECTION_ICONS, EXPLORE_CARDS } from '../components/HomeComponents'
+import SocialButtons from '../components/ecosystem/Socials'
+import { SKALE_SOCIAL_LINKS } from '../core/constants'
 
 interface HomeProps {
   skaleNetwork: types.SkaleNetwork
@@ -82,6 +107,13 @@ export default function Home({ skaleNetwork, chainsMeta }: HomeProps): JSX.Eleme
         className={cls(cmn.mbott10, cmn.mtop20, cmn.ptop20)}
       />
       <CategoryCardsGrid chainsMeta={chainsMeta} />
+      <div className={cls(cmn.flex, cmn.mtop20, cmn.ptop20)}>
+        <div className={cls(cmn.flexg)}></div>
+        <SkPaper gray className={cls(cmn.mtop20)}>
+          <SocialButtons social={SKALE_SOCIAL_LINKS} size="md" className="m-ri-min10" />
+        </SkPaper>
+        <div className={cls(cmn.flexg)}></div>
+      </div>
     </Container>
   )
 }
