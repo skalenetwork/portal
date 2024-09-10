@@ -58,6 +58,7 @@ export interface AppSocials {
   discord?: string;
   swell?: string;
   dappradar?: string;
+  egs?: string;
 }
 
 export interface CategoriesMap {
