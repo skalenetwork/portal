@@ -33,7 +33,7 @@ import { cmn, cls } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 import FavoriteIconButton from './FavoriteIconButton'
 import SwellIcon from './SwellIcon'
-import egsLogo from '../../assets/egs.svg'
+import EpicGamesStoreLogo from '../../assets/egs.svg'
 
 interface SocialButtonsProps {
   social?: types.AppSocials
@@ -66,10 +66,10 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
       title: 'Website'
     },
     {
-      key: 'egs',
+      key: 'epic-games-store',
       icon: (
         <img
-          src={egsLogo}
+          src={EpicGamesStoreLogo}
           className={cls('customSocialIcon', isMd && 'customSocialIconMd')}
           alt="egs-logo"
         />

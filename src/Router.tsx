@@ -295,7 +295,7 @@ export default function Router() {
             </Route>
             <Route
               path="/epicgames"
-              element={<Navigate to="/ecosystem?categories=gaming_egs" replace />}
+              element={<Navigate to="/ecosystem?categories=gaming_epic-games-store" replace />}
             />
             <Route
               path="ecosystem"

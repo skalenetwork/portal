@@ -73,7 +73,7 @@ export const categories: Categories = {
       sports: { name: 'Sports' },
       strategy: { name: 'Strategy' },
       web3: { name: 'Web3' },
-      egs: { name: 'Epic Games Store' }
+      'epic-games-store': { name: 'Epic Games Store' }
     }
   },
   hub: { name: 'Hub', subcategories: {} },
