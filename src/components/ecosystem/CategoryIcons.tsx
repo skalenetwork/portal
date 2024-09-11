@@ -62,7 +62,9 @@ import {
   JoinRightRounded,
   PhoneIphoneOutlined,
   DiamondOutlined,
-  SailingOutlined
+  SailingOutlined,
+  SellOutlined,
+  HomeRepairServiceOutlined
 } from '@mui/icons-material'
 import { cls, styles } from '@skalenetwork/metaport'
 import EpicGamesStoreLogo from '../../assets/egs.svg'
@@ -105,6 +107,10 @@ export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
       return <AccountBalanceWalletOutlined />
     case 'web3':
       return <JoinRightRounded />
+    case 'pretge':
+      return <SellOutlined />
+    case 'utility':
+      return <HomeRepairServiceOutlined />
 
     // Gaming subcategories
     case 'action-adventure':

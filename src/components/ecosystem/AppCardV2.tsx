@@ -83,7 +83,9 @@ export default function AppCard(props: {
           </p>
           {props.trending !== undefined && <ChipTrending />}
           {props.isNew && <ChipNew />}
-          {appMeta.tags?.includes('pretge') && <ChipPreTge />}
+          {appMeta.categories && Object.keys(appMeta.categories).includes('pretge') && (
+            <ChipPreTge />
+          )}
         </div>
         <CollapsibleDescription text={appDescription} />
         <CategoriesChips categories={appMeta.categories} className={cls(cmn.mtop20)} />

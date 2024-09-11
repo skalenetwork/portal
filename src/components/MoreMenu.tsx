@@ -30,17 +30,14 @@ import Tooltip from '@mui/material/Tooltip'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
 import FormatListBulletedRoundedIcon from '@mui/icons-material/FormatListBulletedRounded'
+import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded'
 
 import { Link } from 'react-router-dom'
 
-import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
-import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined'
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined'
 
 import { cls, styles, cmn } from '@skalenetwork/metaport'
-
-import { DISCORD_INVITE_URL } from '../core/constants'
-import discordLogo from '../assets/discord-mark-white.svg'
+import { DOCS_PORTAL_URL } from '../core/constants'
 
 export default function MoreMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -114,44 +111,12 @@ export default function MoreMenu() {
             <FormatListBulletedRoundedIcon className={cmn.mri10} /> Changelog
           </MenuItem>
         </Link>
-        <a className="undec fullW" target="_blank" href="https://skale.space/" rel="noreferrer">
-          <MenuItem onClick={handleClose}>
-            <div className={cmn.flex}>
-              <PublicOutlinedIcon className={cmn.mri10} />
-            </div>
-            <div className={cls(cmn.flex, cmn.flexg)}>SKALE Website</div>
-            <div className={cls(cmn.flex, cmn.mleft10)}>
-              <ArrowOutwardIcon className="menuIconRi" />
-            </div>
-          </MenuItem>
-        </a>
-        <a
-          className="undec fullW"
-          target="_blank"
-          href="https://docs.skale.network/"
-          rel="noreferrer"
-        >
+        <a className="undec fullW" target="_blank" href={DOCS_PORTAL_URL} rel="noreferrer">
           <MenuItem onClick={handleClose} className="undec">
             <div className={cmn.flex}>
-              <ArticleOutlinedIcon className={cmn.mri10} />
+              <MenuBookRoundedIcon className={cmn.mri10} />
             </div>
-            <div className={cls(cmn.flex, cmn.flexg)}>Docs portal</div>
-            <div className={cls(cmn.flex, cmn.mleft10)}>
-              <ArrowOutwardIcon className="menuIconRi" />
-            </div>
-          </MenuItem>
-        </a>
-        <a className="undec fullW" target="_blank" href={DISCORD_INVITE_URL} rel="noreferrer">
-          <MenuItem onClick={handleClose} className="undec">
-            <div className={cmn.flex}>
-              <img
-                src={discordLogo}
-                className={cmn.mri10}
-                style={{ width: '22px', height: '22px' }}
-                alt="discord logo"
-              />
-            </div>
-            <div className={cls(cmn.flex, cmn.flexg)}>Discord</div>
+            <div className={cls(cmn.flex, cmn.flexg)}>SKALE Network Docs</div>
             <div className={cls(cmn.flex, cmn.mleft10)}>
               <ArrowOutwardIcon className="menuIconRi" />
             </div>

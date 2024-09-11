@@ -42,7 +42,6 @@ export interface AppMetadata {
   description?: string
   contracts?: string[]
   social?: AppSocials
-  tags?: string[]
   added?: number
   categories: CategoriesMap
 }
