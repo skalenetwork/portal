@@ -33,6 +33,7 @@ import { cmn, cls } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 import FavoriteIconButton from './FavoriteIconButton'
 import SwellIcon from './SwellIcon'
+import EpicGamesStoreLogo from '../../assets/egs.svg'
 
 interface SocialButtonsProps {
   social?: types.AppSocials
@@ -41,6 +42,8 @@ interface SocialButtonsProps {
   className?: string
   size?: 'sm' | 'md'
 }
+
+const MAX_SOCIALS_SM = 6
 
 const SocialButtons: React.FC<SocialButtonsProps> = ({
   social,
@@ -61,6 +64,28 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
         />
       ),
       title: 'Website'
+    },
+    {
+      key: 'epic-games-store',
+      icon: (
+        <img
+          src={EpicGamesStoreLogo}
+          className={cls('customSocialIcon', isMd && 'customSocialIconMd')}
+          alt="egs-logo"
+        />
+      ),
+      title: 'Epic Games Store'
+    },
+    {
+      key: 'swell',
+      icon: (
+        <SwellIcon
+          size={isMd ? 'medium' : 'small'}
+          style={{ padding: '2px' }}
+          className={cls([cmn.pSec, !isMd], [cmn.pPrim, isMd])}
+        />
+      ),
+      title: 'Swell'
     },
     {
       key: 'dappradar',
@@ -85,21 +110,16 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
         />
       ),
       title: 'Dune Analytics'
-    },
-    {
-      key: 'swell',
-      icon: (
-        <SwellIcon size={isMd ? 'medium' : 'small'} style={{ padding: '2px', color: '#93B8EC' }} />
-      ),
-      title: 'Swell'
     }
   ]
+
+  const visibleLinks = isMd ? socialLinks : socialLinks.slice(0, MAX_SOCIALS_SM)
 
   return (
     <div className={cls(cmn.flex, cmn.flexcv, className)}>
       {social && (
         <div className={cls(cmn.flex, cmn.flexg)}>
-          {socialLinks.map(({ key, icon, network, title }) => {
+          {visibleLinks.map(({ key, icon, network, title }) => {
             const link = social[key as keyof types.AppSocials]
             if (!link) return null
 

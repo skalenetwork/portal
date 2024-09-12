@@ -66,6 +66,8 @@ import {
   SellOutlined,
   HomeRepairServiceOutlined
 } from '@mui/icons-material'
+import { cls, styles } from '@skalenetwork/metaport'
+import EpicGamesStoreLogo from '../../assets/egs.svg'
 
 export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
   switch (category) {
@@ -149,6 +151,8 @@ export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
       return <SportsBaseballOutlined />
     case 'strategy':
       return <FlagRounded />
+    case 'epic-games-store':
+      return <img src={EpicGamesStoreLogo} className={cls(styles.chainIconxs)} alt="egs-logo" />
 
     // DeFi subcategories
     case 'custody':
