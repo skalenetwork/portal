@@ -745,7 +745,9 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         razor: {
           address: '0xcbf70914Fae03B3acB91E953De60CfDAaCA8145f',
           chains: {
-            mainnet: {}
+            mainnet: {
+              clone: true
+            }
           }
         }
       }
