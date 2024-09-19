@@ -257,7 +257,14 @@ export default function Router() {
           <Routes>
             <Route
               index
-              element={<Start skaleNetwork={mpc.config.skaleNetwork} chainsMeta={chainsMeta} />}
+              element={
+                <Start
+                  skaleNetwork={mpc.config.skaleNetwork}
+                  chainsMeta={chainsMeta}
+                  metrics={metrics}
+                  loadData={loadData}
+                />
+              }
             />
             <Route path="bridge" element={<Bridge isXs={isXs} chainsMeta={chainsMeta} />} />
             <Route path="bridge">
@@ -299,7 +306,15 @@ export default function Router() {
             />
             <Route
               path="ecosystem"
-              element={<Ecosystem isXs={isXs} mpc={mpc} chainsMeta={chainsMeta} />}
+              element={
+                <Ecosystem
+                  isXs={isXs}
+                  mpc={mpc}
+                  chainsMeta={chainsMeta}
+                  metrics={metrics}
+                  loadData={loadData}
+                />
+              }
             />
             <Route path="ecosystem">
               <Route

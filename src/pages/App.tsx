@@ -48,9 +48,11 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import HubRoundedIcon from '@mui/icons-material/HubRounded'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
+import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded'
+import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded'
+import HourglassFullRoundedIcon from '@mui/icons-material/HourglassFullRounded'
 
 import ChainLogo from '../components/ChainLogo'
-import SkStack from '../components/SkStack'
 import Tile from '../components/Tile'
 import LinkSurface from '../components/LinkSurface'
 import Breadcrumbs from '../components/Breadcrumbs'
@@ -69,8 +71,9 @@ import CategoriesChips from '../components/ecosystem/CategoriesChips'
 import { useLikedApps } from '../LikedAppsContext'
 import { useAuth } from '../AuthContext'
 import ErrorTile from '../components/ErrorTile'
-import { ChipNew, ChipPreTge, ChipTrending } from '../components/Chip'
-import { getRecentApps, isNewApp } from '../core/ecosystem/utils'
+import { ChipNew, ChipPreTge, ChipTrending, ChipMostLiked } from '../components/Chip'
+import { getRecentApps, isNewApp, isTrending } from '../core/ecosystem/utils'
+import { useApps } from '../useApps'
 
 export default function App(props: {
   mpc: MetaportCore
@@ -85,9 +88,9 @@ export default function App(props: {
     appLikes,
     toggleLikedApp,
     getAppId,
-    getTrendingApps,
+    getMostLikedApps,
     refreshLikedApps,
-    getTrendingRank
+    getMostLikedRank
   } = useLikedApps()
   const { isSignedIn, handleSignIn } = useAuth()
 
@@ -126,13 +129,16 @@ export default function App(props: {
 
   const appDescription = appMeta.description ?? 'No description'
 
+  const { trendingApps } = useApps(props.chainsMeta, props.metrics)
+
   const appId = getAppId(chain, app)
   const isLiked = likedApps.includes(appId)
   const likesCount = appLikes[appId] || 0
 
-  const trendingAppIds = useMemo(() => getTrendingApps(), [getTrendingApps])
-  const trendingIndex = getTrendingRank(trendingAppIds, appId)
+  const mostLiked = useMemo(() => getMostLikedApps(), [getMostLikedApps])
+  const mostLikedIndex = getMostLikedRank(mostLiked, appId)
   const isNew = isNewApp({ chain, app }, newApps)
+  const trending = isTrending(trendingApps, chain, app)
 
   const handleToggleLike = async () => {
     if (!address) {
@@ -242,7 +248,8 @@ export default function App(props: {
                 <div className={cls(cmn.flex, cmn.flexcv)}>
                   <h2 className={cls(cmn.nom, cmn.p1)}>{appAlias}</h2>
                   <div className={cls(cmn.flex, cmn.mleft10)}>
-                    {trendingIndex !== undefined && <ChipTrending trending={trendingIndex} />}
+                    {mostLikedIndex !== undefined && <ChipMostLiked />}
+                    {trending && <ChipTrending />}
                     {isNew && <ChipNew />}
                     {appMeta.categories && Object.keys(appMeta.categories).includes('pretge') && (
                       <ChipPreTge />
@@ -257,40 +264,84 @@ export default function App(props: {
           </div>
         </SkPaper>
         <SkPaper gray className={cls(cmn.mtop10)}>
-          <SkStack>
-            {appMeta.contracts ? (
+          <Grid container spacing={1} className={cls(cmn.full)}>
+            {appMeta.contracts && (
+              <Grid item lg={4} md={6} xs={12}>
+                <Tile
+                  grow
+                  text="Total transactions"
+                  value={counters ? formatNumber(Number(counters.transactions_count)) : undefined}
+                  icon={<DataSaverOffRoundedIcon />}
+                />
+              </Grid>
+            )}
+            {appMeta.contracts && (
+              <Grid item lg={4} md={6} xs={12}>
+                <Tile
+                  grow
+                  text="Gas saved"
+                  childrenRi={
+                    !props.isXs ? (
+                      <InfoOutlinedIcon
+                        className={cls(cmn.pSec, styles.chainIconxs, cmn.mleft10)}
+                      />
+                    ) : undefined
+                  }
+                  tooltip={
+                    props.metrics && counters
+                      ? `Given gas price ${props.metrics.gas} Gwei. ${counters.gas_usage_count} of gas used.`
+                      : undefined
+                  }
+                  value={props.metrics && counters ? `${formatGas()} ETH` : undefined}
+                  icon={<SavingsRoundedIcon />}
+                />
+              </Grid>
+            )}
+            <Grid item lg={appMeta.contracts ? 4 : 12} md={appMeta.contracts ? 6 : 12} xs={12}>
               <Tile
                 grow
-                text="Total transactions"
-                value={counters ? formatNumber(Number(counters.transactions_count)) : undefined}
-                icon={<DataSaverOffRoundedIcon />}
+                text="Favorites"
+                value={likesCount.toString()}
+                icon={<FavoriteRoundedIcon />}
               />
-            ) : null}
-            {appMeta.contracts ? (
-              <Tile
-                grow
-                text="Gas saved"
-                childrenRi={
-                  !props.isXs ? (
-                    <InfoOutlinedIcon className={cls(cmn.pSec, styles.chainIconxs, cmn.mleft10)} />
-                  ) : undefined
-                }
-                tooltip={
-                  props.metrics && counters
-                    ? `Given gas price ${props.metrics.gas} Gwei. ${counters.gas_usage_count} of gas used.`
-                    : undefined
-                }
-                value={props.metrics && counters ? `${formatGas()} ETH` : undefined}
-                icon={<SavingsRoundedIcon />}
-              />
-            ) : null}
-            <Tile
-              grow
-              text="Favorites"
-              value={likesCount.toString()}
-              icon={<FavoriteRoundedIcon />}
-            />
-          </SkStack>
+            </Grid>
+            {appMeta.contracts && (
+              <Grid item lg={4} md={6} xs={12}>
+                <Tile
+                  grow
+                  text="Daily transactions"
+                  value={
+                    counters ? formatNumber(Number(counters.transactions_last_day)) : undefined
+                  }
+                  icon={<HourglassTopRoundedIcon />}
+                />
+              </Grid>
+            )}
+            {appMeta.contracts && (
+              <Grid item lg={4} md={6} xs={12}>
+                <Tile
+                  grow
+                  text="7d transactions"
+                  value={
+                    counters ? formatNumber(Number(counters.transactions_last_7_days)) : undefined
+                  }
+                  icon={<HourglassBottomRoundedIcon />}
+                />
+              </Grid>
+            )}
+            {appMeta.contracts && (
+              <Grid item lg={4} md={6} xs={12}>
+                <Tile
+                  grow
+                  text="30d transactions"
+                  value={
+                    counters ? formatNumber(Number(counters.transactions_last_30_days)) : undefined
+                  }
+                  icon={<HourglassFullRoundedIcon />}
+                />
+              </Grid>
+            )}
+          </Grid>
         </SkPaper>
         {chain !== OFFCHAIN_APP && (
           <SkPaper gray className={cls(cmn.mtop10, 'fwmobile')}>

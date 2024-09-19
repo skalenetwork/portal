@@ -41,6 +41,7 @@ interface SocialButtonsProps {
   appName?: string
   className?: string
   size?: 'sm' | 'md'
+  all?: boolean
 }
 
 const MAX_SOCIALS_SM = 6
@@ -50,6 +51,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
   chainName,
   appName,
   className,
+  all = false,
   size = 'sm'
 }) => {
   const isMd = size === 'md'
@@ -113,7 +115,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
     }
   ]
 
-  const visibleLinks = isMd ? socialLinks : socialLinks.slice(0, MAX_SOCIALS_SM)
+  const visibleLinks = isMd || all ? socialLinks : socialLinks.slice(0, MAX_SOCIALS_SM)
 
   return (
     <div className={cls(cmn.flex, cmn.flexcv, className)}>

@@ -29,7 +29,7 @@ import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
 import PieChartOutlineRoundedIcon from '@mui/icons-material/PieChartOutlineRounded'
 import OutboundRoundedIcon from '@mui/icons-material/OutboundRounded'
-import InterestsRoundedIcon from '@mui/icons-material/InterestsRounded'
+import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded'
 
 interface SectionIcons {
   [key: string]: JSX.Element
@@ -40,7 +40,7 @@ export const SECTION_ICONS: SectionIcons = {
   favorites: <FavoriteRoundedIcon color="primary" />,
   new: <StarRoundedIcon color="primary" />,
   trending: <TrendingUpRoundedIcon color="primary" />,
-  userFavorites: <InterestsRoundedIcon color="primary" />,
+  mostLiked: <PeopleRoundedIcon color="primary" />,
   categories: <OutboundRoundedIcon color="primary" />
 }
 
