@@ -38,6 +38,7 @@ import { META_TAGS } from '../core/meta'
 import TokenBalanceTile from '../components/TokenBalanceTile'
 import ConnectWallet from '../components/ConnectWallet'
 import Message from '../components/Message'
+import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import { getPaymasterChain } from '../core/paymaster'
 import {
   MAINNET_CHAIN_NAME,
@@ -135,10 +136,15 @@ export default function Onramp(props: { mpc: MetaportCore }) {
         <meta property="og:description" content={META_TAGS.onramp.description} />
       </Helmet>
       <Stack spacing={0}>
-        <h2 className={cls(cmn.nom)}>On-ramp</h2>
-        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-          Transfer your assets to SKALE Europa Hub
-        </p>
+        <div className={cls(cmn.flex, cmn.flexcv)}>
+          <div className={cmn.flexg}>
+            <h2 className={cls(cmn.nom)}>On-ramp</h2>
+            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+              Transfer your assets to SKALE Europa Hub
+            </p>
+          </div>
+          <SkPageInfoIcon meta_tag={META_TAGS.onramp} />
+        </div>
         {!isProd ? (
           <Message
             className={cls(cmn.mtop20)}

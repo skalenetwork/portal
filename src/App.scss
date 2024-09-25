@@ -389,6 +389,38 @@ body::-webkit-scrollbar {
 
 }
 
+.sk-icon-btn-small {
+  width: 34px;
+  height: 34px;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.sk-icon-btn-medium {
+  width: 40px;
+  height: 40px;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+
+.sk-icon-btn-large {
+  width: 46px;
+  height: 46px;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+
 .btn {
   text-transform: none !important;
   font-size: 0.8025rem !important;
@@ -1387,4 +1419,9 @@ input[type=number] {
 
 .hidden {
   display: none;
+}
+
+.MuiTooltip-tooltip {
+  font-size: 0.8rem !important;
+  padding: 8px 12px !important;
 }

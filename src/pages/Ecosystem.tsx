@@ -48,6 +48,7 @@ import FavoriteApps from '../components/ecosystem/tabs/FavoriteApps'
 import MostLiked from '../components/ecosystem/tabs/MostLiked'
 import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import SocialButtons from '../components/ecosystem/Socials'
+import SkPageInfoIcon from '../components/SkPageInfoIcon'
 
 export default function Ecosystem(props: {
   mpc: MetaportCore
@@ -128,11 +129,11 @@ export default function Ecosystem(props: {
         4,
         isSignedIn
           ? favoriteApps.filter((app) =>
-              filteredApps.some(
-                (filteredApp) =>
-                  filteredApp.chain === app.chain && filteredApp.appName === app.appName
-              )
+            filteredApps.some(
+              (filteredApp) =>
+                filteredApp.chain === app.chain && filteredApp.appName === app.appName
             )
+          )
           : []
       ] // Favorite Apps
     ])
@@ -145,23 +146,26 @@ export default function Ecosystem(props: {
   return (
     <Container maxWidth="md">
       <Helmet>
-        <title>{META_TAGS.apps.title}</title>
-        <meta name="description" content={META_TAGS.apps.description} />
-        <meta property="og:title" content={META_TAGS.apps.title} />
-        <meta property="og:description" content={META_TAGS.apps.description} />
+        <title>{META_TAGS.ecosystem.title}</title>
+        <meta name="description" content={META_TAGS.ecosystem.description} />
+        <meta property="og:title" content={META_TAGS.ecosystem.title} />
+        <meta property="og:description" content={META_TAGS.ecosystem.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className={cls(cmn.flex, cmn.flexcv)}>
+        <SkStack>
           <div className={cls(cmn.flexg)}>
             <h2 className={cls(cmn.nom)}>Ecosystem</h2>
             <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
               Explore dApps across the SKALE ecosystem
             </p>
           </div>
-          <div>
+          <div className={cls(cmn.flex, cmn.flexcv)}>
             <SocialButtons social={SKALE_SOCIAL_LINKS} all />
+            <div className={cls(cmn.mleft10)}>
+              <SkPageInfoIcon meta_tag={META_TAGS.ecosystem} />
+            </div>
           </div>
-        </div>
+        </SkStack>
         <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20, 'fwmobile')}>
           <SkStack className={cls(cmn.mbott20, cmn.flex, cmn.flexcv)}>
             <SearchComponent

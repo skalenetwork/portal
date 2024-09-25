@@ -33,7 +33,8 @@ export const META_TAGS = {
   },
   bridge: {
     title: 'SKALE Portal - Bridge Tokens',
-    description: 'Bridge tokens using SKALE Bridge - Zero Gas Fees between SKALE Chains.'
+    description: 'Bridge tokens using SKALE Bridge - Zero Gas Fees between SKALE Chains.',
+    help: 'Bridge tokens between Ethereum and SKALE chains with zero gas fees.'
   },
   history: {
     title: 'SKALE Portal - Bridge History',
@@ -49,9 +50,9 @@ export const META_TAGS = {
     description:
       'Explore SKALE Hubs, AppChains, connect to SKALE Chains, get block explorer links, endpoints, linked tokens and verified contracts info.'
   },
-  apps: {
-    title: 'SKALE Portal - Apps',
-    description: 'Apps on SKALE Network. Explore and interact with dApps on SKALE Network.'
+  ecosystem: {
+    title: 'SKALE Portal - Ecosystem',
+    description: 'Explore and interact with dApps on SKALE Network.'
   },
   faq: {
     title: 'SKALE Portal - Bridge FAQ',
@@ -60,6 +61,10 @@ export const META_TAGS = {
   staking: {
     title: 'SKALE Portal - Staking',
     description: 'Delegate, review delegations and withdraw staking rewards'
+  },
+  validators: {
+    title: 'SKALE Portal - Validators',
+    description: 'List of validators on SKALE Network'
   },
   onramp: {
     title: 'SKALE Portal - Onramp',
