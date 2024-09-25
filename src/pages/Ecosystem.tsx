@@ -28,6 +28,7 @@ import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded'
+import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded'
 
 import { type types } from '@/core'
 import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
@@ -41,20 +42,26 @@ import CategoryDisplay from '../components/ecosystem/Categories'
 import SearchComponent from '../components/ecosystem/AppSearch'
 import SelectedCategories from '../components/ecosystem/SelectedCategories'
 import SkStack from '../components/SkStack'
-import AllApps from '../components/ecosystem/AllApps'
-import NewApps from '../components/ecosystem/NewApps'
-import FavoriteApps from '../components/ecosystem/FavoriteApps'
-import TrendingApps from '../components/ecosystem/TrendingApps'
+import AllApps from '../components/ecosystem/tabs/AllApps'
+import NewApps from '../components/ecosystem/tabs/NewApps'
+import FavoriteApps from '../components/ecosystem/tabs/FavoriteApps'
+import MostLiked from '../components/ecosystem/tabs/MostLiked'
+import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import SocialButtons from '../components/ecosystem/Socials'
 
 export default function Ecosystem(props: {
   mpc: MetaportCore
   chainsMeta: types.ChainsMetadataMap
+  metrics: types.IMetrics | null
   isXs: boolean
+  loadData: () => Promise<void>
 }) {
   const { getCheckedItemsFromUrl, setCheckedItemsInUrl, getTabIndexFromUrl, setTabIndexInUrl } =
     useUrlParams()
-  const { allApps, newApps, trendingApps, favoriteApps, isSignedIn } = useApps(props.chainsMeta)
+  const { allApps, newApps, mostLikedApps, trendingApps, favoriteApps, isSignedIn } = useApps(
+    props.chainsMeta,
+    props.metrics
+  )
 
   const [checkedItems, setCheckedItems] = useState<string[]>([])
   const [filteredApps, setFilteredApps] = useState<types.AppWithChainAndName[]>([])
@@ -63,6 +70,7 @@ export default function Ecosystem(props: {
   const [loaded, setLoaded] = useState<boolean>(false)
 
   useEffect(() => {
+    props.loadData()
     const initialCheckedItems = getCheckedItemsFromUrl()
     setCheckedItems(initialCheckedItems)
     const initialTabIndex = getTabIndexFromUrl()
@@ -102,6 +110,22 @@ export default function Ecosystem(props: {
       ], // New Apps
       [
         2,
+        trendingApps.filter((app) =>
+          filteredApps.some(
+            (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
+          )
+        )
+      ], // Trending Apps
+      [
+        3,
+        mostLikedApps.filter((app) =>
+          filteredApps.some(
+            (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
+          )
+        )
+      ], // Most liked Apps
+      [
+        4,
         isSignedIn
           ? favoriteApps.filter((app) =>
               filteredApps.some(
@@ -110,19 +134,11 @@ export default function Ecosystem(props: {
               )
             )
           : []
-      ], // Favorite Apps
-      [
-        3,
-        trendingApps.filter((app) =>
-          filteredApps.some(
-            (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
-          )
-        )
-      ] // Trending Apps
+      ] // Favorite Apps
     ])
 
     return (tabIndex: number) => filterMap.get(tabIndex) || filteredApps
-  }, [filteredApps, newApps, favoriteApps, trendingApps, isSignedIn])
+  }, [filteredApps, newApps, trendingApps, mostLikedApps, favoriteApps, isSignedIn])
 
   const currentFilteredApps = getFilteredAppsByTab(activeTab)
 
@@ -143,7 +159,7 @@ export default function Ecosystem(props: {
             </p>
           </div>
           <div>
-            <SocialButtons social={SKALE_SOCIAL_LINKS} />
+            <SocialButtons social={SKALE_SOCIAL_LINKS} all />
           </div>
         </div>
         <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20, 'fwmobile')}>
@@ -189,14 +205,20 @@ export default function Ecosystem(props: {
               className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
             />
             <Tab
-              label="Favorites"
-              icon={<FavoriteRoundedIcon />}
+              label="Trending"
+              icon={<TrendingUpRoundedIcon />}
               iconPosition="start"
               className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
             />
             <Tab
-              label="Trending"
-              icon={<TrendingUpRoundedIcon />}
+              label="Most Liked"
+              icon={<PeopleRoundedIcon />}
+              iconPosition="start"
+              className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+            />
+            <Tab
+              label="Favorites"
+              icon={<FavoriteRoundedIcon />}
               iconPosition="start"
               className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
             />
@@ -209,6 +231,7 @@ export default function Ecosystem(props: {
               chainsMeta={props.chainsMeta}
               newApps={newApps}
               loaded={loaded}
+              trendingApps={trendingApps}
             />
           )}
           {activeTab === 1 && (
@@ -216,24 +239,35 @@ export default function Ecosystem(props: {
               newApps={currentFilteredApps}
               skaleNetwork={props.mpc.config.skaleNetwork}
               chainsMeta={props.chainsMeta}
+              trendingApps={trendingApps}
             />
           )}
           {activeTab === 2 && (
+            <TrendingApps
+              chainsMeta={props.chainsMeta}
+              skaleNetwork={props.mpc.config.skaleNetwork}
+              newApps={newApps}
+              filteredApps={currentFilteredApps}
+            />
+          )}
+          {activeTab === 3 && (
+            <MostLiked
+              chainsMeta={props.chainsMeta}
+              skaleNetwork={props.mpc.config.skaleNetwork}
+              newApps={newApps}
+              filteredApps={currentFilteredApps}
+              trendingApps={trendingApps}
+            />
+          )}
+          {activeTab === 4 && (
             <FavoriteApps
               chainsMeta={props.chainsMeta}
               skaleNetwork={props.mpc.config.skaleNetwork}
               newApps={newApps}
               filteredApps={currentFilteredApps}
+              trendingApps={trendingApps}
               isSignedIn={isSignedIn}
               error={null}
-            />
-          )}
-          {activeTab === 3 && (
-            <TrendingApps
-              chainsMeta={props.chainsMeta}
-              skaleNetwork={props.mpc.config.skaleNetwork}
-              newApps={newApps}
-              trendingApps={currentFilteredApps}
             />
           )}
         </Box>

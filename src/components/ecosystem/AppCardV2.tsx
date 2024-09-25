@@ -33,7 +33,7 @@ import { chainBg, getChainAlias } from '../../core/metadata'
 import CollapsibleDescription from '../CollapsibleDescription'
 import CategoriesChips from './CategoriesChips'
 import SocialButtons from './Socials'
-import { ChipTrending, ChipNew, ChipPreTge } from '../Chip'
+import { ChipMostLiked, ChipNew, ChipPreTge, ChipTrending } from '../Chip'
 
 export default function AppCard(props: {
   skaleNetwork: types.SkaleNetwork
@@ -43,7 +43,8 @@ export default function AppCard(props: {
   transactions?: number
   newApps?: types.AppWithChainAndName[]
   isNew?: boolean
-  trending?: number
+  mostLiked?: number
+  trending?: boolean
 }) {
   const shortAlias = getChainShortAlias(props.chainsMeta, props.schainName)
   const url = `/ecosystem/${shortAlias}/${props.appName}`
@@ -78,10 +79,11 @@ export default function AppCard(props: {
           )}
         </div>
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10)}>
-          <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri5)}>
+          <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg)}>
             {getChainAlias(props.chainsMeta, props.schainName, props.appName)}
           </p>
-          {props.trending !== undefined && <ChipTrending />}
+          {props.mostLiked !== undefined && <ChipMostLiked />}
+          {props.trending && <ChipTrending />}
           {props.isNew && <ChipNew />}
           {appMeta.categories && Object.keys(appMeta.categories).includes('pretge') && (
             <ChipPreTge />

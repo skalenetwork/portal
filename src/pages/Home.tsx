@@ -31,21 +31,33 @@ import { useApps } from '../useApps'
 import Headline from '../components/Headline'
 import PageCard from '../components/PageCard'
 import CategoryCardsGrid from '../components/ecosystem/CategoryCardsGrid'
-import NewApps from '../components/ecosystem/NewApps'
-import FavoriteApps from '../components/ecosystem/FavoriteApps'
-import TrendingApps from '../components/ecosystem/TrendingApps'
+import NewApps from '../components/ecosystem/tabs/NewApps'
+import FavoriteApps from '../components/ecosystem/tabs/FavoriteApps'
+import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 
 import { SECTION_ICONS, EXPLORE_CARDS } from '../components/HomeComponents'
 import SocialButtons from '../components/ecosystem/Socials'
 import { SKALE_SOCIAL_LINKS } from '../core/constants'
+import { useEffect } from 'react'
 
 interface HomeProps {
   skaleNetwork: types.SkaleNetwork
   chainsMeta: types.ChainsMetadataMap
+  metrics: types.IMetrics | null
+  loadData: () => Promise<void>
 }
 
-export default function Home({ skaleNetwork, chainsMeta }: HomeProps): JSX.Element {
-  const { newApps, trendingApps, favoriteApps, isSignedIn } = useApps(chainsMeta)
+export default function Home({
+  skaleNetwork,
+  chainsMeta,
+  metrics,
+  loadData
+}: HomeProps): JSX.Element {
+  const { newApps, trendingApps, favoriteApps, isSignedIn } = useApps(chainsMeta, metrics)
+
+  useEffect(() => {
+    loadData()
+  }, [])
 
   return (
     <Container maxWidth="md" className="paddBott60">
@@ -68,6 +80,7 @@ export default function Home({ skaleNetwork, chainsMeta }: HomeProps): JSX.Eleme
               useCarousel={true}
               newApps={newApps}
               filteredApps={favoriteApps}
+              trendingApps={trendingApps}
               isSignedIn={isSignedIn}
               error={null}
             />
@@ -83,6 +96,7 @@ export default function Home({ skaleNetwork, chainsMeta }: HomeProps): JSX.Eleme
               skaleNetwork={skaleNetwork}
               chainsMeta={chainsMeta}
               useCarousel={true}
+              trendingApps={trendingApps}
             />
           }
         />
@@ -95,7 +109,7 @@ export default function Home({ skaleNetwork, chainsMeta }: HomeProps): JSX.Eleme
               chainsMeta={chainsMeta}
               skaleNetwork={skaleNetwork}
               newApps={newApps}
-              trendingApps={trendingApps}
+              filteredApps={trendingApps}
               useCarousel
             />
           }
