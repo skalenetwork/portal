@@ -129,11 +129,11 @@ export default function Ecosystem(props: {
         4,
         isSignedIn
           ? favoriteApps.filter((app) =>
-            filteredApps.some(
-              (filteredApp) =>
-                filteredApp.chain === app.chain && filteredApp.appName === app.appName
+              filteredApps.some(
+                (filteredApp) =>
+                  filteredApp.chain === app.chain && filteredApp.appName === app.appName
+              )
             )
-          )
           : []
       ] // Favorite Apps
     ])
