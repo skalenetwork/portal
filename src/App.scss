@@ -794,6 +794,15 @@ input[type=number] {
   }
 }
 
+.chipMostLiked {
+  background: linear-gradient(180deg, #e8a25b, #e58e36) !important;
+
+
+  p {
+    color: black !important
+  }
+}
+
 .chipNewApp {
   background: linear-gradient(180deg, #65a974, #508d5e) !important;
 
@@ -832,7 +841,7 @@ input[type=number] {
 
 .chipXs {
   border-radius: 15px;
-  padding: 4px 8px;
+  padding: 4px 6px;
 
   svg {
     width: 12px;
