@@ -21,10 +21,12 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import React from 'react'
+import React, { useState, useCallback } from 'react'
 import IconButton, { IconButtonProps } from '@mui/material/IconButton'
 import Tooltip, { TooltipProps } from '@mui/material/Tooltip'
 import { SvgIconProps } from '@mui/material/SvgIcon'
+import { useTheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import { cls, styles, cmn } from '@skalenetwork/metaport'
 
 type IconType = React.ComponentType<SvgIconProps>
@@ -48,19 +50,41 @@ const SkIconBtn: React.FC<SkIconBtnProps> = ({
   primary = true,
   ...props
 }) => {
+  const [tooltipOpen, setTooltipOpen] = useState(false)
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
+
+  const handleTooltipToggle = useCallback(() => {
+    if (isMobile) {
+      setTooltipOpen((prevOpen) => !prevOpen)
+    }
+  }, [isMobile])
+
+  const handleClick = useCallback(
+    (event: React.MouseEvent<HTMLButtonElement>) => {
+      if (isMobile) {
+        handleTooltipToggle()
+      }
+      if (onClick) {
+        onClick(event)
+      }
+    },
+    [isMobile, onClick, handleTooltipToggle]
+  )
+
   const button = (
     <IconButton
-      onClick={onClick}
+      onClick={handleClick}
       className={cls(styles.paperGrey, 'sk-icon-btn', `sk-icon-btn-${size}`, className)}
       size={size}
       {...props}
     >
       <Icon
         className={cls(
+          iconClassName,
           [cmn.pPrim, primary],
           [cmn.pSec, !primary],
-          'sk-icon-btn-img',
-          iconClassName
+          'sk-icon-btn-img'
         )}
       />
     </IconButton>
@@ -68,7 +92,13 @@ const SkIconBtn: React.FC<SkIconBtnProps> = ({
 
   if (tooltipTitle) {
     return (
-      <Tooltip title={tooltipTitle} {...tooltipProps} arrow>
+      <Tooltip
+        title={tooltipTitle}
+        {...tooltipProps}
+        open={isMobile ? tooltipOpen : undefined}
+        onClose={handleTooltipToggle}
+        onOpen={handleTooltipToggle}
+      >
         {button}
       </Tooltip>
     )

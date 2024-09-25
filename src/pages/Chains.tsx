@@ -100,7 +100,7 @@ export default function Chains(props: {
               Connect, get block explorer links and endpoints
             </p>
           </div>
-          <SkPageInfoIcon meta_tag={META_TAGS.onramp} />
+          <SkPageInfoIcon meta_tag={META_TAGS.chains} />
         </div>
         <ChainsSection
           name="SKALE Hubs"
