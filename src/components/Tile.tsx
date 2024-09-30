@@ -44,8 +44,8 @@ export default function Tile(props: {
   color?: DueDateStatus
   progressColor?: DueDateStatus
   progress?: number
-  children?: ReactElement | ReactElement[]
-  childrenRi?: ReactElement | ReactElement[]
+  children?: ReactElement | ReactElement[] | false
+  childrenRi?: ReactElement | ReactElement[] | null | ''
   size?: 'lg' | 'md'
   textColor?: string
   disabled?: boolean | null
@@ -161,6 +161,7 @@ export default function Tile(props: {
                 </Tooltip>
               ) : null}
               {props.value && !props.copy ? value : null}
+              {props.children && <div className={cls(cmn.flexg)}>{props.children}</div>}
               {!props.value && !props.children ? (
                 <Skeleton variant="rectangular" width={150} height={33} />
               ) : null}
@@ -177,7 +178,6 @@ export default function Tile(props: {
           </div>
           {props.childrenRi}
         </SkStack>
-        {props.children}
       </div>
     </Tooltip>
   )

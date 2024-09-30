@@ -1,0 +1,56 @@
+.profileModal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 900px;
+    background-color: black;
+    max-height: 90vh;
+    overflow-y: auto;
+    border-radius: 35px;
+}
+
+.profileModalHeader {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.profileModalStatus {
+    display: flex;
+    align-items: center;
+}
+
+.profileModalActions {
+    margin-top: 10px;
+    margin-left: 10px;
+    margin-bottom: 10px;
+}
+
+.emailInput {
+    width: 100%;
+}
+
+.emailInput input {
+    font-size: 16px;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
+
+.emailInput.error input {
+    border-color: #f44336;
+}
+
+.emailInput .errorText {
+    color: #f44336;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+@media (max-width: 600px) {
+    .profileModal {
+        width: 95%;
+    }
+}

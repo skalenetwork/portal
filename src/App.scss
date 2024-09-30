@@ -1,6 +1,7 @@
 @import './variables';
 @import './styles/components';
 @import './styles/chip';
+@import './styles/ProfileModal';
 
 :root {
   background: black;
@@ -22,6 +23,10 @@ body {
 
 .skLogo {
   width: 75pt;
+}
+
+.skMessage {
+  min-height: 58px;
 }
 
 .sk-header {
@@ -1229,7 +1234,7 @@ input[type=number] {
 
 .amountInput {
   input {
-    padding: 3px 10px 0 5px !important
+    padding: 0 !important
   }
 }
 

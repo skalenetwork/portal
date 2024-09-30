@@ -49,6 +49,7 @@ import MostLiked from '../components/ecosystem/tabs/MostLiked'
 import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import SocialButtons from '../components/ecosystem/Socials'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
+import { SwellMessage } from '../components/Message'
 
 export default function Ecosystem(props: {
   mpc: MetaportCore
@@ -184,6 +185,7 @@ export default function Ecosystem(props: {
             setCheckedItems={handleSetCheckedItems}
             filteredAppsCount={currentFilteredApps.length}
           />
+          <SwellMessage className={cmn.mbott20} />
           <Tabs
             variant={props.isXs ? 'scrollable' : 'standard'}
             value={activeTab}

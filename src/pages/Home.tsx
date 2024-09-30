@@ -21,6 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Stack, Box, Grid, Button } from '@mui/material'
 import { cmn, cls, SkPaper } from '@skalenetwork/metaport'
@@ -35,10 +36,10 @@ import NewApps from '../components/ecosystem/tabs/NewApps'
 import FavoriteApps from '../components/ecosystem/tabs/FavoriteApps'
 import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 
+import { SKALE_SOCIAL_LINKS } from '../core/constants'
 import { SECTION_ICONS, EXPLORE_CARDS } from '../components/HomeComponents'
 import SocialButtons from '../components/ecosystem/Socials'
-import { SKALE_SOCIAL_LINKS } from '../core/constants'
-import { useEffect } from 'react'
+import { SwellMessage } from '../components/Message'
 
 interface HomeProps {
   skaleNetwork: types.SkaleNetwork
@@ -63,6 +64,7 @@ export default function Home({
     <Container maxWidth="md" className="paddBott60">
       <Stack spacing={0}>
         <h2 className={cls(cmn.nom)}>Welcome to SKALE</h2>
+        <SwellMessage className={cmn.mtop20} />
         <Headline
           text="Explore Portal"
           icon={SECTION_ICONS.explore}
