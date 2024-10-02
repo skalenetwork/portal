@@ -55,9 +55,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         log.info('User is already signed in')
         setIsSignedIn(true)
       } else {
-        log.info('User not signed in, initiating sign in process')
+        log.info('User not signed in, clearing session')
         await handleSignOut()
-        await handleSignIn()
       }
     } catch (error) {
       log.error('Error checking sign-in status:', error)
@@ -95,7 +94,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const message = new SiweMessage({
         domain: window.location.host,
         address: address,
-        statement: 'Sign in with Ethereum to the SKALE Portal.',
+        statement:
+          'Sign in to the SKALE Portal to add dApps to your Favorites. This is optional, and you can still use the Portal without signing in.',
         uri: window.location.origin,
         version: '1',
         chainId: 1,
