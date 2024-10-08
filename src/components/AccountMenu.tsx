@@ -21,21 +21,12 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { useState, type MouseEvent } from 'react'
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 
 import Box from '@mui/material/Box'
-import Menu from '@mui/material/Menu'
-import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'
-
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
-import SignalCellularAltOutlinedIcon from '@mui/icons-material/SignalCellularAltOutlined'
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
-import LoginOutlinedIcon from '@mui/icons-material/LoginOutlined'
-import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 
 import { cls, styles, cmn, RainbowConnectButton } from '@skalenetwork/metaport'
@@ -43,163 +34,63 @@ import { cls, styles, cmn, RainbowConnectButton } from '@skalenetwork/metaport'
 import { useAuth } from '../AuthContext'
 
 export default function AccountMenu(props: any) {
-  const { isSignedIn, handleSignIn, handleSignOut } = useAuth()
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
-  const open = Boolean(anchorEl)
-  const handleClick = (event: MouseEvent<HTMLElement>) => {
-    setAnchorEl(event.currentTarget)
-  }
-  const handleClose = () => {
-    setAnchorEl(null)
-  }
-
+  const { isSignedIn, openProfileModal } = useAuth()
   return (
-    <div>
-      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        {!props.address ? (
-          <Tooltip arrow title="Click to connect wallet">
-            <div>
-              <RainbowConnectButton.Custom>
-                {({ openConnectModal }) => {
-                  return (
-                    <Button
-                      onClick={() => {
-                        openConnectModal()
-                      }}
-                      className={cls(styles.paperGrey, cmn.pPrim, 'mp__btnConnect', cmn.flex)}
-                    >
-                      <LooksRoundedIcon
-                        className={cmn.mri5}
-                        style={{ height: '18px', width: '18px' }}
-                      />
-                      Connect wallet
-                    </Button>
-                  )
-                }}
-              </RainbowConnectButton.Custom>
-            </div>
-          </Tooltip>
-        ) : (
-          <Tooltip
-            arrow
-            title={isSignedIn ? 'Conneced and signed-in' : 'Wallet connect, signed-out'}
-          >
-            <Button
-              onClick={handleClick}
-              className={cls('mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex)}
-            >
-              <div
-                className={cls(cmn.mri5, cmn.flexcv)}
-                style={{ height: '20px', position: 'relative' }}
-              >
-                <Jazzicon diameter={20} seed={jsNumberForAddress(props.address)} />
-                <div className={cls('icon-overlay', cmn.flex, cmn.flexcv)}>
-                  {isSignedIn ? (
-                    <FiberManualRecordRoundedIcon
-                      color="success"
-                      className={cls(styles.chainIconxs)}
+    <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
+      {!props.address ? (
+        <Tooltip arrow title="Click to connect wallet">
+          <div>
+            <RainbowConnectButton.Custom>
+              {({ openConnectModal }) => {
+                return (
+                  <Button
+                    onClick={() => {
+                      openConnectModal()
+                    }}
+                    className={cls(styles.paperGrey, cmn.pPrim, 'mp__btnConnect', cmn.flex)}
+                  >
+                    <LooksRoundedIcon
+                      className={cmn.mri5}
+                      style={{ height: '18px', width: '18px' }}
                     />
-                  ) : (
-                    <FiberManualRecordRoundedIcon
-                      color="warning"
-                      className={cls(styles.chainIconxs)}
-                    />
-                  )}
-                </div>
-              </div>
-              {props.address.substring(0, 5) +
-                '...' +
-                props.address.substring(props.address.length - 3)}
-            </Button>
-          </Tooltip>
-        )}
-      </Box>
-      <Menu
-        className="mp__moreMenu"
-        anchorEl={anchorEl}
-        id="account-menu"
-        open={open}
-        onClose={handleClose}
-        onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
-            '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1
-            },
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0
-            }
-          }
-        }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-      >
-        <RainbowConnectButton.Custom>
-          {({ openAccountModal }) => {
-            return (
-              <MenuItem
-                onClick={() => {
-                  openAccountModal()
-                  handleClose()
-                }}
-              >
-                <AccountCircleRoundedIcon className={cmn.mri10} /> Account info
-              </MenuItem>
-            )
-          }}
-        </RainbowConnectButton.Custom>
-        <a
-          className="undec fullW"
-          target="_blank"
-          href={'https://etherscan.io/address/' + props.address}
-          rel="noreferrer"
-        >
-          <MenuItem onClick={handleClose}>
-            <div className={cmn.flex}>
-              <SignalCellularAltOutlinedIcon className={cmn.mri10} />
-            </div>
-            <div className={cls(cmn.flex, cmn.flexg)}>View on Etherscan</div>
-            <div className={cls(cmn.flex, cmn.mleft10)}>
-              <ArrowOutwardIcon className="menuIconRi" />
-            </div>
-          </MenuItem>
-        </a>
-        <MenuItem
-          onClick={() => {
-            if (isSignedIn) {
-              handleSignOut()
-            } else {
-              handleSignIn()
-            }
-            handleClose()
-          }}
-        >
-          <div className={cmn.flex}>
-            {isSignedIn ? (
-              <LogoutOutlinedIcon className={cmn.mri10} />
-            ) : (
-              <LoginOutlinedIcon className={cmn.mri10} />
-            )}
+                    Connect wallet
+                  </Button>
+                )
+              }}
+            </RainbowConnectButton.Custom>
           </div>
-          <div className={cls(cmn.flex, cmn.flexg)}>Sign {isSignedIn ? 'out' : 'in'}</div>
-        </MenuItem>
-      </Menu>
-    </div>
+        </Tooltip>
+      ) : (
+        <Tooltip arrow title={isSignedIn ? 'Conneced and signed-in' : 'Wallet connect, signed-out'}>
+          <Button
+            onClick={openProfileModal}
+            className={cls('mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex)}
+          >
+            <div
+              className={cls(cmn.mri5, cmn.flexcv)}
+              style={{ height: '20px', position: 'relative' }}
+            >
+              <Jazzicon diameter={20} seed={jsNumberForAddress(props.address)} />
+              <div className={cls('icon-overlay', cmn.flex, cmn.flexcv)}>
+                {isSignedIn ? (
+                  <FiberManualRecordRoundedIcon
+                    color="success"
+                    className={cls(styles.chainIconxs)}
+                  />
+                ) : (
+                  <FiberManualRecordRoundedIcon
+                    color="warning"
+                    className={cls(styles.chainIconxs)}
+                  />
+                )}
+              </div>
+            </div>
+            {props.address.substring(0, 5) +
+              '...' +
+              props.address.substring(props.address.length - 3)}
+          </Button>
+        </Tooltip>
+      )}
+    </Box>
   )
 }

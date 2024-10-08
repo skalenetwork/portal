@@ -20,7 +20,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import React, { createContext, useState, useContext, useEffect } from 'react'
+import React, { createContext, useState, useContext, useEffect, useCallback, useMemo } from 'react'
 import { Logger, type ILogObj } from 'tslog'
 import { SiweMessage } from 'siwe'
 import { useWagmiAccount } from '@skalenetwork/metaport'
@@ -30,23 +30,38 @@ const log = new Logger<ILogObj>({ name: 'AuthContext' })
 
 interface AuthContextType {
   isSignedIn: boolean
+  email: string | null
+  isEmailLoading: boolean
+  isEmailUpdating: boolean
+  emailError: string | null
+  isProfileModalOpen: boolean
   handleSignIn: () => Promise<void>
   handleSignOut: () => Promise<void>
   handleAddressChange: () => Promise<void>
   getSignInStatus: () => Promise<boolean>
+  getEmail: () => Promise<void>
+  updateEmail: (newEmail: string) => Promise<void>
+  openProfileModal: () => void
+  closeProfileModal: () => void
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [isSignedIn, setIsSignedIn] = useState(false)
+  const [email, setEmail] = useState<string | null>(null)
+  const [isEmailLoading, setIsEmailLoading] = useState(false)
+  const [isEmailUpdating, setIsEmailUpdating] = useState(false)
+  const [emailError, setEmailError] = useState<string | null>(null)
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState(false)
   const { address } = useWagmiAccount()
 
-  const handleAddressChange = async function () {
+  const handleAddressChange = useCallback(async () => {
     log.info(`Address changed: ${address}`)
     if (!address) {
       log.warn('No address found, signing out')
       setIsSignedIn(false)
+      setEmail(null)
       return
     }
     try {
@@ -54,6 +69,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (status) {
         log.info('User is already signed in')
         setIsSignedIn(true)
+        await getEmail()
       } else {
         log.info('User not signed in, clearing session')
         await handleSignOut()
@@ -62,9 +78,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       log.error('Error checking sign-in status:', error)
       setIsSignedIn(false)
     }
-  }
+  }, [address])
 
-  const getSignInStatus = async (): Promise<boolean> => {
+  const getSignInStatus = useCallback(async (): Promise<boolean> => {
     try {
       if (!address) return false
       log.info(`Checking sign-in status for address: ${address}`)
@@ -80,9 +96,9 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       log.error('Error checking sign-in status:', error)
       return false
     }
-  }
+  }, [address])
 
-  const handleSignIn = async () => {
+  const handleSignIn = useCallback(async () => {
     if (!address) {
       log.warn('Cannot sign in: No address provided')
       return
@@ -116,15 +132,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       if (response.ok) {
         log.info('Sign in successful')
         setIsSignedIn(true)
+        await getEmail()
       } else {
         log.error('Sign in failed', response.status, response.statusText)
       }
     } catch (error) {
       log.error('Error signing in:', error)
     }
-  }
+  }, [address])
 
-  const handleSignOut = async () => {
+  const handleSignOut = useCallback(async () => {
     log.info('Initiating sign out')
     try {
       const response = await fetch(`${API_URL}/auth/signout`, {
@@ -140,29 +157,116 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       log.error('Error signing out:', error)
     } finally {
       setIsSignedIn(false)
+      setEmail(null)
     }
-  }
+  }, [])
 
-  const fetchNonce = async () => {
+  const fetchNonce = useCallback(async () => {
     log.debug('Fetching nonce')
     const response = await fetch(`${API_URL}/auth/nonce`)
     const data = await response.json()
     log.debug(`Nonce received: ${data.nonce}`)
     return data.nonce
-  }
+  }, [])
+
+  const getEmail = useCallback(async () => {
+    setIsEmailLoading(true)
+    setEmailError(null)
+    try {
+      const response = await fetch(`${API_URL}/auth/email`, {
+        credentials: 'include'
+      })
+      if (response.ok) {
+        if (response.status === 204) {
+          setEmail(null)
+        } else {
+          const data = await response.json()
+          setEmail(data.email)
+        }
+      } else {
+        throw new Error('Failed to fetch email')
+      }
+    } catch (error) {
+      console.error('Error fetching email:', error)
+      setEmailError('Failed to fetch email')
+    } finally {
+      setIsEmailLoading(false)
+    }
+  }, [])
+
+  const updateEmail = useCallback(async (newEmail: string) => {
+    setIsEmailUpdating(true)
+    setEmailError(null)
+    try {
+      const response = await fetch(`${API_URL}/auth/update_email`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: newEmail }),
+        credentials: 'include'
+      })
+      if (response.ok) {
+        setEmail(newEmail)
+      } else {
+        const errorData = await response.json()
+        throw new Error(errorData.error || 'Failed to update email')
+      }
+    } catch (error: any) {
+      log.error('Error updating email:', error)
+      setEmailError(error.message || 'Failed to update email')
+    } finally {
+      setIsEmailUpdating(false)
+    }
+  }, [])
+
+  const openProfileModal = useCallback(() => {
+    setIsProfileModalOpen(true)
+  }, [])
+
+  const closeProfileModal = useCallback(() => {
+    setIsProfileModalOpen(false)
+  }, [])
 
   useEffect(() => {
     log.info('Address changed, updating auth status')
     handleAddressChange()
-  }, [address])
+  }, [address, handleAddressChange])
 
-  return (
-    <AuthContext.Provider
-      value={{ isSignedIn, handleSignIn, handleSignOut, handleAddressChange, getSignInStatus }}
-    >
-      {children}
-    </AuthContext.Provider>
+  const contextValue = useMemo(
+    () => ({
+      isSignedIn,
+      email,
+      isEmailLoading,
+      isEmailUpdating,
+      emailError,
+      isProfileModalOpen,
+      handleSignIn,
+      handleSignOut,
+      handleAddressChange,
+      getSignInStatus,
+      getEmail,
+      updateEmail,
+      openProfileModal,
+      closeProfileModal
+    }),
+    [
+      isSignedIn,
+      email,
+      isEmailLoading,
+      isEmailUpdating,
+      emailError,
+      isProfileModalOpen,
+      handleSignIn,
+      handleSignOut,
+      handleAddressChange,
+      getSignInStatus,
+      getEmail,
+      updateEmail,
+      openProfileModal,
+      closeProfileModal
+    ]
   )
+
+  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
 }
 
 export const useAuth = () => {
