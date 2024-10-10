@@ -71,7 +71,7 @@ import CategoriesChips from '../components/ecosystem/CategoriesChips'
 import { useLikedApps } from '../LikedAppsContext'
 import { useAuth } from '../AuthContext'
 import ErrorTile from '../components/ErrorTile'
-import { ChipNew, ChipPreTge, ChipTrending, ChipMostLiked } from '../components/Chip'
+import { ChipNew, ChipPreTge, ChipTrending } from '../components/Chip'
 import { getRecentApps, isNewApp, isTrending } from '../core/ecosystem/utils'
 import { useApps } from '../useApps'
 
@@ -88,9 +88,7 @@ export default function App(props: {
     appLikes,
     toggleLikedApp,
     getAppId,
-    getMostLikedApps,
-    refreshLikedApps,
-    getMostLikedRank
+    refreshLikedApps
   } = useLikedApps()
   const { isSignedIn, handleSignIn } = useAuth()
 
@@ -135,8 +133,6 @@ export default function App(props: {
   const isLiked = likedApps.includes(appId)
   const likesCount = appLikes[appId] || 0
 
-  const mostLiked = useMemo(() => getMostLikedApps(), [getMostLikedApps])
-  const mostLikedIndex = getMostLikedRank(mostLiked, appId)
   const isNew = isNewApp({ chain, app }, newApps)
   const trending = isTrending(trendingApps, chain, app)
 
@@ -248,7 +244,6 @@ export default function App(props: {
                 <div className={cls(cmn.flex, cmn.flexcv)}>
                   <h2 className={cls(cmn.nom, cmn.p1)}>{appAlias}</h2>
                   <div className={cls(cmn.flex, cmn.mleft10)}>
-                    {mostLikedIndex !== undefined && <ChipMostLiked />}
                     {trending && <ChipTrending />}
                     {isNew && <ChipNew />}
                     {appMeta.categories && Object.keys(appMeta.categories).includes('pretge') && (

@@ -70,9 +70,16 @@ import Changelog from './pages/Changelog'
 
 import MetricsWarning from './components/MetricsWarning'
 import ScrollToTop from './components/ScrollToTop'
+import ExternalRedirect from './components/ExternalRedirect'
 
 import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
-import { BRIDGE_PAGES, MAINNET_CHAIN_NAME, STAKING_PAGES, STATS_API } from './core/constants'
+import {
+  BRIDGE_PAGES,
+  MAINNET_CHAIN_NAME,
+  STAKING_PAGES,
+  STATS_API,
+  SUBMIT_PROJECT_URL
+} from './core/constants'
 import { type IValidator, type ISkaleContractsMap, type StakingInfoMap } from './core/interfaces'
 import { getValidators } from './core/delegation/validators'
 import { initContracts } from './core/contracts'
@@ -303,6 +310,10 @@ export default function Router() {
             <Route
               path="/epicgames"
               element={<Navigate to="/ecosystem?categories=gaming_epic-games-store" replace />}
+            />
+            <Route
+              path="/ecosystem/submit"
+              element={<ExternalRedirect to={SUBMIT_PROJECT_URL} />}
             />
             <Route
               path="ecosystem"
