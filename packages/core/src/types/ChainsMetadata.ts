@@ -44,7 +44,14 @@ export interface AppMetadata {
   social?: AppSocials
   added?: number
   categories: CategoriesMap
+  pretge?: TimeRange
 }
+
+interface TimeRange {
+  from: number
+  to: number
+}
+
 export interface AppWithChainAndName extends AppMetadata {
   chain: string
   appName: string

@@ -22,6 +22,7 @@
 
 import { type types } from '@/core'
 import { BASE_METADATA_URL, MAINNET_CHAIN_NAME } from './constants'
+import { AppMetadata } from '@/core/dist/types'
 
 export function chainBg(
   chainsMeta: types.ChainsMetadataMap,
@@ -68,4 +69,13 @@ export async function loadMeta(skaleNetwork: types.SkaleNetwork): Promise<types.
 
 export function getMetaLogoUrl(skaleNetwork: types.SkaleNetwork, logoName: string): string {
   return `${BASE_METADATA_URL}${skaleNetwork}/logos/${logoName}`
+}
+
+export function isPreTge(appMeta: AppMetadata): boolean {
+  if (appMeta.pretge) {
+    const now = Math.floor(Date.now() / 1000)
+    return now >= appMeta.pretge.from && now <= appMeta.pretge.to
+  }
+  if ('pretge' in appMeta.categories) return true
+  return false
 }

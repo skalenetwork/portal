@@ -105,7 +105,12 @@ const ProfileModal: React.FC = () => {
             </Grid>
             {emailError && (
               <Grid item xs={12}>
-                <Message text={emailError} type="error" icon={<EmailRoundedIcon />} closable={false} />
+                <Message
+                  text={emailError}
+                  type="error"
+                  icon={<EmailRoundedIcon />}
+                  closable={false}
+                />
               </Grid>
             )}
 
