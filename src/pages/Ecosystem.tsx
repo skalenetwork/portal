@@ -28,7 +28,6 @@ import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded'
-import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded'
 
 import { type types } from '@/core'
 import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
@@ -120,21 +119,13 @@ export default function Ecosystem(props: {
       ], // Trending Apps
       [
         3,
-        mostLikedApps.filter((app) =>
-          filteredApps.some(
-            (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
-          )
-        )
-      ], // Most liked Apps
-      [
-        4,
         isSignedIn
           ? favoriteApps.filter((app) =>
-              filteredApps.some(
-                (filteredApp) =>
-                  filteredApp.chain === app.chain && filteredApp.appName === app.appName
-              )
+            filteredApps.some(
+              (filteredApp) =>
+                filteredApp.chain === app.chain && filteredApp.appName === app.appName
             )
+          )
           : []
       ] // Favorite Apps
     ])
@@ -213,12 +204,6 @@ export default function Ecosystem(props: {
             <Tab
               label="Trending"
               icon={<TrendingUpRoundedIcon />}
-              iconPosition="start"
-              className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-            />
-            <Tab
-              label="Most Liked"
-              icon={<PeopleRoundedIcon />}
               iconPosition="start"
               className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
             />
