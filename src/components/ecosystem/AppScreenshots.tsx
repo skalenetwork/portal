@@ -25,7 +25,7 @@ import React, { useState, useEffect } from 'react'
 import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
 
 import { Collapse } from '@mui/material'
-import ImageRoundedIcon from '@mui/icons-material/ImageRounded'
+import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded'
 
 import ScreenshotCarousel from './ScreenshotCarousel'
 import AccordionSection from '../AccordionSection'
@@ -86,8 +86,8 @@ const AppScreenshots: React.FC<AppScreenshotsProps> = ({ chainName, appName, ska
       <SkPaper gray className={cls(cmn.mtop10, 'fwmobile')}>
         <AccordionSection
           expandedByDefault
-          title="Screenshots"
-          icon={<ImageRoundedIcon />}
+          title="Explore project"
+          icon={<ExploreRoundedIcon />}
           marg={false}
         >
           <ScreenshotCarousel screenshots={screenshots} appName={appName} />
