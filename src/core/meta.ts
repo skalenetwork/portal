@@ -29,12 +29,13 @@ export const META_TAGS = {
   },
   stats: {
     title: 'SKALE Portal - Network Stats',
-    description: 'SKALE Network statistics - Transactions, active users, gas fees saved.'
+    description: 'SKALE Network statistics - Transactions, active users, gas fees saved.',
+    help: 'Check live SKALE Network statistics like active wallets, transactions, and total gas fees saved by users.'
   },
   bridge: {
     title: 'SKALE Portal - Bridge Tokens',
     description: 'Bridge tokens using SKALE Bridge - Zero Gas Fees between SKALE Chains.',
-    help: 'Bridge tokens between Ethereum and SKALE chains with zero gas fees.'
+    help: 'Transfer your assets to the SKALE Network and move easily across SKALE Chains to access a variety of dApps.'
   },
   history: {
     title: 'SKALE Portal - Bridge History',
@@ -48,11 +49,13 @@ export const META_TAGS = {
   chains: {
     title: 'SKALE Portal - Chains',
     description:
-      'Explore SKALE Hubs, AppChains, connect to SKALE Chains, get block explorer links, endpoints, linked tokens and verified contracts info.'
+      'Explore SKALE Hubs, AppChains, connect to SKALE Chains, get block explorer links, endpoints, linked tokens and verified contracts info.',
+    help: 'SKALE Chains are custom blockchains within the SKALE Network designed to power specific dAps and use cases.'
   },
   ecosystem: {
     title: 'SKALE Portal - Ecosystem',
-    description: 'Explore and interact with dApps on SKALE Network.'
+    description: 'Explore and interact with dApps on SKALE Network.',
+    help: 'Discover and explore all the dApps available across the SKALE Network in one place.'
   },
   faq: {
     title: 'SKALE Portal - Bridge FAQ',
@@ -60,14 +63,17 @@ export const META_TAGS = {
   },
   staking: {
     title: 'SKALE Portal - Staking',
-    description: 'Delegate, review delegations and withdraw staking rewards'
+    description: 'Delegate, review delegations and withdraw staking rewards',
+    help: 'Delegate your SKL tokens to help secure the SKALE Network and earn rewards.'
   },
   validators: {
     title: 'SKALE Portal - Validators',
-    description: 'List of validators on SKALE Network'
+    description: 'List of validators on SKALE Network',
+    help: 'Explore validators that secure the SKALE Network and choose your preferred ones to stake SKL tokens with to earn rewards.'
   },
   onramp: {
     title: 'SKALE Portal - Onramp',
-    description: 'Purchase crypto directly on SKALE Europa Hub using the Transak onramp.'
+    description: 'Purchase crypto directly on SKALE Europa Hub using the Transak onramp.',
+    help: 'Use your preferred fiat currency to get USDC directly on the SKALE Europa Hub.'
   }
 }

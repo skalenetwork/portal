@@ -28,12 +28,12 @@ import { type types } from '@/core'
 import ChainLogo from '../ChainLogo'
 import { MAINNET_CHAIN_LOGOS, OFFCHAIN_APP } from '../../core/constants'
 import { getChainShortAlias } from '../../core/chain'
-import { chainBg, getChainAlias } from '../../core/metadata'
+import { chainBg, getChainAlias, isPreTge } from '../../core/metadata'
 
 import CollapsibleDescription from '../CollapsibleDescription'
 import CategoriesChips from './CategoriesChips'
 import SocialButtons from './Socials'
-import { ChipMostLiked, ChipNew, ChipPreTge, ChipTrending } from '../Chip'
+import { ChipNew, ChipPreTge, ChipTrending } from '../Chip'
 
 export default function AppCard(props: {
   skaleNetwork: types.SkaleNetwork
@@ -82,12 +82,9 @@ export default function AppCard(props: {
           <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg)}>
             {getChainAlias(props.chainsMeta, props.schainName, props.appName)}
           </p>
-          {props.mostLiked !== undefined && <ChipMostLiked />}
           {props.trending && <ChipTrending />}
           {props.isNew && <ChipNew />}
-          {appMeta.categories && Object.keys(appMeta.categories).includes('pretge') && (
-            <ChipPreTge />
-          )}
+          {isPreTge(appMeta) && <ChipPreTge />}
         </div>
         <CollapsibleDescription text={appDescription} />
         <CategoriesChips categories={appMeta.categories} className={cls(cmn.mtop20)} />
