@@ -28,7 +28,7 @@ import { type types } from '@/core'
 import ChainLogo from '../ChainLogo'
 import { MAINNET_CHAIN_LOGOS, OFFCHAIN_APP } from '../../core/constants'
 import { getChainShortAlias } from '../../core/chain'
-import { chainBg, getChainAlias } from '../../core/metadata'
+import { chainBg, getChainAlias, isPreTge } from '../../core/metadata'
 
 import CollapsibleDescription from '../CollapsibleDescription'
 import CategoriesChips from './CategoriesChips'
@@ -84,9 +84,7 @@ export default function AppCard(props: {
           </p>
           {props.trending && <ChipTrending />}
           {props.isNew && <ChipNew />}
-          {appMeta.categories && Object.keys(appMeta.categories).includes('pretge') && (
-            <ChipPreTge />
-          )}
+          {isPreTge(appMeta) && <ChipPreTge />}
         </div>
         <CollapsibleDescription text={appDescription} />
         <CategoriesChips categories={appMeta.categories} className={cls(cmn.mtop20)} />

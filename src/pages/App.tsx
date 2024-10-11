@@ -63,7 +63,7 @@ import AccordionSection from '../components/AccordionSection'
 import { findChainName } from '../core/chain'
 
 import { formatNumber } from '../core/timeHelper'
-import { chainBg, getChainAlias } from '../core/metadata'
+import { chainBg, getChainAlias, isPreTge } from '../core/metadata'
 import { addressUrl, getExplorerUrl, getTotalAppCounters } from '../core/explorer'
 import { MAINNET_CHAIN_LOGOS, MAX_APPS_DEFAULT, OFFCHAIN_APP } from '../core/constants'
 import SocialButtons from '../components/ecosystem/Socials'
@@ -246,9 +246,7 @@ export default function App(props: {
                   <div className={cls(cmn.flex, cmn.mleft10)}>
                     {trending && <ChipTrending />}
                     {isNew && <ChipNew />}
-                    {appMeta.categories && Object.keys(appMeta.categories).includes('pretge') && (
-                      <ChipPreTge />
-                    )}
+                    {isPreTge(appMeta) && <ChipPreTge />}
                   </div>
                 </div>
 
