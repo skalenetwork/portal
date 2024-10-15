@@ -74,6 +74,7 @@ import ErrorTile from '../components/ErrorTile'
 import { ChipNew, ChipPreTge, ChipTrending } from '../components/Chip'
 import { getRecentApps, isNewApp, isTrending } from '../core/ecosystem/utils'
 import { useApps } from '../useApps'
+import AppScreenshots from '../components/ecosystem/AppScreenshots'
 
 export default function App(props: {
   mpc: MetaportCore
@@ -336,6 +337,7 @@ export default function App(props: {
             )}
           </Grid>
         </SkPaper>
+        <AppScreenshots chainName={chain} appName={app} skaleNetwork={network} />
         {chain !== OFFCHAIN_APP && (
           <SkPaper gray className={cls(cmn.mtop10, 'fwmobile')}>
             <AccordionSection
