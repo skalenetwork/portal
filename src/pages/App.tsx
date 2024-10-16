@@ -84,13 +84,7 @@ export default function App(props: {
   chainsMeta: types.ChainsMetadataMap
 }) {
   let { chain, app } = useParams()
-  const {
-    likedApps,
-    appLikes,
-    toggleLikedApp,
-    getAppId,
-    refreshLikedApps
-  } = useLikedApps()
+  const { likedApps, appLikes, toggleLikedApp, getAppId, refreshLikedApps } = useLikedApps()
   const { isSignedIn, handleSignIn } = useAuth()
 
   const { address } = useWagmiAccount()

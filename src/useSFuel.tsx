@@ -21,56 +21,83 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { Logger, type ILogObj } from 'tslog'
 import { useWagmiAccount, type MetaportCore, Station } from '@skalenetwork/metaport'
 import { DEFAULT_MIN_SFUEL_WEI, SFUEL_CHECK_INTERVAL } from './core/constants'
+import { types } from '@/core'
 
 const log = new Logger<ILogObj>({ name: 'useSFuel' })
 
 const CHAINS_TO_SKIP = ['turbulent-unique-scheat'] // todo: tmp fix, remove later
 
+interface SFuelState {
+  sFuelOk: boolean
+  isMining: boolean
+  chainsWithFaucet: string[]
+  totalChainsWithStation: number
+  chainsWithEnoughSFuel: number
+  currentAddress: types.AddressType | null
+  loading: boolean
+  intervalId: number | null
+}
+
 export function usesFuel(mpc: MetaportCore) {
   const { address } = useWagmiAccount()
-  const [state, setState] = useState({
+  const [state, setState] = useState<SFuelState>({
     sFuelOk: true,
     isMining: false,
-    chainsWithFaucet: [] as string[]
+    chainsWithFaucet: [] as string[],
+    totalChainsWithStation: 0,
+    chainsWithEnoughSFuel: 0,
+    currentAddress: null,
+    loading: true,
+    intervalId: null
   })
 
-  useEffect(() => {
-    async function checkFaucetAvailability() {
-      const chainsWithFaucet = await Promise.all(
-        mpc.config.chains
-          .filter((chain) => !CHAINS_TO_SKIP.includes(chain))
-          .map(async (chain) => {
-            const station = new Station(chain, mpc)
-            return (await station.isFaucetAvailable()) ? chain : null
-          })
-      ).then((chains) => chains.filter((chain): chain is string => chain !== null))
-      setState((prev) => ({ ...prev, chainsWithFaucet }))
-    }
-    checkFaucetAvailability()
+  const checkFaucetAvailability = useCallback(async () => {
+    const chainsWithFaucet = await Promise.all(
+      mpc.config.chains
+        .filter((chain) => !CHAINS_TO_SKIP.includes(chain))
+        .map(async (chain) => {
+          const station = new Station(chain, mpc)
+          return (await station.isFaucetAvailable()) ? chain : null
+        })
+    ).then((chains) => chains.filter((chain): chain is string => chain !== null))
+    setState((prev) => ({
+      ...prev,
+      chainsWithFaucet,
+      totalChainsWithStation: chainsWithFaucet.length
+    }))
   }, [mpc.config.chains, mpc.config.skaleNetwork])
 
-  async function checkSFuelBalance(): Promise<boolean> {
-    if (!address) return true
-    for (const chain of state.chainsWithFaucet) {
-      if (CHAINS_TO_SKIP.includes(chain)) continue
-      const { balance } = await new Station(chain, mpc).getData(address)
-      if (balance < DEFAULT_MIN_SFUEL_WEI) {
-        setState((prev) => ({ ...prev, sFuelOk: false }))
-        return false
+  const checkSFuelBalance = useCallback(
+    async (currentAddress: types.AddressType): Promise<void> => {
+      if (!currentAddress || state.chainsWithFaucet.length === 0) return
+      if (state.currentAddress !== currentAddress) {
+        setState((prev) => ({ ...prev, currentAddress, loading: true }))
       }
-    }
-    setState((prev) => ({ ...prev, sFuelOk: true }))
-    return true
-  }
+      let chainsWithEnoughSFuel = 0
+      let sFuelOk = true
+      for (const chain of state.chainsWithFaucet) {
+        if (CHAINS_TO_SKIP.includes(chain)) continue
+        const { balance } = await new Station(chain, mpc).getData(currentAddress)
+        if (balance >= DEFAULT_MIN_SFUEL_WEI) {
+          chainsWithEnoughSFuel++
+        } else {
+          sFuelOk = false
+        }
+      }
+      setState((prev) => ({ ...prev, sFuelOk, chainsWithEnoughSFuel, loading: false }))
+    },
+    [state.chainsWithFaucet, mpc]
+  )
 
-  const mineSFuel = async () => {
+  const mineSFuel = useCallback(async () => {
     if (!address) return
     setState((prev) => ({ ...prev, isMining: true }))
     let errorOccurred = false
+    let chainsWithEnoughSFuel = 0
 
     for (const chain of state.chainsWithFaucet) {
       if (CHAINS_TO_SKIP.includes(chain)) continue
@@ -83,12 +110,20 @@ export function usesFuel(mpc: MetaportCore) {
           if (!powResult.ok) {
             log.error(`Failed to mine sFuel on chain ${chain}: ${powResult.message}`)
             errorOccurred = true
+          } else {
+            chainsWithEnoughSFuel++
           }
+        } else {
+          chainsWithEnoughSFuel++
         }
       } catch (error) {
         log.error(`Error processing chain ${chain}:`, error)
         errorOccurred = true
       }
+      setState((prev) => ({
+        ...prev,
+        chainsWithEnoughSFuel
+      }))
     }
 
     if (errorOccurred) {
@@ -97,24 +132,60 @@ export function usesFuel(mpc: MetaportCore) {
       log.info('sFuel mining completed successfully on all required chains')
     }
 
-    setState((prev) => ({ ...prev, sFuelOk: !errorOccurred, isMining: false }))
-  }
+    setState((prev) => ({
+      ...prev,
+      sFuelOk: !errorOccurred,
+      isMining: false,
+      chainsWithEnoughSFuel
+    }))
+  }, [address, state.chainsWithFaucet, mpc])
 
   useEffect(() => {
-    if (!address) return
-    let intervalId: NodeJS.Timeout
+    checkFaucetAvailability()
+  }, [checkFaucetAvailability])
 
-    async function checkAndSetInterval() {
-      await checkSFuelBalance()
-      intervalId = setInterval(checkSFuelBalance, SFUEL_CHECK_INTERVAL)
+  useEffect(() => {
+    const checkAndSetInterval = async () => {
+      if (address !== state.currentAddress && state.intervalId) {
+        clearInterval(state.intervalId)
+        setState((prev) => ({
+          ...prev,
+          intervalId: null
+        }))
+      }
+      if (address) {
+        await checkSFuelBalance(address)
+        setState((prev) => ({ ...prev, intervalId: newIntervalId }))
+        const newIntervalId = setInterval(checkSFuelBalance, SFUEL_CHECK_INTERVAL)
+      } else {
+        setState((prev) => ({
+          ...prev,
+          sFuelOk: true,
+          chainsWithEnoughSFuel: 0,
+          isChecking: false,
+          currentAddress: null,
+          intervalId: null
+        }))
+      }
     }
-
     checkAndSetInterval()
-
     return () => {
-      if (intervalId) clearInterval(intervalId)
+      if (state.intervalId) {
+        clearInterval(state.intervalId)
+      }
     }
-  }, [address, state.chainsWithFaucet])
+  }, [address, checkSFuelBalance])
 
-  return { ...state, mineSFuel }
+  const sFuelCompletionPercentage = useMemo(() => {
+    if (state.totalChainsWithStation === 0) return 100
+    return Math.round((state.chainsWithEnoughSFuel / state.totalChainsWithStation) * 100)
+  }, [state.chainsWithEnoughSFuel, state.totalChainsWithStation])
+
+  return {
+    ...state,
+    mineSFuel,
+    totalChainsWithStation: state.chainsWithFaucet.length,
+    chainsWithEnoughSFuel: state.chainsWithEnoughSFuel,
+    sFuelCompletionPercentage
+  }
 }
