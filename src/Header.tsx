@@ -33,6 +33,7 @@ import HelpZen from './components/HelpZen'
 import MoreMenu from './components/MoreMenu'
 import AccountMenu from './components/AccountMenu'
 import NetworkSwitch from './components/NetworkSwitch'
+import GetSFuel from './components/GetSFuel'
 
 import { MAINNET_CHAIN_NAME } from './core/constants'
 import { Link } from 'react-router-dom'
@@ -62,6 +63,7 @@ export default function Header(props: { address: `0x${string}` | undefined; mpc:
           ) : null}
         </div>
         <AccountMenu address={props.address} />
+        <GetSFuel mpc={props.mpc} />
         <NetworkSwitch mpc={props.mpc} />
         <HelpZen />
         <MoreMenu />

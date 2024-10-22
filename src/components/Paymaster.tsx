@@ -38,7 +38,8 @@ import {
   walletClientToSigner,
   sendTransaction,
   getChainAlias,
-  toWei
+  toWei,
+  styles
 } from '@skalenetwork/metaport'
 
 import ConnectWallet from './ConnectWallet'
@@ -184,8 +185,9 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
       <PricingInfo info={info} />
       <Headline
         text="Top-up chain"
-        icon={<MonetizationOnRoundedIcon color="primary" />}
         className={cls(cmn.mtop20, cmn.mbott10)}
+        icon={<MonetizationOnRoundedIcon className={cls(styles.chainIconxs)} />}
+        size="small"
       />
       {!address ? (
         <ConnectWallet tile className={cls(cmn.flexg)} />

@@ -63,7 +63,11 @@ export default function Delegations(props: {
       props.si[DelegationType.ESCROW2]?.delegations.length === 0)
   return (
     <div>
-      <Headline text="Delegations" icon={<AllInboxRoundedIcon />} />
+      <Headline
+        size="small"
+        text="Delegations"
+        icon={<AllInboxRoundedIcon className={cls(styles.chainIconxs)} />}
+      />
       <div className={cls(cmn.mtop10)} style={{ paddingBottom: '5px' }}></div>
       {!loaded ? (
         <div>

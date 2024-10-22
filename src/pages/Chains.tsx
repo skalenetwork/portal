@@ -39,6 +39,7 @@ import CategoryRoundedIcon from '@mui/icons-material/CategoryRounded'
 import ChainsSection from '../components/chains/ChainsSection'
 import { META_TAGS } from '../core/meta'
 import { MAINNET_CHAIN_NAME } from '../core/constants'
+import SkPageInfoIcon from '../components/SkPageInfoIcon'
 
 export default function Chains(props: {
   loadData: () => Promise<void>
@@ -92,13 +93,15 @@ export default function Chains(props: {
         <meta property="og:description" content={META_TAGS.chains.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className={cls(cmn.flex)}>
-          <h2 className={cls(cmn.nom)}>SKALE Chains</h2>
+        <div className={cls(cmn.flex, cmn.flexcv)}>
+          <div className={cmn.flexg}>
+            <h2 className={cls(cmn.nom)}>SKALE Chains</h2>
+            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+              Connect, get block explorer links and endpoints
+            </p>
+          </div>
+          <SkPageInfoIcon meta_tag={META_TAGS.chains} />
         </div>
-        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-          Connect, get block explorer links and endpoints
-        </p>
-
         <ChainsSection
           name="SKALE Hubs"
           schains={props.schains.filter(

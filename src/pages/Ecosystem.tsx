@@ -22,38 +22,47 @@
 
 import React, { useState, useEffect, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
-import { Container, Stack, Box, Tab, Tabs } from '@mui/material'
+import { Container, Stack, Box, Tab, Tabs, Button } from '@mui/material'
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
-import TimelineRoundedIcon from '@mui/icons-material/TimelineRounded'
+import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded'
 
 import { type types } from '@/core'
 import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
 import { META_TAGS } from '../core/meta'
 import { filterAppsByCategory, filterAppsBySearchTerm } from '../core/ecosystem/apps'
 import { useUrlParams } from '../core/ecosystem/urlParamsUtil'
-import { SKALE_SOCIAL_LINKS } from '../core/constants'
+import { SKALE_SOCIAL_LINKS, SUBMIT_PROJECT_URL } from '../core/constants'
 import { useApps } from '../useApps'
 
 import CategoryDisplay from '../components/ecosystem/Categories'
 import SearchComponent from '../components/ecosystem/AppSearch'
 import SelectedCategories from '../components/ecosystem/SelectedCategories'
 import SkStack from '../components/SkStack'
-import AllApps from '../components/ecosystem/AllApps'
-import NewApps from '../components/ecosystem/NewApps'
-import FavoriteApps from '../components/ecosystem/FavoriteApps'
-import TrendingApps from '../components/ecosystem/TrendingApps'
+import AllApps from '../components/ecosystem/tabs/AllApps'
+import NewApps from '../components/ecosystem/tabs/NewApps'
+import FavoriteApps from '../components/ecosystem/tabs/FavoriteApps'
+import MostLiked from '../components/ecosystem/tabs/MostLiked'
+import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import SocialButtons from '../components/ecosystem/Socials'
+import SkPageInfoIcon from '../components/SkPageInfoIcon'
+import { SwellMessage } from '../components/Message'
 
 export default function Ecosystem(props: {
   mpc: MetaportCore
   chainsMeta: types.ChainsMetadataMap
+  metrics: types.IMetrics | null
   isXs: boolean
+  loadData: () => Promise<void>
 }) {
   const { getCheckedItemsFromUrl, setCheckedItemsInUrl, getTabIndexFromUrl, setTabIndexInUrl } =
     useUrlParams()
-  const { allApps, newApps, trendingApps, favoriteApps, isSignedIn } = useApps(props.chainsMeta)
+  const { allApps, newApps, mostLikedApps, trendingApps, favoriteApps, isSignedIn } = useApps(
+    props.chainsMeta,
+    props.metrics
+  )
 
   const [checkedItems, setCheckedItems] = useState<string[]>([])
   const [filteredApps, setFilteredApps] = useState<types.AppWithChainAndName[]>([])
@@ -62,6 +71,7 @@ export default function Ecosystem(props: {
   const [loaded, setLoaded] = useState<boolean>(false)
 
   useEffect(() => {
+    props.loadData()
     const initialCheckedItems = getCheckedItemsFromUrl()
     setCheckedItems(initialCheckedItems)
     const initialTabIndex = getTabIndexFromUrl()
@@ -101,6 +111,14 @@ export default function Ecosystem(props: {
       ], // New Apps
       [
         2,
+        trendingApps.filter((app) =>
+          filteredApps.some(
+            (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
+          )
+        )
+      ], // Trending Apps
+      [
+        3,
         isSignedIn
           ? favoriteApps.filter((app) =>
               filteredApps.some(
@@ -109,42 +127,37 @@ export default function Ecosystem(props: {
               )
             )
           : []
-      ], // Favorite Apps
-      [
-        3,
-        trendingApps.filter((app) =>
-          filteredApps.some(
-            (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
-          )
-        )
-      ] // Trending Apps
+      ] // Favorite Apps
     ])
 
     return (tabIndex: number) => filterMap.get(tabIndex) || filteredApps
-  }, [filteredApps, newApps, favoriteApps, trendingApps, isSignedIn])
+  }, [filteredApps, newApps, trendingApps, mostLikedApps, favoriteApps, isSignedIn])
 
   const currentFilteredApps = getFilteredAppsByTab(activeTab)
 
   return (
     <Container maxWidth="md">
       <Helmet>
-        <title>{META_TAGS.apps.title}</title>
-        <meta name="description" content={META_TAGS.apps.description} />
-        <meta property="og:title" content={META_TAGS.apps.title} />
-        <meta property="og:description" content={META_TAGS.apps.description} />
+        <title>{META_TAGS.ecosystem.title}</title>
+        <meta name="description" content={META_TAGS.ecosystem.description} />
+        <meta property="og:title" content={META_TAGS.ecosystem.title} />
+        <meta property="og:description" content={META_TAGS.ecosystem.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className={cls(cmn.flex, cmn.flexcv)}>
+        <SkStack>
           <div className={cls(cmn.flexg)}>
             <h2 className={cls(cmn.nom)}>Ecosystem</h2>
             <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
               Explore dApps across the SKALE ecosystem
             </p>
           </div>
-          <div>
-            <SocialButtons social={SKALE_SOCIAL_LINKS} />
+          <div className={cls(cmn.flex, cmn.flexcv)}>
+            <SocialButtons social={SKALE_SOCIAL_LINKS} all />
+            <div className={cls(cmn.mleft10)}>
+              <SkPageInfoIcon meta_tag={META_TAGS.ecosystem} />
+            </div>
           </div>
-        </div>
+        </SkStack>
         <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20, 'fwmobile')}>
           <SkStack className={cls(cmn.mbott20, cmn.flex, cmn.flexcv)}>
             <SearchComponent
@@ -163,6 +176,7 @@ export default function Ecosystem(props: {
             setCheckedItems={handleSetCheckedItems}
             filteredAppsCount={currentFilteredApps.length}
           />
+          <SwellMessage className={cmn.mbott20} />
           <Tabs
             variant={props.isXs ? 'scrollable' : 'standard'}
             value={activeTab}
@@ -188,14 +202,14 @@ export default function Ecosystem(props: {
               className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
             />
             <Tab
-              label="Favorites"
-              icon={<FavoriteRoundedIcon />}
+              label="Trending"
+              icon={<TrendingUpRoundedIcon />}
               iconPosition="start"
               className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
             />
             <Tab
-              label="Trending"
-              icon={<TimelineRoundedIcon />}
+              label="Favorites"
+              icon={<FavoriteRoundedIcon />}
               iconPosition="start"
               className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
             />
@@ -208,6 +222,7 @@ export default function Ecosystem(props: {
               chainsMeta={props.chainsMeta}
               newApps={newApps}
               loaded={loaded}
+              trendingApps={trendingApps}
             />
           )}
           {activeTab === 1 && (
@@ -215,28 +230,55 @@ export default function Ecosystem(props: {
               newApps={currentFilteredApps}
               skaleNetwork={props.mpc.config.skaleNetwork}
               chainsMeta={props.chainsMeta}
+              trendingApps={trendingApps}
             />
           )}
           {activeTab === 2 && (
+            <TrendingApps
+              chainsMeta={props.chainsMeta}
+              skaleNetwork={props.mpc.config.skaleNetwork}
+              newApps={newApps}
+              filteredApps={currentFilteredApps}
+            />
+          )}
+          {activeTab === 3 && (
+            <MostLiked
+              chainsMeta={props.chainsMeta}
+              skaleNetwork={props.mpc.config.skaleNetwork}
+              newApps={newApps}
+              filteredApps={currentFilteredApps}
+              trendingApps={trendingApps}
+            />
+          )}
+          {activeTab === 4 && (
             <FavoriteApps
               chainsMeta={props.chainsMeta}
               skaleNetwork={props.mpc.config.skaleNetwork}
               newApps={newApps}
               filteredApps={currentFilteredApps}
+              trendingApps={trendingApps}
               isSignedIn={isSignedIn}
               error={null}
             />
           )}
-          {activeTab === 3 && (
-            <TrendingApps
-              chainsMeta={props.chainsMeta}
-              skaleNetwork={props.mpc.config.skaleNetwork}
-              newApps={newApps}
-              trendingApps={currentFilteredApps}
-            />
-          )}
         </Box>
       </Stack>
+      <div className={cls(cmn.flex, cmn.mtop20, cmn.mbott20)}>
+        <div className={cls(cmn.flexg)}></div>
+        <div>
+          <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">
+            <Button
+              size="medium"
+              variant="contained"
+              className={cls('btn', cmn.mtop20, cmn.mbott20, cmn.pCent)}
+              startIcon={<AddCircleOutlineRoundedIcon />}
+            >
+              Submit Your Project
+            </Button>
+          </a>
+        </div>
+        <div className={cls(cmn.flexg)}></div>
+      </div>
     </Container>
   )
 }

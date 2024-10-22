@@ -14,17 +14,12 @@ import ListItemText from '@mui/material/ListItemText'
 
 import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontalCircleOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
-import HistoryIcon from '@mui/icons-material/History'
 import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
 import PieChartOutlineOutlinedIcon from '@mui/icons-material/PieChartOutlineOutlined'
-import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
-import DonutLargeRoundedIcon from '@mui/icons-material/DonutLargeRounded'
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined'
 import AddCardRoundedIcon from '@mui/icons-material/AddCardRounded'
 import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
-
-import { DUNE_SKALE_URL } from './core/constants'
 
 const drawerWidth = 220
 
@@ -57,20 +52,20 @@ export default function SkDrawer() {
               </Link>
             </ListItem>
           </List>
-          <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Bridge</h4>
+          <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Transfer</h4>
           <List>
             <ListItem>
               <Link to="/bridge" className="undec fullW">
                 <ListItemButton
                   className={cls(cmn.pPrim)}
                   selected={
-                    location.pathname === '/bridge' || location.pathname.includes('/transfer')
+                    location.pathname === '/bridge/history' || location.pathname === '/bridge'
                   }
                 >
                   <ListItemIcon>
                     <SwapHorizontalCircleOutlinedIcon />
                   </ListItemIcon>
-                  <ListItemText primary="Transfer" />
+                  <ListItemText primary="Bridge" />
                 </ListItemButton>
               </Link>
             </ListItem>
@@ -87,37 +82,9 @@ export default function SkDrawer() {
                 </ListItemButton>
               </Link>
             </ListItem>
-            <ListItem>
-              <Link to="/bridge/history" className="undec fullW">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={location.pathname === '/bridge/history'}
-                >
-                  <ListItemIcon>
-                    <HistoryIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="History" />
-                </ListItemButton>
-              </Link>
-            </ListItem>
           </List>
           <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Network</h4>
           <List>
-            <ListItem>
-              <Link to="/chains" className="undec fullW">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={
-                    location.pathname.includes('/chains') || location.pathname.includes('/admin')
-                  }
-                >
-                  <ListItemIcon>
-                    <LinkRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="SKALE Chains" />
-                </ListItemButton>
-              </Link>
-            </ListItem>
             <ListItem>
               <Link to="/ecosystem" className="undec fullW">
                 <ListItemButton
@@ -131,6 +98,21 @@ export default function SkDrawer() {
                   <div className="chipNew">
                     <p className={cls(cmn.p, cmn.p5)}>NEW</p>
                   </div>
+                </ListItemButton>
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link to="/chains" className="undec fullW">
+                <ListItemButton
+                  className={cls(cmn.pPrim)}
+                  selected={
+                    location.pathname.includes('/chains') || location.pathname.includes('/admin')
+                  }
+                >
+                  <ListItemIcon>
+                    <LinkRoundedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="SKALE Chains" />
                 </ListItemButton>
               </Link>
             </ListItem>
@@ -172,17 +154,6 @@ export default function SkDrawer() {
                   <ListItemText primary="Stats" />
                 </ListItemButton>
               </Link>
-            </ListItem>
-            <ListItem>
-              <a className="undec fullW" target="_blank" href={DUNE_SKALE_URL} rel="noreferrer">
-                <ListItemButton className={cls(cmn.pPrim)}>
-                  <ListItemIcon>
-                    <DonutLargeRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Dune" />
-                  <ArrowOutwardRoundedIcon className="drawerIconRi" />
-                </ListItemButton>
-              </a>
             </ListItem>
           </List>
         </Box>

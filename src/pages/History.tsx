@@ -35,8 +35,12 @@ import {
   useMetaportStore
 } from '@skalenetwork/metaport'
 
+import HistoryIcon from '@mui/icons-material/History'
+import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
+
 import { setHistoryToStorage } from '../core/transferHistory'
 import { META_TAGS } from '../core/meta'
+import Breadcrumbs from '../components/Breadcrumbs'
 
 export default function History() {
   const mpc = useMetaportStore((state) => state.mpc)
@@ -58,16 +62,24 @@ export default function History() {
         <meta property="og:description" content={META_TAGS.history.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className={cls(cmn.flex, cmn.flexcv)}>
-          <div className={cls(cmn.flexg)}>
-            <h2 className={cls(cmn.nom)}>
-              History ({transfersHistory.length + (transactionsHistory.length !== 0 ? 1 : 0)})
-            </h2>
-            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>SKALE Bridge transfers history</p>
-          </div>
-          <div className={cls(cmn.flex)}></div>
+        <div className={cls(cmn.flex)}>
+          <Breadcrumbs
+            className="bg"
+            sections={[
+              {
+                text: 'Bridge',
+                icon: <ArrowBackIosNewRoundedIcon />,
+                url: '/bridge'
+              },
+              {
+                text: 'History',
+                icon: <HistoryIcon />
+              }
+            ]}
+          />
+          <div className={cls(cmn.flexg)}></div>
         </div>
-        <div className={cls([cmn.mtop20, transactionsHistory.length !== 0])}>
+        <div className={cls([cmn.mtop10, transactionsHistory.length !== 0])}>
           <TransfersHistory size="md" />
         </div>
         <div>

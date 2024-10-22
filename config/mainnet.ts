@@ -5,24 +5,25 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
     mode: 'dark',
     vibrant: true,
     primary: '#93B8EC',
-    background: '#000000',
+    background: '#000000'
   },
   mainnetEndpoint: 'https://cloudflare-eth.com/',
-  skaleNetwork: "mainnet",
+  skaleNetwork: 'mainnet',
   openButton: true,
   openOnLoad: true,
   chains: [
-    "mainnet",
-    "elated-tan-skat", // europa hub
-    "honorable-steel-rasalhague", // calypso hub
-    "green-giddy-denebola", // nebula hub
+    'mainnet',
+    'elated-tan-skat', // europa hub
+    'honorable-steel-rasalhague', // calypso hub
+    'green-giddy-denebola', // nebula hub
     // "frayed-decent-antares", // brawlers
-    "affectionate-immediate-pollux", // cryptoblades
-    "wan-red-ain", // human protocol
-    "turbulent-unique-scheat", // razor
-    "adorable-quaint-bellatrix" // streammyscreen
+    'affectionate-immediate-pollux', // cryptoblades
+    'wan-red-ain', // human protocol
+    'turbulent-unique-scheat', // razor
+    'adorable-quaint-bellatrix', // streammyscreen
+    'parallel-stormy-spica' // titan hub
   ],
-  "tokens": {
+  tokens: {
     eth: {
       symbol: 'ETH'
     },
@@ -66,217 +67,223 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/10347.png'
     },
     razor: {
-      "decimals": "18",
-      "name": "RAZOR Network",
-      "symbol": "RAZOR",
-      "iconUrl": "https://assets.coingecko.com/coins/images/13797/small/icon.png"
+      decimals: '18',
+      name: 'RAZOR Network',
+      symbol: 'RAZOR',
+      iconUrl: 'https://assets.coingecko.com/coins/images/13797/small/icon.png'
     },
     skill: {
-      "name": "SKILL",
-      "symbol": "SKILL",
-      "iconUrl": "https://ruby.exchange/images/tokens/skill-square.png"
+      name: 'SKILL',
+      symbol: 'SKILL',
+      iconUrl: 'https://ruby.exchange/images/tokens/skill-square.png'
     },
     sushi: {
-      name: "SUSHI",
-      symbol: "SUSHI"
+      name: 'SUSHI',
+      symbol: 'SUSHI'
     },
     cmps: {
-      name: "Compass",
-      symbol: "CMPS",
-      iconUrl: "https://assets.coingecko.com/coins/images/38439/standard/CompassLogo.png"
+      name: 'Compass',
+      symbol: 'CMPS',
+      iconUrl: 'https://assets.coingecko.com/coins/images/38439/standard/CompassLogo.png'
     },
     exd: {
-      name: "Exorde",
-      symbol: "EXD",
-      iconUrl: "https://assets.coingecko.com/coins/images/28684/standard/logo-exorde.png"
+      name: 'Exorde',
+      symbol: 'EXD',
+      iconUrl: 'https://assets.coingecko.com/coins/images/28684/standard/logo-exorde.png'
     },
     hmkr: {
-      name: "Hitmakr",
-      decimals: "9",
-      symbol: "HMKR",
-      iconUrl: "https://assets.coingecko.com/coins/images/36660/standard/HITMAKR_logo.png"
+      name: 'Hitmakr',
+      decimals: '9',
+      symbol: 'HMKR',
+      iconUrl: 'https://assets.coingecko.com/coins/images/36660/standard/HITMAKR_logo.png'
     },
     paxg: {
-      name: "PAX Gold",
-      symbol: "PAXG",
-      iconUrl: "https://assets.coingecko.com/coins/images/9519/standard/paxgold.png"
+      name: 'PAX Gold',
+      symbol: 'PAXG',
+      iconUrl: 'https://assets.coingecko.com/coins/images/9519/standard/paxgold.png'
     },
     link: {
-      name: "ChainLink Token",
-      symbol: "LINK"
+      name: 'ChainLink Token',
+      symbol: 'LINK'
     },
     pepe: {
-      name: "Pepe",
-      symbol: "PEPE",
-      iconUrl: "https://assets.coingecko.com/coins/images/29850/standard/pepe-token.jpeg"
+      name: 'Pepe',
+      symbol: 'PEPE',
+      iconUrl: 'https://assets.coingecko.com/coins/images/29850/standard/pepe-token.jpeg'
     },
     cgt: {
-      name: "Curio Gas Token",
-      symbol: "CGT",
-      iconUrl: "https://assets.coingecko.com/coins/images/37476/standard/Screenshot_2024-05-04_004346.png"
+      name: 'Curio Gas Token',
+      symbol: 'CGT',
+      iconUrl:
+        'https://assets.coingecko.com/coins/images/37476/standard/Screenshot_2024-05-04_004346.png'
     },
     wct1: {
-      name: "Wrapped Curio Ferrari F12tdf",
-      symbol: "wCT1",
-      iconUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/12648.png",
-      decimals: "2"
+      name: 'Wrapped Car Token 1',
+      symbol: 'wCT1',
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/12648.png',
+      decimals: '2'
     }
   },
-  "connections": {
+  connections: {
     mainnet: {
       eth: {
         eth: {
           chains: {
-            "elated-tan-skat": {},
-            "adorable-quaint-bellatrix": {},
-            "honorable-steel-rasalhague": {
-              hub: "elated-tan-skat"
+            'elated-tan-skat': {},
+            'adorable-quaint-bellatrix': {},
+            'honorable-steel-rasalhague': {
+              hub: 'elated-tan-skat'
             },
-            "green-giddy-denebola": {
-              hub: "elated-tan-skat"
+            'green-giddy-denebola': {
+              hub: 'elated-tan-skat'
             }
           }
         }
       },
       erc20: {
         skl: {
-          address: "0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7",
+          address: '0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7',
           chains: {
-            "elated-tan-skat": {},
-            "honorable-steel-rasalhague": {
-              hub: "elated-tan-skat"
+            'elated-tan-skat': {},
+            'honorable-steel-rasalhague': {
+              hub: 'elated-tan-skat'
             },
-            "green-giddy-denebola": {
-              hub: "elated-tan-skat"
+            'green-giddy-denebola': {
+              hub: 'elated-tan-skat'
             },
-            "affectionate-immediate-pollux": {
-              hub: "elated-tan-skat"
+            'affectionate-immediate-pollux': {
+              hub: 'elated-tan-skat'
             }
           }
         },
         wbtc: {
           address: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
           chains: {
-            "elated-tan-skat": {},
-            "green-giddy-denebola": {
-              hub: "elated-tan-skat"
+            'elated-tan-skat': {},
+            'green-giddy-denebola': {
+              hub: 'elated-tan-skat'
             },
-            "honorable-steel-rasalhague": {
-              hub: "elated-tan-skat"
+            'honorable-steel-rasalhague': {
+              hub: 'elated-tan-skat'
             }
           }
         },
         usdt: {
           address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
           chains: {
-            "elated-tan-skat": {},
-            "honorable-steel-rasalhague": {
-              hub: "elated-tan-skat"
+            'elated-tan-skat': {},
+            'honorable-steel-rasalhague': {
+              hub: 'elated-tan-skat'
             },
-            "green-giddy-denebola": {
-              hub: "elated-tan-skat"
+            'green-giddy-denebola': {
+              hub: 'elated-tan-skat'
             }
           }
         },
         usdp: {
           address: '0x8E870D67F660D95d5be530380D0eC0bd388289E1',
           chains: {
-            "elated-tan-skat": {}
+            'elated-tan-skat': {}
           }
         },
         ruby: {
           address: '0x918D8F3670c67f14Ff3fEB025D46B9C165d12a23',
           chains: {
-            "elated-tan-skat": {}
+            'elated-tan-skat': {}
           }
         },
         sushi: {
           address: '0x6b3595068778dd592e39a122f4f5a5cf09c90fe2',
           chains: {
-            "elated-tan-skat": {}
+            'elated-tan-skat': {}
           }
         },
         link: {
           address: '0x514910771af9ca656af840dff83e8264ecf986ca',
           chains: {
-            "elated-tan-skat": {}
+            'elated-tan-skat': {}
           }
         },
         pepe: {
           address: '0x6982508145454ce325ddbe47a25d4ec3d2311933',
           chains: {
-            "elated-tan-skat": {}
+            'elated-tan-skat': {}
           }
         },
         cgt: {
           address: '0x0E186357c323c806C1efdad36D217F7a54b63D18',
           chains: {
-            "elated-tan-skat": {}
+            'elated-tan-skat': {}
           }
         },
         wct1: {
           address: '0x46683747B55C4A0fF783B1A502cE682eB819eb75',
           chains: {
-            "elated-tan-skat": {}
+            'elated-tan-skat': {}
           }
         },
         dai: {
           address: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
           chains: {
-            "elated-tan-skat": {},
-            "honorable-steel-rasalhague": {
-              hub: "elated-tan-skat"
+            'elated-tan-skat': {},
+            'honorable-steel-rasalhague': {
+              hub: 'elated-tan-skat'
             }
           }
         },
         razor: {
           address: '0x50DE6856358Cc35f3A9a57eAAA34BD4cB707d2cd',
           chains: {
-            "turbulent-unique-scheat": {}
+            'elated-tan-skat': {},
+            'turbulent-unique-scheat': {}
           }
         },
         usdc: {
-          address: "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48",
+          address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
           chains: {
-            "elated-tan-skat": {},
-            "honorable-steel-rasalhague": {
-              hub: "elated-tan-skat"
+            'elated-tan-skat': {},
+            'honorable-steel-rasalhague': {
+              hub: 'elated-tan-skat'
             },
-            "green-giddy-denebola": {
-              hub: "elated-tan-skat"
+            'green-giddy-denebola': {
+              hub: 'elated-tan-skat'
+            },
+            'parallel-stormy-spica': {
+              hub: 'elated-tan-skat'
             }
           }
         },
         hmt: {
-          address: "0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867",
+          address: '0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867',
           chains: {
-            "elated-tan-skat": {},
-            "wan-red-ain": {
-              "hub": "elated-tan-skat"
+            'elated-tan-skat': {},
+            'wan-red-ain': {
+              hub: 'elated-tan-skat'
             }
           }
         },
         exd: {
-          address: "0x02de007d412266a2e0fa9287c103474170f06560",
+          address: '0x02de007d412266a2e0fa9287c103474170f06560',
           chains: {
-            "elated-tan-skat": {}
+            'elated-tan-skat': {}
           }
         },
         hmkr: {
-          address: "0x3300b02efa180c99a2f61f4731665b51e4e254c4",
+          address: '0x3300b02efa180c99a2f61f4731665b51e4e254c4',
           chains: {
-            "elated-tan-skat": {}
+            'elated-tan-skat': {}
           }
         },
         paxg: {
-          address: "0x45804880De22913dAFE09f4980848ECE6EcbAf78",
+          address: '0x45804880De22913dAFE09f4980848ECE6EcbAf78',
           chains: {
-            "elated-tan-skat": {}
+            'elated-tan-skat': {}
           }
         }
       }
     },
-    "elated-tan-skat": { // europa connections
+    'elated-tan-skat': {
+      // europa connections
       eth: {
         eth: {
           address: '0xD2Aaa00700000000000000000000000000000000',
@@ -295,26 +302,26 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       },
       erc20: {
         skl: {
-          address: "0xE0595a049d02b7674572b0d59cd4880Db60EDC50",
+          address: '0xE0595a049d02b7674572b0d59cd4880Db60EDC50',
           chains: {
-            "mainnet": {
+            mainnet: {
               clone: true
             },
-            "honorable-steel-rasalhague": {
-              wrapper: "0xD162bB5c75FE99144295b03510bAb2DF99617440"
+            'honorable-steel-rasalhague': {
+              wrapper: '0xD162bB5c75FE99144295b03510bAb2DF99617440'
             },
-            "green-giddy-denebola": {
-              wrapper: "0xD162bB5c75FE99144295b03510bAb2DF99617440"
+            'green-giddy-denebola': {
+              wrapper: '0xD162bB5c75FE99144295b03510bAb2DF99617440'
             },
             'affectionate-immediate-pollux': {
-              wrapper: "0xD162bB5c75FE99144295b03510bAb2DF99617440"
+              wrapper: '0xD162bB5c75FE99144295b03510bAb2DF99617440'
             }
           }
         },
         wbtc: {
           address: '0xcb011E86DF014a46F4e3AC3F3cbB114A4EB80870',
           chains: {
-            "mainnet": {
+            mainnet: {
               clone: true
             },
             'green-giddy-denebola': {
@@ -328,7 +335,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         usdt: {
           address: '0x1c0491E3396AD6a35f061c62387a95d7218FC515',
           chains: {
-            "mainnet": {
+            mainnet: {
               clone: true
             },
             'honorable-steel-rasalhague': {
@@ -342,7 +349,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         usdp: {
           address: '0x73d22d8a2D1f59Bf5Bcf62cA382481a2073FAF58',
           chains: {
-            "mainnet": {
+            mainnet: {
               clone: true
             }
           }
@@ -350,7 +357,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         ruby: {
           address: '0x2B4e4899b53E8b7958c4591a6d02f9C0b5c50F8f',
           chains: {
-            "mainnet": {
+            mainnet: {
               clone: true
             }
           }
@@ -358,7 +365,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         sushi: {
           address: '0xcec20381ac92d610ac444f6d73c1d40726650259',
           chains: {
-            "mainnet": {
+            mainnet: {
               clone: true
             }
           }
@@ -366,7 +373,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         link: {
           address: '0x688B6B03E3ff9E9b38a9a05cCDC653D37e13fbE0',
           chains: {
-            "mainnet": {
+            mainnet: {
               clone: true
             }
           }
@@ -374,7 +381,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         pepe: {
           address: '0x95DEFbe12A9ef1A2B5372cbDd8aDd5ddC29CF247',
           chains: {
-            "mainnet": {
+            mainnet: {
               clone: true
             }
           }
@@ -382,7 +389,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         cgt: {
           address: '0xf97a23a0E49e5E0028F8Ce89F7be9a9FD5942Cf6',
           chains: {
-            "mainnet": {
+            mainnet: {
               clone: true
             }
           }
@@ -390,7 +397,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         wct1: {
           address: '0xF9c46D87b25E772BEaA2349EA49C46d7CB4d2B29',
           chains: {
-            "mainnet": {
+            mainnet: {
               clone: true
             }
           }
@@ -398,7 +405,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         dai: {
           address: '0xD05C4be5f3be302d376518c9492EC0147Fa5A718',
           chains: {
-            "mainnet": {
+            mainnet: {
               clone: true
             },
             'honorable-steel-rasalhague': {
@@ -407,27 +414,30 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           }
         },
         usdc: {
-          address: "0x5F795bb52dAC3085f578f4877D450e2929D2F13d",
+          address: '0x5F795bb52dAC3085f578f4877D450e2929D2F13d',
           chains: {
-            "mainnet": {
+            mainnet: {
               clone: true
             },
-            "honorable-steel-rasalhague": {
-              wrapper: "0x1c566a47e1baC535Ca616373146e3BE024F88Aa4"
+            'honorable-steel-rasalhague': {
+              wrapper: '0x1c566a47e1baC535Ca616373146e3BE024F88Aa4'
             },
-            "green-giddy-denebola": {
-              wrapper: "0x1c566a47e1baC535Ca616373146e3BE024F88Aa4"
+            'green-giddy-denebola': {
+              wrapper: '0x1c566a47e1baC535Ca616373146e3BE024F88Aa4'
+            },
+            'parallel-stormy-spica': {
+              wrapper: '0x1c566a47e1baC535Ca616373146e3BE024F88Aa4'
             }
           }
         },
         hmt: {
-          address: "0xBE3530a3eDf9472693065041B8c9155C7FeCB8e5",
+          address: '0xBE3530a3eDf9472693065041B8c9155C7FeCB8e5',
           chains: {
-            "mainnet": {
+            mainnet: {
               clone: true
             },
-            "wan-red-ain": {
-              wrapper: "0xA0f4D4db1457E442b83555cb92aaBB8DE959Aa75"
+            'wan-red-ain': {
+              wrapper: '0xA0f4D4db1457E442b83555cb92aaBB8DE959Aa75'
             }
           }
         },
@@ -442,36 +452,45 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         cmps: {
           address: '0x31E0B85Eff93fc3cb5423cd3E23868F5B18fF0bB',
           chains: {
-            "green-giddy-denebola": {}
+            'green-giddy-denebola': {}
           }
         },
         exd: {
-          address: "0xCfEBA92BD362B2F76fC30a89C433DE50a1D62BcA",
+          address: '0xCfEBA92BD362B2F76fC30a89C433DE50a1D62BcA',
           chains: {
-            "mainnet": {
+            mainnet: {
               clone: true
             }
           }
         },
         hmkr: {
-          address: "0x57a3d5faa172f5984cdcd4885fd4f0baac88e558",
+          address: '0x57a3d5faa172f5984cdcd4885fd4f0baac88e558',
           chains: {
-            "mainnet": {
+            mainnet: {
               clone: true
             }
           }
         },
         paxg: {
-          address: "0x18478516f526b7947d995e04871562adbeeaa62d",
+          address: '0x18478516f526b7947d995e04871562adbeeaa62d',
           chains: {
-            "mainnet": {
+            mainnet: {
+              clone: true
+            }
+          }
+        },
+        razor: {
+          address: '0xCA46B70cA3c510Ce9D0c43D25817032e2F5354c0',
+          chains: {
+            mainnet: {
               clone: true
             }
           }
         }
       }
     },
-    "honorable-steel-rasalhague": { // calypso connections
+    'honorable-steel-rasalhague': {
+      // calypso connections
       eth: {
         eth: {
           address: '0x59ab97Ee239e02112652587F9Ef86CB6F762983b',
@@ -483,85 +502,90 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               clone: true,
               hub: 'elated-tan-skat'
             },
-            "green-giddy-denebola": {
+            'green-giddy-denebola': {
               clone: true,
-              hub: "elated-tan-skat"
+              hub: 'elated-tan-skat'
             }
           }
         }
       },
       erc20: {
         skl: {
-          address: "0x4048C4dd6eccF1Dc23b068211fDf20AD19602e50",
+          address: '0x4048C4dd6eccF1Dc23b068211fDf20AD19602e50',
           chains: {
-            "elated-tan-skat": {
+            'elated-tan-skat': {
               clone: true
             },
-            "mainnet": {
+            mainnet: {
               clone: true,
-              hub: "elated-tan-skat"
+              hub: 'elated-tan-skat'
             }
           }
         },
         usdt: {
           address: '0xf9B5736E74b37Ec2EDd37B1B3c8e1aF9fa426F2A',
           chains: {
-            "elated-tan-skat": {
+            'elated-tan-skat': {
               clone: true
             },
-            "mainnet": {
+            mainnet: {
               clone: true,
-              hub: "elated-tan-skat"
+              hub: 'elated-tan-skat'
             },
-            "green-giddy-denebola": {
+            'green-giddy-denebola': {
               clone: true,
-              hub: "elated-tan-skat"
+              hub: 'elated-tan-skat'
             }
           }
         },
         dai: {
           address: '0x941C0Dd6055787aE9D417620E8F4F540d8B9D9E5',
           chains: {
-            "elated-tan-skat": {
+            'elated-tan-skat': {
               clone: true
             },
-            "mainnet": {
+            mainnet: {
               clone: true,
-              hub: "elated-tan-skat"
+              hub: 'elated-tan-skat'
             }
           }
         },
         usdc: {
-          address: "0x7Cf76E740Cb23b99337b21F392F22c47Ad910c67",
+          address: '0x7Cf76E740Cb23b99337b21F392F22c47Ad910c67',
           chains: {
-            "elated-tan-skat": {
+            'elated-tan-skat': {
               clone: true
             },
-            "mainnet": {
+            mainnet: {
               clone: true,
-              hub: "elated-tan-skat"
+              hub: 'elated-tan-skat'
             },
-            "green-giddy-denebola": {
+            'green-giddy-denebola': {
               clone: true,
-              hub: "elated-tan-skat"
+              hub: 'elated-tan-skat'
+            },
+            'parallel-stormy-spica': {
+              clone: true,
+              hub: 'elated-tan-skat'
             }
           }
         },
         wbtc: {
-          address: "0x98f7d76CfFaD0263Ddb30B10244C02530Ba704c4",
+          address: '0x98f7d76CfFaD0263Ddb30B10244C02530Ba704c4',
           chains: {
-            "elated-tan-skat": {
+            'elated-tan-skat': {
               clone: true
             },
-            "mainnet": {
+            mainnet: {
               clone: true,
-              hub: "elated-tan-skat"
+              hub: 'elated-tan-skat'
             }
           }
         }
       }
     },
-    "green-giddy-denebola": { // nebula connections
+    'green-giddy-denebola': {
+      // nebula connections
       eth: {
         eth: {
           address: '0xaB01BAd2C86e24D371A13eD6367bdCa819589C5D',
@@ -573,81 +597,110 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               clone: true,
               hub: 'elated-tan-skat'
             },
-            "honorable-steel-rasalhague": {
+            'honorable-steel-rasalhague': {
               clone: true,
-              hub: "elated-tan-skat"
+              hub: 'elated-tan-skat'
             }
           }
         }
       },
       erc20: {
         skl: {
-          address: "0x7F73B66d4e6e67bCdeaF277b9962addcDabBFC4d",
+          address: '0x7F73B66d4e6e67bCdeaF277b9962addcDabBFC4d',
           chains: {
-            "elated-tan-skat": {
+            'elated-tan-skat': {
               clone: true
             },
-            "mainnet": {
+            mainnet: {
               clone: true,
-              hub: "elated-tan-skat"
+              hub: 'elated-tan-skat'
             }
           }
         },
         usdc: {
-          address: "0xCC205196288B7A26f6D43bBD68AaA98dde97276d",
+          address: '0xCC205196288B7A26f6D43bBD68AaA98dde97276d',
           chains: {
-            "elated-tan-skat": {
+            'elated-tan-skat': {
               clone: true
             },
-            "mainnet": {
+            mainnet: {
               clone: true,
-              hub: "elated-tan-skat"
+              hub: 'elated-tan-skat'
             },
-            "honorable-steel-rasalhague": {
+            'honorable-steel-rasalhague': {
               clone: true,
-              hub: "elated-tan-skat"
+              hub: 'elated-tan-skat'
+            },
+            'parallel-stormy-spica': {
+              clone: true,
+              hub: 'elated-tan-skat'
             }
           }
         },
         usdt: {
           address: '0x932427E1f1Ea096e2bb05C7dE937d083ddb8Ff83',
           chains: {
-            "elated-tan-skat": {
+            'elated-tan-skat': {
               clone: true
             },
-            "mainnet": {
+            mainnet: {
               clone: true,
-              hub: "elated-tan-skat"
+              hub: 'elated-tan-skat'
             },
-            "honorable-steel-rasalhague": {
+            'honorable-steel-rasalhague': {
               clone: true,
-              hub: "elated-tan-skat"
+              hub: 'elated-tan-skat'
             }
           }
         },
         wbtc: {
           address: '0x64d2EebA8B02f2aB19e2238f1655A8409dB64817',
           chains: {
-            "elated-tan-skat": {
+            'elated-tan-skat': {
               clone: true
             },
-            "mainnet": {
+            mainnet: {
               clone: true,
-              hub: "elated-tan-skat"
+              hub: 'elated-tan-skat'
             }
           }
         },
         cmps: {
-          address: "0x3e1463814c83cD9dC25F1595314e62557588Ddde",
+          address: '0x3e1463814c83cD9dC25F1595314e62557588Ddde',
           chains: {
-            "elated-tan-skat": {
+            'elated-tan-skat': {
               clone: true
             }
           }
         }
       }
     },
-    "affectionate-immediate-pollux": { // cryptoblades connections
+    'parallel-stormy-spica': {
+      erc20: {
+        usdc: {
+          address: '0x5ff56d3796cc17104de84365a00473232edddd9a',
+          chains: {
+            'elated-tan-skat': {
+              clone: true
+            },
+            mainnet: {
+              clone: true,
+              hub: 'elated-tan-skat'
+            },
+            'green-giddy-denebola': {
+              clone: true,
+              hub: 'elated-tan-skat'
+            },
+            'honorable-steel-rasalhague': {
+              clone: true,
+              hub: 'elated-tan-skat'
+            }
+          }
+        }
+      }
+    },
+    'affectionate-immediate-pollux': {
+      // cryptoblades connections
       erc20: {
         skl: {
           address: '0x9FeF16c2Fe0dCB261cfD39e0B618c69A73feB3FE',
@@ -655,7 +708,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             'elated-tan-skat': {
               clone: true
             },
-            'mainnet': {
+            mainnet: {
               clone: true,
               hub: 'elated-tan-skat'
             }
@@ -669,33 +722,38 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         }
       }
     },
-    "wan-red-ain": { // human connections
+    'wan-red-ain': {
+      // human connections
       erc20: {
         hmt: {
-          address: "0x6E5FF61Ea88270F6142E0E0eC8cbe9d67476CbCd",
+          address: '0x6E5FF61Ea88270F6142E0E0eC8cbe9d67476CbCd',
           chains: {
-            "elated-tan-skat": {
+            'elated-tan-skat': {
               clone: true
             },
-            "mainnet": {
+            mainnet: {
               clone: true,
-              hub: "elated-tan-skat"
+              hub: 'elated-tan-skat'
             }
           }
         }
       }
     },
-    "turbulent-unique-scheat": { // razor connections
+    'turbulent-unique-scheat': {
+      // razor connections
       erc20: {
         razor: {
           address: '0xcbf70914Fae03B3acB91E953De60CfDAaCA8145f',
           chains: {
-            "mainnet": {}
+            mainnet: {
+              clone: true
+            }
           }
-        },
+        }
       }
     },
-    "adorable-quaint-bellatrix": { // streammyscreen connections
+    'adorable-quaint-bellatrix': {
+      // streammyscreen connections
       eth: {
         eth: {
           address: '0xD2Aaa00700000000000000000000000000000000',

@@ -23,12 +23,13 @@
 import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontalCircleOutlined'
 import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
-import LabelImportantRoundedIcon from '@mui/icons-material/LabelImportantRounded'
+import StarRoundedIcon from '@mui/icons-material/StarRounded'
 import RocketLaunchRoundedIcon from '@mui/icons-material/RocketLaunchRounded'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
 import PieChartOutlineRoundedIcon from '@mui/icons-material/PieChartOutlineRounded'
 import OutboundRoundedIcon from '@mui/icons-material/OutboundRounded'
+import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded'
 
 interface SectionIcons {
   [key: string]: JSX.Element
@@ -37,8 +38,9 @@ interface SectionIcons {
 export const SECTION_ICONS: SectionIcons = {
   explore: <RocketLaunchRoundedIcon color="primary" />,
   favorites: <FavoriteRoundedIcon color="primary" />,
-  new: <LabelImportantRoundedIcon color="primary" />,
+  new: <StarRoundedIcon color="primary" />,
   trending: <TrendingUpRoundedIcon color="primary" />,
+  mostLiked: <PeopleRoundedIcon color="primary" />,
   categories: <OutboundRoundedIcon color="primary" />
 }
 

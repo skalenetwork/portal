@@ -73,12 +73,14 @@ export default function HubTile(props: {
             <div
               className={cls(cmn.flex, cmn.flexcv, cmn.flexg, cmn.mtop20, cmn.mbott20, cmn.mleft20)}
             >
-              <ChainLogo
-                network={props.network}
-                chainName={props.schainName}
-                logos={MAINNET_CHAIN_LOGOS}
-                className={cls(styles.chainIconlg)}
-              />
+              <div className={cls(styles.chainIconlg, cmn.flex, cmn.flexcv)}>
+                <ChainLogo
+                  network={props.network}
+                  chainName={props.schainName}
+                  logos={MAINNET_CHAIN_LOGOS}
+                  className="responsive-logo"
+                />
+              </div>
               <div
                 className={cls([cmn.mleft20, !props.isXs], [cmn.mleft10, props.isXs], cmn.flexg)}
               >

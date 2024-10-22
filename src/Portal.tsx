@@ -29,6 +29,7 @@ import Header from './Header'
 import SkDrawer from './SkDrawer'
 import Router from './Router'
 import SkBottomNavigation from './SkBottomNavigation'
+import ProfileModal from './components/profile/ProfileModal'
 
 export default function Portal() {
   const mpc = useMetaportStore((state) => state.mpc)
@@ -41,6 +42,7 @@ export default function Portal() {
       <SkDrawer />
       <div className={cls(cmn.fullWidth)} id="appContentScroll">
         <Router />
+        <ProfileModal />
         <div className={cls(cmn.mtop20, cmn.fullWidth)}>
           <Debug />
         </div>

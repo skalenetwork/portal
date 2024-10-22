@@ -23,7 +23,7 @@
 
 import React from 'react'
 import { IconButton, Tooltip } from '@mui/material'
-import { LanguageRounded, TrackChangesRounded } from '@mui/icons-material'
+import { LanguageRounded, TrackChangesRounded, JoinLeftRounded } from '@mui/icons-material'
 import { SocialIcon } from 'react-social-icons/component'
 import 'react-social-icons/discord'
 import 'react-social-icons/github'
@@ -33,6 +33,7 @@ import { cmn, cls } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 import FavoriteIconButton from './FavoriteIconButton'
 import SwellIcon from './SwellIcon'
+import EpicGamesStoreLogo from '../../assets/egs.svg'
 
 interface SocialButtonsProps {
   social?: types.AppSocials
@@ -40,13 +41,17 @@ interface SocialButtonsProps {
   appName?: string
   className?: string
   size?: 'sm' | 'md'
+  all?: boolean
 }
+
+const MAX_SOCIALS_SM = 6
 
 const SocialButtons: React.FC<SocialButtonsProps> = ({
   social,
   chainName,
   appName,
   className,
+  all = false,
   size = 'sm'
 }) => {
   const isMd = size === 'md'
@@ -63,6 +68,28 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
       title: 'Website'
     },
     {
+      key: 'epic-games-store',
+      icon: (
+        <img
+          src={EpicGamesStoreLogo}
+          className={cls('customSocialIcon', isMd && 'customSocialIconMd')}
+          alt="egs-logo"
+        />
+      ),
+      title: 'Epic Games Store'
+    },
+    {
+      key: 'swell',
+      icon: (
+        <SwellIcon
+          size={isMd ? 'medium' : 'small'}
+          style={{ padding: '2px' }}
+          className={cls([cmn.pSec, !isMd], [cmn.pPrim, isMd])}
+        />
+      ),
+      title: 'Swell'
+    },
+    {
       key: 'dappradar',
       icon: (
         <TrackChangesRounded
@@ -77,19 +104,24 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
     { key: 'discord', network: 'discord', title: 'Discord' },
     { key: 'github', network: 'github', title: 'GitHub' },
     {
-      key: 'swell',
+      key: 'dune',
       icon: (
-        <SwellIcon size={isMd ? 'medium' : 'small'} style={{ padding: '2px', color: '#93B8EC' }} />
+        <JoinLeftRounded
+          className={cls([cmn.pPrim, isMd], [cmn.pSec, !isMd])}
+          fontSize={isMd ? 'medium' : 'small'}
+        />
       ),
-      title: 'Swell'
+      title: 'Dune Analytics'
     }
   ]
+
+  const visibleLinks = isMd || all ? socialLinks : socialLinks.slice(0, MAX_SOCIALS_SM)
 
   return (
     <div className={cls(cmn.flex, cmn.flexcv, className)}>
       {social && (
         <div className={cls(cmn.flex, cmn.flexg)}>
-          {socialLinks.map(({ key, icon, network, title }) => {
+          {visibleLinks.map(({ key, icon, network, title }) => {
             const link = social[key as keyof types.AppSocials]
             if (!link) return null
 

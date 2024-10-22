@@ -72,7 +72,8 @@ export const categories: Categories = {
       simulation: { name: 'Simulation' },
       sports: { name: 'Sports' },
       strategy: { name: 'Strategy' },
-      web3: { name: 'Web3' }
+      web3: { name: 'Web3' },
+      'epic-games-store': { name: 'Epic Games Store' }
     }
   },
   hub: { name: 'Hub', subcategories: {} },
@@ -86,5 +87,28 @@ export const categories: Categories = {
   tools: { name: 'Tools', subcategories: {} },
   wallet: { name: 'Wallet', subcategories: {} },
   metaverse: { name: 'Metaverse', subcategories: {} },
-  web3: { name: 'Web3', subcategories: {} }
+  web3: { name: 'Web3', subcategories: {} },
+  pretge: { name: 'Pre-TGE', subcategories: {} },
+  utility: { name: 'Utility', subcategories: {} },
+  analytics: { name: 'Analytics', subcategories: {} },
+  validator: { name: 'Validator', subcategories: {} },
+}
+
+export const sortCategories = (categories: Categories): Categories => {
+  const sortedEntries = Object.entries(categories).sort(([, a], [, b]) =>
+    a.name.localeCompare(b.name)
+  )
+  return Object.fromEntries(
+    sortedEntries.map(([key, category]) => [
+      key,
+      {
+        ...category,
+        subcategories: Object.fromEntries(
+          Object.entries(category.subcategories).sort(([, a], [, b]) =>
+            a.name.localeCompare(b.name)
+          )
+        )
+      }
+    ])
+  )
 }

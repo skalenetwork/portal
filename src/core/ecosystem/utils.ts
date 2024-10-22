@@ -22,7 +22,7 @@
  */
 
 import { type types } from '@/core'
-import { categories } from './categories'
+import { categories, sortCategories } from './categories'
 
 export interface ExpandedItems {
   [key: string]: boolean
@@ -48,7 +48,7 @@ export const getSelectedCategoriesCount = (checkedItems: string[]): number => {
 }
 
 export const filterCategories = (searchTerm: string) => {
-  return Object.entries(categories).filter(([_, data]) => {
+  return Object.entries(sortCategories(categories)).filter(([_, data]) => {
     const categoryMatch = data.name.toLowerCase().includes(searchTerm.toLowerCase())
     const subcategoryMatch =
       typeof data.subcategories === 'object' &&
@@ -87,4 +87,12 @@ export const isNewApp = (
   newApps: types.AppWithChainAndName[]
 ): boolean => {
   return newApps.some((newApp) => newApp.chain === app.chain && newApp.appName === app.app)
+}
+
+export const isTrending = (
+  apps: types.AppWithChainAndName[],
+  chainName: string,
+  appName: string
+): boolean => {
+  return apps.some((a) => a.appName === appName && a.chain === chainName)
 }

@@ -42,10 +42,16 @@ export interface AppMetadata {
   description?: string
   contracts?: string[]
   social?: AppSocials
-  tags?: string[]
   added?: number
   categories: CategoriesMap
+  pretge?: TimeRange
 }
+
+interface TimeRange {
+  from: number
+  to: number
+}
+
 export interface AppWithChainAndName extends AppMetadata {
   chain: string
   appName: string
@@ -58,6 +64,7 @@ export interface AppSocials {
   discord?: string;
   swell?: string;
   dappradar?: string;
+  'epic-games-store'?: string;
 }
 
 export interface CategoriesMap {

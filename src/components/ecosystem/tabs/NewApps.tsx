@@ -23,15 +23,17 @@
 import React, { useMemo } from 'react'
 import { Grid, Box } from '@mui/material'
 import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
-import AppCard from './AppCardV2'
-import Carousel from '../Carousel'
+import AppCard from '../AppCardV2'
+import Carousel from '../../Carousel'
 import { type types } from '@/core'
-import { useLikedApps } from '../../LikedAppsContext'
+import { useLikedApps } from '../../../LikedAppsContext'
+import { isTrending } from '../../../core/ecosystem/utils'
 
 interface NewAppsProps {
   newApps: types.AppWithChainAndName[]
   skaleNetwork: types.SkaleNetwork
   chainsMeta: types.ChainsMetadataMap
+  trendingApps: types.AppWithChainAndName[]
   useCarousel?: boolean
 }
 
@@ -39,10 +41,11 @@ const NewApps: React.FC<NewAppsProps> = ({
   newApps,
   skaleNetwork,
   chainsMeta,
+  trendingApps,
   useCarousel = false
 }) => {
-  const { getTrendingApps, getAppId, getTrendingRank } = useLikedApps()
-  const trendingAppIds = useMemo(() => getTrendingApps(), [getTrendingApps])
+  const { getMostLikedApps, getAppId, getMostLikedRank } = useLikedApps()
+  const trendingAppIds = useMemo(() => getMostLikedApps(), [getMostLikedApps])
 
   const renderAppCard = (app: types.AppWithChainAndName) => {
     const appId = getAppId(app.chain, app.appName)
@@ -53,7 +56,9 @@ const NewApps: React.FC<NewAppsProps> = ({
         schainName={app.chain}
         appName={app.appName}
         chainsMeta={chainsMeta}
-        trending={getTrendingRank(trendingAppIds, appId)}
+        mostLiked={getMostLikedRank(trendingAppIds, appId)}
+        trending={isTrending(trendingApps, app.chain, app.appName)}
+        isNew={true}
       />
     )
   }

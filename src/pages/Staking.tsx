@@ -69,6 +69,7 @@ import ConnectWallet from '../components/ConnectWallet'
 import Headline from '../components/Headline'
 import Message from '../components/Message'
 import { META_TAGS } from '../core/meta'
+import SkPageInfoIcon from '../components/SkPageInfoIcon'
 
 debug.enable('*')
 const log = debug('portal:pages:Staking')
@@ -199,11 +200,11 @@ export default function Staking(props: {
                 : 'Delegate, review delegations and withdraw staking rewards'}
             </p>
           </div>
-          <div>
+          <div className={cls(cmn.mri10)}>
             {loading !== false || props.customAddress !== undefined ? (
               <Button
                 variant="contained"
-                className={cls('btnMd', cmn.mtop10)}
+                className="btnMd"
                 startIcon={<QueueRoundedIcon />}
                 disabled={loading !== false || props.customAddress !== undefined}
               >
@@ -213,7 +214,7 @@ export default function Staking(props: {
               <Link to="/staking/new">
                 <Button
                   variant="contained"
-                  className={cls('btnMd', cmn.mtop10)}
+                  className="btnMd"
                   startIcon={<QueueRoundedIcon />}
                   disabled={loading || props.customAddress !== undefined}
                 >
@@ -222,6 +223,7 @@ export default function Staking(props: {
               </Link>
             )}
           </div>
+          <SkPageInfoIcon meta_tag={META_TAGS.staking} />
         </div>
       </Stack>
 
@@ -258,7 +260,11 @@ export default function Staking(props: {
           />
         </Collapse>
         <Collapse in={props.address === undefined}>
-          <Headline text="Account info" icon={<AccountCircleRoundedIcon />} />
+          <Headline
+            text="Account info"
+            icon={<AccountCircleRoundedIcon className={cls(styles.chainIconxs)} />}
+            size="small"
+          />
           <ConnectWallet tile className={cls(cmn.flexg, cmn.mtop10)} />
         </Collapse>
       </SkPaper>
@@ -310,7 +316,11 @@ export default function Staking(props: {
           />
         </Collapse>
         <Collapse in={props.address === undefined}>
-          <Headline text="Delegations" icon={<AllInboxRoundedIcon />} />
+          <Headline
+            text="Delegations"
+            icon={<AllInboxRoundedIcon className={cls(styles.chainIconxs)} />}
+            size="small"
+          />
           <div className={cls(cmn.mtop20)}>
             <PieChartRoundedIcon className={cls(cmn.pSec, styles.chainIconmd, cmn.fullWidth)} />
             <h5 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.pCent, cmn.mtop5, cmn.mbott20)}>
