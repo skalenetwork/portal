@@ -20,17 +20,18 @@
  * @file FavoriteApps.tsx
  * @copyright SKALE Labs 2024-Present
  */
+
 import { useMemo } from 'react'
 import { types } from '@/core'
-import { useLikedApps } from '../../LikedAppsContext'
-import AppCard from './AppCardV2'
+import { useLikedApps } from '../../../LikedAppsContext'
+import AppCard from '../AppCardV2'
 import { Button, Grid } from '@mui/material'
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
 import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
-import Carousel from '../Carousel'
-import ConnectWallet from '../ConnectWallet'
+import Carousel from '../../Carousel'
+import ConnectWallet from '../../ConnectWallet'
 import { Link } from 'react-router-dom'
-import { isNewApp } from '../../core/ecosystem/utils'
+import { isNewApp, isTrending } from '../../../core/ecosystem/utils'
 
 export default function FavoriteApps(props: {
   skaleNetwork: types.SkaleNetwork
@@ -38,17 +39,18 @@ export default function FavoriteApps(props: {
   useCarousel?: boolean
   newApps: types.AppWithChainAndName[]
   filteredApps: types.AppWithChainAndName[]
+  trendingApps: types.AppWithChainAndName[]
   isSignedIn: boolean
   error: string | null
 }) {
-  const { getTrendingApps, getAppId, getTrendingRank } = useLikedApps()
-  const trendingAppIds = useMemo(() => getTrendingApps(), [getTrendingApps])
+  const { getMostLikedApps, getAppId, getMostLikedRank } = useLikedApps()
+  const mostLikedAppIds = useMemo(() => getMostLikedApps(), [getMostLikedApps])
 
   if (!props.isSignedIn) return <ConnectWallet customText="Sign in to see your favorite dApps" />
   if (props.error) return <div>Error: {props.error}</div>
 
   const appCards = props.filteredApps.map((app) => {
-    const trendingRank = getTrendingRank(trendingAppIds, getAppId(app.chain, app.appName))
+    const mostLikedRank = getMostLikedRank(mostLikedAppIds, getAppId(app.chain, app.appName))
     const isNew = isNewApp({ chain: app.chain, app: app.appName }, props.newApps)
     return (
       <Grid
@@ -67,7 +69,8 @@ export default function FavoriteApps(props: {
           skaleNetwork={props.skaleNetwork}
           chainsMeta={props.chainsMeta}
           isNew={isNew}
-          trending={trendingRank}
+          mostLiked={mostLikedRank}
+          trending={isTrending(props.trendingApps, app.chain, app.appName)}
         />
       </Grid>
     )

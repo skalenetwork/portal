@@ -88,3 +88,11 @@ export const isNewApp = (
 ): boolean => {
   return newApps.some((newApp) => newApp.chain === app.chain && newApp.appName === app.app)
 }
+
+export const isTrending = (
+  apps: types.AppWithChainAndName[],
+  chainName: string,
+  appName: string
+): boolean => {
+  return apps.some((a) => a.appName === appName && a.chain === chainName)
+}

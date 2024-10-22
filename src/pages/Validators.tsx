@@ -29,6 +29,8 @@ import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
 import Validators from '../components/delegation/Validators'
 
 import { DelegationType, type ISkaleContractsMap, type IValidator } from '../core/interfaces'
+import SkPageInfoIcon from '../components/SkPageInfoIcon'
+import { META_TAGS } from '../core/meta'
 
 export default function ValidatorsPage(props: {
   mpc: MetaportCore
@@ -44,10 +46,15 @@ export default function ValidatorsPage(props: {
 
   return (
     <Container maxWidth="md">
-      <div className={cls(cmn.flex)}>
-        <h2 className={cls(cmn.nom)}>Validators</h2>
+      <div className={cls(cmn.flex, cmn.flexcv)}>
+        <div className={cmn.flexg}>
+          <h2 className={cls(cmn.nom)}>Validators</h2>
+          <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+            List of validators on SKALE Network
+          </p>
+        </div>
+        <SkPageInfoIcon meta_tag={META_TAGS.validators} />
       </div>
-      <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>List of validators on SKALE Network</p>
       <div className={cls(cmn.mtop20)}>
         <Validators
           mpc={props.mpc}

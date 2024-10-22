@@ -34,7 +34,7 @@ import { type types } from '@/core'
 import { findChainName } from '../core/chain'
 
 export default function Chain(props: {
-  loadData: any
+  loadData: () => Promise<void>
   schains: types.ISChain[]
   stats: types.IStats | null
   metrics: types.IMetrics | null

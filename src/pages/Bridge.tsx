@@ -24,7 +24,8 @@
 import { Helmet } from 'react-helmet'
 
 import { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
+import HistoryIcon from '@mui/icons-material/History'
 
 import {
   CHAINS_META,
@@ -34,7 +35,8 @@ import {
   useMetaportStore,
   SkPaper,
   type interfaces,
-  TransactionData
+  TransactionData,
+  styles
 } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
@@ -45,6 +47,8 @@ import BridgeBody from '../components/BridgeBody'
 
 import { META_TAGS } from '../core/meta'
 import Meson from '../components/Meson'
+import { Button } from '@mui/material'
+import SkPageInfoIcon from '../components/SkPageInfoIcon'
 
 interface TokenParams {
   keyname: string | null
@@ -163,10 +167,27 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
         <meta property="og:description" content={META_TAGS.bridge.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className={cls(cmn.flex)}>
-          <h2 className={cls(cmn.nom)}>Transfer</h2>
+        <div className={cls(cmn.flex, cmn.flexcv)}>
+          <div className={cls(cmn.flexg)}>
+            <h2 className={cls(cmn.nom)}>Bridge</h2>
+            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+              Zero Gas Fees between SKALE Chains
+            </p>
+          </div>
+          <div>
+            <Link to="/bridge/history">
+              <Button
+                variant="contained"
+                className={cls('btnMd', styles.paperGrey, cmn.pPrim, cmn.mri10)}
+                startIcon={<HistoryIcon />}
+              >
+                History
+              </Button>
+            </Link>
+            <SkPageInfoIcon meta_tag={META_TAGS.bridge} />
+          </div>
         </div>
-        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>Zero Gas Fees between SKALE Chains</p>
+
         <div className={cls(cmn.mtop20)}>
           <BridgeBody />
           {transactionsHistory.length !== 0 ? (

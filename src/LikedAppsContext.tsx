@@ -38,8 +38,8 @@ interface LikedAppsContextType {
   refreshLikedApps: () => Promise<void>
   getAppId: (chainName: string, appName: string) => string
   getAppInfoById: (appId: string) => types.IAppId
-  getTrendingApps: () => string[]
-  getTrendingRank: (trendingAppIds: string[], appId: string) => number | undefined
+  getMostLikedApps: () => string[]
+  getMostLikedRank: (mostLikedAppIds: string[], appId: string) => number | undefined
 }
 
 const LikedAppsContext = createContext<LikedAppsContextType | undefined>(undefined)
@@ -133,15 +133,15 @@ export const LikedAppsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
     return { chain, app }
   }
 
-  const getTrendingApps = useCallback(() => {
+  const getMostLikedApps = useCallback(() => {
     return Object.entries(appLikes)
       .sort(([, likesA], [, likesB]) => likesB - likesA)
       .slice(0, MAX_APPS_DEFAULT)
       .map(([appId]) => appId)
   }, [appLikes])
 
-  const getTrendingRank = (trendingAppIds: string[], appId: string): number | undefined => {
-    const idx = trendingAppIds.indexOf(appId)
+  const getMostLikedRank = (mostLikedAppIds: string[], appId: string): number | undefined => {
+    const idx = mostLikedAppIds.indexOf(appId)
     return idx === -1 ? undefined : idx + 1
   }
 
@@ -156,8 +156,8 @@ export const LikedAppsProvider: React.FC<{ children: React.ReactNode }> = ({ chi
         refreshLikedApps: fetchLikedApps,
         getAppId,
         getAppInfoById,
-        getTrendingApps,
-        getTrendingRank
+        getMostLikedApps,
+        getMostLikedRank
       }}
     >
       {children}
