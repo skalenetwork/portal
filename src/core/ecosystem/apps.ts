@@ -107,3 +107,17 @@ export function getAppMeta(
 ): types.AppMetadata | undefined {
   return chainsMeta[chain]?.apps?.[app]
 }
+
+export function getAppMetaWithChainApp(
+  chainsMeta: types.ChainsMetadataMap,
+  chain: string,
+  app: string
+): types.AppWithChainAndName | undefined {
+  const meta = chainsMeta[chain]?.apps?.[app]
+  if (!meta) return undefined
+  return {
+    ...meta,
+    chain,
+    appName: app
+  }
+}
