@@ -44,6 +44,7 @@ interface RecommendedAppsProps {
   trendingApps: types.AppWithChainAndName[]
   useCarousel?: boolean
   className?: string
+  gray?: boolean
 }
 
 const RecommendedApps: React.FC<RecommendedAppsProps> = ({
@@ -55,7 +56,8 @@ const RecommendedApps: React.FC<RecommendedAppsProps> = ({
   newApps,
   trendingApps,
   useCarousel = false,
-  className
+  className,
+  gray = false
 }) => {
   const { getMostLikedApps, getAppId, getMostLikedRank } = useLikedApps()
   const mostLikedAppIds = useMemo(() => getMostLikedApps(), [getMostLikedApps])
@@ -78,7 +80,7 @@ const RecommendedApps: React.FC<RecommendedAppsProps> = ({
           isNew={isNewApp({ chain: app.chain, app: app.appName }, newApps)}
           mostLiked={getMostLikedRank(mostLikedAppIds, appId)}
           trending={isTrending(trendingApps, app.chain, app.appName)}
-          gray={false}
+          gray={gray}
         />
       </Box>
     )
