@@ -74,7 +74,7 @@ export default function Home({
         <AppSection
           title="Your Favorites"
           icon={SECTION_ICONS.favorites}
-          linkTo="/ecosystem?tab=2"
+          linkTo="/ecosystem?tab=3"
           component={
             <FavoriteApps
               skaleNetwork={skaleNetwork}
@@ -105,7 +105,7 @@ export default function Home({
         <AppSection
           title="Trending dApps on SKALE"
           icon={SECTION_ICONS.trending}
-          linkTo="/ecosystem?tab=3"
+          linkTo="/ecosystem?tab=2"
           component={
             <TrendingApps
               chainsMeta={chainsMeta}
