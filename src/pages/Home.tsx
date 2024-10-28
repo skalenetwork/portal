@@ -40,6 +40,7 @@ import { SKALE_SOCIAL_LINKS } from '../core/constants'
 import { SECTION_ICONS, EXPLORE_CARDS } from '../components/HomeComponents'
 import SocialButtons from '../components/ecosystem/Socials'
 import { SwellMessage } from '../components/Message'
+import UserRecommendations from '../components/ecosystem/UserRecommendations'
 
 interface HomeProps {
   skaleNetwork: types.SkaleNetwork
@@ -87,6 +88,11 @@ export default function Home({
               error={null}
             />
           }
+        />
+        <UserRecommendations
+          skaleNetwork={skaleNetwork}
+          chainsMeta={chainsMeta}
+          metrics={metrics}
         />
         <AppSection
           title="New dApps on SKALE"
