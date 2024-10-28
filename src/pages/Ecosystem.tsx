@@ -121,11 +121,11 @@ export default function Ecosystem(props: {
         3,
         isSignedIn
           ? favoriteApps.filter((app) =>
-            filteredApps.some(
-              (filteredApp) =>
-                filteredApp.chain === app.chain && filteredApp.appName === app.appName
+              filteredApps.some(
+                (filteredApp) =>
+                  filteredApp.chain === app.chain && filteredApp.appName === app.appName
+              )
             )
-          )
           : []
       ] // Favorite Apps
     ])
@@ -178,18 +178,15 @@ export default function Ecosystem(props: {
             setCheckedItems={handleSetCheckedItems}
             filteredAppsCount={currentFilteredApps.length}
           />
-          <SwellMessage className={cls([cmn.mtop20, isFiltersApplied], [cmn.mbott20, !isFiltersApplied])} />
+          <SwellMessage
+            className={cls([cmn.mtop20, isFiltersApplied], [cmn.mbott20, !isFiltersApplied])}
+          />
           <Tabs
             variant={props.isXs ? 'scrollable' : 'standard'}
             value={activeTab}
             onChange={handleTabChange}
             scrollButtons="auto"
-            className={cls(
-              cmn.mbott20,
-              [cmn.mtop20, isFiltersApplied],
-              'skTabs',
-              'fwmobile'
-            )}
+            className={cls(cmn.mbott20, [cmn.mtop20, isFiltersApplied], 'skTabs', 'fwmobile')}
           >
             <Tab
               label="All"
