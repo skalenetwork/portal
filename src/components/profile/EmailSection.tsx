@@ -37,6 +37,7 @@ interface EmailSectionProps {
   handleStartEditing: () => void
   handleUpdateEmail: () => void
   handleCancelEditing: () => void
+  className?: string
 }
 
 const EmailSection: React.FC<EmailSectionProps> = ({
@@ -48,7 +49,8 @@ const EmailSection: React.FC<EmailSectionProps> = ({
   setNewEmail,
   handleStartEditing,
   handleUpdateEmail,
-  handleCancelEditing
+  handleCancelEditing,
+  className
 }) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -61,7 +63,7 @@ const EmailSection: React.FC<EmailSectionProps> = ({
   return (
     <Tile
       text="Email Address"
-      className={cls(styles.inputAmount)}
+      className={cls(styles.inputAmount, className)}
       icon={<EmailRoundedIcon />}
       value={!isEditing ? email ?? 'Not set' : undefined}
       children={
