@@ -40,6 +40,7 @@ import { SKALE_SOCIAL_LINKS } from '../core/constants'
 import { SECTION_ICONS, EXPLORE_CARDS } from '../components/HomeComponents'
 import SocialButtons from '../components/ecosystem/Socials'
 import { SwellMessage } from '../components/Message'
+import UserRecommendations from '../components/ecosystem/UserRecommendations'
 
 interface HomeProps {
   skaleNetwork: types.SkaleNetwork
@@ -74,7 +75,7 @@ export default function Home({
         <AppSection
           title="Your Favorites"
           icon={SECTION_ICONS.favorites}
-          linkTo="/ecosystem?tab=2"
+          linkTo="/ecosystem?tab=3"
           component={
             <FavoriteApps
               skaleNetwork={skaleNetwork}
@@ -87,6 +88,11 @@ export default function Home({
               error={null}
             />
           }
+        />
+        <UserRecommendations
+          skaleNetwork={skaleNetwork}
+          chainsMeta={chainsMeta}
+          metrics={metrics}
         />
         <AppSection
           title="New dApps on SKALE"
@@ -105,7 +111,7 @@ export default function Home({
         <AppSection
           title="Trending dApps on SKALE"
           icon={SECTION_ICONS.trending}
-          linkTo="/ecosystem?tab=3"
+          linkTo="/ecosystem?tab=2"
           component={
             <TrendingApps
               chainsMeta={chainsMeta}

@@ -51,7 +51,26 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded'
 import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded'
 import HourglassFullRoundedIcon from '@mui/icons-material/HourglassFullRounded'
+import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded'
 
+import { useApps } from '../useApps'
+
+import { findChainName } from '../core/chain'
+import { getAppMetaWithChainApp } from '../core/ecosystem/apps'
+import { formatNumber } from '../core/timeHelper'
+import { chainBg, getChainAlias, isPreTge } from '../core/metadata'
+import { addressUrl, getExplorerUrl, getTotalAppCounters } from '../core/explorer'
+import { MAINNET_CHAIN_LOGOS, MAX_APPS_DEFAULT, OFFCHAIN_APP } from '../core/constants'
+import { getRecentApps, isNewApp, isTrending } from '../core/ecosystem/utils'
+
+import SocialButtons from '../components/ecosystem/Socials'
+import CategoriesChips from '../components/ecosystem/CategoriesChips'
+import { useLikedApps } from '../LikedAppsContext'
+import { useAuth } from '../AuthContext'
+import ErrorTile from '../components/ErrorTile'
+import { ChipNew, ChipPreTge, ChipTrending } from '../components/Chip'
+import AppScreenshots from '../components/ecosystem/AppScreenshots'
+import RecommendedApps from '../components/ecosystem/RecommendedApps'
 import ChainLogo from '../components/ChainLogo'
 import Tile from '../components/Tile'
 import LinkSurface from '../components/LinkSurface'
@@ -59,22 +78,6 @@ import Breadcrumbs from '../components/Breadcrumbs'
 import CollapsibleDescription from '../components/CollapsibleDescription'
 import HubTile from '../components/chains/HubTile'
 import AccordionSection from '../components/AccordionSection'
-
-import { findChainName } from '../core/chain'
-
-import { formatNumber } from '../core/timeHelper'
-import { chainBg, getChainAlias, isPreTge } from '../core/metadata'
-import { addressUrl, getExplorerUrl, getTotalAppCounters } from '../core/explorer'
-import { MAINNET_CHAIN_LOGOS, MAX_APPS_DEFAULT, OFFCHAIN_APP } from '../core/constants'
-import SocialButtons from '../components/ecosystem/Socials'
-import CategoriesChips from '../components/ecosystem/CategoriesChips'
-import { useLikedApps } from '../LikedAppsContext'
-import { useAuth } from '../AuthContext'
-import ErrorTile from '../components/ErrorTile'
-import { ChipNew, ChipPreTge, ChipTrending } from '../components/Chip'
-import { getRecentApps, isNewApp, isTrending } from '../core/ecosystem/utils'
-import { useApps } from '../useApps'
-import AppScreenshots from '../components/ecosystem/AppScreenshots'
 
 export default function App(props: {
   mpc: MetaportCore
@@ -122,7 +125,7 @@ export default function App(props: {
 
   const appDescription = appMeta.description ?? 'No description'
 
-  const { trendingApps } = useApps(props.chainsMeta, props.metrics)
+  const { trendingApps, allApps } = useApps(props.chainsMeta, props.metrics)
 
   const appId = getAppId(chain, app)
   const isLiked = likedApps.includes(appId)
@@ -375,6 +378,26 @@ export default function App(props: {
             )}
           </SkPaper>
         )}
+
+        <SkPaper gray className={cls(cmn.mtop10, 'fwmobile')}>
+          <AccordionSection
+            expandedByDefault
+            title="Discover more"
+            icon={<AutoAwesomeRoundedIcon />}
+            marg={false}
+          >
+            <RecommendedApps
+              className={cls(cmn.mtop10)}
+              skaleNetwork={props.mpc.config.skaleNetwork}
+              chainsMeta={props.chainsMeta}
+              allApps={allApps}
+              currentApp={getAppMetaWithChainApp(props.chainsMeta, chain, app)}
+              newApps={newApps}
+              trendingApps={trendingApps}
+              useCarousel={true}
+            />
+          </AccordionSection>
+        </SkPaper>
       </div>
     </Container>
   )

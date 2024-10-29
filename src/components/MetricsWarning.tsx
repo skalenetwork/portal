@@ -33,8 +33,7 @@ import { timestampToDate } from '../core/helper'
 const MAX_DELAY_SECONDS = 48 * 60 * 60
 
 export default function MetricsWarning(props: { metrics: types.IMetrics | null }) {
-  if (!props.metrics || Date.now() / 1000 - props.metrics.last_updated < MAX_DELAY_SECONDS)
-    return
+  if (!props.metrics || Date.now() / 1000 - props.metrics.last_updated < MAX_DELAY_SECONDS) return
   return (
     <Container maxWidth="md">
       <Message

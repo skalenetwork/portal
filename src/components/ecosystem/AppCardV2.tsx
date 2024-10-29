@@ -45,17 +45,20 @@ export default function AppCard(props: {
   isNew?: boolean
   mostLiked?: number
   trending?: boolean
+  gray?: boolean
 }) {
   const shortAlias = getChainShortAlias(props.chainsMeta, props.schainName)
   const url = `/ecosystem/${shortAlias}/${props.appName}`
   const appMeta = props.chainsMeta[props.schainName]?.apps?.[props.appName]
+
+  const gray = props.gray ?? true
 
   if (!appMeta) return
 
   const appDescription = appMeta.description ?? 'No description'
 
   return (
-    <SkPaper gray fullHeight className="sk-app-card">
+    <SkPaper gray={gray} fullHeight className="sk-app-card">
       <Link to={url}>
         <div className={cls(cmn.flex)}>
           <div className="sk-app-logo sk-logo-sm br__tile">

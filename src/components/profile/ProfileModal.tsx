@@ -22,8 +22,8 @@
  */
 
 import React, { useState, useCallback } from 'react'
-import { Modal, Box, Grid, useTheme, useMediaQuery } from '@mui/material'
-import { SkPaper, useWagmiAccount } from '@skalenetwork/metaport'
+import { Modal, Box, useTheme, useMediaQuery } from '@mui/material'
+import { cls, cmn, SkPaper, useWagmiAccount } from '@skalenetwork/metaport'
 import { useAuth } from '../../AuthContext'
 import Tile from '../Tile'
 import Message from '../Message'
@@ -77,61 +77,61 @@ const ProfileModal: React.FC = () => {
     <Box className="profileModal">
       <SkPaper gray>
         <ProfileModalHeader address={address} isSignedIn={isSignedIn} />
-
         {!address || !isSignedIn ? (
           <ConnectWallet customText="Connect your wallet and sign-in to use your profile" />
         ) : (
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Tile
-                text="Wallet Address"
-                value={address}
-                icon={<Jazzicon diameter={20} seed={jsNumberForAddress(address)} />}
-                copy={address}
-              />
-            </Grid>
-            <Grid item xs={12}>
-              <EmailSection
-                email={email}
-                isEditing={isEditing}
-                isEmailLoading={isEmailLoading}
-                isEmailUpdating={isEmailUpdating}
-                newEmail={newEmail}
-                setNewEmail={setNewEmail}
-                handleStartEditing={handleStartEditing}
-                handleUpdateEmail={handleUpdateEmail}
-                handleCancelEditing={handleCancelEditing}
-              />
-            </Grid>
+          <div></div>
+        )}
+        {address && isSignedIn ? (
+          <div>
+            <Tile
+              text="Wallet Address"
+              value={address}
+              icon={<Jazzicon diameter={20} seed={jsNumberForAddress(address)} />}
+              copy={address}
+              className={cls(cmn.mbott10)}
+            />
+            <EmailSection
+              email={email}
+              isEditing={isEditing}
+              isEmailLoading={isEmailLoading}
+              isEmailUpdating={isEmailUpdating}
+              newEmail={newEmail}
+              setNewEmail={setNewEmail}
+              handleStartEditing={handleStartEditing}
+              handleUpdateEmail={handleUpdateEmail}
+              handleCancelEditing={handleCancelEditing}
+              className={cls(cmn.mbott10)}
+            />
             {emailError && (
-              <Grid item xs={12}>
-                <Message
-                  text={emailError}
-                  type="error"
-                  icon={<EmailRoundedIcon />}
-                  closable={false}
-                />
-              </Grid>
+              <Message
+                text={emailError}
+                type="error"
+                icon={<EmailRoundedIcon />}
+                closable={false}
+                className={cls(cmn.mbott10)}
+              />
             )}
-
-            <Grid item xs={12}>
-              <SwellMessage
-                email={email}
-                isEditing={isEditing}
-                handleStartEditing={handleStartEditing}
-              />
-            </Grid>
-
-            <Grid item xs={12}>
-              <ProfileModalActions
-                address={address}
-                isSignedIn={isSignedIn}
-                isMobile={isMobile}
-                handleSignIn={handleSignIn}
-                handleSignOut={handleSignOut}
-              />
-            </Grid>
-          </Grid>
+            <SwellMessage
+              email={email}
+              isEditing={isEditing}
+              handleStartEditing={handleStartEditing}
+            />
+          </div>
+        ) : (
+          <div></div>
+        )}
+        {address ? (
+          <ProfileModalActions
+            className={cls(cmn.mtop20)}
+            address={address}
+            isSignedIn={isSignedIn}
+            isMobile={isMobile}
+            handleSignIn={handleSignIn}
+            handleSignOut={handleSignOut}
+          />
+        ) : (
+          <div></div>
         )}
       </SkPaper>
     </Box>
