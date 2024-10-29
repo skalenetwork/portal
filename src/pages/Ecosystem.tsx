@@ -44,7 +44,6 @@ import SkStack from '../components/SkStack'
 import AllApps from '../components/ecosystem/tabs/AllApps'
 import NewApps from '../components/ecosystem/tabs/NewApps'
 import FavoriteApps from '../components/ecosystem/tabs/FavoriteApps'
-import MostLiked from '../components/ecosystem/tabs/MostLiked'
 import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import SocialButtons from '../components/ecosystem/Socials'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
@@ -59,7 +58,7 @@ export default function Ecosystem(props: {
 }) {
   const { getCheckedItemsFromUrl, setCheckedItemsInUrl, getTabIndexFromUrl, setTabIndexInUrl } =
     useUrlParams()
-  const { allApps, newApps, mostLikedApps, trendingApps, favoriteApps, isSignedIn } = useApps(
+  const { allApps, newApps, trendingApps, favoriteApps, isSignedIn } = useApps(
     props.chainsMeta,
     props.metrics
   )
@@ -131,9 +130,11 @@ export default function Ecosystem(props: {
     ])
 
     return (tabIndex: number) => filterMap.get(tabIndex) || filteredApps
-  }, [filteredApps, newApps, trendingApps, mostLikedApps, favoriteApps, isSignedIn])
+  }, [filteredApps, newApps, trendingApps, favoriteApps, isSignedIn])
 
   const currentFilteredApps = getFilteredAppsByTab(activeTab)
+
+  const isFiltersApplied = Object.keys(checkedItems).length !== 0
 
   return (
     <Container maxWidth="md">
@@ -176,18 +177,15 @@ export default function Ecosystem(props: {
             setCheckedItems={handleSetCheckedItems}
             filteredAppsCount={currentFilteredApps.length}
           />
-          <SwellMessage className={cmn.mbott20} />
+          <SwellMessage
+            className={cls([cmn.mtop20, isFiltersApplied], [cmn.mbott20, !isFiltersApplied])}
+          />
           <Tabs
             variant={props.isXs ? 'scrollable' : 'standard'}
             value={activeTab}
             onChange={handleTabChange}
             scrollButtons="auto"
-            className={cls(
-              cmn.mbott20,
-              [cmn.mtop20, Object.keys(checkedItems).length !== 0],
-              'skTabs',
-              'fwmobile'
-            )}
+            className={cls(cmn.mbott20, [cmn.mtop20, isFiltersApplied], 'skTabs', 'fwmobile')}
           >
             <Tab
               label="All"
@@ -242,15 +240,6 @@ export default function Ecosystem(props: {
             />
           )}
           {activeTab === 3 && (
-            <MostLiked
-              chainsMeta={props.chainsMeta}
-              skaleNetwork={props.mpc.config.skaleNetwork}
-              newApps={newApps}
-              filteredApps={currentFilteredApps}
-              trendingApps={trendingApps}
-            />
-          )}
-          {activeTab === 4 && (
             <FavoriteApps
               chainsMeta={props.chainsMeta}
               skaleNetwork={props.mpc.config.skaleNetwork}

@@ -84,6 +84,7 @@ export const BASE_METADATA_URL =
   'https://raw.githubusercontent.com/skalenetwork/skale-network/master/metadata/'
 
 export const MAX_APPS_DEFAULT = 12
+export const APP_SUBCATEGORY_MATCH_WEIGHT = 2
 
 export const OFFCHAIN_APP = '__offchain'
 

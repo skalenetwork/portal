@@ -36,6 +36,7 @@ interface ProfileModalActionsProps {
   isMobile: boolean
   handleSignIn: () => void
   handleSignOut: () => void
+  className?: string
 }
 
 const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
@@ -43,9 +44,10 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
   isSignedIn,
   isMobile,
   handleSignIn,
-  handleSignOut
+  handleSignOut,
+  className
 }) => (
-  <SkStack className="profileModalActions">
+  <SkStack className={cls(className, 'profileModalActions')}>
     <Button
       variant="text"
       startIcon={<LaunchIcon />}
@@ -70,15 +72,17 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
       )}
     </RainbowConnectButton.Custom>
 
-    <Button
-      variant="text"
-      startIcon={isSignedIn ? <LogoutIcon /> : <LoginIcon />}
-      className={cls('btn', 'btnSm', 'filled')}
-      onClick={isSignedIn ? handleSignOut : handleSignIn}
-      fullWidth={isMobile}
-    >
-      {isSignedIn ? 'Sign Out' : 'Sign In'}
-    </Button>
+    {isSignedIn && (
+      <Button
+        variant="text"
+        startIcon={isSignedIn ? <LogoutIcon /> : <LoginIcon />}
+        className={cls('btn', 'btnSm', 'filled')}
+        onClick={isSignedIn ? handleSignOut : handleSignIn}
+        fullWidth={isMobile}
+      >
+        Sign Out
+      </Button>
+    )}
   </SkStack>
 )
 

@@ -32,9 +32,10 @@ import { cmn, cls } from '@skalenetwork/metaport'
 interface CarouselProps {
   children: ReactNode[]
   showArrows?: boolean
+  className?: string
 }
 
-const Carousel: React.FC<CarouselProps> = ({ children, showArrows = true }) => {
+const Carousel: React.FC<CarouselProps> = ({ children, showArrows = true, className }) => {
   const [startIndex, setStartIndex] = useState(0)
   const theme = useTheme()
   const isXs = useMediaQuery(theme.breakpoints.only('xs'))
@@ -61,7 +62,7 @@ const Carousel: React.FC<CarouselProps> = ({ children, showArrows = true }) => {
   const visibleChildren = children.slice(startIndex, startIndex + itemsToShow)
 
   return (
-    <Box sx={{ position: 'relative' }}>
+    <Box sx={{ position: 'relative' }} className={className}>
       <Box
         sx={{
           display: 'flex',
@@ -92,7 +93,7 @@ const Carousel: React.FC<CarouselProps> = ({ children, showArrows = true }) => {
             onClick={handlePrev}
             disabled={startIndex === 0}
             size="small"
-            className={cls('outlined', cmn.mri5)}
+            className={cls('filled', cmn.mri5)}
           >
             <ArrowBackIosRoundedIcon />
           </IconButton>
@@ -100,7 +101,7 @@ const Carousel: React.FC<CarouselProps> = ({ children, showArrows = true }) => {
             onClick={handleNext}
             disabled={startIndex >= children.length - itemsToShow}
             size="small"
-            className={cls(cmn.pSec, 'outlined', cmn.mleft5)}
+            className={cls(cmn.pSec, 'filled', cmn.mleft5)}
           >
             <ArrowForwardIosRoundedIcon />
           </IconButton>
