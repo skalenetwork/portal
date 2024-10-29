@@ -183,7 +183,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           }
         },
         skivvy: {
-          address: '0x8a87bd32E8750012fbFF88BE04A73f150cC8964f',
+          address: '0xF37C293Eeb57a0c4c98e61bDB607f6b8C825D4f4',
           chains: {
             'juicy-low-small-testnet': {
               clone: true
