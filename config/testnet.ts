@@ -64,6 +64,11 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
     trc: {
       name: "TheRealCoin",
       symbol: "TRC"
+    },
+    skivvy: {
+      name: 'Skivvy',
+      symbol: '$SKIVVY',
+      decimals: '8'
     }
   },
   connections: {
@@ -129,6 +134,15 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               hub: 'juicy-low-small-testnet'
             }
           }
+        },
+        skivvy: {
+          address: '0x46E0F6C2aeC8C48588a5a4d064d32b14Fa685f78',
+          chains: {
+            'juicy-low-small-testnet': {},
+            'giant-half-dual-testnet': {
+              hub: 'juicy-low-small-testnet'
+            }
+          }
         }
       },
       erc721meta: {
@@ -140,7 +154,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       // Calypso connections
       eth: {
         eth: {
-          address: '0x2aebcdc4f9f9149a50422fff86198cb0939ea165',
+          address: '0x92561a12Ef92311c28d530210F0C4C712468461c',
           chains: {
             'juicy-low-small-testnet': {
               clone: true
@@ -160,6 +174,18 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               clone: true
             },
             'aware-fake-trim-testnet': {
+              clone: true
+            },
+            mainnet: {
+              hub: 'juicy-low-small-testnet',
+              clone: true
+            }
+          }
+        },
+        skivvy: {
+          address: '0xF37C293Eeb57a0c4c98e61bDB607f6b8C825D4f4',
+          chains: {
+            'juicy-low-small-testnet': {
               clone: true
             },
             mainnet: {
@@ -293,6 +319,17 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             },
             'aware-fake-trim-testnet': {
               wrapper: '0xa6be26f2914a17fc4e8d21a1ce2ec4079eeb990c'
+            }
+          }
+        },
+        skivvy: {
+          address: '0x8a87bd32E8750012fbFF88BE04A73f150cC8964f',
+          chains: {
+            mainnet: {
+              clone: true
+            },
+            'giant-half-dual-testnet': {
+              wrapper: '0x96E979dC40f5501CE35fE28E299E0E99D99CF1bA'
             }
           }
         }
