@@ -68,7 +68,8 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
     skivvy: {
       name: 'Skivvy',
       symbol: '$SKIVVY',
-      decimals: '8'
+      decimals: '8',
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3441.png'
     }
   },
   connections: {
@@ -136,7 +137,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           }
         },
         skivvy: {
-          address: '0x46E0F6C2aeC8C48588a5a4d064d32b14Fa685f78',
+          address: '0xBD7A80706f48680AfA1770fd332486e9b6354f62',
           chains: {
             'juicy-low-small-testnet': {},
             'giant-half-dual-testnet': {
@@ -183,7 +184,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           }
         },
         skivvy: {
-          address: '0xF37C293Eeb57a0c4c98e61bDB607f6b8C825D4f4',
+          address: '0x872D4a13f9D87681b36Ec7179651B573480C1c8E',
           chains: {
             'juicy-low-small-testnet': {
               clone: true
@@ -323,13 +324,13 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           }
         },
         skivvy: {
-          address: '0x8a87bd32E8750012fbFF88BE04A73f150cC8964f',
+          address: '0x6fb47CdB4e1b8FC17707af06ff8E431C61825584',
           chains: {
             mainnet: {
               clone: true
             },
             'giant-half-dual-testnet': {
-              wrapper: '0x96E979dC40f5501CE35fE28E299E0E99D99CF1bA'
+              wrapper: '0x23d67AF9E78f757Ba6a678ECfc8d346C1e0b3D88'
             }
           }
         }
