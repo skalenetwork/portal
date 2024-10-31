@@ -17,7 +17,7 @@
  */
 
 /**
- * @file Validators.tsx
+ * @file Validator.tsx
  * @copyright SKALE Labs 2024-Present
  */
 
@@ -26,15 +26,12 @@ import { useEffect } from 'react'
 import Container from '@mui/material/Container'
 import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
 
-import Validators from '../components/delegation/Validators'
 
-import { DelegationType, type ISkaleContractsMap, type IValidator } from '../core/interfaces'
+import { type ISkaleContractsMap, type IValidator } from '../core/interfaces'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import { META_TAGS } from '../core/meta'
-import { Link } from 'react-router-dom'
-import { Button } from '@mui/material'
 
-export default function ValidatorsPage(props: {
+export default function Validator(props: {
   mpc: MetaportCore
   validators: IValidator[]
   sc: ISkaleContractsMap | null
@@ -50,27 +47,14 @@ export default function ValidatorsPage(props: {
     <Container maxWidth="md">
       <div className={cls(cmn.flex, cmn.flexcv)}>
         <div className={cmn.flexg}>
-          <h2 className={cls(cmn.nom)}>Validators</h2>
+          <h2 className={cls(cmn.nom)}>Manage Validator</h2>
           <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-            List of validators on SKALE Network
+            {META_TAGS.validator.description}
           </p>
         </div>
-        <Link to="/validator">
-          <Button size='small' variant="contained" className={cls('btn', 'btnSm', cmn.mri10)}>
-            Manage Validator
-          </Button>
-        </Link>
-        <SkPageInfoIcon meta_tag={META_TAGS.validators} />
+        <SkPageInfoIcon meta_tag={META_TAGS.validator} />
       </div>
       <div className={cls(cmn.mtop20)}>
-        <Validators
-          mpc={props.mpc}
-          validators={props.validators}
-          validatorId={0}
-          setValidatorId={(): void => { }}
-          delegationType={DelegationType.REGULAR}
-          size="lg"
-        />
       </div>
     </Container>
   )

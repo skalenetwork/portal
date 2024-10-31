@@ -64,6 +64,7 @@ import Staking from './pages/Staking'
 import StakeValidator from './pages/StakeValidator'
 import StakeAmount from './pages/StakeAmount'
 import Validators from './pages/Validators'
+import Validator from './pages/Validator'
 import Onramp from './pages/Onramp'
 import TermsModal from './components/TermsModal'
 import Changelog from './pages/Changelog'
@@ -362,6 +363,17 @@ export default function Router() {
               path="validators"
               element={
                 <Validators
+                  mpc={mpc}
+                  validators={validators}
+                  loadValidators={loadValidators}
+                  sc={sc}
+                />
+              }
+            />
+            <Route
+              path="validator"
+              element={
+                <Validator
                   mpc={mpc}
                   validators={validators}
                   loadValidators={loadValidators}
