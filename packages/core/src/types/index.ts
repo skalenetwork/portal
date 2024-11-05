@@ -135,7 +135,7 @@ export interface IAddressCounters {
     token_transfers_count: string
     transactions_count: string
     validations_count: string
-    transactions_last_day: number
+    transactions_today: number
     transactions_last_7_days: number
     transactions_last_30_days: number
 }
