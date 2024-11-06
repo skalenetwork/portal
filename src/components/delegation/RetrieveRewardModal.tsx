@@ -103,7 +103,7 @@ export default function RetrieveRewardModal(props: {
           <Container maxWidth="md">
             <SkPaper className={cls(cmn.nop)}>
               <SkPaper gray>
-                <p className={cls(cmn.p, cmn.p1, cmn.p700, cmn.pCent, cmn.mtop10, cmn.mbott10)}>
+                <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.pCent, cmn.mtop10, cmn.mbott10)}>
                   Confirm reward retrieval
                 </p>
                 <Message
@@ -111,6 +111,7 @@ export default function RetrieveRewardModal(props: {
                   type="warning"
                   icon={<WarningRoundedIcon />}
                   className={cls(cmn.mbott10)}
+                  closable={false}
                 />
                 <Collapse in={!!errorMsg}>
                   <Message
@@ -159,15 +160,15 @@ export default function RetrieveRewardModal(props: {
                         {edit ? (
                           <div>
                             <Button
-                              variant="text"
-                              className={cls('btnSm', 'outlined')}
+                              variant="contained"
+                              className={cls('btnSm')}
                               onClick={saveAddress}
                             >
                               Save
                             </Button>
                             <Button
                               variant="text"
-                              className={cls('btnSm', 'outlined', cmn.mleft10)}
+                              className={cls('btnSm', 'filled', cmn.mleft10)}
                               onClick={() => {
                                 setInputAddress(props.address)
                                 props.setCustomRewardAddress(props.address)
@@ -181,7 +182,7 @@ export default function RetrieveRewardModal(props: {
                         ) : (
                           <Button
                             variant="text"
-                            className={cls('btnSm', 'outlined')}
+                            className={cls('btnSm', 'filled')}
                             onClick={() => setEdit(!edit)}
                             disabled={props.disabled}
                           >

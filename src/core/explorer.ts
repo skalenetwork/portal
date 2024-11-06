@@ -41,7 +41,10 @@ export function getTotalAppCounters(
     gas_usage_count: '0',
     token_transfers_count: '0',
     transactions_count: '0',
-    validations_count: '0'
+    validations_count: '0',
+    transactions_today: 0,
+    transactions_last_7_days: 0,
+    transactions_last_30_days: 0
   }
   for (const address in countersArray) {
     if (countersArray.hasOwnProperty(address)) {
@@ -60,6 +63,9 @@ export function getTotalAppCounters(
       totalCounters.validations_count = (
         parseInt(totalCounters.validations_count) + parseInt(addressCounters.validations_count)
       ).toString()
+      totalCounters.transactions_today += addressCounters.transactions_today
+      totalCounters.transactions_last_7_days += addressCounters.transactions_last_7_days
+      totalCounters.transactions_last_30_days += addressCounters.transactions_last_30_days
     }
   }
   return totalCounters

@@ -72,7 +72,8 @@ export const categories: Categories = {
       simulation: { name: 'Simulation' },
       sports: { name: 'Sports' },
       strategy: { name: 'Strategy' },
-      web3: { name: 'Web3' }
+      web3: { name: 'Web3' },
+      'epic-games-store': { name: 'Epic Games Store' }
     }
   },
   hub: { name: 'Hub', subcategories: {} },
@@ -87,7 +88,10 @@ export const categories: Categories = {
   wallet: { name: 'Wallet', subcategories: {} },
   metaverse: { name: 'Metaverse', subcategories: {} },
   web3: { name: 'Web3', subcategories: {} },
-  pretge: { name: 'Pre-TGE', subcategories: {} }
+  pretge: { name: 'Pre-TGE', subcategories: {} },
+  utility: { name: 'Utility', subcategories: {} },
+  analytics: { name: 'Analytics', subcategories: {} },
+  validator: { name: 'Validator', subcategories: {} }
 }
 
 export const sortCategories = (categories: Categories): Categories => {

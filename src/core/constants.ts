@@ -84,6 +84,7 @@ export const BASE_METADATA_URL =
   'https://raw.githubusercontent.com/skalenetwork/skale-network/master/metadata/'
 
 export const MAX_APPS_DEFAULT = 12
+export const APP_SUBCATEGORY_MATCH_WEIGHT = 2
 
 export const OFFCHAIN_APP = '__offchain'
 
@@ -99,7 +100,12 @@ export const SKALE_SOCIAL_LINKS = {
   discord: 'https://discord.com/invite/gM5XBy6',
   github: 'https://github.com/skalenetwork',
   swell: 'https://swell.skale.space/',
-  website: 'https://skale.space/'
+  website: 'https://skale.space/',
+  dune: DUNE_SKALE_URL
 }
 
 export const DEFAULT_SWELL_URL = 'https://swell.skale.space/'
+
+export const DEFAULT_MIN_SFUEL_WEI = 100000000000000
+export const SFUEL_CHECK_INTERVAL = 10000
+export const DOCS_PORTAL_URL = 'https://docs.skale.space/'

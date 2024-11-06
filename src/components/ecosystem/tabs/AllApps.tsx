@@ -24,11 +24,11 @@ import React, { useMemo } from 'react'
 import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
-import { useLikedApps } from '../../LikedAppsContext'
-import AppCardV2 from './AppCardV2'
+import { useLikedApps } from '../../../LikedAppsContext'
+import AppCardV2 from '../AppCardV2'
 import { Grid } from '@mui/material'
-import { isNewApp } from '../../core/ecosystem/utils'
-import Loader from '../Loader'
+import { isNewApp, isTrending } from '../../../core/ecosystem/utils'
+import Loader from '../../Loader'
 
 interface AllAppsProps {
   skaleNetwork: types.SkaleNetwork
@@ -36,12 +36,20 @@ interface AllAppsProps {
   apps: types.AppWithChainAndName[]
   newApps: types.AppWithChainAndName[]
   loaded: boolean
+  trendingApps: types.AppWithChainAndName[]
 }
 
-const AllApps: React.FC<AllAppsProps> = ({ skaleNetwork, chainsMeta, apps, newApps, loaded }) => {
-  const { getTrendingApps, getAppId, getTrendingRank } = useLikedApps()
+const AllApps: React.FC<AllAppsProps> = ({
+  skaleNetwork,
+  chainsMeta,
+  apps,
+  newApps,
+  loaded,
+  trendingApps
+}) => {
+  const { getMostLikedApps, getAppId, getMostLikedRank } = useLikedApps()
 
-  const trendingAppIds = useMemo(() => getTrendingApps(), [getTrendingApps])
+  const mostLikedAppIds = useMemo(() => getMostLikedApps(), [getMostLikedApps])
 
   if (!loaded) return <Loader text="Loading apps" />
   if (apps.length === 0)
@@ -67,7 +75,8 @@ const AllApps: React.FC<AllAppsProps> = ({ skaleNetwork, chainsMeta, apps, newAp
               schainName={app.chain}
               appName={app.appName}
               chainsMeta={chainsMeta}
-              trending={getTrendingRank(trendingAppIds, appId)}
+              mostLiked={getMostLikedRank(mostLikedAppIds, appId)}
+              trending={isTrending(trendingApps, app.chain, app.appName)}
               isNew={isNew}
             />
           </Grid>

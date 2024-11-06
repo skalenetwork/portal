@@ -26,7 +26,7 @@ import { useState, useEffect } from 'react'
 import { WalletClient } from 'viem'
 
 import { Helmet } from 'react-helmet'
-import { useLocation, Routes, Route, useSearchParams } from 'react-router-dom'
+import { useLocation, Routes, Route, useSearchParams, Navigate } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { useTheme } from '@mui/material/styles'
@@ -257,7 +257,14 @@ export default function Router() {
           <Routes>
             <Route
               index
-              element={<Start skaleNetwork={mpc.config.skaleNetwork} chainsMeta={chainsMeta} />}
+              element={
+                <Start
+                  skaleNetwork={mpc.config.skaleNetwork}
+                  chainsMeta={chainsMeta}
+                  metrics={metrics}
+                  loadData={loadData}
+                />
+              }
             />
             <Route path="bridge" element={<Bridge isXs={isXs} chainsMeta={chainsMeta} />} />
             <Route path="bridge">
@@ -294,8 +301,20 @@ export default function Router() {
               />
             </Route>
             <Route
+              path="/epicgames"
+              element={<Navigate to="/ecosystem?categories=gaming_epic-games-store" replace />}
+            />
+            <Route
               path="ecosystem"
-              element={<Ecosystem isXs={isXs} mpc={mpc} chainsMeta={chainsMeta} />}
+              element={
+                <Ecosystem
+                  isXs={isXs}
+                  mpc={mpc}
+                  chainsMeta={chainsMeta}
+                  metrics={metrics}
+                  loadData={loadData}
+                />
+              }
             />
             <Route path="ecosystem">
               <Route

@@ -29,6 +29,7 @@ import { cmn, cls } from '@skalenetwork/metaport'
 
 import { DASHBOARD_URL } from '../core/constants'
 import { META_TAGS } from '../core/meta'
+import SkPageInfoIcon from '../components/SkPageInfoIcon'
 
 export default function Stats() {
   return (
@@ -40,12 +41,14 @@ export default function Stats() {
         <meta property="og:description" content={META_TAGS.stats.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className={cls(cmn.flex)}>
-          <h2 className={cls(cmn.nom)}>Stats</h2>
+        <div className={cls(cmn.flex, cmn.flexcv)}>
+          <div className={cmn.flexg} style={{ zIndex: '2' }}>
+            <h2 className={cls(cmn.nom)}>Stats</h2>
+            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>SKALE Network statistics</p>
+          </div>
+          <SkPageInfoIcon meta_tag={META_TAGS.stats} />
         </div>
-        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)} style={{ zIndex: '2' }}>
-          SKALE Network statistics
-        </p>
+
         <iframe
           style={{
             height: 'calc(100vh - 170px)',

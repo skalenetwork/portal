@@ -1,6 +1,7 @@
 @import './variables';
 @import './styles/components';
 @import './styles/chip';
+@import './styles/ProfileModal';
 
 :root {
   background: black;
@@ -22,6 +23,10 @@ body {
 
 .skLogo {
   width: 75pt;
+}
+
+.skMessage {
+  min-height: 58px;
 }
 
 .sk-header {
@@ -388,6 +393,38 @@ body::-webkit-scrollbar {
   }
 
 }
+
+.sk-icon-btn-small {
+  width: 34px;
+  height: 34px;
+
+  svg {
+    width: 18px;
+    height: 18px;
+  }
+}
+
+.sk-icon-btn-medium {
+  width: 40px;
+  height: 40px;
+
+  svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+
+.sk-icon-btn-large {
+  width: 46px;
+  height: 46px;
+
+  svg {
+    width: 32px;
+    height: 32px;
+  }
+}
+
 
 .btn {
   text-transform: none !important;
@@ -762,6 +799,15 @@ input[type=number] {
   }
 }
 
+.chipMostLiked {
+  background: linear-gradient(180deg, #e8a25b, #e58e36) !important;
+
+
+  p {
+    color: black !important
+  }
+}
+
 .chipNewApp {
   background: linear-gradient(180deg, #65a974, #508d5e) !important;
 
@@ -800,7 +846,7 @@ input[type=number] {
 
 .chipXs {
   border-radius: 15px;
-  padding: 4px 8px;
+  padding: 4px 6px;
 
   svg {
     width: 12px;
@@ -1138,6 +1184,11 @@ input[type=number] {
   padding-bottom: 5px;
 }
 
+.m-ri-min10 {
+  margin-right: -10px;
+}
+
+
 .validatorIcon {
   border-radius: 50%;
   width: 70px;
@@ -1183,7 +1234,7 @@ input[type=number] {
 
 .amountInput {
   input {
-    padding: 3px 10px 0 5px !important
+    padding: 0 !important
   }
 }
 
@@ -1328,6 +1379,17 @@ input[type=number] {
   }
 }
 
+.customSocialIcon {
+  height: 20px;
+  width: 20px;
+  padding: 1px;
+}
+
+.customSocialIconMd {
+  height: 24px;
+  width: 24px;
+}
+
 .pSec {
   color: RGB(255 255 255 / 65%);
 
@@ -1362,4 +1424,9 @@ input[type=number] {
 
 .hidden {
   display: none;
+}
+
+.MuiTooltip-tooltip {
+  font-size: 0.8rem !important;
+  padding: 8px 12px !important;
 }
