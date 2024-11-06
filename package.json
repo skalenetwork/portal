@@ -6,6 +6,7 @@
   "scripts": {
     "build:testnet": "NETWORK_NAME=testnet bash build.sh",
     "build:mainnet": "NETWORK_NAME=mainnet bash build.sh",
+    "build:qa": "NETWORK_NAME=legacy bash build.sh",
     "build:portal": "tsc && vite build",
     "build:packages": "bun run build:core",
     "build:core": "cd packages/core && bun install && bun run build",
@@ -20,7 +21,7 @@
     "@mdx-js/rollup": "^2.3.0",
     "@mui/icons-material": "^5.15.14",
     "@mui/material": "^5.15.14",
-    "@skalenetwork/metaport": "3.0.1-develop.0",
+    "@skalenetwork/metaport": "3.1.0-develop.0",
     "@skalenetwork/skale-contracts-ethers-v6": "1.0.1",
     "@transak/transak-sdk": "^3.1.1",
     "@types/react-copy-to-clipboard": "^5.0.4",

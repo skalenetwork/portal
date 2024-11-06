@@ -302,7 +302,7 @@ export default function App(props: {
                   grow
                   text="Daily transactions"
                   value={
-                    counters ? formatNumber(Number(counters.transactions_last_day)) : undefined
+                    counters ? formatNumber(Number(counters.transactions_today)) : undefined
                   }
                   icon={<HourglassTopRoundedIcon />}
                 />
