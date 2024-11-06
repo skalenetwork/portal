@@ -21,68 +21,34 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import React, { useState, useCallback } from 'react'
+import React from 'react'
 import { Modal, Box, useTheme, useMediaQuery } from '@mui/material'
 import { cls, cmn, SkPaper, useWagmiAccount } from '@skalenetwork/metaport'
 import { useAuth } from '../../AuthContext'
 import Tile from '../Tile'
-import Message from '../Message'
 import ConnectWallet from '../ConnectWallet'
 import ProfileModalHeader from './ProfileModalHeader'
-import EmailSection from './EmailSection'
-import SwellMessage from './SwellMessage'
 import ProfileModalActions from './ProfileModalActions'
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
-import EmailRoundedIcon from '@mui/icons-material/EmailRounded'
 
 const ProfileModal: React.FC = () => {
   const { address } = useWagmiAccount()
-  const {
-    isSignedIn,
-    email,
-    isEmailLoading,
-    isEmailUpdating,
-    emailError,
-    updateEmail,
-    handleSignIn,
-    handleSignOut,
-    isProfileModalOpen,
-    closeProfileModal
-  } = useAuth()
-
-  const [isEditing, setIsEditing] = useState(false)
-  const [newEmail, setNewEmail] = useState(email || '')
+  const { isSignedIn, handleSignIn, handleSignOut, isProfileModalOpen, closeProfileModal } =
+    useAuth()
 
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
-
-  const handleStartEditing = useCallback(() => {
-    setIsEditing(true)
-    setNewEmail(email || '')
-  }, [email])
-
-  const handleCancelEditing = useCallback(() => {
-    setIsEditing(false)
-    setNewEmail(email || '')
-  }, [email])
-
-  const handleUpdateEmail = useCallback(async () => {
-    if (newEmail.trim()) {
-      await updateEmail(newEmail.trim())
-      setIsEditing(false)
-    }
-  }, [newEmail, updateEmail])
 
   const modalContent = (
     <Box className="profileModal">
       <SkPaper gray>
         <ProfileModalHeader address={address} isSignedIn={isSignedIn} />
-        {!address || !isSignedIn ? (
-          <ConnectWallet customText="Connect your wallet and sign-in to use your profile" />
+        {!address ? (
+          <ConnectWallet customText="Connect your wallet to use your profile" />
         ) : (
           <div></div>
         )}
-        {address && isSignedIn ? (
+        {address ? (
           <div>
             <Tile
               text="Wallet Address"
@@ -91,45 +57,15 @@ const ProfileModal: React.FC = () => {
               copy={address}
               className={cls(cmn.mbott10)}
             />
-            <EmailSection
-              email={email}
-              isEditing={isEditing}
-              isEmailLoading={isEmailLoading}
-              isEmailUpdating={isEmailUpdating}
-              newEmail={newEmail}
-              setNewEmail={setNewEmail}
-              handleStartEditing={handleStartEditing}
-              handleUpdateEmail={handleUpdateEmail}
-              handleCancelEditing={handleCancelEditing}
-              className={cls(cmn.mbott10)}
-            />
-            {emailError && (
-              <Message
-                text={emailError}
-                type="error"
-                icon={<EmailRoundedIcon />}
-                closable={false}
-                className={cls(cmn.mbott10)}
-              />
-            )}
-            <SwellMessage
-              email={email}
-              isEditing={isEditing}
-              handleStartEditing={handleStartEditing}
+            <ProfileModalActions
+              className={cls(cmn.mtop20)}
+              address={address}
+              isSignedIn={isSignedIn}
+              isMobile={isMobile}
+              handleSignIn={handleSignIn}
+              handleSignOut={handleSignOut}
             />
           </div>
-        ) : (
-          <div></div>
-        )}
-        {address ? (
-          <ProfileModalActions
-            className={cls(cmn.mtop20)}
-            address={address}
-            isSignedIn={isSignedIn}
-            isMobile={isMobile}
-            handleSignIn={handleSignIn}
-            handleSignOut={handleSignOut}
-          />
         ) : (
           <div></div>
         )}
