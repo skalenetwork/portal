@@ -47,7 +47,6 @@ import FavoriteApps from '../components/ecosystem/tabs/FavoriteApps'
 import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import SocialButtons from '../components/ecosystem/Socials'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
-import { SwellMessage } from '../components/Message'
 
 export default function Ecosystem(props: {
   mpc: MetaportCore
@@ -176,9 +175,6 @@ export default function Ecosystem(props: {
             checkedItems={checkedItems}
             setCheckedItems={handleSetCheckedItems}
             filteredAppsCount={currentFilteredApps.length}
-          />
-          <SwellMessage
-            className={cls([cmn.mtop20, isFiltersApplied], [cmn.mbott20, !isFiltersApplied])}
           />
           <Tabs
             variant={props.isXs ? 'scrollable' : 'standard'}
