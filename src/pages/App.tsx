@@ -300,11 +300,11 @@ export default function App(props: {
               <Grid item lg={4} md={6} xs={12}>
                 <Tile
                   grow
-                  text="Daily transactions"
+                  text="30d transactions"
                   value={
-                    counters ? formatNumber(Number(counters.transactions_last_day)) : undefined
+                    counters ? formatNumber(Number(counters.transactions_last_30_days)) : undefined
                   }
-                  icon={<HourglassTopRoundedIcon />}
+                  icon={<HourglassFullRoundedIcon />}
                 />
               </Grid>
             )}
@@ -324,11 +324,9 @@ export default function App(props: {
               <Grid item lg={4} md={6} xs={12}>
                 <Tile
                   grow
-                  text="30d transactions"
-                  value={
-                    counters ? formatNumber(Number(counters.transactions_last_30_days)) : undefined
-                  }
-                  icon={<HourglassFullRoundedIcon />}
+                  text="Daily transactions"
+                  value={counters ? formatNumber(Number(counters.transactions_today)) : undefined}
+                  icon={<HourglassTopRoundedIcon />}
                 />
               </Grid>
             )}
