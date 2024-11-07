@@ -26,8 +26,12 @@ import IconButton from '@mui/material/IconButton'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import Collapse from '@mui/material/Collapse'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
-import { SkPaper, cls, cmn } from '@skalenetwork/metaport'
+import { SkPaper, cls, cmn, useWagmiAccount } from '@skalenetwork/metaport'
 import { Link } from 'react-router-dom'
+import { Button } from '@mui/material'
+
+import { useAuth } from '../AuthContext'
+import SwellIcon from './ecosystem/SwellIcon'
 
 export default function Message(props: {
   text: string | null
@@ -38,25 +42,38 @@ export default function Message(props: {
   showOnLoad?: boolean | undefined
   type?: 'warning' | 'info' | 'error'
   closable?: boolean
+  button?: ReactElement | null
+  gray?: boolean
 }) {
   const type = props.type ?? 'info'
   const [show, setShow] = useState<boolean>(true)
   const closable = props.closable ?? true
+  const gray = props.gray ?? true
   return (
     <Collapse in={show}>
       <SkPaper
-        gray
+        gray={gray}
         className={cls(
           props.className,
-          'border',
+          'skMessage',
+          cmn.flexcv,
+          cmn.flex,
           ['warningMsg', type === 'warning'],
           ['errorMsg', type === 'error']
         )}
       >
         <div
-          className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv, cmn.mtopd5, cmn.mbotdt5, cmn.mleft10)}
+          className={cls(
+            cmn.flex,
+            cmn.fullWidth,
+            cmn.flexcv,
+            cmn.mtop5,
+            cmn.mbott5,
+            cmn.mleft10,
+            cmn.mri10
+          )}
         >
-          <div className={cls(cmn.flex, cmn.flexc, cmn.mri10)}>{props.icon}</div>
+          <div className={cls(cmn.flex, cmn.flexc, cmn.mri15)}>{props.icon}</div>
           {props.text ? (
             <p className={cls(cmn.p, cmn.p3, cmn.p600, [cmn.pPrim, type !== 'warning'], cmn.mri5)}>
               {props.text}
@@ -75,23 +92,42 @@ export default function Message(props: {
           ) : null}
 
           <div className={cmn.flexg}></div>
+          {props.button}
           {closable ? (
-            <div className={cls(cmn.mri20)}>
-              <IconButton
-                onClick={() => {
-                  setShow(false)
-                }}
-                className={cls(cmn.paperGrey, cmn.mleft10)}
-              >
-                <CloseRoundedIcon
-                  className={cls([cmn.pSec, type !== 'warning'])}
-                  style={{ height: '16px', width: '16px' }}
-                />
-              </IconButton>
-            </div>
+            <IconButton
+              onClick={() => {
+                setShow(false)
+              }}
+              className={cls(cmn.paperGrey, cmn.mleft10)}
+            >
+              <CloseRoundedIcon
+                className={cls([cmn.pSec, type !== 'warning'])}
+                style={{ height: '16px', width: '16px' }}
+              />
+            </IconButton>
           ) : null}
         </div>
       </SkPaper>
     </Collapse>
+  )
+}
+
+export function SwellMessage(props: { className?: string }) {
+  const { openProfileModal, isEmailLoading, email } = useAuth()
+  const { address } = useWagmiAccount()
+
+  if ((!isEmailLoading && email) || !address) return
+  return (
+    <Message
+      className={props.className}
+      icon={<SwellIcon color="primary" />}
+      text="Complete your profile to receive quest rewards on SKALE Swell"
+      closable={false}
+      button={
+        <Button className={cls('btn btnSm')} variant="contained" onClick={openProfileModal}>
+          Go to profile
+        </Button>
+      }
+    />
   )
 }

@@ -23,12 +23,13 @@
 import { useMemo } from 'react'
 import { type types } from '@/core'
 import { getRecentApps } from './core/ecosystem/utils'
+import { getTotalAppCounters } from './core/explorer'
 import { MAX_APPS_DEFAULT } from './core/constants'
 import { useLikedApps } from './LikedAppsContext'
 import { useAuth } from './AuthContext'
 
-export function useApps(chainsMeta: types.ChainsMetadataMap) {
-  const { getTrendingApps, likedApps, getAppId } = useLikedApps()
+export function useApps(chainsMeta: types.ChainsMetadataMap, metrics: types.IMetrics | null) {
+  const { getMostLikedApps, likedApps, getAppId } = useLikedApps()
   const { isSignedIn } = useAuth()
 
   const allApps = useMemo<types.AppWithChainAndName[]>(() => {
@@ -47,14 +48,13 @@ export function useApps(chainsMeta: types.ChainsMetadataMap) {
     return apps.sort((a, b) => (b.added || 0) - (a.added || 0))
   }, [chainsMeta])
 
-  const trendingAppIds = getTrendingApps()
-
-  const trendingApps = useMemo<types.AppWithChainAndName[]>(() => {
+  const mostLikedAppIds = getMostLikedApps()
+  const mostLikedApps = useMemo<types.AppWithChainAndName[]>(() => {
     const appMap = new Map(allApps.map((app) => [getAppId(app.chain, app.appName), app]))
-    return trendingAppIds
+    return mostLikedAppIds
       .map((id) => appMap.get(id))
       .filter((app): app is types.AppWithChainAndName => app !== undefined)
-  }, [allApps, trendingAppIds, getAppId])
+  }, [allApps, mostLikedAppIds, getAppId])
 
   const favoriteApps = useMemo<types.AppWithChainAndName[]>(() => {
     if (!isSignedIn) return []
@@ -62,5 +62,25 @@ export function useApps(chainsMeta: types.ChainsMetadataMap) {
     return apps.sort((a, b) => a.alias.localeCompare(b.alias))
   }, [allApps, likedApps, isSignedIn, getAppId])
 
-  return { allApps, newApps, trendingApps, favoriteApps, isSignedIn }
+  const trendingApps = useMemo<types.AppWithChainAndName[]>(() => {
+    if (!metrics) return []
+
+    const appsWithTransactions = allApps.map((app) => {
+      const chainMetrics = metrics.metrics[app.chain]
+      if (!chainMetrics || !chainMetrics.apps_counters[app.appName]) {
+        return { ...app, transactions_last_7_days: 0 }
+      }
+      const totalCounters = getTotalAppCounters(chainMetrics.apps_counters[app.appName])
+      return {
+        ...app,
+        transactions_last_7_days: totalCounters ? totalCounters.transactions_last_7_days : 0
+      }
+    })
+
+    return appsWithTransactions
+      .sort((a, b) => b.transactions_last_7_days - a.transactions_last_7_days)
+      .slice(0, MAX_APPS_DEFAULT)
+  }, [allApps, metrics])
+
+  return { allApps, newApps, mostLikedApps, favoriteApps, trendingApps, isSignedIn }
 }

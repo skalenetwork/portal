@@ -2,14 +2,13 @@ import { Link } from 'react-router-dom'
 
 import { useEffect, useState, type MouseEvent } from 'react'
 import Box from '@mui/material/Box'
-import Tooltip from '@mui/material/Tooltip'
-import IconButton from '@mui/material/IconButton'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import QuestionMarkRoundedIcon from '@mui/icons-material/QuestionMarkRounded'
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 import MarkUnreadChatAltRoundedIcon from '@mui/icons-material/MarkUnreadChatAltRounded'
-import { cls, styles, cmn } from '@skalenetwork/metaport'
+import { cmn } from '@skalenetwork/metaport'
+import SkIconBtn from './SkIconBth'
 
 export default function HelpZen() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -44,22 +43,12 @@ export default function HelpZen() {
         className={cmn.mleft5}
         sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}
       >
-        <Tooltip arrow title="Get help">
-          <IconButton
-            id="basic-button"
-            aria-controls={open ? 'basic-menu' : undefined}
-            aria-haspopup="true"
-            aria-expanded={open ? 'true' : undefined}
-            onClick={handleClick}
-            className={cls(styles.paperGrey, cmn.pPrim)}
-            style={{ width: '34px', height: '34px' }}
-          >
-            <QuestionMarkRoundedIcon
-              className={cls(cmn.pPrim)}
-              style={{ height: '15px', width: '15px' }}
-            />
-          </IconButton>
-        </Tooltip>
+        <SkIconBtn
+          icon={QuestionMarkRoundedIcon}
+          onClick={handleClick}
+          size="small"
+          tooltipTitle="Get help"
+        />
       </Box>
       <Menu
         className="mp__moreMenu"

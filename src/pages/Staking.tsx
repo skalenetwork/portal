@@ -69,6 +69,7 @@ import ConnectWallet from '../components/ConnectWallet'
 import Headline from '../components/Headline'
 import Message from '../components/Message'
 import { META_TAGS } from '../core/meta'
+import SkPageInfoIcon from '../components/SkPageInfoIcon'
 
 debug.enable('*')
 const log = debug('portal:pages:Staking')
@@ -199,11 +200,11 @@ export default function Staking(props: {
                 : 'Delegate, review delegations and withdraw staking rewards'}
             </p>
           </div>
-          <div>
+          <div className={cls(cmn.mri10)}>
             {loading !== false || props.customAddress !== undefined ? (
               <Button
                 variant="contained"
-                className={cls('btnMd', cmn.mtop10)}
+                className="btnMd"
                 startIcon={<QueueRoundedIcon />}
                 disabled={loading !== false || props.customAddress !== undefined}
               >
@@ -213,7 +214,7 @@ export default function Staking(props: {
               <Link to="/staking/new">
                 <Button
                   variant="contained"
-                  className={cls('btnMd', cmn.mtop10)}
+                  className="btnMd"
                   startIcon={<QueueRoundedIcon />}
                   disabled={loading || props.customAddress !== undefined}
                 >
@@ -222,6 +223,7 @@ export default function Staking(props: {
               </Link>
             )}
           </div>
+          <SkPageInfoIcon meta_tag={META_TAGS.staking} />
         </div>
       </Stack>
 

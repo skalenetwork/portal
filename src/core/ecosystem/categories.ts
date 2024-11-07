@@ -88,7 +88,10 @@ export const categories: Categories = {
   wallet: { name: 'Wallet', subcategories: {} },
   metaverse: { name: 'Metaverse', subcategories: {} },
   web3: { name: 'Web3', subcategories: {} },
-  pretge: { name: 'Pre-TGE', subcategories: {} }
+  pretge: { name: 'Pre-TGE', subcategories: {} },
+  utility: { name: 'Utility', subcategories: {} },
+  analytics: { name: 'Analytics', subcategories: {} },
+  validator: { name: 'Validator', subcategories: {} }
 }
 
 export const sortCategories = (categories: Categories): Categories => {

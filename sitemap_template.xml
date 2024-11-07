@@ -12,6 +12,11 @@
     </url>
     <url>
         <loc>
+            {BASE_URL}/ecosystem
+        </loc>
+    </url>
+    <url>
+        <loc>
             {BASE_URL}/bridge/history
         </loc>
     </url>
