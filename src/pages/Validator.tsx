@@ -145,23 +145,22 @@ export default function Validator(props: {
         <Collapse in={props.address === undefined}>
           <ConnectWallet tile className={cls(cmn.flexg)} />
         </Collapse>
-        {props.validator !== undefined ? (
+        {props.address ? (props.validator !== undefined ? (
           <div>
             <ValidatorInfo validator={props.validator} />
             <DelegationTotals delegations={props.delegations} className={cls(cmn.mtop10)} />
           </div>
-        ) : (
-          <div>
-            <PeopleRoundedIcon
-              className={cls(cmn.pSec, styles.chainIconlg, cmn.fullWidth, cmn.mtop20)}
-            />
-            <h3 className={cls(cmn.p, cmn.p700, cmn.pSec, cmn.pCent, cmn.mbott20)}>
-              Validator doesn't exist
-            </h3>
-          </div>
-        )}
+        ) : (<div>
+          <PeopleRoundedIcon
+            className={cls(cmn.pSec, styles.chainIconlg, cmn.fullWidth, cmn.mtop20)}
+          />
+          <h3 className={cls(cmn.p, cmn.p700, cmn.pSec, cmn.pCent, cmn.mbott20)}>
+            Validator doesn't exist
+          </h3>
+        </div>)) : <div></div>
+        }
       </SkPaper>
-      {props.validator !== undefined &&
+      {props.validator &&
         <SkPaper gray className={cls(cmn.mtop20)}>
           <Headline
             size="small"
@@ -190,7 +189,7 @@ export default function Validator(props: {
             }
           />
         </SkPaper>}
-      {props.validator !== undefined && <SkPaper gray className={cls(cmn.mtop20)}>
+      {props.validator && <SkPaper gray className={cls(cmn.mtop20)}>
         <div>
           <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10)}>
             <Headline
