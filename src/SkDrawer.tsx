@@ -55,12 +55,7 @@ export default function SkDrawer() {
               </Link>
             </ListItem>
             <ListItem>
-              <a
-                className="undec fullW"
-                target="_blank"
-                href={GET_STARTED_URL}
-                rel="noreferrer"
-              >
+              <a className="undec fullW" target="_blank" href={GET_STARTED_URL} rel="noreferrer">
                 <ListItemButton className={cls(cmn.pPrim)}>
                   <ListItemIcon>
                     <ExploreOutlinedIcon />

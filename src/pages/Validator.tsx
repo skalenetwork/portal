@@ -33,6 +33,7 @@ import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded'
 import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
 import StarsRoundedIcon from '@mui/icons-material/StarsRounded'
 import EventAvailableRoundedIcon from '@mui/icons-material/EventAvailableRounded'
+import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded'
 
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import { META_TAGS } from '../core/meta'
@@ -48,13 +49,14 @@ import { ITEMS_PER_PAGE } from '../core/constants'
 import ShowMoreButton from '../components/delegation/ShowMoreButton'
 import SkBtn from '../components/SkBtn'
 import DelegationTotals from '../components/delegation/DelegationTotals'
+import Message from '../components/Message'
 
 export default function Validator(props: {
   mpc: MetaportCore
   sc: types.staking.ISkaleContractsMap | null
   address: types.AddressType | undefined
   customAddress: types.AddressType | undefined
-  loadValidator: (address: types.AddressType) => void
+  loadValidator: () => void
   validator: types.staking.IValidator | null | undefined
   isXs: boolean
   delegations: types.staking.IDelegation[]
@@ -76,7 +78,7 @@ export default function Validator(props: {
 
   useEffect(() => {
     if (props.sc !== null && props.address !== undefined) {
-      props.loadValidator(props.address)
+      props.loadValidator()
     }
   }, [props.sc, props.address])
 
@@ -135,6 +137,16 @@ export default function Validator(props: {
         </div>
         <SkPageInfoIcon meta_tag={META_TAGS.validator} />
       </div>
+      {props.customAddress !== undefined ? (
+        <Message
+          className={cls(cmn.mtop20)}
+          text={props.isXs ? 'Preview mode, ' : 'Previewing validator page in read-only mode, '}
+          icon={<VisibilityRoundedIcon />}
+          link="/validator"
+          linkText="click to exit"
+          type="warning"
+        />
+      ) : null}
       <SkPaper gray className={cls(cmn.mtop20)}>
         <Headline
           text="Validator Summary"
@@ -145,22 +157,27 @@ export default function Validator(props: {
         <Collapse in={props.address === undefined}>
           <ConnectWallet tile className={cls(cmn.flexg)} />
         </Collapse>
-        {props.address ? (props.validator !== undefined ? (
-          <div>
-            <ValidatorInfo validator={props.validator} />
-            <DelegationTotals delegations={props.delegations} className={cls(cmn.mtop10)} />
-          </div>
-        ) : (<div>
-          <PeopleRoundedIcon
-            className={cls(cmn.pSec, styles.chainIconlg, cmn.fullWidth, cmn.mtop20)}
-          />
-          <h3 className={cls(cmn.p, cmn.p700, cmn.pSec, cmn.pCent, cmn.mbott20)}>
-            Validator doesn't exist
-          </h3>
-        </div>)) : <div></div>
-        }
+        {props.address ? (
+          props.validator !== undefined ? (
+            <div>
+              <ValidatorInfo validator={props.validator} />
+              <DelegationTotals delegations={props.delegations} className={cls(cmn.mtop10)} />
+            </div>
+          ) : (
+            <div>
+              <PeopleRoundedIcon
+                className={cls(cmn.pSec, styles.chainIconlg, cmn.fullWidth, cmn.mtop20)}
+              />
+              <h3 className={cls(cmn.p, cmn.p700, cmn.pSec, cmn.pCent, cmn.mbott20)}>
+                Validator doesn't exist
+              </h3>
+            </div>
+          )
+        ) : (
+          <div></div>
+        )}
       </SkPaper>
-      {props.validator &&
+      {props.validator && (
         <SkPaper gray className={cls(cmn.mtop20)}>
           <Headline
             size="small"
@@ -181,30 +198,34 @@ export default function Validator(props: {
                 variant="contained"
                 size="sm"
                 className={cls([cmn.mleft20, !props.isXs], cmn.flexcv)}
-              // disabled={
-              // }
-              // onClick={() => {
-              // }}
+                // disabled={
+                // }
+                // onClick={() => {
+                // }}
               />
             }
           />
-        </SkPaper>}
-      {props.validator && <SkPaper gray className={cls(cmn.mtop20)}>
-        <div>
-          <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10)}>
-            <Headline
-              size="small"
-              text={
-                'Delegations ' + (props.delegations === null ? '' : `(${props.delegations.length})`)
-              }
-              icon={<AllInboxRoundedIcon className={cls(styles.chainIconxs)} />}
-              className={cls(cmn.flexg)}
-            />
-            <SortToggle onChange={setSortBy} className={cls(cmn.mri5)} />
+        </SkPaper>
+      )}
+      {props.validator && (
+        <SkPaper gray className={cls(cmn.mtop20)}>
+          <div>
+            <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10)}>
+              <Headline
+                size="small"
+                text={
+                  'Delegations ' +
+                  (props.delegations === null ? '' : `(${props.delegations.length})`)
+                }
+                icon={<AllInboxRoundedIcon className={cls(styles.chainIconxs)} />}
+                className={cls(cmn.flexg)}
+              />
+              <SortToggle onChange={setSortBy} className={cls(cmn.mri5)} />
+            </div>
+            {renderDelegationsContent()}
           </div>
-          {renderDelegationsContent()}
-        </div>
-      </SkPaper>}
+        </SkPaper>
+      )}
     </Container>
   )
 }

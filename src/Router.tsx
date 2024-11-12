@@ -200,9 +200,9 @@ export default function Router() {
     setValidators(validatorsData)
   }
 
-  async function loadValidator(address: types.AddressType) {
+  async function loadValidator() {
     if (!sc || !address) return
-    const validatorData = await getValidator(sc.validatorService, address)
+    const validatorData = await getValidator(sc.validatorService, customAddress ?? address)
     setValidator(validatorData)
     if (validatorData && validatorData.id) {
       setValidatorDelegations(await getValidatorDelegations(sc, validatorData.id))
