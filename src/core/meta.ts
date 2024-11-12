@@ -73,7 +73,7 @@ export const META_TAGS = {
   },
   validator: {
     title: 'SKALE Portal - Validator',
-    description: 'Manage your validator and delegations',
+    description: 'Delegations and chain rewards management',
     help: 'Manage your validator and delegations, review your delegations and chain rewards.'
   },
   onramp: {

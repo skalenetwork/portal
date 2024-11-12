@@ -22,14 +22,14 @@
 
 import { cmn, cls } from '@skalenetwork/metaport'
 
-import { DelegationType, type StakingInfoMap } from '../../core/interfaces'
 import NativeSelect from '@mui/material/NativeSelect'
 import { isDelegationTypeAvailable } from '../../core/delegation/staking'
+import { types } from '@/core'
 
 export default function DelegationTypeSelect(props: {
-  delegationType: DelegationType
+  delegationType: types.staking.DelegationType
   handleChange: (event: any) => void
-  si: StakingInfoMap
+  si: types.staking.StakingInfoMap
 }) {
   return (
     <div className="sk-select">
@@ -39,16 +39,16 @@ export default function DelegationTypeSelect(props: {
         value={props.delegationType}
         onChange={props.handleChange}
       >
-        <option value={DelegationType.REGULAR} className={cls(cmn.p, cmn.p4)}>
+        <option value={types.staking.DelegationType.REGULAR} className={cls(cmn.p, cmn.p4)}>
           Regular delegation
         </option>
-        {isDelegationTypeAvailable(props.si, DelegationType.ESCROW) ? (
-          <option value={DelegationType.ESCROW} className={cls(cmn.p, cmn.p4)}>
+        {isDelegationTypeAvailable(props.si, types.staking.DelegationType.ESCROW) ? (
+          <option value={types.staking.DelegationType.ESCROW} className={cls(cmn.p, cmn.p4)}>
             Escrow delegation
           </option>
         ) : null}
-        {isDelegationTypeAvailable(props.si, DelegationType.ESCROW2) ? (
-          <option value={DelegationType.ESCROW2} className={cls(cmn.p, cmn.p4)}>
+        {isDelegationTypeAvailable(props.si, types.staking.DelegationType.ESCROW2) ? (
+          <option value={types.staking.DelegationType.ESCROW2} className={cls(cmn.p, cmn.p4)}>
             Grant delegation
           </option>
         ) : null}

@@ -133,7 +133,7 @@ export default function SkDrawer() {
               <Link to="/validators" className="undec fullW">
                 <ListItemButton
                   className={cls(cmn.pPrim)}
-                  selected={location.pathname.includes('/validators')}
+                  selected={location.pathname.includes('/validator')}
                 >
                   <ListItemIcon>
                     <GroupOutlinedIcon />

@@ -20,7 +20,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { BASE_EXPLORER_URLS, interfaces } from '@skalenetwork/metaport'
+import { BASE_EXPLORER_URLS } from '@skalenetwork/metaport'
 import { HTTPS_PREFIX } from './chain'
 import { type types } from '@/core'
 
@@ -48,7 +48,7 @@ export function getTotalAppCounters(
   }
   for (const address in countersArray) {
     if (countersArray.hasOwnProperty(address)) {
-      const addressCounters = countersArray[address as interfaces.AddressType]
+      const addressCounters = countersArray[address as types.AddressType]
       if (addressCounters.gas_usage_count === undefined) continue
       totalCounters.gas_usage_count = (
         parseInt(totalCounters.gas_usage_count) + parseInt(addressCounters.gas_usage_count)

@@ -22,22 +22,22 @@
  */
 
 import { useEffect } from 'react'
-
-import Container from '@mui/material/Container'
+import { Link } from 'react-router-dom'
 import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
+import { types } from '@/core'
+
+import { Button } from '@mui/material'
+import Container from '@mui/material/Container'
+import ManageAccountsRoundedIcon from '@mui/icons-material/ManageAccountsRounded'
 
 import Validators from '../components/delegation/Validators'
-
-import { DelegationType, type ISkaleContractsMap, type IValidator } from '../core/interfaces'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import { META_TAGS } from '../core/meta'
-import { Link } from 'react-router-dom'
-import { Button } from '@mui/material'
 
 export default function ValidatorsPage(props: {
   mpc: MetaportCore
-  validators: IValidator[]
-  sc: ISkaleContractsMap | null
+  validators: types.staking.IValidator[]
+  sc: types.staking.ISkaleContractsMap | null
   loadValidators: () => void
 }) {
   useEffect(() => {
@@ -56,7 +56,12 @@ export default function ValidatorsPage(props: {
           </p>
         </div>
         <Link to="/validator">
-          <Button size='small' variant="contained" className={cls('btn', 'btnSm', cmn.mri10)}>
+          <Button
+            size="small"
+            variant="contained"
+            className={cls('btnMd', cmn.mri10)}
+            startIcon={<ManageAccountsRoundedIcon />}
+          >
             Manage Validator
           </Button>
         </Link>
@@ -67,8 +72,8 @@ export default function ValidatorsPage(props: {
           mpc={props.mpc}
           validators={props.validators}
           validatorId={0}
-          setValidatorId={(): void => { }}
-          delegationType={DelegationType.REGULAR}
+          setValidatorId={(): void => {}}
+          delegationType={types.staking.DelegationType.REGULAR}
           size="lg"
         />
       </div>

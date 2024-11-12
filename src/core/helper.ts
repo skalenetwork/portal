@@ -20,10 +20,11 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { fromWei, type interfaces } from '@skalenetwork/metaport'
+import { fromWei } from '@skalenetwork/metaport'
+import { types } from '@/core'
 import { DEFAULT_ERC20_DECIMALS, ZERO_ADDRESS, DEFAULT_FRACTION_DIGITS } from './constants'
 
-export function isZeroAddr(address: interfaces.AddressType): boolean {
+export function isZeroAddr(address: types.AddressType): boolean {
   return address === ZERO_ADDRESS
 }
 
@@ -85,7 +86,7 @@ export function minBigInt(a: bigint, b: bigint): bigint {
   return a < b ? a : b
 }
 
-export function shortAddress(address: interfaces.AddressType | undefined): string {
+export function shortAddress(address: types.AddressType | undefined): string {
   if (!address) return ''
   return `${address.slice(0, 4)}...${address.slice(-2)}`
 }

@@ -21,7 +21,7 @@
  */
 
 import { useState } from 'react'
-import { cmn, cls, styles, type interfaces } from '@skalenetwork/metaport'
+import { cmn, cls, styles } from '@skalenetwork/metaport'
 
 import { Collapse, Grid, Tooltip } from '@mui/material'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
@@ -31,35 +31,28 @@ import ApartmentRoundedIcon from '@mui/icons-material/ApartmentRounded'
 import SkBtn from '../SkBtn'
 import ValidatorLogo from './ValidatorLogo'
 
-import {
-  DelegationType,
-  type IDelegation,
-  type IDelegationInfo,
-  type IRewardInfo,
-  type IValidator
-} from '../../core/interfaces'
+import { types } from '@/core'
+
 import {
   DelegationSource,
   DelegationState,
   getDelegationSource,
-  getKeyByValue,
-  getValidatorById
+  getKeyByValue
 } from '../../core/delegation'
 import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
 
 import { convertMonthIndexToText, formatBalance } from '../../core/helper'
 
 export default function Delegation(props: {
-  delegation: IDelegation
-  validators: IValidator[]
-  delegationType: DelegationType
-  unstake: (delegationInfo: IDelegationInfo) => Promise<void>
-  cancelRequest: (delegationInfo: IDelegationInfo) => Promise<void>
-  loading: IRewardInfo | IDelegationInfo | false
+  delegation: types.staking.IDelegation
+  validator: types.staking.IValidator
+  delegationType: types.staking.DelegationType
+  unstake?: (delegationInfo: types.staking.IDelegationInfo) => Promise<void>
+  cancelRequest?: (delegationInfo: types.staking.IDelegationInfo) => Promise<void>
+  loading: types.staking.IRewardInfo | types.staking.IDelegationInfo | false
   isXs: boolean
-  customAddress: interfaces.AddressType | undefined
+  customAddress: types.AddressType | undefined
 }) {
-  const validator = getValidatorById(props.validators, props.delegation.validator_id)
   const source = getDelegationSource(props.delegation)
   const delegationAmount = formatBalance(props.delegation.amount, 'SKL')
   const [open, setOpen] = useState(false)
@@ -72,7 +65,7 @@ export default function Delegation(props: {
     delId === DelegationState.PROPOSED ||
     delId === DelegationState.ACCEPTED
 
-  const delegationInfo: IDelegationInfo = {
+  const delegationInfo: types.staking.IDelegationInfo = {
     delegationId: props.delegation.id,
     delegationType: props.delegationType
   }
@@ -98,7 +91,7 @@ export default function Delegation(props: {
     }
   }
 
-  if (!validator) return
+  if (!props.validator) return
   return (
     <div className={cls(cmn.mbott10, 'titleSection')}>
       <Grid
@@ -114,7 +107,7 @@ export default function Delegation(props: {
           <div className={cls(cmn.flex, cmn.flexcv)}>
             <ValidatorLogo validatorId={Number(props.delegation.id + 500n)} size="md" />
             <ValidatorLogo
-              validatorId={validator.id}
+              validatorId={props.validator.id}
               size="sm"
               className="validatorIconDelegation"
             />
@@ -124,12 +117,12 @@ export default function Delegation(props: {
                 {formatBigIntTimestampSeconds(props.delegation.created)}
               </p>
             </div>
-            {props.delegationType === DelegationType.ESCROW ? (
+            {props.delegationType === types.staking.DelegationType.ESCROW ? (
               <Tooltip title="Escrow delegation">
                 <AccountBalanceRoundedIcon className={cls('trustedBadge', cmn.mleft10, cmn.pSec)} />
               </Tooltip>
             ) : null}
-            {props.delegationType === DelegationType.ESCROW2 ? (
+            {props.delegationType === types.staking.DelegationType.ESCROW2 ? (
               <Tooltip title="Grant Escrow delegation">
                 <ApartmentRoundedIcon className={cls('trustedBadge', cmn.mleft10, cmn.pSec)} />
               </Tooltip>
@@ -139,7 +132,7 @@ export default function Delegation(props: {
         <Grid item md={3} xs={6}>
           <div className={cls(cmn.flex, [cmn.mtop10, props.isXs])}>
             <div className={cls([cmn.flexg, !props.isXs])}></div>
-            <div className={cls(`chip chip_${props.delegation.state}`)}>
+            <div className={cls(`chipXs chip_${props.delegation.state}`)}>
               <p className={cls(cmn.p, cmn.p4, 'pOneLine')}>
                 {props.delegation.state.replace(/_/g, ' ')}
               </p>
@@ -150,7 +143,7 @@ export default function Delegation(props: {
         <Grid item md={2} xs={6}>
           <div className={cls(cmn.flex, [cmn.mtop10, props.isXs])}>
             <div className={cls([cmn.flexg, !props.isXs])}></div>
-            <div className={cls(`chip chip_${getKeyByValue(DelegationSource, source)}`)}>
+            <div className={cls(`chipXs chip_${getKeyByValue(DelegationSource, source)}`)}>
               <p className={cls(cmn.p, cmn.p4)}>{source}</p>
             </div>
             <div className={cls([cmn.flexg, !props.isXs])}></div>
@@ -185,26 +178,26 @@ export default function Delegation(props: {
               </p>
             </div>
           ) : null}
-          {Number(props.delegation.stateId) === DelegationState.DELEGATED ? (
+          {Number(props.delegation.stateId) === DelegationState.DELEGATED && props.unstake ? (
             <SkBtn
               loading={loading}
               text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
               color="error"
               className="fullW"
               onClick={async () => {
-                await props.unstake(delegationInfo)
+                props.unstake && (await props.unstake(delegationInfo))
               }}
               disabled={props.loading !== false || props.customAddress !== undefined}
             />
           ) : null}
-          {Number(props.delegation.stateId) === DelegationState.PROPOSED ? (
+          {Number(props.delegation.stateId) === DelegationState.PROPOSED && props.cancelRequest ? (
             <SkBtn
               loading={loading}
               text={loading ? 'Canceling staking request' : 'Cancel staking request'}
               color="warning"
               className="fullW"
               onClick={async () => {
-                await props.cancelRequest(delegationInfo)
+                props.cancelRequest && (await props.cancelRequest(delegationInfo))
               }}
               disabled={props.loading !== false || props.customAddress !== undefined}
             />

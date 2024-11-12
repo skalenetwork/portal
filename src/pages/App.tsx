@@ -301,9 +301,7 @@ export default function App(props: {
                 <Tile
                   grow
                   text="Daily transactions"
-                  value={
-                    counters ? formatNumber(Number(counters.transactions_today)) : undefined
-                  }
+                  value={counters ? formatNumber(Number(counters.transactions_today)) : undefined}
                   icon={<HourglassTopRoundedIcon />}
                 />
               </Grid>

@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, styles, TokenIcon, type interfaces } from '@skalenetwork/metaport'
+import { cmn, cls, styles, TokenIcon } from '@skalenetwork/metaport'
 
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
@@ -36,16 +36,11 @@ import SkStack from '../SkStack'
 import Tile from '../Tile'
 import AccordionSection from '../AccordionSection'
 
-import {
-  DelegationType,
-  type IDelegationInfo,
-  type IDelegatorInfo,
-  type IRewardInfo
-} from '../../core/interfaces'
 import { formatBalance, shortAddress } from '../../core/helper'
 import SkBtn from '../SkBtn'
+import { types } from '@/core'
 
-const icons: { [key in DelegationType]: any } = {
+const icons: { [key in types.staking.DelegationType]: any } = {
   0: <AccountCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />,
   1: <AccountBalanceRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />,
   2: <ApartmentRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
@@ -54,20 +49,20 @@ const icons: { [key in DelegationType]: any } = {
 const SUMMARY_VALIDATOR_ID = -1
 
 export default function Summary(props: {
-  type: DelegationType
-  accountInfo: IDelegatorInfo | undefined
-  retrieveUnlocked: (rewardInfo: IRewardInfo) => Promise<void>
-  loading: IRewardInfo | IDelegationInfo | false
-  customAddress: interfaces.AddressType | undefined
+  type: types.staking.DelegationType
+  accountInfo: types.staking.IDelegatorInfo | undefined
+  retrieveUnlocked: (rewardInfo: types.staking.IRewardInfo) => Promise<void>
+  loading: types.staking.IRewardInfo | types.staking.IDelegationInfo | false
+  customAddress: types.AddressType | undefined
   isXs: boolean
 }) {
   function getTitle() {
-    if (props.type === DelegationType.ESCROW) return 'Escrow'
-    if (props.type === DelegationType.ESCROW2) return 'Grant Escrow'
+    if (props.type === types.staking.DelegationType.ESCROW) return 'Escrow'
+    if (props.type === types.staking.DelegationType.ESCROW2) return 'Grant Escrow'
     return 'Account'
   }
 
-  const rewardInfo: IRewardInfo = {
+  const rewardInfo: types.staking.IRewardInfo = {
     validatorId: SUMMARY_VALIDATOR_ID,
     delegationType: props.type
   }
@@ -95,7 +90,7 @@ export default function Summary(props: {
             icon={<TokenIcon tokenSymbol="skl" size="xs" />}
             childrenRi={
               <SkStack className={cls(cmn.flex)}>
-                {props.type !== DelegationType.REGULAR ? (
+                {props.type !== types.staking.DelegationType.REGULAR ? (
                   <div className={cls(cmn.flex)}>
                     <Tile
                       size="md"

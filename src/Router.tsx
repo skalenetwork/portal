@@ -74,10 +74,9 @@ import ScrollToTop from './components/ScrollToTop'
 
 import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
 import { BRIDGE_PAGES, MAINNET_CHAIN_NAME, STAKING_PAGES, STATS_API } from './core/constants'
-import { type IValidator, type ISkaleContractsMap, type StakingInfoMap } from './core/interfaces'
-import { getValidators } from './core/delegation/validators'
+import { getValidator, getValidators } from './core/delegation/validators'
 import { initContracts } from './core/contracts'
-import { getStakingInfoMap } from './core/delegation/staking'
+import { getStakingInfoMap, getValidatorDelegations } from './core/delegation/staking'
 import { formatSChains } from './core/chain'
 
 import { loadMeta } from './core/metadata'
@@ -97,9 +96,11 @@ export default function Router() {
   const [stakingTermsAccepted, setStakingTermsAccepted] = useState<boolean>(false)
 
   const [loadCalled, setLoadCalled] = useState<boolean>(false)
-  const [sc, setSc] = useState<ISkaleContractsMap | null>(null)
-  const [validators, setValidators] = useState<IValidator[]>([])
-  const [si, setSi] = useState<StakingInfoMap>({ 0: null, 1: null, 2: null })
+  const [sc, setSc] = useState<types.staking.ISkaleContractsMap | null>(null)
+  const [validators, setValidators] = useState<types.staking.IValidator[]>([])
+  const [validator, setValidator] = useState<types.staking.IValidator | null | undefined>(null)
+  const [validatorDelegations, setValidatorDelegations] = useState<any>(null)
+  const [si, setSi] = useState<types.staking.StakingInfoMap>({ 0: null, 1: null, 2: null })
 
   const [customAddress, setCustomAddress] = useState<types.AddressType | undefined>(undefined)
 
@@ -197,6 +198,15 @@ export default function Router() {
     if (!sc) return
     const validatorsData = await getValidators(sc.validatorService)
     setValidators(validatorsData)
+  }
+
+  async function loadValidator(address: types.AddressType) {
+    if (!sc || !address) return
+    const validatorData = await getValidator(sc.validatorService, address)
+    setValidator(validatorData)
+    if (validatorData && validatorData.id) {
+      setValidatorDelegations(await getValidatorDelegations(sc, validatorData.id))
+    }
   }
 
   async function loadStakingInfo() {
@@ -375,9 +385,13 @@ export default function Router() {
               element={
                 <Validator
                   mpc={mpc}
-                  validators={validators}
-                  loadValidators={loadValidators}
+                  address={address}
+                  customAddress={customAddress}
+                  loadValidator={loadValidator}
                   sc={sc}
+                  validator={validator}
+                  isXs={isXs}
+                  delegations={validatorDelegations}
                 />
               }
             />

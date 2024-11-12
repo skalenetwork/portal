@@ -543,6 +543,16 @@ body::-webkit-scrollbar {
   }
 }
 
+.MuiToggleButton-root {
+  border-radius: 25px !important;
+  padding: 4px 10px;
+  border: none !important;
+}
+
+button:hover {
+  border-color: $sk-prim !important;
+}
+
 .copyBoard {
   margin: 10px 0 !important;
   padding: 13pt 15pt !important;
@@ -825,12 +835,12 @@ input[type=number] {
 }
 
 .chipXs {
-  border-radius: 20px;
-  padding: 3px 6px;
+  border-radius: 15px;
+  padding: 6px 8px;
 
   svg {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
   }
 }
 
@@ -841,16 +851,6 @@ input[type=number] {
   svg {
     width: 16px;
     height: 16px;
-  }
-}
-
-.chipXs {
-  border-radius: 15px;
-  padding: 4px 6px;
-
-  svg {
-    width: 12px;
-    height: 12px;
   }
 }
 

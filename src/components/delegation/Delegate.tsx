@@ -28,7 +28,6 @@ import {
   cmn,
   cls,
   TokenIcon,
-  type interfaces,
   fromWei,
   styles,
   toWei,
@@ -49,7 +48,6 @@ import SkStack from '../SkStack'
 import ErrorTile from '../ErrorTile'
 import Loader from '../Loader'
 
-import { type DelegationType, type IValidator, type StakingInfoMap } from '../../core/interfaces'
 import { formatBalance } from '../../core/helper'
 import {
   DEFAULT_DELEGATION_INFO,
@@ -58,17 +56,18 @@ import {
   DEFAULT_ERROR_MSG
 } from '../../core/constants'
 import { initActionContract } from '../../core/contracts'
+import { types } from '@/core'
 
 debug.enable('*')
 const log = debug('portal:pages:Delegate')
 
 export default function Delegate(props: {
   mpc: MetaportCore
-  validator: IValidator | undefined
-  si: StakingInfoMap
+  validator: types.staking.IValidator | undefined
+  si: types.staking.StakingInfoMap
   getMainnetSigner: () => Promise<Signer>
-  address: interfaces.AddressType
-  delegationType: DelegationType
+  address: types.AddressType
+  delegationType: types.staking.DelegationType
   loaded: boolean
   delegationTypeAvailable: boolean
   errorMsg: string | undefined
