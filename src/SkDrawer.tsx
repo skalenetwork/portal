@@ -20,6 +20,9 @@ import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
 import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined'
 import AddCardRoundedIcon from '@mui/icons-material/AddCardRounded'
 import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
+import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined'
+
+import { GET_STARTED_URL } from './core/constants'
 
 const drawerWidth = 220
 
@@ -50,6 +53,21 @@ export default function SkDrawer() {
                   <ListItemText primary="Home" />
                 </ListItemButton>
               </Link>
+            </ListItem>
+            <ListItem>
+              <a
+                className="undec fullW"
+                target="_blank"
+                href={GET_STARTED_URL}
+                rel="noreferrer"
+              >
+                <ListItemButton className={cls(cmn.pPrim)}>
+                  <ListItemIcon>
+                    <ExploreOutlinedIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Get Started" />
+                </ListItemButton>
+              </a>
             </ListItem>
           </List>
           <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Transfer</h4>

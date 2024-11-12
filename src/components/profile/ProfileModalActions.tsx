@@ -71,18 +71,15 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
         </Button>
       )}
     </RainbowConnectButton.Custom>
-
-    {isSignedIn && (
-      <Button
-        variant="text"
-        startIcon={isSignedIn ? <LogoutIcon /> : <LoginIcon />}
-        className={cls('btn', 'btnSm', 'filled')}
-        onClick={isSignedIn ? handleSignOut : handleSignIn}
-        fullWidth={isMobile}
-      >
-        Sign Out
-      </Button>
-    )}
+    <Button
+      variant="text"
+      startIcon={isSignedIn ? <LogoutIcon /> : <LoginIcon />}
+      className={cls('btn', 'btnSm', 'filled')}
+      onClick={isSignedIn ? handleSignOut : handleSignIn}
+      fullWidth={isMobile}
+    >
+      {isSignedIn ? 'Sign out' : 'Sign in'}
+    </Button>
   </SkStack>
 )
 

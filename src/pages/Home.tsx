@@ -39,7 +39,6 @@ import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import { SKALE_SOCIAL_LINKS } from '../core/constants'
 import { SECTION_ICONS, EXPLORE_CARDS } from '../components/HomeComponents'
 import SocialButtons from '../components/ecosystem/Socials'
-import { SwellMessage } from '../components/Message'
 import UserRecommendations from '../components/ecosystem/UserRecommendations'
 
 interface HomeProps {
@@ -65,7 +64,6 @@ export default function Home({
     <Container maxWidth="md" className="paddBott60">
       <Stack spacing={0}>
         <h2 className={cls(cmn.nom)}>Welcome to SKALE</h2>
-        <SwellMessage className={cmn.mtop20} />
         <Headline
           text="Explore Portal"
           icon={SECTION_ICONS.explore}
