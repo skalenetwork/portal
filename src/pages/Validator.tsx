@@ -77,10 +77,10 @@ export default function Validator(props: {
   const remainingItems = Math.max(0, sortedDelegations.length - visibleItems)
 
   useEffect(() => {
-    if (props.sc !== null && props.address !== undefined) {
+    if (props.sc !== null) {
       props.loadValidator()
     }
-  }, [props.sc, props.address])
+  }, [props.sc, props.address, props.customAddress])
 
   useEffect(() => {
     setVisibleItems(ITEMS_PER_PAGE)
@@ -154,10 +154,10 @@ export default function Validator(props: {
           size="small"
           className={cls(cmn.mbott20)}
         />
-        <Collapse in={props.address === undefined}>
+        <Collapse in={props.address === undefined && props.customAddress === undefined}>
           <ConnectWallet tile className={cls(cmn.flexg)} />
         </Collapse>
-        {props.address ? (
+        {props.address || props.customAddress ? (
           props.validator !== undefined ? (
             <div>
               <ValidatorInfo validator={props.validator} />
