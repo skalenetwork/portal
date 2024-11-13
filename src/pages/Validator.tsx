@@ -111,6 +111,7 @@ export default function Validator(props: {
             loading={false}
             isXs={props.isXs}
             customAddress={props.customAddress}
+            isValidatorPage
           />
         ))}
         {remainingItems > 0 && (

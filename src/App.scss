@@ -76,6 +76,10 @@ body {
   width: 100%;
 }
 
+.fullH {
+  height: 100%;
+}
+
 .mp__btnConnect {
   position: relative;
 
@@ -1149,7 +1153,6 @@ input[type=number] {
   }
 }
 
-
 .trustedBadge {
   color: #0095f6;
 }
@@ -1157,12 +1160,6 @@ input[type=number] {
 .untrustedBadge {
   color: #ffb817;
 }
-
-.validatorCard {
-  height: 100% !important;
-  cursor: pointer;
-}
-
 
 .pOneLine {
   overflow: hidden;
@@ -1424,6 +1421,10 @@ input[type=number] {
 
 .hidden {
   display: none;
+}
+
+.opacity0 {
+  opacity: 0;
 }
 
 .MuiTooltip-tooltip {

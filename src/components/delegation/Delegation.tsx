@@ -27,6 +27,8 @@ import { Collapse, Grid, Tooltip } from '@mui/material'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
 import ApartmentRoundedIcon from '@mui/icons-material/ApartmentRounded'
+import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
+import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
 
 import SkBtn from '../SkBtn'
 import ValidatorLogo from './ValidatorLogo'
@@ -42,16 +44,19 @@ import {
 import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
 
 import { convertMonthIndexToText, formatBalance } from '../../core/helper'
+import Tile from '../Tile'
 
 export default function Delegation(props: {
   delegation: types.staking.IDelegation
   validator: types.staking.IValidator
   delegationType: types.staking.DelegationType
+  accept?: (delegationInfo: types.staking.IDelegationInfo) => Promise<void>
   unstake?: (delegationInfo: types.staking.IDelegationInfo) => Promise<void>
   cancelRequest?: (delegationInfo: types.staking.IDelegationInfo) => Promise<void>
   loading: types.staking.IRewardInfo | types.staking.IDelegationInfo | false
   isXs: boolean
   customAddress: types.AddressType | undefined
+  isValidatorPage?: boolean
 }) {
   const source = getDelegationSource(props.delegation)
   const delegationAmount = formatBalance(props.delegation.amount, 'SKL')
@@ -91,6 +96,12 @@ export default function Delegation(props: {
     }
   }
 
+  const noActions =
+    Number(props.delegation.stateId) !== DelegationState.PROPOSED &&
+    Number(props.delegation.stateId) !== DelegationState.DELEGATED &&
+    !isCompleted &&
+    !props.isValidatorPage
+
   if (!props.validator) return
   return (
     <div className={cls(cmn.mbott10, 'titleSection')}>
@@ -98,19 +109,22 @@ export default function Delegation(props: {
         container
         spacing={0}
         alignItems="center"
-        className="validatorCard"
+        className={cls('fullH', ['pointer', !noActions])}
         onClick={() => {
+          if (noActions) return
           setOpen(!open)
         }}
       >
         <Grid item md={3} xs={12}>
           <div className={cls(cmn.flex, cmn.flexcv)}>
             <ValidatorLogo validatorId={Number(props.delegation.id + 500n)} size="md" />
-            <ValidatorLogo
-              validatorId={props.validator.id}
-              size="sm"
-              className="validatorIconDelegation"
-            />
+            {!props.isValidatorPage && (
+              <ValidatorLogo
+                validatorId={props.validator.id}
+                size="sm"
+                className="validatorIconDelegation"
+              />
+            )}
             <div className={cls(cmn.mleft10)}>
               <p className={cls(cmn.p, cmn.p2, cmn.p700)}>ID: {Number(props.delegation.id)}</p>
               <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>
@@ -162,22 +176,43 @@ export default function Delegation(props: {
               <h4 className={cls(cmn.p, cmn.p700, [cmn.pSec, !isActive])}>{delegationAmount}</h4>
               <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>{getStakingText()}</p>
             </div>
+
             <ArrowForwardIosRoundedIcon
-              className={cls(cmn.pSec, styles.chainIconxs, 'rotate-90', ['active', open])}
+              className={cls(
+                cmn.pSec,
+                styles.chainIconxs,
+                'rotate-90',
+                ['active', open],
+                ['opacity0', noActions]
+              )}
             />
           </div>
         </Grid>
       </Grid>
       <Collapse in={open}>
         <div className={cls(cmn.mtop20)}>
-          {isCompleted ? (
-            <div className={cls(cmn.mbfott20)}>
-              <p className={cls(cmn.p, cmn.p3)}>Delegation completed</p>
-              <p className={cls(cmn.p, cmn.p2, cmn.p700)}>
-                {convertMonthIndexToText(Number(props.delegation.finished))}
-              </p>
-            </div>
-          ) : null}
+          {props.isValidatorPage && (
+            <Tile
+              className={cls(cmn.nop, cmn.mtop20)}
+              transparent
+              value={props.delegation.address}
+              text="Token Holder Address"
+              grow
+              size="md"
+              icon={<AccountCircleRoundedIcon className={cls(styles.chainIconxs)} />}
+            />
+          )}
+          {isCompleted && (
+            <Tile
+              className={cls(cmn.nop, cmn.mtop20)}
+              transparent
+              value={convertMonthIndexToText(Number(props.delegation.finished))}
+              text="Delegation completed"
+              grow
+              size="md"
+              icon={<HistoryRoundedIcon className={cls(styles.chainIconxs)} />}
+            />
+          )}
           {Number(props.delegation.stateId) === DelegationState.DELEGATED && props.unstake ? (
             <SkBtn
               loading={loading}
@@ -201,13 +236,6 @@ export default function Delegation(props: {
               }}
               disabled={props.loading !== false || props.customAddress !== undefined}
             />
-          ) : null}
-          {Number(props.delegation.stateId) !== DelegationState.PROPOSED &&
-          Number(props.delegation.stateId) !== DelegationState.DELEGATED &&
-          !isCompleted ? (
-            <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent, cmn.mtop20)}>
-              No actions available
-            </p>
           ) : null}
         </div>
       </Collapse>

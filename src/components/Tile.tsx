@@ -114,7 +114,7 @@ export default function Tile(props: {
                   cmn.flex,
                   cmn.flexcv,
                   cmn.mbott5,
-                  ['pSec', !props.color],
+                  ['pSec', !props.color && !props.textColor],
                   ['blackP', props.color]
                 )}
               >

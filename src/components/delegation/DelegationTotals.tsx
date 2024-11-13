@@ -22,7 +22,7 @@
  */
 
 import { useMemo } from 'react'
-import { cls, styles } from '@skalenetwork/metaport'
+import { cls, styles, useUIStore } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
 import InboxRoundedIcon from '@mui/icons-material/InboxRounded'
@@ -46,7 +46,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({ delegations, classN
     () => (delegations ? calculateDelegationTotals(delegations) : null),
     [delegations]
   )
-
+  const theme = useUIStore((state) => state.theme)
   const getTileText = (status: string, count?: number) => `${status}${count ? ` (${count})` : ''}`
 
   return (
@@ -56,6 +56,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({ delegations, classN
         text={getTileText('Proposed', totals?.proposed.count)}
         grow
         size="md"
+        textColor={totals?.proposed.count ? theme.primary : undefined}
         icon={<InboxRoundedIcon className={cls(styles.chainIconxs)} />}
       />
       <Tile
