@@ -213,12 +213,24 @@ export default function Delegation(props: {
               icon={<HistoryRoundedIcon className={cls(styles.chainIconxs)} />}
             />
           )}
+          {Number(props.delegation.stateId) === DelegationState.PROPOSED && props.accept ? (
+            <SkBtn
+              loading={loading}
+              text={loading ? 'Accepting delegation' : 'Accept delegation'}
+              color="primary"
+              className={cls('fullW', cmn.mtop20)}
+              onClick={async () => {
+                props.accept && (await props.accept(delegationInfo))
+              }}
+              disabled={props.loading !== false || props.customAddress !== undefined}
+            />
+          ) : null}
           {Number(props.delegation.stateId) === DelegationState.DELEGATED && props.unstake ? (
             <SkBtn
               loading={loading}
               text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
               color="error"
-              className="fullW"
+              className={cls('fullW', cmn.mtop20)}
               onClick={async () => {
                 props.unstake && (await props.unstake(delegationInfo))
               }}

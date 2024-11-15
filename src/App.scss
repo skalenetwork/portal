@@ -461,6 +461,14 @@ body::-webkit-scrollbar {
   background: rgb(244 139 54 / 13%);
 }
 
+.btnprimary {
+  background: rgba(147, 184, 236, 0.16);
+}
+
+.btnDisabled {
+  background: #262626;
+}
+
 .btnSmLoading {
   padding: 0.5em 1.5em 0.5em 3em !important;
 }

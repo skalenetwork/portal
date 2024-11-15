@@ -25,16 +25,8 @@ import { Helmet } from 'react-helmet'
 
 import { Link } from 'react-router-dom'
 import { type Signer, isAddress } from 'ethers'
-import debug from 'debug'
-import { useEffect, useState } from 'react'
-import {
-  cmn,
-  cls,
-  styles,
-  SkPaper,
-  type MetaportCore,
-  sendTransaction
-} from '@skalenetwork/metaport'
+import { useCallback, useEffect, useState } from 'react'
+import { cmn, cls, styles, SkPaper, type MetaportCore } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
@@ -52,17 +44,23 @@ import Delegations from '../components/delegation/Delegations'
 
 import Summary from '../components/delegation/Summary'
 import { Collapse } from '@mui/material'
-import { initActionContract } from '../core/contracts'
-import { BALANCE_UPDATE_INTERVAL_MS, DEFAULT_ERROR_MSG } from '../core/constants'
+
+import {
+  retrieveRewards,
+  unstakeDelegation,
+  cancelDelegationRequest,
+  retrieveUnlockedTokens,
+  type LoadingState,
+  StakingActionProps
+} from '../core/delegation/stakingActions'
+
+import { BALANCE_UPDATE_INTERVAL_MS } from '../core/constants'
 import ErrorTile from '../components/ErrorTile'
 import ConnectWallet from '../components/ConnectWallet'
 import Headline from '../components/Headline'
 import Message from '../components/Message'
 import { META_TAGS } from '../core/meta'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
-
-debug.enable('*')
-const log = debug('portal:pages:Staking')
 
 export default function Staking(props: {
   mpc: MetaportCore
@@ -76,11 +74,8 @@ export default function Staking(props: {
   getMainnetSigner: () => Promise<Signer>
   isXs: boolean
 }) {
-  const [loading, setLoading] = useState<
-    types.staking.IRewardInfo | types.staking.IDelegationInfo | false
-  >(false)
+  const [loading, setLoading] = useState<LoadingState>(false)
   const [errorMsg, setErrorMsg] = useState<string | undefined>()
-
   const [customRewardAddress, setCustomRewardAddress] = useState<types.AddressType | undefined>(
     props.address
   )
@@ -88,90 +83,65 @@ export default function Staking(props: {
   useEffect(() => {
     props.loadValidators()
     props.loadStakingInfo()
-    const intervalId = setInterval(() => {
-      props.loadStakingInfo()
-    }, BALANCE_UPDATE_INTERVAL_MS)
-    log(`Updating staking info interval: ${Number(intervalId)}`)
-    return () => {
-      log(`Clearing interval: ${Number(intervalId)}`)
-      clearInterval(intervalId) // Clear interval on component unmount
-    }
+    const intervalId = setInterval(props.loadStakingInfo, BALANCE_UPDATE_INTERVAL_MS)
+    return () => clearInterval(intervalId)
   }, [props.address, props.sc])
 
   useEffect(() => {
     setCustomRewardAddress(props.address)
   }, [props.address])
 
-  async function processTx(
-    delegationType: types.staking.DelegationType,
-    txName: string,
-    txArgs: any[],
-    contractType: types.staking.ContractType
-  ) {
-    if (props.sc === null || props.address === undefined) return
-    log('processTx:', txName, txArgs, contractType, delegationType)
-    try {
-      const signer = await props.getMainnetSigner()
-      const contract = await initActionContract(
-        signer,
-        delegationType,
-        props.address,
-        props.mpc.config.skaleNetwork,
-        contractType
-      )
-      const res = await sendTransaction(contract[txName], txArgs)
-      if (!res.status) {
-        setErrorMsg(res.err?.name)
-      } else {
-        setErrorMsg(undefined)
-        await props.loadStakingInfo()
-      }
-      setLoading(false)
-    } catch (err: any) {
-      console.error(err)
-      setErrorMsg(err.message ? err.message : DEFAULT_ERROR_MSG)
-      setLoading(false)
-    }
-  }
+  const getStakingActionProps = useCallback(
+    (): StakingActionProps => ({
+      sc: props.sc,
+      address: props.address,
+      skaleNetwork: props.mpc.config.skaleNetwork,
+      getMainnetSigner: props.getMainnetSigner,
+      setLoading,
+      setErrorMsg,
+      postAction: props.loadStakingInfo
+    }),
+    [
+      props.sc,
+      props.address,
+      props.mpc.config.skaleNetwork,
+      props.getMainnetSigner,
+      props.loadStakingInfo
+    ]
+  )
 
-  async function retrieveRewards(rewardInfo: types.staking.IRewardInfo) {
-    setLoading(rewardInfo)
+  async function handleRetrieveRewards(rewardInfo: types.staking.IRewardInfo) {
     if (!isAddress(customRewardAddress)) {
       setErrorMsg('Invalid address')
       setLoading(false)
       return
     }
-    processTx(
-      rewardInfo.delegationType,
-      'withdrawBounty',
-      [rewardInfo.validatorId, customRewardAddress],
-      'distributor'
-    )
+    await retrieveRewards({
+      rewardInfo,
+      rewardAddress: customRewardAddress,
+      props: getStakingActionProps()
+    })
   }
 
-  async function unstake(delegationInfo: types.staking.IDelegationInfo) {
-    setLoading(delegationInfo)
-    processTx(
-      delegationInfo.delegationType,
-      'requestUndelegation',
-      [delegationInfo.delegationId],
-      'delegation'
-    )
+  async function handleUnstake(delegationInfo: types.staking.IDelegationInfo) {
+    await unstakeDelegation({
+      delegationInfo,
+      props: getStakingActionProps()
+    })
   }
 
-  async function cancelRequest(delegationInfo: types.staking.IDelegationInfo) {
-    setLoading(delegationInfo)
-    processTx(
-      delegationInfo.delegationType,
-      'cancelPendingDelegation',
-      [delegationInfo.delegationId],
-      'delegation'
-    )
+  async function handleCancelRequest(delegationInfo: types.staking.IDelegationInfo) {
+    await cancelDelegationRequest({
+      delegationInfo,
+      props: getStakingActionProps()
+    })
   }
 
-  async function retrieveUnlocked(rewardInfo: types.staking.IRewardInfo): Promise<void> {
-    setLoading(rewardInfo)
-    processTx(rewardInfo.delegationType, 'retrieve', [], 'distributor')
+  async function handleRetrieveUnlocked(rewardInfo: types.staking.IRewardInfo) {
+    await retrieveUnlockedTokens({
+      rewardInfo,
+      props: getStakingActionProps()
+    })
   }
 
   return (
@@ -246,7 +216,7 @@ export default function Staking(props: {
             type={types.staking.DelegationType.REGULAR}
             accountInfo={props.si[0]?.info}
             loading={loading}
-            retrieveUnlocked={retrieveUnlocked}
+            retrieveUnlocked={handleRetrieveUnlocked}
             isXs={props.isXs}
             customAddress={props.customAddress}
           />
@@ -260,27 +230,25 @@ export default function Staking(props: {
           <ConnectWallet tile className={cls(cmn.flexg, cmn.mtop10)} />
         </Collapse>
       </SkPaper>
-
       <Collapse in={props.si[1] !== null}>
         <SkPaper gray className={cls(cmn.mtop20)}>
           <Summary
             type={types.staking.DelegationType.ESCROW}
             accountInfo={props.si[1]?.info}
             loading={loading}
-            retrieveUnlocked={retrieveUnlocked}
+            retrieveUnlocked={handleRetrieveUnlocked}
             isXs={props.isXs}
             customAddress={props.customAddress}
           />
         </SkPaper>
       </Collapse>
-
       <Collapse in={props.si[2] !== null}>
         <SkPaper gray className={cls(cmn.mtop20)}>
           <Summary
             type={types.staking.DelegationType.ESCROW2}
             accountInfo={props.si[2]?.info}
             loading={loading}
-            retrieveUnlocked={retrieveUnlocked}
+            retrieveUnlocked={handleRetrieveUnlocked}
             isXs={props.isXs}
             customAddress={props.customAddress}
           />
@@ -294,12 +262,12 @@ export default function Staking(props: {
           <Delegations
             validators={props.validators}
             si={props.si}
-            retrieveRewards={retrieveRewards}
+            retrieveRewards={handleRetrieveRewards}
             loading={loading}
             setErrorMsg={setErrorMsg}
             errorMsg={errorMsg}
-            unstake={unstake}
-            cancelRequest={cancelRequest}
+            unstake={handleUnstake}
+            cancelRequest={handleCancelRequest}
             isXs={props.isXs}
             address={props.address}
             customAddress={props.customAddress}

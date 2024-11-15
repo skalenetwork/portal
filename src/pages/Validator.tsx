@@ -21,7 +21,9 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
+import { type Signer } from 'ethers'
+import { types } from '@/core'
 
 import Container from '@mui/material/Container'
 import { cmn, cls, type MetaportCore, styles, SkPaper } from '@skalenetwork/metaport'
@@ -35,34 +37,64 @@ import StarsRoundedIcon from '@mui/icons-material/StarsRounded'
 import EventAvailableRoundedIcon from '@mui/icons-material/EventAvailableRounded'
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded'
 
-import SkPageInfoIcon from '../components/SkPageInfoIcon'
+import {
+  StakingActionProps,
+  unstakeDelegation,
+  acceptDelegation,
+  LoadingState
+} from '../core/delegation/stakingActions'
+import { sortDelegations, SortType } from '../core/delegation'
 import { META_TAGS } from '../core/meta'
+import { ITEMS_PER_PAGE } from '../core/constants'
+
+import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import ValidatorInfo from '../components/delegation/ValidatorInfo'
-import { types } from '@/core'
 import Headline from '../components/Headline'
 import ConnectWallet from '../components/ConnectWallet'
 import Tile from '../components/Tile'
 import Delegation from '../components/delegation/Delegation'
-import { sortDelegations, SortType } from '../core/delegation'
 import SortToggle from '../components/delegation/SortToggle'
-import { ITEMS_PER_PAGE } from '../core/constants'
 import ShowMoreButton from '../components/delegation/ShowMoreButton'
 import SkBtn from '../components/SkBtn'
 import DelegationTotals from '../components/delegation/DelegationTotals'
 import Message from '../components/Message'
+import ErrorTile from '../components/ErrorTile'
 
 export default function Validator(props: {
   mpc: MetaportCore
   sc: types.staking.ISkaleContractsMap | null
   address: types.AddressType | undefined
   customAddress: types.AddressType | undefined
-  loadValidator: () => void
+  loadValidator: () => Promise<void>
   validator: types.staking.IValidator | null | undefined
   isXs: boolean
   delegations: types.staking.IDelegation[]
+  getMainnetSigner: () => Promise<Signer>
 }) {
   const [sortBy, setSortBy] = useState<SortType>('id')
   const [visibleItems, setVisibleItems] = useState(ITEMS_PER_PAGE)
+
+  const [loading, setLoading] = useState<LoadingState>(false)
+  const [errorMsg, setErrorMsg] = useState<string | undefined>()
+
+  const getStakingActionProps = useCallback(
+    (): StakingActionProps => ({
+      sc: props.sc,
+      address: props.address,
+      skaleNetwork: props.mpc.config.skaleNetwork,
+      getMainnetSigner: props.getMainnetSigner,
+      setLoading,
+      setErrorMsg,
+      postAction: props.loadValidator
+    }),
+    [
+      props.sc,
+      props.address,
+      props.mpc.config.skaleNetwork,
+      props.getMainnetSigner,
+      props.loadValidator
+    ]
+  )
 
   const sortedDelegations = useMemo(
     () => sortDelegations(props.delegations || [], sortBy),
@@ -90,6 +122,20 @@ export default function Validator(props: {
     setVisibleItems((prevVisible) => prevVisible + ITEMS_PER_PAGE)
   }
 
+  async function handleUnstake(delegationInfo: types.staking.IDelegationInfo) {
+    await unstakeDelegation({
+      delegationInfo,
+      props: getStakingActionProps()
+    })
+  }
+
+  async function handleAccept(delegationInfo: types.staking.IDelegationInfo) {
+    await acceptDelegation({
+      delegationInfo,
+      props: getStakingActionProps()
+    })
+  }
+
   const renderDelegationsContent = () => {
     if (props.delegations === null) {
       return (
@@ -108,9 +154,11 @@ export default function Validator(props: {
             delegation={delegation}
             validator={props.validator!}
             delegationType={types.staking.DelegationType.REGULAR}
-            loading={false}
+            loading={loading}
             isXs={props.isXs}
             customAddress={props.customAddress}
+            unstake={handleUnstake}
+            accept={handleAccept}
             isValidatorPage
           />
         ))}
@@ -199,8 +247,7 @@ export default function Validator(props: {
                 variant="contained"
                 size="sm"
                 className={cls([cmn.mleft20, !props.isXs], cmn.flexcv)}
-                // disabled={
-                // }
+                disabled={props.customAddress !== undefined}
                 // onClick={() => {
                 // }}
               />
@@ -208,6 +255,7 @@ export default function Validator(props: {
           />
         </SkPaper>
       )}
+      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className={cls(cmn.mtop20)} />
       {props.validator && (
         <SkPaper gray className={cls(cmn.mtop20)}>
           <div>

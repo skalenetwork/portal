@@ -393,6 +393,7 @@ export default function Router() {
                   validator={validator}
                   isXs={isXs}
                   delegations={validatorDelegations}
+                  getMainnetSigner={getMainnetSigner}
                 />
               }
             />
