@@ -42,6 +42,7 @@ import { TextField } from '@mui/material'
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded'
 import TransitEnterexitRoundedIcon from '@mui/icons-material/TransitEnterexitRounded'
 import EventRepeatRoundedIcon from '@mui/icons-material/EventRepeatRounded'
+import AccountTreeRoundedIcon from '@mui/icons-material/AccountTreeRounded'
 
 import Tile from '../Tile'
 import SkStack from '../SkStack'
@@ -57,6 +58,7 @@ import {
 } from '../../core/constants'
 import { initActionContract } from '../../core/contracts'
 import { types } from '@/core'
+import DelegationFlow from './DelegationFlow'
 
 debug.enable('*')
 const log = debug('portal:pages:Delegate')
@@ -162,9 +164,17 @@ export default function Delegate(props: {
           value="Auto-renewed"
           text="Renewal"
           icon={<EventRepeatRoundedIcon />}
-          color={true ? undefined : 'error'}
         />
       </SkStack>
+
+      <Tile
+        text="Delegation flow"
+        className={cls(cmn.mbott10)}
+        icon={<AccountTreeRoundedIcon />}
+        grow
+        children={<DelegationFlow className={cls(cmn.mtop10)} />}
+      />
+
       <SkStack>
         <Tile
           text="Enter amount to stake"

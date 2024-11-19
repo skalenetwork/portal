@@ -176,7 +176,6 @@ export default function Delegation(props: {
               <h4 className={cls(cmn.p, cmn.p700, [cmn.pSec, !isActive])}>{delegationAmount}</h4>
               <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>{getStakingText()}</p>
             </div>
-
             <ArrowForwardIosRoundedIcon
               className={cls(
                 cmn.pSec,

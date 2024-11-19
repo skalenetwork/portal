@@ -33,8 +33,7 @@ import { Collapse, Skeleton } from '@mui/material'
 import CorporateFareRoundedIcon from '@mui/icons-material/CorporateFareRounded'
 import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded'
 import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
-import StarsRoundedIcon from '@mui/icons-material/StarsRounded'
-import EventAvailableRoundedIcon from '@mui/icons-material/EventAvailableRounded'
+
 import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded'
 
 import {
@@ -51,14 +50,13 @@ import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import ValidatorInfo from '../components/delegation/ValidatorInfo'
 import Headline from '../components/Headline'
 import ConnectWallet from '../components/ConnectWallet'
-import Tile from '../components/Tile'
 import Delegation from '../components/delegation/Delegation'
 import SortToggle from '../components/delegation/SortToggle'
 import ShowMoreButton from '../components/delegation/ShowMoreButton'
-import SkBtn from '../components/SkBtn'
 import DelegationTotals from '../components/delegation/DelegationTotals'
 import Message from '../components/Message'
 import ErrorTile from '../components/ErrorTile'
+import ChainRewards from '../components/delegation/ChainRewards'
 
 export default function Validator(props: {
   mpc: MetaportCore
@@ -227,33 +225,13 @@ export default function Validator(props: {
         )}
       </SkPaper>
       {props.validator && (
-        <SkPaper gray className={cls(cmn.mtop20)}>
-          <Headline
-            size="small"
-            text="Chain Rewards"
-            icon={<StarsRoundedIcon className={cls(styles.chainIconxs)} />}
-            className={cls(cmn.mbott20)}
-          />
-          <Tile
-            // disabled={ === 0n}
-            value="126646.56 SKL"
-            text="Available Rewards"
-            icon={<EventAvailableRoundedIcon />}
-            grow
-            childrenRi={
-              <SkBtn
-                // loading={loading}
-                text="Retrieve"
-                variant="contained"
-                size="sm"
-                className={cls([cmn.mleft20, !props.isXs], cmn.flexcv)}
-                disabled={props.customAddress !== undefined}
-                // onClick={() => {
-                // }}
-              />
-            }
-          />
-        </SkPaper>
+        <ChainRewards
+          mpc={props.mpc}
+          validator={props.validator}
+          customAddress={props.customAddress}
+          className={cmn.mtop20}
+          isXs={props.isXs}
+        />
       )}
       <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className={cls(cmn.mtop20)} />
       {props.validator && (

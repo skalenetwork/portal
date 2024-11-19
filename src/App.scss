@@ -849,6 +849,7 @@ input[type=number] {
 .chipXs {
   border-radius: 15px;
   padding: 6px 8px;
+  text-align: center;
 
   svg {
     width: 12px;
@@ -895,6 +896,11 @@ input[type=number] {
 .chip_DELEGATED {
   background: linear-gradient(180deg, #0f3d29, #0a2a1c);
   color: #3cda94;
+}
+
+.chip_REWARDS {
+  background: linear-gradient(180deg, #3d390f, #2a230a);
+  color: #dac83c;
 }
 
 .chip_ACCEPTED {
@@ -1438,4 +1444,10 @@ input[type=number] {
 .MuiTooltip-tooltip {
   font-size: 0.8rem !important;
   padding: 8px 12px !important;
+}
+
+.delegationFlowText {
+  border-top: 2px #4a4a4a solid;
+  margin: 0 10px;
+  padding: 2px 5px 0 5px;
 }
