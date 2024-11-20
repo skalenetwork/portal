@@ -20,8 +20,10 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cls, cmn } from '@skalenetwork/metaport'
+import { cls, cmn, styles } from '@skalenetwork/metaport'
 import { types } from '@/core'
+
+import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 
 import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
 
@@ -66,7 +68,9 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation, className }
           {delegation ? formatBigIntTimestampSeconds(delegation.created) : getCurrentDate()}
         </p>
       </div>
-      <p className={cls(cmn.p, cmn.p5, cmn.pSec, 'delegationFlowText')}>Validator accepts</p>
+      <ArrowForwardRoundedIcon
+        className={cls(cmn.pSec, styles.chainIconxs, cmn.mri10, cmn.mleft10)}
+      />
       <div>
         <div className={cls(`chipXs chip_ACCEPTED`)}>
           <p className={cls(cmn.p, cmn.p4, 'pOneLine')}>ACCEPTED</p>
@@ -75,7 +79,9 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation, className }
           Until {getFirstDayNextMonth()}
         </p>
       </div>
-      <p className={cls(cmn.p, cmn.p5, cmn.pSec, 'delegationFlowText')}>Month ends</p>
+      <ArrowForwardRoundedIcon
+        className={cls(cmn.pSec, styles.chainIconxs, cmn.mri10, cmn.mleft10)}
+      />
       <div>
         <div className={cls(`chipXs chip_DELEGATED`)}>
           <p className={cls(cmn.p, cmn.p4)}>DELEGATED</p>
@@ -84,7 +90,9 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation, className }
           From {getFirstDayNextMonth()}
         </p>
       </div>
-      <p className={cls(cmn.p, cmn.p5, cmn.pSec, 'delegationFlowText')}>Month ends</p>
+      <ArrowForwardRoundedIcon
+        className={cls(cmn.pSec, styles.chainIconxs, cmn.mri10, cmn.mleft10)}
+      />
       <div>
         <div className={cls(`chipXs chip_REWARDS`)}>
           <p className={cls(cmn.p, cmn.p4, 'pOneLine')}>REWARDS GENERATED</p>

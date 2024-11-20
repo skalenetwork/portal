@@ -43,7 +43,7 @@ export default function ErrorTile(props: {
         icon={<ErrorRoundedIcon />}
         color="error"
         grow
-        children={
+        childrenRi={
           props.setErrorMsg && (
             <Button
               size="small"

@@ -228,6 +228,7 @@ export default function Validator(props: {
         <ChainRewards
           mpc={props.mpc}
           validator={props.validator}
+          address={props.address}
           customAddress={props.customAddress}
           className={cmn.mtop20}
           isXs={props.isXs}
