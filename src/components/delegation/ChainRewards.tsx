@@ -115,7 +115,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
       skl = new Contract(tokenAddress, ERC_ABIS.erc20.abi, paymaster.runner)
       setSklToken(skl)
     }
-    setTokenBalance(await skl.balanceOf(tokenAddress))
+    setTokenBalance(await skl.balanceOf(address))
   }
 
   async function retrieveRewards() {
@@ -172,7 +172,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
               variant="contained"
               size="sm"
               className={cls([cmn.mleft20, !isXs], cmn.mri20, cmn.flexcv)}
-              disabled={customAddress === undefined || rewardAmount === 0n || loading}
+              disabled={customAddress !== undefined || rewardAmount === 0n || loading}
               onClick={retrieveRewards}
             />
             <div className={cls(['borderVert', !isXs])}>

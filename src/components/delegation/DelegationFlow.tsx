@@ -69,7 +69,7 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation, className }
         </p>
       </div>
       <ArrowForwardRoundedIcon
-        className={cls(cmn.pSec, styles.chainIconxs, cmn.mri10, cmn.mleft10)}
+        className={cls(cmn.pSec, styles.chainIconxs, cmn.mri10, cmn.mleft10, 'delegationFlowIcon')}
       />
       <div>
         <div className={cls(`chipXs chip_ACCEPTED`)}>
@@ -80,7 +80,7 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation, className }
         </p>
       </div>
       <ArrowForwardRoundedIcon
-        className={cls(cmn.pSec, styles.chainIconxs, cmn.mri10, cmn.mleft10)}
+        className={cls(cmn.pSec, styles.chainIconxs, cmn.mri10, cmn.mleft10, 'delegationFlowIcon')}
       />
       <div>
         <div className={cls(`chipXs chip_DELEGATED`)}>
@@ -91,7 +91,7 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation, className }
         </p>
       </div>
       <ArrowForwardRoundedIcon
-        className={cls(cmn.pSec, styles.chainIconxs, cmn.mri10, cmn.mleft10)}
+        className={cls(cmn.pSec, styles.chainIconxs, cmn.mri10, cmn.mleft10, 'delegationFlowIcon')}
       />
       <div>
         <div className={cls(`chipXs chip_REWARDS`)}>
