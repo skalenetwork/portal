@@ -34,7 +34,8 @@ import {
   walletClientToSigner,
   sendTransaction,
   styles,
-  SkPaper
+  SkPaper,
+  Station
 } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
@@ -62,8 +63,8 @@ import { getExplorerUrlForAddress } from '../../core/explorer'
 interface ChainRewardsProps {
   mpc: MetaportCore
   validator: types.staking.IValidator | null | undefined
-  address?: string
-  customAddress?: string
+  address?: types.AddressType
+  customAddress?: types.AddressType
   className?: string
   isXs?: boolean
 }
@@ -124,14 +125,25 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   }
 
   async function retrieveRewards() {
-    if (!paymaster.runner?.provider || !walletClient || !switchChainAsync) {
+    if (!paymaster.runner?.provider || !walletClient || !switchChainAsync || !address) {
       setErrorMsg('Something is wrong with your wallet, try again')
       return
     }
     setLoading(true)
-    setBtnText(`Switching network`)
+    setBtnText('Switching network')
     setErrorMsg(undefined)
     try {
+      const sFuelBalance = await paymaster.runner.provider.getBalance(address)
+      if (sFuelBalance === 0n) {
+        setBtnText('Mining sFUEL')
+        const station = new Station(paymasterChain, mpc)
+        const powResult = await station.doPoW(address)
+        if (!powResult.ok) {
+          setErrorMsg('Failed to mine sFUEL')
+          return
+        }
+      }
+
       const { chainId } = await paymaster.runner.provider.getNetwork()
       const paymasterAddress = getPaymasterAddress(network)
 
