@@ -40,6 +40,7 @@ import { types } from '@/core'
 
 import StarsRoundedIcon from '@mui/icons-material/StarsRounded'
 import EventAvailableRoundedIcon from '@mui/icons-material/EventAvailableRounded'
+import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
 
 import { formatBalance } from '../../core/helper'
 import {
@@ -55,6 +56,8 @@ import Tile from '../Tile'
 import SkBtn from '../SkBtn'
 import ErrorTile from '../ErrorTile'
 import SkStack from '../SkStack'
+import { Button, Tooltip } from '@mui/material'
+import { getExplorerUrlForAddress } from '../../core/explorer'
 
 interface ChainRewardsProps {
   mpc: MetaportCore
@@ -78,6 +81,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   const [rewardAmount, setRewardAmount] = useState<bigint | null>(null)
   const [sklToken, setSklToken] = useState<Contract | null>(null)
   const [tokenBalance, setTokenBalance] = useState<bigint | null>(null)
+  const [tokenUrl, setTokenUrl] = useState<string | null>(null)
 
   const [btnText, setBtnText] = useState<string | undefined>()
   const [errorMsg, setErrorMsg] = useState<string | undefined>()
@@ -113,6 +117,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
     let skl = sklToken
     if (skl === null) {
       skl = new Contract(tokenAddress, ERC_ABIS.erc20.abi, paymaster.runner)
+      setTokenUrl(getExplorerUrlForAddress(network, paymasterChain, tokenAddress))
       setSklToken(skl)
     }
     setTokenBalance(await skl.balanceOf(address))
@@ -172,12 +177,17 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
               variant="contained"
               size="sm"
               className={cls([cmn.mleft20, !isXs], cmn.mri20, cmn.flexcv)}
-              disabled={customAddress !== undefined || rewardAmount === 0n || loading}
+              disabled={
+                customAddress !== undefined ||
+                rewardAmount === null ||
+                rewardAmount === 0n ||
+                loading
+              }
               onClick={retrieveRewards}
             />
             <div className={cls(['borderVert', !isXs])}>
               <Tile
-                className={cls(cmn.nop, [cmn.mri10, !isXs], [cmn.mleft20, !isXs])}
+                className={cls(cmn.nop, [cmn.mleft20, !isXs])}
                 size="md"
                 transparent
                 grow
@@ -185,6 +195,19 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
                 ri={!isXs}
                 text="Balance on Europa Hub"
                 icon={<TokenIcon tokenSymbol="skl" size="xs" />}
+                childrenRi={
+                  <Tooltip title="Open in block explorer">
+                    <a target="_blank" rel="noreferrer" href={tokenUrl ?? ''} className="undec">
+                      <Button
+                        disabled={tokenUrl === null}
+                        variant="text"
+                        className={cls('roundBtn', cmn.mleft5)}
+                      >
+                        <ViewInArRoundedIcon className={cls(styles.chainIconxs)} />
+                      </Button>
+                    </a>
+                  </Tooltip>
+                }
               />
             </div>
           </SkStack>

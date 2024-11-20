@@ -33,6 +33,14 @@ export function getExplorerUrl(network: types.SkaleNetwork, chainName: string): 
   return HTTPS_PREFIX + chainName + '.' + explorerBaseUrl
 }
 
+export function getExplorerUrlForAddress(
+  network: types.SkaleNetwork,
+  chainName: string,
+  address: string
+): string {
+  return addressUrl(getExplorerUrl(network, chainName), address)
+}
+
 export function getTotalAppCounters(
   countersArray: types.IAppCounters | null
 ): types.IAddressCounters | null {
