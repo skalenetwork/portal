@@ -307,3 +307,13 @@ export function calculateDelegationTotals(
     return totals
   }, initialTotals)
 }
+
+export function getProposedDelegationsCount(
+  validatorDelegations: types.staking.IDelegation[] | null
+): number | null {
+  if (!validatorDelegations) return null
+
+  return validatorDelegations.filter(
+    (delegation) => Number(delegation.stateId) === DelegationState.PROPOSED
+  ).length
+}

@@ -66,7 +66,7 @@ export default function Validator(props: {
   loadValidator: () => Promise<void>
   validator: types.staking.IValidator | null | undefined
   isXs: boolean
-  delegations: types.staking.IDelegation[]
+  delegations: types.staking.IDelegation[] | null
   getMainnetSigner: () => Promise<Signer>
 }) {
   const [sortBy, setSortBy] = useState<SortType>('id')

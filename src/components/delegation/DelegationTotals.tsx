@@ -37,7 +37,7 @@ import SkStack from '../SkStack'
 import Tile from '../Tile'
 
 interface DelegationTotalsProps {
-  delegations: types.staking.IDelegation[]
+  delegations: types.staking.IDelegation[] | null
   className?: string
 }
 

@@ -33,12 +33,14 @@ import ManageAccountsRoundedIcon from '@mui/icons-material/ManageAccountsRounded
 import Validators from '../components/delegation/Validators'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import { META_TAGS } from '../core/meta'
+import DelegationsNotification from '../components/delegation/DelegationsNotification'
 
 export default function ValidatorsPage(props: {
   mpc: MetaportCore
   validators: types.staking.IValidator[]
   sc: types.staking.ISkaleContractsMap | null
   loadValidators: () => void
+  validatorDelegations: types.staking.IDelegation[] | null
 }) {
   useEffect(() => {
     if (props.sc !== null) {
@@ -61,6 +63,7 @@ export default function ValidatorsPage(props: {
             variant="contained"
             className={cls('btnMd', cmn.mri10)}
             startIcon={<ManageAccountsRoundedIcon />}
+            endIcon={<DelegationsNotification validatorDelegations={props.validatorDelegations} />}
           >
             Manage Validator
           </Button>

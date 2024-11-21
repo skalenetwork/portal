@@ -26,7 +26,7 @@ import { useState, useEffect } from 'react'
 import { WalletClient } from 'viem'
 
 import { Helmet } from 'react-helmet'
-import { useLocation, Routes, Route, useSearchParams, Navigate } from 'react-router-dom'
+import { useLocation, Routes, Route, Navigate } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { useTheme } from '@mui/material/styles'
@@ -35,7 +35,6 @@ import { CircularProgress } from '@mui/material'
 
 import {
   useMetaportStore,
-  PROXY_ENDPOINTS,
   type MetaportState,
   useWagmiAccount,
   useWagmiWalletClient,
@@ -73,15 +72,23 @@ import MetricsWarning from './components/MetricsWarning'
 import ScrollToTop from './components/ScrollToTop'
 
 import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
-import { BRIDGE_PAGES, MAINNET_CHAIN_NAME, STAKING_PAGES, STATS_API } from './core/constants'
-import { getValidator, getValidators } from './core/delegation/validators'
-import { initContracts } from './core/contracts'
-import { getStakingInfoMap, getValidatorDelegations } from './core/delegation/staking'
-import { formatSChains } from './core/chain'
+import { BRIDGE_PAGES, MAINNET_CHAIN_NAME, STAKING_PAGES } from './core/constants'
+import { getValidators } from './core/delegation/validators'
+import { getStakingInfoMap } from './core/delegation/staking'
 
 import { loadMeta } from './core/metadata'
 
-export default function Router() {
+export default function Router(props: {
+  loadData: () => Promise<void>
+  customAddress?: types.AddressType
+  schains: types.ISChain[]
+  stats: types.IStats | null
+  metrics: types.IMetrics | null
+  validator: types.staking.IValidator | null | undefined
+  validatorDelegations: types.staking.IDelegation[] | null
+  sc: types.staking.ISkaleContractsMap | null
+  loadValidator: () => Promise<void>
+}) {
   const location = useLocation()
   const currentUrl = `${window.location.origin}${location.pathname}${location.search}`
 
@@ -89,20 +96,11 @@ export default function Router() {
   const isXs = useMediaQuery(theme.breakpoints.down('sm'))
 
   const [chainsMeta, setChainsMeta] = useState<types.ChainsMetadataMap | null>(null)
-  const [schains, setSchains] = useState<types.ISChain[]>([])
-  const [metrics, setMetrics] = useState<types.IMetrics | null>(null)
-  const [stats, setStats] = useState<types.IStats | null>(null)
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false)
   const [stakingTermsAccepted, setStakingTermsAccepted] = useState<boolean>(false)
 
-  const [loadCalled, setLoadCalled] = useState<boolean>(false)
-  const [sc, setSc] = useState<types.staking.ISkaleContractsMap | null>(null)
   const [validators, setValidators] = useState<types.staking.IValidator[]>([])
-  const [validator, setValidator] = useState<types.staking.IValidator | null | undefined>(null)
-  const [validatorDelegations, setValidatorDelegations] = useState<any>(null)
   const [si, setSi] = useState<types.staking.StakingInfoMap>({ 0: null, 1: null, 2: null })
-
-  const [customAddress, setCustomAddress] = useState<types.AddressType | undefined>(undefined)
 
   const mpc = useMetaportStore((state: MetaportState) => state.mpc)
   const transfersHistory = useMetaportStore((state) => state.transfersHistory)
@@ -112,19 +110,10 @@ export default function Router() {
   const { data: walletClient } = useWagmiWalletClient()
   const { switchChainAsync } = useWagmiSwitchNetwork()
 
-  const [searchParams, _] = useSearchParams()
-  const endpoint = PROXY_ENDPOINTS[mpc.config.skaleNetwork]
-  const statsApi = STATS_API[mpc.config.skaleNetwork]
-
   useEffect(() => {
     setTransfersHistory(getHistoryFromStorage(mpc.config.skaleNetwork))
-    initSkaleContracts()
     loadMetadata()
   }, [])
-
-  useEffect(() => {
-    setCustomAddress((searchParams.get('_customAddress') as types.AddressType) ?? undefined)
-  }, [location])
 
   useEffect(() => {
     if (transfersHistory.length !== 0) {
@@ -144,75 +133,19 @@ export default function Router() {
     return walletClientToSigner(walletClient!)
   }
 
-  async function loadData() {
-    loadChains()
-    loadMetrics()
-    loadStats()
-  }
-
   async function loadMetadata() {
     setChainsMeta(await loadMeta(mpc.config.skaleNetwork))
   }
 
-  async function loadChains() {
-    try {
-      const response = await fetch(`https://${endpoint}/files/chains.json`)
-      const chainsJson = await response.json()
-      setSchains(formatSChains(chainsJson))
-    } catch (e) {
-      console.log('Failed to load chains')
-      console.error(e)
-    }
-  }
-
-  async function loadMetrics() {
-    try {
-      const response = await fetch(`https://${endpoint}/files/metrics.json`)
-      const metricsJson = await response.json()
-      setMetrics(metricsJson)
-    } catch (e) {
-      console.log('Failed to load metrics')
-      console.error(e)
-    }
-  }
-
-  async function loadStats() {
-    if (statsApi === null) return
-    try {
-      const response = await fetch(statsApi)
-      const statsResp = await response.json()
-      setStats(statsResp.payload)
-    } catch (e) {
-      console.log('Failed to load stats')
-      console.error(e)
-    }
-  }
-
-  async function initSkaleContracts() {
-    setLoadCalled(true)
-    if (loadCalled) return
-    setSc(await initContracts(mpc))
-  }
-
   async function loadValidators() {
-    if (!sc) return
-    const validatorsData = await getValidators(sc.validatorService)
+    if (!props.sc) return
+    const validatorsData = await getValidators(props.sc.validatorService)
     setValidators(validatorsData)
   }
 
-  async function loadValidator() {
-    const addr = customAddress ?? address
-    if (!sc || !addr) return
-    const validatorData = await getValidator(sc.validatorService, addr)
-    setValidator(validatorData)
-    if (validatorData && validatorData.id) {
-      setValidatorDelegations(await getValidatorDelegations(sc, validatorData.id))
-    }
-  }
-
   async function loadStakingInfo() {
-    if (!sc) return
-    setSi(await getStakingInfoMap(sc, customAddress ?? address))
+    if (!props.sc) return
+    setSi(await getStakingInfoMap(props.sc, props.customAddress ?? address))
   }
 
   function isToSPage(pages: any): boolean {
@@ -262,7 +195,7 @@ export default function Router() {
       <Helmet>
         <meta property="og:url" content={currentUrl} />
       </Helmet>
-      <MetricsWarning metrics={metrics} />
+      <MetricsWarning metrics={props.metrics} />
       <ScrollToTop />
       <TransitionGroup>
         <CSSTransition key={location.pathname} classNames="fade" timeout={300} component={null}>
@@ -273,8 +206,8 @@ export default function Router() {
                 <Start
                   skaleNetwork={mpc.config.skaleNetwork}
                   chainsMeta={chainsMeta}
-                  metrics={metrics}
-                  loadData={loadData}
+                  metrics={props.metrics}
+                  loadData={props.loadData}
                 />
               }
             />
@@ -288,9 +221,9 @@ export default function Router() {
               element={
                 <Chains
                   chainsMeta={chainsMeta}
-                  loadData={loadData}
-                  schains={schains}
-                  metrics={metrics}
+                  loadData={props.loadData}
+                  schains={props.schains}
+                  metrics={props.metrics}
                   mpc={mpc}
                   isXs={isXs}
                 />
@@ -301,10 +234,10 @@ export default function Router() {
                 path=":name"
                 element={
                   <Chain
-                    loadData={loadData}
-                    schains={schains}
-                    stats={stats}
-                    metrics={metrics}
+                    loadData={props.loadData}
+                    schains={props.schains}
+                    stats={props.stats}
+                    metrics={props.metrics}
                     mpc={mpc}
                     chainsMeta={chainsMeta}
                     isXs={isXs}
@@ -323,8 +256,8 @@ export default function Router() {
                   isXs={isXs}
                   mpc={mpc}
                   chainsMeta={chainsMeta}
-                  metrics={metrics}
-                  loadData={loadData}
+                  metrics={props.metrics}
+                  loadData={props.loadData}
                 />
               }
             />
@@ -336,8 +269,8 @@ export default function Router() {
                     chainsMeta={chainsMeta}
                     mpc={mpc}
                     isXs={isXs}
-                    metrics={metrics}
-                    loadData={loadData}
+                    metrics={props.metrics}
+                    loadData={props.loadData}
                   />
                 }
               />
@@ -362,10 +295,10 @@ export default function Router() {
                   validators={validators}
                   loadValidators={loadValidators}
                   loadStakingInfo={loadStakingInfo}
-                  sc={sc}
+                  sc={props.sc}
                   si={si}
-                  address={customAddress ?? address}
-                  customAddress={customAddress}
+                  address={props.customAddress ?? address}
+                  customAddress={props.customAddress}
                   getMainnetSigner={getMainnetSigner}
                 />
               }
@@ -377,7 +310,8 @@ export default function Router() {
                   mpc={mpc}
                   validators={validators}
                   loadValidators={loadValidators}
-                  sc={sc}
+                  sc={props.sc}
+                  validatorDelegations={props.validatorDelegations}
                 />
               }
             />
@@ -387,12 +321,12 @@ export default function Router() {
                 <Validator
                   mpc={mpc}
                   address={address}
-                  customAddress={customAddress}
-                  loadValidator={loadValidator}
-                  sc={sc}
-                  validator={validator}
+                  customAddress={props.customAddress}
+                  loadValidator={props.loadValidator}
+                  sc={props.sc}
+                  validator={props.validator}
                   isXs={isXs}
-                  delegations={validatorDelegations}
+                  delegations={props.validatorDelegations}
                   getMainnetSigner={getMainnetSigner}
                 />
               }
@@ -406,7 +340,7 @@ export default function Router() {
                     validators={validators}
                     loadValidators={loadValidators}
                     loadStakingInfo={loadStakingInfo}
-                    sc={sc}
+                    sc={props.sc}
                     si={si}
                     address={address}
                     getMainnetSigner={getMainnetSigner}
@@ -421,7 +355,7 @@ export default function Router() {
                     validators={validators}
                     loadValidators={loadValidators}
                     loadStakingInfo={loadStakingInfo}
-                    sc={sc}
+                    sc={props.sc}
                     si={si}
                   />
                 }

@@ -561,10 +561,6 @@ body::-webkit-scrollbar {
   border: none !important;
 }
 
-button:hover {
-  border-color: $sk-prim !important;
-}
-
 .copyBoard {
   margin: 10px 0 !important;
   padding: 13pt 15pt !important;
@@ -806,6 +802,22 @@ input[type=number] {
   background: #93B8EC;
   border-radius: 20px;
   padding: 3px 6px;
+
+  p {
+    color: #000000de !important;
+    font-weight: 600 !important;
+  }
+}
+
+.chipNotification {
+  background: #e94e4e;
+  border-radius: 20px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   p {
     color: #000000de !important;
