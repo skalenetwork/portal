@@ -94,6 +94,8 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   const { data: walletClient } = useWagmiWalletClient()
   const { switchChainAsync } = useWagmiSwitchNetwork()
 
+  const addr = customAddress ?? address
+
   useEffect(() => {
     loadData()
     const intervalId = setInterval(loadData, DEFAULT_UPDATE_INTERVAL_MS)
@@ -121,7 +123,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
       setTokenUrl(getExplorerUrlForAddress(network, paymasterChain, tokenAddress))
       setSklToken(skl)
     }
-    setTokenBalance(await skl.balanceOf(address))
+    setTokenBalance(await skl.balanceOf(addr))
   }
 
   async function retrieveRewards() {
