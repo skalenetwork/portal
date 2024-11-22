@@ -43,7 +43,6 @@ import ProfileModal from './components/profile/ProfileModal'
 
 import { formatSChains } from './core/chain'
 import { STATS_API } from './core/constants'
-import { useSearchParams } from 'react-router-dom'
 import { getValidatorDelegations } from './core/delegation/staking'
 import { getValidator } from './core/delegation'
 import { initContracts } from './core/contracts'
@@ -65,8 +64,6 @@ export default function Portal() {
   const endpoint = PROXY_ENDPOINTS[mpc.config.skaleNetwork]
   const statsApi = STATS_API[mpc.config.skaleNetwork]
 
-  const [searchParams, _] = useSearchParams()
-
   const { address } = useWagmiAccount()
   if (!mpc) return <div></div>
 
@@ -78,10 +75,6 @@ export default function Portal() {
   useEffect(() => {
     loadValidator()
   }, [address, customAddress, sc])
-
-  useEffect(() => {
-    setCustomAddress((searchParams.get('_customAddress') as types.AddressType) ?? undefined)
-  }, [location])
 
   async function initSkaleContracts() {
     setLoadCalled(true)
@@ -125,11 +118,18 @@ export default function Portal() {
 
   async function loadValidator() {
     const addr = customAddress ?? address
-    if (!sc || !addr) return
+    if (!sc || !addr) {
+      setValidator(undefined)
+      setValidatorDelegations(null)
+      return
+    }
     const validatorData = await getValidator(sc.validatorService, addr)
     setValidator(validatorData)
     if (validatorData && validatorData.id) {
       setValidatorDelegations(await getValidatorDelegations(sc, validatorData.id))
+    } else {
+      setValidator(undefined)
+      setValidatorDelegations(null)
     }
   }
 
@@ -154,6 +154,7 @@ export default function Portal() {
           validator={validator}
           validatorDelegations={validatorDelegations}
           customAddress={customAddress}
+          setCustomAddress={setCustomAddress}
           sc={sc}
           loadValidator={loadValidator}
         />

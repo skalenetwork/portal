@@ -26,7 +26,7 @@ import { useState, useEffect } from 'react'
 import { WalletClient } from 'viem'
 
 import { Helmet } from 'react-helmet'
-import { useLocation, Routes, Route, Navigate } from 'react-router-dom'
+import { useLocation, Routes, Route, Navigate, useSearchParams } from 'react-router-dom'
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { useTheme } from '@mui/material/styles'
@@ -81,6 +81,7 @@ import { loadMeta } from './core/metadata'
 export default function Router(props: {
   loadData: () => Promise<void>
   customAddress?: types.AddressType
+  setCustomAddress: (address: types.AddressType) => void
   schains: types.ISChain[]
   stats: types.IStats | null
   metrics: types.IMetrics | null
@@ -105,6 +106,7 @@ export default function Router(props: {
   const mpc = useMetaportStore((state: MetaportState) => state.mpc)
   const transfersHistory = useMetaportStore((state) => state.transfersHistory)
   const setTransfersHistory = useMetaportStore((state) => state.setTransfersHistory)
+  const [searchParams, _] = useSearchParams()
 
   const { address } = useWagmiAccount()
   const { data: walletClient } = useWagmiWalletClient()
@@ -114,6 +116,10 @@ export default function Router(props: {
     setTransfersHistory(getHistoryFromStorage(mpc.config.skaleNetwork))
     loadMetadata()
   }, [])
+
+  useEffect(() => {
+    props.setCustomAddress((searchParams.get('_customAddress') as types.AddressType) ?? undefined)
+  }, [location])
 
   useEffect(() => {
     if (transfersHistory.length !== 0) {

@@ -25,6 +25,7 @@ import { cls, cmn } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
 import { getProposedDelegationsCount } from '../../core/delegation'
+import { Tooltip } from '@mui/material'
 
 export default function DelegationsNotification(props: {
   validatorDelegations: types.staking.IDelegation[] | null
@@ -34,9 +35,15 @@ export default function DelegationsNotification(props: {
 
   if (proposedDelegations && proposedDelegations > 0) {
     return (
-      <div className={cls(props.className, 'chipNotification')}>
-        <p className={cls(cmn.p, cmn.p5)}>{proposedDelegations}</p>
-      </div>
+      <Tooltip
+        title={`You have ${proposedDelegations} pending delegation${
+          proposedDelegations > 1 && 's'
+        }`}
+      >
+        <div className={cls(props.className, 'chipNotification')}>
+          <p className={cls(cmn.p, cmn.p5)}>{proposedDelegations}</p>
+        </div>
+      </Tooltip>
     )
   }
 }

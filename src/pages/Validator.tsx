@@ -107,12 +107,6 @@ export default function Validator(props: {
   const remainingItems = Math.max(0, sortedDelegations.length - visibleItems)
 
   useEffect(() => {
-    if (props.sc !== null) {
-      props.loadValidator()
-    }
-  }, [props.sc, props.address, props.customAddress])
-
-  useEffect(() => {
     setVisibleItems(ITEMS_PER_PAGE)
   }, [sortBy])
 
