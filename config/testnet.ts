@@ -2,6 +2,7 @@ import { type interfaces } from '@skalenetwork/metaport'
 
 export const METAPORT_CONFIG: interfaces.MetaportConfig = {
   skaleNetwork: 'testnet',
+  mainnetEndpoint: 'https://ethereum-holesky-rpc.publicnode.com',
   openOnLoad: true,
   openButton: true,
   debug: false,
