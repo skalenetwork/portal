@@ -119,7 +119,7 @@ export default function Portal() {
   async function loadValidator() {
     const addr = customAddress ?? address
     if (!sc || !addr) {
-      setValidator(undefined)
+      setValidator(null)
       setValidatorDelegations(null)
       return
     }
