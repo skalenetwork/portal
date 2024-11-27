@@ -70,6 +70,11 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       symbol: '$SKIVVY',
       decimals: '8',
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3441.png'
+    },
+    unp: {
+      name: 'Unipoly Coin',
+      symbol: 'UNP',
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/28735.png'
     }
   },
   connections: {
@@ -141,6 +146,15 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           chains: {
             'juicy-low-small-testnet': {},
             'giant-half-dual-testnet': {
+              hub: 'juicy-low-small-testnet'
+            }
+          }
+        },
+        unp: {
+          address: '0xdB025eDa639AC08e27bFB899c3E040fFFF817e47',
+          chains: {
+            'juicy-low-small-testnet': {},
+            'lanky-ill-funny-testnet': {
               hub: 'juicy-low-small-testnet'
             }
           }
@@ -220,6 +234,18 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               clone: true
             },
             'aware-fake-trim-testnet': {
+              clone: true
+            },
+            mainnet: {
+              hub: 'juicy-low-small-testnet',
+              clone: true
+            }
+          }
+        },
+        unp: {
+          address: '0xb22020Ec2C92e2ca043aC5172747c529a79abF92',
+          chains: {
+            'juicy-low-small-testnet': {
               clone: true
             },
             mainnet: {
@@ -331,6 +357,17 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             },
             'giant-half-dual-testnet': {
               wrapper: '0x23d67AF9E78f757Ba6a678ECfc8d346C1e0b3D88'
+            }
+          }
+        },
+        unp: {
+          address: '0xbB4dFb0783Cb966Dc94dE548047A08C6b0F439a7',
+          chains: {
+            mainnet: {
+              clone: true
+            },
+            'lanky-ill-funny-testnet': {
+              wrapper: '0x1Dbc55b18F6184Bd4642820baea0260f9D540667'
             }
           }
         }
