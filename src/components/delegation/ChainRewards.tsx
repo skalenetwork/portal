@@ -79,10 +79,10 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
 }) => {
   const paymaster = initPaymaster(mpc)
 
-  const [rewardAmount, setRewardAmount] = useState<bigint | null>(null)
-  const [sklToken, setSklToken] = useState<Contract | null>(null)
-  const [tokenBalance, setTokenBalance] = useState<bigint | null>(null)
-  const [tokenUrl, setTokenUrl] = useState<string | null>(null)
+  const [rewardAmount, setRewardAmount] = useState<bigint | undefined>(undefined)
+  const [sklToken, setSklToken] = useState<Contract | undefined>(undefined)
+  const [tokenBalance, setTokenBalance] = useState<bigint | undefined>(undefined)
+  const [tokenUrl, setTokenUrl] = useState<string | undefined>(undefined)
 
   const [btnText, setBtnText] = useState<string | undefined>()
   const [errorMsg, setErrorMsg] = useState<string | undefined>()
@@ -118,7 +118,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   async function loadSkaleToken() {
     const tokenAddress = await paymaster.skaleToken()
     let skl = sklToken
-    if (skl === null) {
+    if (skl === undefined) {
       skl = new Contract(tokenAddress, ERC_ABIS.erc20.abi, paymaster.runner)
       setTokenUrl(getExplorerUrlForAddress(network, paymasterChain, tokenAddress))
       setSklToken(skl)
@@ -179,7 +179,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
       />
       <Tile
         disabled={rewardAmount === 0n}
-        value={rewardAmount !== null && formatBalance(rewardAmount, 'SKL')}
+        value={rewardAmount !== undefined && formatBalance(rewardAmount, 'SKL')}
         text="Rewards on Europa Hub"
         icon={<EventAvailableRoundedIcon />}
         grow
@@ -205,7 +205,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
                 size="md"
                 transparent
                 grow
-                value={tokenBalance !== null && formatBalance(tokenBalance, 'SKL')}
+                value={tokenBalance !== undefined && formatBalance(tokenBalance, 'SKL')}
                 ri={!isXs}
                 text="Balance on Europa Hub"
                 icon={<TokenIcon tokenSymbol="skl" size="xs" />}
