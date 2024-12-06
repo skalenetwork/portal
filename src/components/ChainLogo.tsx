@@ -57,7 +57,9 @@ export default function ChainLogo(props: {
   if (props.app) {
     logoName += `-${props.app}`
   }
-  const baseLocalPath = logoName.replace(/-([a-z])/g, (_, g) => g.toUpperCase())
+  const baseLocalPath = logoName
+    .replace(/^(_+)/, '$1')
+    .replace(/-([a-z0-9])/gi, (_, g) => g.toUpperCase())
 
   const [url, setUrl] = useState<any | null>(props.logos[baseLocalPath])
 

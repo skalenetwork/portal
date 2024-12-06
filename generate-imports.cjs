@@ -21,7 +21,9 @@ const generateNamespaceExportsForDir = (dir) => {
     if (svgFiles.length === 0) return; // Skip folders without SVGs
 
     const namespaceExports = svgFiles.map(file => {
-        const variableName = path.basename(file, path.extname(file)).replace(/-([a-z])/g, (_, g) => g.toUpperCase()); // Convert kebab-case to camelCase
+        const variableName = path.basename(file, path.extname(file))
+            .replace(/^(_+)/, '$1')
+            .replace(/-([a-z0-9])/gi, (_, g) => g.toUpperCase());
         return `export * as ${variableName} from './${path.basename(file)}';`;
     }).join('\n');
 
