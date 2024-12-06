@@ -21,46 +21,38 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, styles, type interfaces } from '@skalenetwork/metaport'
+import { cmn, cls, styles } from '@skalenetwork/metaport'
 import Skeleton from '@mui/material/Skeleton'
 import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
 import PieChartRoundedIcon from '@mui/icons-material/PieChartRounded'
 
 import Headline from '../Headline'
 import DelegationsToValidator from './DelegationsToValidator'
-
-import {
-  DelegationType,
-  type IDelegationInfo,
-  type IDelegationsToValidator,
-  type IRewardInfo,
-  type IValidator,
-  type StakingInfoMap
-} from '../../core/interfaces'
+import { types } from '@/core'
 
 export default function Delegations(props: {
-  si: StakingInfoMap
-  validators: IValidator[]
-  retrieveRewards: (rewardInfo: IRewardInfo) => Promise<void>
-  loading: IRewardInfo | IDelegationInfo | false
+  si: types.staking.StakingInfoMap
+  validators: types.staking.IValidator[]
+  retrieveRewards: (rewardInfo: types.staking.IRewardInfo) => Promise<void>
+  loading: types.staking.IRewardInfo | types.staking.IDelegationInfo | false
   setErrorMsg: (errorMsg: string | undefined) => void
   errorMsg: string | undefined
-  unstake: (delegationInfo: IDelegationInfo) => Promise<void>
-  cancelRequest: (delegationInfo: IDelegationInfo) => Promise<void>
+  unstake: (delegationInfo: types.staking.IDelegationInfo) => Promise<void>
+  cancelRequest: (delegationInfo: types.staking.IDelegationInfo) => Promise<void>
   isXs: boolean
-  address: interfaces.AddressType | undefined
-  customAddress: interfaces.AddressType | undefined
-  customRewardAddress: interfaces.AddressType | undefined
-  setCustomRewardAddress: (customRewardAddress: interfaces.AddressType | undefined) => void
+  address: types.AddressType | undefined
+  customAddress: types.AddressType | undefined
+  customRewardAddress: types.AddressType | undefined
+  setCustomRewardAddress: (customRewardAddress: types.AddressType | undefined) => void
 }) {
-  const loaded = props.si[DelegationType.REGULAR] !== null
+  const loaded = props.si[types.staking.DelegationType.REGULAR] !== null
   const noDelegations =
-    (!props.si[DelegationType.REGULAR] ||
-      props.si[DelegationType.REGULAR]?.delegations.length === 0) &&
-    (!props.si[DelegationType.ESCROW] ||
-      props.si[DelegationType.ESCROW]?.delegations.length === 0) &&
-    (!props.si[DelegationType.ESCROW2] ||
-      props.si[DelegationType.ESCROW2]?.delegations.length === 0)
+    (!props.si[types.staking.DelegationType.REGULAR] ||
+      props.si[types.staking.DelegationType.REGULAR]?.delegations.length === 0) &&
+    (!props.si[types.staking.DelegationType.ESCROW] ||
+      props.si[types.staking.DelegationType.ESCROW]?.delegations.length === 0) &&
+    (!props.si[types.staking.DelegationType.ESCROW2] ||
+      props.si[types.staking.DelegationType.ESCROW2]?.delegations.length === 0)
   return (
     <div>
       <Headline
@@ -86,13 +78,13 @@ export default function Delegations(props: {
         </div>
       ) : (
         <div>
-          {props.si[DelegationType.REGULAR]?.delegations.map(
-            (delegationsToValidator: IDelegationsToValidator, index: number) => (
+          {props.si[types.staking.DelegationType.REGULAR]?.delegations.map(
+            (delegationsToValidator: types.staking.IDelegationsToValidator, index: number) => (
               <DelegationsToValidator
                 key={index}
                 validators={props.validators}
                 delegationsToValidator={delegationsToValidator}
-                delegationType={DelegationType.REGULAR}
+                delegationType={types.staking.DelegationType.REGULAR}
                 retrieveRewards={props.retrieveRewards}
                 loading={props.loading}
                 unstake={props.unstake}
@@ -105,13 +97,13 @@ export default function Delegations(props: {
               />
             )
           )}
-          {props.si[DelegationType.ESCROW]?.delegations.map(
-            (delegationsToValidator: IDelegationsToValidator, index: number) => (
+          {props.si[types.staking.DelegationType.ESCROW]?.delegations.map(
+            (delegationsToValidator: types.staking.IDelegationsToValidator, index: number) => (
               <DelegationsToValidator
                 key={index}
                 validators={props.validators}
                 delegationsToValidator={delegationsToValidator}
-                delegationType={DelegationType.ESCROW}
+                delegationType={types.staking.DelegationType.ESCROW}
                 retrieveRewards={props.retrieveRewards}
                 loading={props.loading}
                 unstake={props.unstake}
@@ -124,13 +116,13 @@ export default function Delegations(props: {
               />
             )
           )}
-          {props.si[DelegationType.ESCROW2]?.delegations.map(
-            (delegationsToValidator: IDelegationsToValidator, index: number) => (
+          {props.si[types.staking.DelegationType.ESCROW2]?.delegations.map(
+            (delegationsToValidator: types.staking.IDelegationsToValidator, index: number) => (
               <DelegationsToValidator
                 key={index}
                 validators={props.validators}
                 delegationsToValidator={delegationsToValidator}
-                delegationType={DelegationType.ESCROW2}
+                delegationType={types.staking.DelegationType.ESCROW2}
                 retrieveRewards={props.retrieveRewards}
                 loading={props.loading}
                 unstake={props.unstake}

@@ -22,28 +22,27 @@
 
 import { useState, useEffect, ChangeEvent } from 'react'
 import { isAddress } from 'ethers'
+import { SkPaper, cls, cmn, styles } from '@skalenetwork/metaport'
+import { types } from '@/core'
 
-import Box from '@mui/material/Box'
-import Button from '@mui/material/Button'
-import Modal from '@mui/material/Modal'
-import { SkPaper, cls, cmn, interfaces, styles } from '@skalenetwork/metaport'
-import Tile from '../Tile'
-import { Collapse, Container, TextField } from '@mui/material'
-
+import { Collapse, Container, TextField, Box, Button, Modal } from '@mui/material'
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import ReportProblemRoundedIcon from '@mui/icons-material/ReportProblemRounded'
 
 import Jazzicon from 'react-jazzicon/dist/Jazzicon'
 import { jsNumberForAddress } from 'react-jazzicon'
+
+import Tile from '../Tile'
 import Message from '../Message'
-import { ZERO_ADDRESS } from '../../core/constants'
 import SkBtn from '../SkBtn'
 
+import { ZERO_ADDRESS } from '../../core/constants'
+
 export default function RetrieveRewardModal(props: {
-  address: interfaces.AddressType | undefined
-  customRewardAddress: interfaces.AddressType | undefined
-  setCustomRewardAddress: (customRewardAddress: interfaces.AddressType | undefined) => void
+  address: types.AddressType | undefined
+  customRewardAddress: types.AddressType | undefined
+  setCustomRewardAddress: (customRewardAddress: types.AddressType | undefined) => void
   retrieveRewards: () => void
   loading: boolean
   disabled: boolean
@@ -65,7 +64,7 @@ export default function RetrieveRewardModal(props: {
 
   const saveAddress = () => {
     if (isAddress(inputAddress)) {
-      props.setCustomRewardAddress(inputAddress as interfaces.AddressType)
+      props.setCustomRewardAddress(inputAddress as types.AddressType)
       setEdit(false)
       setErrorMsg(undefined)
     } else {

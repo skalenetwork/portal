@@ -22,20 +22,21 @@
  */
 
 import { type MetaportCore } from '@skalenetwork/metaport'
+import { types } from '@/core'
+
 import Grid from '@mui/material/Grid'
 
 import Loader from '../Loader'
 import ValidatorCard from './ValidatorCard'
-import { type DelegationType, type IValidator } from '../../core/interfaces'
 import { ESCROW_VALIDATORS, filterValidators } from '../../core/delegation/validators'
 
 export default function Validators(props: {
   mpc: MetaportCore
-  validators: IValidator[]
+  validators: types.staking.IValidator[]
   validatorId: number | undefined
   setValidatorId: any
   internal?: boolean
-  delegationType: DelegationType
+  delegationType: types.staking.DelegationType
   size?: 'md' | 'lg'
 }) {
   const size = props.size ?? 'md'
@@ -51,7 +52,7 @@ export default function Validators(props: {
 
   return (
     <Grid container spacing={size === 'md' ? 2 : 3}>
-      {validators.map((validator: IValidator, index) => (
+      {validators.map((validator: types.staking.IValidator, index) => (
         <ValidatorCard
           key={index}
           validator={validator}

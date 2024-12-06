@@ -76,6 +76,10 @@ body {
   width: 100%;
 }
 
+.fullH {
+  height: 100%;
+}
+
 .mp__btnConnect {
   position: relative;
 
@@ -449,12 +453,8 @@ body::-webkit-scrollbar {
   box-shadow: none !important;
 }
 
-.btnerror {
-  background: #f4433621;
-}
-
-.btnwarning {
-  background: rgb(244 139 54 / 13%);
+.btnDisabled {
+  background: #262626;
 }
 
 .btnSmLoading {
@@ -541,6 +541,12 @@ body::-webkit-scrollbar {
     width: 12pt;
     height: 12pt;
   }
+}
+
+.MuiToggleButton-root {
+  border-radius: 25px !important;
+  padding: 4px 10px;
+  border: none !important;
 }
 
 .copyBoard {
@@ -791,6 +797,22 @@ input[type=number] {
   }
 }
 
+.chipNotification {
+  background: #e94e4e;
+  border-radius: 20px;
+  width: 20px;
+  height: 20px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  p {
+    color: #000000de !important;
+    font-weight: 600 !important;
+  }
+}
+
 .chipTrending {
   background: linear-gradient(180deg, #e56d36, #D0602D) !important;
 
@@ -825,12 +847,13 @@ input[type=number] {
 }
 
 .chipXs {
-  border-radius: 20px;
-  padding: 3px 6px;
+  border-radius: 15px;
+  padding: 6px 8px;
+  text-align: center;
 
   svg {
-    width: 14px;
-    height: 14px;
+    width: 12px;
+    height: 12px;
   }
 }
 
@@ -841,16 +864,6 @@ input[type=number] {
   svg {
     width: 16px;
     height: 16px;
-  }
-}
-
-.chipXs {
-  border-radius: 15px;
-  padding: 4px 6px;
-
-  svg {
-    width: 12px;
-    height: 12px;
   }
 }
 
@@ -883,6 +896,11 @@ input[type=number] {
 .chip_DELEGATED {
   background: linear-gradient(180deg, #0f3d29, #0a2a1c);
   color: #3cda94;
+}
+
+.chip_REWARDS {
+  background: linear-gradient(180deg, #3d390f, #2a230a);
+  color: #dac83c;
 }
 
 .chip_ACCEPTED {
@@ -1149,7 +1167,6 @@ input[type=number] {
   }
 }
 
-
 .trustedBadge {
   color: #0095f6;
 }
@@ -1157,12 +1174,6 @@ input[type=number] {
 .untrustedBadge {
   color: #ffb817;
 }
-
-.validatorCard {
-  height: 100% !important;
-  cursor: pointer;
-}
-
 
 .pOneLine {
   overflow: hidden;
@@ -1426,7 +1437,21 @@ input[type=number] {
   display: none;
 }
 
+.opacity0 {
+  opacity: 0;
+}
+
 .MuiTooltip-tooltip {
   font-size: 0.8rem !important;
   padding: 8px 12px !important;
+}
+
+.delegationFlowText {
+  border-top: 2px #4a4a4a solid;
+  margin: 0 10px;
+  padding: 2px 5px 0 5px;
+}
+
+.delegationFlowIcon {
+  margin-top: -20px;
 }

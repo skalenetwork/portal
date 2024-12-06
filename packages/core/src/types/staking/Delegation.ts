@@ -69,3 +69,22 @@ export interface IDelegationInfo {
   delegationId: bigint
   delegationType: DelegationType
 }
+
+export interface IDelegationTotals {
+  proposed: {
+    count: number
+    amount: bigint
+  }
+  accepted: {
+    count: number
+    amount: bigint
+  }
+  delegated: {
+    count: number
+    amount: bigint
+  }
+  completed: {
+    count: number
+    amount: bigint
+  }
+}
