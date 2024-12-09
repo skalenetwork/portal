@@ -565,8 +565,8 @@ body::-webkit-scrollbar {
 }
 
 code {
+  white-space: pre-wrap;
   overflow: hidden;
-  white-space: nowrap;
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }

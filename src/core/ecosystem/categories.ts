@@ -41,7 +41,7 @@ export const categories: Categories = {
   defi: {
     name: 'DeFi',
     subcategories: {
-      dex: { name: 'DEX' },
+      dex: { name: 'DEX' }
     }
   },
   'digital-collectibles': { name: 'Digital Collectibles', subcategories: {} },
@@ -78,7 +78,7 @@ export const categories: Categories = {
   other: { name: 'Other', subcategories: {} },
   partner: { name: 'Partner', subcategories: {} },
   security: { name: 'Security', subcategories: {} },
-  'social': { name: 'Social', subcategories: {} },
+  social: { name: 'Social', subcategories: {} },
   tools: { name: 'Tools', subcategories: {} },
   wallet: { name: 'Wallet', subcategories: {} },
   metaverse: { name: 'Metaverse', subcategories: {} },
