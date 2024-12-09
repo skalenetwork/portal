@@ -105,7 +105,11 @@ export const SKALE_SOCIAL_LINKS = {
 }
 
 export const DEFAULT_SWELL_URL = 'https://swell.skale.space/'
+export const GET_STARTED_URL = 'https://skale.space/get-started-on-skale'
 
 export const DEFAULT_MIN_SFUEL_WEI = 100000000000000
 export const SFUEL_CHECK_INTERVAL = 10000
 export const DOCS_PORTAL_URL = 'https://docs.skale.space/'
+
+export const ITEMS_PER_PAGE = 100
+export const BATCH_SIZE = 150

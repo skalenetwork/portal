@@ -17,13 +17,13 @@ It's possible to embed Bridge link with fallback into your dApp.
 #### Directing users to the particular pair of chains
 
 ```
-http://[BASE_BRIDGE_URL]/?from=[FROM_CHAIN_NAME]&to=[TO_CHAIN_NAME]&token=[TOKEN_SYMBOL]&type=[TOKEN_TYPE]&from-app=[FROM_APP_NAME]&to-app=[TO_APP_NAME]
+http://[BASE_PORTAL_URL]/bridge/?from=[FROM_CHAIN_NAME]&to=[TO_CHAIN_NAME]&token=[TOKEN_SYMBOL]&type=[TOKEN_TYPE]&from-app=[FROM_APP_NAME]&to-app=[TO_APP_NAME]
 ```
 
 Example:
 
 ```
-http://[BASE_BRIDGE_URL]/?from=elated-tan-skat&to=green-giddy-denebola&token=skl&type=erc20&from-app=ruby&to-app=nftb
+https://[BASE_PORTAL_URL]/bridge/?from=elated-tan-skat&to=green-giddy-denebola&token=usdc&type=erc20&from-app=sushiswap&to-app=bit-hotel
 ```
 
 #### Customizing transfer parameters
@@ -42,12 +42,10 @@ Optional params:
 - `from-app` - when transfering from a Hub chain, it's possible to specify the name of the app to transfer from
 - `to-app` - when transfering to a Hub chain, it's possible to specify the name of the app to transfer to
 
-
 Will be available in the future:
 
 - `fallback-url` - URL with fallback link to redirect user after the transfer is completed (should be encoded)
 - `fallback-text` - Text to display on the fallback button (should be encoded)
-
 
 In JS you can use the following function to encode the URL:
 
@@ -58,30 +56,39 @@ function encodeUrl(url) {
 ```
 
 ## Getting Started
+
 To get started with the SKALE Portal, users can visit the [SKALE Portal](https://portal.skale.space/) website and click on the "Connect wallet" button. Users can then connect their wallets and select the source and destination blockchains for their transfers.
 
 ## Development Setup
+
 If you're interested in contributing to the SKALE Portal, follow these steps to set up your development environment:
 
 1. Clone the repository: `git clone --recurse-submodules https://github.com/skalenetwork/portal.git`
-2. Install dependencies: `cd portal && yarn install`
-3. Prepare metadata: `NETWORK_NAME=[SKALE NETWORK NAME - mainnet or staging] bash build.sh`
-4. Export Mainnet Ethereum endpoint to your env: `export VITE_MAINNET_ENDPOINT=XXX` or create `.env` file in the root dir
-5. Start the development server: `yarn start`
+2. Install dependencies: `cd portal && bun i`
+3. Build the project:
+
+- Mainnet env: `bun build:mainnet`
+- Testnet env: `bun build:testnet`
+
+4. Start the development server: `VITE_WC_PROJECT_ID=[PUT WALLETCONNECT PROJECT ID HERE] bun dev`
 
 The SKALE Portal is built using the Create React App TypeScript template and uses [Metaport](https://github.com/skalenetwork/metaport) and [ima-js](https://github.com/skalenetwork/ima-js) libraries.
 
 To contribute to the project, create a new branch with a descriptive name for your changes, make your changes, and submit a pull request.
 
-## Environment Variables
+### Required Environment Variables
 
 ```bash
-VITE_MAINNET_ENDPOINT= # mainnet endpoint, required
-VITE_WC_PROJECT_ID= # walletconnect project ID, optional
+VITE_WC_PROJECT_ID= # walletconnect project ID, REQUIRED
+```
+
+### Optional Environment Variables
+
+```bash
+VITE_MAINNET_ENDPOINT= # mainnet endpoint, optional
 VITE_TRANSAK_STAGING_ENV=true # set test env for transak, optional
 VITE_TRANSAK_API_KEY= # onramp API key, optional
 ```
-
 
 ## Security and Liability
 

@@ -122,6 +122,16 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       symbol: 'wCT1',
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/12648.png',
       decimals: '2'
+    },
+    flag: {
+      name: 'FLAG',
+      iconUrl: 'https://assets.coingecko.com/coins/images/20726/standard/token_logo.ico',
+      symbol: 'FLAG',
+    },
+    reth: {
+      name: 'Rocket Pool ETH',
+      iconUrl: 'https://assets.coingecko.com/coins/images/20764/standard/reth.png',
+      symbol: 'rETH'
     }
   },
   connections: {
@@ -141,6 +151,15 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         }
       },
       erc20: {
+        reth: {
+          address: '0xae78736cd615f374d3085123a210448e74fc6393',
+          chains: {
+            'elated-tan-skat': {},
+            'green-giddy-denebola': {
+              hub: 'elated-tan-skat'
+            }
+          }
+        },
         skl: {
           address: '0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7',
           chains: {
@@ -301,6 +320,23 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         }
       },
       erc20: {
+        flag: {
+          address: '0xcdF030a3E65f917DFa8d74555A64a5eC5303c88e',
+          chains: {
+            'green-giddy-denebola': {}
+          }
+        },
+        reth: {
+          address: '0x4c21E0Bde3f02aDea7a874DBd705c30a3187eeaf',
+          chains: {
+            mainnet: {
+              clone: true
+            },
+            'green-giddy-denebola': {
+              wrapper: '0x113b3B0B813B856fbfC366595EdD85bC7A4DB74A'
+            }
+          }
+        },
         skl: {
           address: '0xE0595a049d02b7674572b0d59cd4880Db60EDC50',
           chains: {
@@ -605,6 +641,26 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         }
       },
       erc20: {
+        flag: {
+          address: '0x082081c8E607ca6C1c53aC093cAb3847ED59C0b0',
+          chains: {
+            'elated-tan-skat': {
+              clone: true
+            }
+          }
+        },
+        reth: {
+          address: '0xa17dc9A0b3057F0c8169CEA7536B0f6bc46bc414',
+          chains: {
+            'elated-tan-skat': {
+              clone: true
+            },
+            mainnet: {
+              clone: true,
+              hub: 'elated-tan-skat'
+            }
+          }
+        },
         skl: {
           address: '0x7F73B66d4e6e67bCdeaF277b9962addcDabBFC4d',
           chains: {

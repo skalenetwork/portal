@@ -28,7 +28,6 @@ import {
   cmn,
   cls,
   TokenIcon,
-  type interfaces,
   fromWei,
   styles,
   toWei,
@@ -43,13 +42,13 @@ import { TextField } from '@mui/material'
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded'
 import TransitEnterexitRoundedIcon from '@mui/icons-material/TransitEnterexitRounded'
 import EventRepeatRoundedIcon from '@mui/icons-material/EventRepeatRounded'
+import AccountTreeRoundedIcon from '@mui/icons-material/AccountTreeRounded'
 
 import Tile from '../Tile'
 import SkStack from '../SkStack'
 import ErrorTile from '../ErrorTile'
 import Loader from '../Loader'
 
-import { type DelegationType, type IValidator, type StakingInfoMap } from '../../core/interfaces'
 import { formatBalance } from '../../core/helper'
 import {
   DEFAULT_DELEGATION_INFO,
@@ -58,17 +57,19 @@ import {
   DEFAULT_ERROR_MSG
 } from '../../core/constants'
 import { initActionContract } from '../../core/contracts'
+import { types } from '@/core'
+import DelegationFlow from './DelegationFlow'
 
 debug.enable('*')
 const log = debug('portal:pages:Delegate')
 
 export default function Delegate(props: {
   mpc: MetaportCore
-  validator: IValidator | undefined
-  si: StakingInfoMap
+  validator: types.staking.IValidator | undefined
+  si: types.staking.StakingInfoMap
   getMainnetSigner: () => Promise<Signer>
-  address: interfaces.AddressType
-  delegationType: DelegationType
+  address: types.AddressType
+  delegationType: types.staking.DelegationType
   loaded: boolean
   delegationTypeAvailable: boolean
   errorMsg: string | undefined
@@ -163,9 +164,17 @@ export default function Delegate(props: {
           value="Auto-renewed"
           text="Renewal"
           icon={<EventRepeatRoundedIcon />}
-          color={true ? undefined : 'error'}
         />
       </SkStack>
+
+      <Tile
+        text="Delegation flow"
+        className={cls(cmn.mbott10)}
+        icon={<AccountTreeRoundedIcon />}
+        grow
+        children={<DelegationFlow className={cls(cmn.mtop10)} />}
+      />
+
       <SkStack>
         <Tile
           text="Enter amount to stake"

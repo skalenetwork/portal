@@ -22,6 +22,7 @@
  */
 
 import { cmn, cls, fromWei, TokenIcon } from '@skalenetwork/metaport'
+import { types } from '@/core'
 
 import PercentRoundedIcon from '@mui/icons-material/PercentRounded'
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
@@ -31,45 +32,56 @@ import { ValidatorBadge, TrustBadge } from './ValidatorBadges'
 import Tile from '../Tile'
 import SkStack from '../SkStack'
 
-import { type IValidator } from '../../core/interfaces'
 import { DEFAULT_ERC20_DECIMALS } from '../../core/constants'
+import { Skeleton } from '@mui/material'
 
-export default function ValidatorInfo(props: { validator: IValidator; className?: string }) {
-  const description = props.validator.description ? props.validator.description : 'No description'
-  const minDelegation = fromWei(props.validator.minimumDelegationAmount, DEFAULT_ERC20_DECIMALS)
+export default function ValidatorInfo(props: {
+  validator: types.staking.IValidator | null
+  className?: string
+}) {
+  const description = props.validator?.description ? props.validator.description : 'No description'
+  const minDelegation =
+    props.validator && fromWei(props.validator.minimumDelegationAmount, DEFAULT_ERC20_DECIMALS)
 
   return (
     <div className={cls(props.className)}>
       <div className={cls(cmn.flex, cmn.mbott10, 'titleSection')}>
-        <ValidatorLogo validatorId={props.validator.id} size="xl" />
-        <div className={cls(cmn.mleft20)}>
-          <div className={cls(cmn.flex, cmn.flexcv)}>
-            <p className={cls(cmn.p, cmn.p1, cmn.p700, cmn.pPrim)}>{props.validator.name}</p>
-            <TrustBadge validator={props.validator} />
-            <ValidatorBadge validator={props.validator} className={cmn.mleft10} />
+        <ValidatorLogo validatorId={props.validator?.id} size="xl" />
+        {props.validator ? (
+          <div className={cls(cmn.mleft20)}>
+            <div className={cls(cmn.flex, cmn.flexcv)}>
+              <p className={cls(cmn.p, cmn.p1, cmn.p700, cmn.pPrim)}>{props.validator.name}</p>
+              <TrustBadge validator={props.validator} />
+              <ValidatorBadge validator={props.validator} className={cmn.mleft10} />
+            </div>
+            <p className={cls(cmn.p, cmn.p4, cmn.p600, cmn.pSec, cmn.mri20, cmn.mtop5)}>
+              {description}
+            </p>
           </div>
-          <p className={cls(cmn.p, cmn.p4, cmn.p600, cmn.pSec, cmn.mri20, cmn.mtop5)}>
-            {description}
-          </p>
-        </div>
+        ) : (
+          <div className={cls(cmn.flexg)}>
+            <Skeleton variant="rectangular" width={200} height={40} />
+            <Skeleton variant="rectangular" width={200} height={20} className={cls(cmn.mtop10)} />
+          </div>
+        )}
       </div>
       <SkStack className={cls(cmn.mtop10)}>
         <Tile
-          value={`${Number(props.validator.feeRate) / 10}% fee`}
+          value={props.validator && `${Number(props.validator.feeRate) / 10}% fee`}
           text="Validator fee"
           grow
           size="md"
           icon={<PercentRoundedIcon />}
         />
         <Tile
-          value={props.validator.id.toString()}
+          value={props.validator && props.validator.id.toString()}
           text="Validator ID"
           grow
           size="md"
           icon={<PersonRoundedIcon />}
         />
         <Tile
-          value={`${minDelegation} SKL`}
+          value={props.validator && `${minDelegation} SKL`}
           text="Minimum delegation amount"
           grow
           size="md"

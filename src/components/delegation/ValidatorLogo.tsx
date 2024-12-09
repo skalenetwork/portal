@@ -52,10 +52,12 @@ export type SizeMap = {
 }
 
 export default function ValidatorLogo(props: {
-  validatorId: number
+  validatorId?: number
   className?: string
   size?: SizeType
 }) {
+  if (!props.validatorId) return
+
   const iconPath = `v${props.validatorId}`
   const iconModule = (VALIDATOR_LOGOS as any)[iconPath]
   const size = props.size ?? 'md'

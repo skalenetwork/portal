@@ -22,19 +22,12 @@
  */
 
 import { useState, useEffect } from 'react'
+import { cmn, cls, type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { types } from '@/core'
 
 import Container from '@mui/material/Container'
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
 import PersonSearchRoundedIcon from '@mui/icons-material/PersonSearchRounded'
-
-import { cmn, cls, type MetaportCore, SkPaper } from '@skalenetwork/metaport'
-
-import {
-  DelegationType,
-  type ISkaleContractsMap,
-  type IValidator,
-  type StakingInfoMap
-} from '../core/interfaces'
 
 import Validators from '../components/delegation/Validators'
 import DelegationTypeSelect from '../components/delegation/DelegationTypeSelect'
@@ -44,13 +37,15 @@ import SkStack from '../components/SkStack'
 
 export default function StakeValidator(props: {
   mpc: MetaportCore
-  validators: IValidator[]
+  validators: types.staking.IValidator[]
   loadValidators: () => void
   loadStakingInfo: () => void
-  sc: ISkaleContractsMap | null
-  si: StakingInfoMap
+  sc: types.staking.ISkaleContractsMap | null
+  si: types.staking.StakingInfoMap
 }) {
-  const [delegationType, setDelegationType] = useState<DelegationType>(DelegationType.REGULAR)
+  const [delegationType, setDelegationType] = useState<types.staking.DelegationType>(
+    types.staking.DelegationType.REGULAR
+  )
   const [validatorId, setValidatorId] = useState<number>()
 
   const handleChange = (event: any) => {
@@ -100,7 +95,7 @@ export default function StakeValidator(props: {
           validators={props.validators}
           validatorId={validatorId}
           setValidatorId={setValidatorId}
-          internal={!compareEnum(delegationType, DelegationType.REGULAR)}
+          internal={!compareEnum(delegationType, types.staking.DelegationType.REGULAR)}
           delegationType={delegationType}
         />
       </SkPaper>
