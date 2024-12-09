@@ -25,6 +25,7 @@ import debug from 'debug'
 import { type Contract } from 'ethers'
 import { types } from '@/core'
 import { DelegationState } from './delegations'
+import { VALIDATORS_BATCH_SIZE } from '../constants'
 
 debug.enable('*')
 const log = debug('portal:core:validators')
@@ -67,18 +68,21 @@ export function sortDelegations(
 
 async function getValidatorsRaw(
   validatorService: Contract,
-  numberOfValidators: bigint[]
+  numberOfValidators: bigint
 ): Promise<Array<types.staking.IValidatorArray | boolean>> {
   const validatorIds = Array.from(Array(Number(numberOfValidators)).keys())
-  return await Promise.all(
-    validatorIds
-      .map((validatorId) => [
-        validatorService.validators(validatorId + 1),
-        validatorService.isAuthorizedValidator(validatorId + 1),
-        validatorService.getNodeAddresses(validatorId + 1)
-      ])
-      .flat()
-  )
+  const results = []
+  for (let i = 0; i < validatorIds.length; i += VALIDATORS_BATCH_SIZE) {
+    const batchIds = validatorIds.slice(i, i + VALIDATORS_BATCH_SIZE)
+    const batchPromises = batchIds.flatMap((validatorId) => [
+      validatorService.validators(validatorId + 1),
+      validatorService.isAuthorizedValidator(validatorId + 1),
+      validatorService.getNodeAddresses(validatorId + 1)
+    ])
+    const batchResults = await Promise.all(batchPromises)
+    results.push(...batchResults)
+  }
+  return results
 }
 
 export async function getValidatorRaw(

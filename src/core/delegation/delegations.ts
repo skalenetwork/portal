@@ -25,7 +25,7 @@ import { Contract, type Provider, getUint } from 'ethers'
 import { ERC_ABIS } from '@skalenetwork/metaport'
 import { types } from '@/core'
 import { maxBigInt } from '../helper'
-import { BATCH_SIZE } from '../constants'
+import { DELEGATIONS_BATCH_SIZE } from '../constants'
 
 export enum DelegationState {
   PROPOSED = 0,
@@ -79,12 +79,12 @@ export async function getDelegationIdsByValidator(
   valId: number
 ): Promise<bigint[]> {
   const totalDelegations = Number(await delegationController.getDelegationsByValidatorLength(valId))
-  const batchCount = Math.ceil(totalDelegations / BATCH_SIZE)
+  const batchCount = Math.ceil(totalDelegations / DELEGATIONS_BATCH_SIZE)
   let allDelegations: bigint[] = []
 
   for (let i = 0; i < batchCount; i++) {
-    const start = i * BATCH_SIZE
-    const batchSize = Math.min(BATCH_SIZE, totalDelegations - start)
+    const start = i * DELEGATIONS_BATCH_SIZE
+    const batchSize = Math.min(DELEGATIONS_BATCH_SIZE, totalDelegations - start)
     const batch = await loadDelegationBatch(delegationController, valId, start, batchSize)
     allDelegations = [...allDelegations, ...batch]
   }
@@ -127,12 +127,12 @@ export async function getDelegations(
   delegationController: Contract,
   delegationIds: bigint[]
 ): Promise<types.staking.IDelegation[]> {
-  const batchCount = Math.ceil(delegationIds.length / BATCH_SIZE)
+  const batchCount = Math.ceil(delegationIds.length / DELEGATIONS_BATCH_SIZE)
   let allDelegations: types.staking.IDelegation[] = []
 
   for (let i = 0; i < batchCount; i++) {
-    const start = i * BATCH_SIZE
-    const batchIds = delegationIds.slice(start, start + BATCH_SIZE)
+    const start = i * DELEGATIONS_BATCH_SIZE
+    const batchIds = delegationIds.slice(start, start + DELEGATIONS_BATCH_SIZE)
     const batchDelegations = await loadDelegationDetailsBatch(delegationController, batchIds)
     allDelegations = [...allDelegations, ...batchDelegations]
   }

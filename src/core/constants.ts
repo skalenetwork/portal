@@ -112,4 +112,5 @@ export const SFUEL_CHECK_INTERVAL = 10000
 export const DOCS_PORTAL_URL = 'https://docs.skale.space/'
 
 export const ITEMS_PER_PAGE = 100
-export const BATCH_SIZE = 150
+export const DELEGATIONS_BATCH_SIZE = 150
+export const VALIDATORS_BATCH_SIZE = 10
