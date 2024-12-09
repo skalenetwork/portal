@@ -49,6 +49,7 @@ export default function SkBtn(props: {
         'btn',
         ['btnSm', size === 'sm'],
         ['btnSmLoading', size === 'sm'],
+        ['btnDisabled', props.loading],
         props.className
       )}
     >
@@ -58,7 +59,13 @@ export default function SkBtn(props: {
     <Button
       color={props.color}
       variant={props.variant}
-      className={cls('btn', 'btn' + props.color, props.className, ['btnSm', size === 'sm'])}
+      className={cls(
+        'btn',
+        'btn' + props.color,
+        props.className,
+        ['btnSm', size === 'sm'],
+        ['btnDisabled', props.disabled]
+      )}
       disabled={props.disabled}
       onClick={props.onClick}
       startIcon={props.startIcon}

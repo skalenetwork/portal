@@ -24,14 +24,8 @@
 import { useState, useEffect } from 'react'
 import { type Signer } from 'ethers'
 import { useParams } from 'react-router-dom'
-import {
-  cmn,
-  cls,
-  type MetaportCore,
-  SkPaper,
-  type interfaces,
-  styles
-} from '@skalenetwork/metaport'
+import { cmn, cls, type MetaportCore, SkPaper, styles } from '@skalenetwork/metaport'
+import { types } from '@/core'
 
 import Container from '@mui/material/Container'
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
@@ -46,13 +40,6 @@ import Delegate from '../components/delegation/Delegate'
 import Breadcrumbs from '../components/Breadcrumbs'
 import ConnectWallet from '../components/ConnectWallet'
 
-import {
-  DelegationType,
-  type ISkaleContractsMap,
-  type IValidator,
-  type StakingInfoMap
-} from '../core/interfaces'
-
 import ErrorTile from '../components/ErrorTile'
 import Headline from '../components/Headline'
 import { isDelegationTypeAvailable, isLoaded } from '../core/delegation/staking'
@@ -60,19 +47,21 @@ import { getDelegationTypeAlias } from '../core/delegation'
 
 export default function StakeAmount(props: {
   mpc: MetaportCore
-  validators: IValidator[]
+  validators: types.staking.IValidator[]
   loadValidators: () => void
   loadStakingInfo: () => void
-  sc: ISkaleContractsMap | null
-  si: StakingInfoMap
-  address: interfaces.AddressType | undefined
+  sc: types.staking.ISkaleContractsMap | null
+  si: types.staking.StakingInfoMap
+  address: types.AddressType | undefined
   getMainnetSigner: () => Promise<Signer>
 }) {
   const { id, delType } = useParams()
   const validatorId = Number(id) ?? -1
-  const delegationType = Number(delType) ?? DelegationType.REGULAR
+  const delegationType = Number(delType) ?? types.staking.DelegationType.REGULAR
 
-  const [currentValidator, setCurrentValidator] = useState<IValidator | undefined>(undefined)
+  const [currentValidator, setCurrentValidator] = useState<types.staking.IValidator | undefined>(
+    undefined
+  )
   const [errorMsg, setErrorMsg] = useState<string | undefined>()
 
   const loaded = isLoaded(props.si)

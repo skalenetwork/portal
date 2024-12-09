@@ -36,7 +36,7 @@ import SkStack from './SkStack'
 
 export default function Tile(props: {
   text?: string
-  value?: string | null
+  value?: string | null | false
   textRi?: string
   icon?: ReactElement
   className?: string
@@ -114,7 +114,7 @@ export default function Tile(props: {
                   cmn.flex,
                   cmn.flexcv,
                   cmn.mbott5,
-                  ['pSec', !props.color],
+                  ['pSec', !props.color && !props.textColor],
                   ['blackP', props.color]
                 )}
               >

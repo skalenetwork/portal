@@ -23,8 +23,8 @@
 
 import debug from 'debug'
 import { type Contract } from 'ethers'
-
-import { type IValidatorArray, type IValidator } from '../interfaces'
+import { types } from '@/core'
+import { DelegationState } from './delegations'
 
 debug.enable('*')
 const log = debug('portal:core:validators')
@@ -33,10 +33,42 @@ export const ESCROW_VALIDATORS = [
   43, 46, 54, 37, 48, 49, 42, 41, 47, 40, 52, 35, 36, 39, 50, 45, 51, 68, 30
 ]
 
+const STATUS_ORDER = {
+  [DelegationState.PROPOSED]: 1,
+  [DelegationState.ACCEPTED]: 2,
+  [DelegationState.DELEGATED]: 3,
+  [DelegationState.COMPLETED]: 4,
+  [DelegationState.CANCELED]: 5,
+  [DelegationState.REJECTED]: 6,
+  [DelegationState.UNDELEGATION_REQUESTED]: 7
+}
+
+export type SortType = 'id' | 'status'
+
+export function sortDelegations(
+  delegations: types.staking.IDelegation[],
+  sortBy: SortType
+): types.staking.IDelegation[] {
+  return [...delegations].sort((a, b) => {
+    if (sortBy === 'id') {
+      return Number(b.id) - Number(a.id)
+    } else {
+      const aStatus = Number(a.stateId) as DelegationState
+      const bStatus = Number(b.stateId) as DelegationState
+      const statusComparison = STATUS_ORDER[aStatus] - STATUS_ORDER[bStatus]
+      if (statusComparison === 0) {
+        return Number(b.id) - Number(a.id)
+      }
+
+      return statusComparison
+    }
+  })
+}
+
 async function getValidatorsRaw(
   validatorService: Contract,
   numberOfValidators: bigint[]
-): Promise<Array<IValidatorArray | boolean>> {
+): Promise<Array<types.staking.IValidatorArray | boolean>> {
   const validatorIds = Array.from(Array(Number(numberOfValidators)).keys())
   return await Promise.all(
     validatorIds
@@ -49,39 +81,82 @@ async function getValidatorsRaw(
   )
 }
 
+export async function getValidatorRaw(
+  validatorService: Contract,
+  validatorId: number
+): Promise<[types.staking.IValidatorArray, boolean, string[]]> {
+  const [validatorData, isAuthorized, nodeAddresses] = await Promise.all([
+    validatorService.validators(validatorId),
+    validatorService.isAuthorizedValidator(validatorId),
+    validatorService.getNodeAddresses(validatorId)
+  ])
+  return [validatorData, isAuthorized, nodeAddresses]
+}
+
+function formatValidator(
+  validatorData: types.staking.IValidatorArray,
+  isAuthorized: boolean,
+  nodeAddresses: string[],
+  validatorId: number
+): types.staking.IValidator {
+  return {
+    name: validatorData[0],
+    validatorAddress: validatorData[1],
+    requestedAddress: validatorData[2],
+    description: validatorData[3],
+    feeRate: validatorData[4],
+    registrationTime: validatorData[5],
+    minimumDelegationAmount: validatorData[6],
+    acceptNewRequests: validatorData[7],
+    trusted: isAuthorized,
+    id: validatorId,
+    linkedNodes: nodeAddresses.length
+  }
+}
+
 export async function getValidators(
   validatorService: Contract,
   sorted: boolean = true
-): Promise<IValidator[]> {
+): Promise<types.staking.IValidator[]> {
   const numberOfValidators = await validatorService.numberOfValidators()
   log('getValidators: ', numberOfValidators)
-  const rawValidators: Array<IValidatorArray | boolean | any[]> = await getValidatorsRaw(
-    validatorService,
-    numberOfValidators
-  )
-  const validatorsData: IValidator[] = []
+  const rawValidators: Array<types.staking.IValidatorArray | boolean | any[]> =
+    await getValidatorsRaw(validatorService, numberOfValidators)
+  const validatorsData: types.staking.IValidator[] = []
   for (let i = 0; i < rawValidators.length; i += 3) {
-    const IValidatorArray: IValidatorArray = rawValidators[i] as IValidatorArray
+    const validatorArray: types.staking.IValidatorArray = rawValidators[
+      i
+    ] as types.staking.IValidatorArray
     const isTrusted: boolean = rawValidators[i + 1] as boolean
     const linkedNodeAddresses = rawValidators[i + 2] as string[]
-    validatorsData.push({
-      name: IValidatorArray[0],
-      validatorAddress: IValidatorArray[1],
-      requestedAddress: IValidatorArray[2],
-      description: IValidatorArray[3],
-      feeRate: IValidatorArray[4],
-      registrationTime: IValidatorArray[5],
-      minimumDelegationAmount: IValidatorArray[6],
-      acceptNewRequests: IValidatorArray[7],
-      trusted: isTrusted,
-      id: i / 3 + 1,
-      linkedNodes: linkedNodeAddresses.length
-    })
+    validatorsData.push(formatValidator(validatorArray, isTrusted, linkedNodeAddresses, i / 3 + 1))
   }
   return sorted ? sortValidators(validatorsData) : validatorsData
 }
 
-function sortValidators(validatorsData: IValidator[]): IValidator[] {
+export async function getValidator(
+  validatorService: Contract,
+  address: types.AddressType
+): Promise<types.staking.IValidator | undefined> {
+  try {
+    const validatorId = await validatorService.getValidatorId(address)
+    const [validatorData, isAuthorized, nodeAddresses] = await getValidatorRaw(
+      validatorService,
+      validatorId
+    )
+    return formatValidator(validatorData, isAuthorized, nodeAddresses, Number(validatorId))
+  } catch (error: any) {
+    if (
+      error?.message?.includes('Validator address does not exist') ||
+      error?.message?.includes('ValidatorAddressDoesNotExist')
+    ) {
+      return undefined
+    }
+    throw error
+  }
+}
+
+function sortValidators(validatorsData: types.staking.IValidator[]): types.staking.IValidator[] {
   validatorsData.sort((a, b) => {
     if (a.trusted !== b.trusted) {
       return a.trusted ? -1 : 1
@@ -100,15 +175,18 @@ function sortValidators(validatorsData: IValidator[]): IValidator[] {
 }
 
 export function filterValidators(
-  validators: IValidator[],
+  validators: types.staking.IValidator[],
   ids: number[],
   internal: boolean
-): IValidator[] {
+): types.staking.IValidator[] {
   return validators.filter(
     (val) => (ids.includes(val.id) && internal) || (!ids.includes(val.id) && !internal)
   )
 }
 
-export function getValidatorById(validators: IValidator[], id: bigint): IValidator | undefined {
+export function getValidatorById(
+  validators: types.staking.IValidator[],
+  id: bigint
+): types.staking.IValidator | undefined {
   return validators.find((val) => Number(val.id) === Number(id))
 }

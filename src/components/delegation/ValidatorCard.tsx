@@ -30,14 +30,14 @@ import { cmn, cls, styles, fromWei, SkPaper } from '@skalenetwork/metaport'
 import ValidatorLogo from './ValidatorLogo'
 import { TrustBadge, ValidatorBadge } from './ValidatorBadges'
 
-import { type DelegationType, type IValidator } from '../../core/interfaces'
 import { DEFAULT_ERC20_DECIMALS } from '../../core/constants'
+import { types } from '@/core'
 
 export default function ValidatorCard(props: {
-  validator: IValidator
+  validator: types.staking.IValidator
   validatorId: number | undefined
   setValidatorId: any
-  delegationType: DelegationType
+  delegationType: types.staking.DelegationType
   size?: 'md' | 'lg'
 }) {
   if (!props.validator.trusted) return
