@@ -36,7 +36,8 @@ import {
   SkPaper,
   type interfaces,
   TransactionData,
-  styles
+  styles,
+  useWagmiAccount
 } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
@@ -77,8 +78,11 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
     token,
     tokens,
     setToken,
-    transactionsHistory
+    transactionsHistory,
+    addressChanged
   } = useMetaportStore((state) => state)
+
+  const { address } = useWagmiAccount()
 
   function validChainName(chainName: string | null): boolean {
     if (!chainName) return false
@@ -111,6 +115,10 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
   useEffect(() => {
     updateSearchParams()
   }, [chainName1, chainName2, appName1, appName2, token])
+
+  useEffect(() => {
+    addressChanged()
+  }, [address])
 
   useEffect(() => {
     if (chainName1 && chainName2 && token) return
