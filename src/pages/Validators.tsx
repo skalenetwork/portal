@@ -65,7 +65,7 @@ export default function ValidatorsPage(props: {
             startIcon={<ManageAccountsRoundedIcon />}
             endIcon={<DelegationsNotification validatorDelegations={props.validatorDelegations} />}
           >
-            Manage Validator
+            Validator Operations
           </Button>
         </Link>
         <SkPageInfoIcon meta_tag={META_TAGS.validators} />
@@ -75,7 +75,7 @@ export default function ValidatorsPage(props: {
           mpc={props.mpc}
           validators={props.validators}
           validatorId={0}
-          setValidatorId={(): void => {}}
+          setValidatorId={(): void => { }}
           delegationType={types.staking.DelegationType.REGULAR}
           size="lg"
         />

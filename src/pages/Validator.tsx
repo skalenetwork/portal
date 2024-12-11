@@ -173,7 +173,7 @@ export default function Validator(props: {
     <Container maxWidth="md">
       <div className={cls(cmn.flex, cmn.flexcv)}>
         <div className={cmn.flexg}>
-          <h2 className={cls(cmn.nom)}>Manage Validator</h2>
+          <h2 className={cls(cmn.nom)}>Validator Operations</h2>
           <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>{META_TAGS.validator.description}</p>
         </div>
         <SkPageInfoIcon meta_tag={META_TAGS.validator} />
