@@ -49,7 +49,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
     },
     ruby: {
       name: 'Ruby Token',
-      iconUrl: 'https://ruby.exchange/images/tokens/ruby-square.png',
+      iconUrl: 'https://mainnet.skalenodes.com/fs/elated-tan-skat/27d20f14b495c5c0831eaaeb9263cad8d56f4b73/ruby/images/tokens/ruby-square.png',
       symbol: 'RUBY'
     },
     dai: {
@@ -59,7 +59,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
     usdp: {
       name: 'Pax Dollar',
       symbol: 'USDP',
-      iconUrl: 'https://ruby.exchange/images/tokens/usdp-square.png'
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3330.png'
     },
     hmt: {
       name: 'Human Token',
@@ -157,15 +157,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         }
       },
       erc20: {
-        reth: {
-          address: '0xae78736cd615f374d3085123a210448e74fc6393',
-          chains: {
-            'elated-tan-skat': {},
-            'green-giddy-denebola': {
-              hub: 'elated-tan-skat'
-            }
-          }
-        },
         skl: {
           address: '0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7',
           chains: {
@@ -179,6 +170,34 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             'affectionate-immediate-pollux': {
               hub: 'elated-tan-skat'
             }
+          }
+        },
+        usdc: {
+          address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+          chains: {
+            'elated-tan-skat': {},
+            'honorable-steel-rasalhague': {
+              hub: 'elated-tan-skat'
+            },
+            'green-giddy-denebola': {
+              hub: 'elated-tan-skat'
+            },
+            'parallel-stormy-spica': {
+              hub: 'elated-tan-skat'
+            }
+          }
+        },
+        razor: {
+          address: '0x50DE6856358Cc35f3A9a57eAAA34BD4cB707d2cd',
+          chains: {
+            'elated-tan-skat': {},
+            'turbulent-unique-scheat': {}
+          }
+        },
+        exd: {
+          address: '0x02de007d412266a2e0fa9287c103474170f06560',
+          chains: {
+            'elated-tan-skat': {}
           }
         },
         wbtc: {
@@ -200,6 +219,15 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             'honorable-steel-rasalhague': {
               hub: 'elated-tan-skat'
             },
+            'green-giddy-denebola': {
+              hub: 'elated-tan-skat'
+            }
+          }
+        },
+        reth: {
+          address: '0xae78736cd615f374d3085123a210448e74fc6393',
+          chains: {
+            'elated-tan-skat': {},
             'green-giddy-denebola': {
               hub: 'elated-tan-skat'
             }
@@ -256,28 +284,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             }
           }
         },
-        razor: {
-          address: '0x50DE6856358Cc35f3A9a57eAAA34BD4cB707d2cd',
-          chains: {
-            'elated-tan-skat': {},
-            'turbulent-unique-scheat': {}
-          }
-        },
-        usdc: {
-          address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-          chains: {
-            'elated-tan-skat': {},
-            'honorable-steel-rasalhague': {
-              hub: 'elated-tan-skat'
-            },
-            'green-giddy-denebola': {
-              hub: 'elated-tan-skat'
-            },
-            'parallel-stormy-spica': {
-              hub: 'elated-tan-skat'
-            }
-          }
-        },
         hmt: {
           address: '0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867',
           chains: {
@@ -285,12 +291,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             'wan-red-ain': {
               hub: 'elated-tan-skat'
             }
-          }
-        },
-        exd: {
-          address: '0x02de007d412266a2e0fa9287c103474170f06560',
-          chains: {
-            'elated-tan-skat': {}
           }
         },
         hmkr: {
@@ -335,23 +335,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
         }
       },
       erc20: {
-        flag: {
-          address: '0xcdF030a3E65f917DFa8d74555A64a5eC5303c88e',
-          chains: {
-            'green-giddy-denebola': {}
-          }
-        },
-        reth: {
-          address: '0x4c21E0Bde3f02aDea7a874DBd705c30a3187eeaf',
-          chains: {
-            mainnet: {
-              clone: true
-            },
-            'green-giddy-denebola': {
-              wrapper: '0x113b3B0B813B856fbfC366595EdD85bC7A4DB74A'
-            }
-          }
-        },
         skl: {
           address: '0xE0595a049d02b7674572b0d59cd4880Db60EDC50',
           chains: {
@@ -369,17 +352,20 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             }
           }
         },
-        wbtc: {
-          address: '0xcb011E86DF014a46F4e3AC3F3cbB114A4EB80870',
+        usdc: {
+          address: '0x5F795bb52dAC3085f578f4877D450e2929D2F13d',
           chains: {
             mainnet: {
               clone: true
             },
-            'green-giddy-denebola': {
-              wrapper: '0x497C476bcABB2F7D50afF99ca3Ae9354451Ff7d0'
-            },
             'honorable-steel-rasalhague': {
-              wrapper: '0x497C476bcABB2F7D50afF99ca3Ae9354451Ff7d0'
+              wrapper: '0x1c566a47e1baC535Ca616373146e3BE024F88Aa4'
+            },
+            'green-giddy-denebola': {
+              wrapper: '0x1c566a47e1baC535Ca616373146e3BE024F88Aa4'
+            },
+            'parallel-stormy-spica': {
+              wrapper: '0x1c566a47e1baC535Ca616373146e3BE024F88Aa4'
             }
           }
         },
@@ -397,6 +383,42 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             }
           }
         },
+        skivvy: {
+          address: '0xE0a320b0d525BA7a97afcE932F78789Db23c0e4a',
+          chains: {
+            mainnet: {
+              clone: true
+            },
+            'honorable-steel-rasalhague': {
+              wrapper: '0xD6b78761557E50BC94B7a99d75Fa6C9c29ab77e1'
+            }
+          }
+        },
+        wbtc: {
+          address: '0xcb011E86DF014a46F4e3AC3F3cbB114A4EB80870',
+          chains: {
+            mainnet: {
+              clone: true
+            },
+            'green-giddy-denebola': {
+              wrapper: '0x497C476bcABB2F7D50afF99ca3Ae9354451Ff7d0'
+            },
+            'honorable-steel-rasalhague': {
+              wrapper: '0x497C476bcABB2F7D50afF99ca3Ae9354451Ff7d0'
+            }
+          }
+        },
+        reth: {
+          address: '0x4c21E0Bde3f02aDea7a874DBd705c30a3187eeaf',
+          chains: {
+            mainnet: {
+              clone: true
+            },
+            'green-giddy-denebola': {
+              wrapper: '0x113b3B0B813B856fbfC366595EdD85bC7A4DB74A'
+            }
+          }
+        },
         usdp: {
           address: '0x73d22d8a2D1f59Bf5Bcf62cA382481a2073FAF58',
           chains: {
@@ -411,6 +433,12 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             mainnet: {
               clone: true
             }
+          }
+        },
+        flag: {
+          address: '0xcdF030a3E65f917DFa8d74555A64a5eC5303c88e',
+          chains: {
+            'green-giddy-denebola': {}
           }
         },
         sushi: {
@@ -461,23 +489,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             },
             'honorable-steel-rasalhague': {
               wrapper: '0x9E7563B0D51F9B6dFB1917F97D29D50804300d28'
-            }
-          }
-        },
-        usdc: {
-          address: '0x5F795bb52dAC3085f578f4877D450e2929D2F13d',
-          chains: {
-            mainnet: {
-              clone: true
-            },
-            'honorable-steel-rasalhague': {
-              wrapper: '0x1c566a47e1baC535Ca616373146e3BE024F88Aa4'
-            },
-            'green-giddy-denebola': {
-              wrapper: '0x1c566a47e1baC535Ca616373146e3BE024F88Aa4'
-            },
-            'parallel-stormy-spica': {
-              wrapper: '0x1c566a47e1baC535Ca616373146e3BE024F88Aa4'
             }
           }
         },
@@ -537,18 +548,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               clone: true
             }
           }
-        },
-        skivvy: {
-          address: '0xE0a320b0d525BA7a97afcE932F78789Db23c0e4a',
-          chains: {
-            mainnet: {
-              clone: true
-            },
-            'honorable-steel-rasalhague': {
-              wrapper: '0xD6b78761557E50BC94B7a99d75Fa6C9c29ab77e1'
-            }
-          }
-        },
+        }
       }
     },
     'honorable-steel-rasalhague': {
