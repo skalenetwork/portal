@@ -132,6 +132,12 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       name: 'Rocket Pool ETH',
       iconUrl: 'https://assets.coingecko.com/coins/images/20764/standard/reth.png',
       symbol: 'rETH'
+    },
+    skivvy: {
+      name: 'Skivvy',
+      symbol: 'SKIVVY',
+      decimals: '8',
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3441.png'
     }
   },
   connections: {
@@ -298,7 +304,16 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
           chains: {
             'elated-tan-skat': {}
           }
-        }
+        },
+        skivvy: {
+          address: '0x246908BfF0b1ba6ECaDCF57fb94F6AE2FcD43a77',
+          chains: {
+            'elated-tan-skat': {},
+            'honorable-steel-rasalhague': {
+              hub: 'elated-tan-skat'
+            }
+          }
+        },
       }
     },
     'elated-tan-skat': {
@@ -522,7 +537,18 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               clone: true
             }
           }
-        }
+        },
+        skivvy: {
+          address: '0xE0a320b0d525BA7a97afcE932F78789Db23c0e4a',
+          chains: {
+            mainnet: {
+              clone: true
+            },
+            'honorable-steel-rasalhague': {
+              wrapper: '0xD6b78761557E50BC94B7a99d75Fa6C9c29ab77e1'
+            }
+          }
+        },
       }
     },
     'honorable-steel-rasalhague': {
@@ -617,7 +643,19 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               hub: 'elated-tan-skat'
             }
           }
-        }
+        },
+        skivvy: {
+          address: '0x0d3FaC688AD94f01B237BFD795C61eDE6Ac9542E',
+          chains: {
+            'elated-tan-skat': {
+              clone: true
+            },
+            mainnet: {
+              clone: true,
+              hub: 'elated-tan-skat'
+            }
+          }
+        },
       }
     },
     'green-giddy-denebola': {
