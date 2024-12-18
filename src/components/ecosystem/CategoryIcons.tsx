@@ -101,7 +101,7 @@ export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
       return <HandshakeOutlined />
     case 'security':
       return <SecurityOutlined />
-    case 'social-network':
+    case 'social':
       return <PeopleOutlined />
     case 'tools':
       return <BuildOutlined />

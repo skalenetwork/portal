@@ -21,15 +21,15 @@
  */
 
 import { cmn, cls } from '@skalenetwork/metaport'
+import { types } from '@/core'
 
 import Tooltip from '@mui/material/Tooltip'
 import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded'
 import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
 import { ESCROW_VALIDATORS } from '../../core/delegation/validators'
-import { type IValidator } from '../../core/interfaces'
 
-export function ValidatorBadge(props: { validator: IValidator; className?: string }) {
+export function ValidatorBadge(props: { validator: types.staking.IValidator; className?: string }) {
   if (ESCROW_VALIDATORS.includes(props.validator.id)) {
     return (
       <Tooltip title="Escrow validator">
@@ -42,7 +42,7 @@ export function ValidatorBadge(props: { validator: IValidator; className?: strin
   return null
 }
 
-export function TrustBadge(props: { validator: IValidator }) {
+export function TrustBadge(props: { validator: types.staking.IValidator }) {
   if (props.validator.trusted) {
     return (
       <Tooltip title="Trusted validator">

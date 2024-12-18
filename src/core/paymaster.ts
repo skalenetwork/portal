@@ -24,6 +24,7 @@ import { Contract, id, type InterfaceAbi } from 'ethers'
 import { type MetaportCore } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 import PAYMASTER_INFO from '../data/paymaster'
+import PAYMASTER_ABI from '../data/paymasterAbi.json'
 
 export interface PaymasterInfo {
   maxReplenishmentPeriod: bigint
@@ -67,7 +68,7 @@ export function getPaymasterLaunchTs(skaleNetwork: types.SkaleNetwork): bigint {
 }
 
 export function getPaymasterAbi(): InterfaceAbi {
-  return PAYMASTER_INFO.abi
+  return PAYMASTER_ABI.abi
 }
 
 export function initPaymaster(mpc: MetaportCore): Contract {

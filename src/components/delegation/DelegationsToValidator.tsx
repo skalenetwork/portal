@@ -22,35 +22,33 @@
  */
 
 import { useState } from 'react'
-import { cls, type interfaces } from '@skalenetwork/metaport'
+import { cls } from '@skalenetwork/metaport'
 import { Collapse } from '@mui/material'
-import {
-  type DelegationType,
-  type IDelegation,
-  type IDelegationInfo,
-  type IDelegationsToValidator,
-  type IRewardInfo,
-  type IValidator
-} from '../../core/interfaces'
+
+import { types } from '@/core'
+
+import { getValidatorById } from '../../core/delegation'
 
 import Delegation from './Delegation'
 import Reward from './Reward'
 
 export default function DelegationsToValidator(props: {
-  delegationsToValidator: IDelegationsToValidator
-  validators: IValidator[]
-  delegationType: DelegationType
-  retrieveRewards: (rewardInfo: IRewardInfo) => Promise<void>
-  loading: IRewardInfo | IDelegationInfo | false
-  unstake: (delegationInfo: IDelegationInfo) => Promise<void>
-  cancelRequest: (delegationInfo: IDelegationInfo) => Promise<void>
+  delegationsToValidator: types.staking.IDelegationsToValidator
+  validators: types.staking.IValidator[]
+  delegationType: types.staking.DelegationType
+  retrieveRewards: (rewardInfo: types.staking.IRewardInfo) => Promise<void>
+  loading: types.staking.IRewardInfo | types.staking.IDelegationInfo | false
+  unstake: (delegationInfo: types.staking.IDelegationInfo) => Promise<void>
+  cancelRequest: (delegationInfo: types.staking.IDelegationInfo) => Promise<void>
   isXs: boolean
-  address: interfaces.AddressType | undefined
-  customAddress: interfaces.AddressType | undefined
-  customRewardAddress: interfaces.AddressType | undefined
-  setCustomRewardAddress: (customRewardAddress: interfaces.AddressType | undefined) => void
+  address: types.AddressType | undefined
+  customAddress: types.AddressType | undefined
+  customRewardAddress: types.AddressType | undefined
+  setCustomRewardAddress: (customRewardAddress: types.AddressType | undefined) => void
 }) {
   const [open, setOpen] = useState(true)
+  const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
+  if (!validator) return
   return (
     <div>
       <Reward
@@ -71,11 +69,11 @@ export default function DelegationsToValidator(props: {
       <Collapse in={open}>
         <div className={cls('nestedSection', ['nestedSectionXs', props.isXs])}>
           {props.delegationsToValidator.delegations.map(
-            (delegation: IDelegation, index: number) => (
+            (delegation: types.staking.IDelegation, index: number) => (
               <Delegation
                 key={index}
                 delegation={delegation}
-                validators={props.validators}
+                validator={validator}
                 delegationType={props.delegationType}
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}

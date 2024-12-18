@@ -71,6 +71,11 @@ export const META_TAGS = {
     description: 'List of validators on SKALE Network',
     help: 'Explore validators that secure the SKALE Network and choose your preferred ones to stake SKL tokens with to earn rewards.'
   },
+  validator: {
+    title: 'SKALE Portal - Validator',
+    description: 'Delegations and chain rewards management',
+    help: 'Manage your validator and delegations, review your delegations and chain rewards.'
+  },
   onramp: {
     title: 'SKALE Portal - Onramp',
     description: 'Purchase crypto directly on SKALE Europa Hub using the Transak onramp.',
