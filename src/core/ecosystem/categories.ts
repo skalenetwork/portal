@@ -37,14 +37,11 @@ export interface Categories {
 export const categories: Categories = {
   ai: { name: 'AI', subcategories: {} },
   bridges: { name: 'Bridges', subcategories: {} },
-  dao: { name: 'DAO', subcategories: {} },
   'data-information': { name: 'Data/Information', subcategories: {} },
   defi: {
     name: 'DeFi',
     subcategories: {
-      custody: { name: 'Custody' },
-      dex: { name: 'DEX' },
-      yield: { name: 'Yield' }
+      dex: { name: 'DEX' }
     }
   },
   'digital-collectibles': { name: 'Digital Collectibles', subcategories: {} },
@@ -57,7 +54,6 @@ export const categories: Categories = {
       'battle-royale': { name: 'Battle Royale' },
       'cards_deck-building': { name: 'Cards + Deck Building' },
       casual: { name: 'Casual' },
-      console: { name: 'Console' },
       fighting: { name: 'Fighting' },
       metaverse: { name: 'Metaverse' },
       mobile: { name: 'Mobile' },
@@ -78,16 +74,14 @@ export const categories: Categories = {
   },
   hub: { name: 'Hub', subcategories: {} },
   infrastructure: { name: 'Infrastructure', subcategories: {} },
-  nfts: { name: 'NFTs', subcategories: {} },
   oracle: { name: 'Oracle', subcategories: {} },
   other: { name: 'Other', subcategories: {} },
   partner: { name: 'Partner', subcategories: {} },
   security: { name: 'Security', subcategories: {} },
-  'social-network': { name: 'Social Network', subcategories: {} },
+  social: { name: 'Social', subcategories: {} },
   tools: { name: 'Tools', subcategories: {} },
   wallet: { name: 'Wallet', subcategories: {} },
   metaverse: { name: 'Metaverse', subcategories: {} },
-  web3: { name: 'Web3', subcategories: {} },
   pretge: { name: 'Pre-TGE', subcategories: {} },
   utility: { name: 'Utility', subcategories: {} },
   analytics: { name: 'Analytics', subcategories: {} },

@@ -1,5 +1,29 @@
+/**
+ * @license
+ * SKALE portal
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/**
+ * @file SkDrawer.tsx
+ * @copyright SKALE Labs 2024-Present
+ */
+
 import { cls, cmn } from '@skalenetwork/metaport'
 import { useLocation, Link } from 'react-router-dom'
+import { types } from '@/core'
 
 import Box from '@mui/material/Box'
 
@@ -23,10 +47,13 @@ import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
 import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined'
 
 import { GET_STARTED_URL } from './core/constants'
+import DelegationsNotification from './components/delegation/DelegationsNotification'
 
 const drawerWidth = 220
 
-export default function SkDrawer() {
+export default function SkDrawer(props: {
+  validatorDelegations: types.staking.IDelegation[] | null
+}) {
   const location = useLocation()
   return (
     <Box display={{ sm: 'block', xs: 'none' }} m={1}>
@@ -55,12 +82,7 @@ export default function SkDrawer() {
               </Link>
             </ListItem>
             <ListItem>
-              <a
-                className="undec fullW"
-                target="_blank"
-                href={GET_STARTED_URL}
-                rel="noreferrer"
-              >
+              <a className="undec fullW" target="_blank" href={GET_STARTED_URL} rel="noreferrer">
                 <ListItemButton className={cls(cmn.pPrim)}>
                   <ListItemIcon>
                     <ExploreOutlinedIcon />
@@ -151,12 +173,16 @@ export default function SkDrawer() {
               <Link to="/validators" className="undec fullW">
                 <ListItemButton
                   className={cls(cmn.pPrim)}
-                  selected={location.pathname.includes('/validators')}
+                  selected={location.pathname.includes('/validator')}
                 >
                   <ListItemIcon>
                     <GroupOutlinedIcon />
                   </ListItemIcon>
                   <ListItemText primary="Validators" />
+                  <DelegationsNotification
+                    validatorDelegations={props.validatorDelegations}
+                    className={cls(cmn.mri5)}
+                  />
                 </ListItemButton>
               </Link>
             </ListItem>

@@ -20,7 +20,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, styles, type interfaces } from '@skalenetwork/metaport'
+import { cmn, cls, styles } from '@skalenetwork/metaport'
 
 import { Grid } from '@mui/material'
 import LoadingButton from '@mui/lab/LoadingButton'
@@ -30,30 +30,24 @@ import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
 
 import ValidatorLogo from './ValidatorLogo'
 
-import {
-  type DelegationType,
-  type IDelegationInfo,
-  type IDelegationsToValidator,
-  type IRewardInfo,
-  type IValidator
-} from '../../core/interfaces'
 import { getValidatorById } from '../../core/delegation'
 import { formatBalance } from '../../core/helper'
 import RetrieveRewardModal from './RetrieveRewardModal'
+import { types } from '@/core'
 
 export default function Reward(props: {
-  validators: IValidator[]
-  delegationsToValidator: IDelegationsToValidator
+  validators: types.staking.IValidator[]
+  delegationsToValidator: types.staking.IDelegationsToValidator
   setOpen: (open: boolean) => void
   open: boolean
-  retrieveRewards: (rewardInfo: IRewardInfo) => Promise<void>
-  loading: IRewardInfo | IDelegationInfo | false
-  delegationType: DelegationType
+  retrieveRewards: (rewardInfo: types.staking.IRewardInfo) => Promise<void>
+  loading: types.staking.IRewardInfo | types.staking.IDelegationInfo | false
+  delegationType: types.staking.DelegationType
   isXs: boolean
-  address: interfaces.AddressType | undefined
-  customAddress: interfaces.AddressType | undefined
-  customRewardAddress: interfaces.AddressType | undefined
-  setCustomRewardAddress: (customRewardAddress: interfaces.AddressType | undefined) => void
+  address: types.AddressType | undefined
+  customAddress: types.AddressType | undefined
+  customRewardAddress: types.AddressType | undefined
+  setCustomRewardAddress: (customRewardAddress: types.AddressType | undefined) => void
 }) {
   const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
   const rewardsAmount = formatBalance(props.delegationsToValidator.rewards, 'SKL')
