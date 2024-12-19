@@ -138,6 +138,11 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       symbol: 'SKIVVY',
       decimals: '8',
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3441.png'
+    },
+    unipoly: {
+      name: 'Unipoly',
+      symbol: 'UNP',
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/28735.png'
     }
   },
   connections: {
@@ -314,6 +319,12 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             }
           }
         },
+        unipoly: {
+          address: '0x23d7Ff057c696fEE679c60cEf61Fee6614218f04',
+          chains: {
+            'elated-tan-skat': {}
+          }
+        }
       }
     },
     'elated-tan-skat': {
@@ -548,7 +559,15 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
               clone: true
             }
           }
-        }
+        },
+        unipoly: {
+          address: '0x7cA58393EB55aeC51204f2370c1B9cCCAa9D9784',
+          chains: {
+            mainnet: {
+              clone: true
+            }
+          }
+        },
       }
     },
     'honorable-steel-rasalhague': {
