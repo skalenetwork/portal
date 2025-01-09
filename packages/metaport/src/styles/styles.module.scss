@@ -1,0 +1,414 @@
+@import './variables';
+
+.paper {
+    padding: 10px;
+    border-radius: $sk-border-radius;
+}
+
+.paperGrey {
+    // background-color: $sk-gray-background-color !important;
+    background-color: $sk-paper-color !important;
+}
+
+.fullHeight {
+    height: 100%;
+}
+
+.popper {
+    margin-left: 20px;
+    max-width: 390px;
+    max-height: calc(100vh - 110pt);
+    padding: 10pt;
+    border-radius: $sk-border-radius-outter;
+    border: 1px rgba(127, 127, 127, .2705882353) solid;
+}
+
+.darkTheme {
+    .skaleLogoSm {
+        filter: invert(1);
+    }
+
+    .defaultChainIcon {
+        color: 'hsl(120deg 2% 88%)';
+    }
+
+    .sk__btnSwitch {
+        :global(.Mui-disabled) {
+            background-color: $sk-paper-color !important;
+        }
+    }
+
+    :global .MuiIconButton-root {
+        svg {
+            color: #000000;
+        }
+    }
+
+    :global(.MuiIconButton-root.Mui-disabled) {
+        svg {
+            color: rgba(255, 255, 255, 0.3);
+        }
+    }
+
+    :global(.Mui-completed) {
+        color: $sk-disabled-dark;
+    }
+
+    .action_transferDone,
+    .action_transferETHDone {
+        background-image: linear-gradient(45deg, #8A463C 0%, #b02d50 100%);
+    }
+
+    .action_wrapDone {
+        background-image: linear-gradient(160deg, #237bc3 0%, #1a3b94 100%);
+    }
+
+    .action_unwrapDone {
+        background-image: linear-gradient(160deg, #1a3b94 0%, #237bc3 100%);
+    }
+
+    .action_unlockDone {
+        background-image: linear-gradient(45deg, #009688 0%, #0c5f57 100%);
+    }
+
+    .action_approveDone {
+        background-image: linear-gradient(135deg, #29b1a9 0%, #14532a 100%);
+    }
+
+    .action_approveWrapDone {
+        background-image: linear-gradient(135deg, #14532a 0%, #29b1a9 100%);
+    }
+}
+
+.lightTheme {
+
+    .action_transferDone,
+    .action_transferETHDone {
+        background-image: linear-gradient(45deg, #f7c9b1 0%, #f8d4da 100%);
+    }
+
+    .action_wrapDone {
+        background-image: linear-gradient(160deg, #9dcff1 0%, #8ab1dd 100%);
+    }
+
+    .action_unwrapDone {
+        background-image: linear-gradient(160deg, #8ab1dd 0%, #9dcff1 100%);
+    }
+
+    .action_unlockDone {
+        background-image: linear-gradient(45deg, #92f7e1 0%, #76afaa 100%);
+    }
+
+    .action_approveDone {
+        background-image: linear-gradient(135deg, #89e0ce 0%, #58a47c 100%);
+    }
+
+    .action_approveWrapDone {
+        background-image: linear-gradient(135deg, #58a47c 0%, #89e0ce 100%);
+    }
+
+    .skaleLogoLg {
+        filter: invert(1);
+    }
+
+    .defaultChainIcon {
+        color: 'hsl(120deg 2% 88%)';
+    }
+
+    .sk__btnSwitch {
+        :global(.Mui-disabled) {
+            background-color: RGB(224 224 224) !important;
+        }
+    }
+
+    :global(.MuiIconButton-root) {
+        svg {
+            color: #ffffff;
+        }
+    }
+
+    :global(.MuiIconButton-root.Mui-disabled) {
+        svg {
+            color: rgba(0, 0, 0, 0.26);
+        }
+    }
+
+    :global(.Mui-completed) {
+        color: $sk-disabled-light;
+    }
+}
+
+.skaleBtnHidden {
+    display: none !important;
+}
+
+.skaleBtn {
+    border: 1px #7f7f7f45 solid;
+    box-shadow: none !important;
+}
+
+
+.skaleLogoSm {
+    width: 18pt;
+}
+
+
+button {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+}
+
+
+.metaport {
+
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif !important;
+    -webkit-font-smoothing: antialiased;
+
+    :global(.MuiAccordion-root) {
+        background-color: transparent !important;
+        background-image: none !important;
+    }
+
+    :global(.MuiAccordion-root:before) {
+        display: none !important;
+    }
+
+    :global(.MuiLinearProgress-root) {
+        border-radius: 20px;
+    }
+
+    // .accordionSm {
+    //     :global(.MuiAccordionSummary-content) {
+    //         margin: 0 !important;
+    //     }
+    // }
+
+    :global(.MuiButton-root) {
+        font-weight: 600 !important;
+        box-shadow: none !important;
+        border-radius: $sk-border-radius !important;
+    }
+
+    :global(.Mui-disabled) {
+        :global(.MuiAccordionSummary-expandIconWrapper) {
+            display: none !important;
+        }
+
+        opacity: 1 !important;
+    }
+
+    :global(.MuiAccordionDetails-root) {
+        padding: 0 !important;
+    }
+}
+
+.widgetContent {
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+    border-radius: $sk-border-radius-outter !important;
+}
+
+.contentHeight {
+    max-height: calc(100vh - 180px);
+    overflow-y: auto;
+}
+
+
+.imaWidgetBody {
+    border-radius: $sk-border-radius-outter !important;
+    position: fixed;
+}
+
+.chainIconxs {
+    width: 17px;
+    height: 17px;
+
+    svg {
+        width: 17px;
+        height: 17px;
+    }
+}
+
+.chainIcons {
+    width: 20px;
+    height: 20px;
+
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.chainIconsm {
+    width: 26px;
+    height: 26px;
+
+    svg {
+        width: 26px;
+        height: 26px;
+    }
+}
+
+.chainIconmd {
+    width: 35px;
+    height: 35px;
+
+    svg {
+        width: 35px;
+        height: 35px;
+    }
+}
+
+.chainIconlg {
+    width: 45px;
+    height: 45px;
+}
+
+.sk__chainApps {
+    border-left: 1px rgb(255 255 255/45%) solid;
+    margin-left: 30px !important;
+}
+
+
+.sk__btnSwitch {
+    width: 100%;
+    text-align: center;
+    margin-top: -13pt !important;
+    margin-bottom: -13pt !important;
+
+    button {
+        border: 13px #1a1a1a solid;
+    }
+
+    :global(svg) {
+        width: 14pt;
+        height: 14pt;
+    }
+}
+
+.btnSwitchAnimation {
+    transition: all 0.2s ease-in-out;
+}
+
+.btnAction {
+    width: 100%;
+    text-transform: none !important;
+    font-size: 0.8025rem !important;
+    line-height: 1.6 !important;
+    letter-spacing: 0.02857em !important;
+    font-weight: 600 !important;
+    padding-top: 0.9em !important;
+    padding-bottom: 0.9em !important;
+    min-height: $sk-btn-height !important;
+    border-radius: $sk-border-radius !important;
+    box-shadow: none !important;
+}
+
+.btnApp {
+    background-color: rgba(0, 0, 0, 0.08) !important;
+}
+
+.btnChain {
+    width: 100%;
+    text-align: left;
+    text-transform: none !important;
+    font-size: 0.6525rem !important;
+    line-height: 1.6;
+    letter-spacing: 0.02857em;
+}
+
+.btnXs {
+    min-width: 46px;
+}
+
+@keyframes resize {
+
+    0%,
+    100% {
+        transform: scale(1);
+        /* Initial and final size: 100% (no change) */
+    }
+
+    50% {
+        transform: scale(1.1);
+        /* At half-time, size becomes 110% (10% larger) */
+    }
+}
+
+.skMovingDiv {
+    animation: resize 3s infinite ease-in-out;
+}
+
+.infoIcon {
+    svg {
+        height: 35pt;
+        width: 100%;
+    }
+}
+
+:global(.spin) {
+    transform: rotate(360deg);
+}
+
+.accordionSummary {
+    padding: 10px 26px !important;
+}
+
+.accordionSummarySm {
+    padding: 10px !important;
+}
+
+.accordionContent {
+    padding: 0 20px !important;
+}
+
+.accordionSummaryTokens {
+    padding-right: 11pt !important;
+}
+
+
+.inputAmount {
+
+    img {
+        border-radius: 50%;
+    }
+
+    :global .MuiInput-root::after {
+        border-bottom: none !important;
+    }
+
+    :global .MuiInput-root::before {
+        border-bottom: none !important;
+    }
+
+    :global(input) {
+        border-radius: 4px 0 0 4px;
+        padding: 9pt 15pt;
+        font-weight: bold !important;
+        font-size: 22px;
+        transition: font-size 0.2s ease-in-out;
+    }
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        /* display: none; <- Crashes Chrome on hover */
+        -webkit-appearance: none;
+        margin: 0;
+        /* <-- Apparently some margin are still there even though it's hidden */
+    }
+
+    :global input[type=number] {
+        -moz-appearance: textfield;
+        /* Firefox */
+    }
+}
+
+.smallTable {
+    code {
+        font-size: 0.7rem;
+        display: block;
+        max-width: 400px;
+        white-space: nowrap;
+        overflow: auto;
+    }
+}
