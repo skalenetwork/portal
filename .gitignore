@@ -30,6 +30,9 @@ src/assets/validators/index.ts
 src/metadata.json
 src/metrics.json
 
+packages/*/node_modules
+packages/metaport/storybook-static
+
 src/metadata/chainsData.json
 src/metadata/faucet.json
 .vercel
