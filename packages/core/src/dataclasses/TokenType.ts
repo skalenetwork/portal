@@ -30,6 +30,7 @@ export enum TokenType {
 }
 
 export enum CustomAbiTokenType {
-  erc20wrap = 'erc20wrap',
-  sfuelwrap = 'sfuelwrap'
+  erc20wrap = 'erc20wrap'
 }
+
+export type TokenTypeExtended = CustomAbiTokenType | TokenType

@@ -47,7 +47,7 @@ export function getActionType(
   chainName1: string,
   chainName2: string,
   tokenType: TokenType
-): ActionType {
+): ActionType | undefined {
   if (!chainName1 || !chainName2 || !tokenType) return
   let postfix = S2S_POSTFIX
   if (isMainnet(chainName1)) {
@@ -73,7 +73,7 @@ export abstract class StepMetadata {
     public type: ActionType,
     public from: string,
     public to: string
-  ) {}
+  ) { }
 }
 
 export class TransferStepMetadata extends StepMetadata {

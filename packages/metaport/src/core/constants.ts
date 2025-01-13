@@ -99,9 +99,6 @@ export const SFUEL_TEXT = {
 
 export const ZERO_FUNCSIG = '0x00000000'
 
-import faucetJson from '../metadata/faucet.json'
-export const FAUCET_DATA = faucetJson
-
 // community pool
 
 export const RECHARGE_MULTIPLIER = 1.1

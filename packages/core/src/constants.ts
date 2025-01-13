@@ -17,27 +17,25 @@
  */
 
 /**
- * @file MetaportConfig.ts
+ * @file constants.ts
  * @copyright SKALE Labs 2022-Present
  */
 
-import { TokenConnectionsMap, TokenMetadataMap, MetaportTheme } from '.'
+export const DEFAULT_ERC20_DECIMALS = '18'
+export const DEFAULT_MP_Z_INDEX = 99000
 
-export type SkaleNetwork = 'mainnet' | 'legacy' | 'regression' | 'testnet'
 
-export interface MetaportConfig {
-  openOnLoad?: boolean
-  openButton?: boolean
-  autoLookup?: boolean
-  debug?: boolean
+export const MAINNET_CHAIN_NAME = 'mainnet'
+export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 
-  skaleNetwork: SkaleNetwork
-  mainnetEndpoint?: string
-  projectId?: string
-  chains: string[]
+export const ROUNDING_DECIMALS = 6
 
-  tokens: TokenMetadataMap
-  connections: TokenConnectionsMap
+export const M2S_POSTFIX = 'm2s'
+export const S2M_POSTFIX = 's2m'
+export const S2S_POSTFIX = 's2s'
+export const WRAP_ACTION = 'wrap'
+export const UNWRAP_ACTION = 'unwrap'
 
-  theme?: MetaportTheme
-}
+export const DEFAULT_ERROR_MSG = 'Ooops... Something went wrong...'
+export const TRANSFER_ERROR_MSG = 'Error during the transfer'
+export const TRANSACTION_ERROR_MSG = 'Transaction sending failed'

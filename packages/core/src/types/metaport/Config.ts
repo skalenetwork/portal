@@ -17,38 +17,28 @@
  */
 
 /**
- * @file Tokens.ts
+ * @file Config.ts
  * @copyright SKALE Labs 2022-Present
  */
 
-import { AddressType } from '.'
+import { TokenConnectionsMap, TokenMetadataMap, Theme } from '.'
 
-export interface EthToken {
-  chains: ConnectedChainMap
-}
 
-export interface Token {
-  address?: AddressType
-  chains: ConnectedChainMap
-}
+export type SkaleNetwork = 'mainnet' | 'legacy' | 'regression' | 'testnet'
 
-export interface ConnectedChain {
-  hub?: string
-  wrapper?: AddressType
-  wrapsSFuel?: boolean
-  clone?: boolean
-}
+export interface Config {
+    openOnLoad?: boolean
+    openButton?: boolean
+    autoLookup?: boolean
+    debug?: boolean
 
-export interface ConnectedChainMap {
-  [chainName: string]: ConnectedChain
-}
-export interface ChainTokensMap {
-  [tokenSymbol: string]: Token
-}
-// export interface TokenTypeMap { [tokenType: string]: EthToken | ChainTokensMap; }
-export interface TokenTypeMap {
-  [tokenType: string]: ChainTokensMap
-}
-export interface TokenConnectionsMap {
-  [chainName: string]: TokenTypeMap
+    skaleNetwork: SkaleNetwork
+    mainnetEndpoint?: string
+    projectId?: string
+    chains: string[]
+
+    tokens: TokenMetadataMap
+    connections: TokenConnectionsMap
+
+    theme?: Theme
 }

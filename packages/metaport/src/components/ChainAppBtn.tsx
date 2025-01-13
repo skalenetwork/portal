@@ -22,16 +22,16 @@
  */
 
 import { Button } from '@mui/material'
+import { types } from '@/core'
 import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded'
 
 import { cls, cmn, styles } from '../core/css'
-import { SkaleNetwork } from '../core/interfaces'
 import { getChainAlias } from '../core/metadata'
 
 import ChainIcon from './ChainIcon'
 
 export default function ChainAppBtn(props: {
-  skaleNetwork: SkaleNetwork
+  skaleNetwork: types.SkaleNetwork
   appName: string
   chainName: string
   handle?: (schainName: string, app?: string) => void

@@ -1,4 +1,5 @@
 import React from 'react'
+import { types } from '@/core'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
@@ -12,15 +13,13 @@ import ChainApps from './ChainApps'
 import ChainIcon from './ChainIcon'
 import Chain from './Chain'
 
-import { MetaportConfig } from '../core/interfaces'
-
 import { getChainAlias, getChainAppsMeta } from '../core/metadata'
 import { cls, cmn, styles } from '../core/css'
 
 import SkPaper from './SkPaper'
 
 export default function ChainsList(props: {
-  config: MetaportConfig
+  config: types.mp.Config
   expanded: string | false
   setExpanded: (expanded: string | false) => void
   setChain: (chain: string) => void

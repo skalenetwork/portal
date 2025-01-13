@@ -1,5 +1,29 @@
+/**
+ * @license
+ * SKALE Metaport
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/**
+ * @file AmountInput.ts
+ * @copyright SKALE Labs 2025-Present
+ */
+
 import React from 'react'
 import { useAccount } from 'wagmi'
+import { dc } from '@/core'
 
 import TextField from '@mui/material/TextField'
 import { Button } from '@mui/material'
@@ -7,7 +31,6 @@ import { Button } from '@mui/material'
 import { cls, cmn, styles } from '../core/css'
 import { formatBalance, toWei } from '../core/convertation'
 import { SFUEL_RESERVE_AMOUNT } from '../core/constants'
-import { TokenType } from '../core/dataclasses'
 
 import TokenList from './TokenList'
 import { useMetaportStore } from '../store/MetaportStore'
@@ -43,7 +66,7 @@ export default function AmountInput() {
 
   const setMaxAmount = () => {
     let maxAmountWei: bigint = maxAmount
-    if (token.type === TokenType.eth) {
+    if (token.type === dc.TokenType.eth) {
       const reserveAmountEth = toWei(SFUEL_RESERVE_AMOUNT.toString(), token.meta.decimals)
       maxAmountWei = maxAmount - reserveAmountEth
     }

@@ -21,10 +21,10 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { ActionState } from '../interfaces'
+import { types } from '@/core'
 
 type LoadingButtonTextMap = {
-  [key in ActionState]: string
+  [key in types.mp.ActionState]: string
 }
 
 export const LOADING_BUTTON_TEXT: LoadingButtonTextMap = {

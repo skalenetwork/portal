@@ -22,10 +22,10 @@
  */
 
 import { type TransactionResponse } from 'ethers'
+import { types } from '@/core'
 import { TRANSACTION_ERROR_MSG } from './constants'
-import { TxResponse } from './interfaces'
 
-export async function sendTransaction(func: any, args: any[]): Promise<TxResponse> {
+export async function sendTransaction(func: any, args: any[]): Promise<types.mp.TxResponse> {
   try {
     const response: TransactionResponse = await func(...args)
     await response.wait()

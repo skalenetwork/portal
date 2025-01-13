@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useWalletClient, useSwitchChain, useAccount } from 'wagmi'
 import { useAddRecentTransaction } from '@rainbow-me/rainbowkit'
+import { types } from '@/core'
 
 import Box from '@mui/material/Box'
 import Stepper from '@mui/material/Stepper'
@@ -24,10 +25,9 @@ import AddToken from '../AddToken'
 
 import { useMetaportStore } from '../../store/MetaportStore'
 import { useCPStore } from '../../store/CommunityPoolStore'
-import { SkaleNetwork } from '../../core/interfaces'
 import { SUCCESS_EMOJIS } from '../../core/constants'
 
-export default function SkStepper(props: { skaleNetwork: SkaleNetwork }) {
+export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
   const { address } = useAccount()
   const { switchChainAsync } = useSwitchChain()
   const addRecentTransaction = useAddRecentTransaction()

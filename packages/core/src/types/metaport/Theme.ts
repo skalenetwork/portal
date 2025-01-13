@@ -17,14 +17,19 @@
  */
 
 /**
- * @file RouteParams.ts
+ * @file Theme.ts
  * @copyright SKALE Labs 2022-Present
  */
 
-import { TokenType } from '../dataclasses/TokenType'
+import { Position } from '../../dataclasses/Position'
 
-export interface RouteParams {
-  hub: string
-  tokenKeyname: string
-  tokenType: TokenType
+export type PaletteMode = 'light' | 'dark'
+
+export interface Theme {
+  mode: PaletteMode | string
+  primary?: string
+  background?: string
+  position?: Position
+  zIndex?: number
+  vibrant?: boolean
 }

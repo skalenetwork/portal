@@ -22,12 +22,12 @@
  */
 
 import { ReactElement, useState } from 'react'
+import { types } from '@/core'
 import { Button } from '@mui/material'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
 
 import { cls, cmn, styles } from '../core/css'
-import { SkaleNetwork } from '../core/interfaces'
 import { getChainAppsMeta } from '../core/metadata'
 
 import ChainAppBtn from './ChainAppBtn'
@@ -35,7 +35,7 @@ import ChainAppBtn from './ChainAppBtn'
 import { sortObjectByKeys } from '../core/helper'
 
 export default function ChainApps(props: {
-  skaleNetwork: SkaleNetwork
+  skaleNetwork: types.SkaleNetwork
   chainName: string
   handle?: (schainName: string, app?: string) => void
   size?: 'sm' | 'md'

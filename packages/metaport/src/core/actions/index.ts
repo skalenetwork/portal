@@ -22,6 +22,7 @@
  */
 
 import debug from 'debug'
+import { dc } from '@/core'
 
 import { TransferEthM2S, TransferEthS2M, UnlockEthM } from './eth'
 import {
@@ -36,7 +37,6 @@ import {
 import { Action } from './action'
 
 import { isMainnet } from '../helper'
-import { ActionType, TokenType } from '../dataclasses'
 import { S2S_POSTFIX, M2S_POSTFIX, S2M_POSTFIX } from '../constants'
 
 debug.enable('*')
@@ -45,7 +45,7 @@ const log = debug('metaport:actions')
 export function getActionName(
   chainName1: string,
   chainName2: string,
-  tokenType: TokenType
+  tokenType: dc.TokenType
 ): string {
   if (!chainName1 || !chainName2 || !tokenType) return
   log(`Getting action name: ${chainName1} ${chainName2} ${tokenType}`)
@@ -61,7 +61,7 @@ export function getActionName(
   return actionName
 }
 
-export const ACTIONS: { [actionType in ActionType]: typeof Action } = {
+export const ACTIONS: { [actionType in dc.ActionType]: typeof Action } = {
   eth_m2s: TransferEthM2S,
   eth_s2m: TransferEthS2M,
   eth_s2s: TransferERC20S2S,

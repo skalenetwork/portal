@@ -17,20 +17,37 @@
  */
 
 /**
- * @file views.ts
- * @copyright SKALE Labs 2023-Present
+ * @file Tokens.ts
+ * @copyright SKALE Labs 2022-Present
  */
 
-import { View } from './dataclasses/View'
+import { AddressType } from '../../types'
 
-export function isTransferRequestView(view: View) {
-  return view === View.TRANSFER_REQUEST_SUMMARY || view === View.TRANSFER_REQUEST_STEPS
+export interface EthToken {
+  chains: ConnectedChainMap
 }
 
-export function isTransferRequestSummary(view: View) {
-  return view === View.TRANSFER_REQUEST_SUMMARY
+export interface Token {
+  address?: AddressType
+  chains: ConnectedChainMap
 }
 
-export function isStepsMetadata(view: View) {
-  return view === View.TRANSFER_REQUEST_STEPS
+export interface ConnectedChain {
+  hub?: string
+  wrapper?: AddressType
+  wrapsSFuel?: boolean
+  clone?: boolean
+}
+
+export interface ConnectedChainMap {
+  [chainName: string]: ConnectedChain
+}
+export interface ChainTokensMap {
+  [tokenSymbol: string]: Token
+}
+export interface TokenTypeMap {
+  [tokenType: string]: ChainTokensMap
+}
+export interface TokenConnectionsMap {
+  [chainName: string]: TokenTypeMap
 }

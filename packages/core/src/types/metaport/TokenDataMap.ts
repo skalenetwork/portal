@@ -17,13 +17,29 @@
  */
 
 /**
- * @file index.ts
+ * @file TokenDataMap.ts
  * @copyright SKALE Labs 2022-Present
  */
 
-export * from './TokenType'
-export * from './TokenData'
-export * from './Position'
-export * from './TransferRequestStatus'
-export * from './StepMetadata'
-export * from './ErrorMessage'
+import { TokenData } from '../../dataclasses/TokenData'
+import { TokenType } from '../../dataclasses/TokenType'
+import { Contract } from 'ethers'
+
+export interface TokenDataMap {
+  [tokenSymbol: string]: TokenData
+}
+
+export type TokenDataTypesMap = {
+  [TokenType.eth]: TokenDataMap
+  [TokenType.erc20]: TokenDataMap
+  [TokenType.erc721]: TokenDataMap
+  [TokenType.erc721meta]: TokenDataMap
+  [TokenType.erc1155]: TokenDataMap
+}
+
+export interface TokenContractsMap {
+  [tokenKeyname: string]: Contract
+}
+export interface TokenBalancesMap {
+  [tokenKeyname: string]: bigint
+}

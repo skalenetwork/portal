@@ -26,10 +26,9 @@ import debug from 'debug'
 import { UseSwitchChainReturnType } from 'wagmi'
 import { WalletClient } from 'viem'
 import { Contract, Provider } from 'ethers'
+import { dc, types } from '@/core'
 
 import { MainnetChain, SChain } from '@skalenetwork/ima-js'
-import { TokenData, CustomAbiTokenType } from '../dataclasses'
-import * as interfaces from '../interfaces'
 import MetaportCore, { createTokenData } from '../metaport'
 import { externalEvents } from '../events'
 import { toWei } from '../convertation'
@@ -65,7 +64,7 @@ export class Action {
   address: string
   amount: string
   tokenId: number
-  token: TokenData
+  token: dc.TokenData
 
   walletClient: WalletClient
 
@@ -90,7 +89,7 @@ export class Action {
     address: string,
     amount: string,
     tokenId: number,
-    token: TokenData,
+    token: dc.TokenData,
     setAmountErrorMessage: (amountErrorMessage: string) => void,
     setBtnText: (btnText: string) => void,
     switchChain: UseSwitchChainReturnType['switchChainAsync'],
@@ -126,7 +125,7 @@ export class Action {
         token.keyname,
         token.type,
         provider1,
-        this.token.wrapper(this.chainName2) ? CustomAbiTokenType.erc20wrap : null,
+        this.token.wrapper(this.chainName2) ? dc.CustomAbiTokenType.erc20wrap : null,
         this.token.wrapper(this.chainName2) ? this.chainName2 : null
       )
       this.originAddress = this.mpc.originAddress(chainName1, chainName2, token.keyname, token.type)
@@ -145,7 +144,7 @@ export class Action {
           token.keyname,
           token.type,
           provider2,
-          CustomAbiTokenType.erc20wrap,
+          dc.CustomAbiTokenType.erc20wrap,
           this.chainName1
         )
       } else {
@@ -159,7 +158,7 @@ export class Action {
     this.walletClient = walletClient
   }
 
-  updateState(currentState: interfaces.ActionState, transactionHash?: string, timestamp?: number) {
+  updateState(currentState: types.mp.ActionState, transactionHash?: string, timestamp?: number) {
     log(`actionStateUpd: ${this.constructor.name} - ${currentState} - ${this.token.keyname} \
 - ${this.chainName1} -> ${this.chainName2}`)
     const amountWei = this.amount ? toWei(this.amount, this.token.meta.decimals) : 0n
@@ -182,7 +181,7 @@ export class Action {
 
   async getConnectedChain(
     provider: Provider,
-    customAbiTokenType?: CustomAbiTokenType,
+    customAbiTokenType?: dc.CustomAbiTokenType,
     destChainName?: string,
     chainName?: string
   ): Promise<MainnetChain | SChain> {

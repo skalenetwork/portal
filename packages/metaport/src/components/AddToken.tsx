@@ -23,6 +23,7 @@
 
 import { useState } from 'react'
 import { useWalletClient, useSwitchChain } from 'wagmi'
+import { dc } from '@/core'
 import { MainnetChain, SChain } from '@skalenetwork/ima-js'
 
 import Button from '@mui/material/Button'
@@ -31,11 +32,10 @@ import TollIcon from '@mui/icons-material/Toll'
 import { cls, cmn, styles } from '../core/css'
 import MetaportCore, { createTokenData } from '../core/metaport'
 import { enforceNetwork } from '../core/network'
-import { TokenData, TokenType } from '../core/dataclasses'
 import { ICONS_BASE_URL, MAINNET_CHAIN_NAME } from '../core/constants'
 
 export default function AddToken(props: {
-  token: TokenData
+  token: dc.TokenData
   destChainName: string
   mpc: MetaportCore
   ima: MainnetChain | SChain
@@ -45,7 +45,7 @@ export default function AddToken(props: {
   const { data: walletClient } = useWalletClient()
   const { switchChainAsync } = useSwitchChain()
 
-  function getIconUrl(token: TokenData) {
+  function getIconUrl(token: dc.TokenData) {
     return `${ICONS_BASE_URL}${token.meta.symbol}.png`
   }
 
@@ -101,7 +101,7 @@ export default function AddToken(props: {
     }
   }
 
-  if (props.destChainName === MAINNET_CHAIN_NAME && props.token.type === TokenType.eth) return
+  if (props.destChainName === MAINNET_CHAIN_NAME && props.token.type === dc.TokenType.eth) return
 
   return (
     <Button

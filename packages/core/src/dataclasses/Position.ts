@@ -17,25 +17,26 @@
  */
 
 /**
- * @file index.ts
+ * @file Position.ts
  * @copyright SKALE Labs 2022-Present
  */
 
-export * from './Config'
-export * from './ChainsMetadata'
-export * from './Theme'
-export * from './Tokens'
-export * from './TokenDataMap'
-export * from './TransferParams'
-export * from './CheckRes'
-export * from './TransactionHistory'
-export * from './CommunityPoolData'
-export * from './TokenMetadata'
-export * from './ActionStateUpdate'
-export * from './ActionState'
-export * from './Transactions'
+export const DEFAULT_MP_MARGIN = '20pt'
 
-export type AddressType = `0x${string}`
+export interface Position {
+  top: string
+  right: string
+  bottom: string
+  left: string
+}
 
-export type Size = 'xs' | 'sm' | 'md' | 'lg'
-export type SimplifiedSize = 'sm' | 'md'
+export interface PositionMap {
+  [positionName: string]: Position
+}
+
+export const Positions: PositionMap = {
+  topLeft: { top: DEFAULT_MP_MARGIN, left: DEFAULT_MP_MARGIN, right: 'auto', bottom: 'auto' },
+  topRight: { top: DEFAULT_MP_MARGIN, left: 'auto', right: DEFAULT_MP_MARGIN, bottom: 'auto' },
+  bottomRight: { top: 'auto', left: 'auto', right: DEFAULT_MP_MARGIN, bottom: DEFAULT_MP_MARGIN },
+  bottomLeft: { top: 'auto', left: DEFAULT_MP_MARGIN, right: 'auto', bottom: DEFAULT_MP_MARGIN }
+}

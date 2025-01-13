@@ -24,9 +24,9 @@
 import { TRANSFER_ERROR_MSG } from '../constants'
 
 export class ErrorMessage {
-  icon: string
-  headline: string
-  text: string
+  icon: string = ''
+  headline: string = ''
+  text: string = ''
   btnText?: string
   fallback?: Function
   showTips?: boolean

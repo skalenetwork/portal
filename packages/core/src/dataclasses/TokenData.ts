@@ -22,7 +22,8 @@
  */
 
 import { DEFAULT_ERC20_DECIMALS } from '../constants'
-import { TokenMetadata, ConnectedChainMap, AddressType } from '../interfaces'
+import { TokenMetadata, ConnectedChainMap } from '../types/metaport'
+import { AddressType } from '../types'
 import { TokenType } from './TokenType'
 
 export class TokenData {

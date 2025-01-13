@@ -22,8 +22,8 @@
  */
 
 import React, { useEffect, useState } from 'react'
-
 import { useAccount, useWalletClient, useSwitchChain } from 'wagmi'
+import { types } from '@/core'
 
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
@@ -45,7 +45,6 @@ import { cls, cmn, styles } from '../core/css'
 
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
-import { TokenDataMap } from '../core/interfaces'
 
 export default function WrappedTokens() {
   const { data: walletClient } = useWalletClient()
@@ -70,7 +69,7 @@ export default function WrappedTokens() {
   const expandedWT = useCollapseStore((state) => state.expandedWT)
   const setExpandedWT = useCollapseStore((state) => state.setExpandedWT)
 
-  const [filteredTokens, setFilteredTokens] = useState<TokenDataMap>({})
+  const [filteredTokens, setFilteredTokens] = useState<types.mp.TokenDataMap>({})
 
   useEffect(() => {
     updateWrappedTokenBalances(address)

@@ -17,22 +17,24 @@
  */
 
 /**
- * @file TransferParams.ts
- * @copyright SKALE Labs 2022-Present
+ * @file TransactionHistory.ts
+ * @copyright SKALE Labs 2023-Present
  */
 
-import { TokenType } from '../dataclasses/TokenType'
-import { RouteParams } from './RouteParams'
+import { AddressType } from '..'
 
-export interface TransferParams {
+export interface TransactionHistory {
+  transactionHash: string
+  timestamp: number
+  chainName: string
+  txName: string
+}
+
+export interface TransferHistory {
+  transactions: TransactionHistory[]
   tokenKeyname: string
-  tokenType: TokenType
-  amount?: string
-  tokenId?: number
-  chains?: string[]
-  lockValue?: boolean
-  route?: RouteParams
-  text?: string
-  fromApp?: string
-  toApp?: string
+  address: AddressType | undefined
+  chainName1: string
+  chainName2: string
+  amount: string
 }
