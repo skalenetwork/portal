@@ -21,6 +21,7 @@
  */
 
 import React from 'react'
+import { types } from '@/core'
 
 import Collapse from '@mui/material/Collapse'
 import Fab from '@mui/material/Fab'
@@ -37,9 +38,8 @@ import WidgetBody from '../WidgetBody'
 import { cls, cmn, styles } from '../../core/css'
 
 import ErrorMessage from '../ErrorMessage'
-import { MetaportConfig } from '../../core/interfaces'
 
-export function WidgetUI(props: { config: MetaportConfig }) {
+export function WidgetUI(props: { config: types.mp.Config }) {
   const metaportTheme = useUIStore((state) => state.theme)
   const isOpen = useUIStore((state) => state.open)
   const setOpen = useUIStore((state) => state.setOpen)

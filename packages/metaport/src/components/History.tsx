@@ -21,6 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
+import { types } from '@/core'
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 
 import TokenIcon from './TokenIcon'
@@ -31,9 +32,8 @@ import Chain from './Chain'
 import { useMetaportStore } from '../store/MetaportStore'
 import { cls, cmn, styles } from '../core/css'
 
-import * as interfaces from '../core/interfaces'
 
-export default function History(props: { size?: interfaces.SimplifiedSize }) {
+export default function History(props: { size?: types.Size }) {
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
   const transfersHistory = useMetaportStore((state) => state.transfersHistory)
 
@@ -64,7 +64,7 @@ export default function History(props: { size?: interfaces.SimplifiedSize }) {
             Current transfer
           </p>
           <SkPaper gray>
-            {transactionsHistory.map((transactionData: interfaces.TransactionHistory) => (
+            {transactionsHistory.map((transactionData: types.mp.TransactionHistory) => (
               <TransactionData
                 key={transactionData.transactionHash}
                 transactionData={transactionData}
@@ -78,7 +78,7 @@ export default function History(props: { size?: interfaces.SimplifiedSize }) {
         {transfersHistory
           .slice()
           .reverse()
-          .map((transfer: interfaces.TransferHistory, key: number) => (
+          .map((transfer: types.mp.TransferHistory, key: number) => (
             <SkPaper
               gray
               key={key}
@@ -176,14 +176,14 @@ export default function History(props: { size?: interfaces.SimplifiedSize }) {
                   >
                     {transfer.address !== undefined
                       ? `• ${transfer.address.substring(0, 6)}...${transfer.address.substring(
-                          transfer.address.length - 4
-                        )}`
+                        transfer.address.length - 4
+                      )}`
                       : '• UNFINISHED'}
                   </p>
                 </div>
               </div>
               <SkPaper gray>
-                {transfer.transactions.map((transactionData: interfaces.TransactionHistory) => (
+                {transfer.transactions.map((transactionData: types.mp.TransactionHistory) => (
                   <TransactionData
                     key={transactionData.transactionHash}
                     transactionData={transactionData}

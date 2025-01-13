@@ -23,9 +23,9 @@
 
 import debug from 'debug'
 import { Provider } from 'ethers'
+import { types } from '@/core'
 
 import MetaportCore from './metaport'
-import { AddressType } from './interfaces'
 import { isFaucetAvailable, getSFuel } from './faucet'
 import { MAINNET_CHAIN_NAME, DEFAULT_MIN_SFUEL_WEI } from '../core/constants'
 
@@ -55,7 +55,7 @@ export class Station {
     this.provider = mpc.provider(chainName)
   }
 
-  async getData(address: AddressType): Promise<StationData> {
+  async getData(address: types.AddressType): Promise<StationData> {
     try {
       const balance = await this.provider.getBalance(address)
       return { balance, ok: balance >= DEFAULT_MIN_SFUEL_WEI }
@@ -70,7 +70,7 @@ export class Station {
     return isFaucetAvailable(this.chainName, this.mpc.config.skaleNetwork)
   }
 
-  async doPoW(address: AddressType): Promise<StationPowRes> {
+  async doPoW(address: types.AddressType): Promise<StationPowRes> {
     // return { ok: true, message: 'PoW is not available for Ethereum Mainnet' };
     if (!this.chainName || !isFaucetAvailable(this.chainName, this.mpc.config.skaleNetwork)) {
       log('WARNING: PoW is not available for this chain')

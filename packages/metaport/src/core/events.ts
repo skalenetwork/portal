@@ -22,7 +22,8 @@
  */
 
 import debug from 'debug'
-import * as interfaces from './interfaces/index'
+import { types } from '@/core'
+
 
 debug.enable('*')
 const log = debug('metaport:core:events')
@@ -58,11 +59,8 @@ export namespace externalEvents {
     })
   }
 
-  export function transferRequestCompleted(transferRequest: interfaces.TransferParams) {
-    dispatchEvent('metaport_transferRequestCompleted', { transferRequest: transferRequest })
-  }
 
-  export function actionStateUpdated(actionStateUpdate: interfaces.ActionStateUpdate): void {
+  export function actionStateUpdated(actionStateUpdate: types.mp.ActionStateUpdate): void {
     dispatchEvent('metaport_actionStateUpdated', actionStateUpdate)
   }
 
@@ -79,10 +77,6 @@ export namespace externalEvents {
       tx: tx
     })
   }
-
-  export function connected() {
-    dispatchEvent('metaport_connected')
-  }
 }
 
-export namespace internalEvents {}
+export namespace internalEvents { }

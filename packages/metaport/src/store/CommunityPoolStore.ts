@@ -23,14 +23,13 @@
 
 import { create } from 'zustand'
 import { MainnetChain, SChain } from '@skalenetwork/ima-js'
-
-import * as interfaces from '../core/interfaces'
+import { types } from '@/core'
 import { getEmptyCommunityPoolData, getCommunityPoolData } from '../core/community_pool'
 import MetaportCore from '../core/metaport'
 
 interface CommunityPoolState {
-  cpData: interfaces.CommunityPoolData
-  setCpData: (cpData: interfaces.CommunityPoolData) => void
+  cpData: types.mp.CommunityPoolData
+  setCpData: (cpData: types.mp.CommunityPoolData) => void
   loading: string | false
   setLoading: (loading: string | false) => void
   amount: string
@@ -43,7 +42,7 @@ interface CommunityPoolState {
 
 export const useCPStore = create<CommunityPoolState>()((set, get) => ({
   cpData: getEmptyCommunityPoolData(),
-  setCpData: (cpData: interfaces.CommunityPoolData) => set(() => ({ cpData: cpData })),
+  setCpData: (cpData: types.mp.CommunityPoolData) => set(() => ({ cpData: cpData })),
   loading: false,
   setLoading: (loading: string | false) => set(() => ({ loading: loading })),
   amount: '',

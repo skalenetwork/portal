@@ -22,18 +22,19 @@
  */
 
 import { create } from 'zustand'
-import * as interfaces from '../core/interfaces'
+import { types } from '@/core'
+
 
 export interface UIState {
-  theme: interfaces.MetaportTheme
-  setTheme: (theme: interfaces.MetaportTheme) => void
+  theme: types.mp.Theme
+  setTheme: (theme: types.mp.Theme) => void
   open: boolean
   setOpen: (isOpen: boolean) => void
 }
 
 export const useUIStore = create<UIState>()((set) => ({
   theme: null,
-  setTheme: (theme: interfaces.MetaportTheme) => set(() => ({ theme: theme })),
+  setTheme: (theme: types.mp.Theme) => set(() => ({ theme: theme })),
   open: false,
   setOpen: (isOpen: boolean) => set(() => ({ open: isOpen }))
 }))

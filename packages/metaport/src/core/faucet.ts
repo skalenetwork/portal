@@ -22,31 +22,30 @@
  */
 
 import { Wallet, JsonRpcProvider, AbiCoder, TransactionResponse } from 'ethers'
-import { FAUCET_DATA } from '@/core'
+import { types, FAUCET_DATA } from '@/core'
 import SkalePowMiner from './miner'
 import { ZERO_ADDRESS, ZERO_FUNCSIG } from './constants'
-import { AddressType } from './interfaces'
 import MetaportCore from './metaport'
 
-function getAddress(chainName: string, skaleNetwork: string) {
+function getAddress(chainName: string, skaleNetwork: types.SkaleNetwork) {
   if (!isFaucetAvailable(chainName, skaleNetwork)) return ZERO_ADDRESS
   const faucet: { [x: string]: { [x: string]: string } } = FAUCET_DATA[skaleNetwork]
   return faucet[chainName].address
 }
 
-function getFunc(chainName: string, skaleNetwork: string) {
+function getFunc(chainName: string, skaleNetwork: types.SkaleNetwork) {
   if (!isFaucetAvailable(chainName, skaleNetwork)) return ZERO_FUNCSIG
   const faucet: { [x: string]: { [x: string]: string } } = FAUCET_DATA[skaleNetwork]
   return faucet[chainName].func
 }
 
-export function isFaucetAvailable(chainName: string, skaleNetwork: string) {
+export function isFaucetAvailable(chainName: string, skaleNetwork: types.SkaleNetwork) {
   if (!FAUCET_DATA[skaleNetwork]) return false
   const keys = Object.keys(FAUCET_DATA[skaleNetwork])
   return keys.includes(chainName)
 }
 
-function getFuncData(chainName: string, address: string, skaleNetwork: string) {
+function getFuncData(chainName: string, address: string, skaleNetwork: types.SkaleNetwork) {
   const faucetAddress = getAddress(chainName, skaleNetwork)
   const functionSig = getFunc(chainName, skaleNetwork)
   const encoder = new AbiCoder()
@@ -56,7 +55,7 @@ function getFuncData(chainName: string, address: string, skaleNetwork: string) {
 
 export async function getSFuel(
   chainName: string,
-  address: AddressType,
+  address: types.AddressType,
   mpc: MetaportCore
 ): Promise<TransactionResponse> {
   const endpoint = mpc.endpoint(chainName)

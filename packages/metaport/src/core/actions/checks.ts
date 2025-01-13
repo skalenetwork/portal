@@ -23,11 +23,10 @@
 
 import debug from 'debug'
 import { Contract } from 'ethers'
+import { dc, types } from '@/core'
 import { MainnetChain, SChain } from '@skalenetwork/ima-js'
 
 import { fromWei, toWei } from '../convertation'
-import { TokenData } from '../dataclasses/TokenData'
-import * as interfaces from '../interfaces'
 import { addressesEqual } from '../helper'
 import { DEFAULT_ERC20_DECIMALS, SFUEL_RESERVE_AMOUNT } from '../constants'
 
@@ -38,9 +37,9 @@ export async function checkEthBalance( // TODO: optimize balance checks
   chain: MainnetChain | SChain,
   address: string,
   amount: string,
-  tokenData: TokenData
-): Promise<interfaces.CheckRes> {
-  const checkRes: interfaces.CheckRes = { res: false }
+  tokenData: dc.TokenData
+): Promise<types.mp.CheckRes> {
+  const checkRes: types.mp.CheckRes = { res: false }
   if (!amount || Number(amount) === 0) return checkRes
   try {
     toWei(amount, tokenData.meta.decimals)
@@ -78,10 +77,10 @@ export async function checkEthBalance( // TODO: optimize balance checks
 export async function checkERC20Balance(
   address: string,
   amount: string,
-  tokenData: TokenData,
+  tokenData: dc.TokenData,
   tokenContract: Contract
-): Promise<interfaces.CheckRes> {
-  const checkRes: interfaces.CheckRes = { res: false }
+): Promise<types.mp.CheckRes> {
+  const checkRes: types.mp.CheckRes = { res: false }
   if (!amount || Number(amount) === 0) return checkRes
   try {
     toWei(amount, tokenData.meta.decimals)
@@ -114,8 +113,8 @@ export async function checkSFuelBalance(
   address: string,
   amount: string,
   sChain: SChain
-): Promise<interfaces.CheckRes> {
-  const checkRes: interfaces.CheckRes = { res: false }
+): Promise<types.mp.CheckRes> {
+  const checkRes: types.mp.CheckRes = { res: false }
   if (!amount || Number(amount) === 0) return checkRes
   try {
     toWei(amount, DEFAULT_ERC20_DECIMALS)
@@ -149,10 +148,10 @@ export async function checkERC20Allowance(
   address: string,
   approvalAddress: string,
   amount: string,
-  tokenData: TokenData,
+  tokenData: dc.TokenData,
   tokenContract: Contract
-): Promise<interfaces.CheckRes> {
-  const checkRes: interfaces.CheckRes = { res: false }
+): Promise<types.mp.CheckRes> {
+  const checkRes: types.mp.CheckRes = { res: false }
   if (!amount || Number(amount) === 0) return checkRes
   try {
     const allowance = await tokenContract.allowance(address, approvalAddress)
@@ -172,9 +171,9 @@ export async function checkERC721(
   approvalAddress: string,
   tokenId: number,
   tokenContract: Contract
-): Promise<interfaces.CheckRes> {
+): Promise<types.mp.CheckRes> {
   let approvedAddress: string
-  const checkRes: interfaces.CheckRes = { res: true, approved: false }
+  const checkRes: types.mp.CheckRes = { res: true, approved: false }
   if (!tokenId) return checkRes
   try {
     approvedAddress = await tokenContract.getApproved(tokenId)
@@ -205,10 +204,10 @@ export async function checkERC1155(
   approvalAddress: string,
   tokenId: number,
   amount: string,
-  tokenData: TokenData,
+  tokenData: dc.TokenData,
   tokenContract: Contract
-): Promise<interfaces.CheckRes> {
-  const checkRes: interfaces.CheckRes = { res: true, approved: false }
+): Promise<types.mp.CheckRes> {
+  const checkRes: types.mp.CheckRes = { res: true, approved: false }
   if (!tokenId || !amount) return checkRes
 
   try {

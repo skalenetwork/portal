@@ -21,8 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { TokenData } from './dataclasses'
-import { SkaleNetwork, NetworksMetadataMap } from './interfaces'
+import { dc, types } from '@/core'
 import { MAINNET_CHAIN_NAME } from './constants'
 
 import mainnetMeta from '../meta/mainnet/chains.json'
@@ -35,14 +34,14 @@ import * as LEGACY_CHAIN_ICONS from '../meta/legacy/icons'
 import * as REGRESSION_CHAIN_ICONS from '../meta/regression/icons'
 import * as TESTNET_CHAIN_ICONS from '../meta/testnet/icons'
 
-const CHAIN_ICONS: { [network in SkaleNetwork]: any } = {
+const CHAIN_ICONS: { [network in types.SkaleNetwork]: any } = {
   mainnet: MAINNET_CHAIN_ICONS,
   legacy: LEGACY_CHAIN_ICONS,
   regression: REGRESSION_CHAIN_ICONS,
   testnet: TESTNET_CHAIN_ICONS
 }
 
-export const CHAINS_META: NetworksMetadataMap = {
+export const CHAINS_META: types.NetworksMetadataMap = {
   mainnet: mainnetMeta,
   legacy: legacyMeta,
   regression: regressionMeta,
@@ -59,7 +58,7 @@ function transformChainName(chainName: string): string {
 
 // deprecated, remove after merge
 export function getChainAlias(
-  skaleNetwork: SkaleNetwork,
+  skaleNetwork: types.SkaleNetwork,
   chainName: string,
   app?: string,
   prettify?: boolean
@@ -84,13 +83,13 @@ export function getChainAlias(
   return chainName
 }
 
-export function getChainAppsMeta(chainName: string, skaleNetwork: SkaleNetwork) {
+export function getChainAppsMeta(chainName: string, skaleNetwork: types.SkaleNetwork) {
   if (CHAINS_META[skaleNetwork][chainName] && CHAINS_META[skaleNetwork][chainName].apps) {
     return CHAINS_META[skaleNetwork][chainName].apps
   }
 }
 
-export function chainIconPath(skaleNetwork: SkaleNetwork, name: string, app?: string) {
+export function chainIconPath(skaleNetwork: types.SkaleNetwork, name: string, app?: string) {
   if (!name) return
   let filename = name.toLowerCase()
   if (app) filename += `-${app}`
@@ -104,7 +103,7 @@ export function chainIconPath(skaleNetwork: SkaleNetwork, name: string, app?: st
 }
 
 // deprecated, remove after merge
-export function chainBg(skaleNetwork: SkaleNetwork, chainName: string, app?: string): string {
+export function chainBg(skaleNetwork: types.SkaleNetwork, chainName: string, app?: string): string {
   if (CHAINS_META[skaleNetwork][chainName]) {
     if (app && CHAINS_META[skaleNetwork][chainName]['apps'][app]) {
       if (CHAINS_META[skaleNetwork][chainName]['apps'][app]['gradientBackgroundLight']) {
@@ -137,7 +136,7 @@ export function tokenIcon(tokenSymbol: string) {
   // }
 }
 
-export function getTokenName(token: TokenData): string | undefined {
+export function getTokenName(token: dc.TokenData): string | undefined {
   if (!token) return
   return token.meta.name ?? token.meta.symbol
 }

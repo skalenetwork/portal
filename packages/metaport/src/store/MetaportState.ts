@@ -25,10 +25,9 @@ import { Contract } from 'ethers'
 import { WalletClient } from 'viem'
 import { UseSwitchChainReturnType } from 'wagmi'
 import { MainnetChain, SChain } from '@skalenetwork/ima-js'
+import { dc, types } from '@/core'
 
 import MetaportCore from '../core/metaport'
-import * as interfaces from '../core/interfaces'
-import * as dataclasses from '../core/dataclasses'
 
 export interface MetaportState {
   ima1: MainnetChain | SChain
@@ -56,7 +55,7 @@ export interface MetaportState {
     address: string,
     switchChain: UseSwitchChainReturnType['switchChainAsync'],
     walletClient: WalletClient,
-    tokens: interfaces.TokenDataMap
+    tokens: types.mp.TokenDataMap
   ) => void
 
   check: (amount: string, address: `0x${string}`) => void
@@ -64,8 +63,8 @@ export interface MetaportState {
   currentStep: number
   setCurrentStep: (currentStep: number) => void
 
-  stepsMetadata: dataclasses.StepMetadata[]
-  setStepsMetadata: (steps: dataclasses.StepMetadata[]) => void
+  stepsMetadata: dc.StepMetadata[]
+  setStepsMetadata: (steps: dc.StepMetadata[]) => void
 
   chainName1: string
   chainName2: string
@@ -83,18 +82,18 @@ export interface MetaportState {
 
   destChains: string[]
 
-  tokens: interfaces.TokenDataTypesMap
+  tokens: types.mp.TokenDataTypesMap
 
-  token: dataclasses.TokenData | null
-  setToken: (token: dataclasses.TokenData | null) => void
+  token: dc.TokenData | null
+  setToken: (token: dc.TokenData | null) => void
 
-  tokenContracts: interfaces.TokenContractsMap
-  tokenBalances: interfaces.TokenBalancesMap
+  tokenContracts: types.mp.TokenContractsMap
+  tokenBalances: types.mp.TokenBalancesMap
   updateTokenBalances: (address: string) => Promise<void>
 
-  wrappedTokens: interfaces.TokenDataTypesMap
-  wrappedTokenContracts: interfaces.TokenContractsMap
-  wrappedTokenBalances: interfaces.TokenBalancesMap
+  wrappedTokens: types.mp.TokenDataTypesMap
+  wrappedTokenContracts: types.mp.TokenContractsMap
+  wrappedTokenBalances: types.mp.TokenBalancesMap
   updateWrappedTokenBalances: (address: string) => Promise<void>
 
   destTokenContract: Contract
@@ -104,8 +103,8 @@ export interface MetaportState {
   amountErrorMessage: string
   setAmountErrorMessage: (amountErrorMessage: string) => void
 
-  errorMessage: dataclasses.ErrorMessage
-  setErrorMessage: (errorMessage: dataclasses.ErrorMessage) => void
+  errorMessage: dc.ErrorMessage
+  setErrorMessage: (errorMessage: dc.ErrorMessage) => void
 
   loading: boolean
   setLoading: (loading: boolean) => void
@@ -116,13 +115,13 @@ export interface MetaportState {
   btnText: string
   setBtnText: (btnText: string) => void
 
-  transactionsHistory: interfaces.TransactionHistory[]
-  setTransactionsHistory: (transactionsHistory: interfaces.TransactionHistory[]) => void
-  addTransaction: (transaction: interfaces.TransactionHistory) => void
+  transactionsHistory: types.mp.TransactionHistory[]
+  setTransactionsHistory: (transactionsHistory: types.mp.TransactionHistory[]) => void
+  addTransaction: (transaction: types.mp.TransactionHistory) => void
   clearTransactionsHistory: () => void
 
-  transfersHistory: interfaces.TransferHistory[]
-  setTransfersHistory: (transfersHistory: interfaces.TransferHistory[]) => void
+  transfersHistory: types.mp.TransferHistory[]
+  setTransfersHistory: (transfersHistory: types.mp.TransferHistory[]) => void
 
   errorMessageClosedFallback: () => void
   startOver: () => void

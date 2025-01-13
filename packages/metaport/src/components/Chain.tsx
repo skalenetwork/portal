@@ -21,19 +21,19 @@
  * @copyright SKALE Labs 2023-Present
  */
 
+import { types } from '@/core'
 import ChainIcon from './ChainIcon'
 
 import { cls, cmn, dec } from '../core/css'
 import { getChainAlias } from '../core/metadata'
-import { SkaleNetwork, Size } from '../core/interfaces'
 
 export default function Chain(props: {
-  skaleNetwork: SkaleNetwork
+  skaleNetwork: types.SkaleNetwork
   chainName: string
   className?: string
   bold?: boolean
   app?: string
-  size?: Size
+  size?: types.Size
   decIcon?: boolean
   prim?: boolean
 }) {

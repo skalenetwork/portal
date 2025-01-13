@@ -35,3 +35,7 @@ export const S2M_POSTFIX = 's2m'
 export const S2S_POSTFIX = 's2s'
 export const WRAP_ACTION = 'wrap'
 export const UNWRAP_ACTION = 'unwrap'
+
+export const DEFAULT_ERROR_MSG = 'Ooops... Something went wrong...'
+export const TRANSFER_ERROR_MSG = 'Error during the transfer'
+export const TRANSACTION_ERROR_MSG = 'Transaction sending failed'

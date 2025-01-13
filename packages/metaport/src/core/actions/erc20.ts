@@ -24,6 +24,7 @@
 import debug from 'debug'
 
 import { MainnetChain, SChain } from '@skalenetwork/ima-js'
+import { dc } from '@/core'
 
 import { findFirstWrapperChainName } from '../metaport'
 import { externalEvents } from '../events'
@@ -32,7 +33,7 @@ import { MAX_APPROVE_AMOUNT } from '../constants'
 
 import { Action } from '../actions/action'
 import { checkERC20Balance, checkERC20Allowance, checkSFuelBalance } from './checks'
-import { CustomAbiTokenType } from '../dataclasses'
+
 
 debug.enable('*')
 const log = debug('metaport:actions:erc20')
@@ -49,7 +50,7 @@ export class TransferERC20S2S extends Action {
     )
     const sChain = (await this.getConnectedChain(
       this.sChain1.provider,
-      this.token.wrapper(this.chainName2) ? CustomAbiTokenType.erc20wrap : null,
+      this.token.wrapper(this.chainName2) ? dc.CustomAbiTokenType.erc20wrap : null,
       this.token.wrapper(this.chainName2) ? this.chainName2 : null
     )) as SChain
     if (!checkResAllowance.res) {
@@ -153,7 +154,7 @@ export class WrapERC20S extends Action {
       this.token.keyname,
       this.token.type,
       sChain.provider,
-      CustomAbiTokenType.erc20wrap,
+      dc.CustomAbiTokenType.erc20wrap,
       this.chainName2
     )
     sChain.erc20.addToken(`wrap_${this.token.keyname}`, wrapperToken)
@@ -203,7 +204,7 @@ export class UnWrapERC20 extends Action {
       this.token.keyname,
       this.token.type,
       sChain.provider,
-      CustomAbiTokenType.erc20wrap,
+      dc.CustomAbiTokenType.erc20wrap,
       findFirstWrapperChainName(this.token)
     )
     sChain.erc20.addToken(this.token.keyname, tokenContract)
@@ -213,14 +214,14 @@ export class UnWrapERC20 extends Action {
     this.updateState('unwrapDone', tx.hash, block.timestamp)
   }
 
-  async preAction() {}
+  async preAction() { }
 }
 
 export class UnWrapERC20S extends Action {
   async execute() {
     const sChain = (await this.getConnectedChain(
       this.sChain2.provider,
-      CustomAbiTokenType.erc20wrap,
+      dc.CustomAbiTokenType.erc20wrap,
       this.chainName1,
       this.chainName2
     )) as SChain

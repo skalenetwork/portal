@@ -22,6 +22,7 @@
  */
 
 import { useState, useEffect, useReducer } from 'react'
+import { types } from '@/core'
 
 import Grid from '@mui/material/Grid'
 import Table from '@mui/material/Table'
@@ -40,7 +41,6 @@ import ExpandRoundedIcon from '@mui/icons-material/ExpandRounded'
 import { useCPStore } from '../store/CommunityPoolStore'
 import { useMetaportStore } from '../store/MetaportStore'
 import { cls, cmn, styles } from '../core/css'
-import { ActionStateUpdate } from '../core/interfaces'
 import { Collapse } from '@mui/material'
 
 const initialState = { queue: [] }
@@ -142,7 +142,7 @@ export default function Debug() {
   }, [])
 
   function actionStateUpdated(e: CustomEvent) {
-    const actionStateUpdate: ActionStateUpdate = e.detail
+    const actionStateUpdate: types.mp.ActionStateUpdate = e.detail
     enqueueAction({
       action: actionStateUpdate.actionState,
       chainName1: actionStateUpdate.actionData.chainName1,

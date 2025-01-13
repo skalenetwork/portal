@@ -24,6 +24,7 @@
 import debug from 'debug'
 import { MainnetChain, SChain, TimeoutException } from '@skalenetwork/ima-js'
 import { JsonRpcProvider } from 'ethers'
+import { types } from '@/core'
 
 import { WalletClient } from 'viem'
 import { holesky } from '@wagmi/core/chains'
@@ -32,7 +33,6 @@ import { type UseSwitchChainReturnType } from 'wagmi'
 import proxyEndpoints from '../metadata/proxy.json'
 import { MAINNET_CHAIN_NAME, DEFAULT_ITERATIONS, DEFAULT_SLEEP } from './constants'
 import { IMA_ADDRESSES, IMA_ABIS } from './contracts'
-import { SkaleNetwork } from './interfaces'
 import { constructWagmiChain } from './wagmi_network'
 import { sleep } from './helper'
 
@@ -46,20 +46,20 @@ const PROTOCOL: { [protocol in 'http' | 'ws']: string } = {
   ws: 'wss://'
 }
 
-export const CHAIN_IDS: { [network in SkaleNetwork]: number } = {
+export const CHAIN_IDS: { [network in types.SkaleNetwork]: number } = {
   legacy: 17000,
   regression: 5,
   mainnet: 1,
   testnet: 17000
 }
 
-export function isMainnetChainId(chainId: number | BigInt, skaleNetwork: SkaleNetwork): boolean {
+export function isMainnetChainId(chainId: number | BigInt, skaleNetwork: types.SkaleNetwork): boolean {
   return Number(chainId) === CHAIN_IDS[skaleNetwork]
 }
 
 export function getChainEndpoint(
   mainnetEndpoint: string,
-  network: SkaleNetwork,
+  network: types.SkaleNetwork,
   chainName: string
 ): string {
   if (chainName === MAINNET_CHAIN_NAME) return mainnetEndpoint
@@ -67,7 +67,7 @@ export function getChainEndpoint(
 }
 
 export function getSChainEndpoint(
-  network: SkaleNetwork,
+  network: types.SkaleNetwork,
   sChainName: string,
   protocol: 'http' | 'ws' = 'http'
 ): string {
@@ -80,7 +80,7 @@ export function getSChainEndpoint(
   )
 }
 
-function getProxyEndpoint(network: SkaleNetwork) {
+function getProxyEndpoint(network: types.SkaleNetwork) {
   return proxyEndpoints[network]
 }
 
@@ -99,7 +99,7 @@ export function getMainnetAbi(network: string) {
 
 export function initIMA(
   mainnetEndpoint: string,
-  network: SkaleNetwork,
+  network: types.SkaleNetwork,
   chainName: string
 ): MainnetChain | SChain {
   if (chainName === MAINNET_CHAIN_NAME) return initMainnet(mainnetEndpoint, network)
@@ -111,7 +111,7 @@ export function initMainnet(mainnetEndpoint: string, network: string): MainnetCh
   return new MainnetChain(provider, getMainnetAbi(network))
 }
 
-export function initSChain(network: SkaleNetwork, chainName: string): SChain {
+export function initSChain(network: types.SkaleNetwork, chainName: string): SChain {
   const endpoint = getChainEndpoint(null, network, chainName)
   const provider = new JsonRpcProvider(endpoint)
   return new SChain(provider, IMA_ABIS.schain)
@@ -151,7 +151,7 @@ export async function enforceNetwork(
   chainId: bigint,
   walletClient: WalletClient,
   switchChain: UseSwitchChainReturnType['switchChainAsync'],
-  skaleNetwork: SkaleNetwork,
+  skaleNetwork: types.SkaleNetwork,
   chainName: string
 ): Promise<bigint> {
   const currentChainId = await walletClient.getChainId()

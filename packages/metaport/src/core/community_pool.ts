@@ -24,11 +24,11 @@
 import debug from 'debug'
 import { ethers } from 'ethers'
 import { MainnetChain, SChain } from '@skalenetwork/ima-js'
+import { dc, types } from '@/core'
 
 import { WalletClient } from 'viem'
 import { type UseSwitchChainReturnType } from 'wagmi'
 
-import { CommunityPoolData } from './interfaces'
 import { fromWei, toWei } from './convertation'
 import { walletClientToSigner } from './ethers'
 import { enforceNetwork, getMainnetAbi } from './network'
@@ -45,12 +45,11 @@ import {
 import { delay, roundUp } from './helper'
 import MetaportCore from './metaport'
 
-import * as dataclasses from '../core/dataclasses'
 
 debug.enable('*')
 const log = debug('metaport:core:community_pool')
 
-export function getEmptyCommunityPoolData(): CommunityPoolData {
+export function getEmptyCommunityPoolData(): types.mp.CommunityPoolData {
   return {
     exitGasOk: null,
     isActive: null,
@@ -67,7 +66,7 @@ export async function getCommunityPoolData(
   chainName2: string,
   mainnet: MainnetChain,
   sChain: SChain
-): Promise<CommunityPoolData> {
+): Promise<types.mp.CommunityPoolData> {
   if (chainName2 !== MAINNET_CHAIN_NAME) {
     return {
       exitGasOk: true,
@@ -119,7 +118,7 @@ export async function withdraw(
   address: `0x${string}`,
   switchChain: UseSwitchChainReturnType['switchChainAsync'],
   setLoading: (loading: string | false) => void,
-  setErrorMessage: (errorMessage: dataclasses.ErrorMessage) => void,
+  setErrorMessage: (errorMessage: dc.ErrorMessage) => void,
   errorMessageClosedFallback: () => void
 ) {
   setLoading('withdraw')
@@ -146,7 +145,7 @@ export async function withdraw(
   } catch (err) {
     console.error(err)
     const msg = err.message ? err.message : DEFAULT_ERROR_MSG
-    setErrorMessage(new dataclasses.TransactionErrorMessage(msg, errorMessageClosedFallback))
+    setErrorMessage(new dc.TransactionErrorMessage(msg, errorMessageClosedFallback))
   }
 }
 
@@ -158,7 +157,7 @@ export async function recharge(
   address: `0x${string}`,
   switchChain: UseSwitchChainReturnType['switchChainAsync'],
   setLoading: (loading: string | false) => void,
-  setErrorMessage: (errorMessage: dataclasses.ErrorMessage) => void,
+  setErrorMessage: (errorMessage: dc.ErrorMessage) => void,
   errorMessageClosedFallback: () => void
 ) {
   setLoading('recharge')
@@ -199,7 +198,7 @@ export async function recharge(
   } catch (err) {
     console.error(err)
     const msg = err.message ? err.message : DEFAULT_ERROR_MSG
-    setErrorMessage(new dataclasses.TransactionErrorMessage(msg, errorMessageClosedFallback))
+    setErrorMessage(new dc.TransactionErrorMessage(msg, errorMessageClosedFallback))
   } finally {
     setLoading(false)
   }

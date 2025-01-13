@@ -1,6 +1,5 @@
 import { ERC_ABIS } from '@/core'
-import * as interfaces from './core/interfaces'
-import * as dataclasses from './core/dataclasses'
+import { types, dc } from '@/core'
 
 export { useMetaportStore } from './store/MetaportStore'
 export { type MetaportState } from './store/MetaportState'
@@ -90,8 +89,8 @@ export {
   cmn,
   toWei,
   fromWei,
-  interfaces,
-  dataclasses,
+  types,
+  dc,
   getMetaportTheme,
   useWagmiAccount,
   useWagmiWalletClient,

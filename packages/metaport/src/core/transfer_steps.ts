@@ -22,18 +22,7 @@
  */
 
 import debug from 'debug'
-
-import {
-  TokenData,
-  WrapStepMetadata,
-  UnwrapStepMetadata,
-  TransferStepMetadata,
-  UnlockStepMetadata,
-  StepMetadata,
-  getActionType
-} from './dataclasses'
-
-import { MetaportConfig } from './interfaces/index'
+import { dc, types } from '@/core'
 
 import { MAINNET_CHAIN_NAME } from './constants'
 
@@ -41,11 +30,11 @@ debug.enable('*')
 const log = debug('metaport:core:transferSteps')
 
 export function getStepsMetadata(
-  config: MetaportConfig,
-  token: TokenData,
+  config: types.mp.Config,
+  token: dc.TokenData,
   to: string
-): StepMetadata[] {
-  const steps: StepMetadata[] = []
+): dc.StepMetadata[] {
+  const steps: dc.StepMetadata[] = []
   if (token === undefined || token === null || to === null || to === '') return steps
 
   const toChain = token.connections[to].hub ?? to
@@ -56,23 +45,23 @@ export function getStepsMetadata(
   log(`Setting toChain: ${toChain}`)
 
   if (token.connections[toChain].wrapper) {
-    steps.push(new WrapStepMetadata(token.chain, to))
+    steps.push(new dc.WrapStepMetadata(token.chain, to))
   }
   steps.push(
-    new TransferStepMetadata(getActionType(token.chain, toChain, token.type), token.chain, toChain)
+    new dc.TransferStepMetadata(dc.getActionType(token.chain, toChain, token.type), token.chain, toChain)
   )
   if (hubTokenOptions.wrapper && !isCloneToClone) {
-    steps.push(new UnwrapStepMetadata(token.chain, toChain))
+    steps.push(new dc.UnwrapStepMetadata(token.chain, toChain))
   }
   if (token.connections[to].hub) {
     const tokenOptionsHub = config.connections[toChain][token.type][token.keyname].chains[to]
     if (tokenOptionsHub.wrapper && !isCloneToClone) {
-      steps.push(new WrapStepMetadata(toChain, to))
+      steps.push(new dc.WrapStepMetadata(toChain, to))
     }
-    steps.push(new TransferStepMetadata(getActionType(toChain, to, token.type), toChain, to))
+    steps.push(new dc.TransferStepMetadata(dc.getActionType(toChain, to, token.type), toChain, to))
   }
   if (to === MAINNET_CHAIN_NAME && token.keyname === 'eth') {
-    steps.push(new UnlockStepMetadata(token.chain, to))
+    steps.push(new dc.UnlockStepMetadata(token.chain, to))
   }
 
   log(`Action steps metadata:`)

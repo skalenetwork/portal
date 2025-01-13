@@ -1,5 +1,28 @@
+/**
+ * @license
+ * SKALE Metaport
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+/**
+ * @file TokenList.ts
+ * @copyright SKALE Labs 2025-Present
+ */
+
 import { useEffect } from 'react'
 import React from 'react'
+import { dc } from '@/core'
 
 import { useAccount } from 'wagmi'
 
@@ -18,7 +41,6 @@ import TokenIcon from './TokenIcon'
 
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
-import { TokenType } from '../core/dataclasses'
 import { BALANCE_UPDATE_INTERVAL_MS } from '../core/constants'
 
 export default function TokenList() {
@@ -106,33 +128,33 @@ export default function TokenList() {
         <AccordionDetails>
           <TokenListSection
             tokens={tokens.eth}
-            type={TokenType.eth}
+            type={dc.TokenType.eth}
             setToken={setToken}
             setExpanded={setExpandedTokens}
             tokenBalances={tokenBalances}
           />
           <TokenListSection
             tokens={tokens.erc20}
-            type={TokenType.erc20}
+            type={dc.TokenType.erc20}
             setToken={setToken}
             setExpanded={setExpandedTokens}
             tokenBalances={tokenBalances}
           />
           <TokenListSection
             tokens={tokens.erc721}
-            type={TokenType.erc721}
+            type={dc.TokenType.erc721}
             setToken={setToken}
             setExpanded={setExpandedTokens}
           />
           <TokenListSection
             tokens={tokens.erc721meta}
-            type={TokenType.erc721meta}
+            type={dc.TokenType.erc721meta}
             setToken={setToken}
             setExpanded={setExpandedTokens}
           />
           <TokenListSection
             tokens={tokens.erc1155}
-            type={TokenType.erc1155}
+            type={dc.TokenType.erc1155}
             setToken={setToken}
             setExpanded={setExpandedTokens}
           />
