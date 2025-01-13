@@ -22,9 +22,9 @@
  */
 
 import { Wallet, JsonRpcProvider, AbiCoder, TransactionResponse } from 'ethers'
-
+import { FAUCET_DATA } from '@/core'
 import SkalePowMiner from './miner'
-import { ZERO_ADDRESS, ZERO_FUNCSIG, FAUCET_DATA } from './constants'
+import { ZERO_ADDRESS, ZERO_FUNCSIG } from './constants'
 import { AddressType } from './interfaces'
 import MetaportCore from './metaport'
 

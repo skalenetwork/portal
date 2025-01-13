@@ -1,3 +1,4 @@
+import { ERC_ABIS } from '@/core'
 import * as interfaces from './core/interfaces'
 import * as dataclasses from './core/dataclasses'
 
@@ -39,7 +40,6 @@ import MetaportCore from './core/metaport'
 import { chainBg } from './core/metadata'
 import { BASE_EXPLORER_URLS, GRAY_BG } from './core/constants'
 import { toWei, fromWei } from './core/convertation'
-import { ERC_ABIS } from './core/contracts'
 import { sendTransaction } from './core/transactions'
 import { Station, StationData } from './core/sfuel'
 

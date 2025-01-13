@@ -26,6 +26,7 @@ import { tokenIcon } from '../core/metadata'
 
 import { styles } from '../core/css'
 
+// todo: 4.0 replace with a library
 export default function TokenIcon(props: {
   tokenSymbol: string | undefined | null
   iconUrl?: string | undefined | null
@@ -37,8 +38,8 @@ export default function TokenIcon(props: {
     return <TollRoundedIcon />
   }
   const iconPath = props.iconUrl ?? tokenIcon(props.tokenSymbol)
-  if (iconPath.default) {
-    return <img className={className} src={iconPath.default} />
-  }
+  // if (iconPath.default) {
+  //   return <img className={className} src={iconPath.default} />
+  // }
   return <img className={className} src={iconPath} />
 }

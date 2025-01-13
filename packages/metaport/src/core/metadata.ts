@@ -35,8 +35,6 @@ import * as LEGACY_CHAIN_ICONS from '../meta/legacy/icons'
 import * as REGRESSION_CHAIN_ICONS from '../meta/regression/icons'
 import * as TESTNET_CHAIN_ICONS from '../meta/testnet/icons'
 
-import * as icons from '../icons'
-
 const CHAIN_ICONS: { [network in SkaleNetwork]: any } = {
   mainnet: MAINNET_CHAIN_ICONS,
   legacy: LEGACY_CHAIN_ICONS,
@@ -131,11 +129,12 @@ export function chainBg(skaleNetwork: SkaleNetwork, chainName: string, app?: str
 export function tokenIcon(tokenSymbol: string) {
   if (!tokenSymbol) return
   const key = tokenSymbol.toLowerCase()
-  if (icons[key]) {
-    return icons[key]
-  } else {
-    return icons['eth']
-  }
+  return key
+  // if (icons[key]) {
+  //   return icons[key]
+  // } else {
+  //   return icons['eth']
+  // }
 }
 
 export function getTokenName(token: TokenData): string | undefined {

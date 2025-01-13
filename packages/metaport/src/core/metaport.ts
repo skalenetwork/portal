@@ -22,6 +22,7 @@
  */
 
 import { Provider, JsonRpcProvider, Contract } from 'ethers'
+import { ERC_ABIS } from '@/core'
 
 import {
   MetaportConfig,
@@ -36,7 +37,6 @@ import { getEmptyTokenDataMap } from './tokens/helper'
 import { getStepsMetadata } from '../core/transfer_steps'
 import { getChainEndpoint, initIMA, initMainnet, initSChain } from './network'
 import { MetaportState } from '../store/MetaportState'
-import { ERC_ABIS } from './contracts'
 
 import debug from 'debug'
 import { MainnetChain, SChain } from '@skalenetwork/ima-js'

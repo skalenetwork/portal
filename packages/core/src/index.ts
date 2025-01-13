@@ -21,5 +21,10 @@
  */
 
 import * as types from './types'
+import * as dc from './dataclasses'
+import * as constants from './constants'
+import * as metadata from './metadata'
+import { ERC_ABIS } from './abi'
+import { FAUCET_DATA } from './metadata'
 
-export { types }
+export { types, dc, constants, metadata, ERC_ABIS, FAUCET_DATA }

@@ -32,6 +32,7 @@ src/metrics.json
 
 packages/*/node_modules
 packages/metaport/storybook-static
+packages/metaport/src/meta/*
 
 src/metadata/chainsData.json
 src/metadata/faucet.json
