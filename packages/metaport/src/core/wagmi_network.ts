@@ -22,18 +22,19 @@
  */
 
 import { Chain } from 'wagmi/chains'
-import { types } from '@/core'
+import { types, metadata } from '@/core'
 
 import { getSChainEndpoint } from './network'
 import { getExplorerUrl } from './explorer'
-import { getChainAlias } from './metadata'
 import { getChainId } from './chain_id'
+import { CHAINS_META } from './metadata'
 
 export function constructWagmiChain(network: types.SkaleNetwork, chainName: string): Chain {
   const endpointHttp = getSChainEndpoint(network, chainName)
   const endpointWs = getSChainEndpoint(network, chainName, 'ws')
   const explorerUrl = getExplorerUrl(network, chainName)
-  const name = getChainAlias(network, chainName)
+  const chainsMeta = CHAINS_META[network]
+  const name = metadata.getAlias(chainsMeta, chainName)
   const chainId = getChainId(chainName)
   return {
     id: chainId,

@@ -21,46 +21,8 @@
  */
 
 import { type types } from '@/core'
-import { BASE_METADATA_URL, MAINNET_CHAIN_NAME } from './constants'
+import { BASE_METADATA_URL } from './constants'
 import { AppMetadata } from '@/core/dist/types'
-
-export function chainBg(
-  chainsMeta: types.ChainsMetadataMap,
-  chainName: string,
-  app?: string
-): string | undefined {
-  const chainData = chainsMeta[chainName]
-
-  if (chainData) {
-    const appData = chainData.apps && app ? chainData.apps[app] : null
-
-    return appData?.gradientBackground || chainData.gradientBackground || chainData.background
-  }
-
-  return 'linear-gradient(273.67deg, rgb(47 50 80), rgb(39 43 68))'
-}
-
-export function getChainAlias(
-  chainsMeta: types.ChainsMetadataMap,
-  chainName: string,
-  app?: string
-): string {
-  if (chainName === MAINNET_CHAIN_NAME) {
-    return 'Ethereum'
-  }
-
-  const chainData = chainsMeta?.[chainName]
-  const appData = app ? chainData?.apps?.[app] : null
-
-  return appData?.alias || chainData?.alias || transformChainName(chainName)
-}
-
-function transformChainName(chainName: string): string {
-  return chainName
-    .split('-')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(' ')
-}
 
 export async function loadMeta(skaleNetwork: types.SkaleNetwork): Promise<types.ChainsMetadataMap> {
   const response = await fetch(`${BASE_METADATA_URL}${skaleNetwork}/chains.json`)

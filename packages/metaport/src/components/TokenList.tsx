@@ -105,7 +105,11 @@ export default function TokenList() {
       >
         <div className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth)}>
           <div className={cls(cmn.flex, cmn.flexc, cmn.mri10, [cmn.pDisabled, noTokens])}>
-            <TokenIcon tokenSymbol={token?.meta.symbol} iconUrl={token?.meta.iconUrl} />
+            <TokenIcon
+              key={token?.meta.symbol}
+              tokenSymbol={token?.meta.symbol}
+              iconUrl={token?.meta.iconUrl}
+            />
           </div>
           <p
             className={cls(

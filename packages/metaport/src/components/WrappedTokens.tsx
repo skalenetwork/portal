@@ -23,7 +23,7 @@
 
 import React, { useEffect, useState } from 'react'
 import { useAccount, useWalletClient, useSwitchChain } from 'wagmi'
-import { types } from '@/core'
+import { types, metadata } from '@/core'
 
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
@@ -38,7 +38,7 @@ import SkPaper from './SkPaper'
 import TokenBalance from './TokenBalance'
 import TokenIcon from './TokenIcon'
 
-import { getTokenName, getChainAlias } from '../core/metadata'
+import { CHAINS_META, getTokenName } from '../core/metadata'
 import { BALANCE_UPDATE_INTERVAL_MS } from '../core/constants'
 
 import { cls, cmn, styles } from '../core/css'
@@ -106,6 +106,10 @@ export default function WrappedTokens() {
   }
 
   if (Object.keys(filteredTokens).length === 0 || currentStep !== 0 || transferInProgress) return
+
+  const chainsMeta = CHAINS_META[mpc.config.skaleNetwork]
+  const chainAlias = metadata.getAlias(chainsMeta, chainName1)
+
   return (
     <div className={cls(cmn.mtop10)}>
       <Accordion
@@ -131,7 +135,7 @@ export default function WrappedTokens() {
         <AccordionDetails>
           <SkPaper background="transparent" className={cls(styles.accordionContent)}>
             <p className={cls(cmn.flex, cmn.p3, cmn.p, cmn.errorMessage, cmn.flexg)}>
-              ❗ You have wrapped tokens on {getChainAlias(mpc.config.skaleNetwork, chainName1)}.
+              ❗ You have wrapped tokens on {chainAlias}.
               Unwrap them before proceeding with your transfer.
             </p>
             <div className={cls(cmn.mtop20)}>

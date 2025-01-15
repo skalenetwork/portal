@@ -48,47 +48,6 @@ export const CHAINS_META: types.NetworksMetadataMap = {
   testnet: testnetMeta
 }
 
-// deprecated, remove after merge
-function transformChainName(chainName: string): string {
-  return chainName
-    .split('-')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
-    .join(' ')
-}
-
-// deprecated, remove after merge
-export function getChainAlias(
-  skaleNetwork: types.SkaleNetwork,
-  chainName: string,
-  app?: string,
-  prettify?: boolean
-): string {
-  if (chainName === MAINNET_CHAIN_NAME) {
-    if (skaleNetwork != MAINNET_CHAIN_NAME) {
-      return `Ethereum (${skaleNetwork})`
-    }
-    return 'Ethereum'
-  }
-  if (CHAINS_META[skaleNetwork] && CHAINS_META[skaleNetwork][chainName]) {
-    if (
-      app &&
-      CHAINS_META[skaleNetwork][chainName].apps &&
-      CHAINS_META[skaleNetwork][chainName].apps[app]
-    ) {
-      return CHAINS_META[skaleNetwork][chainName].apps[app].alias
-    }
-    return CHAINS_META[skaleNetwork][chainName].alias
-  }
-  if (prettify) return transformChainName(chainName)
-  return chainName
-}
-
-export function getChainAppsMeta(chainName: string, skaleNetwork: types.SkaleNetwork) {
-  if (CHAINS_META[skaleNetwork][chainName] && CHAINS_META[skaleNetwork][chainName].apps) {
-    return CHAINS_META[skaleNetwork][chainName].apps
-  }
-}
-
 export function chainIconPath(skaleNetwork: types.SkaleNetwork, name: string, app?: string) {
   if (!name) return
   let filename = name.toLowerCase()
@@ -100,40 +59,6 @@ export function chainIconPath(skaleNetwork: types.SkaleNetwork, name: string, ap
   if (CHAIN_ICONS[skaleNetwork][filename]) {
     return CHAIN_ICONS[skaleNetwork][filename]
   }
-}
-
-// deprecated, remove after merge
-export function chainBg(skaleNetwork: types.SkaleNetwork, chainName: string, app?: string): string {
-  if (CHAINS_META[skaleNetwork][chainName]) {
-    if (app && CHAINS_META[skaleNetwork][chainName]['apps'][app]) {
-      if (CHAINS_META[skaleNetwork][chainName]['apps'][app]['gradientBackgroundLight']) {
-        return CHAINS_META[skaleNetwork][chainName]['apps'][app]['gradientBackgroundLight']
-      }
-      if (CHAINS_META[skaleNetwork][chainName]['apps'][app]['gradientBackground']) {
-        return CHAINS_META[skaleNetwork][chainName]['apps'][app]['gradientBackground']
-      }
-      return CHAINS_META[skaleNetwork][chainName]['apps'][app]['background']
-    }
-    if (CHAINS_META[skaleNetwork][chainName]['gradientBackgroundLight']) {
-      return CHAINS_META[skaleNetwork][chainName]['gradientBackgroundLight']
-    }
-    if (CHAINS_META[skaleNetwork][chainName]['gradientBackground']) {
-      return CHAINS_META[skaleNetwork][chainName]['gradientBackground']
-    }
-    return CHAINS_META[skaleNetwork][chainName]['background']
-  }
-  return 'linear-gradient(273.67deg, rgb(47 50 80), rgb(39 43 68))'
-}
-
-export function tokenIcon(tokenSymbol: string) {
-  if (!tokenSymbol) return
-  const key = tokenSymbol.toLowerCase()
-  return key
-  // if (icons[key]) {
-  //   return icons[key]
-  // } else {
-  //   return icons['eth']
-  // }
 }
 
 export function getTokenName(token: dc.TokenData): string | undefined {

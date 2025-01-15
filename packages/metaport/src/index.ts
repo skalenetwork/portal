@@ -1,5 +1,4 @@
-import { ERC_ABIS } from '@/core'
-import { types, dc } from '@/core'
+import { types, dc, metadata } from '@/core'
 
 export { useMetaportStore } from './store/MetaportStore'
 export { type MetaportState } from './store/MetaportState'
@@ -33,10 +32,9 @@ import History from './components/History'
 import TransactionData from './components/TransactionData'
 import Debug from './components/Debug'
 
-import { CHAINS_META, getChainAlias } from './core/metadata'
+import { CHAINS_META } from './core/metadata'
 import { cls, styles, cmn } from './core/css'
 import MetaportCore from './core/metaport'
-import { chainBg } from './core/metadata'
 import { BASE_EXPLORER_URLS, GRAY_BG } from './core/constants'
 import { toWei, fromWei } from './core/convertation'
 import { sendTransaction } from './core/transactions'
@@ -102,9 +100,7 @@ export {
   BASE_EXPLORER_URLS,
   CHAINS_META,
   GRAY_BG,
-  ERC_ABIS,
-  chainBg,
-  getChainAlias,
+  metadata,
   enforceNetwork,
   RainbowConnectButton,
   useConnectModal,

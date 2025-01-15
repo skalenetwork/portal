@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useWalletClient, useSwitchChain, useAccount } from 'wagmi'
 import { useAddRecentTransaction } from '@rainbow-me/rainbowkit'
-import { types } from '@/core'
+import { types, metadata } from '@/core'
 
 import Box from '@mui/material/Box'
 import Stepper from '@mui/material/Stepper'
@@ -16,7 +16,6 @@ import SettingsBackupRestoreRoundedIcon from '@mui/icons-material/SettingsBackup
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 
 import { getRandom } from '../../core/helper'
-import { getChainAlias } from '../../core/metadata'
 import { cls, cmn, styles } from '../../core/css'
 import localStyles from './SkStepper.module.scss'
 
@@ -26,6 +25,7 @@ import AddToken from '../AddToken'
 import { useMetaportStore } from '../../store/MetaportStore'
 import { useCPStore } from '../../store/CommunityPoolStore'
 import { SUCCESS_EMOJIS } from '../../core/constants'
+import { CHAINS_META } from '../../core/metadata'
 
 export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
   const { address } = useAccount()
@@ -78,6 +78,8 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
   const actionDisabled =
     amountErrorMessage || loading || amount == '' || Number(amount) === 0 || !cpData.exitGasOk
 
+  const chainsMeta = CHAINS_META[props.skaleNetwork]
+
   return (
     <Collapse in={stepsMetadata && stepsMetadata.length !== 0}>
       <Box className={cls()}>
@@ -97,7 +99,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                         />
                       </div>
                       <h4 className={cls(cmn.nom, cmn.flex)}>
-                        {getChainAlias(props.skaleNetwork, step.onSource ? step.from : step.to)}
+                        {metadata.getAlias(chainsMeta, step.onSource ? step.from : step.to)}
                       </h4>
                     </div>
                   </div>

@@ -22,3 +22,5 @@
 
 import faucetJson from './faucet.json'
 export const FAUCET_DATA = faucetJson
+
+export * from './chain'
