@@ -23,14 +23,12 @@
 
 import { Link } from 'react-router-dom'
 import { cmn, cls } from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { type types, metadata } from '@/core'
 
 import Button from '@mui/material/Button'
 import ChainLogo from '../ChainLogo'
 import { MAINNET_CHAIN_LOGOS } from '../../core/constants'
-import { getChainShortAlias } from '../../core/chain'
 import { formatNumber } from '../../core/timeHelper'
-import { chainBg, getChainAlias } from '../../core/metadata'
 
 export default function AppCard(props: {
   skaleNetwork: types.SkaleNetwork
@@ -39,7 +37,7 @@ export default function AppCard(props: {
   chainsMeta: types.ChainsMetadataMap
   transactions?: number
 }) {
-  const shortAlias = getChainShortAlias(props.chainsMeta, props.schainName)
+  const shortAlias = metadata.getChainShortAlias(props.chainsMeta, props.schainName)
   const url = `/ecosystem/${shortAlias}/${props.appName}`
 
   return (
@@ -47,7 +45,7 @@ export default function AppCard(props: {
       <div className="fl-centered">
         <div
           className={cls('br__tile borderLight radius')}
-          style={{ background: chainBg(props.chainsMeta, props.schainName, props.appName) }}
+          style={{ background: metadata.chainBg(props.chainsMeta, props.schainName, props.appName) }}
         >
           <Link to={url} className={cls('br__tileLogo', 'br__tileIns', cmn.flex)}>
             <div className={cls(cmn.flex, cmn.flexg)}></div>
@@ -82,7 +80,7 @@ export default function AppCard(props: {
                 textOverflow: 'ellipsis'
               }}
             >
-              {getChainAlias(props.chainsMeta, props.schainName, props.appName)}
+              {metadata.getAlias(props.chainsMeta, props.schainName, props.appName)}
             </span>
           </Button>
           {props.transactions ? (

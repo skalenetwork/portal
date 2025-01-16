@@ -52,7 +52,7 @@ import DelegationsNotification from './components/delegation/DelegationsNotifica
 const drawerWidth = 220
 
 export default function SkDrawer(props: {
-  validatorDelegations: types.staking.IDelegation[] | null
+  validatorDelegations: types.st.IDelegation[] | null
 }) {
   const location = useLocation()
   return (

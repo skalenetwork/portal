@@ -47,19 +47,19 @@ import { getDelegationTypeAlias } from '../core/delegation'
 
 export default function StakeAmount(props: {
   mpc: MetaportCore
-  validators: types.staking.IValidator[]
+  validators: types.st.IValidator[]
   loadValidators: () => void
   loadStakingInfo: () => void
-  sc: types.staking.ISkaleContractsMap | null
-  si: types.staking.StakingInfoMap
+  sc: types.st.ISkaleContractsMap | null
+  si: types.st.StakingInfoMap
   address: types.AddressType | undefined
   getMainnetSigner: () => Promise<Signer>
 }) {
   const { id, delType } = useParams()
   const validatorId = Number(id) ?? -1
-  const delegationType = Number(delType) ?? types.staking.DelegationType.REGULAR
+  const delegationType = Number(delType) ?? types.st.DelegationType.REGULAR
 
-  const [currentValidator, setCurrentValidator] = useState<types.staking.IValidator | undefined>(
+  const [currentValidator, setCurrentValidator] = useState<types.st.IValidator | undefined>(
     undefined
   )
   const [errorMsg, setErrorMsg] = useState<string | undefined>()

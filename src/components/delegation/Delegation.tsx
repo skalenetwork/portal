@@ -47,13 +47,13 @@ import { convertMonthIndexToText, formatBalance } from '../../core/helper'
 import Tile from '../Tile'
 
 export default function Delegation(props: {
-  delegation: types.staking.IDelegation
-  validator: types.staking.IValidator
-  delegationType: types.staking.DelegationType
-  accept?: (delegationInfo: types.staking.IDelegationInfo) => Promise<void>
-  unstake?: (delegationInfo: types.staking.IDelegationInfo) => Promise<void>
-  cancelRequest?: (delegationInfo: types.staking.IDelegationInfo) => Promise<void>
-  loading: types.staking.IRewardInfo | types.staking.IDelegationInfo | false
+  delegation: types.st.IDelegation
+  validator: types.st.IValidator
+  delegationType: types.st.DelegationType
+  accept?: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
+  unstake?: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
+  cancelRequest?: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
+  loading: types.st.IRewardInfo | types.st.IDelegationInfo | false
   isXs: boolean
   customAddress: types.AddressType | undefined
   isValidatorPage?: boolean
@@ -70,7 +70,7 @@ export default function Delegation(props: {
     delId === DelegationState.PROPOSED ||
     delId === DelegationState.ACCEPTED
 
-  const delegationInfo: types.staking.IDelegationInfo = {
+  const delegationInfo: types.st.IDelegationInfo = {
     delegationId: props.delegation.id,
     delegationType: props.delegationType
   }
@@ -131,12 +131,12 @@ export default function Delegation(props: {
                 {formatBigIntTimestampSeconds(props.delegation.created)}
               </p>
             </div>
-            {props.delegationType === types.staking.DelegationType.ESCROW ? (
+            {props.delegationType === types.st.DelegationType.ESCROW ? (
               <Tooltip title="Escrow delegation">
                 <AccountBalanceRoundedIcon className={cls('trustedBadge', cmn.mleft10, cmn.pSec)} />
               </Tooltip>
             ) : null}
-            {props.delegationType === types.staking.DelegationType.ESCROW2 ? (
+            {props.delegationType === types.st.DelegationType.ESCROW2 ? (
               <Tooltip title="Grant Escrow delegation">
                 <ApartmentRoundedIcon className={cls('trustedBadge', cmn.mleft10, cmn.pSec)} />
               </Tooltip>

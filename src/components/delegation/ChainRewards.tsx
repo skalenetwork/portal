@@ -26,7 +26,6 @@ import {
   cmn,
   cls,
   type MetaportCore,
-  ERC_ABIS,
   enforceNetwork,
   useWagmiWalletClient,
   useWagmiSwitchNetwork,
@@ -37,7 +36,7 @@ import {
   SkPaper,
   Station
 } from '@skalenetwork/metaport'
-import { types } from '@/core'
+import { type types, ERC_ABIS } from '@/core'
 
 import StarsRoundedIcon from '@mui/icons-material/StarsRounded'
 import EventAvailableRoundedIcon from '@mui/icons-material/EventAvailableRounded'
@@ -62,7 +61,7 @@ import { getExplorerUrlForAddress } from '../../core/explorer'
 
 interface ChainRewardsProps {
   mpc: MetaportCore
-  validator: types.staking.IValidator | null | undefined
+  validator: types.st.IValidator | null | undefined
   address?: types.AddressType
   customAddress?: types.AddressType
   className?: string

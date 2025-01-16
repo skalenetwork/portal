@@ -34,7 +34,7 @@ const log = debug('portal:core:contracts')
 
 type PROJECT_TYPE = 'manager' | 'allocator' | 'grants'
 
-export async function initContracts(mpc: MetaportCore): Promise<types.staking.ISkaleContractsMap> {
+export async function initContracts(mpc: MetaportCore): Promise<types.st.ISkaleContractsMap> {
   log('Initializing contracts')
   const provider = mpc.provider('mainnet')
   const network = await skaleContracts.getNetworkByProvider(provider)
@@ -44,7 +44,7 @@ export async function initContracts(mpc: MetaportCore): Promise<types.staking.IS
   const allocator = await getInstance(allocatorProject, mpc.config.skaleNetwork, 'allocator')
   const grantsAllocator = await getInstance(allocatorProject, mpc.config.skaleNetwork, 'grants')
   return {
-    validatorService: (await manager.getContract('ValidatorService')) as Contract,
+    validatorService: await manager.getContract('ValidatorService') as Contract,
     distributor: (await manager.getContract('Distributor')) as Contract,
     delegationController: (await manager.getContract('DelegationController')) as Contract,
     tokenState: (await manager.getContract('TokenState')) as Contract,
@@ -56,15 +56,15 @@ export async function initContracts(mpc: MetaportCore): Promise<types.staking.IS
 
 export async function initActionContract(
   signer: Signer,
-  delegationType: types.staking.DelegationType,
+  delegationType: types.st.DelegationType,
   beneficiary: types.AddressType,
   skaleNetwork: types.SkaleNetwork,
-  contractType: types.staking.ContractType
+  contractType: types.st.ContractType
 ): Promise<Contract> {
   log('initActionContract:', skaleNetwork, beneficiary, contractType, delegationType)
   const network = await skaleContracts.getNetworkByProvider(signer.provider!)
   let contract: Contract
-  if (delegationType === types.staking.DelegationType.REGULAR) {
+  if (delegationType === types.st.DelegationType.REGULAR) {
     contract = await getManagerContract(
       network,
       skaleNetwork,
@@ -91,14 +91,14 @@ function connectedContract(contract: Contract, signer: Signer): Contract {
 async function getEscrowContract(
   network: any,
   skaleNetwork: types.SkaleNetwork,
-  delegationType: types.staking.DelegationType,
+  delegationType: types.st.DelegationType,
   beneficiary: types.AddressType
 ): Promise<Contract> {
   const project = await network.getProject('skale-allocator')
   const instance = await getInstance(
     project,
     skaleNetwork,
-    delegationType === types.staking.DelegationType.ESCROW ? 'allocator' : 'grants'
+    delegationType === types.st.DelegationType.ESCROW ? 'allocator' : 'grants'
   )
   return (await instance.getContract('Escrow', [beneficiary])) as Contract
 }

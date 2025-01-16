@@ -21,7 +21,8 @@
  */
 
 import { types } from ".."
-import { MAINNET_CHAIN_NAME } from "../constants"
+import { BASE_METADATA_URL, MAINNET_CHAIN_NAME } from "../constants"
+import { AppMetadata } from "../types"
 
 export function chainBg(
     chainsMeta: types.ChainsMetadataMap,
@@ -65,9 +66,44 @@ export function getChainApps(
 }
 
 
-function transformChainName(chainName: string): string {
+export function transformChainName(chainName: string): string {
     return chainName
         .split('-')
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
         .join(' ')
+}
+
+export function isPreTge(appMeta: AppMetadata): boolean {
+    if (appMeta.pretge) {
+        const now = Math.floor(Date.now() / 1000)
+        return now >= appMeta.pretge.from && now <= appMeta.pretge.to
+    }
+    if ('pretge' in appMeta.categories) return true
+    return false
+}
+
+export async function loadMeta(skaleNetwork: types.SkaleNetwork): Promise<types.ChainsMetadataMap> {
+    const response = await fetch(`${BASE_METADATA_URL}${skaleNetwork}/chains.json`)
+    return await response.json()
+}
+
+export function getMetaLogoUrl(skaleNetwork: types.SkaleNetwork, logoName: string): string {
+    return `${BASE_METADATA_URL}${skaleNetwork}/logos/${logoName}`
+}
+
+export function getChainShortAlias(meta: types.ChainsMetadataMap, name: string): string {
+    return meta[name]?.shortAlias !== undefined ? meta[name].shortAlias! : name
+}
+
+export function getChainDescription(meta: types.ChainMetadata | undefined): string {
+    return meta && meta.description ? meta.description : 'No description'
+}
+
+export function findChainName(meta: types.ChainsMetadataMap, name: string): string {
+    for (const key in meta) {
+        if (meta[key].shortAlias === name) {
+            return key
+        }
+    }
+    return name
 }

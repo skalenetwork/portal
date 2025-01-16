@@ -64,11 +64,11 @@ import SkPageInfoIcon from '../components/SkPageInfoIcon'
 
 export default function Staking(props: {
   mpc: MetaportCore
-  validators: types.staking.IValidator[]
+  validators: types.st.IValidator[]
   loadValidators: () => Promise<void>
   loadStakingInfo: () => Promise<void>
-  sc: types.staking.ISkaleContractsMap | null
-  si: types.staking.StakingInfoMap
+  sc: types.st.ISkaleContractsMap | null
+  si: types.st.StakingInfoMap
   address: types.AddressType | undefined
   customAddress: types.AddressType | undefined
   getMainnetSigner: () => Promise<Signer>
@@ -110,7 +110,7 @@ export default function Staking(props: {
     ]
   )
 
-  async function handleRetrieveRewards(rewardInfo: types.staking.IRewardInfo) {
+  async function handleRetrieveRewards(rewardInfo: types.st.IRewardInfo) {
     if (!isAddress(customRewardAddress)) {
       setErrorMsg('Invalid address')
       setLoading(false)
@@ -123,21 +123,21 @@ export default function Staking(props: {
     })
   }
 
-  async function handleUnstake(delegationInfo: types.staking.IDelegationInfo) {
+  async function handleUnstake(delegationInfo: types.st.IDelegationInfo) {
     await unstakeDelegation({
       delegationInfo,
       props: getStakingActionProps()
     })
   }
 
-  async function handleCancelRequest(delegationInfo: types.staking.IDelegationInfo) {
+  async function handleCancelRequest(delegationInfo: types.st.IDelegationInfo) {
     await cancelDelegationRequest({
       delegationInfo,
       props: getStakingActionProps()
     })
   }
 
-  async function handleRetrieveUnlocked(rewardInfo: types.staking.IRewardInfo) {
+  async function handleRetrieveUnlocked(rewardInfo: types.st.IRewardInfo) {
     await retrieveUnlockedTokens({
       rewardInfo,
       props: getStakingActionProps()
@@ -213,7 +213,7 @@ export default function Staking(props: {
       <SkPaper gray className={cls(cmn.mtop20)}>
         <Collapse in={props.address !== undefined}>
           <Summary
-            type={types.staking.DelegationType.REGULAR}
+            type={types.st.DelegationType.REGULAR}
             accountInfo={props.si[0]?.info}
             loading={loading}
             retrieveUnlocked={handleRetrieveUnlocked}
@@ -233,7 +233,7 @@ export default function Staking(props: {
       <Collapse in={props.si[1] !== null}>
         <SkPaper gray className={cls(cmn.mtop20)}>
           <Summary
-            type={types.staking.DelegationType.ESCROW}
+            type={types.st.DelegationType.ESCROW}
             accountInfo={props.si[1]?.info}
             loading={loading}
             retrieveUnlocked={handleRetrieveUnlocked}
@@ -245,7 +245,7 @@ export default function Staking(props: {
       <Collapse in={props.si[2] !== null}>
         <SkPaper gray className={cls(cmn.mtop20)}>
           <Summary
-            type={types.staking.DelegationType.ESCROW2}
+            type={types.st.DelegationType.ESCROW2}
             accountInfo={props.si[2]?.info}
             loading={loading}
             retrieveUnlocked={handleRetrieveUnlocked}

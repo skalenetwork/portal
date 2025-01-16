@@ -40,7 +40,7 @@ import { formatBalance, shortAddress } from '../../core/helper'
 import SkBtn from '../SkBtn'
 import { types } from '@/core'
 
-const icons: { [key in types.staking.DelegationType]: any } = {
+const icons: { [key in types.st.DelegationType]: any } = {
   0: <AccountCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />,
   1: <AccountBalanceRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />,
   2: <ApartmentRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
@@ -49,20 +49,20 @@ const icons: { [key in types.staking.DelegationType]: any } = {
 const SUMMARY_VALIDATOR_ID = -1
 
 export default function Summary(props: {
-  type: types.staking.DelegationType
-  accountInfo: types.staking.IDelegatorInfo | undefined
-  retrieveUnlocked: (rewardInfo: types.staking.IRewardInfo) => Promise<void>
-  loading: types.staking.IRewardInfo | types.staking.IDelegationInfo | false
+  type: types.st.DelegationType
+  accountInfo: types.st.IDelegatorInfo | undefined
+  retrieveUnlocked: (rewardInfo: types.st.IRewardInfo) => Promise<void>
+  loading: types.st.IRewardInfo | types.st.IDelegationInfo | false
   customAddress: types.AddressType | undefined
   isXs: boolean
 }) {
   function getTitle() {
-    if (props.type === types.staking.DelegationType.ESCROW) return 'Escrow'
-    if (props.type === types.staking.DelegationType.ESCROW2) return 'Grant Escrow'
+    if (props.type === types.st.DelegationType.ESCROW) return 'Escrow'
+    if (props.type === types.st.DelegationType.ESCROW2) return 'Grant Escrow'
     return 'Account'
   }
 
-  const rewardInfo: types.staking.IRewardInfo = {
+  const rewardInfo: types.st.IRewardInfo = {
     validatorId: SUMMARY_VALIDATOR_ID,
     delegationType: props.type
   }
@@ -90,7 +90,7 @@ export default function Summary(props: {
             icon={<TokenIcon tokenSymbol="skl" size="xs" />}
             childrenRi={
               <SkStack className={cls(cmn.flex)}>
-                {props.type !== types.staking.DelegationType.REGULAR ? (
+                {props.type !== types.st.DelegationType.REGULAR ? (
                   <div className={cls(cmn.flex)}>
                     <Tile
                       size="md"

@@ -22,6 +22,8 @@
  */
 
 import { useState, useEffect } from 'react'
+import { types, dc } from '@/core'
+
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
@@ -31,11 +33,8 @@ import {
   cls,
   styles,
   type MetaportCore,
-  getChainAlias,
   TokenIcon,
   SkPaper,
-  dataclasses,
-  type interfaces,
   useWagmiAccount,
   fromWei
 } from '@skalenetwork/metaport'
@@ -46,7 +45,7 @@ import ConnectWallet from '../components/ConnectWallet'
 export default function Portfolio(props: { mpc: MetaportCore }) {
   const { address } = useWagmiAccount()
 
-  const [balances, setTokenBalances] = useState<interfaces.TokenBalancesMap[]>([])
+  const [balances, setTokenBalances] = useState<types.mp.TokenBalancesMap[]>([])
 
   useEffect(() => {
     tokenBalances()
@@ -56,7 +55,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
     const contracts = props.mpc.config.chains.map((chain: string) =>
       props.mpc.tokenContracts(
         props.mpc.tokens(chain),
-        dataclasses.TokenType.erc20,
+        dc.TokenType.erc20,
         chain,
         props.mpc.provider(chain)
       )
@@ -65,8 +64,8 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
       await Promise.all(
         contracts.map(
           async (
-            chainContracts: interfaces.TokenContractsMap
-          ): Promise<interfaces.TokenBalancesMap> =>
+            chainContracts: types.mp.TokenContractsMap
+          ): Promise<types.mp.TokenBalancesMap> =>
             await props.mpc.tokenBalances(chainContracts, address!)
         )
       )
@@ -152,7 +151,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                       <Grid key={index} item lg={3} md={4} sm={6} xs={12}>
                         <TokenSurface
                           className={cls(styles.fullHeight)}
-                          title={getChainAlias(props.mpc.config.skaleNetwork, chain)}
+                          title={chain}
                           value={
                             (balances[index] && balances[index][token]
                               ? fromWei(balances[index][token].toString(), getTokenDecimals(token))

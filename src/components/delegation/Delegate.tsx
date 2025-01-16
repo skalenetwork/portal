@@ -65,11 +65,11 @@ const log = debug('portal:pages:Delegate')
 
 export default function Delegate(props: {
   mpc: MetaportCore
-  validator: types.staking.IValidator | undefined
-  si: types.staking.StakingInfoMap
+  validator: types.st.IValidator | undefined
+  si: types.st.StakingInfoMap
   getMainnetSigner: () => Promise<Signer>
   address: types.AddressType
-  delegationType: types.staking.DelegationType
+  delegationType: types.st.DelegationType
   loaded: boolean
   delegationTypeAvailable: boolean
   errorMsg: string | undefined

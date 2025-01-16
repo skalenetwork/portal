@@ -21,7 +21,8 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, styles, type MetaportCore, interfaces, SkPaper } from '@skalenetwork/metaport'
+import { type types } from '@/core'
+import { cmn, cls, styles, type MetaportCore, SkPaper } from '@skalenetwork/metaport'
 import Grid from '@mui/material/Grid'
 import CopySurface from '../../CopySurface'
 
@@ -34,7 +35,7 @@ export default function Tokens(props: {
   const chainTokens = tokenConnections.erc20 ?? {}
   const ethToken = tokenConnections.eth ?? {}
 
-  function findWrapperAddress(token: interfaces.Token): `0x${string}` | null | undefined {
+  function findWrapperAddress(token: types.mp.Token): `0x${string}` | null | undefined {
     if (!token || !token.chains) return null
     const chainWithWrapper = Object.values(token.chains).find((chain) => chain.wrapper)
     return chainWithWrapper ? chainWithWrapper.wrapper : null
@@ -54,15 +55,15 @@ export default function Tokens(props: {
         </Grid>,
         ...(wrapperAddress
           ? [
-              <Grid key={`w${tokenSymbol}`} item lg={3} md={4} sm={6} xs={12}>
-                <CopySurface
-                  className={cls(styles.fullHeight)}
-                  title={`w${tokenSymbol.toUpperCase()}`}
-                  value={wrapperAddress}
-                  tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
-                />
-              </Grid>
-            ]
+            <Grid key={`w${tokenSymbol}`} item lg={3} md={4} sm={6} xs={12}>
+              <CopySurface
+                className={cls(styles.fullHeight)}
+                title={`w${tokenSymbol.toUpperCase()}`}
+                value={wrapperAddress}
+                tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
+              />
+            </Grid>
+          ]
           : [])
       ]
     })

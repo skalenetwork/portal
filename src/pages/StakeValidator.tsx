@@ -37,14 +37,14 @@ import SkStack from '../components/SkStack'
 
 export default function StakeValidator(props: {
   mpc: MetaportCore
-  validators: types.staking.IValidator[]
+  validators: types.st.IValidator[]
   loadValidators: () => void
   loadStakingInfo: () => void
-  sc: types.staking.ISkaleContractsMap | null
-  si: types.staking.StakingInfoMap
+  sc: types.st.ISkaleContractsMap | null
+  si: types.st.StakingInfoMap
 }) {
-  const [delegationType, setDelegationType] = useState<types.staking.DelegationType>(
-    types.staking.DelegationType.REGULAR
+  const [delegationType, setDelegationType] = useState<types.st.DelegationType>(
+    types.st.DelegationType.REGULAR
   )
   const [validatorId, setValidatorId] = useState<number>()
 
@@ -95,7 +95,7 @@ export default function StakeValidator(props: {
           validators={props.validators}
           validatorId={validatorId}
           setValidatorId={setValidatorId}
-          internal={!compareEnum(delegationType, types.staking.DelegationType.REGULAR)}
+          internal={!compareEnum(delegationType, types.st.DelegationType.REGULAR)}
           delegationType={delegationType}
         />
       </SkPaper>

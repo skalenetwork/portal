@@ -36,7 +36,7 @@ import { DEFAULT_ERC20_DECIMALS } from '../../core/constants'
 import { Skeleton } from '@mui/material'
 
 export default function ValidatorInfo(props: {
-  validator: types.staking.IValidator | null
+  validator: types.st.IValidator | null
   className?: string
 }) {
   const description = props.validator?.description ? props.validator.description : 'No description'

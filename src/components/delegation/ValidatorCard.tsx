@@ -34,10 +34,10 @@ import { DEFAULT_ERC20_DECIMALS } from '../../core/constants'
 import { types } from '@/core'
 
 export default function ValidatorCard(props: {
-  validator: types.staking.IValidator
+  validator: types.st.IValidator
   validatorId: number | undefined
   setValidatorId: any
-  delegationType: types.staking.DelegationType
+  delegationType: types.st.DelegationType
   size?: 'md' | 'lg'
 }) {
   if (!props.validator.trusted) return

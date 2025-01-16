@@ -32,7 +32,7 @@ import {
   type MetaportCore,
   SkPaper
 } from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { type types, metadata } from '@/core'
 
 import Button from '@mui/material/Button'
 
@@ -55,10 +55,8 @@ import Breadcrumbs from './Breadcrumbs'
 import CollapsibleDescription from './CollapsibleDescription'
 import SkBtn from './SkBtn'
 
-import { chainBg, getChainAlias } from '../core/metadata'
-
 import { MAINNET_CHAIN_LOGOS, MAINNET_CHAIN_NAME } from '../core/constants'
-import { getRpcUrl, getChainId, HTTPS_PREFIX, getChainDescription } from '../core/chain'
+import { getRpcUrl, getChainId, HTTPS_PREFIX } from '../core/chain'
 import { getExplorerUrl } from '../core/explorer'
 import { formatNumber } from '../core/timeHelper'
 import ChainTabsSection from './chains/tabs/ChainTabsSection'
@@ -88,7 +86,7 @@ export default function SchainDetails(props: {
     chainName:
       'SKALE' +
       (network === 'testnet' ? ' Testnet ' : ' ') +
-      getChainAlias(props.chainsMeta, props.schainName),
+      metadata.getAlias(props.chainsMeta, props.schainName),
     rpcUrls: [rpcUrl],
     nativeCurrency: {
       name: 'sFUEL',
@@ -120,8 +118,8 @@ export default function SchainDetails(props: {
 
   const chainMeta = props.chainsMeta[props.schainName]
 
-  const chainAlias = getChainAlias(props.chainsMeta, props.schainName)
-  const chainDescription = getChainDescription(chainMeta)
+  const chainAlias = metadata.getAlias(props.chainsMeta, props.schainName)
+  const chainDescription = metadata.getChainDescription(chainMeta)
 
   const isMainnet = props.mpc.config.skaleNetwork === MAINNET_CHAIN_NAME
 
@@ -175,7 +173,7 @@ export default function SchainDetails(props: {
               <div
                 className={cls('logo-wrapper borderLight')}
                 style={{
-                  background: chainBg(props.chainsMeta, props.schainName),
+                  background: metadata.chainBg(props.chainsMeta, props.schainName),
                   flexShrink: 0
                 }}
               >

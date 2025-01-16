@@ -33,9 +33,9 @@ import {
 } from '.'
 
 export async function getStakingInfoMap(
-  sc: types.staking.ISkaleContractsMap,
+  sc: types.st.ISkaleContractsMap,
   address: types.AddressType | undefined
-): Promise<types.staking.StakingInfoMap> {
+): Promise<types.st.StakingInfoMap> {
   if (!address) return { 0: null, 1: null, 2: null }
   const escrowAddress = await sc.allocator.getEscrowAddress(address)
   const escrowGrantsAddress = await sc.grantsAllocator.getEscrowAddress(address)
@@ -43,19 +43,19 @@ export async function getStakingInfoMap(
     0: await getStakingInfo(sc, address),
     1: isZeroAddr(escrowAddress)
       ? null
-      : await getStakingInfo(sc, escrowAddress, address, types.staking.DelegationType.ESCROW),
+      : await getStakingInfo(sc, escrowAddress, address, types.st.DelegationType.ESCROW),
     2: isZeroAddr(escrowGrantsAddress)
       ? null
-      : await getStakingInfo(sc, escrowGrantsAddress, address, types.staking.DelegationType.ESCROW2)
+      : await getStakingInfo(sc, escrowGrantsAddress, address, types.st.DelegationType.ESCROW2)
   }
 }
 
 export async function getStakingInfo(
-  sc: types.staking.ISkaleContractsMap,
+  sc: types.st.ISkaleContractsMap,
   address: types.AddressType,
   beneficiary?: types.AddressType,
-  type?: types.staking.DelegationType
-): Promise<types.staking.StakingInfo> {
+  type?: types.st.DelegationType
+): Promise<types.st.StakingInfo> {
   const delegationIds = await getDelegationIdsByHolder(sc.delegationController, address)
   const delegationsArray = await getDelegations(sc.delegationController, delegationIds)
   const groupedDelegations = await groupDelegationsByValidator(
@@ -71,23 +71,23 @@ export async function getStakingInfo(
 }
 
 export async function getValidatorDelegations(
-  sc: types.staking.ISkaleContractsMap,
+  sc: types.st.ISkaleContractsMap,
   valId: number
-): Promise<types.staking.IDelegation[]> {
+): Promise<types.st.IDelegation[]> {
   const delegationIds = await getDelegationIdsByValidator(sc.delegationController, valId)
   const delegationsArray = await getDelegations(sc.delegationController, delegationIds)
   return delegationsArray
 }
 
 export function isDelegationTypeAvailable(
-  si: types.staking.StakingInfoMap,
-  type: types.staking.DelegationType
+  si: types.st.StakingInfoMap,
+  type: types.st.DelegationType
 ): boolean {
   return (
-    si[types.staking.DelegationType.REGULAR] !== null && si[type] !== undefined && si[type] !== null
+    si[types.st.DelegationType.REGULAR] !== null && si[type] !== undefined && si[type] !== null
   )
 }
 
-export function isLoaded(si: types.staking.StakingInfoMap): boolean {
-  return si[types.staking.DelegationType.REGULAR] !== null
+export function isLoaded(si: types.st.StakingInfoMap): boolean {
+  return si[types.st.DelegationType.REGULAR] !== null
 }

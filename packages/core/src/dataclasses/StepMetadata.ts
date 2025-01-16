@@ -21,14 +21,10 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import debug from 'debug'
 
 import { TokenType } from './TokenType'
 import { isMainnet } from '../helper'
 import { S2S_POSTFIX, M2S_POSTFIX, S2M_POSTFIX } from '../constants'
-
-debug.enable('*')
-const log = debug('metaport:actions')
 
 export enum ActionType {
   erc20_m2s = 'erc20_m2s',
@@ -57,7 +53,6 @@ export function getActionType(
     postfix = S2M_POSTFIX
   }
   const actionName = tokenType + '_' + postfix
-  log('Action name: ' + actionName)
   return actionName as ActionType
 }
 

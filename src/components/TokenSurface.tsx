@@ -22,7 +22,7 @@
  */
 
 import { useState, useEffect } from 'react'
-import { cmn, cls, styles, TokenIcon, ChainIcon, type interfaces } from '@skalenetwork/metaport'
+import { cmn, cls, styles, TokenIcon, ChainIcon } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
 import { CopyToClipboard } from 'react-copy-to-clipboard'
@@ -37,7 +37,7 @@ export default function TokenSurface(props: {
   title: string
   value: string | null | undefined
   className?: string
-  tokenMetadata?: interfaces.TokenMetadata
+  tokenMetadata?: types.mp.TokenMetadata
   chainName?: string
   skaleNetwork?: types.SkaleNetwork
 }) {

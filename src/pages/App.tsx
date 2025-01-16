@@ -35,7 +35,7 @@ import {
   useWagmiAccount,
   useConnectModal
 } from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { type types, metadata } from '@/core'
 
 import { Button, Grid } from '@mui/material'
 import Container from '@mui/material/Container'
@@ -55,10 +55,8 @@ import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded'
 
 import { useApps } from '../useApps'
 
-import { findChainName } from '../core/chain'
 import { getAppMetaWithChainApp } from '../core/ecosystem/apps'
 import { formatNumber } from '../core/timeHelper'
-import { chainBg, getChainAlias, isPreTge } from '../core/metadata'
 import { addressUrl, getExplorerUrl, getTotalAppCounters } from '../core/explorer'
 import { MAINNET_CHAIN_LOGOS, MAX_APPS_DEFAULT, OFFCHAIN_APP } from '../core/constants'
 import { getRecentApps, isNewApp, isTrending } from '../core/ecosystem/utils'
@@ -104,7 +102,7 @@ export default function App(props: {
   const [expanded, setExpanded] = useState<string | false>('panel3')
   const [counters, setCounters] = useState<types.IAddressCounters | null>(null)
 
-  chain = findChainName(props.chainsMeta, chain ?? '')
+  chain = metadata.findChainName(props.chainsMeta, chain ?? '')
   const chainMeta = props.chainsMeta[chain]
   if (!chainMeta)
     return (
@@ -113,7 +111,7 @@ export default function App(props: {
       </Container>
     )
 
-  const appAlias = getChainAlias(props.chainsMeta, chain, app)
+  const appAlias = metadata.getAlias(props.chainsMeta, chain, app)
   const appMeta = chainMeta.apps?.[app]
 
   if (!appMeta)
@@ -211,7 +209,7 @@ export default function App(props: {
                 <div
                   className={cls('logo-wrapper borderLight')}
                   style={{
-                    background: chainBg(props.chainsMeta, chain, app),
+                    background: metadata.chainBg(props.chainsMeta, chain, app),
                     flexShrink: 0
                   }}
                 >
@@ -244,7 +242,7 @@ export default function App(props: {
                   <div className={cls(cmn.flex, cmn.mleft10)}>
                     {trending && <ChipTrending />}
                     {isNew && <ChipNew />}
-                    {isPreTge(appMeta) && <ChipPreTge />}
+                    {metadata.isPreTge(appMeta) && <ChipPreTge />}
                   </div>
                 </div>
 

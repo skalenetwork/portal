@@ -53,12 +53,12 @@ export default function Portal() {
   const [schains, setSchains] = useState<types.ISChain[]>([])
   const [metrics, setMetrics] = useState<types.IMetrics | null>(null)
   const [stats, setStats] = useState<types.IStats | null>(null)
-  const [validator, setValidator] = useState<types.staking.IValidator | null | undefined>(null)
+  const [validator, setValidator] = useState<types.st.IValidator | null | undefined>(null)
   const [validatorDelegations, setValidatorDelegations] = useState<
-    types.staking.IDelegation[] | null
+    types.st.IDelegation[] | null
   >(null)
   const [customAddress, setCustomAddress] = useState<types.AddressType | undefined>(undefined)
-  const [sc, setSc] = useState<types.staking.ISkaleContractsMap | null>(null)
+  const [sc, setSc] = useState<types.st.ISkaleContractsMap | null>(null)
   const [loadCalled, setLoadCalled] = useState<boolean>(false)
 
   const endpoint = PROXY_ENDPOINTS[mpc.config.skaleNetwork]
