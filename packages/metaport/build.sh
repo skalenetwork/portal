@@ -21,3 +21,4 @@ cp -R $META_DIR_EXTERNAL $META_DIR
 cp $PORTAL_DIR/config/testnet.ts $DIR/src/meta/testnetConfig.ts
 
 node $PORTAL_DIR/generate-imports.cjs ./src/meta
+

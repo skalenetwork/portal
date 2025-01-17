@@ -17,12 +17,10 @@
     "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\"",
     "version": "node -e \"console.log(require('./package.json').version);\""
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "dependencies": {
     "@/core": "file:packages/core",
     "@skalenetwork/metaport": "file:packages/metaport",
+    "@skalenetwork/ima-js": "2.0.2-develop.0",
     "@mdx-js/rollup": "^2.3.0",
     "@mui/icons-material": "^5.15.14",
     "@mui/material": "^5.15.14",
