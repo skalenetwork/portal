@@ -34,7 +34,6 @@
     "version": "node -e \"console.log(require('./package.json').version);\""
   },
   "devDependencies": {
-    "@skalenetwork/ima-js": "2.0.2-develop.0",
     "@storybook/addon-essentials": "^7.6.10",
     "@storybook/addon-interactions": "^7.6.10",
     "@storybook/addon-links": "^7.6.10",
@@ -68,6 +67,7 @@
     "prop-types": "15.8.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "rollup-plugin-visualizer": "^5.12.0",
     "sass": "^1.65.1",
     "storybook": "^7.6.10",
     "typescript": "5.1.6",
@@ -78,25 +78,23 @@
   },
   "dependencies": {
     "@/core": "file:../core",
+    "coingecko-api-v3": "^0.0.29",
+    "react-jazzicon": "^1.0.4",
+    "zustand": "^4.5.0"
+  },
+  "peerDependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.15.6",
     "@mui/lab": "^5.0.0-alpha.162",
     "@mui/material": "^5.15.6",
     "@rainbow-me/rainbowkit": "^2.2.1",
+    "@skalenetwork/ima-js": "2.0.2-develop.0",
     "@tanstack/react-query": "^5.54.1",
-    "@web3icons/core": "^3.15.0",
-    "@web3icons/react": "^3.15.0",
-    "coingecko-api-v3": "^0.0.29",
-    "react-jazzicon": "^1.0.4",
-    "viem": "2.21.54",
-    "wagmi": "^2.13.3",
-    "zustand": "^4.5.0"
-  },
-  "peerDependencies": {
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "@skalenetwork/ima-js": "2.0.2-develop.0"
+    "viem": "2.21.54",
+    "wagmi": "^2.13.3"
   },
   "files": [
     "dist"

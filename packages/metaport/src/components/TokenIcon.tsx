@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { TokenIcon } from '@web3icons/react'
+// import { TokenIcon } from '@web3icons/react'
 import TollRoundedIcon from '@mui/icons-material/TollRounded'
 import { styles } from '../core/css'
 
@@ -39,5 +39,5 @@ export default function Icon(props: {
   if (props.iconUrl !== undefined && props.iconUrl !== null) {
     return <img className={className} src={props.iconUrl} />
   }
-  return <TokenIcon symbol={props.tokenSymbol} size={props.size} variant="branded" />
+  // return <TokenIcon symbol={props.tokenSymbol} size={props.size} variant="branded" />
 }
