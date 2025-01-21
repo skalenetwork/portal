@@ -43,3 +43,6 @@ export const TRANSACTION_ERROR_MSG = 'Transaction sending failed'
 
 export const BASE_METADATA_URL =
     'https://raw.githubusercontent.com/skalenetwork/skale-network/master/metadata/'
+
+export const BASE_TOKEN_ICON_URL =
+    'https://raw.githubusercontent.com/skalenetwork/skale-network/refs/heads/master/assets/token-icons/'
