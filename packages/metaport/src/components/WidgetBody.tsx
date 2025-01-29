@@ -62,9 +62,13 @@ export function WidgetBody(props) {
   const { address } = useAccount()
 
   useEffect(() => {
-    setChainName1(mpc.config.chains ? mpc.config.chains[0] : '')
-    setChainName2(mpc.config.chains ? mpc.config.chains[1] : '')
+    initBridge()
   }, [])
+
+  async function initBridge() {
+    await setChainName1(mpc.config.chains ? mpc.config.chains[0] : '')
+    await setChainName2(mpc.config.chains ? mpc.config.chains[1] : '')
+  }
 
   useEffect(() => {
     addressChanged()

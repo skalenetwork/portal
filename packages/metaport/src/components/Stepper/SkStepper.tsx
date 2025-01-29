@@ -163,7 +163,12 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
               </p>
             </div>
             <div className={cls(cmn.flex, cmn.mtop20)}>
-              <AddToken token={token} destChainName={chainName2} mpc={mpc} ima={ima2} />
+              <AddToken
+                token={token}
+                destChainName={chainName2}
+                mpc={mpc}
+                provider={ima2.provider}
+              />
               <Button
                 onClick={startOver}
                 color="primary"

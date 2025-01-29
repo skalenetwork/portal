@@ -46,8 +46,7 @@ const app = async (): Promise<UserConfigExport> => {
           '@rainbow-me/rainbowkit',
           '@tanstack/react-query',
           'wagmi',
-          'viem',
-          '@skalenetwork/ima-js'
+          'viem'
         ],
         output: {
           globals: {
@@ -62,8 +61,7 @@ const app = async (): Promise<UserConfigExport> => {
             '@rainbow-me/rainbowkit': 'RainbowKit',
             '@tanstack/react-query': 'ReactQuery',
             'wagmi': 'Wagmi',
-            'viem': 'Viem',
-            '@skalenetwork/ima-js': 'ImaJs'
+            'viem': 'Viem'
           }
         }
       },

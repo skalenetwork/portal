@@ -22,10 +22,10 @@
  */
 
 import { create } from 'zustand'
-import { MainnetChain, SChain } from '@skalenetwork/ima-js'
-import { types } from '@/core'
+import { constants, types } from '@/core'
 import { getEmptyCommunityPoolData, getCommunityPoolData } from '../core/community_pool'
 import MetaportCore from '../core/metaport'
+import { MainnetChain, SChain } from '../core/contracts'
 
 interface CommunityPoolState {
   cpData: types.mp.CommunityPoolData
@@ -61,12 +61,12 @@ export const useCPStore = create<CommunityPoolState>()((set, get) => ({
     chainName2: string,
     mpc: MetaportCore
   ) => {
-    if (!chainName1 || !chainName2) return
+    if (!chainName1 || !chainName2 || chainName1 === constants.MAINNET_CHAIN_NAME) return
     if (!get().mainnet) {
-      set({ mainnet: mpc.mainnet() })
+      set({ mainnet: await mpc.mainnet() })
     }
     if (!get().sChain || get().chainName !== chainName1) {
-      set({ sChain: mpc.schain(chainName1) })
+      set({ sChain: await mpc.schain(chainName1) })
     }
     const cpData = await getCommunityPoolData(
       address,

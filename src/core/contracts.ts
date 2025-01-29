@@ -32,7 +32,6 @@ import { CONTRACTS_META } from './constants'
 debug.enable('*')
 const log = debug('portal:core:contracts')
 
-type PROJECT_TYPE = 'manager' | 'allocator' | 'grants'
 
 export async function initContracts(mpc: MetaportCore): Promise<types.st.ISkaleContractsMap> {
   log('Initializing contracts')
@@ -76,14 +75,6 @@ export async function initActionContract(
   return connectedContract(contract, signer)
 }
 
-function getInstanceTag(skaleNetwork: types.SkaleNetwork, projectName: PROJECT_TYPE): string {
-  if (CONTRACTS_META[skaleNetwork].auto) {
-    if (projectName === 'grants') return 'grants'
-    return 'production'
-  }
-  return CONTRACTS_META[skaleNetwork][projectName]
-}
-
 function connectedContract(contract: Contract, signer: Signer): Contract {
   return contract.connect(signer) as Contract
 }
@@ -111,12 +102,4 @@ async function getManagerContract(
   const managerProject = await network.getProject('skale-manager')
   const manager = await getInstance(managerProject, skaleNetwork, 'manager')
   return (await manager.getContract(name)) as Contract
-}
-
-async function getInstance(
-  project: any,
-  skaleNetwork: types.SkaleNetwork,
-  tag: PROJECT_TYPE
-): Promise<Instance> {
-  return project.getInstance(getInstanceTag(skaleNetwork, tag))
 }

@@ -21,14 +21,25 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { type TransactionResponse } from 'ethers'
-import { types } from '@/core'
-import { TRANSACTION_ERROR_MSG } from './constants'
+import { type TransactionResponse, type ContractMethod, type Signer } from 'ethers'
+import { Logger, type ILogObj } from 'tslog'
+import { types, constants } from '@/core'
 
-export async function sendTransaction(func: any, args: any[]): Promise<types.mp.TxResponse> {
+const log = new Logger<ILogObj>({ name: 'metaport:core:transactions' })
+
+export async function sendTransaction(
+  signer: Signer,
+  func: ContractMethod,
+  args: any[],
+  name: string
+): Promise<types.mp.TxResponse> {
+  log.info('💡 Sending transaction: ' + name);
   try {
-    const response: TransactionResponse = await func(...args)
+    const tx = await func.populateTransaction(...args)
+    const response: TransactionResponse = await signer.sendTransaction(tx)
+    log.info(`⏳ ${name} mining - tx: ${response.hash}, nonce: ${response.nonce}, gasLimit: ${response.gasLimit}`);
     await response.wait()
+    log.info('✅ ' + name + ' mined - tx: ' + response.hash);
     return { status: true, err: undefined, response: response }
   } catch (err) {
     console.error(err)
@@ -37,7 +48,7 @@ export async function sendTransaction(func: any, args: any[]): Promise<types.mp.
     if (err.code && err.code === 'ACTION_REJECTED') {
       name = 'Transaction signing was rejected'
     } else {
-      name = TRANSACTION_ERROR_MSG
+      name = constants.TRANSACTION_ERROR_MSG
     }
     const revertMsg = parseErrorMessage(err.message)
     if (revertMsg) name = revertMsg

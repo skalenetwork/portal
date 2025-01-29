@@ -24,11 +24,11 @@
 import debug from 'debug'
 import { Contract } from 'ethers'
 import { dc, types } from '@/core'
-import { MainnetChain, SChain } from '@skalenetwork/ima-js'
 
 import { fromWei, toWei } from '../convertation'
 import { addressesEqual } from '../helper'
-import { DEFAULT_ERC20_DECIMALS, SFUEL_RESERVE_AMOUNT } from '../constants'
+import { SFUEL_RESERVE_AMOUNT } from '../constants'
+import { MainnetChain, SChain } from '../contracts'
 
 debug.enable('*')
 const log = debug('metaport:actions:checks')
@@ -98,41 +98,6 @@ export async function checkERC20Balance(
     const balanceEther = fromWei(balance, tokenData.meta.decimals)
     if (Number(amount) > Number(balanceEther)) {
       checkRes.msg = `Insufficient balance: ${balanceEther} ${tokenData.meta.symbol}`
-    } else {
-      checkRes.res = true
-    }
-    return checkRes
-  } catch (err) {
-    log(err)
-    checkRes.msg = 'Something went wrong, check developer console'
-    return checkRes
-  }
-}
-
-export async function checkSFuelBalance(
-  address: string,
-  amount: string,
-  sChain: SChain
-): Promise<types.mp.CheckRes> {
-  const checkRes: types.mp.CheckRes = { res: false }
-  if (!amount || Number(amount) === 0) return checkRes
-  try {
-    toWei(amount, DEFAULT_ERC20_DECIMALS)
-  } catch (err) {
-    if (err.fault && err.fault === 'underflow') {
-      checkRes.msg = 'The amount is too small'
-    } else {
-      checkRes.msg = 'Incorrect amount'
-    }
-    return checkRes
-  }
-  try {
-    const balance = await sChain.provider.getBalance(address)
-    log(`address: ${address}, balanceWei: ${balance}, amount: ${amount}`)
-    const balanceEther = fromWei(balance, DEFAULT_ERC20_DECIMALS)
-    if (Number(amount) + SFUEL_RESERVE_AMOUNT > Number(balanceEther)) {
-      checkRes.msg = `Current balance: ${balanceEther}. \
-            ${SFUEL_RESERVE_AMOUNT} sFUEL will be reserved for transfers.`
     } else {
       checkRes.res = true
     }

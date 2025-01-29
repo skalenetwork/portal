@@ -24,7 +24,6 @@
 import debug from 'debug'
 import { WalletClient } from 'viem'
 import { create } from 'zustand'
-import { MainnetChain, SChain } from '@skalenetwork/ima-js'
 import { dc, types } from '@/core'
 
 import { MetaportState } from './MetaportState'
@@ -33,6 +32,8 @@ import MetaportCore from '../core/metaport'
 import { getEmptyTokenDataMap } from '../core/tokens/helper'
 import { MAINNET_CHAIN_NAME, DEFAULT_ERROR_MSG, TRANSFER_ERROR_MSG } from '../core/constants'
 import { ACTIONS } from '../core/actions'
+import { MainnetChain, SChain } from '../core/contracts'
+import { ActionConstructor } from '../core/actions/action'
 
 debug.enable('*')
 const log = debug('metaport:state')
@@ -106,8 +107,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
       })
       try {
         const stepMetadata = get().stepsMetadata[get().currentStep]
-        const actionClass = ACTIONS[stepMetadata.type]
-        await new actionClass(
+        const ActionClass: ActionConstructor = ACTIONS[stepMetadata.type]
+        const action = await ActionClass.create(
           get().mpc,
           stepMetadata.from,
           stepMetadata.to,
@@ -119,7 +120,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           get().setBtnText,
           switchChain,
           walletClient
-        ).execute()
+        )
+        await action.execute()
       } catch (err) {
         console.error(err)
         const msg = err.message
@@ -187,7 +189,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
     })
   },
 
-  check: async (amount: string, address: string) => {
+  check: async (amount: string, address: types.AddressType) => {
     if (get().stepsMetadata[get().currentStep] && address) {
       set({
         loading: true,
@@ -195,8 +197,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
       })
       try {
         const stepMetadata = get().stepsMetadata[get().currentStep]
-        const actionClass = ACTIONS[stepMetadata.type]
-        await new actionClass(
+        const ActionClass: ActionConstructor = ACTIONS[stepMetadata.type]
+        const action = await ActionClass.create(
           get().mpc,
           stepMetadata.from,
           stepMetadata.to,
@@ -208,7 +210,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           get().setBtnText,
           null,
           null
-        ).preAction()
+        )
+        await action.preAction()
       } catch (err) {
         console.error(err)
         const msg = err.code && err.fault ? `${err.code} - ${err.fault}` : 'Something went wrong'
@@ -244,11 +247,14 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
 
   destChains: [],
 
-  setChainName1: (name: string) => {
-    set(get().mpc.chainChanged(name, get().chainName2, get().token))
+  setChainName1: async (name: string) => {
+    const result = await get().mpc.chainChanged(name, get().chainName2, get().token);
+    set(result);
   },
-  setChainName2: (name: string) => {
-    set(get().mpc.chainChanged(get().chainName1, name, get().token))
+
+  setChainName2: async (name: string) => {
+    const result = await get().mpc.chainChanged(get().chainName1, name, get().token)
+    set(result);
   },
 
   addressChanged: () => {

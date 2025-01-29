@@ -17,26 +17,15 @@
  */
 
 /**
- * @file contracts.ts
- * @copyright SKALE Labs 2023-Present
+ * @file TxOpts.ts
+ * @copyright SKALE Labs 2025-Present
  */
 
-import mainnetAddresses from '../metadata/addresses/mainnet.json'
-import legacyAddresses from '../metadata/addresses/legacy.json'
-import regressionAddresses from '../metadata/addresses/regression.json'
-import testnetAddresses from '../metadata/addresses/testnet.json'
+import { type BigNumberish } from 'ethers';
 
-import sChainAbi from '../metadata/schainAbi.json'
-import mainnetAbi from '../metadata/mainnetAbi.json'
-
-export const IMA_ADDRESSES = {
-  mainnet: mainnetAddresses,
-  legacy: legacyAddresses,
-  regression: regressionAddresses,
-  testnet: testnetAddresses
-}
-
-export const IMA_ABIS = {
-  mainnet: mainnetAbi,
-  schain: sChainAbi
+export interface TxOpts {
+    value?: BigNumberish
+    address: string
+    privateKey?: string
+    customGasLimit?: bigint
 }

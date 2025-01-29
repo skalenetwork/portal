@@ -116,6 +116,10 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
   }, [address])
 
   useEffect(() => {
+    initBridge()
+  }, [])
+
+  async function initBridge() {
     if (chainName1 && chainName2 && token) return
     const from = searchParams.get('from')
     const to = searchParams.get('to')
@@ -127,14 +131,14 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
     const chain1 = validChainName(from) ? from! : mpc.config.chains[0]
     const chain2 = validChainName(to) ? to! : mpc.config.chains[1]
 
-    setChainName1(chain1)
-    setChainName2(chain2)
+    await setChainName1(chain1)
+    await setChainName2(chain2)
     setAppName1(validAppName(from, fromApp) ? fromApp! : undefined!)
     setAppName2(validAppName(to, toApp) ? toApp! : undefined!)
 
     if (keyname && type && validKeyname(keyname, type, chain1, chain2))
       setTokenParams({ keyname, type: type as dc.TokenType })
-  }, [])
+  }
 
   useEffect(() => {
     if (

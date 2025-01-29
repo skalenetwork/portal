@@ -17,19 +17,14 @@
  */
 
 /**
- * @file index.ts
- * @copyright SKALE Labs 2022-Present
+ * @file exceptions.ts
+ * @copyright SKALE Labs 2025-Present
  */
 
-export * from './ActionState'
-export * from './ActionStateUpdate'
-export * from './Theme'
-export * from './TokenDataMap'
-export * from './TokenMetadata'
-export * from './Tokens'
-export * from './Config'
-export * from './CommunityPoolData'
-export * from './TransactionHistory'
-export * from './Transactions'
-export * from './CheckRes'
-export * from './TxOpts'
+export class TimeoutException extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = this.constructor.name;
+    Error.captureStackTrace(this, this.constructor);
+  }
+}

@@ -23,7 +23,6 @@
 
 import debug from 'debug'
 import { ethers } from 'ethers'
-import { MainnetChain, SChain } from '@skalenetwork/ima-js'
 import { dc, types } from '@/core'
 
 import { WalletClient } from 'viem'
@@ -31,7 +30,7 @@ import { type UseSwitchChainReturnType } from 'wagmi'
 
 import { fromWei, toWei } from './convertation'
 import { walletClientToSigner } from './ethers'
-import { enforceNetwork, getMainnetAbi } from './network'
+import { enforceNetwork } from './network'
 import {
   MAINNET_CHAIN_NAME,
   DEFAULT_ERC20_DECIMALS,
@@ -44,6 +43,8 @@ import {
 } from './constants'
 import { delay, roundUp } from './helper'
 import MetaportCore from './metaport'
+import { MainnetChain, SChain } from './contracts'
+import { sendTransaction } from './transactions'
 
 
 debug.enable('*')
@@ -77,14 +78,17 @@ export async function getCommunityPoolData(
       originalRecommendedRechargeAmount: null
     }
   }
-  const balanceWei = await mainnet.communityPool.balance(address, chainName1)
-  const accountBalanceWei = await mainnet.ethBalance(address)
-  const activeS = await sChain.communityLocker.contract.activeUsers(address)
-  const chainHash = ethers.id(chainName1)
-  const activeM = await mainnet.communityPool.contract.activeUsers(address, chainHash)
+  const communityPool = await mainnet.communityPool()
+  const communityLocker = await sChain.communityLocker()
 
-  const feeData = await mainnet.communityPool.contract.runner.provider.getFeeData()
-  const rraWei = await mainnet.communityPool.contract.getRecommendedRechargeAmount(
+  const balanceWei = await communityPool.balance(address, chainName1)
+  const accountBalanceWei = await mainnet.ethBalance(address)
+  const activeS = await communityLocker.activeUsers(address)
+  const chainHash = ethers.id(chainName1)
+  const activeM = await communityPool.activeUsers(address, chainHash)
+
+  const feeData = await mainnet.provider.getFeeData()
+  const rraWei = await communityPool.getRecommendedRechargeAmount(
     chainHash,
     address,
     {
@@ -124,7 +128,7 @@ export async function withdraw(
   setLoading('withdraw')
   try {
     log(`Withdrawing from community pool: ${chainName}, amount: ${amount}`)
-    const { chainId } = await mpc.mainnet().provider.getNetwork()
+    const { chainId } = await mpc.provider(MAINNET_CHAIN_NAME).provider.getNetwork()
     await enforceNetwork(
       chainId,
       walletClient,
@@ -133,14 +137,16 @@ export async function withdraw(
       MAINNET_CHAIN_NAME
     )
     const signer = walletClientToSigner(walletClient)
-    const connectedMainnet = new MainnetChain(
-      signer.provider,
-      getMainnetAbi(mpc.config.skaleNetwork)
+    const connectedMainnet = await mpc.mainnet(signer.provider)
+    const communityPool = await connectedMainnet.communityPool()
+
+    await sendTransaction(
+      signer,
+      communityPool.withdraw,
+      [chainName, amount, { address: address, customGasLimit: COMMUNITY_POOL_WITHDRAW_GAS_LIMIT }],
+      'mainnet:communityPool:withdraw'
     )
-    await connectedMainnet.communityPool.withdraw(chainName, amount, {
-      address: address,
-      customGasLimit: COMMUNITY_POOL_WITHDRAW_GAS_LIMIT
-    })
+
     setLoading(false)
   } catch (err) {
     console.error(err)
@@ -164,8 +170,10 @@ export async function recharge(
   try {
     log(`Recharging community pool: ${chainName}, amount: ${amount}`)
 
-    const sChain = mpc.schain(chainName)
-    const { chainId } = await mpc.mainnet().provider.getNetwork()
+    const sChain = await mpc.schain(chainName)
+    const communityLocker = await sChain.communityLocker()
+
+    const { chainId } = await mpc.provider(MAINNET_CHAIN_NAME).provider.getNetwork()
     await enforceNetwork(
       chainId,
       walletClient,
@@ -174,22 +182,24 @@ export async function recharge(
       MAINNET_CHAIN_NAME
     )
     const signer = walletClientToSigner(walletClient)
-    const connectedMainnet = new MainnetChain(
-      signer.provider,
-      getMainnetAbi(mpc.config.skaleNetwork)
+    const connectedMainnet = await mpc.mainnet(signer.provider)
+    const communityPool = await connectedMainnet.communityPool()
+
+    sendTransaction(
+      signer,
+      communityPool.recharge,
+      [chainName, address, { address: address, value: toWei(amount, DEFAULT_ERC20_DECIMALS) }],
+      'mainnet:communityPool:recharge'
     )
-    await connectedMainnet.communityPool.recharge(chainName, address, {
-      address: address,
-      value: toWei(amount, DEFAULT_ERC20_DECIMALS)
-    })
+
     setLoading('activate')
     let active = false
     const chainHash = ethers.id(chainName)
     let counter = 0
     while (!active) {
       log('Waiting for account activation...')
-      let activeM = await connectedMainnet.communityPool.contract.activeUsers(address, chainHash)
-      let activeS = await sChain.communityLocker.contract.activeUsers(address)
+      let activeM = await communityPool.activeUsers(address, chainHash)
+      let activeS = await communityLocker.activeUsers(address)
       active = activeS && activeM
       await delay(BALANCE_UPDATE_INTERVAL_MS)
       counter++

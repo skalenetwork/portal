@@ -22,9 +22,9 @@
  */
 
 import { useState } from 'react'
+import { Provider } from 'ethers'
 import { useWalletClient, useSwitchChain } from 'wagmi'
 import { dc } from '@/core'
-import { MainnetChain, SChain } from '@skalenetwork/ima-js'
 
 import Button from '@mui/material/Button'
 import TollIcon from '@mui/icons-material/Toll'
@@ -38,7 +38,7 @@ export default function AddToken(props: {
   token: dc.TokenData
   destChainName: string
   mpc: MetaportCore
-  ima: MainnetChain | SChain
+  provider: Provider
 }) {
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -68,7 +68,7 @@ export default function AddToken(props: {
       props.mpc.config
     )
     const iconUrl = getIconUrl(props.token)
-    const { chainId } = await props.ima.provider.getNetwork()
+    const { chainId } = await props.provider.getNetwork()
     try {
       await enforceNetwork(
         chainId,

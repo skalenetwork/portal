@@ -21,17 +21,16 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { Provider, JsonRpcProvider, Contract } from 'ethers'
-import { types, dc, ERC_ABIS } from '@/core'
+import debug from 'debug'
+import { Provider, JsonRpcProvider, Contract, Signer } from 'ethers'
+import { types, dc, ERC_ABIS, contracts, constants } from '@/core'
 
 import { getEmptyTokenDataMap } from './tokens/helper'
 import { getStepsMetadata } from '../core/transfer_steps'
-import { getChainEndpoint, initIMA, initMainnet, initSChain } from './network'
+import { getEndpoint, mainnetProvider, sChainProvider } from './network'
 import { MetaportState } from '../store/MetaportState'
 
-import debug from 'debug'
-import { MainnetChain, SChain } from '@skalenetwork/ima-js'
-import { MAINNET_CHAIN_NAME } from './constants'
+import { MainnetChain, SChain, getInstance } from './contracts'
 
 const log = debug('ima:test:MainnetChain')
 
@@ -200,7 +199,7 @@ export default class MetaportCore {
     return contracts
   }
 
-  tokenContract(
+  tokenContract( // todo: remove this method
     chainName: string,
     tokenKeyname: string,
     tokenType: dc.TokenType,
@@ -231,19 +230,26 @@ export default class MetaportCore {
   }
 
   endpoint(chainName: string): string {
-    return getChainEndpoint(this._config.mainnetEndpoint, this._config.skaleNetwork, chainName)
+    return getEndpoint(this._config.mainnetEndpoint, this._config.skaleNetwork, chainName)
   }
 
-  ima(chainName: string): MainnetChain | SChain {
-    return initIMA(this._config.mainnetEndpoint, this._config.skaleNetwork, chainName)
+  async ima(chainName: string): Promise<MainnetChain | SChain> {
+    if (chainName === constants.MAINNET_CHAIN_NAME) return await this.mainnet()
+    return await this.schain(chainName)
   }
 
-  mainnet(): MainnetChain {
-    return initMainnet(this._config.mainnetEndpoint, this._config.skaleNetwork)
+  async mainnet(externalProvider?: Provider, signer?: Signer): Promise<MainnetChain> {
+    const provider = externalProvider ?? mainnetProvider(this._config.mainnetEndpoint)
+    const aliasOrAddress = contracts.getAliasOrAddress(this._config.skaleNetwork, 'mainnet-ima')
+    const instance = await getInstance(provider, 'mainnet-ima', aliasOrAddress)
+    return new MainnetChain(provider, instance, signer)
   }
 
-  schain(chainName: string): SChain {
-    return initSChain(this._config.skaleNetwork, chainName)
+  async schain(chainName: string, externalProvider?: Provider, signer?: Signer): Promise<SChain> {
+    if (chainName === constants.MAINNET_CHAIN_NAME) throw new Error('Invalid chain name')
+    let provider = externalProvider ?? sChainProvider(this._config.skaleNetwork, chainName)
+    const instance = await getInstance(provider, 'schain-ima', contracts.PREDEPLOYED_ALIAS)
+    return new SChain(provider, instance, signer)
   }
 
   provider(chainName: string): Provider {
@@ -287,15 +293,20 @@ export default class MetaportCore {
     }
   }
 
-  chainChanged(
+  async chainChanged(
     chainName1: string,
     chainName2: string,
     prevToken: dc.TokenData
-  ): Partial<MetaportState> {
-    const ima1 = this.ima(chainName1)
-    const ima2 = this.ima(chainName2)
+  ): Promise<Partial<MetaportState>> {
+    if (chainName1 === '' || chainName2 === '') {
+      return { chainName1, chainName2 }
+    }
+
+    const ima1 = await this.ima(chainName1)
+    const ima2 = await this.ima(chainName2)
     const tokens = this.tokens(chainName1, chainName2)
-    const tokenContracts = this.tokenContracts(tokens, dc.TokenType.erc20, chainName1, ima1.provider)
+    const tokenContracts = this.tokenContracts(
+      tokens, dc.TokenType.erc20, chainName1, ima1.provider)
 
     const wrappedTokenContracts = this.tokenContracts(
       tokens,
@@ -305,7 +316,7 @@ export default class MetaportCore {
       dc.CustomAbiTokenType.erc20wrap
     )
 
-    if (tokens.eth?.eth && chainName1 !== MAINNET_CHAIN_NAME) {
+    if (tokens.eth?.eth && chainName1 !== constants.MAINNET_CHAIN_NAME) {
       tokenContracts.eth = this.tokenContract(chainName1, 'eth', dc.TokenType.eth, ima1.provider)
 
       const destChainName = findFirstWrapperChainName(tokens.eth.eth)

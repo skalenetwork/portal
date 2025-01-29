@@ -34,6 +34,7 @@
     "version": "node -e \"console.log(require('./package.json').version);\""
   },
   "devDependencies": {
+    "@skalenetwork/skale-contracts-ethers-v6": "1.0.1",
     "@storybook/addon-essentials": "^7.6.10",
     "@storybook/addon-interactions": "^7.6.10",
     "@storybook/addon-links": "^7.6.10",
@@ -80,7 +81,8 @@
     "@/core": "file:../core",
     "coingecko-api-v3": "^0.0.29",
     "react-jazzicon": "^1.0.4",
-    "zustand": "^4.5.0"
+    "zustand": "^4.5.0",
+    "tslog": "^4.9.3"
   },
   "peerDependencies": {
     "@emotion/react": "^11.11.1",
@@ -89,7 +91,6 @@
     "@mui/lab": "^5.0.0-alpha.162",
     "@mui/material": "^5.15.6",
     "@rainbow-me/rainbowkit": "^2.2.1",
-    "@skalenetwork/ima-js": "2.0.2-develop.0",
     "@tanstack/react-query": "^5.54.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",

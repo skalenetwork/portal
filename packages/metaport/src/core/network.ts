@@ -15,15 +15,13 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 /**
  * @file network.ts
  * @copyright SKALE Labs 2023-Present
  */
 
 import debug from 'debug'
-import { MainnetChain, SChain, TimeoutException } from '@skalenetwork/ima-js'
-import { JsonRpcProvider } from 'ethers'
+import { JsonRpcProvider, Provider } from 'ethers'
 import { types } from '@/core'
 
 import { WalletClient } from 'viem'
@@ -32,8 +30,8 @@ import { type UseSwitchChainReturnType } from 'wagmi'
 
 import proxyEndpoints from '../metadata/proxy.json'
 import { MAINNET_CHAIN_NAME, DEFAULT_ITERATIONS, DEFAULT_SLEEP } from './constants'
-import { IMA_ADDRESSES, IMA_ABIS } from './contracts'
 import { constructWagmiChain } from './wagmi_network'
+import { TimeoutException } from './exceptions'
 import { sleep } from './helper'
 
 export { proxyEndpoints as PROXY_ENDPOINTS }
@@ -57,7 +55,7 @@ export function isMainnetChainId(chainId: number | BigInt, skaleNetwork: types.S
   return Number(chainId) === CHAIN_IDS[skaleNetwork]
 }
 
-export function getChainEndpoint(
+export function getEndpoint(
   mainnetEndpoint: string,
   network: types.SkaleNetwork,
   chainName: string
@@ -84,37 +82,13 @@ function getProxyEndpoint(network: types.SkaleNetwork) {
   return proxyEndpoints[network]
 }
 
-export function getMainnetAbi(network: string) {
-  if (network === 'legacy') {
-    return { ...IMA_ABIS.mainnet, ...IMA_ADDRESSES.legacy }
-  }
-  if (network === 'regression') {
-    return { ...IMA_ABIS.mainnet, ...IMA_ADDRESSES.regression }
-  }
-  if (network === 'testnet') {
-    return { ...IMA_ABIS.mainnet, ...IMA_ADDRESSES.testnet }
-  }
-  return { ...IMA_ABIS.mainnet, ...IMA_ADDRESSES.mainnet }
+export function mainnetProvider(mainnetEndpoint: string): Provider {
+  return new JsonRpcProvider(mainnetEndpoint)
 }
 
-export function initIMA(
-  mainnetEndpoint: string,
-  network: types.SkaleNetwork,
-  chainName: string
-): MainnetChain | SChain {
-  if (chainName === MAINNET_CHAIN_NAME) return initMainnet(mainnetEndpoint, network)
-  return initSChain(network, chainName)
-}
-
-export function initMainnet(mainnetEndpoint: string, network: string): MainnetChain {
-  const provider = new JsonRpcProvider(mainnetEndpoint)
-  return new MainnetChain(provider, getMainnetAbi(network))
-}
-
-export function initSChain(network: types.SkaleNetwork, chainName: string): SChain {
-  const endpoint = getChainEndpoint(null, network, chainName)
-  const provider = new JsonRpcProvider(endpoint)
-  return new SChain(provider, IMA_ABIS.schain)
+export function sChainProvider(network: types.SkaleNetwork, chainName: string): Provider {
+  const endpoint = getEndpoint(null, network, chainName)
+  return new JsonRpcProvider(endpoint)
 }
 
 async function waitForNetworkChange(

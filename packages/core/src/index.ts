@@ -24,7 +24,8 @@ import * as types from './types'
 import * as dc from './dataclasses'
 import * as constants from './constants'
 import * as metadata from './metadata'
+import * as contracts from './contracts'
 import { ERC_ABIS } from './abi'
 import { FAUCET_DATA } from './metadata'
 
-export { types, dc, constants, metadata, ERC_ABIS, FAUCET_DATA }
+export { types, dc, constants, metadata, contracts, ERC_ABIS, FAUCET_DATA }

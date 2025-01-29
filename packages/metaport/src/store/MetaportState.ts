@@ -24,10 +24,10 @@
 import { Contract } from 'ethers'
 import { WalletClient } from 'viem'
 import { UseSwitchChainReturnType } from 'wagmi'
-import { MainnetChain, SChain } from '@skalenetwork/ima-js'
 import { dc, types } from '@/core'
 
 import MetaportCore from '../core/metaport'
+import { MainnetChain, SChain } from '../core/contracts'
 
 export interface MetaportState {
   ima1: MainnetChain | SChain

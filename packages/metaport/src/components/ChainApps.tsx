@@ -60,6 +60,7 @@ export default function ChainApps(props: {
         handle={props.handle}
         size={size}
         prim={props.prim}
+        key={props.chainName + appName}
       />
     )
   }

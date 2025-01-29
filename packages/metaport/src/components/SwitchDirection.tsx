@@ -26,7 +26,7 @@ export default function SwitchDirection() {
   const loading = useMetaportStore((state) => state.loading)
   const transferInProgress = useMetaportStore((state) => state.transferInProgress)
 
-  function doSwitch() {
+  async function doSwitch() {
     const element = myElement.current
     const rotate = () => {
       if (element) {
@@ -39,9 +39,9 @@ export default function SwitchDirection() {
     rotate()
     const chain1 = chainName1
     const app1 = appName1
-    setChainName1(chainName2)
+    await setChainName1(chainName2)
     setAppName1(appName2)
-    setChainName2(chain1)
+    await setChainName2(chain1)
     setAppName2(app1)
     startOver()
   }

@@ -64,14 +64,6 @@ export namespace externalEvents {
     dispatchEvent('metaport_actionStateUpdated', actionStateUpdate)
   }
 
-  export function unwrapComplete(tx: string, chainName1: string, tokenSymbol: string) {
-    dispatchEvent('metaport_unwrapComplete', {
-      tokenSymbol: tokenSymbol,
-      chain: chainName1,
-      tx: tx
-    })
-  }
-
   export function ethUnlocked(tx: string) {
     dispatchEvent('metaport_ethUnlocked', {
       tx: tx
