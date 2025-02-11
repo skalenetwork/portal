@@ -53,25 +53,27 @@ interface ExploreCard {
 
 export const EXPLORE_CARDS: ExploreCard[] = [
   {
-    name: 'bridge',
-    description: 'Transfer tokens between 50+ chains',
+    name: 'Bridge to SKALE',
+    description: 'Bridge SKL and other popular tokens to SKALE.',
+    url: '/bridge',
     icon: <SwapHorizontalCircleOutlinedIcon />
   },
   {
-    name: 'stake',
-    description: 'Manage delegations and validators',
+    name: 'Stake your SKL',
+    description: 'Select a validator to delegate your SKL to for a 2-month period to help secure the network.',
     url: '/staking',
     icon: <PieChartOutlineRoundedIcon />
   },
   {
-    name: 'SKALE Chains',
-    description: 'Chains info, block explorers and endpoints',
-    url: '/chains',
+    name: 'Play on Nebula',
+    description: 'SKALE is home to dozens of amazing games. Explore the gaming ecosystem!',
+    url: '/ecosystem?category=gaming',
     icon: <LinkRoundedIcon />
   },
   {
-    name: 'ecosystem',
-    description: 'Discover apps and games on SKALE',
+    name: 'Explore SKALE´s DeFi',
+    description: 'The SKALE DeFi ecosystem is rapidly expanding on Europa. Check it out!',
+    url: '/ecosystem?category=defi',
     icon: <PublicOutlinedIcon />
   }
 ]

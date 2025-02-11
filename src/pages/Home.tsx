@@ -33,7 +33,6 @@ import Headline from '../components/Headline'
 import PageCard from '../components/PageCard'
 import CategoryCardsGrid from '../components/ecosystem/CategoryCardsGrid'
 import NewApps from '../components/ecosystem/tabs/NewApps'
-import FavoriteApps from '../components/ecosystem/tabs/FavoriteApps'
 import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 
 import { SKALE_SOCIAL_LINKS } from '../core/constants'
@@ -54,7 +53,7 @@ export default function Home({
   metrics,
   loadData
 }: HomeProps): JSX.Element {
-  const { newApps, trendingApps, favoriteApps, isSignedIn } = useApps(chainsMeta, metrics)
+  const { newApps, trendingApps } = useApps(chainsMeta, metrics)
 
   useEffect(() => {
     loadData()
@@ -65,28 +64,11 @@ export default function Home({
       <Stack spacing={0}>
         <h2 className={cls(cmn.nom)}>Welcome to SKALE</h2>
         <Headline
-          text="Explore Portal"
+          text="Popular Actions"
           icon={SECTION_ICONS.explore}
           className={cls(cmn.mbott10, cmn.mtop20)}
         />
         <ExploreSection />
-        <AppSection
-          title="Your Favorites"
-          icon={SECTION_ICONS.favorites}
-          linkTo="/ecosystem?tab=3"
-          component={
-            <FavoriteApps
-              skaleNetwork={skaleNetwork}
-              chainsMeta={chainsMeta}
-              useCarousel={true}
-              newApps={newApps}
-              filteredApps={favoriteApps}
-              trendingApps={trendingApps}
-              isSignedIn={isSignedIn}
-              error={null}
-            />
-          }
-        />
         <UserRecommendations
           skaleNetwork={skaleNetwork}
           chainsMeta={chainsMeta}

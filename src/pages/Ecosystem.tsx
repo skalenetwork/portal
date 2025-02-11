@@ -48,6 +48,10 @@ import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import SocialButtons from '../components/ecosystem/Socials'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 
+import { useLocation } from 'react-router-dom';
+
+
+
 export default function Ecosystem(props: {
   mpc: MetaportCore
   chainsMeta: types.ChainsMetadataMap
@@ -134,6 +138,23 @@ export default function Ecosystem(props: {
   const currentFilteredApps = getFilteredAppsByTab(activeTab)
 
   const isFiltersApplied = Object.keys(checkedItems).length !== 0
+
+  const location = useLocation();
+
+useEffect(() => {
+  props.loadData();
+
+  const urlParams = new URLSearchParams(location.search);
+  const categoryFromUrl = urlParams.get('category');
+
+  if (categoryFromUrl) {
+    setCheckedItems([categoryFromUrl]);
+  } else {
+    setCheckedItems(getCheckedItemsFromUrl());
+  }
+
+  setActiveTab(getTabIndexFromUrl());
+}, [location.search]);
 
   return (
     <Container maxWidth="md">
