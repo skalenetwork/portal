@@ -1,8 +1,8 @@
 #!/bin/bash
 
 if ! command -v jq &> /dev/null; then
-    echo "Error: jq is not installed"
-    exit 1
+    echo "jq is not installed, skipping minification"
+    exit 0
 fi
 
 TARGET_DIR="${1:-.}"
