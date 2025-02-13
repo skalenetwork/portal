@@ -24,7 +24,6 @@
 import { create } from 'zustand'
 import { types } from '@/core'
 
-
 export interface UIState {
   theme: types.mp.Theme
   setTheme: (theme: types.mp.Theme) => void

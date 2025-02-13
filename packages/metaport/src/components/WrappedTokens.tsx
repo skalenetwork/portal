@@ -135,8 +135,8 @@ export default function WrappedTokens() {
         <AccordionDetails>
           <SkPaper background="transparent" className={cls(styles.accordionContent)}>
             <p className={cls(cmn.flex, cmn.p3, cmn.p, cmn.errorMessage, cmn.flexg)}>
-              ❗ You have wrapped tokens on {chainAlias}.
-              Unwrap them before proceeding with your transfer.
+              ❗ You have wrapped tokens on {chainAlias}. Unwrap them before proceeding with your
+              transfer.
             </p>
             <div className={cls(cmn.mtop20)}>
               {Object.keys(filteredTokens).map((key, _) => (

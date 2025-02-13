@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { types, metadata } from '@/core'
+import { type types, metadata, constants } from '@/core'
 import Collapse from '@mui/material/Collapse'
 
 import {
@@ -44,8 +44,7 @@ import {
   CommunityPool,
   SFuelWarning,
   WrappedTokens,
-  useDisplayFunctions,
-  GRAY_BG
+  useDisplayFunctions
 } from '@skalenetwork/metaport'
 
 export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap }) {
@@ -83,8 +82,12 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
 
   const { address } = useWagmiAccount()
 
-  const sourceBg = theme.vibrant ? metadata.chainBg(props.chainsMeta, chainName1, appName1) : GRAY_BG
-  const destBg = theme.vibrant ? metadata.chainBg(props.chainsMeta, chainName2, appName2) : GRAY_BG
+  const sourceBg = theme.vibrant
+    ? metadata.chainBg(props.chainsMeta, chainName1, appName1)
+    : constants.GRAY_BG
+  const destBg = theme.vibrant
+    ? metadata.chainBg(props.chainsMeta, chainName2, appName2)
+    : constants.GRAY_BG
 
   return (
     <div>

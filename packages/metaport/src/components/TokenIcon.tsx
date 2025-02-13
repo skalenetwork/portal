@@ -38,8 +38,10 @@ export default function TokenIcon(props: {
   if (props.iconUrl !== undefined && props.iconUrl !== null) {
     return <img className={className} src={props.iconUrl} />
   }
-  return <img
-    className={className}
-    src={`${constants.BASE_TOKEN_ICON_URL}${props.tokenSymbol.toLowerCase()}.svg`}
-  />
+  return (
+    <img
+      className={className}
+      src={`${constants.BASE_TOKEN_ICON_URL}${props.tokenSymbol.toLowerCase()}.svg`}
+    />
+  )
 }

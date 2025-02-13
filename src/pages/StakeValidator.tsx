@@ -32,7 +32,6 @@ import PersonSearchRoundedIcon from '@mui/icons-material/PersonSearchRounded'
 import Validators from '../components/delegation/Validators'
 import DelegationTypeSelect from '../components/delegation/DelegationTypeSelect'
 import Breadcrumbs from '../components/Breadcrumbs'
-import { compareEnum } from '../core/helper'
 import SkStack from '../components/SkStack'
 
 export default function StakeValidator(props: {
@@ -58,6 +57,10 @@ export default function StakeValidator(props: {
       props.loadStakingInfo()
     }
   }, [props.sc])
+
+  function compareEnum(enumValue1: any, enumValue2: any): boolean {
+    return Number(enumValue1) === Number(enumValue2)
+  }
 
   return (
     <Container maxWidth="md">

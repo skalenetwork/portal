@@ -22,12 +22,27 @@
 
 import { types } from ".";
 
-export type Project = 'skale-manager' | 'skale-allocator' | 'mainnet-ima'
-export type SkaleContractsProject = Project | 'schain-ima'
-export type PortalProject = Project | 'skale-grants'
+
+
+export enum Project {
+    MANAGER = 'skale-manager',
+    ALLOCATOR = 'skale-allocator',
+    MAINNET_IMA = 'mainnet-ima'
+}
+
+export enum SchainProject {
+    SCHAIN_IMA = 'schain-ima'
+}
+
+export enum PortalProject {
+    GRANTS = 'skale-grants'
+}
+
+export type ISkaleContractsProject = Project | SchainProject
+export type IPortalProject = Project | PortalProject
 
 export type ContractAddresses = {
-    [project in PortalProject]?: types.AddressType;
+    [project in IPortalProject]?: types.AddressType;
 };
 
 export type ContractsConfig = {
@@ -59,7 +74,7 @@ export const CONTRACTS: ContractsConfig = {
 
 export function getAliasOrAddress(
     skaleNetwork: types.SkaleNetwork,
-    projectName: PortalProject
+    projectName: IPortalProject
 ): string {
     if (Object.keys(CONTRACTS[skaleNetwork]).length === 0) {
         if (projectName === 'skale-grants') return 'grants'

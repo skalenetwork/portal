@@ -24,9 +24,6 @@
 import { id, toBeHex } from 'ethers'
 import { type types } from '@/core'
 
-export const HTTPS_PREFIX = 'https://'
-export const WSS_PREFIX = 'wss://'
-
 export function formatSChains(schainsData: types.ISChainData[]): types.ISChain[] {
   return schainsData.map((schainData) => formatSChain(schainData.schain))
 }

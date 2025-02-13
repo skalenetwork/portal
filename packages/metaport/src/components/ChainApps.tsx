@@ -22,7 +22,7 @@
  */
 
 import { ReactElement, useState } from 'react'
-import { types, metadata } from '@/core'
+import { type types, metadata, helper } from '@/core'
 import { Button } from '@mui/material'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
@@ -30,8 +30,6 @@ import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
 import { cls, cmn, styles } from '../core/css'
 
 import ChainAppBtn from './ChainAppBtn'
-
-import { sortObjectByKeys } from '../core/helper'
 import { CHAINS_META } from '../core/metadata'
 
 export default function ChainApps(props: {
@@ -51,7 +49,7 @@ export default function ChainApps(props: {
 
   const appButtons: ReactElement[] = []
 
-  for (const appName in sortObjectByKeys(apps)) {
+  for (const appName in helper.sortObjectByKeys(apps)) {
     appButtons.push(
       <ChainAppBtn
         skaleNetwork={props.skaleNetwork}

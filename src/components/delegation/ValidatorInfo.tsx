@@ -21,9 +21,10 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, fromWei, TokenIcon } from '@skalenetwork/metaport'
-import { types } from '@/core'
+import { cmn, cls, TokenIcon } from '@skalenetwork/metaport'
+import { type types, units, constants } from '@/core'
 
+import { Skeleton } from '@mui/material'
 import PercentRoundedIcon from '@mui/icons-material/PercentRounded'
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
 
@@ -32,16 +33,14 @@ import { ValidatorBadge, TrustBadge } from './ValidatorBadges'
 import Tile from '../Tile'
 import SkStack from '../SkStack'
 
-import { DEFAULT_ERC20_DECIMALS } from '../../core/constants'
-import { Skeleton } from '@mui/material'
-
 export default function ValidatorInfo(props: {
   validator: types.st.IValidator | null
   className?: string
 }) {
   const description = props.validator?.description ? props.validator.description : 'No description'
   const minDelegation =
-    props.validator && fromWei(props.validator.minimumDelegationAmount, DEFAULT_ERC20_DECIMALS)
+    props.validator &&
+    units.fromWei(props.validator.minimumDelegationAmount, constants.DEFAULT_ERC20_DECIMALS)
 
   return (
     <div className={cls(props.className)}>

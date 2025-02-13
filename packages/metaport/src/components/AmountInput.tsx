@@ -23,13 +23,12 @@
 
 import React from 'react'
 import { useAccount } from 'wagmi'
-import { dc } from '@/core'
+import { dc, units } from '@/core'
 
 import TextField from '@mui/material/TextField'
 import { Button } from '@mui/material'
 
 import { cls, cmn, styles } from '../core/css'
-import { formatBalance, toWei } from '../core/convertation'
 import { SFUEL_RESERVE_AMOUNT } from '../core/constants'
 
 import TokenList from './TokenList'
@@ -67,10 +66,10 @@ export default function AmountInput() {
   const setMaxAmount = () => {
     let maxAmountWei: bigint = maxAmount
     if (token.type === dc.TokenType.eth) {
-      const reserveAmountEth = toWei(SFUEL_RESERVE_AMOUNT.toString(), token.meta.decimals)
+      const reserveAmountEth = units.toWei(SFUEL_RESERVE_AMOUNT.toString(), token.meta.decimals)
       maxAmountWei = maxAmount - reserveAmountEth
     }
-    const balanceEther = formatBalance(maxAmountWei, token.meta.decimals)
+    const balanceEther = units.formatBalance(maxAmountWei, token.meta.decimals)
     setAmount(balanceEther, address)
   }
 

@@ -21,8 +21,8 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import debug from 'debug'
-import { dc } from '@/core'
+import { Logger, type ILogObj } from 'tslog'
+import { dc, helper } from '@/core'
 
 import { TransferEthM2S, TransferEthS2M, UnlockEthM } from './eth'
 import {
@@ -35,12 +35,9 @@ import {
 } from './erc20'
 
 import { ActionConstructor } from './action'
-
-import { isMainnet } from '../helper'
 import { S2S_POSTFIX, M2S_POSTFIX, S2M_POSTFIX } from '../constants'
 
-debug.enable('*')
-const log = debug('metaport:actions')
+const log = new Logger<ILogObj>({ name: 'metaport:core:actions' })
 
 export function getActionName(
   chainName1: string,
@@ -48,16 +45,16 @@ export function getActionName(
   tokenType: dc.TokenType
 ): string {
   if (!chainName1 || !chainName2 || !tokenType) return
-  log(`Getting action name: ${chainName1} ${chainName2} ${tokenType}`)
+  log.info(`Getting action name: ${chainName1} ${chainName2} ${tokenType}`)
   let postfix = S2S_POSTFIX
-  if (isMainnet(chainName1)) {
+  if (helper.isMainnet(chainName1)) {
     postfix = M2S_POSTFIX
   }
-  if (isMainnet(chainName2)) {
+  if (helper.isMainnet(chainName2)) {
     postfix = S2M_POSTFIX
   }
   const actionName = tokenType + '_' + postfix
-  log('Action name: ' + actionName)
+  log.info('Action name: ' + actionName)
   return actionName
 }
 

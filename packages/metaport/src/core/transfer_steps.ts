@@ -21,13 +21,10 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import debug from 'debug'
-import { dc, types } from '@/core'
+import { Logger, type ILogObj } from 'tslog'
+import { dc, type types, constants } from '@/core'
 
-import { MAINNET_CHAIN_NAME } from './constants'
-
-debug.enable('*')
-const log = debug('metaport:core:transferSteps')
+const log = new Logger<ILogObj>({ name: 'metaport:core:transfer_steps' })
 
 export function getStepsMetadata(
   config: types.mp.Config,
@@ -42,13 +39,17 @@ export function getStepsMetadata(
   const destTokenOptions = config.connections[to][token.type][token.keyname].chains[token.chain]
   const isCloneToClone = token.isClone(to) && destTokenOptions.clone
 
-  log(`Setting toChain: ${toChain}`)
+  log.info(`Setting toChain: ${toChain}`)
 
   if (token.connections[toChain].wrapper) {
     steps.push(new dc.WrapStepMetadata(token.chain, to))
   }
   steps.push(
-    new dc.TransferStepMetadata(dc.getActionType(token.chain, toChain, token.type), token.chain, toChain)
+    new dc.TransferStepMetadata(
+      dc.getActionType(token.chain, toChain, token.type),
+      token.chain,
+      toChain
+    )
   )
   if (hubTokenOptions.wrapper && !isCloneToClone) {
     steps.push(new dc.UnwrapStepMetadata(token.chain, toChain))
@@ -60,11 +61,11 @@ export function getStepsMetadata(
     }
     steps.push(new dc.TransferStepMetadata(dc.getActionType(toChain, to, token.type), toChain, to))
   }
-  if (to === MAINNET_CHAIN_NAME && token.keyname === 'eth') {
+  if (to === constants.MAINNET_CHAIN_NAME && token.keyname === 'eth') {
     steps.push(new dc.UnlockStepMetadata(token.chain, to))
   }
 
-  log(`Action steps metadata:`)
-  log(steps)
+  log.info(`Action steps metadata:`)
+  log.info(steps)
   return steps
 }

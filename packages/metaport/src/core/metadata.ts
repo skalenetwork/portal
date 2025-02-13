@@ -21,8 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { dc, types } from '@/core'
-import { MAINNET_CHAIN_NAME } from './constants'
+import { dc, type types, constants } from '@/core'
 
 import mainnetMeta from '../meta/mainnet/chains.json'
 import legacyMeta from '../meta/legacy/chains.json'
@@ -52,7 +51,7 @@ export function chainIconPath(skaleNetwork: types.SkaleNetwork, name: string, ap
   if (!name) return
   let filename = name.toLowerCase()
   if (app) filename += `-${app}`
-  if (name === MAINNET_CHAIN_NAME) {
+  if (name === constants.MAINNET_CHAIN_NAME) {
     return CHAIN_ICONS[skaleNetwork]['mainnet']
   }
   filename = filename.replace(/^(_+)/, '$1').replace(/-([a-z0-9])/gi, (_, g) => g.toUpperCase())

@@ -1,7 +1,0 @@
-{
-  "mainnet": "mainnet.skalenodes.com",
-  "legacy": "legacy-proxy.skaleserver.com",
-  "regression": "regression-proxy.skalenodes.com",
-  "qatestnet": "new-testnet-proxy.skalenodes.com",
-  "testnet": "testnet.skalenodes.com"
-}

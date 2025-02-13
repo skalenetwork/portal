@@ -21,21 +21,18 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import debug from 'debug'
+import { Logger, type ILogObj } from 'tslog'
 import { Contract } from 'ethers'
-import { dc, types } from '@/core'
+import { dc, type types, units } from '@/core'
 
 import { findFirstWrapperChainName } from '../metaport'
-import { toWei } from '../convertation'
 import { MAX_APPROVE_AMOUNT } from '../constants'
 
 import { Action } from '../actions/action'
 import { checkERC20Balance, checkERC20Allowance } from './checks'
 import { sendTransaction } from '../transactions'
 
-
-debug.enable('*')
-const log = debug('metaport:actions:erc20')
+const log = new Logger<ILogObj>({ name: 'metaport:core:actions:erc20' })
 
 export class TransferERC20S2S extends Action {
   async execute() {
@@ -65,14 +62,14 @@ export class TransferERC20S2S extends Action {
       )
       const txBlock = await sChain.provider.getBlock(approveTx.response.blockNumber)
       this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
-      log('ApproveERC20S:execute - tx completed: %O', approveTx)
+      log.info('ApproveERC20S:execute - tx completed: %O', approveTx)
     }
 
     // main transfer
 
     this.updateState('transfer')
 
-    const amountWei = toWei(this.amount, this.token.meta.decimals)
+    const amountWei = units.toWei(this.amount, this.token.meta.decimals)
 
     let balanceOnDestination
 
@@ -149,7 +146,7 @@ export class WrapERC20S extends Action {
       this.updateState('approveWrapDone', approveTx.response.hash, txBlock.timestamp)
     }
     this.updateState('wrap')
-    const amountWei = toWei(this.amount, this.token.meta.decimals)
+    const amountWei = units.toWei(this.amount, this.token.meta.decimals)
 
     const tx = await sChain.wrap(
       this.token.type,
@@ -191,17 +188,12 @@ export class UnWrapERC20 extends Action {
     )
     sChain.addToken(this.token.type, this.token.keyname, tokenContract)
     const amountWei = await tokenContract.balanceOf(this.address)
-    const tx = await sChain.unwrap(
-      this.token.type,
-      this.token.keyname,
-      this.address,
-      amountWei
-    )
+    const tx = await sChain.unwrap(this.token.type, this.token.keyname, this.address, amountWei)
     const block = await sChain.provider.getBlock(tx.response.blockNumber)
     this.updateState('unwrapDone', tx.response.hash, block.timestamp)
   }
 
-  async preAction() { }
+  async preAction() {}
 }
 
 export class UnWrapERC20S extends Action {
@@ -214,21 +206,16 @@ export class UnWrapERC20S extends Action {
     )
     this.updateState('unwrap')
 
-    const amountWei = toWei(this.amount, this.token.meta.decimals)
-    const tx = await sChain.unwrap(
-      this.token.type,
-      this.token.keyname,
-      this.address,
-      amountWei
-    )
+    const amountWei = units.toWei(this.amount, this.token.meta.decimals)
+    const tx = await sChain.unwrap(this.token.type, this.token.keyname, this.address, amountWei)
 
-    log('UnWrapERC20S:execute - tx completed %O', tx)
+    log.info('UnWrapERC20S:execute - tx completed %O', tx)
     const block = await sChain.provider.getBlock(tx.response.blockNumber)
     this.updateState('unwrapDone', tx.response.hash, block.timestamp)
   }
 
   async preAction() {
-    log('preAction: UnWrapERC20S')
+    log.info('preAction: UnWrapERC20S')
     const tokenContract = this.sChain1.tokens[this.token.type][this.token.keyname]
     const checkResBalance = await checkERC20Balance(
       this.address,
@@ -248,7 +235,7 @@ export class TransferERC20M2S extends Action {
     this.updateState('init')
 
     const erc20M = await this.mainnet.erc20()
-    const erc20MAddress = await erc20M.getAddress() as types.AddressType
+    const erc20MAddress = (await erc20M.getAddress()) as types.AddressType
 
     // check approve + approve
     const checkResAllowance = await checkERC20Allowance(
@@ -274,7 +261,7 @@ export class TransferERC20M2S extends Action {
       this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
     }
     this.updateState('transfer')
-    const amountWei = toWei(this.amount, this.token.meta.decimals)
+    const amountWei = units.toWei(this.amount, this.token.meta.decimals)
     const balanceOnDestination = await this.sChain2.getERC20Balance(this.destToken, this.address)
 
     const tx = await sendTransaction(
@@ -286,10 +273,10 @@ export class TransferERC20M2S extends Action {
 
     const block = await mainnet.provider.getBlock(tx.response.blockNumber)
     this.updateState('transferDone', tx.response.hash, block.timestamp)
-    log('TransferERC20M2S:execute - tx completed %O', tx)
+    log.info('TransferERC20M2S:execute - tx completed %O', tx)
     await this.sChain2.waitERC20BalanceChange(this.destToken, this.address, balanceOnDestination)
     this.updateState('received')
-    log('TransferERC20M2S:execute - tokens received on destination chain')
+    log.info('TransferERC20M2S:execute - tokens received on destination chain')
   }
 
   async preAction() {
@@ -313,7 +300,7 @@ export class TransferERC20S2M extends Action {
     // check approve + approve
 
     const erc20S = await this.sChain1.erc20()
-    const erc20SAddress = await erc20S.getAddress() as types.AddressType
+    const erc20SAddress = (await erc20S.getAddress()) as types.AddressType
 
     const checkResAllowance = await checkERC20Allowance(
       this.address,
@@ -334,10 +321,10 @@ export class TransferERC20S2M extends Action {
       )
       const txBlock = await sChain.provider.getBlock(approveTx.response.blockNumber)
       this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
-      log('ApproveERC20S:execute - tx completed: %O', approveTx)
+      log.info('ApproveERC20S:execute - tx completed: %O', approveTx)
     }
     this.updateState('transfer')
-    const amountWei = toWei(this.amount, this.token.meta.decimals)
+    const amountWei = units.toWei(this.amount, this.token.meta.decimals)
     const balanceOnDestination = await this.mainnet.getERC20Balance(this.destToken, this.address)
 
     const tx = await sendTransaction(
@@ -349,10 +336,10 @@ export class TransferERC20S2M extends Action {
 
     const block = await sChain.provider.getBlock(tx.response.blockNumber)
     this.updateState('transferDone', tx.response.hash, block.timestamp)
-    log('TransferERC20S2M:execute - tx completed %O', tx)
+    log.info('TransferERC20S2M:execute - tx completed %O', tx)
     await this.mainnet.waitERC20BalanceChange(this.destToken, this.address, balanceOnDestination)
     this.updateState('received')
-    log('TransferERC20S2M:execute - tokens received on destination chain')
+    log.info('TransferERC20S2M:execute - tokens received on destination chain')
   }
 
   async preAction() {

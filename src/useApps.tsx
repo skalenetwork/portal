@@ -22,8 +22,8 @@
 
 import { useMemo } from 'react'
 import { type types } from '@/core'
+import { explorer } from '@skalenetwork/metaport'
 import { getRecentApps } from './core/ecosystem/utils'
-import { getTotalAppCounters } from './core/explorer'
 import { MAX_APPS_DEFAULT } from './core/constants'
 import { useLikedApps } from './LikedAppsContext'
 import { useAuth } from './AuthContext'
@@ -70,7 +70,7 @@ export function useApps(chainsMeta: types.ChainsMetadataMap, metrics: types.IMet
       if (!chainMetrics || !chainMetrics.apps_counters[app.appName]) {
         return { ...app, transactions_last_7_days: 0 }
       }
-      const totalCounters = getTotalAppCounters(chainMetrics.apps_counters[app.appName])
+      const totalCounters = explorer.getTotalAppCounters(chainMetrics.apps_counters[app.appName])
       return {
         ...app,
         transactions_last_7_days: totalCounters ? totalCounters.transactions_last_7_days : 0

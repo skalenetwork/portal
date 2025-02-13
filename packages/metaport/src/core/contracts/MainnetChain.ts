@@ -20,68 +20,78 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import { Contract } from "ethers"
+import { Contract } from 'ethers'
 import { Logger, type ILogObj } from 'tslog'
-import { constants } from "@/core"
-import { BaseChain } from "./BaseChain"
-import { sleep } from "../helper"
+import { constants, helper } from '@/core'
+import { BaseChain } from './BaseChain'
 
 const log = new Logger<ILogObj>({ name: 'metaport:core:contracts:MainnetChain' })
 
 export default class MainnetChain extends BaseChain {
+  async ethBalance(address: string): Promise<bigint> {
+    return await this.provider.getBalance(address)
+  }
 
-    async ethBalance(address: string): Promise<bigint> {
-        return await this.provider.getBalance(address);
-    }
+  async lockedETHAmount(address: string): Promise<bigint> {
+    const erc20 = await this.erc20()
+    return await erc20.approveTransfers(address)
+  }
 
-    async lockedETHAmount(address: string): Promise<bigint> {
-        const erc20 = await this.erc20()
-        return await erc20.approveTransfers(address);
+  async waitLockedETHAmountChange(
+    address: string,
+    initial: bigint,
+    sleepInterval: number = constants.DEFAULT_SLEEP,
+    iterations: number = constants.DEFAULT_ITERATIONS
+  ): Promise<void> {
+    for (let i = 1; i <= iterations; i++) {
+      const res = await this.lockedETHAmount(address)
+      if (initial !== res) {
+        break
+      }
+      log.info(
+        '🔎 ' +
+          i.toString() +
+          '/' +
+          iterations.toString() +
+          ' Waiting for locked ETH change - address: ' +
+          address +
+          ', sleep ' +
+          sleepInterval.toString() +
+          'ms'
+      )
+      await helper.sleep(sleepInterval)
     }
+  }
 
-    async waitLockedETHAmountChange(address: string, initial: bigint,
-        sleepInterval: number = constants.DEFAULT_SLEEP,
-        iterations: number = constants.DEFAULT_ITERATIONS): Promise<void> {
-        for (let i = 1; i <= iterations; i++) {
-            const res = await this.lockedETHAmount(address);
-            if (initial !== res) {
-                break;
-            }
-            log.info('🔎 ' + i.toString() + '/' + iterations.toString() + ' Waiting for locked ETH change - address: ' +
-                address + ', sleep ' + sleepInterval.toString() + 'ms');
-            await sleep(sleepInterval);
-        }
-    }
+  async eth(): Promise<Contract> {
+    return this.getContract('DepositBoxETH')
+  }
 
-    async eth(): Promise<Contract> {
-        return this.getContract('DepositBoxETH');
-    }
+  async erc20(): Promise<Contract> {
+    return this.getContract('DepositBoxERC20')
+  }
 
-    async erc20(): Promise<Contract> {
-        return this.getContract('DepositBoxERC20');
-    }
+  async erc721(): Promise<Contract> {
+    return this.getContract('DepositBoxERC721')
+  }
 
-    async erc721(): Promise<Contract> {
-        return this.getContract('DepositBoxERC721');
-    }
+  async erc721meta(): Promise<Contract> {
+    return this.getContract('DepositBoxERC721WithMetadata')
+  }
 
-    async erc721meta(): Promise<Contract> {
-        return this.getContract('DepositBoxERC721WithMetadata');
-    }
+  async erc1155(): Promise<Contract> {
+    return this.getContract('DepositBoxERC1155')
+  }
 
-    async erc1155(): Promise<Contract> {
-        return this.getContract('DepositBoxERC1155');
-    }
+  async linker(): Promise<Contract> {
+    return this.getContract('Linker')
+  }
 
-    async linker(): Promise<Contract> {
-        return this.getContract('Linker');
-    }
+  async communityPool(): Promise<Contract> {
+    return this.getContract('CommunityPool')
+  }
 
-    async communityPool(): Promise<Contract> {
-        return this.getContract('CommunityPool');
-    }
-
-    async communityLocker(): Promise<Contract> {
-        return this.getContract('CommunityLocker');
-    }
+  async communityLocker(): Promise<Contract> {
+    return this.getContract('CommunityLocker')
+  }
 }

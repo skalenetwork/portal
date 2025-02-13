@@ -62,7 +62,9 @@ export default function AppCard(props: {
           <div className="sk-app-logo sk-logo-sm br__tile">
             <div
               className={cls('logo-wrapper borderLight')}
-              style={{ background: metadata.chainBg(props.chainsMeta, props.schainName, props.appName) }}
+              style={{
+                background: metadata.chainBg(props.chainsMeta, props.schainName, props.appName)
+              }}
             >
               <ChainLogo
                 className={cls('responsive-logo')}

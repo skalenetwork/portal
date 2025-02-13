@@ -21,9 +21,8 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { Contract, type Provider, getUint } from 'ethers'
-import { types, ERC_ABIS } from '@/core'
-import { maxBigInt } from '../helper'
+import { Contract, getUint } from 'ethers'
+import { helper, types } from '@/core'
 import { BATCH_SIZE } from '../constants'
 
 export enum DelegationState {
@@ -203,11 +202,6 @@ export async function groupDelegationsByValidator(
 export const sumRewards = (delegations: types.st.IDelegationsToValidator[]): bigint =>
   delegations.reduce((total, del) => total + del.rewards, BigInt(0))
 
-export async function initSkaleToken(provider: Provider, instance: any): Promise<Contract> {
-  const address = await instance.getContractAddress('SkaleToken')
-  return new Contract(address, ERC_ABIS.erc20.abi, provider)
-}
-
 export async function getDelegatorInfo(
   sc: types.st.ISkaleContractsMap,
   rewards: bigint,
@@ -227,7 +221,7 @@ export async function getDelegatorInfo(
     address
   }
 
-  info.allowedToDelegate = maxBigInt(info.balance - info.forbiddenToDelegate, 0n)
+  info.allowedToDelegate = helper.maxBigInt(info.balance - info.forbiddenToDelegate, 0n)
 
   if (beneficiary) {
     if (type === types.st.DelegationType.ESCROW) {
@@ -239,8 +233,8 @@ export async function getDelegatorInfo(
       info.fullAmount = await sc.grantsAllocator.getFullAmount(beneficiary)
     }
 
-    const locked = maxBigInt(info.fullAmount! - info.vested!, info.forbiddenToDelegate)
-    info.unlocked = maxBigInt(info.balance - locked, 0n)
+    const locked = helper.maxBigInt(info.fullAmount! - info.vested!, info.forbiddenToDelegate)
+    info.unlocked = helper.maxBigInt(info.balance - locked, 0n)
   }
   return info
 }

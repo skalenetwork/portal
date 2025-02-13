@@ -75,7 +75,7 @@ export default function ValidatorsPage(props: {
           mpc={props.mpc}
           validators={props.validators}
           validatorId={0}
-          setValidatorId={(): void => { }}
+          setValidatorId={(): void => {}}
           delegationType={types.st.DelegationType.REGULAR}
           size="lg"
         />

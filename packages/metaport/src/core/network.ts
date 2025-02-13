@@ -20,29 +20,18 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import debug from 'debug'
+import { Logger, type ILogObj } from 'tslog'
 import { JsonRpcProvider, Provider } from 'ethers'
-import { types } from '@/core'
+import { type types, constants, endpoints, helper } from '@/core'
 
 import { WalletClient } from 'viem'
 import { holesky } from '@wagmi/core/chains'
 import { type UseSwitchChainReturnType } from 'wagmi'
 
-import proxyEndpoints from '../metadata/proxy.json'
-import { MAINNET_CHAIN_NAME, DEFAULT_ITERATIONS, DEFAULT_SLEEP } from './constants'
 import { constructWagmiChain } from './wagmi_network'
 import { TimeoutException } from './exceptions'
-import { sleep } from './helper'
 
-export { proxyEndpoints as PROXY_ENDPOINTS }
-
-debug.enable('*')
-const log = debug('metaport:core:network')
-
-const PROTOCOL: { [protocol in 'http' | 'ws']: string } = {
-  http: 'https://',
-  ws: 'wss://'
-}
+const log = new Logger<ILogObj>({ name: 'metaport:core:network' })
 
 export const CHAIN_IDS: { [network in types.SkaleNetwork]: number } = {
   legacy: 17000,
@@ -51,35 +40,11 @@ export const CHAIN_IDS: { [network in types.SkaleNetwork]: number } = {
   testnet: 17000
 }
 
-export function isMainnetChainId(chainId: number | BigInt, skaleNetwork: types.SkaleNetwork): boolean {
+export function isMainnetChainId(
+  chainId: number | BigInt,
+  skaleNetwork: types.SkaleNetwork
+): boolean {
   return Number(chainId) === CHAIN_IDS[skaleNetwork]
-}
-
-export function getEndpoint(
-  mainnetEndpoint: string,
-  network: types.SkaleNetwork,
-  chainName: string
-): string {
-  if (chainName === MAINNET_CHAIN_NAME) return mainnetEndpoint
-  return getSChainEndpoint(network, chainName)
-}
-
-export function getSChainEndpoint(
-  network: types.SkaleNetwork,
-  sChainName: string,
-  protocol: 'http' | 'ws' = 'http'
-): string {
-  return (
-    PROTOCOL[protocol] +
-    getProxyEndpoint(network) +
-    '/v1/' +
-    (protocol === 'ws' ? 'ws/' : '') +
-    sChainName
-  )
-}
-
-function getProxyEndpoint(network: types.SkaleNetwork) {
-  return proxyEndpoints[network]
 }
 
 export function mainnetProvider(mainnetEndpoint: string): Provider {
@@ -87,7 +52,7 @@ export function mainnetProvider(mainnetEndpoint: string): Provider {
 }
 
 export function sChainProvider(network: types.SkaleNetwork, chainName: string): Provider {
-  const endpoint = getEndpoint(null, network, chainName)
+  const endpoint = endpoints.get(null, network, chainName)
   return new JsonRpcProvider(endpoint)
 }
 
@@ -95,8 +60,8 @@ async function waitForNetworkChange(
   walletClient: WalletClient,
   initialChainId: number | bigint,
   requiredChainId: number | bigint,
-  sleepInterval: number = DEFAULT_SLEEP,
-  iterations: number = DEFAULT_ITERATIONS
+  sleepInterval: number = constants.DEFAULT_SLEEP,
+  iterations: number = constants.DEFAULT_ITERATIONS
 ): Promise<void> {
   const logData = `${initialChainId} -> ${requiredChainId}, sleep ${sleepInterval}ms`
   for (let i = 1; i <= iterations; i++) {
@@ -104,8 +69,8 @@ async function waitForNetworkChange(
     if (BigInt(chainId) === BigInt(requiredChainId)) {
       return
     }
-    log(`🔎 ${i}/${iterations} Waiting for network change - ${logData}`)
-    await sleep(sleepInterval)
+    log.info(`🔎 ${i}/${iterations} Waiting for network change - ${logData}`)
+    await helper.sleep(sleepInterval)
   }
   throw new TimeoutException('waitForNetworkChange timeout - ' + logData)
 }
@@ -129,10 +94,10 @@ export async function enforceNetwork(
   chainName: string
 ): Promise<bigint> {
   const currentChainId = await walletClient.getChainId()
-  log(
+  log.info(
     `Current chainId: ${currentChainId}, required chainId: ${chainId}, required network: ${chainName} `
   )
-  log(`Switching network to ${chainId}...`)
+  log.info(`Switching network to ${chainId}...`)
   try {
     if (chainId !== 1n && chainId !== 5n && chainId !== 17000n) {
       await walletClient.addChain({ chain: constructWagmiChain(skaleNetwork, chainName) })
@@ -141,18 +106,18 @@ export async function enforceNetwork(
       await walletClient.addChain({ chain: holesky })
     }
   } catch {
-    log('Failed to add chain or chain already added')
+    log.info('Failed to add chain or chain already added')
   }
   try {
     // tmp fix for coinbase wallet
     _networkSwitch(chainId, currentChainId, switchChain)
   } catch (e) {
-    log('Failed to switch network, retrying...')
-    await sleep(DEFAULT_SLEEP)
+    log.info('Failed to switch network, retrying...')
+    await helper.sleep(constants.DEFAULT_SLEEP)
     _networkSwitch(chainId, currentChainId, switchChain)
   }
   await waitForNetworkChange(walletClient, currentChainId, chainId)
-  await sleep(DEFAULT_SLEEP)
-  log(`Network switched to ${chainId}`)
+  await helper.sleep(constants.DEFAULT_SLEEP)
+  log.info(`Network switched to ${chainId}`)
   return chainId
 }

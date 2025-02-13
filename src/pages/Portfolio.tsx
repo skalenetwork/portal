@@ -22,7 +22,7 @@
  */
 
 import { useState, useEffect } from 'react'
-import { types, dc } from '@/core'
+import { type types, dc, units } from '@/core'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
@@ -35,8 +35,7 @@ import {
   type MetaportCore,
   TokenIcon,
   SkPaper,
-  useWagmiAccount,
-  fromWei
+  useWagmiAccount
 } from '@skalenetwork/metaport'
 
 import TokenSurface from '../components/TokenSurface'
@@ -63,9 +62,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
     setTokenBalances(
       await Promise.all(
         contracts.map(
-          async (
-            chainContracts: types.mp.TokenContractsMap
-          ): Promise<types.mp.TokenBalancesMap> =>
+          async (chainContracts: types.mp.TokenContractsMap): Promise<types.mp.TokenBalancesMap> =>
             await props.mpc.tokenBalances(chainContracts, address!)
         )
       )
@@ -136,7 +133,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                   </div>
                   <div className={cls(cmn.mri5)}>
                     <p className={cls(cmn.p, cmn.pPrim, cmn.p1, cmn.p700, cmn.pri)}>
-                      {fromWei(getTotalBalance(token).toString(), getTokenDecimals(token))}{' '}
+                      {units.fromWei(getTotalBalance(token).toString(), getTokenDecimals(token))}{' '}
                       {props.mpc.config.tokens[token].symbol}
                     </p>
                     <p className={cls(cmn.p, cmn.pSec, cmn.p5, cmn.p600, cmn.pri)}>On 2 chains</p>
@@ -154,7 +151,10 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                           title={chain}
                           value={
                             (balances[index] && balances[index][token]
-                              ? fromWei(balances[index][token].toString(), getTokenDecimals(token))
+                              ? units.fromWei(
+                                  balances[index][token].toString(),
+                                  getTokenDecimals(token)
+                                )
                               : '0') +
                             ' ' +
                             props.mpc.config.tokens[token].symbol

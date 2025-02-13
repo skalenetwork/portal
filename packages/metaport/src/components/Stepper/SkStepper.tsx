@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useWalletClient, useSwitchChain, useAccount } from 'wagmi'
 import { useAddRecentTransaction } from '@rainbow-me/rainbowkit'
-import { types, metadata } from '@/core'
+import { type types, metadata, helper } from '@/core'
 
 import Box from '@mui/material/Box'
 import Stepper from '@mui/material/Stepper'
@@ -15,7 +15,6 @@ import Collapse from '@mui/material/Collapse'
 import SettingsBackupRestoreRoundedIcon from '@mui/icons-material/SettingsBackupRestoreRounded'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 
-import { getRandom } from '../../core/helper'
 import { cls, cmn, styles } from '../../core/css'
 import localStyles from './SkStepper.module.scss'
 
@@ -55,7 +54,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
 
   const [emoji, setEmoji] = useState<string>()
   useEffect(() => {
-    setEmoji(getRandom(SUCCESS_EMOJIS))
+    setEmoji(helper.getRandom(SUCCESS_EMOJIS))
   }, [])
 
   useEffect(() => {

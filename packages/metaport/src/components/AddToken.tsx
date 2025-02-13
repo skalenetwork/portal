@@ -24,7 +24,7 @@
 import { useState } from 'react'
 import { Provider } from 'ethers'
 import { useWalletClient, useSwitchChain } from 'wagmi'
-import { dc } from '@/core'
+import { dc, constants } from '@/core'
 
 import Button from '@mui/material/Button'
 import TollIcon from '@mui/icons-material/Toll'
@@ -32,7 +32,7 @@ import TollIcon from '@mui/icons-material/Toll'
 import { cls, cmn, styles } from '../core/css'
 import MetaportCore, { createTokenData } from '../core/metaport'
 import { enforceNetwork } from '../core/network'
-import { ICONS_BASE_URL, MAINNET_CHAIN_NAME } from '../core/constants'
+import { ICONS_BASE_URL } from '../core/constants'
 
 export default function AddToken(props: {
   token: dc.TokenData
@@ -101,7 +101,8 @@ export default function AddToken(props: {
     }
   }
 
-  if (props.destChainName === MAINNET_CHAIN_NAME && props.token.type === dc.TokenType.eth) return
+  if (props.destChainName === constants.MAINNET_CHAIN_NAME && props.token.type === dc.TokenType.eth)
+    return
 
   return (
     <Button

@@ -22,10 +22,8 @@
  */
 
 import { type Signer } from 'ethers'
-import { sendTransaction } from '@skalenetwork/metaport'
+import { sendTransaction, contracts } from '@skalenetwork/metaport'
 import { type types } from '@/core'
-
-import { initActionContract } from '../contracts'
 
 export type LoadingState = types.st.IRewardInfo | types.st.IDelegationInfo | false
 export type SetLoadingFn = (state: LoadingState) => void
@@ -59,7 +57,7 @@ async function processTx({
 
   try {
     const signer = await props.getMainnetSigner()
-    const contract = await initActionContract(
+    const contract = await contracts.initActionContract(
       signer,
       delegationType,
       props.address,
@@ -67,7 +65,12 @@ async function processTx({
       contractType
     )
 
-    const res = await sendTransaction(contract[txName], txArgs)
+    const res = await sendTransaction(
+      signer,
+      contract[txName],
+      txArgs,
+      `${txName}:${delegationType}`
+    )
     if (!res.status) {
       props.setErrorMsg(res.err?.name)
     } else {

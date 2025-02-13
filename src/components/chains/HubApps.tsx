@@ -22,10 +22,9 @@
  */
 
 import { ReactElement } from 'react'
-import { type types } from '@/core'
+import { type types, helper } from '@/core'
 
 import { Grid } from '@mui/material'
-import { sortObjectByKeys } from '../../core/helper'
 
 import AppCard from '../ecosystem/AppCard'
 
@@ -39,7 +38,7 @@ export default function HubApps(props: {
 
   if (!chainMeta.apps) return
 
-  for (const appName in sortObjectByKeys(chainMeta.apps)) {
+  for (const appName in helper.sortObjectByKeys(chainMeta.apps)) {
     if (chainMeta.apps.hasOwnProperty(appName)) {
       appCards.push(
         <Grid key={appName} className="fl-centered dappCard" item lg={3} md={4} sm={6} xs={6}>

@@ -21,6 +21,7 @@
  */
 
 import { useState } from 'react'
+import { types, units, timeUtils } from '@/core'
 import { cmn, cls, styles } from '@skalenetwork/metaport'
 
 import { Collapse, Grid, Tooltip } from '@mui/material'
@@ -33,8 +34,6 @@ import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
 import SkBtn from '../SkBtn'
 import ValidatorLogo from './ValidatorLogo'
 
-import { types } from '@/core'
-
 import {
   DelegationSource,
   DelegationState,
@@ -43,7 +42,6 @@ import {
 } from '../../core/delegation'
 import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
 
-import { convertMonthIndexToText, formatBalance } from '../../core/helper'
 import Tile from '../Tile'
 
 export default function Delegation(props: {
@@ -59,7 +57,7 @@ export default function Delegation(props: {
   isValidatorPage?: boolean
 }) {
   const source = getDelegationSource(props.delegation)
-  const delegationAmount = formatBalance(props.delegation.amount, 'SKL')
+  const delegationAmount = units.formatBalance(props.delegation.amount, 'SKL')
   const [open, setOpen] = useState(false)
 
   const delId = Number(props.delegation.stateId)
@@ -205,7 +203,7 @@ export default function Delegation(props: {
             <Tile
               className={cls(cmn.nop, cmn.mtop20)}
               transparent
-              value={convertMonthIndexToText(Number(props.delegation.finished))}
+              value={timeUtils.convertMonthIndexToText(Number(props.delegation.finished))}
               text="Delegation completed"
               grow
               size="md"

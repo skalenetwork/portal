@@ -21,18 +21,19 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import debug from 'debug'
+import { Logger, type ILogObj } from 'tslog'
 import { Provider, JsonRpcProvider, Contract, Signer } from 'ethers'
-import { types, dc, ERC_ABIS, contracts, constants } from '@/core'
+import { types, dc, ERC_ABIS, contracts, constants, endpoints } from '@/core'
 
 import { getEmptyTokenDataMap } from './tokens/helper'
 import { getStepsMetadata } from '../core/transfer_steps'
-import { getEndpoint, mainnetProvider, sChainProvider } from './network'
+import { mainnetProvider, sChainProvider } from './network'
 import { MetaportState } from '../store/MetaportState'
 
-import { MainnetChain, SChain, getInstance } from './contracts'
+import { MainnetChain, SChain } from './contracts'
+import { skaleContracts, type Instance } from '@skalenetwork/skale-contracts-ethers-v6'
 
-const log = debug('ima:test:MainnetChain')
+const log = new Logger<ILogObj>({ name: 'metaport:core' })
 
 export const createTokenData = (
   tokenKeyname: string,
@@ -67,7 +68,7 @@ export const createTokensMap = (
   config: types.mp.Config
 ): types.mp.TokenDataTypesMap => {
   const tokens = getEmptyTokenDataMap()
-  log(`updating tokens map for ${chainName1} -> ${chainName2}`)
+  log.info(`updating tokens map for ${chainName1} -> ${chainName2}`)
   if (chainName1) {
     Object.values(dc.TokenType).forEach((tokenType) => {
       if (config.connections[chainName1][tokenType]) {
@@ -199,7 +200,8 @@ export default class MetaportCore {
     return contracts
   }
 
-  tokenContract( // todo: remove this method
+  tokenContract(
+    // todo: remove this method
     chainName: string,
     tokenKeyname: string,
     tokenType: dc.TokenType,
@@ -230,7 +232,7 @@ export default class MetaportCore {
   }
 
   endpoint(chainName: string): string {
-    return getEndpoint(this._config.mainnetEndpoint, this._config.skaleNetwork, chainName)
+    return endpoints.get(this._config.mainnetEndpoint, this._config.skaleNetwork, chainName)
   }
 
   async ima(chainName: string): Promise<MainnetChain | SChain> {
@@ -238,17 +240,34 @@ export default class MetaportCore {
     return await this.schain(chainName)
   }
 
+  async getInstance(
+    provider: Provider,
+    project: contracts.ISkaleContractsProject,
+    aliasOrAddress: string
+  ): Promise<Instance> {
+    const network = await skaleContracts.getNetworkByProvider(provider)
+    const projectInstance = await network.getProject(project)
+    return await projectInstance.getInstance(aliasOrAddress)
+  }
+
   async mainnet(externalProvider?: Provider, signer?: Signer): Promise<MainnetChain> {
     const provider = externalProvider ?? mainnetProvider(this._config.mainnetEndpoint)
-    const aliasOrAddress = contracts.getAliasOrAddress(this._config.skaleNetwork, 'mainnet-ima')
-    const instance = await getInstance(provider, 'mainnet-ima', aliasOrAddress)
+    const aliasOrAddress = contracts.getAliasOrAddress(
+      this._config.skaleNetwork,
+      contracts.Project.MAINNET_IMA
+    )
+    const instance = await this.getInstance(provider, contracts.Project.MAINNET_IMA, aliasOrAddress)
     return new MainnetChain(provider, instance, signer)
   }
 
   async schain(chainName: string, externalProvider?: Provider, signer?: Signer): Promise<SChain> {
     if (chainName === constants.MAINNET_CHAIN_NAME) throw new Error('Invalid chain name')
     let provider = externalProvider ?? sChainProvider(this._config.skaleNetwork, chainName)
-    const instance = await getInstance(provider, 'schain-ima', contracts.PREDEPLOYED_ALIAS)
+    const instance = await this.getInstance(
+      provider,
+      contracts.SchainProject.SCHAIN_IMA,
+      contracts.PREDEPLOYED_ALIAS
+    )
     return new SChain(provider, instance, signer)
   }
 
@@ -306,7 +325,11 @@ export default class MetaportCore {
     const ima2 = await this.ima(chainName2)
     const tokens = this.tokens(chainName1, chainName2)
     const tokenContracts = this.tokenContracts(
-      tokens, dc.TokenType.erc20, chainName1, ima1.provider)
+      tokens,
+      dc.TokenType.erc20,
+      chainName1,
+      ima1.provider
+    )
 
     const wrappedTokenContracts = this.tokenContracts(
       tokens,

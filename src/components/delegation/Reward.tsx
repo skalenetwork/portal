@@ -21,19 +21,17 @@
  */
 
 import { cmn, cls, styles } from '@skalenetwork/metaport'
+import { types, units } from '@/core'
 
 import { Grid } from '@mui/material'
 import LoadingButton from '@mui/lab/LoadingButton'
-
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
 
 import ValidatorLogo from './ValidatorLogo'
 
 import { getValidatorById } from '../../core/delegation'
-import { formatBalance } from '../../core/helper'
 import RetrieveRewardModal from './RetrieveRewardModal'
-import { types } from '@/core'
 
 export default function Reward(props: {
   validators: types.st.IValidator[]
@@ -50,8 +48,8 @@ export default function Reward(props: {
   setCustomRewardAddress: (customRewardAddress: types.AddressType | undefined) => void
 }) {
   const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
-  const rewardsAmount = formatBalance(props.delegationsToValidator.rewards, 'SKL')
-  const totalStakedAmount = formatBalance(props.delegationsToValidator.staked, 'SKL')
+  const rewardsAmount = units.formatBalance(props.delegationsToValidator.rewards, 'SKL')
+  const totalStakedAmount = units.formatBalance(props.delegationsToValidator.staked, 'SKL')
   if (!validator) return
 
   const loading =

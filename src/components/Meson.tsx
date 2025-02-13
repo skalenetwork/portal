@@ -22,7 +22,7 @@
 
 import { useState } from 'react'
 import { cmn, cls, styles, SkPaper, useWagmiAccount } from '@skalenetwork/metaport'
-import { type types, metadata } from '@/core'
+import { type types, metadata, constants } from '@/core'
 
 import { Collapse, Grid } from '@mui/material'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
@@ -30,7 +30,7 @@ import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRound
 import SkStack from './SkStack'
 import ChainLogo from './ChainLogo'
 import networks from '../assets/networks.png'
-import { MAINNET_CHAIN_LOGOS, MAINNET_CHAIN_NAME } from '../core/constants'
+import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 import ConnectWallet from './ConnectWallet'
 
 const SUPPORTED_CHAINS = ['elated-tan-skat', 'honorable-steel-rasalhague', 'green-giddy-denebola']
@@ -50,7 +50,7 @@ export default function Meson(props: {
     window.open(link, 'meson.to', 'width=375,height=640')
   }
 
-  if (props.skaleNetwork !== MAINNET_CHAIN_NAME) return
+  if (props.skaleNetwork !== constants.MAINNET_CHAIN_NAME) return
   return (
     <div className={cls(props.className, 'paddBott60')}>
       <div

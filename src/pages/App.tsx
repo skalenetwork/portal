@@ -24,18 +24,18 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useParams } from 'react-router-dom'
+import { type types, metadata, units } from '@/core'
 
 import {
-  MetaportCore,
-  fromWei,
-  styles,
   cmn,
   cls,
+  styles,
+  explorer,
+  MetaportCore,
   SkPaper,
   useWagmiAccount,
   useConnectModal
 } from '@skalenetwork/metaport'
-import { type types, metadata } from '@/core'
 
 import { Button, Grid } from '@mui/material'
 import Container from '@mui/material/Container'
@@ -57,7 +57,6 @@ import { useApps } from '../useApps'
 
 import { getAppMetaWithChainApp } from '../core/ecosystem/apps'
 import { formatNumber } from '../core/timeHelper'
-import { addressUrl, getExplorerUrl, getTotalAppCounters } from '../core/explorer'
 import { MAINNET_CHAIN_LOGOS, MAX_APPS_DEFAULT, OFFCHAIN_APP } from '../core/constants'
 import { getRecentApps, isNewApp, isTrending } from '../core/ecosystem/utils'
 
@@ -145,7 +144,7 @@ export default function App(props: {
     refreshLikedApps()
   }
 
-  const explorerUrl = getExplorerUrl(network, chain)
+  const explorerUrl = explorer.getExplorerUrl(network, chain)
 
   const isAppChain = chainMeta.apps && Object.keys(chainMeta.apps).length === 1
 
@@ -162,7 +161,7 @@ export default function App(props: {
       !props.metrics.metrics[chain].apps_counters[app]
     )
       return
-    setCounters(getTotalAppCounters(props.metrics.metrics[chain].apps_counters[app]))
+    setCounters(explorer.getTotalAppCounters(props.metrics.metrics[chain].apps_counters[app]))
   }, [props.metrics])
 
   function handleChange(panel: string | false) {
@@ -172,7 +171,7 @@ export default function App(props: {
   function formatGas(): string | null {
     if (!props.metrics || !counters) return null
     const gasSpentGwei = BigInt(counters.gas_usage_count) * BigInt(props.metrics.gas)
-    return formatNumber(Number(fromWei(gasSpentGwei, '9')))
+    return formatNumber(Number(units.fromWei(gasSpentGwei, '9')))
   }
 
   return (
@@ -362,7 +361,7 @@ export default function App(props: {
                           className={cls(styles.fullHeight)}
                           title={`Contract ${index + 1}`}
                           value={contractAddress}
-                          url={addressUrl(explorerUrl, contractAddress)}
+                          url={explorer.addressUrl(explorerUrl, contractAddress)}
                         />
                       </Grid>
                     ))}

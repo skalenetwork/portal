@@ -55,15 +55,15 @@ export default function Tokens(props: {
         </Grid>,
         ...(wrapperAddress
           ? [
-            <Grid key={`w${tokenSymbol}`} item lg={3} md={4} sm={6} xs={12}>
-              <CopySurface
-                className={cls(styles.fullHeight)}
-                title={`w${tokenSymbol.toUpperCase()}`}
-                value={wrapperAddress}
-                tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
-              />
-            </Grid>
-          ]
+              <Grid key={`w${tokenSymbol}`} item lg={3} md={4} sm={6} xs={12}>
+                <CopySurface
+                  className={cls(styles.fullHeight)}
+                  title={`w${tokenSymbol.toUpperCase()}`}
+                  value={wrapperAddress}
+                  tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
+                />
+              </Grid>
+            ]
           : [])
       ]
     })

@@ -34,30 +34,28 @@ import {
   sendTransaction,
   styles,
   SkPaper,
-  Station
+  Station,
+  explorer
 } from '@skalenetwork/metaport'
-import { type types, ERC_ABIS } from '@/core'
+import { type types, constants, units, ERC_ABIS } from '@/core'
 
+import { Button, Tooltip } from '@mui/material'
 import StarsRoundedIcon from '@mui/icons-material/StarsRounded'
 import EventAvailableRoundedIcon from '@mui/icons-material/EventAvailableRounded'
 import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
 
-import { formatBalance } from '../../core/helper'
 import {
   getPaymasterAbi,
   getPaymasterAddress,
   getPaymasterChain,
   initPaymaster
 } from '../../core/paymaster'
-import { DEFAULT_UPDATE_INTERVAL_MS } from '../../core/constants'
 
 import Headline from '../Headline'
 import Tile from '../Tile'
 import SkBtn from '../SkBtn'
 import ErrorTile from '../ErrorTile'
 import SkStack from '../SkStack'
-import { Button, Tooltip } from '@mui/material'
-import { getExplorerUrlForAddress } from '../../core/explorer'
 
 interface ChainRewardsProps {
   mpc: MetaportCore
@@ -97,7 +95,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
 
   useEffect(() => {
     loadData()
-    const intervalId = setInterval(loadData, DEFAULT_UPDATE_INTERVAL_MS)
+    const intervalId = setInterval(loadData, constants.DEFAULT_UPDATE_INTERVAL_MS)
     return () => {
       clearInterval(intervalId)
     }
@@ -119,7 +117,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
     let skl = sklToken
     if (skl === undefined) {
       skl = new Contract(tokenAddress, ERC_ABIS.erc20.abi, paymaster.runner)
-      setTokenUrl(getExplorerUrlForAddress(network, paymasterChain, tokenAddress))
+      setTokenUrl(explorer.getExplorerUrlForAddress(network, paymasterChain, tokenAddress))
       setSklToken(skl)
     }
     setTokenBalance(await skl.balanceOf(addr))
@@ -153,7 +151,12 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
       const signer = walletClientToSigner(walletClient)
       const connectedPaymaster = new Contract(paymasterAddress, getPaymasterAbi(), signer)
 
-      const res = await sendTransaction(connectedPaymaster.claim, [address])
+      const res = await sendTransaction(
+        signer,
+        connectedPaymaster.claim,
+        [address],
+        'paymaster:claim'
+      )
       if (!res.status) {
         setErrorMsg(res.err?.name)
         return
@@ -178,7 +181,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
       />
       <Tile
         disabled={rewardAmount === 0n}
-        value={rewardAmount !== undefined && formatBalance(rewardAmount, 'SKL')}
+        value={rewardAmount !== undefined && units.formatBalance(rewardAmount, 'SKL')}
         text="Rewards on Europa Hub"
         icon={<EventAvailableRoundedIcon />}
         grow
@@ -204,7 +207,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
                 size="md"
                 transparent
                 grow
-                value={tokenBalance !== undefined && formatBalance(tokenBalance, 'SKL')}
+                value={tokenBalance !== undefined && units.formatBalance(tokenBalance, 'SKL')}
                 ri={!isXs}
                 text="Balance on Europa Hub"
                 icon={<TokenIcon tokenSymbol="skl" size="xs" />}

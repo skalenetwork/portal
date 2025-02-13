@@ -15,26 +15,24 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 /**
  * @file faucet.ts
  * @copyright SKALE Labs 2023-Present
  */
 
 import { Wallet, JsonRpcProvider, AbiCoder, TransactionResponse } from 'ethers'
-import { types, FAUCET_DATA } from '@/core'
+import { type types, constants, FAUCET_DATA } from '@/core'
 import SkalePowMiner from './miner'
-import { ZERO_ADDRESS, ZERO_FUNCSIG } from './constants'
 import MetaportCore from './metaport'
 
 function getAddress(chainName: string, skaleNetwork: types.SkaleNetwork) {
-  if (!isFaucetAvailable(chainName, skaleNetwork)) return ZERO_ADDRESS
+  if (!isFaucetAvailable(chainName, skaleNetwork)) return constants.ZERO_ADDRESS
   const faucet: { [x: string]: { [x: string]: string } } = FAUCET_DATA[skaleNetwork]
   return faucet[chainName].address
 }
 
 function getFunc(chainName: string, skaleNetwork: types.SkaleNetwork) {
-  if (!isFaucetAvailable(chainName, skaleNetwork)) return ZERO_FUNCSIG
+  if (!isFaucetAvailable(chainName, skaleNetwork)) return constants.ZERO_FUNCSIG_FAUCET
   const faucet: { [x: string]: { [x: string]: string } } = FAUCET_DATA[skaleNetwork]
   return faucet[chainName].func
 }

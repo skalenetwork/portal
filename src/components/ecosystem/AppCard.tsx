@@ -45,7 +45,9 @@ export default function AppCard(props: {
       <div className="fl-centered">
         <div
           className={cls('br__tile borderLight radius')}
-          style={{ background: metadata.chainBg(props.chainsMeta, props.schainName, props.appName) }}
+          style={{
+            background: metadata.chainBg(props.chainsMeta, props.schainName, props.appName)
+          }}
         >
           <Link to={url} className={cls('br__tileLogo', 'br__tileIns', cmn.flex)}>
             <div className={cls(cmn.flex, cmn.flexg)}></div>

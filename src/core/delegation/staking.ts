@@ -21,8 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { types } from '@/core'
-import { isZeroAddr } from '../helper'
+import { types, helper } from '@/core'
 import {
   getDelegationIdsByHolder,
   getDelegations,
@@ -41,10 +40,10 @@ export async function getStakingInfoMap(
   const escrowGrantsAddress = await sc.grantsAllocator.getEscrowAddress(address)
   return {
     0: await getStakingInfo(sc, address),
-    1: isZeroAddr(escrowAddress)
+    1: helper.isZeroAddr(escrowAddress)
       ? null
       : await getStakingInfo(sc, escrowAddress, address, types.st.DelegationType.ESCROW),
-    2: isZeroAddr(escrowGrantsAddress)
+    2: helper.isZeroAddr(escrowGrantsAddress)
       ? null
       : await getStakingInfo(sc, escrowGrantsAddress, address, types.st.DelegationType.ESCROW2)
   }
@@ -83,9 +82,7 @@ export function isDelegationTypeAvailable(
   si: types.st.StakingInfoMap,
   type: types.st.DelegationType
 ): boolean {
-  return (
-    si[types.st.DelegationType.REGULAR] !== null && si[type] !== undefined && si[type] !== null
-  )
+  return si[types.st.DelegationType.REGULAR] !== null && si[type] !== undefined && si[type] !== null
 }
 
 export function isLoaded(si: types.st.StakingInfoMap): boolean {

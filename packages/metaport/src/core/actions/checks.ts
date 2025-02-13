@@ -21,17 +21,14 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import debug from 'debug'
+import { Logger, type ILogObj } from 'tslog'
 import { Contract } from 'ethers'
-import { dc, types } from '@/core'
+import { dc, type types, units, helper } from '@/core'
 
-import { fromWei, toWei } from '../convertation'
-import { addressesEqual } from '../helper'
 import { SFUEL_RESERVE_AMOUNT } from '../constants'
 import { MainnetChain, SChain } from '../contracts'
 
-debug.enable('*')
-const log = debug('metaport:actions:checks')
+const log = new Logger<ILogObj>({ name: 'metaport:core:actions:checks' })
 
 export async function checkEthBalance( // TODO: optimize balance checks
   chain: MainnetChain | SChain,
@@ -42,7 +39,7 @@ export async function checkEthBalance( // TODO: optimize balance checks
   const checkRes: types.mp.CheckRes = { res: false }
   if (!amount || Number(amount) === 0) return checkRes
   try {
-    toWei(amount, tokenData.meta.decimals)
+    units.toWei(amount, tokenData.meta.decimals)
   } catch (err) {
     if (err.fault && err.fault === 'underflow') {
       checkRes.msg = 'The amount is too small'
@@ -53,8 +50,8 @@ export async function checkEthBalance( // TODO: optimize balance checks
   }
   try {
     const balance = await chain.ethBalance(address)
-    log(`address: ${address}, eth balance: ${balance}, amount: ${amount}`)
-    const balanceEther = Number(fromWei(balance, tokenData.meta.decimals))
+    log.info(`address: ${address}, eth balance: ${balance}, amount: ${amount}`)
+    const balanceEther = Number(units.fromWei(balance, tokenData.meta.decimals))
     let checkedAmount = Number(amount)
     let msg = `Current balance: ${balanceEther} ${tokenData.meta.symbol}.`
     if (chain instanceof MainnetChain) {
@@ -68,7 +65,7 @@ export async function checkEthBalance( // TODO: optimize balance checks
     }
     return checkRes
   } catch (err) {
-    log(err)
+    log.info(err)
     checkRes.msg = 'Something went wrong, check developer console'
     return checkRes
   }
@@ -83,7 +80,7 @@ export async function checkERC20Balance(
   const checkRes: types.mp.CheckRes = { res: false }
   if (!amount || Number(amount) === 0) return checkRes
   try {
-    toWei(amount, tokenData.meta.decimals)
+    units.toWei(amount, tokenData.meta.decimals)
   } catch (err) {
     if (err.fault && err.fault === 'underflow') {
       checkRes.msg = 'The amount is too small'
@@ -94,8 +91,8 @@ export async function checkERC20Balance(
   }
   try {
     const balance = await tokenContract.balanceOf(address)
-    log(`address: ${address}, balanceWei: ${balance}, amount: ${amount}`)
-    const balanceEther = fromWei(balance, tokenData.meta.decimals)
+    log.info(`address: ${address}, balanceWei: ${balance}, amount: ${amount}`)
+    const balanceEther = units.fromWei(balance, tokenData.meta.decimals)
     if (Number(amount) > Number(balanceEther)) {
       checkRes.msg = `Insufficient balance: ${balanceEther} ${tokenData.meta.symbol}`
     } else {
@@ -103,7 +100,7 @@ export async function checkERC20Balance(
     }
     return checkRes
   } catch (err) {
-    log(err)
+    log.info(err)
     checkRes.msg = 'Something went wrong, check developer console'
     return checkRes
   }
@@ -120,12 +117,12 @@ export async function checkERC20Allowance(
   if (!amount || Number(amount) === 0) return checkRes
   try {
     const allowance = await tokenContract.allowance(address, approvalAddress)
-    const allowanceEther = fromWei(allowance, tokenData.meta.decimals)
-    log(`allowanceEther: ${allowanceEther}, amount: ${amount}`)
+    const allowanceEther = units.fromWei(allowance, tokenData.meta.decimals)
+    log.info(`allowanceEther: ${allowanceEther}, amount: ${amount}`)
     checkRes.res = Number(allowanceEther) >= Number(amount)
     return checkRes
   } catch (err) {
-    log(err)
+    log.info(err)
     checkRes.msg = 'Something went wrong, check developer console'
     return checkRes
   }
@@ -142,25 +139,25 @@ export async function checkERC721(
   if (!tokenId) return checkRes
   try {
     approvedAddress = await tokenContract.getApproved(tokenId)
-    log(`approvedAddress: ${approvedAddress}, address: ${address}`)
+    log.info(`approvedAddress: ${approvedAddress}, address: ${address}`)
   } catch (err) {
-    log(err)
+    log.info(err)
     checkRes.msg = 'tokenId does not exist, try again'
     return checkRes
   }
   try {
     const currentOwner = await tokenContract.ownerOf(tokenId)
-    log(`currentOwner: ${currentOwner}, address: ${address}`)
-    if (!addressesEqual(currentOwner, address)) {
+    log.info(`currentOwner: ${currentOwner}, address: ${address}`)
+    if (!helper.addressesEqual(currentOwner, address)) {
       checkRes.msg = 'This account is not an owner of this tokenId'
       return checkRes
     }
   } catch (err) {
-    log(err)
+    log.info(err)
     checkRes.msg = 'Something went wrong, check developer console'
     return checkRes
   }
-  checkRes.approved = addressesEqual(approvedAddress, approvalAddress)
+  checkRes.approved = helper.addressesEqual(approvedAddress, approvalAddress)
   return checkRes
 }
 
@@ -177,13 +174,13 @@ export async function checkERC1155(
 
   try {
     const balance = await tokenContract.balanceOf(address, tokenId)
-    log(`address: ${address}, balanceEther: ${balance}, amount: ${amount}`)
+    log.info(`address: ${address}, balanceEther: ${balance}, amount: ${amount}`)
     if (Number(amount) > Number(balance)) {
       checkRes.msg = `Current balance: ${balance} ${tokenData.meta.symbol}`
     }
     checkRes.approved = await tokenContract.isApprovedForAll(address, approvalAddress)
   } catch (err) {
-    log(err)
+    log.info(err)
     checkRes.msg = 'Something went wrong, check developer console'
     return checkRes
   }

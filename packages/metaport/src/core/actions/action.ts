@@ -21,26 +21,23 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import debug from 'debug'
+import { Logger, type ILogObj } from 'tslog'
 import { UseSwitchChainReturnType } from 'wagmi'
 import { WalletClient } from 'viem'
 import { Contract, Provider, type Signer } from 'ethers'
-import { dc, types } from '@/core'
+import { dc, type types, units, helper } from '@/core'
 
 import MetaportCore, { createTokenData } from '../metaport'
 import { externalEvents } from '../events'
-import { toWei } from '../convertation'
 import { LOADING_BUTTON_TEXT } from './actionState'
-import { isMainnet } from '../helper'
 import { isMainnetChainId, enforceNetwork } from '../network'
 import { walletClientToSigner } from '../ethers'
 import { MainnetChain, SChain } from '../contracts'
 
-debug.enable('*')
-const log = debug('metaport:actions')
+const log = new Logger<ILogObj>({ name: 'metaport:core:actions' })
 
 export type ActionConstructor = (new (...args: ConstructorParameters<typeof Action>) => Action) & {
-  create: typeof Action.create;
+  create: typeof Action.create
 }
 
 export abstract class Action {
@@ -149,19 +146,23 @@ export abstract class Action {
   }
 
   private async initialize(): Promise<void> {
-    if (isMainnet(this.chainName1)) {
+    if (helper.isMainnet(this.chainName1)) {
       this.mainnet = await this.mpc.mainnet()
     } else {
       this.sChain1 = await this.mpc.schain(this.chainName1)
     }
-    if (isMainnet(this.chainName2)) {
+    if (helper.isMainnet(this.chainName2)) {
       this.mainnet = await this.mpc.mainnet()
     } else {
       this.sChain2 = await this.mpc.schain(this.chainName2)
     }
 
-    const provider1 = isMainnet(this.chainName1) ? this.mainnet.provider : this.sChain1.provider
-    const provider2 = isMainnet(this.chainName2) ? this.mainnet.provider : this.sChain2.provider
+    const provider1 = helper.isMainnet(this.chainName1)
+      ? this.mainnet.provider
+      : this.sChain1.provider
+    const provider2 = helper.isMainnet(this.chainName2)
+      ? this.mainnet.provider
+      : this.sChain2.provider
 
     if (this.chainName2) {
       this.sourceToken = this.mpc.tokenContract(
@@ -213,9 +214,9 @@ export abstract class Action {
   }
 
   updateState(currentState: types.mp.ActionState, transactionHash?: string, timestamp?: number) {
-    log(`actionStateUpd: ${this.constructor.name} - ${currentState} - ${this.token.keyname} \
+    log.info(`actionStateUpd: ${this.constructor.name} - ${currentState} - ${this.token.keyname} \
 - ${this.chainName1} -> ${this.chainName2}`)
-    const amountWei = this.amount ? toWei(this.amount, this.token.meta.decimals) : 0n
+    const amountWei = this.amount ? units.toWei(this.amount, this.token.meta.decimals) : 0n
     externalEvents.actionStateUpdated({
       actionName: this.constructor.name,
       actionState: currentState,
@@ -261,10 +262,7 @@ export abstract class Action {
     )) as SChain
   }
 
-  async signer(
-    provider: Provider,
-    chainName?: string
-  ): Promise<Signer> {
+  async signer(provider: Provider, chainName?: string): Promise<Signer> {
     this.updateState('switch')
     const { chainId } = await provider.getNetwork()
     await enforceNetwork(

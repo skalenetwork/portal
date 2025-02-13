@@ -21,12 +21,10 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { types } from '@/core'
+import { type types, constants } from '@/core'
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
 import { useSFuelStore } from '../store/SFuelStore'
-
-import { MAINNET_CHAIN_NAME } from '../core/constants'
 
 export type DisplayFunctions = {
   showFrom: () => boolean
@@ -109,7 +107,7 @@ export const useDisplayFunctions = (): DisplayFunctions => {
       !expandedTo &&
       !expandedTokens &&
       !expandedTH &&
-      chainName2 === MAINNET_CHAIN_NAME &&
+      chainName2 === constants.MAINNET_CHAIN_NAME &&
       !expandedWT &&
       !!token
     )

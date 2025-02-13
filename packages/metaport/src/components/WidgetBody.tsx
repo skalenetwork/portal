@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useAccount } from 'wagmi'
 import { Collapse } from '@mui/material'
-import { metadata } from '@/core'
+import { metadata, constants } from '@/core'
 
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
@@ -24,7 +24,6 @@ import TransactionsHistory from './HistorySection'
 import HistoryButton from './HistoryButton'
 
 import { cls, cmn } from '../core/css'
-import { GRAY_BG } from '../core/constants'
 import { CHAINS_META } from '../core/metadata'
 
 export function WidgetBody(props) {
@@ -88,8 +87,12 @@ export function WidgetBody(props) {
   }, [tokens])
 
   const chainsMeta = CHAINS_META[mpc.config.skaleNetwork]
-  const sourceBg = theme.vibrant ? metadata.chainBg(chainsMeta, chainName1, appName1) : GRAY_BG
-  const destBg = theme.vibrant ? metadata.chainBg(chainsMeta, chainName2, appName2) : GRAY_BG
+  const sourceBg = theme.vibrant
+    ? metadata.chainBg(chainsMeta, chainName1, appName1)
+    : constants.GRAY_BG
+  const destBg = theme.vibrant
+    ? metadata.chainBg(chainsMeta, chainName2, appName2)
+    : constants.GRAY_BG
   const overlayBg = theme.vibrant ? 'rgb(0 0 0 / 40%)' : 'transparent'
 
   return (

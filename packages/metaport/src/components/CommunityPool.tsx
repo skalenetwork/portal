@@ -22,6 +22,7 @@
  */
 
 import React, { useEffect } from 'react'
+import { constants, units } from '@/core'
 
 import { useAccount, useWalletClient, useSwitchChain } from 'wagmi'
 
@@ -40,12 +41,10 @@ import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import ErrorIcon from '@mui/icons-material/Error'
 
-import { fromWei } from '../core/convertation'
 import { withdraw, recharge } from '../core/community_pool'
 import {
   BALANCE_UPDATE_INTERVAL_MS,
   COMMUNITY_POOL_DECIMALS,
-  DEFAULT_ERC20_DECIMALS,
   MINIMUM_RECHARGE_AMOUNT
 } from '../core/constants'
 
@@ -120,7 +119,7 @@ export default function CommunityPool() {
     <ErrorIcon color="warning" />
   )
   const accountBalanceEther = cpData.accountBalance
-    ? fromWei(cpData.accountBalance, DEFAULT_ERC20_DECIMALS)
+    ? units.fromWei(cpData.accountBalance, constants.DEFAULT_ERC20_DECIMALS)
     : null
 
   function getRechargeBtnText() {

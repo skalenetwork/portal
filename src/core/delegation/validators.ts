@@ -21,13 +21,12 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import debug from 'debug'
+import { Logger, type ILogObj } from 'tslog'
 import { type Contract } from 'ethers'
 import { types } from '@/core'
 import { DelegationState } from './delegations'
 
-debug.enable('*')
-const log = debug('portal:core:validators')
+const log = new Logger<ILogObj>({ name: 'portal:core:validators' })
 
 export const ESCROW_VALIDATORS = [
   43, 46, 54, 37, 48, 49, 42, 41, 47, 40, 52, 35, 36, 39, 50, 45, 51, 68, 30
@@ -119,14 +118,14 @@ export async function getValidators(
   sorted: boolean = true
 ): Promise<types.st.IValidator[]> {
   const numberOfValidators = await validatorService.numberOfValidators()
-  log('getValidators: ', numberOfValidators)
-  const rawValidators: Array<types.st.IValidatorArray | boolean | any[]> =
-    await getValidatorsRaw(validatorService, numberOfValidators)
+  log.info('getValidators: ', numberOfValidators)
+  const rawValidators: Array<types.st.IValidatorArray | boolean | any[]> = await getValidatorsRaw(
+    validatorService,
+    numberOfValidators
+  )
   const validatorsData: types.st.IValidator[] = []
   for (let i = 0; i < rawValidators.length; i += 3) {
-    const validatorArray: types.st.IValidatorArray = rawValidators[
-      i
-    ] as types.st.IValidatorArray
+    const validatorArray: types.st.IValidatorArray = rawValidators[i] as types.st.IValidatorArray
     const isTrusted: boolean = rawValidators[i + 1] as boolean
     const linkedNodeAddresses = rawValidators[i + 2] as string[]
     validatorsData.push(formatValidator(validatorArray, isTrusted, linkedNodeAddresses, i / 3 + 1))

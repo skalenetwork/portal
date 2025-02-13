@@ -32,7 +32,6 @@ import Chain from './Chain'
 import { useMetaportStore } from '../store/MetaportStore'
 import { cls, cmn, styles } from '../core/css'
 
-
 export default function History(props: { size?: types.Size }) {
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
   const transfersHistory = useMetaportStore((state) => state.transfersHistory)
@@ -176,8 +175,8 @@ export default function History(props: { size?: types.Size }) {
                   >
                     {transfer.address !== undefined
                       ? `• ${transfer.address.substring(0, 6)}...${transfer.address.substring(
-                        transfer.address.length - 4
-                      )}`
+                          transfer.address.length - 4
+                        )}`
                       : '• UNFINISHED'}
                   </p>
                 </div>

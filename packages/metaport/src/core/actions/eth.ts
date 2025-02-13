@@ -21,20 +21,19 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import debug from 'debug'
+import { Logger, type ILogObj } from 'tslog'
+import { units } from '@/core'
 
-import { toWei } from '../convertation'
 import { Action } from './action'
 import { checkEthBalance } from './checks'
 import { sendTransaction } from '../transactions'
 
-debug.enable('*')
-const log = debug('metaport:actions:eth')
+const log = new Logger<ILogObj>({ name: 'metaport:core:actions:eth' })
 
 export class TransferEthM2S extends Action {
   async execute() {
     this.updateState('init')
-    const amountWei = toWei(this.amount, this.token.meta.decimals)
+    const amountWei = units.toWei(this.amount, this.token.meta.decimals)
     const sChainBalanceBefore = await this.sChain2.ethBalance(this.address)
     const mainnet = await this.connectedMainnet(this.mainnet.provider)
     const ethM = await mainnet.eth()
@@ -70,9 +69,9 @@ export class TransferEthM2S extends Action {
 
 export class TransferEthS2M extends Action {
   async execute() {
-    log('TransferEthS2M: started')
+    log.info('TransferEthS2M: started')
     this.updateState('init')
-    const amountWei = toWei(this.amount, this.token.meta.decimals)
+    const amountWei = units.toWei(this.amount, this.token.meta.decimals)
     const sChain = await this.connectedSChain(this.sChain1.provider)
 
     const ethM = await this.mainnet.eth()

@@ -21,22 +21,21 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import debug from 'debug'
+import { Logger, type ILogObj } from 'tslog'
 import { WalletClient } from 'viem'
 import { create } from 'zustand'
-import { dc, types } from '@/core'
+import { dc, types, constants } from '@/core'
 
 import { MetaportState } from './MetaportState'
 
 import MetaportCore from '../core/metaport'
 import { getEmptyTokenDataMap } from '../core/tokens/helper'
-import { MAINNET_CHAIN_NAME, DEFAULT_ERROR_MSG, TRANSFER_ERROR_MSG } from '../core/constants'
+import { DEFAULT_ERROR_MSG, TRANSFER_ERROR_MSG } from '../core/constants'
 import { ACTIONS } from '../core/actions'
 import { MainnetChain, SChain } from '../core/contracts'
 import { ActionConstructor } from '../core/actions/action'
 
-debug.enable('*')
-const log = debug('metaport:state')
+const log = new Logger<ILogObj>({ name: 'metaport:core:state' })
 
 export const useMetaportStore = create<MetaportState>()((set, get) => ({
   ima1: null,
@@ -68,7 +67,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
     walletClient: WalletClient,
     tokens: types.mp.TokenDataMap
   ) => {
-    log('Running unwrapAll')
+    log.info('Running unwrapAll')
     set({ loading: true })
     try {
       for (const key of Object.keys(tokens)) {
@@ -99,7 +98,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
   },
 
   execute: async (address: `0x${string}`, switchChain: any, walletClient: WalletClient) => {
-    log('Running execute')
+    log.info('Running execute')
     if (get().stepsMetadata[get().currentStep]) {
       set({
         loading: true,
@@ -248,13 +247,13 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
   destChains: [],
 
   setChainName1: async (name: string) => {
-    const result = await get().mpc.chainChanged(name, get().chainName2, get().token);
-    set(result);
+    const result = await get().mpc.chainChanged(name, get().chainName2, get().token)
+    set(result)
   },
 
   setChainName2: async (name: string) => {
     const result = await get().mpc.chainChanged(get().chainName1, name, get().token)
-    set(result);
+    set(result)
   },
 
   addressChanged: () => {
@@ -310,7 +309,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
       if (
         get().token &&
         get().token.type === dc.TokenType.eth &&
-        get().chainName2 === MAINNET_CHAIN_NAME
+        get().chainName2 === constants.MAINNET_CHAIN_NAME
       ) {
         set({ destTokenBalance: await get().ima2.ethBalance(address) })
       }
@@ -323,7 +322,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
       return
     }
     const tokenBalances = await get().mpc.tokenBalances(get().tokenContracts, address)
-    if (get().chainName1 === MAINNET_CHAIN_NAME) {
+    if (get().chainName1 === constants.MAINNET_CHAIN_NAME) {
       tokenBalances.eth = await get().ima1.ethBalance(address)
     }
     set({

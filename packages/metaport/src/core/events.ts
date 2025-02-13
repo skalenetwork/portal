@@ -21,17 +21,15 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import debug from 'debug'
+import { Logger, type ILogObj } from 'tslog'
 import { types } from '@/core'
 
-
-debug.enable('*')
-const log = debug('metaport:core:events')
+const log = new Logger<ILogObj>({ name: 'metaport:core:events' })
 
 function dispatchEvent(name: string, data = {}) {
-  log(`dispatchEvent - sending: ${name}`)
+  log.info(`dispatchEvent - sending: ${name}`)
   window.dispatchEvent(new CustomEvent(name, { detail: data }))
-  log(`dispatchEvent - sent: ${name}`)
+  log.info(`dispatchEvent - sent: ${name}`)
 }
 
 export namespace externalEvents {
@@ -59,7 +57,6 @@ export namespace externalEvents {
     })
   }
 
-
   export function actionStateUpdated(actionStateUpdate: types.mp.ActionStateUpdate): void {
     dispatchEvent('metaport_actionStateUpdated', actionStateUpdate)
   }
@@ -71,4 +68,4 @@ export namespace externalEvents {
   }
 }
 
-export namespace internalEvents { }
+export namespace internalEvents {}

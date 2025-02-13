@@ -1,10 +1,11 @@
-import { types, dc, metadata } from '@/core'
-
 export { useMetaportStore } from './store/MetaportStore'
 export { type MetaportState } from './store/MetaportState'
 export { useUIStore, useCollapseStore, type UIState, type CollapseState } from './store/Store'
 export { useSFuelStore, type SFuelState } from './store/SFuelStore'
 export { useDisplayFunctions, type DisplayFunctions } from './store/DisplayFunctions'
+
+import * as contracts from './core/contracts'
+import * as explorer from './core/explorer'
 
 import Metaport from './components/Metaport'
 import MetaportProvider from './components/MetaportProvider'
@@ -32,11 +33,8 @@ import History from './components/History'
 import TransactionData from './components/TransactionData'
 import Debug from './components/Debug'
 
-import { CHAINS_META } from './core/metadata'
 import { cls, styles, cmn } from './core/css'
 import MetaportCore from './core/metaport'
-import { BASE_EXPLORER_URLS, GRAY_BG } from './core/constants'
-import { toWei, fromWei } from './core/convertation'
 import { sendTransaction } from './core/transactions'
 import { Station, StationData } from './core/sfuel'
 
@@ -55,7 +53,7 @@ import {
   useChainModal
 } from '@rainbow-me/rainbowkit'
 
-import { PROXY_ENDPOINTS, enforceNetwork } from './core/network'
+import { enforceNetwork } from './core/network'
 import { walletClientToSigner } from './core/ethers'
 
 export {
@@ -85,10 +83,6 @@ export {
   cls,
   styles,
   cmn,
-  toWei,
-  fromWei,
-  types,
-  dc,
   getMetaportTheme,
   useWagmiAccount,
   useWagmiWalletClient,
@@ -96,16 +90,13 @@ export {
   useWagmiSignMessage,
   walletClientToSigner,
   sendTransaction,
-  PROXY_ENDPOINTS,
-  BASE_EXPLORER_URLS,
-  CHAINS_META,
-  GRAY_BG,
-  metadata,
   enforceNetwork,
   RainbowConnectButton,
   useConnectModal,
   useAccountModal,
   useChainModal,
   Station,
-  type StationData
+  type StationData,
+  contracts,
+  explorer
 }

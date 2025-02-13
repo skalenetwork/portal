@@ -27,6 +27,7 @@ import Chip from '@mui/material/Chip'
 
 import logo from './assets/skale_lg.svg'
 
+import { constants } from '@/core'
 import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
 
 import HelpZen from './components/HelpZen'
@@ -35,7 +36,6 @@ import AccountMenu from './components/AccountMenu'
 import NetworkSwitch from './components/NetworkSwitch'
 import GetSFuel from './components/GetSFuel'
 
-import { MAINNET_CHAIN_NAME } from './core/constants'
 import { Link } from 'react-router-dom'
 
 export default function Header(props: { address: `0x${string}` | undefined; mpc: MetaportCore }) {
@@ -53,7 +53,7 @@ export default function Header(props: { address: `0x${string}` | undefined; mpc:
           </Link>
         </div>
         <div className={cls(cmn.flex, cmn.flexg, cmn.mleft10)}>
-          {MAINNET_CHAIN_NAME !== 'mainnet' ? (
+          {constants.MAINNET_CHAIN_NAME !== 'mainnet' ? (
             <Chip
               label="TESTNET"
               color="primary"

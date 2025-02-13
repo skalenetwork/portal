@@ -20,37 +20,36 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import { Contract } from "ethers";
-import { BaseChain } from "./BaseChain";
+import { Contract } from 'ethers'
+import { BaseChain } from './BaseChain'
 
 export default class SChain extends BaseChain {
+  async ethBalance(address: string): Promise<bigint> {
+    const eth = await this.eth()
+    return await eth.balanceOf(address)
+  }
 
-    async ethBalance(address: string): Promise<bigint> {
-        const eth = await this.eth();
-        return await eth.balanceOf(address);
-    }
+  async eth(): Promise<Contract> {
+    return this.getContract('TokenManagerETH')
+  }
 
-    async eth(): Promise<Contract> {
-        return this.getContract('TokenManagerETH');
-    }
+  async erc20(): Promise<Contract> {
+    return this.getContract('TokenManagerERC20')
+  }
 
-    async erc20(): Promise<Contract> {
-        return this.getContract('TokenManagerERC20');
-    }
+  async erc721(): Promise<Contract> {
+    return this.getContract('TokenManagerERC721')
+  }
 
-    async erc721(): Promise<Contract> {
-        return this.getContract('TokenManagerERC721');
-    }
+  async erc721meta(): Promise<Contract> {
+    return this.getContract('TokenManagerERC721WithMetadata')
+  }
 
-    async erc721meta(): Promise<Contract> {
-        return this.getContract('TokenManagerERC721WithMetadata');
-    }
+  async erc1155(): Promise<Contract> {
+    return this.getContract('TokenManagerERC1155')
+  }
 
-    async erc1155(): Promise<Contract> {
-        return this.getContract('TokenManagerERC1155');
-    }
-
-    async communityLocker(): Promise<Contract> {
-        return this.getContract('CommunityLocker');
-    }
+  async communityLocker(): Promise<Contract> {
+    return this.getContract('CommunityLocker')
+  }
 }

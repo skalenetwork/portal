@@ -21,6 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
+import { helper, types, units } from '@/core'
 import { cmn, cls, styles, TokenIcon } from '@skalenetwork/metaport'
 
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
@@ -35,10 +36,7 @@ import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded'
 import SkStack from '../SkStack'
 import Tile from '../Tile'
 import AccordionSection from '../AccordionSection'
-
-import { formatBalance, shortAddress } from '../../core/helper'
 import SkBtn from '../SkBtn'
-import { types } from '@/core'
 
 const icons: { [key in types.st.DelegationType]: any } = {
   0: <AccountCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />,
@@ -84,7 +82,7 @@ export default function Summary(props: {
         <SkStack className={cls(cmn.mtop5)}>
           <Tile
             disabled={props.accountInfo?.balance === 0n}
-            value={props.accountInfo ? formatBalance(props.accountInfo.balance, 'SKL') : null}
+            value={props.accountInfo ? units.formatBalance(props.accountInfo.balance, 'SKL') : null}
             text={'Total ' + getTitle() + ' Balance'}
             grow
             icon={<TokenIcon tokenSymbol="skl" size="xs" />}
@@ -96,7 +94,7 @@ export default function Summary(props: {
                       size="md"
                       transparent
                       className={cls(cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs])}
-                      value={shortAddress(props.accountInfo?.address)}
+                      value={helper.shortAddress(props.accountInfo?.address)}
                       text="Escrow"
                       grow
                       ri={!props.isXs}
@@ -115,7 +113,9 @@ export default function Summary(props: {
                   transparent
                   className={cls(cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs])}
                   disabled={props.accountInfo?.staked === 0n}
-                  value={props.accountInfo ? formatBalance(props.accountInfo.staked, 'SKL') : null}
+                  value={
+                    props.accountInfo ? units.formatBalance(props.accountInfo.staked, 'SKL') : null
+                  }
                   text="Staked Tokens"
                   grow
                   ri={!props.isXs}
@@ -130,7 +130,7 @@ export default function Summary(props: {
                   disabled={props.accountInfo?.allowedToDelegate === 0n}
                   value={
                     props.accountInfo?.allowedToDelegate !== undefined
-                      ? formatBalance(props.accountInfo.allowedToDelegate, 'SKL')
+                      ? units.formatBalance(props.accountInfo.allowedToDelegate, 'SKL')
                       : null
                   }
                   ri={!props.isXs}
@@ -146,7 +146,9 @@ export default function Summary(props: {
             <Tile
               disabled={props.accountInfo?.vested === 0n}
               className={cls(cmn.mtop10)}
-              value={props.accountInfo ? formatBalance(props.accountInfo.vested, 'SKL') : null}
+              value={
+                props.accountInfo ? units.formatBalance(props.accountInfo.vested, 'SKL') : null
+              }
               text="Total Vested Tokens"
               icon={<EventAvailableRoundedIcon />}
               grow
@@ -157,7 +159,7 @@ export default function Summary(props: {
                       disabled={props.accountInfo?.fullAmount === 0n}
                       value={
                         props.accountInfo
-                          ? formatBalance(props.accountInfo.fullAmount, 'SKL')
+                          ? units.formatBalance(props.accountInfo.fullAmount, 'SKL')
                           : null
                       }
                       text="Initial Escrow Amount"
@@ -178,7 +180,9 @@ export default function Summary(props: {
                     disabled={props.accountInfo?.unlocked === 0n}
                     className={cls(cmn.nop, [cmn.mleft20, !props.isXs])}
                     value={
-                      props.accountInfo ? formatBalance(props.accountInfo.unlocked, 'SKL') : null
+                      props.accountInfo
+                        ? units.formatBalance(props.accountInfo.unlocked, 'SKL')
+                        : null
                     }
                     text="Unlocked Tokens"
                     icon={<LockOpenRoundedIcon />}

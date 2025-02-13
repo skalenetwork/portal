@@ -44,7 +44,7 @@ import {
   cmn
 } from '@skalenetwork/metaport'
 
-import { type types, metadata } from '@/core'
+import { type types, metadata, constants } from '@/core'
 
 import Bridge from './pages/Bridge'
 import Faq from './pages/Faq'
@@ -71,7 +71,7 @@ import MetricsWarning from './components/MetricsWarning'
 import ScrollToTop from './components/ScrollToTop'
 
 import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
-import { BRIDGE_PAGES, MAINNET_CHAIN_NAME, STAKING_PAGES } from './core/constants'
+import { BRIDGE_PAGES, STAKING_PAGES } from './core/constants'
 import { getValidators } from './core/delegation/validators'
 import { getStakingInfoMap } from './core/delegation/staking'
 
@@ -125,13 +125,13 @@ export default function Router(props: {
   }, [transfersHistory])
 
   async function getMainnetSigner() {
-    const { chainId } = await mpc.mainnet().provider.getNetwork()
+    const { chainId } = await mpc.provider(constants.MAINNET_CHAIN_NAME).getNetwork()
     await enforceNetwork(
       chainId,
       walletClient!,
       switchChainAsync!,
       mpc.config.skaleNetwork,
-      MAINNET_CHAIN_NAME
+      constants.MAINNET_CHAIN_NAME
     )
     return walletClientToSigner(walletClient!)
   }

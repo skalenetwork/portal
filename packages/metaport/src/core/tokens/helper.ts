@@ -21,9 +21,7 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-
-import { dc, types } from '@/core'
-import { eqArrays } from '../helper'
+import { dc, type types, helper } from '@/core'
 
 export function getEmptyTokenDataMap(): types.mp.TokenDataTypesMap {
   return { eth: {}, erc20: {}, erc721: {}, erc721meta: {}, erc1155: {} }
@@ -40,17 +38,16 @@ export function getAvailableTokensTotal(availableTokens): number {
 export function getDefaultToken(availableTokens: types.mp.TokenDataTypesMap): dc.TokenData {
   if (availableTokens === undefined) return
   const availableTokenNumers = getAvailableTokenNumers(availableTokens)
-  // if (eqArrays(availableTokenNumers, [1, 0, 0, 0, 0])) return availableTokens.eth.eth;
-  if (eqArrays(availableTokenNumers, [0, 1, 0, 0, 0])) {
+  if (helper.eqArrays(availableTokenNumers, [0, 1, 0, 0, 0])) {
     return Object.values(availableTokens.erc20)[0]
   }
-  if (eqArrays(availableTokenNumers, [0, 0, 1, 0, 0])) {
+  if (helper.eqArrays(availableTokenNumers, [0, 0, 1, 0, 0])) {
     return Object.values(availableTokens.erc721)[0]
   }
-  if (eqArrays(availableTokenNumers, [0, 0, 0, 1, 0])) {
+  if (helper.eqArrays(availableTokenNumers, [0, 0, 0, 1, 0])) {
     return Object.values(availableTokens.erc721meta)[0]
   }
-  if (eqArrays(availableTokenNumers, [0, 0, 0, 0, 1])) {
+  if (helper.eqArrays(availableTokenNumers, [0, 0, 0, 0, 1])) {
     return Object.values(availableTokens.erc1155)[0]
   }
 }

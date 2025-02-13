@@ -15,31 +15,30 @@
  * You should have received a copy of the GNU Lesser General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-
 /**
- * @file fee_calculator.ts
+ * @file units.ts
  * @copyright SKALE Labs 2022-Present
  */
 
-import { fromWei } from './convertation'
-import { CoinGeckoClient } from 'coingecko-api-v3'
+import { formatUnits, parseUnits, BigNumberish } from 'ethers'
 import { DEFAULT_ERC20_DECIMALS } from './constants'
 
-export async function getTransactionFee(): Promise<number> {
-  // todo: get actual gas limit for transfer
-  // todo: get actual gas price
-  const gasLimit = 250000n
-  const gasPrice = 10000000000n
 
-  const amountWei = gasLimit * gasPrice
-  const amountEth = fromWei(amountWei, DEFAULT_ERC20_DECIMALS)
+export function toWei(value: string, decimals: string): bigint {
+  return parseUnits(value, parseInt(decimals as string))
+}
 
-  const client = new CoinGeckoClient({
-    timeout: 10000,
-    autoRetry: true
-  })
-  const res = await client.simplePrice({ ids: 'ethereum', vs_currencies: 'usd' })
-  const ethToUsdRate = res.ethereum.usd
-  const amountUSD = Number(amountEth) * ethToUsdRate
-  return amountUSD
+export function fromWei(value: BigNumberish, decimals: string): string {
+  return formatUnits(value, parseInt(decimals as string))
+}
+
+export function formatBalance(balance: bigint, decimals?: string): string {
+  const tokenDecimals = decimals ?? DEFAULT_ERC20_DECIMALS
+  return formatUnits(balance, parseInt(tokenDecimals))
+}
+
+export function truncateDecimals(input: string, numDecimals: number): string {
+  const delimiter = input.includes(',') ? ',' : '.'
+  const [integerPart, decimalPart = ''] = input.split(delimiter)
+  return `${integerPart}${delimiter}${decimalPart.slice(0, numDecimals)}`
 }

@@ -22,8 +22,9 @@
  */
 
 import { useEffect, useState } from 'react'
-import debug from 'debug'
+import { Logger, type ILogObj } from 'tslog'
 
+import { constants } from '@/core'
 import { useAccount } from 'wagmi'
 
 import Button from '@mui/material/Button'
@@ -32,7 +33,7 @@ import { Collapse } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 
-import { BALANCE_UPDATE_INTERVAL_MS, MAINNET_CHAIN_NAME, SFUEL_TEXT } from '../core/constants'
+import { BALANCE_UPDATE_INTERVAL_MS, SFUEL_TEXT } from '../core/constants'
 import { Station } from '../core/sfuel'
 import { isFaucetAvailable } from '../core/faucet'
 
@@ -41,8 +42,7 @@ import { useSFuelStore } from '../store/SFuelStore'
 
 import { cls, cmn, styles } from '../core/css'
 
-debug.enable('*')
-const log = debug('metaport:components:SFuel')
+const log = new Logger<ILogObj>({ name: 'metaport:components:SFuel' })
 
 export default function SFuelWarning(props: {}) {
   const mpc = useMetaportStore((state) => state.mpc)
@@ -89,7 +89,7 @@ export default function SFuelWarning(props: {}) {
     setFromChainStation(null)
     setToChainStation(null)
     setHubChainStation(null)
-    log('Initializing SFuelWarning', chainName1, chainName2, hubChain, address)
+    log.info('Initializing SFuelWarning', chainName1, chainName2, hubChain, address)
     createStations()
   }, [chainName1, chainName2, hubChain, address])
 
@@ -135,21 +135,21 @@ export default function SFuelWarning(props: {}) {
     if (fromChainStation) {
       const fromData = await fromChainStation.getData(address)
       if (!fromData.ok) {
-        log(`Doing PoW on ${fromChainStation.chainName}`)
+        log.info(`Doing PoW on ${fromChainStation.chainName}`)
         fromPowRes = await fromChainStation.doPoW(address)
       }
     }
     if (toChainStation) {
       const toData = await toChainStation.getData(address)
       if (!toData.ok) {
-        log(`Doing PoW on ${toChainStation.chainName}`)
+        log.info(`Doing PoW on ${toChainStation.chainName}`)
         toPowRes = await toChainStation.doPoW(address)
       }
     }
     if (hubChainStation) {
       const hubData = await hubChainStation.getData(address)
       if (!hubData.ok) {
-        log(`Doing PoW on ${hubChainStation.chainName}`)
+        log.info(`Doing PoW on ${hubChainStation.chainName}`)
         hubPowRes = await hubChainStation.doPoW(address)
       }
     }
@@ -158,10 +158,10 @@ export default function SFuelWarning(props: {}) {
       (toPowRes && !toPowRes.ok) ||
       (hubPowRes && !hubPowRes.ok)
     ) {
-      log('PoW failed!')
-      if (fromPowRes) log(chainName1, fromPowRes.message)
-      if (toPowRes) log(chainName2, toPowRes.message)
-      if (hubPowRes) log(hubChain, hubPowRes.message)
+      log.info('PoW failed!')
+      if (fromPowRes) log.info(chainName1, fromPowRes.message)
+      if (toPowRes) log.info(chainName2, toPowRes.message)
+      if (hubPowRes) log.info(hubChain, hubPowRes.message)
     }
     setRefilledFlag(true)
   }
@@ -177,8 +177,8 @@ export default function SFuelWarning(props: {}) {
       </div>
     )
 
-  const fromMainnet = chainName1 === MAINNET_CHAIN_NAME
-  const toMainnet = chainName2 === MAINNET_CHAIN_NAME
+  const fromMainnet = chainName1 === constants.MAINNET_CHAIN_NAME
+  const toMainnet = chainName2 === constants.MAINNET_CHAIN_NAME
 
   const fromFaucet = isFaucetAvailable(chainName1, mpc.config.skaleNetwork)
   const destFaucet = isFaucetAvailable(chainName2, mpc.config.skaleNetwork)

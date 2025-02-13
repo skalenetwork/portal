@@ -23,15 +23,13 @@
 
 import { useState, useEffect } from 'react'
 import { cmn, cls, styles, TokenIcon, ChainIcon } from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { type types, constants } from '@/core'
 
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Tooltip from '@mui/material/Tooltip'
 import ButtonBase from '@mui/material/ButtonBase'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import UnfoldMoreRoundedIcon from '@mui/icons-material/UnfoldMoreRounded'
-
-import { DEFAULT_ERC20_DECIMALS } from '../core/constants'
 
 export default function TokenSurface(props: {
   title: string
@@ -88,7 +86,7 @@ export default function TokenSurface(props: {
                 <p className={cls(cmn.p, cmn.p4, cmn.pSec, cmn.mbott5, 'shortP')}>
                   {props.title}
                   {props.tokenMetadata
-                    ? ` (${props.tokenMetadata.decimals ?? DEFAULT_ERC20_DECIMALS})`
+                    ? ` (${props.tokenMetadata.decimals ?? constants.DEFAULT_ERC20_DECIMALS})`
                     : null}
                 </p>
               </div>
