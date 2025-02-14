@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { id, toBeHex } from 'ethers'
+import { id, toBeHex, toQuantity } from 'ethers'
 import { type types } from '@/core'
 
 export const HTTPS_PREFIX = 'https://'
@@ -62,7 +62,7 @@ export function getFsUrl(proxyUrl: string, schainName: string, prefix: string): 
 }
 
 export function getChainId(schainName: string): string {
-  return toBeHex(id(schainName).substring(0, 15))
+  return toQuantity(toBeHex(id(schainName).substring(0, 15)))
 }
 
 export function getChainShortAlias(meta: types.ChainsMetadataMap, name: string): string {
