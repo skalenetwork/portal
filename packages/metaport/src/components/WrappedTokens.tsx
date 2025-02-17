@@ -22,8 +22,8 @@
  */
 
 import React, { useEffect, useState } from 'react'
-
 import { useAccount, useWalletClient, useSwitchChain } from 'wagmi'
+import { types, metadata } from '@/core'
 
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
@@ -38,14 +38,13 @@ import SkPaper from './SkPaper'
 import TokenBalance from './TokenBalance'
 import TokenIcon from './TokenIcon'
 
-import { getTokenName, getChainAlias } from '../core/metadata'
+import { CHAINS_META, getTokenName } from '../core/metadata'
 import { BALANCE_UPDATE_INTERVAL_MS } from '../core/constants'
 
 import { cls, cmn, styles } from '../core/css'
 
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
-import { TokenDataMap } from '../core/interfaces'
 
 export default function WrappedTokens() {
   const { data: walletClient } = useWalletClient()
@@ -70,7 +69,7 @@ export default function WrappedTokens() {
   const expandedWT = useCollapseStore((state) => state.expandedWT)
   const setExpandedWT = useCollapseStore((state) => state.setExpandedWT)
 
-  const [filteredTokens, setFilteredTokens] = useState<TokenDataMap>({})
+  const [filteredTokens, setFilteredTokens] = useState<types.mp.TokenDataMap>({})
 
   useEffect(() => {
     updateWrappedTokenBalances(address)
@@ -107,6 +106,10 @@ export default function WrappedTokens() {
   }
 
   if (Object.keys(filteredTokens).length === 0 || currentStep !== 0 || transferInProgress) return
+
+  const chainsMeta = CHAINS_META[mpc.config.skaleNetwork]
+  const chainAlias = metadata.getAlias(chainsMeta, chainName1)
+
   return (
     <div className={cls(cmn.mtop10)}>
       <Accordion
@@ -132,8 +135,8 @@ export default function WrappedTokens() {
         <AccordionDetails>
           <SkPaper background="transparent" className={cls(styles.accordionContent)}>
             <p className={cls(cmn.flex, cmn.p3, cmn.p, cmn.errorMessage, cmn.flexg)}>
-              ❗ You have wrapped tokens on {getChainAlias(mpc.config.skaleNetwork, chainName1)}.
-              Unwrap them before proceeding with your transfer.
+              ❗ You have wrapped tokens on {chainAlias}. Unwrap them before proceeding with your
+              transfer.
             </p>
             <div className={cls(cmn.mtop20)}>
               {Object.keys(filteredTokens).map((key, _) => (

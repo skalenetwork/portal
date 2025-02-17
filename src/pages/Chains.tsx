@@ -26,7 +26,7 @@ import { Helmet } from 'react-helmet'
 import { useState, useEffect } from 'react'
 
 import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { type types, constants } from '@/core'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
@@ -38,7 +38,6 @@ import CategoryRoundedIcon from '@mui/icons-material/CategoryRounded'
 
 import ChainsSection from '../components/chains/ChainsSection'
 import { META_TAGS } from '../core/meta'
-import { MAINNET_CHAIN_NAME } from '../core/constants'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 
 export default function Chains(props: {
@@ -127,7 +126,7 @@ export default function Chains(props: {
             icon={<StarRoundedIcon color="primary" />}
           />
         )}
-        {network !== MAINNET_CHAIN_NAME && otherChains.length !== 0 && (
+        {network !== constants.MAINNET_CHAIN_NAME && otherChains.length !== 0 && (
           <ChainsSection
             name="Other Chains"
             schains={otherChains}

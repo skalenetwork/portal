@@ -4,12 +4,17 @@
   "version": "3.2.0",
   "type": "module",
   "scripts": {
-    "build:testnet": "NETWORK_NAME=testnet bash build.sh",
-    "build:mainnet": "NETWORK_NAME=mainnet bash build.sh",
-    "build:qa": "NETWORK_NAME=legacy bash build.sh",
+    "build:testnet": "NETWORK_NAME=testnet bash scripts/build.sh",
+    "build:mainnet": "NETWORK_NAME=mainnet bash scripts/build.sh",
+    "build:qa": "NETWORK_NAME=legacy bash scripts/build.sh",
     "build:portal": "tsc && vite build",
-    "build:packages": "bun run build:core",
+    "build:packages": "bun cleanup:portal && bun build:core && bun cleanup:core && bun build:metaport",
     "build:core": "cd packages/core && bun install && bun run build",
+    "build:metaport": "cd packages/metaport && bun install && bun run build",
+    "cleanup:portal": "rm -rf node_modules/",
+    "cleanup:metaport": "cd packages/metaport && rm -rf node_modules/",
+    "cleanup:core": "cd packages/core && rm -rf node_modules/",
+    "build:dev": "bun build:packages && bun i",
     "dev": "vite",
     "lint": "eslint ./src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
@@ -18,11 +23,10 @@
   },
   "dependencies": {
     "@/core": "file:packages/core",
+    "@skalenetwork/metaport": "file:packages/metaport",
     "@mdx-js/rollup": "^2.3.0",
     "@mui/icons-material": "^5.15.14",
     "@mui/material": "^5.15.14",
-    "@skalenetwork/metaport": "3.2.0-develop.0",
-    "@skalenetwork/skale-contracts-ethers-v6": "1.0.1",
     "@transak/transak-sdk": "^3.1.1",
     "@types/react-copy-to-clipboard": "^5.0.4",
     "@vercel/analytics": "^1.0.2",
@@ -39,7 +43,7 @@
     "react-social-icons": "^6.17.0",
     "react-transition-group": "^4.4.5",
     "siwe": "^2.3.2",
-    "tslog": "^4.9.3"
+    "@skalenetwork/skale-contracts-ethers-v6": "1.0.1"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

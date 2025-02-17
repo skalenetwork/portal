@@ -29,7 +29,7 @@ import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
 import { ESCROW_VALIDATORS } from '../../core/delegation/validators'
 
-export function ValidatorBadge(props: { validator: types.staking.IValidator; className?: string }) {
+export function ValidatorBadge(props: { validator: types.st.IValidator; className?: string }) {
   if (ESCROW_VALIDATORS.includes(props.validator.id)) {
     return (
       <Tooltip title="Escrow validator">
@@ -42,7 +42,7 @@ export function ValidatorBadge(props: { validator: types.staking.IValidator; cla
   return null
 }
 
-export function TrustBadge(props: { validator: types.staking.IValidator }) {
+export function TrustBadge(props: { validator: types.st.IValidator }) {
   if (props.validator.trusted) {
     return (
       <Tooltip title="Trusted validator">

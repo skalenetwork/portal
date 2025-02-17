@@ -21,28 +21,29 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import debug from 'debug'
+import { Logger, type ILogObj } from 'tslog'
 import { WalletClient } from 'viem'
 import { create } from 'zustand'
-import { MainnetChain, SChain } from '@skalenetwork/ima-js'
+import { dc, types, constants } from '@/core'
 
 import { MetaportState } from './MetaportState'
 
 import MetaportCore from '../core/metaport'
-import * as interfaces from '../core/interfaces'
-import * as dataclasses from '../core/dataclasses'
 import { getEmptyTokenDataMap } from '../core/tokens/helper'
-import { MAINNET_CHAIN_NAME, DEFAULT_ERROR_MSG, TRANSFER_ERROR_MSG } from '../core/constants'
+import { DEFAULT_ERROR_MSG, TRANSFER_ERROR_MSG } from '../core/constants'
 import { ACTIONS } from '../core/actions'
+import { MainnetChain, SChain } from '../core/contracts'
+import { ActionConstructor } from '../core/actions/action'
 
-debug.enable('*')
-const log = debug('metaport:state')
+const log = new Logger<ILogObj>({ name: 'metaport:core:state' })
 
 export const useMetaportStore = create<MetaportState>()((set, get) => ({
   ima1: null,
   ima2: null,
   setIma1: (ima: MainnetChain | SChain) => set(() => ({ ima1: ima })),
   setIma2: (ima: MainnetChain | SChain) => set(() => ({ ima2: ima })),
+
+  _imaCache: {},
 
   mpc: null,
   setMpc: (mpc: MetaportCore) => set(() => ({ mpc: mpc })),
@@ -66,9 +67,9 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
     address: `0x${string}`,
     switchChain: any,
     walletClient: WalletClient,
-    tokens: interfaces.TokenDataMap
+    tokens: types.mp.TokenDataMap
   ) => {
-    log('Running unwrapAll')
+    log.info('Running unwrapAll')
     set({ loading: true })
     try {
       for (const key of Object.keys(tokens)) {
@@ -90,7 +91,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
       console.error(err)
       const msg = err.message ? err.message : DEFAULT_ERROR_MSG
       set({
-        errorMessage: new dataclasses.TransactionErrorMessage(msg, get().errorMessageClosedFallback)
+        errorMessage: new dc.TransactionErrorMessage(msg, get().errorMessageClosedFallback)
       })
       return
     } finally {
@@ -99,7 +100,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
   },
 
   execute: async (address: `0x${string}`, switchChain: any, walletClient: WalletClient) => {
-    log('Running execute')
+    log.info('Running execute')
     if (get().stepsMetadata[get().currentStep]) {
       set({
         loading: true,
@@ -107,8 +108,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
       })
       try {
         const stepMetadata = get().stepsMetadata[get().currentStep]
-        const actionClass = ACTIONS[stepMetadata.type]
-        await new actionClass(
+        const ActionClass: ActionConstructor = ACTIONS[stepMetadata.type]
+        const action = await ActionClass.create(
           get().mpc,
           stepMetadata.from,
           stepMetadata.to,
@@ -120,7 +121,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           get().setBtnText,
           switchChain,
           walletClient
-        ).execute()
+        )
+        await action.execute()
       } catch (err) {
         console.error(err)
         const msg = err.message
@@ -137,7 +139,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           headline = err.shortMessage
         }
         set({
-          errorMessage: new dataclasses.TransactionErrorMessage(
+          errorMessage: new dc.TransactionErrorMessage(
             msg,
             get().errorMessageClosedFallback,
             headline,
@@ -188,7 +190,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
     })
   },
 
-  check: async (amount: string, address: string) => {
+  check: async (amount: string, address: types.AddressType) => {
     if (get().stepsMetadata[get().currentStep] && address) {
       set({
         loading: true,
@@ -196,8 +198,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
       })
       try {
         const stepMetadata = get().stepsMetadata[get().currentStep]
-        const actionClass = ACTIONS[stepMetadata.type]
-        await new actionClass(
+        const ActionClass: ActionConstructor = ACTIONS[stepMetadata.type]
+        const action = await ActionClass.create(
           get().mpc,
           stepMetadata.from,
           stepMetadata.to,
@@ -209,12 +211,13 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           get().setBtnText,
           null,
           null
-        ).preAction()
+        )
+        await action.preAction()
       } catch (err) {
         console.error(err)
         const msg = err.code && err.fault ? `${err.code} - ${err.fault}` : 'Something went wrong'
         set({
-          errorMessage: new dataclasses.TransactionErrorMessage(
+          errorMessage: new dc.TransactionErrorMessage(
             err.message,
             get().errorMessageClosedFallback,
             msg,
@@ -232,7 +235,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
   setCurrentStep: (currentStep: number) => set(() => ({ currentStep: currentStep })),
 
   stepsMetadata: [],
-  setStepsMetadata: (steps: dataclasses.StepMetadata[]) => set(() => ({ stepsMetadata: steps })),
+  setStepsMetadata: (steps: dc.StepMetadata[]) => set(() => ({ stepsMetadata: steps })),
 
   chainName1: '',
   chainName2: '',
@@ -245,11 +248,14 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
 
   destChains: [],
 
-  setChainName1: (name: string) => {
-    set(get().mpc.chainChanged(name, get().chainName2, get().token))
+  setChainName1: async (name: string, customToken?: dc.TokenData) => {
+    const result = await get().mpc.chainChanged(name, get().chainName2, customToken ?? get().token)
+    set(result)
   },
-  setChainName2: (name: string) => {
-    set(get().mpc.chainChanged(get().chainName1, name, get().token))
+
+  setChainName2: async (name: string, customToken?: dc.TokenData) => {
+    const result = await get().mpc.chainChanged(get().chainName1, name, customToken ?? get().token)
+    set(result)
   },
 
   addressChanged: () => {
@@ -279,7 +285,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
 
   token: null,
 
-  setToken: async (token: dataclasses.TokenData | null) => {
+  setToken: async (token: dc.TokenData | null) => {
     set(get().mpc.tokenChanged(get().chainName1, get().ima2, token, get().chainName2))
   },
 
@@ -304,8 +310,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
     } else {
       if (
         get().token &&
-        get().token.type === dataclasses.TokenType.eth &&
-        get().chainName2 === MAINNET_CHAIN_NAME
+        get().token.type === dc.TokenType.eth &&
+        get().chainName2 === constants.MAINNET_CHAIN_NAME
       ) {
         set({ destTokenBalance: await get().ima2.ethBalance(address) })
       }
@@ -318,7 +324,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
       return
     }
     const tokenBalances = await get().mpc.tokenBalances(get().tokenContracts, address)
-    if (get().chainName1 === MAINNET_CHAIN_NAME) {
+    if (get().chainName1 === constants.MAINNET_CHAIN_NAME) {
       tokenBalances.eth = await get().ima1.ethBalance(address)
     }
     set({
@@ -340,7 +346,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
   setAmountErrorMessage: (em: string) => set(() => ({ amountErrorMessage: em })),
 
   errorMessage: null,
-  setErrorMessage: (em: dataclasses.ErrorMessage) => set(() => ({ errorMessage: em })),
+  setErrorMessage: (em: dc.ErrorMessage) => set(() => ({ errorMessage: em })),
 
   loading: false,
   setLoading: (loading: boolean) => set(() => ({ loading: loading })),
@@ -352,11 +358,11 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
   setBtnText: (btnText: string) => set(() => ({ btnText: btnText })),
 
   transactionsHistory: [],
-  setTransactionsHistory: (transactionsHistory: interfaces.TransactionHistory[]) => {
+  setTransactionsHistory: (transactionsHistory: types.mp.TransactionHistory[]) => {
     set({ transactionsHistory: transactionsHistory })
   },
 
-  addTransaction(transaction: interfaces.TransactionHistory): void {
+  addTransaction(transaction: types.mp.TransactionHistory): void {
     const history = get().transactionsHistory
     history.push(transaction)
     set({ transactionsHistory: [...history] })
@@ -366,7 +372,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
   },
 
   transfersHistory: [],
-  setTransfersHistory: (transfersHistory: interfaces.TransferHistory[]) => {
+  setTransfersHistory: (transfersHistory: types.mp.TransferHistory[]) => {
     set({
       transfersHistory: transfersHistory,
       transactionsHistory: []

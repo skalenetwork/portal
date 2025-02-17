@@ -21,14 +21,12 @@
  * @copyright SKALE Labs 2024-Present
  */
 
+import { type types, timeUtils } from '@/core'
 import { cmn, cls } from '@skalenetwork/metaport'
-import { type types } from '@/core'
 import { Container } from '@mui/material'
 import RestoreRoundedIcon from '@mui/icons-material/RestoreRounded'
 
 import Message from './Message'
-
-import { timestampToDate } from '../core/helper'
 
 const MAX_DELAY_SECONDS = 48 * 60 * 60
 
@@ -39,7 +37,7 @@ export default function MetricsWarning(props: { metrics: types.IMetrics | null }
       <Message
         className={cls(cmn.mbott20)}
         icon={<RestoreRoundedIcon />}
-        text={`Apps metrics may be outdated. Last updated: ${timestampToDate(
+        text={`Apps metrics may be outdated. Last updated: ${timeUtils.timestampToDate(
           props.metrics.last_updated,
           true
         )}`}

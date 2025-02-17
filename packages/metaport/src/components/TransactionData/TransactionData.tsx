@@ -22,6 +22,7 @@
  */
 
 import { ReactElement } from 'react'
+import { types } from '@/core'
 
 import IconButton from '@mui/material/IconButton'
 
@@ -33,17 +34,16 @@ import OpenInNewIcon from '@mui/icons-material/OpenInNew'
 import DoneRoundedIcon from '@mui/icons-material/DoneRounded'
 
 import { getTxUrl } from '../../core/explorer'
-import { ActionState, MetaportConfig, TransactionHistory } from '../../core/interfaces'
 
 import localStyles from './TransactionData.module.scss'
 import { cls, styles, cmn } from '../../core/css'
 
 type ActionStateIconMap = {
-  [key in ActionState]: ReactElement | null
+  [key in types.mp.ActionState]: ReactElement | null
 }
 
 type ActionStateAliasMap = {
-  [key in ActionState]: string | null
+  [key in types.mp.ActionState]: string | null
 }
 
 const actionIcons: ActionStateIconMap = {
@@ -89,8 +89,8 @@ const actionAliases: ActionStateAliasMap = {
 }
 
 export default function TransactionData(props: {
-  transactionData: TransactionHistory
-  config: MetaportConfig
+  transactionData: types.mp.TransactionHistory
+  config: types.mp.Config
 }) {
   const explorerUrl = getTxUrl(
     props.transactionData.chainName,

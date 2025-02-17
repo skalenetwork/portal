@@ -22,18 +22,16 @@
  */
 
 import { type Signer } from 'ethers'
-import { sendTransaction } from '@skalenetwork/metaport'
+import { sendTransaction, contracts } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
-import { initActionContract } from '../contracts'
-
-export type LoadingState = types.staking.IRewardInfo | types.staking.IDelegationInfo | false
+export type LoadingState = types.st.IRewardInfo | types.st.IDelegationInfo | false
 export type SetLoadingFn = (state: LoadingState) => void
 export type SetErrorFn = (msg: string | undefined) => void
 export type PostActionFn = () => Promise<void>
 
 export interface StakingActionProps {
-  sc: types.staking.ISkaleContractsMap | null
+  sc: types.st.ISkaleContractsMap | null
   address: types.AddressType | undefined
   skaleNetwork: types.SkaleNetwork
   getMainnetSigner: () => Promise<Signer>
@@ -49,17 +47,17 @@ async function processTx({
   contractType,
   props
 }: {
-  delegationType: types.staking.DelegationType
+  delegationType: types.st.DelegationType
   txName: string
   txArgs: any[]
-  contractType: types.staking.ContractType
+  contractType: types.st.ContractType
   props: StakingActionProps
 }) {
   if (!props.sc || !props.address) return
 
   try {
     const signer = await props.getMainnetSigner()
-    const contract = await initActionContract(
+    const contract = await contracts.initActionContract(
       signer,
       delegationType,
       props.address,
@@ -67,7 +65,12 @@ async function processTx({
       contractType
     )
 
-    const res = await sendTransaction(contract[txName], txArgs)
+    const res = await sendTransaction(
+      signer,
+      contract[txName],
+      txArgs,
+      `${txName}:${delegationType}`
+    )
     if (!res.status) {
       props.setErrorMsg(res.err?.name)
     } else {
@@ -87,7 +90,7 @@ export async function retrieveRewards({
   rewardAddress,
   props
 }: {
-  rewardInfo: types.staking.IRewardInfo
+  rewardInfo: types.st.IRewardInfo
   rewardAddress: types.AddressType
   props: StakingActionProps
 }) {
@@ -106,7 +109,7 @@ export async function unstakeDelegation({
   delegationInfo,
   props
 }: {
-  delegationInfo: types.staking.IDelegationInfo
+  delegationInfo: types.st.IDelegationInfo
   props: StakingActionProps
 }) {
   props.setLoading(delegationInfo)
@@ -124,7 +127,7 @@ export async function cancelDelegationRequest({
   delegationInfo,
   props
 }: {
-  delegationInfo: types.staking.IDelegationInfo
+  delegationInfo: types.st.IDelegationInfo
   props: StakingActionProps
 }) {
   props.setLoading(delegationInfo)
@@ -142,7 +145,7 @@ export async function retrieveUnlockedTokens({
   rewardInfo,
   props
 }: {
-  rewardInfo: types.staking.IRewardInfo
+  rewardInfo: types.st.IRewardInfo
   props: StakingActionProps
 }) {
   props.setLoading(rewardInfo)
@@ -160,7 +163,7 @@ export async function acceptDelegation({
   delegationInfo,
   props
 }: {
-  delegationInfo: types.staking.IDelegationInfo
+  delegationInfo: types.st.IDelegationInfo
   props: StakingActionProps
 }) {
   props.setLoading(delegationInfo)

@@ -23,6 +23,7 @@
 
 import { Contract, id } from 'ethers'
 import { useState, useEffect } from 'react'
+import { type types, metadata, constants, ERC_ABIS, units } from '@/core'
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
 import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
 
@@ -31,14 +32,11 @@ import {
   cls,
   type MetaportCore,
   useWagmiAccount,
-  ERC_ABIS,
   enforceNetwork,
   useWagmiWalletClient,
   useWagmiSwitchNetwork,
   walletClientToSigner,
   sendTransaction,
-  getChainAlias,
-  toWei,
   styles
 } from '@skalenetwork/metaport'
 
@@ -48,7 +46,6 @@ import Topup from './Topup'
 import Loader from './Loader'
 import Tile from './Tile'
 
-import { DEFAULT_UPDATE_INTERVAL_MS, DEFAULT_ERC20_DECIMALS } from '../core/constants'
 import {
   initPaymaster,
   getPaymasterChain,
@@ -64,7 +61,11 @@ import Headline from './Headline'
 const DEFAULT_TOPUP_PERIOD = 3
 const APPROVE_MULTIPLIER = 2n
 
-export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
+export default function Paymaster(props: {
+  mpc: MetaportCore
+  name: string
+  chainsMeta: types.ChainsMetadataMap
+}) {
   const { address } = useWagmiAccount()
   const paymaster = initPaymaster(props.mpc)
   const network = props.mpc.config.skaleNetwork
@@ -85,7 +86,7 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
 
   useEffect(() => {
     loadPaymasterInfo()
-    const intervalId = setInterval(loadPaymasterInfo, DEFAULT_UPDATE_INTERVAL_MS)
+    const intervalId = setInterval(loadPaymasterInfo, constants.DEFAULT_UPDATE_INTERVAL_MS)
     return () => {
       clearInterval(intervalId)
     }
@@ -110,7 +111,7 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
       return
     }
     setLoading(true)
-    setBtnText(`Switch network to ${getChainAlias(network, paymasterChain)}`)
+    setBtnText(`Switch network to ${metadata.getAlias(props.chainsMeta, paymasterChain)}`)
     setErrorMsg(undefined)
     try {
       const { chainId } = await paymaster.runner.provider.getNetwork()
@@ -126,17 +127,24 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
       const totalPriceWei = getTotalPriceWei()
       if (allowance <= totalPriceWei) {
         setBtnText('Waiting for approval...')
-        const approveRes = await sendTransaction(connectedToken.approve, [
-          paymasterAddress,
-          totalPriceWei * APPROVE_MULTIPLIER
-        ])
+        const approveRes = await sendTransaction(
+          signer,
+          connectedToken.approve,
+          [paymasterAddress, totalPriceWei * APPROVE_MULTIPLIER],
+          'paymaster:approve'
+        )
         if (!approveRes.status) {
           setErrorMsg(approveRes.err?.name)
           return
         }
         setBtnText('Sending transaction...')
       }
-      const res = await sendTransaction(connectedPaymaster.pay, [id(props.name), topupPeriod])
+      const res = await sendTransaction(
+        signer,
+        connectedPaymaster.pay,
+        [id(props.name), topupPeriod],
+        'paymaster:'
+      )
       if (!res.status) {
         setErrorMsg(res.err?.name)
         return
@@ -154,7 +162,7 @@ export default function Paymaster(props: { mpc: MetaportCore; name: string }) {
   function getTotalPriceWei() {
     const chainPriceSkl = divideBigInts(info.schainPricePerMonth, info.oneSklPrice)
     const totalPriceSkl = chainPriceSkl * topupPeriod
-    return toWei(totalPriceSkl.toString(), DEFAULT_ERC20_DECIMALS)
+    return units.toWei(totalPriceSkl.toString(), constants.DEFAULT_ERC20_DECIMALS)
   }
 
   if (!inited) return <Loader text="Loading pricing info" />

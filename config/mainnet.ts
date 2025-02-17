@@ -1,6 +1,6 @@
-import { type interfaces } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
-export const METAPORT_CONFIG: interfaces.MetaportConfig = {
+export const METAPORT_CONFIG: types.mp.Config = {
   theme: {
     mode: 'dark',
     vibrant: true,

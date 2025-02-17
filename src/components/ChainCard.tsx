@@ -22,15 +22,14 @@
  */
 
 import { Link } from 'react-router-dom'
-import { cmn, cls, chainBg, getChainAlias } from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { cmn, cls } from '@skalenetwork/metaport'
+import { type types, metadata } from '@/core'
 
 import Button from '@mui/material/Button'
 
 import ChainLogo from './ChainLogo'
 
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
-import { getChainShortAlias } from '../core/chain'
 
 export default function ChainCard(props: {
   skaleNetwork: types.SkaleNetwork
@@ -38,13 +37,13 @@ export default function ChainCard(props: {
   chainsMeta: types.ChainsMetadataMap
   transactions?: number
 }) {
-  const shortAlias = getChainShortAlias(props.chainsMeta, props.schain.name)
+  const shortAlias = metadata.getChainShortAlias(props.chainsMeta, props.schain.name)
   return (
     <div>
       <div className="fl-centered">
         <div
           className={cls('br__tile')}
-          style={{ background: chainBg(props.skaleNetwork, props.schain.name) }}
+          style={{ background: metadata.chainBg(props.chainsMeta, props.schain.name) }}
         >
           <Link
             to={'/chains/' + shortAlias}
@@ -72,7 +71,7 @@ export default function ChainCard(props: {
                 textOverflow: 'ellipsis'
               }}
             >
-              {getChainAlias(props.skaleNetwork, props.schain.name, undefined, true)}
+              {metadata.getAlias(props.chainsMeta, props.schain.name, undefined, true)}
             </span>
           </Button>
         </Link>

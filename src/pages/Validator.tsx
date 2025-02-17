@@ -60,13 +60,13 @@ import ChainRewards from '../components/delegation/ChainRewards'
 
 export default function Validator(props: {
   mpc: MetaportCore
-  sc: types.staking.ISkaleContractsMap | null
+  sc: types.st.ISkaleContractsMap | null
   address: types.AddressType | undefined
   customAddress: types.AddressType | undefined
   loadValidator: () => Promise<void>
-  validator: types.staking.IValidator | null | undefined
+  validator: types.st.IValidator | null | undefined
   isXs: boolean
-  delegations: types.staking.IDelegation[] | null
+  delegations: types.st.IDelegation[] | null
   getMainnetSigner: () => Promise<Signer>
 }) {
   const [sortBy, setSortBy] = useState<SortType>('id')
@@ -114,14 +114,14 @@ export default function Validator(props: {
     setVisibleItems((prevVisible) => prevVisible + ITEMS_PER_PAGE)
   }
 
-  async function handleUnstake(delegationInfo: types.staking.IDelegationInfo) {
+  async function handleUnstake(delegationInfo: types.st.IDelegationInfo) {
     await unstakeDelegation({
       delegationInfo,
       props: getStakingActionProps()
     })
   }
 
-  async function handleAccept(delegationInfo: types.staking.IDelegationInfo) {
+  async function handleAccept(delegationInfo: types.st.IDelegationInfo) {
     await acceptDelegation({
       delegationInfo,
       props: getStakingActionProps()
@@ -140,12 +140,12 @@ export default function Validator(props: {
     }
     return (
       <>
-        {visibleDelegations.map((delegation: types.staking.IDelegation) => (
+        {visibleDelegations.map((delegation: types.st.IDelegation) => (
           <Delegation
             key={delegation.id.toString()}
             delegation={delegation}
             validator={props.validator!}
-            delegationType={types.staking.DelegationType.REGULAR}
+            delegationType={types.st.DelegationType.REGULAR}
             loading={loading}
             isXs={props.isXs}
             customAddress={props.customAddress}

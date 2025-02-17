@@ -23,7 +23,7 @@
 
 import { useEffect, useState } from 'react'
 
-import { cmn, cls, MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { cmn, cls, MetaportCore, SkPaper, explorer } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
@@ -36,7 +36,6 @@ import HubApps from '../HubApps'
 import DeveloperInfo from './DeveloperInfo'
 import Tokens from './Tokens'
 import VerifiedContracts from './VerifiedContracts'
-import { getExplorerUrl } from '../../../core/explorer'
 
 const BASE_TABS = [
   {
@@ -81,7 +80,7 @@ export default function ChainTabsSection(props: {
   const network = props.mpc.config.skaleNetwork
   const chainMeta = props.chainsMeta[props.schainName]
 
-  const explorerUrl = getExplorerUrl(network, props.schainName)
+  const explorerUrl = explorer.getExplorerUrl(network, props.schainName)
 
   const BASE_TABS_CONTENT = [
     <DeveloperInfo schainName={props.schainName} skaleNetwork={network} />,

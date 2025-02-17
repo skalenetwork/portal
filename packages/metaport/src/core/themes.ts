@@ -21,8 +21,7 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import { Positions } from './dataclasses/Position'
-import { MetaportTheme } from './interfaces/Theme'
+import { dc, types } from '@/core'
 import { DEFAULT_MP_Z_INDEX } from './constants'
 
 const defaultThemes = {
@@ -30,14 +29,14 @@ const defaultThemes = {
     primary: '#29FF94',
     background: '#000000',
     mode: 'dark',
-    position: Positions.bottomRight,
+    position: dc.Positions.bottomRight,
     zIndex: DEFAULT_MP_Z_INDEX
   },
   light: {
     primary: '#173CFF',
     background: '#EFEFEF',
     mode: 'light',
-    position: Positions.bottomRight,
+    position: dc.Positions.bottomRight,
     zIndex: DEFAULT_MP_Z_INDEX
   }
 }
@@ -56,18 +55,18 @@ const MUI_ELEMENTS = [
 
 const INDEX_STEP = 50
 
-export function getWidgetTheme(theme: MetaportTheme | null | undefined): MetaportTheme {
-  if (!theme) return defaultThemes.dark as MetaportTheme
+export function getWidgetTheme(theme: types.mp.Theme | null | undefined): types.mp.Theme {
+  if (!theme) return defaultThemes.dark as types.mp.Theme
   if (theme.mode && Object.keys(theme).length === 1) {
-    return defaultThemes[theme.mode] as MetaportTheme
+    return defaultThemes[theme.mode] as types.mp.Theme
   }
-  if (theme.position === undefined) theme.position = Positions.bottomRight
+  if (theme.position === undefined) theme.position = dc.Positions.bottomRight
   if (theme.zIndex === undefined) theme.zIndex = DEFAULT_MP_Z_INDEX
   if (theme.background === undefined) theme.background = defaultThemes[theme.mode].background
   if (theme.primary === undefined) theme.primary = defaultThemes[theme.mode].primary
   return theme
 }
 
-export function getMuiZIndex(theme: MetaportTheme): object {
+export function getMuiZIndex(theme: types.mp.Theme): object {
   return MUI_ELEMENTS.reduce((x, y, i) => ((x[y] = theme.zIndex + (i + 1) * INDEX_STEP), x), {})
 }
