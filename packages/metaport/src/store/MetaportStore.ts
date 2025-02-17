@@ -43,6 +43,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
   setIma1: (ima: MainnetChain | SChain) => set(() => ({ ima1: ima })),
   setIma2: (ima: MainnetChain | SChain) => set(() => ({ ima2: ima })),
 
+  _imaCache: {},
+
   mpc: null,
   setMpc: (mpc: MetaportCore) => set(() => ({ mpc: mpc })),
 
@@ -246,13 +248,13 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
 
   destChains: [],
 
-  setChainName1: async (name: string) => {
-    const result = await get().mpc.chainChanged(name, get().chainName2, get().token)
+  setChainName1: async (name: string, customToken?: dc.TokenData) => {
+    const result = await get().mpc.chainChanged(name, get().chainName2, customToken ?? get().token)
     set(result)
   },
 
-  setChainName2: async (name: string) => {
-    const result = await get().mpc.chainChanged(get().chainName1, name, get().token)
+  setChainName2: async (name: string, customToken?: dc.TokenData) => {
+    const result = await get().mpc.chainChanged(get().chainName1, name, customToken ?? get().token)
     set(result)
   },
 

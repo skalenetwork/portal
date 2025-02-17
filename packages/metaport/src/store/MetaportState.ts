@@ -36,6 +36,8 @@ export interface MetaportState {
   ima2: MainnetChain | SChain
   setIma2: (ima: MainnetChain | SChain) => void
 
+  _imaCache: Record<string, MainnetChain | SChain>
+
   mpc: MetaportCore
   setMpc: (mpc: MetaportCore) => void
 
@@ -69,8 +71,8 @@ export interface MetaportState {
   chainName1: string
   chainName2: string
 
-  setChainName1: (name: string) => void
-  setChainName2: (name: string) => void
+  setChainName1: (name: string, customToken?: dc.TokenData) => void
+  setChainName2: (name: string, customToken?: dc.TokenData) => void
 
   addressChanged: () => void
 

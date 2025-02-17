@@ -22,6 +22,8 @@ export default function SwitchDirection() {
   const setAppName1 = useMetaportStore((state) => state.setAppName1)
   const setAppName2 = useMetaportStore((state) => state.setAppName2)
 
+  const token = useMetaportStore((state) => state.token)
+
   const startOver = useMetaportStore((state) => state.startOver)
   const loading = useMetaportStore((state) => state.loading)
   const transferInProgress = useMetaportStore((state) => state.transferInProgress)
@@ -41,7 +43,7 @@ export default function SwitchDirection() {
     const app1 = appName1
     await setChainName1(chainName2)
     setAppName1(appName2)
-    await setChainName2(chain1)
+    await setChainName2(chain1, token)
     setAppName2(app1)
     startOver()
   }

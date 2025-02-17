@@ -122,6 +122,7 @@ export const findFirstWrapperChainName = (token: dc.TokenData): string | null =>
 
 export default class MetaportCore {
   private _config: types.mp.Config
+  private _imaCache: Record<string, MainnetChain | SChain> = {}
 
   constructor(config: types.mp.Config) {
     this._config = config
@@ -201,7 +202,6 @@ export default class MetaportCore {
   }
 
   tokenContract(
-    // todo: remove this method
     chainName: string,
     tokenKeyname: string,
     tokenType: dc.TokenType,
@@ -213,7 +213,6 @@ export default class MetaportCore {
     if (!token.address) return
     const abi = customAbiTokenType ? ERC_ABIS[customAbiTokenType].abi : ERC_ABIS[tokenType].abi
     const address = customAbiTokenType ? token.chains[destChainName].wrapper : token.address
-    // TODO: add sFUEL address support!
     return new Contract(address, abi, provider)
   }
 
@@ -251,24 +250,46 @@ export default class MetaportCore {
   }
 
   async mainnet(externalProvider?: Provider, signer?: Signer): Promise<MainnetChain> {
+    if (
+      externalProvider === undefined &&
+      signer === undefined &&
+      this._imaCache[constants.MAINNET_CHAIN_NAME]
+    ) {
+      log.debug('returning cached mainnet ima')
+      return this._imaCache[constants.MAINNET_CHAIN_NAME] as MainnetChain
+    }
     const provider = externalProvider ?? mainnetProvider(this._config.mainnetEndpoint)
     const aliasOrAddress = contracts.getAliasOrAddress(
       this._config.skaleNetwork,
       contracts.Project.MAINNET_IMA
     )
     const instance = await this.getInstance(provider, contracts.Project.MAINNET_IMA, aliasOrAddress)
-    return new MainnetChain(provider, instance, signer)
+    const mainnet = new MainnetChain(provider, instance, signer)
+    if (externalProvider === undefined && signer === undefined) {
+      log.debug('caching mainnet ima')
+      this._imaCache[constants.MAINNET_CHAIN_NAME] = mainnet
+    }
+    return mainnet
   }
 
   async schain(chainName: string, externalProvider?: Provider, signer?: Signer): Promise<SChain> {
     if (chainName === constants.MAINNET_CHAIN_NAME) throw new Error('Invalid chain name')
+    if (externalProvider === undefined && signer === undefined && this._imaCache[chainName]) {
+      log.debug(`returning cached ima for ${chainName}`)
+      return this._imaCache[chainName] as SChain
+    }
     let provider = externalProvider ?? sChainProvider(this._config.skaleNetwork, chainName)
     const instance = await this.getInstance(
       provider,
       contracts.SchainProject.SCHAIN_IMA,
       contracts.PREDEPLOYED_ALIAS
     )
-    return new SChain(provider, instance, signer)
+    const schain = new SChain(provider, instance, signer)
+    if (externalProvider === undefined && signer === undefined) {
+      log.debug(`caching ima for ${chainName}`)
+      this._imaCache[chainName] = schain
+    }
+    return schain
   }
 
   provider(chainName: string): Provider {
