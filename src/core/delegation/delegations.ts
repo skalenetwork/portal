@@ -21,10 +21,8 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { Contract, type Provider, getUint } from 'ethers'
-import { ERC_ABIS } from '@skalenetwork/metaport'
-import { types } from '@/core'
-import { maxBigInt } from '../helper'
+import { Contract, getUint } from 'ethers'
+import { helper, types } from '@/core'
 import { BATCH_SIZE } from '../constants'
 
 export enum DelegationState {
@@ -95,7 +93,7 @@ export async function getDelegationIdsByValidator(
 async function loadDelegationDetailsBatch(
   delegationController: Contract,
   delegationIds: bigint[]
-): Promise<types.staking.IDelegation[]> {
+): Promise<types.st.IDelegation[]> {
   const rawData = await Promise.all(
     delegationIds.flatMap((id) => [
       delegationController.getDelegation(id),
@@ -126,9 +124,9 @@ async function loadDelegationDetailsBatch(
 export async function getDelegations(
   delegationController: Contract,
   delegationIds: bigint[]
-): Promise<types.staking.IDelegation[]> {
+): Promise<types.st.IDelegation[]> {
   const batchCount = Math.ceil(delegationIds.length / BATCH_SIZE)
-  let allDelegations: types.staking.IDelegation[] = []
+  let allDelegations: types.st.IDelegation[] = []
 
   for (let i = 0; i < batchCount; i++) {
     const start = i * BATCH_SIZE
@@ -140,7 +138,7 @@ export async function getDelegations(
   return allDelegations
 }
 
-export function getDelegationSource(delegation: types.staking.IDelegation): DelegationSource {
+export function getDelegationSource(delegation: types.st.IDelegation): DelegationSource {
   if (delegation.info.includes('Delegation UI')) return DelegationSource.DELEGATION_UI
   if (delegation.info.includes('MEW Wallet')) return DelegationSource.MEW_WALLET
   if (delegation.info.includes('Activate')) return DelegationSource.ACTIVATE
@@ -155,11 +153,11 @@ export function getKeyByValue(enumType: any, enumValue: string): string | undefi
 }
 
 export async function groupDelegationsByValidator(
-  delegations: types.staking.IDelegation[],
+  delegations: types.st.IDelegation[],
   distributor: Contract,
   address: types.AddressType
-): Promise<types.staking.IDelegationsToValidator[]> {
-  const groupedDelegations = new Map<bigint, types.staking.IDelegation[]>()
+): Promise<types.st.IDelegationsToValidator[]> {
+  const groupedDelegations = new Map<bigint, types.st.IDelegation[]>()
   delegations.forEach((delegation) => {
     const { validator_id } = delegation
     const existingDelegations = groupedDelegations.get(validator_id) || []
@@ -177,7 +175,7 @@ export async function groupDelegationsByValidator(
 
   const res = await Promise.all(
     delegationsArray.map(
-      async (delegationsToValidator: types.staking.IDelegationsToValidator) =>
+      async (delegationsToValidator: types.st.IDelegationsToValidator) =>
         await distributor.getAndUpdateEarnedBountyAmountOf.staticCallResult(
           address,
           delegationsToValidator.validatorId
@@ -201,22 +199,17 @@ export async function groupDelegationsByValidator(
   return delegationsArray
 }
 
-export const sumRewards = (delegations: types.staking.IDelegationsToValidator[]): bigint =>
+export const sumRewards = (delegations: types.st.IDelegationsToValidator[]): bigint =>
   delegations.reduce((total, del) => total + del.rewards, BigInt(0))
 
-export async function initSkaleToken(provider: Provider, instance: any): Promise<Contract> {
-  const address = await instance.getContractAddress('SkaleToken')
-  return new Contract(address, ERC_ABIS.erc20.abi, provider)
-}
-
 export async function getDelegatorInfo(
-  sc: types.staking.ISkaleContractsMap,
+  sc: types.st.ISkaleContractsMap,
   rewards: bigint,
   address: types.AddressType,
   beneficiary?: types.AddressType,
-  type?: types.staking.DelegationType
-): Promise<types.staking.IDelegatorInfo> {
-  const info: types.staking.IDelegatorInfo = {
+  type?: types.st.DelegationType
+): Promise<types.st.IDelegatorInfo> {
+  const info: types.st.IDelegatorInfo = {
     balance: await sc.skaleToken.balanceOf(address),
     staked: (
       await sc.delegationController.getAndUpdateDelegatedAmount.staticCallResult(address)
@@ -228,20 +221,20 @@ export async function getDelegatorInfo(
     address
   }
 
-  info.allowedToDelegate = maxBigInt(info.balance - info.forbiddenToDelegate, 0n)
+  info.allowedToDelegate = helper.maxBigInt(info.balance - info.forbiddenToDelegate, 0n)
 
   if (beneficiary) {
-    if (type === types.staking.DelegationType.ESCROW) {
+    if (type === types.st.DelegationType.ESCROW) {
       info.vested = await getVestedAmount(sc.allocator, address, beneficiary)
       info.fullAmount = await sc.allocator.getFullAmount(beneficiary)
     }
-    if (type === types.staking.DelegationType.ESCROW2) {
+    if (type === types.st.DelegationType.ESCROW2) {
       info.vested = await getVestedAmount(sc.grantsAllocator, address, beneficiary)
       info.fullAmount = await sc.grantsAllocator.getFullAmount(beneficiary)
     }
 
-    const locked = maxBigInt(info.fullAmount! - info.vested!, info.forbiddenToDelegate)
-    info.unlocked = maxBigInt(info.balance - locked, 0n)
+    const locked = helper.maxBigInt(info.fullAmount! - info.vested!, info.forbiddenToDelegate)
+    info.unlocked = helper.maxBigInt(info.balance - locked, 0n)
   }
   return info
 }
@@ -266,16 +259,16 @@ export async function getVestedAmount(
   return vestedAmount
 }
 
-export function getDelegationTypeAlias(type: types.staking.DelegationType): string {
-  if (type === types.staking.DelegationType.ESCROW) return 'Escrow'
-  if (type === types.staking.DelegationType.ESCROW2) return 'Grant'
+export function getDelegationTypeAlias(type: types.st.DelegationType): string {
+  if (type === types.st.DelegationType.ESCROW) return 'Escrow'
+  if (type === types.st.DelegationType.ESCROW2) return 'Grant'
   return 'Regular'
 }
 
 export function calculateDelegationTotals(
-  delegations: types.staking.IDelegation[]
-): types.staking.IDelegationTotals {
-  const initialTotals: types.staking.IDelegationTotals = {
+  delegations: types.st.IDelegation[]
+): types.st.IDelegationTotals {
+  const initialTotals: types.st.IDelegationTotals = {
     proposed: { count: 0, amount: 0n },
     accepted: { count: 0, amount: 0n },
     delegated: { count: 0, amount: 0n },
@@ -309,7 +302,7 @@ export function calculateDelegationTotals(
 }
 
 export function getProposedDelegationsCount(
-  validatorDelegations: types.staking.IDelegation[] | null
+  validatorDelegations: types.st.IDelegation[] | null
 ): number | null {
   if (!validatorDelegations) return null
 

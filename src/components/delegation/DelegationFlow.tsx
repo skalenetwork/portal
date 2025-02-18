@@ -28,7 +28,7 @@ import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
 
 interface DelegationFlowProps {
-  delegation?: types.staking.IDelegation
+  delegation?: types.st.IDelegation
   className?: string
 }
 

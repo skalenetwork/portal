@@ -51,9 +51,7 @@ import DelegationsNotification from './components/delegation/DelegationsNotifica
 
 const drawerWidth = 220
 
-export default function SkDrawer(props: {
-  validatorDelegations: types.staking.IDelegation[] | null
-}) {
+export default function SkDrawer(props: { validatorDelegations: types.st.IDelegation[] | null }) {
   const location = useLocation()
   return (
     <Box display={{ sm: 'block', xs: 'none' }} m={1}>

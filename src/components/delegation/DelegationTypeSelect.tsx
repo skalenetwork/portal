@@ -27,9 +27,9 @@ import { isDelegationTypeAvailable } from '../../core/delegation/staking'
 import { types } from '@/core'
 
 export default function DelegationTypeSelect(props: {
-  delegationType: types.staking.DelegationType
+  delegationType: types.st.DelegationType
   handleChange: (event: any) => void
-  si: types.staking.StakingInfoMap
+  si: types.st.StakingInfoMap
 }) {
   return (
     <div className="sk-select">
@@ -39,16 +39,16 @@ export default function DelegationTypeSelect(props: {
         value={props.delegationType}
         onChange={props.handleChange}
       >
-        <option value={types.staking.DelegationType.REGULAR} className={cls(cmn.p, cmn.p4)}>
+        <option value={types.st.DelegationType.REGULAR} className={cls(cmn.p, cmn.p4)}>
           Regular delegation
         </option>
-        {isDelegationTypeAvailable(props.si, types.staking.DelegationType.ESCROW) ? (
-          <option value={types.staking.DelegationType.ESCROW} className={cls(cmn.p, cmn.p4)}>
+        {isDelegationTypeAvailable(props.si, types.st.DelegationType.ESCROW) ? (
+          <option value={types.st.DelegationType.ESCROW} className={cls(cmn.p, cmn.p4)}>
             Escrow delegation
           </option>
         ) : null}
-        {isDelegationTypeAvailable(props.si, types.staking.DelegationType.ESCROW2) ? (
-          <option value={types.staking.DelegationType.ESCROW2} className={cls(cmn.p, cmn.p4)}>
+        {isDelegationTypeAvailable(props.si, types.st.DelegationType.ESCROW2) ? (
+          <option value={types.st.DelegationType.ESCROW2} className={cls(cmn.p, cmn.p4)}>
             Grant delegation
           </option>
         ) : null}

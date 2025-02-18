@@ -24,15 +24,8 @@
 import { useState } from 'react'
 import { Helmet } from 'react-helmet'
 
-import {
-  cmn,
-  cls,
-  styles,
-  PROXY_ENDPOINTS,
-  type MetaportCore,
-  SkPaper
-} from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { cmn, cls, styles, type MetaportCore, SkPaper, explorer } from '@skalenetwork/metaport'
+import { type types, metadata, constants, endpoints } from '@/core'
 
 import Button from '@mui/material/Button'
 
@@ -55,11 +48,8 @@ import Breadcrumbs from './Breadcrumbs'
 import CollapsibleDescription from './CollapsibleDescription'
 import SkBtn from './SkBtn'
 
-import { chainBg, getChainAlias } from '../core/metadata'
-
-import { MAINNET_CHAIN_LOGOS, MAINNET_CHAIN_NAME } from '../core/constants'
-import { getRpcUrl, getChainId, HTTPS_PREFIX, getChainDescription } from '../core/chain'
-import { getExplorerUrl } from '../core/explorer'
+import { MAINNET_CHAIN_LOGOS } from '../core/constants'
+import { getRpcUrl, getChainId } from '../core/chain'
 import { formatNumber } from '../core/timeHelper'
 import ChainTabsSection from './chains/tabs/ChainTabsSection'
 import CategoriesChips from './ecosystem/CategoriesChips'
@@ -76,11 +66,11 @@ export default function SchainDetails(props: {
   const [loading, setLoading] = useState<boolean>(false)
   const [added, setAdded] = useState<boolean>(false)
 
-  const proxyBase = PROXY_ENDPOINTS[props.mpc.config.skaleNetwork]
   const network = props.mpc.config.skaleNetwork
+  const proxyBase = endpoints.getProxyEndpoint(network)
 
-  const rpcUrl = getRpcUrl(proxyBase, props.schainName, HTTPS_PREFIX)
-  const explorerUrl = getExplorerUrl(network, props.schainName)
+  const rpcUrl = getRpcUrl(proxyBase, props.schainName, constants.HTTPS_PREFIX)
+  const explorerUrl = explorer.getExplorerUrl(network, props.schainName)
   const chainId = getChainId(props.schainName)
 
   const networkParams = {
@@ -88,7 +78,7 @@ export default function SchainDetails(props: {
     chainName:
       'SKALE' +
       (network === 'testnet' ? ' Testnet ' : ' ') +
-      getChainAlias(props.chainsMeta, props.schainName),
+      metadata.getAlias(props.chainsMeta, props.schainName),
     rpcUrls: [rpcUrl],
     nativeCurrency: {
       name: 'sFUEL',
@@ -120,10 +110,10 @@ export default function SchainDetails(props: {
 
   const chainMeta = props.chainsMeta[props.schainName]
 
-  const chainAlias = getChainAlias(props.chainsMeta, props.schainName)
-  const chainDescription = getChainDescription(chainMeta)
+  const chainAlias = metadata.getAlias(props.chainsMeta, props.schainName)
+  const chainDescription = metadata.getChainDescription(chainMeta)
 
-  const isMainnet = props.mpc.config.skaleNetwork === MAINNET_CHAIN_NAME
+  const isMainnet = props.mpc.config.skaleNetwork === constants.MAINNET_CHAIN_NAME
 
   const getTxCount = () => {
     return isMainnet
@@ -175,7 +165,7 @@ export default function SchainDetails(props: {
               <div
                 className={cls('logo-wrapper borderLight')}
                 style={{
-                  background: chainBg(props.chainsMeta, props.schainName),
+                  background: metadata.chainBg(props.chainsMeta, props.schainName),
                   flexShrink: 0
                 }}
               >

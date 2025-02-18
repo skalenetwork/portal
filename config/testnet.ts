@@ -1,6 +1,6 @@
-import { type interfaces } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
-export const METAPORT_CONFIG: interfaces.MetaportConfig = {
+export const METAPORT_CONFIG: types.mp.Config = {
   skaleNetwork: 'testnet',
   mainnetEndpoint: 'https://ethereum-holesky-rpc.publicnode.com',
   openOnLoad: true,
@@ -18,22 +18,22 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       symbol: 'ETH'
     },
     skl: {
-      decimals: '18',
+      decimals: 18,
       name: 'SKALE',
       symbol: 'SKL'
     },
     usdc: {
-      decimals: '6',
+      decimals: 6,
       symbol: 'USDC',
       name: 'USD Coin'
     },
     usdt: {
-      decimals: '6',
+      decimals: 6,
       symbol: 'USDT',
       name: 'Tether USD'
     },
     wbtc: {
-      decimals: '8',
+      decimals: 8,
       symbol: 'WBTC',
       name: 'WBTC'
     },
@@ -59,7 +59,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
     ubxs: {
       name: 'UBXS Token',
       symbol: 'UBXS',
-      decimals: '6',
+      decimals: 6,
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/17242.png'
     },
     trc: {

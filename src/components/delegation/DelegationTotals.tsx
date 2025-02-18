@@ -23,7 +23,7 @@
 
 import { useMemo } from 'react'
 import { cls, styles, useUIStore } from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { type types, units } from '@/core'
 
 import InboxRoundedIcon from '@mui/icons-material/InboxRounded'
 import TaskAltRoundedIcon from '@mui/icons-material/TaskAltRounded'
@@ -31,13 +31,12 @@ import DonutLargeRoundedIcon from '@mui/icons-material/DonutLargeRounded'
 import LibraryAddCheckRoundedIcon from '@mui/icons-material/LibraryAddCheckRounded'
 
 import { calculateDelegationTotals } from '../../core/delegation/delegations'
-import { formatBalance } from '../../core/helper'
 
 import SkStack from '../SkStack'
 import Tile from '../Tile'
 
 interface DelegationTotalsProps {
-  delegations: types.staking.IDelegation[] | null
+  delegations: types.st.IDelegation[] | null
   className?: string
 }
 
@@ -52,7 +51,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({ delegations, classN
   return (
     <SkStack className={cls(className)}>
       <Tile
-        value={totals && formatBalance(totals.proposed.amount, 'SKL')}
+        value={totals && units.displayBalance(totals.proposed.amount, 'SKL')}
         text={getTileText('Proposed', totals?.proposed.count)}
         grow
         size="md"
@@ -60,21 +59,21 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({ delegations, classN
         icon={<InboxRoundedIcon className={cls(styles.chainIconxs)} />}
       />
       <Tile
-        value={totals && formatBalance(totals.accepted.amount, 'SKL')}
+        value={totals && units.displayBalance(totals.accepted.amount, 'SKL')}
         text={getTileText('Accepted', totals?.accepted.count)}
         grow
         size="md"
         icon={<TaskAltRoundedIcon className={cls(styles.chainIconxs)} />}
       />
       <Tile
-        value={totals && formatBalance(totals.delegated.amount, 'SKL')}
+        value={totals && units.displayBalance(totals.delegated.amount, 'SKL')}
         text={getTileText('Delegated', totals?.delegated.count)}
         grow
         size="md"
         icon={<DonutLargeRoundedIcon className={cls(styles.chainIconxs)} />}
       />
       <Tile
-        value={totals && formatBalance(totals.completed.amount, 'SKL')}
+        value={totals && units.displayBalance(totals.completed.amount, 'SKL')}
         text={getTileText('Completed', totals?.completed.count)}
         grow
         size="md"

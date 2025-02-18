@@ -21,22 +21,20 @@
  * @copyright SKALE Labs 2023-Present
  */
 
+import { type types, constants } from '@/core'
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
 import { useSFuelStore } from '../store/SFuelStore'
-
-import { MAINNET_CHAIN_NAME } from '../core/constants'
-import { AddressType } from '../core/interfaces'
 
 export type DisplayFunctions = {
   showFrom: () => boolean
   showTo: () => boolean
   showSwitch: () => boolean
   showInput: () => boolean
-  showStepper: (address: AddressType) => boolean
+  showStepper: (address: types.AddressType) => boolean
   showCP: () => boolean
-  showWT: (address: AddressType) => boolean
-  showTH: (address: AddressType) => boolean
+  showWT: (address: types.AddressType) => boolean
+  showTH: (address: types.AddressType) => boolean
 }
 
 export const useDisplayFunctions = (): DisplayFunctions => {
@@ -89,7 +87,7 @@ export const useDisplayFunctions = (): DisplayFunctions => {
     )
   }
 
-  const showStepper = (address: AddressType): boolean => {
+  const showStepper = (address: types.AddressType): boolean => {
     return (
       !expandedFrom &&
       !expandedTo &&
@@ -109,13 +107,13 @@ export const useDisplayFunctions = (): DisplayFunctions => {
       !expandedTo &&
       !expandedTokens &&
       !expandedTH &&
-      chainName2 === MAINNET_CHAIN_NAME &&
+      chainName2 === constants.MAINNET_CHAIN_NAME &&
       !expandedWT &&
       !!token
     )
   }
 
-  const showWT = (address: AddressType): boolean => {
+  const showWT = (address: types.AddressType): boolean => {
     return (
       !expandedFrom &&
       !expandedTo &&
@@ -129,7 +127,7 @@ export const useDisplayFunctions = (): DisplayFunctions => {
     )
   }
 
-  const showTH = (address: AddressType): boolean => {
+  const showTH = (address: types.AddressType): boolean => {
     return (
       !expandedFrom &&
       !expandedTo &&

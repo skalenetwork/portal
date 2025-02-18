@@ -20,8 +20,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { type types } from '@/core'
-import { getChainAlias } from '../metadata'
+import { type types, metadata } from '@/core'
 
 const SWELL_CHAIN = '__offchain'
 const SWELL_APP = 'swell'
@@ -95,7 +94,7 @@ export function filterAppsBySearchTerm(
     (app) =>
       app.alias.toLowerCase().includes(st) ||
       app.chain.toLowerCase().includes(st) ||
-      getChainAlias(chainsMeta, app.chain).toLowerCase().includes(st)
+      metadata.getAlias(chainsMeta, app.chain).toLowerCase().includes(st)
   )
   return sortAndFilterApps(filteredApps)
 }

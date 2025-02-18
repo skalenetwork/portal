@@ -23,15 +23,15 @@
 
 import { useState, useEffect, type ReactElement } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { cmn, cls, styles } from '@skalenetwork/metaport'
+import { type types } from '@/core'
+
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { cmn, cls, styles } from '@skalenetwork/metaport'
-
+import { Skeleton, Tooltip } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
-import { type DueDateStatus } from '../core/paymaster'
-import { Skeleton, Tooltip } from '@mui/material'
 import SkStack from './SkStack'
 
 export default function Tile(props: {
@@ -41,8 +41,8 @@ export default function Tile(props: {
   icon?: ReactElement
   className?: string
   grow?: boolean
-  color?: DueDateStatus
-  progressColor?: DueDateStatus
+  color?: types.pm.DueDateStatus
+  progressColor?: types.pm.DueDateStatus
   progress?: number
   children?: ReactElement | ReactElement[] | false
   childrenRi?: ReactElement | ReactElement[] | null | ''

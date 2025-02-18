@@ -23,13 +23,13 @@
 
 import React, { useState, useEffect } from 'react'
 import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
+import { constants } from '@/core'
 
 import { Collapse } from '@mui/material'
 import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded'
 
 import ScreenshotCarousel from './ScreenshotCarousel'
 import AccordionSection from '../AccordionSection'
-import { BASE_METADATA_URL } from '../../core/constants'
 
 interface AppScreenshotsProps {
   chainName: string
@@ -48,7 +48,7 @@ const AppScreenshots: React.FC<AppScreenshotsProps> = ({ chainName, appName, ska
     const screenshotUrls: string[] = []
     let index = 1
 
-    const baseUrl = `${BASE_METADATA_URL}/${skaleNetwork}/screenshots`
+    const baseUrl = `${constants.BASE_METADATA_URL}/${skaleNetwork}/screenshots`
 
     while (true) {
       let found = false

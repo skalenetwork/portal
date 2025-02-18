@@ -22,6 +22,8 @@
  */
 
 import { useState, useEffect } from 'react'
+import { type types, dc, units } from '@/core'
+
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
@@ -31,13 +33,9 @@ import {
   cls,
   styles,
   type MetaportCore,
-  getChainAlias,
   TokenIcon,
   SkPaper,
-  dataclasses,
-  type interfaces,
-  useWagmiAccount,
-  fromWei
+  useWagmiAccount
 } from '@skalenetwork/metaport'
 
 import TokenSurface from '../components/TokenSurface'
@@ -46,7 +44,7 @@ import ConnectWallet from '../components/ConnectWallet'
 export default function Portfolio(props: { mpc: MetaportCore }) {
   const { address } = useWagmiAccount()
 
-  const [balances, setTokenBalances] = useState<interfaces.TokenBalancesMap[]>([])
+  const [balances, setTokenBalances] = useState<types.mp.TokenBalancesMap[]>([])
 
   useEffect(() => {
     tokenBalances()
@@ -56,7 +54,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
     const contracts = props.mpc.config.chains.map((chain: string) =>
       props.mpc.tokenContracts(
         props.mpc.tokens(chain),
-        dataclasses.TokenType.erc20,
+        dc.TokenType.erc20,
         chain,
         props.mpc.provider(chain)
       )
@@ -64,9 +62,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
     setTokenBalances(
       await Promise.all(
         contracts.map(
-          async (
-            chainContracts: interfaces.TokenContractsMap
-          ): Promise<interfaces.TokenBalancesMap> =>
+          async (chainContracts: types.mp.TokenContractsMap): Promise<types.mp.TokenBalancesMap> =>
             await props.mpc.tokenBalances(chainContracts, address!)
         )
       )
@@ -86,7 +82,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
 
   function getTokenDecimals(token: string) {
     const tokenMetadata = props.mpc.config.tokens[token]
-    if (!tokenMetadata?.decimals) return '18'
+    if (!tokenMetadata?.decimals) return 18
     return tokenMetadata.decimals
   }
 
@@ -137,7 +133,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                   </div>
                   <div className={cls(cmn.mri5)}>
                     <p className={cls(cmn.p, cmn.pPrim, cmn.p1, cmn.p700, cmn.pri)}>
-                      {fromWei(getTotalBalance(token).toString(), getTokenDecimals(token))}{' '}
+                      {units.fromWei(getTotalBalance(token).toString(), getTokenDecimals(token))}{' '}
                       {props.mpc.config.tokens[token].symbol}
                     </p>
                     <p className={cls(cmn.p, cmn.pSec, cmn.p5, cmn.p600, cmn.pri)}>On 2 chains</p>
@@ -152,10 +148,13 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                       <Grid key={index} item lg={3} md={4} sm={6} xs={12}>
                         <TokenSurface
                           className={cls(styles.fullHeight)}
-                          title={getChainAlias(props.mpc.config.skaleNetwork, chain)}
+                          title={chain}
                           value={
                             (balances[index] && balances[index][token]
-                              ? fromWei(balances[index][token].toString(), getTokenDecimals(token))
+                              ? units.fromWei(
+                                  balances[index][token].toString(),
+                                  getTokenDecimals(token)
+                                )
                               : '0') +
                             ' ' +
                             props.mpc.config.tokens[token].symbol

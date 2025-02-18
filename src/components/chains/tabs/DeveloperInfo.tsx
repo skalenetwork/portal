@@ -21,32 +21,24 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, styles, PROXY_ENDPOINTS, SkPaper } from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { cmn, cls, styles, SkPaper } from '@skalenetwork/metaport'
+import { type types, endpoints, constants } from '@/core'
 
 import Grid from '@mui/material/Grid'
 
 import CopySurface from '../../CopySurface'
 
-import {
-  getRpcUrl,
-  getRpcWsUrl,
-  getFsUrl,
-  getChainId,
-  HTTPS_PREFIX,
-  WSS_PREFIX
-} from '../../../core/chain'
+import { getRpcUrl, getRpcWsUrl, getFsUrl, getChainId } from '../../../core/chain'
 
 export default function DeveloperInfo(props: {
   schainName: string
   skaleNetwork: types.SkaleNetwork
   className?: string
 }) {
-  const proxyBase = PROXY_ENDPOINTS[props.skaleNetwork]
-
-  const rpcUrl = getRpcUrl(proxyBase, props.schainName, HTTPS_PREFIX)
-  const rpcWssUrl = getRpcWsUrl(proxyBase, props.schainName, WSS_PREFIX)
-  const fsUrl = getFsUrl(proxyBase, props.schainName, HTTPS_PREFIX)
+  const proxyBase = endpoints.getProxyEndpoint(props.skaleNetwork)
+  const rpcUrl = getRpcUrl(proxyBase, props.schainName, constants.HTTPS_PREFIX)
+  const rpcWssUrl = getRpcWsUrl(proxyBase, props.schainName, constants.WSS_PREFIX)
+  const fsUrl = getFsUrl(proxyBase, props.schainName, constants.HTTPS_PREFIX)
 
   const chainId = getChainId(props.schainName)
 

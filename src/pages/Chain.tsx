@@ -29,9 +29,7 @@ import SchainDetails from '../components/SchainDetails'
 import CircularProgress from '@mui/material/CircularProgress'
 
 import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
-import { type types } from '@/core'
-
-import { findChainName } from '../core/chain'
+import { type types, metadata } from '@/core'
 
 export default function Chain(props: {
   loadData: () => Promise<void>
@@ -46,7 +44,7 @@ export default function Chain(props: {
   const [schainMetrics, setSchainMetrics] = useState<types.IChainMetrics | null>(null)
 
   let { name } = useParams()
-  const chainName: string = findChainName(props.chainsMeta, name ?? '')
+  const chainName: string = metadata.findChainName(props.chainsMeta, name ?? '')
   const chain = props.schains.find((schain) => schain.name === chainName)
 
   useEffect(() => {

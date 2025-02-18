@@ -1,6 +1,6 @@
-import { type interfaces } from '@skalenetwork/metaport'
+import { type types } from '@/core'
 
-export const METAPORT_CONFIG: interfaces.MetaportConfig = {
+export const METAPORT_CONFIG: types.mp.Config = {
   skaleNetwork: 'legacy',
   openOnLoad: true,
   openButton: true,
@@ -16,7 +16,7 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       symbol: 'ETH'
     },
     skl: {
-      decimals: '18',
+      decimals: 18,
       name: 'SKALE',
       symbol: 'SKL'
     }

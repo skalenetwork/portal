@@ -22,24 +22,20 @@
  */
 
 import { Helmet } from 'react-helmet'
-
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import HistoryIcon from '@mui/icons-material/History'
 
 import {
-  CHAINS_META,
   cls,
   cmn,
-  type dataclasses,
   useMetaportStore,
   SkPaper,
-  type interfaces,
   TransactionData,
   styles,
   useWagmiAccount
 } from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { type types, dc } from '@/core'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
@@ -53,7 +49,7 @@ import SkPageInfoIcon from '../components/SkPageInfoIcon'
 
 interface TokenParams {
   keyname: string | null
-  type: dataclasses.TokenType | null
+  type: dc.TokenType | null
 }
 
 function getEmptyTokenParams(): TokenParams {
@@ -91,8 +87,7 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
 
   function validAppName(chainName: string | null, appName: string | null): boolean {
     if (!chainName || !appName) return false
-    const chainMeta = CHAINS_META[mpc.config.skaleNetwork]
-    const apps = chainMeta?.[chainName]?.apps
+    const apps = props.chainsMeta?.[chainName]?.apps
     return !!apps?.[appName]
   }
 
@@ -121,6 +116,10 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
   }, [address])
 
   useEffect(() => {
+    initBridge()
+  }, [])
+
+  async function initBridge() {
     if (chainName1 && chainName2 && token) return
     const from = searchParams.get('from')
     const to = searchParams.get('to')
@@ -132,14 +131,14 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
     const chain1 = validChainName(from) ? from! : mpc.config.chains[0]
     const chain2 = validChainName(to) ? to! : mpc.config.chains[1]
 
-    setChainName1(chain1)
-    setChainName2(chain2)
+    await setChainName1(chain1)
+    await setChainName2(chain2)
     setAppName1(validAppName(from, fromApp) ? fromApp! : undefined!)
     setAppName2(validAppName(to, toApp) ? toApp! : undefined!)
 
     if (keyname && type && validKeyname(keyname, type, chain1, chain2))
-      setTokenParams({ keyname, type: type as dataclasses.TokenType })
-  }, [])
+      setTokenParams({ keyname, type: type as dc.TokenType })
+  }
 
   useEffect(() => {
     if (
@@ -197,14 +196,14 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
         </div>
 
         <div className={cls(cmn.mtop20)}>
-          <BridgeBody />
+          <BridgeBody chainsMeta={props.chainsMeta} />
           {transactionsHistory.length !== 0 ? (
             <div className={cls(cmn.mbott20)}>
               <p className={cls(cmn.p, cmn.p2, cmn.pPrim, cmn.p700, cmn.mtop20, cmn.mbott10)}>
                 Completed transactions
               </p>
               <SkPaper gray>
-                {transactionsHistory.map((transactionData: interfaces.TransactionHistory) => (
+                {transactionsHistory.map((transactionData: types.mp.TransactionHistory) => (
                   <TransactionData
                     key={transactionData.transactionHash}
                     transactionData={transactionData}
