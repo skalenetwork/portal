@@ -53,7 +53,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     },
     ruby: {
       name: 'Ruby Token',
-      iconUrl: 'https://ruby.exchange/images/tokens/ruby-square.png',
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/15219.png',
       symbol: 'RUBY'
     },
     dai: {
@@ -63,7 +63,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     usdp: {
       name: 'Pax Dollar',
       symbol: 'USDP',
-      iconUrl: 'https://ruby.exchange/images/tokens/usdp-square.png'
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3330.png'
     },
     hmt: {
       name: 'Human Token',
@@ -104,7 +104,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     paxg: {
       name: 'PAX Gold',
       symbol: 'PAXG',
-      iconUrl: 'https://assets.coingecko.com/coins/images/9519/standard/paxgold.png'
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/4705.png'
     },
     link: {
       name: 'ChainLink Token',

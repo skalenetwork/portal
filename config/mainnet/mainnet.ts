@@ -16,15 +16,6 @@ const connections: types.mp.TokenTypeMap = {
         }
     },
     erc20: {
-        reth: {
-            address: '0xae78736cd615f374d3085123a210448e74fc6393',
-            chains: {
-                'elated-tan-skat': {},
-                'green-giddy-denebola': {
-                    hub: 'elated-tan-skat'
-                }
-            }
-        },
         skl: {
             address: '0x00c83aeCC790e8a4453e5dD3B0B4b3680501a7A7',
             chains: {
@@ -36,6 +27,15 @@ const connections: types.mp.TokenTypeMap = {
                     hub: 'elated-tan-skat'
                 },
                 'affectionate-immediate-pollux': {
+                    hub: 'elated-tan-skat'
+                }
+            }
+        },
+        reth: {
+            address: '0xae78736cd615f374d3085123a210448e74fc6393',
+            chains: {
+                'elated-tan-skat': {},
+                'green-giddy-denebola': {
                     hub: 'elated-tan-skat'
                 }
             }
