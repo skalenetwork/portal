@@ -57,7 +57,7 @@ export default function Delegation(props: {
   isValidatorPage?: boolean
 }) {
   const source = getDelegationSource(props.delegation)
-  const delegationAmount = units.formatBalance(props.delegation.amount, 'SKL')
+  const delegationAmount = units.displayBalance(props.delegation.amount, 'SKL')
   const [open, setOpen] = useState(false)
 
   const delId = Number(props.delegation.stateId)

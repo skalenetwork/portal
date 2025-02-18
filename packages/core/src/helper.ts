@@ -82,3 +82,7 @@ export function roundUp(num: number, decimals: number = constants.ROUNDING_DECIM
     const factor = Math.pow(10, decimals)
     return Math.round(num * factor) / factor
 }
+
+export function divideBigInts(a: bigint, b: bigint): number {
+    return Number((a * 10000n) / b) / 10000
+}

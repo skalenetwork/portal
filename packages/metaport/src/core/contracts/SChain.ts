@@ -21,7 +21,7 @@
  */
 
 import { Contract } from 'ethers'
-import { BaseChain } from './BaseChain'
+import { BaseChain } from './baseChain'
 
 export default class SChain extends BaseChain {
   async ethBalance(address: string): Promise<bigint> {

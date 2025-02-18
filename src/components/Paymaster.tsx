@@ -23,10 +23,7 @@
 
 import { Contract, id } from 'ethers'
 import { useState, useEffect } from 'react'
-import { type types, metadata, constants, ERC_ABIS, units } from '@/core'
-import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
-import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
-
+import { type types, metadata, constants, ERC_ABIS, units, helper } from '@/core'
 import {
   cmn,
   cls,
@@ -37,25 +34,18 @@ import {
   useWagmiSwitchNetwork,
   walletClientToSigner,
   sendTransaction,
-  styles
+  styles,
+  contracts
 } from '@skalenetwork/metaport'
+
+import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
+import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
 
 import ConnectWallet from './ConnectWallet'
 import PricingInfo from './PricingInfo'
 import Topup from './Topup'
 import Loader from './Loader'
 import Tile from './Tile'
-
-import {
-  initPaymaster,
-  getPaymasterChain,
-  getPaymasterInfo,
-  type PaymasterInfo,
-  DEFAULT_PAYMASTER_INFO,
-  getPaymasterAddress,
-  getPaymasterAbi,
-  divideBigInts
-} from '../core/paymaster'
 import Headline from './Headline'
 
 const DEFAULT_TOPUP_PERIOD = 3
@@ -67,22 +57,28 @@ export default function Paymaster(props: {
   chainsMeta: types.ChainsMetadataMap
 }) {
   const { address } = useWagmiAccount()
-  const paymaster = initPaymaster(props.mpc)
   const network = props.mpc.config.skaleNetwork
-  const paymasterChain = getPaymasterChain(network)
+  const paymasterChain = contracts.paymaster.getPaymasterChain(network)
 
   const [btnText, setBtnText] = useState<string | undefined>()
   const [errorMsg, setErrorMsg] = useState<string | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
   const [inited, setInited] = useState<boolean>(false)
 
+  const [paymaster, setPaymaster] = useState<Contract | undefined>()
   const [sklToken, setSklToken] = useState<Contract | undefined>()
   const [tokenBalance, setTokenBalance] = useState<bigint | undefined>()
   const [topupPeriod, setTopupPeriod] = useState<number>(DEFAULT_TOPUP_PERIOD)
-  const [info, setInfo] = useState<PaymasterInfo>(DEFAULT_PAYMASTER_INFO)
+  const [info, setInfo] = useState<types.pm.PaymasterInfo>(
+    contracts.paymaster.DEFAULT_PAYMASTER_INFO
+  )
 
   const { data: walletClient } = useWagmiWalletClient()
   const { switchChainAsync } = useWagmiSwitchNetwork()
+
+  useEffect(() => {
+    initPaymaster()
+  }, [])
 
   useEffect(() => {
     loadPaymasterInfo()
@@ -90,10 +86,15 @@ export default function Paymaster(props: {
     return () => {
       clearInterval(intervalId)
     }
-  }, [sklToken, address])
+  }, [sklToken, address, paymaster])
+
+  async function initPaymaster() {
+    setPaymaster(await contracts.paymaster.getPaymaster(props.mpc))
+  }
 
   async function loadPaymasterInfo() {
-    const info = await getPaymasterInfo(paymaster, props.name, network)
+    if (!paymaster) return
+    const info = await contracts.paymaster.getPaymasterInfo(paymaster, props.name, network)
     let skl = sklToken
     if (skl === undefined) {
       skl = new Contract(info.skaleToken, ERC_ABIS.erc20.abi, paymaster.runner)
@@ -106,6 +107,7 @@ export default function Paymaster(props: {
   }
 
   async function topupChain() {
+    if (!paymaster) return
     if (!paymaster.runner?.provider || !walletClient || !switchChainAsync) {
       setErrorMsg('Something is wrong with your wallet, try again')
       return
@@ -115,12 +117,12 @@ export default function Paymaster(props: {
     setErrorMsg(undefined)
     try {
       const { chainId } = await paymaster.runner.provider.getNetwork()
-      const paymasterAddress = getPaymasterAddress(network)
+      const paymasterAddress = contracts.paymaster.getPaymasterAddress(network)
 
       await enforceNetwork(chainId, walletClient, switchChainAsync, network, paymasterChain)
       setBtnText('Sending transaction...')
       const signer = walletClientToSigner(walletClient)
-      const connectedPaymaster = new Contract(paymasterAddress, getPaymasterAbi(), signer)
+      paymaster.connect(signer)
       const connectedToken = new Contract(info.skaleToken, ERC_ABIS.erc20.abi, signer)
 
       const allowance = await connectedToken.allowance(address, paymasterAddress)
@@ -141,7 +143,7 @@ export default function Paymaster(props: {
       }
       const res = await sendTransaction(
         signer,
-        connectedPaymaster.pay,
+        paymaster.pay,
         [id(props.name), topupPeriod],
         'paymaster:'
       )
@@ -160,7 +162,7 @@ export default function Paymaster(props: {
   }
 
   function getTotalPriceWei() {
-    const chainPriceSkl = divideBigInts(info.schainPricePerMonth, info.oneSklPrice)
+    const chainPriceSkl = helper.divideBigInts(info.schainPricePerMonth, info.oneSklPrice)
     const totalPriceSkl = chainPriceSkl * topupPeriod
     return units.toWei(totalPriceSkl.toString(), constants.DEFAULT_ERC20_DECIMALS)
   }

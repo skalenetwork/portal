@@ -25,7 +25,7 @@ export interface TokenMetadata {
   symbol: string
   name?: string
   iconUrl?: string
-  decimals?: string
+  decimals?: number
 }
 
 export interface TokenMetadataMap {

@@ -82,7 +82,9 @@ export default function Summary(props: {
         <SkStack className={cls(cmn.mtop5)}>
           <Tile
             disabled={props.accountInfo?.balance === 0n}
-            value={props.accountInfo ? units.formatBalance(props.accountInfo.balance, 'SKL') : null}
+            value={
+              props.accountInfo ? units.displayBalance(props.accountInfo.balance, 'SKL') : null
+            }
             text={'Total ' + getTitle() + ' Balance'}
             grow
             icon={<TokenIcon tokenSymbol="skl" size="xs" />}
@@ -114,7 +116,7 @@ export default function Summary(props: {
                   className={cls(cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs])}
                   disabled={props.accountInfo?.staked === 0n}
                   value={
-                    props.accountInfo ? units.formatBalance(props.accountInfo.staked, 'SKL') : null
+                    props.accountInfo ? units.displayBalance(props.accountInfo.staked, 'SKL') : null
                   }
                   text="Staked Tokens"
                   grow
@@ -130,7 +132,7 @@ export default function Summary(props: {
                   disabled={props.accountInfo?.allowedToDelegate === 0n}
                   value={
                     props.accountInfo?.allowedToDelegate !== undefined
-                      ? units.formatBalance(props.accountInfo.allowedToDelegate, 'SKL')
+                      ? units.displayBalance(props.accountInfo.allowedToDelegate, 'SKL')
                       : null
                   }
                   ri={!props.isXs}
@@ -147,7 +149,7 @@ export default function Summary(props: {
               disabled={props.accountInfo?.vested === 0n}
               className={cls(cmn.mtop10)}
               value={
-                props.accountInfo ? units.formatBalance(props.accountInfo.vested, 'SKL') : null
+                props.accountInfo ? units.displayBalance(props.accountInfo.vested, 'SKL') : null
               }
               text="Total Vested Tokens"
               icon={<EventAvailableRoundedIcon />}
@@ -159,7 +161,7 @@ export default function Summary(props: {
                       disabled={props.accountInfo?.fullAmount === 0n}
                       value={
                         props.accountInfo
-                          ? units.formatBalance(props.accountInfo.fullAmount, 'SKL')
+                          ? units.displayBalance(props.accountInfo.fullAmount, 'SKL')
                           : null
                       }
                       text="Initial Escrow Amount"
@@ -181,7 +183,7 @@ export default function Summary(props: {
                     className={cls(cmn.nop, [cmn.mleft20, !props.isXs])}
                     value={
                       props.accountInfo
-                        ? units.formatBalance(props.accountInfo.unlocked, 'SKL')
+                        ? units.displayBalance(props.accountInfo.unlocked, 'SKL')
                         : null
                     }
                     text="Unlocked Tokens"

@@ -23,7 +23,7 @@
 
 import { Link } from 'react-router-dom'
 
-import { constants, units } from '@/core'
+import { constants, units, helper, type types } from '@/core'
 import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
 
 import Button from '@mui/material/Button'
@@ -36,8 +36,6 @@ import Tile from './Tile'
 import SkStack from './SkStack'
 import MonthSelector from './MonthSelector'
 import Loader from './Loader'
-
-import { type PaymasterInfo, divideBigInts } from '../core/paymaster'
 import { formatTimePeriod, monthsBetweenNowAndTimestamp } from '../core/timeHelper'
 
 export default function Topup(props: {
@@ -45,7 +43,7 @@ export default function Topup(props: {
   name: string
   topupPeriod: number
   setTopupPeriod: any
-  info: PaymasterInfo
+  info: types.pm.PaymasterInfo
   tokenBalance: bigint | undefined
   topupChain: () => Promise<void>
   btnText: string | undefined
@@ -55,7 +53,7 @@ export default function Topup(props: {
 }) {
   if (props.tokenBalance === undefined) return <Loader text="Loading balance info" />
 
-  const chainPriceSkl = divideBigInts(props.info.schainPricePerMonth, props.info.oneSklPrice)
+  const chainPriceSkl = helper.divideBigInts(props.info.schainPricePerMonth, props.info.oneSklPrice)
   const totalPriceSkl = chainPriceSkl * props.topupPeriod
   const totalPriceWei = units.toWei(totalPriceSkl.toString(), constants.DEFAULT_ERC20_DECIMALS)
 

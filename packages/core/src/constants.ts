@@ -23,7 +23,7 @@
 
 const MS_MULTIPLIER = 1000
 
-export const DEFAULT_ERC20_DECIMALS = '18'
+export const DEFAULT_ERC20_DECIMALS = 18
 export const USDC_DECIMALS = '6'
 
 export const DEFAULT_MP_Z_INDEX = 99000

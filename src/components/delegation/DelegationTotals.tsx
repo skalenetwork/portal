@@ -51,7 +51,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({ delegations, classN
   return (
     <SkStack className={cls(className)}>
       <Tile
-        value={totals && units.formatBalance(totals.proposed.amount, 'SKL')}
+        value={totals && units.displayBalance(totals.proposed.amount, 'SKL')}
         text={getTileText('Proposed', totals?.proposed.count)}
         grow
         size="md"
@@ -59,21 +59,21 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({ delegations, classN
         icon={<InboxRoundedIcon className={cls(styles.chainIconxs)} />}
       />
       <Tile
-        value={totals && units.formatBalance(totals.accepted.amount, 'SKL')}
+        value={totals && units.displayBalance(totals.accepted.amount, 'SKL')}
         text={getTileText('Accepted', totals?.accepted.count)}
         grow
         size="md"
         icon={<TaskAltRoundedIcon className={cls(styles.chainIconxs)} />}
       />
       <Tile
-        value={totals && units.formatBalance(totals.delegated.amount, 'SKL')}
+        value={totals && units.displayBalance(totals.delegated.amount, 'SKL')}
         text={getTileText('Delegated', totals?.delegated.count)}
         grow
         size="md"
         icon={<DonutLargeRoundedIcon className={cls(styles.chainIconxs)} />}
       />
       <Tile
-        value={totals && units.formatBalance(totals.completed.amount, 'SKL')}
+        value={totals && units.displayBalance(totals.completed.amount, 'SKL')}
         text={getTileText('Completed', totals?.completed.count)}
         grow
         size="md"

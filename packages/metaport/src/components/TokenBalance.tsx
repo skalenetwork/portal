@@ -27,7 +27,7 @@ import { cls, cmn } from '../core/css'
 export default function TokenBalance(props: {
   balance: bigint
   symbol: string
-  decimals?: string
+  decimals?: number
   truncate?: number
   primary?: boolean
   size?: 'xs' | 'sm'

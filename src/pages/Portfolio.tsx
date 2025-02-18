@@ -82,7 +82,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
 
   function getTokenDecimals(token: string) {
     const tokenMetadata = props.mpc.config.tokens[token]
-    if (!tokenMetadata?.decimals) return '18'
+    if (!tokenMetadata?.decimals) return 18
     return tokenMetadata.decimals
   }
 

@@ -18,22 +18,22 @@ export const METAPORT_CONFIG: types.mp.Config = {
       symbol: 'ETH'
     },
     skl: {
-      decimals: '18',
+      decimals: 18,
       name: 'SKALE',
       symbol: 'SKL'
     },
     usdc: {
-      decimals: '6',
+      decimals: 6,
       symbol: 'USDC',
       name: 'USD Coin'
     },
     usdt: {
-      decimals: '6',
+      decimals: 6,
       symbol: 'USDT',
       name: 'Tether USD'
     },
     wbtc: {
-      decimals: '8',
+      decimals: 8,
       symbol: 'WBTC',
       name: 'WBTC'
     },
@@ -59,7 +59,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     ubxs: {
       name: 'UBXS Token',
       symbol: 'UBXS',
-      decimals: '6',
+      decimals: 6,
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/17242.png'
     },
     trc: {
