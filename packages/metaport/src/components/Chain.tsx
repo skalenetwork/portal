@@ -21,24 +21,25 @@
  * @copyright SKALE Labs 2023-Present
  */
 
+import { types, metadata } from '@/core'
 import ChainIcon from './ChainIcon'
 
 import { cls, cmn, dec } from '../core/css'
-import { getChainAlias } from '../core/metadata'
-import { SkaleNetwork, Size } from '../core/interfaces'
+import { CHAINS_META } from '../core/metadata'
 
 export default function Chain(props: {
-  skaleNetwork: SkaleNetwork
+  skaleNetwork: types.SkaleNetwork
   chainName: string
   className?: string
   bold?: boolean
   app?: string
-  size?: Size
+  size?: types.Size
   decIcon?: boolean
   prim?: boolean
 }) {
   const size = props.size ?? 'sm'
   const prim = props.prim ?? true
+  const chainsMeta = CHAINS_META[props.skaleNetwork]
   return (
     <div className={cls(cmn.flex, cmn.flexcv)}>
       <ChainIcon
@@ -65,7 +66,7 @@ export default function Chain(props: {
           [cmn.pSec, !prim]
         )}
       >
-        {getChainAlias(props.skaleNetwork, props.chainName, props.app)}
+        {metadata.getAlias(chainsMeta, props.chainName, props.app)}
       </p>
     </div>
   )

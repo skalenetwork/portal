@@ -22,6 +22,7 @@
  */
 
 import { useState, useEffect } from 'react'
+import { types } from '@/core'
 
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Tooltip from '@mui/material/Tooltip'
@@ -32,13 +33,13 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { styled } from '@mui/material/styles'
 import Switch from '@mui/material/Switch'
 
-import { cmn, cls, styles, type interfaces } from '@skalenetwork/metaport'
+import { cmn, cls, styles } from '@skalenetwork/metaport'
 
 export default function CopySurface(props: {
   title: string
   value: string | null | undefined
   className?: string
-  tokenMetadata?: interfaces.TokenMetadata
+  tokenMetadata?: types.mp.TokenMetadata
 }) {
   const [copied, setCopied] = useState(false)
 

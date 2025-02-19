@@ -28,7 +28,7 @@ import { getProposedDelegationsCount } from '../../core/delegation'
 import { Tooltip } from '@mui/material'
 
 export default function DelegationsNotification(props: {
-  validatorDelegations: types.staking.IDelegation[] | null
+  validatorDelegations: types.st.IDelegation[] | null
   className?: string
 }) {
   const proposedDelegations = getProposedDelegationsCount(props.validatorDelegations)

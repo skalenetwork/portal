@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { Size } from './interfaces'
+import { types } from '@/core'
 import styles from '../styles/styles.module.scss'
 import cmn from '../styles/cmn.module.scss'
 
@@ -35,14 +35,14 @@ export function cls(...args: any): string {
   return filteredArgs.join(' ')
 }
 
-const sizes: Size[] = ['xs', 'sm', 'md', 'lg']
+const sizes: types.Size[] = ['xs', 'sm', 'md', 'lg']
 
-export function inc(currentSize: Size): Size {
+export function inc(currentSize: types.Size): types.Size {
   const currentIndex = sizes.indexOf(currentSize)
   return currentIndex < sizes.length - 1 ? sizes[currentIndex + 1] : currentSize
 }
 
-export function dec(currentSize: Size): Size {
+export function dec(currentSize: types.Size): types.Size {
   const currentIndex = sizes.indexOf(currentSize)
   return currentIndex > 0 ? sizes[currentIndex - 1] : currentSize
 }

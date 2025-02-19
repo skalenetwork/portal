@@ -20,24 +20,24 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import debug from 'debug'
+import { Logger, type ILogObj } from 'tslog'
 import { useState } from 'react'
-import { type Signer } from 'ethers'
 import { useNavigate } from 'react-router-dom'
+import { type Signer } from 'ethers'
+
 import {
   cmn,
   cls,
   TokenIcon,
-  fromWei,
   styles,
-  toWei,
   type MetaportCore,
-  sendTransaction
+  sendTransaction,
+  contracts
 } from '@skalenetwork/metaport'
+import { type types, constants, units } from '@/core'
 
 import Button from '@mui/material/Button'
 import LoadingButton from '@mui/lab/LoadingButton'
-
 import { TextField } from '@mui/material'
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded'
 import TransitEnterexitRoundedIcon from '@mui/icons-material/TransitEnterexitRounded'
@@ -48,28 +48,17 @@ import Tile from '../Tile'
 import SkStack from '../SkStack'
 import ErrorTile from '../ErrorTile'
 import Loader from '../Loader'
-
-import { formatBalance } from '../../core/helper'
-import {
-  DEFAULT_DELEGATION_INFO,
-  DEFAULT_DELEGATION_PERIOD,
-  DEFAULT_ERC20_DECIMALS,
-  DEFAULT_ERROR_MSG
-} from '../../core/constants'
-import { initActionContract } from '../../core/contracts'
-import { types } from '@/core'
 import DelegationFlow from './DelegationFlow'
 
-debug.enable('*')
-const log = debug('portal:pages:Delegate')
+const log = new Logger<ILogObj>({ name: 'portal:pages:Delegate' })
 
 export default function Delegate(props: {
   mpc: MetaportCore
-  validator: types.staking.IValidator | undefined
-  si: types.staking.StakingInfoMap
+  validator: types.st.IValidator | undefined
+  si: types.st.StakingInfoMap
   getMainnetSigner: () => Promise<Signer>
   address: types.AddressType
-  delegationType: types.staking.DelegationType
+  delegationType: types.st.DelegationType
   loaded: boolean
   delegationTypeAvailable: boolean
   errorMsg: string | undefined
@@ -95,7 +84,7 @@ export default function Delegate(props: {
       return
     }
     setAmount(event.target.value)
-    setAmountWei(toWei(event.target.value, DEFAULT_ERC20_DECIMALS))
+    setAmountWei(units.toWei(event.target.value, constants.DEFAULT_ERC20_DECIMALS))
   }
 
   async function stake() {
@@ -106,21 +95,28 @@ export default function Delegate(props: {
       return
     }
     try {
-      log(`Delegating SKL: ${amountWei} to ${props.validator?.id} - type ${props.delegationType}`)
+      log.info(
+        `Delegating SKL: ${amountWei} to ${props.validator?.id} - type ${props.delegationType}`
+      )
       const signer = await props.getMainnetSigner()
-      const delegationContract = await initActionContract(
+      const delegationContract = await contracts.initActionContract(
         signer,
         props.delegationType,
         props.address,
         props.mpc.config.skaleNetwork,
         'delegation'
       )
-      const res = await sendTransaction(delegationContract.delegate, [
-        props.validator.id,
-        amountWei,
-        DEFAULT_DELEGATION_PERIOD,
-        DEFAULT_DELEGATION_INFO
-      ])
+      const res = await sendTransaction(
+        signer,
+        delegationContract.delegate,
+        [
+          props.validator.id,
+          amountWei,
+          constants.DEFAULT_DELEGATION_PERIOD,
+          constants.DEFAULT_DELEGATION_INFO
+        ],
+        'delegation:delegate'
+      )
       setLoading(false)
       if (!res.status) {
         props.setErrorMsg(res.err?.name)
@@ -129,7 +125,7 @@ export default function Delegate(props: {
       }
     } catch (err: any) {
       console.error(err)
-      props.setErrorMsg(err.message ? err.message : DEFAULT_ERROR_MSG)
+      props.setErrorMsg(err.message ? err.message : constants.DEFAULT_ERROR_MSG)
       setLoading(false)
     }
   }
@@ -203,7 +199,7 @@ export default function Delegate(props: {
         />
         <Tile
           disabled={info.allowedToDelegate === 0n}
-          value={formatBalance(info.allowedToDelegate!, 'SKL')}
+          value={units.displayBalance(info.allowedToDelegate!, 'SKL')}
           text="Available to stake"
           icon={<TokenIcon tokenSymbol="skl" size="xs" />}
           color={true ? undefined : 'error'}
@@ -214,7 +210,9 @@ export default function Delegate(props: {
                 disabled={info.allowedToDelegate === 0n || loading}
                 onClick={() => {
                   if (!info.allowedToDelegate) return
-                  setAmount(fromWei(info.allowedToDelegate ?? 0n, DEFAULT_ERC20_DECIMALS))
+                  setAmount(
+                    units.fromWei(info.allowedToDelegate ?? 0n, constants.DEFAULT_ERC20_DECIMALS)
+                  )
                   setAmountWei(info.allowedToDelegate)
                 }}
               >

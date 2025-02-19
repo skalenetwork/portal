@@ -20,13 +20,13 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { MetaportConfig } from '../../core/interfaces'
+import { types } from '@/core'
 
 import WidgetUI from '../WidgetUI'
 import Debug from '../Debug'
 import MetaportProvider from '../MetaportProvider'
 
-export default function Metaport(props: { config: MetaportConfig }) {
+export default function Metaport(props: { config: types.mp.Config }) {
   return (
     <MetaportProvider config={props.config}>
       <Debug />

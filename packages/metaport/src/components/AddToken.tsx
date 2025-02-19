@@ -22,8 +22,9 @@
  */
 
 import { useState } from 'react'
+import { Provider } from 'ethers'
 import { useWalletClient, useSwitchChain } from 'wagmi'
-import { MainnetChain, SChain } from '@skalenetwork/ima-js'
+import { dc, constants } from '@/core'
 
 import Button from '@mui/material/Button'
 import TollIcon from '@mui/icons-material/Toll'
@@ -31,21 +32,20 @@ import TollIcon from '@mui/icons-material/Toll'
 import { cls, cmn, styles } from '../core/css'
 import MetaportCore, { createTokenData } from '../core/metaport'
 import { enforceNetwork } from '../core/network'
-import { TokenData, TokenType } from '../core/dataclasses'
-import { ICONS_BASE_URL, MAINNET_CHAIN_NAME } from '../core/constants'
+import { ICONS_BASE_URL } from '../core/constants'
 
 export default function AddToken(props: {
-  token: TokenData
+  token: dc.TokenData
   destChainName: string
   mpc: MetaportCore
-  ima: MainnetChain | SChain
+  provider: Provider
 }) {
   const [loading, setLoading] = useState<boolean>(false)
 
   const { data: walletClient } = useWalletClient()
   const { switchChainAsync } = useSwitchChain()
 
-  function getIconUrl(token: TokenData) {
+  function getIconUrl(token: dc.TokenData) {
     return `${ICONS_BASE_URL}${token.meta.symbol}.png`
   }
 
@@ -68,7 +68,7 @@ export default function AddToken(props: {
       props.mpc.config
     )
     const iconUrl = getIconUrl(props.token)
-    const { chainId } = await props.ima.provider.getNetwork()
+    const { chainId } = await props.provider.getNetwork()
     try {
       await enforceNetwork(
         chainId,
@@ -101,7 +101,8 @@ export default function AddToken(props: {
     }
   }
 
-  if (props.destChainName === MAINNET_CHAIN_NAME && props.token.type === TokenType.eth) return
+  if (props.destChainName === constants.MAINNET_CHAIN_NAME && props.token.type === dc.TokenType.eth)
+    return
 
   return (
     <Button

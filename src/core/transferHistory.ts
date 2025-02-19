@@ -20,7 +20,6 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { type interfaces } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
 function getKeyName(skaleNetwork: types.SkaleNetwork): string {
@@ -29,14 +28,14 @@ function getKeyName(skaleNetwork: types.SkaleNetwork): string {
 
 export function getHistoryFromStorage(
   skaleNetwork: types.SkaleNetwork
-): interfaces.TransferHistory[] {
+): types.mp.TransferHistory[] {
   const transfersHistory = localStorage.getItem(getKeyName(skaleNetwork))
   if (transfersHistory == null) return []
   return JSON.parse(transfersHistory).data
 }
 
 export function setHistoryToStorage(
-  transferHistory: interfaces.TransferHistory[],
+  transferHistory: types.mp.TransferHistory[],
   skaleNetwork: types.SkaleNetwork
 ): void {
   localStorage.setItem(getKeyName(skaleNetwork), JSON.stringify({ data: transferHistory }))

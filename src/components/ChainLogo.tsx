@@ -22,9 +22,8 @@
  */
 
 import { useEffect, useState } from 'react'
-import { type types } from '@/core'
+import { metadata, type types } from '@/core'
 import Jazzicon from 'react-jazzicon'
-import { getMetaLogoUrl } from '../core/metadata'
 
 function hashCode(str: string) {
   let hash = 0
@@ -79,7 +78,7 @@ export default function ChainLogo(props: {
 
   async function loadLogo() {
     if (url) return
-    const baseUrl = getMetaLogoUrl(props.network, logoName)
+    const baseUrl = metadata.getMetaLogoUrl(props.network, logoName)
     const pngPath = baseUrl + '.png'
     const svgPath = baseUrl + '.svg'
     if (await checkUrl(pngPath)) {

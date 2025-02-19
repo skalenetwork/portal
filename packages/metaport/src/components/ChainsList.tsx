@@ -1,4 +1,5 @@
 import React from 'react'
+import { types, metadata } from '@/core'
 import Accordion from '@mui/material/Accordion'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import AccordionSummary from '@mui/material/AccordionSummary'
@@ -12,15 +13,13 @@ import ChainApps from './ChainApps'
 import ChainIcon from './ChainIcon'
 import Chain from './Chain'
 
-import { MetaportConfig } from '../core/interfaces'
-
-import { getChainAlias, getChainAppsMeta } from '../core/metadata'
 import { cls, cmn, styles } from '../core/css'
 
 import SkPaper from './SkPaper'
+import { CHAINS_META } from '../core/metadata'
 
 export default function ChainsList(props: {
-  config: MetaportConfig
+  config: types.mp.Config
   expanded: string | false
   setExpanded: (expanded: string | false) => void
   setChain: (chain: string) => void
@@ -39,9 +38,10 @@ export default function ChainsList(props: {
   }
 
   const schainNames = []
+  const chainsMeta = CHAINS_META[props.config.skaleNetwork]
 
   for (let chain of props.chains) {
-    const isHub = chain == props.chain && getChainAppsMeta(props.chain, props.config.skaleNetwork)
+    const isHub = chain == props.chain && metadata.getChainApps(chainsMeta, props.chain)
     if (chain !== props.disabledChain && (chain != props.chain || isHub)) {
       schainNames.push(chain)
     }
@@ -95,7 +95,7 @@ export default function ChainsList(props: {
                         cmn.pWrap
                       )}
                     >
-                      on {getChainAlias(props.config.skaleNetwork, props.chain)?.split(' ')[0]}
+                      on {metadata.getAlias(chainsMeta, props.chain, undefined, true)}
                     </p>
                   </SkPaper>
                 ) : null}
