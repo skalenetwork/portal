@@ -7,7 +7,7 @@ set -e
 export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 export PORTAL_DIR="$DIR/../"
 
-METAPORT_CONFIG_PATH=$PORTAL_DIR/config/$NETWORK_NAME
+METAPORT_CONFIG_PATH=$PORTAL_DIR/config/$NETWORK_NAME/*
 METAPORT_CONFIG_PATH_SRC=$PORTAL_DIR/src/data/metaportConfig
 
 echo "Copying ${METAPORT_CONFIG_PATH} -> ${METAPORT_CONFIG_PATH_SRC}..."
