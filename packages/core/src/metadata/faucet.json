@@ -56,6 +56,10 @@
     "lanky-ill-funny-testnet": {
       "address": "0x000E9c53C4e2e21F5063f2e232d0AA907318dccb",
       "func": "0x0c11dedd"
+    },
+    "aware-fake-trim-testnet": {
+      "address": "0x08f98Af60eb83C18184231591A8F89577E46A4B9",
+      "func": "0x0c11dedd"
     }
   }
 }
