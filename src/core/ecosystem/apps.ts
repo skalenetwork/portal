@@ -25,28 +25,6 @@ import { type types, metadata } from '@/core'
 const SWELL_CHAIN = '__offchain'
 const SWELL_APP = 'swell'
 
-export function getAllApps(chainsMetadata: types.ChainsMetadataMap): types.AppWithChainAndName[] {
-  const allApps: types.AppWithChainAndName[] = []
-
-  for (const [chainName, chainData] of Object.entries(chainsMetadata)) {
-    if (chainData.apps) {
-      for (const [appName, appData] of Object.entries(chainData.apps)) {
-        allApps.push({
-          ...appData,
-          chain: chainName,
-          appName
-        })
-      }
-    }
-  }
-
-  return allApps
-}
-
-export function sortAppsByAlias(apps: types.AppWithChainAndName[]): types.AppWithChainAndName[] {
-  return apps.sort((a, b) => a.alias.localeCompare(b.alias))
-}
-
 export function sortAndFilterApps(apps: types.AppWithChainAndName[]): types.AppWithChainAndName[] {
   const swellAppIndex = apps.findIndex(
     (app) => app.chain === SWELL_CHAIN && app.appName === SWELL_APP
