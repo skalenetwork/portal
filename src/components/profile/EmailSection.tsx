@@ -65,7 +65,7 @@ const EmailSection: React.FC<EmailSectionProps> = ({
       text="Email Address"
       className={cls(styles.inputAmount, className)}
       icon={<EmailRoundedIcon />}
-      value={!isEditing ? email ?? 'Not set' : undefined}
+      value={!isEditing ? (email ?? 'Not set') : undefined}
       children={
         isEditing && (
           <TextField

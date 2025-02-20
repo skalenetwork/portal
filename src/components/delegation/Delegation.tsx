@@ -21,6 +21,7 @@
  */
 
 import { useState } from 'react'
+import { types, units, timeUtils } from '@/core'
 import { cmn, cls, styles } from '@skalenetwork/metaport'
 
 import { Collapse, Grid, Tooltip } from '@mui/material'
@@ -33,8 +34,6 @@ import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
 import SkBtn from '../SkBtn'
 import ValidatorLogo from './ValidatorLogo'
 
-import { types } from '@/core'
-
 import {
   DelegationSource,
   DelegationState,
@@ -43,23 +42,22 @@ import {
 } from '../../core/delegation'
 import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
 
-import { convertMonthIndexToText, formatBalance } from '../../core/helper'
 import Tile from '../Tile'
 
 export default function Delegation(props: {
-  delegation: types.staking.IDelegation
-  validator: types.staking.IValidator
-  delegationType: types.staking.DelegationType
-  accept?: (delegationInfo: types.staking.IDelegationInfo) => Promise<void>
-  unstake?: (delegationInfo: types.staking.IDelegationInfo) => Promise<void>
-  cancelRequest?: (delegationInfo: types.staking.IDelegationInfo) => Promise<void>
-  loading: types.staking.IRewardInfo | types.staking.IDelegationInfo | false
+  delegation: types.st.IDelegation
+  validator: types.st.IValidator
+  delegationType: types.st.DelegationType
+  accept?: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
+  unstake?: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
+  cancelRequest?: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
+  loading: types.st.IRewardInfo | types.st.IDelegationInfo | false
   isXs: boolean
   customAddress: types.AddressType | undefined
   isValidatorPage?: boolean
 }) {
   const source = getDelegationSource(props.delegation)
-  const delegationAmount = formatBalance(props.delegation.amount, 'SKL')
+  const delegationAmount = units.formatBalance(props.delegation.amount, 'SKL')
   const [open, setOpen] = useState(false)
 
   const delId = Number(props.delegation.stateId)
@@ -70,7 +68,7 @@ export default function Delegation(props: {
     delId === DelegationState.PROPOSED ||
     delId === DelegationState.ACCEPTED
 
-  const delegationInfo: types.staking.IDelegationInfo = {
+  const delegationInfo: types.st.IDelegationInfo = {
     delegationId: props.delegation.id,
     delegationType: props.delegationType
   }
@@ -131,12 +129,12 @@ export default function Delegation(props: {
                 {formatBigIntTimestampSeconds(props.delegation.created)}
               </p>
             </div>
-            {props.delegationType === types.staking.DelegationType.ESCROW ? (
+            {props.delegationType === types.st.DelegationType.ESCROW ? (
               <Tooltip title="Escrow delegation">
                 <AccountBalanceRoundedIcon className={cls('trustedBadge', cmn.mleft10, cmn.pSec)} />
               </Tooltip>
             ) : null}
-            {props.delegationType === types.staking.DelegationType.ESCROW2 ? (
+            {props.delegationType === types.st.DelegationType.ESCROW2 ? (
               <Tooltip title="Grant Escrow delegation">
                 <ApartmentRoundedIcon className={cls('trustedBadge', cmn.mleft10, cmn.pSec)} />
               </Tooltip>
@@ -205,7 +203,7 @@ export default function Delegation(props: {
             <Tile
               className={cls(cmn.nop, cmn.mtop20)}
               transparent
-              value={convertMonthIndexToText(Number(props.delegation.finished))}
+              value={timeUtils.convertMonthIndexToText(Number(props.delegation.finished))}
               text="Delegation completed"
               grow
               size="md"

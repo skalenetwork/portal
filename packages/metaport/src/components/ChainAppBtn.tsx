@@ -22,16 +22,16 @@
  */
 
 import { Button } from '@mui/material'
+import { types, metadata } from '@/core'
 import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded'
 
 import { cls, cmn, styles } from '../core/css'
-import { SkaleNetwork } from '../core/interfaces'
-import { getChainAlias } from '../core/metadata'
 
 import ChainIcon from './ChainIcon'
+import { CHAINS_META } from '../core/metadata'
 
 export default function ChainAppBtn(props: {
-  skaleNetwork: SkaleNetwork
+  skaleNetwork: types.SkaleNetwork
   appName: string
   chainName: string
   handle?: (schainName: string, app?: string) => void
@@ -41,6 +41,8 @@ export default function ChainAppBtn(props: {
   const size = props.size ?? 'sm'
   const iconSize = props.size === 'sm' ? 'xs' : 'sm'
   const prim = props.prim ?? size === 'md'
+
+  const chainsMeta = CHAINS_META[props.skaleNetwork]
 
   return (
     <Button
@@ -81,7 +83,7 @@ export default function ChainAppBtn(props: {
             cmn.mleft10
           )}
         >
-          {getChainAlias(props.skaleNetwork, props.chainName, props.appName)}
+          {metadata.getAlias(chainsMeta, props.chainName, props.appName)}
         </p>
         <div className={cls(cmn.flex, cmn.flexg)}></div>
         <KeyboardArrowRightRoundedIcon

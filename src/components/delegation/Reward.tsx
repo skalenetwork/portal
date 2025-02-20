@@ -21,28 +21,26 @@
  */
 
 import { cmn, cls, styles } from '@skalenetwork/metaport'
+import { types, units } from '@/core'
 
 import { Grid } from '@mui/material'
 import LoadingButton from '@mui/lab/LoadingButton'
-
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
 
 import ValidatorLogo from './ValidatorLogo'
 
 import { getValidatorById } from '../../core/delegation'
-import { formatBalance } from '../../core/helper'
 import RetrieveRewardModal from './RetrieveRewardModal'
-import { types } from '@/core'
 
 export default function Reward(props: {
-  validators: types.staking.IValidator[]
-  delegationsToValidator: types.staking.IDelegationsToValidator
+  validators: types.st.IValidator[]
+  delegationsToValidator: types.st.IDelegationsToValidator
   setOpen: (open: boolean) => void
   open: boolean
-  retrieveRewards: (rewardInfo: types.staking.IRewardInfo) => Promise<void>
-  loading: types.staking.IRewardInfo | types.staking.IDelegationInfo | false
-  delegationType: types.staking.DelegationType
+  retrieveRewards: (rewardInfo: types.st.IRewardInfo) => Promise<void>
+  loading: types.st.IRewardInfo | types.st.IDelegationInfo | false
+  delegationType: types.st.DelegationType
   isXs: boolean
   address: types.AddressType | undefined
   customAddress: types.AddressType | undefined
@@ -50,8 +48,8 @@ export default function Reward(props: {
   setCustomRewardAddress: (customRewardAddress: types.AddressType | undefined) => void
 }) {
   const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
-  const rewardsAmount = formatBalance(props.delegationsToValidator.rewards, 'SKL')
-  const totalStakedAmount = formatBalance(props.delegationsToValidator.staked, 'SKL')
+  const rewardsAmount = units.formatBalance(props.delegationsToValidator.rewards, 'SKL')
+  const totalStakedAmount = units.formatBalance(props.delegationsToValidator.staked, 'SKL')
   if (!validator) return
 
   const loading =

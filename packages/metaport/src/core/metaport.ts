@@ -21,37 +21,28 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { Provider, JsonRpcProvider, Contract } from 'ethers'
-
-import {
-  MetaportConfig,
-  TokenDataTypesMap,
-  Token,
-  TokenContractsMap,
-  TokenBalancesMap
-} from './interfaces'
-import { TokenType, TokenData, CustomAbiTokenType } from './dataclasses'
+import { Logger, type ILogObj } from 'tslog'
+import { Provider, JsonRpcProvider, Contract, Signer } from 'ethers'
+import { types, dc, ERC_ABIS, contracts, constants, endpoints } from '@/core'
 
 import { getEmptyTokenDataMap } from './tokens/helper'
 import { getStepsMetadata } from '../core/transfer_steps'
-import { getChainEndpoint, initIMA, initMainnet, initSChain } from './network'
+import { mainnetProvider, sChainProvider } from './network'
 import { MetaportState } from '../store/MetaportState'
-import { ERC_ABIS } from './contracts'
 
-import debug from 'debug'
-import { MainnetChain, SChain } from '@skalenetwork/ima-js'
-import { MAINNET_CHAIN_NAME } from './constants'
+import { MainnetChain, SChain } from './contracts'
+import { skaleContracts, type Instance } from '@skalenetwork/skale-contracts-ethers-v6'
 
-const log = debug('ima:test:MainnetChain')
+const log = new Logger<ILogObj>({ name: 'metaport:core' })
 
 export const createTokenData = (
   tokenKeyname: string,
   chainName: string,
-  tokenType: TokenType,
-  config: MetaportConfig
-): TokenData => {
-  const configToken: Token = config.connections[chainName][tokenType][tokenKeyname]
-  return new TokenData(
+  tokenType: dc.TokenType,
+  config: types.mp.Config
+): dc.TokenData => {
+  const configToken: types.mp.Token = config.connections[chainName][tokenType][tokenKeyname]
+  return new dc.TokenData(
     configToken.address,
     tokenType,
     tokenKeyname,
@@ -64,9 +55,9 @@ export const createTokenData = (
 export const addTokenData = (
   tokenKeyname: string,
   chainName: string,
-  tokenType: TokenType,
-  config: MetaportConfig,
-  tokens: TokenDataTypesMap
+  tokenType: dc.TokenType,
+  config: types.mp.Config,
+  tokens: types.mp.TokenDataTypesMap
 ) => {
   tokens[tokenType][tokenKeyname] = createTokenData(tokenKeyname, chainName, tokenType, config)
 }
@@ -74,17 +65,17 @@ export const addTokenData = (
 export const createTokensMap = (
   chainName1: string,
   chainName2: string | null,
-  config: MetaportConfig
-): TokenDataTypesMap => {
+  config: types.mp.Config
+): types.mp.TokenDataTypesMap => {
   const tokens = getEmptyTokenDataMap()
-  log(`updating tokens map for ${chainName1} -> ${chainName2}`)
+  log.info(`updating tokens map for ${chainName1} -> ${chainName2}`)
   if (chainName1) {
-    Object.values(TokenType).forEach((tokenType) => {
+    Object.values(dc.TokenType).forEach((tokenType) => {
       if (config.connections[chainName1][tokenType]) {
         Object.keys(config.connections[chainName1][tokenType]).forEach((tokenKeyname) => {
           const tokenInfo = config.connections[chainName1][tokenType][tokenKeyname]
           if (!chainName2 || (chainName2 && tokenInfo.chains.hasOwnProperty(chainName2))) {
-            addTokenData(tokenKeyname, chainName1, tokenType as TokenType, config, tokens)
+            addTokenData(tokenKeyname, chainName1, tokenType as dc.TokenType, config, tokens)
           }
         })
       }
@@ -95,32 +86,32 @@ export const createTokensMap = (
 
 export function createWrappedTokensMap(
   chainName1: string,
-  config: MetaportConfig
-): TokenDataTypesMap {
-  const wrappedTokens: TokenDataTypesMap = getEmptyTokenDataMap()
-  const tokenType = TokenType.erc20
+  config: types.mp.Config
+): types.mp.TokenDataTypesMap {
+  const wrappedTokens: types.mp.TokenDataTypesMap = getEmptyTokenDataMap()
+  const tokenType = dc.TokenType.erc20
   if (!chainName1 || !config.connections[chainName1][tokenType]) return wrappedTokens
   Object.keys(config.connections[chainName1][tokenType]).forEach((tokenKeyname) => {
     const token = config.connections[chainName1][tokenType][tokenKeyname]
     const wrapperAddress = findFirstWrapperAddress(token)
     if (wrapperAddress) {
-      addTokenData(tokenKeyname, chainName1, tokenType as TokenType, config, wrappedTokens)
+      addTokenData(tokenKeyname, chainName1, tokenType as dc.TokenType, config, wrappedTokens)
     }
   })
   const ethToken = config.connections[chainName1].eth?.eth
   if (ethToken) {
     const wrapperAddress = findFirstWrapperAddress(ethToken)
     if (wrapperAddress) {
-      addTokenData('eth', chainName1, TokenType.eth, config, wrappedTokens)
+      addTokenData('eth', chainName1, dc.TokenType.eth, config, wrappedTokens)
     }
   }
   return wrappedTokens
 }
 
-const findFirstWrapperAddress = (token: Token): `0x${string}` | null =>
+const findFirstWrapperAddress = (token: types.mp.Token): `0x${string}` | null =>
   Object.values(token.chains).find((chain) => 'wrapper' in chain)?.wrapper || null
 
-export const findFirstWrapperChainName = (token: TokenData): string | null => {
+export const findFirstWrapperChainName = (token: dc.TokenData): string | null => {
   for (const [chainName, chain] of Object.entries(token.connections)) {
     if (chain.wrapper) {
       return chainName
@@ -130,13 +121,14 @@ export const findFirstWrapperChainName = (token: TokenData): string | null => {
 }
 
 export default class MetaportCore {
-  private _config: MetaportConfig
+  private _config: types.mp.Config
+  private _imaCache: Record<string, MainnetChain | SChain> = {}
 
-  constructor(config: MetaportConfig) {
+  constructor(config: types.mp.Config) {
     this._config = config
   }
 
-  get config(): MetaportConfig {
+  get config(): types.mp.Config {
     return this._config
   }
 
@@ -146,7 +138,7 @@ export default class MetaportCore {
    * @param {string} from - Source chain name.
    * @param {string | null} [to] - Destination chain name.
    *
-   * @returns {TokenDataTypesMap} - Returns a map of token data types for the given chains.
+   * @returns {types.mp.TokenDataTypesMap} - Returns a map of token data types for the given chains.
    *
    * @example
    *
@@ -156,12 +148,12 @@ export default class MetaportCore {
    * // To get all tokens from 'a'
    * const tokens = mpc.tokens('a');
    */
-  tokens(from: string, to?: string | null): TokenDataTypesMap {
+  tokens(from: string, to?: string | null): types.mp.TokenDataTypesMap {
     if (from === undefined || from === null || from === '') return getEmptyTokenDataMap()
     return createTokensMap(from, to, this._config)
   }
 
-  wrappedTokens(chainName: string): TokenDataTypesMap {
+  wrappedTokens(chainName: string): types.mp.TokenDataTypesMap {
     return createWrappedTokensMap(chainName, this._config)
   }
 
@@ -170,10 +162,10 @@ export default class MetaportCore {
   }
 
   async tokenBalances(
-    tokenContracts: TokenContractsMap,
+    tokenContracts: types.mp.TokenContractsMap,
     address: string
-  ): Promise<TokenBalancesMap> {
-    const balances: TokenBalancesMap = {}
+  ): Promise<types.mp.TokenBalancesMap> {
+    const balances: types.mp.TokenBalancesMap = {}
     const tokenKeynames = Object.keys(tokenContracts)
     for (const tokenKeyname of tokenKeynames) {
       balances[tokenKeyname] = await tokenContracts[tokenKeyname].balanceOf(address)
@@ -182,17 +174,17 @@ export default class MetaportCore {
   }
 
   tokenContracts(
-    tokens: TokenDataTypesMap,
-    tokenType: TokenType,
+    tokens: types.mp.TokenDataTypesMap,
+    tokenType: dc.TokenType,
     chainName: string,
     provider: Provider,
-    customAbiTokenType?: CustomAbiTokenType
-  ): TokenContractsMap {
-    const contracts: TokenContractsMap = {}
+    customAbiTokenType?: dc.TokenTypeExtended
+  ): types.mp.TokenContractsMap {
+    const contracts: types.mp.TokenContractsMap = {}
     if (tokens[tokenType]) {
       Object.keys(tokens[tokenType]).forEach((tokenKeyname) => {
         let destChainName
-        if (customAbiTokenType === CustomAbiTokenType.erc20wrap) {
+        if (customAbiTokenType === dc.CustomAbiTokenType.erc20wrap) {
           destChainName = findFirstWrapperChainName(tokens[tokenType][tokenKeyname])
           if (!destChainName) return
         }
@@ -212,16 +204,15 @@ export default class MetaportCore {
   tokenContract(
     chainName: string,
     tokenKeyname: string,
-    tokenType: TokenType,
+    tokenType: dc.TokenType,
     provider: Provider,
-    customAbiTokenType?: CustomAbiTokenType,
+    customAbiTokenType?: dc.TokenTypeExtended,
     destChainName?: string
   ): Contract | undefined {
     const token = this._config.connections[chainName][tokenType][tokenKeyname]
     if (!token.address) return
     const abi = customAbiTokenType ? ERC_ABIS[customAbiTokenType].abi : ERC_ABIS[tokenType].abi
     const address = customAbiTokenType ? token.chains[destChainName].wrapper : token.address
-    // TODO: add sFUEL address support!
     return new Contract(address, abi, provider)
   }
 
@@ -229,7 +220,7 @@ export default class MetaportCore {
     chainName1: string,
     chainName2: string,
     tokenKeyname: string,
-    tokenType: TokenType
+    tokenType: dc.TokenType
   ) {
     let token = this._config.connections[chainName1][tokenType][tokenKeyname]
     const isClone = token.chains[chainName2].clone
@@ -240,19 +231,65 @@ export default class MetaportCore {
   }
 
   endpoint(chainName: string): string {
-    return getChainEndpoint(this._config.mainnetEndpoint, this._config.skaleNetwork, chainName)
+    return endpoints.get(this._config.mainnetEndpoint, this._config.skaleNetwork, chainName)
   }
 
-  ima(chainName: string): MainnetChain | SChain {
-    return initIMA(this._config.mainnetEndpoint, this._config.skaleNetwork, chainName)
+  async ima(chainName: string): Promise<MainnetChain | SChain> {
+    if (chainName === constants.MAINNET_CHAIN_NAME) return await this.mainnet()
+    return await this.schain(chainName)
   }
 
-  mainnet(): MainnetChain {
-    return initMainnet(this._config.mainnetEndpoint, this._config.skaleNetwork)
+  async getInstance(
+    provider: Provider,
+    project: contracts.ISkaleContractsProject,
+    aliasOrAddress: string
+  ): Promise<Instance> {
+    const network = await skaleContracts.getNetworkByProvider(provider)
+    const projectInstance = await network.getProject(project)
+    return await projectInstance.getInstance(aliasOrAddress)
   }
 
-  schain(chainName: string): SChain {
-    return initSChain(this._config.skaleNetwork, chainName)
+  async mainnet(externalProvider?: Provider, signer?: Signer): Promise<MainnetChain> {
+    if (
+      externalProvider === undefined &&
+      signer === undefined &&
+      this._imaCache[constants.MAINNET_CHAIN_NAME]
+    ) {
+      log.debug('returning cached mainnet ima')
+      return this._imaCache[constants.MAINNET_CHAIN_NAME] as MainnetChain
+    }
+    const provider = externalProvider ?? mainnetProvider(this._config.mainnetEndpoint)
+    const aliasOrAddress = contracts.getAliasOrAddress(
+      this._config.skaleNetwork,
+      contracts.Project.MAINNET_IMA
+    )
+    const instance = await this.getInstance(provider, contracts.Project.MAINNET_IMA, aliasOrAddress)
+    const mainnet = new MainnetChain(provider, instance, signer)
+    if (externalProvider === undefined && signer === undefined) {
+      log.debug('caching mainnet ima')
+      this._imaCache[constants.MAINNET_CHAIN_NAME] = mainnet
+    }
+    return mainnet
+  }
+
+  async schain(chainName: string, externalProvider?: Provider, signer?: Signer): Promise<SChain> {
+    if (chainName === constants.MAINNET_CHAIN_NAME) throw new Error('Invalid chain name')
+    if (externalProvider === undefined && signer === undefined && this._imaCache[chainName]) {
+      log.debug(`returning cached ima for ${chainName}`)
+      return this._imaCache[chainName] as SChain
+    }
+    let provider = externalProvider ?? sChainProvider(this._config.skaleNetwork, chainName)
+    const instance = await this.getInstance(
+      provider,
+      contracts.SchainProject.SCHAIN_IMA,
+      contracts.PREDEPLOYED_ALIAS
+    )
+    const schain = new SChain(provider, instance, signer)
+    if (externalProvider === undefined && signer === undefined) {
+      log.debug(`caching ima for ${chainName}`)
+      this._imaCache[chainName] = schain
+    }
+    return schain
   }
 
   provider(chainName: string): Provider {
@@ -262,7 +299,7 @@ export default class MetaportCore {
   tokenChanged(
     chainName1: string,
     ima2: MainnetChain | SChain,
-    token: TokenData | null | undefined,
+    token: dc.TokenData | null | undefined,
     destChainName?: string
   ): Partial<MetaportState> {
     if (token === undefined || token === null)
@@ -296,35 +333,44 @@ export default class MetaportCore {
     }
   }
 
-  chainChanged(
+  async chainChanged(
     chainName1: string,
     chainName2: string,
-    prevToken: TokenData
-  ): Partial<MetaportState> {
-    const ima1 = this.ima(chainName1)
-    const ima2 = this.ima(chainName2)
+    prevToken: dc.TokenData
+  ): Promise<Partial<MetaportState>> {
+    if (chainName1 === '' || chainName2 === '') {
+      return { chainName1, chainName2 }
+    }
+
+    const ima1 = await this.ima(chainName1)
+    const ima2 = await this.ima(chainName2)
     const tokens = this.tokens(chainName1, chainName2)
-    const tokenContracts = this.tokenContracts(tokens, TokenType.erc20, chainName1, ima1.provider)
+    const tokenContracts = this.tokenContracts(
+      tokens,
+      dc.TokenType.erc20,
+      chainName1,
+      ima1.provider
+    )
 
     const wrappedTokenContracts = this.tokenContracts(
       tokens,
-      TokenType.erc20,
+      dc.TokenType.erc20,
       chainName1,
       ima1.provider,
-      CustomAbiTokenType.erc20wrap
+      dc.CustomAbiTokenType.erc20wrap
     )
 
-    if (tokens.eth?.eth && chainName1 !== MAINNET_CHAIN_NAME) {
-      tokenContracts.eth = this.tokenContract(chainName1, 'eth', TokenType.eth, ima1.provider)
+    if (tokens.eth?.eth && chainName1 !== constants.MAINNET_CHAIN_NAME) {
+      tokenContracts.eth = this.tokenContract(chainName1, 'eth', dc.TokenType.eth, ima1.provider)
 
       const destChainName = findFirstWrapperChainName(tokens.eth.eth)
       if (destChainName) {
         wrappedTokenContracts.eth = this.tokenContract(
           chainName1,
           'eth',
-          TokenType.eth,
+          dc.TokenType.eth,
           ima1.provider,
-          CustomAbiTokenType.erc20wrap,
+          dc.CustomAbiTokenType.erc20wrap,
           destChainName
         )
       }

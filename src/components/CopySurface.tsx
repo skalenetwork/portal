@@ -22,6 +22,8 @@
  */
 
 import { useState, useEffect } from 'react'
+import { type types, constants } from '@/core'
+import { cmn, cls, styles, TokenIcon } from '@skalenetwork/metaport'
 
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Tooltip from '@mui/material/Tooltip'
@@ -29,15 +31,11 @@ import ButtonBase from '@mui/material/ButtonBase'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 
-import { cmn, cls, styles, TokenIcon, type interfaces } from '@skalenetwork/metaport'
-
-import { DEFAULT_ERC20_DECIMALS } from '../core/constants'
-
 export default function CopySurface(props: {
   title: string
   value: string | null | undefined
   className?: string
-  tokenMetadata?: interfaces.TokenMetadata
+  tokenMetadata?: types.mp.TokenMetadata
 }) {
   const [copied, setCopied] = useState(false)
 
@@ -76,7 +74,7 @@ export default function CopySurface(props: {
                 <p className={cls(cmn.p, cmn.p4, cmn.pSec, cmn.mbott5)}>
                   {props.title}
                   {props.tokenMetadata
-                    ? ` (${props.tokenMetadata.decimals ?? DEFAULT_ERC20_DECIMALS})`
+                    ? ` (${props.tokenMetadata.decimals ?? constants.DEFAULT_ERC20_DECIMALS})`
                     : null}
                 </p>
               </div>

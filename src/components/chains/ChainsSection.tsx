@@ -24,9 +24,7 @@
 import React, { ReactElement } from 'react'
 import { Grid } from '@mui/material'
 import { cls, cmn } from '@skalenetwork/metaport'
-import { type types } from '@/core'
-
-import { getChainAlias } from '../../core/metadata'
+import { type types, metadata } from '@/core'
 
 import ChainCard from './ChainCard'
 import Headline from '../Headline'
@@ -53,8 +51,8 @@ const ChainsSection: React.FC<ChainsSectionProps> = ({
   const gridSize = size === 'lg' ? { xs: 12, md: 6 } : { xs: 12, md: 4 }
 
   const sortedSchains = [...schains].sort((a, b) => {
-    const aliasA = getChainAlias(chainsMeta, a.name).toLowerCase()
-    const aliasB = getChainAlias(chainsMeta, b.name).toLowerCase()
+    const aliasA = metadata.getAlias(chainsMeta, a.name).toLowerCase()
+    const aliasB = metadata.getAlias(chainsMeta, b.name).toLowerCase()
     return aliasA.localeCompare(aliasB)
   })
 

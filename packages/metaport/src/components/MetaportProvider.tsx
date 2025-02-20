@@ -44,7 +44,7 @@ import {
   rabbyWallet
 } from '@rainbow-me/rainbowkit/wallets'
 
-import { MetaportConfig, ActionStateUpdate } from '../core/interfaces'
+import { types } from '@/core'
 
 import { StyledEngineProvider } from '@mui/material/styles'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
@@ -62,7 +62,7 @@ import { useMetaportStore } from '../store/MetaportStore'
 import MetaportCore from '../core/metaport'
 
 export default function MetaportProvider(props: {
-  config: MetaportConfig
+  config: types.mp.Config
   className?: string
   children?: ReactElement | ReactElement[]
 }) {
@@ -132,7 +132,7 @@ export default function MetaportProvider(props: {
   }, [setMpc])
 
   function actionStateUpdated(e: CustomEvent) {
-    const actionStateUpdate: ActionStateUpdate = e.detail
+    const actionStateUpdate: types.mp.ActionStateUpdate = e.detail
     if (actionStateUpdate.transactionHash) {
       let chainName = actionStateUpdate.actionData.chainName1
       if (

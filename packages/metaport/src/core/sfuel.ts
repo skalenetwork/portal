@@ -21,16 +21,15 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import debug from 'debug'
+import { Logger, type ILogObj } from 'tslog'
 import { Provider } from 'ethers'
+import { type types, constants } from '@/core'
 
 import MetaportCore from './metaport'
-import { AddressType } from './interfaces'
 import { isFaucetAvailable, getSFuel } from './faucet'
-import { MAINNET_CHAIN_NAME, DEFAULT_MIN_SFUEL_WEI } from '../core/constants'
+import { DEFAULT_MIN_SFUEL_WEI } from '../core/constants'
 
-debug.enable('*')
-const log = debug('metaport:sfuel')
+const log = new Logger<ILogObj>({ name: 'metaport:core:sfuel' })
 
 export interface StationData {
   balance: bigint
@@ -55,13 +54,13 @@ export class Station {
     this.provider = mpc.provider(chainName)
   }
 
-  async getData(address: AddressType): Promise<StationData> {
+  async getData(address: types.AddressType): Promise<StationData> {
     try {
       const balance = await this.provider.getBalance(address)
       return { balance, ok: balance >= DEFAULT_MIN_SFUEL_WEI }
     } catch (e) {
-      log(`ERROR: getSFuelData for ${this.chainName} failed!`)
-      log(e)
+      log.info(`ERROR: getSFuelData for ${this.chainName} failed!`)
+      log.info(e)
       return { balance: undefined, ok: undefined }
     }
   }
@@ -70,22 +69,22 @@ export class Station {
     return isFaucetAvailable(this.chainName, this.mpc.config.skaleNetwork)
   }
 
-  async doPoW(address: AddressType): Promise<StationPowRes> {
+  async doPoW(address: types.AddressType): Promise<StationPowRes> {
     // return { ok: true, message: 'PoW is not available for Ethereum Mainnet' };
     if (!this.chainName || !isFaucetAvailable(this.chainName, this.mpc.config.skaleNetwork)) {
-      log('WARNING: PoW is not available for this chain')
-      if (this.chainName === MAINNET_CHAIN_NAME) {
+      log.info('WARNING: PoW is not available for this chain')
+      if (this.chainName === constants.MAINNET_CHAIN_NAME) {
         return { ok: true, message: 'PoW is not available for Ethereum Mainnet' }
       }
       return { ok: false, message: 'PoW is not available for this chain' }
     }
-    log('Mining sFUEL for ' + address + ' on ' + this.chainName + '...')
+    log.info('Mining sFUEL for ' + address + ' on ' + this.chainName + '...')
     try {
       await getSFuel(this.chainName, address, this.mpc)
       return { ok: true, message: 'PoW finished successfully' }
     } catch (e) {
-      log('ERROR: PoW failed!')
-      log(e)
+      log.info('ERROR: PoW failed!')
+      log.info(e)
       return { ok: false, message: e.message }
     }
   }

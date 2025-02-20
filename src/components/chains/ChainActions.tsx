@@ -23,11 +23,10 @@
 
 import React from 'react'
 import { IconButton, Tooltip } from '@mui/material'
-import { cls, cmn } from '@skalenetwork/metaport'
+import { cls, cmn, explorer } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 import LanguageIcon from '@mui/icons-material/Language'
 import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
-import { getExplorerUrl } from '../../core/explorer'
 
 interface ChainActionsProps {
   chainMeta?: types.ChainMetadata
@@ -42,7 +41,7 @@ const ChainActions: React.FC<ChainActionsProps> = ({
   skaleNetwork,
   className
 }) => {
-  const explorerUrl = getExplorerUrl(skaleNetwork, schainName)
+  const explorerUrl = explorer.getExplorerUrl(skaleNetwork, schainName)
   const isMd = false
 
   return (

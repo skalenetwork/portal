@@ -1,7 +1,6 @@
 import Button from '@mui/material/Button'
+import { dc, types } from '@/core'
 
-import { TokenData, TokenType } from '../core/dataclasses'
-import { TokenBalancesMap, TokenDataMap } from '../core/interfaces'
 import { cls, cmn } from '../core/css'
 
 import TokenBalance from './TokenBalance'
@@ -11,12 +10,12 @@ import { getTokenName } from '../core/metadata'
 
 export default function TokenListSection(props: {
   setExpanded: (expanded: string | false) => void
-  setToken: (token: TokenData) => void
-  tokens: TokenDataMap
-  type: TokenType
-  tokenBalances?: TokenBalancesMap
+  setToken: (token: dc.TokenData) => void
+  tokens: types.mp.TokenDataMap
+  type: dc.TokenType
+  tokenBalances?: types.mp.TokenBalancesMap
 }) {
-  function handle(tokenData: TokenData): void {
+  function handle(tokenData: dc.TokenData): void {
     props.setExpanded(false)
     props.setToken(tokenData)
   }

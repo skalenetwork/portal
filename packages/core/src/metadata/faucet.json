@@ -1,0 +1,65 @@
+{
+  "mainnet": {
+    "honorable-steel-rasalhague": {
+      "address": "0x02891b34B7911A9C68e82C193cd7A6fBf0c3b30A",
+      "func": "0x0c11dedd"
+    },
+    "affectionate-immediate-pollux": {
+      "address": "0xFcE116dB669A22CF811D86F0591F8AeCA68abB01",
+      "func": "0x0c11dedd"
+    },
+    "elated-tan-skat": {
+      "address": "0x2B267A3e49b351DEdac892400a530ABb2f899d23",
+      "func": "0x6a627842"
+    },
+    "turbulent-unique-scheat": {
+      "address": "0xCf616Cc9C2bC15A35324B2634B6dBaF585e5D8E4",
+      "func": "0x0c11dedd"
+    },
+    "parallel-stormy-spica": {
+      "address": "0xa5C297dF8f8386E4b940D61EF9A8f2bB367a6fAB",
+      "func": "0x0c11dedd"
+    },
+    "wan-red-ain": {
+      "address": "0xb51a0E538c76C82e76757dc6D5a3938136C03c0C",
+      "func": "0x0c11dedd"
+    },
+    "green-giddy-denebola": {
+      "address": "0x5a6869ef5b81DCb58EBF51b8F893c31f5AFE3Fa8",
+      "func": "0x0c11dedd"
+    }
+  },
+  "legacy": {
+    "adorable-quaint-bellatrix": {
+      "address": "0x94977628d2EeDa78E2A56Abe178F432c46E13a6b",
+      "func": "0x0c11dedd"
+    },
+    "these-long-sadalsuud": {
+      "address": "0xb45FA2D56C9f82d130Eb007a76F1FB3631d99b3b",
+      "func": "0x0c11dedd"
+    },
+    "spanish-smug-auva": {
+      "address": "0xa101902B3119f4830292bb79ebAB56967229207B",
+      "func": "0x0c11dedd"
+    }
+  },
+  "regression": null,
+  "testnet": {
+    "juicy-low-small-testnet": {
+      "address": "0x366727B410fE55774C8b0B5b5A6E2d74199a088A",
+      "func": "0x0c11dedd"
+    },
+    "giant-half-dual-testnet": {
+      "address": "0x62Fe932FF26e0087Ae383f6080bd2Ed481bA5A8A",
+      "func": "0x0c11dedd"
+    },
+    "lanky-ill-funny-testnet": {
+      "address": "0x000E9c53C4e2e21F5063f2e232d0AA907318dccb",
+      "func": "0x0c11dedd"
+    },
+    "aware-fake-trim-testnet": {
+      "address": "0x08f98Af60eb83C18184231591A8F89577E46A4B9",
+      "func": "0x0c11dedd"
+    }
+  }
+}

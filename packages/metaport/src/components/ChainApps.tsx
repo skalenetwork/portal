@@ -22,20 +22,18 @@
  */
 
 import { ReactElement, useState } from 'react'
+import { type types, metadata, helper } from '@/core'
 import { Button } from '@mui/material'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
 
 import { cls, cmn, styles } from '../core/css'
-import { SkaleNetwork } from '../core/interfaces'
-import { getChainAppsMeta } from '../core/metadata'
 
 import ChainAppBtn from './ChainAppBtn'
-
-import { sortObjectByKeys } from '../core/helper'
+import { CHAINS_META } from '../core/metadata'
 
 export default function ChainApps(props: {
-  skaleNetwork: SkaleNetwork
+  skaleNetwork: types.SkaleNetwork
   chainName: string
   handle?: (schainName: string, app?: string) => void
   size?: 'sm' | 'md'
@@ -43,14 +41,15 @@ export default function ChainApps(props: {
 }) {
   const [show, setShow] = useState<boolean>(false)
 
-  const apps = getChainAppsMeta(props.chainName, props.skaleNetwork)
+  const chainsMeta = CHAINS_META[props.skaleNetwork]
+  const apps = metadata.getChainApps(chainsMeta, props.chainName)
   if (!apps || !Object.keys(apps) || Object.keys(apps).length === 0) return <div></div>
 
   const size = props.size ?? 'sm'
 
   const appButtons: ReactElement[] = []
 
-  for (const appName in sortObjectByKeys(apps)) {
+  for (const appName in helper.sortObjectByKeys(apps)) {
     appButtons.push(
       <ChainAppBtn
         skaleNetwork={props.skaleNetwork}
@@ -59,6 +58,7 @@ export default function ChainApps(props: {
         handle={props.handle}
         size={size}
         prim={props.prim}
+        key={props.chainName + appName}
       />
     )
   }

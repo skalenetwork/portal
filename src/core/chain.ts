@@ -24,9 +24,6 @@
 import { id, toBeHex } from 'ethers'
 import { type types } from '@/core'
 
-export const HTTPS_PREFIX = 'https://'
-export const WSS_PREFIX = 'wss://'
-
 export function formatSChains(schainsData: types.ISChainData[]): types.ISChain[] {
   return schainsData.map((schainData) => formatSChain(schainData.schain))
 }
@@ -63,21 +60,4 @@ export function getFsUrl(proxyUrl: string, schainName: string, prefix: string): 
 
 export function getChainId(schainName: string): string {
   return toBeHex(id(schainName).substring(0, 15))
-}
-
-export function getChainShortAlias(meta: types.ChainsMetadataMap, name: string): string {
-  return meta[name]?.shortAlias !== undefined ? meta[name].shortAlias! : name
-}
-
-export function getChainDescription(meta: types.ChainMetadata | undefined): string {
-  return meta && meta.description ? meta.description : 'No description'
-}
-
-export function findChainName(meta: types.ChainsMetadataMap, name: string): string {
-  for (const key in meta) {
-    if (meta[key].shortAlias === name) {
-      return key
-    }
-  }
-  return name
 }

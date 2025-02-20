@@ -22,18 +22,18 @@
  */
 
 import { useState, useEffect } from 'react'
-import { types } from '@/core'
-
-import Box from '@mui/material/Box'
-import CssBaseline from '@mui/material/CssBaseline'
+import { type types, endpoints } from '@/core'
 import {
   useMetaportStore,
   useWagmiAccount,
   Debug,
   cls,
   cmn,
-  PROXY_ENDPOINTS
+  contracts
 } from '@skalenetwork/metaport'
+
+import Box from '@mui/material/Box'
+import CssBaseline from '@mui/material/CssBaseline'
 
 import Header from './Header'
 import SkDrawer from './SkDrawer'
@@ -45,7 +45,6 @@ import { formatSChains } from './core/chain'
 import { STATS_API } from './core/constants'
 import { getValidatorDelegations } from './core/delegation/staking'
 import { getValidator } from './core/delegation'
-import { initContracts } from './core/contracts'
 
 export default function Portal() {
   const mpc = useMetaportStore((state) => state.mpc)
@@ -53,15 +52,15 @@ export default function Portal() {
   const [schains, setSchains] = useState<types.ISChain[]>([])
   const [metrics, setMetrics] = useState<types.IMetrics | null>(null)
   const [stats, setStats] = useState<types.IStats | null>(null)
-  const [validator, setValidator] = useState<types.staking.IValidator | null | undefined>(null)
-  const [validatorDelegations, setValidatorDelegations] = useState<
-    types.staking.IDelegation[] | null
-  >(null)
+  const [validator, setValidator] = useState<types.st.IValidator | null | undefined>(null)
+  const [validatorDelegations, setValidatorDelegations] = useState<types.st.IDelegation[] | null>(
+    null
+  )
   const [customAddress, setCustomAddress] = useState<types.AddressType | undefined>(undefined)
-  const [sc, setSc] = useState<types.staking.ISkaleContractsMap | null>(null)
+  const [sc, setSc] = useState<types.st.ISkaleContractsMap | null>(null)
   const [loadCalled, setLoadCalled] = useState<boolean>(false)
 
-  const endpoint = PROXY_ENDPOINTS[mpc.config.skaleNetwork]
+  const endpoint = endpoints.getProxyEndpoint(mpc.config.skaleNetwork)
   const statsApi = STATS_API[mpc.config.skaleNetwork]
 
   const { address } = useWagmiAccount()
@@ -79,7 +78,7 @@ export default function Portal() {
   async function initSkaleContracts() {
     setLoadCalled(true)
     if (loadCalled) return
-    setSc(await initContracts(mpc))
+    setSc(await contracts.initContracts(mpc))
   }
 
   async function loadChains() {

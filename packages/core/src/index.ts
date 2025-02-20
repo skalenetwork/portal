@@ -21,5 +21,28 @@
  */
 
 import * as types from './types'
+import * as dc from './dataclasses'
+import * as constants from './constants'
+import * as metadata from './metadata'
+import * as contracts from './contracts'
+import * as units from './units'
+import * as endpoints from './endpoints'
+import * as helper from './helper'
+import * as timeUtils from './timeUtils'
 
-export { types }
+import { ERC_ABIS } from './abi'
+import { FAUCET_DATA } from './metadata'
+
+export {
+    types,
+    dc,
+    constants,
+    metadata,
+    contracts,
+    units,
+    endpoints,
+    helper,
+    timeUtils,
+    ERC_ABIS,
+    FAUCET_DATA
+}

@@ -21,16 +21,15 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import debug from 'debug'
-import * as interfaces from './interfaces/index'
+import { Logger, type ILogObj } from 'tslog'
+import { types } from '@/core'
 
-debug.enable('*')
-const log = debug('metaport:core:events')
+const log = new Logger<ILogObj>({ name: 'metaport:core:events' })
 
 function dispatchEvent(name: string, data = {}) {
-  log(`dispatchEvent - sending: ${name}`)
+  log.info(`dispatchEvent - sending: ${name}`)
   window.dispatchEvent(new CustomEvent(name, { detail: data }))
-  log(`dispatchEvent - sent: ${name}`)
+  log.info(`dispatchEvent - sent: ${name}`)
 }
 
 export namespace externalEvents {
@@ -58,30 +57,14 @@ export namespace externalEvents {
     })
   }
 
-  export function transferRequestCompleted(transferRequest: interfaces.TransferParams) {
-    dispatchEvent('metaport_transferRequestCompleted', { transferRequest: transferRequest })
-  }
-
-  export function actionStateUpdated(actionStateUpdate: interfaces.ActionStateUpdate): void {
+  export function actionStateUpdated(actionStateUpdate: types.mp.ActionStateUpdate): void {
     dispatchEvent('metaport_actionStateUpdated', actionStateUpdate)
-  }
-
-  export function unwrapComplete(tx: string, chainName1: string, tokenSymbol: string) {
-    dispatchEvent('metaport_unwrapComplete', {
-      tokenSymbol: tokenSymbol,
-      chain: chainName1,
-      tx: tx
-    })
   }
 
   export function ethUnlocked(tx: string) {
     dispatchEvent('metaport_ethUnlocked', {
       tx: tx
     })
-  }
-
-  export function connected() {
-    dispatchEvent('metaport_connected')
   }
 }
 
