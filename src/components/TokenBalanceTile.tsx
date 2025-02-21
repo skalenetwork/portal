@@ -99,7 +99,9 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
       <Tile
         className={cls(cmn.mtop10)}
         disabled={false}
-        value={balance !== undefined ? units.formatBalance(balance, constants.USDC_DECIMALS) : null}
+        value={
+          balance !== undefined ? units.displayBalance(balance, constants.USDC_DECIMALS) : null
+        }
         text="USDC on SKALE Europa"
         icon={<TokenIcon tokenSymbol="usdc" size="xs" />}
         childrenRi={

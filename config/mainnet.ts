@@ -28,22 +28,22 @@ export const METAPORT_CONFIG: types.mp.Config = {
       symbol: 'ETH'
     },
     skl: {
-      decimals: '18',
+      decimals: 18,
       name: 'SKALE',
       symbol: 'SKL'
     },
     usdc: {
-      decimals: '6',
+      decimals: 6,
       symbol: 'USDC',
       name: 'USD Coin'
     },
     usdt: {
-      decimals: '6',
+      decimals: 6,
       symbol: 'USDT',
       name: 'Tether USD'
     },
     wbtc: {
-      decimals: '8',
+      decimals: 8,
       symbol: 'WBTC',
       name: 'WBTC'
     },
@@ -67,7 +67,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/10347.png'
     },
     razor: {
-      decimals: '18',
+      decimals: 18,
       name: 'RAZOR Network',
       symbol: 'RAZOR',
       iconUrl: 'https://assets.coingecko.com/coins/images/13797/small/icon.png'
@@ -93,7 +93,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     },
     hmkr: {
       name: 'Hitmakr',
-      decimals: '9',
+      decimals: 9,
       symbol: 'HMKR',
       iconUrl: 'https://assets.coingecko.com/coins/images/36660/standard/HITMAKR_logo.png'
     },
@@ -121,7 +121,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
       name: 'Wrapped Car Token 1',
       symbol: 'wCT1',
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/12648.png',
-      decimals: '2'
+      decimals: 2
     },
     flag: {
       name: 'FLAG',
@@ -136,7 +136,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     skivvy: {
       name: 'Skivvy',
       symbol: 'SKIVVY',
-      decimals: '8',
+      decimals: 8,
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3441.png'
     }
   },

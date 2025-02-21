@@ -20,27 +20,13 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import { Contract, id, type InterfaceAbi } from 'ethers'
-import { type MetaportCore } from '@skalenetwork/metaport'
-import { type types } from '@/core'
-import PAYMASTER_INFO from '../data/paymaster'
-import PAYMASTER_ABI from '../data/paymasterAbi.json'
+import { Contract, id } from 'ethers'
+import { skaleContracts } from '@skalenetwork/skale-contracts-ethers-v6'
+import { type types, contracts } from '@/core'
 
-export interface PaymasterInfo {
-  maxReplenishmentPeriod: bigint
-  oneSklPrice: bigint
-  schainPricePerMonth: bigint
-  skaleToken: string
-  schain: {
-    name: string
-    paidUntil: bigint
-  }
-  effectiveTimestamp?: bigint
-}
+import MetaportCore from '../metaport'
 
-export type DueDateStatus = 'primary' | 'warning' | 'error' | 'success'
-
-export const DEFAULT_PAYMASTER_INFO: PaymasterInfo = {
+export const DEFAULT_PAYMASTER_INFO: types.pm.PaymasterInfo = {
   maxReplenishmentPeriod: 0n,
   oneSklPrice: 0n,
   schainPricePerMonth: 0n,
@@ -51,39 +37,30 @@ export const DEFAULT_PAYMASTER_INFO: PaymasterInfo = {
   }
 }
 
-export function divideBigInts(a: bigint, b: bigint): number {
-  return Number((a * 10000n) / b) / 10000
-}
-
 export function getPaymasterChain(skaleNetwork: types.SkaleNetwork): string {
-  return PAYMASTER_INFO.networks[skaleNetwork].chain
+  return contracts.PAYMASTER_CONTRACTS[skaleNetwork].chain
 }
 
 export function getPaymasterAddress(skaleNetwork: types.SkaleNetwork): string {
-  return PAYMASTER_INFO.networks[skaleNetwork].address
+  return contracts.PAYMASTER_CONTRACTS[skaleNetwork].address
 }
 
-export function getPaymasterLaunchTs(skaleNetwork: types.SkaleNetwork): bigint {
-  return BigInt(PAYMASTER_INFO.networks[skaleNetwork].launchTs)
-}
-
-export function getPaymasterAbi(): InterfaceAbi {
-  return PAYMASTER_ABI.abi
-}
-
-export function initPaymaster(mpc: MetaportCore): Contract {
-  const network = mpc.config.skaleNetwork
-  const paymasterAddress = getPaymasterAddress(network)
-  const paymasterChain = getPaymasterChain(network)
+export async function getPaymaster(mpc: MetaportCore): Promise<Contract> {
+  const paymasterAddress = getPaymasterAddress(mpc.config.skaleNetwork)
+  const paymasterChain = getPaymasterChain(mpc.config.skaleNetwork)
   const provider = mpc.provider(paymasterChain)
-  return new Contract(paymasterAddress, getPaymasterAbi(), provider)
+
+  const network = await skaleContracts.getNetworkByProvider(provider)
+  const projectInstance = await network.getProject('paymaster')
+  const instance = await projectInstance.getInstance(paymasterAddress)
+  return (await instance.getContract('Paymaster')) as Contract
 }
 
 export async function getPaymasterInfo(
   paymaster: Contract,
   targetChainName: string,
   skaleNetwork: types.SkaleNetwork
-): Promise<PaymasterInfo> {
+): Promise<types.pm.PaymasterInfo> {
   const rawData = await Promise.all([
     paymaster.maxReplenishmentPeriod(),
     paymaster.oneSklPrice(),

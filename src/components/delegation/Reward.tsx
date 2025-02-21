@@ -48,8 +48,8 @@ export default function Reward(props: {
   setCustomRewardAddress: (customRewardAddress: types.AddressType | undefined) => void
 }) {
   const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
-  const rewardsAmount = units.formatBalance(props.delegationsToValidator.rewards, 'SKL')
-  const totalStakedAmount = units.formatBalance(props.delegationsToValidator.staked, 'SKL')
+  const rewardsAmount = units.displayBalance(props.delegationsToValidator.rewards, 'SKL')
+  const totalStakedAmount = units.displayBalance(props.delegationsToValidator.staked, 'SKL')
   if (!validator) return
 
   const loading =

@@ -24,10 +24,9 @@
 import TollIcon from '@mui/icons-material/Toll'
 import AvTimerRoundedIcon from '@mui/icons-material/AvTimerRounded'
 
-import { constants, units } from '@/core'
+import { constants, units, type types, helper } from '@/core'
 import { cmn, TokenIcon } from '@skalenetwork/metaport'
 
-import { type PaymasterInfo, type DueDateStatus, divideBigInts } from '../core/paymaster'
 import {
   daysBetweenNowAndTimestamp,
   monthsBetweenNowAndTimestamp,
@@ -39,13 +38,13 @@ import {
 import SkStack from './SkStack'
 import Tile from './Tile'
 
-export default function PricingInfo(props: { info: PaymasterInfo }) {
+export default function PricingInfo(props: { info: types.pm.PaymasterInfo }) {
   const sklPrice = units.fromWei(props.info.oneSklPrice, constants.DEFAULT_ERC20_DECIMALS)
   const chainPriceUsd = units.fromWei(
     props.info.schainPricePerMonth,
     constants.DEFAULT_ERC20_DECIMALS
   )
-  const chainPriceSkl = divideBigInts(props.info.schainPricePerMonth, props.info.oneSklPrice)
+  const chainPriceSkl = helper.divideBigInts(props.info.schainPricePerMonth, props.info.oneSklPrice)
 
   const untilDueDateDays = daysBetweenNowAndTimestamp(
     props.info.schain.paidUntil,
@@ -64,7 +63,7 @@ export default function PricingInfo(props: { info: PaymasterInfo }) {
     props.info.effectiveTimestamp
   )
 
-  function getDueDateStatus(days: number): DueDateStatus {
+  function getDueDateStatus(days: number): types.pm.DueDateStatus {
     if (days > 31) {
       return 'success'
     } else if (days > 0 && days <= 31) {

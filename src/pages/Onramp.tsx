@@ -25,7 +25,7 @@ import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 
 import { constants } from '@/core'
-import { cmn, cls, SkPaper, MetaportCore, useWagmiAccount } from '@skalenetwork/metaport'
+import { cmn, cls, SkPaper, MetaportCore, useWagmiAccount, contracts } from '@skalenetwork/metaport'
 import { TransakConfig, Transak } from '@transak/transak-sdk'
 
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
@@ -40,7 +40,6 @@ import TokenBalanceTile from '../components/TokenBalanceTile'
 import ConnectWallet from '../components/ConnectWallet'
 import Message from '../components/Message'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
-import { getPaymasterChain } from '../core/paymaster'
 import { TRANSAK_STAGING_ENV, TRANSAK_API_KEY, DISABLE_TRANSAK } from '../core/constants'
 import Tile from '../components/Tile'
 
@@ -51,7 +50,7 @@ export default function Onramp(props: { mpc: MetaportCore }) {
   const [transak, setTransak] = useState<Transak | undefined>()
   const { address } = useWagmiAccount()
 
-  const chain = getPaymasterChain(props.mpc.config.skaleNetwork)
+  const chain = contracts.paymaster.getPaymasterChain(props.mpc.config.skaleNetwork)
   const isProd =
     props.mpc.config.skaleNetwork === constants.MAINNET_CHAIN_NAME && !TRANSAK_STAGING_ENV
 

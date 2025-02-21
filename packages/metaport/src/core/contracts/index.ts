@@ -26,11 +26,12 @@ import { Contract, ContractRunner, Signer } from 'ethers'
 import { skaleContracts } from '@skalenetwork/skale-contracts-ethers-v6'
 import { dc, ERC_ABIS, types, contracts } from '@/core'
 
-import SChain from './SChain'
-import MainnetChain from './MainnetChain'
+import SChain from './sChain'
+import MainnetChain from './mainnetChain'
 import MetaportCore from '../metaport'
+import * as paymaster from './paymaster'
 
-export { SChain, MainnetChain }
+export { SChain, MainnetChain, paymaster }
 
 const log = new Logger<ILogObj>({ name: 'portal:core:contracts' })
 

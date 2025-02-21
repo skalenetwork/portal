@@ -32,6 +32,7 @@ export {
 } from './ChainsMetadata'
 export * as st from './staking'
 export * as mp from './metaport'
+export * as pm from './paymaster'
 
 export type AddressType = `0x${string}`
 export type Size = 'xs' | 'sm' | 'md' | 'lg'

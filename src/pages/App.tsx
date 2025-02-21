@@ -171,7 +171,7 @@ export default function App(props: {
   function formatGas(): string | null {
     if (!props.metrics || !counters) return null
     const gasSpentGwei = BigInt(counters.gas_usage_count) * BigInt(props.metrics.gas)
-    return formatNumber(Number(units.fromWei(gasSpentGwei, '9')))
+    return formatNumber(Number(units.fromWei(gasSpentGwei, 9)))
   }
 
   return (

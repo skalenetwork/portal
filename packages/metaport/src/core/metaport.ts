@@ -132,6 +132,10 @@ export default class MetaportCore {
     return this._config
   }
 
+  get network(): types.SkaleNetwork {
+    return this._config.skaleNetwork
+  }
+
   /**
    * Generates available tokens for a given chain or a pair of the chains.
    *

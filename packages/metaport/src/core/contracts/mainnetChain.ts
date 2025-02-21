@@ -23,7 +23,7 @@
 import { Contract } from 'ethers'
 import { Logger, type ILogObj } from 'tslog'
 import { constants, helper } from '@/core'
-import { BaseChain } from './BaseChain'
+import { BaseChain } from './baseChain'
 
 const log = new Logger<ILogObj>({ name: 'metaport:core:contracts:MainnetChain' })
 

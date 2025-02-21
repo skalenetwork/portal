@@ -43,7 +43,7 @@
     "react-social-icons": "^6.17.0",
     "react-transition-group": "^4.4.5",
     "siwe": "^2.3.2",
-    "@skalenetwork/skale-contracts-ethers-v6": "1.0.1"
+    "@skalenetwork/skale-contracts-ethers-v6": "1.0.2-develop.54"
   },
   "devDependencies": {
     "@types/react": "^18.2.15",

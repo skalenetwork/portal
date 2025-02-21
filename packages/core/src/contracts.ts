@@ -72,6 +72,30 @@ export const CONTRACTS: ContractsConfig = {
     }
 }
 
+export const PAYMASTER_CONTRACTS = {
+    mainnet: {
+        chain: 'elated-tan-skat',
+        address: '0x0d66cA00CbAD4219734D7FDF921dD7Caadc1F78D'
+    },
+    staging: {
+        chain: 'staging-legal-crazy-castor',
+        address: '0x9E444978d11E7e753017ce3329B01663D5D78240'
+    },
+    legacy: {
+        chain: 'adorable-quaint-bellatrix',
+        address: '0xb76A448071Ed77d22cAa1669567B5D28f5448d99'
+    },
+    regression: {
+        chain: '',
+        address: '0x'
+    },
+    testnet: {
+        chain: '',
+        address: '0x'
+
+    }
+}
+
 export function getAliasOrAddress(
     skaleNetwork: types.SkaleNetwork,
     projectName: IPortalProject

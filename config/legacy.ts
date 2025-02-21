@@ -16,7 +16,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
       symbol: 'ETH'
     },
     skl: {
-      decimals: '18',
+      decimals: 18,
       name: 'SKALE',
       symbol: 'SKL'
     }

@@ -199,7 +199,7 @@ export default function Delegate(props: {
         />
         <Tile
           disabled={info.allowedToDelegate === 0n}
-          value={units.formatBalance(info.allowedToDelegate!, 'SKL')}
+          value={units.displayBalance(info.allowedToDelegate!, 'SKL')}
           text="Available to stake"
           icon={<TokenIcon tokenSymbol="skl" size="xs" />}
           color={true ? undefined : 'error'}

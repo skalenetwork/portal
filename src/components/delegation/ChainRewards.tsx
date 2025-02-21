@@ -35,7 +35,8 @@ import {
   styles,
   SkPaper,
   Station,
-  explorer
+  explorer,
+  contracts
 } from '@skalenetwork/metaport'
 import { type types, constants, units, ERC_ABIS } from '@/core'
 
@@ -43,13 +44,6 @@ import { Button, Tooltip } from '@mui/material'
 import StarsRoundedIcon from '@mui/icons-material/StarsRounded'
 import EventAvailableRoundedIcon from '@mui/icons-material/EventAvailableRounded'
 import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
-
-import {
-  getPaymasterAbi,
-  getPaymasterAddress,
-  getPaymasterChain,
-  initPaymaster
-} from '../../core/paymaster'
 
 import Headline from '../Headline'
 import Tile from '../Tile'
@@ -74,8 +68,6 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   className,
   isXs
 }) => {
-  const paymaster = initPaymaster(mpc)
-
   const [rewardAmount, setRewardAmount] = useState<bigint | undefined>(undefined)
   const [sklToken, setSklToken] = useState<Contract | undefined>(undefined)
   const [tokenBalance, setTokenBalance] = useState<bigint | undefined>(undefined)
@@ -84,9 +76,10 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   const [btnText, setBtnText] = useState<string | undefined>()
   const [errorMsg, setErrorMsg] = useState<string | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
+  const [paymaster, setPaymaster] = useState<Contract | undefined>()
 
   const network = mpc.config.skaleNetwork
-  const paymasterChain = getPaymasterChain(network)
+  const paymasterChain = contracts.paymaster.getPaymasterChain(network)
 
   const { data: walletClient } = useWagmiWalletClient()
   const { switchChainAsync } = useWagmiSwitchNetwork()
@@ -94,15 +87,24 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   const addr = customAddress ?? address
 
   useEffect(() => {
+    initPaymaster()
+  }, [])
+
+  useEffect(() => {
+    if (!paymaster) return
     loadData()
     const intervalId = setInterval(loadData, constants.DEFAULT_UPDATE_INTERVAL_MS)
     return () => {
       clearInterval(intervalId)
     }
-  }, [validator])
+  }, [paymaster, validator])
+
+  async function initPaymaster() {
+    setPaymaster(await contracts.paymaster.getPaymaster(mpc))
+  }
 
   async function loadChainRewards() {
-    if (validator) {
+    if (validator && paymaster) {
       setRewardAmount(await paymaster.getRewardAmount(validator.id))
     }
   }
@@ -113,6 +115,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   }
 
   async function loadSkaleToken() {
+    if (!paymaster) return
     const tokenAddress = await paymaster.skaleToken()
     let skl = sklToken
     if (skl === undefined) {
@@ -124,7 +127,13 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   }
 
   async function retrieveRewards() {
-    if (!paymaster.runner?.provider || !walletClient || !switchChainAsync || !address) {
+    if (
+      !paymaster ||
+      !paymaster.runner?.provider ||
+      !walletClient ||
+      !switchChainAsync ||
+      !address
+    ) {
       setErrorMsg('Something is wrong with your wallet, try again')
       return
     }
@@ -144,19 +153,13 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
       }
 
       const { chainId } = await paymaster.runner.provider.getNetwork()
-      const paymasterAddress = getPaymasterAddress(network)
 
       await enforceNetwork(chainId, walletClient, switchChainAsync, network, paymasterChain)
       setBtnText('Sending transaction')
       const signer = walletClientToSigner(walletClient)
-      const connectedPaymaster = new Contract(paymasterAddress, getPaymasterAbi(), signer)
+      paymaster.connect(signer)
 
-      const res = await sendTransaction(
-        signer,
-        connectedPaymaster.claim,
-        [address],
-        'paymaster:claim'
-      )
+      const res = await sendTransaction(signer, paymaster.claim, [address], 'paymaster:claim')
       if (!res.status) {
         setErrorMsg(res.err?.name)
         return
@@ -181,7 +184,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
       />
       <Tile
         disabled={rewardAmount === 0n}
-        value={rewardAmount !== undefined && units.formatBalance(rewardAmount, 'SKL')}
+        value={rewardAmount !== undefined && units.displayBalance(rewardAmount, 'SKL')}
         text="Rewards on Europa Hub"
         icon={<EventAvailableRoundedIcon />}
         grow
@@ -207,7 +210,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
                 size="md"
                 transparent
                 grow
-                value={tokenBalance !== undefined && units.formatBalance(tokenBalance, 'SKL')}
+                value={tokenBalance !== undefined && units.displayBalance(tokenBalance, 'SKL')}
                 ri={!isXs}
                 text="Balance on Europa Hub"
                 icon={<TokenIcon tokenSymbol="skl" size="xs" />}

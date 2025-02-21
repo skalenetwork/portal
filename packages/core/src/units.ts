@@ -21,24 +21,40 @@
  */
 
 import { formatUnits, parseUnits, BigNumberish } from 'ethers'
-import { DEFAULT_ERC20_DECIMALS } from './constants'
+import { DEFAULT_ERC20_DECIMALS, DEFAULT_FRACTION_DIGITS } from './constants'
 
 
-export function toWei(value: string, decimals: string): bigint {
-  return parseUnits(value, parseInt(decimals as string))
+export function toWei(value: string, decimals: number): bigint {
+  return parseUnits(value, decimals)
 }
 
-export function fromWei(value: BigNumberish, decimals: string): string {
-  return formatUnits(value, parseInt(decimals as string))
+export function fromWei(value: BigNumberish, decimals: number): string {
+  return formatUnits(value, decimals)
 }
 
-export function formatBalance(balance: bigint, decimals?: string): string {
+export function formatBalance(balance: bigint, decimals?: number): string {
   const tokenDecimals = decimals ?? DEFAULT_ERC20_DECIMALS
-  return formatUnits(balance, parseInt(tokenDecimals))
+  return formatUnits(balance, tokenDecimals)
 }
 
 export function truncateDecimals(input: string, numDecimals: number): string {
   const delimiter = input.includes(',') ? ',' : '.'
   const [integerPart, decimalPart = ''] = input.split(delimiter)
   return `${integerPart}${delimiter}${decimalPart.slice(0, numDecimals)}`
+}
+
+export function displayBalance(
+  value: bigint,
+  tokenSymbol?: string,
+  customDecimals?: number
+): string {
+  const res = Number(
+    truncateDecimals(
+      fromWei(value, customDecimals ?? DEFAULT_ERC20_DECIMALS),
+      DEFAULT_FRACTION_DIGITS
+    )
+  ).toLocaleString(undefined, {
+    maximumFractionDigits: DEFAULT_FRACTION_DIGITS
+  })
+  return res + (tokenSymbol ? ` ${tokenSymbol}` : '')
 }

@@ -102,7 +102,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
               <TokenBalance
                 balance={tokenBalances[token.keyname]}
                 symbol={token.meta.symbol}
-                decimals={token.meta.decimals ?? ''}
+                decimals={token.meta.decimals ?? undefined}
               />
             ) : null}
           </div>
