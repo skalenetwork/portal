@@ -20,7 +20,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { AddressType } from ".."
+import { AddressType } from '..'
 
 export type IBeneficiaryArray = [bigint, bigint, bigint, bigint, bigint, AddressType]
 

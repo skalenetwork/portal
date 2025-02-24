@@ -88,7 +88,7 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
         props.chain
       )
       const address = await tokenContract.getAddress()
-      await watchAsset(walletClient, address, Number(constants.USDC_DECIMALS), 'USDC')
+      await watchAsset(walletClient, address, constants.USDC_DECIMALS, 'USDC')
     } finally {
       setLoading(false)
     }
@@ -100,7 +100,9 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
         className={cls(cmn.mtop10)}
         disabled={false}
         value={
-          balance !== undefined ? units.displayBalance(balance, constants.USDC_DECIMALS) : null
+          balance !== undefined
+            ? units.displayBalance(balance, 'USDC', constants.USDC_DECIMALS)
+            : null
         }
         text="USDC on SKALE Europa"
         icon={<TokenIcon tokenSymbol="usdc" size="xs" />}

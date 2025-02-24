@@ -23,22 +23,21 @@
 
 import { TokenConnectionsMap, TokenMetadataMap, Theme } from '.'
 
-
 export type SkaleNetwork = 'mainnet' | 'legacy' | 'regression' | 'testnet'
 
 export interface Config {
-    openOnLoad?: boolean
-    openButton?: boolean
-    autoLookup?: boolean
-    debug?: boolean
+  openOnLoad?: boolean
+  openButton?: boolean
+  autoLookup?: boolean
+  debug?: boolean
 
-    skaleNetwork: SkaleNetwork
-    mainnetEndpoint?: string
-    projectId?: string
-    chains: string[]
+  skaleNetwork: SkaleNetwork
+  mainnetEndpoint?: string
+  projectId?: string
+  chains: string[]
 
-    tokens: TokenMetadataMap
-    connections: TokenConnectionsMap
+  tokens: TokenMetadataMap
+  connections: TokenConnectionsMap
 
-    theme?: Theme
+  theme?: Theme
 }

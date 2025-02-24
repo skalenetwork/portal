@@ -23,7 +23,6 @@
 import { formatUnits, parseUnits, BigNumberish } from 'ethers'
 import { DEFAULT_ERC20_DECIMALS, DEFAULT_FRACTION_DIGITS } from './constants'
 
-
 export function toWei(value: string, decimals: number): bigint {
   return parseUnits(value, decimals)
 }

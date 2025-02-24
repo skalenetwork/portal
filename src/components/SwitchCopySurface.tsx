@@ -37,7 +37,7 @@ import { cmn, cls, styles } from '@skalenetwork/metaport'
 
 export default function CopySurface(props: {
   title: string
-  value: string | null | undefined
+  value: string | undefined
   className?: string
   tokenMetadata?: types.mp.TokenMetadata
 }) {
