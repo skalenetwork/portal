@@ -25,6 +25,7 @@ import { type types } from '@/core'
 import { cmn, cls, styles, type MetaportCore, SkPaper } from '@skalenetwork/metaport'
 import Grid from '@mui/material/Grid'
 import CopySurface from '../../CopySurface'
+import { getAddress } from 'ethers'
 
 export default function Tokens(props: {
   schainName: string
@@ -49,7 +50,7 @@ export default function Tokens(props: {
           <CopySurface
             className={cls(styles.fullHeight)}
             title={`${tokenSymbol.toUpperCase()}`}
-            value={tokenData.address}
+            value={getAddress(tokenData.address)}
             tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
           />
         </Grid>,
