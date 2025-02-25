@@ -60,7 +60,7 @@ export default function Tokens(props: {
                 <CopySurface
                   className={cls(styles.fullHeight)}
                   title={`w${tokenSymbol.toUpperCase()}`}
-                  value={wrapperAddress}
+                  value={getAddress(wrapperAddress)}
                   tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
                 />
               </Grid>
