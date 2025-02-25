@@ -33,7 +33,7 @@ import UnfoldMoreRoundedIcon from '@mui/icons-material/UnfoldMoreRounded'
 
 export default function TokenSurface(props: {
   title: string
-  value: string | null | undefined
+  value: string | undefined
   className?: string
   tokenMetadata?: types.mp.TokenMetadata
   chainName?: string

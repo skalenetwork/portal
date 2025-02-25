@@ -20,18 +20,9 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { AddressType } from ".."
+import { AddressType } from '..'
 
-export type IDelegationArray = [
-  AddressType,
-  bigint,
-  bigint,
-  bigint,
-  bigint,
-  bigint,
-  bigint,
-  string
-]
+export type IDelegationArray = [AddressType, bigint, bigint, bigint, bigint, bigint, bigint, string]
 
 export interface IDelegation {
   id: bigint

@@ -21,7 +21,6 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-
 import { TokenType } from './TokenType'
 import { isMainnet } from '../helper'
 import { S2S_POSTFIX, M2S_POSTFIX, S2M_POSTFIX } from '../constants'
@@ -68,7 +67,7 @@ export abstract class StepMetadata {
     public type: ActionType,
     public from: string,
     public to: string
-  ) { }
+  ) {}
 }
 
 export class TransferStepMetadata extends StepMetadata {

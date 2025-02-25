@@ -24,7 +24,7 @@
 const MS_MULTIPLIER = 1000
 
 export const DEFAULT_ERC20_DECIMALS = 18
-export const USDC_DECIMALS = '6'
+export const USDC_DECIMALS = 6
 
 export const DEFAULT_MP_Z_INDEX = 99000
 
@@ -34,7 +34,6 @@ export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 export const ZERO_FUNCSIG_FAUCET = '0x00000000'
 
 export const DEFAULT_FRACTION_DIGITS = 5
-
 export const ROUNDING_DECIMALS = 6
 
 export const M2S_POSTFIX = 'm2s'
@@ -47,12 +46,11 @@ export const DEFAULT_ERROR_MSG = 'Something went wrong'
 export const TRANSFER_ERROR_MSG = 'Error during the transfer'
 export const TRANSACTION_ERROR_MSG = 'Transaction sending failed'
 
-
 export const BASE_METADATA_URL =
-    'https://raw.githubusercontent.com/skalenetwork/skale-network/master/metadata/'
+  'https://raw.githubusercontent.com/skalenetwork/skale-network/master/metadata/'
 
 export const BASE_TOKEN_ICON_URL =
-    'https://raw.githubusercontent.com/skalenetwork/skale-network/refs/heads/master/assets/token-icons/'
+  'https://raw.githubusercontent.com/skalenetwork/skale-network/refs/heads/master/assets/token-icons/'
 
 export const DEFAULT_SLEEP = 4000
 export const DEFAULT_ITERATIONS = 60
