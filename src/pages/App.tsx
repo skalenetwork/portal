@@ -24,18 +24,18 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useParams } from 'react-router-dom'
+import { type types, metadata, units } from '@/core'
 
 import {
-  MetaportCore,
-  fromWei,
-  styles,
   cmn,
   cls,
+  styles,
+  explorer,
+  MetaportCore,
   SkPaper,
   useWagmiAccount,
   useConnectModal
 } from '@skalenetwork/metaport'
-import { type types } from '@/core'
 
 import { Button, Grid } from '@mui/material'
 import Container from '@mui/material/Container'
@@ -55,11 +55,8 @@ import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded'
 
 import { useApps } from '../useApps'
 
-import { findChainName } from '../core/chain'
 import { getAppMetaWithChainApp } from '../core/ecosystem/apps'
 import { formatNumber } from '../core/timeHelper'
-import { chainBg, getChainAlias, isPreTge } from '../core/metadata'
-import { addressUrl, getExplorerUrl, getTotalAppCounters } from '../core/explorer'
 import { MAINNET_CHAIN_LOGOS, MAX_APPS_DEFAULT, OFFCHAIN_APP } from '../core/constants'
 import { getRecentApps, isNewApp, isTrending } from '../core/ecosystem/utils'
 
@@ -104,7 +101,7 @@ export default function App(props: {
   const [expanded, setExpanded] = useState<string | false>('panel3')
   const [counters, setCounters] = useState<types.IAddressCounters | null>(null)
 
-  chain = findChainName(props.chainsMeta, chain ?? '')
+  chain = metadata.findChainName(props.chainsMeta, chain ?? '')
   const chainMeta = props.chainsMeta[chain]
   if (!chainMeta)
     return (
@@ -113,7 +110,7 @@ export default function App(props: {
       </Container>
     )
 
-  const appAlias = getChainAlias(props.chainsMeta, chain, app)
+  const appAlias = metadata.getAlias(props.chainsMeta, chain, app)
   const appMeta = chainMeta.apps?.[app]
 
   if (!appMeta)
@@ -147,7 +144,7 @@ export default function App(props: {
     refreshLikedApps()
   }
 
-  const explorerUrl = getExplorerUrl(network, chain)
+  const explorerUrl = explorer.getExplorerUrl(network, chain)
 
   const isAppChain = chainMeta.apps && Object.keys(chainMeta.apps).length === 1
 
@@ -164,7 +161,7 @@ export default function App(props: {
       !props.metrics.metrics[chain].apps_counters[app]
     )
       return
-    setCounters(getTotalAppCounters(props.metrics.metrics[chain].apps_counters[app]))
+    setCounters(explorer.getTotalAppCounters(props.metrics.metrics[chain].apps_counters[app]))
   }, [props.metrics])
 
   function handleChange(panel: string | false) {
@@ -174,7 +171,7 @@ export default function App(props: {
   function formatGas(): string | null {
     if (!props.metrics || !counters) return null
     const gasSpentGwei = BigInt(counters.gas_usage_count) * BigInt(props.metrics.gas)
-    return formatNumber(Number(fromWei(gasSpentGwei, '9')))
+    return formatNumber(Number(units.fromWei(gasSpentGwei, 9)))
   }
 
   return (
@@ -211,7 +208,7 @@ export default function App(props: {
                 <div
                   className={cls('logo-wrapper borderLight')}
                   style={{
-                    background: chainBg(props.chainsMeta, chain, app),
+                    background: metadata.chainBg(props.chainsMeta, chain, app),
                     flexShrink: 0
                   }}
                 >
@@ -244,7 +241,7 @@ export default function App(props: {
                   <div className={cls(cmn.flex, cmn.mleft10)}>
                     {trending && <ChipTrending />}
                     {isNew && <ChipNew />}
-                    {isPreTge(appMeta) && <ChipPreTge />}
+                    {metadata.isPreTge(appMeta) && <ChipPreTge />}
                   </div>
                 </div>
 
@@ -364,7 +361,7 @@ export default function App(props: {
                           className={cls(styles.fullHeight)}
                           title={`Contract ${index + 1}`}
                           value={contractAddress}
-                          url={addressUrl(explorerUrl, contractAddress)}
+                          url={explorer.addressUrl(explorerUrl, contractAddress)}
                         />
                       </Grid>
                     ))}

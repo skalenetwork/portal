@@ -47,7 +47,7 @@ const CategoriesChips: React.FC<CategoriesChipsProps> = ({ categories, all, clas
         return category.subcategories.includes(subcategoryTag) ? subcategoryTag : subcategoryTag
       }
       return category.subcategories && typeof category.subcategories === 'object'
-        ? category.subcategories[subcategoryTag]?.name ?? subcategoryTag
+        ? (category.subcategories[subcategoryTag]?.name ?? subcategoryTag)
         : subcategoryTag
     }
 

@@ -32,11 +32,11 @@ import { ESCROW_VALIDATORS, filterValidators } from '../../core/delegation/valid
 
 export default function Validators(props: {
   mpc: MetaportCore
-  validators: types.staking.IValidator[]
+  validators: types.st.IValidator[]
   validatorId: number | undefined
   setValidatorId: any
   internal?: boolean
-  delegationType: types.staking.DelegationType
+  delegationType: types.st.DelegationType
   size?: 'md' | 'lg'
 }) {
   const size = props.size ?? 'md'
@@ -52,7 +52,7 @@ export default function Validators(props: {
 
   return (
     <Grid container spacing={size === 'md' ? 2 : 3}>
-      {validators.map((validator: types.staking.IValidator, index) => (
+      {validators.map((validator: types.st.IValidator, index) => (
         <ValidatorCard
           key={index}
           validator={validator}

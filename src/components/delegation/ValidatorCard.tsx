@@ -25,19 +25,17 @@ import { Link } from 'react-router-dom'
 import Grid from '@mui/material/Grid'
 import Tooltip from '@mui/material/Tooltip'
 
-import { cmn, cls, styles, fromWei, SkPaper } from '@skalenetwork/metaport'
+import { type types, constants, units } from '@/core'
+import { cmn, cls, styles, SkPaper } from '@skalenetwork/metaport'
 
 import ValidatorLogo from './ValidatorLogo'
 import { TrustBadge, ValidatorBadge } from './ValidatorBadges'
 
-import { DEFAULT_ERC20_DECIMALS } from '../../core/constants'
-import { types } from '@/core'
-
 export default function ValidatorCard(props: {
-  validator: types.staking.IValidator
+  validator: types.st.IValidator
   validatorId: number | undefined
   setValidatorId: any
-  delegationType: types.staking.DelegationType
+  delegationType: types.st.DelegationType
   size?: 'md' | 'lg'
 }) {
   if (!props.validator.trusted) return
@@ -45,7 +43,10 @@ export default function ValidatorCard(props: {
   const size = props.size ?? 'md'
 
   const description = props.validator.description ? props.validator.description : 'No description'
-  const minDelegation = fromWei(props.validator.minimumDelegationAmount, DEFAULT_ERC20_DECIMALS)
+  const minDelegation = units.fromWei(
+    props.validator.minimumDelegationAmount,
+    constants.DEFAULT_ERC20_DECIMALS
+  )
 
   return (
     <Grid className="fl-centered" item lg={size === 'md' ? 3 : 4} md={4} sm={6} xs={12}>

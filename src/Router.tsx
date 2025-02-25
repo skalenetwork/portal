@@ -23,7 +23,6 @@
 import './App.scss'
 
 import { useState, useEffect } from 'react'
-import { WalletClient } from 'viem'
 
 import { Helmet } from 'react-helmet'
 import { useLocation, Routes, Route, Navigate, useSearchParams } from 'react-router-dom'
@@ -45,7 +44,7 @@ import {
   cmn
 } from '@skalenetwork/metaport'
 
-import { type types } from '@/core'
+import { type types, metadata, constants } from '@/core'
 
 import Bridge from './pages/Bridge'
 import Faq from './pages/Faq'
@@ -72,11 +71,9 @@ import MetricsWarning from './components/MetricsWarning'
 import ScrollToTop from './components/ScrollToTop'
 
 import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
-import { BRIDGE_PAGES, MAINNET_CHAIN_NAME, STAKING_PAGES } from './core/constants'
+import { BRIDGE_PAGES, STAKING_PAGES } from './core/constants'
 import { getValidators } from './core/delegation/validators'
 import { getStakingInfoMap } from './core/delegation/staking'
-
-import { loadMeta } from './core/metadata'
 
 export default function Router(props: {
   loadData: () => Promise<void>
@@ -85,9 +82,9 @@ export default function Router(props: {
   schains: types.ISChain[]
   stats: types.IStats | null
   metrics: types.IMetrics | null
-  validator: types.staking.IValidator | null | undefined
-  validatorDelegations: types.staking.IDelegation[] | null
-  sc: types.staking.ISkaleContractsMap | null
+  validator: types.st.IValidator | null | undefined
+  validatorDelegations: types.st.IDelegation[] | null
+  sc: types.st.ISkaleContractsMap | null
   loadValidator: () => Promise<void>
 }) {
   const location = useLocation()
@@ -100,8 +97,8 @@ export default function Router(props: {
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false)
   const [stakingTermsAccepted, setStakingTermsAccepted] = useState<boolean>(false)
 
-  const [validators, setValidators] = useState<types.staking.IValidator[]>([])
-  const [si, setSi] = useState<types.staking.StakingInfoMap>({ 0: null, 1: null, 2: null })
+  const [validators, setValidators] = useState<types.st.IValidator[]>([])
+  const [si, setSi] = useState<types.st.StakingInfoMap>({ 0: null, 1: null, 2: null })
 
   const mpc = useMetaportStore((state: MetaportState) => state.mpc)
   const transfersHistory = useMetaportStore((state) => state.transfersHistory)
@@ -128,19 +125,19 @@ export default function Router(props: {
   }, [transfersHistory])
 
   async function getMainnetSigner() {
-    const { chainId } = await mpc.mainnet().provider.getNetwork()
+    const { chainId } = await mpc.provider(constants.MAINNET_CHAIN_NAME).getNetwork()
     await enforceNetwork(
       chainId,
-      walletClient as WalletClient,
+      walletClient!,
       switchChainAsync!,
       mpc.config.skaleNetwork,
-      MAINNET_CHAIN_NAME
+      constants.MAINNET_CHAIN_NAME
     )
     return walletClientToSigner(walletClient!)
   }
 
   async function loadMetadata() {
-    setChainsMeta(await loadMeta(mpc.config.skaleNetwork))
+    setChainsMeta(await metadata.loadMeta(mpc.config.skaleNetwork))
   }
 
   async function loadValidators() {
@@ -289,7 +286,7 @@ export default function Router(props: {
               <Route path="changelog" element={<Changelog />} />
             </Route>
             <Route path="admin">
-              <Route path=":name" element={<Admin mpc={mpc} />} />
+              <Route path=":name" element={<Admin chainsMeta={chainsMeta} mpc={mpc} />} />
             </Route>
 
             <Route
