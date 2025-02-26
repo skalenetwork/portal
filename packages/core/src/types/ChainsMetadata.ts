@@ -57,14 +57,14 @@ export interface AppWithChainAndName extends AppMetadata {
   appName: string
 }
 export interface AppSocials {
-  website?: string;
-  x?: string;
-  telegram?: string;
-  github?: string;
-  discord?: string;
-  swell?: string;
-  dappradar?: string;
-  'epic-games-store'?: string;
+  website?: string
+  x?: string
+  telegram?: string
+  github?: string
+  discord?: string
+  swell?: string
+  dappradar?: string
+  'epic-games-store'?: string
 }
 
 export interface CategoriesMap {

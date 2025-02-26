@@ -37,10 +37,10 @@ import DelegationsNotification from '../components/delegation/DelegationsNotific
 
 export default function ValidatorsPage(props: {
   mpc: MetaportCore
-  validators: types.staking.IValidator[]
-  sc: types.staking.ISkaleContractsMap | null
+  validators: types.st.IValidator[]
+  sc: types.st.ISkaleContractsMap | null
   loadValidators: () => void
-  validatorDelegations: types.staking.IDelegation[] | null
+  validatorDelegations: types.st.IDelegation[] | null
 }) {
   useEffect(() => {
     if (props.sc !== null) {
@@ -65,7 +65,7 @@ export default function ValidatorsPage(props: {
             startIcon={<ManageAccountsRoundedIcon />}
             endIcon={<DelegationsNotification validatorDelegations={props.validatorDelegations} />}
           >
-            Manage Validator
+            Validator Operations
           </Button>
         </Link>
         <SkPageInfoIcon meta_tag={META_TAGS.validators} />
@@ -76,7 +76,7 @@ export default function ValidatorsPage(props: {
           validators={props.validators}
           validatorId={0}
           setValidatorId={(): void => {}}
-          delegationType={types.staking.DelegationType.REGULAR}
+          delegationType={types.st.DelegationType.REGULAR}
           size="lg"
         />
       </div>

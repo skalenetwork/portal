@@ -22,14 +22,13 @@
  */
 
 import { useState, useEffect } from 'react'
+import { cmn, cls, styles, type MetaportCore, SkPaper, explorer } from '@skalenetwork/metaport'
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import ExpandCircleDownRoundedIcon from '@mui/icons-material/ExpandCircleDownRounded'
 import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded'
-import { cmn, cls, styles, type MetaportCore, SkPaper } from '@skalenetwork/metaport'
 
 import LinkSurface from '../../LinkSurface'
-import { addressUrl } from '../../../core/explorer'
 
 const BLOCKSCOUT_OFFSET = 20
 
@@ -78,7 +77,7 @@ export default function VerifiedContracts(props: {
               className={cls(styles.fullHeight)}
               title={contract.ContractName}
               value={contract.Address}
-              url={addressUrl(props.explorerUrl, contract.Address)}
+              url={explorer.addressUrl(props.explorerUrl, contract.Address)}
             />
           </Grid>
         ))}

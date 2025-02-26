@@ -6,11 +6,15 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "tsc && bun build ./src/index.ts --outdir ./dist --target node",
-    "type-check": "tsc --noEmit"
+    "build": "tsc && bun build ./src/index.ts --outdir ./dist --target browser",
+    "type-check": "tsc --noEmit",
+    "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\""
   },
   "author": "SKALE Labs",
   "devDependencies": {
     "typescript": "^4.9.5"
+  },
+  "peerDependencies": {
+    "ethers": "^6.x.x"
   }
 }

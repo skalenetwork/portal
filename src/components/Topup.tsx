@@ -22,23 +22,20 @@
  */
 
 import { Link } from 'react-router-dom'
-import Button from '@mui/material/Button'
 
+import { constants, units, helper, type types } from '@/core'
+import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
+
+import Button from '@mui/material/Button'
 import { Collapse } from '@mui/material'
 import TollIcon from '@mui/icons-material/Toll'
 import MoreTimeIcon from '@mui/icons-material/MoreTime'
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
 
-import { cmn, cls, type MetaportCore, fromWei, toWei } from '@skalenetwork/metaport'
-
 import Tile from './Tile'
 import SkStack from './SkStack'
 import MonthSelector from './MonthSelector'
 import Loader from './Loader'
-
-import { type PaymasterInfo, divideBigInts } from '../core/paymaster'
-import { truncateDecimals } from '../core/helper'
-import { DEFAULT_ERC20_DECIMALS } from '../core/constants'
 import { formatTimePeriod, monthsBetweenNowAndTimestamp } from '../core/timeHelper'
 
 export default function Topup(props: {
@@ -46,7 +43,7 @@ export default function Topup(props: {
   name: string
   topupPeriod: number
   setTopupPeriod: any
-  info: PaymasterInfo
+  info: types.pm.PaymasterInfo
   tokenBalance: bigint | undefined
   topupChain: () => Promise<void>
   btnText: string | undefined
@@ -56,14 +53,14 @@ export default function Topup(props: {
 }) {
   if (props.tokenBalance === undefined) return <Loader text="Loading balance info" />
 
-  const chainPriceSkl = divideBigInts(props.info.schainPricePerMonth, props.info.oneSklPrice)
+  const chainPriceSkl = helper.divideBigInts(props.info.schainPricePerMonth, props.info.oneSklPrice)
   const totalPriceSkl = chainPriceSkl * props.topupPeriod
-  const totalPriceWei = toWei(totalPriceSkl.toString(), DEFAULT_ERC20_DECIMALS)
+  const totalPriceWei = units.toWei(totalPriceSkl.toString(), constants.DEFAULT_ERC20_DECIMALS)
 
-  const tokenBalanceSkl = fromWei(props.tokenBalance, DEFAULT_ERC20_DECIMALS)
+  const tokenBalanceSkl = units.fromWei(props.tokenBalance, constants.DEFAULT_ERC20_DECIMALS)
 
   const topupPeriodText = formatTimePeriod(props.topupPeriod, 'month')
-  const helperText = `${truncateDecimals(chainPriceSkl.toString(), 6)} SKL x ${topupPeriodText}`
+  const helperText = `${units.truncateDecimals(chainPriceSkl.toString(), 6)} SKL x ${topupPeriodText}`
 
   const balanceOk = props.tokenBalance >= totalPriceWei
   const topupBtnText = balanceOk ? 'Top-up chain' : 'Insufficient funds'
@@ -94,14 +91,14 @@ export default function Topup(props: {
       </SkStack>
       <SkStack>
         <Tile
-          value={`${truncateDecimals(totalPriceSkl.toString(), 6)} SKL`}
+          value={`${units.truncateDecimals(totalPriceSkl.toString(), 6)} SKL`}
           text="Top-up amount"
           textRi={helperText}
           icon={<TollIcon />}
           grow
         />
         <Tile
-          value={`${truncateDecimals(tokenBalanceSkl, 6)} SKL`}
+          value={`${units.truncateDecimals(tokenBalanceSkl, 6)} SKL`}
           text="SKL balance"
           icon={<TollIcon />}
           color={balanceOk ? undefined : 'error'}

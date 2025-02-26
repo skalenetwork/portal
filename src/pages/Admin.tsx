@@ -23,7 +23,8 @@
 
 import Container from '@mui/material/Container'
 import { useParams } from 'react-router-dom'
-import { cmn, cls, type MetaportCore, getChainAlias, SkPaper } from '@skalenetwork/metaport'
+import { cmn, cls, type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { types, metadata } from '@/core'
 
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
 import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
@@ -32,12 +33,11 @@ import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSetting
 import Paymaster from '../components/Paymaster'
 import Breadcrumbs from '../components/Breadcrumbs'
 
-export default function Admin(props: { mpc: MetaportCore }) {
+export default function Admin(props: { mpc: MetaportCore; chainsMeta: types.ChainsMetadataMap }) {
   let { name } = useParams()
   name = name ?? ''
 
-  const network = props.mpc.config.skaleNetwork
-  const alias = getChainAlias(network, name)
+  const alias = metadata.getAlias(props.chainsMeta, name)
 
   return (
     <Container maxWidth="md">
@@ -68,7 +68,7 @@ export default function Admin(props: { mpc: MetaportCore }) {
             {alias} admin area - you can manage the chain here
           </p>
         </div>
-        <Paymaster mpc={props.mpc} name={name} />
+        <Paymaster mpc={props.mpc} name={name} chainsMeta={props.chainsMeta} />
       </SkPaper>
     </Container>
   )

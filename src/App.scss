@@ -179,6 +179,8 @@ body {
 }
 
 .br__modalScroll {
+  overflow-y: auto;
+
   @media screen and (min-height: 200px) {
     max-height: calc(75vh - 180px);
   }
@@ -190,8 +192,6 @@ body {
   @media screen and (min-height: 670px) and (min-width: 900px) {
     max-height: calc(75vh - 350px);
   }
-
-  overflow-y: auto;
 }
 
 .drawerIconRi {
