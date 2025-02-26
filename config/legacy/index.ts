@@ -8,8 +8,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
   chains: [
     'mainnet',
     'these-long-sadalsuud', // europa
-    'adorable-quaint-bellatrix', // nebula
-    'spanish-smug-auva' // calypso
+    'adorable-quaint-bellatrix' // nebula
   ],
   tokens: {
     eth: {
@@ -43,10 +42,6 @@ export const METAPORT_CONFIG: types.mp.Config = {
             }
           }
         }
-      }
-    },
-    'spanish-smug-auva': {
-      erc20: {
       }
     },
     'adorable-quaint-bellatrix': {
