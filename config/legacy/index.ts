@@ -5,6 +5,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
   openOnLoad: true,
   openButton: true,
   debug: false,
+  mainnetEndpoint: 'https://ethereum-holesky-rpc.publicnode.com',
   chains: [
     'mainnet',
     'these-long-sadalsuud', // europa

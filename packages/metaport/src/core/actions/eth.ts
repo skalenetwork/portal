@@ -83,9 +83,9 @@ export class TransferEthS2M extends Action {
 
     const tx = await sendTransaction(
       sChain.signer,
-      ethS.withdraw,
+      ethS.exitToMain,
       [amountWei, { address: this.address }],
-      'mainnet:eth:withdraw'
+      'mainnet:eth:exitToMain'
     )
 
     const block = await this.sChain1.provider.getBlock(tx.response.blockNumber)
