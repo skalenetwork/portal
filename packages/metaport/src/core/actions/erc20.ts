@@ -266,9 +266,9 @@ export class TransferERC20M2S extends Action {
 
     const tx = await sendTransaction(
       mainnet.signer,
-      erc20MConnected.deposit,
-      [this.chainName2, this.token.keyname, amountWei, { address: this.address }],
-      `${this.chainName1}:erc20:deposit`
+      erc20MConnected.depositERC20,
+      [this.chainName2, this.token.address, amountWei, { address: this.address }],
+      `${this.chainName1}:erc20:depositERC20`
     )
 
     const block = await mainnet.provider.getBlock(tx.response.blockNumber)
@@ -329,9 +329,9 @@ export class TransferERC20S2M extends Action {
 
     const tx = await sendTransaction(
       sChain.signer,
-      erc20SConnected.withdraw,
+      erc20SConnected.exitToMainERC20,
       [this.originAddress, amountWei, { address: this.address }],
-      `${this.chainName1}:erc20:withdraw`
+      `${this.chainName1}:erc20:exitToMainERC20`
     )
 
     const block = await sChain.provider.getBlock(tx.response.blockNumber)
