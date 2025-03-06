@@ -30,7 +30,7 @@ export default class SChain extends BaseChain {
   }
 
   async eth(): Promise<Contract> {
-    return this.getContract('TokenManagerETH')
+    return this.getContract('TokenManagerEth')
   }
 
   async erc20(): Promise<Contract> {
