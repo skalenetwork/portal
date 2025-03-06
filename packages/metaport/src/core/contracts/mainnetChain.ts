@@ -50,21 +50,21 @@ export default class MainnetChain extends BaseChain {
       }
       log.info(
         '🔎 ' +
-          i.toString() +
-          '/' +
-          iterations.toString() +
-          ' Waiting for locked ETH change - address: ' +
-          address +
-          ', sleep ' +
-          sleepInterval.toString() +
-          'ms'
+        i.toString() +
+        '/' +
+        iterations.toString() +
+        ' Waiting for locked ETH change - address: ' +
+        address +
+        ', sleep ' +
+        sleepInterval.toString() +
+        'ms'
       )
       await helper.sleep(sleepInterval)
     }
   }
 
   async eth(): Promise<Contract> {
-    return this.getContract('DepositBoxETH')
+    return this.getContract('DepositBoxEth')
   }
 
   async erc20(): Promise<Contract> {
