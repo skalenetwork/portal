@@ -64,7 +64,7 @@ export default class MainnetChain extends BaseChain {
   }
 
   async eth(): Promise<Contract> {
-    return this.getContract('DepositBoxETH')
+    return this.getContract('DepositBoxEth')
   }
 
   async erc20(): Promise<Contract> {
