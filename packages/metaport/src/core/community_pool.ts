@@ -133,7 +133,7 @@ export async function withdraw(
     await sendTransaction(
       signer,
       communityPool.withdrawFunds,
-      [chainName, amount, { address: address, customGasLimit: COMMUNITY_POOL_WITHDRAW_GAS_LIMIT }],
+      [chainName, amount, { address: address, gasLimit: COMMUNITY_POOL_WITHDRAW_GAS_LIMIT }],
       'mainnet:communityPool:withdrawFunds'
     )
 

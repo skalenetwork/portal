@@ -76,7 +76,11 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
 
   const exisGasOk = cpData.exitGasOk || chainName2 !== constants.MAINNET_CHAIN_NAME
   const actionDisabled =
-    amountErrorMessage || loading || amount == '' || Number(amount) === 0 || !exisGasOk
+    amountErrorMessage ||
+    loading ||
+    amount == '' ||
+    Number(amount) === 0 ||
+    (!exisGasOk && currentStep === 0)
 
   const chainsMeta = CHAINS_META[props.skaleNetwork]
 
