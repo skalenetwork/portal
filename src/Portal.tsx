@@ -21,148 +21,46 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { useState, useEffect } from 'react'
-import { type types, endpoints } from '@/core'
-import {
-  useMetaportStore,
-  useWagmiAccount,
-  Debug,
-  cls,
-  cmn,
-  contracts
-} from '@skalenetwork/metaport'
+import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 
-import Box from '@mui/material/Box'
-import CssBaseline from '@mui/material/CssBaseline'
+import AppLayout from './AppLayout'
+import Chains from './pages/Chains'
+import { useMetaportStore, useWagmiAccount } from '@skalenetwork/metaport'
+import usePortalStore from './PortalStore'
+import { useEffect } from 'react'
+import Home from './pages/Home'
 
-import Header from './Header'
-import SkDrawer from './SkDrawer'
-import Router from './Router'
-import SkBottomNavigation from './SkBottomNavigation'
-import ProfileModal from './components/profile/ProfileModal'
-
-import { formatSChains } from './core/chain'
-import { STATS_API } from './core/constants'
-import { getValidatorDelegations } from './core/delegation/staking'
-import { getValidator } from './core/delegation'
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <AppLayout />,
+    children: [
+      {
+        index: true,
+        element: <Home />
+      },
+      {
+        path: 'chains',
+        element: <Chains />
+      }
+    ]
+  }
+])
 
 export default function Portal() {
   const mpc = useMetaportStore((state) => state.mpc)
-
-  const [schains, setSchains] = useState<types.ISChain[]>([])
-  const [metrics, setMetrics] = useState<types.IMetrics | null>(null)
-  const [stats, setStats] = useState<types.IStats | null>(null)
-  const [validator, setValidator] = useState<types.st.IValidator | null | undefined>(null)
-  const [validatorDelegations, setValidatorDelegations] = useState<types.st.IDelegation[] | null>(
-    null
-  )
-  const [customAddress, setCustomAddress] = useState<types.AddressType | undefined>(undefined)
-  const [sc, setSc] = useState<types.st.ISkaleContractsMap | null>(null)
-  const [loadCalled, setLoadCalled] = useState<boolean>(false)
-
-  const endpoint = endpoints.getProxyEndpoint(mpc.config.skaleNetwork)
-  const statsApi = STATS_API[mpc.config.skaleNetwork]
-
   const { address } = useWagmiAccount()
-  if (!mpc) return <div></div>
+  const loadData = usePortalStore((state) => state.loadData)
 
   useEffect(() => {
-    initSkaleContracts()
-    loadData()
-  }, [])
-
-  useEffect(() => {
-    loadValidator()
-  }, [address, customAddress, sc])
-
-  async function initSkaleContracts() {
-    setLoadCalled(true)
-    if (loadCalled) return
-    setSc(await contracts.initContracts(mpc))
-  }
-
-  async function loadChains() {
-    try {
-      const response = await fetch(`https://${endpoint}/files/chains.json`)
-      const chainsJson = await response.json()
-      setSchains(formatSChains(chainsJson))
-    } catch (e) {
-      console.log('Failed to load chains')
-      console.error(e)
+    if (mpc && address) {
+      loadData(mpc, address)
     }
-  }
-
-  async function loadMetrics() {
-    try {
-      const response = await fetch(`https://${endpoint}/files/metrics.json`)
-      const metricsJson = await response.json()
-      setMetrics(metricsJson)
-    } catch (e) {
-      console.log('Failed to load metrics')
-      console.error(e)
-    }
-  }
-
-  async function loadStats() {
-    if (statsApi === null) return
-    try {
-      const response = await fetch(statsApi)
-      const statsResp = await response.json()
-      setStats(statsResp.payload)
-    } catch (e) {
-      console.log('Failed to load stats')
-      console.error(e)
-    }
-  }
-
-  async function loadValidator() {
-    const addr = customAddress ?? address
-    if (!sc || !addr) {
-      setValidator(null)
-      setValidatorDelegations(null)
-      return
-    }
-    const validatorData = await getValidator(sc.validatorService, addr)
-    setValidator(validatorData)
-    if (validatorData && validatorData.id) {
-      setValidatorDelegations(await getValidatorDelegations(sc, validatorData.id))
-    } else {
-      setValidator(undefined)
-      setValidatorDelegations(null)
-    }
-  }
-
-  async function loadData() {
-    loadChains()
-    loadMetrics()
-    loadStats()
-    loadValidator()
-  }
+  }, [mpc, address, loadData])
 
   return (
-    <Box sx={{ display: 'flex' }} className="AppWrap">
-      <CssBaseline />
-      <Header address={address} mpc={mpc} />
-      <SkDrawer validatorDelegations={validatorDelegations} />
-      <div className={cls(cmn.fullWidth)} id="appContentScroll">
-        <Router
-          loadData={loadData}
-          schains={schains}
-          metrics={metrics}
-          stats={stats}
-          validator={validator}
-          validatorDelegations={validatorDelegations}
-          customAddress={customAddress}
-          setCustomAddress={setCustomAddress}
-          sc={sc}
-          loadValidator={loadValidator}
-        />
-        <ProfileModal />
-        <div className={cls(cmn.mtop20, cmn.fullWidth)}>
-          <Debug />
-        </div>
-      </div>
-      <SkBottomNavigation />
-    </Box>
+    <div>
+      <RouterProvider router={router} />
+    </div>
   )
 }

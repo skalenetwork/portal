@@ -28,7 +28,7 @@ import Chip from '@mui/material/Chip'
 import logo from './assets/skale_lg.svg'
 
 import { constants } from '@/core'
-import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
+import { cmn, cls, useMetaportStore, useWagmiAccount } from '@skalenetwork/metaport'
 
 import HelpZen from './components/HelpZen'
 import MoreMenu from './components/MoreMenu'
@@ -38,7 +38,10 @@ import GetSFuel from './components/GetSFuel'
 
 import { Link } from 'react-router-dom'
 
-export default function Header(props: { address: `0x${string}` | undefined; mpc: MetaportCore }) {
+export default function Header() {
+  const mpc = useMetaportStore((state) => state.mpc)
+  const { address } = useWagmiAccount()
+
   return (
     <AppBar
       elevation={0}
@@ -62,9 +65,9 @@ export default function Header(props: { address: `0x${string}` | undefined; mpc:
             />
           ) : null}
         </div>
-        <AccountMenu address={props.address} />
-        <GetSFuel mpc={props.mpc} />
-        <NetworkSwitch mpc={props.mpc} />
+        <AccountMenu address={address} />
+        <GetSFuel mpc={mpc} />
+        <NetworkSwitch mpc={mpc} />
         <HelpZen />
         <MoreMenu />
       </Toolbar>

@@ -28,11 +28,15 @@ import { MAX_APPS_DEFAULT } from './core/constants'
 import { useLikedApps } from './LikedAppsContext'
 import { useAuth } from './AuthContext'
 
-export function useApps(chainsMeta: types.ChainsMetadataMap, metrics: types.IMetrics | null) {
+export function useApps(
+  chainsMeta: types.ChainsMetadataMap | null,
+  metrics: types.IMetrics | null
+) {
   const { getMostLikedApps, likedApps, getAppId } = useLikedApps()
   const { isSignedIn } = useAuth()
 
   const allApps = useMemo<types.AppWithChainAndName[]>(() => {
+    if (!chainsMeta) return []
     const apps = Object.entries(chainsMeta).flatMap(([chainName, chainData]) =>
       Object.entries(chainData.apps || {}).map(([appName, app]) => ({
         chain: chainName,
@@ -44,6 +48,7 @@ export function useApps(chainsMeta: types.ChainsMetadataMap, metrics: types.IMet
   }, [chainsMeta])
 
   const newApps = useMemo<types.AppWithChainAndName[]>(() => {
+    if (!chainsMeta) return []
     const apps = getRecentApps(chainsMeta, MAX_APPS_DEFAULT)
     return apps.sort((a, b) => (b.added || 0) - (a.added || 0))
   }, [chainsMeta])

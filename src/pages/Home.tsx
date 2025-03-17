@@ -24,8 +24,7 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Stack, Box, Grid, Button } from '@mui/material'
-import { cmn, cls, SkPaper } from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { cmn, cls, SkPaper, useWagmiAccount, useMetaportStore } from '@skalenetwork/metaport'
 
 import { useApps } from '../useApps'
 
@@ -40,25 +39,26 @@ import { SKALE_SOCIAL_LINKS } from '../core/constants'
 import { SECTION_ICONS, EXPLORE_CARDS } from '../components/HomeComponents'
 import SocialButtons from '../components/ecosystem/Socials'
 import UserRecommendations from '../components/ecosystem/UserRecommendations'
+import usePortalStore from '../PortalStore'
 
-interface HomeProps {
-  skaleNetwork: types.SkaleNetwork
-  chainsMeta: types.ChainsMetadataMap
-  metrics: types.IMetrics | null
-  loadData: () => Promise<void>
-}
+export default function Home(): JSX.Element {
+  const { address } = useWagmiAccount()
 
-export default function Home({
-  skaleNetwork,
-  chainsMeta,
-  metrics,
-  loadData
-}: HomeProps): JSX.Element {
+  const { chainsMeta, metrics, loadData } = usePortalStore((state) => ({
+    loadData: state.loadData,
+    metrics: state.metrics,
+    chainsMeta: state.chainsMeta
+  }))
   const { newApps, trendingApps, favoriteApps, isSignedIn } = useApps(chainsMeta, metrics)
 
+  const mpc = useMetaportStore((state) => state.mpc)
+  const network = mpc.config.skaleNetwork
+
   useEffect(() => {
-    loadData()
+    loadData(mpc, address)
   }, [])
+
+  if (!chainsMeta) return <div>Loading...</div>
 
   return (
     <Container maxWidth="md" className="paddBott60">
@@ -76,7 +76,7 @@ export default function Home({
           linkTo="/ecosystem?tab=3"
           component={
             <FavoriteApps
-              skaleNetwork={skaleNetwork}
+              skaleNetwork={network}
               chainsMeta={chainsMeta}
               useCarousel={true}
               newApps={newApps}
@@ -87,11 +87,7 @@ export default function Home({
             />
           }
         />
-        <UserRecommendations
-          skaleNetwork={skaleNetwork}
-          chainsMeta={chainsMeta}
-          metrics={metrics}
-        />
+        <UserRecommendations skaleNetwork={network} chainsMeta={chainsMeta} metrics={metrics} />
         <AppSection
           title="New dApps on SKALE"
           icon={SECTION_ICONS.new}
@@ -99,7 +95,7 @@ export default function Home({
           component={
             <NewApps
               newApps={newApps}
-              skaleNetwork={skaleNetwork}
+              skaleNetwork={network}
               chainsMeta={chainsMeta}
               useCarousel={true}
               trendingApps={trendingApps}
@@ -113,7 +109,7 @@ export default function Home({
           component={
             <TrendingApps
               chainsMeta={chainsMeta}
-              skaleNetwork={skaleNetwork}
+              skaleNetwork={network}
               newApps={newApps}
               filteredApps={trendingApps}
               useCarousel
