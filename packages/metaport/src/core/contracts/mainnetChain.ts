@@ -33,8 +33,8 @@ export default class MainnetChain extends BaseChain {
   }
 
   async lockedETHAmount(address: string): Promise<bigint> {
-    const erc20 = await this.erc20()
-    return await erc20.approveTransfers(address)
+    const eth = await this.eth()
+    return await eth.approveTransfers(address)
   }
 
   async waitLockedETHAmountChange(

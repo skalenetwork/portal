@@ -74,10 +74,8 @@ export class TransferEthS2M extends Action {
     const amountWei = units.toWei(this.amount, this.token.meta.decimals)
     const sChain = await this.connectedSChain(this.sChain1.provider)
 
-    const ethM = await this.mainnet.eth()
     const ethS = await sChain.eth()
-
-    const lockedETHAmount = await ethM.lockedETHAmount(this.address)
+    const lockedETHAmount = await this.mainnet.lockedETHAmount(this.address)
 
     this.updateState('transferETH')
 
