@@ -47,6 +47,8 @@ import FavoriteApps from '../components/ecosystem/tabs/FavoriteApps'
 import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import SocialButtons from '../components/ecosystem/Socials'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
+import ScrollToTopButton from '../components/ScrollToTopButton'
+
 
 export default function Ecosystem(props: {
   mpc: MetaportCore
@@ -128,6 +130,7 @@ export default function Ecosystem(props: {
       ] // Favorite Apps
     ])
 
+   
     return (tabIndex: number) => filterMap.get(tabIndex) || filteredApps
   }, [filteredApps, newApps, trendingApps, favoriteApps, isSignedIn])
 
@@ -136,134 +139,139 @@ export default function Ecosystem(props: {
   const isFiltersApplied = Object.keys(checkedItems).length !== 0
 
   return (
-    <Container maxWidth="md">
-      <Helmet>
-        <title>{META_TAGS.ecosystem.title}</title>
-        <meta name="description" content={META_TAGS.ecosystem.description} />
-        <meta property="og:title" content={META_TAGS.ecosystem.title} />
-        <meta property="og:description" content={META_TAGS.ecosystem.description} />
-      </Helmet>
-      <Stack spacing={0}>
-        <SkStack>
-          <div className={cls(cmn.flexg)}>
-            <h2 className={cls(cmn.nom)}>Ecosystem</h2>
-            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-              Explore dApps across the SKALE ecosystem
-            </p>
-          </div>
-          <div className={cls(cmn.flex, cmn.flexcv)}>
-            <SocialButtons social={SKALE_SOCIAL_LINKS} all />
-            <div className={cls(cmn.mleft10)}>
-              <SkPageInfoIcon meta_tag={META_TAGS.ecosystem} />
+    <>
+      <Container maxWidth="md">
+        <Helmet>
+          <title>{META_TAGS.ecosystem.title}</title>
+          <meta name="description" content={META_TAGS.ecosystem.description} />
+          <meta property="og:title" content={META_TAGS.ecosystem.title} />
+          <meta property="og:description" content={META_TAGS.ecosystem.description} />
+        </Helmet>
+        <Stack spacing={0}>
+          <SkStack>
+            <div className={cls(cmn.flexg)}>
+              <h2 className={cls(cmn.nom)}>Ecosystem</h2>
+              <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+                Explore dApps across the SKALE ecosystem
+              </p>
             </div>
-          </div>
-        </SkStack>
-        <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20, 'fwmobile')}>
-          <SkStack className={cls(cmn.mbott20, cmn.flex, cmn.flexcv)}>
-            <SearchComponent
-              className={cls(cmn.flexg, [cmn.mri10, !props.isXs], ['fullW', props.isXs])}
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-            />
-            <CategoryDisplay
+            <div className={cls(cmn.flex, cmn.flexcv)}>
+              <SocialButtons social={SKALE_SOCIAL_LINKS} all />
+              <div className={cls(cmn.mleft10)}>
+                <SkPageInfoIcon meta_tag={META_TAGS.ecosystem} />
+              </div>
+            </div>
+          </SkStack>
+          <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20, 'fwmobile')}>
+            <SkStack className={cls(cmn.mbott20, cmn.flex, cmn.flexcv)}>
+              <SearchComponent
+                className={cls(cmn.flexg, [cmn.mri10, !props.isXs], ['fullW', props.isXs])}
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+              />
+              <CategoryDisplay
+                checkedItems={checkedItems}
+                setCheckedItems={handleSetCheckedItems}
+                isXs={props.isXs}
+              />
+            </SkStack>
+            <SelectedCategories
               checkedItems={checkedItems}
               setCheckedItems={handleSetCheckedItems}
-              isXs={props.isXs}
+              filteredAppsCount={currentFilteredApps.length}
             />
-          </SkStack>
-          <SelectedCategories
-            checkedItems={checkedItems}
-            setCheckedItems={handleSetCheckedItems}
-            filteredAppsCount={currentFilteredApps.length}
-          />
-          <Tabs
-            variant={props.isXs ? 'scrollable' : 'standard'}
-            value={activeTab}
-            onChange={handleTabChange}
-            scrollButtons="auto"
-            className={cls(cmn.mbott20, [cmn.mtop20, isFiltersApplied], 'skTabs', 'fwmobile')}
-          >
-            <Tab
-              label="All"
-              icon={<GridViewRoundedIcon />}
-              iconPosition="start"
-              className={cls('btn', 'btnSm', cmn.mri5, 'tab', 'fwmobile')}
-            />
-            <Tab
-              label="New"
-              icon={<StarRoundedIcon />}
-              iconPosition="start"
-              className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-            />
-            <Tab
-              label="Trending"
-              icon={<TrendingUpRoundedIcon />}
-              iconPosition="start"
-              className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-            />
-            <Tab
-              label="Favorites"
-              icon={<FavoriteRoundedIcon />}
-              iconPosition="start"
-              className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-            />
-          </Tabs>
-
-          {activeTab === 0 && (
-            <AllApps
-              apps={currentFilteredApps}
-              skaleNetwork={props.mpc.config.skaleNetwork}
-              chainsMeta={props.chainsMeta}
-              newApps={newApps}
-              loaded={loaded}
-              trendingApps={trendingApps}
-            />
-          )}
-          {activeTab === 1 && (
-            <NewApps
-              newApps={currentFilteredApps}
-              skaleNetwork={props.mpc.config.skaleNetwork}
-              chainsMeta={props.chainsMeta}
-              trendingApps={trendingApps}
-            />
-          )}
-          {activeTab === 2 && (
-            <TrendingApps
-              chainsMeta={props.chainsMeta}
-              skaleNetwork={props.mpc.config.skaleNetwork}
-              newApps={newApps}
-              filteredApps={currentFilteredApps}
-            />
-          )}
-          {activeTab === 3 && (
-            <FavoriteApps
-              chainsMeta={props.chainsMeta}
-              skaleNetwork={props.mpc.config.skaleNetwork}
-              newApps={newApps}
-              filteredApps={currentFilteredApps}
-              trendingApps={trendingApps}
-              isSignedIn={isSignedIn}
-              error={null}
-            />
-          )}
-        </Box>
-      </Stack>
-      <div className={cls(cmn.flex, cmn.mtop20, cmn.mbott20)}>
-        <div className={cls(cmn.flexg)}></div>
-        <div>
-          <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">
-            <Button
-              size="medium"
-              variant="contained"
-              className={cls('btn', cmn.mtop20, cmn.mbott20, cmn.pCent)}
-              startIcon={<AddCircleOutlineRoundedIcon />}
+            <Tabs
+              variant={props.isXs ? 'scrollable' : 'standard'}
+              value={activeTab}
+              onChange={handleTabChange}
+              scrollButtons="auto"
+              className={cls(cmn.mbott20, [cmn.mtop20, isFiltersApplied], 'skTabs', 'fwmobile')}
             >
-              Submit Your Project
-            </Button>
-          </a>
+              <Tab
+                label="All"
+                icon={<GridViewRoundedIcon />}
+                iconPosition="start"
+                className={cls('btn', 'btnSm', cmn.mri5, 'tab', 'fwmobile')}
+              />
+              <Tab
+                label="New"
+                icon={<StarRoundedIcon />}
+                iconPosition="start"
+                className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+              />
+              <Tab
+                label="Trending"
+                icon={<TrendingUpRoundedIcon />}
+                iconPosition="start"
+                className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+              />
+              <Tab
+                label="Favorites"
+                icon={<FavoriteRoundedIcon />}
+                iconPosition="start"
+                className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+              />
+            </Tabs>
+
+            {activeTab === 0 && (
+              <AllApps
+                apps={currentFilteredApps}
+                skaleNetwork={props.mpc.config.skaleNetwork}
+                chainsMeta={props.chainsMeta}
+                newApps={newApps}
+                loaded={loaded}
+                trendingApps={trendingApps}
+              />
+            )}
+            {activeTab === 1 && (
+              <NewApps
+                newApps={currentFilteredApps}
+                skaleNetwork={props.mpc.config.skaleNetwork}
+                chainsMeta={props.chainsMeta}
+                trendingApps={trendingApps}
+              />
+            )}
+            {activeTab === 2 && (
+              <TrendingApps
+                chainsMeta={props.chainsMeta}
+                skaleNetwork={props.mpc.config.skaleNetwork}
+                newApps={newApps}
+                filteredApps={currentFilteredApps}
+              />
+            )}
+            {activeTab === 3 && (
+              <FavoriteApps
+                chainsMeta={props.chainsMeta}
+                skaleNetwork={props.mpc.config.skaleNetwork}
+                newApps={newApps}
+                filteredApps={currentFilteredApps}
+                trendingApps={trendingApps}
+                isSignedIn={isSignedIn}
+                error={null}
+              />
+            )}
+          </Box>
+        </Stack>
+        <div className={cls(cmn.flex, cmn.mtop20, cmn.mbott20)}>
+          <div className={cls(cmn.flexg)}></div>
+          <div>
+            <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">
+              <Button
+                size="medium"
+                variant="contained"
+                className={cls('btn', cmn.mtop20, cmn.mbott20, cmn.pCent)}
+                startIcon={<AddCircleOutlineRoundedIcon />}
+              >
+                Submit Your Project
+              </Button>
+            </a>
+          </div>
+          <div className={cls(cmn.flexg)}></div>
         </div>
-        <div className={cls(cmn.flexg)}></div>
-      </div>
-    </Container>
+      </Container>
+      
+      {}
+      <ScrollToTopButton />
+    </>
   )
 }
