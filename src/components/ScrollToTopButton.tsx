@@ -2,15 +2,14 @@
  * @file ScrollToTopButton.tsx
  * @copyright SKALE Labs 2024-Present
  */
-
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import { cmn, cls } from '@skalenetwork/metaport'
+import { cls } from '@skalenetwork/metaport'
 import { Fab } from '@mui/material'
 
 export default function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false)
-
+  
   useEffect(() => {
     const toggleVisibility = () => {
       if (window.scrollY > 300) {
@@ -19,19 +18,17 @@ export default function ScrollToTopButton() {
         setIsVisible(false)
       }
     }
-
     window.addEventListener('scroll', toggleVisibility)
-
     return () => window.removeEventListener('scroll', toggleVisibility)
   }, [])
-
+  
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     })
   }
-
+  
   return isVisible ? (
     <Fab
       aria-label="scroll to top"
