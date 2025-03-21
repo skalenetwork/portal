@@ -24,7 +24,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useParams } from 'react-router-dom'
-import { type types, metadata, units } from '@/core'
+import { type types, metadata, units, constants } from '@/core'
 
 import {
   cmn,
@@ -170,8 +170,8 @@ export default function App(props: {
 
   function formatGas(): string | null {
     if (!props.metrics || !counters) return null
-    const gasSpentGwei = BigInt(counters.gas_usage_count) * BigInt(props.metrics.gas)
-    return formatNumber(Number(units.fromWei(gasSpentGwei, 9)))
+    const gasSpentWei = BigInt(counters.gas_usage_count) * BigInt(props.metrics.gas)
+    return formatNumber(Number(units.fromWei(gasSpentWei, constants.DEFAULT_ERC20_DECIMALS)))
   }
 
   return (
@@ -277,7 +277,7 @@ export default function App(props: {
                   }
                   tooltip={
                     props.metrics && counters
-                      ? `Given gas price ${props.metrics.gas} Gwei. ${counters.gas_usage_count} of gas used.`
+                      ? `Given gas price ${props.metrics.gas} wei. ${counters.gas_usage_count} of gas used.`
                       : undefined
                   }
                   value={props.metrics && counters ? `${formatGas()} ETH` : undefined}
