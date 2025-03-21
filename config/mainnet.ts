@@ -19,7 +19,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
     // "frayed-decent-antares", // brawlers
     'affectionate-immediate-pollux', // cryptoblades
     'wan-red-ain', // human protocol
-    'turbulent-unique-scheat', // razor
     'adorable-quaint-bellatrix', // streammyscreen
     'parallel-stormy-spica' // titan hub
   ],
@@ -65,12 +64,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
       name: 'Human Token',
       symbol: 'HMT',
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/10347.png'
-    },
-    razor: {
-      decimals: '18',
-      name: 'RAZOR Network',
-      symbol: 'RAZOR',
-      iconUrl: 'https://assets.coingecko.com/coins/images/13797/small/icon.png'
     },
     skill: {
       name: 'SKILL',
@@ -190,13 +183,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             'parallel-stormy-spica': {
               hub: 'elated-tan-skat'
             }
-          }
-        },
-        razor: {
-          address: '0x50DE6856358Cc35f3A9a57eAAA34BD4cB707d2cd',
-          chains: {
-            'elated-tan-skat': {},
-            'turbulent-unique-scheat': {}
           }
         },
         exd: {
@@ -552,14 +538,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             }
           }
         },
-        razor: {
-          address: '0xCA46B70cA3c510Ce9D0c43D25817032e2F5354c0',
-          chains: {
-            mainnet: {
-              clone: true
-            }
-          }
-        },
         unipoly: {
           address: '0x7cA58393EB55aeC51204f2370c1B9cCCAa9D9784',
           chains: {
@@ -847,19 +825,6 @@ export const METAPORT_CONFIG: interfaces.MetaportConfig = {
             mainnet: {
               clone: true,
               hub: 'elated-tan-skat'
-            }
-          }
-        }
-      }
-    },
-    'turbulent-unique-scheat': {
-      // razor connections
-      erc20: {
-        razor: {
-          address: '0xcbf70914Fae03B3acB91E953De60CfDAaCA8145f',
-          chains: {
-            mainnet: {
-              clone: true
             }
           }
         }
