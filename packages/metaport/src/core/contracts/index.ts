@@ -107,7 +107,7 @@ async function getEscrowContract(
 ): Promise<Contract> {
   const project = await network.getProject(contracts.Project.ALLOCATOR)
   let type: contracts.IPortalProject = contracts.Project.ALLOCATOR
-  if (delegationType === types.st.DelegationType.ESCROW) {
+  if (delegationType === types.st.DelegationType.ESCROW2) {
     type = contracts.PortalProject.GRANTS
   }
   const alias = contracts.getAliasOrAddress(skaleNetwork, type)
