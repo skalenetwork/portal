@@ -73,10 +73,11 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
     set({ loading: true })
     try {
       for (const key of Object.keys(tokens)) {
-        await new ACTIONS.unwrap_stuck(
+        const stepMetadata = get().stepsMetadata[get().currentStep]
+        const action = await ACTIONS.unwrap_stuck.create(
           get().mpc,
-          get().chainName1,
-          null,
+          stepMetadata.from,
+          stepMetadata.to,
           address,
           get().amount,
           get().tokenId,
@@ -85,7 +86,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           get().setBtnText,
           switchChain,
           walletClient
-        ).execute()
+        )
+        await action.execute()
       }
     } catch (err) {
       console.error(err)
