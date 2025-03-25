@@ -3,13 +3,11 @@ import { useLocation, useNavigationType } from 'react-router-dom';
 
 const scrollPositions: Record<string, number> = {};
 
-// Define type for path configuration
 interface PathConfig {
   attempts: number[];
   priority: string;
 }
 
-// Define type for pathConfigs
 const pathConfigs: Record<string, PathConfig> = {
   '/ecosystem': {
     attempts: [0, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100, 150, 200, 300],
