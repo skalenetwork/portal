@@ -1,12 +1,15 @@
 import { useEffect } from 'react';
 import { useLocation, useNavigationType } from 'react-router-dom';
 
+const scrollPositions: Record<string, number> = {};
+
+// Define type for path configuration
 interface PathConfig {
   attempts: number[];
   priority: string;
 }
 
-const scrollPositions: Record<string, number> = {};
+// Define type for pathConfigs
 const pathConfigs: Record<string, PathConfig> = {
   '/ecosystem': {
     attempts: [0, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100, 150, 200, 300],
@@ -33,7 +36,7 @@ export default function useScrollPosition(): void {
   const location = useLocation();
   const navigationType = useNavigationType();
   const currentPath = location.pathname;
-
+  
   useEffect(() => {
     const handleScroll = (): void => {
       scrollPositions[currentPath] = window.scrollY;
@@ -44,11 +47,11 @@ export default function useScrollPosition(): void {
       window.removeEventListener('scroll', handleScroll);
     };
   }, [currentPath]);
-
+  
   useEffect(() => {
     const config = getPathConfig(currentPath);
     
-    const attemptScroll = (): boolean => {
+    const attemptScroll = () => {
       if (scrollPositions[currentPath] !== undefined) {
         window.scrollTo(0, scrollPositions[currentPath]);
         return true;
@@ -87,7 +90,6 @@ export default function useScrollPosition(): void {
           observer.observe(document.body);
         }
       } catch (e) {
-     
       }
     }, 10);
     
@@ -103,12 +105,10 @@ export default function useScrollPosition(): void {
           attributes: true,
           attributeFilter: ['style', 'class']
         });
-        
         setTimeout(() => {
           mutationObserver.disconnect();
         }, 1000);
       } catch (e) {
-      
       }
     }, 20);
     
