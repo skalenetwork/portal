@@ -1,4 +1,6 @@
 import { type types } from '@/core'
+import europaConnections from './europa'
+import nebulaConnections from './nebula'
 
 export const METAPORT_CONFIG: types.mp.Config = {
   skaleNetwork: 'legacy',
@@ -23,6 +25,8 @@ export const METAPORT_CONFIG: types.mp.Config = {
     }
   },
   connections: {
+    'these-long-sadalsuud': europaConnections,
+    'adorable-quaint-bellatrix': nebulaConnections,
     mainnet: {
       eth: {
         eth: {
