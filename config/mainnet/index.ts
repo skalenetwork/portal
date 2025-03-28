@@ -142,6 +142,11 @@ export const METAPORT_CONFIG: types.mp.Config = {
       symbol: 'SKIVVY',
       decimals: 8,
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3441.png'
+    },
+    unipoly: {
+      name: 'Unipoly',
+      symbol: 'UNP',
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/28735.png'
     }
   },
   connections: {
