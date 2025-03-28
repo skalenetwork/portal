@@ -69,7 +69,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     skivvy: {
       name: 'Skivvy',
       symbol: '$SKIVVY',
-      decimals: '8',
+      decimals: 8,
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3441.png'
     },
     unp: {
