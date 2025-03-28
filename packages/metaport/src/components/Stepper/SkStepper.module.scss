@@ -1,0 +1,66 @@
+.labelStep {
+    text-transform: uppercase !important;
+    font-size: 0.6525rem !important;
+    line-height: 1.6 !important;
+    letter-spacing: 0.02857em !important;
+}
+
+.stepper {
+
+    :global span {
+        font-weight: 600 !important;
+        text-transform: none !important;
+        font-size: 0.9025rem !important;
+        line-height: 1.6 !important;
+        font-family: inherit !important;
+    }
+
+    :global .MuiStepConnector-line {
+        min-height: 0 !important;
+    }
+
+    :global .MuiBox-root {
+        margin-bottom: 5px !important;
+    }
+
+    :global .MuiSvgIcon-root {
+        width: 22px;
+        height: 22px;
+        align-items: start;
+    }
+
+    :global .MuiStepContent-root {
+        padding-right: 0;
+        margin-left: 11px;
+        padding-left: 18px;
+    }
+
+    :global(.MuiChip-icon) {
+        width: 15pt;
+        height: 15pt;
+    }
+
+    :global(.MuiStepLabel-root) {
+        align-items: start;
+    }
+
+    :global(.MuiStepLabel-iconContainer) {
+        margin-top: 1pt;
+    }
+
+    :global(.MuiStepLabel-labelContainer) {
+        img {
+            filter: saturate(0) opacity(0.7);
+        }
+    }
+
+    :global(.MuiStepLabel-label.Mui-active) {
+        span, svg {
+            color: inherit;
+        }
+
+        img {
+            filter:  inherit;
+        }
+    }
+}

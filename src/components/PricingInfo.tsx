@@ -24,10 +24,9 @@
 import TollIcon from '@mui/icons-material/Toll'
 import AvTimerRoundedIcon from '@mui/icons-material/AvTimerRounded'
 
-import { cmn, TokenIcon, fromWei } from '@skalenetwork/metaport'
+import { constants, units, type types, helper } from '@/core'
+import { cmn, TokenIcon } from '@skalenetwork/metaport'
 
-import { type PaymasterInfo, type DueDateStatus, divideBigInts } from '../core/paymaster'
-import { truncateDecimals } from '../core/helper'
 import {
   daysBetweenNowAndTimestamp,
   monthsBetweenNowAndTimestamp,
@@ -35,15 +34,17 @@ import {
   formatBigIntTimestampSeconds,
   formatTimePeriod
 } from '../core/timeHelper'
-import { DEFAULT_ERC20_DECIMALS } from '../core/constants'
 
 import SkStack from './SkStack'
 import Tile from './Tile'
 
-export default function PricingInfo(props: { info: PaymasterInfo }) {
-  const sklPrice = fromWei(props.info.oneSklPrice, DEFAULT_ERC20_DECIMALS)
-  const chainPriceUsd = fromWei(props.info.schainPricePerMonth, DEFAULT_ERC20_DECIMALS)
-  const chainPriceSkl = divideBigInts(props.info.schainPricePerMonth, props.info.oneSklPrice)
+export default function PricingInfo(props: { info: types.pm.PaymasterInfo }) {
+  const sklPrice = units.fromWei(props.info.oneSklPrice, constants.DEFAULT_ERC20_DECIMALS)
+  const chainPriceUsd = units.fromWei(
+    props.info.schainPricePerMonth,
+    constants.DEFAULT_ERC20_DECIMALS
+  )
+  const chainPriceSkl = helper.divideBigInts(props.info.schainPricePerMonth, props.info.oneSklPrice)
 
   const untilDueDateDays = daysBetweenNowAndTimestamp(
     props.info.schain.paidUntil,
@@ -62,7 +63,7 @@ export default function PricingInfo(props: { info: PaymasterInfo }) {
     props.info.effectiveTimestamp
   )
 
-  function getDueDateStatus(days: number): DueDateStatus {
+  function getDueDateStatus(days: number): types.pm.DueDateStatus {
     if (days > 31) {
       return 'success'
     } else if (days > 0 && days <= 31) {
@@ -77,19 +78,19 @@ export default function PricingInfo(props: { info: PaymasterInfo }) {
     <div>
       <SkStack>
         <Tile
-          value={`${truncateDecimals(sklPrice, 6)} USD`}
+          value={`${units.truncateDecimals(sklPrice, 6)} USD`}
           text="SKL token price"
           grow
           icon={<TokenIcon tokenSymbol="skl" size="xs" />}
         />
         <Tile
-          value={`${truncateDecimals(chainPriceUsd, 6)} USD`}
+          value={`${units.truncateDecimals(chainPriceUsd, 6)} USD`}
           text="Chain price USD"
           grow
           icon={<TokenIcon tokenSymbol="usdc" size="xs" />}
         />
         <Tile
-          value={`${truncateDecimals(chainPriceSkl.toString(), 6)} SKL`}
+          value={`${units.truncateDecimals(chainPriceSkl.toString(), 6)} SKL`}
           text="Chain price SKL (per month)"
           icon={<TollIcon />}
           grow

@@ -33,13 +33,13 @@ import Delegation from './Delegation'
 import Reward from './Reward'
 
 export default function DelegationsToValidator(props: {
-  delegationsToValidator: types.staking.IDelegationsToValidator
-  validators: types.staking.IValidator[]
-  delegationType: types.staking.DelegationType
-  retrieveRewards: (rewardInfo: types.staking.IRewardInfo) => Promise<void>
-  loading: types.staking.IRewardInfo | types.staking.IDelegationInfo | false
-  unstake: (delegationInfo: types.staking.IDelegationInfo) => Promise<void>
-  cancelRequest: (delegationInfo: types.staking.IDelegationInfo) => Promise<void>
+  delegationsToValidator: types.st.IDelegationsToValidator
+  validators: types.st.IValidator[]
+  delegationType: types.st.DelegationType
+  retrieveRewards: (rewardInfo: types.st.IRewardInfo) => Promise<void>
+  loading: types.st.IRewardInfo | types.st.IDelegationInfo | false
+  unstake: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
+  cancelRequest: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
   isXs: boolean
   address: types.AddressType | undefined
   customAddress: types.AddressType | undefined
@@ -69,7 +69,7 @@ export default function DelegationsToValidator(props: {
       <Collapse in={open}>
         <div className={cls('nestedSection', ['nestedSectionXs', props.isXs])}>
           {props.delegationsToValidator.delegations.map(
-            (delegation: types.staking.IDelegation, index: number) => (
+            (delegation: types.st.IDelegation, index: number) => (
               <Delegation
                 key={index}
                 delegation={delegation}

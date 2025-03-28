@@ -21,8 +21,8 @@
  */
 
 import { useState } from 'react'
-import { cmn, cls, styles, SkPaper, getChainAlias, useWagmiAccount } from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { cmn, cls, styles, SkPaper, useWagmiAccount } from '@skalenetwork/metaport'
+import { type types, metadata, constants } from '@/core'
 
 import { Collapse, Grid } from '@mui/material'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
@@ -30,7 +30,7 @@ import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRound
 import SkStack from './SkStack'
 import ChainLogo from './ChainLogo'
 import networks from '../assets/networks.png'
-import { MAINNET_CHAIN_LOGOS, MAINNET_CHAIN_NAME } from '../core/constants'
+import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 import ConnectWallet from './ConnectWallet'
 
 const SUPPORTED_CHAINS = ['elated-tan-skat', 'honorable-steel-rasalhague', 'green-giddy-denebola']
@@ -44,17 +44,13 @@ export default function Meson(props: {
   const [show, setShow] = useState<boolean>(false)
   const { address } = useWagmiAccount()
 
-  function getChainShortAlias(meta: types.ChainsMetadataMap, name: string): string {
-    return meta[name]?.shortAlias !== undefined ? meta[name].shortAlias! : name
-  }
-
   function openMeson(chain: string) {
-    const shortAlias = getChainShortAlias(props.chainsMeta, chain)
+    const shortAlias = metadata.getChainShortAlias(props.chainsMeta, chain)
     const link = `https://meson.to/skale-${shortAlias}/${address}`
     window.open(link, 'meson.to', 'width=375,height=640')
   }
 
-  if (props.skaleNetwork !== MAINNET_CHAIN_NAME) return
+  if (props.skaleNetwork !== constants.MAINNET_CHAIN_NAME) return
   return (
     <div className={cls(props.className, 'paddBott60')}>
       <div
@@ -118,7 +114,7 @@ export default function Meson(props: {
                           logos={MAINNET_CHAIN_LOGOS}
                         />
                         <p className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p, cmn.p3, cmn.p700)}>
-                          {getChainAlias(props.skaleNetwork, chain)}
+                          {metadata.getAlias(props.chainsMeta, chain)}
                         </p>
                       </div>
                     </SkPaper>

@@ -22,16 +22,15 @@
  */
 
 import { Contract } from 'ethers'
-import { WalletClient } from 'viem'
 import { useState, useEffect } from 'react'
 
+import { dc, constants, units } from '@/core'
 import {
   cmn,
   cls,
   TokenIcon,
   useWagmiAccount,
   MetaportCore,
-  dataclasses,
   enforceNetwork,
   useWagmiWalletClient,
   useWagmiSwitchNetwork
@@ -40,9 +39,6 @@ import {
 import { Button } from '@mui/material'
 
 import Tile from './Tile'
-
-import { DEFAULT_UPDATE_INTERVAL_MS, USDC_DECIMALS } from '../core/constants'
-import { formatBalance } from '../core/helper'
 import { watchAsset } from '../core/watchAsset'
 
 export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: string }) {
@@ -59,7 +55,7 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
       props.mpc.tokenContract(
         props.chain,
         'usdc',
-        dataclasses.TokenType.erc20,
+        dc.TokenType.erc20,
         props.mpc.provider(props.chain)
       )
     )
@@ -67,7 +63,7 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
 
   useEffect(() => {
     loadTokenBalance()
-    const intervalId = setInterval(loadTokenBalance, DEFAULT_UPDATE_INTERVAL_MS)
+    const intervalId = setInterval(loadTokenBalance, constants.DEFAULT_UPDATE_INTERVAL_MS)
     return () => {
       clearInterval(intervalId)
     }
@@ -86,13 +82,13 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
       const { chainId } = await props.mpc.provider(props.chain).getNetwork()
       await enforceNetwork(
         chainId,
-        walletClient as WalletClient,
+        walletClient!,
         switchChainAsync!,
         props.mpc.config.skaleNetwork,
         props.chain
       )
       const address = await tokenContract.getAddress()
-      await watchAsset(walletClient, address, Number(USDC_DECIMALS), 'USDC')
+      await watchAsset(walletClient, address, constants.USDC_DECIMALS, 'USDC')
     } finally {
       setLoading(false)
     }
@@ -103,7 +99,11 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
       <Tile
         className={cls(cmn.mtop10)}
         disabled={false}
-        value={balance !== undefined ? formatBalance(balance, 'USDC', USDC_DECIMALS) : null}
+        value={
+          balance !== undefined
+            ? units.displayBalance(balance, 'USDC', constants.USDC_DECIMALS)
+            : null
+        }
         text="USDC on SKALE Europa"
         icon={<TokenIcon tokenSymbol="usdc" size="xs" />}
         childrenRi={
