@@ -69,6 +69,7 @@ import Changelog from './pages/Changelog'
 
 import MetricsWarning from './components/MetricsWarning'
 import ScrollToTop from './components/ScrollToTop'
+import useScrollPosition from './useScrollPosition'
 
 import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
 import { BRIDGE_PAGES, STAKING_PAGES } from './core/constants'
@@ -89,6 +90,8 @@ export default function Router(props: {
 }) {
   const location = useLocation()
   const currentUrl = `${window.location.origin}${location.pathname}${location.search}`
+
+  useScrollPosition()
 
   const theme = useTheme()
   const isXs = useMediaQuery(theme.breakpoints.down('sm'))
