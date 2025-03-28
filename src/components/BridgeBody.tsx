@@ -21,6 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
+import { type types, metadata, constants } from '@/core'
 import Collapse from '@mui/material/Collapse'
 
 import {
@@ -43,12 +44,10 @@ import {
   CommunityPool,
   SFuelWarning,
   WrappedTokens,
-  chainBg,
-  useDisplayFunctions,
-  GRAY_BG
+  useDisplayFunctions
 } from '@skalenetwork/metaport'
 
-export default function Main() {
+export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap }) {
   const { showFrom, showTo, showInput, showSwitch, showStepper, showCP, showWT } =
     useDisplayFunctions()
 
@@ -83,8 +82,12 @@ export default function Main() {
 
   const { address } = useWagmiAccount()
 
-  const sourceBg = theme.vibrant ? chainBg(mpc.config.skaleNetwork, chainName1, appName1) : GRAY_BG
-  const destBg = theme.vibrant ? chainBg(mpc.config.skaleNetwork, chainName2, appName2) : GRAY_BG
+  const sourceBg = theme.vibrant
+    ? metadata.chainBg(props.chainsMeta, chainName1, appName1)
+    : constants.GRAY_BG
+  const destBg = theme.vibrant
+    ? metadata.chainBg(props.chainsMeta, chainName2, appName2)
+    : constants.GRAY_BG
 
   return (
     <div>
@@ -99,7 +102,7 @@ export default function Main() {
               <TokenBalance
                 balance={tokenBalances[token.keyname]}
                 symbol={token.meta.symbol}
-                decimals={token.meta.decimals ?? ''}
+                decimals={token.meta.decimals ?? undefined}
               />
             ) : null}
           </div>

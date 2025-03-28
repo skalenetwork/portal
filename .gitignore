@@ -24,11 +24,15 @@ yarn-debug.log*
 yarn-error.log*
 
 .env
-src/data/metaportConfig*.ts
+src/data/metaportConfig
 src/meta/
 src/assets/validators/index.ts
 src/metadata.json
 src/metrics.json
+
+packages/*/node_modules
+packages/metaport/storybook-static
+packages/metaport/src/meta/*
 
 src/metadata/chainsData.json
 src/metadata/faucet.json

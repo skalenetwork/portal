@@ -23,7 +23,7 @@
 import { useState, useEffect, ChangeEvent } from 'react'
 import { isAddress } from 'ethers'
 import { SkPaper, cls, cmn, styles } from '@skalenetwork/metaport'
-import { types } from '@/core'
+import { type types, constants } from '@/core'
 
 import { Collapse, Container, TextField, Box, Button, Modal } from '@mui/material'
 import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
@@ -36,8 +36,6 @@ import { jsNumberForAddress } from 'react-jazzicon'
 import Tile from '../Tile'
 import Message from '../Message'
 import SkBtn from '../SkBtn'
-
-import { ZERO_ADDRESS } from '../../core/constants'
 
 export default function RetrieveRewardModal(props: {
   address: types.AddressType | undefined
@@ -146,7 +144,7 @@ export default function RetrieveRewardModal(props: {
                             <TextField
                               inputRef={(input) => input?.focus()}
                               variant="standard"
-                              placeholder={ZERO_ADDRESS}
+                              placeholder={constants.ZERO_ADDRESS}
                               value={edit ? inputAddress : props.customRewardAddress}
                               onChange={handleChange}
                               disabled={!edit}

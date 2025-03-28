@@ -23,13 +23,11 @@
 
 import { Link } from 'react-router-dom'
 import { cmn, cls, SkPaper } from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { type types, metadata } from '@/core'
 
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 
 import { MAINNET_CHAIN_LOGOS } from '../../core/constants'
-import { getChainShortAlias } from '../../core/chain'
-import { chainBg, getChainAlias } from '../../core/metadata'
 
 import ChainLogo from '../ChainLogo'
 import CollapsibleDescription from '../CollapsibleDescription'
@@ -45,7 +43,7 @@ const ChainCard: React.FC<{
   chainsMeta: types.ChainsMetadataMap
   transactions: number | null
 }> = ({ skaleNetwork, schain, chainsMeta, transactions }) => {
-  const shortAlias = getChainShortAlias(chainsMeta, schain.name)
+  const shortAlias = metadata.getChainShortAlias(chainsMeta, schain.name)
   const url = `/chains/${shortAlias}`
   const chainMeta = chainsMeta[schain.name]
 
@@ -56,7 +54,7 @@ const ChainCard: React.FC<{
           <div className="sk-app-logo sk-logo-sm br__tile">
             <div
               className={cls('logo-wrapper borderLight')}
-              style={{ background: chainBg(chainsMeta, schain.name) }}
+              style={{ background: metadata.chainBg(chainsMeta, schain.name) }}
             >
               <ChainLogo
                 className={cls('responsive-logo')}
@@ -79,7 +77,7 @@ const ChainCard: React.FC<{
         </div>
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10)}>
           <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri5)}>
-            {getChainAlias(chainsMeta, schain.name)}
+            {metadata.getAlias(chainsMeta, schain.name)}
           </p>
         </div>
         <CollapsibleDescription text={chainMeta?.description ?? 'No description'} />
