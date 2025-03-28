@@ -11,8 +11,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
   chains: [
     'mainnet',
     'these-long-sadalsuud', // europa
-    'adorable-quaint-bellatrix', // nebula
-    'spanish-smug-auva' // calypso
+    'adorable-quaint-bellatrix' // nebula
   ],
   tokens: {
     eth: {
