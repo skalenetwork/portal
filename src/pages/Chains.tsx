@@ -23,10 +23,10 @@
 
 import { Helmet } from 'react-helmet'
 
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 
-import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
-import { type types, constants } from '@/core'
+import { cmn, cls, useMetaportStore, useWagmiAccount } from '@skalenetwork/metaport'
+import { constants } from '@/core'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
@@ -39,36 +39,39 @@ import CategoryRoundedIcon from '@mui/icons-material/CategoryRounded'
 import ChainsSection from '../components/chains/ChainsSection'
 import { META_TAGS } from '../core/meta'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
+import usePortalStore from '../PortalStore'
 
-export default function Chains(props: {
-  loadData: () => Promise<void>
-  schains: types.ISChain[]
-  metrics: types.IMetrics | null
-  mpc: MetaportCore
-  isXs: boolean
-  chainsMeta: types.ChainsMetadataMap
-}) {
-  const [_, setIntervalId] = useState<NodeJS.Timeout>()
+export default function Chains() {
+  const { schains, chainsMeta, metrics, loadData } = usePortalStore((state) => ({
+    loadData: state.loadData,
+    schains: state.schains,
+    metrics: state.metrics,
+    chainsMeta: state.chainsMeta
+  }))
 
-  const network = props.mpc.config.skaleNetwork
+  const { address } = useWagmiAccount()
 
   useEffect(() => {
-    props.loadData()
-    const intervalId = setInterval(props.loadData, 10000)
-    setIntervalId(intervalId)
+    loadData(mpc, address)
   }, [])
 
-  const appChains = props.schains.filter(
+  const mpc = useMetaportStore((state) => state.mpc)
+  const network = mpc.config.skaleNetwork
+
+  if (!schains || schains.length === 0 || !chainsMeta) {
+    return <div>Loading chains...</div>
+  }
+
+  const appChains = schains.filter(
     (schain) =>
-      props.chainsMeta[schain.name] &&
-      (!props.chainsMeta[schain.name].apps ||
-        (props.chainsMeta[schain.name].apps &&
-          Object.keys(props.chainsMeta[schain.name].apps!).length === 1))
+      chainsMeta[schain.name] &&
+      (!chainsMeta[schain.name].apps ||
+        (chainsMeta[schain.name].apps && Object.keys(chainsMeta[schain.name].apps!).length === 1))
   )
 
-  const otherChains = props.schains.filter((schain) => !props.chainsMeta[schain.name])
+  const otherChains = schains.filter((schain) => !chainsMeta[schain.name])
 
-  if (props.schains.length === 0) {
+  if (schains.length === 0) {
     return (
       <div className="fullscreen-msg">
         <div className={cls(cmn.flex)}>
@@ -103,14 +106,14 @@ export default function Chains(props: {
         </div>
         <ChainsSection
           name="SKALE Hubs"
-          schains={props.schains.filter(
+          schains={schains.filter(
             (schain) =>
-              props.chainsMeta[schain.name] &&
-              props.chainsMeta[schain.name].apps &&
-              Object.keys(props.chainsMeta[schain.name].apps!).length > 1
+              chainsMeta[schain.name] &&
+              chainsMeta[schain.name].apps &&
+              Object.keys(chainsMeta[schain.name].apps!).length > 1
           )}
-          chainsMeta={props.chainsMeta}
-          metrics={props.metrics}
+          chainsMeta={chainsMeta}
+          metrics={metrics}
           skaleNetwork={network}
           size="lg"
           icon={<HubRoundedIcon color="primary" />}
@@ -119,8 +122,8 @@ export default function Chains(props: {
           <ChainsSection
             name="App Chains"
             schains={appChains}
-            chainsMeta={props.chainsMeta}
-            metrics={props.metrics}
+            chainsMeta={chainsMeta}
+            metrics={metrics}
             skaleNetwork={network}
             size="md"
             icon={<StarRoundedIcon color="primary" />}
@@ -130,8 +133,8 @@ export default function Chains(props: {
           <ChainsSection
             name="Other Chains"
             schains={otherChains}
-            chainsMeta={props.chainsMeta}
-            metrics={props.metrics}
+            chainsMeta={chainsMeta}
+            metrics={metrics}
             skaleNetwork={network}
             size="md"
             icon={<CategoryRoundedIcon color="primary" />}
