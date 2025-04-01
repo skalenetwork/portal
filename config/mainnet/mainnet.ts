@@ -157,6 +157,12 @@ const connections: types.mp.TokenTypeMap = {
                 'elated-tan-skat': {}
             }
         },
+        razor: {
+            address: '0x50DE6856358Cc35f3A9a57eAAA34BD4cB707d2cd',
+            chains: {
+                'elated-tan-skat': {}
+            }
+        },
         skivvy: {
             address: '0x246908BfF0b1ba6ECaDCF57fb94F6AE2FcD43a77',
             chains: {
