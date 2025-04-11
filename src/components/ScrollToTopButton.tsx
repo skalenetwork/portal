@@ -1,15 +1,35 @@
 /**
- * @file ScrollToTopButton.tsx
- * @copyright SKALE Labs 2024-Present
+ * @license
+ * SKALE portal
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
+
+/**
+ * @file ScrollToTopButton.tsx
+ * @copyright SKALE Labs 2025-Present
+ */
+
 import { useState, useEffect } from 'react'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import { cls } from '@skalenetwork/metaport'
 import { Fab } from '@mui/material'
+import '../styles/components.scss'
 
 export default function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false)
-  
+
   useEffect(() => {
     const toggleVisibility = () => {
       if (window.scrollY > 300) {
@@ -21,34 +41,20 @@ export default function ScrollToTopButton() {
     window.addEventListener('scroll', toggleVisibility)
     return () => window.removeEventListener('scroll', toggleVisibility)
   }, [])
-  
+
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     })
   }
-  
+
   return isVisible ? (
     <Fab
       aria-label="scroll to top"
       onClick={scrollToTop}
       size="small"
       className={cls('scrollToTopButton', 'secondary')}
-      sx={{
-        position: 'fixed',
-        bottom: '2rem',
-        right: '2rem',
-        zIndex: 1000,
-        width: 40,
-        height: 40,
-        opacity: isVisible ? 1 : 0,
-        transition: 'opacity 0.3s ease-in-out',
-        '& .MuiSvgIcon-root': {
-          color: '#93B8EC',
-          fontSize: '1.2rem'
-        }
-      }}
     >
       <KeyboardArrowUpIcon />
     </Fab>

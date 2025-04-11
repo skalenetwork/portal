@@ -49,7 +49,6 @@ import SocialButtons from '../components/ecosystem/Socials'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import ScrollToTopButton from '../components/ScrollToTopButton'
 
-
 export default function Ecosystem(props: {
   mpc: MetaportCore
   chainsMeta: types.ChainsMetadataMap
@@ -130,7 +129,6 @@ export default function Ecosystem(props: {
       ] // Favorite Apps
     ])
 
-   
     return (tabIndex: number) => filterMap.get(tabIndex) || filteredApps
   }, [filteredApps, newApps, trendingApps, favoriteApps, isSignedIn])
 
@@ -269,7 +267,7 @@ export default function Ecosystem(props: {
           <div className={cls(cmn.flexg)}></div>
         </div>
       </Container>
-      
+
       {}
       <ScrollToTopButton />
     </>
