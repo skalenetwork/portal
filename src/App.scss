@@ -207,38 +207,9 @@ body {
 //   }
 // }
 
-::-webkit-scrollbar-track {
-  height: 5px !important;
-}
-
-::-webkit-scrollbar-thumb {
-  background: white;
-  -webkit-box-shadow: none;
-}
-
-::-webkit-scrollbar-thumb:window-inactive {
-  background: none;
-}
-
-::-webkit-scrollbar {
-  -webkit-appearance: none;
-  width: 10px;
-}
-
-::-webkit-scrollbar-track {
-  border-radius: 10px;
-  background-color: #e1e1e125;
-}
-
-::-webkit-scrollbar-thumb {
-  border-radius: 50px;
-  border: 0px solid rgba(255, 255, 255, 0);
-  background-clip: content-box;
-  background-color: #a0a0a0;
-}
-
-body::-webkit-scrollbar {
-  display: none;
+html,
+body {
+  overflow-x: hidden;
 }
 
 .br__bottomNav {

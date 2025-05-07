@@ -34,23 +34,50 @@ import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 
 import { getAvailableTokensTotal, getDefaultToken } from '../core/tokens/helper'
 
+
 import { cls, cmn, styles } from '../core/css'
 
 import TokenListSection from './TokenListSection'
 import TokenIcon from './TokenIcon'
 
+
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
 import { BALANCE_UPDATE_INTERVAL_MS } from '../core/constants'
+import { Box, Button, Modal } from '@mui/material'
+
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: '#202020',
+  color: 'white',
+  boxShadow: 24,
+  p: 4,
+  borderRadius: '30px',
+};
+
 
 export default function TokenList() {
+
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const token = useMetaportStore((state) => state.token)
   const tokens = useMetaportStore((state) => state.tokens)
+
+  console.log('tokens;; ', tokens.erc20)
   const setToken = useMetaportStore((state) => state.setToken)
   const updateTokenBalances = useMetaportStore((state) => state.updateTokenBalances)
   const tokenContracts = useMetaportStore((state) => state.tokenContracts)
 
   const tokenBalances = useMetaportStore((state) => state.tokenBalances)
+  console.log('token balances;; ', tokenBalances)
+
   const transferInProgress = useMetaportStore((state) => state.transferInProgress)
 
   const expandedTokens = useCollapseStore((state) => state.expandedTokens)
@@ -88,6 +115,74 @@ export default function TokenList() {
   if (noTokens) {
     tokensText = 'N/A'
   }
+
+
+  return (
+    <div >
+      <Button className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth)} onClick={handleOpen}>
+        <div className={cls(cmn.flex, cmn.flexc, cmn.mri10, [cmn.pDisabled, noTokens])}>
+          <TokenIcon
+            key={token?.meta.symbol}
+            tokenSymbol={token?.meta.symbol}
+            iconUrl={token?.meta.iconUrl}
+          />
+        </div>
+        <p
+          className={cls(
+            cmn.p,
+            cmn.p1,
+            cmn.p700,
+            cmn.pPrim,
+            [cmn.pDisabled, noTokens],
+            cmn.flex,
+            cmn.flexg,
+            cmn.mri10
+          )}
+        >
+          {tokensText}
+        </p>
+      </Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <TokenListSection
+            tokens={{ ...tokens.erc20, ...tokens.eth }}
+            type={dc.TokenType.erc20}
+            setToken={setToken}
+            setExpanded={setExpandedTokens}
+            tokenBalances={tokenBalances}
+            onCloseModal={handleClose}
+          />
+          <TokenListSection
+            tokens={tokens.erc721}
+            type={dc.TokenType.erc721}
+            setToken={setToken}
+            setExpanded={setExpandedTokens}
+            onCloseModal={handleClose}
+          />
+          <TokenListSection
+            tokens={tokens.erc721meta}
+            type={dc.TokenType.erc721meta}
+            setToken={setToken}
+            setExpanded={setExpandedTokens}
+            onCloseModal={handleClose}
+          />
+          <TokenListSection
+            tokens={tokens.erc1155}
+            type={dc.TokenType.erc1155}
+            setToken={setToken}
+            setExpanded={setExpandedTokens}
+            onCloseModal={handleClose}
+          />
+        </Box>
+      </Modal>
+    </div >)
+
+
 
   return (
     <Accordion
@@ -136,31 +231,36 @@ export default function TokenList() {
             setToken={setToken}
             setExpanded={setExpandedTokens}
             tokenBalances={tokenBalances}
+            onCloseModal={handleClose}
           />
           <TokenListSection
-            tokens={tokens.erc20}
+            tokens={{ ...tokens.erc20, ...tokens.eth }}
             type={dc.TokenType.erc20}
             setToken={setToken}
             setExpanded={setExpandedTokens}
             tokenBalances={tokenBalances}
+            onCloseModal={handleClose}
           />
           <TokenListSection
             tokens={tokens.erc721}
             type={dc.TokenType.erc721}
             setToken={setToken}
             setExpanded={setExpandedTokens}
+            onCloseModal={handleClose}
           />
           <TokenListSection
             tokens={tokens.erc721meta}
             type={dc.TokenType.erc721meta}
             setToken={setToken}
             setExpanded={setExpandedTokens}
+            onCloseModal={handleClose}
           />
           <TokenListSection
             tokens={tokens.erc1155}
             type={dc.TokenType.erc1155}
             setToken={setToken}
             setExpanded={setExpandedTokens}
+            onCloseModal={handleClose}
           />
         </AccordionDetails>
       ) : null}

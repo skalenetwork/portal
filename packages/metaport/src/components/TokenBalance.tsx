@@ -42,7 +42,7 @@ export default function TokenBalance(props: {
     <div className={cls(cmn.flex, cmn.flexcv)}>
       <p
         className={cls(
-          cmn.p,
+          cmn.pLightGrey,
           [cmn.p4, size === 'xs'],
           [cmn.p3, size === 'sm'],
           [cmn.pSec, !props.primary],
@@ -51,6 +51,7 @@ export default function TokenBalance(props: {
           cmn.flexcv,
           cmn.mri5
         )}
+        style={{ color: 'lightgrey' }}
       >
         {balance} {props.symbol}
       </p>
