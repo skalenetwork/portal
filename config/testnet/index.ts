@@ -20,7 +20,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     skl: {
       decimals: 18,
       name: 'SKALE',
-      symbol: 'SKL'
+      symbol: 'SKL',
     },
     usdc: {
       decimals: 6,
@@ -49,7 +49,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     usdp: {
       name: 'Pax Dollar',
       symbol: 'USDP',
-      iconUrl: 'https://ruby.exchange/images/tokens/usdp-square.png'
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3330.png'
     },
     hmt: {
       name: 'Human Token',
@@ -64,12 +64,13 @@ export const METAPORT_CONFIG: types.mp.Config = {
     },
     trc: {
       name: "TheRealCoin",
-      symbol: "TRC"
+      symbol: "TRC",
+      iconUrl: 'https://cdn.coinranking.com/hiytXsMNZ/6717a9ad9119fa1b2a5a077f4aa45d55.png'
     },
     skivvy: {
       name: 'Skivvy',
       symbol: '$SKIVVY',
-      decimals: '8',
+      decimals: 8,
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3441.png'
     },
     unp: {
