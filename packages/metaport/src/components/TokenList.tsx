@@ -18,7 +18,9 @@
 /**
  * @file TokenList.ts
  * @copyright SKALE Labs 2025-Present
- */import { useEffect, useState } from 'react'
+ */
+
+import { useEffect, useState } from 'react'
 import React from 'react'
 import { dc } from '@/core'
 
@@ -69,9 +71,6 @@ export default function TokenList() {
   const tokenBalances = useMetaportStore((state) => state.tokenBalances)
   console.log('token balances;; ', tokenBalances)
 
-  const transferInProgress = useMetaportStore((state) => state.transferInProgress)
-
-  const expandedTokens = useCollapseStore((state) => state.expandedTokens)
   const setExpandedTokens = useCollapseStore((state) => state.setExpandedTokens)
 
   const { address } = useAccount()
@@ -98,9 +97,6 @@ export default function TokenList() {
   let disabled = availableTokensTotal === 1
   let noTokens = availableTokensTotal === 0
 
-  const handleChange = (panel: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
-    setExpandedTokens(isExpanded ? panel : false)
-  }
 
   let tokensText = token ? token.meta.symbol : 'TOKEN'
   if (noTokens) {
@@ -124,12 +120,10 @@ export default function TokenList() {
   const filteredTokens = filterTokens({ ...tokens.erc20, ...tokens.eth });
   const filteredTokensCount = Object.keys(filteredTokens).length;
 
-  // console.log('filteredTokensCount', filteredTokensCount)
-
   return (
     <div >
 
-      <Button className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mleft10,)} onClick={handleOpen}>
+      <Button className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mleft10,)} onClick={handleOpen} disabled={disabled}>
         <div className={cls(cmn.flex, cmn.flexc, cmn.mri10, [cmn.pDisabled, noTokens])}>
           <TokenIcon
             key={token?.meta.symbol}
