@@ -79,7 +79,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     skill: {
       name: 'SKILL',
       symbol: 'SKILL',
-      iconUrl: 'https://ruby.exchange/images/tokens/skill-square.png'
+      iconUrl: 'https://www.coinbase.com/en-gb/price/cryptoblades'
     },
     sushi: {
       name: 'SUSHI',
