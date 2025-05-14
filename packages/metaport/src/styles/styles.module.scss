@@ -6,7 +6,6 @@
 }
 
 .paperGrey {
-    // background-color: $sk-gray-background-color !important;
     background-color: $sk-paper-color !important;
 }
 
@@ -417,7 +416,7 @@ button {
 .skInput {
     .MuiInputBase-root {
         min-height: 53px;
-        border-radius: 35px !important; 
+        border-radius: 35px !important;
         border: 1px $border-color solid;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
             'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
@@ -440,3 +439,7 @@ button {
     }
 }
 
+.bridgeModalScroll {
+    max-height: calc(100vh - 210px);
+    overflow: auto;
+}

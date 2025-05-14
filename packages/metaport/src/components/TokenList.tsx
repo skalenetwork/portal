@@ -28,37 +28,32 @@ import { useAccount } from 'wagmi'
 
 import SearchIcon from '@mui/icons-material/Search'
 
-
 import { getAvailableTokensTotal, getDefaultToken } from '../core/tokens/helper'
-
 
 import { cls, cmn, styles } from '../core/css'
 
 import TokenListSection from './TokenListSection'
 import TokenIcon from './TokenIcon'
 
-
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
 import { BALANCE_UPDATE_INTERVAL_MS } from '../core/constants'
-import { Box, Button, Modal, TextField, InputAdornment } from '@mui/material'
+import { Button, Modal, TextField, InputAdornment, Container } from '@mui/material'
 import SkPaper from './SkPaper'
 
 const style = {
   position: 'absolute',
   top: '5%',
   left: '50%',
-  transform: 'translate(-50%, 0)',
-  width: 400,
-  // backdropFilter: 'blur(30px)',
-};
-export default function TokenList() {
+  transform: 'translate(-50%, 0)'
+}
 
-  const [open, setOpen] = React.useState(false);
+export default function TokenList() {
+  const [open, setOpen] = React.useState(false)
   const [searchQuery, setSearchQuery] = useState('')
 
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
 
   const token = useMetaportStore((state) => state.token)
   const tokens = useMetaportStore((state) => state.tokens)
@@ -97,7 +92,6 @@ export default function TokenList() {
   let disabled = availableTokensTotal === 1
   let noTokens = availableTokensTotal === 0
 
-
   let tokensText = token ? token.meta.symbol : 'TOKEN'
   if (noTokens) {
     tokensText = 'N/A'
@@ -117,37 +111,40 @@ export default function TokenList() {
     return filtered
   }
 
-  const filteredTokens = filterTokens({ ...tokens.erc20, ...tokens.eth });
-  const filteredTokensCount = Object.keys(filteredTokens).length;
+  const filteredTokens = filterTokens({ ...tokens.erc20, ...tokens.eth })
+  const filteredTokensCount = Object.keys(filteredTokens).length
 
   return (
-    <div >
-
-      <Button className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mleft10,)} onClick={handleOpen} disabled={disabled}>
-        <div className={cls(cmn.flex, cmn.flexc, cmn.mri10, [cmn.pDisabled, noTokens])}>
-          <TokenIcon
-            key={token?.meta.symbol}
-            tokenSymbol={token?.meta.symbol}
-            iconUrl={token?.meta.iconUrl}
-          />
-        </div>
-        <p
-          className={cls(
-            cmn.p,
-            cmn.p1,
-            cmn.p700,
-            cmn.pPrim,
-            [cmn.pDisabled, noTokens],
-            cmn.flex,
-            cmn.flexg,
-            cmn.mright10
-          )}
+    <div>
+      <div className={cmn.mri10}>
+        <Button
+          className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mleft10)}
+          onClick={handleOpen}
+          disabled={disabled}
         >
-          {tokensText}
-        </p>
-      </Button>
-
-      
+          <div className={cls(cmn.flex, cmn.flexc, cmn.mri10, [cmn.pDisabled, noTokens])}>
+            <TokenIcon
+              key={token?.meta.symbol}
+              tokenSymbol={token?.meta.symbol}
+              iconUrl={token?.meta.iconUrl}
+            />
+          </div>
+          <p
+            className={cls(
+              cmn.p,
+              cmn.p1,
+              cmn.p700,
+              cmn.pPrim,
+              [cmn.pDisabled, noTokens],
+              cmn.flex,
+              cmn.flexg,
+              cmn.mright10
+            )}
+          >
+            {tokensText}
+          </p>
+        </Button>
+      </div>
       <Modal
         open={open}
         onClose={handleClose}
@@ -156,36 +153,30 @@ export default function TokenList() {
         className={cls(cmn.darkTheme, styles.metaport)}
         style={{ backdropFilter: 'blur(10px)' }}
       >
-        
-        <Box sx={style}>    
-        <div className={cls(cmn.flex, cmn.mbott20)}>
-          <div className={cls(cmn.flexg)}></div>
-          <SkPaper gray>
-          <p 
-              className={cls(
-                cmn.p,
-                cmn.p2,
-                cmn.p700,
-                cmn.pPrim,
-                cmn.mtop5,
-                cmn.mbott5,
-                cmn.mleft20,
-                cmn.mri20,
-                cmn.flexcv,
-                cmn.pCent,
-                
-              )}
-            > 
-            Select a token         
+        <Container maxWidth="sm" sx={style}>
+          <div className={cls(cmn.flex, cmn.mbott20)}>
+            <div className={cls(cmn.flexg)}></div>
+            <SkPaper gray>
+              <p
+                className={cls(
+                  cmn.p,
+                  cmn.p2,
+                  cmn.p700,
+                  cmn.pPrim,
+                  cmn.mtop5,
+                  cmn.mbott5,
+                  cmn.mleft20,
+                  cmn.mri20,
+                  cmn.flexcv,
+                  cmn.pCent
+                )}
+              >
+                Select a token
               </p>
-
-              </SkPaper>
-              <div className={cls(cmn.flexg)}></div>
-        </div>
-       
-             
+            </SkPaper>
+            <div className={cls(cmn.flexg)}></div>
+          </div>
           <SkPaper gray>
-            
             <TextField
               fullWidth
               placeholder="Search tokens"
@@ -200,13 +191,26 @@ export default function TokenList() {
               }}
               className={cls(styles.skInput)}
               sx={{
-                '& .MuiOutlinedInput-root': { borderRadius: '25px'},
-                '& fieldset': { borderColor: '#353535 !important'},
+                '& .MuiOutlinedInput-root': { borderRadius: '25px' },
+                '& fieldset': { borderColor: '#353535 !important' }
               }}
             />
-            {filteredTokensCount === 0 && (<p className={cls(cmn.p, cmn.p2, cmn.p400, cmn.flexg, cmn.pSec, cmn.mleft10, cmn.mtop20,)}> No tokens match the filter </p>
+            {filteredTokensCount === 0 && (
+              <p
+                className={cls(
+                  cmn.p,
+                  cmn.p2,
+                  cmn.p400,
+                  cmn.flexg,
+                  cmn.pSec,
+                  cmn.mleft10,
+                  cmn.mtop20
+                )}
+              >
+                {' '}
+                No tokens match the filter{' '}
+              </p>
             )}
-            
             <TokenListSection
               tokens={filteredTokens}
               type={dc.TokenType.erc20}
@@ -216,32 +220,9 @@ export default function TokenList() {
               onCloseModal={handleClose}
               searchQuery={searchQuery}
             />
-            {/* <TokenListSection
-              tokens={filterTokens(tokens.erc721)}
-              type={dc.TokenType.erc721}
-              setToken={setToken}
-              setExpanded={setExpandedTokens}
-              onCloseModal={handleClose}
-              searchQuery={searchQuery}
-            />
-            <TokenListSection
-              tokens={filterTokens(tokens.erc721meta)}
-              type={dc.TokenType.erc721meta}
-              setToken={setToken}
-              setExpanded={setExpandedTokens}
-              onCloseModal={handleClose}
-              searchQuery={searchQuery}
-            />
-            <TokenListSection
-              tokens={filterTokens(tokens.erc1155)}
-              type={dc.TokenType.erc1155}
-              setToken={setToken}
-              setExpanded={setExpandedTokens}
-              onCloseModal={handleClose}
-              searchQuery={searchQuery}
-            /> */}
           </SkPaper>
-        </Box>
+        </Container>
       </Modal>
-    </div >)
+    </div>
+  )
 }
