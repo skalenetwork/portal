@@ -412,3 +412,31 @@ button {
         overflow: auto;
     }
 }
+
+
+.skInput {
+    .MuiInputBase-root {
+        min-height: 53px;
+        border-radius: 35px !important; 
+        border: 1px $border-color solid;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+            'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+            sans-serif !important;
+    }
+
+    .MuiOutlinedInput-input {
+        padding: 14px 0 !important;
+    }
+
+    .MuiOutlinedInput-notchedOutline {
+        display: none;
+    }
+
+    input {
+        font-size: 0.8025rem !important;
+        line-height: 1.6 !important;
+        letter-spacing: 0.02857em !important;
+        font-weight: 600 !important;
+    }
+}
+

@@ -1,13 +1,17 @@
 import Button from '@mui/material/Button'
+import SavingsIcon from '@mui/icons-material/Savings';
+import LocalMallIcon from '@mui/icons-material/LocalMall';
+
 import { dc, types } from '@/core'
 
-import { cls, cmn } from '../core/css'
-import { styles } from '../core/css' // Import styles
+import { cls, cmn, styles } from '../core/css'
 
 import TokenBalance from './TokenBalance'
 import TokenIcon from './TokenIcon'
 
+
 import { getTokenName } from '../core/metadata'
+
 
 export default function TokenListSection(props: {
   setExpanded: (expanded: string | false) => void
@@ -15,20 +19,27 @@ export default function TokenListSection(props: {
   tokens: types.mp.TokenDataMap
   type: dc.TokenType
   tokenBalances?: types.mp.TokenBalancesMap
+
   onCloseModal?: () => void
+  searchQuery?: string
 }) {
   function handle(tokenData: dc.TokenData): void {
     props.setExpanded(false)
     props.setToken(tokenData)
     if (props.onCloseModal) props.onCloseModal()
+
   }
 
   console.log('Tokens:', props.tokens);
   console.log('Token Balances:', props.tokenBalances);
 
-  if (Object.keys(props.tokens).length === 0) return
+  const filteredTokens = Object.keys(props.tokens).filter(key =>
+    props.tokens[key]?.meta.symbol.toLowerCase().includes(props.searchQuery?.toLowerCase() || '') ||
+    getTokenName(props.tokens[key]).toLowerCase().includes(props.searchQuery?.toLowerCase() || '')
+  );
 
-  const nonZeroBalanceTokens = Object.keys(props.tokens).filter(
+
+  const nonZeroBalanceTokens = filteredTokens.filter(
     (key) =>
       props.tokenBalances &&
       props.tokenBalances[props.tokens[key]?.keyname] > 0n
@@ -36,15 +47,28 @@ export default function TokenListSection(props: {
 
   const zeroBalanceTokens = Object.keys(props.tokens).filter(
     (key) =>
-      !props.tokenBalances ||
+      props.tokenBalances == undefined ||
+      Object.keys(props.tokenBalances).length == 0 ||
       props.tokenBalances[props.tokens[key]?.keyname] <= 0n
   )
 
   return (
-    <div className={cls(cmn.chainsList, cmn.mbott10, cmn.mri10)} style={{ marginLeft: '8px' }}>
+    <div className={cls(cmn.mright10, cmn.mleft10)}>
       {nonZeroBalanceTokens.length > 0 && (
-        <div>
-          <h5 style={{ color: 'lightgrey', textAlign: 'left', fontFamily: '-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif' }}>Your Tokens</h5>
+        <div className={cls(cmn.mtop20)}>
+          <div className={cls(cmn.flex, cmn.flexcv, cmn.flexg, cmn.pSec,)}>
+            <div
+              className={cls(
+                cmn.flexcv,
+                cmn.flex,
+                cmn.mri10,
+                styles.chainIconxs
+              )}
+            >
+              <SavingsIcon />
+            </div>
+            <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.flexg, cmn.cap)}>Your Tokens</p>
+          </div >
 
           {nonZeroBalanceTokens.sort().map((key) => (
             <Button
@@ -54,26 +78,24 @@ export default function TokenListSection(props: {
               className={cmn.fullWidth}
               onClick={() => handle(props.tokens[key])}
             >
-              {/* Removed styles.paperGrey for transparent background */}
-              <div className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.mtop10, cmn.mbott10, cmn.bordRad)}>
-                <div className={cls(cmn.flex, cmn.flexc, cmn.mleft10)}>
+              <div className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.mtop10, cmn.mbott10, cmn.bordRad,)}>
+                <div className={cls(cmn.flex, cmn.flexc,)}>
                   <TokenIcon
                     tokenSymbol={props.tokens[key]?.meta.symbol}
                     iconUrl={props.tokens[key]?.meta.iconUrl}
                   />
                 </div>
-                {/* Wrapped name and address in a div and added cmn.flexg */}
                 <div className={cls(cmn.flexg)}>
                   <p
                     className={cls(
                       cmn.p,
                       cmn.p3,
                       cmn.p600,
+                      cmn.pPrim,
                       cmn.flex,
                       cmn.mri10,
                       cmn.mleft10
                     )}
-                    style={{ color: 'lightgrey' }} // Added inline style for lightgrey
                   >
                     {getTokenName(props.tokens[key])}
                   </p>
@@ -84,11 +106,11 @@ export default function TokenListSection(props: {
                       className={cls(
                         cmn.p,
                         cmn.p4,
+                        cmn.pSec,
                         cmn.p500,
                         cmn.flex,
                         cmn.mleft10
                       )}
-                      style={{ color: 'lightgrey', textAlign: 'right' }} // Added inline style for lightgrey and text alignment
                     >
                       {props.tokens[key].address.substring(0, 5) +
                         '...' +
@@ -96,7 +118,7 @@ export default function TokenListSection(props: {
                     </p>}
 
                 </div>
-                {/* TokenBalance remains in its div */}
+
                 <div className={cmn.mri10}>
                   <TokenBalance
                     balance={
@@ -105,7 +127,7 @@ export default function TokenListSection(props: {
                     }
                     symbol={props.tokens[key]?.meta.symbol}
                     decimals={props.tokens[key]?.meta.decimals}
-                    style={{ color: 'lightgrey', textAlign: 'right' }} // Added inline style for lightgrey and text alignment
+                    truncate={4}
                   />
 
                 </div>
@@ -117,8 +139,21 @@ export default function TokenListSection(props: {
       )}
 
       {zeroBalanceTokens.length > 0 && (
-        <div>
-          <h5 style={{ color: 'lightgrey', textAlign: 'left', fontFamily: '-apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, \"Helvetica Neue\", Arial, sans-serif' }}>Tokens</h5>
+        <div className={cls(cmn.mtop20)}>
+          <div className={cls(cmn.flex, cmn.flexcv, cmn.flexg, cmn.pSec,)}>
+            <div
+              className={cls(
+                cmn.flexcv,
+                cmn.flex,
+                cmn.mri10,
+                styles.chainIconxs
+              )}
+            >
+              <LocalMallIcon />
+            </div>
+            <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.flexg, cmn.cap)}>Tokens</p>
+          </div >
+
           {zeroBalanceTokens.sort().map((key) => (
             <Button
               key={key}
@@ -127,15 +162,14 @@ export default function TokenListSection(props: {
               className={cmn.fullWidth}
               onClick={() => handle(props.tokens[key])}
             >
-              {/* Removed styles.paperGrey for transparent background */}
+
               <div className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.mtop10, cmn.mbott10, cmn.bordRad)}>
-                <div className={cls(cmn.flex, cmn.flexc, cmn.mleft10)}>
+                <div className={cls(cmn.flex, cmn.flexc)}>
                   <TokenIcon
                     tokenSymbol={props.tokens[key]?.meta.symbol}
                     iconUrl={props.tokens[key]?.meta.iconUrl}
                   />
                 </div>
-                 {/* Wrapped name and address in a div and added cmn.flexg */}
                 <div className={cls(cmn.flexg)}>
                   <p
                     className={cls(
@@ -144,9 +178,9 @@ export default function TokenListSection(props: {
                       cmn.p600,
                       cmn.flex,
                       cmn.mri10,
-                      cmn.mleft10
+                      cmn.mleft10,
+                      cmn.pPrim
                     )}
-                    style={{ color: 'lightgrey' }} // Added inline style for lightgrey
                   >
                     {getTokenName(props.tokens[key])}
                   </p>
@@ -159,9 +193,9 @@ export default function TokenListSection(props: {
                         cmn.p4,
                         cmn.p500,
                         cmn.flex,
-                        cmn.mleft10
+                        cmn.mleft10,
+                        cmn.pSec
                       )}
-                      style={{ color: 'lightgrey', textAlign: 'right' }} // Added inline style for lightgrey and text alignment
                     >
                       {props.tokens[key].address.substring(0, 5) +
                         '...' +
@@ -169,7 +203,7 @@ export default function TokenListSection(props: {
                     </p>}
 
                 </div>
-                {/* TokenBalance remains in its div */}
+
                 <div className={cmn.mri10}>
                   <TokenBalance
                     balance={
@@ -177,7 +211,7 @@ export default function TokenListSection(props: {
                     }
                     symbol={props.tokens[key]?.meta.symbol}
                     decimals={props.tokens[key]?.meta.decimals}
-                    style={{ color: 'lightgrey', textAlign: 'right' }} // Added style for consistency
+                    truncate={4}
                   />
 
                 </div>

@@ -23,7 +23,7 @@
 
 import TollRoundedIcon from '@mui/icons-material/TollRounded'
 import { constants } from '@/core'
-import { styles } from '../core/css'
+import { styles, cmn, cls } from '../core/css'
 
 export default function TokenIcon(props: {
   tokenSymbol: string | undefined | null
@@ -36,7 +36,7 @@ export default function TokenIcon(props: {
     return <TollRoundedIcon />
   }
   if (props.iconUrl !== undefined && props.iconUrl !== null) {
-    return <img className={className} src={props.iconUrl} />
+    return <img className={cls(className, cmn.rad50)} src={props.iconUrl} />
   }
   return (
     <img

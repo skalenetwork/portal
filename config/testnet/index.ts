@@ -76,7 +76,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     unp: {
       name: 'Unipoly Coin',
       symbol: 'UNP',
-      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/28735.png'
+      iconUrl: 'https://img.cryptorank.io/coins/unipoly1706527531233.png'
     }
   },
   connections: {
@@ -378,7 +378,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
   },
   theme: {
     mode: 'dark',
-    vibrant: true,
+    vibrant: false,
     primary: '#93B8EC',
     background: '#000000',
   },

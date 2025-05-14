@@ -18,19 +18,14 @@
 /**
  * @file TokenList.ts
  * @copyright SKALE Labs 2025-Present
- */
-
-import { useEffect } from 'react'
+ */import { useEffect, useState } from 'react'
 import React from 'react'
 import { dc } from '@/core'
 
 import { useAccount } from 'wagmi'
 
-import Accordion from '@mui/material/Accordion'
-import AccordionDetails from '@mui/material/AccordionDetails'
-import AccordionSummary from '@mui/material/AccordionSummary'
+import SearchIcon from '@mui/icons-material/Search'
 
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 
 import { getAvailableTokensTotal, getDefaultToken } from '../core/tokens/helper'
 
@@ -44,26 +39,22 @@ import TokenIcon from './TokenIcon'
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
 import { BALANCE_UPDATE_INTERVAL_MS } from '../core/constants'
-import { Box, Button, Modal } from '@mui/material'
-
+import { Box, Button, Modal, TextField, InputAdornment } from '@mui/material'
+import SkPaper from './SkPaper'
 
 const style = {
   position: 'absolute',
-  top: '50%',
+  top: '5%',
   left: '50%',
-  transform: 'translate(-50%, -50%)',
+  transform: 'translate(-50%, 0)',
   width: 400,
-  bgcolor: '#202020',
-  color: 'white',
-  boxShadow: 24,
-  p: 4,
-  borderRadius: '30px',
+  // backdropFilter: 'blur(30px)',
 };
-
-
 export default function TokenList() {
 
   const [open, setOpen] = React.useState(false);
+  const [searchQuery, setSearchQuery] = useState('')
+
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
 
@@ -115,11 +106,30 @@ export default function TokenList() {
   if (noTokens) {
     tokensText = 'N/A'
   }
+  const filterTokens = (tokenMap: any) => {
+    if (!searchQuery) return tokenMap
+    const filtered: any = {}
+    for (const key in tokenMap) {
+      const token = tokenMap[key]
+      if (
+        token.meta.name?.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        token.meta.symbol?.toLowerCase().includes(searchQuery.toLowerCase())
+      ) {
+        filtered[key] = token
+      }
+    }
+    return filtered
+  }
 
+  const filteredTokens = filterTokens({ ...tokens.erc20, ...tokens.eth });
+  const filteredTokensCount = Object.keys(filteredTokens).length;
+
+  // console.log('filteredTokensCount', filteredTokensCount)
 
   return (
     <div >
-      <Button className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth)} onClick={handleOpen}>
+
+      <Button className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mleft10,)} onClick={handleOpen}>
         <div className={cls(cmn.flex, cmn.flexc, cmn.mri10, [cmn.pDisabled, noTokens])}>
           <TokenIcon
             key={token?.meta.symbol}
@@ -136,134 +146,108 @@ export default function TokenList() {
             [cmn.pDisabled, noTokens],
             cmn.flex,
             cmn.flexg,
-            cmn.mri10
+            cmn.mright10
           )}
         >
           {tokensText}
         </p>
       </Button>
+
+      
       <Modal
         open={open}
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
+        className={cls(cmn.darkTheme, styles.metaport)}
+        style={{ backdropFilter: 'blur(10px)' }}
       >
-        <Box sx={style}>
-          <TokenListSection
-            tokens={{ ...tokens.erc20, ...tokens.eth }}
-            type={dc.TokenType.erc20}
-            setToken={setToken}
-            setExpanded={setExpandedTokens}
-            tokenBalances={tokenBalances}
-            onCloseModal={handleClose}
-          />
-          <TokenListSection
-            tokens={tokens.erc721}
-            type={dc.TokenType.erc721}
-            setToken={setToken}
-            setExpanded={setExpandedTokens}
-            onCloseModal={handleClose}
-          />
-          <TokenListSection
-            tokens={tokens.erc721meta}
-            type={dc.TokenType.erc721meta}
-            setToken={setToken}
-            setExpanded={setExpandedTokens}
-            onCloseModal={handleClose}
-          />
-          <TokenListSection
-            tokens={tokens.erc1155}
-            type={dc.TokenType.erc1155}
-            setToken={setToken}
-            setExpanded={setExpandedTokens}
-            onCloseModal={handleClose}
-          />
+        
+        <Box sx={style}>    
+        <div className={cls(cmn.flex, cmn.mbott20)}>
+          <div className={cls(cmn.flexg)}></div>
+          <SkPaper gray>
+          <p 
+              className={cls(
+                cmn.p,
+                cmn.p2,
+                cmn.p700,
+                cmn.pPrim,
+                cmn.mtop5,
+                cmn.mbott5,
+                cmn.mleft20,
+                cmn.mri20,
+                cmn.flexcv,
+                cmn.pCent,
+                
+              )}
+            > 
+            Select a token         
+              </p>
+
+              </SkPaper>
+              <div className={cls(cmn.flexg)}></div>
+        </div>
+       
+             
+          <SkPaper gray>
+            
+            <TextField
+              fullWidth
+              placeholder="Search tokens"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">
+                    <SearchIcon className={cls(cmn.pPrim, styles.chainIcons)} />
+                  </InputAdornment>
+                )
+              }}
+              className={cls(styles.skInput)}
+              sx={{
+                '& .MuiOutlinedInput-root': { borderRadius: '25px'},
+                '& fieldset': { borderColor: '#353535 !important'},
+              }}
+            />
+            {filteredTokensCount === 0 && (<p className={cls(cmn.p, cmn.p2, cmn.p400, cmn.flexg, cmn.pSec, cmn.mleft10, cmn.mtop20,)}> No tokens match the filter </p>
+            )}
+            
+            <TokenListSection
+              tokens={filteredTokens}
+              type={dc.TokenType.erc20}
+              setToken={setToken}
+              setExpanded={setExpandedTokens}
+              tokenBalances={tokenBalances}
+              onCloseModal={handleClose}
+              searchQuery={searchQuery}
+            />
+            {/* <TokenListSection
+              tokens={filterTokens(tokens.erc721)}
+              type={dc.TokenType.erc721}
+              setToken={setToken}
+              setExpanded={setExpandedTokens}
+              onCloseModal={handleClose}
+              searchQuery={searchQuery}
+            />
+            <TokenListSection
+              tokens={filterTokens(tokens.erc721meta)}
+              type={dc.TokenType.erc721meta}
+              setToken={setToken}
+              setExpanded={setExpandedTokens}
+              onCloseModal={handleClose}
+              searchQuery={searchQuery}
+            />
+            <TokenListSection
+              tokens={filterTokens(tokens.erc1155)}
+              type={dc.TokenType.erc1155}
+              setToken={setToken}
+              setExpanded={setExpandedTokens}
+              onCloseModal={handleClose}
+              searchQuery={searchQuery}
+            /> */}
+          </SkPaper>
         </Box>
       </Modal>
     </div >)
-
-
-
-  return (
-    <Accordion
-      expanded={expandedTokens === 'panel1'}
-      onChange={handleChange('panel1')}
-      disabled={disabled || transferInProgress || noTokens}
-      elevation={0}
-      className={cmn.fullWidth}
-    >
-      <AccordionSummary
-        expandIcon={<ExpandMoreRoundedIcon />}
-        aria-controls="panel1bh-content"
-        id="panel1bh-header"
-        className={styles.accordionSummaryTokens}
-      >
-        <div className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth)}>
-          <div className={cls(cmn.flex, cmn.flexc, cmn.mri10, [cmn.pDisabled, noTokens])}>
-            <TokenIcon
-              key={token?.meta.symbol}
-              tokenSymbol={token?.meta.symbol}
-              iconUrl={token?.meta.iconUrl}
-            />
-          </div>
-          <p
-            className={cls(
-              cmn.p,
-              cmn.p1,
-              cmn.p700,
-              cmn.pPrim,
-              [cmn.pDisabled, noTokens],
-              cmn.flex,
-              cmn.flexg,
-              cmn.mri10
-            )}
-          >
-            {tokensText}
-          </p>
-        </div>
-      </AccordionSummary>
-
-      {expandedTokens ? (
-        <AccordionDetails>
-          <TokenListSection
-            tokens={tokens.eth}
-            type={dc.TokenType.eth}
-            setToken={setToken}
-            setExpanded={setExpandedTokens}
-            tokenBalances={tokenBalances}
-            onCloseModal={handleClose}
-          />
-          <TokenListSection
-            tokens={{ ...tokens.erc20, ...tokens.eth }}
-            type={dc.TokenType.erc20}
-            setToken={setToken}
-            setExpanded={setExpandedTokens}
-            tokenBalances={tokenBalances}
-            onCloseModal={handleClose}
-          />
-          <TokenListSection
-            tokens={tokens.erc721}
-            type={dc.TokenType.erc721}
-            setToken={setToken}
-            setExpanded={setExpandedTokens}
-            onCloseModal={handleClose}
-          />
-          <TokenListSection
-            tokens={tokens.erc721meta}
-            type={dc.TokenType.erc721meta}
-            setToken={setToken}
-            setExpanded={setExpandedTokens}
-            onCloseModal={handleClose}
-          />
-          <TokenListSection
-            tokens={tokens.erc1155}
-            type={dc.TokenType.erc1155}
-            setToken={setToken}
-            setExpanded={setExpandedTokens}
-            onCloseModal={handleClose}
-          />
-        </AccordionDetails>
-      ) : null}
-    </Accordion>
-  )
 }
