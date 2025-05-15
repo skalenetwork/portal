@@ -80,7 +80,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
       name: 'SKILL',
       symbol: 'SKILL',
       iconUrl: 'https://assets.coingecko.com/coins/images/15334/standard/cryptoblade.PNG?1696514982'
-    },h
+    },
     sushi: {
       name: 'SUSHI',
       symbol: 'SUSHI'
