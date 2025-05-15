@@ -79,8 +79,8 @@ export const METAPORT_CONFIG: types.mp.Config = {
     skill: {
       name: 'SKILL',
       symbol: 'SKILL',
-      iconUrl: 'https://www.coinbase.com/en-gb/price/cryptoblades'
-    },
+      iconUrl: 'https://assets.coingecko.com/coins/images/15334/standard/cryptoblade.PNG?1696514982'
+    },h
     sushi: {
       name: 'SUSHI',
       symbol: 'SUSHI'
