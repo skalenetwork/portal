@@ -443,3 +443,7 @@ button {
     max-height: calc(100vh - 210px);
     overflow: auto;
 }
+
+.filled {
+    background: $sk-bg;
+}

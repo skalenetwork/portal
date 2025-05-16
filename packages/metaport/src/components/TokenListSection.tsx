@@ -26,11 +26,16 @@ import LocalMallIcon from '@mui/icons-material/LocalMall'
 
 import { dc, types } from '@/core'
 
-import { cls, styles } from '../core/css'
+import { cls, cmn, styles } from '../core/css'
 
 import TokenSection from './TokenSection'
 
 import { getTokenName } from '../core/metadata'
+
+import TokenIcon from './TokenIcon'
+import Button from '@mui/material/Button'
+
+const POPULAR_TOKENS = ['SKL', 'ETH', 'USDC', 'WBTC', 'USDT']; 
 
 export default function TokenListSection(props: {
   setExpanded: (expanded: string | false) => void
@@ -57,7 +62,15 @@ export default function TokenListSection(props: {
         .toLowerCase()
         .includes(props.searchQuery?.toLowerCase() || '')
   )
+  const popularTokens = filteredTokens
+  .filter((key) =>
+    POPULAR_TOKENS.includes(props.tokens[key]?.meta.symbol)
+  )
+  .sort((a, b) =>
+    props.tokens[a]?.meta.symbol.localeCompare(props.tokens[b]?.meta.symbol)
+  );
 
+  
   const nonZeroBalanceTokens = filteredTokens
     .filter((key) => props.tokenBalances && props.tokenBalances[props.tokens[key]?.keyname] > 0n)
     .map((key) => ({
@@ -67,15 +80,36 @@ export default function TokenListSection(props: {
     }))
 
   const zeroBalanceTokens = filteredTokens
-    .filter((key) => !props.tokenBalances || props.tokenBalances[props.tokens[key]?.keyname] <= 0n)
+    .filter((key) => !props.tokenBalances || Object.keys(props.tokenBalances).length === 0 || props.tokenBalances[props.tokens[key]?.keyname] <= 0n)
     .map((key) => ({
       key,
       tokenData: props.tokens[key],
-      balance: null
+      balance: props.tokenBalances ? props.tokenBalances[props.tokens[key]?.keyname] : null
     }))
 
   return (
     <div className={cls(styles.bridgeModalScroll)}>
+   {popularTokens.map((key) => (
+     
+      <Button
+        color="primary"
+        size="small"
+        className={cls(cmn.mtop20, cmn.flexcv, cmn.mleft10, styles.filled)}
+        variant="contained"
+        key={key}
+        onClick={() => handle(props.tokens[key])}
+      >
+        <div className={cls(cmn.flex, cmn.flexcv)}>
+          <TokenIcon
+            tokenSymbol={props.tokens[key]?.meta.symbol}
+            iconUrl={props.tokens[key]?.meta.iconUrl}
+          />
+          <span className={cls(cmn.p, cmn.pPrim, cmn.mleft10)}>
+            {props.tokens[key]?.meta.symbol}
+          </span>
+        </div>
+      </Button>
+    ))}
       {nonZeroBalanceTokens.length > 0 && (
         <TokenSection
           text="Your Tokens"
