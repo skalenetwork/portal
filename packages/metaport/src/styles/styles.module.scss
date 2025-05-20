@@ -263,6 +263,11 @@ button {
     height: 45px;
 }
 
+.chainIconxl {
+    width: 100px;
+    height: 100px;
+}
+
 .sk__chainApps {
     border-left: 1px rgb(255 255 255/45%) solid;
     margin-left: 30px !important;
@@ -447,3 +452,8 @@ button {
 .filled {
     background: $sk-bg;
 }
+
+.disabledCard {
+    filter: saturate(0) !important;
+    cursor: not-allowed !important;
+  }
