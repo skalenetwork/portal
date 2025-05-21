@@ -22,8 +22,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     'honorable-steel-rasalhague', // calypso hub
     'green-giddy-denebola', // nebula hub
     'affectionate-immediate-pollux', // cryptoblades
-    'wan-red-ain', // human protocol
-    'turbulent-unique-scheat', // razor
+    'wan-red-ain', // human protocol'
     'adorable-quaint-bellatrix', // streammyscreen
     'parallel-stormy-spica' // titan hub
   ],
@@ -188,18 +187,6 @@ export const METAPORT_CONFIG: types.mp.Config = {
             mainnet: {
               clone: true,
               hub: 'elated-tan-skat'
-            }
-          }
-        }
-      }
-    },
-    'turbulent-unique-scheat': {
-      erc20: {
-        razor: {
-          address: '0xcbf70914Fae03B3acB91E953De60CfDAaCA8145f',
-          chains: {
-            mainnet: {
-              clone: true
             }
           }
         }

@@ -29,8 +29,6 @@ import { types } from '@/core'
 
 const log = new Logger<ILogObj>({ name: 'useSFuel' })
 
-const CHAINS_TO_SKIP = ['turbulent-unique-scheat'] // todo: tmp fix, remove later
-
 interface SFuelState {
   sFuelOk: boolean
   isMining: boolean
