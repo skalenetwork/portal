@@ -38,7 +38,7 @@ export class TransferERC20S2S extends Action {
   async execute() {
     this.updateState('init')
     const erc20S = await this.sChain1.erc20()
-    const erc20SAddress = await erc20S.getAddress()
+    const erc20SAddress = (await erc20S.getAddress()) as types.AddressType
     const checkResAllowance = await checkERC20Allowance(
       this.address,
       erc20SAddress,
@@ -54,11 +54,12 @@ export class TransferERC20S2S extends Action {
     const erc20SConnected = (await sChain.erc20()).connect(this.sChain1.signer) as Contract
     if (!checkResAllowance.res) {
       this.updateState('approve')
-      const approveTx = await sendTransaction(
-        sChain.signer,
-        erc20SConnected.approve,
-        [this.token.keyname, MAX_APPROVE_AMOUNT, erc20SAddress, { address: this.address }],
-        `${this.chainName1}:erc20:approve`
+
+      const approveTx = await sChain.approve(
+        this.token.type,
+        this.token.keyname,
+        erc20SAddress,
+        MAX_APPROVE_AMOUNT
       )
       const txBlock = await sChain.provider.getBlock(approveTx.response.blockNumber)
       this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
@@ -193,7 +194,7 @@ export class UnWrapERC20 extends Action {
     this.updateState('unwrapDone', tx.response.hash, block.timestamp)
   }
 
-  async preAction() {}
+  async preAction() { }
 }
 
 export class UnWrapERC20S extends Action {

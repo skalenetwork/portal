@@ -26,12 +26,11 @@ import IconButton from '@mui/material/IconButton'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import Collapse from '@mui/material/Collapse'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
-import { SkPaper, cls, cmn, useWagmiAccount } from '@skalenetwork/metaport'
+import { SkPaper, cls, cmn } from '@skalenetwork/metaport'
 import { Link } from 'react-router-dom'
-import { Button } from '@mui/material'
 
-import { useAuth } from '../AuthContext'
-import SwellIcon from './ecosystem/SwellIcon'
+
+
 
 export default function Message(props: {
   text: string | null
@@ -112,22 +111,3 @@ export default function Message(props: {
   )
 }
 
-export function SwellMessage(props: { className?: string }) {
-  const { openProfileModal, isEmailLoading, email } = useAuth()
-  const { address } = useWagmiAccount()
-
-  if ((!isEmailLoading && email) || !address) return
-  return (
-    <Message
-      className={props.className}
-      icon={<SwellIcon color="primary" />}
-      text="Complete your profile to receive quest rewards on SKALE Swell"
-      closable={false}
-      button={
-        <Button className={cls('btn btnSm')} variant="contained" onClick={openProfileModal}>
-          Go to profile
-        </Button>
-      }
-    />
-  )
-}
