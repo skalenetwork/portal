@@ -31,7 +31,6 @@ import {
   SkStepper,
   ChainsList,
   SkConnect,
-  useCollapseStore,
   useMetaportStore,
   useUIStore,
   useWagmiAccount,
@@ -50,12 +49,6 @@ import {
 export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap }) {
   const { showFrom, showTo, showInput, showSwitch, showStepper, showCP, showWT } =
     useDisplayFunctions()
-
-  const expandedFrom = useCollapseStore((state) => state.expandedFrom)
-  const setExpandedFrom = useCollapseStore((state) => state.setExpandedFrom)
-
-  const expandedTo = useCollapseStore((state) => state.expandedTo)
-  const setExpandedTo = useCollapseStore((state) => state.setExpandedTo)
 
   const destChains = useMetaportStore((state) => state.destChains)
 
@@ -108,8 +101,6 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
           </div>
           <ChainsList
             config={mpc.config}
-            expanded={expandedFrom}
-            setExpanded={setExpandedFrom}
             chain={chainName1}
             chains={mpc.config.chains ?? []}
             setChain={setChainName1}
@@ -142,8 +133,6 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
           </div>
           <ChainsList
             config={mpc.config}
-            expanded={expandedTo}
-            setExpanded={setExpandedTo}
             chain={chainName2}
             chains={mpc.config.chains}
             destChains={destChains}
