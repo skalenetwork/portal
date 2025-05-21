@@ -3,7 +3,6 @@ import { useAccount } from 'wagmi'
 import { Collapse } from '@mui/material'
 import { metadata, constants } from '@/core'
 
-import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
 import { useUIStore } from '../store/Store'
 import { useDisplayFunctions } from '../store/DisplayFunctions'
@@ -30,10 +29,6 @@ export function WidgetBody(props) {
   const { showFrom, showTo, showInput, showSwitch, showStepper, showCP, showWT, showTH } =
     useDisplayFunctions()
 
-  const expandedFrom = useCollapseStore((state) => state.expandedFrom)
-  const setExpandedFrom = useCollapseStore((state) => state.setExpandedFrom)
-  const expandedTo = useCollapseStore((state) => state.expandedTo)
-  const setExpandedTo = useCollapseStore((state) => state.setExpandedTo)
 
   const destChains = useMetaportStore((state) => state.destChains)
   const token = useMetaportStore((state) => state.token)
@@ -126,8 +121,6 @@ export function WidgetBody(props) {
               </div>
               <ChainsList
                 config={props.config}
-                expanded={expandedFrom}
-                setExpanded={setExpandedFrom}
                 chain={chainName1}
                 chains={props.config.chains}
                 setChain={setChainName1}
@@ -162,8 +155,6 @@ export function WidgetBody(props) {
             </div>
             <ChainsList
               config={props.config}
-              expanded={expandedTo}
-              setExpanded={setExpandedTo}
               chain={chainName2}
               chains={props.config.chains}
               destChains={destChains}
