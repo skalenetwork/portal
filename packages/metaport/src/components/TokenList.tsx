@@ -27,6 +27,7 @@ import { dc } from '@/core'
 import { useAccount } from 'wagmi'
 
 import SearchIcon from '@mui/icons-material/Search'
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
 
 import { getAvailableTokensTotal, getDefaultToken } from '../core/tokens/helper'
 
@@ -121,6 +122,7 @@ export default function TokenList() {
           className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mleft10)}
           onClick={handleOpen}
           disabled={disabled}
+          endIcon={<KeyboardArrowDownIcon className={cls(cmn.pPrim)} />}
         >
           <div className={cls(cmn.flex, cmn.flexc, cmn.mri10, [cmn.pDisabled, noTokens])}>
             <TokenIcon
@@ -137,8 +139,7 @@ export default function TokenList() {
               cmn.pPrim,
               [cmn.pDisabled, noTokens],
               cmn.flex,
-              cmn.flexg,
-              cmn.mright10
+              cmn.flexg
             )}
           >
             {tokensText}

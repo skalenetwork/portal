@@ -59,10 +59,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
   const setChainName1 = useMetaportStore((state) => state.setChainName1)
   const setChainName2 = useMetaportStore((state) => state.setChainName2)
 
-  const appName1 = useMetaportStore((state) => state.appName1)
-  const appName2 = useMetaportStore((state) => state.appName2)
-  const setAppName1 = useMetaportStore((state) => state.setAppName1)
-  const setAppName2 = useMetaportStore((state) => state.setAppName2)
+  
 
   const mpc = useMetaportStore((state) => state.mpc)
   const tokenBalances = useMetaportStore((state) => state.tokenBalances)
@@ -76,10 +73,10 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
   const { address } = useWagmiAccount()
 
   const sourceBg = theme.vibrant
-    ? metadata.chainBg(props.chainsMeta, chainName1, appName1)
+    ? metadata.chainBg(props.chainsMeta, chainName1,)
     : constants.GRAY_BG
   const destBg = theme.vibrant
-    ? metadata.chainBg(props.chainsMeta, chainName2, appName2)
+    ? metadata.chainBg(props.chainsMeta, chainName2,)
     : constants.GRAY_BG
 
   return (
@@ -103,9 +100,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
             config={mpc.config}
             chain={chainName1}
             chains={mpc.config.chains ?? []}
-            setChain={setChainName1}
-            setApp={setAppName1}
-            app={appName1}
+            setChain={setChainName1} 
             disabledChain={chainName2}
             disabled={transferInProgress}
             from={true}
@@ -137,8 +132,6 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
             chains={mpc.config.chains}
             destChains={destChains}
             setChain={setChainName2}
-            setApp={setAppName2}
-            app={appName2}
             disabledChain={chainName1}
             disabled={transferInProgress}
             size="md"
