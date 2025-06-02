@@ -11,6 +11,7 @@
     "build:packages": "bun cleanup:portal && bun build:core && bun cleanup:core && bun build:metaport",
     "build:core": "cd packages/core && bun install && bun run build",
     "build:metaport": "cd packages/metaport && bun install && bun run build",
+    "run:dev": "bun i && bun build:mainnet && bun build:dev && bun dev",
     "cleanup:portal": "rm -rf node_modules/",
     "cleanup:metaport": "cd packages/metaport && rm -rf node_modules/",
     "cleanup:core": "cd packages/core && rm -rf node_modules/",
