@@ -24,14 +24,14 @@
 import { Link } from 'react-router-dom'
 import { cmn, cls, SkPaper, ChainIcon } from '@skalenetwork/metaport'
 import { type types, metadata } from '@/core'
+import Logo from '../Logo'
 
-import ChainLogo from '../ChainLogo'
-import { MAINNET_CHAIN_LOGOS, OFFCHAIN_APP } from '../../core/constants'
 
 import CollapsibleDescription from '../CollapsibleDescription'
 import CategoriesChips from './CategoriesChips'
 import SocialButtons from './Socials'
 import { ChipNew, ChipPreTge, ChipTrending } from '../Chip'
+import { OFFCHAIN_APP } from '../../core/constants'
 
 export default function AppCard(props: {
   skaleNetwork: types.SkaleNetwork
@@ -58,29 +58,14 @@ export default function AppCard(props: {
   return (
     <SkPaper gray={gray} fullHeight className="sk-app-card">
       <Link to={url}>
-        <div className={cls(cmn.flex)}>
-          <div className="sk-app-logo sk-logo-sm br__tile">
-            <div
-              className={cls('logo-wrapper borderLight')}
-              style={{
-                background: metadata.chainBg(props.chainsMeta, props.schainName, props.appName)
-              }}
-            >
-              <ChainLogo
-                className={cls('responsive-logo')}
-                network={props.skaleNetwork}
-                chainName={props.schainName}
-                app={props.appName}
-                logos={MAINNET_CHAIN_LOGOS}
-              />
-            </div>
+        <div>      
+          <div className={cls(cmn.flex)}>
+            <Logo chainsMeta={props.chainsMeta} skaleNetwork= {props.skaleNetwork} chainName={props.schainName} appName= {props.appName } />
             <div className={cls(cmn.flex, cmn.flexg)}></div>
-          </div>
-          <div className={cls(cmn.flexg)}></div>
-          {props.schainName !== OFFCHAIN_APP && (
-            <ChainIcon skaleNetwork={props.skaleNetwork} chainName={props.schainName} />
-          )}
-        </div>
+            {props.schainName !== OFFCHAIN_APP && (
+                <ChainIcon skaleNetwork={props.skaleNetwork} chainName={props.schainName} />
+              )}
+            </div>
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10)}>
           <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg)}>
             {metadata.getAlias(props.chainsMeta, props.schainName, props.appName)}
@@ -91,6 +76,7 @@ export default function AppCard(props: {
         </div>
         <CollapsibleDescription text={appDescription} />
         <CategoriesChips categories={appMeta.categories} className={cls(cmn.mtop20)} />
+        </div>
       </Link>
       <SocialButtons
         social={appMeta.social}

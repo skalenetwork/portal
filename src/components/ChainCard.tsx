@@ -27,9 +27,7 @@ import { type types, metadata } from '@/core'
 
 import Button from '@mui/material/Button'
 
-import ChainLogo from './ChainLogo'
-
-import { MAINNET_CHAIN_LOGOS } from '../core/constants'
+import Logo from './Logo'
 
 export default function ChainCard(props: {
   skaleNetwork: types.SkaleNetwork
@@ -51,13 +49,8 @@ export default function ChainCard(props: {
           >
             <div className={cls(cmn.flex, cmn.flexg)}></div>
             <div className={cls(cmn.flex, cmn.flexcv, 'inheritSize')}>
-              <ChainLogo
-                network={props.skaleNetwork}
-                chainName={props.schain.name}
-                logos={MAINNET_CHAIN_LOGOS}
-              />
+            <Logo chainsMeta={props.chainsMeta} skaleNetwork= {props.skaleNetwork} chainName={props.schain.name}/>
             </div>
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
           </Link>
           <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, 'br__tileBott', 'fullW')}></div>
         </div>

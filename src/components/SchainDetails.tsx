@@ -42,13 +42,11 @@ import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
 import SkStack from './SkStack'
-import ChainLogo from './ChainLogo'
 import Tile from './Tile'
 import Breadcrumbs from './Breadcrumbs'
 import CollapsibleDescription from './CollapsibleDescription'
 import SkBtn from './SkBtn'
-
-import { MAINNET_CHAIN_LOGOS } from '../core/constants'
+import Logo from './Logo'
 import { getRpcUrl, getChainId } from '../core/chain'
 import { formatNumber } from '../core/timeHelper'
 import ChainTabsSection from './chains/tabs/ChainTabsSection'
@@ -161,22 +159,7 @@ export default function SchainDetails(props: {
       <SkPaper gray className={cls(cmn.mtop10)}>
         <div className={cls(cmn.m10)}>
           <div className={cls('responsive-app-header', cmn.flex, cmn.flexcvd)}>
-            <div className={cls('sk-app-logo', 'sk-logo-md')}>
-              <div
-                className={cls('logo-wrapper borderLight')}
-                style={{
-                  background: metadata.chainBg(props.chainsMeta, props.schainName),
-                  flexShrink: 0
-                }}
-              >
-                <ChainLogo
-                  className={cls('responsive-logo')}
-                  network={network}
-                  chainName={props.schainName}
-                  logos={MAINNET_CHAIN_LOGOS}
-                />
-              </div>
-            </div>
+          <Logo chainsMeta={props.chainsMeta} skaleNetwork={network} chainName={props.schainName} size='md' />
             <div className={cls('app-info', cmn.flexg)}>
               <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10)}>
                 <div className={cmn.flexg}>

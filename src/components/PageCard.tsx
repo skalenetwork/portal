@@ -34,8 +34,8 @@ export default function PageCard(props: {
   return (
     <Link to={props.url ?? props.name}>
       <SkPaper gray className={cls('br__tile')}>
-        <div className={cls(cmn.flex, cmn.flexcv, cmn.m10)}>
-          <div className={cls(cmn.flexg)}>
+      <div className={cls(cmn.flex, cmn.flexcv, cmn.m10)}>
+      <div className={cls(cmn.flexg)}>
             <div className={cls(cmn.flex, cmn.flexg, cmn.flexcv)}>
               <div className={cls(styles.chainIcons, cmn.mri10, cmn.pPrim)}>{props.icon}</div>
               <h3 className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p, cmn.p600)}>{props.name}</h3>

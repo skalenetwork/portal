@@ -34,6 +34,7 @@ export interface ChainMetadata {
   description?: string
   url?: string
   apps?: AppMetadataMap
+  actions?: ChainAction[];
 }
 
 export interface AppMetadata {
@@ -81,4 +82,9 @@ export interface ChainsMetadataMap {
 
 export type NetworksMetadataMap = {
   [key in SkaleNetwork]: ChainsMetadataMap
+}
+
+export interface ChainAction {
+  text: string
+  app: string
 }

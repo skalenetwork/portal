@@ -23,6 +23,7 @@
 
 import { type types, metadata, constants } from '@/core'
 import Collapse from '@mui/material/Collapse'
+import PopularActions from './PopularActions'
 
 import {
   SkPaper,
@@ -177,6 +178,16 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
       <Collapse in={showStepper(address!)} className={cmn.mtop20}>
         <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
       </Collapse>
+
+      <Collapse in={true}>
+          <PopularActions
+            chainsMeta={props.chainsMeta}
+            skaleNetwork={mpc.config.skaleNetwork}
+            chainName={chainName2}
+            />
+        </Collapse>
+
     </div>
   )
 }
+ 
