@@ -26,7 +26,6 @@ import { cls, cmn } from '@skalenetwork/metaport'
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 import ChainLogo from '../components/ChainLogo'
 
-
 interface LogoProps {
   chainsMeta: types.ChainsMetadataMap
   skaleNetwork: types.SkaleNetwork
@@ -58,4 +57,4 @@ const Logo: React.FC<LogoProps> = ({ chainsMeta, skaleNetwork, chainName, appNam
   )
 }
 
-export default Logo;
+export default Logo

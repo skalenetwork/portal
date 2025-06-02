@@ -49,7 +49,11 @@ export default function ChainCard(props: {
           >
             <div className={cls(cmn.flex, cmn.flexg)}></div>
             <div className={cls(cmn.flex, cmn.flexcv, 'inheritSize')}>
-            <Logo chainsMeta={props.chainsMeta} skaleNetwork= {props.skaleNetwork} chainName={props.schain.name}/>
+              <Logo
+                chainsMeta={props.chainsMeta}
+                skaleNetwork={props.skaleNetwork}
+                chainName={props.schain.name}
+              />
             </div>
           </Link>
           <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, 'br__tileBott', 'fullW')}></div>

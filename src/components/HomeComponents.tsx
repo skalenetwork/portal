@@ -41,7 +41,7 @@ export const SECTION_ICONS: SectionIcons = {
   new: <StarRoundedIcon color="primary" />,
   trending: <TrendingUpRoundedIcon color="primary" />,
   mostLiked: <PeopleRoundedIcon color="primary" />,
-  categories: <OutboundRoundedIcon color="primary" />,
+  categories: <OutboundRoundedIcon color="primary" />
 }
 
 interface ExploreCard {

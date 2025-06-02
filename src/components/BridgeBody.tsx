@@ -180,14 +180,12 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
       </Collapse>
 
       <Collapse in={true}>
-          <PopularActions
-            chainsMeta={props.chainsMeta}
-            skaleNetwork={mpc.config.skaleNetwork}
-            chainName={chainName2}
-            />
-        </Collapse>
-
+        <PopularActions
+          chainsMeta={props.chainsMeta}
+          skaleNetwork={mpc.config.skaleNetwork}
+          chainName={chainName2}
+        />
+      </Collapse>
     </div>
   )
 }
- 

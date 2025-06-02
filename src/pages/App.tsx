@@ -204,12 +204,16 @@ export default function App(props: {
         <SkPaper gray className={cls(cmn.mtop10)}>
           <div className={cls(cmn.m10)}>
             <div className={cls('responsive-app-header', cmn.flex, cmn.flexcvd)}>
-          
-            <Logo chainsMeta={props.chainsMeta} skaleNetwork={network} chainName={chain} appName={app} size='md' />
-              
+              <Logo
+                chainsMeta={props.chainsMeta}
+                skaleNetwork={network}
+                chainName={chain}
+                appName={app}
+                size="md"
+              />
+
               <div className={cls('app-info', cmn.flexg)}>
                 <div className={cls([cmn.flex, !props.isXs])}>
-                  
                   <div className={cls(cmn.flexg, cmn.mbott10)}>
                     <CategoriesChips categories={appMeta.categories} all />
                   </div>
@@ -235,8 +239,8 @@ export default function App(props: {
                 <CollapsibleDescription text={appDescription} expandable />
                 <SocialButtons size="md" social={appMeta.social} className={cls(cmn.mtop20)} />
               </div>
-              </div>
-              </div>
+            </div>
+          </div>
         </SkPaper>
         <SkPaper gray className={cls(cmn.mtop10)}>
           <Grid container spacing={1} className={cls(cmn.full)}>

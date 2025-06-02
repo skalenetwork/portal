@@ -159,7 +159,12 @@ export default function SchainDetails(props: {
       <SkPaper gray className={cls(cmn.mtop10)}>
         <div className={cls(cmn.m10)}>
           <div className={cls('responsive-app-header', cmn.flex, cmn.flexcvd)}>
-          <Logo chainsMeta={props.chainsMeta} skaleNetwork={network} chainName={props.schainName} size='md' />
+            <Logo
+              chainsMeta={props.chainsMeta}
+              skaleNetwork={network}
+              chainName={props.schainName}
+              size="md"
+            />
             <div className={cls('app-info', cmn.flexg)}>
               <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10)}>
                 <div className={cmn.flexg}>

@@ -26,7 +26,6 @@ import { cmn, cls, SkPaper, ChainIcon } from '@skalenetwork/metaport'
 import { type types, metadata } from '@/core'
 import Logo from '../Logo'
 
-
 import CollapsibleDescription from '../CollapsibleDescription'
 import CategoriesChips from './CategoriesChips'
 import SocialButtons from './Socials'
@@ -58,24 +57,29 @@ export default function AppCard(props: {
   return (
     <SkPaper gray={gray} fullHeight className="sk-app-card">
       <Link to={url}>
-        <div>      
+        <div>
           <div className={cls(cmn.flex)}>
-            <Logo chainsMeta={props.chainsMeta} skaleNetwork= {props.skaleNetwork} chainName={props.schainName} appName= {props.appName } />
+            <Logo
+              chainsMeta={props.chainsMeta}
+              skaleNetwork={props.skaleNetwork}
+              chainName={props.schainName}
+              appName={props.appName}
+            />
             <div className={cls(cmn.flex, cmn.flexg)}></div>
             {props.schainName !== OFFCHAIN_APP && (
-                <ChainIcon skaleNetwork={props.skaleNetwork} chainName={props.schainName} />
-              )}
-            </div>
-        <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10)}>
-          <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg)}>
-            {metadata.getAlias(props.chainsMeta, props.schainName, props.appName)}
-          </p>
-          {props.trending && <ChipTrending />}
-          {props.isNew && <ChipNew />}
-          {metadata.isPreTge(appMeta) && <ChipPreTge />}
-        </div>
-        <CollapsibleDescription text={appDescription} />
-        <CategoriesChips categories={appMeta.categories} className={cls(cmn.mtop20)} />
+              <ChainIcon skaleNetwork={props.skaleNetwork} chainName={props.schainName} />
+            )}
+          </div>
+          <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10)}>
+            <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg)}>
+              {metadata.getAlias(props.chainsMeta, props.schainName, props.appName)}
+            </p>
+            {props.trending && <ChipTrending />}
+            {props.isNew && <ChipNew />}
+            {metadata.isPreTge(appMeta) && <ChipPreTge />}
+          </div>
+          <CollapsibleDescription text={appDescription} />
+          <CategoriesChips categories={appMeta.categories} className={cls(cmn.mtop20)} />
         </div>
       </Link>
       <SocialButtons
