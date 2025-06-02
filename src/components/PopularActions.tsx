@@ -51,8 +51,8 @@ export default function PopularActions(props: {
   return (
     <div>
       <div className={cls(cmn.ptop20, cmn.flex)}></div>
-      <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott20)}>
-        <StarIcon color="primary" />
+      <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott20, cmn.p, cmn.p600, cmn.pSec)}>
+        <StarIcon color="primary" className={cls(cmn.mri10)} />
         Popular Actions
       </div>
       <div className={cls(cmn.flex, cmn.flexRow, cmn.flexcv)}>

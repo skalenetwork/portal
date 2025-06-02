@@ -179,7 +179,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
         <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
       </Collapse>
 
-      <Collapse in={showWT(address!)}>
+      <Collapse in={showCP()}>
         <PopularActions
           chainsMeta={props.chainsMeta}
           skaleNetwork={mpc.config.skaleNetwork}
