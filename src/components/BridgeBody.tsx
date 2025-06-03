@@ -90,6 +90,8 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
     : constants.GRAY_BG
 
   const stepsMetadata = useMetaportStore((state) => state.stepsMetadata)
+  const currentStep = useMetaportStore((state) => state.currentStep)
+
 
   return (
     <div>
@@ -180,13 +182,13 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
         <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
       </Collapse>
 
-      <Collapse in={stepsMetadata && stepsMetadata.length !== 0}>
+      {currentStep === stepsMetadata.length && (
         <PopularActions
           chainsMeta={props.chainsMeta}
           skaleNetwork={mpc.config.skaleNetwork}
           chainName={chainName2}
         />
-      </Collapse>
+   )}
     </div>
   )
 }
