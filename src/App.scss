@@ -820,6 +820,13 @@ input[type=number] {
     color: black !important
   }
 }
+.chipFeatured {
+  background: linear-gradient(180deg, #ff7e91, #e63946) !important;
+
+  p {
+    color: black !important
+  }
+}
 
 .chipMostLiked {
   background: linear-gradient(180deg, #e8a25b, #e58e36) !important;

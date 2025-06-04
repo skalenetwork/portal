@@ -17,7 +17,7 @@
  */
 /**
  * @file NewApps.tsx
- * @copyright SKALE Labs 2024-Present
+ * @copyright SKALE Labs 2025-Present
  */
 
 import React, { useMemo } from 'react'
@@ -27,31 +27,49 @@ import AppCard from '../AppCardV2'
 import Carousel from '../../Carousel'
 import { type types } from '@/core'
 import { useLikedApps } from '../../../LikedAppsContext'
-import { isTrending, isFeatured } from '../../../core/ecosystem/utils'
+import { isTrending } from '../../../core/ecosystem/utils'
+import { isNewApp } from '../../../core/ecosystem/utils'
 
-interface NewAppsProps {
-  newApps: types.AppWithChainAndName[]
+
+
+interface FeaturedAppsProps {
+  featuredApps: types.AppWithChainAndName[]
   skaleNetwork: types.SkaleNetwork
   chainsMeta: types.ChainsMetadataMap
   trendingApps: types.AppWithChainAndName[]
-  featuredApps: types.AppWithChainAndName[]
+  newApps: types.AppWithChainAndName[]
   useCarousel?: boolean
 }
 
-const NewApps: React.FC<NewAppsProps> = ({
-  newApps,
+const FeaturedApps: React.FC<FeaturedAppsProps> = ({
+  featuredApps,
   skaleNetwork,
   chainsMeta,
+  newApps,
   trendingApps,
-  featuredApps,
   useCarousel = false
+
 }) => {
+  console.log('Featured Apps Prop:', featuredApps); 
+  console.log('Chains Meta:', chainsMeta); 
+
   const { getMostLikedApps, getAppId, getMostLikedRank } = useLikedApps()
   const trendingAppIds = useMemo(() => getMostLikedApps(), [getMostLikedApps])
+  const filteredFeaturedApps = useMemo(() => {
+    const filtered = featuredApps.filter((app) => {
+      const chainData = chainsMeta[app.chain]?.apps?.[app.appName];
+      return chainData?.featured === true;
+    });
+    console.log('Filtered Featured Apps:', filtered);
+    return filtered;
+  }, [featuredApps, chainsMeta]);
+  console.log('Featured Apps:', featuredApps);
+  console.log('Chains Meta:', chainsMeta);
 
   const renderAppCard = (app: types.AppWithChainAndName) => {
+    const isNew = isNewApp({ chain: app.chain, app: app.appName }, newApps)
     const appId = getAppId(app.chain, app.appName)
-    // const isFeatured = featuredApps.some((featuredApp) => featuredApp.chain === app.chain && featuredApp.appName === app.appName)
+    console.log('Rendering AppCard for:', app); 
 
     return (
       <AppCard
@@ -62,22 +80,23 @@ const NewApps: React.FC<NewAppsProps> = ({
         chainsMeta={chainsMeta}
         mostLiked={getMostLikedRank(trendingAppIds, appId)}
         trending={isTrending(trendingApps, app.chain, app.appName)}
-        isFeatured={isFeatured({ chain: app.chain, app: app.appName }, featuredApps)}
-        isNew={true}
+        isNew={isNew}
+        isFeatured={true}
+        
       />
     )
   }
 
   if (useCarousel) {
-    return <Carousel>{newApps.map(renderAppCard)}</Carousel>
+    return <Carousel>{featuredApps.map(renderAppCard)}</Carousel>
   }
 
-  if (newApps.length === 0) {
+  if (featuredApps.length === 0) {
     return (
       <SkPaper gray className="titleSection">
         <div className={cls(cmn.mtop20, cmn.mbott20)}>
           <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent)}>
-            No new apps match your current filters
+            No featured apps match your current filters
           </p>
         </div>
       </SkPaper>
@@ -86,7 +105,7 @@ const NewApps: React.FC<NewAppsProps> = ({
 
   return (
     <Grid container spacing={2}>
-      {newApps.map((app) => (
+      {filteredFeaturedApps.map((app) => (
         <Grid key={`${app.chain}-${app.appName}`} item xs={12} sm={6} md={4} lg={4}>
           <Box className={cls('fl-centered dappCard')}>{renderAppCard(app)}</Box>
         </Grid>
@@ -95,4 +114,4 @@ const NewApps: React.FC<NewAppsProps> = ({
   )
 }
 
-export default NewApps
+export default FeaturedApps

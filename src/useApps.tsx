@@ -32,6 +32,7 @@ export function useApps(chainsMeta: types.ChainsMetadataMap, metrics: types.IMet
   const { getMostLikedApps, likedApps, getAppId } = useLikedApps()
   const { isSignedIn } = useAuth()
 
+
   const allApps = useMemo<types.AppWithChainAndName[]>(() => {
     const apps = Object.entries(chainsMeta).flatMap(([chainName, chainData]) =>
       Object.entries(chainData.apps || {}).map(([appName, app]) => ({
@@ -42,6 +43,13 @@ export function useApps(chainsMeta: types.ChainsMetadataMap, metrics: types.IMet
     )
     return apps.sort((a, b) => a.alias.localeCompare(b.alias))
   }, [chainsMeta])
+
+  
+  const featuredApps = useMemo<types.AppWithChainAndName[]>(() => {
+    const filteredApps = allApps.filter(app => app.featured === true)
+    console.log('Featured Apps:', filteredApps) 
+    return filteredApps
+  }, [allApps])
 
   const newApps = useMemo<types.AppWithChainAndName[]>(() => {
     const apps = getRecentApps(chainsMeta, MAX_APPS_DEFAULT)
@@ -82,5 +90,5 @@ export function useApps(chainsMeta: types.ChainsMetadataMap, metrics: types.IMet
       .slice(0, MAX_APPS_DEFAULT)
   }, [allApps, metrics])
 
-  return { allApps, newApps, mostLikedApps, favoriteApps, trendingApps, isSignedIn }
+  return { allApps, featuredApps, newApps, mostLikedApps, favoriteApps, trendingApps, isSignedIn}
 }

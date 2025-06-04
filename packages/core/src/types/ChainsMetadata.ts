@@ -45,6 +45,7 @@ export interface AppMetadata {
   added?: number
   categories: CategoriesMap
   pretge?: TimeRange
+  featured?: boolean
 }
 
 interface TimeRange {

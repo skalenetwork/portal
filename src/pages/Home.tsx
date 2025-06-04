@@ -20,11 +20,10 @@
  * @file Home.tsx
  * @copyright SKALE Labs 2024-Present
  */
-
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Stack, Box, Grid, Button } from '@mui/material'
-import { cmn, cls, SkPaper } from '@skalenetwork/metaport'
+import { cmn, cls, SkPaper} from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
 import { useApps } from '../useApps'
@@ -35,6 +34,7 @@ import CategoryCardsGrid from '../components/ecosystem/CategoryCardsGrid'
 import NewApps from '../components/ecosystem/tabs/NewApps'
 import FavoriteApps from '../components/ecosystem/tabs/FavoriteApps'
 import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
+import FeaturedApps from '../components/ecosystem/tabs/FeaturedApps'
 
 import { SKALE_SOCIAL_LINKS } from '../core/constants'
 import { SECTION_ICONS, EXPLORE_CARDS } from '../components/HomeComponents'
@@ -54,7 +54,7 @@ export default function Home({
   metrics,
   loadData
 }: HomeProps): JSX.Element {
-  const { newApps, trendingApps, favoriteApps, isSignedIn } = useApps(chainsMeta, metrics)
+  const { newApps, trendingApps, favoriteApps, isSignedIn, featuredApps } = useApps(chainsMeta, metrics)
 
   useEffect(() => {
     loadData()
@@ -79,6 +79,7 @@ export default function Home({
               skaleNetwork={skaleNetwork}
               chainsMeta={chainsMeta}
               useCarousel={true}
+              featuredApps={featuredApps}
               newApps={newApps}
               filteredApps={favoriteApps}
               trendingApps={trendingApps}
@@ -93,9 +94,24 @@ export default function Home({
           metrics={metrics}
         />
         <AppSection
+          title="Featured dApps on SKALE"
+          icon={SECTION_ICONS.featured}
+          linkTo="/ecosystem?tab=1"
+          component={
+            <FeaturedApps
+              featuredApps={featuredApps}
+              newApps={newApps}
+              skaleNetwork={skaleNetwork}
+              chainsMeta={chainsMeta}
+              trendingApps={trendingApps}
+              useCarousel={true}
+            />
+          }
+        />
+        <AppSection
           title="New dApps on SKALE"
           icon={SECTION_ICONS.new}
-          linkTo="/ecosystem?tab=1"
+          linkTo="/ecosystem?tab=2"
           component={
             <NewApps
               newApps={newApps}
@@ -103,18 +119,20 @@ export default function Home({
               chainsMeta={chainsMeta}
               useCarousel={true}
               trendingApps={trendingApps}
+              featuredApps={featuredApps}
             />
           }
         />
         <AppSection
           title="Trending dApps on SKALE"
           icon={SECTION_ICONS.trending}
-          linkTo="/ecosystem?tab=2"
+          linkTo="/ecosystem?tab=3"
           component={
             <TrendingApps
               chainsMeta={chainsMeta}
               skaleNetwork={skaleNetwork}
               newApps={newApps}
+              featuredApps={featuredApps}
               filteredApps={trendingApps}
               useCarousel
             />
@@ -130,7 +148,7 @@ export default function Home({
       <div className={cls(cmn.flex, cmn.mtop20, cmn.ptop20)}>
         <div className={cls(cmn.flexg)}></div>
         <SkPaper gray className={cls(cmn.mtop20)}>
-          <SocialButtons social={SKALE_SOCIAL_LINKS} size="md" className="m-ri-min10" />
+        <SocialButtons social={SKALE_SOCIAL_LINKS} size="md" className="m-ri-min10" />
         </SkPaper>
         <div className={cls(cmn.flexg)}></div>
       </div>

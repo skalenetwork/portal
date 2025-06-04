@@ -38,6 +38,7 @@ interface CategoriesChipsProps {
 const CategoriesChips: React.FC<CategoriesChipsProps> = ({ categories, all, className }) => {
   const chips = useMemo(() => {
     if (!categories) return []
+    
 
     const getCategoryName = (tag: string) => categoriesData[tag]?.name ?? tag
     const getSubcategoryName = (categoryTag: string, subcategoryTag: string): string => {
@@ -81,8 +82,9 @@ const CategoriesChips: React.FC<CategoriesChipsProps> = ({ categories, all, clas
 
   if (chips.length === 0) return null
 
-  const visibleChips = all ? chips : chips.slice(0, 2)
-  const remainingChips = chips.length - 2
+  const maxChips = 2
+  const visibleChips = all ? chips : chips.slice(0, maxChips)
+  const remainingChips = chips.length - maxChips
 
   return (
     <Box className={cls(`chipContainer ${className}`, ['flex-w', all])}>
