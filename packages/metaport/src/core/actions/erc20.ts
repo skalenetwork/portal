@@ -26,7 +26,6 @@ import { Contract } from 'ethers'
 import { dc, type types, units } from '@/core'
 
 import { findFirstWrapperChainName } from '../metaport'
-import { MAX_APPROVE_AMOUNT } from '../constants'
 
 import { Action } from '../actions/action'
 import { checkERC20Balance, checkERC20Allowance } from './checks'
@@ -59,7 +58,7 @@ export class TransferERC20S2S extends Action {
         this.token.type,
         this.token.keyname,
         erc20SAddress,
-        MAX_APPROVE_AMOUNT
+        units.toWei(this.amount, this.token.meta.decimals)
       )
       const txBlock = await sChain.provider.getBlock(approveTx.response.blockNumber)
       this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
@@ -141,7 +140,7 @@ export class WrapERC20S extends Action {
         this.token.type,
         this.token.keyname,
         this.token.wrapper(this.chainName2) as types.AddressType,
-        MAX_APPROVE_AMOUNT
+        units.toWei(this.amount, this.token.meta.decimals)
       )
       const txBlock = await this.sChain1.provider.getBlock(approveTx.response.blockNumber)
       this.updateState('approveWrapDone', approveTx.response.hash, txBlock.timestamp)
@@ -255,7 +254,7 @@ export class TransferERC20M2S extends Action {
         this.token.type,
         this.token.keyname,
         erc20MAddress,
-        MAX_APPROVE_AMOUNT
+        units.toWei(this.amount, this.token.meta.decimals)
       )
 
       const txBlock = await mainnet.provider.getBlock(approveTx.response.blockNumber)
@@ -318,7 +317,7 @@ export class TransferERC20S2M extends Action {
         this.token.type,
         this.token.keyname,
         erc20SAddress,
-        MAX_APPROVE_AMOUNT
+        units.toWei(this.amount, this.token.meta.decimals)
       )
       const txBlock = await sChain.provider.getBlock(approveTx.response.blockNumber)
       this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
