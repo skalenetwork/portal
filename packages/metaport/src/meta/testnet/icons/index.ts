@@ -1,0 +1,9 @@
+export * as awareFakeTrimTestnet from './aware-fake-trim-testnet.svg';
+export * as giantHalfDualTestnetMadnft from './giant-half-dual-testnet-madnft.svg';
+export * as giantHalfDualTestnetNftrade from './giant-half-dual-testnet-nftrade.svg';
+export * as giantHalfDualTestnetUntitledPlatformer from './giant-half-dual-testnet-untitled-platformer.svg';
+export * as giantHalfDualTestnet from './giant-half-dual-testnet.svg';
+export * as juicyLowSmallTestnetRuby from './juicy-low-small-testnet-ruby.svg';
+export * as juicyLowSmallTestnet from './juicy-low-small-testnet.svg';
+export * as lankyIllFunnyTestnet from './lanky-ill-funny-testnet.svg';
+export * as mainnet from './mainnet.svg';

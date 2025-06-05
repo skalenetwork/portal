@@ -1,0 +1,16 @@
+export * as mainnet from './mainnet.svg';
+export * as stagingAwareChiefGianfar from './staging-aware-chief-gianfar.svg';
+export * as stagingAwesomeGraveSubra from './staging-awesome-grave-subra.svg';
+export * as stagingFaintSlimyAchird from './staging-faint-slimy-achird.svg';
+export * as stagingFastActiveBellatrix from './staging-fast-active-bellatrix.svg';
+export * as stagingGenerousFloweryElnath from './staging-generous-flowery-elnath.svg';
+export * as stagingLegalCrazyCastorRuby from './staging-legal-crazy-castor-ruby.svg';
+export * as stagingLegalCrazyCastor from './staging-legal-crazy-castor.svg';
+export * as stagingLostLikelyAludra from './staging-lost-likely-aludra.svg';
+export * as stagingPerfectParallelGacrux from './staging-perfect-parallel-gacrux.svg';
+export * as stagingSevereVioletWezen from './staging-severe-violet-wezen.svg';
+export * as stagingUtterUnripeMenkarMadnft from './staging-utter-unripe-menkar-madnft.svg';
+export * as stagingUtterUnripeMenkarNftrade from './staging-utter-unripe-menkar-nftrade.svg';
+export * as stagingUtterUnripeMenkarUntitledPlatformer from './staging-utter-unripe-menkar-untitled-platformer.svg';
+export * as stagingUtterUnripeMenkar from './staging-utter-unripe-menkar.svg';
+export * as stagingWoozyFrizzyMerga from './staging-woozy-frizzy-merga.svg';

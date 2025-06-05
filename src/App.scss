@@ -754,7 +754,6 @@ button:focus {
   background-image: url(/portfolio.png);
 }
 
-
 .blackP {
   color: #000000;
 }
@@ -782,6 +781,7 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
   -moz-appearance: textfield;
+  appearance: textfield;
   /* Firefox */
 }
 
@@ -1454,4 +1454,37 @@ input[type=number] {
 
 .delegationFlowIcon {
   margin-top: -20px;
+}
+
+// HomeBanner styles
+.home-banner {
+  width: 852px;
+  height: 276px;
+  background-image: url(/home-banner.png);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 25px;
+  position: relative;
+}
+
+.home-banner-title {
+  font-family: 'Shrikhand', cursive !important;
+}
+
+// Primary button style for HomeBanner
+.btnPrimary.MuiButton-root {
+  background: $sk-prim !important;
+  color: #666666 !important;
+  
+  &:hover {
+    background: darken($sk-prim, 5%) !important;
+    color: #666666 !important;
+  }
+  
+  &:focus,
+  &:active {
+    background: $sk-prim !important;
+    color: #666666 !important;
+  }
 }

@@ -26,7 +26,7 @@ import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
 import RocketLaunchRoundedIcon from '@mui/icons-material/RocketLaunchRounded'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
-import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
+import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined'
 import PieChartOutlineRoundedIcon from '@mui/icons-material/PieChartOutlineRounded'
 import OutboundRoundedIcon from '@mui/icons-material/OutboundRounded'
 import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded'
@@ -52,12 +52,7 @@ interface ExploreCard {
 }
 
 export const EXPLORE_CARDS: ExploreCard[] = [
-  {
-    name: 'Bridge to SKALE',
-    description: 'Bridge SKL and other popular tokens to SKALE.',
-    url: '/bridge',
-    icon: <SwapHorizontalCircleOutlinedIcon />
-  },
+
   {
     name: 'Stake your SKL',
     description: 'Select a validator to delegate your SKL to for a 2-month period to help secure the network.',
@@ -68,12 +63,18 @@ export const EXPLORE_CARDS: ExploreCard[] = [
     name: 'Play on Nebula',
     description: 'SKALE is home to dozens of amazing games. Explore the gaming ecosystem!',
     url: '/ecosystem?category=gaming',
-    icon: <LinkRoundedIcon />
+    icon: <SportsEsportsOutlinedIcon />
   },
   {
     name: 'Explore SKALE´s DeFi',
     description: 'The SKALE DeFi ecosystem is rapidly expanding on Europa. Check it out!',
     url: '/ecosystem?category=defi',
     icon: <PublicOutlinedIcon />
+ },
+  {
+    name: 'Swap on SKALE',
+    description: 'Swap your favorite tokens on SKALE with zero gas fees using SushiSwap.',
+    url: '/bridge',
+    icon: <SwapHorizontalCircleOutlinedIcon />
   }
 ]
