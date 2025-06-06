@@ -30,6 +30,7 @@ import * as VALIDATOR_LOGOS from '../assets/validators'
 export const DASHBOARD_URL = 'https://app.geckoboard.com/v5/dashboards/LISYTRBEVGCVGL57/inception'
 export const DUNE_SKALE_URL = 'https://dune.com/projects/SKALE'
 
+
 export const BRIDGE_PAGES = ['/bridge', '/transfer', '/bridge/history', '/portfolio', '/other/faq']
 export const STAKING_PAGES = ['/staking']
 
@@ -73,7 +74,8 @@ export const SKALE_SOCIAL_LINKS = {
   discord: 'https://discord.com/invite/gM5XBy6',
   github: 'https://github.com/skalenetwork',
   website: 'https://skale.space/',
-  dune: DUNE_SKALE_URL
+  dune: DUNE_SKALE_URL,
+  forum: 'https://forum.skale.network/'
 }
 
 export const GET_STARTED_URL = 'https://skale.space/get-started-on-skale'
@@ -81,6 +83,7 @@ export const GET_STARTED_URL = 'https://skale.space/get-started-on-skale'
 export const DEFAULT_MIN_SFUEL_WEI = 100000000000000
 export const SFUEL_CHECK_INTERVAL = 10000
 export const DOCS_PORTAL_URL = 'https://docs.skale.space/'
+export const SKALE_FORUM_URL = 'https://forum.skale.network/'
 
 export const ITEMS_PER_PAGE = 100
 export const BATCH_SIZE = 150

@@ -34,6 +34,7 @@ import { type types } from '@/core'
 import FavoriteIconButton from './FavoriteIconButton'
 import SwellIcon from './SwellIcon'
 import EpicGamesStoreLogo from '../../assets/egs.svg'
+import ForumIcon from '@mui/icons-material/Forum';
 
 interface SocialButtonsProps {
   social?: types.AppSocials
@@ -112,6 +113,16 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
         />
       ),
       title: 'Dune Analytics'
+    },
+    {
+      key: 'forum',
+      icon: (
+        <ForumIcon
+          className={cls([cmn.pPrim, isMd], [cmn.pSec, !isMd])}
+          fontSize={isMd ? 'medium' : 'small'}
+        />
+      ),
+      title: 'SKALE Forum'
     }
   ]
 
