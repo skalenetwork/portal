@@ -224,6 +224,14 @@ const connections: types.mp.TokenTypeMap = {
                 }
             }
         },
+        razor: {
+            address: '0xCA46B70cA3c510Ce9D0c43D25817032e2F5354c0',
+            chains: {
+                mainnet: {
+                    clone: true
+                }
+            }
+        },
         unipoly: {
             address: '0x7cA58393EB55aeC51204f2370c1B9cCCAa9D9784',
             chains: {

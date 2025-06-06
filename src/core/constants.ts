@@ -72,7 +72,6 @@ export const SKALE_SOCIAL_LINKS = {
   telegram: 'https://t.me/skaleofficial',
   discord: 'https://discord.com/invite/gM5XBy6',
   github: 'https://github.com/skalenetwork',
-  swell: 'https://swell.skale.space/',
   website: 'https://skale.space/',
   dune: DUNE_SKALE_URL
 }
