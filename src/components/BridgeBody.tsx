@@ -24,7 +24,6 @@
 import { type types, metadata, constants } from '@/core'
 import Collapse from '@mui/material/Collapse'
 import PopularActions from './PopularActions'
-
 import {
   SkPaper,
   AmountInput,
@@ -89,6 +88,10 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
   const destBg = theme.vibrant
     ? metadata.chainBg(props.chainsMeta, chainName2, appName2)
     : constants.GRAY_BG
+
+  const stepsMetadata = useMetaportStore((state) => state.stepsMetadata)
+  const currentStep = useMetaportStore((state) => state.currentStep)
+
 
   return (
     <div>
@@ -179,13 +182,13 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
         <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
       </Collapse>
 
-      <Collapse in={showCP()}>
+      {currentStep === stepsMetadata.length && (
         <PopularActions
           chainsMeta={props.chainsMeta}
           skaleNetwork={mpc.config.skaleNetwork}
           chainName={chainName2}
         />
-      </Collapse>
+   )}
     </div>
   )
 }
