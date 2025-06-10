@@ -44,3 +44,7 @@ public/robots.txt
 packages/*/node_modules
 packages/*/dist
 tools/*
+
+# bun lockfiles (binary format)
+bun.lockb
+**/bun.lockb
