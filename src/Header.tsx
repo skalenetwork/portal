@@ -64,10 +64,10 @@ export default function Header(props: { address: `0x${string}` | undefined; mpc:
           ) : null}
         </div>
         <AccountMenu address={props.address} />
-        <FavoritesButton />
         <GetSFuel mpc={props.mpc} />
         <NetworkSwitch mpc={props.mpc} />
         <HelpZen />
+        <FavoritesButton />
         <MoreMenu />
       </Toolbar>
     </AppBar>
