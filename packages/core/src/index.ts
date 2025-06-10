@@ -34,15 +34,15 @@ import { ERC_ABIS } from './abi'
 import { FAUCET_DATA } from './metadata'
 
 export {
-    types,
-    dc,
-    constants,
-    metadata,
-    contracts,
-    units,
-    endpoints,
-    helper,
-    timeUtils,
-    ERC_ABIS,
-    FAUCET_DATA
+  types,
+  dc,
+  constants,
+  metadata,
+  contracts,
+  units,
+  endpoints,
+  helper,
+  timeUtils,
+  ERC_ABIS,
+  FAUCET_DATA
 }

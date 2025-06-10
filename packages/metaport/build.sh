@@ -19,7 +19,7 @@ fi
 echo "Copying ${META_DIR_EXTERNAL} -> ${META_DIR}..."
 cp -R $META_DIR_EXTERNAL $META_DIR
 
-cp $PORTAL_DIR/config/testnet.ts $DIR/src/meta/testnetConfig.ts
+cp -R $PORTAL_DIR/config/testnet $DIR/src/meta/testnetConfig
 
 node $SCRIPTS_DIR/generate-imports.cjs ./src/meta
 

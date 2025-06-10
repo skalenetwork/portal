@@ -38,7 +38,7 @@ export class TransferERC20S2S extends Action {
   async execute() {
     this.updateState('init')
     const erc20S = await this.sChain1.erc20()
-    const erc20SAddress = await erc20S.getAddress()
+    const erc20SAddress = (await erc20S.getAddress()) as types.AddressType
     const checkResAllowance = await checkERC20Allowance(
       this.address,
       erc20SAddress,
@@ -54,11 +54,12 @@ export class TransferERC20S2S extends Action {
     const erc20SConnected = (await sChain.erc20()).connect(this.sChain1.signer) as Contract
     if (!checkResAllowance.res) {
       this.updateState('approve')
-      const approveTx = await sendTransaction(
-        sChain.signer,
-        erc20SConnected.approve,
-        [this.token.keyname, MAX_APPROVE_AMOUNT, erc20SAddress, { address: this.address }],
-        `${this.chainName1}:erc20:approve`
+
+      const approveTx = await sChain.approve(
+        this.token.type,
+        this.token.keyname,
+        erc20SAddress,
+        MAX_APPROVE_AMOUNT
       )
       const txBlock = await sChain.provider.getBlock(approveTx.response.blockNumber)
       this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
@@ -193,7 +194,7 @@ export class UnWrapERC20 extends Action {
     this.updateState('unwrapDone', tx.response.hash, block.timestamp)
   }
 
-  async preAction() {}
+  async preAction() { }
 }
 
 export class UnWrapERC20S extends Action {
@@ -266,9 +267,9 @@ export class TransferERC20M2S extends Action {
 
     const tx = await sendTransaction(
       mainnet.signer,
-      erc20MConnected.deposit,
-      [this.chainName2, this.token.keyname, amountWei, { address: this.address }],
-      `${this.chainName1}:erc20:deposit`
+      erc20MConnected.depositERC20,
+      [this.chainName2, this.token.address, amountWei, { address: this.address }],
+      `${this.chainName1}:erc20:depositERC20`
     )
 
     const block = await mainnet.provider.getBlock(tx.response.blockNumber)
@@ -329,9 +330,9 @@ export class TransferERC20S2M extends Action {
 
     const tx = await sendTransaction(
       sChain.signer,
-      erc20SConnected.withdraw,
+      erc20SConnected.exitToMainERC20,
       [this.originAddress, amountWei, { address: this.address }],
-      `${this.chainName1}:erc20:withdraw`
+      `${this.chainName1}:erc20:exitToMainERC20`
     )
 
     const block = await sChain.provider.getBlock(tx.response.blockNumber)

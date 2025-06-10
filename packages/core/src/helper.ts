@@ -26,63 +26,63 @@ import { types } from '.'
 import * as constants from './constants'
 
 export function isZeroAddr(address: types.AddressType): boolean {
-    return address === constants.ZERO_ADDRESS
+  return address === constants.ZERO_ADDRESS
 }
 
 export function eqArrays(arr1: any[], arr2: any[]): boolean {
-    return JSON.stringify(arr1) === JSON.stringify(arr2)
+  return JSON.stringify(arr1) === JSON.stringify(arr2)
 }
 
 export function isMainnet(chainName: string): boolean {
-    return chainName === constants.MAINNET_CHAIN_NAME
+  return chainName === constants.MAINNET_CHAIN_NAME
 }
 
 export function addressesEqual(address1: string, address2: string): boolean {
-    return getAddress(address1) === getAddress(address2)
+  return getAddress(address1) === getAddress(address2)
 }
 
 export function maxBigInt(a: bigint, b: bigint): bigint {
-    return a > b ? a : b
+  return a > b ? a : b
 }
 
 export function minBigInt(a: bigint, b: bigint): bigint {
-    return a < b ? a : b
+  return a < b ? a : b
 }
 
 export function shortAddress(address: types.AddressType | undefined): string {
-    if (!address) return ''
-    return `${address.slice(0, 4)}...${address.slice(-2)}`
+  if (!address) return ''
+  return `${address.slice(0, 4)}...${address.slice(-2)}`
 }
 
 export function getRandom(list: Array<any>) {
-    return list[Math.floor(Math.random() * list.length)]
+  return list[Math.floor(Math.random() * list.length)]
 }
 
 export async function sleep(ms: number): Promise<any> {
-    return await new Promise((resolve) => setTimeout(resolve, ms))
+  return await new Promise((resolve) => setTimeout(resolve, ms))
 }
 
 export function sortObjectByKeys(obj: { [key: string]: any }): { [key: string]: any } {
-    const sortedKeys = Object.keys(obj).sort()
-    const sortedObject: { [key: string]: any } = {}
+  const sortedKeys = Object.keys(obj).sort()
+  const sortedObject: { [key: string]: any } = {}
 
-    for (const key of sortedKeys) {
-        sortedObject[key] = obj[key]
-    }
+  for (const key of sortedKeys) {
+    sortedObject[key] = obj[key]
+  }
 
-    return sortedObject
+  return sortedObject
 }
 
 export function roundDown(num: number, decimals: number = constants.ROUNDING_DECIMALS): number {
-    decimals = decimals || 0
-    return Math.floor(num * Math.pow(10, decimals)) / Math.pow(10, decimals)
+  decimals = decimals || 0
+  return Math.floor(num * Math.pow(10, decimals)) / Math.pow(10, decimals)
 }
 
 export function roundUp(num: number, decimals: number = constants.ROUNDING_DECIMALS): number {
-    const factor = Math.pow(10, decimals)
-    return Math.round(num * factor) / factor
+  const factor = Math.pow(10, decimals)
+  return Math.round(num * factor) / factor
 }
 
 export function divideBigInts(a: bigint, b: bigint): number {
-    return Number((a * 10000n) / b) / 10000
+  return Number((a * 10000n) / b) / 10000
 }

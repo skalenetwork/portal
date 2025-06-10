@@ -53,6 +53,11 @@ export async function getPaymaster(mpc: MetaportCore): Promise<Contract> {
   const network = await skaleContracts.getNetworkByProvider(provider)
   const projectInstance = await network.getProject('paymaster')
   const instance = await projectInstance.getInstance(paymasterAddress)
+
+  if (mpc.network === 'legacy') {
+    return (await instance.getContract('FastForwardPaymaster')) as Contract
+  }
+
   return (await instance.getContract('Paymaster')) as Contract
 }
 

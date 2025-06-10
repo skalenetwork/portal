@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useWalletClient, useSwitchChain, useAccount } from 'wagmi'
 import { useAddRecentTransaction } from '@rainbow-me/rainbowkit'
-import { type types, metadata, helper } from '@/core'
+import { type types, metadata, helper, constants } from '@/core'
 
 import Box from '@mui/material/Box'
 import Stepper from '@mui/material/Stepper'
@@ -74,8 +74,13 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
 
   if (stepsMetadata.length === 0) return <div></div>
 
+  const exisGasOk = cpData.exitGasOk || chainName2 !== constants.MAINNET_CHAIN_NAME
   const actionDisabled =
-    amountErrorMessage || loading || amount == '' || Number(amount) === 0 || !cpData.exitGasOk
+    amountErrorMessage ||
+    loading ||
+    amount == '' ||
+    Number(amount) === 0 ||
+    (!exisGasOk && currentStep === 0)
 
   const chainsMeta = CHAINS_META[props.skaleNetwork]
 

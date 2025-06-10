@@ -20,7 +20,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { AddressType } from ".."
+import { AddressType } from '..'
 
 export interface IDelegatorInfo {
   balance: bigint

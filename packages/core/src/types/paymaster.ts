@@ -21,15 +21,15 @@
  */
 
 export interface PaymasterInfo {
-    maxReplenishmentPeriod: bigint
-    oneSklPrice: bigint
-    schainPricePerMonth: bigint
-    skaleToken: string
-    schain: {
-        name: string
-        paidUntil: bigint
-    }
-    effectiveTimestamp?: bigint
+  maxReplenishmentPeriod: bigint
+  oneSklPrice: bigint
+  schainPricePerMonth: bigint
+  skaleToken: string
+  schain: {
+    name: string
+    paidUntil: bigint
+  }
+  effectiveTimestamp?: bigint
 }
 
 export type DueDateStatus = 'primary' | 'warning' | 'error' | 'success'
