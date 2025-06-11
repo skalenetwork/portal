@@ -43,6 +43,12 @@ export function useApps(chainsMeta: types.ChainsMetadataMap, metrics: types.IMet
     return apps.sort((a, b) => a.alias.localeCompare(b.alias))
   }, [chainsMeta])
 
+  const featuredApps = useMemo<types.AppWithChainAndName[]>(() => {
+     const filteredApps = allApps.filter(app => app.featured === true)
+     console.log('Featured Apps:', filteredApps) 
+     return filteredApps
+   }, [allApps])
+
   const newApps = useMemo<types.AppWithChainAndName[]>(() => {
     const apps = getRecentApps(chainsMeta, MAX_APPS_DEFAULT)
     return apps.sort((a, b) => (b.added || 0) - (a.added || 0))
@@ -82,5 +88,6 @@ export function useApps(chainsMeta: types.ChainsMetadataMap, metrics: types.IMet
       .slice(0, MAX_APPS_DEFAULT)
   }, [allApps, metrics])
 
-  return { allApps, newApps, mostLikedApps, favoriteApps, trendingApps, isSignedIn }
+  return { allApps, featuredApps, newApps, mostLikedApps, favoriteApps, trendingApps, isSignedIn}
+
 }

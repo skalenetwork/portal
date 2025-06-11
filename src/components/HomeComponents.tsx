@@ -30,6 +30,9 @@ import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
 import PieChartOutlineRoundedIcon from '@mui/icons-material/PieChartOutlineRounded'
 import OutboundRoundedIcon from '@mui/icons-material/OutboundRounded'
 import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded'
+import AppShortcutIcon from '@mui/icons-material/AppShortcut'
+
+
 
 interface SectionIcons {
   [key: string]: JSX.Element
@@ -41,7 +44,8 @@ export const SECTION_ICONS: SectionIcons = {
   new: <StarRoundedIcon color="primary" />,
   trending: <TrendingUpRoundedIcon color="primary" />,
   mostLiked: <PeopleRoundedIcon color="primary" />,
-  categories: <OutboundRoundedIcon color="primary" />
+  categories: <OutboundRoundedIcon color="primary" />,
+  featured: <AppShortcutIcon color="primary" />
 }
 
 interface ExploreCard {
