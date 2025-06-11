@@ -48,6 +48,8 @@ import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import SocialButtons from '../components/ecosystem/Socials'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import ScrollToTopButton from '../components/ScrollToTopButton'
+import useScrollPosition from '../useScrollPosition'
+
 
 export default function Ecosystem(props: {
   mpc: MetaportCore
@@ -62,6 +64,7 @@ export default function Ecosystem(props: {
     props.chainsMeta,
     props.metrics
   )
+  useScrollPosition()
 
   const [checkedItems, setCheckedItems] = useState<string[]>([])
   const [filteredApps, setFilteredApps] = useState<types.AppWithChainAndName[]>([])
