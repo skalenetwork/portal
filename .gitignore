@@ -48,3 +48,5 @@ tools/*
 # bun lockfiles (binary format)
 bun.lockb
 **/bun.lockb
+
+src/data/metaportConfig/
