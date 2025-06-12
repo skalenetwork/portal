@@ -6,6 +6,65 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import { UserConfigExport } from 'vite'
 import { name } from './package.json'
 
+const fixWagmiImports = () => ({
+  name: 'fix-wagmi-imports',
+  load(id: string) {
+    if (id.includes('@wagmi/core/dist/esm/actions/getCallsStatus.js')) {
+      return `
+        import { getCallsStatus as viem_getCallsStatus } from 'viem/experimental';
+        import { getConnectorClient } from './getConnectorClient.js';
+        export async function getCallsStatus(config, parameters) {
+          const { connector, id } = parameters;
+          const client = await getConnectorClient(config, { connector });
+          return viem_getCallsStatus(client, { id });
+        }
+      `;
+    }
+    if (id.includes('@wagmi/core/dist/esm/actions/getCapabilities.js')) {
+      return `
+        import { getCapabilities as viem_getCapabilities } from 'viem/experimental';
+        import { getConnectorClient } from './getConnectorClient.js';
+        export async function getCapabilities(config, parameters = {}) {
+          const { connector } = parameters;
+          const client = await getConnectorClient(config, { connector });
+          return viem_getCapabilities(client);
+        }
+      `;
+    }
+    if (id.includes('@wagmi/core/dist/esm/actions/sendCalls.js')) {
+      return `
+        import { sendCalls as viem_sendCalls } from 'viem/experimental';
+        import { getConnectorClient } from './getConnectorClient.js';
+        export async function sendCalls(config, parameters) {
+          const { connector, ...rest } = parameters;
+          const client = await getConnectorClient(config, { connector });
+          return viem_sendCalls(client, rest);
+        }
+      `;
+    }
+    if (id.includes('@wagmi/core/dist/esm/actions/showCallsStatus.js')) {
+      return `
+        import { showCallsStatus as viem_showCallsStatus } from 'viem/experimental';
+        import { getConnectorClient } from './getConnectorClient.js';
+        export async function showCallsStatus(config, parameters) {
+          const { connector, id } = parameters;
+          const client = await getConnectorClient(config, { connector });
+          return viem_showCallsStatus(client, { id });
+        }
+      `;
+    }
+    if (id.includes('@wagmi/core/dist/esm/actions/waitForCallsStatus.js')) {
+      return `
+        import { getConnectorClient } from './getConnectorClient.js';
+        export async function waitForCallsStatus(config, parameters) {
+          throw new Error('waitForCallsStatus is not available in this version of viem');
+        }
+      `;
+    }
+    return null;
+  }
+});
+
 const app = async (): Promise<UserConfigExport> => {
   return defineConfig({
     css: {
@@ -15,6 +74,7 @@ const app = async (): Promise<UserConfigExport> => {
     },
     plugins: [
       react(),
+      fixWagmiImports(),
       dts({
         insertTypesEntry: true,
       }),
