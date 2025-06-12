@@ -14,8 +14,6 @@
       ]
     }
   ],
-  "buildCommand": "npm run build:mainnet",
-  "outputDirectory": "dist",
   "rewrites": [
     {
       "source": "/(.*)",

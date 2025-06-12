@@ -43,3 +43,5 @@ public/robots.txt
 packages/*/node_modules
 packages/*/dist
 tools/*
+
+src/data/metaportConfig/*
