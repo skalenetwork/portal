@@ -21,41 +21,41 @@
  */
 
 export function convertMonthIndexToText(index: number): string {
-    const baseYear = 2020
-    const monthsPerYear = 12
+  const baseYear = 2020
+  const monthsPerYear = 12
 
-    const year = baseYear + Math.floor(index / monthsPerYear)
-    const month = index % monthsPerYear
+  const year = baseYear + Math.floor(index / monthsPerYear)
+  const month = index % monthsPerYear
 
-    const monthNames = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec'
-    ]
-    return `${monthNames[month]} ${year}`
+  const monthNames = [
+    'Jan',
+    'Feb',
+    'Mar',
+    'Apr',
+    'May',
+    'Jun',
+    'Jul',
+    'Aug',
+    'Sep',
+    'Oct',
+    'Nov',
+    'Dec'
+  ]
+  return `${monthNames[month]} ${year}`
 }
 
 export function timestampToDate(ts: number, includeTime?: boolean) {
-    const options: Intl.DateTimeFormatOptions = {
-        year: '2-digit',
-        month: '2-digit',
-        day: '2-digit'
-    }
+  const options: Intl.DateTimeFormatOptions = {
+    year: '2-digit',
+    month: '2-digit',
+    day: '2-digit'
+  }
 
-    if (includeTime) {
-        options.hour = '2-digit'
-        options.minute = '2-digit'
-        options.second = '2-digit'
-    }
+  if (includeTime) {
+    options.hour = '2-digit'
+    options.minute = '2-digit'
+    options.second = '2-digit'
+  }
 
-    return new Intl.DateTimeFormat('en-US', options).format(ts * 1000)
+  return new Intl.DateTimeFormat('en-US', options).format(ts * 1000)
 }

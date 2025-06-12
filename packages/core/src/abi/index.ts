@@ -29,10 +29,10 @@ import erc1155Abi from './erc1155_abi.json'
 import erc20WrapperAbi from './erc20_wrapper_abi.json'
 
 export const ERC_ABIS: { [tokenType in TokenTypeExtended]: { ['abi']: any } } = {
-    eth: erc20Abi,
-    erc20: erc20Abi,
-    erc20wrap: erc20WrapperAbi,
-    erc721: erc721Abi,
-    erc721meta: erc721MetaAbi,
-    erc1155: erc1155Abi
+  eth: erc20Abi,
+  erc20: erc20Abi,
+  erc20wrap: erc20WrapperAbi,
+  erc721: erc721Abi,
+  erc721meta: erc721MetaAbi,
+  erc1155: erc1155Abi
 }

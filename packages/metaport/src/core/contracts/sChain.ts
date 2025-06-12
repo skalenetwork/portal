@@ -25,12 +25,16 @@ import { BaseChain } from './baseChain'
 
 export default class SChain extends BaseChain {
   async ethBalance(address: string): Promise<bigint> {
-    const eth = await this.eth()
+    const eth = await this.ethErc20()
     return await eth.balanceOf(address)
   }
 
   async eth(): Promise<Contract> {
-    return this.getContract('TokenManagerETH')
+    return this.getContract('TokenManagerEth')
+  }
+
+  async ethErc20(): Promise<Contract> {
+    return this.getContract('EthErc20')
   }
 
   async erc20(): Promise<Contract> {

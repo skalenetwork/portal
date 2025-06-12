@@ -121,19 +121,19 @@ export const findFirstWrapperChainName = (token: dc.TokenData): string | null =>
 }
 
 export default class MetaportCore {
-  private _config: types.mp.Config
-  private _imaCache: Record<string, MainnetChain | SChain> = {}
+  #config: types.mp.Config
+  #imaCache: Record<string, MainnetChain | SChain> = {}
 
   constructor(config: types.mp.Config) {
-    this._config = config
+    this.#config = config
   }
 
   get config(): types.mp.Config {
-    return this._config
+    return this.#config
   }
 
   get network(): types.SkaleNetwork {
-    return this._config.skaleNetwork
+    return this.#config.skaleNetwork
   }
 
   /**
@@ -154,11 +154,11 @@ export default class MetaportCore {
    */
   tokens(from: string, to?: string | null): types.mp.TokenDataTypesMap {
     if (from === undefined || from === null || from === '') return getEmptyTokenDataMap()
-    return createTokensMap(from, to, this._config)
+    return createTokensMap(from, to, this.#config)
   }
 
   wrappedTokens(chainName: string): types.mp.TokenDataTypesMap {
-    return createWrappedTokensMap(chainName, this._config)
+    return createWrappedTokensMap(chainName, this.#config)
   }
 
   async tokenBalance(tokenContract: Contract, address: string): Promise<bigint> {
@@ -213,7 +213,7 @@ export default class MetaportCore {
     customAbiTokenType?: dc.TokenTypeExtended,
     destChainName?: string
   ): Contract | undefined {
-    const token = this._config.connections[chainName][tokenType][tokenKeyname]
+    const token = this.#config.connections[chainName][tokenType][tokenKeyname]
     if (!token.address) return
     const abi = customAbiTokenType ? ERC_ABIS[customAbiTokenType].abi : ERC_ABIS[tokenType].abi
     const address = customAbiTokenType ? token.chains[destChainName].wrapper : token.address
@@ -226,16 +226,16 @@ export default class MetaportCore {
     tokenKeyname: string,
     tokenType: dc.TokenType
   ) {
-    let token = this._config.connections[chainName1][tokenType][tokenKeyname]
+    let token = this.#config.connections[chainName1][tokenType][tokenKeyname]
     const isClone = token.chains[chainName2].clone
     if (isClone) {
-      token = this._config.connections[chainName2][tokenType][tokenKeyname]
+      token = this.#config.connections[chainName2][tokenType][tokenKeyname]
     }
     return token.chains[isClone ? chainName1 : chainName2].wrapper ?? token.address
   }
 
   endpoint(chainName: string): string {
-    return endpoints.get(this._config.mainnetEndpoint, this._config.skaleNetwork, chainName)
+    return endpoints.get(this.#config.mainnetEndpoint, this.#config.skaleNetwork, chainName)
   }
 
   async ima(chainName: string): Promise<MainnetChain | SChain> {
@@ -257,32 +257,32 @@ export default class MetaportCore {
     if (
       externalProvider === undefined &&
       signer === undefined &&
-      this._imaCache[constants.MAINNET_CHAIN_NAME]
+      this.#imaCache[constants.MAINNET_CHAIN_NAME]
     ) {
       log.debug('returning cached mainnet ima')
-      return this._imaCache[constants.MAINNET_CHAIN_NAME] as MainnetChain
+      return this.#imaCache[constants.MAINNET_CHAIN_NAME] as MainnetChain
     }
-    const provider = externalProvider ?? mainnetProvider(this._config.mainnetEndpoint)
+    const provider = externalProvider ?? mainnetProvider(this.#config.mainnetEndpoint)
     const aliasOrAddress = contracts.getAliasOrAddress(
-      this._config.skaleNetwork,
+      this.#config.skaleNetwork,
       contracts.Project.MAINNET_IMA
     )
     const instance = await this.getInstance(provider, contracts.Project.MAINNET_IMA, aliasOrAddress)
     const mainnet = new MainnetChain(provider, instance, signer)
     if (externalProvider === undefined && signer === undefined) {
       log.debug('caching mainnet ima')
-      this._imaCache[constants.MAINNET_CHAIN_NAME] = mainnet
+      this.#imaCache[constants.MAINNET_CHAIN_NAME] = mainnet
     }
     return mainnet
   }
 
   async schain(chainName: string, externalProvider?: Provider, signer?: Signer): Promise<SChain> {
     if (chainName === constants.MAINNET_CHAIN_NAME) throw new Error('Invalid chain name')
-    if (externalProvider === undefined && signer === undefined && this._imaCache[chainName]) {
+    if (externalProvider === undefined && signer === undefined && this.#imaCache[chainName]) {
       log.debug(`returning cached ima for ${chainName}`)
-      return this._imaCache[chainName] as SChain
+      return this.#imaCache[chainName] as SChain
     }
-    let provider = externalProvider ?? sChainProvider(this._config.skaleNetwork, chainName)
+    let provider = externalProvider ?? sChainProvider(this.#config.skaleNetwork, chainName)
     const instance = await this.getInstance(
       provider,
       contracts.SchainProject.SCHAIN_IMA,
@@ -291,7 +291,7 @@ export default class MetaportCore {
     const schain = new SChain(provider, instance, signer)
     if (externalProvider === undefined && signer === undefined) {
       log.debug(`caching ima for ${chainName}`)
-      this._imaCache[chainName] = schain
+      this.#imaCache[chainName] = schain
     }
     return schain
   }

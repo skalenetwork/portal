@@ -75,7 +75,7 @@ export async function getCommunityPoolData(
   const communityPool = await mainnet.communityPool()
   const communityLocker = await sChain.communityLocker()
 
-  const balanceWei = await communityPool.balance(address, chainName1)
+  const balanceWei = await communityPool.getBalance(address, chainName1)
   const accountBalanceWei = await mainnet.ethBalance(address)
   const activeS = await communityLocker.activeUsers(address)
   const chainHash = ethers.id(chainName1)
@@ -132,9 +132,9 @@ export async function withdraw(
 
     await sendTransaction(
       signer,
-      communityPool.withdraw,
-      [chainName, amount, { address: address, customGasLimit: COMMUNITY_POOL_WITHDRAW_GAS_LIMIT }],
-      'mainnet:communityPool:withdraw'
+      communityPool.withdrawFunds,
+      [chainName, amount, { address: address, gasLimit: COMMUNITY_POOL_WITHDRAW_GAS_LIMIT }],
+      'mainnet:communityPool:withdrawFunds'
     )
 
     setLoading(false)
@@ -177,13 +177,13 @@ export async function recharge(
 
     sendTransaction(
       signer,
-      communityPool.recharge,
+      communityPool.rechargeUserWallet,
       [
         chainName,
         address,
         { address: address, value: units.toWei(amount, constants.DEFAULT_ERC20_DECIMALS) }
       ],
-      'mainnet:communityPool:recharge'
+      'mainnet:communityPool:rechargeUserWallet'
     )
 
     setLoading('activate')

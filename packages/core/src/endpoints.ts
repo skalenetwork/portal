@@ -20,61 +20,61 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import { type types, constants, } from "."
+import { type types, constants } from '.'
 
 export type EndpointsNetworkMap = {
-    [key in types.SkaleNetwork]: string
+  [key in types.SkaleNetwork]: string
 }
 
 const PROTOCOL: { [protocol in 'http' | 'ws']: string } = {
-    http: 'https://',
-    ws: 'wss://'
+  http: 'https://',
+  ws: 'wss://'
 }
 
 export const MAINNET_EXPLORER_URLS: EndpointsNetworkMap = {
-    mainnet: 'https://etherscan.io',
-    legacy: 'https://holesky.etherscan.io',
-    regression: 'https://goerli.etherscan.io',
-    testnet: 'https://holesky.etherscan.io'
+  mainnet: 'https://etherscan.io',
+  legacy: 'https://holesky.etherscan.io',
+  regression: 'https://goerli.etherscan.io',
+  testnet: 'https://holesky.etherscan.io'
 }
 
 export const BASE_EXPLORER_URLS: EndpointsNetworkMap = {
-    mainnet: 'explorer.mainnet.skalenodes.com',
-    legacy: 'legacy-explorer.skalenodes.com',
-    regression: 'regression-explorer.skalenodes.com',
-    testnet: 'explorer.testnet.skalenodes.com'
+  mainnet: 'explorer.mainnet.skalenodes.com',
+  legacy: 'legacy-explorer.skalenodes.com',
+  regression: 'regression-explorer.skalenodes.com',
+  testnet: 'explorer.testnet.skalenodes.com'
 }
 
 const PROXY_ENDPOINTS: EndpointsNetworkMap = {
-    "mainnet": "mainnet.skalenodes.com",
-    "legacy": "legacy-proxy.skaleserver.com",
-    "regression": "regression-proxy.skalenodes.com",
-    "testnet": "testnet.skalenodes.com"
+  mainnet: 'mainnet.skalenodes.com',
+  legacy: 'legacy-proxy.skaleserver.com',
+  regression: 'regression-proxy.skalenodes.com',
+  testnet: 'testnet.skalenodes.com'
 }
 
 export function getProxyEndpoint(network: types.SkaleNetwork) {
-    return PROXY_ENDPOINTS[network]
+  return PROXY_ENDPOINTS[network]
 }
 
 export function get(
-    mainnetEndpoint: string,
-    network: types.SkaleNetwork,
-    chainName: string
+  mainnetEndpoint: string,
+  network: types.SkaleNetwork,
+  chainName: string
 ): string {
-    if (chainName === constants.MAINNET_CHAIN_NAME) return mainnetEndpoint
-    return schain(network, chainName)
+  if (chainName === constants.MAINNET_CHAIN_NAME) return mainnetEndpoint
+  return schain(network, chainName)
 }
 
 export function schain(
-    network: types.SkaleNetwork,
-    sChainName: string,
-    protocol: 'http' | 'ws' = 'http'
+  network: types.SkaleNetwork,
+  sChainName: string,
+  protocol: 'http' | 'ws' = 'http'
 ): string {
-    return (
-        PROTOCOL[protocol] +
-        getProxyEndpoint(network) +
-        '/v1/' +
-        (protocol === 'ws' ? 'ws/' : '') +
-        sChainName
-    )
+  return (
+    PROTOCOL[protocol] +
+    getProxyEndpoint(network) +
+    '/v1/' +
+    (protocol === 'ws' ? 'ws/' : '') +
+    sChainName
+  )
 }
