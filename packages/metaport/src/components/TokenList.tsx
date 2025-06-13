@@ -59,13 +59,11 @@ export default function TokenList() {
   const token = useMetaportStore((state) => state.token)
   const tokens = useMetaportStore((state) => state.tokens)
 
-  console.log('tokens;; ', tokens.erc20)
   const setToken = useMetaportStore((state) => state.setToken)
   const updateTokenBalances = useMetaportStore((state) => state.updateTokenBalances)
   const tokenContracts = useMetaportStore((state) => state.tokenContracts)
 
   const tokenBalances = useMetaportStore((state) => state.tokenBalances)
-  console.log('token balances;; ', tokenBalances)
 
   const setExpandedTokens = useCollapseStore((state) => state.setExpandedTokens)
 
@@ -122,7 +120,7 @@ export default function TokenList() {
           className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mleft10)}
           onClick={handleOpen}
           disabled={disabled}
-          endIcon={<KeyboardArrowDownIcon className={cls(cmn.pPrim)} />}
+          endIcon={availableTokensTotal === 1 ? null : <KeyboardArrowDownIcon className={cls(cmn.pPrim)} />}
         >
           <div className={cls(cmn.flex, cmn.flexc, cmn.mri10, [cmn.pDisabled, noTokens])}>
             <TokenIcon
@@ -149,10 +147,7 @@ export default function TokenList() {
       <Modal
         open={open}
         onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        className={cls(cmn.darkTheme, styles.metaport)}
-        style={{ backdropFilter: 'blur(10px)' }}
+        className={cls(cmn.darkTheme, styles.metaport, styles.backdropBlur)}
       >
         <Container maxWidth="sm" sx={style}>
           <div className={cls(cmn.flex, cmn.mbott20)}>
@@ -197,20 +192,20 @@ export default function TokenList() {
               }}
             />
             {filteredTokensCount === 0 && (
-              <p
+              <div
                 className={cls(
-                  cmn.p,
-                  cmn.p2,
-                  cmn.p400,
-                  cmn.flexg,
-                  cmn.pSec,
-                  cmn.mleft10,
-                  cmn.mtop20
+                  cmn.flex,
+                  cmn.flexc,
+                  cmn.flexcv,
+                  cmn.mtop20,
+                  cmn.mbott20,
+                  cmn.padd10
                 )}
               >
-                {' '}
-                No tokens match the filter{' '}
-              </p>
+             <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.pCent)}>
+                🚫 No tokens match your current filters
+                </p>
+              </div>
             )}
             <TokenListSection
               tokens={filteredTokens}

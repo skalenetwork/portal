@@ -13,6 +13,10 @@
     height: 100%;
 }
 
+.backdropBlur {
+    backdrop-filter: blur(10px);
+}
+
 .popper {
     margin-left: 20px;
     max-width: 390px;
@@ -457,3 +461,11 @@ button {
     filter: saturate(0) !important;
     cursor: not-allowed !important;
   }
+
+.wordBreakAll {
+    word-break: break-all;
+}
+
+.noWrap {
+    white-space: nowrap;
+}

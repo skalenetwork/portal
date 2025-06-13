@@ -84,8 +84,7 @@ export default function ChainsList(props: {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        className={cls(cmn.darkTheme, styles.metaport)}
-        style={{ backdropFilter: 'blur(10px)' }}
+        className={cls(cmn.darkTheme, styles.metaport, styles.backdropBlur)}
       >
         <Container maxWidth="md" sx={style}>
           <div className={cls(cmn.flex, cmn.mbott20)}>
@@ -111,8 +110,7 @@ export default function ChainsList(props: {
             <div className={cls(cmn.flexg)}></div>
           </div>
           <div
-            className={cls(cmn.chainsList, cmn.mbott10, cmn.mri10, styles.bridgeModalScroll)}
-            style={{ marginLeft: '8px' }}
+            className={cls(cmn.chainsList, cmn.mbott10, cmn.mri10, cmn.mleft10, styles.bridgeModalScroll)}
           >
             <Grid container spacing={2}>
               {schainNames.map((name) => (

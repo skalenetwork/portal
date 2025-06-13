@@ -28,6 +28,7 @@ import SkPaper from './SkPaper'
 import ChainIcon from './ChainIcon'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
+import { getChainDescription, getChainCardBackgroundColor, extractFirstSentence } from '../utils/helper'
 
 interface ChainCardProps {
   skaleNetwork: types.SkaleNetwork
@@ -40,12 +41,9 @@ interface ChainCardProps {
 
 export default function BridgeChainCard(props: ChainCardProps) {
   const { skaleNetwork, chainName, chainsMeta, onClick, disabled } = props
-  const chainMeta = chainsMeta[chainName]
-  const chainDescription = chainMeta
-    ? chainMeta.description
-    : 'Ethereum is a global, decentralized platform for money and new kinds of applications.'
-  const backgroundColor = disabled ? '#a1a1a133' : metadata.chainBg(chainsMeta, chainName)
-  const firstSentence = chainDescription.split('.')[0] + (chainDescription.includes('.') ? '.' : '')
+  const chainDescription = getChainDescription(chainsMeta, chainName)
+  const backgroundColor = getChainCardBackgroundColor(disabled, chainsMeta, chainName)
+  const firstSentence = extractFirstSentence(chainDescription)
 
   const disabledText = props.from ? 'Destination chain' : 'Source chain'
 
@@ -67,17 +65,11 @@ export default function BridgeChainCard(props: ChainCardProps) {
         )}
         background={backgroundColor}
       >
-        <div className={cls(cmn.mbott20, cmn.mtop20)} style={{ width: '100%', height: '100%' }}>
+        <div className={cls(cmn.mbott20, cmn.mtop20, cmn.fullWidth, styles.fullHeight)}>
           <div className={cls(cmn.mbott20, cmn.mtop20, cmn.bordRad)}>
             <div className={cls(cmn.flex, cmn.flexcv)}></div>
             <div
-              className={cls(cmn.bordRad, cmn.flex, cmn.flexcv)}
-              style={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '100%'
-              }}
+              className={cls(cmn.bordRad, cmn.flex, cmn.flexc, styles.fullHeight)}
             >
               <ChainIcon skaleNetwork={skaleNetwork} chainName={chainName} size={iconSize} />
             </div>
@@ -88,7 +80,7 @@ export default function BridgeChainCard(props: ChainCardProps) {
           </p>
 
           {disabled && (
-            <div className={cls(cmn.flex, cmn.mtop10)} style={{ marginBottom: '18px' }}>
+            <div className={cls(cmn.flex, cmn.mtop10, cmn.mbott20)}>
               <div className={cls(cmn.flexg)}></div>
               <SkPaper gray className={cls(cmn.nop)}>
                 <p

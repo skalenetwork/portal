@@ -24,7 +24,7 @@
 import SavingsIcon from '@mui/icons-material/Savings'
 import LocalMallIcon from '@mui/icons-material/LocalMall'
 
-import { dc, types } from '@/core'
+import { dc, types, constants } from '@/core'
 
 import { cls, cmn, styles } from '../core/css'
 
@@ -34,8 +34,6 @@ import { getTokenName } from '../core/metadata'
 
 import TokenIcon from './TokenIcon'
 import Button from '@mui/material/Button'
-
-const POPULAR_TOKENS = ['SKL', 'ETH', 'USDC', 'WBTC', 'USDT']
 
 export default function TokenListSection(props: {
   setExpanded: (expanded: string | false) => void
@@ -63,7 +61,7 @@ export default function TokenListSection(props: {
         .includes(props.searchQuery?.toLowerCase() || '')
   )
   const popularTokens = filteredTokens
-    .filter((key) => POPULAR_TOKENS.includes(props.tokens[key]?.meta.symbol))
+    .filter((key) => constants.POPULAR_TOKENS.includes(props.tokens[key]?.meta.symbol))
     .sort((a, b) => props.tokens[a]?.meta.symbol.localeCompare(props.tokens[b]?.meta.symbol))
 
   const nonZeroBalanceTokens = filteredTokens

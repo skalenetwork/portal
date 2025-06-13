@@ -87,7 +87,7 @@ export default function Portal() {
       const chainsJson = await response.json()
       setSchains(formatSChains(chainsJson))
     } catch (e) {
-      console.log('Failed to load chains')
+    
       console.error(e)
     }
   }
@@ -98,7 +98,6 @@ export default function Portal() {
       const metricsJson = await response.json()
       setMetrics(metricsJson)
     } catch (e) {
-      console.log('Failed to load metrics')
       console.error(e)
     }
   }
@@ -110,7 +109,6 @@ export default function Portal() {
       const statsResp = await response.json()
       setStats(statsResp.payload)
     } catch (e) {
-      console.log('Failed to load stats')
       console.error(e)
     }
   }

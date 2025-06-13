@@ -89,13 +89,9 @@ export default function AddToken(props: {
           }
         }
       })
-      if (wasAdded) {
-        console.log('Token added')
-      } else {
-        console.log('Something went wrong')
+      if (wasAdded) {  
       }
     } catch (error) {
-      console.log(error)
     } finally {
       setLoading(false)
     }
