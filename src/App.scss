@@ -429,6 +429,21 @@ body::-webkit-scrollbar {
   }
 }
 
+.scrollToTopButton {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  width: 40px;
+  height: 40px;
+  transition: opacity 0.3s ease-in-out;
+
+  .MuiSvgIcon-root {
+    color: #93b8ec;
+    font-size: 1.2rem;
+  }
+
+}
 
 .btn {
   text-transform: none !important;
