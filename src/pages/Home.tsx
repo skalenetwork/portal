@@ -66,7 +66,6 @@ export default function Home({
       <Headline
           text="Popular Actions"
           icon={SECTION_ICONS.explore}
-          className={cls(cmn.mtop20)}
         />
         <HomeBanner />
         <ExploreSection />
