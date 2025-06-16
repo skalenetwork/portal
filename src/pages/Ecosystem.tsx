@@ -37,6 +37,8 @@ import { filterAppsByCategory, filterAppsBySearchTerm } from '../core/ecosystem/
 import { useUrlParams } from '../core/ecosystem/urlParamsUtil'
 import { SKALE_SOCIAL_LINKS, SUBMIT_PROJECT_URL } from '../core/constants'
 import { useApps } from '../useApps'
+import FeaturedApps from '../components/ecosystem/tabs/FeaturedApps'
+import ScrollToTopButton from '../components/ScrollToTopButton'
 
 import CategoryDisplay from '../components/ecosystem/Categories'
 import SearchComponent from '../components/ecosystem/AppSearch'
@@ -48,7 +50,8 @@ import FavoriteApps from '../components/ecosystem/tabs/FavoriteApps'
 import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import SocialButtons from '../components/ecosystem/Socials'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
-import FeaturedApps from '../components/ecosystem/tabs/FeaturedApps'
+
+
 
 
 export default function Ecosystem(props: {
@@ -146,46 +149,47 @@ export default function Ecosystem(props: {
 
   const isFiltersApplied = Object.keys(checkedItems).length !== 0
   return (
-    <Container maxWidth="md">
-      <Helmet>
-        <title>{META_TAGS.ecosystem.title}</title>
-        <meta name="description" content={META_TAGS.ecosystem.description} />
-        <meta property="og:title" content={META_TAGS.ecosystem.title} />
-        <meta property="og:description" content={META_TAGS.ecosystem.description} />
-      </Helmet>
-      <Stack spacing={0}>
-        <SkStack>
-          <div className={cls(cmn.flexg)}>
-            <h2 className={cls(cmn.nom)}>Ecosystem</h2>
-            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-              Explore dApps across the SKALE ecosystem
-            </p>
-          </div>
-          <div className={cls(cmn.flex, cmn.flexcv)}>
-            <SocialButtons social={SKALE_SOCIAL_LINKS} all />
-            <div className={cls(cmn.mleft10)}>
-              <SkPageInfoIcon meta_tag={META_TAGS.ecosystem} />
+    <>
+      <Container maxWidth="md">
+        <Helmet>
+          <title>{META_TAGS.ecosystem.title}</title>
+          <meta name="description" content={META_TAGS.ecosystem.description} />
+          <meta property="og:title" content={META_TAGS.ecosystem.title} />
+          <meta property="og:description" content={META_TAGS.ecosystem.description} />
+        </Helmet>
+        <Stack spacing={0}>
+          <SkStack>
+            <div className={cls(cmn.flexg)}>
+              <h2 className={cls(cmn.nom)}>Ecosystem</h2>
+              <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+                Explore dApps across the SKALE ecosystem
+              </p>
             </div>
-          </div>
-        </SkStack>
-        <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20, 'fwmobile')}>
-          <SkStack className={cls(cmn.mbott20, cmn.flex, cmn.flexcv)}>
-            <SearchComponent
-              className={cls(cmn.flexg, [cmn.mri10, !props.isXs], ['fullW', props.isXs])}
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-            />
-            <CategoryDisplay
+            <div className={cls(cmn.flex, cmn.flexcv)}>
+              <SocialButtons social={SKALE_SOCIAL_LINKS} all />
+              <div className={cls(cmn.mleft10)}>
+                <SkPageInfoIcon meta_tag={META_TAGS.ecosystem} />
+              </div>
+            </div>
+          </SkStack>
+          <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20, 'fwmobile')}>
+            <SkStack className={cls(cmn.mbott20, cmn.flex, cmn.flexcv)}>
+              <SearchComponent
+                className={cls(cmn.flexg, [cmn.mri10, !props.isXs], ['fullW', props.isXs])}
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+              />
+              <CategoryDisplay
+                checkedItems={checkedItems}
+                setCheckedItems={handleSetCheckedItems}
+                isXs={props.isXs}
+              />
+            </SkStack>
+            <SelectedCategories
               checkedItems={checkedItems}
               setCheckedItems={handleSetCheckedItems}
-              isXs={props.isXs}
+              filteredAppsCount={currentFilteredApps.length}
             />
-          </SkStack>
-          <SelectedCategories
-            checkedItems={checkedItems}
-            setCheckedItems={handleSetCheckedItems}
-            filteredAppsCount={currentFilteredApps.length}
-          />
           <Tabs
             variant={props.isXs ? 'scrollable' : 'standard'}
             value={activeTab}
@@ -267,9 +271,7 @@ export default function Ecosystem(props: {
                chainsMeta={props.chainsMeta}
                skaleNetwork={props.mpc.config.skaleNetwork}
                newApps={newApps}
-                           featuredApps={featuredApps}
-
-
+               featuredApps={featuredApps}
                filteredApps={currentFilteredApps}
                trendingApps={trendingApps}
                isSignedIn={isSignedIn}
@@ -278,22 +280,26 @@ export default function Ecosystem(props: {
           )}
         </Box>
       </Stack>
-      <div className={cls(cmn.flex, cmn.mtop20, cmn.mbott20)}>
-        <div className={cls(cmn.flexg)}></div>
-        <div>
-          <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">
-            <Button
-              size="medium"
-              variant="contained"
-              className={cls('btn', cmn.mtop20, cmn.mbott20, cmn.pCent)}
-              startIcon={<AddCircleOutlineRoundedIcon />}
-            >
-              Submit Your Project
-            </Button>
-          </a>
+        <div className={cls(cmn.flex, cmn.mtop20, cmn.mbott20)}>
+          <div className={cls(cmn.flexg)}></div>
+          <div>
+            <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">
+              <Button
+                size="medium"
+                variant="contained"
+                className={cls('btn', cmn.mtop20, cmn.mbott20, cmn.pCent)}
+                startIcon={<AddCircleOutlineRoundedIcon />}
+              >
+                Submit Your Project
+              </Button>
+            </a>
+          </div>
+          <div className={cls(cmn.flexg)}></div>
         </div>
-        <div className={cls(cmn.flexg)}></div>
-      </div>
-    </Container>
+      </Container>
+
+      {}
+      <ScrollToTopButton />
+    </>
   )
 }

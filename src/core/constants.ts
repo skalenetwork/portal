@@ -87,3 +87,11 @@ export const SKALE_FORUM_URL = 'https://forum.skale.network/'
 
 export const ITEMS_PER_PAGE = 100
 export const BATCH_SIZE = 150
+
+export const PATH_CONFIGS = {
+  '/ecosystem': {
+    attempts: [0, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100, 150, 200, 300],
+    priority: 'high'
+  }
+}
+export type PathConfigsType = typeof PATH_CONFIGS
