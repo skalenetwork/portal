@@ -47,13 +47,13 @@ export const TRANSFER_ERROR_MSG = 'Error during the transfer'
 export const TRANSACTION_ERROR_MSG = 'Transaction sending failed'
 
 export const BASE_METADATA_URL =
-  'https://raw.githubusercontent.com/skalenetwork/skale-network/master/metadata/'
+   'https://raw.githubusercontent.com/skalenetwork/skale-network/master/metadata/'
 
 export const BASE_TOKEN_ICON_URL =
   'https://raw.githubusercontent.com/skalenetwork/skale-network/refs/heads/master/assets/token-icons/'
 
-export const DEFAULT_SLEEP = 4000
-export const DEFAULT_ITERATIONS = 60
+export const DEFAULT_SLEEP = 5000
+export const DEFAULT_ITERATIONS = 200
 
 export const HTTPS_PREFIX = 'https://'
 export const WSS_PREFIX = 'wss://'
