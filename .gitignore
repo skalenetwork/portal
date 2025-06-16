@@ -25,6 +25,7 @@ yarn-error.log*
 
 .env
 src/data/metaportConfig
+src/data/metaportConfig*
 src/meta/
 src/assets/validators/index.ts
 src/metadata.json
