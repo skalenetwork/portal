@@ -45,7 +45,6 @@ export function useApps(chainsMeta: types.ChainsMetadataMap, metrics: types.IMet
 
   const featuredApps = useMemo<types.AppWithChainAndName[]>(() => {
      const filteredApps = allApps.filter(app => app.featured === true)
-     console.log('Featured Apps:', filteredApps) 
      return filteredApps
    }, [allApps])
 

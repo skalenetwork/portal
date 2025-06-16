@@ -52,9 +52,6 @@
    useCarousel = false
 
  }) => {
-   console.log('Featured Apps Prop:', featuredApps); 
-   console.log('Chains Meta:', chainsMeta); 
-
    const { getMostLikedApps, getAppId, getMostLikedRank } = useLikedApps()
    const trendingAppIds = useMemo(() => getMostLikedApps(), [getMostLikedApps])
    const filteredFeaturedApps = useMemo(() => {
@@ -62,16 +59,12 @@
        const chainData = chainsMeta[app.chain]?.apps?.[app.appName];
        return chainData?.featured === true;
      });
-     console.log('Filtered Featured Apps:', filtered);
      return filtered;
    }, [featuredApps, chainsMeta]);
-   console.log('Featured Apps:', featuredApps);
-   console.log('Chains Meta:', chainsMeta);
 
    const renderAppCard = (app: types.AppWithChainAndName) => {
      const isNew = isNewApp({ chain: app.chain, app: app.appName }, newApps)
      const appId = getAppId(app.chain, app.appName)
-     console.log('Rendering AppCard for:', app); 
 
      return (
        <AppCard
