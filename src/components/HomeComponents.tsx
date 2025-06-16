@@ -65,7 +65,7 @@ export const EXPLORE_CARDS: ExploreCard[] = [
     icon: <SportsEsportsOutlinedIcon />
   },
   {
-    name: 'Explore SKALE´s DeFi',
+    name: "Explore SKALE's DeFi",
     description: 'The SKALE DeFi ecosystem is rapidly expanding on Europa. Check it out!',
     url: '/ecosystem?categories=defi',
     icon: <PublicOutlinedIcon />
