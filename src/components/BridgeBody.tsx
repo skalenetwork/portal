@@ -48,7 +48,7 @@ import {
 } from '@skalenetwork/metaport'
 
 export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap }) {
-  const { showFrom, showTo, showInput, showSwitch, showStepper, showCP, showWT } =
+  const { showFrom, showTo, showInput, showSwitch, showCP, showWT } =
     useDisplayFunctions()
 
   const expandedFrom = useCollapseStore((state) => state.expandedFrom)
