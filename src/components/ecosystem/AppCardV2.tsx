@@ -31,7 +31,7 @@ import { MAINNET_CHAIN_LOGOS, OFFCHAIN_APP } from '../../core/constants'
 import CollapsibleDescription from '../CollapsibleDescription'
 import CategoriesChips from './CategoriesChips'
 import SocialButtons from './Socials'
-import { ChipNew, ChipPreTge, ChipTrending } from '../Chip'
+import { ChipNew, ChipPreTge, ChipTrending, ChipFeatured } from '../Chip'
 
 export default function AppCard(props: {
   skaleNetwork: types.SkaleNetwork
@@ -41,6 +41,7 @@ export default function AppCard(props: {
   transactions?: number
   newApps?: types.AppWithChainAndName[]
   isNew?: boolean
+  isFeatured?: boolean
   mostLiked?: number
   trending?: boolean
   gray?: boolean
@@ -54,6 +55,15 @@ export default function AppCard(props: {
   if (!appMeta) return
 
   const appDescription = appMeta.description ?? 'No description'
+
+  const statusChips = []
+   if (props.isFeatured) statusChips.push(<ChipFeatured key="featured" />)
+   if (props.trending) statusChips.push(<ChipTrending key="trending" />)
+   if (props.isNew) statusChips.push(<ChipNew key="new" />)
+   if (metadata.isPreTge(appMeta)) statusChips.push(<ChipPreTge key="pretge" />)
+
+   const maxStatusChips = 2
+   const visibleStatusChips = statusChips.slice(0, maxStatusChips)
 
   return (
     <SkPaper gray={gray} fullHeight className="sk-app-card">
@@ -82,12 +92,12 @@ export default function AppCard(props: {
           )}
         </div>
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10)}>
-          <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg)}>
-            {metadata.getAlias(props.chainsMeta, props.schainName, props.appName)}
-          </p>
-          {props.trending && <ChipTrending />}
-          {props.isNew && <ChipNew />}
-          {metadata.isPreTge(appMeta) && <ChipPreTge />}
+            <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri10)}>
+             {metadata.getAlias(props.chainsMeta, props.schainName, props.appName)}
+           </p>
+           <div className={cls(cmn.flex, cmn.flexcv)}>
+             {visibleStatusChips}
+           </div>
         </div>
         <CollapsibleDescription text={appDescription} />
         <CategoriesChips categories={appMeta.categories} className={cls(cmn.mtop20)} />
