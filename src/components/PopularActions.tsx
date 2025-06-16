@@ -22,11 +22,11 @@
  */
 
 import { Link } from 'react-router-dom'
-import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
-import { types, metadata } from '@/core'
-
 import Grid from '@mui/material/Grid'
 import StarIcon from '@mui/icons-material/Star'
+
+import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
+import { types, metadata } from '@/core'
 
 import Logo from './Logo'
 
@@ -38,8 +38,6 @@ export default function PopularActions(props: {
   const shortAlias = metadata.getChainShortAlias(props.chainsMeta, props.chainName)
 
   const chainMeta = props.chainsMeta[props.chainName]
-  const description = chainMeta?.description || 'Description not available'
-  const shortDescription = description.split('.')[0] + '.'
 
   const actions = metadata.getActions(props.chainsMeta, props.chainName)
 
@@ -47,10 +45,20 @@ export default function PopularActions(props: {
     return null
   }
 
+  const getActionDescription = (action: types.ChainAction) => {
+    if (action.description) {
+      return action.description.split('.')[0] + '.'
+    }
+    
+    const appMeta = chainMeta?.apps?.[action.app]
+    const appDescription = appMeta?.description || 'Description not available'
+    return appDescription.split('.')[0] + '.'
+  }
+
   return (
     <div>
       <div className={cls(cmn.ptop20, cmn.flex)}></div>
-      <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott20, cmn.p, cmn.p600, cmn.pSec)}>
+      <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.p, cmn.p600, cmn.pSec)}>
         <StarIcon color="primary" className={cls(cmn.mri10)} />
         Popular Actions
       </div>
@@ -75,7 +83,7 @@ export default function PopularActions(props: {
                         {action.text}
                       </div>
                       <div className={cls(cmn.p5, cmn.pSec, cmn.mri10, cmn.mleft10)}>
-                        {shortDescription}
+                        {getActionDescription(action)}
                       </div>
                     </div>
                   </div>

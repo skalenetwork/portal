@@ -87,4 +87,5 @@ export type NetworksMetadataMap = {
 export interface ChainAction {
   text: string
   app: string
+  description?: string
 }

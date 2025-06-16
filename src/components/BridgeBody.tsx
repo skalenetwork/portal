@@ -48,7 +48,7 @@ import {
 } from '@skalenetwork/metaport'
 
 export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap }) {
-  const { showFrom, showTo, showInput, showSwitch, showCP, showWT } =
+  const { showFrom, showTo, showInput, showSwitch, showCP, showWT, showStepper } =
     useDisplayFunctions()
 
   const expandedFrom = useCollapseStore((state) => state.expandedFrom)
@@ -178,11 +178,11 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
 
       {!address ? <SkConnect /> : null}
 
-      <Collapse in={(true)} className={cmn.mtop20}>
+     <Collapse in={showStepper(address!)} className={cmn.mtop20}>
         <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
       </Collapse>
 
-      {currentStep === stepsMetadata.length && (
+      {currentStep !== stepsMetadata.length && (
         <PopularActions
           chainsMeta={props.chainsMeta}
           skaleNetwork={mpc.config.skaleNetwork}
