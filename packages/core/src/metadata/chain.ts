@@ -42,11 +42,11 @@ export function chainBg(
 export function getActions(
   chainsMeta: types.ChainsMetadataMap,
   chainName: string,
-): Array<{ text: string; app: string }> | undefined { 
+): types.ChainAction[] | undefined { 
   const chainData = chainsMeta[chainName];
 
   if (chainData && chainData.actions) {
-    return chainData.actions as Array<{ text: string; app: string }>;
+    return chainData.actions;
   }
 
   return undefined;
