@@ -118,6 +118,7 @@ export default function ChainTabsSection(props: {
                newApps={newApps}
                trendingApps={trendingApps}
                useCarousel={false}
+               gray={false}
             />
           </div>
         </SkPaper>
