@@ -53,7 +53,7 @@ interface ExploreCard {
 
 export const EXPLORE_CARDS: ExploreCard[] = [
   {
-        name: 'Stake your SKL',
+    name: 'Stake your SKL',
     description: 'Select a validator to delegate your SKL to for a 2-month period to help secure the network.',
     url: '/staking',
     icon: <PieChartOutlineRoundedIcon />

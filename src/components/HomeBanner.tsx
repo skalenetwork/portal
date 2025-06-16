@@ -42,7 +42,7 @@ export default function HomeBanner(): JSX.Element {
         padding: isMobile ? '20px 15px' : '30px 20px',
         textAlign: 'center',
       }}>
-        <h1 className={cls('home-banner-title', cmn.p7, cmn.pPrim, cmn.nom)}>
+        <h1 className={cls('home-banner-title', cmn.pPrim, cmn.nom)}>
           Bridge to SKALE
         </h1>
         <Link to="/bridge">     
