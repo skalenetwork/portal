@@ -41,6 +41,7 @@
    trendingApps: types.AppWithChainAndName[]
    newApps: types.AppWithChainAndName[]
    useCarousel?: boolean
+   gray?: boolean
  }
 
  const FeaturedApps: React.FC<FeaturedAppsProps> = ({
@@ -49,7 +50,8 @@
    chainsMeta,
    newApps,
    trendingApps,
-   useCarousel = false
+   useCarousel = false,
+   gray = true
 
  }) => {
    const { getMostLikedApps, getAppId, getMostLikedRank } = useLikedApps()
@@ -77,6 +79,7 @@
          trending={isTrending(trendingApps, app.chain, app.appName)}
          isNew={isNew}
          isFeatured={true}
+         gray={gray}
 
        />
      )
