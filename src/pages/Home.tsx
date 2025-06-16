@@ -31,15 +31,16 @@
 import Headline from '../components/Headline'
 import PageCard from '../components/PageCard'
 import CategoryCardsGrid from '../components/ecosystem/CategoryCardsGrid'
- import NewApps from '../components/ecosystem/tabs/NewApps'
- import FavoriteApps from '../components/ecosystem/tabs/FavoriteApps'
- import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
- import FeaturedApps from '../components/ecosystem/tabs/FeaturedApps'
+import NewApps from '../components/ecosystem/tabs/NewApps'
+import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
+import FeaturedApps from '../components/ecosystem/tabs/FeaturedApps'
+import HomeBanner from '../components/HomeBanner'
 
- import { SKALE_SOCIAL_LINKS } from '../core/constants'
- import { SECTION_ICONS, EXPLORE_CARDS } from '../components/HomeComponents'
+import { SKALE_SOCIAL_LINKS } from '../core/constants'
+import { SECTION_ICONS, EXPLORE_CARDS } from '../components/HomeComponents'
 import SocialButtons from '../components/ecosystem/Socials'
 import UserRecommendations from '../components/ecosystem/UserRecommendations'
+
 interface HomeProps {
   skaleNetwork: types.SkaleNetwork
   chainsMeta: types.ChainsMetadataMap
@@ -52,7 +53,7 @@ export default function Home({
    metrics,
    loadData
  }: HomeProps): JSX.Element {
-   const { newApps, trendingApps, favoriteApps, isSignedIn, featuredApps } = useApps(chainsMeta, metrics)
+   const { newApps, trendingApps, featuredApps } = useApps(chainsMeta, metrics)
 
    useEffect(() => {
      loadData()
@@ -60,31 +61,12 @@ export default function Home({
   return (
     <Container maxWidth="md" className="paddBott60">
       <Stack spacing={0}>
-        <h2 className={cls(cmn.nom)}>Welcome to SKALE</h2>
-        <Headline
-          text="Explore Portal"
+      <Headline
+          text="Popular Actions"
           icon={SECTION_ICONS.explore}
-          className={cls(cmn.mbott10, cmn.mtop20)}
         />
+        <HomeBanner />
         <ExploreSection />
-        <AppSection
-          title="Your Favorites"
-          icon={SECTION_ICONS.favorites}
-          linkTo="/ecosystem?tab=3"
-          component={
-            <FavoriteApps
-               skaleNetwork={skaleNetwork}
-               chainsMeta={chainsMeta}
-               useCarousel={true}
-               featuredApps={featuredApps}
-               newApps={newApps}
-               filteredApps={favoriteApps}
-               trendingApps={trendingApps}
-              isSignedIn={isSignedIn}
-              error={null}
-            />
-          }
-        />
         <UserRecommendations
           skaleNetwork={skaleNetwork}
            chainsMeta={chainsMeta}
