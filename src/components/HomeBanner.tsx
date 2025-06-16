@@ -33,14 +33,14 @@ export default function HomeBanner(): JSX.Element {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
   
   return (
-    <div className={cls('home-banner', cmn.mtop10, cmn.mbott24, cmn.flex, cmn.flexc, cmn.flexcv)}>
+    <div className={cls('home-banner', cmn.mtop10, cmn.flex, cmn.flexc, cmn.flexcv)} style={{ marginBottom: '24px' }}>
       <div style={{ 
         display: 'flex', 
         flexDirection: 'column', 
         alignItems: 'center', 
         gap: isXs ? '15px' : '20px',
         padding: isMobile ? '20px 15px' : '30px 20px',
-        textAlign: 'center'
+        textAlign: 'center',
       }}>
         <h1 className={cls('home-banner-title', cmn.p7, cmn.pPrim, cmn.nom)}>
           Bridge to SKALE
