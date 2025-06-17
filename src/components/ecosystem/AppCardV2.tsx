@@ -76,12 +76,11 @@ export default function AppCard(props: {
               appName={props.appName}
             />
             <div className={cls(cmn.flex, cmn.flexg)}></div>
+            {props.schainName !== OFFCHAIN_APP && (
+              <ChainIcon skaleNetwork={props.skaleNetwork} chainName={props.schainName} />
+            )}
           </div>
-          <div className={cls(cmn.flexg)}></div>
-          {props.schainName !== OFFCHAIN_APP && (
-            <ChainIcon skaleNetwork={props.skaleNetwork} chainName={props.schainName} />
-          )}
-        </div>
+         </div>
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10)}>
             <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri10)}>
              {metadata.getAlias(props.chainsMeta, props.schainName, props.appName)}
