@@ -20,7 +20,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     skl: {
       decimals: 18,
       name: 'SKALE',
-      symbol: 'SKL'
+      symbol: 'SKL',
     },
     usdc: {
       decimals: 6,
@@ -49,7 +49,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     usdp: {
       name: 'Pax Dollar',
       symbol: 'USDP',
-      iconUrl: 'https://ruby.exchange/images/tokens/usdp-square.png'
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3330.png'
     },
     hmt: {
       name: 'Human Token',
@@ -64,7 +64,19 @@ export const METAPORT_CONFIG: types.mp.Config = {
     },
     trc: {
       name: "TheRealCoin",
-      symbol: "TRC"
+      symbol: "TRC",
+      iconUrl: 'https://cdn.coinranking.com/hiytXsMNZ/6717a9ad9119fa1b2a5a077f4aa45d55.png'
+    },
+    skivvy: {
+      name: 'Skivvy',
+      symbol: '$SKIVVY',
+      decimals: 8,
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3441.png'
+    },
+    unp: {
+      name: 'Unipoly Coin',
+      symbol: 'UNP',
+      iconUrl: 'https://img.cryptorank.io/coins/unipoly1706527531233.png'
     }
   },
   connections: {
@@ -130,6 +142,24 @@ export const METAPORT_CONFIG: types.mp.Config = {
               hub: 'juicy-low-small-testnet'
             }
           }
+        },
+        skivvy: {
+          address: '0xBD7A80706f48680AfA1770fd332486e9b6354f62',
+          chains: {
+            'juicy-low-small-testnet': {},
+            'giant-half-dual-testnet': {
+              hub: 'juicy-low-small-testnet'
+            }
+          }
+        },
+        unp: {
+          address: '0xdB025eDa639AC08e27bFB899c3E040fFFF817e47',
+          chains: {
+            'juicy-low-small-testnet': {},
+            'lanky-ill-funny-testnet': {
+              hub: 'juicy-low-small-testnet'
+            }
+          }
         }
       },
       erc721meta: {
@@ -141,7 +171,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
       // Calypso connections
       eth: {
         eth: {
-          address: '0x2aebcdc4f9f9149a50422fff86198cb0939ea165',
+          address: '0x92561a12Ef92311c28d530210F0C4C712468461c',
           chains: {
             'juicy-low-small-testnet': {
               clone: true
@@ -161,6 +191,18 @@ export const METAPORT_CONFIG: types.mp.Config = {
               clone: true
             },
             'aware-fake-trim-testnet': {
+              clone: true
+            },
+            mainnet: {
+              hub: 'juicy-low-small-testnet',
+              clone: true
+            }
+          }
+        },
+        skivvy: {
+          address: '0x872D4a13f9D87681b36Ec7179651B573480C1c8E',
+          chains: {
+            'juicy-low-small-testnet': {
               clone: true
             },
             mainnet: {
@@ -194,6 +236,18 @@ export const METAPORT_CONFIG: types.mp.Config = {
               clone: true
             },
             'aware-fake-trim-testnet': {
+              clone: true
+            },
+            mainnet: {
+              hub: 'juicy-low-small-testnet',
+              clone: true
+            }
+          }
+        },
+        unp: {
+          address: '0xb22020Ec2C92e2ca043aC5172747c529a79abF92',
+          chains: {
+            'juicy-low-small-testnet': {
               clone: true
             },
             mainnet: {
@@ -296,13 +350,35 @@ export const METAPORT_CONFIG: types.mp.Config = {
               wrapper: '0xa6be26f2914a17fc4e8d21a1ce2ec4079eeb990c'
             }
           }
+        },
+        skivvy: {
+          address: '0x6fb47CdB4e1b8FC17707af06ff8E431C61825584',
+          chains: {
+            mainnet: {
+              clone: true
+            },
+            'giant-half-dual-testnet': {
+              wrapper: '0x23d67AF9E78f757Ba6a678ECfc8d346C1e0b3D88'
+            }
+          }
+        },
+        unp: {
+          address: '0xbB4dFb0783Cb966Dc94dE548047A08C6b0F439a7',
+          chains: {
+            mainnet: {
+              clone: true
+            },
+            'lanky-ill-funny-testnet': {
+              wrapper: '0x1Dbc55b18F6184Bd4642820baea0260f9D540667'
+            }
+          }
         }
       }
     }
   },
   theme: {
     mode: 'dark',
-    vibrant: true,
+    vibrant: false,
     primary: '#93B8EC',
     background: '#000000',
   },

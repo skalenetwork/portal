@@ -34,6 +34,7 @@ export interface ChainMetadata {
   description?: string
   url?: string
   apps?: AppMetadataMap
+  actions?: ChainAction[];
 }
 
 export interface AppMetadata {
@@ -45,6 +46,7 @@ export interface AppMetadata {
   added?: number
   categories: CategoriesMap
   pretge?: TimeRange
+  featured?: boolean
 }
 
 interface TimeRange {
@@ -64,6 +66,7 @@ export interface AppSocials {
   discord?: string
   swell?: string
   dappradar?: string
+  forum?: string
   'epic-games-store'?: string
 }
 
@@ -81,4 +84,10 @@ export interface ChainsMetadataMap {
 
 export type NetworksMetadataMap = {
   [key in SkaleNetwork]: ChainsMetadataMap
+}
+
+export interface ChainAction {
+  text: string
+  app: string
+  description?: string
 }

@@ -31,13 +31,25 @@ const connections: types.mp.TokenTypeMap = {
                 }
             }
         },
-        reth: {
-            address: '0xae78736cd615f374d3085123a210448e74fc6393',
+        usdc: {
+            address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
             chains: {
                 'elated-tan-skat': {},
+                'honorable-steel-rasalhague': {
+                    hub: 'elated-tan-skat'
+                },
                 'green-giddy-denebola': {
                     hub: 'elated-tan-skat'
+                },
+                'parallel-stormy-spica': {
+                    hub: 'elated-tan-skat'
                 }
+            }
+        },
+        exd: {
+            address: '0x02de007d412266a2e0fa9287c103474170f06560',
+            chains: {
+                'elated-tan-skat': {}
             }
         },
         wbtc: {
@@ -59,6 +71,15 @@ const connections: types.mp.TokenTypeMap = {
                 'honorable-steel-rasalhague': {
                     hub: 'elated-tan-skat'
                 },
+                'green-giddy-denebola': {
+                    hub: 'elated-tan-skat'
+                }
+            }
+        },
+        reth: {
+            address: '0xae78736cd615f374d3085123a210448e74fc6393',
+            chains: {
+                'elated-tan-skat': {},
                 'green-giddy-denebola': {
                     hub: 'elated-tan-skat'
                 }
@@ -115,28 +136,6 @@ const connections: types.mp.TokenTypeMap = {
                 }
             }
         },
-        razor: {
-            address: '0x50DE6856358Cc35f3A9a57eAAA34BD4cB707d2cd',
-            chains: {
-                'elated-tan-skat': {},
-                'turbulent-unique-scheat': {}
-            }
-        },
-        usdc: {
-            address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
-            chains: {
-                'elated-tan-skat': {},
-                'honorable-steel-rasalhague': {
-                    hub: 'elated-tan-skat'
-                },
-                'green-giddy-denebola': {
-                    hub: 'elated-tan-skat'
-                },
-                'parallel-stormy-spica': {
-                    hub: 'elated-tan-skat'
-                }
-            }
-        },
         hmt: {
             address: '0xd1ba9BAC957322D6e8c07a160a3A8dA11A0d2867',
             chains: {
@@ -144,12 +143,6 @@ const connections: types.mp.TokenTypeMap = {
                 'wan-red-ain': {
                     hub: 'elated-tan-skat'
                 }
-            }
-        },
-        exd: {
-            address: '0x02de007d412266a2e0fa9287c103474170f06560',
-            chains: {
-                'elated-tan-skat': {}
             }
         },
         hmkr: {
@@ -164,6 +157,12 @@ const connections: types.mp.TokenTypeMap = {
                 'elated-tan-skat': {}
             }
         },
+        razor: {
+            address: '0x50DE6856358Cc35f3A9a57eAAA34BD4cB707d2cd',
+            chains: {
+                'elated-tan-skat': {}
+            }
+        },
         skivvy: {
             address: '0x246908BfF0b1ba6ECaDCF57fb94F6AE2FcD43a77',
             chains: {
@@ -173,6 +172,12 @@ const connections: types.mp.TokenTypeMap = {
                 }
             }
         },
+        unipoly: {
+            address: '0x23d7Ff057c696fEE679c60cEf61Fee6614218f04',
+            chains: {
+                'elated-tan-skat': {}
+            }
+        }
     }
 }
 

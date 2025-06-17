@@ -8,7 +8,7 @@ import titanConnections from './titan'
 export const METAPORT_CONFIG: types.mp.Config = {
   theme: {
     mode: 'dark',
-    vibrant: true,
+    vibrant: false,
     primary: '#93B8EC',
     background: '#000000'
   },
@@ -23,7 +23,6 @@ export const METAPORT_CONFIG: types.mp.Config = {
     'green-giddy-denebola', // nebula hub
     'affectionate-immediate-pollux', // cryptoblades
     'wan-red-ain', // human protocol
-    'turbulent-unique-scheat', // razor
     'adorable-quaint-bellatrix', // streammyscreen
     'parallel-stormy-spica' // titan hub
   ],
@@ -79,7 +78,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     skill: {
       name: 'SKILL',
       symbol: 'SKILL',
-      iconUrl: 'https://ruby.exchange/images/tokens/skill-square.png'
+      iconUrl: 'https://assets.coingecko.com/coins/images/15334/standard/cryptoblade.PNG?1696514982'
     },
     sushi: {
       name: 'SUSHI',
@@ -142,6 +141,11 @@ export const METAPORT_CONFIG: types.mp.Config = {
       symbol: 'SKIVVY',
       decimals: 8,
       iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3441.png'
+    },
+    unipoly: {
+      name: 'Unipoly',
+      symbol: 'UNP',
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/28735.png'
     }
   },
   connections: {
@@ -183,18 +187,6 @@ export const METAPORT_CONFIG: types.mp.Config = {
             mainnet: {
               clone: true,
               hub: 'elated-tan-skat'
-            }
-          }
-        }
-      }
-    },
-    'turbulent-unique-scheat': {
-      erc20: {
-        razor: {
-          address: '0xcbf70914Fae03B3acB91E953De60CfDAaCA8145f',
-          chains: {
-            mainnet: {
-              clone: true
             }
           }
         }

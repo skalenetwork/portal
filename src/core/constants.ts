@@ -72,9 +72,9 @@ export const SKALE_SOCIAL_LINKS = {
   telegram: 'https://t.me/skaleofficial',
   discord: 'https://discord.com/invite/gM5XBy6',
   github: 'https://github.com/skalenetwork',
-  swell: 'https://swell.skale.space/',
   website: 'https://skale.space/',
-  dune: DUNE_SKALE_URL
+  dune: DUNE_SKALE_URL,
+  forum: 'https://forum.skale.network/'
 }
 
 export const GET_STARTED_URL = 'https://skale.space/get-started-on-skale'
@@ -82,6 +82,15 @@ export const GET_STARTED_URL = 'https://skale.space/get-started-on-skale'
 export const DEFAULT_MIN_SFUEL_WEI = 100000000000000
 export const SFUEL_CHECK_INTERVAL = 10000
 export const DOCS_PORTAL_URL = 'https://docs.skale.space/'
+export const SKALE_FORUM_URL = 'https://forum.skale.network/'
 
 export const ITEMS_PER_PAGE = 100
 export const BATCH_SIZE = 150
+
+export const PATH_CONFIGS = {
+  '/ecosystem': {
+    attempts: [0, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100, 150, 200, 300],
+    priority: 'high'
+  }
+}
+export type PathConfigsType = typeof PATH_CONFIGS

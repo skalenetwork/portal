@@ -30,7 +30,7 @@ export default function TokenBalance(props: {
   decimals?: number
   truncate?: number
   primary?: boolean
-  size?: 'xs' | 'sm'
+  size?: 'xs' | 'sm' | 'md'
 }) {
   if (props.balance === undefined || props.balance === null) return
   let balance = units.formatBalance(props.balance, props.decimals)
@@ -42,13 +42,15 @@ export default function TokenBalance(props: {
     <div className={cls(cmn.flex, cmn.flexcv)}>
       <p
         className={cls(
-          cmn.p,
+          cmn.pLightGrey,
           [cmn.p4, size === 'xs'],
           [cmn.p3, size === 'sm'],
+          [cmn.p2, size === 'md'],
           [cmn.pSec, !props.primary],
           [cmn.pPrim, props.primary],
           cmn.flex,
           cmn.flexcv,
+          cmn.nom,
           cmn.mri5
         )}
       >

@@ -29,8 +29,6 @@ import { types } from '@/core'
 
 const log = new Logger<ILogObj>({ name: 'useSFuel' })
 
-const CHAINS_TO_SKIP = ['turbulent-unique-scheat'] // todo: tmp fix, remove later
-
 interface SFuelState {
   sFuelOk: boolean
   isMining: boolean
@@ -57,12 +55,10 @@ export function usesFuel(mpc: MetaportCore) {
 
   const checkFaucetAvailability = useCallback(async () => {
     const chainsWithFaucet = await Promise.all(
-      mpc.config.chains
-        .filter((chain) => !CHAINS_TO_SKIP.includes(chain))
-        .map(async (chain) => {
-          const station = new Station(chain, mpc)
-          return (await station.isFaucetAvailable()) ? chain : null
-        })
+      mpc.config.chains.map(async (chain) => {
+        const station = new Station(chain, mpc)
+        return (await station.isFaucetAvailable()) ? chain : null
+      })
     ).then((chains) => chains.filter((chain): chain is string => chain !== null))
     setState((prev) => ({
       ...prev,
@@ -80,7 +76,6 @@ export function usesFuel(mpc: MetaportCore) {
       let chainsWithEnoughSFuel = 0
       let sFuelOk = true
       for (const chain of state.chainsWithFaucet) {
-        if (CHAINS_TO_SKIP.includes(chain)) continue
         const { balance } = await new Station(chain, mpc).getData(currentAddress)
         if (balance >= DEFAULT_MIN_SFUEL_WEI) {
           chainsWithEnoughSFuel++
@@ -100,7 +95,6 @@ export function usesFuel(mpc: MetaportCore) {
     let chainsWithEnoughSFuel = 0
 
     for (const chain of state.chainsWithFaucet) {
-      if (CHAINS_TO_SKIP.includes(chain)) continue
       try {
         const station = new Station(chain, mpc)
         const { balance } = await station.getData(address)
