@@ -75,7 +75,6 @@ export default function FavoriteApps(props: {
           mostLiked={mostLikedRank}
           trending={isTrending(props.trendingApps, app.chain, app.appName)}
           isFeatured={isFeaturedApps}
-
         />
       </Grid>
     )

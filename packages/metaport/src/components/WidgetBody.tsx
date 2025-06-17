@@ -54,13 +54,12 @@ export function WidgetBody(props) {
   const tokenBalances = useMetaportStore((state) => state.tokenBalances)
 
   const transferInProgress = useMetaportStore((state) => state.transferInProgress)
-  
+
   const addressChanged = useMetaportStore((state) => state.addressChanged)
 
   const theme = useUIStore((state) => state.theme)
 
   const { address } = useAccount()
-
 
   useEffect(() => {
     initBridge()
@@ -87,7 +86,7 @@ export function WidgetBody(props) {
       }
     }
   }, [tokens])
-    const chainsMeta = CHAINS_META[mpc.config.skaleNetwork]
+  const chainsMeta = CHAINS_META[mpc.config.skaleNetwork]
 
   const sourceBg = theme.vibrant
     ? metadata.chainBg(chainsMeta, chainName1, appName1)

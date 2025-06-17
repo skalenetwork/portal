@@ -83,9 +83,9 @@ export default function ChainTabsSection(props: {
 
   const { featuredApps, newApps, trendingApps } = useApps(props.chainsMeta, null)
 
-  const chainFeaturedApps = featuredApps.filter(app => app.chain === props.schainName)
-  
-   const explorerUrl = explorer.getExplorerUrl(network, props.schainName)
+  const chainFeaturedApps = featuredApps.filter((app) => app.chain === props.schainName)
+
+  const explorerUrl = explorer.getExplorerUrl(network, props.schainName)
 
   const BASE_TABS_CONTENT = [
     <DeveloperInfo schainName={props.schainName} skaleNetwork={network} />,
@@ -106,19 +106,23 @@ export default function ChainTabsSection(props: {
       currentTabs.unshift({ label: 'Tokens', icon: <AccountBalanceWalletRoundedIcon /> })
       currentTabsContent.unshift(<Tokens mpc={props.mpc} schainName={props.schainName} />)
     }
-   if (props.chainsMeta[props.schainName] && props.chainsMeta[props.schainName].apps && chainFeaturedApps.length > 0) {
-       currentTabs.unshift({ label: 'Featured Apps', icon: <WidgetsRoundedIcon /> })
-       currentTabsContent.unshift(
-         <SkPaper gray className={cls(cmn.mtop20)}>
-           <div className={cls(cmn.mtop10, cmn.mbott10, cmn.mleft5, cmn.mri5)}>
-             <FeaturedApps
-               featuredApps={chainFeaturedApps}
-               skaleNetwork={network}
-               chainsMeta={props.chainsMeta}
-               newApps={newApps}
-               trendingApps={trendingApps}
-               useCarousel={false}
-               gray={false}
+    if (
+      props.chainsMeta[props.schainName] &&
+      props.chainsMeta[props.schainName].apps &&
+      chainFeaturedApps.length > 0
+    ) {
+      currentTabs.unshift({ label: 'Featured Apps', icon: <WidgetsRoundedIcon /> })
+      currentTabsContent.unshift(
+        <SkPaper gray className={cls(cmn.mtop20)}>
+          <div className={cls(cmn.mtop10, cmn.mbott10, cmn.mleft5, cmn.mri5)}>
+            <FeaturedApps
+              featuredApps={chainFeaturedApps}
+              skaleNetwork={network}
+              chainsMeta={props.chainsMeta}
+              newApps={newApps}
+              trendingApps={trendingApps}
+              useCarousel={false}
+              gray={false}
             />
           </div>
         </SkPaper>

@@ -15,7 +15,6 @@ import Collapse from '@mui/material/Collapse'
 import SettingsBackupRestoreRoundedIcon from '@mui/icons-material/SettingsBackupRestoreRounded'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 
-
 import { cls, cmn, styles } from '../../core/css'
 import localStyles from './SkStepper.module.scss'
 
@@ -57,7 +56,6 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
   useEffect(() => {
     setEmoji(helper.getRandom(SUCCESS_EMOJIS))
   }, [])
-
 
   useEffect(() => {
     try {

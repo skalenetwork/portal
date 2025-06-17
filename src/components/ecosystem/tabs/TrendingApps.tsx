@@ -31,7 +31,6 @@ import { isNewApp } from '../../../core/ecosystem/utils'
 import { getAppMeta } from '../../../core/ecosystem/apps'
 import { useLikedApps } from '../../../LikedAppsContext'
 
-
 interface TrendingAppsProps {
   skaleNetwork: types.SkaleNetwork
   chainsMeta: types.ChainsMetadataMap
@@ -48,7 +47,6 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
   newApps,
   filteredApps,
   featuredApps
-
 }) => {
   const apps = useMemo(
     () => filteredApps.filter((app) => getAppMeta(chainsMeta, app.chain, app.appName)),
@@ -60,7 +58,9 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
 
   const renderAppCard = (app: types.AppWithChainAndName) => {
     const isNew = isNewApp({ chain: app.chain, app: app.appName }, newApps)
-    const isFeatured = featuredApps.some((featuredApp) => featuredApp.chain === app.chain && featuredApp.appName === app.appName)
+    const isFeatured = featuredApps.some(
+      (featuredApp) => featuredApp.chain === app.chain && featuredApp.appName === app.appName
+    )
     const appId = getAppId(app.chain, app.appName)
     return (
       <Box key={`${app.chain}-${app.appName}`} className={cls('fl-centered dappCard')}>
@@ -73,8 +73,6 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
           trending={true}
           mostLiked={getMostLikedRank(mostLikedAppIds, appId)}
           isFeatured={isFeatured}
-
-
         />
       </Box>
     )

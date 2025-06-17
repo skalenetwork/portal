@@ -6,16 +6,9 @@ import SkIconBtn from './SkIconBth'
 
 export default function FavoritesButton() {
   return (
-    <Box
-      className={cmn.mleft5}
-      sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}
-    >
+    <Box className={cmn.mleft5} sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
       <Link to="/ecosystem?tab=4">
-        <SkIconBtn
-          icon={FavoriteRoundedIcon}
-          size="small"
-          tooltipTitle="Your Favorites"
-        />
+        <SkIconBtn icon={FavoriteRoundedIcon} size="small" tooltipTitle="Your Favorites" />
       </Link>
     </Box>
   )

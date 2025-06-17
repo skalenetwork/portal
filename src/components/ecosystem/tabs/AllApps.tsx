@@ -38,7 +38,6 @@ interface AllAppsProps {
   loaded: boolean
   trendingApps: types.AppWithChainAndName[]
   featuredApps: types.AppWithChainAndName[]
-
 }
 
 const AllApps: React.FC<AllAppsProps> = ({
@@ -49,7 +48,6 @@ const AllApps: React.FC<AllAppsProps> = ({
   loaded,
   trendingApps,
   featuredApps
-
 }) => {
   const { getMostLikedApps, getAppId, getMostLikedRank } = useLikedApps()
 

@@ -34,7 +34,7 @@ import { type types } from '@/core'
 import FavoriteIconButton from './FavoriteIconButton'
 import SwellIcon from './SwellIcon'
 import EpicGamesStoreLogo from '../../assets/egs.svg'
-import ForumIcon from '@mui/icons-material/Forum';
+import ForumIcon from '@mui/icons-material/Forum'
 
 interface SocialButtonsProps {
   social?: types.AppSocials

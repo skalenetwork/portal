@@ -79,7 +79,16 @@ export default function PopularActions(props: {
                       appName={action.app}
                     />
                     <div>
-                      <div className={cls(cmn.p3, 'shortP', cmn.p700, cmn.pPrim, cmn.mleft10, cmn.mri10)}>
+                      <div
+                        className={cls(
+                          cmn.p3,
+                          'shortP',
+                          cmn.p700,
+                          cmn.pPrim,
+                          cmn.mleft10,
+                          cmn.mri10
+                        )}
+                      >
                         {action.text}
                       </div>
                       <div className={cls(cmn.p5, cmn.pSec, cmn.mri10, cmn.mleft10)}>
@@ -87,7 +96,6 @@ export default function PopularActions(props: {
                       </div>
                     </div>
                   </div>
-
                 </SkPaper>
               </Link>
             </Grid>

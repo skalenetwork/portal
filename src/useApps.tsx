@@ -44,9 +44,9 @@ export function useApps(chainsMeta: types.ChainsMetadataMap, metrics: types.IMet
   }, [chainsMeta])
 
   const featuredApps = useMemo<types.AppWithChainAndName[]>(() => {
-     const filteredApps = allApps.filter(app => app.featured === true)
-     return filteredApps
-   }, [allApps])
+    const filteredApps = allApps.filter((app) => app.featured === true)
+    return filteredApps
+  }, [allApps])
 
   const newApps = useMemo<types.AppWithChainAndName[]>(() => {
     const apps = getRecentApps(chainsMeta, MAX_APPS_DEFAULT)
@@ -87,6 +87,5 @@ export function useApps(chainsMeta: types.ChainsMetadataMap, metrics: types.IMet
       .slice(0, MAX_APPS_DEFAULT)
   }, [allApps, metrics])
 
-  return { allApps, featuredApps, newApps, mostLikedApps, favoriteApps, trendingApps, isSignedIn}
-
+  return { allApps, featuredApps, newApps, mostLikedApps, favoriteApps, trendingApps, isSignedIn }
 }
