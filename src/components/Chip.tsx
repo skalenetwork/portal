@@ -62,8 +62,8 @@ export const ChipNew: React.FC<{}> = ({}) => {
 }
 
 export const ChipFeatured: React.FC<{}> = ({}) => {
-   return <Chip label="Featured" className={cls(cmn.mleft5, 'chipFeatured', 'chipXs')} />
- }
+  return <Chip label="Featured" className={cls(cmn.mleft5, 'chipFeatured', 'chipXs')} />
+}
 
 export const ChipPreTge: React.FC<{}> = ({}) => {
   return <Chip label="Pre-TGE" className={cls(cmn.mleft5, 'chipPreTge', 'chipXs')} />

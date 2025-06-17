@@ -38,7 +38,6 @@ interface AllAppsProps {
   loaded: boolean
   trendingApps: types.AppWithChainAndName[]
   featuredApps: types.AppWithChainAndName[]
-
 }
 
 const AllApps: React.FC<AllAppsProps> = ({
@@ -49,7 +48,6 @@ const AllApps: React.FC<AllAppsProps> = ({
   loaded,
   trendingApps,
   featuredApps
-
 }) => {
   const { getMostLikedApps, getAppId, getMostLikedRank } = useLikedApps()
 
@@ -60,8 +58,8 @@ const AllApps: React.FC<AllAppsProps> = ({
     return (
       <SkPaper gray className="titleSection">
         <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent)}>
-            No apps match your current filters
+          <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.pCent)}>
+            🚫 No apps match your current filters
           </p>
         </div>
       </SkPaper>

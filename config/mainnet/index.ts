@@ -8,7 +8,7 @@ import titanConnections from './titan'
 export const METAPORT_CONFIG: types.mp.Config = {
   theme: {
     mode: 'dark',
-    vibrant: true,
+    vibrant: false,
     primary: '#93B8EC',
     background: '#000000'
   },
@@ -78,7 +78,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     skill: {
       name: 'SKILL',
       symbol: 'SKILL',
-      iconUrl: 'https://ruby.exchange/images/tokens/skill-square.png'
+      iconUrl: 'https://assets.coingecko.com/coins/images/15334/standard/cryptoblade.PNG?1696514982'
     },
     sushi: {
       name: 'SUSHI',

@@ -50,8 +50,8 @@ export class TransferERC20S2S extends Action {
       this.token.wrapper(this.chainName2) ? dc.CustomAbiTokenType.erc20wrap : null,
       this.token.wrapper(this.chainName2) ? this.chainName2 : null
     )
-   const amountWei = units.toWei(this.amount, this.token.meta.decimals)
-   
+    const amountWei = units.toWei(this.amount, this.token.meta.decimals)
+
     const erc20SConnected = (await sChain.erc20()).connect(this.sChain1.signer) as Contract
     if (!checkResAllowance.res) {
       this.updateState('approve')
@@ -71,7 +71,6 @@ export class TransferERC20S2S extends Action {
 
     this.updateState('transfer')
 
-    
     let balanceOnDestination
 
     const tokenConnection = this.token.connections[this.chainName2]
@@ -194,7 +193,7 @@ export class UnWrapERC20 extends Action {
     this.updateState('unwrapDone', tx.response.hash, block.timestamp)
   }
 
-  async preAction() { }
+  async preAction() {}
 }
 
 export class UnWrapERC20S extends Action {

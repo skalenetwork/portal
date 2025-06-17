@@ -82,9 +82,9 @@ const CategoriesChips: React.FC<CategoriesChipsProps> = ({ categories, all, clas
   if (chips.length === 0) return null
 
   const maxChips = 2
-   const visibleChips = all ? chips : chips.slice(0, maxChips)
-   const remainingChips = chips.length - maxChips
-   
+  const visibleChips = all ? chips : chips.slice(0, maxChips)
+  const remainingChips = chips.length - maxChips
+
   return (
     <Box className={cls(`chipContainer ${className}`, ['flex-w', all])}>
       {visibleChips}

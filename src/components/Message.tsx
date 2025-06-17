@@ -29,9 +29,6 @@ import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import { SkPaper, cls, cmn } from '@skalenetwork/metaport'
 import { Link } from 'react-router-dom'
 
-
-
-
 export default function Message(props: {
   text: string | null
   linkText?: string
@@ -110,4 +107,3 @@ export default function Message(props: {
     </Collapse>
   )
 }
-

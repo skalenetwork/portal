@@ -82,14 +82,14 @@ export const getRecentApps = (
   return appsWithTimestamp.sort((a, b) => b.added! - a.added!).slice(0, count)
 }
 export const isFeatured = (
+  app: { chain: string; app: string },
+  featuredApps: types.AppWithChainAndName[]
+): boolean => {
+  return featuredApps.some(
+    (featuredApp) => featuredApp.chain === app.chain && featuredApp.appName === app.app
+  )
+}
 
-
-   app: { chain: string; app: string },
-   featuredApps: types.AppWithChainAndName[]
- ): boolean => {
-   return featuredApps.some((featuredApp) => featuredApp.chain === app.chain && featuredApp.appName === app.app)
- }
- 
 export const isNewApp = (
   app: { chain: string; app: string },
   newApps: types.AppWithChainAndName[]

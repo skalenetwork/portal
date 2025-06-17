@@ -56,13 +56,13 @@ export default function AppCard(props: {
   const appDescription = appMeta.description ?? 'No description'
 
   const statusChips = []
-   if (props.isFeatured) statusChips.push(<ChipFeatured key="featured" />)
-   if (props.trending) statusChips.push(<ChipTrending key="trending" />)
-   if (props.isNew) statusChips.push(<ChipNew key="new" />)
-   if (metadata.isPreTge(appMeta)) statusChips.push(<ChipPreTge key="pretge" />)
+  if (props.isFeatured) statusChips.push(<ChipFeatured key="featured" />)
+  if (props.trending) statusChips.push(<ChipTrending key="trending" />)
+  if (props.isNew) statusChips.push(<ChipNew key="new" />)
+  if (metadata.isPreTge(appMeta)) statusChips.push(<ChipPreTge key="pretge" />)
 
-   const maxStatusChips = 2
-   const visibleStatusChips = statusChips.slice(0, maxStatusChips)
+  const maxStatusChips = 2
+  const visibleStatusChips = statusChips.slice(0, maxStatusChips)
 
   return (
     <SkPaper gray={gray} fullHeight className="sk-app-card">
@@ -80,14 +80,12 @@ export default function AppCard(props: {
               <ChainIcon skaleNetwork={props.skaleNetwork} chainName={props.schainName} />
             )}
           </div>
-         </div>
+        </div>
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10)}>
-            <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri10)}>
-             {metadata.getAlias(props.chainsMeta, props.schainName, props.appName)}
-           </p>
-           <div className={cls(cmn.flex, cmn.flexcv)}>
-             {visibleStatusChips}
-           </div>
+          <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri10)}>
+            {metadata.getAlias(props.chainsMeta, props.schainName, props.appName)}
+          </p>
+          <div className={cls(cmn.flex, cmn.flexcv)}>{visibleStatusChips}</div>
         </div>
         <CollapsibleDescription text={appDescription} />
         <CategoriesChips categories={appMeta.categories} className={cls(cmn.mtop20)} />

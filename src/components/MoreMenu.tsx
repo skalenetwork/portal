@@ -40,7 +40,6 @@ import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined'
 import { cls, styles, cmn } from '@skalenetwork/metaport'
 import { DOCS_PORTAL_URL, SKALE_FORUM_URL } from '../core/constants'
 
-
 export default function MoreMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)

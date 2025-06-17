@@ -31,7 +31,6 @@ import {
   SkStepper,
   ChainsList,
   SkConnect,
-  useCollapseStore,
   useMetaportStore,
   useUIStore,
   useWagmiAccount,
@@ -51,12 +50,6 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
   const { showFrom, showTo, showInput, showSwitch, showCP, showWT, showStepper } =
     useDisplayFunctions()
 
-  const expandedFrom = useCollapseStore((state) => state.expandedFrom)
-  const setExpandedFrom = useCollapseStore((state) => state.setExpandedFrom)
-
-  const expandedTo = useCollapseStore((state) => state.expandedTo)
-  const setExpandedTo = useCollapseStore((state) => state.setExpandedTo)
-
   const destChains = useMetaportStore((state) => state.destChains)
 
   const token = useMetaportStore((state) => state.token)
@@ -65,11 +58,6 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
   const chainName2 = useMetaportStore((state) => state.chainName2)
   const setChainName1 = useMetaportStore((state) => state.setChainName1)
   const setChainName2 = useMetaportStore((state) => state.setChainName2)
-
-  const appName1 = useMetaportStore((state) => state.appName1)
-  const appName2 = useMetaportStore((state) => state.appName2)
-  const setAppName1 = useMetaportStore((state) => state.setAppName1)
-  const setAppName2 = useMetaportStore((state) => state.setAppName2)
 
   const mpc = useMetaportStore((state) => state.mpc)
   const tokenBalances = useMetaportStore((state) => state.tokenBalances)
@@ -83,15 +71,12 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
   const { address } = useWagmiAccount()
 
   const sourceBg = theme.vibrant
-    ? metadata.chainBg(props.chainsMeta, chainName1, appName1)
+    ? metadata.chainBg(props.chainsMeta, chainName1)
     : constants.GRAY_BG
-  const destBg = theme.vibrant
-    ? metadata.chainBg(props.chainsMeta, chainName2, appName2)
-    : constants.GRAY_BG
+  const destBg = theme.vibrant ? metadata.chainBg(props.chainsMeta, chainName2) : constants.GRAY_BG
 
   const stepsMetadata = useMetaportStore((state) => state.stepsMetadata)
   const currentStep = useMetaportStore((state) => state.currentStep)
-
 
   return (
     <div>
@@ -112,13 +97,9 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
           </div>
           <ChainsList
             config={mpc.config}
-            expanded={expandedFrom}
-            setExpanded={setExpandedFrom}
             chain={chainName1}
             chains={mpc.config.chains ?? []}
             setChain={setChainName1}
-            setApp={setAppName1}
-            app={appName1}
             disabledChain={chainName2}
             disabled={transferInProgress}
             from={true}
@@ -146,14 +127,10 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
           </div>
           <ChainsList
             config={mpc.config}
-            expanded={expandedTo}
-            setExpanded={setExpandedTo}
             chain={chainName2}
             chains={mpc.config.chains}
             destChains={destChains}
             setChain={setChainName2}
-            setApp={setAppName2}
-            app={appName2}
             disabledChain={chainName1}
             disabled={transferInProgress}
             size="md"
@@ -178,7 +155,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
 
       {!address ? <SkConnect /> : null}
 
-     <Collapse in={showStepper(address!)} className={cmn.mtop20}>
+      <Collapse in={showStepper(address!)} className={cmn.mtop20}>
         <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
       </Collapse>
 
@@ -188,7 +165,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
           skaleNetwork={mpc.config.skaleNetwork}
           chainName={chainName2}
         />
-   )}
+      )}
     </div>
   )
 }
