@@ -9,14 +9,7 @@ import { cls, cmn, styles } from '../core/css'
 
 import SkPaper from './SkPaper'
 import { CHAINS_META } from '../core/metadata'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
-
-const style = {
-  position: 'absolute',
-  top: '5%',
-  left: '50%',
-  transform: 'translate(-50%, 0)'
-}
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 
 export default function ChainsList(props: {
   config: types.mp.Config
@@ -54,12 +47,12 @@ export default function ChainsList(props: {
 
   return (
     <div>
-      <div className={cls(cmn.mri10, cmn.mleft10, cmn.pbott10, cmn.ptop10)}>
+      <div className={cls(cmn.mleft10, cmn.pbott10, cmn.ptop10)} style={{ marginRight: '10px' }}>
         <Button
-          className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10)}
+          className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mri10,)}
           onClick={handleOpen}
           disabled={props.disabled}
-          endIcon={<KeyboardArrowDownIcon className={cls(cmn.pPrim, cmn.mleft10)} />}
+          endIcon={<KeyboardArrowDownRoundedIcon className={cls(cmn.pPrim, cmn.mleft10)} style={{ marginRight: '12px' }} />}
         >
           {props.chain ? (
             <div className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv)}>
@@ -86,7 +79,7 @@ export default function ChainsList(props: {
         aria-describedby="modal-modal-description"
         className={cls(cmn.darkTheme, styles.metaport, styles.backdropBlur)}
       >
-        <Container maxWidth="md" sx={style}>
+        <Container maxWidth="md" className={cls(styles.modalContainer)}>
           <div className={cls(cmn.flex, cmn.mbott20)}>
             <div className={cls(cmn.flexg)}></div>
             <SkPaper gray>

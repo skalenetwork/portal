@@ -53,7 +53,6 @@ export default function TokenBalance(props: {
           cmn.nom,
           cmn.mri5
         )}
-        style={{ color: 'lightgrey' }}
       >
         {balance} {props.symbol}
       </p>

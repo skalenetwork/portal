@@ -86,7 +86,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
       </Collapse>
       <SkPaper background={sourceBg} className={cmn.nop}>
         <Collapse in={showFrom()}>
-          <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
+          <div className={cls(cmn.ptop20, cmn.mleft20, cmn.flex)}>
             <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>From</p>
             {token ? (
               <TokenBalance
@@ -122,7 +122,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
 
       <Collapse in={showTo()}>
         <SkPaper background={destBg} className={cmn.nop}>
-          <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
+          <div className={cls(cmn.ptop20, cmn.mleft20, cmn.flex)} style={{ marginRight: '26px' }}>
             <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>To</p>
             <DestTokenBalance />
           </div>

@@ -23,17 +23,14 @@
 
 import SavingsIcon from '@mui/icons-material/Savings'
 import LocalMallIcon from '@mui/icons-material/LocalMall'
+import Button from '@mui/material/Button'
 
 import { dc, types, constants } from '@/core'
-
 import { cls, cmn, styles } from '../core/css'
-
-import TokenSection from './TokenSection'
-
 import { getTokenName } from '../core/metadata'
 
+import TokenSection from './TokenSection'
 import TokenIcon from './TokenIcon'
-import Button from '@mui/material/Button'
 
 export default function TokenListSection(props: {
   setExpanded: (expanded: string | false) => void
@@ -41,24 +38,23 @@ export default function TokenListSection(props: {
   tokens: types.mp.TokenDataMap
   type: dc.TokenType
   tokenBalances?: types.mp.TokenBalancesMap
-
-  onCloseModal?: () => void
-  searchQuery?: string
+  onCloseModal: () => void
+  searchQuery: string
 }) {
   function handle(tokenData: dc.TokenData): void {
     props.setExpanded(false)
     props.setToken(tokenData)
-    if (props.onCloseModal) props.onCloseModal()
+    props.onCloseModal()
   }
 
   const filteredTokens = Object.keys(props.tokens).filter(
     (key) =>
       props.tokens[key]?.meta.symbol
         .toLowerCase()
-        .includes(props.searchQuery?.toLowerCase() || '') ||
+        .includes(props.searchQuery.toLowerCase()) ||
       getTokenName(props.tokens[key])
         .toLowerCase()
-        .includes(props.searchQuery?.toLowerCase() || '')
+        .includes(props.searchQuery.toLowerCase())
   )
   const popularTokens = filteredTokens
     .filter((key) => constants.POPULAR_TOKENS.includes(props.tokens[key]?.meta.symbol))

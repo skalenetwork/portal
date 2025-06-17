@@ -27,7 +27,7 @@ import { dc } from '@/core'
 import { useAccount } from 'wagmi'
 
 import SearchIcon from '@mui/icons-material/Search'
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown'
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 
 import { getAvailableTokensTotal, getDefaultToken } from '../core/tokens/helper'
 
@@ -41,13 +41,6 @@ import { useMetaportStore } from '../store/MetaportStore'
 import { BALANCE_UPDATE_INTERVAL_MS } from '../core/constants'
 import { Button, Modal, TextField, InputAdornment, Container } from '@mui/material'
 import SkPaper from './SkPaper'
-
-const style = {
-  position: 'absolute',
-  top: '5%',
-  left: '50%',
-  transform: 'translate(-50%, 0)'
-}
 
 export default function TokenList() {
   const [open, setOpen] = React.useState(false)
@@ -88,7 +81,7 @@ export default function TokenList() {
   }, [tokens])
 
   let availableTokensTotal = getAvailableTokensTotal(tokens)
-  let disabled = availableTokensTotal === 1
+  let disabled = false
   let noTokens = availableTokensTotal === 0
 
   let tokensText = token ? token.meta.symbol : 'TOKEN'
@@ -120,7 +113,7 @@ export default function TokenList() {
           className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mleft10)}
           onClick={handleOpen}
           disabled={disabled}
-          endIcon={availableTokensTotal === 1 ? null : <KeyboardArrowDownIcon className={cls(cmn.pPrim)} />}
+          endIcon={availableTokensTotal === 1 ? null : <KeyboardArrowDownRoundedIcon className={(cmn.pPrim)} style={{ marginRight: '11px' }} />}
         >
           <div className={cls(cmn.flex, cmn.flexc, cmn.mri10, [cmn.pDisabled, noTokens])}>
             <TokenIcon
@@ -149,7 +142,7 @@ export default function TokenList() {
         onClose={handleClose}
         className={cls(cmn.darkTheme, styles.metaport, styles.backdropBlur)}
       >
-        <Container maxWidth="sm" sx={style}>
+        <Container maxWidth="sm" className={cls(styles.accordionSummary)}>
           <div className={cls(cmn.flex, cmn.mbott20)}>
             <div className={cls(cmn.flexg)}></div>
             <SkPaper gray>
@@ -199,8 +192,8 @@ export default function TokenList() {
                   cmn.flexcv,
                   cmn.mtop20,
                   cmn.mbott20,
-                  cmn.padd10
-                )}
+                  cmn.padd10              
+                  )}
               >
              <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.pCent)}>
                 🚫 No tokens match your current filters
