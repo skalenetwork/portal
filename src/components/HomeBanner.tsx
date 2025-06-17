@@ -31,24 +31,27 @@ export default function HomeBanner(): JSX.Element {
   const theme = useTheme()
   const isXs = useMediaQuery(theme.breakpoints.down('sm'))
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
-  
+
   return (
-    <div className={cls('home-banner', cmn.mtop10, cmn.flex, cmn.flexc, cmn.flexcv)} style={{ marginBottom: '24px' }}>
-      <div style={{ 
-        display: 'flex', 
-        flexDirection: 'column', 
-        alignItems: 'center', 
-        gap: isXs ? '15px' : '20px',
-        padding: isMobile ? '20px 15px' : '30px 20px',
-        textAlign: 'center',
-      }}>
-        <h1 className={cls('home-banner-title', cmn.pPrim, cmn.nom)}>
-          Bridge to SKALE
-        </h1>
-        <Link to="/bridge">     
-          <Button 
-            size={isXs ? "small" : "medium"} 
-            variant="contained" 
+    <div
+      className={cls('home-banner', cmn.mtop10, cmn.flex, cmn.flexc, cmn.flexcv)}
+      style={{ marginBottom: '24px' }}
+    >
+      <div
+        style={{
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          gap: isXs ? '15px' : '20px',
+          padding: isMobile ? '20px 15px' : '30px 20px',
+          textAlign: 'center'
+        }}
+      >
+        <h1 className={cls('home-banner-title', cmn.pPrim, cmn.nom)}>Bridge to SKALE</h1>
+        <Link to="/bridge">
+          <Button
+            size={isXs ? 'small' : 'medium'}
+            variant="contained"
             color="primary"
             className={cls('btn', [isXs ? 'btnSm' : 'btnMd'])}
             fullWidth={isMobile}

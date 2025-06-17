@@ -59,8 +59,6 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
   const setChainName1 = useMetaportStore((state) => state.setChainName1)
   const setChainName2 = useMetaportStore((state) => state.setChainName2)
 
-  
-
   const mpc = useMetaportStore((state) => state.mpc)
   const tokenBalances = useMetaportStore((state) => state.tokenBalances)
 
@@ -73,15 +71,12 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
   const { address } = useWagmiAccount()
 
   const sourceBg = theme.vibrant
-    ? metadata.chainBg(props.chainsMeta, chainName1,)
+    ? metadata.chainBg(props.chainsMeta, chainName1)
     : constants.GRAY_BG
-  const destBg = theme.vibrant
-    ? metadata.chainBg(props.chainsMeta, chainName2,)
-    : constants.GRAY_BG
+  const destBg = theme.vibrant ? metadata.chainBg(props.chainsMeta, chainName2) : constants.GRAY_BG
 
   const stepsMetadata = useMetaportStore((state) => state.stepsMetadata)
   const currentStep = useMetaportStore((state) => state.currentStep)
-
 
   return (
     <div>
@@ -104,7 +99,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
             config={mpc.config}
             chain={chainName1}
             chains={mpc.config.chains ?? []}
-            setChain={setChainName1} 
+            setChain={setChainName1}
             disabledChain={chainName2}
             disabled={transferInProgress}
             from={true}
@@ -126,7 +121,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
 
       <Collapse in={showTo()}>
         <SkPaper background={destBg} className={cmn.nop}>
-          <div className={cls(cmn.ptop20, cmn.mleft20,cmn.mri20, cmn.flex)}>
+          <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
             <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>To</p>
             <DestTokenBalance />
           </div>
@@ -160,7 +155,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
 
       {!address ? <SkConnect /> : null}
 
-     <Collapse in={showStepper(address!)} className={cmn.mtop20}>
+      <Collapse in={showStepper(address!)} className={cmn.mtop20}>
         <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
       </Collapse>
 
@@ -170,7 +165,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
           skaleNetwork={mpc.config.skaleNetwork}
           chainName={chainName2}
         />
-   )}
+      )}
     </div>
   )
 }

@@ -87,7 +87,6 @@ export default function Portal() {
       const chainsJson = await response.json()
       setSchains(formatSChains(chainsJson))
     } catch (e) {
-    
       console.error(e)
     }
   }

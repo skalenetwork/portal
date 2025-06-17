@@ -1,7 +1,6 @@
 import React from 'react'
 import { types } from '@/core'
 
-
 import { Modal, Container, Grid } from '@mui/material'
 import Button from '@mui/material/Button'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'

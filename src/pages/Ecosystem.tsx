@@ -27,7 +27,7 @@ import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
-import AppShortcutIcon from '@mui/icons-material/AppShortcut';
+import AppShortcutIcon from '@mui/icons-material/AppShortcut'
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded'
 
 import { type types } from '@/core'
@@ -51,9 +51,6 @@ import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import SocialButtons from '../components/ecosystem/Socials'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 
-
-
-
 export default function Ecosystem(props: {
   mpc: MetaportCore
   chainsMeta: types.ChainsMetadataMap
@@ -63,7 +60,7 @@ export default function Ecosystem(props: {
 }) {
   const { getCheckedItemsFromUrl, setCheckedItemsInUrl, getTabIndexFromUrl, setTabIndexInUrl } =
     useUrlParams()
-    const { allApps, newApps, trendingApps, favoriteApps, isSignedIn, featuredApps } = useApps(
+  const { allApps, newApps, trendingApps, favoriteApps, isSignedIn, featuredApps } = useApps(
     props.chainsMeta,
     props.metrics
   )
@@ -74,9 +71,7 @@ export default function Ecosystem(props: {
   const [activeTab, setActiveTab] = useState(0)
   const [loaded, setLoaded] = useState<boolean>(false)
 
- useEffect(() => {
-
-
+  useEffect(() => {
     props.loadData()
     const initialCheckedItems = getCheckedItemsFromUrl()
     setCheckedItems(initialCheckedItems)
@@ -101,51 +96,50 @@ export default function Ecosystem(props: {
     setTabIndexInUrl(newValue)
   }
   const getFilteredAppsByTab = useMemo(() => {
-     const filterMap = new Map([
-       [0, filteredApps], // All Apps
-       [
-
-         1,
-         featuredApps.filter((app) =>
-           filteredApps.some(
-             (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
-           )
-         )
-       ],// Featured Apps
-       [
-         2,
-       newApps.filter((app) =>
-         filteredApps.some(
-           (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
-         )
-       )
-     ],
-       // New Apps
-       [
-         3,
-         trendingApps.filter((app) =>
-           filteredApps.some(
-             (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
-           )
-         )
-       ], // Trending Apps
-       [
-         4,
-         isSignedIn
-           ? favoriteApps.filter((app) =>
-               filteredApps.some(
+    const filterMap = new Map([
+      [0, filteredApps], // All Apps
+      [
+        1,
+        featuredApps.filter((app) =>
+          filteredApps.some(
+            (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
+          )
+        )
+      ], // Featured Apps
+      [
+        2,
+        newApps.filter((app) =>
+          filteredApps.some(
+            (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
+          )
+        )
+      ],
+      // New Apps
+      [
+        3,
+        trendingApps.filter((app) =>
+          filteredApps.some(
+            (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
+          )
+        )
+      ], // Trending Apps
+      [
+        4,
+        isSignedIn
+          ? favoriteApps.filter((app) =>
+              filteredApps.some(
                 (filteredApp) =>
                   filteredApp.chain === app.chain && filteredApp.appName === app.appName
               )
             )
           : []
       ] // Favorite Apps
-     ])
+    ])
 
-     return (tabIndex: number) => filterMap.get(tabIndex) || filteredApps
-   }, [filteredApps, newApps, trendingApps, favoriteApps, featuredApps,isSignedIn])
+    return (tabIndex: number) => filterMap.get(tabIndex) || filteredApps
+  }, [filteredApps, newApps, trendingApps, favoriteApps, featuredApps, isSignedIn])
 
-   const currentFilteredApps = getFilteredAppsByTab(activeTab)
+  const currentFilteredApps = getFilteredAppsByTab(activeTab)
 
   const isFiltersApplied = Object.keys(checkedItems).length !== 0
   return (
@@ -190,96 +184,96 @@ export default function Ecosystem(props: {
               setCheckedItems={handleSetCheckedItems}
               filteredAppsCount={currentFilteredApps.length}
             />
-          <Tabs
-            variant={props.isXs ? 'scrollable' : 'standard'}
-            value={activeTab}
-            onChange={handleTabChange}
-            scrollButtons="auto"
-            className={cls(cmn.mbott20, [cmn.mtop20, isFiltersApplied], 'skTabs', 'fwmobile')}
-          >
-            <Tab
-              label="All"
-               icon={<GridViewRoundedIcon />}
-               iconPosition="start"
-               className={cls('btn', 'btnSm', cmn.mri5, 'tab', 'fwmobile')}
-             />
+            <Tabs
+              variant={props.isXs ? 'scrollable' : 'standard'}
+              value={activeTab}
+              onChange={handleTabChange}
+              scrollButtons="auto"
+              className={cls(cmn.mbott20, [cmn.mtop20, isFiltersApplied], 'skTabs', 'fwmobile')}
+            >
               <Tab
-               label="Featured"
-               icon={<AppShortcutIcon />}
-               iconPosition="start"
-               className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-             />
-             <Tab
-               label="New"
-              icon={<StarRoundedIcon />}
-              iconPosition="start"
-              className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-            />
-            <Tab
-              label="Trending"
-              icon={<TrendingUpRoundedIcon />}
-              iconPosition="start"
-              className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-            />
-            <Tab
-              label="Favorites"
-              icon={<FavoriteRoundedIcon />}
-              iconPosition="start"
-              className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-            />
-          </Tabs>
-          {activeTab === 0 && (
-            <AllApps
-              apps={currentFilteredApps}
-              skaleNetwork={props.mpc.config.skaleNetwork}
-              chainsMeta={props.chainsMeta}
-               newApps={newApps}
-               loaded={loaded}
-               trendingApps={trendingApps}
-               featuredApps={featuredApps}
-             />
-           )}
-              {activeTab === 1 && (
-             <FeaturedApps
-               featuredApps={currentFilteredApps}
-               newApps={newApps}
-               skaleNetwork={props.mpc.config.skaleNetwork}
-               chainsMeta={props.chainsMeta}
-               trendingApps={trendingApps}
-             />
-           )}
-           {activeTab === 2 && (
-             <NewApps
-               newApps={currentFilteredApps}
-               skaleNetwork={props.mpc.config.skaleNetwork}
-               chainsMeta={props.chainsMeta}
-               trendingApps={trendingApps}
-               featuredApps={featuredApps}
-             />
-           )}
-           {activeTab === 3 && (
-             <TrendingApps
-               chainsMeta={props.chainsMeta}
-               skaleNetwork={props.mpc.config.skaleNetwork}
-               newApps={newApps}
-               filteredApps={currentFilteredApps}
-               featuredApps={featuredApps}
-             />
-           )}
-           {activeTab === 4 && (
-             <FavoriteApps
-               chainsMeta={props.chainsMeta}
-               skaleNetwork={props.mpc.config.skaleNetwork}
-               newApps={newApps}
-               featuredApps={featuredApps}
-               filteredApps={currentFilteredApps}
-               trendingApps={trendingApps}
-               isSignedIn={isSignedIn}
-              error={null}
-            />
-          )}
-        </Box>
-      </Stack>
+                label="All"
+                icon={<GridViewRoundedIcon />}
+                iconPosition="start"
+                className={cls('btn', 'btnSm', cmn.mri5, 'tab', 'fwmobile')}
+              />
+              <Tab
+                label="Featured"
+                icon={<AppShortcutIcon />}
+                iconPosition="start"
+                className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+              />
+              <Tab
+                label="New"
+                icon={<StarRoundedIcon />}
+                iconPosition="start"
+                className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+              />
+              <Tab
+                label="Trending"
+                icon={<TrendingUpRoundedIcon />}
+                iconPosition="start"
+                className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+              />
+              <Tab
+                label="Favorites"
+                icon={<FavoriteRoundedIcon />}
+                iconPosition="start"
+                className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+              />
+            </Tabs>
+            {activeTab === 0 && (
+              <AllApps
+                apps={currentFilteredApps}
+                skaleNetwork={props.mpc.config.skaleNetwork}
+                chainsMeta={props.chainsMeta}
+                newApps={newApps}
+                loaded={loaded}
+                trendingApps={trendingApps}
+                featuredApps={featuredApps}
+              />
+            )}
+            {activeTab === 1 && (
+              <FeaturedApps
+                featuredApps={currentFilteredApps}
+                newApps={newApps}
+                skaleNetwork={props.mpc.config.skaleNetwork}
+                chainsMeta={props.chainsMeta}
+                trendingApps={trendingApps}
+              />
+            )}
+            {activeTab === 2 && (
+              <NewApps
+                newApps={currentFilteredApps}
+                skaleNetwork={props.mpc.config.skaleNetwork}
+                chainsMeta={props.chainsMeta}
+                trendingApps={trendingApps}
+                featuredApps={featuredApps}
+              />
+            )}
+            {activeTab === 3 && (
+              <TrendingApps
+                chainsMeta={props.chainsMeta}
+                skaleNetwork={props.mpc.config.skaleNetwork}
+                newApps={newApps}
+                filteredApps={currentFilteredApps}
+                featuredApps={featuredApps}
+              />
+            )}
+            {activeTab === 4 && (
+              <FavoriteApps
+                chainsMeta={props.chainsMeta}
+                skaleNetwork={props.mpc.config.skaleNetwork}
+                newApps={newApps}
+                featuredApps={featuredApps}
+                filteredApps={currentFilteredApps}
+                trendingApps={trendingApps}
+                isSignedIn={isSignedIn}
+                error={null}
+              />
+            )}
+          </Box>
+        </Stack>
         <div className={cls(cmn.flex, cmn.mtop20, cmn.mbott20)}>
           <div className={cls(cmn.flexg)}></div>
           <div>

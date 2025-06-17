@@ -30,7 +30,6 @@ import * as VALIDATOR_LOGOS from '../assets/validators'
 export const DASHBOARD_URL = 'https://app.geckoboard.com/v5/dashboards/LISYTRBEVGCVGL57/inception'
 export const DUNE_SKALE_URL = 'https://dune.com/projects/SKALE'
 
-
 export const BRIDGE_PAGES = ['/bridge', '/transfer', '/bridge/history', '/portfolio', '/other/faq']
 export const STAKING_PAGES = ['/staking']
 

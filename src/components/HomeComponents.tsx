@@ -56,7 +56,8 @@ interface ExploreCard {
 export const EXPLORE_CARDS: ExploreCard[] = [
   {
     name: 'Stake your SKL',
-    description: 'Select a validator to delegate your SKL to for a 2-month period to help secure the network.',
+    description:
+      'Select a validator to delegate your SKL to for a 2-month period to help secure the network.',
     url: '/staking',
     icon: <PieChartOutlineRoundedIcon />
   },
@@ -71,7 +72,7 @@ export const EXPLORE_CARDS: ExploreCard[] = [
     description: 'The SKALE DeFi ecosystem is rapidly expanding on Europa. Check it out!',
     url: '/ecosystem?categories=defi',
     icon: <PublicOutlinedIcon />
- },
+  },
   {
     name: 'Swap on SKALE',
     description: 'Swap your favorite tokens on SKALE with zero gas fees using SushiSwap.',
