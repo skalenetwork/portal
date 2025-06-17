@@ -27,7 +27,7 @@ import { type types } from '@/core'
 import { useLikedApps } from '../../../LikedAppsContext'
 import AppCardV2 from '../AppCardV2'
 import { Grid } from '@mui/material'
-import { isNewApp, isTrending } from '../../../core/ecosystem/utils'
+import { isNewApp, isTrending, isFeatured } from '../../../core/ecosystem/utils'
 import Loader from '../../Loader'
 
 interface AllAppsProps {
@@ -37,6 +37,8 @@ interface AllAppsProps {
   newApps: types.AppWithChainAndName[]
   loaded: boolean
   trendingApps: types.AppWithChainAndName[]
+  featuredApps: types.AppWithChainAndName[]
+
 }
 
 const AllApps: React.FC<AllAppsProps> = ({
@@ -45,7 +47,9 @@ const AllApps: React.FC<AllAppsProps> = ({
   apps,
   newApps,
   loaded,
-  trendingApps
+  trendingApps,
+  featuredApps
+
 }) => {
   const { getMostLikedApps, getAppId, getMostLikedRank } = useLikedApps()
 
@@ -78,6 +82,7 @@ const AllApps: React.FC<AllAppsProps> = ({
               mostLiked={getMostLikedRank(mostLikedAppIds, appId)}
               trending={isTrending(trendingApps, app.chain, app.appName)}
               isNew={isNew}
+              isFeatured={isFeatured({ chain: app.chain, app: app.appName }, featuredApps)}
             />
           </Grid>
         )

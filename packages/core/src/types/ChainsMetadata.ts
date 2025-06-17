@@ -45,6 +45,7 @@ export interface AppMetadata {
   added?: number
   categories: CategoriesMap
   pretge?: TimeRange
+  featured?: boolean
 }
 
 interface TimeRange {
@@ -64,6 +65,7 @@ export interface AppSocials {
   discord?: string
   swell?: string
   dappradar?: string
+  forum?: string
   'epic-games-store'?: string
 }
 
