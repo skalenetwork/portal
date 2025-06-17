@@ -53,6 +53,7 @@ export default function TokenList() {
   const tokenContracts = useMetaportStore((state) => state.tokenContracts)
 
   const tokenBalances = useMetaportStore((state) => state.tokenBalances)
+  const transferInProgress = useMetaportStore((state) => state.transferInProgress)
 
   const setExpandedTokens = useCollapseStore((state) => state.setExpandedTokens)
 
@@ -107,6 +108,7 @@ export default function TokenList() {
         <Button
           className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mleft10)}
           onClick={handleOpen}
+          disabled={transferInProgress}
           endIcon={
             <KeyboardArrowDownRoundedIcon className={cmn.pPrim} style={{ marginRight: '11px' }} />
           }
