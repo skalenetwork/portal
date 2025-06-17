@@ -9,7 +9,7 @@ export default function ChainIcon(props: {
   chainName: string
   className?: string
   app?: string
-  size?: 'xs' | 'sm' | 'md' | 'lg'
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }) {
   const iconPath = chainIconPath(props.skaleNetwork, props.chainName, props.app)
   const size = props.size ?? 'sm'

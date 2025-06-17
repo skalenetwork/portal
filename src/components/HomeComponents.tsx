@@ -26,10 +26,11 @@ import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
 import RocketLaunchRoundedIcon from '@mui/icons-material/RocketLaunchRounded'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
-import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
 import PieChartOutlineRoundedIcon from '@mui/icons-material/PieChartOutlineRounded'
 import OutboundRoundedIcon from '@mui/icons-material/OutboundRounded'
 import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded'
+import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined'
+import AppShortcutIcon from '@mui/icons-material/AppShortcut'
 
 interface SectionIcons {
   [key: string]: JSX.Element
@@ -41,7 +42,8 @@ export const SECTION_ICONS: SectionIcons = {
   new: <StarRoundedIcon color="primary" />,
   trending: <TrendingUpRoundedIcon color="primary" />,
   mostLiked: <PeopleRoundedIcon color="primary" />,
-  categories: <OutboundRoundedIcon color="primary" />
+  categories: <OutboundRoundedIcon color="primary" />,
+  featured: <AppShortcutIcon color="primary" />
 }
 
 interface ExploreCard {
@@ -53,25 +55,28 @@ interface ExploreCard {
 
 export const EXPLORE_CARDS: ExploreCard[] = [
   {
-    name: 'bridge',
-    description: 'Transfer tokens between 50+ chains',
-    icon: <SwapHorizontalCircleOutlinedIcon />
-  },
-  {
-    name: 'stake',
-    description: 'Manage delegations and validators',
+    name: 'Stake your SKL',
+    description:
+      'Select a validator to delegate your SKL to for a 2-month period to help secure the network.',
     url: '/staking',
     icon: <PieChartOutlineRoundedIcon />
   },
   {
-    name: 'SKALE Chains',
-    description: 'Chains info, block explorers and endpoints',
-    url: '/chains',
-    icon: <LinkRoundedIcon />
+    name: 'Play on Nebula',
+    description: 'SKALE is home to dozens of amazing games. Explore the gaming ecosystem!',
+    url: '/ecosystem?categories=gaming',
+    icon: <SportsEsportsOutlinedIcon />
   },
   {
-    name: 'ecosystem',
-    description: 'Discover apps and games on SKALE',
+    name: "Explore SKALE's DeFi",
+    description: 'The SKALE DeFi ecosystem is rapidly expanding on Europa. Check it out!',
+    url: '/ecosystem?categories=defi',
     icon: <PublicOutlinedIcon />
+  },
+  {
+    name: 'Swap on SKALE',
+    description: 'Swap your favorite tokens on SKALE with zero gas fees using SushiSwap.',
+    url: '/ecosystem/europa/sushiswap',
+    icon: <SwapHorizontalCircleOutlinedIcon />
   }
 ]
