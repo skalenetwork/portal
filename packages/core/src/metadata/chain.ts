@@ -39,6 +39,18 @@ export function chainBg(
 
   return 'linear-gradient(273.67deg, rgb(47 50 80), rgb(39 43 68))'
 }
+export function getActions(
+  chainsMeta: types.ChainsMetadataMap,
+  chainName: string,
+): types.ChainAction[] | undefined { 
+  const chainData = chainsMeta[chainName];
+
+  if (chainData && chainData.actions) {
+    return chainData.actions;
+  }
+
+  return undefined;
+}
 
 export function getAlias(
   chainsMeta: types.ChainsMetadataMap,

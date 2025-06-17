@@ -32,10 +32,6 @@ export const ICONS_BASE_URL =
 
 export const MAX_NUMBER = 2n ** 256n - 1n
 
-// tslint:disable-next-line
-export const MAX_APPROVE_AMOUNT =
-  '115792089237316195423570985008687907853269984665640564039457584007913129639935' // (2^256 - 1 )
-
 export const DEFAULT_MIN_SFUEL_WEI = 21000000000000n
 
 export const DEFAULT_ERROR_MSG = 'Ooops... Something went wrong...'
