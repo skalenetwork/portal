@@ -49,7 +49,7 @@ export default function PopularActions(props: {
     if (action.description) {
       return action.description.split('.')[0] + '.'
     }
-    
+
     const appMeta = chainMeta?.apps?.[action.app]
     const appDescription = appMeta?.description || 'Description not available'
     return appDescription.split('.')[0] + '.'
@@ -67,11 +67,11 @@ export default function PopularActions(props: {
           {actions.map((action) => (
             <Grid item xs={12} md={6}>
               <Link
-                  to={`/ecosystem/${shortAlias}/${action.app}`}
-                  className={cls('br__tileLogo', 'br__tileIns', cmn.flex)}
-                >
-              <SkPaper gray className={cmn.n} key={action.text}>
-                  <div className={cls(cmn.flex, cmn.flexcv, cmn.m10)}>
+                to={`/ecosystem/${shortAlias}/${action.app}`}
+                className={cls(cmn.flex, cmn.fullWidth)}
+              >
+                <SkPaper gray className={cls(cmn.fullWidth, 'hoverable')} key={action.text}>
+                  <div className={cls(cmn.flex, cmn.flexcv)}>
                     <Logo
                       chainsMeta={props.chainsMeta}
                       skaleNetwork={props.skaleNetwork}
@@ -79,7 +79,7 @@ export default function PopularActions(props: {
                       appName={action.app}
                     />
                     <div>
-                      <div className={cls(cmn.p3, 'shortP', cmn.pPrim, cmn.mleft10, cmn.mri10)}>
+                      <div className={cls(cmn.p3, 'shortP', cmn.p700, cmn.pPrim, cmn.mleft10, cmn.mri10)}>
                         {action.text}
                       </div>
                       <div className={cls(cmn.p5, cmn.pSec, cmn.mri10, cmn.mleft10)}>
@@ -87,9 +87,9 @@ export default function PopularActions(props: {
                       </div>
                     </div>
                   </div>
-                
-              </SkPaper>
-            </Link>
+
+                </SkPaper>
+              </Link>
             </Grid>
           ))}
         </Grid>
