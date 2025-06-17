@@ -21,7 +21,6 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-
 import Button from '@mui/material/Button'
 import { cls, cmn } from '../core/css'
 import TokenBalance from './TokenBalance'

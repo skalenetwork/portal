@@ -23,23 +23,19 @@
 import { useEffect, useState } from 'react'
 import React from 'react'
 import { dc } from '@/core'
-
 import { useAccount } from 'wagmi'
 
+import { Button, Modal, TextField, InputAdornment, Container } from '@mui/material'
 import SearchIcon from '@mui/icons-material/Search'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 
 import { getAvailableTokensTotal, getDefaultToken } from '../core/tokens/helper'
-
 import { cls, cmn, styles } from '../core/css'
-
 import TokenListSection from './TokenListSection'
 import TokenIcon from './TokenIcon'
-
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
 import { BALANCE_UPDATE_INTERVAL_MS } from '../core/constants'
-import { Button, Modal, TextField, InputAdornment, Container } from '@mui/material'
 import SkPaper from './SkPaper'
 
 export default function TokenList() {
@@ -81,7 +77,6 @@ export default function TokenList() {
   }, [tokens])
 
   let availableTokensTotal = getAvailableTokensTotal(tokens)
-  let disabled = false
   let noTokens = availableTokensTotal === 0
 
   let tokensText = token ? token.meta.symbol : 'TOKEN'
@@ -112,8 +107,9 @@ export default function TokenList() {
         <Button
           className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mleft10)}
           onClick={handleOpen}
-          disabled={disabled}
-          endIcon={availableTokensTotal === 1 ? null : <KeyboardArrowDownRoundedIcon className={(cmn.pPrim)} style={{ marginRight: '11px' }} />}
+          endIcon={
+            <KeyboardArrowDownRoundedIcon className={cmn.pPrim} style={{ marginRight: '11px' }} />
+          }
         >
           <div className={cls(cmn.flex, cmn.flexc, cmn.mri10, [cmn.pDisabled, noTokens])}>
             <TokenIcon
@@ -142,9 +138,9 @@ export default function TokenList() {
         onClose={handleClose}
         className={cls(cmn.darkTheme, styles.metaport, styles.backdropBlur)}
       >
-        <Container maxWidth="sm" className={cls(styles.accordionSummary)}>
+        <Container maxWidth="sm" className={cls(styles.modalContainer)}>
           <div className={cls(cmn.flex, cmn.mbott20)}>
-            <div className={cls(cmn.flexg)}></div>
+            <div className={cmn.flexg}></div>
             <SkPaper gray>
               <p
                 className={cls(
@@ -192,11 +188,11 @@ export default function TokenList() {
                   cmn.flexcv,
                   cmn.mtop20,
                   cmn.mbott20,
-                  cmn.padd10              
-                  )}
+                  cmn.padd10
+                )}
               >
-             <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.pCent)}>
-                🚫 No tokens match your current filters
+                <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.pCent)}>
+                  🚫 No tokens match your current filters
                 </p>
               </div>
             )}

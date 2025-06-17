@@ -49,12 +49,8 @@ export default function TokenListSection(props: {
 
   const filteredTokens = Object.keys(props.tokens).filter(
     (key) =>
-      props.tokens[key]?.meta.symbol
-        .toLowerCase()
-        .includes(props.searchQuery.toLowerCase()) ||
-      getTokenName(props.tokens[key])
-        .toLowerCase()
-        .includes(props.searchQuery.toLowerCase())
+      props.tokens[key]?.meta.symbol.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
+      getTokenName(props.tokens[key]).toLowerCase().includes(props.searchQuery.toLowerCase())
   )
   const popularTokens = filteredTokens
     .filter((key) => constants.POPULAR_TOKENS.includes(props.tokens[key]?.meta.symbol))

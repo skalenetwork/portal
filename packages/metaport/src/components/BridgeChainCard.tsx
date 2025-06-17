@@ -28,7 +28,11 @@ import SkPaper from './SkPaper'
 import ChainIcon from './ChainIcon'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { useTheme } from '@mui/material/styles'
-import { getChainDescription, getChainCardBackgroundColor, extractFirstSentence } from '../utils/helper'
+import {
+  getChainDescription,
+  getChainCardBackgroundColor,
+  extractFirstSentence
+} from '../utils/helper'
 
 interface ChainCardProps {
   skaleNetwork: types.SkaleNetwork
@@ -68,9 +72,7 @@ export default function BridgeChainCard(props: ChainCardProps) {
         <div className={cls(cmn.mbott20, cmn.mtop20, cmn.fullWidth, styles.fullHeight)}>
           <div className={cls(cmn.mbott20, cmn.mtop20, cmn.bordRad)}>
             <div className={cls(cmn.flex, cmn.flexcv)}></div>
-            <div
-              className={cls(cmn.bordRad, cmn.flex, cmn.flexc, styles.fullHeight)}
-            >
+            <div className={cls(cmn.bordRad, cmn.flex, cmn.flexc, styles.fullHeight)}>
               <ChainIcon skaleNetwork={skaleNetwork} chainName={chainName} size={iconSize} />
             </div>
           </div>

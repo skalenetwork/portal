@@ -22,10 +22,6 @@ export default function ChainsList(props: {
   size?: 'sm' | 'md'
   destChains?: string[]
 }) {
-  if (!props.config || !props.config.skaleNetwork) {
-    console.error('ChainsList: Missing config or skaleNetwork in props')
-    return null
-  }
   const [open, setOpen] = React.useState(false)
 
   const handleOpen = () => setOpen(true)
@@ -49,13 +45,18 @@ export default function ChainsList(props: {
     <div>
       <div className={cls(cmn.mleft10, cmn.pbott10, cmn.ptop10)} style={{ marginRight: '10px' }}>
         <Button
-          className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mri10,)}
+          className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mri10)}
           onClick={handleOpen}
           disabled={props.disabled}
-          endIcon={<KeyboardArrowDownRoundedIcon className={cls(cmn.pPrim, cmn.mleft10)} style={{ marginRight: '12px' }} />}
+          endIcon={
+            <KeyboardArrowDownRoundedIcon
+              className={cls(cmn.pPrim, cmn.mleft10)}
+              style={{ marginRight: '12px' }}
+            />
+          }
         >
           {props.chain ? (
-            <div className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv)}>
+            <div className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv, cmn.mri10)}>
               <Chain skaleNetwork={props.config.skaleNetwork} chainName={props.chain} size={size} />
               <div className={cls(cmn.flex, cmn.flexg)}></div>
             </div>
@@ -103,7 +104,13 @@ export default function ChainsList(props: {
             <div className={cls(cmn.flexg)}></div>
           </div>
           <div
-            className={cls(cmn.chainsList, cmn.mbott10, cmn.mri10, cmn.mleft10, styles.bridgeModalScroll)}
+            className={cls(
+              cmn.chainsList,
+              cmn.mbott10,
+              cmn.mri10,
+              cmn.mleft10,
+              styles.bridgeModalScroll
+            )}
           >
             <Grid container spacing={2}>
               {schainNames.map((name) => (

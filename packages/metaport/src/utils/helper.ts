@@ -23,12 +23,14 @@
 
 import { type types, metadata } from '@/core'
 
-
 export function extractFirstSentence(description: string): string {
   return description.split('.')[0] + (description.includes('.') ? '.' : '')
 }
 
-export function getChainDescription(chainsMeta: types.ChainsMetadataMap, chainName: string): string {
+export function getChainDescription(
+  chainsMeta: types.ChainsMetadataMap,
+  chainName: string
+): string {
   const chainMeta = chainsMeta[chainName]
   return chainMeta
     ? chainMeta.description
@@ -36,8 +38,8 @@ export function getChainDescription(chainsMeta: types.ChainsMetadataMap, chainNa
 }
 
 export function getChainCardBackgroundColor(
-  disabled: boolean, 
-  chainsMeta: types.ChainsMetadataMap, 
+  disabled: boolean,
+  chainsMeta: types.ChainsMetadataMap,
   chainName: string
 ): string {
   return disabled ? '#a1a1a133' : metadata.chainBg(chainsMeta, chainName)
