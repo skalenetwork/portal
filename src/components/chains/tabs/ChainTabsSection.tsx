@@ -32,10 +32,11 @@ import PlaylistAddCheckCircleRoundedIcon from '@mui/icons-material/PlaylistAddCh
 import AccountBalanceWalletRoundedIcon from '@mui/icons-material/AccountBalanceWalletRounded'
 
 import ChainTabs from './Tabs'
-import HubApps from '../HubApps'
 import DeveloperInfo from './DeveloperInfo'
 import Tokens from './Tokens'
 import VerifiedContracts from './VerifiedContracts'
+import FeaturedApps from '../../ecosystem/tabs/FeaturedApps'
+import { useApps } from '../../../useApps'
 
 const BASE_TABS = [
   {
@@ -80,7 +81,11 @@ export default function ChainTabsSection(props: {
   const network = props.mpc.config.skaleNetwork
   const chainMeta = props.chainsMeta[props.schainName]
 
-  const explorerUrl = explorer.getExplorerUrl(network, props.schainName)
+  const { featuredApps, newApps, trendingApps } = useApps(props.chainsMeta, null)
+
+  const chainFeaturedApps = featuredApps.filter(app => app.chain === props.schainName)
+  
+   const explorerUrl = explorer.getExplorerUrl(network, props.schainName)
 
   const BASE_TABS_CONTENT = [
     <DeveloperInfo schainName={props.schainName} skaleNetwork={network} />,
@@ -101,15 +106,19 @@ export default function ChainTabsSection(props: {
       currentTabs.unshift({ label: 'Tokens', icon: <AccountBalanceWalletRoundedIcon /> })
       currentTabsContent.unshift(<Tokens mpc={props.mpc} schainName={props.schainName} />)
     }
-    if (props.chainsMeta[props.schainName] && props.chainsMeta[props.schainName].apps) {
-      currentTabs.unshift({ label: 'Apps', icon: <WidgetsRoundedIcon /> })
-      currentTabsContent.unshift(
-        <SkPaper gray className={cls(cmn.mtop20)}>
-          <div className={cls(cmn.mtop20, cmn.mleft5, cmn.mri5)}>
-            <HubApps
-              skaleNetwork={network}
-              chainsMeta={props.chainsMeta}
-              schainName={props.schainName}
+   if (props.chainsMeta[props.schainName] && props.chainsMeta[props.schainName].apps && chainFeaturedApps.length > 0) {
+       currentTabs.unshift({ label: 'Featured Apps', icon: <WidgetsRoundedIcon /> })
+       currentTabsContent.unshift(
+         <SkPaper gray className={cls(cmn.mtop20)}>
+           <div className={cls(cmn.mtop10, cmn.mbott10, cmn.mleft5, cmn.mri5)}>
+             <FeaturedApps
+               featuredApps={chainFeaturedApps}
+               skaleNetwork={network}
+               chainsMeta={props.chainsMeta}
+               newApps={newApps}
+               trendingApps={trendingApps}
+               useCarousel={false}
+               gray={false}
             />
           </div>
         </SkPaper>

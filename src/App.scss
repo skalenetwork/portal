@@ -429,6 +429,21 @@ body::-webkit-scrollbar {
   }
 }
 
+.scrollToTopButton {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  z-index: 1000;
+  width: 40px;
+  height: 40px;
+  transition: opacity 0.3s ease-in-out;
+
+  .MuiSvgIcon-root {
+    color: #93b8ec;
+    font-size: 1.2rem;
+  }
+
+}
 
 .btn {
   text-transform: none !important;
@@ -782,6 +797,7 @@ input::-webkit-inner-spin-button {
 
 input[type=number] {
   -moz-appearance: textfield;
+  appearance: textfield;
   /* Firefox */
 }
 
@@ -820,6 +836,16 @@ input[type=number] {
     color: black !important
   }
 }
+
+.chipFeatured {
+
+
+   background: linear-gradient(180deg, #ff7e91, #e63946) !important;
+
+   p {
+     color: black !important
+   }
+ }
 
 .chipMostLiked {
   background: linear-gradient(180deg, #e8a25b, #e58e36) !important;
@@ -1454,4 +1480,40 @@ input[type=number] {
 
 .delegationFlowIcon {
   margin-top: -20px;
+ }
+ .home-banner {
+  width: 100%;
+  max-width: 852px;
+  height: 250px;
+  background-image: url(/home-banner.png);
+  background-size: cover;
+  background-position: center;
+  border-radius: 25px;
+  position: relative;
+  margin: 0 auto;
+ 
+
+  @media (max-width: 768px) {
+    height: 240px;
+    margin: 0;
+    max-width: 100%;
+  }
+
+  @media (max-width: 480px) {
+    height: 200px;
+    border-radius: 15px;
+  }
 }
+ .home-banner-title {
+  font-family: 'Shrikhand', -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
+  text-align: center;
+    font-size: 55px;
+  
+  @media (max-width: 768px) {
+  font-size: 40px !important;
+  }
+
+  @media (max-width: 480px) {
+  font-size: 35px !important;
+  }
+  }
