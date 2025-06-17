@@ -1,15 +1,17 @@
 import React from 'react'
 import { types } from '@/core'
-import Button from '@mui/material/Button'
+
+
 import { Modal, Container, Grid } from '@mui/material'
-import ChainIcon from './ChainIcon'
-import Chain from './Chain'
-import BridgeChainCard from './BridgeChainCard'
-import { cls, cmn, styles } from '../core/css'
+import Button from '@mui/material/Button'
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 
 import SkPaper from './SkPaper'
+import { cls, cmn, styles } from '../core/css'
 import { CHAINS_META } from '../core/metadata'
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
+import BridgeChainCard from './BridgeChainCard'
+import ChainIcon from './ChainIcon'
+import Chain from './Chain'
 
 export default function ChainsList(props: {
   config: types.mp.Config
