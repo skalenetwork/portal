@@ -57,7 +57,7 @@ import { useApps } from '../useApps'
 
 import { getAppMetaWithChainApp } from '../core/ecosystem/apps'
 import { formatNumber } from '../core/timeHelper'
-import { MAINNET_CHAIN_LOGOS, MAX_APPS_DEFAULT, OFFCHAIN_APP } from '../core/constants'
+import { MAX_APPS_DEFAULT, OFFCHAIN_APP } from '../core/constants'
 import { getRecentApps, isNewApp, isTrending } from '../core/ecosystem/utils'
 
 import SocialButtons from '../components/ecosystem/Socials'
@@ -68,7 +68,7 @@ import ErrorTile from '../components/ErrorTile'
 import { ChipNew, ChipPreTge, ChipTrending } from '../components/Chip'
 import AppScreenshots from '../components/ecosystem/AppScreenshots'
 import RecommendedApps from '../components/ecosystem/RecommendedApps'
-import ChainLogo from '../components/ChainLogo'
+import Logo from '../components/Logo'
 import Tile from '../components/Tile'
 import LinkSurface from '../components/LinkSurface'
 import Breadcrumbs from '../components/Breadcrumbs'
@@ -204,23 +204,14 @@ export default function App(props: {
         <SkPaper gray className={cls(cmn.mtop10)}>
           <div className={cls(cmn.m10)}>
             <div className={cls('responsive-app-header', cmn.flex, cmn.flexcvd)}>
-              <div className={cls('sk-app-logo', 'sk-logo-md')}>
-                <div
-                  className={cls('logo-wrapper borderLight')}
-                  style={{
-                    background: metadata.chainBg(props.chainsMeta, chain, app),
-                    flexShrink: 0
-                  }}
-                >
-                  <ChainLogo
-                    className={cls('responsive-logo')}
-                    network={network}
-                    chainName={chain}
-                    app={app}
-                    logos={MAINNET_CHAIN_LOGOS}
-                  />
-                </div>
-              </div>
+              <Logo
+                chainsMeta={props.chainsMeta}
+                skaleNetwork={network}
+                chainName={chain}
+                appName={app}
+                size="md"
+              />
+
               <div className={cls('app-info', cmn.flexg)}>
                 <div className={cls([cmn.flex, !props.isXs])}>
                   <div className={cls(cmn.flexg, cmn.mbott10)}>

@@ -43,11 +43,13 @@ export function WidgetBody(props) {
   const tokenBalances = useMetaportStore((state) => state.tokenBalances)
 
   const transferInProgress = useMetaportStore((state) => state.transferInProgress)
+  
   const addressChanged = useMetaportStore((state) => state.addressChanged)
 
   const theme = useUIStore((state) => state.theme)
 
   const { address } = useAccount()
+
 
   useEffect(() => {
     initBridge()

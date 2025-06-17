@@ -22,6 +22,9 @@
  */
 
 import { useState, useEffect } from 'react'
+import Box from '@mui/material/Box'
+import CssBaseline from '@mui/material/CssBaseline'
+
 import { type types, endpoints } from '@/core'
 import {
   useMetaportStore,
@@ -31,9 +34,6 @@ import {
   cmn,
   contracts
 } from '@skalenetwork/metaport'
-
-import Box from '@mui/material/Box'
-import CssBaseline from '@mui/material/CssBaseline'
 
 import Header from './Header'
 import SkDrawer from './SkDrawer'
