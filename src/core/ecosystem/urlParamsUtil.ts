@@ -44,17 +44,18 @@ export const useUrlParams = () => {
     [searchParams, setSearchParams]
   )
 
-  const getTabIndexFromUrl = () => {
-    const params = new URLSearchParams(window.location.search)
-    const tabIndex = params.get('tab')
+  const getTabIndexFromUrl = useCallback(() => {
+    const tabIndex = searchParams.get('tab')
     return tabIndex ? parseInt(tabIndex, 10) : 0
-  }
+  }, [searchParams])
 
-  const setTabIndexInUrl = (tabIndex: number) => {
-    const params = new URLSearchParams(window.location.search)
-    params.set('tab', tabIndex.toString())
-    window.history.replaceState({}, '', `${window.location.pathname}?${params}`)
-  }
+  const setTabIndexInUrl = useCallback(
+    (tabIndex: number) => {
+      searchParams.set('tab', tabIndex.toString())
+      setSearchParams(searchParams)
+    },
+    [searchParams, setSearchParams]
+  )
 
   return {
     getCheckedItemsFromUrl,

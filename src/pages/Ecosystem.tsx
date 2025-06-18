@@ -23,6 +23,7 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
 import { Container, Stack, Box, Tab, Tabs, Button } from '@mui/material'
+import { useSearchParams } from 'react-router-dom'
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
@@ -58,6 +59,7 @@ export default function Ecosystem(props: {
   isXs: boolean
   loadData: () => Promise<void>
 }) {
+  const [searchParams] = useSearchParams()
   const { getCheckedItemsFromUrl, setCheckedItemsInUrl, getTabIndexFromUrl, setTabIndexInUrl } =
     useUrlParams()
   const { allApps, newApps, trendingApps, favoriteApps, isSignedIn, featuredApps } = useApps(
@@ -78,6 +80,12 @@ export default function Ecosystem(props: {
     const initialTabIndex = getTabIndexFromUrl()
     setActiveTab(initialTabIndex)
   }, [])
+  
+  useEffect(() => {
+    const currentTabIndex = getTabIndexFromUrl()
+    setActiveTab(currentTabIndex)
+  }, [searchParams, getTabIndexFromUrl])
+  
   useEffect(() => {
     const filtered = filterAppsBySearchTerm(
       filterAppsByCategory(allApps, checkedItems),
