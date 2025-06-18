@@ -58,14 +58,14 @@ import { useApps } from '../useApps'
 import { getAppMetaWithChainApp } from '../core/ecosystem/apps'
 import { formatNumber } from '../core/timeHelper'
 import { MAX_APPS_DEFAULT, OFFCHAIN_APP } from '../core/constants'
-import { getRecentApps, isNewApp, isTrending } from '../core/ecosystem/utils'
+import { getRecentApps, isNewApp, isTrending, isFeatured } from '../core/ecosystem/utils'
 
 import SocialButtons from '../components/ecosystem/Socials'
 import CategoriesChips from '../components/ecosystem/CategoriesChips'
 import { useLikedApps } from '../LikedAppsContext'
 import { useAuth } from '../AuthContext'
 import ErrorTile from '../components/ErrorTile'
-import { ChipNew, ChipPreTge, ChipTrending } from '../components/Chip'
+import { ChipNew, ChipPreTge, ChipTrending, ChipFeatured } from '../components/Chip'
 import AppScreenshots from '../components/ecosystem/AppScreenshots'
 import RecommendedApps from '../components/ecosystem/RecommendedApps'
 import Logo from '../components/Logo'
@@ -122,7 +122,7 @@ export default function App(props: {
 
   const appDescription = appMeta.description ?? 'No description'
 
-  const { trendingApps, allApps } = useApps(props.chainsMeta, props.metrics)
+  const { trendingApps, allApps, featuredApps } = useApps(props.chainsMeta, props.metrics)
 
   const appId = getAppId(chain, app)
   const isLiked = likedApps.includes(appId)
@@ -130,6 +130,7 @@ export default function App(props: {
 
   const isNew = isNewApp({ chain, app }, newApps)
   const trending = isTrending(trendingApps, chain, app)
+  const featured = isFeatured({ chain, app }, featuredApps)
 
   const handleToggleLike = async () => {
     if (!address) {
@@ -230,6 +231,7 @@ export default function App(props: {
                 <div className={cls(cmn.flex, cmn.flexcv)}>
                   <h2 className={cls(cmn.nom, cmn.p1)}>{appAlias}</h2>
                   <div className={cls(cmn.flex, cmn.mleft10)}>
+                    {featured && <ChipFeatured />}
                     {trending && <ChipTrending />}
                     {isNew && <ChipNew />}
                     {metadata.isPreTge(appMeta) && <ChipPreTge />}
@@ -380,6 +382,7 @@ export default function App(props: {
               currentApp={getAppMetaWithChainApp(props.chainsMeta, chain, app)}
               newApps={newApps}
               trendingApps={trendingApps}
+              featuredApps={featuredApps}
               useCarousel={true}
             />
           </AccordionSection>
