@@ -43,7 +43,10 @@ export default function TokenList() {
   const [searchQuery, setSearchQuery] = useState('')
 
   const handleOpen = () => setOpen(true)
-  const handleClose = () => setOpen(false)
+  const handleClose = () => {
+    setOpen(false)
+    setSearchQuery('')
+  }
 
   const token = useMetaportStore((state) => state.token)
   const tokens = useMetaportStore((state) => state.tokens)
