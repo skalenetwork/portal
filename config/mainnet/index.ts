@@ -22,8 +22,8 @@ export const METAPORT_CONFIG: types.mp.Config = {
     'honorable-steel-rasalhague', // calypso hub
     'green-giddy-denebola', // nebula hub
     'affectionate-immediate-pollux', // cryptoblades
-    'wan-red-ain', // human protocol
-    'adorable-quaint-bellatrix', // streammyscreen
+    // 'wan-red-ain', // human protocol
+    // 'adorable-quaint-bellatrix', // streammyscreen
     'parallel-stormy-spica' // titan hub
   ],
   tokens: {
