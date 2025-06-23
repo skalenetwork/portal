@@ -75,7 +75,7 @@ const NewApps: React.FC<NewAppsProps> = ({
       <SkPaper gray className="titleSection">
         <div className={cls(cmn.mtop20, cmn.mbott20)}>
           <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent)}>
-            No new apps match your current filters
+            🚫 No new apps match your current filters
           </p>
         </div>
       </SkPaper>

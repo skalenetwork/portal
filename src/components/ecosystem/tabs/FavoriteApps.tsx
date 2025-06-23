@@ -87,7 +87,7 @@ export default function FavoriteApps(props: {
           <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent)}>
             {props.filteredApps.length === 0
               ? "You don't have any favorites yet"
-              : 'No favorite apps match your current filters'}
+              : '🚫 No favorite apps match your current filters'}
           </p>
           {props.useCarousel && (
             <div className={cls(cmn.flex)}>
