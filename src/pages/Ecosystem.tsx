@@ -276,6 +276,7 @@ export default function Ecosystem(props: {
                 featuredApps={featuredApps}
                 filteredApps={currentFilteredApps}
                 trendingApps={trendingApps}
+                favoriteApps={favoriteApps}
                 isSignedIn={isSignedIn}
                 error={null}
               />
