@@ -41,6 +41,7 @@ export default function FavoriteApps(props: {
   filteredApps: types.AppWithChainAndName[]
   trendingApps: types.AppWithChainAndName[]
   featuredApps: types.AppWithChainAndName[]
+  favoriteApps: types.AppWithChainAndName[]
   isSignedIn: boolean
   error: string | null
 }) {
@@ -79,14 +80,15 @@ export default function FavoriteApps(props: {
       </Grid>
     )
   })
-
+  //console.log('appCards', props.app)
   if (appCards.length === 0)
     return (
       <SkPaper gray className="titleSection">
         <div className={cls(cmn.mtop20, cmn.mbott20)}>
           <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent)}>
-            {props.filteredApps.length === 0
-              ? "🚫 You don't have any favorites yet"
+            
+            {props.favoriteApps.length === 0
+              ? "You don't have any favorites yet"
               : '🚫 No favorite apps match your current filters'}
           </p>
           {props.useCarousel && (
