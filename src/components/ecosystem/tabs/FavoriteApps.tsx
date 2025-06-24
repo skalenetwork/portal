@@ -80,8 +80,7 @@ export default function FavoriteApps(props: {
       </Grid>
     )
   })
-  //console.log('appCards', props.app)
-  if (appCards.length === 0)
+    if (appCards.length === 0)
     return (
       <SkPaper gray className="titleSection">
         <div className={cls(cmn.mtop20, cmn.mbott20)}>
