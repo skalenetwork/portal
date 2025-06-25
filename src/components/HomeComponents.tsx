@@ -76,7 +76,7 @@ export const EXPLORE_CARDS: ExploreCard[] = [
   {
     name: 'Swap on SKALE',
     description: 'Swap your favorite tokens on SKALE with zero gas fees using SushiSwap.',
-    url: 'https://www.sushi.com/ethereum/swap',
+    url: 'https://www.sushi.com/skale-europa/swap',
     icon: <SwapHorizontalCircleOutlinedIcon />
   }
 ]
