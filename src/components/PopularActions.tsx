@@ -69,6 +69,8 @@ export default function PopularActions(props: {
               <Link
                 to={chainMeta.apps?.[action.app].social?.website || `/ecosystem/${shortAlias}/${action.app}`}
                 className={cls(cmn.flex, cmn.fullWidth)}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <SkPaper gray className={cls(cmn.fullWidth, 'hoverable')} key={action.text}>
                   <div className={cls(cmn.flex, cmn.flexcv)}>
