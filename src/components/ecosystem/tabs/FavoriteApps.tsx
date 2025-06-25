@@ -84,7 +84,7 @@ export default function FavoriteApps(props: {
     return (
       <SkPaper gray className="titleSection">
         <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent)}>
+          <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.pCent)}>
             
             {props.favoriteApps.length === 0
               ? "You don't have any favorites yet"
