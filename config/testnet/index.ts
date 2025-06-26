@@ -20,7 +20,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     skl: {
       decimals: 18,
       name: 'SKALE',
-      symbol: 'SKL',
+      symbol: 'SKL'
     },
     usdc: {
       decimals: 6,
@@ -77,6 +77,11 @@ export const METAPORT_CONFIG: types.mp.Config = {
       name: 'Unipoly Coin',
       symbol: 'UNP',
       iconUrl: 'https://img.cryptorank.io/coins/unipoly1706527531233.png'
+    },
+    axgt: {
+      name: "AxonDAO Governance Token",
+      symbol: "AXGT",
+      iconUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/29557.png"
     }
   },
   connections: {
@@ -160,7 +165,13 @@ export const METAPORT_CONFIG: types.mp.Config = {
               hub: 'juicy-low-small-testnet'
             }
           }
-        }
+        },
+        axgt: {
+          address: '0xf33ddcbda56218253de2cf8008db21855acf3dd3',
+          chains: {
+            'giant-half-dual-testnet': {}
+          }
+        },
       },
       erc721meta: {
       },
@@ -207,6 +218,14 @@ export const METAPORT_CONFIG: types.mp.Config = {
             },
             mainnet: {
               hub: 'juicy-low-small-testnet',
+              clone: true
+            }
+          }
+        },
+        axgt: {
+          address: "0x98df75EDB9609A97773297D0B7c6Ce522429aA07",
+          chains: {
+            mainnet: {
               clone: true
             }
           }
