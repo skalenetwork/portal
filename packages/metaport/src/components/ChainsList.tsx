@@ -1,31 +1,21 @@
 import React from 'react'
-import { types, metadata } from '@/core'
-import Accordion from '@mui/material/Accordion'
-import AccordionDetails from '@mui/material/AccordionDetails'
-import AccordionSummary from '@mui/material/AccordionSummary'
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
-import Button from '@mui/material/Button'
-import Tooltip from '@mui/material/Tooltip'
-import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded'
-import MotionPhotosOffRoundedIcon from '@mui/icons-material/MotionPhotosOffRounded'
+import { types } from '@/core'
 
-import ChainApps from './ChainApps'
+import { Modal, Container, Grid } from '@mui/material'
+import Button from '@mui/material/Button'
+import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
+
+import SkPaper from './SkPaper'
+import { cls, cmn, styles } from '../core/css'
+import { CHAINS_META } from '../core/metadata'
+import BridgeChainCard from './BridgeChainCard'
 import ChainIcon from './ChainIcon'
 import Chain from './Chain'
 
-import { cls, cmn, styles } from '../core/css'
-
-import SkPaper from './SkPaper'
-import { CHAINS_META } from '../core/metadata'
-
 export default function ChainsList(props: {
   config: types.mp.Config
-  expanded: string | false
-  setExpanded: (expanded: string | false) => void
   setChain: (chain: string) => void
   chain: string
-  setApp: (chain: string) => void
-  app: string
   chains: string[]
   disabledChain: string
   from?: boolean
@@ -33,73 +23,43 @@ export default function ChainsList(props: {
   size?: 'sm' | 'md'
   destChains?: string[]
 }) {
-  const handleChange = (panel: string) => (_: React.SyntheticEvent, isExpanded: boolean) => {
-    props.setExpanded(isExpanded ? panel : false)
-  }
+  const [open, setOpen] = React.useState(false)
 
-  const schainNames = []
-  const chainsMeta = CHAINS_META[props.config.skaleNetwork]
+  const handleOpen = () => setOpen(true)
+  const handleClose = () => setOpen(false)
 
-  for (let chain of props.chains) {
-    const isHub = chain == props.chain && metadata.getChainApps(chainsMeta, props.chain)
-    if (chain !== props.disabledChain && (chain != props.chain || isHub)) {
-      schainNames.push(chain)
-    }
-  }
+  const schainNames = [
+    ...props.chains.filter((name) => name !== props.disabledChain),
+    props.disabledChain
+  ]
 
-  function handle(schainName: string, app?: string) {
-    props.setExpanded(false)
+  function handle(schainName: string) {
+    handleClose()
     props.setChain(schainName)
-    props.setApp(app)
   }
 
   const size = props.size ?? 'sm'
 
+  const modalTitle = props.from ? 'Choose source chain' : 'Choose destination chain'
+
   return (
     <div>
-      <Accordion
-        expanded={props.expanded === 'panel1'}
-        onChange={handleChange('panel1')}
-        disabled={props.disabled}
-        elevation={0}
-      >
-        <AccordionSummary
-          expandIcon={<ExpandMoreRoundedIcon />}
-          aria-controls="panel1bh-content"
-          id="panel1bh-header"
-          className={styles.accordionSummary}
+      <div className={cls(cmn.mleft10, cmn.pbott10, cmn.ptop10)} style={{ marginRight: '10px' }}>
+        <Button
+          className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mri10)}
+          onClick={handleOpen}
+          disabled={props.disabled}
+          endIcon={
+            <KeyboardArrowDownRoundedIcon
+              className={cls(cmn.pPrim, cmn.mleft10)}
+              style={{ marginRight: '12px' }}
+            />
+          }
         >
           {props.chain ? (
-            <div className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv)}>
-              <Chain
-                skaleNetwork={props.config.skaleNetwork}
-                chainName={props.chain}
-                size={size}
-                app={props.app}
-              />
+            <div className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv, cmn.mri10)}>
+              <Chain skaleNetwork={props.config.skaleNetwork} chainName={props.chain} size={size} />
               <div className={cls(cmn.flex, cmn.flexg)}></div>
-              <div className={cls(cmn.flex, cmn.flexc)}>
-                {props.app ? (
-                  <SkPaper gray className={cls(cmn.mri10, cmn.nop)}>
-                    <p
-                      className={cls(
-                        cmn.p,
-                        [cmn.p4, size === 'md'],
-                        [cmn.p4, size === 'sm'],
-                        cmn.p600,
-                        cmn.pSec,
-                        cmn.mtop5,
-                        cmn.mbott5,
-                        cmn.mleft10,
-                        cmn.mri10,
-                        cmn.pWrap
-                      )}
-                    >
-                      on {metadata.getAlias(chainsMeta, props.chain, undefined, true)}
-                    </p>
-                  </SkPaper>
-                ) : null}
-              </div>
             </div>
           ) : (
             <div className={cls(cmn.flex, cmn.flexcv)}>
@@ -111,74 +71,65 @@ export default function ChainsList(props: {
               </p>
             </div>
           )}
-        </AccordionSummary>
-        <AccordionDetails>
+        </Button>
+      </div>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+        className={cls(cmn.darkTheme, styles.metaport, styles.backdropBlur)}
+      >
+        <Container maxWidth="md" className={cls(styles.modalContainer)}>
+          <div className={cls(cmn.flex, cmn.mbott20)}>
+            <div className={cls(cmn.flexg)}></div>
+            <SkPaper gray>
+              <p
+                className={cls(
+                  cmn.p,
+                  cmn.p2,
+                  cmn.p700,
+                  cmn.pPrim,
+                  cmn.mtop5,
+                  cmn.mbott5,
+                  cmn.mleft20,
+                  cmn.mri20,
+                  cmn.flexcv,
+                  cmn.pCent
+                )}
+              >
+                {modalTitle}
+              </p>
+            </SkPaper>
+            <div className={cls(cmn.flexg)}></div>
+          </div>
           <div
-            className={cls(cmn.chainsList, cmn.mbott10, cmn.mri10)}
-            style={{ marginLeft: '8px' }}
+            className={cls(
+              cmn.chainsList,
+              cmn.mbott10,
+              cmn.mri10,
+              cmn.mleft10,
+              styles.bridgeModalScroll
+            )}
           >
-            {schainNames.map((name) => (
-              <div key={name}>
-                <Button
-                  color="secondary"
-                  size="medium"
-                  onClick={() => handle(name)}
-                  className={cls(cmn.fullWidth)}
-                >
-                  <div
-                    className={cls(
-                      cmn.flex,
-                      cmn.flexcv,
-                      cmn.mleft10,
-                      [cmn.mtop5, size === 'sm'],
-                      [cmn.mbott5, size === 'sm'],
-                      [cmn.mtop10, size === 'md'],
-                      [cmn.mbott10, size === 'md'],
-                      cmn.fullWidth
-                    )}
-                  >
-                    <Chain
-                      skaleNetwork={props.config.skaleNetwork}
-                      chainName={name}
-                      size={size}
-                      bold={props.destChains?.includes(name)}
-                      prim={props.destChains?.includes(name)}
-                    />
-                    <div className={cls(cmn.flex, cmn.flexg)}></div>
-                    {props.destChains && !props.destChains?.includes(name) ? (
-                      <Tooltip
-                        arrow
-                        title="Current token is not available on this chain."
-                        placement="top"
-                      >
-                        <MotionPhotosOffRoundedIcon
-                          className={cls(cmn.mri10, cmn.pSec, styles.chainIconxs)}
-                        />
-                      </Tooltip>
-                    ) : null}
-                    <KeyboardArrowRightRoundedIcon
-                      className={cls(
-                        cmn.mri5,
-                        [cmn.pPrim, props.destChains?.includes(name)],
-                        [cmn.pSec, !props.destChains?.includes(name)]
-                      )}
-                    />
-                  </div>
-                </Button>
-                <div className={cls([cmn.mleft5, size === 'md'])}>
-                  <ChainApps
+            <Grid container spacing={2}>
+              {schainNames.map((name) => (
+                <Grid item xs={6} md={4} key={name} className={cls(styles.fullHeight)}>
+                  <BridgeChainCard
                     skaleNetwork={props.config.skaleNetwork}
                     chainName={name}
-                    handle={handle}
-                    size={size}
-                    prim={props.destChains?.includes(name)}
+                    chainsMeta={CHAINS_META[props.config.skaleNetwork]}
+                    onClick={() => handle(name)}
+                    disabled={name === props.disabledChain}
+                    from={props.from}
                   />
-                </div>
-              </div>
-            ))}
+                </Grid>
+              ))}
+            </Grid>
           </div>
-        </AccordionDetails>
-      </Accordion>
+        </Container>
+      </Modal>
     </div>
   )
 }

@@ -27,7 +27,7 @@ import { cls } from '@skalenetwork/metaport'
 
 import { type types } from '@/core'
 
-import { isNewApp, isTrending } from '../../core/ecosystem/utils'
+import { isNewApp, isTrending, isFeatured } from '../../core/ecosystem/utils'
 import { findSimilarApps, type SimilarApp } from '../../core/ecosystem/similarApps'
 
 import AppCardV2 from './AppCardV2'
@@ -42,6 +42,7 @@ interface RecommendedAppsProps {
   favoriteApps?: types.AppWithChainAndName[]
   newApps: types.AppWithChainAndName[]
   trendingApps: types.AppWithChainAndName[]
+  featuredApps?: types.AppWithChainAndName[]
   useCarousel?: boolean
   className?: string
   gray?: boolean
@@ -55,6 +56,7 @@ const RecommendedApps: React.FC<RecommendedAppsProps> = ({
   favoriteApps,
   newApps,
   trendingApps,
+  featuredApps = [],
   useCarousel = false,
   className,
   gray = false
@@ -80,6 +82,7 @@ const RecommendedApps: React.FC<RecommendedAppsProps> = ({
           isNew={isNewApp({ chain: app.chain, app: app.appName }, newApps)}
           mostLiked={getMostLikedRank(mostLikedAppIds, appId)}
           trending={isTrending(trendingApps, app.chain, app.appName)}
+          isFeatured={isFeatured({ chain: app.chain, app: app.appName }, featuredApps)}
           gray={gray}
         />
       </Box>

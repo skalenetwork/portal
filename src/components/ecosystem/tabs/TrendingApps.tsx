@@ -37,6 +37,7 @@ interface TrendingAppsProps {
   useCarousel?: boolean
   newApps: types.AppWithChainAndName[]
   filteredApps: types.AppWithChainAndName[]
+  featuredApps: types.AppWithChainAndName[]
 }
 
 const TrendingApps: React.FC<TrendingAppsProps> = ({
@@ -44,7 +45,8 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
   chainsMeta,
   useCarousel,
   newApps,
-  filteredApps
+  filteredApps,
+  featuredApps
 }) => {
   const apps = useMemo(
     () => filteredApps.filter((app) => getAppMeta(chainsMeta, app.chain, app.appName)),
@@ -56,6 +58,9 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
 
   const renderAppCard = (app: types.AppWithChainAndName) => {
     const isNew = isNewApp({ chain: app.chain, app: app.appName }, newApps)
+    const isFeatured = featuredApps.some(
+      (featuredApp) => featuredApp.chain === app.chain && featuredApp.appName === app.appName
+    )
     const appId = getAppId(app.chain, app.appName)
     return (
       <Box key={`${app.chain}-${app.appName}`} className={cls('fl-centered dappCard')}>
@@ -67,6 +72,7 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
           isNew={isNew}
           trending={true}
           mostLiked={getMostLikedRank(mostLikedAppIds, appId)}
+          isFeatured={isFeatured}
         />
       </Box>
     )
@@ -76,8 +82,8 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
     return (
       <SkPaper gray className="titleSection">
         <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent)}>
-            No trending apps match your current filters
+          <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.pCent)}>
+           🚫 No trending apps match your current filters
           </p>
         </div>
       </SkPaper>

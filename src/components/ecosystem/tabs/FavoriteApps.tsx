@@ -31,7 +31,7 @@ import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
 import Carousel from '../../Carousel'
 import ConnectWallet from '../../ConnectWallet'
 import { Link } from 'react-router-dom'
-import { isNewApp, isTrending } from '../../../core/ecosystem/utils'
+import { isFeatured, isNewApp, isTrending } from '../../../core/ecosystem/utils'
 
 export default function FavoriteApps(props: {
   skaleNetwork: types.SkaleNetwork
@@ -40,6 +40,8 @@ export default function FavoriteApps(props: {
   newApps: types.AppWithChainAndName[]
   filteredApps: types.AppWithChainAndName[]
   trendingApps: types.AppWithChainAndName[]
+  featuredApps: types.AppWithChainAndName[]
+  favoriteApps: types.AppWithChainAndName[]
   isSignedIn: boolean
   error: string | null
 }) {
@@ -52,6 +54,8 @@ export default function FavoriteApps(props: {
   const appCards = props.filteredApps.map((app) => {
     const mostLikedRank = getMostLikedRank(mostLikedAppIds, getAppId(app.chain, app.appName))
     const isNew = isNewApp({ chain: app.chain, app: app.appName }, props.newApps)
+    const isFeaturedApps = isFeatured({ chain: app.chain, app: app.appName }, props.featuredApps)
+
     return (
       <Grid
         key={`${app.appName}-${app.chain}`}
@@ -71,19 +75,20 @@ export default function FavoriteApps(props: {
           isNew={isNew}
           mostLiked={mostLikedRank}
           trending={isTrending(props.trendingApps, app.chain, app.appName)}
+          isFeatured={isFeaturedApps}
         />
       </Grid>
     )
   })
-
-  if (appCards.length === 0)
+    if (appCards.length === 0)
     return (
       <SkPaper gray className="titleSection">
         <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent)}>
-            {props.filteredApps.length === 0
+          <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.pCent)}>
+            
+            {props.favoriteApps.length === 0
               ? "You don't have any favorites yet"
-              : 'No favorite apps match your current filters'}
+              : '🚫 No favorite apps match your current filters'}
           </p>
           {props.useCarousel && (
             <div className={cls(cmn.flex)}>

@@ -23,10 +23,12 @@
 import React, { useState, useEffect, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
 import { Container, Stack, Box, Tab, Tabs, Button } from '@mui/material'
+import { useSearchParams } from 'react-router-dom'
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
+import AppShortcutIcon from '@mui/icons-material/AppShortcut'
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded'
 
 import { type types } from '@/core'
@@ -36,6 +38,8 @@ import { filterAppsByCategory, filterAppsBySearchTerm } from '../core/ecosystem/
 import { useUrlParams } from '../core/ecosystem/urlParamsUtil'
 import { SKALE_SOCIAL_LINKS, SUBMIT_PROJECT_URL } from '../core/constants'
 import { useApps } from '../useApps'
+import FeaturedApps from '../components/ecosystem/tabs/FeaturedApps'
+import ScrollToTopButton from '../components/ScrollToTopButton'
 
 import CategoryDisplay from '../components/ecosystem/Categories'
 import SearchComponent from '../components/ecosystem/AppSearch'
@@ -55,9 +59,10 @@ export default function Ecosystem(props: {
   isXs: boolean
   loadData: () => Promise<void>
 }) {
+  const [searchParams] = useSearchParams()
   const { getCheckedItemsFromUrl, setCheckedItemsInUrl, getTabIndexFromUrl, setTabIndexInUrl } =
     useUrlParams()
-  const { allApps, newApps, trendingApps, favoriteApps, isSignedIn } = useApps(
+  const { allApps, newApps, trendingApps, favoriteApps, isSignedIn, featuredApps } = useApps(
     props.chainsMeta,
     props.metrics
   )
@@ -75,7 +80,12 @@ export default function Ecosystem(props: {
     const initialTabIndex = getTabIndexFromUrl()
     setActiveTab(initialTabIndex)
   }, [])
-
+  
+  useEffect(() => {
+    const currentTabIndex = getTabIndexFromUrl()
+    setActiveTab(currentTabIndex)
+  }, [searchParams, getTabIndexFromUrl])
+  
   useEffect(() => {
     const filtered = filterAppsBySearchTerm(
       filterAppsByCategory(allApps, checkedItems),
@@ -85,30 +95,36 @@ export default function Ecosystem(props: {
     setFilteredApps(filtered)
     setLoaded(true)
   }, [allApps, checkedItems, searchTerm, props.chainsMeta])
-
   const handleSetCheckedItems = (newCheckedItems: string[]) => {
     setCheckedItems(newCheckedItems)
     setCheckedItemsInUrl(newCheckedItems)
   }
-
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue)
     setTabIndexInUrl(newValue)
   }
-
   const getFilteredAppsByTab = useMemo(() => {
     const filterMap = new Map([
       [0, filteredApps], // All Apps
       [
         1,
+        featuredApps.filter((app) =>
+          filteredApps.some(
+            (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
+          )
+        )
+      ], // Featured Apps
+      [
+        2,
         newApps.filter((app) =>
           filteredApps.some(
             (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
           )
         )
-      ], // New Apps
+      ],
+      // New Apps
       [
-        2,
+        3,
         trendingApps.filter((app) =>
           filteredApps.some(
             (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
@@ -116,7 +132,7 @@ export default function Ecosystem(props: {
         )
       ], // Trending Apps
       [
-        3,
+        4,
         isSignedIn
           ? favoriteApps.filter((app) =>
               filteredApps.some(
@@ -129,141 +145,164 @@ export default function Ecosystem(props: {
     ])
 
     return (tabIndex: number) => filterMap.get(tabIndex) || filteredApps
-  }, [filteredApps, newApps, trendingApps, favoriteApps, isSignedIn])
+  }, [filteredApps, newApps, trendingApps, favoriteApps, featuredApps, isSignedIn])
 
   const currentFilteredApps = getFilteredAppsByTab(activeTab)
 
   const isFiltersApplied = Object.keys(checkedItems).length !== 0
-
   return (
-    <Container maxWidth="md">
-      <Helmet>
-        <title>{META_TAGS.ecosystem.title}</title>
-        <meta name="description" content={META_TAGS.ecosystem.description} />
-        <meta property="og:title" content={META_TAGS.ecosystem.title} />
-        <meta property="og:description" content={META_TAGS.ecosystem.description} />
-      </Helmet>
-      <Stack spacing={0}>
-        <SkStack>
-          <div className={cls(cmn.flexg)}>
-            <h2 className={cls(cmn.nom)}>Ecosystem</h2>
-            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-              Explore dApps across the SKALE ecosystem
-            </p>
-          </div>
-          <div className={cls(cmn.flex, cmn.flexcv)}>
-            <SocialButtons social={SKALE_SOCIAL_LINKS} all />
-            <div className={cls(cmn.mleft10)}>
-              <SkPageInfoIcon meta_tag={META_TAGS.ecosystem} />
+    <>
+      <Container maxWidth="md">
+        <Helmet>
+          <title>{META_TAGS.ecosystem.title}</title>
+          <meta name="description" content={META_TAGS.ecosystem.description} />
+          <meta property="og:title" content={META_TAGS.ecosystem.title} />
+          <meta property="og:description" content={META_TAGS.ecosystem.description} />
+        </Helmet>
+        <Stack spacing={0}>
+          <SkStack>
+            <div className={cls(cmn.flexg)}>
+              <h2 className={cls(cmn.nom)}>Ecosystem</h2>
+              <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+                Explore dApps across the SKALE ecosystem
+              </p>
             </div>
-          </div>
-        </SkStack>
-        <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20, 'fwmobile')}>
-          <SkStack className={cls(cmn.mbott20, cmn.flex, cmn.flexcv)}>
-            <SearchComponent
-              className={cls(cmn.flexg, [cmn.mri10, !props.isXs], ['fullW', props.isXs])}
-              searchTerm={searchTerm}
-              setSearchTerm={setSearchTerm}
-            />
-            <CategoryDisplay
+            <div className={cls(cmn.flex, cmn.flexcv)}>
+              <SocialButtons social={SKALE_SOCIAL_LINKS} all />
+              <div className={cls(cmn.mleft10)}>
+                <SkPageInfoIcon meta_tag={META_TAGS.ecosystem} />
+              </div>
+            </div>
+          </SkStack>
+          <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20, 'fwmobile')}>
+            <SkStack className={cls(cmn.mbott20, cmn.flex, cmn.flexcv)}>
+              <SearchComponent
+                className={cls(cmn.flexg, [cmn.mri10, !props.isXs], ['fullW', props.isXs])}
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+              />
+              <CategoryDisplay
+                checkedItems={checkedItems}
+                setCheckedItems={handleSetCheckedItems}
+                isXs={props.isXs}
+              />
+            </SkStack>
+            <SelectedCategories
               checkedItems={checkedItems}
               setCheckedItems={handleSetCheckedItems}
-              isXs={props.isXs}
+              filteredAppsCount={currentFilteredApps.length}
             />
-          </SkStack>
-          <SelectedCategories
-            checkedItems={checkedItems}
-            setCheckedItems={handleSetCheckedItems}
-            filteredAppsCount={currentFilteredApps.length}
-          />
-          <Tabs
-            variant={props.isXs ? 'scrollable' : 'standard'}
-            value={activeTab}
-            onChange={handleTabChange}
-            scrollButtons="auto"
-            className={cls(cmn.mbott20, [cmn.mtop20, isFiltersApplied], 'skTabs', 'fwmobile')}
-          >
-            <Tab
-              label="All"
-              icon={<GridViewRoundedIcon />}
-              iconPosition="start"
-              className={cls('btn', 'btnSm', cmn.mri5, 'tab', 'fwmobile')}
-            />
-            <Tab
-              label="New"
-              icon={<StarRoundedIcon />}
-              iconPosition="start"
-              className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-            />
-            <Tab
-              label="Trending"
-              icon={<TrendingUpRoundedIcon />}
-              iconPosition="start"
-              className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-            />
-            <Tab
-              label="Favorites"
-              icon={<FavoriteRoundedIcon />}
-              iconPosition="start"
-              className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-            />
-          </Tabs>
-
-          {activeTab === 0 && (
-            <AllApps
-              apps={currentFilteredApps}
-              skaleNetwork={props.mpc.config.skaleNetwork}
-              chainsMeta={props.chainsMeta}
-              newApps={newApps}
-              loaded={loaded}
-              trendingApps={trendingApps}
-            />
-          )}
-          {activeTab === 1 && (
-            <NewApps
-              newApps={currentFilteredApps}
-              skaleNetwork={props.mpc.config.skaleNetwork}
-              chainsMeta={props.chainsMeta}
-              trendingApps={trendingApps}
-            />
-          )}
-          {activeTab === 2 && (
-            <TrendingApps
-              chainsMeta={props.chainsMeta}
-              skaleNetwork={props.mpc.config.skaleNetwork}
-              newApps={newApps}
-              filteredApps={currentFilteredApps}
-            />
-          )}
-          {activeTab === 3 && (
-            <FavoriteApps
-              chainsMeta={props.chainsMeta}
-              skaleNetwork={props.mpc.config.skaleNetwork}
-              newApps={newApps}
-              filteredApps={currentFilteredApps}
-              trendingApps={trendingApps}
-              isSignedIn={isSignedIn}
-              error={null}
-            />
-          )}
-        </Box>
-      </Stack>
-      <div className={cls(cmn.flex, cmn.mtop20, cmn.mbott20)}>
-        <div className={cls(cmn.flexg)}></div>
-        <div>
-          <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">
-            <Button
-              size="medium"
-              variant="contained"
-              className={cls('btn', cmn.mtop20, cmn.mbott20, cmn.pCent)}
-              startIcon={<AddCircleOutlineRoundedIcon />}
+            <Tabs
+              variant={props.isXs ? 'scrollable' : 'standard'}
+              value={activeTab}
+              onChange={handleTabChange}
+              scrollButtons="auto"
+              className={cls(cmn.mbott20, [cmn.mtop20, isFiltersApplied], 'skTabs', 'fwmobile')}
             >
-              Submit Your Project
-            </Button>
-          </a>
+              <Tab
+                label="All"
+                icon={<GridViewRoundedIcon />}
+                iconPosition="start"
+                className={cls('btn', 'btnSm', cmn.mri5, 'tab', 'fwmobile')}
+              />
+              <Tab
+                label="Featured"
+                icon={<AppShortcutIcon />}
+                iconPosition="start"
+                className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+              />
+              <Tab
+                label="New"
+                icon={<StarRoundedIcon />}
+                iconPosition="start"
+                className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+              />
+              <Tab
+                label="Trending"
+                icon={<TrendingUpRoundedIcon />}
+                iconPosition="start"
+                className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+              />
+              <Tab
+                label="Favorites"
+                icon={<FavoriteRoundedIcon />}
+                iconPosition="start"
+                className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+              />
+            </Tabs>
+            {activeTab === 0 && (
+              <AllApps
+                apps={currentFilteredApps}
+                skaleNetwork={props.mpc.config.skaleNetwork}
+                chainsMeta={props.chainsMeta}
+                newApps={newApps}
+                loaded={loaded}
+                trendingApps={trendingApps}
+                featuredApps={featuredApps}
+              />
+            )}
+            {activeTab === 1 && (
+              <FeaturedApps
+                featuredApps={currentFilteredApps}
+                newApps={newApps}
+                skaleNetwork={props.mpc.config.skaleNetwork}
+                chainsMeta={props.chainsMeta}
+                trendingApps={trendingApps}
+              />
+            )}
+            {activeTab === 2 && (
+              <NewApps
+                newApps={currentFilteredApps}
+                skaleNetwork={props.mpc.config.skaleNetwork}
+                chainsMeta={props.chainsMeta}
+                trendingApps={trendingApps}
+                featuredApps={featuredApps}
+              />
+            )}
+            {activeTab === 3 && (
+              <TrendingApps
+                chainsMeta={props.chainsMeta}
+                skaleNetwork={props.mpc.config.skaleNetwork}
+                newApps={newApps}
+                filteredApps={currentFilteredApps}
+                featuredApps={featuredApps}
+              />
+            )}
+            {activeTab === 4 && (
+              <FavoriteApps
+                chainsMeta={props.chainsMeta}
+                skaleNetwork={props.mpc.config.skaleNetwork}
+                newApps={newApps}
+                featuredApps={featuredApps}
+                filteredApps={currentFilteredApps}
+                trendingApps={trendingApps}
+                favoriteApps={favoriteApps}
+                isSignedIn={isSignedIn}
+                error={null}
+              />
+            )}
+          </Box>
+        </Stack>
+        <div className={cls(cmn.flex, cmn.mtop20, cmn.mbott20)}>
+          <div className={cls(cmn.flexg)}></div>
+          <div>
+            <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">
+              <Button
+                size="medium"
+                variant="contained"
+                className={cls('btn', cmn.mtop20, cmn.mbott20, cmn.pCent)}
+                startIcon={<AddCircleOutlineRoundedIcon />}
+              >
+                Submit Your Project
+              </Button>
+            </a>
+          </div>
+          <div className={cls(cmn.flexg)}></div>
         </div>
-        <div className={cls(cmn.flexg)}></div>
-      </div>
-    </Container>
+      </Container>
+
+      {}
+      <ScrollToTopButton />
+    </>
   )
 }

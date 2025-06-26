@@ -49,7 +49,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     usdp: {
       name: 'Pax Dollar',
       symbol: 'USDP',
-      iconUrl: 'https://ruby.exchange/images/tokens/usdp-square.png'
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3330.png'
     },
     hmt: {
       name: 'Human Token',
@@ -64,7 +64,8 @@ export const METAPORT_CONFIG: types.mp.Config = {
     },
     trc: {
       name: "TheRealCoin",
-      symbol: "TRC"
+      symbol: "TRC",
+      iconUrl: 'https://cdn.coinranking.com/hiytXsMNZ/6717a9ad9119fa1b2a5a077f4aa45d55.png'
     },
     skivvy: {
       name: 'Skivvy',
@@ -75,7 +76,12 @@ export const METAPORT_CONFIG: types.mp.Config = {
     unp: {
       name: 'Unipoly Coin',
       symbol: 'UNP',
-      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/28735.png'
+      iconUrl: 'https://img.cryptorank.io/coins/unipoly1706527531233.png'
+    },
+    axgt: {
+      name: "AxonDAO Governance Token",
+      symbol: "AXGT",
+      iconUrl: "https://s2.coinmarketcap.com/static/img/coins/64x64/29557.png"
     }
   },
   connections: {
@@ -159,7 +165,13 @@ export const METAPORT_CONFIG: types.mp.Config = {
               hub: 'juicy-low-small-testnet'
             }
           }
-        }
+        },
+        axgt: {
+          address: '0xf33ddcbda56218253de2cf8008db21855acf3dd3',
+          chains: {
+            'giant-half-dual-testnet': {}
+          }
+        },
       },
       erc721meta: {
       },
@@ -206,6 +218,14 @@ export const METAPORT_CONFIG: types.mp.Config = {
             },
             mainnet: {
               hub: 'juicy-low-small-testnet',
+              clone: true
+            }
+          }
+        },
+        axgt: {
+          address: "0x98df75EDB9609A97773297D0B7c6Ce522429aA07",
+          chains: {
+            mainnet: {
               clone: true
             }
           }
@@ -377,7 +397,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
   },
   theme: {
     mode: 'dark',
-    vibrant: true,
+    vibrant: false,
     primary: '#93B8EC',
     background: '#000000',
   },
