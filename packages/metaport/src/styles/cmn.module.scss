@@ -149,6 +149,18 @@
     margin-top: 5px !important;
 }
 
+.ptop5 {
+    padding-top: 5px !important;
+}
+
+.pbott5 {
+    padding-bottom: 5px !important;
+}
+
+.pbott10 {
+    padding-bottom: 10px !important;
+}
+
 .nom {
     margin: 0 !important;
 }
@@ -258,6 +270,10 @@
     .pDisabled {
         color: $sk-disabled-light !important;
     }
+
+    .pLightGrey {
+        color: lightgrey !important;
+    }
 }
 
 .fullWidth {
@@ -279,3 +295,11 @@
 :global([rk-chain-button]) {
     display: none !important;
 }
+
+.rad50 {
+    border-radius: 50%;
+}
+
+.pointer {
+    cursor: pointer;
+  }

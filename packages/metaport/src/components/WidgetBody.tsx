@@ -3,7 +3,6 @@ import { useAccount } from 'wagmi'
 import { Collapse } from '@mui/material'
 import { metadata, constants } from '@/core'
 
-import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
 import { useUIStore } from '../store/Store'
 import { useDisplayFunctions } from '../store/DisplayFunctions'
@@ -30,11 +29,6 @@ export function WidgetBody(props) {
   const { showFrom, showTo, showInput, showSwitch, showStepper, showCP, showWT, showTH } =
     useDisplayFunctions()
 
-  const expandedFrom = useCollapseStore((state) => state.expandedFrom)
-  const setExpandedFrom = useCollapseStore((state) => state.setExpandedFrom)
-  const expandedTo = useCollapseStore((state) => state.expandedTo)
-  const setExpandedTo = useCollapseStore((state) => state.setExpandedTo)
-
   const destChains = useMetaportStore((state) => state.destChains)
   const token = useMetaportStore((state) => state.token)
 
@@ -43,17 +37,13 @@ export function WidgetBody(props) {
   const setChainName1 = useMetaportStore((state) => state.setChainName1)
   const setChainName2 = useMetaportStore((state) => state.setChainName2)
 
-  const appName1 = useMetaportStore((state) => state.appName1)
-  const appName2 = useMetaportStore((state) => state.appName2)
-  const setAppName1 = useMetaportStore((state) => state.setAppName1)
-  const setAppName2 = useMetaportStore((state) => state.setAppName2)
-
   const mpc = useMetaportStore((state) => state.mpc)
   const tokens = useMetaportStore((state) => state.tokens)
   const setToken = useMetaportStore((state) => state.setToken)
   const tokenBalances = useMetaportStore((state) => state.tokenBalances)
 
   const transferInProgress = useMetaportStore((state) => state.transferInProgress)
+
   const addressChanged = useMetaportStore((state) => state.addressChanged)
 
   const theme = useUIStore((state) => state.theme)
@@ -87,12 +77,8 @@ export function WidgetBody(props) {
   }, [tokens])
 
   const chainsMeta = CHAINS_META[mpc.config.skaleNetwork]
-  const sourceBg = theme.vibrant
-    ? metadata.chainBg(chainsMeta, chainName1, appName1)
-    : constants.GRAY_BG
-  const destBg = theme.vibrant
-    ? metadata.chainBg(chainsMeta, chainName2, appName2)
-    : constants.GRAY_BG
+  const sourceBg = theme.vibrant ? metadata.chainBg(chainsMeta, chainName1) : constants.GRAY_BG
+  const destBg = theme.vibrant ? metadata.chainBg(chainsMeta, chainName2) : constants.GRAY_BG
   const overlayBg = theme.vibrant ? 'rgb(0 0 0 / 40%)' : 'transparent'
 
   return (
@@ -111,9 +97,7 @@ export function WidgetBody(props) {
           <SkPaper background="transparent" className={cmn.nop}>
             <Collapse in={showFrom()}>
               <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
-                <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>
-                  From {appName1 ? 'app' : ''}
-                </p>
+                <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>From</p>
                 <div>
                   {token ? (
                     <TokenBalance
@@ -126,13 +110,9 @@ export function WidgetBody(props) {
               </div>
               <ChainsList
                 config={props.config}
-                expanded={expandedFrom}
-                setExpanded={setExpandedFrom}
                 chain={chainName1}
                 chains={props.config.chains}
                 setChain={setChainName1}
-                setApp={setAppName1}
-                app={appName1}
                 disabledChain={chainName2}
                 disabled={transferInProgress}
                 from={true}
@@ -155,21 +135,15 @@ export function WidgetBody(props) {
         <SkPaper background={destBg} className={cmn.nop}>
           <SkPaper background={overlayBg} className={cmn.nop}>
             <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
-              <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>
-                To {appName2 ? 'app' : ''}
-              </p>
+              <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>To</p>
               <DestTokenBalance />
             </div>
             <ChainsList
               config={props.config}
-              expanded={expandedTo}
-              setExpanded={setExpandedTo}
               chain={chainName2}
               chains={props.config.chains}
               destChains={destChains}
               setChain={setChainName2}
-              setApp={setAppName2}
-              app={appName2}
               disabledChain={chainName1}
               disabled={transferInProgress}
             />

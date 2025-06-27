@@ -1,12 +1,36 @@
+/**
+ * @license
+ * SKALE Metaport
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Lesser General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+
+/**
+ * @file TokenListSection.ts
+ * @copyright SKALE Labs 2025-Present
+ */
+
+import SavingsIcon from '@mui/icons-material/Savings'
+import LocalMallIcon from '@mui/icons-material/LocalMall'
 import Button from '@mui/material/Button'
-import { dc, types } from '@/core'
 
-import { cls, cmn } from '../core/css'
-
-import TokenBalance from './TokenBalance'
-import TokenIcon from './TokenIcon'
-
+import { dc, types, constants } from '@/core'
+import { cls, cmn, styles } from '../core/css'
 import { getTokenName } from '../core/metadata'
+
+import TokenSection from './TokenSection'
+import TokenIcon from './TokenIcon'
 
 export default function TokenListSection(props: {
   setExpanded: (expanded: string | false) => void
@@ -14,65 +38,84 @@ export default function TokenListSection(props: {
   tokens: types.mp.TokenDataMap
   type: dc.TokenType
   tokenBalances?: types.mp.TokenBalancesMap
+  onCloseModal: () => void
+  searchQuery: string
 }) {
   function handle(tokenData: dc.TokenData): void {
     props.setExpanded(false)
     props.setToken(tokenData)
+    props.onCloseModal()
   }
 
-  if (Object.keys(props.tokens).length === 0) return
+  const filteredTokens = Object.keys(props.tokens).filter(
+    (key) =>
+      props.tokens[key]?.meta.symbol.toLowerCase().includes(props.searchQuery.toLowerCase()) ||
+      getTokenName(props.tokens[key]).toLowerCase().includes(props.searchQuery.toLowerCase())
+  )
+  const popularTokens = filteredTokens
+    .filter((key) => constants.POPULAR_TOKENS.includes(props.tokens[key]?.meta.symbol))
+    .sort((a, b) => props.tokens[a]?.meta.symbol.localeCompare(props.tokens[b]?.meta.symbol))
+
+  const nonZeroBalanceTokens = filteredTokens
+    .filter((key) => props.tokenBalances && props.tokenBalances[props.tokens[key]?.keyname] > 0n)
+    .map((key) => ({
+      key,
+      tokenData: props.tokens[key],
+      balance: props.tokenBalances ? props.tokenBalances[props.tokens[key]?.keyname] : null
+    }))
+
+  const zeroBalanceTokens = filteredTokens
+    .filter(
+      (key) =>
+        !props.tokenBalances ||
+        Object.keys(props.tokenBalances).length === 0 ||
+        props.tokenBalances[props.tokens[key]?.keyname] <= 0n
+    )
+    .map((key) => ({
+      key,
+      tokenData: props.tokens[key],
+      balance: props.tokenBalances ? props.tokenBalances[props.tokens[key]?.keyname] : null
+    }))
 
   return (
-    <div className={cls(cmn.chainsList, cmn.mbott10, cmn.mri10)} style={{ marginLeft: '8px' }}>
-      <p
-        className={cls(cmn.flex, cmn.upp, cmn.p4, cmn.p, cmn.pSec, cmn.flexg, cmn.mbott10)}
-        style={{ marginLeft: '16px' }}
-      >
-        {props.type}
-      </p>
-      {Object.keys(props.tokens)
-        .sort()
-        .map((key, _) => (
-          <Button
-            key={key}
-            color="secondary"
-            size="small"
-            className={cmn.fullWidth}
-            onClick={() => handle(props.tokens[key])}
-          >
-            <div className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.mtop10, cmn.mbott10)}>
-              <div className={cls(cmn.flex, cmn.flexc, cmn.mleft10)}>
-                <TokenIcon
-                  tokenSymbol={props.tokens[key]?.meta.symbol}
-                  iconUrl={props.tokens[key]?.meta.iconUrl}
-                />
-              </div>
-              <p
-                className={cls(
-                  cmn.p,
-                  cmn.p3,
-                  cmn.p600,
-                  cmn.pPrim,
-                  cmn.flex,
-                  cmn.flexg,
-                  cmn.mri10,
-                  cmn.mleft10
-                )}
-              >
-                {getTokenName(props.tokens[key])}
-              </p>
-              <div className={cmn.mri10}>
-                <TokenBalance
-                  balance={
-                    props.tokenBalances ? props.tokenBalances[props.tokens[key]?.keyname] : null
-                  }
-                  symbol={props.tokens[key]?.meta.symbol}
-                  decimals={props.tokens[key]?.meta.decimals}
-                />
-              </div>
-            </div>
-          </Button>
-        ))}
+    <div className={cls(styles.bridgeModalScroll)}>
+      {popularTokens.map((key) => (
+        <Button
+          color="primary"
+          size="small"
+          className={cls(cmn.mtop20, cmn.flexcv, cmn.mleft10, styles.filled)}
+          variant="contained"
+          key={key}
+          onClick={() => handle(props.tokens[key])}
+        >
+          <div className={cls(cmn.flex, cmn.flexcv)}>
+            <TokenIcon
+              tokenSymbol={props.tokens[key]?.meta.symbol}
+              iconUrl={props.tokens[key]?.meta.iconUrl}
+            />
+            <span className={cls(cmn.p, cmn.pPrim, cmn.mleft10)}>
+              {props.tokens[key]?.meta.symbol}
+            </span>
+          </div>
+        </Button>
+      ))}
+      {nonZeroBalanceTokens.length > 0 && (
+        <TokenSection
+          text="Your Tokens"
+          icon={<SavingsIcon className={cls(styles.chainIconxs)} />}
+          tokens={nonZeroBalanceTokens}
+          onTokenClick={handle}
+        />
+      )}
+
+      {zeroBalanceTokens.length > 0 && (
+        <TokenSection
+          text="Tokens"
+          icon={<LocalMallIcon className={cls(styles.chainIconxs)} />}
+          tokens={zeroBalanceTokens}
+          onTokenClick={handle}
+        />
+      )}
     </div>
   )
 }

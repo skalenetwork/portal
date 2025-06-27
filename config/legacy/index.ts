@@ -56,7 +56,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
   },
   theme: {
     mode: 'dark',
-    vibrant: true,
+    vibrant: false,
     primary: '#93B8EC',
     background: '#000000',
   },

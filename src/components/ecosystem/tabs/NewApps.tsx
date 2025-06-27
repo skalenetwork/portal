@@ -27,13 +27,14 @@ import AppCard from '../AppCardV2'
 import Carousel from '../../Carousel'
 import { type types } from '@/core'
 import { useLikedApps } from '../../../LikedAppsContext'
-import { isTrending } from '../../../core/ecosystem/utils'
+import { isTrending, isFeatured } from '../../../core/ecosystem/utils'
 
 interface NewAppsProps {
   newApps: types.AppWithChainAndName[]
   skaleNetwork: types.SkaleNetwork
   chainsMeta: types.ChainsMetadataMap
   trendingApps: types.AppWithChainAndName[]
+  featuredApps: types.AppWithChainAndName[]
   useCarousel?: boolean
 }
 
@@ -42,6 +43,7 @@ const NewApps: React.FC<NewAppsProps> = ({
   skaleNetwork,
   chainsMeta,
   trendingApps,
+  featuredApps,
   useCarousel = false
 }) => {
   const { getMostLikedApps, getAppId, getMostLikedRank } = useLikedApps()
@@ -58,6 +60,7 @@ const NewApps: React.FC<NewAppsProps> = ({
         chainsMeta={chainsMeta}
         mostLiked={getMostLikedRank(trendingAppIds, appId)}
         trending={isTrending(trendingApps, app.chain, app.appName)}
+        isFeatured={isFeatured({ chain: app.chain, app: app.appName }, featuredApps)}
         isNew={true}
       />
     )
@@ -71,8 +74,8 @@ const NewApps: React.FC<NewAppsProps> = ({
     return (
       <SkPaper gray className="titleSection">
         <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent)}>
-            No new apps match your current filters
+          <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.pCent)}>
+            🚫 No new apps match your current filters
           </p>
         </div>
       </SkPaper>

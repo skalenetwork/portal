@@ -31,13 +31,14 @@ import MoreVertIcon from '@mui/icons-material/MoreVert'
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
 import FormatListBulletedRoundedIcon from '@mui/icons-material/FormatListBulletedRounded'
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded'
+import ForumIcon from '@mui/icons-material/ForumRounded'
 
 import { Link } from 'react-router-dom'
 
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined'
 
 import { cls, styles, cmn } from '@skalenetwork/metaport'
-import { DOCS_PORTAL_URL } from '../core/constants'
+import { DOCS_PORTAL_URL, SKALE_FORUM_URL } from '../core/constants'
 
 export default function MoreMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -117,6 +118,17 @@ export default function MoreMenu() {
               <MenuBookRoundedIcon className={cmn.mri10} />
             </div>
             <div className={cls(cmn.flex, cmn.flexg)}>SKALE Network Docs</div>
+            <div className={cls(cmn.flex, cmn.mleft10)}>
+              <ArrowOutwardIcon className="menuIconRi" />
+            </div>
+          </MenuItem>
+        </a>
+        <a className="undec fullW" target="_blank" href={SKALE_FORUM_URL} rel="noreferrer">
+          <MenuItem onClick={handleClose} className="undec">
+            <div className={cmn.flex}>
+              <ForumIcon className={cmn.mri10} />
+            </div>
+            <div className={cls(cmn.flex, cmn.flexg)}>SKALE Forum </div>
             <div className={cls(cmn.flex, cmn.mleft10)}>
               <ArrowOutwardIcon className="menuIconRi" />
             </div>

@@ -22,6 +22,9 @@
  */
 
 import { useState, useEffect } from 'react'
+import Box from '@mui/material/Box'
+import CssBaseline from '@mui/material/CssBaseline'
+
 import { type types, endpoints } from '@/core'
 import {
   useMetaportStore,
@@ -31,9 +34,6 @@ import {
   cmn,
   contracts
 } from '@skalenetwork/metaport'
-
-import Box from '@mui/material/Box'
-import CssBaseline from '@mui/material/CssBaseline'
 
 import Header from './Header'
 import SkDrawer from './SkDrawer'
@@ -87,7 +87,6 @@ export default function Portal() {
       const chainsJson = await response.json()
       setSchains(formatSChains(chainsJson))
     } catch (e) {
-      console.log('Failed to load chains')
       console.error(e)
     }
   }
@@ -98,7 +97,6 @@ export default function Portal() {
       const metricsJson = await response.json()
       setMetrics(metricsJson)
     } catch (e) {
-      console.log('Failed to load metrics')
       console.error(e)
     }
   }
@@ -110,7 +108,6 @@ export default function Portal() {
       const statsResp = await response.json()
       setStats(statsResp.payload)
     } catch (e) {
-      console.log('Failed to load stats')
       console.error(e)
     }
   }

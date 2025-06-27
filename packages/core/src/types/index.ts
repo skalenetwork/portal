@@ -28,7 +28,8 @@ export {
   AppSocials,
   NetworksMetadataMap,
   CategoriesMap,
-  AppWithChainAndName
+  AppWithChainAndName,
+  ChainAction
 } from './ChainsMetadata'
 export * as st from './staking'
 export * as mp from './metaport'

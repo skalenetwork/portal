@@ -55,11 +55,10 @@ export function usesFuel(mpc: MetaportCore) {
 
   const checkFaucetAvailability = useCallback(async () => {
     const chainsWithFaucet = await Promise.all(
-      mpc.config.chains
-        .map(async (chain) => {
-          const station = new Station(chain, mpc)
-          return (await station.isFaucetAvailable()) ? chain : null
-        })
+      mpc.config.chains.map(async (chain) => {
+        const station = new Station(chain, mpc)
+        return (await station.isFaucetAvailable()) ? chain : null
+      })
     ).then((chains) => chains.filter((chain): chain is string => chain !== null))
     setState((prev) => ({
       ...prev,
