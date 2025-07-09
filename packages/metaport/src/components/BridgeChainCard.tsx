@@ -65,11 +65,12 @@ export default function BridgeChainCard(props: ChainCardProps) {
           cmn.flexc,
           cmn.mtop10,
           [cmn.pointer, !disabled],
-          [styles.disabledCard, disabled]
+          [styles.disabledCard, disabled],
+          styles.fullHeight
         )}
         background={backgroundColor}
       >
-        <div className={cls(cmn.mbott20, cmn.mtop20, cmn.fullWidth, styles.fullHeight)} style={{ height: '100%' }}>
+        <div className={cls(cmn.mbott20, cmn.mtop20, cmn.fullWidth, styles.fullHeight)}>
           <div className={cls(cmn.mbott20, cmn.mtop20, cmn.bordRad)}>
             <div className={cls(cmn.flex, cmn.flexcv)}></div>
             <div className={cls(cmn.bordRad, cmn.flex, cmn.flexc, styles.fullHeight)}>
