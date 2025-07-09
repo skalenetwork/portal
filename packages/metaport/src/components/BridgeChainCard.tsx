@@ -57,23 +57,23 @@ export default function BridgeChainCard(props: ChainCardProps) {
   const iconSize = isSmallScreen ? 'lg' : 'xl'
 
   return (
-    <div onClick={disabled ? undefined : onClick} style={{ height: 250 }}>
+    <div onClick={disabled ? undefined : onClick} style={{ height: 287 }}>
       <SkPaper
         gray={disabled}
         className={cls(
           cmn.flex,
           cmn.flexc,
-          cmn.mtop10,
+          cmn.mtop20,
           [cmn.pointer, !disabled],
           [styles.disabledCard, disabled],
           styles.fullHeight
         )}
         background={backgroundColor}
       >
-        <div className={cls(cmn.mbott20, cmn.mtop20, cmn.fullWidth, styles.fullHeight)}>
-          <div className={cls(cmn.mbott20, cmn.mtop20, cmn.bordRad)}>
-            <div className={cls(cmn.flex, cmn.flexcv)}></div>
-            <div className={cls(cmn.bordRad, cmn.flex, cmn.flexc, styles.fullHeight)}>
+        <div className={cls(cmn.mbott10, cmn.mtop20, cmn.fullWidth, styles.fullHeight)}>
+          <div className={cls(cmn.mbott10, cmn.mtop20, cmn.bordRad)}>
+            <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop20)}></div>
+            <div className={cls(cmn.bordRad, cmn.flex, cmn.flexc, styles.fullHeight,  cmn.mtop20)}>
               <ChainIcon skaleNetwork={skaleNetwork} chainName={chainName} size={iconSize} />
             </div>
           </div>
