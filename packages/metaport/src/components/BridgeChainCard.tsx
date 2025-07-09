@@ -65,7 +65,8 @@ export default function BridgeChainCard(props: ChainCardProps) {
           cmn.flexc,
           cmn.mtop10,
           [cmn.pointer, !disabled],
-          [styles.disabledCard, disabled]
+          [styles.disabledCard, disabled],
+          styles.chainCard
         )}
         background={backgroundColor}
       >
