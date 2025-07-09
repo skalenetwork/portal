@@ -63,6 +63,7 @@ export default function BridgeChainCard(props: ChainCardProps) {
         className={cls(
           cmn.flex,
           cmn.flexc,
+          cmn.flexcv,
           cmn.mtop10,
           [cmn.pointer, !disabled],
           [styles.disabledCard, disabled]
