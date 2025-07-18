@@ -11,7 +11,6 @@ export const METAPORT_CONFIG: types.mp.Config = {
     'juicy-low-small-testnet', // Europa
     'giant-half-dual-testnet', // Calypso
     'lanky-ill-funny-testnet', // Nebula
-    'aware-fake-trim-testnet' // Titan
   ],
   tokens: {
     eth: {
@@ -230,10 +229,6 @@ export const METAPORT_CONFIG: types.mp.Config = {
             }
           }
         }
-      }
-    },
-    'aware-fake-trim-testnet': { // titan connections
-      erc20: {
       }
     },
     'juicy-low-small-testnet': {
