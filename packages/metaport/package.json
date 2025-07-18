@@ -23,6 +23,9 @@
   "engines": {
     "node": "20"
   },
+  "overrides": {
+    "@types/minimatch": "5.1.2"
+  },
   "scripts": {
     "dev": "storybook dev -p 6006",
     "build:storybook": "storybook build",
@@ -92,6 +95,7 @@
     "@mui/material": "^5.17.1",
     "@rainbow-me/rainbowkit": "^2.2.4",
     "@tanstack/react-query": "^5.54.1",
+    "ethers": "^6.x.x",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "viem": "^2.32.0",

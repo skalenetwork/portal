@@ -63,13 +63,13 @@ export async function initContracts(mpc: MetaportCore): Promise<types.st.ISkaleC
   const grantsAllocator = await allocatorProject.getInstance(grantsAlias)
 
   return {
-    validatorService: (await manager.getContract('ValidatorService')) as Contract,
-    distributor: (await manager.getContract('Distributor')) as Contract,
-    delegationController: (await manager.getContract('DelegationController')) as Contract,
-    tokenState: (await manager.getContract('TokenState')) as Contract,
-    skaleToken: (await manager.getContract('SkaleToken')) as Contract,
-    allocator: (await allocator.getContract('Allocator')) as Contract,
-    grantsAllocator: (await grantsAllocator.getContract('Allocator')) as Contract
+    validatorService: (await manager.getContract('ValidatorService')) as any,
+    distributor: (await manager.getContract('Distributor')) as any,
+    delegationController: (await manager.getContract('DelegationController')) as any,
+    tokenState: (await manager.getContract('TokenState')) as any,
+    skaleToken: (await manager.getContract('SkaleToken')) as any,
+    allocator: (await allocator.getContract('Allocator')) as any,
+    grantsAllocator: (await grantsAllocator.getContract('Allocator')) as any
   }
 }
 

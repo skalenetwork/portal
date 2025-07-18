@@ -199,7 +199,7 @@ export default class MetaportCore {
           provider,
           customAbiTokenType,
           destChainName
-        )
+        ) as any
       })
     }
     return contracts
@@ -365,7 +365,7 @@ export default class MetaportCore {
     )
 
     if (tokens.eth?.eth && chainName1 !== constants.MAINNET_CHAIN_NAME) {
-      tokenContracts.eth = this.tokenContract(chainName1, 'eth', dc.TokenType.eth, ima1.provider)
+      tokenContracts.eth = this.tokenContract(chainName1, 'eth', dc.TokenType.eth, ima1.provider) as any
 
       const destChainName = findFirstWrapperChainName(tokens.eth.eth)
       if (destChainName) {
@@ -376,7 +376,7 @@ export default class MetaportCore {
           ima1.provider,
           dc.CustomAbiTokenType.erc20wrap,
           destChainName
-        )
+        ) as any
       }
     }
 
