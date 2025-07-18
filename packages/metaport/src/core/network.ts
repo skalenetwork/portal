@@ -25,7 +25,7 @@ import { JsonRpcProvider, Provider } from 'ethers'
 import { type types, constants, endpoints, helper } from '@/core'
 
 import { WalletClient } from 'viem'
-import { holesky } from '@wagmi/core/chains'
+import { hoodi } from '@wagmi/core/chains'
 import { type UseSwitchChainReturnType } from 'wagmi'
 
 import { constructWagmiChain } from './wagmi_network'
@@ -103,7 +103,7 @@ export async function enforceNetwork(
       await walletClient.addChain({ chain: constructWagmiChain(skaleNetwork, chainName) })
     }
     if (chainId === 17000n) {
-      await walletClient.addChain({ chain: holesky })
+      await walletClient.addChain({ chain: hoodi })
     }
   } catch {
     log.info('Failed to add chain or chain already added')
