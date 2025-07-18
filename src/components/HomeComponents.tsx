@@ -55,6 +55,12 @@ interface ExploreCard {
 
 export const EXPLORE_CARDS: ExploreCard[] = [
   {
+    name: 'Bridge to SKALE',
+    description: 'Bridge SKL and other popular tokens to SKALE',
+    url: '/bridge',
+    icon: <SwapHorizontalCircleOutlinedIcon />
+  },
+  {
     name: 'Stake your SKL',
     description:
       'Select a validator to delegate your SKL to for a 2-month period to help secure the network.',

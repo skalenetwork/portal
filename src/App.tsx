@@ -36,6 +36,7 @@ import { createMuiTheme } from './core/themes'
 import { META_TAGS } from './core/meta'
 import { AuthProvider } from './AuthContext'
 import { LikedAppsProvider } from './LikedAppsContext'
+import StatsigWrapper from './providers/StatsigProvider'
 
 METAPORT_CONFIG.mainnetEndpoint = import.meta.env.VITE_MAINNET_ENDPOINT
 METAPORT_CONFIG.projectId = import.meta.env.VITE_WC_PROJECT_ID
@@ -58,13 +59,15 @@ export default function App() {
       </Helmet>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={muiTheme}>
-          <MetaportProvider config={METAPORT_CONFIG}>
-            <AuthProvider>
-              <LikedAppsProvider>
-                <Portal />
-              </LikedAppsProvider>
-            </AuthProvider>
-          </MetaportProvider>
+          <StatsigWrapper>
+            <MetaportProvider config={METAPORT_CONFIG}>
+              <AuthProvider>
+                <LikedAppsProvider>
+                  <Portal />
+                </LikedAppsProvider>
+              </AuthProvider>
+            </MetaportProvider>
+          </StatsigWrapper>
         </ThemeProvider>
       </StyledEngineProvider>
     </div>

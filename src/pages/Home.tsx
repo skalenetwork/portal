@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Stack, Box, Grid, Button } from '@mui/material'
 import { cmn, cls, SkPaper } from '@skalenetwork/metaport'
@@ -29,7 +29,6 @@ import { type types } from '@/core'
 
 import { useApps } from '../useApps'
 import Headline from '../components/Headline'
-import PageCard from '../components/PageCard'
 import CategoryCardsGrid from '../components/ecosystem/CategoryCardsGrid'
 import NewApps from '../components/ecosystem/tabs/NewApps'
 import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
@@ -40,6 +39,7 @@ import { SKALE_SOCIAL_LINKS } from '../core/constants'
 import { SECTION_ICONS, EXPLORE_CARDS } from '../components/HomeComponents'
 import SocialButtons from '../components/ecosystem/Socials'
 import UserRecommendations from '../components/ecosystem/UserRecommendations'
+import StatsigPageCard from '../components/StatsigPageCard'
 
 interface HomeProps {
   skaleNetwork: types.SkaleNetwork
@@ -54,16 +54,21 @@ export default function Home({
   loadData
 }: HomeProps): JSX.Element {
   const { newApps, trendingApps, featuredApps } = useApps(chainsMeta, metrics)
+  const [excludedCardIndex, setExcludedCardIndex] = useState<number | null>(null)
 
   useEffect(() => {
     loadData()
   }, [])
+
+  const handleBannerCardSelected = (selectedCardIndex: number) => {
+    setExcludedCardIndex(selectedCardIndex)
+  }
   return (
     <Container maxWidth="md" className="paddBott60">
       <Stack spacing={0}>
         <Headline text="Popular Actions" icon={SECTION_ICONS.explore} />
-        <HomeBanner />
-        <ExploreSection />
+        <HomeBanner onBannerCardSelected={handleBannerCardSelected} />
+        <ExploreSection excludedCardIndex={excludedCardIndex} />
         <UserRecommendations
           skaleNetwork={skaleNetwork}
           chainsMeta={chainsMeta}
@@ -131,15 +136,30 @@ export default function Home({
     </Container>
   )
 }
-function ExploreSection(): JSX.Element {
+interface ExploreSectionProps {
+  excludedCardIndex: number | null
+}
+
+function ExploreSection({ excludedCardIndex }: ExploreSectionProps): JSX.Element {
+  const cardsToShow = EXPLORE_CARDS.filter((_, index) => index !== excludedCardIndex)
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}>
-        {EXPLORE_CARDS.map((card, index) => (
-          <Grid key={index} className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
-            <PageCard {...card} />
-          </Grid>
-        ))}
+        {cardsToShow.map((card) => {
+          const originalIndex = EXPLORE_CARDS.findIndex(c => c.name === card.name)
+          return (
+            <Grid key={originalIndex} className="fl-centered dappCard" item lg={6} md={6} sm={6} xs={12}>
+              <StatsigPageCard
+                name={card.name}
+                description={card.description}
+                icon={card.icon}
+                url={card.url}
+                position={originalIndex}
+              />
+            </Grid>
+          )
+        })}
       </Grid>
     </Box>
   )
