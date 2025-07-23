@@ -75,7 +75,6 @@ export default function HomeBanner({ onBannerCardSelected }: HomeBannerProps): J
       const ctr = stats[cardName].views > 0 ? 
         ((stats[cardName].clicks / stats[cardName].views) * 100).toFixed(1) : '0.0'
       
-      console.log(`📊 ${cardName} Performance: ${ctr}% CTR (${stats[cardName].clicks}/${stats[cardName].views})`)
     }
   }
 
