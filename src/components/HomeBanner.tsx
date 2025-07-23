@@ -114,8 +114,7 @@ export default function HomeBanner({ onBannerCardSelected }: HomeBannerProps): J
         sourceCard: bannerConfig.cardName,
         destinationUrl: bannerConfig.buttonLink,
         experiment: bannerConfig.isInExperiment ? 'home_page_top_card_cta_test' : 'control'
-      })
-
+      })    
       updateCardStats('click', bannerConfig.cardName)
     }
   }
@@ -187,12 +186,7 @@ export default function HomeBanner({ onBannerCardSelected }: HomeBannerProps): J
 
   useEffect(() => {
     if (bannerConfig) {
-      statsigClient.logEvent('home_banner_viewed', bannerConfig.variant, {
-        experiment: bannerConfig.isInExperiment ? 'home_page_top_card_cta_test' : 'control',
-        cardName: bannerConfig.cardName,
-        bannerText: bannerConfig.bannerText,
-        isRandomReplacement: bannerConfig.isInExperiment.toString()
-      })
+      trackBannerInteraction('view', bannerConfig)
     }
   }, [bannerConfig, statsigClient])
 
@@ -206,19 +200,7 @@ export default function HomeBanner({ onBannerCardSelected }: HomeBannerProps): J
       variant: bannerConfig.variant
     })
 
-    statsigClient.logEvent('home_banner_clicked', bannerConfig.variant, {
-      experiment: bannerConfig.isInExperiment ? 'home_page_top_card_cta_test' : 'control',
-      cardName: bannerConfig.cardName,
-      buttonText: bannerConfig.buttonText,
-      buttonLink: bannerConfig.buttonLink,
-      isRandomReplacement: bannerConfig.isInExperiment.toString()
-    })
-
-    statsigClient.logEvent('cta_conversion_from_banner', bannerConfig.variant, {
-      sourceCard: bannerConfig.cardName,
-      destinationUrl: bannerConfig.buttonLink,
-      experiment: bannerConfig.isInExperiment ? 'home_page_top_card_cta_test' : 'control'
-    })
+    trackBannerInteraction('click', bannerConfig)
 
     if (bannerConfig.buttonLink.startsWith('http')) {
       window.open(bannerConfig.buttonLink, '_blank')
