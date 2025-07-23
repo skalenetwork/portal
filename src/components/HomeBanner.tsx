@@ -192,13 +192,6 @@ export default function HomeBanner({ onBannerCardSelected }: HomeBannerProps): J
   const handleBannerClick = () => {
     if (!bannerConfig) return
 
-    console.log('🎯 Banner Clicked!', {
-      cardName: bannerConfig.cardName,
-      buttonText: bannerConfig.buttonText,
-      isExperiment: bannerConfig.isInExperiment,
-      variant: bannerConfig.variant
-    })
-
     trackBannerInteraction('click', bannerConfig)
 
     if (bannerConfig.buttonLink.startsWith('http')) {
