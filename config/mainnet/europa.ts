@@ -66,6 +66,20 @@ const connections: types.mp.TokenTypeMap = {
                 }
             }
         },
+        skivvy: {
+            address: '0xE0a320b0d525BA7a97afcE932F78789Db23c0e4a',
+            chains: {
+                mainnet: {
+                    clone: true
+                },
+                'honorable-steel-rasalhague': {
+                    wrapper: '0xD6b78761557E50BC94B7a99d75Fa6C9c29ab77e1'
+                },
+                'green-giddy-denebola': {
+                    wrapper: '0xD6b78761557E50BC94B7a99d75Fa6C9c29ab77e1'
+                }
+            }
+        },
         wbtc: {
             address: '0xcb011E86DF014a46F4e3AC3F3cbB114A4EB80870',
             chains: {
