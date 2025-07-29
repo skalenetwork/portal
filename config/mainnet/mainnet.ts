@@ -166,6 +166,10 @@ const connections: types.mp.TokenTypeMap = {
         skivvy: {
             address: '0x246908BfF0b1ba6ECaDCF57fb94F6AE2FcD43a77',
             chains: {
+                'elated-tan-skat': {},
+                'honorable-steel-rasalhague': {
+                    hub: 'elated-tan-skat'
+                },
                 'green-giddy-denebola': {}
             }
         },

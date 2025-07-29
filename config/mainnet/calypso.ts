@@ -91,7 +91,19 @@ const connections: types.mp.TokenTypeMap = {
                     hub: 'elated-tan-skat'
                 }
             }
-        }
+        },
+        skivvy: {
+            address: '0x0d3FaC688AD94f01B237BFD795C61eDE6Ac9542E',
+            chains: {
+                'elated-tan-skat': {
+                    clone: true
+                },
+                mainnet: {
+                    clone: true,
+                    hub: 'elated-tan-skat'
+                }
+            }
+        },
     }
 }
 
