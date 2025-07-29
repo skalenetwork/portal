@@ -34,7 +34,7 @@ import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRou
 import { type types } from '@/core'
 import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
 import { META_TAGS } from '../core/meta'
-import { filterAppsByCategory, filterAppsBySearchTerm } from '../core/ecosystem/apps'
+import { filterAppsByCategory, filterAppsBySearchTerm, filterAppsByChains } from '../core/ecosystem/apps'
 import { useUrlParams } from '../core/ecosystem/urlParamsUtil'
 import { SKALE_SOCIAL_LINKS, SUBMIT_PROJECT_URL } from '../core/constants'
 import { useApps } from '../useApps'
@@ -60,7 +60,7 @@ export default function Ecosystem(props: {
   loadData: () => Promise<void>
 }) {
   const [searchParams] = useSearchParams()
-  const { getCheckedItemsFromUrl, setCheckedItemsInUrl, getTabIndexFromUrl, setTabIndexInUrl } =
+  const { getCheckedItemsFromUrl, setCheckedItemsInUrl, getTabIndexFromUrl, setTabIndexInUrl, getChainsFromUrl, setChainsInUrl } =
     useUrlParams()
   const { allApps, newApps, trendingApps, favoriteApps, isSignedIn, featuredApps } = useApps(
     props.chainsMeta,
@@ -68,6 +68,7 @@ export default function Ecosystem(props: {
   )
 
   const [checkedItems, setCheckedItems] = useState<string[]>([])
+  const [selectedChains, setSelectedChains] = useState<string[]>([])
   const [filteredApps, setFilteredApps] = useState<types.AppWithChainAndName[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [activeTab, setActiveTab] = useState(0)
@@ -77,6 +78,8 @@ export default function Ecosystem(props: {
     props.loadData()
     const initialCheckedItems = getCheckedItemsFromUrl()
     setCheckedItems(initialCheckedItems)
+    const initialChains = getChainsFromUrl()
+    setSelectedChains(initialChains)
     const initialTabIndex = getTabIndexFromUrl()
     setActiveTab(initialTabIndex)
   }, [])
@@ -88,16 +91,24 @@ export default function Ecosystem(props: {
   
   useEffect(() => {
     const filtered = filterAppsBySearchTerm(
-      filterAppsByCategory(allApps, checkedItems),
+      filterAppsByChains(
+        filterAppsByCategory(allApps, checkedItems),
+        selectedChains
+      ),
       searchTerm,
       props.chainsMeta
     )
     setFilteredApps(filtered)
     setLoaded(true)
-  }, [allApps, checkedItems, searchTerm, props.chainsMeta])
+  }, [allApps, checkedItems, selectedChains, searchTerm, props.chainsMeta])
   const handleSetCheckedItems = (newCheckedItems: string[]) => {
     setCheckedItems(newCheckedItems)
     setCheckedItemsInUrl(newCheckedItems)
+  }
+
+  const handleSetSelectedChains = (newSelectedChains: string[]) => {
+    setSelectedChains(newSelectedChains)
+    setChainsInUrl(newSelectedChains)
   }
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue)
@@ -149,7 +160,7 @@ export default function Ecosystem(props: {
 
   const currentFilteredApps = getFilteredAppsByTab(activeTab)
 
-  const isFiltersApplied = Object.keys(checkedItems).length !== 0
+  const isFiltersApplied = checkedItems.length !== 0 || selectedChains.length !== 0
   return (
     <>
       <Container maxWidth="md">
@@ -190,6 +201,9 @@ export default function Ecosystem(props: {
             <SelectedCategories
               checkedItems={checkedItems}
               setCheckedItems={handleSetCheckedItems}
+              selectedChains={selectedChains}
+              setSelectedChains={handleSetSelectedChains}
+              chainsMeta={props.chainsMeta}
               filteredAppsCount={currentFilteredApps.length}
             />
             <Tabs

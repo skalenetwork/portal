@@ -57,10 +57,29 @@ export const useUrlParams = () => {
     [searchParams, setSearchParams]
   )
 
+  const getChainsFromUrl = useCallback(() => {
+    const chains = searchParams.get('chains')
+    return chains ? chains.split(',') : []
+  }, [searchParams])
+
+  const setChainsInUrl = useCallback(
+    (chains: string[]) => {
+      if (chains.length > 0) {
+        searchParams.set('chains', chains.join(','))
+      } else {
+        searchParams.delete('chains')
+      }
+      setSearchParams(searchParams)
+    },
+    [searchParams, setSearchParams]
+  )
+
   return {
     getCheckedItemsFromUrl,
     setCheckedItemsInUrl,
     getTabIndexFromUrl,
-    setTabIndexInUrl
+    setTabIndexInUrl,
+    getChainsFromUrl,
+    setChainsInUrl
   }
 }

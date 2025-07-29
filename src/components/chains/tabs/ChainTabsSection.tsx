@@ -123,6 +123,8 @@ export default function ChainTabsSection(props: {
               trendingApps={trendingApps}
               useCarousel={false}
               gray={false}
+              showSeeMoreButton={true}
+              schainName={props.schainName}
             />
           </div>
         </SkPaper>

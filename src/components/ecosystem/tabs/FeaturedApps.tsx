@@ -23,7 +23,9 @@
  */
 
 import React, { useMemo } from 'react'
-import { Grid, Box } from '@mui/material'
+import { Link } from 'react-router-dom'
+import { Grid, Box, Button } from '@mui/material'
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded'
 import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
 import AppCard from '../AppCardV2'
 import Carousel from '../../Carousel'
@@ -40,6 +42,8 @@ interface FeaturedAppsProps {
   newApps: types.AppWithChainAndName[]
   useCarousel?: boolean
   gray?: boolean
+  showSeeMoreButton?: boolean
+  schainName?: string
 }
 
 const FeaturedApps: React.FC<FeaturedAppsProps> = ({
@@ -49,7 +53,9 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
   newApps,
   trendingApps,
   useCarousel = false,
-  gray = true
+  gray = true,
+  showSeeMoreButton = false,
+  schainName
 }) => {
   const { getMostLikedApps, getAppId, getMostLikedRank } = useLikedApps()
   const trendingAppIds = useMemo(() => getMostLikedApps(), [getMostLikedApps])
@@ -101,9 +107,24 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
     <Grid container spacing={2}>
       {filteredFeaturedApps.map((app) => (
         <Grid key={`${app.chain}-${app.appName}`} item xs={12} sm={6} md={4} lg={4}>
-          <Box className={cls('fl-centered dappCard')}>{renderAppCard(app)}</Box>
-        </Grid>
+          <Box className={cls('fl-centered dappCard')}>{renderAppCard(app)}</Box> 
+        </Grid> 
       ))}
+      {showSeeMoreButton && (
+        <div className={cls(cmn.flex, cmn.mtop20)} style={{ justifyContent: 'center', width: '100%' }}>
+          <Link to={schainName ? `/ecosystem?chains=${schainName}` : "/ecosystem"}>
+            <Button
+              size="medium"
+              color="secondary"
+              variant="contained"
+              className={cls('btn', cmn.mtop20, 'secondary', 'seeMoreButton')}
+              startIcon={<AddCircleOutlineRoundedIcon />}
+            >
+              See more
+            </Button>
+          </Link>
+        </div>
+      )}
     </Grid>
   )
 }

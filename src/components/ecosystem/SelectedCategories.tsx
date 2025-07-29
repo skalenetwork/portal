@@ -26,10 +26,14 @@ import { cmn, cls, styles } from '@skalenetwork/metaport'
 import { Chip, Box } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { categories } from '../../core/ecosystem/categories'
+import { type types, metadata } from '@/core'
 
 interface SelectedCategoriesProps {
   checkedItems: string[]
   setCheckedItems: (items: string[]) => void
+  selectedChains: string[]
+  setSelectedChains: (chains: string[]) => void
+  chainsMeta: types.ChainsMetadataMap
   filteredAppsCount: number
 }
 
@@ -58,14 +62,22 @@ const CustomChipLabel: React.FC<{ category: string; subcategory?: string }> = ({
 const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
   checkedItems,
   setCheckedItems,
+  selectedChains,
+  setSelectedChains,
+  chainsMeta,
   filteredAppsCount
 }) => {
   const handleDelete = (itemToDelete: string) => {
     setCheckedItems(checkedItems.filter((item) => item !== itemToDelete))
   }
 
+  const handleDeleteChain = (chainToDelete: string) => {
+    setSelectedChains(selectedChains.filter((chain) => chain !== chainToDelete))
+  }
+
   const clearAll = () => {
     setCheckedItems([])
+    setSelectedChains([])
   }
 
   const getCategoryName = (key: string): string => categories[key]?.name || key
@@ -82,10 +94,30 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
     return subcategoryKey
   }
 
-  if (checkedItems.length === 0) return null
+  const getChainDisplayName = (chainName: string): string => {
+    return metadata.getAlias(chainsMeta, chainName) || chainName
+  }
+
+  if (checkedItems.length === 0 && selectedChains.length === 0) return null
 
   return (
     <Box className={cls(cmn.flex, cmn.flexcv, 'flex-w', cmn.mbottf10)}>
+      {selectedChains.map((chain) => (
+        <Chip
+          variant="outlined"
+          key={`chain-${chain}`}
+          label={
+            <Box display="flex" alignItems="center">
+              <p className={cls(cmn.pPrim, cmn.p, cmn.p3, cmn.p600)}>
+                {getChainDisplayName(chain)}
+              </p>
+            </Box>
+          }
+          onDelete={() => handleDeleteChain(chain)}
+          deleteIcon={<CloseIcon className={cls(styles.chainIconxs)} />}
+          className={cls('outlined', cmn.p600)}
+        />
+      ))}
       {checkedItems.map((item) => {
         const [category, subcategory] = item.split('_')
         return (
