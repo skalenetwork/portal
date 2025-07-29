@@ -55,12 +55,8 @@ const connections: types.mp.TokenTypeMap = {
         skivvy: {
             address: '0x4397f627F899a76d01a6D572EC4DD179912123c1',
             chains: {
-                'elated-tan-skat': {
-                    clone: true
-                },
                 mainnet: {
-                    clone: true,
-                    hub: 'elated-tan-skat'
+                    clone: true
                 }
             }
         },
