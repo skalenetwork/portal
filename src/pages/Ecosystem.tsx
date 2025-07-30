@@ -59,7 +59,7 @@ export default function Ecosystem(props: {
   isXs: boolean
   loadData: () => Promise<void>
 }) {
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const { getCheckedItemsFromUrl, setCheckedItemsInUrl, getTabIndexFromUrl, setTabIndexInUrl } =
     useUrlParams()
   const { allApps, newApps, trendingApps, favoriteApps, isSignedIn, featuredApps } = useApps(
@@ -76,14 +76,17 @@ export default function Ecosystem(props: {
   const handleSetSearchTerm = (value: React.SetStateAction<string>) => {
     const newSearchTerm = typeof value === 'function' ? value(searchTerm) : value
     setSearchTerm(newSearchTerm)
-    const newParams = new URLSearchParams(window.location.search)
-    if (newSearchTerm) {
-      newParams.set('search', newSearchTerm)
-    } else {
-      newParams.delete('search')
-    }
-    const newUrl = newParams.toString() ? `${window.location.pathname}?${newParams.toString()}` : window.location.pathname
-    window.history.replaceState({}, '', newUrl)
+    
+    // Use setSearchParams to keep everything synchronized
+    setSearchParams(prev => {
+      const newParams = new URLSearchParams(prev)
+      if (newSearchTerm) {
+        newParams.set('search', newSearchTerm)
+      } else {
+        newParams.delete('search')
+      }
+      return newParams
+    })
   }
 
   useEffect(() => {
