@@ -72,17 +72,9 @@ export function filterAppsBySearchTerm(
     (app) =>
       app.alias.toLowerCase().includes(st) ||
       app.chain.toLowerCase().includes(st) ||
-      metadata.getAlias(chainsMeta, app.chain).toLowerCase().includes(st)
+      metadata.getAlias(chainsMeta, app.chain).toLowerCase().includes(st) ||
+      metadata.getChainShortAlias(chainsMeta, app.chain).toLowerCase().includes(st)
   )
-  return sortAndFilterApps(filteredApps)
-}
-
-export function filterAppsByChains(
-  apps: types.AppWithChainAndName[],
-  chains: string[]
-): types.AppWithChainAndName[] {
-  if (chains.length === 0) return sortAndFilterApps(apps)
-  const filteredApps = apps.filter((app) => chains.includes(app.chain))
   return sortAndFilterApps(filteredApps)
 }
 

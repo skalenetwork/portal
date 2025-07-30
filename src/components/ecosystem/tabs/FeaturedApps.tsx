@@ -29,7 +29,7 @@ import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRou
 import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
 import AppCard from '../AppCardV2'
 import Carousel from '../../Carousel'
-import { type types } from '@/core'
+import { type types, metadata } from '@/core'
 import { useLikedApps } from '../../../LikedAppsContext'
 import { isTrending } from '../../../core/ecosystem/utils'
 import { isNewApp } from '../../../core/ecosystem/utils'
@@ -111,8 +111,11 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
         </Grid> 
       ))}
       {showSeeMoreButton && (
-        <div className={cls(cmn.flex, cmn.mtop20)} style={{ justifyContent: 'center', width: '100%' }}>
-          <Link to={schainName ? `/ecosystem?chains=${schainName}` : "/ecosystem"}>
+        <div className={cls(cmn.flex)} style={{ justifyContent: 'center', width: '100%' }}>
+          <Link to={schainName ? `/ecosystem?search=${(() => {
+            const shortAlias = metadata.getChainShortAlias(chainsMeta, schainName)
+            return shortAlias.charAt(0).toUpperCase() + shortAlias.slice(1)
+          })()}` : "/ecosystem"}>
             <Button
               size="medium"
               color="secondary"
