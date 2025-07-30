@@ -112,10 +112,13 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
       ))}
       {showSeeMoreButton && (
         <div className={cls(cmn.flex, cmn.mtop10)} style={{ justifyContent: 'center', width: '100%' }}>
-          <Link to={schainName ? `/ecosystem?search=${(() => {
-            const shortAlias = metadata.getChainShortAlias(chainsMeta, schainName)
-            return shortAlias.charAt(0).toUpperCase() + shortAlias.slice(1)
-          })()}` : "/ecosystem"}>
+          const searchParam = schainName
+            ? (() => {
+                const shortAlias = metadata.getChainShortAlias(chainsMeta, schainName)
+                return shortAlias.charAt(0).toUpperCase() + shortAlias.slice(1)
+              })()
+            : "";
+          <Link to={schainName ? `/ecosystem?search=${searchParam}` : "/ecosystem"}>
             <Button
               size="medium"
               color="secondary"
