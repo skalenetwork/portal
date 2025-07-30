@@ -77,7 +77,6 @@ export default function Ecosystem(props: {
     const newSearchTerm = typeof value === 'function' ? value(searchTerm) : value
     setSearchTerm(newSearchTerm)
     
-    // Use setSearchParams to keep everything synchronized
     setSearchParams(prev => {
       const newParams = new URLSearchParams(prev)
       if (newSearchTerm) {
