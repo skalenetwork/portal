@@ -74,14 +74,12 @@ export default function Ecosystem(props: {
   const [loaded, setLoaded] = useState<boolean>(false)
 
   const handleSetSearchTerm = (value: React.SetStateAction<string>) => {
-    const newSearchTerm = typeof value === 'function' ? value(searchTerm) : value
-    setSearchTerm(newSearchTerm)
+    setSearchTerm(value)
     
-    // Use setSearchParams to keep everything synchronized
     setSearchParams(prev => {
       const newParams = new URLSearchParams(prev)
-      if (newSearchTerm) {
-        newParams.set('search', newSearchTerm)
+      if (value) {
+        newParams.set('search', value.toString())
       } else {
         newParams.delete('search')
       }

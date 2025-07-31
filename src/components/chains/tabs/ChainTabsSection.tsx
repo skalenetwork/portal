@@ -114,7 +114,7 @@ export default function ChainTabsSection(props: {
       currentTabs.unshift({ label: 'Featured Apps', icon: <WidgetsRoundedIcon /> })
       currentTabsContent.unshift(
         <SkPaper gray className={cls(cmn.mtop20)}>
-          <div className={cls( cmn.mbott20)}>
+          <div className={cls(cmn.mbott20)}>
 
             <FeaturedApps
               featuredApps={chainFeaturedApps}

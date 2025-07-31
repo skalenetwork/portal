@@ -111,7 +111,7 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
         </Grid> 
       ))}
       {showSeeMoreButton && (
-        <div className={cls(cmn.flex, cmn.mtop10)} style={{ justifyContent: 'center', width: '100%' }}>
+        <div className={cls(cmn.flex, cmn.mtop10,cmn.flexc, cmn.flexWidth)}>
           <Link to={schainName ? `/ecosystem?search=${(() => {
             const shortAlias = metadata.getChainShortAlias(chainsMeta, schainName)
             return shortAlias.charAt(0).toUpperCase() + shortAlias.slice(1)

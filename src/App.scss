@@ -409,12 +409,13 @@ body {
   height: 40px;
   transition: opacity 0.3s ease-in-out;
 
-.MuiSvgIcon-root {
-  color: #93b8ec;
-  font-size: 1.2rem;
+  .MuiSvgIcon-root {
+    color: #93b8ec;
+    font-size: 1.2rem;
   }
 
 }
+
 .seeMoreButton {
     color: #93b8ec;
   }
