@@ -29,10 +29,9 @@ import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRou
 import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
 import AppCard from '../AppCardV2'
 import Carousel from '../../Carousel'
-import { type types, metadata } from '@/core'
+import { type types } from '@/core'
 import { useLikedApps } from '../../../LikedAppsContext'
-import { isTrending } from '../../../core/ecosystem/utils'
-import { isNewApp } from '../../../core/ecosystem/utils'
+import { isTrending, isNewApp, generateChainSearchParam } from '../../../core/ecosystem/utils'
 
 interface FeaturedAppsProps {
   featuredApps: types.AppWithChainAndName[]
@@ -103,6 +102,8 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
     )
   }
 
+  const searchParam = schainName ? generateChainSearchParam(chainsMeta, schainName) : ""
+
   return (
     <Grid container spacing={2}>
       {filteredFeaturedApps.map((app) => (
@@ -111,22 +112,21 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
         </Grid> 
       ))}
       {showSeeMoreButton && (
-        <div className={cls(cmn.flex, cmn.mtop10,cmn.flexc, cmn.flexWidth)}>
-          <Link to={schainName ? `/ecosystem?search=${(() => {
-            const shortAlias = metadata.getChainShortAlias(chainsMeta, schainName)
-            return shortAlias.charAt(0).toUpperCase() + shortAlias.slice(1)
-          })()}` : "/ecosystem"}>
-            <Button
-              size="medium"
-              color="secondary"
-              variant="contained"
-              className={cls('btn', cmn.mtop20, 'secondary', 'seeMoreButton')}
-              startIcon={<AddCircleOutlineRoundedIcon />}
-            >
-              See more
-            </Button>
-          </Link>
+        <div className={cls(cmn.flex, cmn.mtop10,cmn.flexc, cmn.fullWidth)}>
+
+        <Link to={schainName ? `/ecosystem?search=${searchParam}` : "/ecosystem"}>
+          <Button
+            size="medium"
+            color="secondary"
+            variant="contained"
+            className={cls('btn', cmn.mtop20, 'secondary', 'seeMoreButton')}
+            startIcon={<AddCircleOutlineRoundedIcon />}
+          >
+            See more
+          </Button>
+        </Link>
         </div>
+
       )}
     </Grid>
   )

@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { type types } from '@/core'
+import { type types, metadata } from '@/core'
 import { categories, sortCategories } from './categories'
 
 export interface ExpandedItems {
@@ -103,4 +103,12 @@ export const isTrending = (
   appName: string
 ): boolean => {
   return apps.some((a) => a.appName === appName && a.chain === chainName)
+}
+
+export const generateChainSearchParam = (
+  chainsMeta: types.ChainsMetadataMap,
+  schainName: string
+): string => {
+  const shortAlias = metadata.getChainShortAlias(chainsMeta, schainName)
+  return shortAlias ? shortAlias.charAt(0).toUpperCase() + shortAlias.slice(1) : ''
 }
