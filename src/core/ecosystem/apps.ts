@@ -72,7 +72,8 @@ export function filterAppsBySearchTerm(
     (app) =>
       app.alias.toLowerCase().includes(st) ||
       app.chain.toLowerCase().includes(st) ||
-      metadata.getAlias(chainsMeta, app.chain).toLowerCase().includes(st)
+      metadata.getAlias(chainsMeta, app.chain).toLowerCase().includes(st) ||
+      metadata.getChainShortAlias(chainsMeta, app.chain).toLowerCase().includes(st)
   )
   return sortAndFilterApps(filteredApps)
 }

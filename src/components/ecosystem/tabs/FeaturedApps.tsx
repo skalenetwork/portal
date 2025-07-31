@@ -27,10 +27,10 @@ import { Grid, Box } from '@mui/material'
 import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
 import AppCard from '../AppCardV2'
 import Carousel from '../../Carousel'
+import SeeMoreButton from '../../SeeMoreButton'
 import { type types } from '@/core'
 import { useLikedApps } from '../../../LikedAppsContext'
-import { isTrending } from '../../../core/ecosystem/utils'
-import { isNewApp } from '../../../core/ecosystem/utils'
+import { isTrending, isNewApp } from '../../../core/ecosystem/utils'
 
 interface FeaturedAppsProps {
   featuredApps: types.AppWithChainAndName[]
@@ -40,6 +40,8 @@ interface FeaturedAppsProps {
   newApps: types.AppWithChainAndName[]
   useCarousel?: boolean
   gray?: boolean
+  showSeeMoreButton?: boolean
+  schainName?: string
 }
 
 const FeaturedApps: React.FC<FeaturedAppsProps> = ({
@@ -49,7 +51,9 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
   newApps,
   trendingApps,
   useCarousel = false,
-  gray = true
+  gray = true,
+  showSeeMoreButton = false,
+  schainName
 }) => {
   const { getMostLikedApps, getAppId, getMostLikedRank } = useLikedApps()
   const trendingAppIds = useMemo(() => getMostLikedApps(), [getMostLikedApps])
@@ -101,9 +105,15 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
     <Grid container spacing={2}>
       {filteredFeaturedApps.map((app) => (
         <Grid key={`${app.chain}-${app.appName}`} item xs={12} sm={6} md={4} lg={4}>
-          <Box className={cls('fl-centered dappCard')}>{renderAppCard(app)}</Box>
-        </Grid>
+          <Box className={cls('fl-centered dappCard')}>{renderAppCard(app)}</Box> 
+        </Grid> 
       ))}
+      {showSeeMoreButton && (
+        <SeeMoreButton 
+          chainsMeta={chainsMeta}
+          schainName={schainName}
+        />
+      )}
     </Grid>
   )
 }

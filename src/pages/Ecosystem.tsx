@@ -59,7 +59,7 @@ export default function Ecosystem(props: {
   isXs: boolean
   loadData: () => Promise<void>
 }) {
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const { getCheckedItemsFromUrl, setCheckedItemsInUrl, getTabIndexFromUrl, setTabIndexInUrl } =
     useUrlParams()
   const { allApps, newApps, trendingApps, favoriteApps, isSignedIn, featuredApps } = useApps(
@@ -73,12 +73,32 @@ export default function Ecosystem(props: {
   const [activeTab, setActiveTab] = useState(0)
   const [loaded, setLoaded] = useState<boolean>(false)
 
+  const handleSetSearchTerm = (value: React.SetStateAction<string>) => {
+    setSearchTerm(value)
+    
+    setSearchParams(prev => {
+      const newParams = new URLSearchParams(prev)
+      if (value) {
+        newParams.set('search', value.toString())
+      } else {
+        newParams.delete('search')
+      }
+      return newParams
+    })
+  }
+
   useEffect(() => {
     props.loadData()
     const initialCheckedItems = getCheckedItemsFromUrl()
     setCheckedItems(initialCheckedItems)
     const initialTabIndex = getTabIndexFromUrl()
     setActiveTab(initialTabIndex)
+    
+    const urlParams = new URLSearchParams(window.location.search)
+    const searchParam = urlParams.get('search')
+    if (searchParam) {
+      setSearchTerm(searchParam)
+    }
   }, [])
   
   useEffect(() => {
@@ -149,7 +169,7 @@ export default function Ecosystem(props: {
 
   const currentFilteredApps = getFilteredAppsByTab(activeTab)
 
-  const isFiltersApplied = Object.keys(checkedItems).length !== 0
+  const isFiltersApplied = checkedItems.length !== 0
   return (
     <>
       <Container maxWidth="md">
@@ -179,7 +199,7 @@ export default function Ecosystem(props: {
               <SearchComponent
                 className={cls(cmn.flexg, [cmn.mri10, !props.isXs], ['fullW', props.isXs])}
                 searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
+                setSearchTerm={handleSetSearchTerm}
               />
               <CategoryDisplay
                 checkedItems={checkedItems}
