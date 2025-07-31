@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2021-Present
  */
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 
 import { cmn, cls, styles, type MetaportCore, SkPaper, explorer } from '@skalenetwork/metaport'
@@ -40,6 +40,7 @@ import DataSaverOffRoundedIcon from '@mui/icons-material/DataSaverOffRounded'
 import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded'
 import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
+import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
 
 import SkStack from './SkStack'
 import Tile from './Tile'
@@ -63,6 +64,7 @@ export default function SchainDetails(props: {
 }) {
   const [loading, setLoading] = useState<boolean>(false)
   const [added, setAdded] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
 
   const network = props.mpc.config.skaleNetwork
   const proxyBase = endpoints.getProxyEndpoint(network)
@@ -86,22 +88,60 @@ export default function SchainDetails(props: {
     blockExplorerUrls: [explorerUrl]
   }
 
+  // Check if chain is already connected
+  async function checkIfChainConnected() {
+    try {
+      if (!window.ethereum) return false
+      
+      const currentChainId = await window.ethereum.request({ method: 'eth_chainId' })
+      return currentChainId === chainId
+    } catch (e) {
+      console.error('Error checking chain connection:', e)
+      return false
+    }
+  }
+
+  // Check connection status on component mount
+  useEffect(() => {
+    checkIfChainConnected().then(setAdded)
+  }, [chainId])
+
   async function addNetwork() {
     setLoading(true)
+    setError(null)
     try {
+      if (!window.ethereum) {
+        throw new Error('MetaMask is not installed')
+      }
+      
       await window.ethereum.request({
         method: 'wallet_addEthereumChain',
         params: [networkParams]
       })
       setAdded(true)
-    } catch (e) {
+    } catch (e: any) {
       console.error(e)
+      // Handle specific MetaMask errors
+      if (e.code === -32603) {
+        setError('MetaMask RPC error. Please try again.')
+      } else if (e.code === 4001) {
+        setError('Connection rejected by user')
+      } else {
+        setError(e.message || 'Failed to connect to chain')
+      }
     } finally {
       setLoading(false)
     }
   }
 
+  function getConnectBtnIcon() {
+    if (error) return <ErrorRoundedIcon />
+    if (added) return <CheckCircleRoundedIcon />
+    return <AddCircleRoundedIcon />
+  }
+
   function connectBtnText() {
+    if (error) return 'Retry Connection'
     if (added) return 'Chain Connected'
     return loading ? 'Connecting Chain' : 'Connect to Chain'
   }
@@ -202,7 +242,7 @@ export default function SchainDetails(props: {
                   </Button>
                 </a>
                 <SkBtn
-                  startIcon={added ? <CheckCircleRoundedIcon /> : <AddCircleRoundedIcon />}
+                  startIcon={getConnectBtnIcon()}
                   size="md"
                   className={cls(
                     styles.btnAction,
@@ -212,7 +252,7 @@ export default function SchainDetails(props: {
                     [cmn.fullWidth, props.isXs]
                   )}
                   onClick={addNetwork}
-                  disabled={loading}
+                  disabled={loading || added}
                   text={connectBtnText()}
                   loading={loading}
                 />
