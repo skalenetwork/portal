@@ -23,15 +23,14 @@
  */
 
 import React, { useMemo } from 'react'
-import { Link } from 'react-router-dom'
-import { Grid, Box, Button } from '@mui/material'
-import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded'
+import { Grid, Box } from '@mui/material'
 import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
 import AppCard from '../AppCardV2'
 import Carousel from '../../Carousel'
+import SeeMoreButton from '../../SeeMoreButton'
 import { type types } from '@/core'
 import { useLikedApps } from '../../../LikedAppsContext'
-import { isTrending, isNewApp, generateChainSearchParam } from '../../../core/ecosystem/utils'
+import { isTrending, isNewApp } from '../../../core/ecosystem/utils'
 
 interface FeaturedAppsProps {
   featuredApps: types.AppWithChainAndName[]
@@ -102,8 +101,6 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
     )
   }
 
-  const searchParam = schainName ? generateChainSearchParam(chainsMeta, schainName) : ""
-
   return (
     <Grid container spacing={2}>
       {filteredFeaturedApps.map((app) => (
@@ -112,21 +109,10 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
         </Grid> 
       ))}
       {showSeeMoreButton && (
-        <div className={cls(cmn.flex, cmn.mtop10,cmn.flexc, cmn.fullWidth)}>
-
-        <Link to={schainName ? `/ecosystem?search=${searchParam}` : "/ecosystem"}>
-          <Button
-            size="medium"
-            color="secondary"
-            variant="contained"
-            className={cls('btn', cmn.mtop20, 'secondary', 'seeMoreButton')}
-            startIcon={<AddCircleOutlineRoundedIcon />}
-          >
-            See more
-          </Button>
-        </Link>
-        </div>
-
+        <SeeMoreButton 
+          chainsMeta={chainsMeta}
+          schainName={schainName}
+        />
       )}
     </Grid>
   )
