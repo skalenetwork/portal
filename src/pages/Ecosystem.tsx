@@ -175,61 +175,63 @@ export default function Ecosystem(props: {
             </div>
           </SkStack>
           <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20, 'fwmobile')}>
-            <SkStack className={cls(cmn.mbott20, cmn.flex, cmn.flexcv)}>
-              <SearchComponent
-                className={cls(cmn.flexg, [cmn.mri10, !props.isXs], ['fullW', props.isXs])}
-                searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
-              />
-              <CategoryDisplay
+            <div className={cls('ecosystem-sticky-header')}>
+              <SkStack className={cls(cmn.mbott20, cmn.flex, cmn.flexcv)}>
+                <SearchComponent
+                  className={cls(cmn.flexg, [cmn.mri10, !props.isXs], ['fullW', props.isXs])}
+                  searchTerm={searchTerm}
+                  setSearchTerm={setSearchTerm}
+                />
+                <CategoryDisplay
+                  checkedItems={checkedItems}
+                  setCheckedItems={handleSetCheckedItems}
+                  isXs={props.isXs}
+                />
+              </SkStack>
+              <SelectedCategories
                 checkedItems={checkedItems}
                 setCheckedItems={handleSetCheckedItems}
-                isXs={props.isXs}
+                filteredAppsCount={currentFilteredApps.length}
               />
-            </SkStack>
-            <SelectedCategories
-              checkedItems={checkedItems}
-              setCheckedItems={handleSetCheckedItems}
-              filteredAppsCount={currentFilteredApps.length}
-            />
-            <Tabs
-              variant={props.isXs ? 'scrollable' : 'standard'}
-              value={activeTab}
-              onChange={handleTabChange}
-              scrollButtons="auto"
-              className={cls(cmn.mbott20, [cmn.mtop20, isFiltersApplied], 'skTabs', 'fwmobile')}
-            >
-              <Tab
-                label="All"
-                icon={<GridViewRoundedIcon />}
-                iconPosition="start"
-                className={cls('btn', 'btnSm', cmn.mri5, 'tab', 'fwmobile')}
-              />
-              <Tab
-                label="Featured"
-                icon={<AppShortcutIcon />}
-                iconPosition="start"
-                className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-              />
-              <Tab
-                label="New"
-                icon={<StarRoundedIcon />}
-                iconPosition="start"
-                className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-              />
-              <Tab
-                label="Trending"
-                icon={<TrendingUpRoundedIcon />}
-                iconPosition="start"
-                className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-              />
-              <Tab
-                label="Favorites"
-                icon={<FavoriteRoundedIcon />}
-                iconPosition="start"
-                className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-              />
-            </Tabs>
+              <Tabs
+                variant={props.isXs ? 'scrollable' : 'standard'}
+                value={activeTab}
+                onChange={handleTabChange}
+                scrollButtons="auto"
+                className={cls(cmn.mbott20, [cmn.mtop20, isFiltersApplied], 'skTabs', 'fwmobile')}
+              >
+                <Tab
+                  label="All"
+                  icon={<GridViewRoundedIcon />}
+                  iconPosition="start"
+                  className={cls('btn', 'btnSm', cmn.mri5, 'tab', 'fwmobile')}
+                />
+                <Tab
+                  label="Featured"
+                  icon={<AppShortcutIcon />}
+                  iconPosition="start"
+                  className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+                />
+                <Tab
+                  label="New"
+                  icon={<StarRoundedIcon />}
+                  iconPosition="start"
+                  className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+                />
+                <Tab
+                  label="Trending"
+                  icon={<TrendingUpRoundedIcon />}
+                  iconPosition="start"
+                  className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+                />
+                <Tab
+                  label="Favorites"
+                  icon={<FavoriteRoundedIcon />}
+                  iconPosition="start"
+                  className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+                />
+              </Tabs>
+            </div>
             {activeTab === 0 && (
               <AllApps
                 apps={currentFilteredApps}

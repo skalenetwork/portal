@@ -155,3 +155,27 @@
 .secondary {
     background-color: $sk-secondary !important;
 }
+
+.ecosystem-sticky-header {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: $sk-bg;
+    border-radius: 0 0 $sk-border-radius $sk-border-radius;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    
+    /* Add backdrop filter for better visual separation */
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    
+    /* Smooth transition when becoming sticky */
+    transition: box-shadow 0.3s ease;
+    
+    /* Ensure it works properly on mobile */
+    width: 100%;
+    
+    /* Add subtle border for better visual separation */
+    border-bottom: 1px solid $border-color;
+}
