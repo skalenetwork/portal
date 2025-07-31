@@ -23,14 +23,15 @@
  */
 
 import React, { useMemo } from 'react'
-import { Grid, Box } from '@mui/material'
+import { Grid, Box, Button } from '@mui/material'
+import { Link } from 'react-router-dom'
+import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
 import AppCard from '../AppCardV2'
 import Carousel from '../../Carousel'
-import { type types } from '@/core'
+import { type types, metadata } from '@/core'
 import { useLikedApps } from '../../../LikedAppsContext'
-import { isTrending } from '../../../core/ecosystem/utils'
-import { isNewApp } from '../../../core/ecosystem/utils'
+import { isTrending, isNewApp } from '../../../core/ecosystem/utils'
 
 interface FeaturedAppsProps {
   featuredApps: types.AppWithChainAndName[]
@@ -40,6 +41,8 @@ interface FeaturedAppsProps {
   newApps: types.AppWithChainAndName[]
   useCarousel?: boolean
   gray?: boolean
+  showSeeMoreButton?: boolean
+  chainName?: string
 }
 
 const FeaturedApps: React.FC<FeaturedAppsProps> = ({
@@ -49,7 +52,9 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
   newApps,
   trendingApps,
   useCarousel = false,
-  gray = true
+  gray = true,
+  showSeeMoreButton = false,
+  chainName
 }) => {
   const { getMostLikedApps, getAppId, getMostLikedRank } = useLikedApps()
   const trendingAppIds = useMemo(() => getMostLikedApps(), [getMostLikedApps])
@@ -98,13 +103,31 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
   }
 
   return (
-    <Grid container spacing={2}>
-      {filteredFeaturedApps.map((app) => (
-        <Grid key={`${app.chain}-${app.appName}`} item xs={12} sm={6} md={4} lg={4}>
-          <Box className={cls('fl-centered dappCard')}>{renderAppCard(app)}</Box>
-        </Grid>
-      ))}
-    </Grid>
+    <>
+      <Grid container spacing={2}>
+        {filteredFeaturedApps.map((app) => (
+          <Grid key={`${app.chain}-${app.appName}`} item xs={12} sm={6} md={4} lg={4}>
+            <Box className={cls('fl-centered dappCard')}>{renderAppCard(app)}</Box>
+          </Grid>
+        ))}
+      </Grid>
+      {showSeeMoreButton && chainName !== null && chainName !== undefined && chainName.trim() !== '' && (
+        <Box className={cls(cmn.flex, cmn.flexc, cmn.mtop20)}>
+          <Link 
+            to={`/ecosystem?search=${encodeURIComponent(metadata.getAlias(chainsMeta, chainName))}`}
+            style={{ textDecoration: 'none' }}
+          >
+            <Button
+              variant="outlined"
+              endIcon={<ArrowForwardRoundedIcon />}
+              className={cls('btn')}
+            >
+              See more
+            </Button>
+          </Link>
+        </Box>
+      )}
+    </>
   )
 }
 

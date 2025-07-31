@@ -60,7 +60,7 @@ export default function Ecosystem(props: {
   loadData: () => Promise<void>
 }) {
   const [searchParams] = useSearchParams()
-  const { getCheckedItemsFromUrl, setCheckedItemsInUrl, getTabIndexFromUrl, setTabIndexInUrl } =
+  const { getCheckedItemsFromUrl, setCheckedItemsInUrl, getTabIndexFromUrl, setTabIndexInUrl, getSearchTermFromUrl, setSearchTermInUrl } =
     useUrlParams()
   const { allApps, newApps, trendingApps, favoriteApps, isSignedIn, featuredApps } = useApps(
     props.chainsMeta,
@@ -79,6 +79,8 @@ export default function Ecosystem(props: {
     setCheckedItems(initialCheckedItems)
     const initialTabIndex = getTabIndexFromUrl()
     setActiveTab(initialTabIndex)
+    const initialSearchTerm = getSearchTermFromUrl()
+    setSearchTerm(initialSearchTerm)
   }, [])
   
   useEffect(() => {
@@ -102,6 +104,11 @@ export default function Ecosystem(props: {
   const handleTabChange = (_: React.SyntheticEvent, newValue: number) => {
     setActiveTab(newValue)
     setTabIndexInUrl(newValue)
+  }
+  const handleSetSearchTerm = (value: React.SetStateAction<string>) => {
+    const newSearchTerm = typeof value === 'function' ? value(searchTerm) : value
+    setSearchTerm(newSearchTerm)
+    setSearchTermInUrl(newSearchTerm)
   }
   const getFilteredAppsByTab = useMemo(() => {
     const filterMap = new Map([
@@ -179,7 +186,7 @@ export default function Ecosystem(props: {
               <SearchComponent
                 className={cls(cmn.flexg, [cmn.mri10, !props.isXs], ['fullW', props.isXs])}
                 searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
+                setSearchTerm={handleSetSearchTerm}
               />
               <CategoryDisplay
                 checkedItems={checkedItems}
