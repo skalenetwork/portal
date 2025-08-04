@@ -23,6 +23,9 @@
   "engines": {
     "node": "20"
   },
+  "overrides": {
+    "@types/minimatch": "5.1.2"
+  },
   "scripts": {
     "dev": "storybook dev -p 6006",
     "build:storybook": "storybook build",
@@ -84,7 +87,7 @@
     "tslog": "^4.9.3"
   },
   "peerDependencies": {
-    "@skalenetwork/skale-contracts-ethers-v6": "1.0.2-develop.61",
+    "@skalenetwork/skale-contracts-ethers-v6": "1.0.2-develop.70",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "^5.17.1",
@@ -94,8 +97,8 @@
     "@tanstack/react-query": "^5.54.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "viem": "2.21.54",
-    "wagmi": "^2.13.3"
+    "viem": "^2.32.0",
+    "wagmi": "^2.15.7"
   },
   "files": [
     "dist"

@@ -52,6 +52,14 @@ const connections: types.mp.TokenTypeMap = {
                 }
             }
         },
+        skivvy: {
+            address: '0x4397f627F899a76d01a6D572EC4DD179912123c1',
+            chains: {
+                mainnet: {
+                    clone: true
+                }
+            }
+        },
         usdc: {
             address: '0xCC205196288B7A26f6D43bBD68AaA98dde97276d',
             chains: {

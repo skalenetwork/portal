@@ -64,7 +64,7 @@ export const CONTRACTS: ContractsConfig = {
   regression: {},
   testnet: {
     'skale-manager': '0x8d3D60BFD4c82B3043e5001b7B38B640A2F27CEb',
-    'mainnet-ima': '0x682ef859e1cE314ceD13A6FA32cE77AaeCE98e28',
+    'mainnet-ima': '0x6c0d044a2C5Bcaff75C8ad7894d8b454b005F4D2',
     'skale-allocator': '0xDC2F6568608C8dABe101914489A25b07567C96bC',
     'skale-grants': '0xCEabf2b0c4F9d75A49a7B1E3e3c3179cDe949C9F'
   }
