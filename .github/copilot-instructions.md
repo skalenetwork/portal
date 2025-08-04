@@ -15,3 +15,9 @@
 - do not generate any documentation, the code should be self-explanatory
 - do not generate any in-line comments
 - for the new files, always add a license header, same format as in the existing files
+- no commented out code
+- no console logs in production code
+- no unused imports
+- no redundant code - move repeated logic into helper functions
+
+- check `.prettierrc` for formatting rules
