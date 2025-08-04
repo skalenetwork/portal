@@ -34,4 +34,4 @@ jobs:
           path-to-document: 'https://skale.space/cla-txt'
           remote-organization-name: 'skalenetwork'
           remote-repository-name: cla-sigs
-          allowlist: '${{ steps.team.outputs.result }},*[bot]'
+          allowlist: '${{ steps.team.outputs.result }},*[bot],[copilot]'
