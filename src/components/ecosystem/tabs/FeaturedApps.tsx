@@ -26,7 +26,7 @@
 import React, { useMemo } from 'react'
 import { Grid, Box, Button } from '@mui/material'
 import { Link } from 'react-router-dom'
-import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
+import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import { cls, cmn, SkPaper, styles } from '@skalenetwork/metaport'
 import AppCard from '../AppCardV2'
 import Carousel from '../../Carousel'
@@ -120,8 +120,8 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
           >
             <Button
               size="medium"
-              startIcon={<PublicOutlinedIcon />}
-              className={cls(styles.btnAction)}
+              startIcon={<AddCircleRoundedIcon />}
+              className={cls(styles.btnAction, cmn.padd10)}
             >
               See more
             </Button>
