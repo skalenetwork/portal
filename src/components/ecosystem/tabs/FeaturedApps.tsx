@@ -26,8 +26,8 @@
 import React, { useMemo } from 'react'
 import { Grid, Box, Button } from '@mui/material'
 import { Link } from 'react-router-dom'
-import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
-import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
+import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
+import { cls, cmn, SkPaper, styles } from '@skalenetwork/metaport'
 import AppCard from '../AppCardV2'
 import Carousel from '../../Carousel'
 import { type types, metadata } from '@/core'
@@ -119,9 +119,9 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
             style={{ textDecoration: 'none' }}
           >
             <Button
-              variant="outlined"
-              endIcon={<ArrowForwardRoundedIcon />}
-              className={cls('btn')}
+              size="medium"
+              startIcon={<PublicOutlinedIcon />}
+              className={cls(styles.btnAction)}
             >
               See more
             </Button>
