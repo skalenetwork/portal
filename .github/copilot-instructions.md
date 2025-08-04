@@ -14,3 +14,4 @@
 - do not describe your changes in details after you made changes, focus on writing code
 - do not generate any documentation, the code should be self-explanatory
 - do not generate any in-line comments
+- for the new files, always add a license header, same format as in the existing files
