@@ -172,7 +172,7 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
     return (
       <Container maxWidth="md">
         <Tile
-          value="Bridge operations on the SKALE Testnet will be temporarily disabled on July 9 due to planned migration from Holesky to Hoodi.
+          value="Bridge operations on the SKALE Testnet will be temporarily disabled from July 9 to July 18 due to planned migration from Holesky to Hoodi.
 As Ethereum phases out the Holesky testnet (ending September 2025), SKALE is updating its testnet bridge connection to ensure continued stability and a smooth developer experience.
 Thank you for your understanding!"
           text="Testnet Bridge Maintenance Notice."
