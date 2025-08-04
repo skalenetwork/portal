@@ -1,24 +1,4 @@
-/**
- * @license
- * SKALE portal
- *
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as published by
- * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version.
- *
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- *
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <https://www.gnu.org/licenses/>.
- */
-/**
- * @file Ecosystem.tsx
- * @copyright SKALE Labs 2024-Present
- */
+
 
 import React, { useState, useEffect, useMemo } from 'react'
 import { Helmet } from 'react-helmet'
@@ -112,7 +92,7 @@ export default function Ecosystem(props: {
   }
   const getFilteredAppsByTab = useMemo(() => {
     const filterMap = new Map([
-      [0, filteredApps], // All Apps
+      [0, filteredApps],
       [
         1,
         featuredApps.filter((app) =>
@@ -120,7 +100,7 @@ export default function Ecosystem(props: {
             (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
           )
         )
-      ], // Featured Apps
+      ],
       [
         2,
         newApps.filter((app) =>
@@ -129,7 +109,6 @@ export default function Ecosystem(props: {
           )
         )
       ],
-      // New Apps
       [
         3,
         trendingApps.filter((app) =>
@@ -137,7 +116,7 @@ export default function Ecosystem(props: {
             (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
           )
         )
-      ], // Trending Apps
+      ],
       [
         4,
         isSignedIn
@@ -148,7 +127,7 @@ export default function Ecosystem(props: {
               )
             )
           : []
-      ] // Favorite Apps
+      ]
     ])
 
     return (tabIndex: number) => filterMap.get(tabIndex) || filteredApps
@@ -308,7 +287,6 @@ export default function Ecosystem(props: {
         </div>
       </Container>
 
-      {}
       <ScrollToTopButton />
     </>
   )
