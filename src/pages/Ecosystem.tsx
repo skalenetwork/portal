@@ -1,3 +1,4 @@
+
 /**
  * @license
  * SKALE portal
@@ -60,7 +61,7 @@ export default function Ecosystem(props: {
   loadData: () => Promise<void>
 }) {
   const [searchParams] = useSearchParams()
-  const { getCheckedItemsFromUrl, setCheckedItemsInUrl, getTabIndexFromUrl, setTabIndexInUrl } =
+  const { getCheckedItemsFromUrl, setCheckedItemsInUrl, getTabIndexFromUrl, setTabIndexInUrl, getSearchTermFromUrl, setSearchTermInUrl } =
     useUrlParams()
   const { allApps, newApps, trendingApps, favoriteApps, isSignedIn, featuredApps } = useApps(
     props.chainsMeta,
@@ -79,6 +80,8 @@ export default function Ecosystem(props: {
     setCheckedItems(initialCheckedItems)
     const initialTabIndex = getTabIndexFromUrl()
     setActiveTab(initialTabIndex)
+    const initialSearchTerm = getSearchTermFromUrl()
+    setSearchTerm(initialSearchTerm)
   }, [])
   
   useEffect(() => {
@@ -103,9 +106,14 @@ export default function Ecosystem(props: {
     setActiveTab(newValue)
     setTabIndexInUrl(newValue)
   }
+  const handleSetSearchTerm = (value: React.SetStateAction<string>) => {
+    const newSearchTerm = typeof value === 'function' ? value(searchTerm) : value
+    setSearchTerm(newSearchTerm)
+    setSearchTermInUrl(newSearchTerm)
+  }
   const getFilteredAppsByTab = useMemo(() => {
     const filterMap = new Map([
-      [0, filteredApps], // All Apps
+      [0, filteredApps],
       [
         1,
         featuredApps.filter((app) =>
@@ -113,7 +121,7 @@ export default function Ecosystem(props: {
             (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
           )
         )
-      ], // Featured Apps
+      ],
       [
         2,
         newApps.filter((app) =>
@@ -122,7 +130,6 @@ export default function Ecosystem(props: {
           )
         )
       ],
-      // New Apps
       [
         3,
         trendingApps.filter((app) =>
@@ -130,7 +137,7 @@ export default function Ecosystem(props: {
             (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
           )
         )
-      ], // Trending Apps
+      ],
       [
         4,
         isSignedIn
@@ -141,7 +148,7 @@ export default function Ecosystem(props: {
               )
             )
           : []
-      ] // Favorite Apps
+      ]
     ])
 
     return (tabIndex: number) => filterMap.get(tabIndex) || filteredApps
@@ -179,7 +186,7 @@ export default function Ecosystem(props: {
               <SearchComponent
                 className={cls(cmn.flexg, [cmn.mri10, !props.isXs], ['fullW', props.isXs])}
                 searchTerm={searchTerm}
-                setSearchTerm={setSearchTerm}
+                setSearchTerm={handleSetSearchTerm}
               />
               <CategoryDisplay
                 checkedItems={checkedItems}
@@ -301,7 +308,6 @@ export default function Ecosystem(props: {
         </div>
       </Container>
 
-      {}
       <ScrollToTopButton />
     </>
   )

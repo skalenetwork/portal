@@ -35,7 +35,7 @@ export const MAINNET_EXPLORER_URLS: EndpointsNetworkMap = {
   mainnet: 'https://etherscan.io',
   legacy: 'https://holesky.etherscan.io',
   regression: 'https://goerli.etherscan.io',
-  testnet: 'https://holesky.etherscan.io'
+  testnet: 'https://hoodi.etherscan.io'
 }
 
 export const BASE_EXPLORER_URLS: EndpointsNetworkMap = {

@@ -169,7 +169,8 @@ const connections: types.mp.TokenTypeMap = {
                 'elated-tan-skat': {},
                 'honorable-steel-rasalhague': {
                     hub: 'elated-tan-skat'
-                }
+                },
+                'green-giddy-denebola': {}
             }
         },
         unipoly: {
