@@ -29,7 +29,7 @@ import { DelegationState } from './delegations'
 const log = new Logger<ILogObj>({ name: 'portal:core:validators' })
 
 export const ESCROW_VALIDATORS = [
-  43, 46, 54, 37, 48, 49, 42, 41, 47, 40, 52, 35, 36, 39, 50, 45, 51, 68, 30
+  43, 46, 54, 37, 48, 49, 42, 41, 47, 40, 52, 35, 36, 39, 50, 45, 51, 68, 30, 64, 34, 33
 ]
 
 const STATUS_ORDER = {
