@@ -1,3 +1,4 @@
+
 /**
  * @license
  * SKALE portal
@@ -123,6 +124,8 @@ export default function ChainTabsSection(props: {
               trendingApps={trendingApps}
               useCarousel={false}
               gray={false}
+              showSeeMoreButton={true}
+              chainName={props.schainName}
             />
           </div>
         </SkPaper>

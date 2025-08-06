@@ -42,7 +42,7 @@ export async function sendTransaction(
     )
     await response.wait()
     log.info('✅ ' + name + ' mined - tx: ' + response.hash)
-    return { status: true, err: undefined, response: response }
+   return { status: true, err: undefined, response: response }
   } catch (err) {
     console.error(err)
     const msg = err.message

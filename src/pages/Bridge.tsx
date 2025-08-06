@@ -25,6 +25,7 @@ import { Helmet } from 'react-helmet'
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import HistoryIcon from '@mui/icons-material/History'
+import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
 
 import {
   cls,
@@ -46,6 +47,8 @@ import { META_TAGS } from '../core/meta'
 import Meson from '../components/Meson'
 import { Button } from '@mui/material'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
+import { DISABLE_BRIDGE } from '../core/constants'
+import Tile from '../components/Tile'
 
 interface TokenParams {
   keyname: string | null
@@ -164,6 +167,21 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
       }
     }
   }, [tokenParams, tokens])
+
+  if (DISABLE_BRIDGE)
+    return (
+      <Container maxWidth="md">
+        <Tile
+          value="Bridge operations on the SKALE Testnet will be temporarily disabled from July 9 to July 18 due to planned migration from Holesky to Hoodi.
+As Ethereum phases out the Holesky testnet (ending September 2025), SKALE is updating its testnet bridge connection to ensure continued stability and a smooth developer experience.
+Thank you for your understanding!"
+          text="Testnet Bridge Maintenance Notice."
+          icon={<ErrorRoundedIcon />}
+          color="warning"
+          className={cls(cmn.mtop20)}
+        />
+      </Container>
+    )
 
   return (
     <Container maxWidth="sm">
