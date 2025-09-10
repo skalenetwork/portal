@@ -9,7 +9,9 @@ export default defineConfig({
   resolve: {
     alias: {
       '@skalenetwork/metaport': path.resolve(__dirname, 'packages/metaport/src'),
-      '@skalenetwork/metaport/dist/style.css': path.resolve(__dirname, 'packages/metaport/src/dist/style.css'),
+      ...(process.env.NODE_ENV !== 'production' ? {
+        '@skalenetwork/metaport/dist/style.css': path.resolve(__dirname, 'packages/metaport/src/dist/style.css')
+      } : {}),
       '@/core': path.resolve(__dirname, 'packages/core/src')
     }
   }

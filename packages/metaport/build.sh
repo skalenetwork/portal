@@ -3,7 +3,7 @@
 set -e 
 
 export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-export PORTAL_DIR="$DIR/../../"
+export PORTAL_DIR="$DIR/../.."
 export SCRIPTS_DIR="$PORTAL_DIR/scripts/"
 
 META_DIR_EXTERNAL=$PORTAL_DIR/skale-network/metadata/
@@ -15,6 +15,8 @@ if [ -d "$META_DIR" ]; then
 else
     echo "${META_DIR} not found, skipping"
 fi
+
+mkdir -p $META_DIR
 
 echo "Copying ${META_DIR_EXTERNAL} -> ${META_DIR}..."
 cp -R $META_DIR_EXTERNAL $META_DIR
