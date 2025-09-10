@@ -27,6 +27,12 @@ echo "Generating imports in ${META_DIR}..."
 node $SCRIPTS_DIR/generate-imports.cjs $META_DIR
 echo "Imports generated."
 
+
+echo '--------------'
+cat $META_DIR_EXTERNAL/mainnet/chains.json
+echo '--------------'
+
+
 echo '--------------'
 cat $META_DIR/mainnet/icons/index.ts
 echo '--------------'
