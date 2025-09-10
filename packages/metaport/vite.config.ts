@@ -1,6 +1,6 @@
 import react from '@vitejs/plugin-react'
 import path from 'node:path'
-import { defineConfig } from 'vitest/config'
+import { defineConfig } from 'vite'
 import dts from 'vite-plugin-dts'
 import { UserConfigExport } from 'vite'
 import { name } from './package.json'
@@ -38,6 +38,14 @@ const app = async (): Promise<UserConfigExport> => {
           /^wagmi(\/|$)/.test(id) ||
           /^viem(\/|$)/.test(id),
         output: {
+          // Ensure a stable CSS filename so consumers can import
+          // "@skalenetwork/metaport/dist/style.css".
+          assetFileNames: (assetInfo) => {
+            if (assetInfo.name && assetInfo.name.endsWith('.css')) {
+              return 'style.css'
+            }
+            return 'assets/[name][extname]'
+          },
           globals: {
             react: 'React',
             'react/jsx-runtime': 'react/jsx-runtime',
@@ -48,8 +56,8 @@ const app = async (): Promise<UserConfigExport> => {
             '@emotion/styled': 'EmotionStyled',
             '@rainbow-me/rainbowkit': 'RainbowKit',
             '@tanstack/react-query': 'ReactQuery',
-            'wagmi': 'Wagmi',
-            'viem': 'Viem'
+            wagmi: 'Wagmi',
+            viem: 'Viem'
           }
         }
       },
