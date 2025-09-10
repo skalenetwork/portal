@@ -34,20 +34,16 @@ const app = async (): Promise<UserConfigExport> => {
       },
       rollupOptions: {
         maxParallelFileOps: 1,
-        external: [
-          'react',
-          'react/jsx-runtime',
-          'react-dom',
-          '@mui/material',
-          '@mui/icons-material',
-          '@mui/lab',
-          '@emotion/react',
-          '@emotion/styled',
-          '@rainbow-me/rainbowkit',
-          '@tanstack/react-query',
-          'wagmi',
-          'viem'
-        ],
+        external: (id) =>
+          /^(react(\/jsx-runtime)?|react-dom)(\/|$)/.test(id) ||
+          /^@mui\/material(\/|$)/.test(id) ||
+          /^@mui\/icons-material(\/|$)/.test(id) ||
+          /^@emotion\/react(\/|$)/.test(id) ||
+          /^@emotion\/styled(\/|$)/.test(id) ||
+          /^@rainbow-me\/rainbowkit(\/|$)/.test(id) ||
+          /^@tanstack\/react-query(\/|$)/.test(id) ||
+          /^wagmi(\/|$)/.test(id) ||
+          /^viem(\/|$)/.test(id),
         output: {
           globals: {
             react: 'React',
@@ -55,7 +51,6 @@ const app = async (): Promise<UserConfigExport> => {
             'react-dom': 'ReactDOM',
             '@mui/material': 'MaterialUI',
             '@mui/icons-material': 'MaterialIcons',
-            '@mui/lab': 'MaterialLab',
             '@emotion/react': 'EmotionReact',
             '@emotion/styled': 'EmotionStyled',
             '@rainbow-me/rainbowkit': 'RainbowKit',

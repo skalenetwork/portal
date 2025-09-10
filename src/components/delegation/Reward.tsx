@@ -24,7 +24,7 @@ import { cmn, cls, styles } from '@skalenetwork/metaport'
 import { types, units } from '@/core'
 
 import { Grid } from '@mui/material'
-import LoadingButton from '@mui/lab/LoadingButton'
+import Button from '@mui/material/Button'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
 
@@ -124,15 +124,9 @@ export default function Reward(props: {
                 <h3 className={cls(cmn.p, cmn.p700)}>{rewardsAmount}</h3>
               </div>
               {loading ? (
-                <LoadingButton
-                  loading
-                  loadingPosition="start"
-                  size="small"
-                  variant="contained"
-                  className={cls('btnSm btnSmLoading')}
-                >
+                <Button disabled size="small" variant="contained" className={cls('btnSm btnSmLoading')}>
                   Retrieving
-                </LoadingButton>
+                </Button>
               ) : (
                 <RetrieveRewardModal
                   address={props.address}
