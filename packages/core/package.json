@@ -7,7 +7,7 @@
   "type": "module",
   "scripts": {
     "build": "tsc && bun build ./src/index.ts --outdir ./dist --target browser",
-    "dev": "bun --watch build",
+    "dev": "tsc --watch --preserveWatchOutput",
     "type-check": "tsc --noEmit",
     "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\""
   },

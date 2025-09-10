@@ -45,3 +45,6 @@ public/robots.txt
 packages/*/node_modules
 packages/*/dist
 tools/*
+
+
+packages/metaport/src/dist/

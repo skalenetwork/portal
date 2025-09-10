@@ -11,6 +11,8 @@
     "build:mainnet": "bun run build:packages && NETWORK_NAME=mainnet bash scripts/build.sh",
     "build:testnet": "bun run build:packages && NETWORK_NAME=testnet bash scripts/build.sh",
     "dev": "bun run build:packages && vite",
+    "dev:portal": "vite",
+    "dev:watch": "bunx concurrently -k -n CORE,METAPORT,PORTAL -c cyan,magenta,green 'bun run --cwd packages/core dev' 'bun run --cwd packages/metaport dev' 'bun run dev:portal'",
     "build": "bun run build:mainnet",
     "lint": "eslint ./src --ext ts,tsx",
     "preview": "vite preview"
@@ -57,7 +59,8 @@
     "sass": "^1.65.1",
     "typescript": "^5.0.2",
     "vite": "^7.1.5",
-    "vite-plugin-vercel": "^9.0.7"
+    "vite-plugin-vercel": "^9.0.7",
+    "concurrently": "^9.0.1"
   },
   "overrides": {
     "react": "18.2.0",
