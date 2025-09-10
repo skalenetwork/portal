@@ -20,8 +20,8 @@
   "dependencies": {
     "@/core": "workspace:*",
     "@skalenetwork/metaport": "workspace:*",
-    "@mui/icons-material": "5.15.14",
-    "@mui/material": "5.15.14",
+    "@mui/icons-material": "7.3.2",
+    "@mui/material": "7.3.2",
     "@transak/transak-sdk": "^3.1.1",
     "@vercel/analytics": "^1.0.2",
     "embla-carousel-react": "^8.3.0",
@@ -34,7 +34,7 @@
     "react-social-icons": "^6.17.0",
     "react-transition-group": "^4.4.5",
     "siwe": "^3.0.0",
-    "@skalenetwork/skale-contracts-ethers-v6": "1.0.2-develop.70"
+    "@skalenetwork/skale-contracts-ethers-v6": "2.0.0-develop.1"
   },
   "devDependencies": {
     "@mdx-js/rollup": "^3.1.1",
@@ -48,7 +48,7 @@
     "@typescript-eslint/eslint-plugin": "^8.43.0",
     "@typescript-eslint/parser": "^8.43.0",
     "@vitejs/plugin-react": "^5.0.2",
-    "bun-types": "^1.0.17",
+    "bun-types": "^1.2.21",
     "eslint": "^8.45.0",
     "eslint-plugin-import": "^2.29.1",
     "eslint-plugin-n": "^17.21.3",
@@ -67,7 +67,7 @@
     "react-dom": "18.2.0",
     "@types/react": "18.2.15",
     "@types/react-dom": "18.2.7",
-    "@mui/material": "5.15.14",
-    "@mui/icons-material": "5.15.14"
+    "@mui/material": "7.3.2",
+    "@mui/icons-material": "7.3.2"
   }
 }

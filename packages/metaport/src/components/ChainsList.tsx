@@ -115,7 +115,7 @@ export default function ChainsList(props: {
           >
             <Grid container spacing={2}>
               {schainNames.map((name) => (
-                <Grid item xs={6} md={4} key={name} className={cls(styles.fullHeight)}>
+                <Grid size={{ xs: 6, sm: 4 }} key={name} className={cls(styles.fullHeight)}>
                   <BridgeChainCard
                     skaleNetwork={props.config.skaleNetwork}
                     chainName={name}

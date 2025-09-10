@@ -69,11 +69,11 @@
     "tslog": "^4.9.3"
   },
   "peerDependencies": {
-    "@skalenetwork/skale-contracts-ethers-v6": "1.0.2-develop.70",
+    "@skalenetwork/skale-contracts-ethers-v6": "2.0.0-develop.1",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/icons-material": "5.15.14",
-    "@mui/material": "5.15.14",
+    "@mui/icons-material": "7.3.2",
+    "@mui/material": "7.3.2",
     "@rainbow-me/rainbowkit": "^2.2.4",
     "@tanstack/react-query": "^5.54.1",
     "react": "18.2.0",

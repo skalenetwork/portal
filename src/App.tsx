@@ -22,10 +22,7 @@
  */
 
 import { Helmet } from 'react-helmet'
-
 import { MetaportProvider, getMetaportTheme } from '@skalenetwork/metaport'
-// import '@skalenetwork/metaport/dist/style.css'
-
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
 
 import Portal from './Portal'
