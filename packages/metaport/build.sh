@@ -4,10 +4,10 @@ set -e
 
 export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 export PORTAL_DIR="$DIR/../.."
-export SCRIPTS_DIR="$PORTAL_DIR/scripts/"
+export SCRIPTS_DIR="$PORTAL_DIR/scripts"
 
 META_DIR_EXTERNAL=$PORTAL_DIR/skale-network/metadata/
-META_DIR=$DIR/src/meta/
+META_DIR=$DIR/src/meta
 
 if [ -d "$META_DIR" ]; then
     echo "Removing ${META_DIR}..."
