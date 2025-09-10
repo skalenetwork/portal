@@ -2,7 +2,6 @@ import react from '@vitejs/plugin-react'
 import path from 'node:path'
 import { defineConfig } from 'vitest/config'
 import dts from 'vite-plugin-dts'
-import { visualizer } from 'rollup-plugin-visualizer'
 import { UserConfigExport } from 'vite'
 import { name } from './package.json'
 
@@ -17,12 +16,6 @@ const app = async (): Promise<UserConfigExport> => {
       react(),
       dts({
         insertTypesEntry: true,
-      }),
-      visualizer({
-        filename: 'dist/bundle-analysis.html',
-        gzipSize: true,
-        brotliSize: true,
-        open: true
       })
     ],
     build: {
