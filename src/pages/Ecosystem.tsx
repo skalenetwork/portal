@@ -1,4 +1,3 @@
-
 /**
  * @license
  * SKALE portal
@@ -61,8 +60,14 @@ export default function Ecosystem(props: {
   loadData: () => Promise<void>
 }) {
   const [searchParams] = useSearchParams()
-  const { getCheckedItemsFromUrl, setCheckedItemsInUrl, getTabIndexFromUrl, setTabIndexInUrl, getSearchTermFromUrl, setSearchTermInUrl } =
-    useUrlParams()
+  const {
+    getCheckedItemsFromUrl,
+    setCheckedItemsInUrl,
+    getTabIndexFromUrl,
+    setTabIndexInUrl,
+    getSearchTermFromUrl,
+    setSearchTermInUrl
+  } = useUrlParams()
   const { allApps, newApps, trendingApps, favoriteApps, isSignedIn, featuredApps } = useApps(
     props.chainsMeta,
     props.metrics
@@ -83,12 +88,12 @@ export default function Ecosystem(props: {
     const initialSearchTerm = getSearchTermFromUrl()
     setSearchTerm(initialSearchTerm)
   }, [])
-  
+
   useEffect(() => {
     const currentTabIndex = getTabIndexFromUrl()
     setActiveTab(currentTabIndex)
   }, [searchParams, getTabIndexFromUrl])
-  
+
   useEffect(() => {
     const filtered = filterAppsBySearchTerm(
       filterAppsByCategory(allApps, checkedItems),

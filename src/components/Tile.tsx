@@ -95,90 +95,89 @@ export default function Tile(props: {
   )
 
   return (
-    <Tooltip title={props.tooltip}>
-      <div
-        className={cls(
-          props.className,
-          styles.fullHefight,
-          'titleSection',
-          `titleSection_${size}`,
-          [cmn.flexg, props.grow]
-        )}
-        style={{ background: color }}
-      >
-        <SkStack className={cls(cmn.flex, [cmn.flexcv, !isXs])}>
-          <div className={cls(cmn.flexg)}>
-            {props.text ? (
-              <div
-                className={cls(
-                  cmn.flex,
-                  cmn.flexcv,
-                  cmn.mbott5,
-                  ['pSec', !props.color && !props.textColor],
-                  ['blackP', props.color]
-                )}
-              >
-                {props.ri ? <div className={cls(cmn.flexg)}></div> : null}
-                {props.icon ? (
-                  <div
-                    className={cls(cmn.mri5, cmn.flex, styles.chainIconxs)}
-                    style={{ color: props.textColor }}
-                  >
-                    {copied ? <CheckCircleRoundedIcon color="success" /> : props.icon}
-                  </div>
-                ) : null}
-                <p
-                  className={cls(
-                    cmn.p,
-                    cmn.p4,
-                    cmn.flex,
-                    [cmn.flexg, !props.ri],
-                    [cmn.p600, props.textColor]
-                  )}
+    <div
+      className={cls(props.className, styles.fullHefight, 'titleSection', `titleSection_${size}`, [
+        cmn.flexg,
+        props.grow
+      ])}
+      style={{ background: color }}
+    >
+      <SkStack className={cls(cmn.flex, [cmn.flexcv, !isXs])}>
+        <div className={cls(cmn.flexg)}>
+          {props.text ? (
+            <div
+              className={cls(
+                cmn.flex,
+                cmn.flexcv,
+                cmn.mbott5,
+                ['pSec', !props.color && !props.textColor],
+                ['blackP', props.color]
+              )}
+            >
+              {props.ri ? <div className={cls(cmn.flexg)}></div> : null}
+              {props.icon ? (
+                <div
+                  className={cls(cmn.mri5, cmn.flex, styles.chainIconxs)}
                   style={{ color: props.textColor }}
                 >
-                  {props.text}
+                  {copied ? <CheckCircleRoundedIcon color="success" /> : props.icon}
+                </div>
+              ) : null}
+              <p
+                className={cls(
+                  cmn.p,
+                  cmn.p4,
+                  cmn.flex,
+                  [cmn.flexg, !props.ri],
+                  [cmn.p600, props.textColor]
+                )}
+                style={{ color: props.textColor }}
+              >
+                {props.text}
+              </p>
+              {props.textRi ? (
+                <p
+                  className={cls(cmn.p, cmn.p4, cmn.flex, cmn.mleft5)}
+                  style={{ color: props.textColor }}
+                >
+                  {props.textRi}
                 </p>
-                {props.textRi ? (
-                  <p
-                    className={cls(cmn.p, cmn.p4, cmn.flex, cmn.mleft5)}
-                    style={{ color: props.textColor }}
-                  >
-                    {props.textRi}
-                  </p>
-                ) : null}
-              </div>
-            ) : null}
-            <div className={cls(cmn.flex, cmn.flexcv)}>
-              {props.ri ? <div className={cls(cmn.flexg)}></div> : null}
-              {props.value && props.copy ? (
-                <Tooltip arrow title={copied ? 'Copied' : 'Click to copy'}>
-                  <div>
-                    <CopyToClipboard text={props.copy ?? ''} onCopy={handleClick}>
-                      {value}
-                    </CopyToClipboard>
-                  </div>
-                </Tooltip>
-              ) : null}
-              {props.value && !props.copy ? value : null}
-              {props.children && <div className={cls(cmn.flexg)}>{props.children}</div>}
-              {!props.value && !props.children ? (
-                <Skeleton variant="rectangular" width={150} height={33} />
-              ) : null}
-              {props.progress ? (
-                <LinearProgress
-                  variant="determinate"
-                  value={props.progress}
-                  color={props.progressColor}
-                  style={{ height: '20px' }}
-                  className={cls(cmn.flexg, cmn.mleft10)}
-                />
               ) : null}
             </div>
+          ) : null}
+          <div className={cls(cmn.flex, cmn.flexcv)}>
+            {props.ri ? <div className={cls(cmn.flexg)}></div> : null}
+            {props.value && props.copy ? (
+              <Tooltip arrow title={copied ? 'Copied' : 'Click to copy'}>
+                <div>
+                  <CopyToClipboard text={props.copy ?? ''} onCopy={handleClick}>
+                    {value}
+                  </CopyToClipboard>
+                </div>
+              </Tooltip>
+            ) : null}
+            {props.value && !props.copy ? (
+              <Tooltip arrow title={props.tooltip}>
+                {value}
+              </Tooltip>
+            ) : null}
+            {props.children && <div className={cls(cmn.flexg)}>{props.children}</div>}
+            {!props.value && !props.children ? (
+              <Skeleton variant="rectangular" width={150} height={33} />
+            ) : null}
+            {props.progress ? (
+              <LinearProgress
+                variant="determinate"
+                value={props.progress}
+                color={props.progressColor}
+                style={{ height: '20px' }}
+                className={cls(cmn.flexg, cmn.mleft10)}
+              />
+            ) : null}
           </div>
-          {props.childrenRi}
-        </SkStack>
-      </div>
-    </Tooltip>
+        </div>
+        {props.childrenRi}
+      </SkStack>
+    </div>
   )
 }

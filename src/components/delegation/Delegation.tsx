@@ -55,6 +55,7 @@ export default function Delegation(props: {
   isXs: boolean
   customAddress: types.AddressType | undefined
   isValidatorPage?: boolean
+  sklPrice?: bigint | undefined
 }) {
   const source = getDelegationSource(props.delegation)
   const delegationAmount = units.displayBalance(props.delegation.amount, 'SKL')
@@ -163,15 +164,18 @@ export default function Delegation(props: {
         </Grid>
         <Grid item md={4} xs={12}>
           <div className={cls(cmn.flex, cmn.flexcv, cmn.mri5, [cmn.mtop10, props.isXs])}>
-            <div
-              className={cls(
-                cmn.flexg,
-                cmn.mri20,
-                [cmn.pri, !props.isXs],
-                [cmn.mleft20, !props.isXs]
-              )}
-            >
-              <h4 className={cls(cmn.p, cmn.p700, [cmn.pSec, !isActive])}>{delegationAmount}</h4>
+            <div className={cls(cmn.flexg)}></div>
+            <div className={cls(cmn.mri20, [cmn.pri, !props.isXs], [cmn.mleft20, !props.isXs])}>
+              <Tooltip
+                arrow
+                title={
+                  props.sklPrice && props.delegation.amount
+                    ? `$${units.displaySklValueUsd(props.delegation.amount, props.sklPrice)}`
+                    : ''
+                }
+              >
+                <h4 className={cls(cmn.p, cmn.p700, [cmn.pSec, !isActive])}>{delegationAmount}</h4>
+              </Tooltip>
               <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>{getStakingText()}</p>
             </div>
             <ArrowForwardIosRoundedIcon
@@ -203,6 +207,11 @@ export default function Delegation(props: {
             <Tile
               className={cls(cmn.nop, cmn.mtop20)}
               transparent
+              tooltip={
+                props.sklPrice && props.delegation.finished
+                  ? `${units.displaySklValueUsd(props.delegation.finished, props.sklPrice)}`
+                  : ''
+              }
               value={timeUtils.convertMonthIndexToText(Number(props.delegation.finished))}
               text="Delegation completed"
               grow

@@ -64,6 +64,7 @@ export default function Delegate(props: {
   errorMsg: string | undefined
   setErrorMsg: (msg: string | undefined) => void
   className?: string
+  sklPrice?: bigint | undefined
 }) {
   const [amount, setAmount] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
@@ -200,6 +201,11 @@ export default function Delegate(props: {
         <Tile
           disabled={info.allowedToDelegate === 0n}
           value={units.displayBalance(info.allowedToDelegate!, 'SKL')}
+          tooltip={
+            props.sklPrice && info.allowedToDelegate
+              ? `${units.displaySklValueUsd(info.allowedToDelegate, props.sklPrice)}`
+              : ''
+          }
           text="Available to stake"
           icon={<TokenIcon tokenSymbol="skl" size="xs" />}
           color={true ? undefined : 'error'}

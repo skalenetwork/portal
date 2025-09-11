@@ -1,4 +1,3 @@
-
 /**
  * @license
  * SKALE portal

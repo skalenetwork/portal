@@ -36,6 +36,7 @@ import SkStack from '../SkStack'
 export default function ValidatorInfo(props: {
   validator: types.st.IValidator | null
   className?: string
+  sklPrice?: bigint | undefined
 }) {
   const description = props.validator?.description ? props.validator.description : 'No description'
   const minDelegation =
@@ -81,6 +82,11 @@ export default function ValidatorInfo(props: {
         />
         <Tile
           value={props.validator && `${minDelegation} SKL`}
+          tooltip={
+            props.validator && props.sklPrice && minDelegation
+              ? `$${units.displaySklValueUsd(props.validator.minimumDelegationAmount, props.sklPrice)}`
+              : ''
+          }
           text="Minimum delegation amount"
           grow
           size="md"

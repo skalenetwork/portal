@@ -45,6 +45,7 @@ export default function DelegationsToValidator(props: {
   customAddress: types.AddressType | undefined
   customRewardAddress: types.AddressType | undefined
   setCustomRewardAddress: (customRewardAddress: types.AddressType | undefined) => void
+  sklPrice?: bigint | undefined
 }) {
   const [open, setOpen] = useState(true)
   const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
@@ -64,6 +65,7 @@ export default function DelegationsToValidator(props: {
         customAddress={props.customAddress}
         customRewardAddress={props.customRewardAddress}
         setCustomRewardAddress={props.setCustomRewardAddress}
+        sklPrice={props.sklPrice}
       />
 
       <Collapse in={open}>
@@ -80,6 +82,7 @@ export default function DelegationsToValidator(props: {
                 loading={props.loading}
                 isXs={props.isXs}
                 customAddress={props.customAddress}
+                sklPrice={props.sklPrice}
               />
             )
           )}

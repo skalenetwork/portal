@@ -24,7 +24,7 @@
 import { useState, useEffect } from 'react'
 import { type Signer } from 'ethers'
 import { useParams } from 'react-router-dom'
-import { cmn, cls, type MetaportCore, SkPaper, styles } from '@skalenetwork/metaport'
+import { cmn, cls, type MetaportCore, SkPaper, styles, contracts } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
@@ -67,6 +67,9 @@ export default function StakeAmount(props: {
   const loaded = isLoaded(props.si)
   const available = isDelegationTypeAvailable(props.si, delegationType)
 
+  const [sklPrice, setSklPrice] = useState<bigint | undefined>()
+  console.log('Staking render')
+
   useEffect(() => {
     updateCurrentValidator()
   }, [])
@@ -85,6 +88,16 @@ export default function StakeAmount(props: {
   useEffect(() => {
     updateCurrentValidator()
   }, [props.validators])
+
+  useEffect(() => {
+    loadSklPrice()
+  }, [])
+
+  async function loadSklPrice() {
+    const paymaster = await contracts.paymaster.getPaymaster(props.mpc)
+    const price = await paymaster.oneSklPrice()
+    setSklPrice(price)
+  }
 
   function updateCurrentValidator() {
     if (props.validators.length !== 0 && props.validators[validatorId - 1]) {
@@ -135,7 +148,11 @@ export default function StakeAmount(props: {
           </p>
         </div>
         {currentValidator ? (
-          <ValidatorInfo validator={currentValidator} className={cls(cmn.mtop10)} />
+          <ValidatorInfo
+            validator={currentValidator}
+            sklPrice={sklPrice}
+            className={cls(cmn.mtop10)}
+          />
         ) : (
           <Loader text="Loading validator info" />
         )}

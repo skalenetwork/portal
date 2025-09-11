@@ -23,7 +23,7 @@
 import { cmn, cls, styles } from '@skalenetwork/metaport'
 import { types, units } from '@/core'
 
-import { Grid } from '@mui/material'
+import { Grid, Tooltip } from '@mui/material'
 import LoadingButton from '@mui/lab/LoadingButton'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
@@ -46,6 +46,7 @@ export default function Reward(props: {
   customAddress: types.AddressType | undefined
   customRewardAddress: types.AddressType | undefined
   setCustomRewardAddress: (customRewardAddress: types.AddressType | undefined) => void
+  sklPrice?: bigint | undefined
 }) {
   const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
   const rewardsAmount = units.displayBalance(props.delegationsToValidator.rewards, 'SKL')
@@ -121,7 +122,16 @@ export default function Reward(props: {
                 )}
               >
                 <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Rewards available</p>
-                <h3 className={cls(cmn.p, cmn.p700)}>{rewardsAmount}</h3>
+                <Tooltip
+                  arrow
+                  title={
+                    props.sklPrice
+                      ? `$${units.displaySklValueUsd(props.delegationsToValidator.rewards, props.sklPrice)}`
+                      : ''
+                  }
+                >
+                  <h3 className={cls(cmn.p, cmn.p700)}>{rewardsAmount}</h3>
+                </Tooltip>
               </div>
               {loading ? (
                 <LoadingButton

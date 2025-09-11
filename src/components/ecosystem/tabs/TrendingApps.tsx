@@ -83,7 +83,7 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
       <SkPaper gray className="titleSection">
         <div className={cls(cmn.mtop20, cmn.mbott20)}>
           <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.pCent)}>
-           🚫 No trending apps match your current filters
+            🚫 No trending apps match your current filters
           </p>
         </div>
       </SkPaper>
