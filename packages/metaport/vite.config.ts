@@ -38,8 +38,6 @@ const app = async (): Promise<UserConfigExport> => {
           /^wagmi(\/|$)/.test(id) ||
           /^viem(\/|$)/.test(id),
         output: {
-          // Ensure a stable CSS filename so consumers can import
-          // "@skalenetwork/metaport/dist/style.css".
           assetFileNames: (assetInfo) => {
             if (assetInfo.name && assetInfo.name.endsWith('.css')) {
               return 'style.css'
