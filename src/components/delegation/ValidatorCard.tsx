@@ -37,7 +37,6 @@ export default function ValidatorCard(props: {
   setValidatorId: any
   delegationType: types.st.DelegationType
   size?: 'md' | 'lg'
-  sklPrice?: bigint | undefined
 }) {
   if (!props.validator.trusted) return
 
@@ -126,22 +125,13 @@ export default function ValidatorCard(props: {
           </div>
           <div>
             {size !== 'lg' && (
-              <Tooltip
-                arrow
-                title={
-                  props.sklPrice && minDelegation
-                    ? `$${units.displaySklValueUsd(minDelegation, props.sklPrice)}`
-                    : ''
-                }
-              >
                 <Tooltip title={`Minimum delegation amount: ${minDelegation} SKL`}>
-                  <div className={cls('chipNodes', cmn.mtop10)}>
-                    <p className={cls(cmn.p, cmn.p4, cmn.pCent, 'pOneLine')}>
-                      Min: {minDelegation} SKL
-                    </p>
-                  </div>
+                <div className={cls('chipNodes', cmn.mtop10)}>
+                  <p className={cls(cmn.p, cmn.p4, cmn.pCent, 'pOneLine')}>
+                    Min: {minDelegation} SKL
+                  </p>
+                </div>
                 </Tooltip>
-              </Tooltip>
             )}
             {size === 'lg' && (
               <Tooltip title={props.validator.validatorAddress}>
