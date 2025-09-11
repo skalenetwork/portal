@@ -45,31 +45,31 @@ export default function DeveloperInfo(props: {
   return (
     <SkPaper gray className={cls(cmn.mtop20)}>
       <Grid container spacing={2} className={cls(cmn.full)}>
-        <Grid item md={12} xs={12}>
+        <Grid size={{ xs: 12, md: 12 }}>
           <CopySurface className={cls(styles.fullHeight)} title="RPC Endpoint" value={rpcUrl} />
         </Grid>
-        <Grid item md={6} xs={12}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <CopySurface
             className={cls(styles.fullHeight)}
             title="Websocket Endpoint"
             value={rpcWssUrl}
           />
         </Grid>
-        <Grid item md={6} xs={12}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <CopySurface
             className={cls(styles.fullHeight)}
             title="Filestorage Endpoint"
             value={fsUrl}
           />
         </Grid>
-        <Grid item md={6} xs={12}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <CopySurface
             className={cls(styles.fullHeight)}
             title="SKALE Manager name"
             value={props.schainName}
           />
         </Grid>
-        <Grid item md={6} xs={12}>
+        <Grid size={{ xs: 12, md: 6 }}>
           <CopySurface className={cls(styles.fullHeight)} title="Chain ID Hex" value={chainId} />
         </Grid>
       </Grid>

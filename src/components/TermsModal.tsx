@@ -70,7 +70,7 @@ export default function TermsModal(props: {
         </p>
         <Box>
           <Grid container spacing={2}>
-            <Grid item md={6} xs={12}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <SkPaper gray className={cls(styles.fullHeight)}>
                 <div className={cls(cmn.m10)}>
                   <KeyRoundedIcon color="primary" />
@@ -80,7 +80,7 @@ export default function TermsModal(props: {
                 </div>
               </SkPaper>
             </Grid>
-            <Grid item md={6} xs={12}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <SkPaper gray className={cls(styles.fullHeight)}>
                 <div className={cls(cmn.m10)}>
                   <LockRoundedIcon color="primary" />

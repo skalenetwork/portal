@@ -90,7 +90,7 @@ export default function Reward(props: {
     <div>
       <div className={cls(cmn.mbott10, 'titleSection')}>
         <Grid container spacing={0} alignItems="center">
-          <Grid item md={4} xs={12}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <div className={cls(cmn.flex, cmn.flexcv)}>
               <ValidatorLogo validatorId={validator.id} size="lg" />
               <div className={cls(cmn.mleft10, [cmn.flexg, props.isXs])}>
@@ -100,7 +100,7 @@ export default function Reward(props: {
               {props.isXs ? minimizeBtn : null}
             </div>
           </Grid>
-          <Grid item md={8} xs={12} className={cls([cmn.mtop20, props.isXs])}>
+          <Grid size={{ xs: 12, md: 8 }} className={cls([cmn.mtop20, props.isXs])}>
             <div className={cls(cmn.flex, cmn.flexcv)}>
               <div className={cls([cmn.flexg, !props.isXs])}></div>
               {!props.isXs && !props.open ? (
