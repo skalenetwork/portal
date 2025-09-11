@@ -31,7 +31,7 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import Button from '@mui/material/Button'
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 import ErrorIcon from '@mui/icons-material/Error'
-import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
+import AnimatedLoadingIcon from './AnimatedLoadingIcon'
 
 import SkPaper from './SkPaper'
 import TokenBalance from './TokenBalance'
@@ -181,7 +181,7 @@ export default function WrappedTokens() {
                 {loading ? (
                   <Button
                     disabled
-                    startIcon={<ArrowOutwardRoundedIcon />}
+                    startIcon={<AnimatedLoadingIcon />}
                     variant="contained"
                     color="primary"
                     size="medium"

@@ -12,7 +12,7 @@ import Button from '@mui/material/Button'
 import Collapse from '@mui/material/Collapse'
 
 import SettingsBackupRestoreRoundedIcon from '@mui/icons-material/SettingsBackupRestoreRounded'
-import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
+import AnimatedLoadingIcon from '../AnimatedLoadingIcon'
 
 import { cls, cmn, styles } from '../../core/css'
 import localStyles from './SkStepper.module.scss'
@@ -114,7 +114,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                       {loading ? (
                         <Button
                           disabled
-                          startIcon={<ArrowOutwardRoundedIcon />}
+                          startIcon={<AnimatedLoadingIcon />}
                           variant="contained"
                           color="primary"
                           size="medium"
