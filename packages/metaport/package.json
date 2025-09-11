@@ -21,7 +21,7 @@
     "./dist/style.css": "./dist/style.css"
   },
   "engines": {
-    "node": "20"
+    "node": "22"
   },
   "overrides": {
     "@types/minimatch": "5.1.2"
