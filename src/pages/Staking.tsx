@@ -245,6 +245,7 @@ export default function Staking(props: {
       <Collapse in={props.si[1] !== null}>
         <SkPaper gray className={cls(cmn.mtop20)}>
           <Summary
+            sklPrice={sklPrice}
             type={types.st.DelegationType.ESCROW}
             accountInfo={props.si[1]?.info}
             loading={loading}
@@ -257,6 +258,7 @@ export default function Staking(props: {
       <Collapse in={props.si[2] !== null}>
         <SkPaper gray className={cls(cmn.mtop20)}>
           <Summary
+            sklPrice={sklPrice}
             type={types.st.DelegationType.ESCROW2}
             accountInfo={props.si[2]?.info}
             loading={loading}
