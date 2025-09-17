@@ -32,7 +32,6 @@
     "react-jazzicon": "^1.0.4",
     "react-router-dom": "^7.8.2",
     "react-social-icons": "^6.17.0",
-    "react-transition-group": "^4.4.5",
     "siwe": "^3.0.0",
     "@skalenetwork/skale-contracts-ethers-v6": "2.0.0-develop.1"
   },
