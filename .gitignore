@@ -47,4 +47,4 @@ packages/*/dist
 tools/*
 
 
-packages/metaport/src/dist/
+packages/**/dist
