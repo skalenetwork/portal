@@ -61,7 +61,7 @@ const ChainsSection: React.FC<ChainsSectionProps> = ({
       <Headline className={cls(cmn.mbott10, cmn.mtop5)} text={name} icon={icon} />
       <Grid container spacing={2}>
         {sortedSchains.map((schain) => (
-          <Grid key={schain.name} size={gridSize}>
+          <Grid key={schain.name} {...gridSize}>
             <ChainCard
               skaleNetwork={skaleNetwork}
               schain={schain}
