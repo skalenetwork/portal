@@ -25,7 +25,7 @@ import { JsonRpcProvider, Provider } from 'ethers'
 import { type types, constants, endpoints, helper } from '@/core'
 
 import { WalletClient } from 'viem'
-import { hoodi, holesky } from '@wagmi/core/chains'
+import { hoodi, holesky } from './eth_chains'
 import { type UseSwitchChainReturnType } from 'wagmi'
 
 import { constructWagmiChain } from './wagmi_network'

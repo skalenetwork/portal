@@ -26,7 +26,6 @@ import { useState, useEffect } from 'react'
 
 import { Helmet } from 'react-helmet'
 import { useLocation, Routes, Route, Navigate, useSearchParams } from 'react-router-dom'
-import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
@@ -203,173 +202,169 @@ export default function Router(props: {
       </Helmet>
       <MetricsWarning metrics={props.metrics} />
       <ScrollToTop />
-      <TransitionGroup>
-        <CSSTransition key={location.pathname} classNames="fade" timeout={300} component={null}>
-          <Routes>
-            <Route
-              index
-              element={
-                <Start
-                  skaleNetwork={mpc.config.skaleNetwork}
-                  chainsMeta={chainsMeta}
-                  metrics={props.metrics}
-                  loadData={props.loadData}
-                />
-              }
+      <Routes>
+        <Route
+          index
+          element={
+            <Start
+              skaleNetwork={mpc.config.skaleNetwork}
+              chainsMeta={chainsMeta}
+              metrics={props.metrics}
+              loadData={props.loadData}
             />
-            <Route path="bridge" element={<Bridge isXs={isXs} chainsMeta={chainsMeta} />} />
-            <Route path="bridge">
-              <Route path="history" element={<History />} />
-            </Route>
-            <Route path="portfolio" element={<Portfolio mpc={mpc} />} />
-            <Route
-              path="chains"
-              element={
-                <Chains
-                  chainsMeta={chainsMeta}
-                  loadData={props.loadData}
-                  schains={props.schains}
-                  metrics={props.metrics}
-                  mpc={mpc}
-                  isXs={isXs}
-                />
-              }
+          }
+        />
+        <Route path="bridge" element={<Bridge isXs={isXs} chainsMeta={chainsMeta} />} />
+        <Route path="bridge">
+          <Route path="history" element={<History />} />
+        </Route>
+        <Route path="portfolio" element={<Portfolio mpc={mpc} />} />
+        <Route
+          path="chains"
+          element={
+            <Chains
+              chainsMeta={chainsMeta}
+              loadData={props.loadData}
+              schains={props.schains}
+              metrics={props.metrics}
+              mpc={mpc}
+              isXs={isXs}
             />
-            <Route path="chains">
-              <Route
-                path=":name"
-                element={
-                  <Chain
-                    loadData={props.loadData}
-                    schains={props.schains}
-                    stats={props.stats}
-                    metrics={props.metrics}
-                    mpc={mpc}
-                    chainsMeta={chainsMeta}
-                    isXs={isXs}
-                  />
-                }
+          }
+        />
+        <Route path="chains">
+          <Route
+            path=":name"
+            element={
+              <Chain
+                loadData={props.loadData}
+                schains={props.schains}
+                stats={props.stats}
+                metrics={props.metrics}
+                mpc={mpc}
+                chainsMeta={chainsMeta}
+                isXs={isXs}
               />
-            </Route>
-            <Route
-              path="/epicgames"
-              element={<Navigate to="/ecosystem?categories=gaming_epic-games-store" replace />}
+            }
+          />
+        </Route>
+        <Route
+          path="/epicgames"
+          element={<Navigate to="/ecosystem?categories=gaming_epic-games-store" replace />}
+        />
+        <Route
+          path="ecosystem"
+          element={
+            <Ecosystem
+              isXs={isXs}
+              mpc={mpc}
+              chainsMeta={chainsMeta}
+              metrics={props.metrics}
+              loadData={props.loadData}
             />
-            <Route
-              path="ecosystem"
-              element={
-                <Ecosystem
-                  isXs={isXs}
-                  mpc={mpc}
-                  chainsMeta={chainsMeta}
-                  metrics={props.metrics}
-                  loadData={props.loadData}
-                />
-              }
-            />
-            <Route path="ecosystem">
-              <Route
-                path=":chain/:app"
-                element={
-                  <App
-                    chainsMeta={chainsMeta}
-                    mpc={mpc}
-                    isXs={isXs}
-                    metrics={props.metrics}
-                    loadData={props.loadData}
-                  />
-                }
+          }
+        />
+        <Route path="ecosystem">
+          <Route
+            path=":chain/:app"
+            element={
+              <App
+                chainsMeta={chainsMeta}
+                mpc={mpc}
+                isXs={isXs}
+                metrics={props.metrics}
+                loadData={props.loadData}
               />
-            </Route>
-            <Route path="onramp" element={<Onramp mpc={mpc} />} />
-            <Route path="stats" element={<Stats />} />
-            <Route path="other">
-              <Route path="faq" element={<Faq />} />
-              <Route path="terms-of-service" element={<Terms />} />
-              <Route path="changelog" element={<Changelog />} />
-            </Route>
-            <Route path="admin">
-              <Route path=":name" element={<Admin chainsMeta={chainsMeta} mpc={mpc} />} />
-            </Route>
+            }
+          />
+        </Route>
+        <Route path="onramp" element={<Onramp mpc={mpc} />} />
+        <Route path="stats" element={<Stats />} />
+        <Route path="other">
+          <Route path="faq" element={<Faq />} />
+          <Route path="terms-of-service" element={<Terms />} />
+          <Route path="changelog" element={<Changelog />} />
+        </Route>
+        <Route path="admin">
+          <Route path=":name" element={<Admin chainsMeta={chainsMeta} mpc={mpc} />} />
+        </Route>
 
-            <Route
-              path="staking"
-              element={
-                <Staking
-                  isXs={isXs}
-                  mpc={mpc}
-                  validators={validators}
-                  loadValidators={loadValidators}
-                  loadStakingInfo={loadStakingInfo}
-                  sc={props.sc}
-                  si={si}
-                  address={props.customAddress ?? address}
-                  customAddress={props.customAddress}
-                  getMainnetSigner={getMainnetSigner}
-                />
-              }
+        <Route
+          path="staking"
+          element={
+            <Staking
+              isXs={isXs}
+              mpc={mpc}
+              validators={validators}
+              loadValidators={loadValidators}
+              loadStakingInfo={loadStakingInfo}
+              sc={props.sc}
+              si={si}
+              address={props.customAddress ?? address}
+              customAddress={props.customAddress}
+              getMainnetSigner={getMainnetSigner}
             />
-            <Route
-              path="validators"
-              element={
-                <Validators
-                  mpc={mpc}
-                  validators={validators}
-                  loadValidators={loadValidators}
-                  sc={props.sc}
-                  validatorDelegations={props.validatorDelegations}
-                />
-              }
+          }
+        />
+        <Route
+          path="validators"
+          element={
+            <Validators
+              mpc={mpc}
+              validators={validators}
+              loadValidators={loadValidators}
+              sc={props.sc}
+              validatorDelegations={props.validatorDelegations}
             />
-            <Route
-              path="validator"
-              element={
-                <Validator
-                  mpc={mpc}
-                  address={address}
-                  customAddress={props.customAddress}
-                  loadValidator={props.loadValidator}
-                  sc={props.sc}
-                  validator={props.validator}
-                  isXs={isXs}
-                  delegations={props.validatorDelegations}
-                  getMainnetSigner={getMainnetSigner}
-                />
-              }
+          }
+        />
+        <Route
+          path="validator"
+          element={
+            <Validator
+              mpc={mpc}
+              address={address}
+              customAddress={props.customAddress}
+              loadValidator={props.loadValidator}
+              sc={props.sc}
+              validator={props.validator}
+              isXs={isXs}
+              delegations={props.validatorDelegations}
+              getMainnetSigner={getMainnetSigner}
             />
-            <Route path="staking">
-              <Route
-                path="new/:delType/:id"
-                element={
-                  <StakeAmount
-                    mpc={mpc}
-                    validators={validators}
-                    loadValidators={loadValidators}
-                    loadStakingInfo={loadStakingInfo}
-                    sc={props.sc}
-                    si={si}
-                    address={address}
-                    getMainnetSigner={getMainnetSigner}
-                  />
-                }
+          }
+        />
+        <Route path="staking">
+          <Route
+            path="new/:delType/:id"
+            element={
+              <StakeAmount
+                mpc={mpc}
+                validators={validators}
+                loadValidators={loadValidators}
+                loadStakingInfo={loadStakingInfo}
+                sc={props.sc}
+                si={si}
+                address={address}
+                getMainnetSigner={getMainnetSigner}
               />
-              <Route
-                path="new"
-                element={
-                  <StakeValidator
-                    mpc={mpc}
-                    validators={validators}
-                    loadValidators={loadValidators}
-                    loadStakingInfo={loadStakingInfo}
-                    sc={props.sc}
-                    si={si}
-                  />
-                }
+            }
+          />
+          <Route
+            path="new"
+            element={
+              <StakeValidator
+                mpc={mpc}
+                validators={validators}
+                loadValidators={loadValidators}
+                loadStakingInfo={loadStakingInfo}
+                sc={props.sc}
+                si={si}
               />
-            </Route>
-          </Routes>
-        </CSSTransition>
-      </TransitionGroup>
+            }
+          />
+        </Route>
+      </Routes>
     </div>
   )
 }

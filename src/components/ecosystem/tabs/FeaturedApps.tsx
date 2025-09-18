@@ -106,7 +106,10 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
     <>
       <Grid container spacing={2}>
         {filteredFeaturedApps.map((app) => (
-          <Grid key={`${app.chain}-${app.appName}`} item xs={12} sm={6} md={4} lg={4}>
+          <Grid
+            key={`${app.chain}-${app.appName}`}
+            size={{ xs: 12, sm: 6, md: 4, lg: 4 }}
+          >
             <Box className={cls('fl-centered dappCard')}>{renderAppCard(app)}</Box>
           </Grid>
         ))}

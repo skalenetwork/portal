@@ -67,7 +67,7 @@ const CategoryCardsGrid: React.FC<CategoryCardsGridProps> = ({ chainsMeta, maxCa
   return (
     <Grid container spacing={2}>
       {topCategories.map(({ name, fullName, projectCount }) => (
-        <Grid item xs={12} sm={6} lg={3} key={name}>
+        <Grid size={{ xs: 12, sm: 6, lg: 3 }} key={name}>
           <CategoryCard categoryName={name} fullName={fullName} projectCount={projectCount} />
         </Grid>
       ))}

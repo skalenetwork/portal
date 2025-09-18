@@ -7,12 +7,14 @@
   "type": "module",
   "scripts": {
     "build": "tsc && bun build ./src/index.ts --outdir ./dist --target browser",
+    "dev": "tsc --watch --preserveWatchOutput",
     "type-check": "tsc --noEmit",
     "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\""
   },
   "author": "SKALE Labs",
   "devDependencies": {
-    "typescript": "^4.9.5"
+    "typescript": "^4.9.5",
+    "@types/minimatch": "5.1.2"
   },
   "peerDependencies": {
     "ethers": "^6.x.x"
