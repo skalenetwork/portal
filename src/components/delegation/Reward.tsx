@@ -24,7 +24,7 @@ import { cmn, cls, styles } from '@skalenetwork/metaport'
 import { types, units } from '@/core'
 
 import { Grid } from '@mui/material'
-import LoadingButton from '@mui/lab/LoadingButton'
+import Button from '@mui/material/Button'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
 
@@ -90,7 +90,7 @@ export default function Reward(props: {
     <div>
       <div className={cls(cmn.mbott10, 'titleSection')}>
         <Grid container spacing={0} alignItems="center">
-          <Grid item md={4} xs={12}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <div className={cls(cmn.flex, cmn.flexcv)}>
               <ValidatorLogo validatorId={validator.id} size="lg" />
               <div className={cls(cmn.mleft10, [cmn.flexg, props.isXs])}>
@@ -100,7 +100,7 @@ export default function Reward(props: {
               {props.isXs ? minimizeBtn : null}
             </div>
           </Grid>
-          <Grid item md={8} xs={12} className={cls([cmn.mtop20, props.isXs])}>
+          <Grid size={{ xs: 12, md: 8 }} className={cls([cmn.mtop20, props.isXs])}>
             <div className={cls(cmn.flex, cmn.flexcv)}>
               <div className={cls([cmn.flexg, !props.isXs])}></div>
               {!props.isXs && !props.open ? (
@@ -124,15 +124,9 @@ export default function Reward(props: {
                 <h3 className={cls(cmn.p, cmn.p700)}>{rewardsAmount}</h3>
               </div>
               {loading ? (
-                <LoadingButton
-                  loading
-                  loadingPosition="start"
-                  size="small"
-                  variant="contained"
-                  className={cls('btnSm btnSmLoading')}
-                >
+                <Button disabled size="small" variant="contained" className={cls('btnSm btnSmLoading')}>
                   Retrieving
-                </LoadingButton>
+                </Button>
               ) : (
                 <RetrieveRewardModal
                   address={props.address}

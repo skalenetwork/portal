@@ -32,6 +32,7 @@ import WrappedTokens from './components/WrappedTokens'
 import History from './components/History'
 import TransactionData from './components/TransactionData'
 import Debug from './components/Debug'
+import AnimatedLoadingIcon from './components/AnimatedLoadingIcon'
 
 import { cls, styles, cmn } from './core/css'
 import MetaportCore from './core/metaport'
@@ -80,6 +81,7 @@ export {
   History,
   TransactionData,
   Debug,
+  AnimatedLoadingIcon,
   cls,
   styles,
   cmn,

@@ -22,7 +22,6 @@
  */
 
 import Button from '@mui/material/Button'
-import LoadingButton from '@mui/lab/LoadingButton'
 
 import { cls } from '@skalenetwork/metaport'
 
@@ -39,10 +38,9 @@ export default function SkBtn(props: {
 }) {
   const size = props.size ?? 'md'
   return props.loading ? (
-    <LoadingButton
+    <Button
       color={props.color}
-      loading
-      loadingPosition="start"
+      disabled
       size="small"
       variant={props.variant}
       className={cls(
@@ -54,7 +52,7 @@ export default function SkBtn(props: {
       )}
     >
       {props.text}
-    </LoadingButton>
+    </Button>
   ) : (
     <Button
       color={props.color}

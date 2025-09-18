@@ -49,7 +49,10 @@ export default function ValidatorCard(props: {
   )
 
   return (
-    <Grid className="fl-centered" item lg={size === 'md' ? 3 : 4} md={4} sm={6} xs={12}>
+    <Grid
+      className="fl-centered"
+      size={{ xs: 12, sm: 6, md: 4, lg: size === 'md' ? 3 : 4 }}
+    >
       <Link
         to={
           props.validator.acceptNewRequests
