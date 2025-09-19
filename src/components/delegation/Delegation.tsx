@@ -223,7 +223,6 @@ export default function Delegation(props: {
             />
           ) : null}
           {Number(props.delegation.stateId) === DelegationState.DELEGATED && props.unstake ? (
-            <div className={cls(cmn.flex, cmn.mtop20)}>
               <SkBtn
                 loading={loading}
                 text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
@@ -235,7 +234,6 @@ export default function Delegation(props: {
                 disabled={props.loading !== false || props.customAddress !== undefined}
 
               />
-              </div>
             ) : null}
           {Number(props.delegation.stateId) === DelegationState.PROPOSED && props.cancelRequest ? (
             <SkBtn
