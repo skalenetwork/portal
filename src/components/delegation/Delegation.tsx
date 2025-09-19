@@ -170,7 +170,7 @@ export default function Delegation(props: {
                 arrow
                 title={
                   props.sklPrice && props.delegation.amount
-                    ? `$${units.displaySklValueUsd(props.delegation.amount, props.sklPrice)}`
+                    ? units.displaySklValueUsd(props.delegation.amount, props.sklPrice)
                     : ''
                 }
               >
@@ -209,7 +209,7 @@ export default function Delegation(props: {
               transparent
               tooltip={
                 props.sklPrice && props.delegation.finished
-                  ? `${units.displaySklValueUsd(props.delegation.finished, props.sklPrice)}`
+                  ? units.displaySklValueUsd(props.delegation.finished, props.sklPrice)
                   : ''
               }
               value={timeUtils.convertMonthIndexToText(Number(props.delegation.finished))}

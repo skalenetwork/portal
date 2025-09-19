@@ -58,7 +58,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
       <Tile
         value={totals && units.displayBalance(totals.proposed.amount, 'SKL')}
         tooltip={
-          sklPrice && totals ? `${units.displaySklValueUsd(totals.proposed.amount, sklPrice)}` : ''
+          sklPrice && totals ? units.displaySklValueUsd(totals.proposed.amount, sklPrice) : ''
         }
         text={getTileText('Proposed', totals?.proposed.count)}
         grow
@@ -69,7 +69,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
       <Tile
         value={totals && units.displayBalance(totals.accepted.amount, 'SKL')}
         tooltip={
-          sklPrice && totals ? `${units.displaySklValueUsd(totals.accepted.amount, sklPrice)}` : ''
+          sklPrice && totals ? units.displaySklValueUsd(totals.accepted.amount, sklPrice) : ''
         }
         text={getTileText('Accepted', totals?.accepted.count)}
         grow
@@ -79,7 +79,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
       <Tile
         value={totals && units.displayBalance(totals.delegated.amount, 'SKL')}
         tooltip={
-          sklPrice && totals ? `${units.displaySklValueUsd(totals.delegated.amount, sklPrice)}` : ''
+          sklPrice && totals ? units.displaySklValueUsd(totals.delegated.amount, sklPrice) : ''
         }
         text={getTileText('Delegated', totals?.delegated.count)}
         grow
@@ -89,7 +89,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
       <Tile
         value={totals && units.displayBalance(totals.completed.amount, 'SKL')}
         tooltip={
-          sklPrice && totals ? `${units.displaySklValueUsd(totals.completed.amount, sklPrice)}` : ''
+          sklPrice && totals ? units.displaySklValueUsd(totals.completed.amount, sklPrice) : ''
         }
         text={getTileText('Completed', totals?.completed.count)}
         grow

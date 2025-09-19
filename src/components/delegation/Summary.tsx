@@ -85,7 +85,7 @@ export default function Summary(props: {
             disabled={props.accountInfo?.balance === 0n}
             tooltip={
               props.sklPrice && props.accountInfo
-                ? `${units.displaySklValueUsd(props.accountInfo.balance, props.sklPrice)}`
+                ? units.displaySklValueUsd(props.accountInfo.balance, props.sklPrice)
                 : ''
             }
             value={
@@ -123,7 +123,7 @@ export default function Summary(props: {
                   disabled={props.accountInfo?.staked === 0n}
                   tooltip={
                     props.sklPrice && props.accountInfo
-                      ? `${units.displaySklValueUsd(props.accountInfo.staked, props.sklPrice)}`
+                      ? units.displaySklValueUsd(props.accountInfo.staked, props.sklPrice)
                       : ''
                   }
                   value={
@@ -143,7 +143,7 @@ export default function Summary(props: {
                   disabled={props.accountInfo?.allowedToDelegate === 0n}
                   tooltip={
                     props.sklPrice && props.accountInfo?.allowedToDelegate !== undefined
-                      ? `${units.displaySklValueUsd(props.accountInfo.allowedToDelegate, props.sklPrice)}`
+                      ? units.displaySklValueUsd(props.accountInfo.allowedToDelegate, props.sklPrice)
                       : ''
                   }
                   value={
@@ -166,7 +166,7 @@ export default function Summary(props: {
               className={cls(cmn.mtop10)}
               tooltip={
                 props.sklPrice && props.accountInfo
-                  ? `${units.displaySklValueUsd(props.accountInfo.vested, props.sklPrice)}`
+                  ? units.displaySklValueUsd(props.accountInfo.vested, props.sklPrice)
                   : ''
               }
               value={
@@ -182,7 +182,7 @@ export default function Summary(props: {
                       disabled={props.accountInfo?.fullAmount === 0n}
                       tooltip={
                         props.sklPrice && props.accountInfo
-                          ? `${units.displaySklValueUsd(props.accountInfo.fullAmount, props.sklPrice)}`
+                          ? units.displaySklValueUsd(props.accountInfo.fullAmount, props.sklPrice)
                           : ''
                       }
                       value={
@@ -209,7 +209,7 @@ export default function Summary(props: {
                     className={cls(cmn.nop, [cmn.mleft20, !props.isXs])}
                     tooltip={
                       props.sklPrice && props.accountInfo
-                        ? `${units.displaySklValueUsd(props.accountInfo.unlocked, props.sklPrice)}`
+                        ? units.displaySklValueUsd(props.accountInfo.unlocked, props.sklPrice)
                         : ''
                     }
                     value={

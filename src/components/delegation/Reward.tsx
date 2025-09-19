@@ -126,7 +126,7 @@ export default function Reward(props: {
                   arrow
                   title={
                     props.sklPrice
-                      ? `$${units.displaySklValueUsd(props.delegationsToValidator.rewards, props.sklPrice)}`
+                      ? units.displaySklValueUsd(props.delegationsToValidator.rewards, props.sklPrice)
                       : ''
                   }
                 >

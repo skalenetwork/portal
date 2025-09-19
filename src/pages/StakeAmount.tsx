@@ -68,7 +68,6 @@ export default function StakeAmount(props: {
   const available = isDelegationTypeAvailable(props.si, delegationType)
 
   const [sklPrice, setSklPrice] = useState<bigint | undefined>()
-  console.log('Staking render')
 
   useEffect(() => {
     updateCurrentValidator()

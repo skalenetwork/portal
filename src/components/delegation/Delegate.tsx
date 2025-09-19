@@ -203,7 +203,7 @@ export default function Delegate(props: {
           value={units.displayBalance(info.allowedToDelegate!, 'SKL')}
           tooltip={
             props.sklPrice && info.allowedToDelegate
-              ? `${units.displaySklValueUsd(info.allowedToDelegate, props.sklPrice)}`
+              ? units.displaySklValueUsd(info.allowedToDelegate, props.sklPrice)
               : ''
           }
           text="Available to stake"

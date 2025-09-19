@@ -1,8 +1,0 @@
-[0m[1mbun build [0m[2mv1.2.15 (df017990)[0m
-[0m[31merror: Missing entrypoints. What would you like to bundle?[0m
-
-Usage:
-  [2m$[0m [1m[32mbun build[0m <entrypoint> [...<entrypoints>] [36m[...flags][0m  
-
-To see full documentation:
-  [2m$[0m [1m[32mbun build[0m --help

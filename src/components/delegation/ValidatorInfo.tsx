@@ -84,7 +84,7 @@ export default function ValidatorInfo(props: {
           value={props.validator && `${minDelegation} SKL`}
           tooltip={
             props.validator && props.sklPrice && minDelegation
-              ? `$${units.displaySklValueUsd(props.validator.minimumDelegationAmount, props.sklPrice)}`
+              ? units.displaySklValueUsd(props.validator.minimumDelegationAmount, props.sklPrice)
               : ''
           }
           text="Minimum delegation amount"

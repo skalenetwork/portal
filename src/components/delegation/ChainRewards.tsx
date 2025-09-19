@@ -197,7 +197,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
         icon={<EventAvailableRoundedIcon />}
         grow
         tooltip={
-          sklPrice && rewardAmount ? `${units.displaySklValueUsd(rewardAmount, sklPrice)}` : ''
+          sklPrice && rewardAmount ? units.displaySklValueUsd(rewardAmount, sklPrice) : ''
         }
         childrenRi={
           <SkStack className={cls(cmn.flex, [cmn.flexcv, !isXs])}>
@@ -227,7 +227,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
                 icon={<TokenIcon tokenSymbol="skl" size="xs" />}
                 tooltip={
                   sklPrice && tokenBalance
-                    ? `${units.displaySklValueUsd(tokenBalance, sklPrice)}`
+                    ? units.displaySklValueUsd(tokenBalance, sklPrice)
                     : ''
                 }
                 childrenRi={
