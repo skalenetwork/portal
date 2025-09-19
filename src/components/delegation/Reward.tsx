@@ -46,6 +46,7 @@ export default function Reward(props: {
   customAddress: types.AddressType | undefined
   customRewardAddress: types.AddressType | undefined
   setCustomRewardAddress: (customRewardAddress: types.AddressType | undefined) => void
+  unstakeAllBtn?: React.ReactNode
 }) {
   const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
   const rewardsAmount = units.displayBalance(props.delegationsToValidator.rewards, 'SKL')
@@ -123,20 +124,27 @@ export default function Reward(props: {
                 <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Rewards available</p>
                 <h3 className={cls(cmn.p, cmn.p700)}>{rewardsAmount}</h3>
               </div>
-              {loading ? (
-                <Button disabled size="small" variant="contained" className={cls('btnSm btnSmLoading')}>
-                  Retrieving
-                </Button>
-              ) : (
-                <RetrieveRewardModal
-                  address={props.address}
-                  disabled={retrieveDisabled}
-                  customRewardAddress={props.customRewardAddress}
-                  setCustomRewardAddress={props.setCustomRewardAddress}
-                  retrieveRewards={retrieveRewards}
-                  loading={loading}
-                />
-              )}
+              <div className={cls(cmn.flex, cmn.flexcv)}>
+                {loading ? (
+                  <Button disabled size="small" variant="contained" className={cls('btnSm btnSmLoading')}>
+                    Retrieving
+                  </Button>
+                ) : (
+                  <>
+                    <RetrieveRewardModal
+                      address={props.address}
+                      disabled={retrieveDisabled}
+                      customRewardAddress={props.customRewardAddress}
+                      setCustomRewardAddress={props.setCustomRewardAddress}
+                      retrieveRewards={retrieveRewards}
+                      loading={loading}
+                    />
+                    {props.unstakeAllBtn && (
+                      <span className={cmn.mleft10}>{props.unstakeAllBtn}</span>
+                    )}
+                  </>
+                )}
+              </div>
               {!props.isXs ? minimizeBtn : null}
             </div>
           </Grid>

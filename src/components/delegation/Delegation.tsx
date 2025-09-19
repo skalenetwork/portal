@@ -223,17 +223,20 @@ export default function Delegation(props: {
             />
           ) : null}
           {Number(props.delegation.stateId) === DelegationState.DELEGATED && props.unstake ? (
-            <SkBtn
-              loading={loading}
-              text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
-              color="error"
-              className={cls('fullW', cmn.mtop20)}
-              onClick={async () => {
-                props.unstake && (await props.unstake(delegationInfo))
-              }}
-              disabled={props.loading !== false || props.customAddress !== undefined}
-            />
-          ) : null}
+            <div className={cls(cmn.flex, cmn.mtop20)}>
+              <SkBtn
+                loading={loading}
+                text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
+                color="error"
+                className={cls('fullW')}
+                onClick={async () => {
+                  props.unstake && (await props.unstake(delegationInfo))
+                }}
+                disabled={props.loading !== false || props.customAddress !== undefined}
+
+              />
+              </div>
+            ) : null}
           {Number(props.delegation.stateId) === DelegationState.PROPOSED && props.cancelRequest ? (
             <SkBtn
               loading={loading}
@@ -247,7 +250,7 @@ export default function Delegation(props: {
             />
           ) : null}
         </div>
-      </Collapse>
+      </Collapse>     
     </div>
-  )
+)
 }
