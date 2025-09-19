@@ -37,7 +37,6 @@ import {
 import { type types, constants, units } from '@/core'
 
 import Button from '@mui/material/Button'
-import LoadingButton from '@mui/lab/LoadingButton'
 import { TextField } from '@mui/material'
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded'
 import TransitEnterexitRoundedIcon from '@mui/icons-material/TransitEnterexitRounded'
@@ -236,15 +235,14 @@ export default function Delegate(props: {
       />
 
       {loading ? (
-        <LoadingButton
-          loading
-          loadingPosition="start"
+        <Button
+          disabled
           size="small"
           variant="contained"
           className={cls('btn', cmn.mleft10, cmn.mbott10, cmn.mtop20)}
         >
           Staking SKL
-        </LoadingButton>
+        </Button>
       ) : (
         <Button
           disabled={

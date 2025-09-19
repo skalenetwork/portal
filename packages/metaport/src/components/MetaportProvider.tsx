@@ -30,7 +30,8 @@ import {
   DisclaimerComponent
 } from '@rainbow-me/rainbowkit'
 import { WagmiProvider, createConfig, http } from 'wagmi'
-import { mainnet, goerli, hoodi } from 'wagmi/chains'
+import { mainnet, goerli } from 'wagmi/chains'
+import { hoodi } from '../core/eth_chains'
 import { GetChainsReturnType } from '@wagmi/core'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { PaletteMode } from '@mui/material'

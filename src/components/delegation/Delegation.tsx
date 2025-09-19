@@ -114,7 +114,7 @@ export default function Delegation(props: {
           setOpen(!open)
         }}
       >
-        <Grid item md={3} xs={12}>
+        <Grid size={{ xs: 12, md: 3 }}>
           <div className={cls(cmn.flex, cmn.flexcv)}>
             <ValidatorLogo validatorId={Number(props.delegation.id + 500n)} size="md" />
             {!props.isValidatorPage && (
@@ -142,7 +142,7 @@ export default function Delegation(props: {
             ) : null}
           </div>
         </Grid>
-        <Grid item md={3} xs={6}>
+        <Grid size={{ xs: 6, md: 3 }}>
           <div className={cls(cmn.flex, [cmn.mtop10, props.isXs])}>
             <div className={cls([cmn.flexg, !props.isXs])}></div>
             <div className={cls(`chipXs chip_${props.delegation.state}`)}>
@@ -153,7 +153,7 @@ export default function Delegation(props: {
             <div className={cls([cmn.flexg, !props.isXs])}></div>
           </div>
         </Grid>
-        <Grid item md={2} xs={6}>
+        <Grid size={{ xs: 6, md: 2 }}>
           <div className={cls(cmn.flex, [cmn.mtop10, props.isXs])}>
             <div className={cls([cmn.flexg, !props.isXs])}></div>
             <div className={cls(`chipXs chip_${getKeyByValue(DelegationSource, source)}`)}>
@@ -162,7 +162,7 @@ export default function Delegation(props: {
             <div className={cls([cmn.flexg, !props.isXs])}></div>
           </div>
         </Grid>
-        <Grid item md={4} xs={12}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <div className={cls(cmn.flex, cmn.flexcv, cmn.mri5, [cmn.mtop10, props.isXs])}>
             <div className={cls(cmn.flexg)}></div>
             <div className={cls(cmn.mri20, [cmn.pri, !props.isXs], [cmn.mleft20, !props.isXs])}>

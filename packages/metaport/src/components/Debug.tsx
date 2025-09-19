@@ -195,7 +195,7 @@ export default function Debug() {
       <Collapse in={expanded}>
         <div className={cls(cmn.flex, cmn.flexcv, styles.smallTable)}>
           <Grid container spacing={3}>
-            <Grid item sm={12} xs={12}>
+            <Grid size={{ xs: 12, sm: 12 }}>
               <TableContainer component={Paper}>
                 <Table aria-label="simple table" size="small">
                   <TableHead>
