@@ -176,149 +176,151 @@ export default function CommunityPool() {
   }
 
   return (
-    <div className={cls([cmn.mtop10, !expandedCP])}>
-      <Accordion
-        disabled={!!loading}
-        expanded={expandedCP === 'panel1'}
-        onChange={handleChange('panel1')}
-      >
-        <AccordionSummary
-          className={cls(styles.accordionSummary, styles.accordionSm)}
-          expandIcon={<ExpandMoreRoundedIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
+    !address ? null : (
+      <div className={cls([cmn.mtop10, !expandedCP])}>
+        <Accordion
+          disabled={!!loading}
+          expanded={expandedCP === 'panel1'}
+          onChange={handleChange('panel1')}
         >
-          <div className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv)}>
-            <div className={cls(cmn.flex, cmn.flexc, cmn.mri10)}>{icon}</div>
-            <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.cap, cmn.pPrim, cmn.mri10)}>{text}</p>
-          </div>
-        </AccordionSummary>
-        <AccordionDetails>
-          <SkPaper background="transparent" className={cls(styles.accordionContent)}>
-            <p className={cls(cmn.flex, cmn.p3, cmn.p, cmn.errorMessage, cmn.flexg)}>
-              This wallet is used to pay for gas fees on transactions that are send to the Ethereum
-              Mainnet. You may withdraw funds from your SKALE Gas Wallet at anytime.
-            </p>
-            {cpData.recommendedRechargeAmount ? (
-              <p className={cls(cmn.flex, cmn.p3, cmn.p, cmn.errorMessage, cmn.flexg, cmn.mtop10)}>
-                Minimum recommended recharge amount for your wallet is{' '}
-                {cpData.recommendedRechargeAmount} ETH.
-              </p>
-            ) : null}
-            <div className={cls(cmn.ptop20, cmn.flex)}>
-              <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec, cmn.flex, cmn.flexg)}>
-                ETH Balance
-              </p>
-              <div>
-                <TokenBalance
-                  balance={cpData.accountBalance}
-                  symbol="ETH"
-                  truncate={COMMUNITY_POOL_DECIMALS}
-                  size="sm"
-                  primary
-                />
-              </div>
+          <AccordionSummary
+            className={cls(styles.accordionSummary, styles.accordionSm)}
+            expandIcon={<ExpandMoreRoundedIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <div className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv)}>
+              <div className={cls(cmn.flex, cmn.flexc, cmn.mri10)}>{icon}</div>
+              <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.cap, cmn.pPrim, cmn.mri10)}>{text}</p>
             </div>
-            <div className={cls(cmn.ptop0, cmn.flex)}>
-              <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec, cmn.flex, cmn.flexg)}>
-                Exit Wallet Balance
+          </AccordionSummary>
+          <AccordionDetails>
+            <SkPaper background="transparent" className={cls(styles.accordionContent)}>
+              <p className={cls(cmn.flex, cmn.p3, cmn.p, cmn.errorMessage, cmn.flexg)}>
+                This wallet is used to pay for gas fees on transactions that are send to the Ethereum
+                Mainnet. You may withdraw funds from your SKALE Gas Wallet at anytime.
               </p>
-              <div>
-                <TokenBalance
-                  balance={cpData.balance}
-                  symbol="ETH"
-                  truncate={COMMUNITY_POOL_DECIMALS}
-                  size="sm"
-                  primary
-                />
-              </div>
-            </div>
-              <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop20)}>
-                <Tile
-                  text="Enter amount to recharge"
-                  className={cls(styles.inputAmount)}
-                  grow
-                  children={
-                    <div className={cls(cmn.flex, cmn.flexcv, 'amountInput')}>
-                      <div className={cls(cmn.flexg)}>
-                        <TextField
-                          inputProps={{ step: '0.1', lang: 'en-US' }}
-                          inputRef={(input) => input?.focus()}
-                          type="number"
-                          variant="standard"
-                          placeholder="0.00"
-                          value={amount}
-                          onChange={handleAmountChange}
-                          disabled={!!loading}
-                          style={{ width: '100%' }}
-                        />
-                      </div>
-                      <div className={cls(cmn.p1, cmn.p, cmn.p700, cmn.mri10)}>ETH</div>
-                    </div>
-                  }
-                  icon={<TransitEnterexitRoundedIcon style={{ rotate: '315deg' }} />}
-                  
-                />
-                <Tile className={cmn.mleft10}
-                  disabled={!!loading}
-                  value={cpData.recommendedRechargeAmount !== undefined ? String(cpData.recommendedRechargeAmount) : ''}
-                  text="Recommended"
-                  icon={<TokenIcon tokenSymbol="eth" size="xs" />}
-                  color={true ? undefined : 'error'}
-                  grow
-                  childrenRi={
-                    <div className={cls(cmn.flexcv, cmn.flex)}>
-                      <Button
-                        className={cls('btnSm', 'outlined', cmn.mleft20, cmn.flexcv)}
-                        onClick={() => {
-                          if (!cpData.recommendedRechargeAmount) return
-                          setAmount(String(cpData.recommendedRechargeAmount))
-                        }}
-                      >
-                        Add
-                      </Button>
-                    </div>
-                  }
-                />
-              </div>
-            <div className={cls(cmn.mbott20, cmn.mtop10)}>
-              <Button
-                variant="contained"
-                color="primary"
-                size="medium"
-                className={cls(styles.btnAction, cmn.mtop5)}
-                onClick={rechargeCP}
-                disabled={
-                  !!loading ||
-                  !cpData.accountBalance ||
-                  Number(amount) > Number(accountBalanceEther) ||
-                  Number(amount) < MINIMUM_RECHARGE_AMOUNT ||
-                  amount === '' ||
-                  amount === '0' ||
-                  !amount ||
-                  !chainName
-                }
-              >
-                {getRechargeBtnText()}
-              </Button>
-              <Collapse in={cpData.balance !== 0n || loading === 'withdraw'}>
-                <div className={cls(cmn.mtop5)}>
-                  <Button
-                    variant="text"
-                    color="warning"
-                    size="small"
-                    className={cls(styles.btnAction, cmn.mtop5)}
-                    onClick={withdrawCP}
-                    disabled={!!loading || !chainName || cpData.balance === 0n}
-                  >
-                    {getWithdrawBtnText()}
-                  </Button>
+              {cpData.recommendedRechargeAmount ? (
+                <p className={cls(cmn.flex, cmn.p3, cmn.p, cmn.errorMessage, cmn.flexg, cmn.mtop10)}>
+                  Minimum recommended recharge amount for your wallet is{' '}
+                  {cpData.recommendedRechargeAmount} ETH.
+                </p>
+              ) : null}
+              <div className={cls(cmn.ptop20, cmn.flex)}>
+                <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec, cmn.flex, cmn.flexg)}>
+                  ETH Balance
+                </p>
+                <div>
+                  <TokenBalance
+                    balance={cpData.accountBalance}
+                    symbol="ETH"
+                    truncate={COMMUNITY_POOL_DECIMALS}
+                    size="sm"
+                    primary
+                  />
                 </div>
-              </Collapse>
-            </div>
-          </SkPaper>
-        </AccordionDetails>
-      </Accordion>
-    </div>
+              </div>
+              <div className={cls(cmn.ptop0, cmn.flex)}>
+                <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec, cmn.flex, cmn.flexg)}>
+                  Exit Wallet Balance
+                </p>
+                <div>
+                  <TokenBalance
+                    balance={cpData.balance}
+                    symbol="ETH"
+                    truncate={COMMUNITY_POOL_DECIMALS}
+                    size="sm"
+                    primary
+                  />
+                </div>
+              </div>
+                <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop20)}>
+                  <Tile
+                    text="Enter amount to recharge"
+                    className={cls(styles.inputAmount)}
+                    grow
+                    children={
+                      <div className={cls(cmn.flex, cmn.flexcv, 'amountInput')}>
+                        <div className={cls(cmn.flexg)}>
+                          <TextField
+                            inputProps={{ step: '0.1', lang: 'en-US' }}
+                            inputRef={(input) => input?.focus()}
+                            type="number"
+                            variant="standard"
+                            placeholder="0.00"
+                            value={amount}
+                            onChange={handleAmountChange}
+                            disabled={!!loading}
+                            style={{ width: '100%' }}
+                          />
+                        </div>
+                        <div className={cls(cmn.p1, cmn.p, cmn.p700, cmn.mri10)}>ETH</div>
+                      </div>
+                    }
+                    icon={<TransitEnterexitRoundedIcon style={{ rotate: '315deg' }} />}
+                    
+                  />
+                  <Tile className={cmn.mleft10}
+                    disabled={!!loading}
+                    value={cpData.recommendedRechargeAmount !== undefined ? String(cpData.recommendedRechargeAmount) : ''}
+                    text="Recommended" 
+                    icon={<TokenIcon tokenSymbol="eth" size="xs" />}
+                    color={true ? undefined : 'error'}
+                    grow
+                    childrenRi={
+                      <div className={cls(cmn.flexcv, cmn.flex)}>
+                        <Button
+                          className={cls('btnSm', 'outlined', cmn.mleft20, cmn.flexcv)}
+                          onClick={() => {
+                            if (!cpData.recommendedRechargeAmount) return
+                            setAmount(String(cpData.recommendedRechargeAmount))
+                          }}
+                        >
+                          Add
+                        </Button>
+                      </div> 
+                    }
+                  />
+                </div>
+              <div className={cls(cmn.mbott20, cmn.mtop10)}>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="medium"
+                  className={cls(styles.btnAction, cmn.mtop5)}
+                  onClick={rechargeCP}
+                  disabled={
+                    !!loading ||
+                    !cpData.accountBalance ||
+                    Number(amount) > Number(accountBalanceEther) ||
+                    Number(amount) < MINIMUM_RECHARGE_AMOUNT ||
+                    amount === '' ||
+                    amount === '0' ||
+                    !amount ||
+                    !chainName
+                  }
+                >
+                  {getRechargeBtnText()}
+                </Button>
+                <Collapse in={cpData.balance !== 0n || loading === 'withdraw'}>
+                  <div className={cls(cmn.mtop5)}>
+                    <Button
+                      variant="text"
+                      color="warning"
+                      size="small"
+                      className={cls(styles.btnAction, cmn.mtop5)}
+                      onClick={withdrawCP}
+                      disabled={!!loading || !chainName || cpData.balance === 0n}
+                    >
+                      {getWithdrawBtnText()}
+                    </Button>
+                  </div>
+                </Collapse>
+              </div>
+            </SkPaper>
+          </AccordionDetails>
+        </Accordion>
+      </div>
+    )
   )
-}
+  }
