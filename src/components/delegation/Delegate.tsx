@@ -32,7 +32,8 @@ import {
   styles,
   type MetaportCore,
   sendTransaction,
-  contracts
+  contracts,
+  Tile
 } from '@skalenetwork/metaport'
 import { type types, constants, units } from '@/core'
 
@@ -43,7 +44,6 @@ import TransitEnterexitRoundedIcon from '@mui/icons-material/TransitEnterexitRou
 import EventRepeatRoundedIcon from '@mui/icons-material/EventRepeatRounded'
 import AccountTreeRoundedIcon from '@mui/icons-material/AccountTreeRounded'
 
-import Tile from '../Tile'
 import SkStack from '../SkStack'
 import ErrorTile from '../ErrorTile'
 import Loader from '../Loader'

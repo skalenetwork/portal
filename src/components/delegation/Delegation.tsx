@@ -22,7 +22,7 @@
 
 import { useState } from 'react'
 import { types, units, timeUtils } from '@/core'
-import { cmn, cls, styles } from '@skalenetwork/metaport'
+import { cmn, cls, styles, Tile } from '@skalenetwork/metaport'
 
 import { Collapse, Grid, Tooltip } from '@mui/material'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
@@ -42,7 +42,6 @@ import {
 } from '../../core/delegation'
 import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
 
-import Tile from '../Tile'
 
 export default function Delegation(props: {
   delegation: types.st.IDelegation

@@ -30,6 +30,7 @@ import {
   useWagmiWalletClient,
   useWagmiSwitchNetwork,
   TokenIcon,
+  Tile,
   walletClientToSigner,
   sendTransaction,
   styles,
@@ -46,7 +47,6 @@ import EventAvailableRoundedIcon from '@mui/icons-material/EventAvailableRounded
 import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
 
 import Headline from '../Headline'
-import Tile from '../Tile'
 import SkBtn from '../SkBtn'
 import ErrorTile from '../ErrorTile'
 import SkStack from '../SkStack'

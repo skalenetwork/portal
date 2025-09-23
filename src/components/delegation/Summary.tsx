@@ -22,7 +22,7 @@
  */
 
 import { helper, types, units } from '@/core'
-import { cmn, cls, styles, TokenIcon } from '@skalenetwork/metaport'
+import { cmn, cls, styles, TokenIcon, Tile } from '@skalenetwork/metaport'
 
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
@@ -34,7 +34,6 @@ import ControlPointDuplicateRoundedIcon from '@mui/icons-material/ControlPointDu
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded'
 
 import SkStack from '../SkStack'
-import Tile from '../Tile'
 import AccordionSection from '../AccordionSection'
 import SkBtn from '../SkBtn'
 

@@ -76,14 +76,14 @@ export const useCPStore = create<CommunityPoolState>()((set, get) => ({
       get().sChain
     )
 
-    const currentAmount = get().amount
+    //const currentAmount = get().amount
     set({
       chainName: chainName1,
       cpData: cpData,
-      amount:
-        cpData.recommendedRechargeAmount && currentAmount === ''
-          ? cpData.recommendedRechargeAmount.toString()
-          : currentAmount
+      // amount:
+      //   cpData.recommendedRechargeAmount && currentAmount === ''
+      //     ? cpData.recommendedRechargeAmount.toString()
+      //     : currentAmount
     })
   }
 }))

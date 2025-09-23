@@ -37,6 +37,7 @@ import TokenBalance from './TokenBalance'
 import Button from '@mui/material/Button'
 
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
+import TransitEnterexitRoundedIcon from '@mui/icons-material/TransitEnterexitRounded'
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import ErrorIcon from '@mui/icons-material/Error'
@@ -54,6 +55,8 @@ import { useCPStore } from '../store/CommunityPoolStore'
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
 import { Collapse } from '@mui/material'
+import { Tile } from '@skalenetwork/metaport'
+import TokenIcon from './TokenIcon'
 
 export default function CommunityPool() {
   const { data: walletClient } = useWalletClient()
@@ -230,34 +233,54 @@ export default function CommunityPool() {
                 />
               </div>
             </div>
-            <SkPaper gray className={cls(cmn.mtop20)}>
-              <div className={cls(cmn.flex, cmn.flexcv)}>
-                <div className={cls(cmn.flex, cmn.flexg)}>
-                  <TextField
-                    className={styles.inputAmount}
-                    type="number"
-                    variant="standard"
-                    placeholder="0.00"
-                    value={amount}
-                    onChange={handleAmountChange}
-                    disabled={!!loading}
-                  />
-                </div>
-                <p
-                  className={cls(
-                    cmn.p,
-                    cmn.p1,
-                    cmn.p700,
-                    cmn.pPrim,
-                    [cmn.pDisabled, loading],
-                    cmn.flex,
-                    cmn.mri20
-                  )}
-                >
-                  ETH
-                </p>
+              <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop20)}>
+                <Tile
+                  text="Enter amount to recharge"
+                  className={cls(styles.inputAmount)}
+                  grow
+                  children={
+                    <div className={cls(cmn.flex, cmn.flexcv, 'amountInput')}>
+                      <div className={cls(cmn.flexg)}>
+                        <TextField
+                          inputProps={{ step: '0.1', lang: 'en-US' }}
+                          inputRef={(input) => input?.focus()}
+                          type="number"
+                          variant="standard"
+                          placeholder="0.00"
+                          value={amount}
+                          onChange={handleAmountChange}
+                          disabled={!!loading}
+                          style={{ width: '100%' }}
+                        />
+                      </div>
+                      <div className={cls(cmn.p1, cmn.p, cmn.p700, cmn.mri10)}>ETH</div>
+                    </div>
+                  }
+                  icon={<TransitEnterexitRoundedIcon style={{ rotate: '315deg' }} />}
+                  
+                />
+                <Tile className={cmn.mleft10}
+                  disabled={!!loading}
+                  value={cpData.recommendedRechargeAmount !== undefined ? String(cpData.recommendedRechargeAmount) : ''}
+                  text="Recommended"
+                  icon={<TokenIcon tokenSymbol="eth" size="xs" />}
+                  color={true ? undefined : 'error'}
+                  grow
+                  childrenRi={
+                    <div className={cls(cmn.flexcv, cmn.flex)}>
+                      <Button
+                        className={cls('btnSm', 'outlined', cmn.mleft20, cmn.flexcv)}
+                        onClick={() => {
+                          if (!cpData.recommendedRechargeAmount) return
+                          setAmount(String(cpData.recommendedRechargeAmount))
+                        }}
+                      >
+                        Add
+                      </Button>
+                    </div>
+                  }
+                />
               </div>
-            </SkPaper>
             <div className={cls(cmn.mbott20, cmn.mtop10)}>
               <Button
                 variant="contained"

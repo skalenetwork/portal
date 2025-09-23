@@ -24,7 +24,7 @@
 import { useState } from 'react'
 import { Helmet } from 'react-helmet'
 
-import { cmn, cls, styles, type MetaportCore, SkPaper, explorer } from '@skalenetwork/metaport'
+import { cmn, cls, styles, type MetaportCore, SkPaper, explorer, Tile } from '@skalenetwork/metaport'
 import { type types, metadata, constants, endpoints } from '@/core'
 
 import Button from '@mui/material/Button'
@@ -42,7 +42,6 @@ import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
 import SkStack from './SkStack'
-import Tile from './Tile'
 import Breadcrumbs from './Breadcrumbs'
 import CollapsibleDescription from './CollapsibleDescription'
 import SkBtn from './SkBtn'

@@ -34,7 +34,8 @@ import {
   MetaportCore,
   SkPaper,
   useWagmiAccount,
-  useConnectModal
+  useConnectModal,
+  Tile
 } from '@skalenetwork/metaport'
 
 import { Button, Grid } from '@mui/material'
@@ -69,7 +70,6 @@ import { ChipNew, ChipPreTge, ChipTrending, ChipFeatured } from '../components/C
 import AppScreenshots from '../components/ecosystem/AppScreenshots'
 import RecommendedApps from '../components/ecosystem/RecommendedApps'
 import Logo from '../components/Logo'
-import Tile from '../components/Tile'
 import LinkSurface from '../components/LinkSurface'
 import Breadcrumbs from '../components/Breadcrumbs'
 import CollapsibleDescription from '../components/CollapsibleDescription'
