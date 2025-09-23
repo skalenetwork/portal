@@ -55,8 +55,8 @@ import { useCPStore } from '../store/CommunityPoolStore'
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
 import { Collapse } from '@mui/material'
-import { Tile } from '@skalenetwork/metaport'
 import TokenIcon from './TokenIcon'
+import Tile from './Tile'
 
 export default function CommunityPool() {
   const { data: walletClient } = useWalletClient()
