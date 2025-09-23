@@ -31,8 +31,9 @@ export default function PageCard(props: {
   description: string
   url?: string
 }) {
+  const isExternal = props.url === 'https://www.sushi.com/skale-europa/swap'
   return (
-    <Link to={props.url ?? props.name} target="_blank" rel="noopener noreferrer">
+    <Link to={props.url ?? props.name} {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}>
       <SkPaper gray className={cls('br__tile')}>
         <div className={cls(cmn.flex, cmn.flexcv, cmn.m10)}>
           <div className={cls(cmn.flexg)}>
