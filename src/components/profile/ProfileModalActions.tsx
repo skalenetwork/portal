@@ -23,12 +23,13 @@
 
 import React from 'react'
 import { Button } from '@mui/material'
-import { cls, RainbowConnectButton } from '@skalenetwork/metaport'
+import { cls, RainbowConnectButton, useWagmiDisconnect } from '@skalenetwork/metaport'
 import SkStack from '../SkStack'
 import LaunchIcon from '@mui/icons-material/Launch'
 import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
 import LoginIcon from '@mui/icons-material/Login'
 import LogoutIcon from '@mui/icons-material/Logout'
+import PowerOffIcon from '@mui/icons-material/PowerOff'
 
 interface ProfileModalActionsProps {
   address: string
@@ -46,41 +47,56 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
   handleSignIn,
   handleSignOut,
   className
-}) => (
-  <SkStack className={cls(className, 'profileModalActions')}>
-    <Button
-      variant="text"
-      startIcon={<LaunchIcon />}
-      className={cls('btn', 'btnSm', 'filled')}
-      onClick={() => window.open(`https://etherscan.io/address/${address}`, '_blank')}
-      fullWidth={isMobile}
-    >
-      View on Etherscan
-    </Button>
+}) => {
+  const { disconnect } = useWagmiDisconnect()
 
-    <RainbowConnectButton.Custom>
-      {({ openAccountModal }) => (
-        <Button
-          variant="text"
-          startIcon={<LooksRoundedIcon />}
-          className={cls('btn', 'btnSm', 'filled')}
-          onClick={openAccountModal}
-          fullWidth={isMobile}
-        >
-          Manage Wallet
-        </Button>
-      )}
-    </RainbowConnectButton.Custom>
-    <Button
-      variant="text"
-      startIcon={isSignedIn ? <LogoutIcon /> : <LoginIcon />}
-      className={cls('btn', 'btnSm', 'filled')}
-      onClick={isSignedIn ? handleSignOut : handleSignIn}
-      fullWidth={isMobile}
-    >
-      {isSignedIn ? 'Sign out' : 'Sign in'}
-    </Button>
-  </SkStack>
-)
+  return (
+    <SkStack className={cls(className, 'profileModalActions')}>
+      <Button
+        variant="text"
+        startIcon={<LaunchIcon />}
+        className={cls('btn', 'btnSm', 'filled')}
+        onClick={() => window.open(`https://etherscan.io/address/${address}`, '_blank')}
+        fullWidth={isMobile}
+      >
+        View on Etherscan
+      </Button>
+
+      <RainbowConnectButton.Custom>
+        {({ openAccountModal }) => (
+          <Button
+            variant="text"
+            startIcon={<LooksRoundedIcon />}
+            className={cls('btn', 'btnSm', 'filled')}
+            onClick={openAccountModal}
+            fullWidth={isMobile}
+          >
+            Manage Wallet
+          </Button>
+        )}
+      </RainbowConnectButton.Custom>
+
+      <Button
+        variant="text"
+        startIcon={<PowerOffIcon />}
+        className={cls('btn', 'btnSm', 'filled')}
+        onClick={() => disconnect()}
+        fullWidth={isMobile}
+      >
+        Disconnect
+      </Button>
+
+      <Button
+        variant="text"
+        startIcon={isSignedIn ? <LogoutIcon /> : <LoginIcon />}
+        className={cls('btn', 'btnSm', 'filled')}
+        onClick={isSignedIn ? handleSignOut : handleSignIn}
+        fullWidth={isMobile}
+      >
+        {isSignedIn ? 'Sign out' : 'Sign in'}
+      </Button>
+    </SkStack>
+  )
+}
 
 export default ProfileModalActions
