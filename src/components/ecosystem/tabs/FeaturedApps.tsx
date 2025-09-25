@@ -1,4 +1,3 @@
-
 /**
   * @license
   * SKALE portal
@@ -115,22 +114,25 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
           </Grid>
         ))}
       </Grid>
-      {showSeeMoreButton && chainName !== null && chainName !== undefined && chainName.trim() !== '' && (
-        <Box className={cls(cmn.flex, cmn.flexc, cmn.mtop20)}>
-          <Link
-            to={`/ecosystem?search=${encodeURIComponent(metadata.getAlias(chainsMeta, chainName))}`}
-            style={{ textDecoration: 'none' }}
-          >
-            <Button
-              size="medium"
-              startIcon={<AddCircleRoundedIcon />}
-              className={cls(styles.btnAction, cmn.pleft20, cmn.pri20)}
+      {showSeeMoreButton &&
+        chainName !== null &&
+        chainName !== undefined &&
+        chainName.trim() !== '' && (
+          <Box className={cls(cmn.flex, cmn.flexc, cmn.mtop20)}>
+            <Link
+              to={`/ecosystem?search=${encodeURIComponent(metadata.getAlias(chainsMeta, chainName))}`}
+              style={{ textDecoration: 'none' }}
             >
-              See more
-            </Button>
-          </Link>
-        </Box>
-      )}
+              <Button
+                size="medium"
+                startIcon={<AddCircleRoundedIcon />}
+                className={cls(styles.btnAction, cmn.pleft20, cmn.pri20)}
+              >
+                See more
+              </Button>
+            </Link>
+          </Box>
+        )}
     </>
   )
 }

@@ -1,4 +1,3 @@
-
 /**
  * @license
  * SKALE portal
@@ -61,8 +60,14 @@ export default function Ecosystem(props: {
   loadData: () => Promise<void>
 }) {
   const [searchParams] = useSearchParams()
-  const { getCheckedItemsFromUrl, setCheckedItemsInUrl, getTabIndexFromUrl, setTabIndexInUrl, getSearchTermFromUrl, setSearchTermInUrl } =
-    useUrlParams()
+  const {
+    getCheckedItemsFromUrl,
+    setCheckedItemsInUrl,
+    getTabIndexFromUrl,
+    setTabIndexInUrl,
+    getSearchTermFromUrl,
+    setSearchTermInUrl
+  } = useUrlParams()
   const { allApps, newApps, trendingApps, favoriteApps, isSignedIn, featuredApps } = useApps(
     props.chainsMeta,
     props.metrics
