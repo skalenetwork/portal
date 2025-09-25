@@ -34,7 +34,7 @@ import { TimeoutException } from './exceptions'
 const log = new Logger<ILogObj>({ name: 'metaport:core:network' })
 
 export const CHAIN_IDS: { [network in types.SkaleNetwork]: number } = {
-  legacy: 17000,
+  legacy: 560048,
   regression: 5,
   mainnet: 1,
   testnet: 560048

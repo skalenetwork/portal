@@ -7,11 +7,11 @@ export const METAPORT_CONFIG: types.mp.Config = {
   openOnLoad: true,
   openButton: true,
   debug: false,
-  mainnetEndpoint: 'https://ethereum-holesky-rpc.publicnode.com',
+  mainnetEndpoint: 'https://ethereum-hoodi-rpc.publicnode.com',
   chains: [
     'mainnet',
-    'these-long-sadalsuud', // europa
-    'adorable-quaint-bellatrix' // nebula
+    'international-villainous-zaurak', // europa
+    'peaceful-outlying-ankaa' // nebula
   ],
   tokens: {
     eth: {
@@ -24,26 +24,26 @@ export const METAPORT_CONFIG: types.mp.Config = {
     }
   },
   connections: {
-    'these-long-sadalsuud': europaConnections,
-    'adorable-quaint-bellatrix': nebulaConnections,
+    'international-villainous-zaurak': europaConnections,
+    'peaceful-outlying-ankaa': nebulaConnections,
     mainnet: {
       eth: {
         eth: {
           chains: {
-            'these-long-sadalsuud': {},
-            'adorable-quaint-bellatrix': {
-              hub: 'these-long-sadalsuud'
+            'international-villainous-zaurak': {},
+            'peaceful-outlying-ankaa': {
+              hub: 'international-villainous-zaurak'
             }
           }
         }
       },
       erc20: {
         skl: {
-          address: '0x0E53fDa415cc6b2a7D9495D4a1F0659F0Ee45e0d',
+          address: '0xd54237fC00bd58fCd1d5648CfEDc38212dD185Af',
           chains: {
-            'these-long-sadalsuud': {},
-            'adorable-quaint-bellatrix': {
-              hub: 'these-long-sadalsuud'
+            'international-villainous-zaurak': {},
+            'peaceful-outlying-ankaa': {
+              hub: 'international-villainous-zaurak'
             }
           }
         }
