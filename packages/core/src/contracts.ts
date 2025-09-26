@@ -58,7 +58,7 @@ export const CONTRACTS: ContractsConfig = {
   legacy: {
     'skale-manager': '0x3E51d380a5A652bAecDE4BBAC62325f7C506dD4C',
     'mainnet-ima': '0x518b7661F6Ef6170a5AB99eecC545621B81D054b',
-    'skale-allocator': '0x3F7f59Dc97689092c1EE7E0982646b3f92ed407a',
+    'skale-allocator': '0x9dC47fce435e32779E03AD3dD24015479b9286D9',
     'skale-grants': '0x3982411D90792aCDaCBa37b1fE2f23E4A3E97429'
   },
   regression: {},
