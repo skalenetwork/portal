@@ -26,7 +26,7 @@ import { type Signer } from 'ethers'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
-import { cmn, cls, type MetaportCore, styles, SkPaper } from '@skalenetwork/metaport'
+import { cmn, cls, type MetaportCore, styles, SkPaper, contracts } from '@skalenetwork/metaport'
 
 import { Collapse, Skeleton } from '@mui/material'
 
@@ -113,12 +113,23 @@ export default function Validator(props: {
   const handleShowMore = () => {
     setVisibleItems((prevVisible) => prevVisible + ITEMS_PER_PAGE)
   }
+  const [sklPrice, setSklPrice] = useState<bigint | undefined>(undefined)
+
+  useEffect(() => {
+    loadSklPrice()
+  }, [])
 
   async function handleUnstake(delegationInfo: types.st.IDelegationInfo) {
     await unstakeDelegation({
       delegationInfo,
       props: getStakingActionProps()
     })
+  }
+
+  async function loadSklPrice() {
+    const paymaster = await contracts.paymaster.getPaymaster(props.mpc)
+    const price = await paymaster.oneSklPrice()
+    setSklPrice(price)
   }
 
   async function handleAccept(delegationInfo: types.st.IDelegationInfo) {
@@ -152,6 +163,7 @@ export default function Validator(props: {
             unstake={handleUnstake}
             accept={handleAccept}
             isValidatorPage
+            sklPrice={sklPrice}
           />
         ))}
         {remainingItems > 0 && (
@@ -201,8 +213,12 @@ export default function Validator(props: {
         {props.address || props.customAddress ? (
           props.validator !== undefined ? (
             <div>
-              <ValidatorInfo validator={props.validator} />
-              <DelegationTotals delegations={props.delegations} className={cls(cmn.mtop10)} />
+              <ValidatorInfo validator={props.validator} sklPrice={sklPrice} />
+              <DelegationTotals
+                delegations={props.delegations}
+                sklPrice={sklPrice}
+                className={cls(cmn.mtop10)}
+              />
             </div>
           ) : (
             <div>
@@ -226,6 +242,7 @@ export default function Validator(props: {
           customAddress={props.customAddress}
           className={cmn.mtop20}
           isXs={props.isXs}
+          sklPrice={sklPrice}
         />
       )}
       <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className={cls(cmn.mtop20)} />

@@ -67,7 +67,10 @@ export default function PopularActions(props: {
           {actions.map((action) => (
             <Grid size={{ xs: 12, md: 6 }}>
               <Link
-                to={chainMeta.apps?.[action.app].social?.website || `/ecosystem/${shortAlias}/${action.app}`}
+                to={
+                  chainMeta.apps?.[action.app].social?.website ||
+                  `/ecosystem/${shortAlias}/${action.app}`
+                }
                 className={cls(cmn.flex, cmn.fullWidth)}
                 target="_blank"
                 rel="noopener noreferrer"

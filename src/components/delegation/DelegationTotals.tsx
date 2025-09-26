@@ -37,10 +37,15 @@ import Tile from '../Tile'
 
 interface DelegationTotalsProps {
   delegations: types.st.IDelegation[] | null
+  sklPrice?: bigint | undefined
   className?: string
 }
 
-const DelegationTotals: React.FC<DelegationTotalsProps> = ({ delegations, className }) => {
+const DelegationTotals: React.FC<DelegationTotalsProps> = ({
+  delegations,
+  className,
+  sklPrice
+}) => {
   const totals = useMemo(
     () => (delegations ? calculateDelegationTotals(delegations) : null),
     [delegations]
@@ -52,6 +57,9 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({ delegations, classN
     <SkStack className={cls(className)}>
       <Tile
         value={totals && units.displayBalance(totals.proposed.amount, 'SKL')}
+        tooltip={
+          sklPrice && totals ? units.displaySklValueUsd(totals.proposed.amount, sklPrice) : ''
+        }
         text={getTileText('Proposed', totals?.proposed.count)}
         grow
         size="md"
@@ -60,6 +68,9 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({ delegations, classN
       />
       <Tile
         value={totals && units.displayBalance(totals.accepted.amount, 'SKL')}
+        tooltip={
+          sklPrice && totals ? units.displaySklValueUsd(totals.accepted.amount, sklPrice) : ''
+        }
         text={getTileText('Accepted', totals?.accepted.count)}
         grow
         size="md"
@@ -67,6 +78,9 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({ delegations, classN
       />
       <Tile
         value={totals && units.displayBalance(totals.delegated.amount, 'SKL')}
+        tooltip={
+          sklPrice && totals ? units.displaySklValueUsd(totals.delegated.amount, sklPrice) : ''
+        }
         text={getTileText('Delegated', totals?.delegated.count)}
         grow
         size="md"
@@ -74,6 +88,9 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({ delegations, classN
       />
       <Tile
         value={totals && units.displayBalance(totals.completed.amount, 'SKL')}
+        tooltip={
+          sklPrice && totals ? units.displaySklValueUsd(totals.completed.amount, sklPrice) : ''
+        }
         text={getTileText('Completed', totals?.completed.count)}
         grow
         size="md"

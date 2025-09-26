@@ -48,6 +48,7 @@ export default function DelegationsToValidator(props: {
   customAddress: types.AddressType | undefined
   customRewardAddress: types.AddressType | undefined
   setCustomRewardAddress: (customRewardAddress: types.AddressType | undefined) => void
+  sklPrice?: bigint | undefined
 }) {
   const [open, setOpen] = useState(true)
   const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
@@ -102,23 +103,25 @@ export default function DelegationsToValidator(props: {
             />
           ) : null
         }
+        sklPrice={props.sklPrice}
       />
       <Collapse in={open}>
         <div className={cls('nestedSection', ['nestedSectionXs', props.isXs])}>
           {props.delegationsToValidator.delegations.map(
             (delegation: types.st.IDelegation, index: number) => (
-            <Delegation
-              key={index}
-              delegation={delegation}
-              validator={validator}
-              delegationType={props.delegationType}
-              unstake={props.unstake}
-              cancelRequest={props.cancelRequest}
-              loading={props.loading}
-              isXs={props.isXs}
-              customAddress={props.customAddress}
-            />
-          )
+              <Delegation
+                key={index}
+                delegation={delegation}
+                validator={validator}
+                delegationType={props.delegationType}
+                unstake={props.unstake}
+                cancelRequest={props.cancelRequest}
+                loading={props.loading}
+                isXs={props.isXs}
+                customAddress={props.customAddress}
+                sklPrice={props.sklPrice}
+              />
+            )
           )}
         </div>
       </Collapse>

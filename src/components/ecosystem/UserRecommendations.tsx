@@ -38,7 +38,10 @@ const UserRecommendations: React.FC<{
   metrics: types.IMetrics | null
 }> = ({ skaleNetwork, chainsMeta, metrics }) => {
   const { isSignedIn } = useAuth()
-  const { allApps, favoriteApps, newApps, trendingApps, featuredApps } = useApps(chainsMeta, metrics)
+  const { allApps, favoriteApps, newApps, trendingApps, featuredApps } = useApps(
+    chainsMeta,
+    metrics
+  )
 
   const showRecommendations = isSignedIn && favoriteApps.length > 0
   if (!showRecommendations) return null

@@ -38,7 +38,7 @@ import {
 import HistoryIcon from '@mui/icons-material/History'
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
 
-import { setHistoryToStorage } from '../core/transferHistory'
+import { clearTransferHistory as clearTransferHistoryFromStorage } from '../core/transferHistory'
 import { META_TAGS } from '../core/meta'
 import Breadcrumbs from '../components/Breadcrumbs'
 
@@ -50,7 +50,7 @@ export default function History() {
 
   function clearTransferHistory() {
     clearTransactionsHistory()
-    setHistoryToStorage(transfersHistory, mpc.config.skaleNetwork)
+    clearTransferHistoryFromStorage(mpc.config.skaleNetwork)
   }
 
   return (
