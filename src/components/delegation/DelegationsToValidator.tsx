@@ -22,15 +22,18 @@
  */
 
 import { useState } from 'react'
-import { cls } from '@skalenetwork/metaport'
+import { useState as useReactState } from 'react'
+
+import { cls,  } from '@skalenetwork/metaport'
 import { Collapse } from '@mui/material'
 
 import { types } from '@/core'
 
-import { getValidatorById } from '../../core/delegation'
+import { getValidatorById, DelegationState } from '../../core/delegation'
 
 import Delegation from './Delegation'
 import Reward from './Reward'
+import SkBtn from '../SkBtn'
 
 export default function DelegationsToValidator(props: {
   delegationsToValidator: types.st.IDelegationsToValidator
@@ -50,6 +53,29 @@ export default function DelegationsToValidator(props: {
   const [open, setOpen] = useState(true)
   const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
   if (!validator) return
+
+  const [groupUnstakeLoading, setGroupUnstakeLoading] = useReactState(false)
+
+  const handleUnstakeAll = async () => {
+    setGroupUnstakeLoading(true)
+    try {
+      const activeDelegations = props.delegationsToValidator.delegations.filter(
+        (delegation) => Number(delegation.stateId) === DelegationState.DELEGATED
+      )
+      for (const delegation of activeDelegations) {
+        await props.unstake({
+          delegationId: delegation.id,
+          delegationType: props.delegationType
+        })
+      }
+    } finally {
+      setGroupUnstakeLoading(false)
+    }
+  }
+
+  const hasActiveDelegations = props.delegationsToValidator.delegations.some(
+    (delegation) => Number(delegation.stateId) === DelegationState.DELEGATED
+  )
   return (
     <div>
       <Reward
@@ -65,9 +91,20 @@ export default function DelegationsToValidator(props: {
         customAddress={props.customAddress}
         customRewardAddress={props.customRewardAddress}
         setCustomRewardAddress={props.setCustomRewardAddress}
+        unstakeAllBtn={
+          hasActiveDelegations ? (
+            <SkBtn
+              text={groupUnstakeLoading ? 'Unstaking all...' : 'Unstake All'}
+              color="error"
+              className="btnSm"
+              loading={groupUnstakeLoading}
+              onClick={handleUnstakeAll}
+              disabled={props.loading !== false || groupUnstakeLoading || props.customAddress !== undefined}
+            />
+          ) : null
+        }
         sklPrice={props.sklPrice}
       />
-
       <Collapse in={open}>
         <div className={cls('nestedSection', ['nestedSectionXs', props.isXs])}>
           {props.delegationsToValidator.delegations.map(

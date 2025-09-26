@@ -23,8 +23,7 @@
 import { cmn, cls, styles } from '@skalenetwork/metaport'
 import { types, units } from '@/core'
 
-import { Grid, Tooltip } from '@mui/material'
-import LoadingButton from '@mui/lab/LoadingButton'
+import { Grid, Tooltip, Button } from '@mui/material'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
 
@@ -46,6 +45,7 @@ export default function Reward(props: {
   customAddress: types.AddressType | undefined
   customRewardAddress: types.AddressType | undefined
   setCustomRewardAddress: (customRewardAddress: types.AddressType | undefined) => void
+  unstakeAllBtn?: React.ReactNode
   sklPrice?: bigint | undefined
 }) {
   const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
@@ -133,20 +133,27 @@ export default function Reward(props: {
                   <h3 className={cls(cmn.p, cmn.p700)}>{rewardsAmount}</h3>
                 </Tooltip>
               </div>
-              {loading ? (
-                <Button disabled size="small" variant="contained" className={cls('btnSm btnSmLoading')}>
-                  Retrieving
-                </Button>
-              ) : (
-                <RetrieveRewardModal
-                  address={props.address}
-                  disabled={retrieveDisabled}
-                  customRewardAddress={props.customRewardAddress}
-                  setCustomRewardAddress={props.setCustomRewardAddress}
-                  retrieveRewards={retrieveRewards}
-                  loading={loading}
-                />
-              )}
+              <div className={cls(cmn.flex, cmn.flexcv)}>
+                {loading ? (
+                  <Button disabled size="small" variant="contained" className={cls('btnSm btnSmLoading')}>
+                    Retrieving
+                  </Button>
+                ) : (
+                  <>
+                    <RetrieveRewardModal
+                      address={props.address}
+                      disabled={retrieveDisabled}
+                      customRewardAddress={props.customRewardAddress}
+                      setCustomRewardAddress={props.setCustomRewardAddress}
+                      retrieveRewards={retrieveRewards}
+                      loading={loading}
+                    />
+                    {props.unstakeAllBtn && (
+                      <span className={cmn.mleft10}>{props.unstakeAllBtn}</span>
+                    )}
+                  </>
+                )}
+              </div>
               {!props.isXs ? minimizeBtn : null}
             </div>
           </Grid>
