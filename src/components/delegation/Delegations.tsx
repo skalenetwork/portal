@@ -44,6 +44,7 @@ export default function Delegations(props: {
   customAddress: types.AddressType | undefined
   customRewardAddress: types.AddressType | undefined
   setCustomRewardAddress: (customRewardAddress: types.AddressType | undefined) => void
+  sklPrice?: bigint | undefined
 }) {
   const loaded = props.si[types.st.DelegationType.REGULAR] !== null
   const noDelegations =
@@ -94,6 +95,7 @@ export default function Delegations(props: {
                 customAddress={props.customAddress}
                 customRewardAddress={props.customRewardAddress}
                 setCustomRewardAddress={props.setCustomRewardAddress}
+                sklPrice={props.sklPrice}
               />
             )
           )}
@@ -113,6 +115,7 @@ export default function Delegations(props: {
                 customAddress={props.customAddress}
                 customRewardAddress={props.customRewardAddress}
                 setCustomRewardAddress={props.setCustomRewardAddress}
+                sklPrice={props.sklPrice}
               />
             )
           )}
@@ -132,6 +135,7 @@ export default function Delegations(props: {
                 customAddress={props.customAddress}
                 customRewardAddress={props.customRewardAddress}
                 setCustomRewardAddress={props.setCustomRewardAddress}
+                sklPrice={props.sklPrice}
               />
             )
           )}
