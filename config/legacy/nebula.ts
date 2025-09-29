@@ -18,7 +18,7 @@ const connections: types.mp.TokenTypeMap = {
     },
     erc20: {
         skl: {
-        address: '0xC11Ba472327Bc1A235c67c12035D7e1B5A7AA9a3',
+        address: '0x1526881e947748Fac747d8fBf5820467A144b2a6',
         chains: {
             'international-villainous-zaurak': {
             clone: true

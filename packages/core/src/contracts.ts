@@ -59,7 +59,7 @@ export const CONTRACTS: ContractsConfig = {
     'skale-manager': '0x3E51d380a5A652bAecDE4BBAC62325f7C506dD4C',
     'mainnet-ima': '0x518b7661F6Ef6170a5AB99eecC545621B81D054b',
     'skale-allocator': '0x9dC47fce435e32779E03AD3dD24015479b9286D9',
-    'skale-grants': '0x3982411D90792aCDaCBa37b1fE2f23E4A3E97429'
+    'skale-grants': '0x1Bf7D9BAFd93945b02441B5f1C161C0dD5f439B3'
   },
   regression: {},
   testnet: {
@@ -81,7 +81,7 @@ export const PAYMASTER_CONTRACTS = {
   },
   legacy: {
     chain: 'international-villainous-zaurak',
-    address: ' 0x9891d98E976dC8c6a65a26208Ab17718434dA1c5'
+    address: '0x9891d98E976dC8c6a65a26208Ab17718434dA1c5'
   },
   regression: {
     chain: '',

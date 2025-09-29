@@ -17,13 +17,13 @@ const connections: types.mp.TokenTypeMap = {
     },
     erc20: {
       skl: {
-        address: '0xcB5C15235A1FFdb5e7CBBfFa6F28c42BCC998271',
+        address: '0x7518a20B166614cD10b74be4833998875F1c8c5f',
         chains: {
           mainnet: {
             clone: true
           },
           'peaceful-outlying-ankaa': {
-            wrapper: '0x39e633E57e8334730c665e641751AE08FE2d7b76'
+            wrapper: '0x039E133b96E4A6A4Df7be7BF6157D558793f4f06'
           }
         }
       }

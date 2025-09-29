@@ -39,7 +39,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
       },
       erc20: {
         skl: {
-          address: '0xd54237fC00bd58fCd1d5648CfEDc38212dD185Af',
+          address: '0x912a122fE382F0c531B622ff2A25dDc77bA25DE9',
           chains: {
             'international-villainous-zaurak': {},
             'peaceful-outlying-ankaa': {
