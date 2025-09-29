@@ -207,33 +207,34 @@ export default function CommunityPool() {
                 </p>
               ) : null}
               <div className={cls(cmn.ptop20, cmn.flex)}>
-                <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec, cmn.flex, cmn.flexg)}>
-                  ETH Balance
-                </p>
-                <div>
-                  <TokenBalance
-                    balance={cpData.accountBalance}
-                    symbol="ETH"
-                    truncate={COMMUNITY_POOL_DECIMALS}
-                    size="sm"
-                    primary
-                  />
-                </div>
-              </div>
-              <div className={cls(cmn.ptop0, cmn.flex)}>
-                <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec, cmn.flex, cmn.flexg)}>
-                  Exit Wallet Balance
-                </p>
-                <div>
-                  <TokenBalance
-                    balance={cpData.balance}
-                    symbol="ETH"
-                    truncate={COMMUNITY_POOL_DECIMALS}
-                    size="sm"
-                    primary
-                  />
-                </div>
-              </div>
+                <Tile>
+                  <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec, cmn.flex, cmn.flexg)}>
+                    ETH Balance
+                  </p>
+                  <Tile>
+                    <TokenBalance
+                      balance={cpData.accountBalance}
+                      symbol="ETH"
+                      truncate={COMMUNITY_POOL_DECIMALS}
+                      size="sm"
+                      primary
+                    />
+                  </Tile>
+                </Tile>
+                <Tile className={cls(cmn.ptop0, cmn.flex)}>
+                  <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec, cmn.flex, cmn.flexg)}>
+                    Exit Wallet Balance
+                  </p>
+                  <Tile>
+                    <TokenBalance
+                      balance={cpData.balance}
+                      symbol="ETH"
+                      truncate={COMMUNITY_POOL_DECIMALS}
+                      size="sm"
+                      primary
+                    />
+                  </Tile>
+                </Tile>
                 <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop20)}>
                   <Tile
                     text="Enter amount to recharge"
@@ -282,6 +283,7 @@ export default function CommunityPool() {
                     }
                   />
                 </div>
+              </div>
               <div className={cls(cmn.mbott20, cmn.mtop10)}>
                 <Button
                   variant="contained"
