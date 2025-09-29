@@ -26,7 +26,7 @@ import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { type Signer, isAddress } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
-import { cmn, cls, styles, SkPaper, type MetaportCore } from '@skalenetwork/metaport'
+import { cmn, cls, styles, SkPaper, contracts, type MetaportCore } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
@@ -79,6 +79,7 @@ export default function Staking(props: {
   const [customRewardAddress, setCustomRewardAddress] = useState<types.AddressType | undefined>(
     props.address
   )
+  const [sklPrice, setSklPrice] = useState<bigint | undefined>()
 
   useEffect(() => {
     props.loadValidators()
@@ -90,6 +91,10 @@ export default function Staking(props: {
   useEffect(() => {
     setCustomRewardAddress(props.address)
   }, [props.address])
+
+  useEffect(() => {
+    loadSklPrice()
+  }, [])
 
   const getStakingActionProps = useCallback(
     (): StakingActionProps => ({
@@ -109,6 +114,12 @@ export default function Staking(props: {
       props.loadStakingInfo
     ]
   )
+
+  async function loadSklPrice() {
+    const paymaster = await contracts.paymaster.getPaymaster(props.mpc)
+    const price = await paymaster.oneSklPrice()
+    setSklPrice(price)
+  }
 
   async function handleRetrieveRewards(rewardInfo: types.st.IRewardInfo) {
     if (!isAddress(customRewardAddress)) {
@@ -213,6 +224,7 @@ export default function Staking(props: {
       <SkPaper gray className={cls(cmn.mtop20)}>
         <Collapse in={props.address !== undefined}>
           <Summary
+            sklPrice={sklPrice}
             type={types.st.DelegationType.REGULAR}
             accountInfo={props.si[0]?.info}
             loading={loading}
@@ -233,6 +245,7 @@ export default function Staking(props: {
       <Collapse in={props.si[1] !== null}>
         <SkPaper gray className={cls(cmn.mtop20)}>
           <Summary
+            sklPrice={sklPrice}
             type={types.st.DelegationType.ESCROW}
             accountInfo={props.si[1]?.info}
             loading={loading}
@@ -245,6 +258,7 @@ export default function Staking(props: {
       <Collapse in={props.si[2] !== null}>
         <SkPaper gray className={cls(cmn.mtop20)}>
           <Summary
+            sklPrice={sklPrice}
             type={types.st.DelegationType.ESCROW2}
             accountInfo={props.si[2]?.info}
             loading={loading}
@@ -273,6 +287,7 @@ export default function Staking(props: {
             customAddress={props.customAddress}
             customRewardAddress={customRewardAddress}
             setCustomRewardAddress={setCustomRewardAddress}
+            sklPrice={sklPrice}
           />
         </Collapse>
         <Collapse in={props.address === undefined}>

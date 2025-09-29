@@ -46,7 +46,8 @@ import {
   useAccount as useWagmiAccount,
   useWalletClient as useWagmiWalletClient,
   useSwitchChain as useWagmiSwitchNetwork,
-  useSignMessage as useWagmiSignMessage
+  useSignMessage as useWagmiSignMessage,
+  useDisconnect as useWagmiDisconnect
 } from 'wagmi'
 import {
   ConnectButton as RainbowConnectButton,
@@ -92,6 +93,7 @@ export {
   useWagmiWalletClient,
   useWagmiSwitchNetwork,
   useWagmiSignMessage,
+  useWagmiDisconnect,
   walletClientToSigner,
   sendTransaction,
   enforceNetwork,
