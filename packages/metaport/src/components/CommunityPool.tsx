@@ -234,6 +234,7 @@ export default function CommunityPool() {
                       primary
                     />
                   </Tile>
+                  <div></div>
                 </Tile>
                 <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop20)}>
                   <Tile
