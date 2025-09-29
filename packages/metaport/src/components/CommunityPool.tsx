@@ -32,15 +32,15 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import TextField from '@mui/material/TextField'
 
 import SkPaper from './SkPaper'
-import TokenBalance from './TokenBalance'
 
 import Button from '@mui/material/Button'
 
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 import TransitEnterexitRoundedIcon from '@mui/icons-material/TransitEnterexitRounded'
-
+import AccountBalanceWallet from '@mui/icons-material/AccountBalanceWallet'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import ErrorIcon from '@mui/icons-material/Error'
+import RecommendIcon from '@mui/icons-material/Recommend'
 
 import { withdraw, recharge } from '../core/community_pool'
 import {
@@ -210,31 +210,27 @@ export default function CommunityPool() {
                 <div className={cls(cmn.flex, cmn.flexwrap, cmn.gap10)}>
                   <Tile
                     text="ETH Balance"
-                    className={cls(cmn.flex1, cmn.mbott10)}
+                    className={cls(styles.inputAmount)}
+                    icon={<TokenIcon tokenSymbol="eth" size="xs" />}
                     grow
-                    children={
-                      <TokenBalance
-                        balance={cpData.accountBalance}
-                        symbol="ETH"
-                        truncate={COMMUNITY_POOL_DECIMALS}
-                        size="sm"
-                        primary
-                      />
+                    size="md"
+                    value={
+                      cpData.accountBalance !== undefined && cpData.accountBalance !== null
+                        ? `${units.truncateDecimals(units.formatBalance(cpData.accountBalance, constants.DEFAULT_ERC20_DECIMALS), COMMUNITY_POOL_DECIMALS)} ETH`
+                        : ''
                     }
                   />
                   <Tile
+                    className={cmn.mleft10}
                     text="Exit Wallet Balance"
-                    className={cls(cmn.flex1, cmn.mbott10)}
                     grow
-                    children={
-                      <TokenBalance
-                        balance={cpData.balance}
-                        symbol="ETH"
-                        truncate={COMMUNITY_POOL_DECIMALS}
-                        size="sm"
-                        primary
-                      />
+                    size="md"
+                    value={
+                      cpData.balance !== undefined && cpData.balance !== null
+                        ? `${units.truncateDecimals(units.formatBalance(cpData.balance, constants.DEFAULT_ERC20_DECIMALS), COMMUNITY_POOL_DECIMALS)} ETH`
+                        : ''
                     }
+                    icon={<AccountBalanceWallet />}
                   />
                 </div>
                 <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop20)}>
@@ -267,7 +263,7 @@ export default function CommunityPool() {
                     disabled={!!loading}
                     value={cpData.recommendedRechargeAmount !== undefined ? String(cpData.recommendedRechargeAmount) : ''}
                     text="Recommended" 
-                    icon={<TokenIcon tokenSymbol="eth" size="xs" />}
+                    icon={<RecommendIcon />}
                     color={true ? undefined : 'error'}
                     grow
                     childrenRi={
