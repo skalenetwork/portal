@@ -23,7 +23,6 @@
 
 import { useState, useEffect, type ReactElement } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
-import { cmn, cls, styles } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
 import { useTheme } from '@mui/material/styles'
@@ -32,7 +31,7 @@ import { Skeleton, Tooltip } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
-import SkStack from './SkStack'
+import { cmn, cls, styles } from '../core/css'
 
 export default function Tile(props: {
   text?: string
@@ -102,7 +101,7 @@ export default function Tile(props: {
       ])}
       style={{ background: color }}
     >
-      <SkStack className={cls(cmn.flex, [cmn.flexcv, !isXs])}>
+      <div className={cls(cmn.flex, [cmn.flexcv, !isXs])}>
         <div className={cls(cmn.flexg)}>
           {props.text ? (
             <div
@@ -177,7 +176,7 @@ export default function Tile(props: {
           </div>
         </div>
         {props.childrenRi}
-      </SkStack>
+      </div>
     </div>
   )
 }

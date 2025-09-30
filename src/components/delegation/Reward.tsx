@@ -126,7 +126,10 @@ export default function Reward(props: {
                   arrow
                   title={
                     props.sklPrice
-                      ? units.displaySklValueUsd(props.delegationsToValidator.rewards, props.sklPrice)
+                      ? units.displaySklValueUsd(
+                          props.delegationsToValidator.rewards,
+                          props.sklPrice
+                        )
                       : ''
                   }
                 >
@@ -135,7 +138,12 @@ export default function Reward(props: {
               </div>
               <div className={cls(cmn.flex, cmn.flexcv)}>
                 {loading ? (
-                  <Button disabled size="small" variant="contained" className={cls('btnSm btnSmLoading')}>
+                  <Button
+                    disabled
+                    size="small"
+                    variant="contained"
+                    className={cls('btnSm btnSmLoading')}
+                  >
                     Retrieving
                   </Button>
                 ) : (

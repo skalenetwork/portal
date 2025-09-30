@@ -13,6 +13,7 @@ import MetaportBody from './components/WidgetBody'
 
 import SkConnect from './components/SkConnect'
 import SkPaper from './components/SkPaper'
+import Tile from './components/Tile'
 
 import ChainIcon from './components/ChainIcon'
 import TokenIcon from './components/TokenIcon'
@@ -64,6 +65,7 @@ export {
   MetaportBody,
   MetaportCore,
   SkPaper,
+  Tile,
   SkConnect,
   ChainIcon,
   TokenIcon,

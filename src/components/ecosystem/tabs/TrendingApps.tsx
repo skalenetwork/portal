@@ -97,10 +97,7 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
   return (
     <Grid container spacing={2}>
       {filteredApps.map((app) => (
-        <Grid
-          key={`${app.chain}-${app.appName}`}
-          size={{ xs: 12, sm: 6, md: 4, lg: 4 }}
-        >
+        <Grid key={`${app.chain}-${app.appName}`} size={{ xs: 12, sm: 6, md: 4, lg: 4 }}>
           {renderAppCard(app)}
         </Grid>
       ))}

@@ -30,6 +30,7 @@ import {
   useWagmiWalletClient,
   useWagmiSwitchNetwork,
   TokenIcon,
+  Tile,
   walletClientToSigner,
   sendTransaction,
   styles,
@@ -46,7 +47,6 @@ import EventAvailableRoundedIcon from '@mui/icons-material/EventAvailableRounded
 import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
 
 import Headline from '../Headline'
-import Tile from '../Tile'
 import SkBtn from '../SkBtn'
 import ErrorTile from '../ErrorTile'
 import SkStack from '../SkStack'
@@ -196,9 +196,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
         text="Rewards on Europa Hub"
         icon={<EventAvailableRoundedIcon />}
         grow
-        tooltip={
-          sklPrice && rewardAmount ? units.displaySklValueUsd(rewardAmount, sklPrice) : ''
-        }
+        tooltip={sklPrice && rewardAmount ? units.displaySklValueUsd(rewardAmount, sklPrice) : ''}
         childrenRi={
           <SkStack className={cls(cmn.flex, [cmn.flexcv, !isXs])}>
             <SkBtn
@@ -226,9 +224,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
                 text="Balance on Europa Hub"
                 icon={<TokenIcon tokenSymbol="skl" size="xs" />}
                 tooltip={
-                  sklPrice && tokenBalance
-                    ? units.displaySklValueUsd(tokenBalance, sklPrice)
-                    : ''
+                  sklPrice && tokenBalance ? units.displaySklValueUsd(tokenBalance, sklPrice) : ''
                 }
                 childrenRi={
                   <Tooltip title="Open in block explorer">

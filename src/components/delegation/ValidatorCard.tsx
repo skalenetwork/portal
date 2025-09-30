@@ -49,10 +49,7 @@ export default function ValidatorCard(props: {
   )
 
   return (
-    <Grid
-      className="fl-centered"
-      size={{ xs: 12, sm: 6, md: 4, lg: size === 'md' ? 3 : 4 }}
-    >
+    <Grid className="fl-centered" size={{ xs: 12, sm: 6, md: 4, lg: size === 'md' ? 3 : 4 }}>
       <Link
         to={
           props.validator.acceptNewRequests
@@ -128,13 +125,13 @@ export default function ValidatorCard(props: {
           </div>
           <div>
             {size !== 'lg' && (
-                <Tooltip title={`Minimum delegation amount: ${minDelegation} SKL`}>
+              <Tooltip title={`Minimum delegation amount: ${minDelegation} SKL`}>
                 <div className={cls('chipNodes', cmn.mtop10)}>
                   <p className={cls(cmn.p, cmn.p4, cmn.pCent, 'pOneLine')}>
                     Min: {minDelegation} SKL
                   </p>
                 </div>
-                </Tooltip>
+              </Tooltip>
             )}
             {size === 'lg' && (
               <Tooltip title={props.validator.validatorAddress}>

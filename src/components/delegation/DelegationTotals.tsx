@@ -22,7 +22,7 @@
  */
 
 import { useMemo } from 'react'
-import { cls, styles, useUIStore } from '@skalenetwork/metaport'
+import { cls, styles, useUIStore, Tile } from '@skalenetwork/metaport'
 import { type types, units } from '@/core'
 
 import InboxRoundedIcon from '@mui/icons-material/InboxRounded'
@@ -33,7 +33,6 @@ import LibraryAddCheckRoundedIcon from '@mui/icons-material/LibraryAddCheckRound
 import { calculateDelegationTotals } from '../../core/delegation/delegations'
 
 import SkStack from '../SkStack'
-import Tile from '../Tile'
 
 interface DelegationTotalsProps {
   delegations: types.st.IDelegation[] | null

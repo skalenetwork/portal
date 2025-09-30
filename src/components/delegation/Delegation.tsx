@@ -22,7 +22,7 @@
 
 import { useState } from 'react'
 import { types, units, timeUtils } from '@/core'
-import { cmn, cls, styles } from '@skalenetwork/metaport'
+import { cmn, cls, styles, Tile } from '@skalenetwork/metaport'
 
 import { Collapse, Grid, Tooltip } from '@mui/material'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
@@ -41,8 +41,6 @@ import {
   getKeyByValue
 } from '../../core/delegation'
 import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
-
-import Tile from '../Tile'
 
 export default function Delegation(props: {
   delegation: types.st.IDelegation
@@ -232,18 +230,17 @@ export default function Delegation(props: {
             />
           ) : null}
           {Number(props.delegation.stateId) === DelegationState.DELEGATED && props.unstake ? (
-              <SkBtn
-                loading={loading}
-                text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
-                color="error"
-                className={cls('fullW')}
-                onClick={async () => {
-                  props.unstake && (await props.unstake(delegationInfo))
-                }}
-                disabled={props.loading !== false || props.customAddress !== undefined}
-
-              />
-            ) : null}
+            <SkBtn
+              loading={loading}
+              text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
+              color="error"
+              className={cls('fullW')}
+              onClick={async () => {
+                props.unstake && (await props.unstake(delegationInfo))
+              }}
+              disabled={props.loading !== false || props.customAddress !== undefined}
+            />
+          ) : null}
           {Number(props.delegation.stateId) === DelegationState.PROPOSED && props.cancelRequest ? (
             <SkBtn
               loading={loading}
@@ -257,7 +254,7 @@ export default function Delegation(props: {
             />
           ) : null}
         </div>
-      </Collapse>     
+      </Collapse>
     </div>
-)
+  )
 }

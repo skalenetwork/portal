@@ -21,13 +21,11 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cls, cmn } from '@skalenetwork/metaport'
+import { cls, cmn, Tile } from '@skalenetwork/metaport'
 
 import Button from '@mui/material/Button'
 import Collapse from '@mui/material/Collapse'
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
-
-import Tile from './Tile'
 
 export default function ErrorTile(props: {
   errorMsg: string | undefined

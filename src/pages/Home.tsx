@@ -136,11 +136,7 @@ function ExploreSection(): JSX.Element {
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}>
         {EXPLORE_CARDS.map((card, index) => (
-          <Grid
-            key={index}
-            className="fl-centered dappCard"
-            size={{ xs: 12, sm: 6, md: 6, lg: 6 }}
-          >
+          <Grid key={index} className="fl-centered dappCard" size={{ xs: 12, sm: 6, md: 6, lg: 6 }}>
             <PageCard {...card} />
           </Grid>
         ))}
