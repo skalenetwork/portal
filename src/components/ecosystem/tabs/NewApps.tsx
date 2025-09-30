@@ -74,7 +74,7 @@ const NewApps: React.FC<NewAppsProps> = ({
     return (
       <SkPaper gray className="titleSection">
         <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent)}>
+          <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.pCent)}>
             🚫 No new apps match your current filters
           </p>
         </div>
@@ -85,7 +85,7 @@ const NewApps: React.FC<NewAppsProps> = ({
   return (
     <Grid container spacing={2}>
       {newApps.map((app) => (
-        <Grid key={`${app.chain}-${app.appName}`} item xs={12} sm={6} md={4} lg={4}>
+        <Grid key={`${app.chain}-${app.appName}`} size={{ xs: 12, sm: 6, md: 4, lg: 4 }}>
           <Box className={cls('fl-centered dappCard')}>{renderAppCard(app)}</Box>
         </Grid>
       ))}

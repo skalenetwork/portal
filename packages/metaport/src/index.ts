@@ -13,6 +13,7 @@ import MetaportBody from './components/WidgetBody'
 
 import SkConnect from './components/SkConnect'
 import SkPaper from './components/SkPaper'
+import Tile from './components/Tile'
 
 import ChainIcon from './components/ChainIcon'
 import TokenIcon from './components/TokenIcon'
@@ -32,6 +33,7 @@ import WrappedTokens from './components/WrappedTokens'
 import History from './components/History'
 import TransactionData from './components/TransactionData'
 import Debug from './components/Debug'
+import AnimatedLoadingIcon from './components/AnimatedLoadingIcon'
 
 import { cls, styles, cmn } from './core/css'
 import MetaportCore from './core/metaport'
@@ -44,7 +46,8 @@ import {
   useAccount as useWagmiAccount,
   useWalletClient as useWagmiWalletClient,
   useSwitchChain as useWagmiSwitchNetwork,
-  useSignMessage as useWagmiSignMessage
+  useSignMessage as useWagmiSignMessage,
+  useDisconnect as useWagmiDisconnect
 } from 'wagmi'
 import {
   ConnectButton as RainbowConnectButton,
@@ -62,6 +65,7 @@ export {
   MetaportBody,
   MetaportCore,
   SkPaper,
+  Tile,
   SkConnect,
   ChainIcon,
   TokenIcon,
@@ -80,6 +84,7 @@ export {
   History,
   TransactionData,
   Debug,
+  AnimatedLoadingIcon,
   cls,
   styles,
   cmn,
@@ -88,6 +93,7 @@ export {
   useWagmiWalletClient,
   useWagmiSwitchNetwork,
   useWagmiSignMessage,
+  useWagmiDisconnect,
   walletClientToSigner,
   sendTransaction,
   enforceNetwork,

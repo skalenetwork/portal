@@ -32,19 +32,18 @@ import {
   styles,
   type MetaportCore,
   sendTransaction,
-  contracts
+  contracts,
+  Tile
 } from '@skalenetwork/metaport'
 import { type types, constants, units } from '@/core'
 
 import Button from '@mui/material/Button'
-import LoadingButton from '@mui/lab/LoadingButton'
 import { TextField } from '@mui/material'
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded'
 import TransitEnterexitRoundedIcon from '@mui/icons-material/TransitEnterexitRounded'
 import EventRepeatRoundedIcon from '@mui/icons-material/EventRepeatRounded'
 import AccountTreeRoundedIcon from '@mui/icons-material/AccountTreeRounded'
 
-import Tile from '../Tile'
 import SkStack from '../SkStack'
 import ErrorTile from '../ErrorTile'
 import Loader from '../Loader'
@@ -64,6 +63,7 @@ export default function Delegate(props: {
   errorMsg: string | undefined
   setErrorMsg: (msg: string | undefined) => void
   className?: string
+  sklPrice?: bigint | undefined
 }) {
   const [amount, setAmount] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
@@ -200,6 +200,11 @@ export default function Delegate(props: {
         <Tile
           disabled={info.allowedToDelegate === 0n}
           value={units.displayBalance(info.allowedToDelegate!, 'SKL')}
+          tooltip={
+            props.sklPrice && info.allowedToDelegate
+              ? units.displaySklValueUsd(info.allowedToDelegate, props.sklPrice)
+              : ''
+          }
           text="Available to stake"
           icon={<TokenIcon tokenSymbol="skl" size="xs" />}
           color={true ? undefined : 'error'}
@@ -230,15 +235,14 @@ export default function Delegate(props: {
       />
 
       {loading ? (
-        <LoadingButton
-          loading
-          loadingPosition="start"
+        <Button
+          disabled
           size="small"
           variant="contained"
           className={cls('btn', cmn.mleft10, cmn.mbott10, cmn.mtop20)}
         >
           Staking SKL
-        </LoadingButton>
+        </Button>
       ) : (
         <Button
           disabled={

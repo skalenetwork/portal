@@ -30,6 +30,7 @@ import {
   useWagmiWalletClient,
   useWagmiSwitchNetwork,
   TokenIcon,
+  Tile,
   walletClientToSigner,
   sendTransaction,
   styles,
@@ -46,7 +47,6 @@ import EventAvailableRoundedIcon from '@mui/icons-material/EventAvailableRounded
 import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
 
 import Headline from '../Headline'
-import Tile from '../Tile'
 import SkBtn from '../SkBtn'
 import ErrorTile from '../ErrorTile'
 import SkStack from '../SkStack'
@@ -58,6 +58,7 @@ interface ChainRewardsProps {
   customAddress?: types.AddressType
   className?: string
   isXs?: boolean
+  sklPrice?: bigint | undefined
 }
 
 const ChainRewards: React.FC<ChainRewardsProps> = ({
@@ -72,6 +73,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   const [sklToken, setSklToken] = useState<Contract | undefined>(undefined)
   const [tokenBalance, setTokenBalance] = useState<bigint | undefined>(undefined)
   const [tokenUrl, setTokenUrl] = useState<string | undefined>(undefined)
+  const [sklPrice, setSklPrice] = useState<bigint | undefined>(undefined)
 
   const [btnText, setBtnText] = useState<string | undefined>()
   const [errorMsg, setErrorMsg] = useState<string | undefined>()
@@ -112,6 +114,12 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   async function loadData() {
     await loadChainRewards()
     await loadSkaleToken()
+    await loadSklPrice()
+  }
+
+  async function loadSklPrice() {
+    if (!paymaster) return
+    setSklPrice(await paymaster.oneSklPrice())
   }
 
   async function loadSkaleToken() {
@@ -188,6 +196,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
         text="Rewards on Europa Hub"
         icon={<EventAvailableRoundedIcon />}
         grow
+        tooltip={sklPrice && rewardAmount ? units.displaySklValueUsd(rewardAmount, sklPrice) : ''}
         childrenRi={
           <SkStack className={cls(cmn.flex, [cmn.flexcv, !isXs])}>
             <SkBtn
@@ -214,6 +223,9 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
                 ri={!isXs}
                 text="Balance on Europa Hub"
                 icon={<TokenIcon tokenSymbol="skl" size="xs" />}
+                tooltip={
+                  sklPrice && tokenBalance ? units.displaySklValueUsd(tokenBalance, sklPrice) : ''
+                }
                 childrenRi={
                   <Tooltip title="Open in block explorer">
                     <a target="_blank" rel="noreferrer" href={tokenUrl ?? ''} className="undec">

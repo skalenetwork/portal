@@ -2,7 +2,7 @@ import { type types } from '@/core'
 
 export const METAPORT_CONFIG: types.mp.Config = {
   skaleNetwork: 'testnet',
-  mainnetEndpoint: 'https://ethereum-holesky-rpc.publicnode.com',
+  mainnetEndpoint: 'https://ethereum-hoodi-rpc.publicnode.com',
   openOnLoad: true,
   openButton: true,
   debug: false,
@@ -11,7 +11,6 @@ export const METAPORT_CONFIG: types.mp.Config = {
     'juicy-low-small-testnet', // Europa
     'giant-half-dual-testnet', // Calypso
     'lanky-ill-funny-testnet', // Nebula
-    'aware-fake-trim-testnet' // Titan
   ],
   tokens: {
     eth: {
@@ -20,7 +19,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
     skl: {
       decimals: 18,
       name: 'SKALE',
-      symbol: 'SKL',
+      symbol: 'SKL'
     },
     usdc: {
       decimals: 6,
@@ -32,52 +31,6 @@ export const METAPORT_CONFIG: types.mp.Config = {
       symbol: 'USDT',
       name: 'Tether USD'
     },
-    wbtc: {
-      decimals: 8,
-      symbol: 'WBTC',
-      name: 'WBTC'
-    },
-    ruby: {
-      name: 'Ruby Token',
-      iconUrl: 'https://ruby.exchange/images/tokens/ruby-square.png',
-      symbol: 'RUBY'
-    },
-    dai: {
-      name: 'DAI Stablecoin',
-      symbol: 'DAI'
-    },
-    usdp: {
-      name: 'Pax Dollar',
-      symbol: 'USDP',
-      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3330.png'
-    },
-    hmt: {
-      name: 'Human Token',
-      symbol: 'HMT',
-      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/10347.png'
-    },
-    ubxs: {
-      name: 'UBXS Token',
-      symbol: 'UBXS',
-      decimals: 6,
-      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/17242.png'
-    },
-    trc: {
-      name: "TheRealCoin",
-      symbol: "TRC",
-      iconUrl: 'https://cdn.coinranking.com/hiytXsMNZ/6717a9ad9119fa1b2a5a077f4aa45d55.png'
-    },
-    skivvy: {
-      name: 'Skivvy',
-      symbol: '$SKIVVY',
-      decimals: 8,
-      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3441.png'
-    },
-    unp: {
-      name: 'Unipoly Coin',
-      symbol: 'UNP',
-      iconUrl: 'https://img.cryptorank.io/coins/unipoly1706527531233.png'
-    }
   },
   connections: {
     mainnet: {
@@ -95,14 +48,8 @@ export const METAPORT_CONFIG: types.mp.Config = {
         }
       },
       erc20: {
-        dai: {
-          address: '0x366727B410fE55774C8b0B5b5A6E2d74199a088A',
-          chains: {
-            'juicy-low-small-testnet': {}
-          }
-        },
         skl: {
-          address: '0x1b662EB5624f6B2BB46d384DB9ab7F09AF15C84A',
+          address: '0x461145f2888B1b56a1ef5Ff6eE00d75a65fCc6F6',
           chains: {
             'juicy-low-small-testnet': {},
             'giant-half-dual-testnet': {
@@ -111,25 +58,10 @@ export const METAPORT_CONFIG: types.mp.Config = {
             'lanky-ill-funny-testnet': {
               hub: 'juicy-low-small-testnet'
             },
-            'aware-fake-trim-testnet': {
-              hub: 'juicy-low-small-testnet'
-            }
-          }
-        },
-        trc: {
-          address: '0x9536285e9fDb702517b1158A4da48420e7BE250e',
-          chains: {
-            'juicy-low-small-testnet': {}
-          }
-        },
-        usdp: {
-          address: '0x30355486440774f5b01B0B69656A70d16A5771A6',
-          chains: {
-            'juicy-low-small-testnet': {}
           }
         },
         usdc: {
-          address: '0xaB2F91FCc18B1271Ce10BF99e4a20b2652273803',
+          address: '0x0449f4Bf31f64f7C8A35332aFB091d0c51a22c8b',
           chains: {
             'juicy-low-small-testnet': {},
             'giant-half-dual-testnet': {
@@ -138,29 +70,20 @@ export const METAPORT_CONFIG: types.mp.Config = {
             'lanky-ill-funny-testnet': {
               hub: 'juicy-low-small-testnet'
             },
-            'aware-fake-trim-testnet': {
-              hub: 'juicy-low-small-testnet'
-            }
           }
         },
-        skivvy: {
-          address: '0xBD7A80706f48680AfA1770fd332486e9b6354f62',
+        usdt: {
+          address: '0x88b4DA9D5044c33Ec8919D6E16395e0a50B79aA3',
           chains: {
             'juicy-low-small-testnet': {},
             'giant-half-dual-testnet': {
               hub: 'juicy-low-small-testnet'
-            }
-          }
-        },
-        unp: {
-          address: '0xdB025eDa639AC08e27bFB899c3E040fFFF817e47',
-          chains: {
-            'juicy-low-small-testnet': {},
+            },
             'lanky-ill-funny-testnet': {
               hub: 'juicy-low-small-testnet'
-            }
+            },
           }
-        }
+        },
       },
       erc721meta: {
       },
@@ -176,6 +99,10 @@ export const METAPORT_CONFIG: types.mp.Config = {
             'juicy-low-small-testnet': {
               clone: true
             },
+            'lanky-ill-funny-testnet': {
+              clone: true,
+              hub: 'juicy-low-small-testnet'
+            },
             mainnet: {
               clone: true,
               hub: 'juicy-low-small-testnet'
@@ -184,33 +111,54 @@ export const METAPORT_CONFIG: types.mp.Config = {
         }
       },
       erc20: {
-        usdc: {
-          address: '0x2aebcdc4f9f9149a50422fff86198cb0939ea165',
+        skl: {
+          address: '0x54C6c4bE7f1d1520C1bdDC07445601a5899EDD78',
           chains: {
             'juicy-low-small-testnet': {
               clone: true
             },
-            'aware-fake-trim-testnet': {
-              clone: true
+            'lanky-ill-funny-testnet': {
+              clone: true,
+              hub: 'juicy-low-small-testnet'
             },
             mainnet: {
-              hub: 'juicy-low-small-testnet',
-              clone: true
+              clone: true,
+              hub: 'juicy-low-small-testnet'
             }
           }
         },
-        skivvy: {
-          address: '0x872D4a13f9D87681b36Ec7179651B573480C1c8E',
+        usdc: {
+          address: '0xbA9E8905F3c3C576f048eEbB3431ede0d5D27682',
           chains: {
             'juicy-low-small-testnet': {
               clone: true
             },
+            'lanky-ill-funny-testnet': {
+              clone: true,
+              hub: 'juicy-low-small-testnet'
+            },
             mainnet: {
-              hub: 'juicy-low-small-testnet',
-              clone: true
+              clone: true,
+              hub: 'juicy-low-small-testnet'
             }
           }
-        }
+        },
+        usdt: {
+          address: '0x4a4957e463439df0f9a32231884bd31b9C016C41',
+          chains: {
+            'juicy-low-small-testnet': {
+              clone: true
+            },
+            'lanky-ill-funny-testnet': {
+              clone: true,
+              hub: 'juicy-low-small-testnet'
+            },
+            mainnet: {
+              clone: true,
+              hub: 'juicy-low-small-testnet'
+            }
+          }
+        },
       }
     },
     'lanky-ill-funny-testnet': { // nebula connections
@@ -221,6 +169,10 @@ export const METAPORT_CONFIG: types.mp.Config = {
             'juicy-low-small-testnet': {
               clone: true
             },
+            'giant-half-dual-testnet': {
+              clone: true,
+              hub: 'juicy-low-small-testnet'
+            },
             mainnet: {
               clone: true,
               hub: 'juicy-low-small-testnet'
@@ -229,49 +181,51 @@ export const METAPORT_CONFIG: types.mp.Config = {
         }
       },
       erc20: {
-        usdc: {
-          address: '0x5eaf4e5a908ba87abf3de768cb0da517db45db48',
+        skl: {
+          address: '0xb7d990b996E1c639E16e459dDACCe64236C7796B',
           chains: {
             'juicy-low-small-testnet': {
               clone: true
             },
-            'aware-fake-trim-testnet': {
-              clone: true
+            'giant-half-dual-testnet': {
+              clone: true,
+              hub: 'juicy-low-small-testnet',
             },
             mainnet: {
+              clone: true,
               hub: 'juicy-low-small-testnet',
-              clone: true
             }
           }
         },
-        unp: {
-          address: '0xb22020Ec2C92e2ca043aC5172747c529a79abF92',
+        usdc: {
+          address: '0x6ab391237A6A207BBFa3648743260B02622303D2',
           chains: {
             'juicy-low-small-testnet': {
               clone: true
             },
-            mainnet: {
+            'giant-half-dual-testnet': {
+              clone: true,
               hub: 'juicy-low-small-testnet',
-              clone: true
+            },
+            mainnet: {
+              clone: true,
+              hub: 'juicy-low-small-testnet',
             }
           }
-        }
-      }
-    },
-    'aware-fake-trim-testnet': { // titan connections
-      erc20: {
-        usdc: {
-          address: '0x10a30e73ab2da5328fc09b06443dde3e656e82f4',
+        },
+        usdt: {
+          address: '0x5A5fbF6e386C0c0Dbd962e7FA28C64f702f3F085',
           chains: {
             'juicy-low-small-testnet': {
               clone: true
             },
-            'lanky-ill-funny-testnet': {
-              clone: true
+            'giant-half-dual-testnet': {
+              clone: true,
+              hub: 'juicy-low-small-testnet',
             },
             mainnet: {
+              clone: true,
               hub: 'juicy-low-small-testnet',
-              clone: true
             }
           }
         }
@@ -288,89 +242,54 @@ export const METAPORT_CONFIG: types.mp.Config = {
             },
             'lanky-ill-funny-testnet': {
               wrapper: '0x7Dcc444B1B94ACcf24C39C2ff2C0465D640cFC3F'
+            },
+            'giant-half-dual-testnet': {
+              wrapper: '0x7Dcc444B1B94ACcf24C39C2ff2C0465D640cFC3F'
             }
           }
         }
       },
       erc20: {
-        dai: {
-          address: '0x7aE734db73c57F3D16f5F141BAf6CfABD9E693bf',
-          chains: {
-            mainnet: {
-              clone: true
-            }
-          }
-        },
-        trc: {
-          address: '0x7ebf7fde04cbe629c5b26829d6582b22e5e0ae4c',
-          chains: {
-            mainnet: {
-              clone: true
-            }
-          }
-        },
         skl: {
-          address: '0x6c71319b1F910Cf989AD386CcD4f8CC8573027aB',
+          address: '0xB9AcaEe79C46FFc102BA7E3fB057880A9301ac44',
           chains: {
             mainnet: {
               clone: true
             },
             'giant-half-dual-testnet': {
-              wrapper: '0xba05e3c8033705017ea734f4041fcce7f5d43271'
+              wrapper: '0x9034bD74Dc574d4b68bA4a971463397cf6C404e0'
             },
             'lanky-ill-funny-testnet': {
-              wrapper: '0xba05e3c8033705017ea734f4041fcce7f5d43271'
+              wrapper: '0x9034bD74Dc574d4b68bA4a971463397cf6C404e0'
             },
-            'aware-fake-trim-testnet': {
-              wrapper: '0xba05e3c8033705017ea734f4041fcce7f5d43271'
-            }
-          }
-        },
-        usdp: {
-          address: '0xbEE0FB0C095405A17c079Cd5C3cc89525e5A9a8C',
-          chains: {
-            mainnet: {
-              clone: true
-            }
           }
         },
         usdc: {
-          address: '0x6CE77Fc7970F6984eF3E8748A3826972Ec409Fb9',
+          address: '0x9eAb55199f4481eCD7659540A17Af618766b07C4',
           chains: {
             mainnet: {
               clone: true
             },
             'giant-half-dual-testnet': {
-              wrapper: '0xa6be26f2914a17fc4e8d21a1ce2ec4079eeb990c'
+              wrapper: '0x3748FB339ab9B53ba1a380DB1CE0221C62DA3c6f'
             },
             'lanky-ill-funny-testnet': {
-              wrapper: '0xa6be26f2914a17fc4e8d21a1ce2ec4079eeb990c'
+              wrapper: '0x3748FB339ab9B53ba1a380DB1CE0221C62DA3c6f'
             },
-            'aware-fake-trim-testnet': {
-              wrapper: '0xa6be26f2914a17fc4e8d21a1ce2ec4079eeb990c'
-            }
           }
         },
-        skivvy: {
-          address: '0x6fb47CdB4e1b8FC17707af06ff8E431C61825584',
+        usdt: {
+          address: '0xc841fbaF982cf4546a9f552EF37b134F2D87F6DB',
           chains: {
             mainnet: {
               clone: true
             },
             'giant-half-dual-testnet': {
-              wrapper: '0x23d67AF9E78f757Ba6a678ECfc8d346C1e0b3D88'
-            }
-          }
-        },
-        unp: {
-          address: '0xbB4dFb0783Cb966Dc94dE548047A08C6b0F439a7',
-          chains: {
-            mainnet: {
-              clone: true
+              wrapper: '0xba03F5a1C216D7dC93624D5Ad82C92E2000b4787'
             },
             'lanky-ill-funny-testnet': {
-              wrapper: '0x1Dbc55b18F6184Bd4642820baea0260f9D540667'
-            }
+              wrapper: '0xba03F5a1C216D7dC93624D5Ad82C92E2000b4787'
+            },
           }
         }
       }

@@ -73,7 +73,7 @@ const MostLikedApps: React.FC<MostLikedAppsProps> = ({
     return (
       <SkPaper gray className="titleSection">
         <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.pCent)}>
+          <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.pCent)}>
             🚫 No trending apps match your current filters
           </p>
         </div>
@@ -88,7 +88,7 @@ const MostLikedApps: React.FC<MostLikedAppsProps> = ({
   return (
     <Grid container spacing={2}>
       {apps.map((app) => (
-        <Grid key={`${app.chain}-${app.appName}`} item xs={12} sm={6} md={4} lg={4}>
+        <Grid key={`${app.chain}-${app.appName}`} size={{ xs: 12, sm: 6, md: 4, lg: 4 }}>
           {renderAppCard(app)}
         </Grid>
       ))}

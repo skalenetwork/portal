@@ -23,9 +23,8 @@
 
 import React from 'react'
 import { Modal, Box, useTheme, useMediaQuery } from '@mui/material'
-import { cls, cmn, SkPaper, useWagmiAccount } from '@skalenetwork/metaport'
+import { cls, cmn, SkPaper, useWagmiAccount, Tile } from '@skalenetwork/metaport'
 import { useAuth } from '../../AuthContext'
-import Tile from '../Tile'
 import ConnectWallet from '../ConnectWallet'
 import ProfileModalHeader from './ProfileModalHeader'
 import ProfileModalActions from './ProfileModalActions'

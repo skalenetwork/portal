@@ -22,7 +22,7 @@
 
 import { useState } from 'react'
 import { types, units, timeUtils } from '@/core'
-import { cmn, cls, styles } from '@skalenetwork/metaport'
+import { cmn, cls, styles, Tile } from '@skalenetwork/metaport'
 
 import { Collapse, Grid, Tooltip } from '@mui/material'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
@@ -42,8 +42,6 @@ import {
 } from '../../core/delegation'
 import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
 
-import Tile from '../Tile'
-
 export default function Delegation(props: {
   delegation: types.st.IDelegation
   validator: types.st.IValidator
@@ -55,6 +53,7 @@ export default function Delegation(props: {
   isXs: boolean
   customAddress: types.AddressType | undefined
   isValidatorPage?: boolean
+  sklPrice?: bigint | undefined
 }) {
   const source = getDelegationSource(props.delegation)
   const delegationAmount = units.displayBalance(props.delegation.amount, 'SKL')
@@ -113,7 +112,7 @@ export default function Delegation(props: {
           setOpen(!open)
         }}
       >
-        <Grid item md={3} xs={12}>
+        <Grid size={{ xs: 12, md: 3 }}>
           <div className={cls(cmn.flex, cmn.flexcv)}>
             <ValidatorLogo validatorId={Number(props.delegation.id + 500n)} size="md" />
             {!props.isValidatorPage && (
@@ -141,7 +140,7 @@ export default function Delegation(props: {
             ) : null}
           </div>
         </Grid>
-        <Grid item md={3} xs={6}>
+        <Grid size={{ xs: 6, md: 3 }}>
           <div className={cls(cmn.flex, [cmn.mtop10, props.isXs])}>
             <div className={cls([cmn.flexg, !props.isXs])}></div>
             <div className={cls(`chipXs chip_${props.delegation.state}`)}>
@@ -152,7 +151,7 @@ export default function Delegation(props: {
             <div className={cls([cmn.flexg, !props.isXs])}></div>
           </div>
         </Grid>
-        <Grid item md={2} xs={6}>
+        <Grid size={{ xs: 6, md: 2 }}>
           <div className={cls(cmn.flex, [cmn.mtop10, props.isXs])}>
             <div className={cls([cmn.flexg, !props.isXs])}></div>
             <div className={cls(`chipXs chip_${getKeyByValue(DelegationSource, source)}`)}>
@@ -161,17 +160,20 @@ export default function Delegation(props: {
             <div className={cls([cmn.flexg, !props.isXs])}></div>
           </div>
         </Grid>
-        <Grid item md={4} xs={12}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <div className={cls(cmn.flex, cmn.flexcv, cmn.mri5, [cmn.mtop10, props.isXs])}>
-            <div
-              className={cls(
-                cmn.flexg,
-                cmn.mri20,
-                [cmn.pri, !props.isXs],
-                [cmn.mleft20, !props.isXs]
-              )}
-            >
-              <h4 className={cls(cmn.p, cmn.p700, [cmn.pSec, !isActive])}>{delegationAmount}</h4>
+            <div className={cls(cmn.flexg)}></div>
+            <div className={cls(cmn.mri20, [cmn.pri, !props.isXs], [cmn.mleft20, !props.isXs])}>
+              <Tooltip
+                arrow
+                title={
+                  props.sklPrice && props.delegation.amount
+                    ? units.displaySklValueUsd(props.delegation.amount, props.sklPrice)
+                    : ''
+                }
+              >
+                <h4 className={cls(cmn.p, cmn.p700, [cmn.pSec, !isActive])}>{delegationAmount}</h4>
+              </Tooltip>
               <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>{getStakingText()}</p>
             </div>
             <ArrowForwardIosRoundedIcon
@@ -203,6 +205,11 @@ export default function Delegation(props: {
             <Tile
               className={cls(cmn.nop, cmn.mtop20)}
               transparent
+              tooltip={
+                props.sklPrice && props.delegation.finished
+                  ? units.displaySklValueUsd(props.delegation.finished, props.sklPrice)
+                  : ''
+              }
               value={timeUtils.convertMonthIndexToText(Number(props.delegation.finished))}
               text="Delegation completed"
               grow
@@ -227,7 +234,7 @@ export default function Delegation(props: {
               loading={loading}
               text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
               color="error"
-              className={cls('fullW', cmn.mtop20)}
+              className={cls('fullW')}
               onClick={async () => {
                 props.unstake && (await props.unstake(delegationInfo))
               }}

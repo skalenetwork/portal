@@ -65,10 +65,15 @@ export default function PopularActions(props: {
       <div className={cls(cmn.flex, cmn.flexRow, cmn.flexcv)}>
         <Grid container spacing={2}>
           {actions.map((action) => (
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Link
-                to={`/ecosystem/${shortAlias}/${action.app}`}
+                to={
+                  chainMeta.apps?.[action.app].social?.website ||
+                  `/ecosystem/${shortAlias}/${action.app}`
+                }
                 className={cls(cmn.flex, cmn.fullWidth)}
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 <SkPaper gray className={cls(cmn.fullWidth, 'hoverable')} key={action.text}>
                   <div className={cls(cmn.flex, cmn.flexcv)}>

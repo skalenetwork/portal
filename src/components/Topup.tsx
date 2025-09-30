@@ -24,7 +24,7 @@
 import { Link } from 'react-router-dom'
 
 import { constants, units, helper, type types } from '@/core'
-import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
+import { cmn, cls, type MetaportCore, Tile } from '@skalenetwork/metaport'
 
 import Button from '@mui/material/Button'
 import { Collapse } from '@mui/material'
@@ -32,7 +32,6 @@ import TollIcon from '@mui/icons-material/Toll'
 import MoreTimeIcon from '@mui/icons-material/MoreTime'
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
 
-import Tile from './Tile'
 import SkStack from './SkStack'
 import MonthSelector from './MonthSelector'
 import Loader from './Loader'

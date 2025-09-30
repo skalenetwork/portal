@@ -33,12 +33,12 @@ import {
   MetaportCore,
   enforceNetwork,
   useWagmiWalletClient,
-  useWagmiSwitchNetwork
+  useWagmiSwitchNetwork,
+  Tile
 } from '@skalenetwork/metaport'
 
 import { Button } from '@mui/material'
 
-import Tile from './Tile'
 import { watchAsset } from '../core/watchAsset'
 
 export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: string }) {

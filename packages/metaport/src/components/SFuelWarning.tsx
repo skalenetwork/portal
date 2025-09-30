@@ -28,7 +28,6 @@ import { constants } from '@/core'
 import { useAccount } from 'wagmi'
 
 import Button from '@mui/material/Button'
-import LoadingButton from '@mui/lab/LoadingButton'
 import { Collapse } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
@@ -95,11 +94,11 @@ export default function SFuelWarning(props: {}) {
 
   useEffect(() => {
     updateStationsData()
-    const intervalId = setInterval(() => {
+    const intervalId = window.setInterval(() => {
       updateStationsData()
     }, BALANCE_UPDATE_INTERVAL_MS)
     return () => {
-      clearInterval(intervalId) // Clear interval on component unmount
+      window.clearInterval(intervalId)
     }
   }, [fromChainStation, toChainStation, hubChainStation])
 
@@ -215,16 +214,15 @@ export default function SFuelWarning(props: {}) {
         ) : (
           <div>
             {mining ? (
-              <LoadingButton
-                loading
+              <Button
+                disabled
                 startIcon={<ArrowOutwardRoundedIcon />}
-                loadingPosition="start"
                 size="small"
                 variant="contained"
                 className={cls(styles.btnAction, cmn.mtop10)}
               >
                 Getting sFUEL...
-              </LoadingButton>
+              </Button>
             ) : (
               <Button
                 variant="contained"

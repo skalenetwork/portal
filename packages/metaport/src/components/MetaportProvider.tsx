@@ -30,7 +30,8 @@ import {
   DisclaimerComponent
 } from '@rainbow-me/rainbowkit'
 import { WagmiProvider, createConfig, http } from 'wagmi'
-import { mainnet, goerli, holesky } from 'wagmi/chains'
+import { mainnet, goerli } from 'wagmi/chains'
+import { hoodi } from '../core/eth_chains'
 import { GetChainsReturnType } from '@wagmi/core'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { PaletteMode } from '@mui/material'
@@ -90,14 +91,14 @@ export default function MetaportProvider(props: {
     }
   )
 
-  const chains: GetChainsReturnType = [mainnet, goerli, holesky, ...skaleChains]
+  const chains: GetChainsReturnType = [mainnet, goerli, hoodi, ...skaleChains]
   const wagmiConfig = createConfig({
     chains,
     connectors,
     transports: {
       [mainnet.id]: http(),
       [goerli.id]: http(),
-      [holesky.id]: http(),
+      [hoodi.id]: http(),
       ...Object.fromEntries(
         skaleChains.map((chain) => [chain.id, http(chain.rpcUrls.default.http[0])])
       )

@@ -74,6 +74,9 @@ const connections: types.mp.TokenTypeMap = {
                 },
                 'honorable-steel-rasalhague': {
                     wrapper: '0xD6b78761557E50BC94B7a99d75Fa6C9c29ab77e1'
+                },
+                'green-giddy-denebola': {
+                    wrapper: '0xD6b78761557E50BC94B7a99d75Fa6C9c29ab77e1'
                 }
             }
         },

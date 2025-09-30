@@ -74,7 +74,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
     try {
       for (const key of Object.keys(tokens)) {
         const stepMetadata = get().stepsMetadata[get().currentStep]
-        const action = await ACTIONS.unwrap_stuck.create(
+        const action = await (ACTIONS.unwrap_stuck.create as any)(
           get().mpc,
           stepMetadata.from,
           stepMetadata.to,
@@ -111,7 +111,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
       try {
         const stepMetadata = get().stepsMetadata[get().currentStep]
         const ActionClass: ActionConstructor = ACTIONS[stepMetadata.type]
-        const action = await ActionClass.create(
+        const action = await (ActionClass.create as any)(
           get().mpc,
           stepMetadata.from,
           stepMetadata.to,
@@ -201,7 +201,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
       try {
         const stepMetadata = get().stepsMetadata[get().currentStep]
         const ActionClass: ActionConstructor = ACTIONS[stepMetadata.type]
-        const action = await ActionClass.create(
+        const action = await (ActionClass.create as any)(
           get().mpc,
           stepMetadata.from,
           stepMetadata.to,

@@ -25,7 +25,7 @@ import { JsonRpcProvider, Provider } from 'ethers'
 import { type types, constants, endpoints, helper } from '@/core'
 
 import { WalletClient } from 'viem'
-import { holesky } from '@wagmi/core/chains'
+import { hoodi, holesky } from './eth_chains'
 import { type UseSwitchChainReturnType } from 'wagmi'
 
 import { constructWagmiChain } from './wagmi_network'
@@ -34,10 +34,10 @@ import { TimeoutException } from './exceptions'
 const log = new Logger<ILogObj>({ name: 'metaport:core:network' })
 
 export const CHAIN_IDS: { [network in types.SkaleNetwork]: number } = {
-  legacy: 17000,
+  legacy: 560048,
   regression: 5,
   mainnet: 1,
-  testnet: 17000
+  testnet: 560048
 }
 
 export function isMainnetChainId(
@@ -99,11 +99,14 @@ export async function enforceNetwork(
   )
   log.info(`Switching network to ${chainId}...`)
   try {
-    if (chainId !== 1n && chainId !== 5n && chainId !== 17000n) {
+    if (chainId !== 1n && chainId !== 5n && chainId !== 17000n && chainId !== 560048n) {
       await walletClient.addChain({ chain: constructWagmiChain(skaleNetwork, chainName) })
     }
     if (chainId === 17000n) {
       await walletClient.addChain({ chain: holesky })
+    }
+    if (chainId === 560048n) {
+      await walletClient.addChain({ chain: hoodi })
     }
   } catch {
     log.info('Failed to add chain or chain already added')

@@ -1,54 +1,48 @@
 #!/usr/bin/env bash
 
-set -e
+set -euo pipefail
 
 : "${NETWORK_NAME?Need to set NETWORK_NAME}"
 
-export DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
-export PORTAL_DIR="$DIR/../"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
+PORTAL_DIR="$DIR/../"
 
-METAPORT_CONFIG_PATH=$PORTAL_DIR/config/$NETWORK_NAME/*
-METAPORT_CONFIG_PATH_SRC=$PORTAL_DIR/src/data/metaportConfig
+CONFIG_SRC_DIR="$PORTAL_DIR/config/$NETWORK_NAME"
+CONFIG_DST_DIR="$PORTAL_DIR/src/data/metaportConfig"
 
-mkdir -p $METAPORT_CONFIG_PATH_SRC
-
-echo "Copying ${METAPORT_CONFIG_PATH} -> ${METAPORT_CONFIG_PATH_SRC}..."
-cp -R $METAPORT_CONFIG_PATH $METAPORT_CONFIG_PATH_SRC
-
-META_DIR_EXTERNAL=$PORTAL_DIR/skale-network/metadata/$NETWORK_NAME/
-META_DIR=$PORTAL_DIR/src/meta/
-
-if [ -d "$META_DIR" ]; then
-    echo "Removing ${META_DIR}..."
-    rm -rf $META_DIR
+echo "Preparing metaport config for ${NETWORK_NAME}..."
+rm -rf "$CONFIG_DST_DIR"
+mkdir -p "$CONFIG_DST_DIR"
+if [ -d "$CONFIG_SRC_DIR" ]; then
+    cp -R "$CONFIG_SRC_DIR/"* "$CONFIG_DST_DIR" 2>/dev/null || true
 else
-    echo "${META_DIR} not found, skipping"
+    echo "Config directory $CONFIG_SRC_DIR not found" >&2
+    exit 1
 fi
 
-if [ -d "$META_DIR_EXTERNAL" ]; then
-    echo "Copying ${META_DIR_EXTERNAL} -> ${META_DIR}..."
-    cp -R $META_DIR_EXTERNAL $META_DIR
+META_SRC_DIR="$PORTAL_DIR/skale-network/metadata/$NETWORK_NAME"
+META_DST_DIR="$PORTAL_DIR/src/meta"
+
+echo "Syncing metadata..."
+rm -rf "$META_DST_DIR"
+if [ -d "$META_SRC_DIR" ]; then
+    cp -R "$META_SRC_DIR" "$META_DST_DIR"
 else
-    cp -R $PORTAL_DIR/skale-network/metadata/mainnet/ $META_DIR
-    echo "${META_DIR_EXTERNAL} not found, copying Mainnet meta"
+    echo "Metadata for $NETWORK_NAME not found, falling back to mainnet"
+    cp -R "$PORTAL_DIR/skale-network/metadata/mainnet" "$META_DST_DIR"
 fi
 
-node $DIR/generate-imports.cjs ./src/meta/logos
-node $DIR/generate-imports.cjs ./src/assets/validators
+node "$DIR/generate-imports.cjs" ./src/meta/logos
+node "$DIR/generate-imports.cjs" ./src/assets/validators
 
-bash $DIR/generate_sitemap.sh
+bash "$DIR/generate_sitemap.sh"
 
-echo "Building packages..."
+if [ ! -d "$PORTAL_DIR/packages/core/dist" ] || [ ! -d "$PORTAL_DIR/packages/metaport/dist" ]; then
+    echo "Building packages (core + metaport)..."
+    bun run build:packages
+else
+    echo "Packages already built, skipping"
+fi
 
-bun cleanup:portal
-
-bun build:core
-bun cleanup:core
-
-bun build:metaport
-bun cleanup:metaport
-
-bun i
-
-echo "Building..."
-bun build:portal
+echo "Building portal..."
+bunx vite build
