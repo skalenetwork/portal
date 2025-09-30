@@ -285,7 +285,8 @@ export default function CommunityPool() {
                     }
                   />
                   </Grid>
-              <div className={cls(cmn.mbott20, cmn.mtop10)}>
+                  </Grid>
+              <div className={cls(cmn.mbott20, cmn.mtop20)}>
                 <Button
                   variant="contained"
                   color="primary"
@@ -320,7 +321,6 @@ export default function CommunityPool() {
                   </div>
                 </Collapse>
               </div>
-              </Grid>
               </div>
             </SkPaper>
           </AccordionDetails>
