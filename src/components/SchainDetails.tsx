@@ -24,7 +24,15 @@
 import { useState } from 'react'
 import { Helmet } from 'react-helmet'
 
-import { cmn, cls, styles, type MetaportCore, SkPaper, explorer, Tile } from '@skalenetwork/metaport'
+import {
+  cmn,
+  cls,
+  styles,
+  type MetaportCore,
+  SkPaper,
+  explorer,
+  Tile
+} from '@skalenetwork/metaport'
 import { type types, metadata, constants, endpoints } from '@/core'
 
 import Button from '@mui/material/Button'

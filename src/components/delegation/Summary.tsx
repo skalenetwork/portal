@@ -142,7 +142,10 @@ export default function Summary(props: {
                   disabled={props.accountInfo?.allowedToDelegate === 0n}
                   tooltip={
                     props.sklPrice && props.accountInfo?.allowedToDelegate !== undefined
-                      ? units.displaySklValueUsd(props.accountInfo.allowedToDelegate, props.sklPrice)
+                      ? units.displaySklValueUsd(
+                          props.accountInfo.allowedToDelegate,
+                          props.sklPrice
+                        )
                       : ''
                   }
                   value={

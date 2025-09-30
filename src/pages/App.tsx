@@ -278,9 +278,7 @@ export default function App(props: {
                 />
               </Grid>
             )}
-            <Grid
-              size={{ xs: 12, md: appMeta.contracts ? 6 : 12, lg: appMeta.contracts ? 4 : 12 }}
-            >
+            <Grid size={{ xs: 12, md: appMeta.contracts ? 6 : 12, lg: appMeta.contracts ? 4 : 12 }}>
               <Tile
                 grow
                 text="Favorites"

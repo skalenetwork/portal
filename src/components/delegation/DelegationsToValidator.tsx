@@ -24,7 +24,7 @@
 import { useState } from 'react'
 import { useState as useReactState } from 'react'
 
-import { cls,  } from '@skalenetwork/metaport'
+import { cls } from '@skalenetwork/metaport'
 import { Collapse } from '@mui/material'
 
 import { types } from '@/core'
@@ -99,7 +99,9 @@ export default function DelegationsToValidator(props: {
               className="btnSm"
               loading={groupUnstakeLoading}
               onClick={handleUnstakeAll}
-              disabled={props.loading !== false || groupUnstakeLoading || props.customAddress !== undefined}
+              disabled={
+                props.loading !== false || groupUnstakeLoading || props.customAddress !== undefined
+              }
             />
           ) : null
         }

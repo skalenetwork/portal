@@ -25,7 +25,15 @@ import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 
 import { constants } from '@/core'
-import { cmn, cls, SkPaper, MetaportCore, useWagmiAccount, contracts, Tile } from '@skalenetwork/metaport'
+import {
+  cmn,
+  cls,
+  SkPaper,
+  MetaportCore,
+  useWagmiAccount,
+  contracts,
+  Tile
+} from '@skalenetwork/metaport'
 import { TransakConfig, Transak } from '@transak/transak-sdk'
 
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'

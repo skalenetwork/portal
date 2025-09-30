@@ -145,19 +145,16 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                       return isTokenInChain(chain, token)
                     })
                     .map((chain: string, index: number) => (
-                      <Grid
-                        key={index}
-                        size={{ xs: 12, sm: 6, md: 4, lg: 3 }}
-                      >
+                      <Grid key={index} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                         <TokenSurface
                           className={cls(styles.fullHeight)}
                           title={chain}
                           value={
                             (balances[index] && balances[index][token]
                               ? units.fromWei(
-                                balances[index][token].toString(),
-                                getTokenDecimals(token)
-                              )
+                                  balances[index][token].toString(),
+                                  getTokenDecimals(token)
+                                )
                               : '0') +
                             ' ' +
                             props.mpc.config.tokens[token].symbol

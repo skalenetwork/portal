@@ -179,11 +179,11 @@ export default function Ecosystem(props: {
         4,
         isSignedIn
           ? favoriteApps.filter((app) =>
-            filteredApps.some(
-              (filteredApp) =>
-                filteredApp.chain === app.chain && filteredApp.appName === app.appName
+              filteredApps.some(
+                (filteredApp) =>
+                  filteredApp.chain === app.chain && filteredApp.appName === app.appName
+              )
             )
-          )
           : []
       ]
     ])
@@ -204,14 +204,18 @@ export default function Ecosystem(props: {
           <meta property="og:description" content={META_TAGS.ecosystem.description} />
         </Helmet>
         <Stack spacing={0}>
-          <div ref={fixedHeaderRef} className="sk-header" style={{
-            position: 'fixed',
-            top: '101px',
-            background: 'black',
-            borderRadius: '35px',
-            zIndex: 1000,
-            width: '100%',
-          }}>
+          <div
+            ref={fixedHeaderRef}
+            className="sk-header"
+            style={{
+              position: 'fixed',
+              top: '101px',
+              background: 'black',
+              borderRadius: '35px',
+              zIndex: 1000,
+              width: '100%'
+            }}
+          >
             <Container maxWidth="md">
               <SkStack>
                 <div className={cls(cmn.flexg, cmn.mbott20, cmn.mtop10)}>
@@ -282,12 +286,10 @@ export default function Ecosystem(props: {
                   className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
                 />
               </Tabs>
-
             </Container>
           </div>
           <div style={{ height: headerHeight }} />
           <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20, 'fwmobile')}>
-
             {activeTab === 0 && (
               <AllApps
                 apps={currentFilteredApps}
