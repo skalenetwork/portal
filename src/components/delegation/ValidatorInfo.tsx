@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, TokenIcon } from '@skalenetwork/metaport'
+import { cmn, cls, TokenIcon, Tile } from '@skalenetwork/metaport'
 import { type types, units, constants } from '@/core'
 
 import { Skeleton } from '@mui/material'
@@ -30,12 +30,12 @@ import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
 
 import ValidatorLogo from './ValidatorLogo'
 import { ValidatorBadge, TrustBadge } from './ValidatorBadges'
-import Tile from '../Tile'
 import SkStack from '../SkStack'
 
 export default function ValidatorInfo(props: {
   validator: types.st.IValidator | null
   className?: string
+  sklPrice?: bigint | undefined
 }) {
   const description = props.validator?.description ? props.validator.description : 'No description'
   const minDelegation =
@@ -81,6 +81,11 @@ export default function ValidatorInfo(props: {
         />
         <Tile
           value={props.validator && `${minDelegation} SKL`}
+          tooltip={
+            props.validator && props.sklPrice && minDelegation
+              ? units.displaySklValueUsd(props.validator.minimumDelegationAmount, props.sklPrice)
+              : ''
+          }
           text="Minimum delegation amount"
           grow
           size="md"

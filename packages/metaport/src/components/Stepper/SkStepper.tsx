@@ -9,11 +9,10 @@ import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
 import StepContent from '@mui/material/StepContent'
 import Button from '@mui/material/Button'
-import LoadingButton from '@mui/lab/LoadingButton'
 import Collapse from '@mui/material/Collapse'
 
 import SettingsBackupRestoreRoundedIcon from '@mui/icons-material/SettingsBackupRestoreRounded'
-import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
+import AnimatedLoadingIcon from '../AnimatedLoadingIcon'
 
 import { cls, cmn, styles } from '../../core/css'
 import localStyles from './SkStepper.module.scss'
@@ -113,17 +112,16 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                     <p className={cls(cmn.flex, cmn.p, cmn.pSec, cmn.p4, cmn.flexg)}>{step.text}</p>
                     <div className={cmn.mtop10}>
                       {loading ? (
-                        <LoadingButton
-                          loading
-                          startIcon={<ArrowOutwardRoundedIcon />}
-                          loadingPosition="start"
+                        <Button
+                          disabled
+                          startIcon={<AnimatedLoadingIcon />}
                           variant="contained"
                           color="primary"
                           size="medium"
                           className={cls(styles.btnAction, cmn.mtop5)}
                         >
                           {btnText}
-                        </LoadingButton>
+                        </Button>
                       ) : (
                         <Button
                           variant="contained"

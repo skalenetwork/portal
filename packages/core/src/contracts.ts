@@ -56,10 +56,10 @@ export const PREDEPLOYED_ALIAS = 'predeployed'
 export const CONTRACTS: ContractsConfig = {
   mainnet: {},
   legacy: {
-    'skale-manager': '0x27C393Cd6CBD071E5F5F2227a915d3fF3650aeaE',
-    'mainnet-ima': '0x0F38cD94a864329A67e4dc74F34153d048098e6F',
-    'skale-allocator': '0xCEabf2b0c4F9d75A49a7B1E3e3c3179cDe949C9F',
-    'skale-grants': '0x3982411D90792aCDaCBa37b1fE2f23E4A3E97429'
+    'skale-manager': '0x3E51d380a5A652bAecDE4BBAC62325f7C506dD4C',
+    'mainnet-ima': '0x518b7661F6Ef6170a5AB99eecC545621B81D054b',
+    'skale-allocator': '0x9dC47fce435e32779E03AD3dD24015479b9286D9',
+    'skale-grants': '0x1Bf7D9BAFd93945b02441B5f1C161C0dD5f439B3'
   },
   regression: {},
   testnet: {
@@ -80,8 +80,8 @@ export const PAYMASTER_CONTRACTS = {
     address: '0x9E444978d11E7e753017ce3329B01663D5D78240'
   },
   legacy: {
-    chain: 'adorable-quaint-bellatrix',
-    address: '0xb76A448071Ed77d22cAa1669567B5D28f5448d99'
+    chain: 'international-villainous-zaurak',
+    address: '0x9891d98E976dC8c6a65a26208Ab17718434dA1c5'
   },
   regression: {
     chain: '',

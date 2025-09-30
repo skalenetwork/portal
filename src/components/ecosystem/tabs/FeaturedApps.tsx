@@ -1,4 +1,3 @@
-
 /**
   * @license
   * SKALE portal
@@ -107,27 +106,30 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
     <>
       <Grid container spacing={2}>
         {filteredFeaturedApps.map((app) => (
-          <Grid key={`${app.chain}-${app.appName}`} item xs={12} sm={6} md={4} lg={4}>
+          <Grid key={`${app.chain}-${app.appName}`} size={{ xs: 12, sm: 6, md: 4, lg: 4 }}>
             <Box className={cls('fl-centered dappCard')}>{renderAppCard(app)}</Box>
           </Grid>
         ))}
       </Grid>
-      {showSeeMoreButton && chainName !== null && chainName !== undefined && chainName.trim() !== '' && (
-        <Box className={cls(cmn.flex, cmn.flexc, cmn.mtop20)}>
-          <Link
-            to={`/ecosystem?search=${encodeURIComponent(metadata.getAlias(chainsMeta, chainName))}`}
-            style={{ textDecoration: 'none' }}
-          >
-            <Button
-              size="medium"
-              startIcon={<AddCircleRoundedIcon />}
-              className={cls(styles.btnAction, cmn.pleft20, cmn.pri20)}
+      {showSeeMoreButton &&
+        chainName !== null &&
+        chainName !== undefined &&
+        chainName.trim() !== '' && (
+          <Box className={cls(cmn.flex, cmn.flexc, cmn.mtop20)}>
+            <Link
+              to={`/ecosystem?search=${encodeURIComponent(metadata.getAlias(chainsMeta, chainName))}`}
+              style={{ textDecoration: 'none' }}
             >
-              See more
-            </Button>
-          </Link>
-        </Box>
-      )}
+              <Button
+                size="medium"
+                startIcon={<AddCircleRoundedIcon />}
+                className={cls(styles.btnAction, cmn.pleft20, cmn.pri20)}
+              >
+                See more
+              </Button>
+            </Link>
+          </Box>
+        )}
     </>
   )
 }

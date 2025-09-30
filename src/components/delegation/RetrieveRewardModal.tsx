@@ -22,7 +22,7 @@
 
 import { useState, useEffect, ChangeEvent } from 'react'
 import { isAddress } from 'ethers'
-import { SkPaper, cls, cmn, styles } from '@skalenetwork/metaport'
+import { SkPaper, cls, cmn, styles, Tile } from '@skalenetwork/metaport'
 import { type types, constants } from '@/core'
 
 import { Collapse, Container, TextField, Box, Button, Modal } from '@mui/material'
@@ -33,7 +33,6 @@ import ReportProblemRoundedIcon from '@mui/icons-material/ReportProblemRounded'
 import Jazzicon from 'react-jazzicon/dist/Jazzicon'
 import { jsNumberForAddress } from 'react-jazzicon'
 
-import Tile from '../Tile'
 import Message from '../Message'
 import SkBtn from '../SkBtn'
 

@@ -145,7 +145,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                       return isTokenInChain(chain, token)
                     })
                     .map((chain: string, index: number) => (
-                      <Grid key={index} item lg={3} md={4} sm={6} xs={12}>
+                      <Grid key={index} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                         <TokenSurface
                           className={cls(styles.fullHeight)}
                           title={chain}

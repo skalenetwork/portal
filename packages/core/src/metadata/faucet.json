@@ -26,16 +26,12 @@
     }
   },
   "legacy": {
-    "adorable-quaint-bellatrix": {
-      "address": "0x94977628d2EeDa78E2A56Abe178F432c46E13a6b",
+    "peaceful-outlying-ankaa": {
+      "address": "0xedc124a7e472bAc1940a256E4950e3Aa3F6D18d3",
       "func": "0x0c11dedd"
     },
-    "these-long-sadalsuud": {
-      "address": "0xb45FA2D56C9f82d130Eb007a76F1FB3631d99b3b",
-      "func": "0x0c11dedd"
-    },
-    "spanish-smug-auva": {
-      "address": "0xa101902B3119f4830292bb79ebAB56967229207B",
+    "international-villainous-zaurak": {
+      "address": "0x6fe3168F757Dc4efdd95887401cA5E99448c0405",
       "func": "0x0c11dedd"
     }
   },

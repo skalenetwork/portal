@@ -72,7 +72,7 @@ export default function VerifiedContracts(props: {
     <SkPaper gray className={cls(cmn.mtop20)}>
       <Grid container spacing={2} className={cls(cmn.full)}>
         {contracts.map((contract: any, index: number) => (
-          <Grid key={index} item lg={6} md={6} sm={6} xs={12}>
+          <Grid key={index} size={{ xs: 12, sm: 6, md: 6, lg: 6 }}>
             <LinkSurface
               className={cls(styles.fullHeight)}
               title={contract.ContractName}
