@@ -81,7 +81,7 @@ export const PAYMASTER_CONTRACTS = {
   },
   legacy: {
     chain: 'international-villainous-zaurak',
-    address: '0x9891d98E976dC8c6a65a26208Ab17718434dA1c5'
+    address: '0xa0C150C5F193b6B331Fc890a3BE0316044F21981'
   },
   regression: {
     chain: '',
