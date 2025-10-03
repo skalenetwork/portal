@@ -25,7 +25,8 @@ import { useMemo } from 'react'
 import { types } from '@/core'
 import { useLikedApps } from '../../../LikedAppsContext'
 import AppCard from '../AppCardV2'
-import { Button, Grid } from '@mui/material'
+import Button from '@mui/material/Button'
+import { Grid } from '@mui/material'
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
 import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
 import Carousel from '../../Carousel'
@@ -57,15 +58,7 @@ export default function FavoriteApps(props: {
     const isFeaturedApps = isFeatured({ chain: app.chain, app: app.appName }, props.featuredApps)
 
     return (
-      <Grid
-        key={`${app.appName}-${app.chain}`}
-        className={cls('fl-centered dappCard')}
-        item
-        lg={4}
-        md={4}
-        sm={6}
-        xs={12}
-      >
+      <Grid key={`${app.appName}-${app.chain}`} size={{ xs: 12, sm: 6, md: 4, lg: 4 }}>
         <AppCard
           key={`${app.chain}-${app.appName}`}
           schainName={app.chain}
