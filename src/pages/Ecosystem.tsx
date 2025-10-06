@@ -109,7 +109,7 @@ export default function Ecosystem(props: {
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [])
+  }, [checkedItems])
 
   useEffect(() => {
     props.loadData()

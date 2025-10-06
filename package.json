@@ -10,6 +10,7 @@
     "build:packages": "bun run --cwd packages/core build && bun run --cwd packages/metaport build",
     "build:mainnet": "bun run build:packages && NETWORK_NAME=mainnet bash scripts/build.sh",
     "build:testnet": "bun run build:packages && NETWORK_NAME=testnet bash scripts/build.sh",
+    "build:qa": "bun run build:packages && NETWORK_NAME=legacy bash scripts/build.sh",
     "dev": "bun run build:packages && vite",
     "dev:portal": "vite",
     "dev:watch": "bunx concurrently -k -n CORE,METAPORT,PORTAL -c cyan,magenta,green 'bun run --cwd packages/core dev' 'bun run --cwd packages/metaport dev' 'bun run dev:portal'",
