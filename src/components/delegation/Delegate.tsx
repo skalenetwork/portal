@@ -38,7 +38,7 @@ import {
 import { type types, constants, units } from '@/core'
 
 import Button from '@mui/material/Button'
-import { TextField } from '@mui/material'
+import { TextField, Tooltip } from '@mui/material'
 import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded'
 import TransitEnterexitRoundedIcon from '@mui/icons-material/TransitEnterexitRounded'
 import EventRepeatRoundedIcon from '@mui/icons-material/EventRepeatRounded'
@@ -63,7 +63,7 @@ export default function Delegate(props: {
   errorMsg: string | undefined
   setErrorMsg: (msg: string | undefined) => void
   className?: string
-  sklPrice?: bigint | undefined
+  sklPrice: bigint
 }) {
   const [amount, setAmount] = useState<string>('')
   const [loading, setLoading] = useState<boolean>(false)
@@ -178,17 +178,26 @@ export default function Delegate(props: {
           children={
             <div className={cls(cmn.flex, cmn.flexcv, 'amountInput')}>
               <div className={cls(cmn.flexg)}>
-                <TextField
-                  inputProps={{ step: '0.1', lang: 'en-US' }}
-                  inputRef={(input) => input?.focus()}
-                  type="number"
-                  variant="standard"
-                  placeholder="0.00"
-                  value={amount}
-                  onChange={handleChange}
-                  disabled={loading}
-                  style={{ width: '100%' }}
-                />
+                <Tooltip
+                  title={
+                    props.sklPrice !== undefined
+                      ? units.displaySklValueUsd(amountWei, props.sklPrice)
+                      : ''
+                  }
+                  arrow
+                >
+                  <TextField
+                    inputProps={{ step: '0.1', lang: 'en-US' }}
+                    inputRef={(input) => input?.focus()}
+                    type="number"
+                    variant="standard"
+                    placeholder="0.00"
+                    value={amount}
+                    onChange={handleChange}
+                    disabled={loading}
+                    style={{ width: '100%' }}
+                  />
+                </Tooltip>
               </div>
 
               <div className={cls(cmn.p1, cmn.p, cmn.p700, cmn.mri10)}>SKL</div>
@@ -201,7 +210,7 @@ export default function Delegate(props: {
           disabled={info.allowedToDelegate === 0n}
           value={units.displayBalance(info.allowedToDelegate!, 'SKL')}
           tooltip={
-            props.sklPrice && info.allowedToDelegate
+            props.sklPrice !== undefined && info.allowedToDelegate !== undefined
               ? units.displaySklValueUsd(info.allowedToDelegate, props.sklPrice)
               : ''
           }

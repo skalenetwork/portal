@@ -44,7 +44,7 @@ export default function Delegations(props: {
   customAddress: types.AddressType | undefined
   customRewardAddress: types.AddressType | undefined
   setCustomRewardAddress: (customRewardAddress: types.AddressType | undefined) => void
-  sklPrice?: bigint | undefined
+  sklPrice: bigint
 }) {
   const loaded = props.si[types.st.DelegationType.REGULAR] !== null
   const noDelegations =

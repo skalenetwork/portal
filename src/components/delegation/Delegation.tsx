@@ -53,7 +53,7 @@ export default function Delegation(props: {
   isXs: boolean
   customAddress: types.AddressType | undefined
   isValidatorPage?: boolean
-  sklPrice?: bigint | undefined
+  sklPrice: bigint
 }) {
   const source = getDelegationSource(props.delegation)
   const delegationAmount = units.displayBalance(props.delegation.amount, 'SKL')

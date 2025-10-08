@@ -46,7 +46,7 @@ export default function Reward(props: {
   customRewardAddress: types.AddressType | undefined
   setCustomRewardAddress: (customRewardAddress: types.AddressType | undefined) => void
   unstakeAllBtn?: React.ReactNode
-  sklPrice?: bigint | undefined
+  sklPrice: bigint
 }) {
   const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
   const rewardsAmount = units.displayBalance(props.delegationsToValidator.rewards, 'SKL')
@@ -108,9 +108,21 @@ export default function Reward(props: {
                 <div className={cls([cmn.pri, !props.isXs], cmn.flex)}>
                   <div>
                     <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Total staked</p>
-                    <h3 className={cls(cmn.p, cmn.p700)}>{totalStakedAmount}</h3>
+                     <Tooltip
+                      arrow
+                      title={
+                        props.sklPrice !== undefined && props.delegationsToValidator.staked !== undefined
+                          ? units.displaySklValueUsd(
+                              props.delegationsToValidator.staked,
+                              props.sklPrice
+                            )
+                          : ''
+                      }
+                    >
+                      <h3 className={cls(cmn.p, cmn.p700)}>{totalStakedAmount}</h3>
+                    </Tooltip>
                   </div>
-                  <div className={cls('borderVert', cmn.mleft20)}></div>
+                  <div className={cls('borderVert', cmn.mleft10)}></div>
                 </div>
               ) : null}
               <div
@@ -118,7 +130,7 @@ export default function Reward(props: {
                   [cmn.flexg, props.isXs],
                   cmn.mri20,
                   [cmn.pri, !props.isXs],
-                  [cmn.mleft20, !props.isXs]
+                  [cmn.mleft10, !props.isXs]
                 )}
               >
                 <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Rewards available</p>

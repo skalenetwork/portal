@@ -48,7 +48,7 @@ export default function DelegationsToValidator(props: {
   customAddress: types.AddressType | undefined
   customRewardAddress: types.AddressType | undefined
   setCustomRewardAddress: (customRewardAddress: types.AddressType | undefined) => void
-  sklPrice?: bigint | undefined
+  sklPrice: bigint
 }) {
   const [open, setOpen] = useState(true)
   const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
