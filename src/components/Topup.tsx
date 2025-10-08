@@ -89,10 +89,10 @@ export default function Topup(props: {
         />
       </SkStack>
       <SkStack>
-        <Tile
+       <Tile
           value={`${units.truncateDecimals(totalPriceSkl.toString(), 6)} SKL`}
           tooltip={
-            props.info.oneSklPrice > 1n
+            props.info.oneSklPrice !== undefined && totalPriceWei !== undefined
               ? units.displaySklValueUsd(totalPriceWei, props.info.oneSklPrice)
               : ''
           }
@@ -103,11 +103,11 @@ export default function Topup(props: {
         />
         <Tile
           value={`${units.truncateDecimals(tokenBalanceSkl, 6)} SKL`}
-          tooltip={
-            props.info.oneSklPrice > 1n && props.tokenBalance
-              ? units.displaySklValueUsd(props.tokenBalance, props.info.oneSklPrice)
-              : ''
-          }
+           tooltip={
+           props.info.oneSklPrice !== undefined && props.tokenBalance !== undefined
+            ? units.displaySklValueUsd(props.tokenBalance, props.info.oneSklPrice)
+            : ''
+        }
           text="SKL balance"
           icon={<TollIcon />}
           color={balanceOk ? undefined : 'error'}
