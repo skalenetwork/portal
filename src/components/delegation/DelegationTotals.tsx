@@ -36,7 +36,7 @@ import SkStack from '../SkStack'
 
 interface DelegationTotalsProps {
   delegations: types.st.IDelegation[] | null
-  sklPrice?: bigint | undefined
+  sklPrice: bigint
   className?: string
 }
 
