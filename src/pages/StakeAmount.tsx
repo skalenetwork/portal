@@ -67,7 +67,7 @@ export default function StakeAmount(props: {
   const loaded = isLoaded(props.si)
   const available = isDelegationTypeAvailable(props.si, delegationType)
 
-  const [sklPrice, setSklPrice] = useState<bigint | undefined>()
+  const [sklPrice, setSklPrice] = useState<bigint>(0n)
 
   useEffect(() => {
     updateCurrentValidator()
@@ -174,6 +174,7 @@ export default function StakeAmount(props: {
             loaded={loaded}
             delegationTypeAvailable={available}
             getMainnetSigner={props.getMainnetSigner}
+            sklPrice={sklPrice}
           />
         ) : (
           <ConnectWallet tile className={cls(cmn.flexg)} />

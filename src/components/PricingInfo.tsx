@@ -90,6 +90,7 @@ export default function PricingInfo(props: { info: types.pm.PaymasterInfo }) {
         />
         <Tile
           value={`${units.truncateDecimals(chainPriceSkl.toString(), 6)} SKL`}
+          tooltip={`${units.truncateDecimals(chainPriceUsd, 6)} USD`}
           text="Chain price SKL (per month)"
           icon={<TollIcon />}
           grow

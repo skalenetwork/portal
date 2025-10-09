@@ -35,7 +35,7 @@ import SkStack from '../SkStack'
 export default function ValidatorInfo(props: {
   validator: types.st.IValidator | null
   className?: string
-  sklPrice?: bigint | undefined
+  sklPrice: bigint
 }) {
   const description = props.validator?.description ? props.validator.description : 'No description'
   const minDelegation =

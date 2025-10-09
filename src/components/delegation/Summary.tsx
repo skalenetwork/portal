@@ -52,7 +52,7 @@ export default function Summary(props: {
   loading: types.st.IRewardInfo | types.st.IDelegationInfo | false
   customAddress: types.AddressType | undefined
   isXs: boolean
-  sklPrice?: bigint | undefined
+  sklPrice: bigint
 }) {
   function getTitle() {
     if (props.type === types.st.DelegationType.ESCROW) return 'Escrow'

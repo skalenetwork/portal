@@ -58,7 +58,7 @@ interface ChainRewardsProps {
   customAddress?: types.AddressType
   className?: string
   isXs?: boolean
-  sklPrice?: bigint | undefined
+  sklPrice: bigint
 }
 
 const ChainRewards: React.FC<ChainRewardsProps> = ({
@@ -196,7 +196,11 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
         text="Rewards on Europa Hub"
         icon={<EventAvailableRoundedIcon />}
         grow
-        tooltip={sklPrice && rewardAmount ? units.displaySklValueUsd(rewardAmount, sklPrice) : ''}
+        tooltip={
+          sklPrice !== undefined && rewardAmount !== undefined
+            ? units.displaySklValueUsd(rewardAmount, sklPrice)
+            : ''
+        }
         childrenRi={
           <SkStack className={cls(cmn.flex, [cmn.flexcv, !isXs])}>
             <SkBtn
@@ -224,7 +228,9 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
                 text="Balance on Europa Hub"
                 icon={<TokenIcon tokenSymbol="skl" size="xs" />}
                 tooltip={
-                  sklPrice && tokenBalance ? units.displaySklValueUsd(tokenBalance, sklPrice) : ''
+                  sklPrice !== undefined && tokenBalance !== undefined
+                    ? units.displaySklValueUsd(tokenBalance, sklPrice)
+                    : ''
                 }
                 childrenRi={
                   <Tooltip title="Open in block explorer">
