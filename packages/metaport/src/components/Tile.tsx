@@ -156,9 +156,9 @@ export default function Tile(props: {
               </Tooltip>
             ) : null}
             {props.value && !props.copy ? (
-              <Tooltip arrow title={props.tooltip}>
-                {value}
-              </Tooltip>
+                <Tooltip arrow title={props.tooltip}>
+                  {value}
+                </Tooltip>
             ) : null}
             {props.children && <div className={cls(cmn.flexg)}>{props.children}</div>}
             {!props.value && !props.children ? (
