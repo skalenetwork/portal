@@ -9,21 +9,21 @@ const connections: types.mp.TokenTypeMap = {
           mainnet: {
             clone: true
           },
-          'peaceful-outlying-ankaa': {
-            wrapper: '0x9eCc5D8ceb51b95c9565D526114c11F03c122266'
+          'young-coarse-celaeno': {
+            wrapper: '0xC3E554E49f0Ad593Cbdb7552B98a755f87EB0987'
           }
         }
       }
     },
     erc20: {
       skl: {
-        address: '0x7518a20B166614cD10b74be4833998875F1c8c5f',
+        address: '0xd0A604054e5322344eeA2A77E5d71c1167670d0f',
         chains: {
           mainnet: {
             clone: true
           },
-          'peaceful-outlying-ankaa': {
-            wrapper: '0x039E133b96E4A6A4Df7be7BF6157D558793f4f06'
+          'young-coarse-celaeno': {
+            wrapper: '0xd9271785E81f640CF1C9F6C43BF69607CECd1986'
           }
         }
       }

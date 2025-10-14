@@ -10,8 +10,8 @@ export const METAPORT_CONFIG: types.mp.Config = {
   mainnetEndpoint: 'https://ethereum-hoodi-rpc.publicnode.com',
   chains: [
     'mainnet',
-    'international-villainous-zaurak', // europa
-    'peaceful-outlying-ankaa' // nebula
+    'honored-impish-wezen', // europa
+    'young-coarse-celaeno' // nebula
   ],
   tokens: {
     eth: {
@@ -24,15 +24,15 @@ export const METAPORT_CONFIG: types.mp.Config = {
     }
   },
   connections: {
-    'international-villainous-zaurak': europaConnections,
-    'peaceful-outlying-ankaa': nebulaConnections,
+    'honored-impish-wezen': europaConnections,
+    'young-coarse-celaeno': nebulaConnections,
     mainnet: {
       eth: {
         eth: {
           chains: {
-            'international-villainous-zaurak': {},
-            'peaceful-outlying-ankaa': {
-              hub: 'international-villainous-zaurak'
+            'honored-impish-wezen': {},
+            'young-coarse-celaeno': {
+              hub: 'honored-impish-wezen'
             }
           }
         }
@@ -41,9 +41,9 @@ export const METAPORT_CONFIG: types.mp.Config = {
         skl: {
           address: '0x912a122fE382F0c531B622ff2A25dDc77bA25DE9',
           chains: {
-            'international-villainous-zaurak': {},
-            'peaceful-outlying-ankaa': {
-              hub: 'international-villainous-zaurak'
+            'honored-impish-wezen': {},
+            'young-coarse-celaeno': {
+              hub: 'honored-impish-wezen'
             }
           }
         }
