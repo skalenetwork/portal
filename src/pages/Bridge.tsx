@@ -34,7 +34,8 @@ import {
   SkPaper,
   TransactionData,
   styles,
-  useWagmiAccount
+  useWagmiAccount,
+  Tile
 } from '@skalenetwork/metaport'
 import { type types, dc } from '@/core'
 
@@ -48,7 +49,6 @@ import Meson from '../components/Meson'
 import { Button } from '@mui/material'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import { DISABLE_BRIDGE } from '../core/constants'
-import Tile from '../components/Tile'
 
 interface TokenParams {
   keyname: string | null

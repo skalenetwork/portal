@@ -31,6 +31,7 @@ import {
   useWagmiAccount,
   enforceNetwork,
   useWagmiWalletClient,
+  Tile,
   useWagmiSwitchNetwork,
   walletClientToSigner,
   sendTransaction,
@@ -45,7 +46,6 @@ import ConnectWallet from './ConnectWallet'
 import PricingInfo from './PricingInfo'
 import Topup from './Topup'
 import Loader from './Loader'
-import Tile from './Tile'
 import Headline from './Headline'
 
 const DEFAULT_TOPUP_PERIOD = 3

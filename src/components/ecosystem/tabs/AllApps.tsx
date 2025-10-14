@@ -71,7 +71,7 @@ const AllApps: React.FC<AllAppsProps> = ({
         const appId = getAppId(app.chain, app.appName)
         const isNew = isNewApp({ chain: app.chain, app: app.appName }, newApps)
         return (
-          <Grid key={appId} item xs={12} sm={6} md={4} lg={4}>
+          <Grid key={appId} size={{ xs: 12, sm: 6, md: 4, lg: 4 }}>
             <AppCardV2
               skaleNetwork={skaleNetwork}
               schainName={app.chain}

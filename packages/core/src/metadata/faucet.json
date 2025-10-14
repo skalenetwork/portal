@@ -26,16 +26,12 @@
     }
   },
   "legacy": {
-    "adorable-quaint-bellatrix": {
-      "address": "0x94977628d2EeDa78E2A56Abe178F432c46E13a6b",
+    "young-coarse-celaeno": {
+      "address": "0xbf49aaFA1Cb7EF2933a1BBA70e84393f61B01244",
       "func": "0x0c11dedd"
     },
-    "these-long-sadalsuud": {
-      "address": "0xb45FA2D56C9f82d130Eb007a76F1FB3631d99b3b",
-      "func": "0x0c11dedd"
-    },
-    "spanish-smug-auva": {
-      "address": "0xa101902B3119f4830292bb79ebAB56967229207B",
+    "honored-impish-wezen": {
+      "address": "0xabD19274cE3F0A9834b155831d4aAC2d1360681a",
       "func": "0x0c11dedd"
     }
   },

@@ -41,7 +41,7 @@ export default function HubApps(props: {
   for (const appName in helper.sortObjectByKeys(chainMeta.apps)) {
     if (chainMeta.apps.hasOwnProperty(appName)) {
       appCards.push(
-        <Grid key={appName} className="fl-centered dappCard" item lg={3} md={4} sm={6} xs={6}>
+        <Grid key={appName} className="fl-centered dappCard" size={{ xs: 6, sm: 6, md: 4, lg: 3 }}>
           <AppCard
             skaleNetwork={props.skaleNetwork}
             schainName={props.schainName}

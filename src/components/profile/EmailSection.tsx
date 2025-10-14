@@ -22,10 +22,9 @@
  */
 
 import React, { useRef, useEffect } from 'react'
-import { cls, cmn, styles } from '@skalenetwork/metaport'
+import { cls, cmn, styles, Tile } from '@skalenetwork/metaport'
 import { TextField, Button } from '@mui/material'
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded'
-import Tile from '../Tile'
 
 interface EmailSectionProps {
   email: string | null

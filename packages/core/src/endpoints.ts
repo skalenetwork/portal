@@ -33,7 +33,7 @@ const PROTOCOL: { [protocol in 'http' | 'ws']: string } = {
 
 export const MAINNET_EXPLORER_URLS: EndpointsNetworkMap = {
   mainnet: 'https://etherscan.io',
-  legacy: 'https://holesky.etherscan.io',
+  legacy: 'https://hoodi.etherscan.io',
   regression: 'https://goerli.etherscan.io',
   testnet: 'https://hoodi.etherscan.io'
 }

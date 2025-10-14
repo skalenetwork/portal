@@ -28,11 +28,10 @@ import { types, metadata } from '@/core'
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
-import LoadingButton from '@mui/lab/LoadingButton'
 import Button from '@mui/material/Button'
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 import ErrorIcon from '@mui/icons-material/Error'
-import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
+import AnimatedLoadingIcon from './AnimatedLoadingIcon'
 
 import SkPaper from './SkPaper'
 import TokenBalance from './TokenBalance'
@@ -73,11 +72,11 @@ export default function WrappedTokens() {
 
   useEffect(() => {
     updateWrappedTokenBalances(address)
-    const intervalId = setInterval(() => {
+    const intervalId = window.setInterval(() => {
       updateWrappedTokenBalances(address)
     }, BALANCE_UPDATE_INTERVAL_MS)
     return () => {
-      clearInterval(intervalId) // Clear interval on component unmount
+      window.clearInterval(intervalId)
     }
   }, [updateWrappedTokenBalances, wrappedTokenContracts, address])
 
@@ -180,17 +179,16 @@ export default function WrappedTokens() {
 
               <div className={cls(cmn.mtop20, cmn.mbott20)}>
                 {loading ? (
-                  <LoadingButton
-                    loading
-                    startIcon={<ArrowOutwardRoundedIcon />}
-                    loadingPosition="start"
+                  <Button
+                    disabled
+                    startIcon={<AnimatedLoadingIcon />}
                     variant="contained"
                     color="primary"
                     size="medium"
                     className={cls(styles.btnAction, cmn.mtop5)}
                   >
                     Unwrapping...
-                  </LoadingButton>
+                  </Button>
                 ) : (
                   <Button
                     variant="contained"

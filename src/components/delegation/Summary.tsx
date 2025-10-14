@@ -22,7 +22,7 @@
  */
 
 import { helper, types, units } from '@/core'
-import { cmn, cls, styles, TokenIcon } from '@skalenetwork/metaport'
+import { cmn, cls, styles, TokenIcon, Tile } from '@skalenetwork/metaport'
 
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
@@ -34,7 +34,6 @@ import ControlPointDuplicateRoundedIcon from '@mui/icons-material/ControlPointDu
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded'
 
 import SkStack from '../SkStack'
-import Tile from '../Tile'
 import AccordionSection from '../AccordionSection'
 import SkBtn from '../SkBtn'
 
@@ -53,6 +52,7 @@ export default function Summary(props: {
   loading: types.st.IRewardInfo | types.st.IDelegationInfo | false
   customAddress: types.AddressType | undefined
   isXs: boolean
+  sklPrice: bigint
 }) {
   function getTitle() {
     if (props.type === types.st.DelegationType.ESCROW) return 'Escrow'
@@ -82,6 +82,11 @@ export default function Summary(props: {
         <SkStack className={cls(cmn.mtop5)}>
           <Tile
             disabled={props.accountInfo?.balance === 0n}
+            tooltip={
+              props.sklPrice && props.accountInfo
+                ? units.displaySklValueUsd(props.accountInfo.balance, props.sklPrice)
+                : ''
+            }
             value={
               props.accountInfo ? units.displayBalance(props.accountInfo.balance, 'SKL') : null
             }
@@ -115,6 +120,11 @@ export default function Summary(props: {
                   transparent
                   className={cls(cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs])}
                   disabled={props.accountInfo?.staked === 0n}
+                  tooltip={
+                    props.sklPrice && props.accountInfo
+                      ? units.displaySklValueUsd(props.accountInfo.staked, props.sklPrice)
+                      : ''
+                  }
                   value={
                     props.accountInfo ? units.displayBalance(props.accountInfo.staked, 'SKL') : null
                   }
@@ -130,6 +140,14 @@ export default function Summary(props: {
                   transparent
                   grow
                   disabled={props.accountInfo?.allowedToDelegate === 0n}
+                  tooltip={
+                    props.sklPrice && props.accountInfo?.allowedToDelegate !== undefined
+                      ? units.displaySklValueUsd(
+                          props.accountInfo.allowedToDelegate,
+                          props.sklPrice
+                        )
+                      : ''
+                  }
                   value={
                     props.accountInfo?.allowedToDelegate !== undefined
                       ? units.displayBalance(props.accountInfo.allowedToDelegate, 'SKL')
@@ -148,6 +166,11 @@ export default function Summary(props: {
             <Tile
               disabled={props.accountInfo?.vested === 0n}
               className={cls(cmn.mtop10)}
+              tooltip={
+                props.sklPrice && props.accountInfo
+                  ? units.displaySklValueUsd(props.accountInfo.vested, props.sklPrice)
+                  : ''
+              }
               value={
                 props.accountInfo ? units.displayBalance(props.accountInfo.vested, 'SKL') : null
               }
@@ -159,6 +182,11 @@ export default function Summary(props: {
                   {props.accountInfo?.fullAmount !== undefined ? (
                     <Tile
                       disabled={props.accountInfo?.fullAmount === 0n}
+                      tooltip={
+                        props.sklPrice && props.accountInfo
+                          ? units.displaySklValueUsd(props.accountInfo.fullAmount, props.sklPrice)
+                          : ''
+                      }
                       value={
                         props.accountInfo
                           ? units.displayBalance(props.accountInfo.fullAmount, 'SKL')
@@ -181,6 +209,11 @@ export default function Summary(props: {
                     transparent
                     disabled={props.accountInfo?.unlocked === 0n}
                     className={cls(cmn.nop, [cmn.mleft20, !props.isXs])}
+                    tooltip={
+                      props.sklPrice && props.accountInfo
+                        ? units.displaySklValueUsd(props.accountInfo.unlocked, props.sklPrice)
+                        : ''
+                    }
                     value={
                       props.accountInfo
                         ? units.displayBalance(props.accountInfo.unlocked, 'SKL')

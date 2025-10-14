@@ -8,47 +8,26 @@
 
 Metaport is a Typescript/Javascript widget that could be embeded into a web application to add IMA functionality to any SKALE dApp.
 
+Docs: https://docs.skale.network/metaport
 
-## Documentation
+## Dev
 
-See https://docs.skale.network/metaport/1.1.x/
-
-## Development
-
-### Storybook preview
-
-```
-bash prepare_meta.sh && bun install && bun build:lib
-bun dev
+```bash
+bun install
+bun run dev # watch build -> dist
 ```
 
-### Debug mode
+## Build
 
-To enable debug mode, set `debug` environment variable to `true`:
-
-```Javascript
-const metaport = new Metaport({
-    ...
-    debug: false // Enable debug mode (optional, default = false)
-    ...
-});
+```bash
+bun run build
 ```
 
-Additionally, you can enable debug logs in developer console by enabling `Verbose` level of logs.
+## Test
 
-
-#### Linter git hook
-
-Be sure to add pre-commit git hook:
-
-```shell
-echo 'bun lint' > .git/hooks/pre-commit
-chmod +x .git/hooks/pre-commit
+```bash
+bun run test
 ```
-
-## Security and Liability
-
-The Metaport UI and code is WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
 
 ## License
 

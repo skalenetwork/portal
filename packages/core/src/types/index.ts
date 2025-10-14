@@ -20,7 +20,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-export {
+export type {
   ChainsMetadataMap,
   ChainMetadata,
   AppMetadata,
