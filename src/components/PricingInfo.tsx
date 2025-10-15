@@ -25,7 +25,7 @@ import TollIcon from '@mui/icons-material/Toll'
 import AvTimerRoundedIcon from '@mui/icons-material/AvTimerRounded'
 
 import { constants, units, type types, helper } from '@/core'
-import { cmn, TokenIcon } from '@skalenetwork/metaport'
+import { cmn, TokenIcon, Tile } from '@skalenetwork/metaport'
 
 import {
   daysBetweenNowAndTimestamp,
@@ -36,7 +36,6 @@ import {
 } from '../core/timeHelper'
 
 import SkStack from './SkStack'
-import Tile from './Tile'
 
 export default function PricingInfo(props: { info: types.pm.PaymasterInfo }) {
   const sklPrice = units.fromWei(props.info.oneSklPrice, constants.DEFAULT_ERC20_DECIMALS)
@@ -91,6 +90,7 @@ export default function PricingInfo(props: { info: types.pm.PaymasterInfo }) {
         />
         <Tile
           value={`${units.truncateDecimals(chainPriceSkl.toString(), 6)} SKL`}
+          tooltip={`${units.truncateDecimals(chainPriceUsd, 6)} USD`}
           text="Chain price SKL (per month)"
           icon={<TollIcon />}
           grow

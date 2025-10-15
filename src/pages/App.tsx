@@ -34,7 +34,8 @@ import {
   MetaportCore,
   SkPaper,
   useWagmiAccount,
-  useConnectModal
+  useConnectModal,
+  Tile
 } from '@skalenetwork/metaport'
 
 import { Button, Grid } from '@mui/material'
@@ -69,7 +70,6 @@ import { ChipNew, ChipPreTge, ChipTrending, ChipFeatured } from '../components/C
 import AppScreenshots from '../components/ecosystem/AppScreenshots'
 import RecommendedApps from '../components/ecosystem/RecommendedApps'
 import Logo from '../components/Logo'
-import Tile from '../components/Tile'
 import LinkSurface from '../components/LinkSurface'
 import Breadcrumbs from '../components/Breadcrumbs'
 import CollapsibleDescription from '../components/CollapsibleDescription'
@@ -247,7 +247,7 @@ export default function App(props: {
         <SkPaper gray className={cls(cmn.mtop10)}>
           <Grid container spacing={1} className={cls(cmn.full)}>
             {appMeta.contracts && (
-              <Grid item lg={4} md={6} xs={12}>
+              <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                 <Tile
                   grow
                   text="Total transactions"
@@ -257,7 +257,7 @@ export default function App(props: {
               </Grid>
             )}
             {appMeta.contracts && (
-              <Grid item lg={4} md={6} xs={12}>
+              <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                 <Tile
                   grow
                   text="Gas saved"
@@ -278,7 +278,7 @@ export default function App(props: {
                 />
               </Grid>
             )}
-            <Grid item lg={appMeta.contracts ? 4 : 12} md={appMeta.contracts ? 6 : 12} xs={12}>
+            <Grid size={{ xs: 12, md: appMeta.contracts ? 6 : 12, lg: appMeta.contracts ? 4 : 12 }}>
               <Tile
                 grow
                 text="Favorites"
@@ -287,7 +287,7 @@ export default function App(props: {
               />
             </Grid>
             {appMeta.contracts && (
-              <Grid item lg={4} md={6} xs={12}>
+              <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                 <Tile
                   grow
                   text="30d transactions"
@@ -299,7 +299,7 @@ export default function App(props: {
               </Grid>
             )}
             {appMeta.contracts && (
-              <Grid item lg={4} md={6} xs={12}>
+              <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                 <Tile
                   grow
                   text="7d transactions"
@@ -311,7 +311,7 @@ export default function App(props: {
               </Grid>
             )}
             {appMeta.contracts && (
-              <Grid item lg={4} md={6} xs={12}>
+              <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                 <Tile
                   grow
                   text="Daily transactions"
@@ -349,7 +349,7 @@ export default function App(props: {
                 <div>
                   <Grid container spacing={2} className={cls(cmn.full)}>
                     {appMeta.contracts.map((contractAddress: string, index: number) => (
-                      <Grid key={contractAddress} item lg={6} xs={12}>
+                      <Grid key={contractAddress} size={{ xs: 12, lg: 6 }}>
                         <LinkSurface
                           className={cls(styles.fullHeight)}
                           title={`Contract ${index + 1}`}

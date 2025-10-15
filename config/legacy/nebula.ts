@@ -4,27 +4,27 @@ const connections: types.mp.TokenTypeMap = {
     // Nebula connections
     eth: {
         eth: {
-        address: '0x9C0e8bC2B2D403299214c80081F93fAB5e10b593',
+        address: '0xa2b496C018ea6cE6f44bA4366d9970CFfec89D6e',
         chains: {
-            'these-long-sadalsuud': {
+            'honored-impish-wezen': {
             clone: true
             },
             mainnet: {
             clone: true,
-            hub: 'these-long-sadalsuud'
+            hub: 'honored-impish-wezen'
             }
         }
         }
     },
     erc20: {
         skl: {
-        address: '0xFbbDF9aC97093b1E88aB79F7D0c296d9cc5eD0d0',
+        address: '0x9EcD93c2cF9E551B3B02939c72D3F515A8cb76B0',
         chains: {
-            'these-long-sadalsuud': {
+            'honored-impish-wezen': {
             clone: true
             },
             mainnet: {
-            hub: 'these-long-sadalsuud',
+            hub: 'honored-impish-wezen',
             clone: true
             }
         }

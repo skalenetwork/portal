@@ -23,8 +23,7 @@
 import { cmn, cls, styles } from '@skalenetwork/metaport'
 import { types, units } from '@/core'
 
-import { Grid } from '@mui/material'
-import LoadingButton from '@mui/lab/LoadingButton'
+import { Grid, Tooltip, Button } from '@mui/material'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
 
@@ -46,6 +45,8 @@ export default function Reward(props: {
   customAddress: types.AddressType | undefined
   customRewardAddress: types.AddressType | undefined
   setCustomRewardAddress: (customRewardAddress: types.AddressType | undefined) => void
+  unstakeAllBtn?: React.ReactNode
+  sklPrice: bigint
 }) {
   const validator = getValidatorById(props.validators, props.delegationsToValidator.validatorId)
   const rewardsAmount = units.displayBalance(props.delegationsToValidator.rewards, 'SKL')
@@ -90,7 +91,7 @@ export default function Reward(props: {
     <div>
       <div className={cls(cmn.mbott10, 'titleSection')}>
         <Grid container spacing={0} alignItems="center">
-          <Grid item md={4} xs={12}>
+          <Grid size={{ xs: 12, md: 4 }}>
             <div className={cls(cmn.flex, cmn.flexcv)}>
               <ValidatorLogo validatorId={validator.id} size="lg" />
               <div className={cls(cmn.mleft10, [cmn.flexg, props.isXs])}>
@@ -100,16 +101,28 @@ export default function Reward(props: {
               {props.isXs ? minimizeBtn : null}
             </div>
           </Grid>
-          <Grid item md={8} xs={12} className={cls([cmn.mtop20, props.isXs])}>
+          <Grid size={{ xs: 12, md: 8 }} className={cls([cmn.mtop20, props.isXs])}>
             <div className={cls(cmn.flex, cmn.flexcv)}>
               <div className={cls([cmn.flexg, !props.isXs])}></div>
               {!props.isXs && !props.open ? (
                 <div className={cls([cmn.pri, !props.isXs], cmn.flex)}>
                   <div>
                     <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Total staked</p>
-                    <h3 className={cls(cmn.p, cmn.p700)}>{totalStakedAmount}</h3>
+                     <Tooltip
+                      arrow
+                      title={
+                        props.sklPrice !== undefined && props.delegationsToValidator.staked !== undefined
+                          ? units.displaySklValueUsd(
+                              props.delegationsToValidator.staked,
+                              props.sklPrice
+                            )
+                          : ''
+                      }
+                    >
+                      <h3 className={cls(cmn.p, cmn.p700)}>{totalStakedAmount}</h3>
+                    </Tooltip>
                   </div>
-                  <div className={cls('borderVert', cmn.mleft20)}></div>
+                  <div className={cls('borderVert', cmn.mleft10)}></div>
                 </div>
               ) : null}
               <div
@@ -117,32 +130,50 @@ export default function Reward(props: {
                   [cmn.flexg, props.isXs],
                   cmn.mri20,
                   [cmn.pri, !props.isXs],
-                  [cmn.mleft20, !props.isXs]
+                  [cmn.mleft10, !props.isXs]
                 )}
               >
                 <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Rewards available</p>
-                <h3 className={cls(cmn.p, cmn.p700)}>{rewardsAmount}</h3>
-              </div>
-              {loading ? (
-                <LoadingButton
-                  loading
-                  loadingPosition="start"
-                  size="small"
-                  variant="contained"
-                  className={cls('btnSm btnSmLoading')}
+                <Tooltip
+                  arrow
+                  title={
+                    props.sklPrice
+                      ? units.displaySklValueUsd(
+                          props.delegationsToValidator.rewards,
+                          props.sklPrice
+                        )
+                      : ''
+                  }
                 >
-                  Retrieving
-                </LoadingButton>
-              ) : (
-                <RetrieveRewardModal
-                  address={props.address}
-                  disabled={retrieveDisabled}
-                  customRewardAddress={props.customRewardAddress}
-                  setCustomRewardAddress={props.setCustomRewardAddress}
-                  retrieveRewards={retrieveRewards}
-                  loading={loading}
-                />
-              )}
+                  <h3 className={cls(cmn.p, cmn.p700)}>{rewardsAmount}</h3>
+                </Tooltip>
+              </div>
+              <div className={cls(cmn.flex, cmn.flexcv)}>
+                {loading ? (
+                  <Button
+                    disabled
+                    size="small"
+                    variant="contained"
+                    className={cls('btnSm btnSmLoading')}
+                  >
+                    Retrieving
+                  </Button>
+                ) : (
+                  <>
+                    <RetrieveRewardModal
+                      address={props.address}
+                      disabled={retrieveDisabled}
+                      customRewardAddress={props.customRewardAddress}
+                      setCustomRewardAddress={props.setCustomRewardAddress}
+                      retrieveRewards={retrieveRewards}
+                      loading={loading}
+                    />
+                    {props.unstakeAllBtn && (
+                      <span className={cmn.mleft10}>{props.unstakeAllBtn}</span>
+                    )}
+                  </>
+                )}
+              </div>
               {!props.isXs ? minimizeBtn : null}
             </div>
           </Grid>

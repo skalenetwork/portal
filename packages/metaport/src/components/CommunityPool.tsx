@@ -32,14 +32,15 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import TextField from '@mui/material/TextField'
 
 import SkPaper from './SkPaper'
-import TokenBalance from './TokenBalance'
 
 import Button from '@mui/material/Button'
 
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
-
+import TransitEnterexitRoundedIcon from '@mui/icons-material/TransitEnterexitRounded'
+import AccountBalanceWallet from '@mui/icons-material/AccountBalanceWallet'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import ErrorIcon from '@mui/icons-material/Error'
+import RecommendIcon from '@mui/icons-material/Recommend'
 
 import { withdraw, recharge } from '../core/community_pool'
 import {
@@ -53,7 +54,9 @@ import { cls, cmn, styles } from '../core/css'
 import { useCPStore } from '../store/CommunityPoolStore'
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
-import { Collapse } from '@mui/material'
+import { Collapse, Grid } from '@mui/material'
+import TokenIcon from './TokenIcon'
+import Tile from './Tile'
 
 export default function CommunityPool() {
   const { data: walletClient } = useWalletClient()
@@ -172,6 +175,7 @@ export default function CommunityPool() {
     setExpandedCP(false)
   }
 
+  if (!address) return null;
   return (
     <div className={cls([cmn.mtop10, !expandedCP])}>
       <Accordion
@@ -202,63 +206,86 @@ export default function CommunityPool() {
                 {cpData.recommendedRechargeAmount} ETH.
               </p>
             ) : null}
-            <div className={cls(cmn.ptop20, cmn.flex)}>
-              <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec, cmn.flex, cmn.flexg)}>
-                ETH Balance
-              </p>
-              <div>
-                <TokenBalance
-                  balance={cpData.accountBalance}
-                  symbol="ETH"
-                  truncate={COMMUNITY_POOL_DECIMALS}
-                  size="sm"
-                  primary
+            <Grid container rowSpacing={2} columnSpacing={1} className={cmn.mtop20}>
+             <Grid size={{ xs: 12, md: 6 }}>
+                <Tile
+                  text="ETH Balance"
+                  className={cls(styles.inputAmount)}
+                  icon={<TokenIcon tokenSymbol="eth" size="xs" />}
+                  grow
+                  size="md"
+                  value={
+                    cpData.accountBalance !== undefined && cpData.accountBalance !== null
+                      ? `${units.truncateDecimals(units.formatBalance(cpData.accountBalance, constants.DEFAULT_ERC20_DECIMALS), COMMUNITY_POOL_DECIMALS)} ETH`
+                      : ''
+                  }
                 />
-              </div>
-            </div>
-            <div className={cls(cmn.ptop0, cmn.flex)}>
-              <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec, cmn.flex, cmn.flexg)}>
-                Exit Wallet Balance
-              </p>
-              <div>
-                <TokenBalance
-                  balance={cpData.balance}
-                  symbol="ETH"
-                  truncate={COMMUNITY_POOL_DECIMALS}
-                  size="sm"
-                  primary
+                </Grid>
+             <Grid size={{ xs: 12, md: 6 }}>
+                <Tile
+                  grow
+                  text="Exit Wallet Balance"
+                  size="md"
+                  value={
+                    cpData.balance !== undefined && cpData.balance !== null
+                      ? `${units.truncateDecimals(units.formatBalance(cpData.balance, constants.DEFAULT_ERC20_DECIMALS), COMMUNITY_POOL_DECIMALS)} ETH`
+                      : ''
+                  }
+                  icon={<AccountBalanceWallet />}
                 />
-              </div>
-            </div>
-            <SkPaper gray className={cls(cmn.mtop20)}>
-              <div className={cls(cmn.flex, cmn.flexcv)}>
-                <div className={cls(cmn.flex, cmn.flexg)}>
-                  <TextField
-                    className={styles.inputAmount}
-                    type="number"
-                    variant="standard"
-                    placeholder="0.00"
-                    value={amount}
-                    onChange={handleAmountChange}
-                    disabled={!!loading}
-                  />
-                </div>
-                <p
-                  className={cls(
-                    cmn.p,
-                    cmn.p1,
-                    cmn.p700,
-                    cmn.pPrim,
-                    [cmn.pDisabled, loading],
-                    cmn.flex,
-                    cmn.mri20
-                  )}
-                >
-                  ETH
-                </p>
-              </div>
-            </SkPaper>
-            <div className={cls(cmn.mbott20, cmn.mtop10)}>
+                </Grid>
+                  <Grid size={{ xs: 12, md: 6 }}>
+                  <Tile
+                    grow
+                    text="Enter amount to recharge"
+                    className={cls(styles.inputAmount)}
+                    children={
+                    <div className={cls(cmn.flex, cmn.flexcv, 'amountInput')}>
+                      <div className={cls(cmn.flexg)}>
+                        <TextField
+                          inputProps={{ step: '0.1', lang: 'en-US' }}
+                          inputRef={(input) => input?.focus()}
+                          type="number"
+                          variant="standard"
+                          placeholder="0.00"
+                          value={amount}
+                          onChange={handleAmountChange}
+                          disabled={!!loading}
+                          style={{ width: '100%' }}
+                        />
+                      </div>
+                      <div className={cls(cmn.p1, cmn.p, cmn.p700, cmn.mri10)}>ETH</div>
+                    </div>
+                  }
+                  icon={<TransitEnterexitRoundedIcon style={{ rotate: '315deg' }} />}
+                  
+                />
+                </Grid>
+             <Grid size={{ xs: 12, md: 6 }}>
+                <Tile
+                  disabled={!!loading}
+                  value={cpData.recommendedRechargeAmount !== undefined ? String(cpData.recommendedRechargeAmount) : ''}
+                  text="Recommended" 
+                  icon={<RecommendIcon />}
+                  color={true ? undefined : 'error'}
+                  grow
+                  childrenRi={
+                    <div className={cls(cmn.flexcv, cmn.flex)}>
+                      <Button
+                        className={cls('btnSm', 'outlined', cmn.mleft20, cmn.flexcv)}
+                        onClick={() => {
+                          if (!cpData.recommendedRechargeAmount) return
+                          setAmount(String(cpData.recommendedRechargeAmount))
+                        }}
+                      >
+                        Add
+                      </Button>
+                    </div> 
+                  }
+                />
+                </Grid>
+                </Grid>
+            <div className={cls(cmn.mbott20, cmn.mtop20)}>
               <Button
                 variant="contained"
                 color="primary"
@@ -298,4 +325,4 @@ export default function CommunityPool() {
       </Accordion>
     </div>
   )
-}
+  }

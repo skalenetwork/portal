@@ -9,21 +9,21 @@ const connections: types.mp.TokenTypeMap = {
           mainnet: {
             clone: true
           },
-          'adorable-quaint-bellatrix': {
-            wrapper: '0x3a830008c24300Dd8F469EBFEd13E4854409440D'
+          'young-coarse-celaeno': {
+            wrapper: '0xC3E554E49f0Ad593Cbdb7552B98a755f87EB0987'
           }
         }
       }
     },
     erc20: {
       skl: {
-        address: '0xDeCcD09457Bd23c4CDD3C6E07a00053Ff54869dd',
+        address: '0xd0A604054e5322344eeA2A77E5d71c1167670d0f',
         chains: {
           mainnet: {
             clone: true
           },
-          'adorable-quaint-bellatrix': {
-            wrapper: '0xEc656cc30205479C5DAa3aDac7b4D9d0fe0FDc51'
+          'young-coarse-celaeno': {
+            wrapper: '0xd9271785E81f640CF1C9F6C43BF69607CECd1986'
           }
         }
       }

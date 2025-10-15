@@ -7,11 +7,11 @@ export const METAPORT_CONFIG: types.mp.Config = {
   openOnLoad: true,
   openButton: true,
   debug: false,
-  mainnetEndpoint: 'https://ethereum-holesky-rpc.publicnode.com',
+  mainnetEndpoint: 'https://ethereum-hoodi-rpc.publicnode.com',
   chains: [
     'mainnet',
-    'these-long-sadalsuud', // europa
-    'adorable-quaint-bellatrix' // nebula
+    'honored-impish-wezen', // europa
+    'young-coarse-celaeno' // nebula
   ],
   tokens: {
     eth: {
@@ -24,26 +24,26 @@ export const METAPORT_CONFIG: types.mp.Config = {
     }
   },
   connections: {
-    'these-long-sadalsuud': europaConnections,
-    'adorable-quaint-bellatrix': nebulaConnections,
+    'honored-impish-wezen': europaConnections,
+    'young-coarse-celaeno': nebulaConnections,
     mainnet: {
       eth: {
         eth: {
           chains: {
-            'these-long-sadalsuud': {},
-            'adorable-quaint-bellatrix': {
-              hub: 'these-long-sadalsuud'
+            'honored-impish-wezen': {},
+            'young-coarse-celaeno': {
+              hub: 'honored-impish-wezen'
             }
           }
         }
       },
       erc20: {
         skl: {
-          address: '0x0E53fDa415cc6b2a7D9495D4a1F0659F0Ee45e0d',
+          address: '0x912a122fE382F0c531B622ff2A25dDc77bA25DE9',
           chains: {
-            'these-long-sadalsuud': {},
-            'adorable-quaint-bellatrix': {
-              hub: 'these-long-sadalsuud'
+            'honored-impish-wezen': {},
+            'young-coarse-celaeno': {
+              hub: 'honored-impish-wezen'
             }
           }
         }
