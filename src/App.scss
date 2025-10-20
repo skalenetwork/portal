@@ -415,7 +415,7 @@ body {
   }
 
   @media (max-width: 600px) {
-    bottom: 4rem;
+    bottom: calc(50px + 1rem);
     right: 1rem;
   }
 }
