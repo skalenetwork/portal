@@ -414,6 +414,9 @@ body {
     font-size: 1.2rem;
   }
 
+  @media (max-width: 600px) {
+    bottom: 4.5rem;
+  }
 }
 
 .btn {
