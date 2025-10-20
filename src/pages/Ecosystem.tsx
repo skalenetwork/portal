@@ -217,7 +217,7 @@ export default function Ecosystem(props: {
               top: props.isXs ? 'auto' : '101px',
               background: 'black',
               borderRadius: '35px',
-              zIndex: props.isXs ? 'auto' : 1000,
+              zIndex: props.isXs ? 'undefined' : 1000,
               width: '100%'
             }}
           >
