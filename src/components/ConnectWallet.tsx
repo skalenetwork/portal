@@ -23,7 +23,6 @@
 import { Button } from '@mui/material'
 import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
 import { cmn, cls, SkPaper, useWagmiAccount, RainbowConnectButton } from '@skalenetwork/metaport'
-import { useAuth } from '../AuthContext'
 
 export default function ConnectWallet(props: {
   tile?: boolean
@@ -31,20 +30,8 @@ export default function ConnectWallet(props: {
   customText?: string
 }) {
   const { address } = useWagmiAccount()
-  const { isSignedIn, handleSignIn } = useAuth()
 
-  const handleButtonClick = (openConnectModal: any) => {
-    if (address) {
-      if (!isSignedIn) {
-        handleSignIn()
-      }
-    } else {
-      openConnectModal()
-    }
-  }
-
-  if (isSignedIn) return null
-
+ 
   return (
     <div className={cls(props.className)}>
       <SkPaper gray={!props.tile} className={cls(['titleSection', props.tile])}>
@@ -59,7 +46,7 @@ export default function ConnectWallet(props: {
                 {({ openConnectModal }) => {
                   return (
                     <Button
-                      onClick={() => handleButtonClick(openConnectModal)}
+                      onClick={() => openConnectModal()}
                       variant="contained"
                       className={cls(cmn.pCent, cmn.mtop10, cmn.flex, 'btn')}
                     >

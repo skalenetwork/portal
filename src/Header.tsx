@@ -35,11 +35,13 @@ import MoreMenu from './components/MoreMenu'
 import AccountMenu from './components/AccountMenu'
 import NetworkSwitch from './components/NetworkSwitch'
 import GetSFuel from './components/GetSFuel'
-import FavoritesButton from './components/FavoritesButton'
-
 import { Link } from 'react-router-dom'
 
-export default function Header(props: { address: `0x${string}` | undefined; mpc: MetaportCore }) {
+export default function Header(props: { 
+  address: `0x${string}` | undefined; 
+  mpc: MetaportCore;
+  openProfileModal: () => void;
+}) {
   return (
     <AppBar
       elevation={0}
@@ -63,11 +65,10 @@ export default function Header(props: { address: `0x${string}` | undefined; mpc:
             />
           ) : null}
         </div>
-        <AccountMenu address={props.address} />
+        <AccountMenu address={props.address} openProfileModal={props.openProfileModal} />
         <GetSFuel mpc={props.mpc} />
         <NetworkSwitch mpc={props.mpc} />
         <HelpZen />
-        <FavoritesButton />
         <MoreMenu />
       </Toolbar>
     </AppBar>

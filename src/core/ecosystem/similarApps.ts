@@ -58,24 +58,19 @@ function calculateCategoryMatches(
   return { categoryMatches, subcategoryMatches, totalScore }
 }
 
-function isAppInList(app: types.AppWithChainAndName, list: types.AppWithChainAndName[]): boolean {
-  return list.some((item) => item.chain === app.chain && item.appName === app.appName)
-}
-
 function findSimilarApps(
   currentApp: types.AppWithChainAndName | undefined,
   allApps: types.AppWithChainAndName[],
-  favoriteApps: types.AppWithChainAndName[] = [],
   limit: number = MAX_APPS_DEFAULT
 ): SimilarApp[] {
   const apps = allApps.filter((app) => {
     if (currentApp && app.chain === currentApp.chain && app.appName === currentApp.appName) {
       return false
     }
-    return !isAppInList(app, favoriteApps)
+    return true
   })
 
-  const targetApps = currentApp ? [currentApp] : favoriteApps
+  const targetApps = currentApp ? [currentApp] : []
   if (!targetApps.length) return []
 
   const appScores: SimilarApp[] = apps.map((app) => {
