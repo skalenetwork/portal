@@ -23,7 +23,6 @@
 
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 
-
 import Box from '@mui/material/Box'
 import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'

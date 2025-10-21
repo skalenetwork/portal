@@ -29,7 +29,6 @@ import PieChartOutlineRoundedIcon from '@mui/icons-material/PieChartOutlineRound
 import OutboundRoundedIcon from '@mui/icons-material/OutboundRounded'
 import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined'
 import AppShortcutIcon from '@mui/icons-material/AppShortcut'
-import { JSX } from 'react'
 
 interface SectionIcons {
   [key: string]: JSX.Element
