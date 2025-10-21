@@ -29,7 +29,6 @@ import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
 import Carousel from '../../Carousel'
 import { isNewApp } from '../../../core/ecosystem/utils'
 import { getAppMeta } from '../../../core/ecosystem/apps'
-import { useLikedApps } from '../../../LikedAppsContext'
 
 interface TrendingAppsProps {
   skaleNetwork: types.SkaleNetwork
@@ -52,16 +51,12 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
     () => filteredApps.filter((app) => getAppMeta(chainsMeta, app.chain, app.appName)),
     [filteredApps, chainsMeta]
   )
-  const { getMostLikedApps, getMostLikedRank, getAppId } = useLikedApps()
-
-  const mostLikedAppIds = useMemo(() => getMostLikedApps(), [getMostLikedApps])
 
   const renderAppCard = (app: types.AppWithChainAndName) => {
     const isNew = isNewApp({ chain: app.chain, app: app.appName }, newApps)
     const isFeatured = featuredApps.some(
       (featuredApp) => featuredApp.chain === app.chain && featuredApp.appName === app.appName
     )
-    const appId = getAppId(app.chain, app.appName)
     return (
       <Box key={`${app.chain}-${app.appName}`} className={cls('fl-centered dappCard')}>
         <AppCard
@@ -71,7 +66,6 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
           chainsMeta={chainsMeta}
           isNew={isNew}
           trending={true}
-          mostLiked={getMostLikedRank(mostLikedAppIds, appId)}
           isFeatured={isFeatured}
         />
       </Box>

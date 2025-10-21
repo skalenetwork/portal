@@ -53,10 +53,6 @@ export const ChipTrending: React.FC<{ trending?: number }> = ({ trending }) => {
   )
 }
 
-export const ChipMostLiked: React.FC<{}> = ({}) => {
-  return <Chip label="Most Liked" className={cls(cmn.mleft5, 'chipMostLiked', 'chipXs')} />
-}
-
 export const ChipNew: React.FC<{}> = ({}) => {
   return <Chip label="NEW" className={cls(cmn.mleft5, 'chipNewApp', 'chipXs')} />
 }

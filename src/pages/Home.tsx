@@ -39,7 +39,6 @@ import HomeBanner from '../components/HomeBanner'
 import { SKALE_SOCIAL_LINKS } from '../core/constants'
 import { SECTION_ICONS, EXPLORE_CARDS } from '../components/HomeComponents'
 import SocialButtons from '../components/ecosystem/Socials'
-import UserRecommendations from '../components/ecosystem/UserRecommendations'
 
 interface HomeProps {
   skaleNetwork: types.SkaleNetwork
@@ -64,11 +63,6 @@ export default function Home({
         <Headline text="Popular Actions" icon={SECTION_ICONS.explore} />
         <HomeBanner />
         <ExploreSection />
-        <UserRecommendations
-          skaleNetwork={skaleNetwork}
-          chainsMeta={chainsMeta}
-          metrics={metrics}
-        />
         <AppSection
           title="Featured dApps on SKALE"
           icon={SECTION_ICONS.featured}
