@@ -51,9 +51,9 @@ export default function Chain(props: {
       <p
         className={cls(
           cmn.p,
-          [cmn.p4, size === 'xs'],
-          [cmn.p3, size === 'sm'],
-          [cmn.p2, size === 'md'],
+          [text-xs, size === 'xs'],
+          [text-sm, size === 'sm'],
+          [text-base, size === 'md'],
           [cmn.p1, size === 'lg'],
           [cmn.mleft5, size === 'xs'],
           [cmn.mleft10, size === 'sm'],

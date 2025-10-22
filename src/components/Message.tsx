@@ -71,14 +71,14 @@ export default function Message(props: {
         >
           <div className={cls(cmn.flex, cmn.flexc, cmn.mri15)}>{props.icon}</div>
           {props.text ? (
-            <p className={cls(cmn.p, cmn.p3, cmn.p600, [cmn.pPrim, type !== 'warning'], cmn.mri5)}>
+            <p className={cls(cmn.p, text-sm, cmn.p600, [cmn.pPrim, type !== 'warning'], cmn.mri5)}>
               {props.text}
             </p>
           ) : null}
           {props.link ? (
             <div className={cls(cmn.flex, cmn.flexcv, cmn.flexg)}>
               <Link to={props.link}>
-                <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.mri5)}>{props.linkText}</p>
+                <p className={cls(cmn.p, text-sm, cmn.p600, cmn.mri5)}>{props.linkText}</p>
               </Link>
               <ArrowOutwardRoundedIcon
                 className={cls(cmn.flex, cmn.flexcv, 'a')}

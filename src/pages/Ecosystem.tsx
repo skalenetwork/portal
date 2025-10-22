@@ -51,6 +51,7 @@ import FavoriteApps from '../components/ecosystem/tabs/FavoriteApps'
 import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import SocialButtons from '../components/ecosystem/Socials'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
+import { cn } from '../core/ecosystem/utils'
 
 export default function Ecosystem(props: {
   mpc: MetaportCore
@@ -226,22 +227,22 @@ export default function Ecosystem(props: {
               sx={props.isXs ? { paddingLeft: 0, paddingRight: 0 } : {}}
             >
               <SkStack>
-                <div className={cls(cmn.flexg, cmn.mbott20, cmn.mtop10)}>
+                <div className={cn('flex-grow flex flex-col mb-5 mt-2.5')}>
                   <h2 className={cls(cmn.nom)}>Ecosystem</h2>
-                  <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+                  <p className="text-sm text-sec">
                     Explore dApps across the SKALE ecosystem
                   </p>
                 </div>
-                <div className={cls(cmn.flex, cmn.flexcv)}>
+                <div className="flex items-center">
                   <SocialButtons social={SKALE_SOCIAL_LINKS} all />
-                  <div className={cls(cmn.mleft10)}>
+                  <div className="ml-2.5">
                     <SkPageInfoIcon meta_tag={META_TAGS.ecosystem} />
                   </div>
                 </div>
               </SkStack>
-              <SkStack className={cls(cmn.mbott20, cmn.flex, cmn.flexcv, [cmn.mtop10, props.isXs])}>
+              <SkStack className= "mb-5 flex items-center mt-2.5 props.isXs">
                 <SearchComponent
-                  className={cls(cmn.flexg, [cmn.mri10, !props.isXs], ['fullW', props.isXs])}
+                  className= "flex-grow mr-2.5 !props.isXs] ['fullW' props.isXs]"
                   searchTerm={searchTerm}
                   setSearchTerm={handleSetSearchTerm}
                 />
@@ -261,43 +262,43 @@ export default function Ecosystem(props: {
                 value={activeTab}
                 onChange={handleTabChange}
                 scrollButtons="auto"
-                className={cls(cmn.mbott20, [cmn.mtop20, isFiltersApplied], 'skTabs', 'fwmobile')}
+                className="mb-5 mt-5 [isFiltersApplied], 'skTabs', 'fwmobile')"
               >
                 <Tab
                   label="All"
                   icon={<GridViewRoundedIcon />}
                   iconPosition="start"
-                  className={cls('btn', 'btnSm', cmn.mri5, 'tab', 'fwmobile')}
+                  className= "btn btnSm mr-1.5 tab fwmobile"
                 />
                 <Tab
                   label="Featured"
                   icon={<AppShortcutIcon />}
                   iconPosition="start"
-                  className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+                  className= "btn btnSm mr-1.5 ml-1.5 tab fwmobile"
                 />
                 <Tab
                   label="New"
                   icon={<StarRoundedIcon />}
                   iconPosition="start"
-                  className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+                  className= "btn btnSm mr-1.5 ml-1.5 tab fwmobile"
                 />
                 <Tab
                   label="Trending"
                   icon={<TrendingUpRoundedIcon />}
                   iconPosition="start"
-                  className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+                  className= "btn btnSm mr-1.5 ml-1.5 tab fwmobile"
                 />
                 <Tab
                   label="Favorites"
                   icon={<FavoriteRoundedIcon />}
                   iconPosition="start"
-                  className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+                  className= "btn btnSm mr-1.5 ml-1.5 tab fwmobile"
                 />
               </Tabs>
             </Container>
           </div>
           {!props.isXs && <div style={{ height: headerHeight }} />}
-          <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20, 'fwmobile')}>
+          <Box sx={{ flexGrow: 1 }} className={cn('mt-5', 'fwmobile')}>
             {activeTab === 0 && (
               <AllApps
                 apps={currentFilteredApps}
@@ -351,21 +352,21 @@ export default function Ecosystem(props: {
             )}
           </Box>
         </Stack>
-        <div className={cls(cmn.flex, cmn.mtop20, cmn.mbott20)}>
-          <div className={cls(cmn.flexg)}></div>
+        <div className="flex mt-5 mb-5">
+          <div className="flex-grow"></div>
           <div>
             <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">
               <Button
                 size="medium"
                 variant="contained"
-                className={cls('btn', cmn.mtop20, cmn.mbott20, cmn.pCent)}
+                className={cn('btn', 'mt-5 mb-5 text-center')}
                 startIcon={<AddCircleOutlineRoundedIcon />}
               >
                 Submit Your Project
               </Button>
             </a>
           </div>
-          <div className={cls(cmn.flexg)}></div>
+          <div className="flex-grow"></div>
         </div>
       </Container>
 

@@ -43,7 +43,7 @@ export default function FaqAccordion() {
           panel={`panel${index}`}
           title={question.question}
         >
-          <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.mleft10, cmn.mri10)}>{question.answer}</p>
+          <p className={cls(cmn.p, text-base, cmn.pSec, cmn.mleft10, cmn.mri10)}>{question.answer}</p>
         </AccordionSection>
       ))}
     </SkPaper>

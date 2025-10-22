@@ -44,7 +44,7 @@ export default function PageCard(props: {
               <div className={cls(styles.chainIcons, cmn.mri10, cmn.pPrim)}>{props.icon}</div>
               <h3 className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p, cmn.p600)}>{props.name}</h3>
             </div>
-            <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.mtop5)}>{props.description}</p>
+            <p className={cls(cmn.p, text-sm, cmn.pSec, cmn.mtop5)}>{props.description}</p>
           </div>
           <div className={cls(cmn.mleft10, cmn.mri5, cmn.flex, cmn.flexcv)}>
             <ArrowForwardRoundedIcon className={cls(cmn.pSec, styles.chainIconxs)} />

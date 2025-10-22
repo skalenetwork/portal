@@ -97,7 +97,7 @@ export function WidgetBody(props) {
           <SkPaper background="transparent" className={cmn.nop}>
             <Collapse in={showFrom()}>
               <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
-                <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>From</p>
+                <p className={cls(cmn.nom, cmn.p, text-xs, cmn.pSec, cmn.flex, cmn.flexg)}>From</p>
                 <div>
                   {token ? (
                     <TokenBalance
@@ -135,7 +135,7 @@ export function WidgetBody(props) {
         <SkPaper background={destBg} className={cmn.nop}>
           <SkPaper background={overlayBg} className={cmn.nop}>
             <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
-              <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>To</p>
+              <p className={cls(cmn.nom, cmn.p, text-xs, cmn.pSec, cmn.flex, cmn.flexg)}>To</p>
               <DestTokenBalance />
             </div>
             <ChainsList

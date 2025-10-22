@@ -1,7 +1,5 @@
 import Collapse from '@mui/material/Collapse'
 
-import { cls, cmn } from '../core/css'
-
 import { useMetaportStore } from '../store/MetaportStore'
 
 export default function AmountErrorMessage() {
@@ -9,16 +7,7 @@ export default function AmountErrorMessage() {
   return (
     <Collapse in={!!amountErrorMessage || amountErrorMessage === ''}>
       <p
-        className={cls(
-          cmn.flex,
-          cmn.p3,
-          cmn.p,
-          cmn.pSec,
-          cmn.errorMessage,
-          cmn.flexg,
-          cmn.mtop10,
-          cmn.mleft10
-        )}
+        className="flex flex-grow mt-2.5 ml-2.5 text-sm text-sec cmn.errorMessage"
       >
         🔴 {amountErrorMessage}
       </p>

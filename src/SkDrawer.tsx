@@ -90,7 +90,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
               </a>
             </ListItem>
           </List>
-          <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Transfer</h4>
+          <h4 className={cls(cmn.pSec, cmn.p, text-xs, cmn.mtop10, cmn.mleft20)}>Transfer</h4>
           <List>
             <ListItem>
               <Link to="/bridge" className="undec fullW">
@@ -121,7 +121,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
               </Link>
             </ListItem>
           </List>
-          <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Network</h4>
+          <h4 className={cls(cmn.pSec, cmn.p, text-xs, cmn.mtop10, cmn.mleft20)}>Network</h4>
           <List>
             <ListItem>
               <Link to="/ecosystem" className="undec fullW">
@@ -134,7 +134,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                   </ListItemIcon>
                   <ListItemText primary="Ecosystem" />
                   <div className="chipNew">
-                    <p className={cls(cmn.p, cmn.p5)}>NEW</p>
+                    <p className={cls(cmn.p, text-xs)}>NEW</p>
                   </div>
                 </ListItemButton>
               </Link>

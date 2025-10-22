@@ -81,7 +81,7 @@ export default function Tile(props: {
       className={cls(
         cmn.p,
         [cmn.p1, size === 'lg'],
-        [cmn.p2, size === 'md'],
+        [text-base, size === 'md'],
         cmn.p700,
         [cmn.pPrim, !props.color && !props.disabled],
         ['pSec', props.disabled],
@@ -125,7 +125,7 @@ export default function Tile(props: {
               <p
                 className={cls(
                   cmn.p,
-                  cmn.p4,
+                  text-xs,
                   cmn.flex,
                   [cmn.flexg, !props.ri],
                   [cmn.p600, props.textColor]
@@ -136,7 +136,7 @@ export default function Tile(props: {
               </p>
               {props.textRi ? (
                 <p
-                  className={cls(cmn.p, cmn.p4, cmn.flex, cmn.mleft5)}
+                  className={cls(cmn.p, text-xs, cmn.flex, cmn.mleft5)}
                   style={{ color: props.textColor }}
                 >
                   {props.textRi}

@@ -39,7 +39,7 @@ export default function TokenSection({ text, icon, tokens, onTokenClick }: Token
     <div className={cls(cmn.mtop20)}>
       <div className={cls(cmn.flex, cmn.flexcv, cmn.flexg, cmn.pSec, cmn.mleft10, cmn.mbott5)}>
         <div className={cls(cmn.flexcv, cmn.flex, cmn.mri10)}>{icon}</div>
-        <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.flexg, cmn.cap)}>{text}</p>
+        <p className={cls(cmn.p, text-sm, cmn.p600, cmn.flexg, cmn.cap)}>{text}</p>
       </div>
       {tokens
         .sort((a, b) => a.key.localeCompare(b.key))
@@ -68,7 +68,7 @@ export default function TokenSection({ text, icon, tokens, onTokenClick }: Token
                 <p
                   className={cls(
                     cmn.p,
-                    cmn.p3,
+                    text-sm,
                     cmn.p600,
                     cmn.pPrim,
                     cmn.flex,
@@ -79,13 +79,13 @@ export default function TokenSection({ text, icon, tokens, onTokenClick }: Token
                   {getTokenName(tokenData)}
                 </p>
                 {tokenData.address ? (
-                  <p className={cls(cmn.p, cmn.p4, cmn.pSec, cmn.p500, cmn.flex, cmn.mleft10)}>
+                  <p className={cls(cmn.p, text-xs, cmn.pSec, text-xs00, cmn.flex, cmn.mleft10)}>
                     {tokenData.address.substring(0, 5) +
                       '...' +
                       tokenData.address.substring(tokenData.address.length - 3)}
                   </p>
                 ) : (
-                  <p className={cls(cmn.p, cmn.p4, cmn.pSec, cmn.p500, cmn.flex, cmn.mleft10)}>
+                  <p className={cls(cmn.p, text-xs, cmn.pSec, text-xs00, cmn.flex, cmn.mleft10)}>
                     Ethereum
                   </p>
                 )}

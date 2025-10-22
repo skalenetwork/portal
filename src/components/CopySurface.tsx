@@ -71,14 +71,14 @@ export default function CopySurface(props: {
                     />
                   </div>
                 ) : null}
-                <p className={cls(cmn.p, cmn.p4, cmn.pSec, cmn.mbott5)}>
+                <p className={cls(cmn.p, text-xs, cmn.pSec, cmn.mbott5)}>
                   {props.title}
                   {props.tokenMetadata
                     ? ` (${props.tokenMetadata.decimals ?? constants.DEFAULT_ERC20_DECIMALS})`
                     : null}
                 </p>
               </div>
-              <p className={cls(cmn.p, cmn.p2, cmn.p600, 'shortP')}>{props.value}</p>
+              <p className={cls(cmn.p, text-base, cmn.p600, 'shortP')}>{props.value}</p>
             </div>
             {copied ? (
               <CheckCircleRoundedIcon

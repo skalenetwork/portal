@@ -86,7 +86,7 @@ export default function VerifiedContracts(props: {
         <p
           className={cls(
             cmn.p,
-            cmn.p2,
+            text-base,
             cmn.p700,
             cmn.pSec,
             cmn.fullWidth,

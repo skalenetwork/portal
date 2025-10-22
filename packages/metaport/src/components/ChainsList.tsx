@@ -51,7 +51,7 @@ export default function ChainsList(props: {
           disabled={props.disabled}
           endIcon={
             <KeyboardArrowDownRoundedIcon
-              className={cls(cmn.pPrim, cmn.mleft10)}
+              className="text-primary left10"
               style={{ marginRight: '12px' }}
             />
           }
@@ -66,7 +66,7 @@ export default function ChainsList(props: {
               <div className={cls(cmn.flex, cmn.flexc, cmn.mri10)}>
                 <ChainIcon skaleNetwork={props.config.skaleNetwork} chainName={props.chain} />
               </div>
-              <p className={cls(cmn.flex, cmn.p3, cmn.p600, cmn.p, cmn.pPrim, cmn.mri10)}>
+              <p className="flex text-sm text-sec cmn.p600 cmn.p cmn.pPrim cmn.mri10">
                 Transfer {props.from ? 'from' : 'to'}...
               </p>
             </div>
@@ -86,19 +86,7 @@ export default function ChainsList(props: {
             <div className={cls(cmn.flexg)}></div>
             <SkPaper gray>
               <p
-                className={cls(
-                  cmn.p,
-                  cmn.p2,
-                  cmn.p700,
-                  cmn.pPrim,
-                  cmn.mtop5,
-                  cmn.mbott5,
-                  cmn.mleft20,
-                  cmn.mri20,
-                  cmn.flexcv,
-                  cmn.pCent
-                )}
-              >
+                className="text-base cmn.p700 text-primary cmn.mtop5 cmn.mbott5 cmn.mleft20 cmn.mri20 cmn.flexcv cmn.pCent">
                 {modalTitle}
               </p>
             </SkPaper>

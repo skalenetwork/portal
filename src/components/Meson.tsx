@@ -70,7 +70,7 @@ export default function Meson(props: {
                   Bridge from Other Popular Networks
                 </p>
               </div>
-              <p className={cls(cmn.p, cmn.p4, cmn.pSec, [cmn.pCent, props.isXs])}>
+              <p className={cls(cmn.p, text-xs, cmn.pSec, [cmn.pCent, props.isXs])}>
                 Transfer from 45+ chains using Meson.Fi
               </p>
             </div>
@@ -89,7 +89,7 @@ export default function Meson(props: {
           <ConnectWallet className={cls(cmn.flexg)} />
         ) : (
           <div>
-            <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.p500, cmn.mbott10)}>
+            <p className={cls(cmn.p, text-sm, cmn.pSec, text-xs00, cmn.mbott10)}>
               Select destination chain
             </p>
             <div>
@@ -113,7 +113,7 @@ export default function Meson(props: {
                           chainName={chain}
                           logos={MAINNET_CHAIN_LOGOS}
                         />
-                        <p className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p, cmn.p3, cmn.p700)}>
+                        <p className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p, text-sm, cmn.p700)}>
                           {metadata.getAlias(props.chainsMeta, chain)}
                         </p>
                       </div>

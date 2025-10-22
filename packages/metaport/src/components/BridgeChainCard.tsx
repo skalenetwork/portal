@@ -89,7 +89,7 @@ export default function BridgeChainCard(props: ChainCardProps) {
                 <p
                   className={cls(
                     cmn.p,
-                    cmn.p4,
+                    text-xs,
                     cmn.p600,
                     cmn.pSec,
                     cmn.mtop5,
@@ -105,7 +105,7 @@ export default function BridgeChainCard(props: ChainCardProps) {
               <div className={cls(cmn.flexg)}></div>
             </div>
           )}
-          {!disabled && <p className={cls(cmn.p, cmn.pSec, cmn.p4, cmn.pCent)}>{firstSentence}</p>}
+          {!disabled && <p className={cls(cmn.p, cmn.pSec, text-xs, cmn.pCent)}>{firstSentence}</p>}
         </div>
       </SkPaper>
     </div>

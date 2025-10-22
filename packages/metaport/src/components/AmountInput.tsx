@@ -89,7 +89,7 @@ export default function AmountInput() {
           <Button
             size="small"
             disabled={transferInProgress || currentStep !== 0 || maxAmount === 0n}
-            className={cls(styles.paperGrey, styles.btnXs, cmn.flex, cmn.flexcv, cmn.p5)}
+            className={cls(styles.paperGrey, styles.btnXs, cmn.flex, cmn.flexcv, text-xs)}
             onClick={setMaxAmount}
           >
             MAX

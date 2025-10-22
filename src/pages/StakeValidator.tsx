@@ -64,9 +64,9 @@ export default function StakeValidator(props: {
 
   return (
     <Container maxWidth="md">
-      <SkPaper gray className={cls(cmn.mtop10, 'chainDetails')}>
+      <SkPaper gray className={cls('mt-2.5', 'chainDetails')}>
         <SkStack>
-          <div className={cls(cmn.flex, cmn.flexg)}>
+          <div className="flex flex-grow">
             <Breadcrumbs
               sections={[
                 {
@@ -81,7 +81,7 @@ export default function StakeValidator(props: {
               ]}
             />
           </div>
-          <div className={cls(cmn.flex)}>
+          <div className="flex">
             <DelegationTypeSelect
               delegationType={delegationType}
               handleChange={handleChange}
@@ -89,9 +89,9 @@ export default function StakeValidator(props: {
             />
           </div>
         </SkStack>
-        <div className={cls(cmn.mtop10, cmn.mleft5, cmn.mbott10)} style={{ paddingBottom: '5px' }}>
+        <div className="mt-2.5 ml-1.25 mb-2.5" style={{ paddingBottom: '5px' }}>
           <h2 className={cls(cmn.nom)}>Stake SKL</h2>
-          <p className={cls(cmn.p, cmn.p3, cmn.pSec)}>Choose a validator to delegate your SKL</p>
+          <p className="text-sm text-sec">Choose a validator to delegate your SKL</p>
         </div>
         <Validators
           mpc={props.mpc}

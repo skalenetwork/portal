@@ -39,7 +39,7 @@ const CustomChipLabel: React.FC<{ category: string; subcategory?: string }> = ({
 }) => (
   <Box display="flex" alignItems="center">
     <p
-      className={cls([cmn.pSec, subcategory], [cmn.pPrim, !subcategory], cmn.p, cmn.p3, [
+      className={cls([cmn.pSec, subcategory], [cmn.pPrim, !subcategory], cmn.p, text-sm, [
         cmn.p600,
         !subcategory
       ])}
@@ -49,7 +49,7 @@ const CustomChipLabel: React.FC<{ category: string; subcategory?: string }> = ({
     {subcategory && (
       <>
         <Box component="span" className="borderLeft" sx={{ height: '1em', mx: 0.75 }} />
-        <p className={cls(cmn.pPrim, cmn.p, cmn.p3, cmn.p600)}>{subcategory}</p>
+        <p className={cls(cmn.pPrim, cmn.p, text-sm, cmn.p600)}>{subcategory}</p>
       </>
     )}
   </Box>
@@ -104,11 +104,11 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
           />
         )
       })}
-      <p className={cls(cmn.p, cmn.p4, cmn.pPrim, cmn.mleft10, cmn.mri10)}>
+      <p className={cls(cmn.p, text-xs, cmn.pPrim, cmn.mleft10, cmn.mri10)}>
         {filteredAppsCount} project{filteredAppsCount !== 1 ? 's' : ''}
       </p>
       <p
-        className={cls(cmn.p, cmn.p500, cmn.p4, cmn.nop, cmn.nom, cmn.pSec, cmn.mleft20)}
+        className={cls(cmn.p, text-xs00, text-xs, cmn.nop, cmn.nom, cmn.pSec, cmn.mleft20)}
         style={{ cursor: 'pointer' }}
         onClick={clearAll}
       >

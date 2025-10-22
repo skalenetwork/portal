@@ -43,9 +43,9 @@ export default function TokenBalance(props: {
       <p
         className={cls(
           cmn.pLightGrey,
-          [cmn.p4, size === 'xs'],
-          [cmn.p3, size === 'sm'],
-          [cmn.p2, size === 'md'],
+          [text-xs, size === 'xs'],
+          [text-sm, size === 'sm'],
+          [text-base, size === 'md'],
           [cmn.pSec, !props.primary],
           [cmn.pPrim, props.primary],
           cmn.flex,

@@ -110,9 +110,9 @@ export default function StakeAmount(props: {
 
   return (
     <Container maxWidth="md">
-      <SkPaper gray className={cls(cmn.mtop10, 'chainDetails')}>
-        <div className={cls(cmn.flex, cmn.flexcv)}>
-          <div className={cls(cmn.flex, cmn.flexg)}>
+      <SkPaper gray className={cls('mt-2.5', 'chainDetails')}>
+        <div className="flex items-center">
+          <div className="flex flex-grow">
             <Breadcrumbs
               sections={[
                 {
@@ -134,15 +134,15 @@ export default function StakeAmount(props: {
           </div>
           {loaded && available ? (
             <div className="titleBadge" style={{ padding: '10px 15px' }}>
-              <p className={cls(cmn.p, cmn.p4)}>
+              <p className="text-xs">
                 {getDelegationTypeAlias(delegationType)} delegation
               </p>
             </div>
           ) : null}
         </div>
-        <div className={cls(cmn.mtop10, cmn.mleft5, cmn.mbott10)} style={{ paddingBottom: '5px' }}>
+        <div className="mt-2.5 ml-1.25 mb-2.5" style={{ paddingBottom: '5px' }}>
           <h2 className={cls(cmn.nom)}>Stake SKL</h2>
-          <p className={cls(cmn.p, cmn.p3, cmn.pSec)}>
+          <p className="text-sm text-sec">
             Review validator info and enter delegation amount
           </p>
         </div>
@@ -150,7 +150,7 @@ export default function StakeAmount(props: {
           <ValidatorInfo
             validator={currentValidator}
             sklPrice={sklPrice}
-            className={cls(cmn.mtop10)}
+            className="mt-2.5"
           />
         ) : (
           <Loader text="Loading validator info" />
@@ -159,7 +159,7 @@ export default function StakeAmount(props: {
         <Headline
           text="Staking details"
           icon={<MonetizationOnRoundedIcon className={cls(styles.chainIconxs)} />}
-          className={cls(cmn.mtop20, cmn.mbott10)}
+          className="mt-5 mb-2.5"
           size="small"
         />
         {props.address ? (
@@ -177,7 +177,7 @@ export default function StakeAmount(props: {
             sklPrice={sklPrice}
           />
         ) : (
-          <ConnectWallet tile className={cls(cmn.flexg)} />
+          <ConnectWallet tile className="flex-grow" />
         )}
       </SkPaper>
     </Container>

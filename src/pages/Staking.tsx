@@ -164,16 +164,16 @@ export default function Staking(props: {
         <meta property="og:description" content={META_TAGS.staking.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className={cls(cmn.flex, cmn.flexcv)}>
-          <div className={cls(cmn.flexg)}>
+        <div className="flex items-center">
+          <div className="flex-grow">
             <h2 className={cls(cmn.nom)}>Staking</h2>
-            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+            <p className="text-sm text-sec">
               {props.isXs
                 ? 'Manage your delegations'
                 : 'Delegate, review delegations and withdraw staking rewards'}
             </p>
           </div>
-          <div className={cls(cmn.mri10)}>
+          <div className="mr-2.5">
             {loading !== false || props.customAddress !== undefined ? (
               <Button
                 variant="contained"
@@ -202,7 +202,7 @@ export default function Staking(props: {
 
       {props.customAddress !== undefined ? (
         <Message
-          className={cls(cmn.mtop20)}
+          className="mt-5"
           text={props.isXs ? 'Preview mode, ' : 'Previewing staking page in read-only mode, '}
           icon={<VisibilityRoundedIcon />}
           link="/staking"
@@ -213,7 +213,7 @@ export default function Staking(props: {
 
       {props.address !== customRewardAddress ? (
         <Message
-          className={cls(cmn.mtop20)}
+          className="mt-5"
           text={`Custom address will be used for rewards withdrawal: ${customRewardAddress}`}
           icon={<WarningRoundedIcon />}
           type="warning"
@@ -221,7 +221,7 @@ export default function Staking(props: {
         />
       ) : null}
 
-      <SkPaper gray className={cls(cmn.mtop20)}>
+      <SkPaper gray className="mt-5">
         <Collapse in={props.address !== undefined}>
           <Summary
             sklPrice={sklPrice}
@@ -239,11 +239,11 @@ export default function Staking(props: {
             icon={<AccountCircleRoundedIcon className={cls(styles.chainIconxs)} />}
             size="small"
           />
-          <ConnectWallet tile className={cls(cmn.flexg, cmn.mtop10)} />
+          <ConnectWallet tile className="flex-grow mt-2.5" />
         </Collapse>
       </SkPaper>
       <Collapse in={props.si[1] !== null}>
-        <SkPaper gray className={cls(cmn.mtop20)}>
+        <SkPaper gray className="mt-5">
           <Summary
             sklPrice={sklPrice}
             type={types.st.DelegationType.ESCROW}
@@ -256,7 +256,7 @@ export default function Staking(props: {
         </SkPaper>
       </Collapse>
       <Collapse in={props.si[2] !== null}>
-        <SkPaper gray className={cls(cmn.mtop20)}>
+        <SkPaper gray className="mt-5">
           <Summary
             sklPrice={sklPrice}
             type={types.st.DelegationType.ESCROW2}
@@ -269,9 +269,9 @@ export default function Staking(props: {
         </SkPaper>
       </Collapse>
 
-      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className={cls(cmn.mtop20)} />
+      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-5" />
 
-      <SkPaper gray className={cls(cmn.mtop20)}>
+      <SkPaper gray className="mt-5">
         <Collapse in={props.address !== undefined}>
           <Delegations
             validators={props.validators}
@@ -296,8 +296,8 @@ export default function Staking(props: {
             icon={<AllInboxRoundedIcon className={cls(styles.chainIconxs)} />}
             size="small"
           />
-          <div className={cls(cmn.mtop20)}>
-            <PieChartRoundedIcon className={cls(cmn.pSec, styles.chainIconmd, cmn.fullWidth)} />
+          <div className="mt-5">
+            <PieChartRoundedIcon className={cls(cmn.pSec, styles.chainIconmd, 'w-full')} />
             <h5 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.pCent, cmn.mtop5, cmn.mbott20)}>
               Connect your wallet to view delegations
             </h5>

@@ -41,10 +41,10 @@ export default function Stats() {
         <meta property="og:description" content={META_TAGS.stats.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className={cls(cmn.flex, cmn.flexcv)}>
-          <div className={cmn.flexg} style={{ zIndex: '2' }}>
+        <div className="flex items-center">
+          <div className="flex-grow" style={{ zIndex: '2' }}>
             <h2 className={cls(cmn.nom)}>Stats</h2>
-            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>SKALE Network statistics</p>
+            <p className="text-sm text-sec">SKALE Network statistics</p>
           </div>
           <SkPageInfoIcon meta_tag={META_TAGS.stats} />
         </div>

@@ -41,9 +41,9 @@ export default function LinkSurface(props: {
           <ButtonBase className="titleSection" style={{ width: '100%' }}>
             <div style={{ textAlign: 'left', overflow: 'auto' }} className={cmn.flexg}>
               <div className={cls(cmn.flex)}>
-                <p className={cls(cmn.p, cmn.pPrim, cmn.p4, cmn.pSec, cmn.mbott5)}>{props.title}</p>
+                <p className={cls(cmn.p, cmn.pPrim, text-xs, cmn.pSec, cmn.mbott5)}>{props.title}</p>
               </div>
-              <p className={cls(cmn.p, cmn.p2, cmn.p600, 'shortP')}>{props.value}</p>
+              <p className={cls(cmn.p, text-base, cmn.p600, 'shortP')}>{props.value}</p>
             </div>
             <ArrowOutwardRoundedIcon className={cls(cmn.pSec, cmn.mleft20, styles.chainIconxs)} />
           </ButtonBase>

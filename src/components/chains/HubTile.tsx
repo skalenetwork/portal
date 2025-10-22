@@ -86,8 +86,8 @@ export default function HubTile(props: {
                 <p
                   className={cls(
                     cmn.p,
-                    [cmn.p4, !props.isXs],
-                    [cmn.p5, props.isXs],
+                    [text-xs, !props.isXs],
+                    [text-xs, props.isXs],
                     [cmn.mri10, props.isXs],
                     cmn.pSec
                   )}
@@ -99,7 +99,7 @@ export default function HubTile(props: {
             {props.isXs || !props.showStats ? null : (
               <div className={cls('chipSm', cmn.mri10, cmn.flex, cmn.flexcv)}>
                 <TrendingUpRoundedIcon />
-                <p className={cls(cmn.p, cmn.p5, cmn.mleft10)}>
+                <p className={cls(cmn.p, text-xs, cmn.mleft10)}>
                   {schainMetrics
                     ? formatNumber(schainMetrics.chain_stats?.transactions_today)
                     : '...'}

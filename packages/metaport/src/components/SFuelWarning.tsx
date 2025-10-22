@@ -194,14 +194,14 @@ export default function SFuelWarning(props: {}) {
   return (
     <Collapse in={!loading && !isOk}>
       <div className={cls(cmn.mtop20, cmn.mbott5)}>
-        <p className={cls(cmn.flex, cmn.p3, cmn.p, cmn.pPrim, cmn.flexGrow, cmn.mleft10)}>
+        <p className={cls(cmn.flex, text-sm, cmn.p, cmn.pPrim, cmn.flexGrow, cmn.mleft10)}>
           ⛽ {getSFuelText()}
         </p>
         {!sFuelBtn || noEth ? (
           <p
             className={cls(
               cmn.flex,
-              cmn.p3,
+              text-sm,
               cmn.p,
               cmn.pPrim,
               cmn.flexGrow,

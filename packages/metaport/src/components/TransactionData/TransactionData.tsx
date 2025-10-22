@@ -114,10 +114,10 @@ export default function TransactionData(props: {
       </div>
       <div className={cls(cmn.mleft20, cmn.flexg, cmn.flex)}>
         <div>
-          <p className={cls(cmn.p, cmn.p2, cmn.cap, cmn.pPrim)}>
+          <p className={cls(cmn.p, text-base, cmn.cap, cmn.pPrim)}>
             {actionAliases[props.transactionData.txName]}
           </p>
-          <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>
+          <p className={cls(cmn.p, text-xs, cmn.pSec)}>
             {new Date(props.transactionData.timestamp * 1000).toUTCString()}
           </p>
         </div>

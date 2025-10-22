@@ -53,7 +53,7 @@ export default function ValidatorInfo(props: {
               <TrustBadge validator={props.validator} />
               <ValidatorBadge validator={props.validator} className={cmn.mleft10} />
             </div>
-            <p className={cls(cmn.p, cmn.p4, cmn.p600, cmn.pSec, cmn.mri20, cmn.mtop5)}>
+            <p className={cls(cmn.p, text-xs, cmn.p600, cmn.pSec, cmn.mri20, cmn.mtop5)}>
               {description}
             </p>
           </div>

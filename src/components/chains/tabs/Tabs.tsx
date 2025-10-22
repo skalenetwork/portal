@@ -65,7 +65,7 @@ export default function ChainTabs(props: {
         <Link to={`/admin/${props.schainName}`}>
           <Button
             startIcon={<AdminPanelSettingsRoundedIcon />}
-            className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', cmn.pSec, cmn.p500)}
+            className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', cmn.pSec, text-xs00)}
           >
             Manage
           </Button>

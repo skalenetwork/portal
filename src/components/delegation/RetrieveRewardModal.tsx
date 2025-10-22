@@ -99,7 +99,7 @@ export default function RetrieveRewardModal(props: {
           <Container maxWidth="md">
             <SkPaper className={cls(cmn.nop)}>
               <SkPaper gray>
-                <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.pCent, cmn.mtop10, cmn.mbott10)}>
+                <p className={cls(cmn.p, text-base, cmn.p700, cmn.pCent, cmn.mtop10, cmn.mbott10)}>
                   Confirm reward retrieval
                 </p>
                 <Message

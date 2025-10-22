@@ -65,7 +65,7 @@ export default function TermsModal(props: {
         <div className={cls(cmn.flex)}>
           <h2 className={cls(cmn.nom)}>{title}</h2>
         </div>
-        <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.mbott20)}>
+        <p className={cls(cmn.p, text-sm, cmn.pSec, cmn.mbott20)}>
           Review the terms of service carefully and confirm
         </p>
         <Box>
@@ -74,7 +74,7 @@ export default function TermsModal(props: {
               <SkPaper gray className={cls(styles.fullHeight)}>
                 <div className={cls(cmn.m10)}>
                   <KeyRoundedIcon color="primary" />
-                  <p className={cls(cmn.p, cmn.p3, cmn.p700, cmn.mtop5)}>
+                  <p className={cls(cmn.p, text-sm, cmn.p700, cmn.mtop5)}>
                     SKALE will NEVER ask you for your seed phrase or private keys
                   </p>
                 </div>
@@ -84,7 +84,7 @@ export default function TermsModal(props: {
               <SkPaper gray className={cls(styles.fullHeight)}>
                 <div className={cls(cmn.m10)}>
                   <LockRoundedIcon color="primary" />
-                  <p className={cls(cmn.p, cmn.p3, cmn.p700, cmn.mtop5)}>
+                  <p className={cls(cmn.p, text-sm, cmn.p700, cmn.mtop5)}>
                     Make sure you are connected to the correct URL and only use this official link:
                     <Link
                       target="_blank"
@@ -103,7 +103,7 @@ export default function TermsModal(props: {
         <SkPaper gray className={cls(cmn.mtop20)}>
           <div className={cls(cmn.m10, 'scrollable')}>
             <GradingRoundedIcon color="primary" />
-            <p className={cls(cmn.p, cmn.p3, cmn.p700, cmn.mtop10, cmn.pPrim)}>
+            <p className={cls(cmn.p, text-sm, cmn.p700, cmn.mtop10, cmn.pPrim)}>
               Before you use the SKALE {title}, you must review the terms of service carefully and
               confirm below.
             </p>

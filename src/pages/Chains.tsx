@@ -71,11 +71,11 @@ export default function Chains(props: {
   if (props.schains.length === 0) {
     return (
       <div className="fullscreen-msg">
-        <div className={cls(cmn.flex)}>
-          <div className={cls(cmn.flex, cmn.flexcv, cmn.mri20)}>
+        <div className="flex">
+          <div className="flex items-center mr-5">
             <CircularProgress className="fullscreen-spin" />
           </div>
-          <div className={cls(cmn.flex, cmn.flexcv)}>
+          <div className="flex items-center">
             <h3 className="fullscreen-msg-text">Loading SKALE Chains</h3>
           </div>
         </div>
@@ -84,7 +84,7 @@ export default function Chains(props: {
   }
 
   return (
-    <Container maxWidth="md" className={cls(cmn.mbott20)}>
+    <Container maxWidth="md" className="mb-5">
       <Helmet>
         <title>{META_TAGS.chains.title}</title>
         <meta name="description" content={META_TAGS.chains.description} />
@@ -92,10 +92,10 @@ export default function Chains(props: {
         <meta property="og:description" content={META_TAGS.chains.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className={cls(cmn.flex, cmn.flexcv)}>
-          <div className={cmn.flexg}>
+        <div className="flex items-center">
+          <div className="flex-grow">
             <h2 className={cls(cmn.nom)}>SKALE Chains</h2>
-            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+            <p className="text-sm text-sec">
               Connect, get block explorer links and endpoints
             </p>
           </div>
@@ -137,7 +137,7 @@ export default function Chains(props: {
             icon={<CategoryRoundedIcon color="primary" />}
           />
         )}
-        <div className={cls(cmn.mbott20, cmn.mtop20)}></div>
+        <div className="mb-5 mt-5"></div>
       </Stack>
     </Container>
   )

@@ -36,7 +36,7 @@ const Headline: React.FC<HeadlineProps> = ({ text, className, icon, size = 'medi
 
   const textElement =
     size === 'small' ? (
-      <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.flexg, cmn.cap)}>{text}</p>
+      <p className={cls(cmn.p, text-base, cmn.p700, cmn.flexg, cmn.cap)}>{text}</p>
     ) : (
       <h3 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.mleft10)}>{text}</h3>
     )

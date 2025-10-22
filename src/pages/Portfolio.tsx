@@ -99,47 +99,40 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
   return (
     <Container maxWidth="md">
       <Stack spacing={0}>
-        <div className={cls(cmn.flex)}>
-          <h2 className={cls(cmn.nom, cmn.flexg)}>Portfolio</h2>
+        <div className="flex">
+          <h2 className={cls(cmn.nom, 'flex-grow')}>Portfolio</h2>
         </div>
-        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>Your assets across all SKALE Chains</p>
+        <p className={cls(cmn.nom, cmn.p, text-sm, cmn.pSec)}>Your assets across all SKALE Chains</p>
         <div>
-          {!address ? <ConnectWallet className={cmn.mtop20} /> : null}
+          {!address ? <ConnectWallet className="mt-5" /> : null}
           {Object.keys(props.mpc.config.tokens)?.map((token: string, index: number) => (
-            <div key={index} className={cls(cmn.mtop20)}>
+            <div key={index} className="mt-5">
               <SkPaper gray className={cmn.n}>
                 <div
-                  className={cls(
-                    cmn.flex,
-                    cmn.flexcv,
-                    cmn.mbott10,
-                    cmn.mtop5,
-                    cmn.mleft10,
-                    cmn.mri10
-                  )}
+                  className="flex items-center mb-2.5 mt-1.25 ml-2.5 mr-2.5"
                 >
                   <TokenIcon
                     size="md"
                     tokenSymbol={token}
                     iconUrl={props.mpc.config.tokens[token].iconUrl}
                   />
-                  <div className={cls(cmn.mleft10, cmn.flexg)}>
-                    <p className={cls(cmn.p, cmn.pPrim, cmn.p2, cmn.p700)}>
+                  <div className="ml-2.5 flex-grow">
+                    <p className={cls(cmn.p, cmn.pPrim, text-base, cmn.p700)}>
                       {props.mpc.config.tokens[token].symbol}
                     </p>
-                    <p className={cls(cmn.p, cmn.pSec, cmn.p3, cmn.p600)}>
+                    <p className={cls(cmn.p, cmn.pSec, text-sm, cmn.p600)}>
                       {props.mpc.config.tokens[token].name ?? (token === 'eth' ? 'Ethereum' : '')}
                     </p>
                   </div>
-                  <div className={cls(cmn.mri5)}>
+                  <div className="mr-1.25">
                     <p className={cls(cmn.p, cmn.pPrim, cmn.p1, cmn.p700, cmn.pri)}>
                       {units.fromWei(getTotalBalance(token).toString(), getTokenDecimals(token))}{' '}
                       {props.mpc.config.tokens[token].symbol}
                     </p>
-                    <p className={cls(cmn.p, cmn.pSec, cmn.p5, cmn.p600, cmn.pri)}>On 2 chains</p>
+                    <p className={cls(cmn.p, cmn.pSec, text-xs, cmn.p600, cmn.pri)}>On 2 chains</p>
                   </div>
                 </div>
-                <Grid container spacing={1} className={cls(cmn.full)}>
+                <Grid container spacing={1} className="w-full">
                   {props.mpc.config.chains
                     .filter((chain: string) => {
                       return isTokenInChain(chain, token)

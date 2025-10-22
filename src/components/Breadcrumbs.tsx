@@ -41,16 +41,16 @@ export default function Breadcrumbs(props: { sections: BreadcrumbSection[]; clas
             <Link to={section.url} className="undec fullW">
               <Button className={cmn.pPrim}>
                 {section.icon}
-                <p className={cls(cmn.p, cmn.p4, cmn.mleft5)}>{section.text}</p>
+                <p className={cls(cmn.p, text-xs, cmn.mleft5)}>{section.text}</p>
               </Button>
             </Link>
           ) : (
             <Button>
               {section.icon}
-              <p className={cls(cmn.p, cmn.p4, cmn.mleft5)}>{section.text}</p>
+              <p className={cls(cmn.p, text-xs, cmn.mleft5)}>{section.text}</p>
             </Button>
           )}
-          {index + 1 !== props.sections.length ? <p className={cls(cmn.p, cmn.p4)}>|</p> : null}
+          {index + 1 !== props.sections.length ? <p className={cls(cmn.p, text-xs)}>|</p> : null}
         </div>
       ))}
     </div>

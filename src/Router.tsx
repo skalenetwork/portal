@@ -38,9 +38,7 @@ import {
   useWagmiWalletClient,
   useWagmiSwitchNetwork,
   walletClientToSigner,
-  enforceNetwork,
-  cls,
-  cmn
+  enforceNetwork
 } from '@skalenetwork/metaport'
 
 import { type types, metadata, constants } from '@/core'
@@ -184,11 +182,11 @@ export default function Router(props: {
   if (!chainsMeta)
     return (
       <div className="fullscreen-msg">
-        <div className={cls(cmn.flex)}>
-          <div className={cls(cmn.flex, cmn.flexcv, cmn.mri20)}>
+        <div className="flex">
+          <div className="flex items-center mr-5">
             <CircularProgress className="fullscreen-spin" />
           </div>
-          <div className={cls(cmn.flex, cmn.flexcv)}>
+          <div className="flex items-center">
             <h3 className="fullscreen-msg-text">Loading SKALE Chains</h3>
           </div>
         </div>

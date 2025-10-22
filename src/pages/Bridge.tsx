@@ -33,7 +33,6 @@ import {
   useMetaportStore,
   SkPaper,
   TransactionData,
-  styles,
   useWagmiAccount,
   Tile
 } from '@skalenetwork/metaport'
@@ -192,10 +191,10 @@ Thank you for your understanding!"
         <meta property="og:description" content={META_TAGS.bridge.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className={cls(cmn.flex, cmn.flexcv)}>
-          <div className={cls(cmn.flexg)}>
+        <div className="flex flex items-center">
+          <div className="flex-grow">
             <h2 className={cls(cmn.nom)}>Bridge</h2>
-            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+            <p className="text-sm text-sec">
               Zero Gas Fees between SKALE Chains
             </p>
           </div>
@@ -203,7 +202,7 @@ Thank you for your understanding!"
             <Link to="/bridge/history">
               <Button
                 variant="contained"
-                className={cls('btnMd', styles.paperGrey, cmn.pPrim, cmn.mri10)}
+                className="btnMd styles.paperGrey text-primary mr-2.5"
                 startIcon={<HistoryIcon />}
               >
                 History
@@ -213,11 +212,11 @@ Thank you for your understanding!"
           </div>
         </div>
 
-        <div className={cls(cmn.mtop20)}>
+        <div className="mt-5">
           <BridgeBody chainsMeta={props.chainsMeta} />
           {transactionsHistory.length !== 0 ? (
-            <div className={cls(cmn.mbott20)}>
-              <p className={cls(cmn.p, cmn.p2, cmn.pPrim, cmn.p700, cmn.mtop20, cmn.mbott10)}>
+            <div className="mb-5">
+              <p className= "cmn.p, text-base, text-primary,font-bold mt-5 mb-2.5">
                 Completed transactions
               </p>
               <SkPaper gray>
@@ -235,7 +234,7 @@ Thank you for your understanding!"
       </Stack>
       <Meson
         chainsMeta={props.chainsMeta}
-        className={cls(cmn.mtop20)}
+        className="mt-5"
         skaleNetwork={mpc.config.skaleNetwork}
         isXs={props.isXs}
       />

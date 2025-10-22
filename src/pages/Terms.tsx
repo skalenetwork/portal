@@ -9,10 +9,10 @@ export default function Terms() {
   return (
     <Container maxWidth="md" className="textPage">
       <Stack spacing={0}>
-        <div className={cls(cmn.flex)}>
+        <div className="flex">
           <h2 className={cls(cmn.nom)}>Terms of Service</h2>
         </div>
-        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+        <p className={cls("text-sm", cmn.pSec)}>
           SKALE Network Blockchain Bridge Terms of Service
         </p>
         <TermsOfService />

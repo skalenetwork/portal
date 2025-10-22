@@ -127,7 +127,7 @@ export default function Topup(props: {
                 onClick={() => {
                   props.setErrorMsg(undefined)
                 }}
-                className={cls('blackP', cmn.p, cmn.p4, cmn.mtop10)}
+                className={cls('blackP', cmn.p, text-xs, cmn.mtop10)}
                 style={{ background: 'rgba(0, 0, 0, 0.3)' }}
               >
                 Close
