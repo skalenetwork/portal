@@ -45,7 +45,7 @@ export default function AccordionLink(props: {
                 {props.icon}
               </div>
             ) : null}
-            <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.flexg)}>{props.title}</p>
+            <p className={cls(cmn.p, text-base, cmn.p700, cmn.flexg)}>{props.title}</p>
             <AddCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
           </div>
         </ButtonBase>

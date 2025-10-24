@@ -41,7 +41,7 @@ export default function DelegationsNotification(props: {
         }`}
       >
         <div className={cls(props.className, 'chipNotification')}>
-          <p className={cls(cmn.p, cmn.p5)}>{proposedDelegations}</p>
+          <p className={cls(cmn.p, text-xs)}>{proposedDelegations}</p>
         </div>
       </Tooltip>
     )

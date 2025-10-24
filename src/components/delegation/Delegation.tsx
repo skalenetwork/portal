@@ -123,8 +123,8 @@ export default function Delegation(props: {
               />
             )}
             <div className={cls(cmn.mleft10)}>
-              <p className={cls(cmn.p, cmn.p2, cmn.p700)}>ID: {Number(props.delegation.id)}</p>
-              <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>
+              <p className={cls(cmn.p, text-base, cmn.p700)}>ID: {Number(props.delegation.id)}</p>
+              <p className={cls(cmn.p, text-xs, cmn.pSec)}>
                 {formatBigIntTimestampSeconds(props.delegation.created)}
               </p>
             </div>
@@ -144,7 +144,7 @@ export default function Delegation(props: {
           <div className={cls(cmn.flex, [cmn.mtop10, props.isXs])}>
             <div className={cls([cmn.flexg, !props.isXs])}></div>
             <div className={cls(`chipXs chip_${props.delegation.state}`)}>
-              <p className={cls(cmn.p, cmn.p4, 'pOneLine')}>
+              <p className={cls(cmn.p, text-xs, 'pOneLine')}>
                 {props.delegation.state.replace(/_/g, ' ')}
               </p>
             </div>
@@ -155,7 +155,7 @@ export default function Delegation(props: {
           <div className={cls(cmn.flex, [cmn.mtop10, props.isXs])}>
             <div className={cls([cmn.flexg, !props.isXs])}></div>
             <div className={cls(`chipXs chip_${getKeyByValue(DelegationSource, source)}`)}>
-              <p className={cls(cmn.p, cmn.p4)}>{source}</p>
+              <p className={cls(cmn.p, text-xs)}>{source}</p>
             </div>
             <div className={cls([cmn.flexg, !props.isXs])}></div>
           </div>
@@ -174,7 +174,7 @@ export default function Delegation(props: {
               >
                 <h4 className={cls(cmn.p, cmn.p700, [cmn.pSec, !isActive])}>{delegationAmount}</h4>
               </Tooltip>
-              <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>{getStakingText()}</p>
+              <p className={cls(cmn.p, text-xs, cmn.pSec)}>{getStakingText()}</p>
             </div>
             <ArrowForwardIosRoundedIcon
               className={cls(

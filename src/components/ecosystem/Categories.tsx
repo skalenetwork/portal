@@ -206,7 +206,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
                     />
                   }
                   label={
-                    <span className={cls(cmn.p, cmn.p3, cmn.p600)}>
+                    <span className={cls(cmn.p, text-sm, cmn.p600)}>
                       {highlightMatch(data.name, searchTerm)}
                     </span>
                   }

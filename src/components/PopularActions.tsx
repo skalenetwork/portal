@@ -86,7 +86,7 @@ export default function PopularActions(props: {
                     <div>
                       <div
                         className={cls(
-                          cmn.p3,
+                          text-sm,
                           'shortP',
                           cmn.p700,
                           cmn.pPrim,
@@ -96,7 +96,7 @@ export default function PopularActions(props: {
                       >
                         {action.text}
                       </div>
-                      <div className={cls(cmn.p5, cmn.pSec, cmn.mri10, cmn.mleft10)}>
+                      <div className={cls(text-xs, cmn.pSec, cmn.mri10, cmn.mleft10)}>
                         {getActionDescription(action)}
                       </div>
                     </div>

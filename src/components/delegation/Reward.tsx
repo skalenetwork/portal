@@ -96,7 +96,7 @@ export default function Reward(props: {
               <ValidatorLogo validatorId={validator.id} size="lg" />
               <div className={cls(cmn.mleft10, [cmn.flexg, props.isXs])}>
                 <h4 className={cls(cmn.p, cmn.p700, 'pOneLine')}>{validator.name}</h4>
-                <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Validator ID: {Number(validator.id)}</p>
+                <p className={cls(cmn.p, text-xs, cmn.pSec)}>Validator ID: {Number(validator.id)}</p>
               </div>
               {props.isXs ? minimizeBtn : null}
             </div>
@@ -107,7 +107,7 @@ export default function Reward(props: {
               {!props.isXs && !props.open ? (
                 <div className={cls([cmn.pri, !props.isXs], cmn.flex)}>
                   <div>
-                    <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Total staked</p>
+                    <p className={cls(cmn.p, text-xs, cmn.pSec)}>Total staked</p>
                      <Tooltip
                       arrow
                       title={
@@ -133,7 +133,7 @@ export default function Reward(props: {
                   [cmn.mleft10, !props.isXs]
                 )}
               >
-                <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Rewards available</p>
+                <p className={cls(cmn.p, text-xs, cmn.pSec)}>Rewards available</p>
                 <Tooltip
                   arrow
                   title={

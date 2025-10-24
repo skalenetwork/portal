@@ -37,7 +37,7 @@ const Chip: React.FC<{
       onClick={onClick}
     >
       {icon && <div className={cls(cmn.mri5, cmn.flex)}>{icon}</div>}
-      <p className={cls(cmn.p, cmn.p5)} style={{ whiteSpace: 'nowrap' }}>
+      <p className={cls(cmn.p, text-xs)} style={{ whiteSpace: 'nowrap' }}>
         {label}
       </p>
     </div>

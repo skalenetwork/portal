@@ -49,7 +49,7 @@ export default function ConnectWallet(props: {
     <div className={cls(props.className)}>
       <SkPaper gray={!props.tile} className={cls(['titleSection', props.tile])}>
         <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, cmn.p3, 'pSec', cmn.pCent)}>
+          <p className={cls(cmn.p, text-sm, 'pSec', cmn.pCent)}>
             {props.customText ?? 'Connect your wallet to continue'}
           </p>
           <div className={cls(cmn.flex)}>

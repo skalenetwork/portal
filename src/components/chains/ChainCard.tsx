@@ -50,22 +50,22 @@ const ChainCard: React.FC<{
   return (
     <SkPaper gray fullHeight className="sk-app-card">
       <Link to={url}>
-        <div className={cls(cmn.flex)}>
+        <div className="cmn.flex)}>
           <div className="sk-app-logo sk-logo-sm br__tile">
             <div
-              className={cls('logo-wrapper borderLight')}
+              className="'logo-wrapper borderLight')}
               style={{ background: metadata.chainBg(chainsMeta, schain.name) }}
             >
               <ChainLogo
-                className={cls('responsive-logo')}
+                className="'responsive-logo')}
                 network={skaleNetwork}
                 chainName={schain.name}
                 logos={MAINNET_CHAIN_LOGOS}
               />
             </div>
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
+            <div className="cmn.flex, cmn.flexg)}></div>
           </div>
-          <div className={cls(cmn.flexg)}></div>
+          <div className="cmn.flexg)}></div>
           {chainMeta && (
             <div>
               <Chip
@@ -75,16 +75,16 @@ const ChainCard: React.FC<{
             </div>
           )}
         </div>
-        <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10)}>
-          <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri5)}>
+        <div className="cmn.flex, cmn.flexcv, cmn.mtop10)}>
+          <p className="cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri5)}>
             {metadata.getAlias(chainsMeta, schain.name)}
           </p>
         </div>
         <CollapsibleDescription text={chainMeta?.description ?? 'No description'} />
       </Link>
-      <CategoriesChips categories={chainMeta?.categories} className={cls(cmn.mtop20)} />
+      <CategoriesChips categories={chainMeta?.categories} className="cmn.mtop20)} />
       <ChainActions
-        className={cls(cmn.mtop20)}
+        className="cmn.mtop20)}
         chainMeta={chainMeta}
         schainName={schain.name}
         skaleNetwork={skaleNetwork}

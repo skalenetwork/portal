@@ -35,7 +35,7 @@ import SkPaper from '../SkPaper'
 
 import WidgetBody from '../WidgetBody'
 
-import { cls, cmn, styles } from '../../core/css'
+import { cls, styles } from '../../core/css'
 
 import ErrorMessage from '../ErrorMessage'
 
@@ -57,9 +57,9 @@ export function WidgetUI(props: { config: types.mp.Config }) {
   }
 
   const fabButton = (
-    <div className={cls(cmn.flex)}>
-      <div className={fabLeft ? null : cls(cmn.flexg)}></div>
-      <div className={cmn.flex}>
+    <div className="flex items-center">
+      <div className={fabLeft ? null : 'flex-grow'}></div>
+      <div className="flex items-center">
         <Fab
           color={isOpen ? 'secondary' : 'primary'}
           className={props.config.openButton ? styles.skaleBtn : styles.skaleBtnHidden}
@@ -83,10 +83,10 @@ export function WidgetUI(props: { config: types.mp.Config }) {
 
   return (
     <div
-      className={cls(styles.imaWidgetBody)}
+      className={styles.imaWidgetBody}
       style={metaportTheme ? { ...metaportTheme.position, zIndex: metaportTheme.zIndex } : null}
     >
-      <div className={props.config.openButton ? cmn.mbott20 : null}>
+      <div className={props.config.openButton ? 'mb-5' : null}>
         {fabTop ? fabButton : null}
       </div>
       <Collapse in={isOpen}>
@@ -99,7 +99,7 @@ export function WidgetUI(props: { config: types.mp.Config }) {
           </Collapse>
         </SkPaper>
       </Collapse>
-      <div className={props.config.openButton ? cmn.mtop20 : null}>{fabTop ? null : fabButton}</div>
+      <div className={props.config.openButton ? 'mt-5' : null}>{fabTop ? null : fabButton}</div>
     </div>
   )
 }

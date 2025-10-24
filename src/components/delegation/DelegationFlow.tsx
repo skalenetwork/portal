@@ -62,9 +62,9 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation, className }
     <div className={cls(cmn.flex, cmn.flexcv, className)}>
       <div>
         <div className={cls(`chipXs chip_PROPOSED`)}>
-          <p className={cls(cmn.p, cmn.p4, 'pOneLine')}>PROPOSED</p>
+          <p className={cls(cmn.p, text-xs, 'pOneLine')}>PROPOSED</p>
         </div>
-        <p className={cls(cmn.p, cmn.p5, cmn.pSec, cmn.pCent, cmn.mtop5)}>
+        <p className={cls(cmn.p, text-xs, cmn.pSec, cmn.pCent, cmn.mtop5)}>
           {delegation ? formatBigIntTimestampSeconds(delegation.created) : getCurrentDate()}
         </p>
       </div>
@@ -73,9 +73,9 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation, className }
       />
       <div>
         <div className={cls(`chipXs chip_ACCEPTED`)}>
-          <p className={cls(cmn.p, cmn.p4, 'pOneLine')}>ACCEPTED</p>
+          <p className={cls(cmn.p, text-xs, 'pOneLine')}>ACCEPTED</p>
         </div>
-        <p className={cls(cmn.p, cmn.p5, cmn.pSec, cmn.pCent, cmn.mtop5)}>
+        <p className={cls(cmn.p, text-xs, cmn.pSec, cmn.pCent, cmn.mtop5)}>
           Until {getFirstDayNextMonth()}
         </p>
       </div>
@@ -84,9 +84,9 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation, className }
       />
       <div>
         <div className={cls(`chipXs chip_DELEGATED`)}>
-          <p className={cls(cmn.p, cmn.p4)}>DELEGATED</p>
+          <p className={cls(cmn.p, text-xs)}>DELEGATED</p>
         </div>
-        <p className={cls(cmn.p, cmn.p5, cmn.pSec, cmn.pCent, cmn.mtop5)}>
+        <p className={cls(cmn.p, text-xs, cmn.pSec, cmn.pCent, cmn.mtop5)}>
           From {getFirstDayNextMonth()}
         </p>
       </div>
@@ -95,9 +95,9 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation, className }
       />
       <div>
         <div className={cls(`chipXs chip_REWARDS`)}>
-          <p className={cls(cmn.p, cmn.p4, 'pOneLine')}>REWARDS GENERATED</p>
+          <p className={cls(cmn.p, text-xs, 'pOneLine')}>REWARDS GENERATED</p>
         </div>
-        <p className={cls(cmn.p, cmn.p5, cmn.pSec, cmn.pCent, cmn.mtop5)}>
+        <p className={cls(cmn.p, text-xs, cmn.pSec, cmn.pCent, cmn.mtop5)}>
           Monthly, starting on {getFirstDayMonthAfterNext()}
         </p>
       </div>

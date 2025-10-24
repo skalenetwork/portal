@@ -49,8 +49,8 @@ export default function History(props: { size?: types.Size }) {
           <p
             className={cls(
               cmn.p,
-              [cmn.p3, size == 'sm'],
-              [cmn.p2, size == 'md'],
+              [text-sm, size == 'sm'],
+              [text-base, size == 'md'],
               cmn.p600,
               cmn.pPrim,
               [cmn.ptop15, size === 'sm'],
@@ -150,8 +150,8 @@ export default function History(props: { size?: types.Size }) {
                   <p
                     className={cls(
                       cmn.p,
-                      [cmn.p3, size == 'sm'],
-                      [cmn.p2, size == 'md'],
+                      [text-sm, size == 'sm'],
+                      [text-base, size == 'md'],
                       cmn.p600,
                       cmn.cap,
                       cmn.pPrim,
@@ -164,8 +164,8 @@ export default function History(props: { size?: types.Size }) {
                   <p
                     className={cls(
                       cmn.p,
-                      [cmn.p3, size === 'sm'],
-                      [cmn.p2, size === 'md'],
+                      [text-sm, size === 'sm'],
+                      [text-base, size === 'md'],
                       cmn.p600,
                       cmn.cap,
                       cmn.pPrim,

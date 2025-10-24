@@ -122,18 +122,18 @@ export default function WrappedTokens() {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <div className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv)}>
+          <div className="flex w-full flex items-center">
             <div className={cls(cmn.flex, cmn.flexc, cmn.mri10)}>
               <ErrorIcon color="warning" />
             </div>
-            <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.cap, cmn.pPrim, cmn.mri10)}>
+            <p className={cls(cmn.p, text-sm, cmn.p600, cmn.cap, cmn.pPrim, cmn.mri10)}>
               Wrapped tokens found
             </p>
           </div>
         </AccordionSummary>
         <AccordionDetails>
           <SkPaper background="transparent" className={cls(styles.accordionContent)}>
-            <p className={cls(cmn.flex, cmn.p3, cmn.p, cmn.errorMessage, cmn.flexg)}>
+            <p className={cls(cmn.flex, text-sm, cmn.p, cmn.errorMessage, cmn.flexg)}>
               ❗ You have wrapped tokens on {chainAlias}. Unwrap them before proceeding with your
               transfer.
             </p>
@@ -152,7 +152,7 @@ export default function WrappedTokens() {
                   <p
                     className={cls(
                       cmn.p,
-                      cmn.p3,
+                      text-sm,
                       cmn.p600,
                       cmn.pPrim,
                       cmn.flex,

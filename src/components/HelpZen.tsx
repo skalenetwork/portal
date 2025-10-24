@@ -7,7 +7,6 @@ import MenuItem from '@mui/material/MenuItem'
 import QuestionMarkRoundedIcon from '@mui/icons-material/QuestionMarkRounded'
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 import MarkUnreadChatAltRoundedIcon from '@mui/icons-material/MarkUnreadChatAltRounded'
-import { cmn } from '@skalenetwork/metaport'
 import SkIconBtn from './SkIconBth'
 
 export default function HelpZen() {
@@ -40,7 +39,7 @@ export default function HelpZen() {
   return (
     <div>
       <Box
-        className={cmn.mleft5}
+        className="ml-1.5"
         sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}
       >
         <SkIconBtn
@@ -87,11 +86,11 @@ export default function HelpZen() {
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
         <MenuItem onClick={handleClickZen}>
-          <MarkUnreadChatAltRoundedIcon className={cmn.mri10} /> Open support chat
+          <MarkUnreadChatAltRoundedIcon className="mr-2.5" /> Open support chat
         </MenuItem>
         <Link to="/other/faq" className="undec fullW">
           <MenuItem onClick={handleClose}>
-            <HelpOutlineOutlinedIcon className={cmn.mri10} /> Bridge FAQ
+            <HelpOutlineOutlinedIcon className="mr-2.5" /> Bridge FAQ
           </MenuItem>
         </Link>
       </Menu>

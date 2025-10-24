@@ -41,8 +41,8 @@ export default function Admin(props: { mpc: MetaportCore; chainsMeta: types.Chai
 
   return (
     <Container maxWidth="md">
-      <SkPaper gray className={cls(cmn.mtop10, 'chainDetails')}>
-        <div className={cls(cmn.flex)}>
+      <SkPaper gray className={cls('mt-2.5', 'chainDetails')}>
+        <div className="flex">
           <Breadcrumbs
             sections={[
               {
@@ -62,9 +62,9 @@ export default function Admin(props: { mpc: MetaportCore; chainsMeta: types.Chai
             ]}
           />
         </div>
-        <div className={cls(cmn.mtop10, cmn.mleft5)}>
+        <div className="mt-2.5 ml-1.25">
           <h2 className={cls(cmn.nom)}>Manage {alias}</h2>
-          <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec, cmn.mbott10, 'pbott5')}>
+          <p className={cls('mt-1.25', cmn.p, text-sm, cmn.pSec, 'mb-2.5', 'pbott5')}>
             {alias} admin area - you can manage the chain here
           </p>
         </div>

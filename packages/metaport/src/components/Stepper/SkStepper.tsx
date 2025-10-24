@@ -109,7 +109,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                 </StepLabel>
                 <StepContent className={cmn.margTop}>
                   <Box sx={{ mb: 2 }}>
-                    <p className={cls(cmn.flex, cmn.p, cmn.pSec, cmn.p4, cmn.flexg)}>{step.text}</p>
+                    <p className={cls(cmn.flex, cmn.p, cmn.pSec, text-xs, cmn.flexg)}>{step.text}</p>
                     <div className={cmn.mtop10}>
                       {loading ? (
                         <Button
@@ -159,7 +159,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                 {emoji} Transfer completed
               </p>
               <p
-                className={cls(cmn.p3, cmn.p, cmn.p600, cmn.pSec, cmn.flexg, cmn.pCent, cmn.mtop5)}
+                className={cls(text-sm, cmn.p, cmn.p600, cmn.pSec, cmn.flexg, cmn.pCent, cmn.mtop5)}
               >
                 Transfer details are available in History section
               </p>

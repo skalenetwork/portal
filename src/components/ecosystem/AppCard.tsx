@@ -87,7 +87,7 @@ export default function AppCard(props: {
           </Button>
           {props.transactions ? (
             <div>
-              <p className={cls(cmn.p, cmn.p5, cmn.pSec, cmn.pCent, cmn.mjtop5, cmn.mjri5)}>
+              <p className={cls(cmn.p, text-xs, cmn.pSec, cmn.pCent, cmn.mjtop5, cmn.mjri5)}>
                 {formatNumber(props.transactions)} Txs
               </p>
             </div>

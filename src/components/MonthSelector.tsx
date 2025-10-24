@@ -65,7 +65,7 @@ export default function MonthSelector(props: {
               props.setTopupPeriod(month)
             }}
           >
-            <p className={cls(cmn.p, cmn.p2)}>{month}</p>
+            <p className={cls(cmn.p, text-base)}>{month}</p>
           </Button>
         ))}
       {openCustom ? (
@@ -114,7 +114,7 @@ export default function MonthSelector(props: {
                 props.setErrorMsg(undefined)
               }}
             >
-              <p className={cls(cmn.p, cmn.p2)}>Apply</p>
+              <p className={cls(cmn.p, text-base)}>Apply</p>
             </Button>
           </div>
           <Button
@@ -125,7 +125,7 @@ export default function MonthSelector(props: {
               setOpenCustom(false)
             }}
           >
-            <p className={cls(cmn.p, cmn.p2)}>Close</p>
+            <p className={cls(cmn.p, text-base)}>Close</p>
           </Button>
         </div>
       ) : (
@@ -136,7 +136,7 @@ export default function MonthSelector(props: {
             setOpenCustom(true)
           }}
         >
-          <p className={cls(cmn.p, cmn.p2)}>{customPeriod ? `${customPeriod} (Edit)` : 'Custom'}</p>
+          <p className={cls(cmn.p, text-base)}>{customPeriod ? `${customPeriod} (Edit)` : 'Custom'}</p>
         </Button>
       )}
     </div>

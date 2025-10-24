@@ -150,7 +150,7 @@ export default function TokenList() {
               <p
                 className={cls(
                   cmn.p,
-                  cmn.p2,
+                  text-base,
                   cmn.p700,
                   cmn.pPrim,
                   cmn.mtop5,
@@ -196,7 +196,7 @@ export default function TokenList() {
                   cmn.padd10
                 )}
               >
-                <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.pCent)}>
+                <p className={cls(cmn.p, text-base, cmn.pSec, cmn.pCent)}>
                   🚫 No tokens match your current filters
                 </p>
               </div>

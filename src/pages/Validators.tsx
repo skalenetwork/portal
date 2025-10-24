@@ -50,10 +50,10 @@ export default function ValidatorsPage(props: {
 
   return (
     <Container maxWidth="md">
-      <div className={cls(cmn.flex, cmn.flexcv)}>
-        <div className={cmn.flexg}>
+      <div className="flex items-center">
+        <div className="flex-grow">
           <h2 className={cls(cmn.nom)}>Validators</h2>
-          <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+          <p className={cls(cmn.nom, cmn.p, text-sm, cmn.pSec)}>
             List of validators on SKALE Network
           </p>
         </div>

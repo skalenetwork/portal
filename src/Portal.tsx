@@ -30,8 +30,6 @@ import {
   useMetaportStore,
   useWagmiAccount,
   Debug,
-  cls,
-  cmn,
   contracts
 } from '@skalenetwork/metaport'
 
@@ -141,7 +139,7 @@ export default function Portal() {
       <CssBaseline />
       <Header address={address} mpc={mpc} />
       <SkDrawer validatorDelegations={validatorDelegations} />
-      <div className={cls(cmn.fullWidth)} id="appContentScroll">
+      <div className="w-full" id="appContentScroll">
         <Router
           loadData={loadData}
           schains={schains}
@@ -155,7 +153,7 @@ export default function Portal() {
           loadValidator={loadValidator}
         />
         <ProfileModal />
-        <div className={cls(cmn.mtop20, cmn.fullWidth)}>
+        <div className="mt-5 w-full">
           <Debug />
         </div>
       </div>
