@@ -22,7 +22,6 @@ import WrappedTokens from './WrappedTokens'
 import TransactionsHistory from './HistorySection'
 import HistoryButton from './HistoryButton'
 
-import { cls, cmn } from '../core/css'
 import { CHAINS_META } from '../core/metadata'
 
 export function WidgetBody(props) {
@@ -84,20 +83,20 @@ export function WidgetBody(props) {
   return (
     <div>
       {!!address ? (
-        <div className={cls(cmn.flex, cmn.flexcv, cmn.mri10, cmn.mbott5)}>
-          <div className={cls(cmn.flexg)}></div>
-          <div className={cmn.mri5}>
+        <div className="flex items-center mr-2.5 mb-1.5">
+          <div className="flex-grow"></div>
+          <div className="mr-1.5">
             <HistoryButton />
           </div>
           <SkConnect />
         </div>
       ) : null}
-      <SkPaper background={sourceBg} className={cmn.nop}>
-        <SkPaper background={overlayBg} className={cmn.nop}>
-          <SkPaper background="transparent" className={cmn.nop}>
+      <SkPaper background={sourceBg} className="p-0">
+        <SkPaper background={overlayBg} className="p-0">
+          <SkPaper background="transparent" className="p-0">
             <Collapse in={showFrom()}>
-              <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
-                <p className={cls(cmn.nom, cmn.p, text-xs, cmn.pSec, cmn.flex, cmn.flexg)}>From</p>
+              <div className="pt-5 ml-5 mr-5 flex items-center">
+                <p className="text-xs text-gray-400 flex flex-grow">From</p>
                 <div>
                   {token ? (
                     <TokenBalance
@@ -120,7 +119,7 @@ export function WidgetBody(props) {
             </Collapse>
           </SkPaper>
           <Collapse in={showInput()}>
-            <SkPaper gray className={cls()}>
+            <SkPaper gray>
               <AmountInput />
             </SkPaper>
           </Collapse>
@@ -132,10 +131,10 @@ export function WidgetBody(props) {
       </Collapse>
 
       <Collapse in={showTo()}>
-        <SkPaper background={destBg} className={cmn.nop}>
-          <SkPaper background={overlayBg} className={cmn.nop}>
-            <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
-              <p className={cls(cmn.nom, cmn.p, text-xs, cmn.pSec, cmn.flex, cmn.flexg)}>To</p>
+        <SkPaper background={destBg} className="p-0">
+          <SkPaper background={overlayBg} className="p-0">
+            <div className="pt-5 ml-5 mr-5 flex items-center">
+              <p className="text-xs text-gray-400 flex flex-grow">To</p>
               <DestTokenBalance />
             </div>
             <ChainsList
@@ -153,19 +152,19 @@ export function WidgetBody(props) {
       <AmountErrorMessage />
 
       <Collapse in={showCP()}>
-        <SkPaper gray className={cmn.nop}>
+        <SkPaper gray className="p-0">
           <CommunityPool />
         </SkPaper>
       </Collapse>
 
       <Collapse in={showWT(address)}>
-        <SkPaper gray className={cmn.nop}>
+        <SkPaper gray className="p-0">
           <WrappedTokens />
         </SkPaper>
       </Collapse>
 
       <Collapse in={showTH(address)}>
-        <SkPaper className={cmn.nop}>
+        <SkPaper className="p-0">
           <TransactionsHistory />
         </SkPaper>
       </Collapse>

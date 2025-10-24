@@ -32,7 +32,7 @@ import AppShortcutIcon from '@mui/icons-material/AppShortcut'
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded'
 
 import { type types } from '@/core'
-import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
+import { type MetaportCore } from '@skalenetwork/metaport'
 import { META_TAGS } from '../core/meta'
 import { filterAppsByCategory, filterAppsBySearchTerm } from '../core/ecosystem/apps'
 import { useUrlParams } from '../core/ecosystem/urlParamsUtil'
@@ -228,7 +228,7 @@ export default function Ecosystem(props: {
             >
               <SkStack>
                 <div className={cn('flex-grow flex flex-col mb-5 mt-2.5')}>
-                  <h2 className={cls(cmn.nom)}>Ecosystem</h2>
+                  <h2 className="m-0">Ecosystem</h2>
                   <p className="text-sm text-sec">
                     Explore dApps across the SKALE ecosystem
                   </p>

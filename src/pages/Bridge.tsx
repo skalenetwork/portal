@@ -28,8 +28,6 @@ import HistoryIcon from '@mui/icons-material/History'
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
 
 import {
-  cls,
-  cmn,
   useMetaportStore,
   SkPaper,
   TransactionData,
@@ -177,7 +175,7 @@ Thank you for your understanding!"
           text="Testnet Bridge Maintenance Notice."
           icon={<ErrorRoundedIcon />}
           color="warning"
-          className={cls(cmn.mtop20)}
+          className="mt-5"
         />
       </Container>
     )
@@ -193,7 +191,7 @@ Thank you for your understanding!"
       <Stack spacing={0}>
         <div className="flex flex items-center">
           <div className="flex-grow">
-            <h2 className={cls(cmn.nom)}>Bridge</h2>
+            <h2 className="m-0">Bridge</h2>
             <p className="text-sm text-sec">
               Zero Gas Fees between SKALE Chains
             </p>
@@ -216,7 +214,7 @@ Thank you for your understanding!"
           <BridgeBody chainsMeta={props.chainsMeta} />
           {transactionsHistory.length !== 0 ? (
             <div className="mb-5">
-              <p className= "cmn.p, text-base, text-primary,font-bold mt-5 mb-2.5">
+              <p className="text-base text-primary font-bold mt-5 mb-2.5">
                 Completed transactions
               </p>
               <SkPaper gray>

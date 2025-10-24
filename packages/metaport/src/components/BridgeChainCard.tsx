@@ -22,7 +22,6 @@
  */
 
 import { type types, metadata } from '@/core'
-import { cmn, cls, styles } from '../core/css'
 import SkPaper from './SkPaper'
 
 import ChainIcon from './ChainIcon'
@@ -60,52 +59,36 @@ export default function BridgeChainCard(props: ChainCardProps) {
     <div onClick={disabled ? undefined : onClick} style={{ height: 287 }}>
       <SkPaper
         gray={disabled}
-        className={cls(
-          cmn.flex,
-          cmn.flexc,
-          cmn.mtop20,
-          [cmn.pointer, !disabled],
-          [styles.disabledCard, disabled],
-          styles.fullHeight
-        )}
+        className="flex items-center justify-center mt-5 [['cursor-pointer', !disabled]],          [styles.disabledCard, disabled], styles.fullHeight"
+      
         background={backgroundColor}
       >
-        <div className={cls(cmn.mbott10, cmn.mtop20, cmn.fullWidth, styles.fullHeight)}>
-          <div className={cls(cmn.mbott10, cmn.mtop20, cmn.bordRad)}>
-            <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop20)}></div>
-            <div className={cls(cmn.bordRad, cmn.flex, cmn.flexc, styles.fullHeight,  cmn.mtop20)}>
+        <div className="mb-2.5 mt-5 w-full styles.fullHeight">
+          <div className="mb-2.5 mt-5 rounded-3xl">
+            <div className="flex items-center mt-5"></div>
+            <div className="rounded-3xl flex items-center justify-center mt-5 styles.fullHeight">
               <ChainIcon skaleNetwork={skaleNetwork} chainName={chainName} size={iconSize} />
             </div>
           </div>
 
-          <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, cmn.pCent)}>
+          <p className="text-white font-semibold text-xl text-center">
             {metadata.getAlias(chainsMeta, chainName, undefined, true)}
           </p>
 
           {disabled && (
-            <div className={cls(cmn.flex, cmn.mtop10, cmn.mbott20)}>
-              <div className={cls(cmn.flexg)}></div>
-              <SkPaper gray className={cls(cmn.nop)}>
+            <div className="flex items-center mt-2.5 mb-5">
+              <div className="flex-grow"></div>
+              <SkPaper gray className="p-0">
                 <p
-                  className={cls(
-                    cmn.p,
-                    text-xs,
-                    cmn.p600,
-                    cmn.pSec,
-                    cmn.mtop5,
-                    cmn.mbott5,
-                    cmn.mleft10,
-                    cmn.mri10,
-                    cmn.pWrap
-                  )}
+                  className="text-xs font-semibold text-gray-400 mt-1.5 mb-1.5 ml-2.5 mr-2.5 truncate"
                 >
                   {disabledText}
                 </p>
               </SkPaper>
-              <div className={cls(cmn.flexg)}></div>
+              <div className="flex-grow"></div>
             </div>
           )}
-          {!disabled && <p className={cls(cmn.p, cmn.pSec, text-xs, cmn.pCent)}>{firstSentence}</p>}
+          {!disabled && <p className="text-gray-400 text-xs text-center">{firstSentence}</p>}
         </div>
       </SkPaper>
     </div>

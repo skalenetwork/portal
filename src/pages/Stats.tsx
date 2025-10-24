@@ -25,7 +25,7 @@ import { Helmet } from 'react-helmet'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
-import { cmn, cls } from '@skalenetwork/metaport'
+
 
 import { DASHBOARD_URL } from '../core/constants'
 import { META_TAGS } from '../core/meta'
@@ -43,7 +43,7 @@ export default function Stats() {
       <Stack spacing={0}>
         <div className="flex items-center">
           <div className="flex-grow" style={{ zIndex: '2' }}>
-            <h2 className={cls(cmn.nom)}>Stats</h2>
+            <h2 className="m-0">Stats</h2>
             <p className="text-sm text-sec">SKALE Network statistics</p>
           </div>
           <SkPageInfoIcon meta_tag={META_TAGS.stats} />

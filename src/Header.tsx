@@ -28,7 +28,7 @@ import Chip from '@mui/material/Chip'
 import logo from './assets/skale_lg.svg'
 
 import { constants } from '@/core'
-import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
+import { type MetaportCore } from '@skalenetwork/metaport'
 
 import HelpZen from './components/HelpZen'
 import MoreMenu from './components/MoreMenu'
@@ -47,13 +47,13 @@ export default function Header(props: { address: `0x${string}` | undefined; mpc:
       className="sk-header"
       sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
     >
-      <Toolbar className={cmn.flex}>
-        <div className={cls(cmn.flex, cmn.flexcv)}>
-          <Link to="/" className={cls(cmn.flex, cmn.flexcv)}>
+      <Toolbar className="flex items-center">
+        <div className="flex items-center">
+          <Link to="/" className="flex items-center">
             <img src={logo} className="skLogo" alt="logo" />
           </Link>
         </div>
-        <div className={cls(cmn.flex, cmn.flexg, cmn.mleft10)}>
+        <div className="flex items-center flex-grow ml-2.5">
           {constants.MAINNET_CHAIN_NAME !== 'mainnet' ? (
             <Chip
               label="TESTNET"

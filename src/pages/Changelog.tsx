@@ -1,14 +1,14 @@
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import Changelog from '../data/changelog.mdx'
-import { cmn, cls, SkPaper } from '@skalenetwork/metaport'
+import { cls, SkPaper } from '@skalenetwork/metaport'
 
 export default function ChangelogPage() {
   return (
     <Container maxWidth="md">
       <Stack spacing={0}>
         <div className="flex">
-          <h2 className={cls(cmn.nom)}>Changelog</h2>
+          <h2 className="m-0">Changelog</h2>
         </div>
         <p className="text-sm text-sec">
           Stay informed with our latest updates

@@ -28,7 +28,6 @@ import { dc, units } from '@/core'
 import TextField from '@mui/material/TextField'
 import { Button } from '@mui/material'
 
-import { cls, cmn, styles } from '../core/css'
 import { SFUEL_RESERVE_AMOUNT } from '../core/constants'
 
 import TokenList from './TokenList'
@@ -74,9 +73,9 @@ export default function AmountInput() {
   }
 
   return (
-    <div className={cls(cmn.flex, styles.inputAmount)}>
+    <div className="cmn.flex, styles.inputAmount">
       {expandedTokens ? null : (
-        <div className={cls(cmn.flex, cmn.flexg, cmn.flexcv)}>
+        <div className="cmn.flex, cmn.flexg, cmn.flexcv">
           <TextField
             type="number"
             variant="standard"
@@ -89,14 +88,14 @@ export default function AmountInput() {
           <Button
             size="small"
             disabled={transferInProgress || currentStep !== 0 || maxAmount === 0n}
-            className={cls(styles.paperGrey, styles.btnXs, cmn.flex, cmn.flexcv, text-xs)}
+            className="styles.paperGrey, styles.btnXs, cmn.flex, cmn.flexcv, text-xs"
             onClick={setMaxAmount}
           >
             MAX
           </Button>
         </div>
       )}
-      <div className={cls([cmn.fullWidth, expandedTokens])}>
+      <div className="[cmn.fullWidth, expandedTokens]">
         <TokenList />
       </div>
     </div>

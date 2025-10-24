@@ -20,7 +20,6 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
 import Tooltip from '@mui/material/Tooltip'
@@ -34,7 +33,7 @@ export function ValidatorBadge(props: { validator: types.st.IValidator; classNam
     return (
       <Tooltip title="Escrow validator">
         <AccountBalanceRoundedIcon
-          className={cls('trustedBadge', cmn.mri5, cmn.pSec, props.className)}
+          className="'trustedBadge', cmn.mri5, cmn.pSec, props.className"
         />
       </Tooltip>
     )
@@ -46,13 +45,13 @@ export function TrustBadge(props: { validator: types.st.IValidator }) {
   if (props.validator.trusted) {
     return (
       <Tooltip title="Trusted validator">
-        <VerifiedRoundedIcon className={cls('trustedBadge', cmn.mleft5)} />
+        <VerifiedRoundedIcon className="'trustedBadge', ml-1.5" />
       </Tooltip>
     )
   }
   return (
     <Tooltip title="Not verified validator">
-      <WarningRoundedIcon className={cls('untrustedBadge', cmn.mleft5)} />
+      <WarningRoundedIcon className="'untrustedBadge', ml-1.5" />
     </Tooltip>
   )
 }

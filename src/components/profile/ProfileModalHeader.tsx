@@ -33,8 +33,8 @@ interface ProfileModalHeaderProps {
 }
 
 const ProfileModalHeader: React.FC<ProfileModalHeaderProps> = ({ address, isSignedIn }) => (
-  <div className={cls('profileModalHeader', cmn.flexcv)}>
-    <div className={cls(cmn.flexg)}>
+  <div className="profileModalHeader cmn.flexcv">
+    <div className="cmn.flexg">
       <Headline text="Profile" icon={<AccountCircleRoundedIcon />} size="small" />
     </div>
     <div className="profileModalStatus">
@@ -43,7 +43,7 @@ const ProfileModalHeader: React.FC<ProfileModalHeaderProps> = ({ address, isSign
         fontSize="small"
         color={address ? (isSignedIn ? 'success' : 'warning') : 'error'}
       />
-      <p className={cls(cmn.p, text-xs, 'pSec', cmn.mri20)}>
+      <p className="text-xs, 'pSec', cmn.mri20">
         {address ? (isSignedIn ? 'Signed in' : 'Connected but not signed in') : 'Not connected'}
       </p>
     </div>

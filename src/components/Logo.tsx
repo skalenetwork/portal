@@ -22,7 +22,7 @@
  */
 
 import { type types, metadata } from '@/core'
-import { cls, cmn } from '@skalenetwork/metaport'
+import { cls } from '@skalenetwork/metaport'
 import { MAINNET_CHAIN_LOGOS } from '../core/constants'
 import ChainLogo from '../components/ChainLogo'
 
@@ -39,7 +39,7 @@ const Logo: React.FC<LogoProps> = ({ chainsMeta, skaleNetwork, chainName, appNam
   return (
     <div className={`sk-app-logo sk-logo-${size} br__tile`}>
       <div
-        className={cls('logo-wrapper borderLight')}
+        className="'logo-wrapper borderLight'"
         style={{
           background: metadata.chainBg(chainsMeta, chainName, appName)
         }}
@@ -52,7 +52,7 @@ const Logo: React.FC<LogoProps> = ({ chainsMeta, skaleNetwork, chainName, appNam
           logos={MAINNET_CHAIN_LOGOS}
         />
       </div>
-      <div className={cls(cmn.flex, cmn.flexg)}></div>
+      <div className="flex flex-grow"></div>
     </div>
   )
 }

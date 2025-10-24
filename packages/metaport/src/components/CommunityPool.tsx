@@ -49,7 +49,7 @@ import {
   MINIMUM_RECHARGE_AMOUNT
 } from '../core/constants'
 
-import { cls, cmn, styles } from '../core/css'
+import { cls, styles } from '../core/css'
 
 import { useCPStore } from '../store/CommunityPoolStore'
 import { useCollapseStore } from '../store/Store'
@@ -191,17 +191,17 @@ export default function CommunityPool() {
         >
           <div className="flex w-full flex items-center">
             <div className="flex items-center justify-center mr-2.5">{icon}</div>
-            <p className={cls(cmn.p, text-sm, cmn.pPrim, 'font-semibold capitalize mr-2.5')}>{text}</p>
+            <p className="text-sm text-white font-semibold capitalize mr-2.5">{text}</p>
           </div>
         </AccordionSummary>
         <AccordionDetails>
           <SkPaper background="transparent" className="px-5">
-            <p className={cls(cmn.p, text-sm, cmn.errorMessage, 'flex flex-grow')}>
+            <p className="m-0 text-sm text-red-400 flex flex-grow">
               This wallet is used to pay for gas fees on transactions that are send to the Ethereum
               Mainnet. You may withdraw funds from your SKALE Gas Wallet at anytime.
             </p>
             {cpData.recommendedRechargeAmount ? (
-              <p className={cls(cmn.p, text-sm, cmn.errorMessage, 'flex flex-grow mt-2.5')}>
+              <p className="m-0 text-sm text-red-400 flex flex-grow mt-2.5">
                 Minimum recommended recharge amount for your wallet is{' '}
                 {cpData.recommendedRechargeAmount} ETH.
               </p>
@@ -210,7 +210,7 @@ export default function CommunityPool() {
              <Grid size={{ xs: 12, md: 6 }}>
                 <Tile
                   text="ETH Balance"
-                  className={cls(styles.inputAmount)}
+                  className={styles.inputAmount}
                   icon={<TokenIcon tokenSymbol="eth" size="xs" />}
                   grow
                   size="md"
@@ -238,7 +238,7 @@ export default function CommunityPool() {
                   <Tile
                     grow
                     text="Enter amount to recharge"
-                    className={cls(styles.inputAmount)}
+                    className={styles.inputAmount}
                     children={
                     <div className={cls('flex items-center', 'amountInput')}>
                       <div className="flex-grow">
@@ -254,14 +254,14 @@ export default function CommunityPool() {
                           style={{ width: '100%' }}
                         />
                       </div>
-                      <div className={cls(cmn.p, cmn.p1, 'font-bold mr-2.5')}>ETH</div>
+                      <div className="text-xl font-bold mr-2.5">ETH</div>
                     </div>
                   }
                   icon={<TransitEnterexitRoundedIcon style={{ rotate: '315deg' }} />}
                   
                 />
-                </Grid>
-             <Grid size={{ xs: 12, md: 6 }}>
+              </Grid>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <Tile
                   disabled={!!loading}
                   value={cpData.recommendedRechargeAmount !== undefined ? String(cpData.recommendedRechargeAmount) : ''}
@@ -283,8 +283,8 @@ export default function CommunityPool() {
                     </div> 
                   }
                 />
-                </Grid>
-                </Grid>
+              </Grid>
+            </Grid>
             <div className="mb-5 mt-5">
               <Button
                 variant="contained"
@@ -325,4 +325,4 @@ export default function CommunityPool() {
       </Accordion>
     </div>
   )
-  }
+}

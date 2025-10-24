@@ -21,10 +21,10 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { types, metadata } from '@/core'
+import { types } from '@/core'
 import ChainIcon from './ChainIcon'
 
-import { cls, cmn, dec } from '../core/css'
+import { dec } from '../core/css'
 import { CHAINS_META } from '../core/metadata'
 
 export default function Chain(props: {
@@ -41,7 +41,7 @@ export default function Chain(props: {
   const prim = props.prim ?? true
   const chainsMeta = CHAINS_META[props.skaleNetwork]
   return (
-    <div className={cls(cmn.flex, cmn.flexcv)}>
+    <div className="flex items-center">
       <ChainIcon
         skaleNetwork={props.skaleNetwork}
         chainName={props.chainName}
@@ -49,22 +49,21 @@ export default function Chain(props: {
         size={props.decIcon ? dec(props.size) : props.size}
       />
       <p
-        className={cls(
-          cmn.p,
-          [text-xs, size === 'xs'],
-          [text-sm, size === 'sm'],
-          [text-base, size === 'md'],
-          [cmn.p1, size === 'lg'],
-          [cmn.mleft5, size === 'xs'],
-          [cmn.mleft10, size === 'sm'],
-          [cmn.mleft15, size === 'md'],
-          [cmn.mleft20, size === 'lg'],
-          [cmn.p600, !props.bold],
-          [cmn.p700, props.bold],
-          cmn.cap,
-          [cmn.pPrim, prim],
-          [cmn.pSec, !prim]
-        )}
+        className="
+          [['text-xs', size === 'xs']],
+          [['text-sm', size === 'sm']],
+          [['text-base', size === 'md']],
+          [['text-xl', size === 'lg']],
+          [['ml-1.5', size === 'xs']],
+          [['ml-2.5', size === 'sm']],
+          [['ml-4', size === 'md']],
+          [['ml-5', size === 'lg']],
+          [['font-semibold', !props.bold]],
+          [['font-bold', props.bold]],
+          'capitalize',
+          [['text-white', prim]],
+          [['text-gray-400', !prim]]
+        "
       >
         {metadata.getAlias(chainsMeta, props.chainName, props.app)}
       </p>

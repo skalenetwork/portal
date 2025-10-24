@@ -25,7 +25,7 @@ import { Helmet } from 'react-helmet'
 
 import { useState, useEffect } from 'react'
 
-import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
+import { type MetaportCore } from '@skalenetwork/metaport'
 import { type types, constants } from '@/core'
 
 import Container from '@mui/material/Container'
@@ -94,7 +94,7 @@ export default function Chains(props: {
       <Stack spacing={0}>
         <div className="flex items-center">
           <div className="flex-grow">
-            <h2 className={cls(cmn.nom)}>SKALE Chains</h2>
+            <h2 className="m-0">SKALE Chains</h2>
             <p className="text-sm text-sec">
               Connect, get block explorer links and endpoints
             </p>

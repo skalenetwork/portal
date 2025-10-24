@@ -127,7 +127,7 @@ export default function Topup(props: {
                 onClick={() => {
                   props.setErrorMsg(undefined)
                 }}
-                className={cls('blackP', cmn.p, text-xs, cmn.mtop10)}
+                className="'blackP', cmn.p, text-xs, cmn.mtop10)}
                 style={{ background: 'rgba(0, 0, 0, 0.3)' }}
               >
                 Close
@@ -136,11 +136,11 @@ export default function Topup(props: {
           />
         </SkStack>
       </Collapse>
-      <div className={cls(cmn.mtop20, cmn.mbott10, cmn.mleft5, cmn.flex)}>
-        <div className={cls(cmn.flex)}>
+      <div className="cmn.mtop20, cmn.mbott10, ml-1.5, cmn.flex)}>
+        <div className="cmn.flex)}>
           <Button
             variant="contained"
-            className={cls('btn')}
+            className="'btn')}
             disabled={!balanceOk || props.loading || maxTopupPeriod <= 0}
             onClick={props.topupChain}
           >
@@ -148,7 +148,7 @@ export default function Topup(props: {
           </Button>
           {!balanceOk ? (
             <Link to="/bridge">
-              <Button variant="contained" className={cls('btn', cmn.mleft10)}>
+              <Button variant="contained" className="'btn', ml-2.5)}>
                 Bridge SKL to Europa Hub
               </Button>
             </Link>

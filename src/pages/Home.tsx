@@ -24,7 +24,7 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Stack, Box, Grid, Button } from '@mui/material'
-import { cmn, cls, SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
 import { useApps } from '../useApps'
@@ -118,15 +118,15 @@ export default function Home({
       <Headline
         text="Top Categories"
         icon={SECTION_ICONS.categories}
-        className={cls(cmn.mbott10, cmn.mtop20, cmn.ptop20)}
+        className="mb-2.5 mt-5 pt-5"
       />
       <CategoryCardsGrid chainsMeta={chainsMeta} />
-      <div className={cls(cmn.flex, cmn.mtop20, cmn.ptop20)}>
-        <div className={cls(cmn.flexg)}></div>
-        <SkPaper gray className={cls(cmn.mtop20)}>
+      <div className="flex items-center mt-5 pt-5">
+        <div className="flex-grow"></div>
+        <SkPaper gray className="mt-5">
           <SocialButtons social={SKALE_SOCIAL_LINKS} size="md" className="m-ri-min10" />
         </SkPaper>
-        <div className={cls(cmn.flexg)}></div>
+        <div className="flex-grow"></div>
       </div>
     </Container>
   )
@@ -153,10 +153,10 @@ interface AppSectionProps {
 function AppSection({ title, icon, linkTo, component }: AppSectionProps): JSX.Element {
   return (
     <>
-      <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
+      <div className="flex items-center mb-2.5 mt-5 pt-5">
         <Headline text={title} icon={icon} />
         <Link to={linkTo}>
-          <Button className={cls('btn btnSm bg', cmn.pPrim)}>See all</Button>
+          <Button className="btn btnSm bg text-white">See all</Button>
         </Link>
       </div>
       {component}

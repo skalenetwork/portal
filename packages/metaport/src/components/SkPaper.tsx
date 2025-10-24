@@ -22,7 +22,6 @@
  */
 
 import { ReactElement } from 'react'
-import { cls, cmn, styles } from '../core/css'
 
 import { useUIStore } from '../store/Store'
 
@@ -42,13 +41,13 @@ export default function SkPaper(props: {
   return (
     <div
       style={localStyle}
-      className={cls(
+      className="
         props.className,
         styles.paper,
         [styles.paperGrey, props.gray],
         [styles.fullHeight, props.fullHeight],
         [cmn.mtop20, props.margTop]
-      )}
+      "
     >
       {props.children}
     </div>

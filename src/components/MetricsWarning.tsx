@@ -35,7 +35,7 @@ export default function MetricsWarning(props: { metrics: types.IMetrics | null }
   return (
     <Container maxWidth="md">
       <Message
-        className={cls(cmn.mbott20)}
+        className="cmn.mbott20)}
         icon={<RestoreRoundedIcon />}
         text={`Apps metrics may be outdated. Last updated: ${timeUtils.timestampToDate(
           props.metrics.last_updated,

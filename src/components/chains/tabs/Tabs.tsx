@@ -42,7 +42,7 @@ export default function ChainTabs(props: {
   isXs: boolean
 }) {
   return (
-    <div className={cls(cmn.mtop10, cmn.fullWidth)}>
+    <div className="cmn.mtop10, cmn.fullWidth)}>
       <Tabs
         variant={props.isXs ? 'scrollable' : 'standard'}
         value={props.tab}
@@ -58,14 +58,14 @@ export default function ChainTabs(props: {
               label={tab.label}
               icon={tab.icon}
               iconPosition="start"
-              className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+              className="'btn', 'btnSm', cmn.mri5, ml-1.5, 'tab', 'fwmobile')}
             />
           ) : null
         )}
         <Link to={`/admin/${props.schainName}`}>
           <Button
             startIcon={<AdminPanelSettingsRoundedIcon />}
-            className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', cmn.pSec, text-xs00)}
+            className="'btn', 'btnSm', cmn.mri5, ml-1.5, 'tab', cmn.pSec, text-xs00)}
           >
             Manage
           </Button>

@@ -113,8 +113,8 @@ export default function ChainTabsSection(props: {
     ) {
       currentTabs.unshift({ label: 'Featured Apps', icon: <WidgetsRoundedIcon /> })
       currentTabsContent.unshift(
-        <SkPaper gray className={cls(cmn.mtop20)}>
-          <div className={cls(cmn.mtop10, cmn.mbott10, cmn.mleft5, cmn.mri5)}>
+        <SkPaper gray className="cmn.mtop20)}>
+          <div className="cmn.mtop10, cmn.mbott10, ml-1.5, cmn.mri5)}>
             <FeaturedApps
               featuredApps={chainFeaturedApps}
               skaleNetwork={network}
@@ -139,7 +139,7 @@ export default function ChainTabsSection(props: {
   }
 
   return (
-    <div className={cls(cmn.mtop20)} style={{ paddingBottom: '60px' }}>
+    <div className="cmn.mtop20)} style={{ paddingBottom: '60px' }}>
       <ChainTabs
         chainMeta={chainMeta}
         handleChange={handleChange}

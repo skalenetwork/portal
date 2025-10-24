@@ -48,7 +48,7 @@ export default function Tokens(props: {
       return [
         <Grid key={`${tokenSymbol}`} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
           <CopySurface
-            className={cls(styles.fullHeight)}
+            className="styles.fullHeight)}
             title={`${tokenSymbol.toUpperCase()}`}
             value={getAddress(tokenData.address)}
             tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
@@ -58,7 +58,7 @@ export default function Tokens(props: {
           ? [
               <Grid key={`w${tokenSymbol}`} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                 <CopySurface
-                  className={cls(styles.fullHeight)}
+                  className="styles.fullHeight)}
                   title={`w${tokenSymbol.toUpperCase()}`}
                   value={getAddress(wrapperAddress)}
                   tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
@@ -71,7 +71,7 @@ export default function Tokens(props: {
   }
 
   return (
-    <SkPaper gray className={cls(cmn.mtop20)}>
+    <SkPaper gray className="cmn.mtop20)}>
       <Grid container spacing={2}>
         {renderTokens(ethToken)}
         {renderTokens(chainTokens)}

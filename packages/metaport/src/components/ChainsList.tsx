@@ -6,7 +6,7 @@ import Button from '@mui/material/Button'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 
 import SkPaper from './SkPaper'
-import { cls, cmn, styles } from '../core/css'
+import { cls, styles } from '../core/css'
 import { CHAINS_META } from '../core/metadata'
 import BridgeChainCard from './BridgeChainCard'
 import ChainIcon from './ChainIcon'
@@ -44,9 +44,9 @@ export default function ChainsList(props: {
 
   return (
     <div>
-      <div className={cls(cmn.mleft10, cmn.pbott10, cmn.ptop10)} style={{ marginRight: '10px' }}>
+      <div className="ml-2.5 pb-2.5 pt-2.5 mr-2.5">
         <Button
-          className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mri10)}
+          className="flex items-center w-full p-2.5 mr-2.5"
           onClick={handleOpen}
           disabled={props.disabled}
           endIcon={
@@ -57,16 +57,16 @@ export default function ChainsList(props: {
           }
         >
           {props.chain ? (
-            <div className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv, cmn.mri10)}>
+            <div className="flex w-full items-center mr-2.5">
               <Chain skaleNetwork={props.config.skaleNetwork} chainName={props.chain} size={size} />
-              <div className={cls(cmn.flex, cmn.flexg)}></div>
+              <div className="flex flex-grow"></div>
             </div>
           ) : (
-            <div className={cls(cmn.flex, cmn.flexcv)}>
-              <div className={cls(cmn.flex, cmn.flexc, cmn.mri10)}>
+            <div className="flex items-center">
+              <div className="flex items-center justify-center mr-2.5">
                 <ChainIcon skaleNetwork={props.config.skaleNetwork} chainName={props.chain} />
               </div>
-              <p className="flex text-sm text-sec cmn.p600 cmn.p cmn.pPrim cmn.mri10">
+              <p className="flex text-sm text-gray-500 font-semibold mr-2.5">
                 Transfer {props.from ? 'from' : 'to'}...
               </p>
             </div>
@@ -79,27 +79,21 @@ export default function ChainsList(props: {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        className={cls(cmn.darkTheme, styles.metaport, styles.backdropBlur)}
+        className="styles.metaport, styles.backdropBlur, 'dark'"
       >
         <Container maxWidth="md" className={cls(styles.modalContainer)}>
-          <div className={cls(cmn.flex, cmn.mbott20)}>
-            <div className={cls(cmn.flexg)}></div>
+          <div className="flex cmn.mbott20">
+            <div className="flex-grow"></div>
             <SkPaper gray>
               <p
-                className="text-base cmn.p700 text-primary cmn.mtop5 cmn.mbott5 cmn.mleft20 cmn.mri20 cmn.flexcv cmn.pCent">
+                className="text-base text-primary font-bold mt-1.5 mb-1.5 ml-5 mr-5 flex items-center text-center">
                 {modalTitle}
               </p>
             </SkPaper>
-            <div className={cls(cmn.flexg)}></div>
+            <div className="flex-grow"></div>
           </div>
           <div
-            className={cls(
-              cmn.chainsList,
-              cmn.mbott10,
-              cmn.mri10,
-              cmn.mleft10,
-              styles.bridgeModalScroll
-            )}
+            className="styles.bridgeModalScroll mb-2.5 mr-2.5 ml-2.5"
           >
             <Grid container spacing={2}>
               {schainNames.map((name) => (
