@@ -35,8 +35,7 @@
       "func": "0x0c11dedd"
     }
   },
-  "regression": null,
-  "testnet": {
+"testnet": {
     "juicy-low-small-testnet": {
       "address": "0x366727B410fE55774C8b0B5b5A6E2d74199a088A",
       "func": "0x0c11dedd"
@@ -53,5 +52,6 @@
       "address": "0x08f98Af60eb83C18184231591A8F89577E46A4B9",
       "func": "0x0c11dedd"
     }
-  }
+  },
+  "base-sepolia-testnet": null
 }
