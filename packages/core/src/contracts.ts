@@ -20,7 +20,7 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import { types } from '.'
+import { types, constants } from '.'
 
 export enum Project {
   MANAGER = 'skale-manager',
@@ -67,7 +67,13 @@ export const CONTRACTS: ContractsConfig = {
     'mainnet-ima': '0x6c0d044a2C5Bcaff75C8ad7894d8b454b005F4D2',
     'skale-allocator': '0xDC2F6568608C8dABe101914489A25b07567C96bC',
     'skale-grants': '0xCEabf2b0c4F9d75A49a7B1E3e3c3179cDe949C9F'
-  }
+  },
+  "base-sepolia-testnet": {
+    'skale-manager': '0xd2c33198A5D03E5Da2784FbE4BfDd9a8A5862A9A',
+    'mainnet-ima': '0xA1e244C6cE94FF2bb5f4533783FBc44D1f190045',
+    'skale-allocator': constants.ZERO_ADDRESS,
+    'skale-grants': constants.ZERO_ADDRESS
+  },
 }
 
 export const PAYMASTER_CONTRACTS = {
