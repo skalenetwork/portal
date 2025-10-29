@@ -9,7 +9,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
 
   chains: [
     'mainnet',
-    'skale-base-testnet'
+    'jubilant-horrible-ancha'
   ],
   tokens: {
     eth: {
