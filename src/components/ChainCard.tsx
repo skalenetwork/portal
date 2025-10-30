@@ -40,15 +40,15 @@ export default function ChainCard(props: {
     <div>
       <div className="fl-centered">
         <div
-          className={cls('br__tile')}
+          className="'br__tile'"
           style={{ background: metadata.chainBg(props.chainsMeta, props.schain.name) }}
         >
           <Link
             to={'/chains/' + shortAlias}
-            className={cls('br__tileLogo', 'br__tileIns', cmn.flex)}
+            className="'br__tileLogo', 'br__tileIns', cmn.flex"
           >
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
-            <div className={cls(cmn.flex, cmn.flexcv, 'inheritSize')}>
+            <div className="cmn.flex, cmn.flexg"></div>
+            <div className="cmn.flex, cmn.flexcv, 'inheritSize'">
               <Logo
                 chainsMeta={props.chainsMeta}
                 skaleNetwork={props.skaleNetwork}
@@ -56,7 +56,7 @@ export default function ChainCard(props: {
               />
             </div>
           </Link>
-          <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, 'br__tileBott', 'fullW')}></div>
+          <div className="cmn.flex, cmn.flexcv, cmn.mbott10, 'br__tileBott', 'fullW'"></div>
         </div>
         <Link to={'/chains/' + shortAlias}>
           <Button size="small" className={'cardBtn'}>

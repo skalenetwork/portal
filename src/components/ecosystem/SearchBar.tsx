@@ -43,7 +43,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   onClear,
   className
 }) => (
-  <div className={cls(cmn.flex, cmn.flexcv, className)}>
+  <div className="cmn.flex, cmn.flexcv, className">
     <TextField
       fullWidth
       className="skInput"
@@ -53,13 +53,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
-            <SearchIcon className={cls(cmn.pPrim, styles.chainIcons)} />
+            <SearchIcon className="cmn.pPrim, styles.chainIcons" />
           </InputAdornment>
         ),
         endAdornment: (
           <Tooltip title="Clear all" arrow>
             <IconButton onClick={onClear} size="small">
-              <ClearIcon className={cls(cmn.pSec, styles.chainIconxs)} />
+              <ClearIcon className="cmn.pSec, styles.chainIconxs" />
             </IconButton>
           </Tooltip>
         )

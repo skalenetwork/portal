@@ -183,12 +183,12 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   }
 
   return (
-    <SkPaper gray className={cls(cmn.mtop20, className)}>
+    <SkPaper gray className="cmn.mtop20, className">
       <Headline
         size="small"
         text="Chain Rewards"
-        icon={<StarsRoundedIcon className={cls(styles.chainIconxs)} />}
-        className={cls(cmn.mbott20)}
+        icon={<StarsRoundedIcon className="styles.chainIconxs" />}
+        className="cmn.mbott20"
       />
       <Tile
         disabled={rewardAmount === 0n}
@@ -202,13 +202,13 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
             : ''
         }
         childrenRi={
-          <SkStack className={cls(cmn.flex, [cmn.flexcv, !isXs])}>
+          <SkStack className="cmn.flex, [cmn.flexcv, !isXs]">
             <SkBtn
               loading={loading}
               text={btnText ?? 'Retrieve'}
               variant="contained"
               size="sm"
-              className={cls([cmn.mleft20, !isXs], cmn.mri20, cmn.flexcv)}
+              className="[cmn.mleft20, !isXs], cmn.mri20, cmn.flexcv"
               disabled={
                 customAddress !== undefined ||
                 rewardAmount === null ||
@@ -217,9 +217,9 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
               }
               onClick={retrieveRewards}
             />
-            <div className={cls(['borderVert', !isXs])}>
+            <div className="['borderVert', !isXs]">
               <Tile
-                className={cls(cmn.nop, [cmn.mleft20, !isXs])}
+                className="cmn.nop, [cmn.mleft20, !isXs]"
                 size="md"
                 transparent
                 grow
@@ -238,9 +238,9 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
                       <Button
                         disabled={tokenUrl === null}
                         variant="text"
-                        className={cls('roundBtn', cmn.mleft5)}
+                        className="'roundBtn', cmn.mleft5"
                       >
-                        <ViewInArRoundedIcon className={cls(styles.chainIconxs)} />
+                        <ViewInArRoundedIcon className="styles.chainIconxs" />
                       </Button>
                     </a>
                   </Tooltip>
@@ -250,7 +250,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
           </SkStack>
         }
       />
-      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className={cls(cmn.mtop10)} />
+      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="cmn.mtop10" />
     </SkPaper>
   )
 }

@@ -23,7 +23,7 @@
 
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
+import {type MetaportCore } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
 import { Button } from '@mui/material'
@@ -50,10 +50,10 @@ export default function ValidatorsPage(props: {
 
   return (
     <Container maxWidth="md">
-      <div className={cls(cmn.flex, cmn.flexcv)}>
-        <div className={cmn.flexg}>
-          <h2 className={cls(cmn.nom)}>Validators</h2>
-          <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+      <div className="flex items-center">
+        <div className="flex-grow">
+          <h2 className="m-0">Validators</h2>
+          <p className="cmn.nom, text - sm, cmn.pSec">
             List of validators on SKALE Network
           </p>
         </div>
@@ -61,7 +61,7 @@ export default function ValidatorsPage(props: {
           <Button
             size="small"
             variant="contained"
-            className={cls('btnMd', cmn.mri10)}
+            className="'btnMd', mr - 2.5"
             startIcon={<ManageAccountsRoundedIcon />}
             endIcon={<DelegationsNotification validatorDelegations={props.validatorDelegations} />}
           >
@@ -70,12 +70,12 @@ export default function ValidatorsPage(props: {
         </Link>
         <SkPageInfoIcon meta_tag={META_TAGS.validators} />
       </div>
-      <div className={cls(cmn.mtop20)}>
+      <div className="cmn.mtop20">
         <Validators
           mpc={props.mpc}
           validators={props.validators}
           validatorId={0}
-          setValidatorId={(): void => {}}
+          setValidatorId={(): void => { }}
           delegationType={types.st.DelegationType.REGULAR}
           size="lg"
         />

@@ -47,7 +47,7 @@ export default function AccountMenu(props: any) {
                     onClick={() => {
                       openConnectModal()
                     }}
-                    className={cls(styles.paperGrey, cmn.pPrim, 'mp__btnConnect', cmn.flex)}
+                    className="styles.paperGrey, cmn.pPrim, 'mp__btnConnect', cmn.flex"
                   >
                     <LooksRoundedIcon
                       className={cmn.mri5}
@@ -64,23 +64,23 @@ export default function AccountMenu(props: any) {
         <Tooltip arrow title={isSignedIn ? 'Conneced and signed-in' : 'Wallet connect, signed-out'}>
           <Button
             onClick={openProfileModal}
-            className={cls('mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex)}
+            className="'mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex"
           >
             <div
-              className={cls(cmn.mri5, cmn.flexcv)}
+              className="cmn.mri5, cmn.flexcv"
               style={{ height: '20px', position: 'relative' }}
             >
               <Jazzicon diameter={20} seed={jsNumberForAddress(props.address)} />
-              <div className={cls('icon-overlay', cmn.flex, cmn.flexcv)}>
+              <div className="'icon-overlay', cmn.flex, cmn.flexcv">
                 {isSignedIn ? (
                   <FiberManualRecordRoundedIcon
                     color="success"
-                    className={cls(styles.chainIconxs)}
+                    className="styles.chainIconxs"
                   />
                 ) : (
                   <FiberManualRecordRoundedIcon
                     color="warning"
-                    className={cls(styles.chainIconxs)}
+                    className="styles.chainIconxs"
                   />
                 )}
               </div>

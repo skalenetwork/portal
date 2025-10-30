@@ -68,12 +68,12 @@ const CategoriesChips: React.FC<CategoriesChipsProps> = ({ categories, all, clas
         />,
         ...(Array.isArray(subcategories)
           ? subcategories.map((subTag) => (
-              <Chip
-                key={`${categoryTag}-${subTag}`}
-                label={getSubcategoryName(categoryTag, subTag)}
-                icon={<CategoryIcons category={subTag} />}
-              />
-            ))
+            <Chip
+              key={`${categoryTag}-${subTag}`}
+              label={getSubcategoryName(categoryTag, subTag)}
+              icon={<CategoryIcons category={subTag} />}
+            />
+          ))
           : [])
       ])
     }
@@ -86,7 +86,7 @@ const CategoriesChips: React.FC<CategoriesChipsProps> = ({ categories, all, clas
   const remainingChips = chips.length - maxChips
 
   return (
-    <Box className={cls(`chipContainer ${className}`, ['flex-w', all])}>
+    <Box className="`chipContainer ${className}`, ['flex-w', all]">
       {visibleChips}
       {remainingChips > 0 && !all && <Chip label={`+${remainingChips}`} />}
     </Box>

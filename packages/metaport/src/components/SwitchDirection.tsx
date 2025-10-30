@@ -2,7 +2,6 @@ import { useRef } from 'react'
 
 import IconButton from '@mui/material/IconButton'
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded'
-import { cls, cmn, styles } from '../core/css'
 
 import { useUIStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
@@ -49,10 +48,10 @@ export default function SwitchDirection() {
   }
 
   return (
-    <div className={cls(styles.sk__btnSwitch, cmn.flex)}>
-      <div className={cls(cmn.flex, cmn.flexg)}></div>
+    <div className="styles.sk__btnSwitch, cmn.flex">
+      <div className="cmn.flex, cmn.flexg"></div>
       <div
-        className={cls(cmn.flex, styles.btnSwitchAnimation)}
+        className="cmn.flex, styles.btnSwitchAnimation"
         ref={myElement}
         style={{
           background: metaportTheme.background,
@@ -74,7 +73,7 @@ export default function SwitchDirection() {
           <ArrowDownwardRoundedIcon />
         </IconButton>
       </div>
-      <div className={cls(cmn.flex, cmn.flexg)}></div>
+      <div className="cmn.flex, cmn.flexg"></div>
     </div>
   )
 }

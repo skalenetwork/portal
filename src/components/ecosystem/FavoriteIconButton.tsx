@@ -62,11 +62,11 @@ const FavoriteIconButton: React.FC<FavoriteIconButtonProps> = ({ chainName, appN
 
   return (
     <Tooltip title={getTooltipTitle()}>
-      <IconButton onClick={handleToggleLike} className={cls('bgPrim')}>
+      <IconButton onClick={handleToggleLike} className="'bgPrim'">
         {isLiked ? (
           <FavoriteIcon className="iconRed" />
         ) : (
-          <FavoriteBorderIcon className={cls(cmn.pSec)} />
+          <FavoriteBorderIcon className="cmn.pSec" />
         )}
       </IconButton>
     </Tooltip>

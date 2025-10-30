@@ -60,7 +60,7 @@ const ScreenshotCarousel: React.FC<PropType> = ({ screenshots, appName }) => {
   }, [emblaApi, onSelect])
 
   return (
-    <Box position="relative" className={cls(cmn.mtop10)}>
+    <Box position="relative" className="cmn.mtop10">
       <Box className="embla" ref={emblaRef} sx={{ overflow: 'hidden' }}>
         <Box className="embla__container" display="flex" height={400}>
           {screenshots.map((screenshot, index) => (
@@ -104,7 +104,7 @@ const ScreenshotCarousel: React.FC<PropType> = ({ screenshots, appName }) => {
           zIndex: 1
         }}
       >
-        <ArrowBackIosNewRoundedIcon className={cls(cmn.pSec, styles.chainIconxs)} />
+        <ArrowBackIosNewRoundedIcon className="cmn.pSec, styles.chainIconxs" />
       </IconButton>
       <IconButton
         onClick={scrollNext}
@@ -119,7 +119,7 @@ const ScreenshotCarousel: React.FC<PropType> = ({ screenshots, appName }) => {
           zIndex: 1
         }}
       >
-        <ArrowForwardIosRoundedIcon className={cls(cmn.pSec, styles.chainIconxs)} />
+        <ArrowForwardIosRoundedIcon className="cmn.pSec, styles.chainIconxs" />
       </IconButton>
     </Box>
   )

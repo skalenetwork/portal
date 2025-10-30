@@ -56,7 +56,7 @@ import { constructWagmiChain } from '../core/wagmi_network'
 
 import { getWidgetTheme, getMuiZIndex } from '../core/themes'
 
-import { cls, cmn, styles } from '../core/css'
+import { cmn, styles } from '../core/css'
 
 import { useUIStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
@@ -173,7 +173,7 @@ export default function MetaportProvider(props: {
 
   const Disclaimer: DisclaimerComponent = ({ Text, Link }) => (
     <Text>
-      <h3 className={cls(cmn.nop, cmn.nom)}>SKALE Portal Terms of Use</h3>
+      <h3 className="cmn.nop, cmn.nom">SKALE Portal Terms of Use</h3>
       By connecting your wallet, you agree to the{' '}
       <Link href="https://portal.skale.space/other/terms-of-service">Terms of Service</Link> and
       acknowledge you have read and understand them. These are subject to change.
@@ -194,7 +194,7 @@ export default function MetaportProvider(props: {
         >
           <StyledEngineProvider injectFirst>
             <ThemeProvider theme={theme}>
-              <div className={cls(themeCls, commonThemeCls, styles.metaport)}>{props.children}</div>
+              <div className="themeCls, commonThemeCls, styles.metaport">{props.children}</div>
             </ThemeProvider>
           </StyledEngineProvider>
         </RainbowKitProvider>

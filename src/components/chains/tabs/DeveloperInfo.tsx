@@ -43,34 +43,34 @@ export default function DeveloperInfo(props: {
   const chainId = getChainId(props.schainName)
 
   return (
-    <SkPaper gray className={cls(cmn.mtop20)}>
-      <Grid container spacing={2} className={cls(cmn.full)}>
+    <SkPaper gray className="cmn.mtop20">
+      <Grid container spacing={2} className="cmn.full">
         <Grid size={{ xs: 12, md: 12 }}>
-          <CopySurface className={cls(styles.fullHeight)} title="RPC Endpoint" value={rpcUrl} />
+          <CopySurface className="styles.fullHeight" title="RPC Endpoint" value={rpcUrl} />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <CopySurface
-            className={cls(styles.fullHeight)}
+            className="styles.fullHeight"
             title="Websocket Endpoint"
             value={rpcWssUrl}
           />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <CopySurface
-            className={cls(styles.fullHeight)}
+            className="styles.fullHeight"
             title="Filestorage Endpoint"
             value={fsUrl}
           />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
           <CopySurface
-            className={cls(styles.fullHeight)}
+            className="styles.fullHeight"
             title="SKALE Manager name"
             value={props.schainName}
           />
         </Grid>
         <Grid size={{ xs: 12, md: 6 }}>
-          <CopySurface className={cls(styles.fullHeight)} title="Chain ID Hex" value={chainId} />
+          <CopySurface className="styles.fullHeight" title="Chain ID Hex" value={chainId} />
         </Grid>
       </Grid>
     </SkPaper>

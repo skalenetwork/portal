@@ -26,7 +26,6 @@ import { Helmet } from 'react-helmet'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 
-import { cmn, cls } from '@skalenetwork/metaport'
 
 import FaqAccordion from '../components/FaqAccordion'
 import { META_TAGS } from '../core/meta'
@@ -41,10 +40,10 @@ export default function Faq() {
         <meta property="og:description" content={META_TAGS.faq.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className={cls(cmn.flex)}>
-          <h2 className={cls(cmn.nom)}>FAQ</h2>
+        <div className="flex">
+          <h2 className="m-0">FAQ</h2>
         </div>
-        <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>Common questions about SKALE Bridge</p>
+        <p className="text-sm text-sec">Common questions about SKALE Bridge</p>
         <FaqAccordion />
       </Stack>
     </Container>

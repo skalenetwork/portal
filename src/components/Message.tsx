@@ -28,6 +28,7 @@ import Collapse from '@mui/material/Collapse'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import { SkPaper, cls, cmn } from '@skalenetwork/metaport'
 import { Link } from 'react-router-dom'
+import { cn } from 'src/core/ecosystem/utils'
 
 export default function Message(props: {
   text: string | null
@@ -59,51 +60,42 @@ export default function Message(props: {
         )}
       >
         <div
-          className={cls(
-            cmn.flex,
-            cmn.fullWidth,
-            cmn.flexcv,
-            cmn.mtop5,
-            cmn.mbott5,
-            cmn.mleft10,
-            cmn.mri10
-          )}
-        >
-          <div className={cls(cmn.flex, cmn.flexc, cmn.mri15)}>{props.icon}</div>
-          {props.text ? (
-            <p className={cls(cmn.p, cmn.p3, cmn.p600, [cmn.pPrim, type !== 'warning'], cmn.mri5)}>
-              {props.text}
-            </p>
-          ) : null}
-          {props.link ? (
-            <div className={cls(cmn.flex, cmn.flexcv, cmn.flexg)}>
-              <Link to={props.link}>
-                <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.mri5)}>{props.linkText}</p>
-              </Link>
-              <ArrowOutwardRoundedIcon
-                className={cls(cmn.flex, cmn.flexcv, 'a')}
-                style={{ height: '14px', width: '14px' }}
-              />
-            </div>
-          ) : null}
+          className={cn(cmn.fullWidth, cmn.flexcv, cmn.mtop5, cmn.mbott5, 'ml-2.5', 'mr-2.5')}
+          <div className={cn(cmn.flex, cmn.flexc, cmn.mri15)}>{props.icon}</div>
+        {props.text ? (
+          <p className="cmn.p, text-sm, cmn.p600, [cmn.pPrim, type !== 'warning'], cmn.mri5">
+            {props.text}
+          </p>
+        ) : null}
+        {props.link ? (
+          <div className="cmn.flex, cmn.flexcv, cmn.flexg">
+            <Link to={props.link}>
+              <p className="cmn.p, text-sm, cmn.p600, cmn.mri5">{props.linkText}</p>
+            </Link>
+            <ArrowOutwardRoundedIcon
+              className="cmn.flex, cmn.flexcv, 'a'"
+              style={{ height: '14px', width: '14px' }}
+            />
+          </div>
+        ) : null}
 
-          <div className={cmn.flexg}></div>
-          {props.button}
-          {closable ? (
-            <IconButton
-              onClick={() => {
-                setShow(false)
-              }}
-              className={cls(cmn.paperGrey, cmn.mleft10)}
-            >
-              <CloseRoundedIcon
-                className={cls([cmn.pSec, type !== 'warning'])}
-                style={{ height: '16px', width: '16px' }}
-              />
-            </IconButton>
-          ) : null}
-        </div>
-      </SkPaper>
-    </Collapse>
+        <div className={cmn.flexg}></div>
+        {props.button}
+        {closable ? (
+          <IconButton
+            onClick={() => {
+              setShow(false)
+            }}
+            className="cmn.paperGrey, 'ml-2.5'"
+          >
+            <CloseRoundedIcon
+              className="[cmn.pSec, type !== 'warning']"
+              style={{ height: '16px', width: '16px' }}
+            />
+          </IconButton>
+        ) : null}
+      </div>
+    </SkPaper>
+    </Collapse >
   )
 }

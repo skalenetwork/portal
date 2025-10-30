@@ -39,7 +39,6 @@ import { isFaucetAvailable } from '../core/faucet'
 import { useMetaportStore } from '../store/MetaportStore'
 import { useSFuelStore } from '../store/SFuelStore'
 
-import { cls, cmn, styles } from '../core/css'
 
 const log = new Logger<ILogObj>({ name: 'metaport:components:SFuel' })
 
@@ -171,7 +170,7 @@ export default function SFuelWarning(props: {}) {
 
   if (loading && chainName2)
     return (
-      <div className={cls(cmn.mleft10, cmn.mri10, cmn.mtop20, cmn.mbott10)}>
+      <div className="ml-2.5, mr-2.5, cmn.mtop20, cmn.mbott10">
         <LinearProgress />
       </div>
     )
@@ -193,21 +192,13 @@ export default function SFuelWarning(props: {}) {
 
   return (
     <Collapse in={!loading && !isOk}>
-      <div className={cls(cmn.mtop20, cmn.mbott5)}>
-        <p className={cls(cmn.flex, cmn.p3, cmn.p, cmn.pPrim, cmn.flexGrow, cmn.mleft10)}>
+      <div className="cmn.mtop20, cmn.mbott5">
+        <p className="flex text-sm cmn.pPrim cmn.flexGrow ml-2.5">
           ⛽ {getSFuelText()}
         </p>
         {!sFuelBtn || noEth ? (
           <p
-            className={cls(
-              cmn.flex,
-              cmn.p3,
-              cmn.p,
-              cmn.pPrim,
-              cmn.flexGrow,
-              cmn.mleft10,
-              cmn.mtop10
-            )}
+            className="flex text-sm cmn.pPrim flex-grow ml-2.5 cmn.mtop10"
           >
             ❗️ Faucet is not available for one of the selected chains
           </p>
@@ -219,7 +210,7 @@ export default function SFuelWarning(props: {}) {
                 startIcon={<ArrowOutwardRoundedIcon />}
                 size="small"
                 variant="contained"
-                className={cls(styles.btnAction, cmn.mtop10)}
+                className="styles.btnAction, cmn.mtop10"
               >
                 Getting sFUEL...
               </Button>
@@ -228,7 +219,7 @@ export default function SFuelWarning(props: {}) {
                 variant="contained"
                 color="primary"
                 size="medium"
-                className={cls(styles.btnAction, cmn.mtop10)}
+                className="styles.btnAction, cmn.mtop10"
                 onClick={doPoW}
               >
                 Get sFUEL

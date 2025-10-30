@@ -54,7 +54,7 @@ export default function ScrollToTopButton() {
       aria-label="scroll to top"
       onClick={scrollToTop}
       size="small"
-      className={cls('scrollToTopButton', 'secondary')}
+      className="'scrollToTopButton', 'secondary')}
     >
       <KeyboardArrowUpIcon />
     </Fab>

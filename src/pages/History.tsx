@@ -28,9 +28,6 @@ import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import {
-  cmn,
-  cls,
-  styles,
   History as TransfersHistory,
   useMetaportStore
 } from '@skalenetwork/metaport'
@@ -62,7 +59,7 @@ export default function History() {
         <meta property="og:description" content={META_TAGS.history.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className={cls(cmn.flex)}>
+        <div className="flex">
           <Breadcrumbs
             className="bg"
             sections={[
@@ -77,9 +74,9 @@ export default function History() {
               }
             ]}
           />
-          <div className={cls(cmn.flexg)}></div>
+          <div className="flex-grow"></div>
         </div>
-        <div className={cls([cmn.mtop10, transactionsHistory.length !== 0])}>
+        <div className="[cmn.mtop10, transactionsHistory.length !== 0]">
           <TransfersHistory size="md" />
         </div>
         <div>
@@ -88,15 +85,15 @@ export default function History() {
               onClick={clearTransferHistory}
               color="error"
               size="small"
-              className={cls(styles.btnAction, cmn.mbott20)}
+              className="w-full normal-case text-sm leading-6 tracking-wider font-semibold py-3.5 px-4 min-h-[44px] rounded shadow-none mb-5"
               startIcon={<DeleteRoundedIcon />}
             >
               Clear transfers history
             </Button>
           ) : (
-            <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.mtop20, cmn.pCent)}>
+            <div className="text-base text-sec mt-5 text-center">
               No past transfers found
-            </p>
+            </div>
           )}
         </div>
       </Stack>

@@ -49,12 +49,12 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
     <div>
       <Box
         sx={{ alignItems: 'center', textAlign: 'center', display: { xs: 'none', sm: 'flex' } }}
-        className={cls(cmn.mleft5)}
+        className="cmn.mleft5"
       >
         <Tooltip arrow title="Switch SKALE Network">
           <Button
             onClick={handleClick}
-            className={cls('mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex, cmn.cap)}
+            className="'mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex, cmn.cap"
           >
             <SensorsRoundedIcon className={cmn.mri5} style={{ height: '18px', width: '18px' }} />
             {props.mpc.config.skaleNetwork}
@@ -101,9 +101,9 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
           props.mpc.config.skaleNetwork !== network ? (
             <a rel="noreferrer" href={PORTAL_URLS[network]} className="undec" key={network}>
               <MenuItem onClick={handleClose}>
-                <ChangeCircleRoundedIcon className={cmn.mri10} />
+                <ChangeCircleRoundedIcon className={mr - 2.5} />
                 Switch to{' '}
-                <div className={cls(cmn.cap, cmn.mleft5)}>
+                <div className="cmn.cap, cmn.mleft5">
                   {' '}
                   {network === 'staging' ? 'testnet' : network} Portal
                 </div>

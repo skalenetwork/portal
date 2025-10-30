@@ -78,22 +78,22 @@ export default function TokenListSection(props: {
     }))
 
   return (
-    <div className={cls(styles.bridgeModalScroll)}>
+    <div className="styles.bridgeModalScroll">
       {popularTokens.map((key) => (
         <Button
           color="primary"
           size="small"
-          className={cls(cmn.mtop20, cmn.flexcv, cmn.mleft10, styles.filled)}
+          className="cmn.mtop20, cmn.flexcv, cmn.mleft10, styles.filled"
           variant="contained"
           key={key}
           onClick={() => handle(props.tokens[key])}
         >
-          <div className={cls(cmn.flex, cmn.flexcv)}>
+          <div className="cmn.flex, cmn.flexcv">
             <TokenIcon
               tokenSymbol={props.tokens[key]?.meta.symbol}
               iconUrl={props.tokens[key]?.meta.iconUrl}
             />
-            <span className={cls(cmn.p, cmn.pPrim, cmn.mleft10)}>
+            <span className=" cmn.pPrim, cmn.mleft10">
               {props.tokens[key]?.meta.symbol}
             </span>
           </div>
@@ -102,7 +102,7 @@ export default function TokenListSection(props: {
       {nonZeroBalanceTokens.length > 0 && (
         <TokenSection
           text="Your Tokens"
-          icon={<SavingsIcon className={cls(styles.chainIconxs)} />}
+          icon={<SavingsIcon className="styles.chainIconxs" />}
           tokens={nonZeroBalanceTokens}
           onTokenClick={handle}
         />
@@ -111,7 +111,7 @@ export default function TokenListSection(props: {
       {zeroBalanceTokens.length > 0 && (
         <TokenSection
           text="Tokens"
-          icon={<LocalMallIcon className={cls(styles.chainIconxs)} />}
+          icon={<LocalMallIcon className="styles.chainIconxs" />}
           tokens={zeroBalanceTokens}
           onTokenClick={handle}
         />

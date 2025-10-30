@@ -59,21 +59,21 @@ export default function Delegations(props: {
       <Headline
         size="small"
         text="Delegations"
-        icon={<AllInboxRoundedIcon className={cls(styles.chainIconxs)} />}
+        icon={<AllInboxRoundedIcon className="styles.chainIconxs" />}
       />
-      <div className={cls(cmn.mtop10)} style={{ paddingBottom: '5px' }}></div>
+      <div className="cmn.mtop10" style={{ paddingBottom: '5px' }}></div>
       {!loaded ? (
         <div>
-          <Skeleton variant="rectangular" height={86} className={cls(cmn.mbott10)} />
-          <div className={cls('nestedSection', ['nestedSectionXs', props.isXs])}>
-            <Skeleton variant="rectangular" height={83} className={cls(cmn.mbott10)} />
+          <Skeleton variant="rectangular" height={86} className="cmn.mbott10" />
+          <div className="'nestedSection', ['nestedSectionXs', props.isXs]">
+            <Skeleton variant="rectangular" height={83} className="cmn.mbott10" />
           </div>
         </div>
       ) : null}
       {loaded && noDelegations ? (
-        <div className={cls(cmn.mtop20)}>
-          <PieChartRoundedIcon className={cls(cmn.pSec, styles.chainIconlg, cmn.fullWidth)} />
-          <h3 className={cls(cmn.p, cmn.p700, cmn.pSec, cmn.pCent, cmn.mtop5, cmn.mbott20)}>
+        <div className="cmn.mtop20">
+          <PieChartRoundedIcon className="cmn.pSec, styles.chainIconlg, cmn.fullWidth" />
+          <h3 className=" cmn.p700, cmn.pSec, cmn.pCent, cmn.mtop5, cmn.mbott20">
             No tokens staked
           </h3>
         </div>

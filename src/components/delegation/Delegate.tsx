@@ -146,7 +146,7 @@ export default function Delegate(props: {
       <SkStack>
         <Tile
           grow
-          className={cls(cmn.mbott10)}
+          className="cmn.mbott10"
           value="2 months"
           text="Delegation period"
           icon={<AccessTimeRoundedIcon />}
@@ -156,7 +156,7 @@ export default function Delegate(props: {
         <Tile
           size="md"
           grow
-          className={cls(cmn.mbott10)}
+          className="cmn.mbott10"
           value="Auto-renewed"
           text="Renewal"
           icon={<EventRepeatRoundedIcon />}
@@ -165,19 +165,19 @@ export default function Delegate(props: {
 
       <Tile
         text="Delegation flow"
-        className={cls(cmn.mbott10)}
+        className="cmn.mbott10"
         icon={<AccountTreeRoundedIcon />}
         grow
-        children={<DelegationFlow className={cls(cmn.mtop10)} />}
+        children={<DelegationFlow className="cmn.mtop10" />}
       />
 
       <SkStack>
         <Tile
           text="Enter amount to stake"
-          className={cls(styles.inputAmount)}
+          className="styles.inputAmount"
           children={
-            <div className={cls(cmn.flex, cmn.flexcv, 'amountInput')}>
-              <div className={cls(cmn.flexg)}>
+            <div className="cmn.flex, cmn.flexcv, 'amountInput'">
+              <div className="cmn.flexg">
                 <Tooltip
                   title={
                     props.sklPrice !== undefined
@@ -200,7 +200,7 @@ export default function Delegate(props: {
                 </Tooltip>
               </div>
 
-              <div className={cls(cmn.p1, cmn.p, cmn.p700, cmn.mri10)}>SKL</div>
+              <div className="cmn.p1,  cmn.p700, mr-2.5">SKL</div>
             </div>
           }
           icon={<TransitEnterexitRoundedIcon style={{ rotate: '315deg' }} />}
@@ -218,9 +218,9 @@ export default function Delegate(props: {
           icon={<TokenIcon tokenSymbol="skl" size="xs" />}
           color={true ? undefined : 'error'}
           childrenRi={
-            <div className={cls(cmn.flexcv, cmn.flex)}>
+            <div className="cmn.flexcv, cmn.flex">
               <Button
-                className={cls('btnSm', 'outlined', cmn.mleft20, cmn.flexcv)}
+                className="'btnSm', 'outlined', cmn.mleft20, cmn.flexcv"
                 disabled={info.allowedToDelegate === 0n || loading}
                 onClick={() => {
                   if (!info.allowedToDelegate) return
@@ -240,7 +240,7 @@ export default function Delegate(props: {
       <ErrorTile
         errorMsg={props.errorMsg}
         setErrorMsg={props.setErrorMsg}
-        className={cls(cmn.mtop10)}
+        className="cmn.mtop10"
       />
 
       {loading ? (
@@ -248,7 +248,7 @@ export default function Delegate(props: {
           disabled
           size="small"
           variant="contained"
-          className={cls('btn', cmn.mleft10, cmn.mbott10, cmn.mtop20)}
+          className="'btn', cmn.mleft10, cmn.mbott10, cmn.mtop20"
         >
           Staking SKL
         </Button>
@@ -263,7 +263,7 @@ export default function Delegate(props: {
             loading
           }
           variant="contained"
-          className={cls('btn', cmn.mleft10, cmn.mbott10, cmn.mtop20)}
+          className="'btn', cmn.mleft10, cmn.mbott10, cmn.mtop20"
           onClick={stake}
         >
           {getBtnText()}

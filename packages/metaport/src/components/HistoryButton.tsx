@@ -29,7 +29,7 @@ import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
 import { useMetaportStore } from '../store/MetaportStore'
 import { useCollapseStore } from '../store/Store'
 
-import { cls, styles, cmn } from '../core/css'
+import { styles } from '../core/css'
 
 export default function TransactionsHistory() {
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
@@ -40,19 +40,19 @@ export default function TransactionsHistory() {
   const totalCount = transactionsHistory.length + transfersHistory.length
   if (totalCount === 0) return
   return (
-    <div className={cls(cmn.flex, cmn.flexcv)}>
+    <div className="cmn.flex, cmn.flexcv">
       <Button
         size="small"
-        className={cls(styles.btnChain, cmn.flex, cmn.flexcv, cmn.pPrim)}
+        className="styles.btnChain, cmn.flex, cmn.flexcv, cmn.pPrim"
         onClick={() => {
           setExpandedTH(!expandedTH)
         }}
       >
-        <div className={cls(cmn.mri5, cmn.flex)}>
+        <div className="cmn.mri5, cmn.flex">
           <HistoryRoundedIcon className={styles.chainIconxs} />
         </div>
         History ({totalCount})
-        <ExpandMoreRoundedIcon className={cls(styles.chainIconxs, [cmn.rotate180, expandedTH])} />
+        <ExpandMoreRoundedIcon className="styles.chainIconxs, [cmn.rotate180, expandedTH]" />
       </Button>
     </div>
   )

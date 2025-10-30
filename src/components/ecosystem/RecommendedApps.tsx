@@ -73,7 +73,7 @@ const RecommendedApps: React.FC<RecommendedAppsProps> = ({
   const renderAppCard = (app: SimilarApp) => {
     const appId = getAppId(app.chain, app.appName)
     return (
-      <Box key={`${app.chain}-${app.appName}`} className={cls('fl-centered dappCard')}>
+      <Box key={`${app.chain}-${app.appName}`} className="'fl-centered dappCard'">
         <AppCardV2
           skaleNetwork={skaleNetwork}
           schainName={app.chain}

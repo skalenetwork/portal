@@ -45,7 +45,7 @@ const ChainActions: React.FC<ChainActionsProps> = ({
   const isMd = false
 
   return (
-    <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10, className)}>
+    <div className="cmn.flex, cmn.flexcv, cmn.mtop10, className">
       {chainMeta && chainMeta.url && (
         <Tooltip title="Website">
           <IconButton
@@ -53,9 +53,9 @@ const ChainActions: React.FC<ChainActionsProps> = ({
             href={chainMeta.url}
             target="_blank"
             rel="noopener noreferrer"
-            className={cls([cmn.pPrim, isMd], ['bgBlack', isMd])}
+            className="[cmn.pPrim, isMd], ['bgBlack', isMd]"
           >
-            <LanguageIcon className={cls(cmn.pSec)} fontSize="small" />
+            <LanguageIcon className="cmn.pSec" fontSize="small" />
           </IconButton>
         </Tooltip>
       )}
@@ -65,9 +65,9 @@ const ChainActions: React.FC<ChainActionsProps> = ({
           href={explorerUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className={cls([cmn.pPrim, isMd], ['bgBlack', isMd])}
+          className="[cmn.pPrim, isMd], ['bgBlack', isMd]"
         >
-          <ViewInArRoundedIcon className={cls(cmn.pSec)} fontSize="small" />
+          <ViewInArRoundedIcon className="cmn.pSec" fontSize="small" />
         </IconButton>
       </Tooltip>
     </div>

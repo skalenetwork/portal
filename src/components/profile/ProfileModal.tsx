@@ -23,7 +23,7 @@
 
 import React from 'react'
 import { Modal, Box, useTheme, useMediaQuery } from '@mui/material'
-import { cls, cmn, SkPaper, useWagmiAccount, Tile } from '@skalenetwork/metaport'
+import { SkPaper, useWagmiAccount, Tile } from '@skalenetwork/metaport'
 import { useAuth } from '../../AuthContext'
 import ConnectWallet from '../ConnectWallet'
 import ProfileModalHeader from './ProfileModalHeader'
@@ -54,10 +54,10 @@ const ProfileModal: React.FC = () => {
               value={address}
               icon={<Jazzicon diameter={20} seed={jsNumberForAddress(address)} />}
               copy={address}
-              className={cls(cmn.mbott10)}
+              className="cmn.mbott10"
             />
             <ProfileModalActions
-              className={cls(cmn.mtop20)}
+              className="cmn.mtop20"
               address={address}
               isSignedIn={isSignedIn}
               isMobile={isMobile}

@@ -27,9 +27,6 @@ import { useParams } from 'react-router-dom'
 import { type types, metadata, units, constants } from '@/core'
 
 import {
-  cmn,
-  cls,
-  styles,
   explorer,
   MetaportCore,
   SkPaper,
@@ -177,7 +174,7 @@ export default function App(props: {
 
   return (
     <Container maxWidth="md">
-      <div className={cls('chainDetails', cmn.mbott20)}>
+      <div className="'chainDetails', cmn.mbott20">
         <Helmet>
           <title>SKALE Portal - {appAlias}</title>
           <meta name="description" content={appDescription} />
@@ -185,7 +182,7 @@ export default function App(props: {
           <meta property="og:description" content={appDescription} />
         </Helmet>
 
-        <div className={cls(cmn.flex)}>
+        <div className="cmn.flex">
           <Breadcrumbs
             className="bg"
             sections={[
@@ -200,11 +197,11 @@ export default function App(props: {
               }
             ]}
           />
-          <div className={cls(cmn.flexg)}></div>
+          <div className="cmn.flexg"></div>
         </div>
-        <SkPaper gray className={cls(cmn.mtop10)}>
-          <div className={cls(cmn.m10)}>
-            <div className={cls('responsive-app-header', cmn.flex, cmn.flexcvd)}>
+        <SkPaper gray className="cmn.mtop10">
+          <div className="cmn.m10">
+            <div className="'responsive-app-header', cmn.flex, cmn.flexcvd">
               <Logo
                 chainsMeta={props.chainsMeta}
                 skaleNetwork={network}
@@ -213,13 +210,13 @@ export default function App(props: {
                 size="md"
               />
 
-              <div className={cls('app-info', cmn.flexg)}>
-                <div className={cls([cmn.flex, !props.isXs])}>
-                  <div className={cls(cmn.flexg, cmn.mbott10)}>
+              <div className="'app-info', cmn.flexg">
+                <div className="[cmn.flex, !props.isXs]">
+                  <div className="cmn.flexg, cmn.mbott10">
                     <CategoriesChips categories={appMeta.categories} all />
                   </div>
                   <Button
-                    className={cls(cmn.mbott10, [cmn.mtop10, props.isXs], 'btn btnSm favsBtn')}
+                    className="cmn.mbott10, [cmn.mtop10, props.isXs], 'btn btnSm favsBtn'"
                     variant="contained"
                     startIcon={isLiked ? <FavoriteRoundedIcon /> : <FavoriteBorderOutlinedIcon />}
                     onClick={handleToggleLike}
@@ -228,9 +225,9 @@ export default function App(props: {
                   </Button>
                 </div>
 
-                <div className={cls(cmn.flex, cmn.flexcv)}>
-                  <h2 className={cls(cmn.nom, cmn.p1)}>{appAlias}</h2>
-                  <div className={cls(cmn.flex, cmn.mleft10)}>
+                <div className="cmn.flex, cmn.flexcv">
+                  <h2 className="cmn.nom, cmn.p1">{appAlias}</h2>
+                  <div className="cmn.flex, cmn.mleft10">
                     {featured && <ChipFeatured />}
                     {trending && <ChipTrending />}
                     {isNew && <ChipNew />}
@@ -239,13 +236,13 @@ export default function App(props: {
                 </div>
 
                 <CollapsibleDescription text={appDescription} expandable />
-                <SocialButtons size="md" social={appMeta.social} className={cls(cmn.mtop20)} />
+                <SocialButtons size="md" social={appMeta.social} className="cmn.mtop20" />
               </div>
             </div>
           </div>
         </SkPaper>
-        <SkPaper gray className={cls(cmn.mtop10)}>
-          <Grid container spacing={1} className={cls(cmn.full)}>
+        <SkPaper gray className="cmn.mtop10">
+          <Grid container spacing={1} className="cmn.full">
             {appMeta.contracts && (
               <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                 <Tile
@@ -264,7 +261,7 @@ export default function App(props: {
                   childrenRi={
                     !props.isXs ? (
                       <InfoOutlinedIcon
-                        className={cls(cmn.pSec, styles.chainIconxs, cmn.mleft10)}
+                        className="cmn.pSec, styles.chainIconxs, cmn.mleft10"
                       />
                     ) : undefined
                   }
@@ -324,7 +321,7 @@ export default function App(props: {
         </SkPaper>
         <AppScreenshots chainName={chain} appName={app} skaleNetwork={network} />
         {chain !== OFFCHAIN_APP && (
-          <SkPaper gray className={cls(cmn.mtop10, 'fwmobile')}>
+          <SkPaper gray className="cmn.mtop10, 'fwmobile'">
             <AccordionSection
               handleChange={handleChange}
               expanded={expanded}
@@ -347,11 +344,11 @@ export default function App(props: {
                 icon={<ArticleRoundedIcon />}
               >
                 <div>
-                  <Grid container spacing={2} className={cls(cmn.full)}>
+                  <Grid container spacing={2} className="cmn.full">
                     {appMeta.contracts.map((contractAddress: string, index: number) => (
                       <Grid key={contractAddress} size={{ xs: 12, lg: 6 }}>
                         <LinkSurface
-                          className={cls(styles.fullHeight)}
+                          className="styles.fullHeight"
                           title={`Contract ${index + 1}`}
                           value={contractAddress}
                           url={explorer.addressUrl(explorerUrl, contractAddress)}
@@ -367,7 +364,7 @@ export default function App(props: {
           </SkPaper>
         )}
 
-        <SkPaper gray className={cls(cmn.mtop10, 'fwmobile')}>
+        <SkPaper gray className="cmn.mtop10, 'fwmobile'">
           <AccordionSection
             expandedByDefault
             title="Discover more"
@@ -375,7 +372,7 @@ export default function App(props: {
             marg={false}
           >
             <RecommendedApps
-              className={cls(cmn.mtop10)}
+              className="cmn.mtop10"
               skaleNetwork={props.mpc.config.skaleNetwork}
               chainsMeta={props.chainsMeta}
               allApps={allApps}
