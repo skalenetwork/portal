@@ -176,7 +176,7 @@ export default function Paymaster(props: {
         text="Error occurred"
         icon={<ErrorRoundedIcon />}
         color="error"
-        className={cls(cmn.mtop20)}
+        className="cmn.mtop20"
       />
     )
   if (info.oneSklPrice === 0n)
@@ -186,7 +186,7 @@ export default function Paymaster(props: {
         text="Error occurred"
         icon={<ErrorRoundedIcon />}
         color="error"
-        className={cls(cmn.mtop20)}
+        className="cmn.mtop20"
       />
     )
 
@@ -195,12 +195,12 @@ export default function Paymaster(props: {
       <PricingInfo info={info} />
       <Headline
         text="Top-up chain"
-        className={cls(cmn.mtop20, cmn.mbott10)}
-        icon={<MonetizationOnRoundedIcon className={cls(styles.chainIconxs)} />}
+        className="cmn.mtop20, cmn.mbott10"
+        icon={<MonetizationOnRoundedIcon className="styles.chainIconxs" />}
         size="small"
       />
       {!address ? (
-        <ConnectWallet tile className={cls(cmn.flexg)} />
+        <ConnectWallet tile className="cmn.flexg" />
       ) : (
         <Topup
           mpc={props.mpc}

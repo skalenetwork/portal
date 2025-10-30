@@ -41,20 +41,20 @@ export default function GetSFuel({ mpc }: { mpc: MetaportCore }) {
   return (
     <Box
       sx={{ alignItems: 'center', textAlign: 'center', display: { xs: 'none', sm: 'flex' } }}
-      className={cls(cmn.mleft5)}
+      className="cmn.mleft5"
     >
       <Tooltip arrow title={sFuelOk ? 'sFUEL balance is OK' : 'Click to get sFUEL for all chains'}>
         <Button
           onClick={sFuelOk ? undefined : mineSFuel}
           disabled={isMining || loading || sFuelOk}
-          className={cls('mp__btnConnect', styles.paperGrey, [cmn.pPrim, !isMining], cmn.flex)}
+          className="'mp__btnConnect', styles.paperGrey, [cmn.pPrim, !isMining], cmn.flex"
           color="success"
         >
           {loading ? (
-            <AutoModeRoundedIcon className={cls(cmn.mri5, styles.chainIconxs)} />
+            <AutoModeRoundedIcon className="cmn.mri5, styles.chainIconxs" />
           ) : (
             <BoltRoundedIcon
-              className={cls(cmn.mri5, styles.chainIconxs)}
+              className="cmn.mri5, styles.chainIconxs"
               color={sFuelOk ? 'success' : 'primary'}
             />
           )}

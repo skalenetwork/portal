@@ -73,7 +73,7 @@ export default function RetrieveRewardModal(props: {
     <div>
       <Button
         variant="contained"
-        className={cls('btnSm')}
+        className="'btnSm'"
         onClick={handleOpen}
         disabled={props.disabled}
       >
@@ -94,19 +94,19 @@ export default function RetrieveRewardModal(props: {
             transform: 'translate(-50%, -50%)',
             minWidth: { xs: '100%', md: 'max-content' }
           }}
-          className={cls(cmn.flexg, cmn.flexcv, cmn.flex, cmn.flexc)}
+          className="cmn.flexg, cmn.flexcv, cmn.flex, cmn.flexc"
         >
           <Container maxWidth="md">
-            <SkPaper className={cls(cmn.nop)}>
+            <SkPaper className="cmn.nop">
               <SkPaper gray>
-                <p className={cls(cmn.p, text-base, cmn.p700, cmn.pCent, cmn.mtop10, cmn.mbott10)}>
+                <p className=" text-base, cmn.p700, cmn.pCent, cmn.mtop10, cmn.mbott10">
                   Confirm reward retrieval
                 </p>
                 <Message
                   text="Double-check the address. Withdrawing to a wallet you don't control will lead to permanent loss of funds."
                   type="warning"
                   icon={<WarningRoundedIcon />}
-                  className={cls(cmn.mbott10)}
+                  className="cmn.mbott10"
                   closable={false}
                 />
                 <Collapse in={!!errorMsg}>
@@ -114,16 +114,16 @@ export default function RetrieveRewardModal(props: {
                     text={errorMsg ?? ''}
                     type="error"
                     icon={<ReportProblemRoundedIcon />}
-                    className={cls(cmn.mbott10)}
+                    className="cmn.mbott10"
                     closable={false}
                   />
                 </Collapse>
                 <Tile
                   text="Receiver address"
-                  className={cls(styles.inputAmount)}
+                  className="styles.inputAmount"
                   children={
-                    <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop5)}>
-                      <div className={cls(cmn.flexg)}>
+                    <div className="cmn.flex, cmn.flexcv, cmn.mtop5">
+                      <div className="cmn.flexg">
                         <div
                           className={cls(
                             cmn.flex,
@@ -139,7 +139,7 @@ export default function RetrieveRewardModal(props: {
                               (edit ? inputAddress : props.customRewardAddress) || ''
                             )}
                           />
-                          <div className={cls(cmn.flexg, cmn.mleft10)}>
+                          <div className="cmn.flexg, cmn.mleft10">
                             <TextField
                               inputRef={(input) => input?.focus()}
                               variant="standard"
@@ -157,14 +157,14 @@ export default function RetrieveRewardModal(props: {
                           <div>
                             <Button
                               variant="contained"
-                              className={cls('btnSm')}
+                              className="'btnSm'"
                               onClick={saveAddress}
                             >
                               Save
                             </Button>
                             <Button
                               variant="text"
-                              className={cls('btnSm', 'filled', cmn.mleft10)}
+                              className="'btnSm', 'filled', cmn.mleft10"
                               onClick={() => {
                                 setInputAddress(props.address)
                                 props.setCustomRewardAddress(props.address)
@@ -178,7 +178,7 @@ export default function RetrieveRewardModal(props: {
                         ) : (
                           <Button
                             variant="text"
-                            className={cls('btnSm', 'filled')}
+                            className="'btnSm', 'filled'"
                             onClick={() => setEdit(!edit)}
                             disabled={props.disabled}
                           >
@@ -195,7 +195,7 @@ export default function RetrieveRewardModal(props: {
                   text={props.loading ? 'Retrieving' : 'Retrieve'}
                   disabled={props.disabled || edit}
                   onClick={props.retrieveRewards}
-                  className={cls('btn', cmn.mleft10, cmn.mbott10, cmn.mtop20)}
+                  className="'btn', cmn.mleft10, cmn.mbott10, cmn.mtop20"
                   variant="contained"
                 />
               </SkPaper>

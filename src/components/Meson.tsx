@@ -52,48 +52,48 @@ export default function Meson(props: {
 
   if (props.skaleNetwork !== constants.MAINNET_CHAIN_NAME) return
   return (
-    <div className={cls(props.className, 'paddBott60')}>
+    <div className="props.className, 'paddBott60'">
       <div
         onClick={() => {
           setShow(!show)
         }}
       >
-        <SkPaper gray className={cls('hoverable pointer')}>
-          <SkStack className={cls(cmn.m10, cmn.flexcv)}>
-            <img src={networks} className={cls(cmn.mri10)} style={{ height: '40px' }} />
-            <div className={cls(cmn.flexg)}>
-              <div className={cls(cmn.flex, cmn.flexg, cmn.flexcv)}>
+        <SkPaper gray className="'hoverable pointer'">
+          <SkStack className="cmn.m10, cmn.flexcv">
+            <img src={networks} className="mr-2.5" style={{ height: '40px' }} />
+            <div className="cmn.flexg">
+              <div className="cmn.flex, cmn.flexg, cmn.flexcv">
                 <p
-                  className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p)}
+                  className="cmn.cap, cmn.nom, cmn.pPrim, cmn.p"
                   style={{ fontSize: '1.05rem', fontWeight: 700 }}
                 >
                   Bridge from Other Popular Networks
                 </p>
               </div>
-              <p className={cls(cmn.p, text-xs, cmn.pSec, [cmn.pCent, props.isXs])}>
+              <p className="text-xs cmn.pSec [cmn.pCent, props.isXs]">
                 Transfer from 45+ chains using Meson.Fi
               </p>
             </div>
             {!props.isXs ? (
-              <div className={cls(cmn.mleft10, cmn.mri5, cmn.flex, cmn.flexcv)}>
+              <div className="cmn.mleft10, cmn.mri5, cmn.flex, cmn.flexcv">
                 <ArrowForwardIosRoundedIcon
-                  className={cls(cmn.pSec, styles.chainIconxs, 'rotate-90', ['active', show])}
+                  className="cmn.pSec, styles.chainIconxs, 'rotate-90', ['active', show]"
                 />
               </div>
             ) : null}
           </SkStack>
         </SkPaper>
       </div>
-      <Collapse in={show} className={cls(cmn.mtop10)}>
+      <Collapse in={show} className="cmn.mtop10">
         {!address ? (
-          <ConnectWallet className={cls(cmn.flexg)} />
+          <ConnectWallet className="cmn.flexg" />
         ) : (
           <div>
-            <p className={cls(cmn.p, text-sm, cmn.pSec, text-xs00, cmn.mbott10)}>
+            <p className=" text-sm, cmn.pSec, text-xs00, cmn.mbott10">
               Select destination chain
             </p>
             <div>
-              <Grid container spacing={2} className={cls(cmn.full)}>
+              <Grid container spacing={2} className="cmn.full">
                 {SUPPORTED_CHAINS.map((chain: string) => (
                   <Grid
                     key={chain}
@@ -105,15 +105,15 @@ export default function Meson(props: {
                       openMeson(chain)
                     }}
                   >
-                    <SkPaper gray className={cls('hoverable pointer')}>
-                      <div className={cls(cmn.pCent, cmn.mtop10, cmn.mbott10)}>
+                    <SkPaper gray className="'hoverable pointer'">
+                      <div className="cmn.pCent, cmn.mtop10, cmn.mbott10">
                         <ChainLogo
                           network={props.skaleNetwork}
-                          className={cls(styles.chainIconlg)}
+                          className="styles.chainIconlg"
                           chainName={chain}
                           logos={MAINNET_CHAIN_LOGOS}
                         />
-                        <p className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p, text-sm, cmn.p700)}>
+                        <p className="cmn.cap, cmn.nom, cmn.pPrim,  text-sm, cmn.p700">
                           {metadata.getAlias(props.chainsMeta, chain)}
                         </p>
                       </div>

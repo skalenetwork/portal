@@ -40,7 +40,6 @@ import ExpandRoundedIcon from '@mui/icons-material/ExpandRounded'
 
 import { useCPStore } from '../store/CommunityPoolStore'
 import { useMetaportStore } from '../store/MetaportStore'
-import { cls, cmn, styles } from '../core/css'
 import { Collapse } from '@mui/material'
 
 const initialState = { queue: [] }
@@ -187,13 +186,13 @@ export default function Debug() {
         }}
         color={expanded ? 'warning' : 'info'}
         size="small"
-        className={cls(styles.btnAction, cmn.mtop20)}
+        className="styles.btnAction, cmn.mtop20"
         startIcon={expanded ? <CloseRoundedIcon /> : <ExpandRoundedIcon />}
       >
         {expanded ? 'Hide' : 'Show'} debug info
       </Button>
       <Collapse in={expanded}>
-        <div className={cls(cmn.flex, cmn.flexcv, styles.smallTable)}>
+        <div className="cmn.flex, cmn.flexcv, styles.smallTable">
           <Grid container spacing={3}>
             <Grid size={{ xs: 12, sm: 12 }}>
               <TableContainer component={Paper}>
@@ -227,7 +226,7 @@ export default function Debug() {
                 }}
                 color="error"
                 size="small"
-                className={cls(styles.btnAction)}
+                className="styles.btnAction"
                 startIcon={<DeleteRoundedIcon />}
               >
                 Clear actions history
@@ -269,7 +268,7 @@ export default function Debug() {
                 }}
                 color="error"
                 size="small"
-                className={cls(styles.btnAction)}
+                className="styles.btnAction"
                 startIcon={<DeleteRoundedIcon />}
               >
                 Clear transfer actions history

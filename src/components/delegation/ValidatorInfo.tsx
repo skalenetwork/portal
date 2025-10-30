@@ -43,28 +43,28 @@ export default function ValidatorInfo(props: {
     units.fromWei(props.validator.minimumDelegationAmount, constants.DEFAULT_ERC20_DECIMALS)
 
   return (
-    <div className={cls(props.className)}>
-      <div className={cls(cmn.flex, cmn.mbott10, 'titleSection')}>
+    <div className="props.className">
+      <div className="cmn.flex, cmn.mbott10, 'titleSection'">
         <ValidatorLogo validatorId={props.validator?.id} size="xl" />
         {props.validator ? (
-          <div className={cls(cmn.mleft20)}>
-            <div className={cls(cmn.flex, cmn.flexcv)}>
-              <p className={cls(cmn.p, cmn.p1, cmn.p700, cmn.pPrim)}>{props.validator.name}</p>
+          <div className="cmn.mleft20">
+            <div className="cmn.flex, cmn.flexcv">
+              <p className=" cmn.p1, cmn.p700, cmn.pPrim">{props.validator.name}</p>
               <TrustBadge validator={props.validator} />
               <ValidatorBadge validator={props.validator} className={cmn.mleft10} />
             </div>
-            <p className={cls(cmn.p, text-xs, cmn.p600, cmn.pSec, cmn.mri20, cmn.mtop5)}>
+            <p className=" text-xs, cmn.p600, cmn.pSec, cmn.mri20, cmn.mtop5">
               {description}
             </p>
           </div>
         ) : (
-          <div className={cls(cmn.flexg)}>
+          <div className="cmn.flexg">
             <Skeleton variant="rectangular" width={200} height={40} />
-            <Skeleton variant="rectangular" width={200} height={20} className={cls(cmn.mtop10)} />
+            <Skeleton variant="rectangular" width={200} height={20} className="cmn.mtop10" />
           </div>
         )}
       </div>
-      <SkStack className={cls(cmn.mtop10)}>
+      <SkStack className="cmn.mtop10">
         <Tile
           value={props.validator && `${Number(props.validator.feeRate) / 10}% fee`}
           text="Validator fee"

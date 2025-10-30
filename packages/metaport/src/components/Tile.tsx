@@ -79,9 +79,9 @@ export default function Tile(props: {
   const value = (
     <p
       className={cls(
-        cmn.p,
+
         [cmn.p1, size === 'lg'],
-        [text-base, size === 'md'],
+        [text - base, size === 'md'],
         cmn.p700,
         [cmn.pPrim, !props.color && !props.disabled],
         ['pSec', props.disabled],
@@ -101,8 +101,8 @@ export default function Tile(props: {
       ])}
       style={{ background: color }}
     >
-      <div className={cls(cmn.flex, [cmn.flexcv, !isXs])}>
-        <div className={cls(cmn.flexg)}>
+      <div className="cmn.flex, [cmn.flexcv, !isXs]">
+        <div className="cmn.flexg">
           {props.text ? (
             <div
               className={cls(
@@ -113,10 +113,10 @@ export default function Tile(props: {
                 ['blackP', props.color]
               )}
             >
-              {props.ri ? <div className={cls(cmn.flexg)}></div> : null}
+              {props.ri ? <div className="cmn.flexg"></div> : null}
               {props.icon ? (
                 <div
-                  className={cls(cmn.mri5, cmn.flex, styles.chainIconxs)}
+                  className="cmn.mri5, cmn.flex, styles.chainIconxs"
                   style={{ color: props.textColor }}
                 >
                   {copied ? <CheckCircleRoundedIcon color="success" /> : props.icon}
@@ -124,8 +124,8 @@ export default function Tile(props: {
               ) : null}
               <p
                 className={cls(
-                  cmn.p,
-                  text-xs,
+
+                  text - xs,
                   cmn.flex,
                   [cmn.flexg, !props.ri],
                   [cmn.p600, props.textColor]
@@ -136,7 +136,7 @@ export default function Tile(props: {
               </p>
               {props.textRi ? (
                 <p
-                  className={cls(cmn.p, text-xs, cmn.flex, cmn.mleft5)}
+                  className=" text-xs, flex, cmn.mleft5"
                   style={{ color: props.textColor }}
                 >
                   {props.textRi}
@@ -144,8 +144,8 @@ export default function Tile(props: {
               ) : null}
             </div>
           ) : null}
-          <div className={cls(cmn.flex, cmn.flexcv)}>
-            {props.ri ? <div className={cls(cmn.flexg)}></div> : null}
+          <div className="cmn.flex, cmn.flexcv">
+            {props.ri ? <div className="cmn.flexg"></div> : null}
             {props.value && props.copy ? (
               <Tooltip arrow title={copied ? 'Copied' : 'Click to copy'}>
                 <div>
@@ -156,11 +156,11 @@ export default function Tile(props: {
               </Tooltip>
             ) : null}
             {props.value && !props.copy ? (
-                <Tooltip arrow title={props.tooltip}>
-                  {value}
-                </Tooltip>
+              <Tooltip arrow title={props.tooltip}>
+                {value}
+              </Tooltip>
             ) : null}
-            {props.children && <div className={cls(cmn.flexg)}>{props.children}</div>}
+            {props.children && <div className="cmn.flexg">{props.children}</div>}
             {!props.value && !props.children ? (
               <Skeleton variant="rectangular" width={150} height={33} />
             ) : null}
@@ -170,7 +170,7 @@ export default function Tile(props: {
                 value={props.progress}
                 color={props.progressColor}
                 style={{ height: '20px' }}
-                className={cls(cmn.flexg, cmn.mleft10)}
+                className="cmn.flexg, cmn.mleft10"
               />
             ) : null}
           </div>

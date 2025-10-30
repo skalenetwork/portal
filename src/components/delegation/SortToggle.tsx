@@ -50,16 +50,16 @@ const SortToggle: React.FC<SortToggleProps> = ({ onChange, className }) => {
       className={className}
       size="small"
     >
-      <ToggleButton value="id" aria-label="sort by id" className={cls(cmn.pPrim, cmn.p, text-xs)}>
-        <FilterListRoundedIcon className={cls(cmn.mri5, styles.chainIconxs)} />
+      <ToggleButton value="id" aria-label="sort by id" className="cmn.pPrim,  text-xs">
+        <FilterListRoundedIcon className="cmn.mri5, styles.chainIconxs" />
         Sort by ID
       </ToggleButton>
       <ToggleButton
         value="status"
         aria-label="sort by status"
-        className={cls(cmn.pPrim, cmn.p, text-xs)}
+        className="cmn.pPrim,  text-xs"
       >
-        <ContrastRoundedIcon className={cls(cmn.mri5, styles.chainIconxs)} />
+        <ContrastRoundedIcon className="cmn.mri5, styles.chainIconxs" />
         Sort by Status
       </ToggleButton>
     </ToggleButtonGroup>

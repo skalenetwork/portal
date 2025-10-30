@@ -38,9 +38,9 @@ import AccordionSection from '../AccordionSection'
 import SkBtn from '../SkBtn'
 
 const icons: { [key in types.st.DelegationType]: any } = {
-  0: <AccountCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />,
-  1: <AccountBalanceRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />,
-  2: <ApartmentRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
+  0: <AccountCircleRoundedIcon className="cmn.mri5, styles.chainIconxs, cmn.pSec" />,
+  1: <AccountBalanceRoundedIcon className="cmn.mri5, styles.chainIconxs, cmn.pSec" />,
+  2: <ApartmentRoundedIcon className="cmn.mri5, styles.chainIconxs, cmn.pSec" />
 }
 
 const SUMMARY_VALIDATOR_ID = -1
@@ -79,7 +79,7 @@ export default function Summary(props: {
         icon={icons[props.type]}
         marg={false}
       >
-        <SkStack className={cls(cmn.mtop5)}>
+        <SkStack className="cmn.mtop5">
           <Tile
             disabled={props.accountInfo?.balance === 0n}
             tooltip={
@@ -94,13 +94,13 @@ export default function Summary(props: {
             grow
             icon={<TokenIcon tokenSymbol="skl" size="xs" />}
             childrenRi={
-              <SkStack className={cls(cmn.flex)}>
+              <SkStack className="cmn.flex">
                 {props.type !== types.st.DelegationType.REGULAR ? (
-                  <div className={cls(cmn.flex)}>
+                  <div className="cmn.flex">
                     <Tile
                       size="md"
                       transparent
-                      className={cls(cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs])}
+                      className="cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs]"
                       value={helper.shortAddress(props.accountInfo?.address)}
                       text="Escrow"
                       grow
@@ -109,7 +109,7 @@ export default function Summary(props: {
                       icon={<ContentCopyRoundedIcon />}
                     />
                     <div
-                      className={cls(['borderVert', !props.isXs], [cmn.mleft10, !props.isXs])}
+                      className="['borderVert', !props.isXs], [cmn.mleft10, !props.isXs]"
                     ></div>
                   </div>
                 ) : (
@@ -118,7 +118,7 @@ export default function Summary(props: {
                 <Tile
                   size="md"
                   transparent
-                  className={cls(cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs])}
+                  className="cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs]"
                   disabled={props.accountInfo?.staked === 0n}
                   tooltip={
                     props.sklPrice && props.accountInfo
@@ -135,7 +135,7 @@ export default function Summary(props: {
                 />
                 <div className="borderVert"></div>
                 <Tile
-                  className={cls(cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs])}
+                  className="cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs]"
                   size="md"
                   transparent
                   grow
@@ -143,9 +143,9 @@ export default function Summary(props: {
                   tooltip={
                     props.sklPrice && props.accountInfo?.allowedToDelegate !== undefined
                       ? units.displaySklValueUsd(
-                          props.accountInfo.allowedToDelegate,
-                          props.sklPrice
-                        )
+                        props.accountInfo.allowedToDelegate,
+                        props.sklPrice
+                      )
                       : ''
                   }
                   value={
@@ -165,7 +165,7 @@ export default function Summary(props: {
           <SkStack>
             <Tile
               disabled={props.accountInfo?.vested === 0n}
-              className={cls(cmn.mtop10)}
+              className="cmn.mtop10"
               tooltip={
                 props.sklPrice && props.accountInfo
                   ? units.displaySklValueUsd(props.accountInfo.vested, props.sklPrice)
@@ -178,7 +178,7 @@ export default function Summary(props: {
               icon={<EventAvailableRoundedIcon />}
               grow
               childrenRi={
-                <SkStack className={cls(cmn.flex)}>
+                <SkStack className="cmn.flex">
                   {props.accountInfo?.fullAmount !== undefined ? (
                     <Tile
                       disabled={props.accountInfo?.fullAmount === 0n}
@@ -197,7 +197,7 @@ export default function Summary(props: {
                       grow
                       size="md"
                       transparent
-                      className={cls(cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs])}
+                      className="cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs]"
                       ri={!props.isXs}
                     />
                   ) : (
@@ -208,7 +208,7 @@ export default function Summary(props: {
                     size="md"
                     transparent
                     disabled={props.accountInfo?.unlocked === 0n}
-                    className={cls(cmn.nop, [cmn.mleft20, !props.isXs])}
+                    className="cmn.nop, [cmn.mleft20, !props.isXs]"
                     tooltip={
                       props.sklPrice && props.accountInfo
                         ? units.displaySklValueUsd(props.accountInfo.unlocked, props.sklPrice)
@@ -224,13 +224,13 @@ export default function Summary(props: {
                     grow
                     ri={!props.isXs}
                     childrenRi={
-                      <div className={cls(cmn.flexcv, cmn.flex)}>
+                      <div className="cmn.flexcv, cmn.flex">
                         <SkBtn
                           loading={loading}
                           text={loading ? 'Retrieving' : 'Retrieve'}
                           variant="contained"
                           size="sm"
-                          className={cls([cmn.mleft20, !props.isXs], cmn.flexcv)}
+                          className="[cmn.mleft20, !props.isXs], cmn.flexcv"
                           disabled={
                             props.accountInfo?.unlocked === 0n ||
                             props.loading !== false ||

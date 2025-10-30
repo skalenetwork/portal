@@ -30,8 +30,6 @@ import Grid from '@mui/material/Grid'
 
 import {
   cmn,
-  cls,
-  styles,
   type MetaportCore,
   TokenIcon,
   SkPaper,
@@ -100,9 +98,9 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
     <Container maxWidth="md">
       <Stack spacing={0}>
         <div className="flex">
-          <h2 className={cls(cmn.nom, 'flex-grow')}>Portfolio</h2>
+          <h2 className="cmn.nom, 'flex-grow'">Portfolio</h2>
         </div>
-        <p className={cls(cmn.nom, cmn.p, text-sm, cmn.pSec)}>Your assets across all SKALE Chains</p>
+        <p className="cmn.nom,  text-sm, cmn.pSec">Your assets across all SKALE Chains</p>
         <div>
           {!address ? <ConnectWallet className="mt-5" /> : null}
           {Object.keys(props.mpc.config.tokens)?.map((token: string, index: number) => (
@@ -117,19 +115,19 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                     iconUrl={props.mpc.config.tokens[token].iconUrl}
                   />
                   <div className="ml-2.5 flex-grow">
-                    <p className={cls(cmn.p, cmn.pPrim, text-base, cmn.p700)}>
+                    <p className=" cmn.pPrim, text-base, cmn.p700">
                       {props.mpc.config.tokens[token].symbol}
                     </p>
-                    <p className={cls(cmn.p, cmn.pSec, text-sm, cmn.p600)}>
+                    <p className=" cmn.pSec, text-sm, cmn.p600">
                       {props.mpc.config.tokens[token].name ?? (token === 'eth' ? 'Ethereum' : '')}
                     </p>
                   </div>
                   <div className="mr-1.25">
-                    <p className={cls(cmn.p, cmn.pPrim, cmn.p1, cmn.p700, cmn.pri)}>
+                    <p className=" cmn.pPrim, cmn.p1, cmn.p700, cmn.pri">
                       {units.fromWei(getTotalBalance(token).toString(), getTokenDecimals(token))}{' '}
                       {props.mpc.config.tokens[token].symbol}
                     </p>
-                    <p className={cls(cmn.p, cmn.pSec, text-xs, cmn.p600, cmn.pri)}>On 2 chains</p>
+                    <p className=" cmn.pSec, text-xs, cmn.p600, cmn.pri">On 2 chains</p>
                   </div>
                 </div>
                 <Grid container spacing={1} className="w-full">
@@ -140,14 +138,14 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                     .map((chain: string, index: number) => (
                       <Grid key={index} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
                         <TokenSurface
-                          className={cls(styles.fullHeight)}
+                          className="styles.fullHeight"
                           title={chain}
                           value={
                             (balances[index] && balances[index][token]
                               ? units.fromWei(
-                                  balances[index][token].toString(),
-                                  getTokenDecimals(token)
-                                )
+                                balances[index][token].toString(),
+                                getTokenDecimals(token)
+                              )
                               : '0') +
                             ' ' +
                             props.mpc.config.tokens[token].symbol

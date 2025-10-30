@@ -57,8 +57,8 @@ const AllApps: React.FC<AllAppsProps> = ({
   if (apps.length === 0)
     return (
       <SkPaper gray className="titleSection">
-        <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, text-base, cmn.pSec, cmn.pCent)}>
+        <div className="cmn.mtop20, cmn.mbott20">
+          <p className=" text-base, cmn.pSec, cmn.pCent">
             🚫 No apps match your current filters
           </p>
         </div>

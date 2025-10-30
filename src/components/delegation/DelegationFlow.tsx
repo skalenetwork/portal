@@ -59,45 +59,45 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation, className }
   }
 
   return (
-    <div className={cls(cmn.flex, cmn.flexcv, className)}>
+    <div className="cmn.flex, cmn.flexcv, className">
       <div>
-        <div className={cls(`chipXs chip_PROPOSED`)}>
-          <p className={cls(cmn.p, text-xs, 'pOneLine')}>PROPOSED</p>
+        <div className="`chipXs chip_PROPOSED`">
+          <p className=" text-xs, 'pOneLine'">PROPOSED</p>
         </div>
-        <p className={cls(cmn.p, text-xs, cmn.pSec, cmn.pCent, cmn.mtop5)}>
+        <p className=" text-xs, cmn.pSec, cmn.pCent, cmn.mtop5">
           {delegation ? formatBigIntTimestampSeconds(delegation.created) : getCurrentDate()}
         </p>
       </div>
       <ArrowForwardRoundedIcon
-        className={cls(cmn.pSec, styles.chainIconxs, cmn.mri10, cmn.mleft10, 'delegationFlowIcon')}
+        className="cmn.pSec, styles.chainIconxs, mr-2.5, cmn.mleft10, 'delegationFlowIcon'"
       />
       <div>
-        <div className={cls(`chipXs chip_ACCEPTED`)}>
-          <p className={cls(cmn.p, text-xs, 'pOneLine')}>ACCEPTED</p>
+        <div className="`chipXs chip_ACCEPTED`">
+          <p className=" text-xs, 'pOneLine'">ACCEPTED</p>
         </div>
-        <p className={cls(cmn.p, text-xs, cmn.pSec, cmn.pCent, cmn.mtop5)}>
+        <p className=" text-xs, cmn.pSec, cmn.pCent, cmn.mtop5">
           Until {getFirstDayNextMonth()}
         </p>
       </div>
       <ArrowForwardRoundedIcon
-        className={cls(cmn.pSec, styles.chainIconxs, cmn.mri10, cmn.mleft10, 'delegationFlowIcon')}
+        className="cmn.pSec, styles.chainIconxs, mr-2.5, cmn.mleft10, 'delegationFlowIcon'"
       />
       <div>
-        <div className={cls(`chipXs chip_DELEGATED`)}>
-          <p className={cls(cmn.p, text-xs)}>DELEGATED</p>
+        <div className="`chipXs chip_DELEGATED`">
+          <p className=" text-xs">DELEGATED</p>
         </div>
-        <p className={cls(cmn.p, text-xs, cmn.pSec, cmn.pCent, cmn.mtop5)}>
+        <p className=" text-xs, cmn.pSec, cmn.pCent, cmn.mtop5">
           From {getFirstDayNextMonth()}
         </p>
       </div>
       <ArrowForwardRoundedIcon
-        className={cls(cmn.pSec, styles.chainIconxs, cmn.mri10, cmn.mleft10, 'delegationFlowIcon')}
+        className="cmn.pSec, styles.chainIconxs, mr-2.5, cmn.mleft10, 'delegationFlowIcon'"
       />
       <div>
-        <div className={cls(`chipXs chip_REWARDS`)}>
-          <p className={cls(cmn.p, text-xs, 'pOneLine')}>REWARDS GENERATED</p>
+        <div className="`chipXs chip_REWARDS`">
+          <p className=" text-xs, 'pOneLine'">REWARDS GENERATED</p>
         </div>
-        <p className={cls(cmn.p, text-xs, cmn.pSec, cmn.pCent, cmn.mtop5)}>
+        <p className=" text-xs, cmn.pSec, cmn.pCent, cmn.mtop5">
           Monthly, starting on {getFirstDayMonthAfterNext()}
         </p>
       </div>

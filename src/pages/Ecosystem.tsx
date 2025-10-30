@@ -185,11 +185,11 @@ export default function Ecosystem(props: {
         4,
         isSignedIn
           ? favoriteApps.filter((app) =>
-              filteredApps.some(
-                (filteredApp) =>
-                  filteredApp.chain === app.chain && filteredApp.appName === app.appName
-              )
+            filteredApps.some(
+              (filteredApp) =>
+                filteredApp.chain === app.chain && filteredApp.appName === app.appName
             )
+          )
           : []
       ]
     ])
@@ -222,7 +222,7 @@ export default function Ecosystem(props: {
               width: '100%'
             }}
           >
-            <Container 
+            <Container
               maxWidth="md"
               sx={props.isXs ? { paddingLeft: 0, paddingRight: 0 } : {}}
             >
@@ -240,9 +240,9 @@ export default function Ecosystem(props: {
                   </div>
                 </div>
               </SkStack>
-              <SkStack className= "mb-5 flex items-center mt-2.5 props.isXs">
+              <SkStack className="mb-5 flex items-center mt-2.5 props.isXs">
                 <SearchComponent
-                  className= "flex-grow mr-2.5 !props.isXs] ['fullW' props.isXs]"
+                  className="flex-grow mr-2.5 !props.isXs] ['fullW' props.isXs]"
                   searchTerm={searchTerm}
                   setSearchTerm={handleSetSearchTerm}
                 />
@@ -268,31 +268,31 @@ export default function Ecosystem(props: {
                   label="All"
                   icon={<GridViewRoundedIcon />}
                   iconPosition="start"
-                  className= "btn btnSm mr-1.5 tab fwmobile"
+                  className="btn btnSm mr-1.5 tab fwmobile"
                 />
                 <Tab
                   label="Featured"
                   icon={<AppShortcutIcon />}
                   iconPosition="start"
-                  className= "btn btnSm mr-1.5 ml-1.5 tab fwmobile"
+                  className="btn btnSm mr-1.5 ml-1.5 tab fwmobile"
                 />
                 <Tab
                   label="New"
                   icon={<StarRoundedIcon />}
                   iconPosition="start"
-                  className= "btn btnSm mr-1.5 ml-1.5 tab fwmobile"
+                  className="btn btnSm mr-1.5 ml-1.5 tab fwmobile"
                 />
                 <Tab
                   label="Trending"
                   icon={<TrendingUpRoundedIcon />}
                   iconPosition="start"
-                  className= "btn btnSm mr-1.5 ml-1.5 tab fwmobile"
+                  className="btn btnSm mr-1.5 ml-1.5 tab fwmobile"
                 />
                 <Tab
                   label="Favorites"
                   icon={<FavoriteRoundedIcon />}
                   iconPosition="start"
-                  className= "btn btnSm mr-1.5 ml-1.5 tab fwmobile"
+                  className="btn btnSm mr-1.5 ml-1.5 tab fwmobile"
                 />
               </Tabs>
             </Container>

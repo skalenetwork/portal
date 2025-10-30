@@ -61,36 +61,36 @@ export default function TermsModal(props: {
   if (props.termsAccepted) return null
   return (
     <div>
-      <Container maxWidth="md" className={cls(cmn.mdtop5)}>
-        <div className={cls(cmn.flex)}>
-          <h2 className={cls(cmn.nom)}>{title}</h2>
+      <Container maxWidth="md" className="cmn.mdtop5">
+        <div className="cmn.flex">
+          <h2 className="m-0">{title}</h2>
         </div>
-        <p className={cls(cmn.p, text-sm, cmn.pSec, cmn.mbott20)}>
+        <p className="text - sm, cmn.pSec, cmn.mbott20">
           Review the terms of service carefully and confirm
         </p>
         <Box>
           <Grid container spacing={2}>
             <Grid size={{ xs: 12, md: 6 }}>
-              <SkPaper gray className={cls(styles.fullHeight)}>
-                <div className={cls(cmn.m10)}>
+              <SkPaper gray className="styles.fullHeight">
+                <div className="cmn.m10">
                   <KeyRoundedIcon color="primary" />
-                  <p className={cls(cmn.p, text-sm, cmn.p700, cmn.mtop5)}>
+                  <p className="text - sm, cmn.p700, cmn.mtop5">
                     SKALE will NEVER ask you for your seed phrase or private keys
                   </p>
                 </div>
               </SkPaper>
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
-              <SkPaper gray className={cls(styles.fullHeight)}>
-                <div className={cls(cmn.m10)}>
+              <SkPaper gray className="styles.fullHeight">
+                <div className="cmn.m10">
                   <LockRoundedIcon color="primary" />
-                  <p className={cls(cmn.p, text-sm, cmn.p700, cmn.mtop5)}>
+                  <p className="text - sm, cmn.p700, cmn.mtop5">
                     Make sure you are connected to the correct URL and only use this official link:
                     <Link
                       target="_blank"
                       rel="noopener noreferrer"
                       href={portalUrl}
-                      className={cls(cmn.mleft5)}
+                      className="cmn.mleft5"
                     >
                       {portalUrl}
                     </Link>
@@ -100,14 +100,14 @@ export default function TermsModal(props: {
             </Grid>
           </Grid>
         </Box>
-        <SkPaper gray className={cls(cmn.mtop20)}>
-          <div className={cls(cmn.m10, 'scrollable')}>
+        <SkPaper gray className="cmn.mtop20">
+          <div className="cmn.m10, 'scrollable'">
             <GradingRoundedIcon color="primary" />
-            <p className={cls(cmn.p, text-sm, cmn.p700, cmn.mtop10, cmn.pPrim)}>
+            <p className="text - sm, cmn.p700, cmn.mtop10, cmn.pPrim">
               Before you use the SKALE {title}, you must review the terms of service carefully and
               confirm below.
             </p>
-            <div onScroll={handleTermsScroll} className={cls('br__modalScroll', cmn.mtop20)}>
+            <div onScroll={handleTermsScroll} className="'br__modalScroll', cmn.mtop20">
               <div id="terms" style={{ paddingRight: '20px' }}>
                 <TermsOfService />
               </div>
@@ -120,7 +120,7 @@ export default function TermsModal(props: {
           }}
           variant="contained"
           disabled={!scrolled}
-          className={cls(styles.btnAction, cmn.mtop20)}
+          className="styles.btnAction, cmn.mtop20"
           style={{ marginBottom: '40px' }}
           size="large"
         >

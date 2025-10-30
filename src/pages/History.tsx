@@ -28,8 +28,6 @@ import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import {
-  cmn,
-  cls,
   History as TransfersHistory,
   useMetaportStore
 } from '@skalenetwork/metaport'
@@ -78,7 +76,7 @@ export default function History() {
           />
           <div className="flex-grow"></div>
         </div>
-        <div className={cls([cmn.mtop10, transactionsHistory.length !== 0])}>
+        <div className="[cmn.mtop10, transactionsHistory.length !== 0]">
           <TransfersHistory size="md" />
         </div>
         <div>

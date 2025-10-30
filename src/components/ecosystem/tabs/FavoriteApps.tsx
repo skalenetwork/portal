@@ -76,27 +76,27 @@ export default function FavoriteApps(props: {
   if (appCards.length === 0)
     return (
       <SkPaper gray className="titleSection">
-        <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, text-base, cmn.pSec, cmn.pCent)}>
+        <div className="cmn.mtop20, cmn.mbott20">
+          <p className=" text-base, cmn.pSec, cmn.pCent">
             {props.favoriteApps.length === 0
               ? "You don't have any favorites yet"
               : '🚫 No favorite apps match your current filters'}
           </p>
           {props.useCarousel && (
-            <div className={cls(cmn.flex)}>
-              <div className={cls(cmn.flex, cmn.flexg)}></div>
-              <div className={cls(cmn.flex)}>
+            <div className="cmn.flex">
+              <div className="cmn.flex, cmn.flexg"></div>
+              <div className="cmn.flex">
                 <Link to="/ecosystem">
                   <Button
                     startIcon={<GridViewRoundedIcon />}
                     variant="contained"
-                    className={cls(cmn.pCent, cmn.mtop10, cmn.flex, 'btn')}
+                    className="cmn.pCent, cmn.mtop10, cmn.flex, 'btn'"
                   >
                     Explore dApps
                   </Button>
                 </Link>
               </div>
-              <div className={cls(cmn.flex, cmn.flexg)}></div>
+              <div className="cmn.flex, cmn.flexg"></div>
             </div>
           )}
         </div>

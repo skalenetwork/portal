@@ -34,15 +34,15 @@ interface CategoryCardProps {
 const CategoryCard: React.FC<CategoryCardProps> = ({ categoryName, fullName, projectCount }) => {
   return (
     <Link to={`/ecosystem?categories=${categoryName}`}>
-      <SkPaper gray className={cls('br__tile')}>
-        <div className={cls(cmn.flex, cmn.flexcv, cmn.m10)}>
-          <div className={cls(cmn.flexg)}>
-            <div className={cls(cmn.flex, cmn.flexg, cmn.flexcv)}>
-              <h4 className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p, cmn.p600, 'pOneLine')}>
+      <SkPaper gray className="'br__tile'">
+        <div className="cmn.flex, cmn.flexcv, cmn.m10">
+          <div className="cmn.flexg">
+            <div className="cmn.flex, cmn.flexg, cmn.flexcv">
+              <h4 className="cmn.cap, cmn.nom, cmn.pPrim,  cmn.p600, 'pOneLine'">
                 {fullName}
               </h4>
             </div>
-            <p className={cls(cmn.p, text-sm, cmn.pSec, cmn.mtop5)}>
+            <p className=" text-sm, cmn.pSec, cmn.mtop5">
               {projectCount} project{projectCount !== 1 ? 's' : ''}
             </p>
           </div>

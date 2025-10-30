@@ -85,23 +85,23 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
 
   return (
     <Collapse in={stepsMetadata && stepsMetadata.length !== 0}>
-      <Box className={cls()}>
+      <Box className="">
         <Collapse in={currentStep !== stepsMetadata.length}>
           <Stepper className={localStyles.stepper} activeStep={currentStep} orientation="vertical">
             {stepsMetadata.map((step, i) => (
               <Step key={i}>
                 <StepLabel className={localStyles.labelStep}>
-                  <div className={cls(cmn.flex, cmn.flexcv)}>
-                    <div className={cls(cmn.flex, cmn.flexcv)}>
-                      <h4 className={cls(cmn.nom, cmn.flex)}>{step.headline}</h4>
-                      <div className={cls(cmn.mleft5, cmn.mri5, cmn.flex)}>
+                  <div className="cmn.flex, cmn.flexcv">
+                    <div className="cmn.flex, cmn.flexcv">
+                      <h4 className="cmn.nom, cmn.flex">{step.headline}</h4>
+                      <div className="cmn.mleft5, cmn.mri5, cmn.flex">
                         <ChainIcon
                           skaleNetwork={props.skaleNetwork}
                           chainName={step.onSource ? step.from : step.to}
                           size="xs"
                         />
                       </div>
-                      <h4 className={cls(cmn.nom, cmn.flex)}>
+                      <h4 className="cmn.nom, cmn.flex">
                         {metadata.getAlias(chainsMeta, step.onSource ? step.from : step.to)}
                       </h4>
                     </div>
@@ -109,7 +109,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                 </StepLabel>
                 <StepContent className={cmn.margTop}>
                   <Box sx={{ mb: 2 }}>
-                    <p className={cls(cmn.flex, cmn.p, cmn.pSec, text-xs, cmn.flexg)}>{step.text}</p>
+                    <p className="cmn.flex,  cmn.pSec, text-xs, cmn.flexg">{step.text}</p>
                     <div className={cmn.mtop10}>
                       {loading ? (
                         <Button
@@ -118,7 +118,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                           variant="contained"
                           color="primary"
                           size="medium"
-                          className={cls(styles.btnAction, cmn.mtop5)}
+                          className="styles.btnAction, cmn.mtop5"
                         >
                           {btnText}
                         </Button>
@@ -127,7 +127,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                           variant="contained"
                           color="primary"
                           size="medium"
-                          className={cls(styles.btnAction, cmn.mtop5)}
+                          className="styles.btnAction, cmn.mtop5"
                           onClick={() => execute(address, switchChainAsync, walletClient)}
                           disabled={!!actionDisabled}
                         >
@@ -144,11 +144,11 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
 
         {currentStep === stepsMetadata.length && (
           <div>
-            <div className={cls(cmn.d)}>
+            <div className="cmn.d">
               <p
                 className={cls(
                   cmn.p1,
-                  cmn.p,
+
                   cmn.p600,
                   cmn.pPrim,
                   cmn.flexg,
@@ -159,12 +159,12 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                 {emoji} Transfer completed
               </p>
               <p
-                className={cls(text-sm, cmn.p, cmn.p600, cmn.pSec, cmn.flexg, cmn.pCent, cmn.mtop5)}
+                className="text-sm,  cmn.p600, cmn.pSec, cmn.flexg, cmn.pCent, cmn.mtop5"
               >
                 Transfer details are available in History section
               </p>
             </div>
-            <div className={cls(cmn.flex, cmn.mtop20)}>
+            <div className="cmn.flex, cmn.mtop20">
               <AddToken
                 token={token}
                 destChainName={chainName2}
@@ -175,7 +175,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                 onClick={startOver}
                 color="primary"
                 size="medium"
-                className={cls(styles.btnAction)}
+                className="styles.btnAction"
                 startIcon={<SettingsBackupRestoreRoundedIcon />}
               >
                 Start over

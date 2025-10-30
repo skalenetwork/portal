@@ -76,7 +76,7 @@ const ChainCard: React.FC<{
           )}
         </div>
         <div className="cmn.flex, cmn.flexcv, cmn.mtop10)}>
-          <p className="cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri5)}>
+          <p className=" cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri5)}>
             {metadata.getAlias(chainsMeta, schain.name)}
           </p>
         </div>

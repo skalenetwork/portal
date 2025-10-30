@@ -37,17 +37,17 @@ export default function PageCard(props: {
       to={props.url ?? props.name}
       {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
     >
-      <SkPaper gray className={cls('br__tile')}>
-        <div className={cls(cmn.flex, cmn.flexcv, cmn.m10)}>
-          <div className={cls(cmn.flexg)}>
-            <div className={cls(cmn.flex, cmn.flexg, cmn.flexcv)}>
-              <div className={cls(styles.chainIcons, cmn.mri10, cmn.pPrim)}>{props.icon}</div>
-              <h3 className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p, cmn.p600)}>{props.name}</h3>
+      <SkPaper gray className="'br__tile'">
+        <div className="cmn.flex, cmn.flexcv, cmn.m10">
+          <div className="cmn.flexg">
+            <div className="cmn.flex, cmn.flexg, cmn.flexcv">
+              <div className="styles.chainIcons, mr-2.5, cmn.pPrim">{props.icon}</div>
+              <h3 className="cmn.cap, cmn.nom, cmn.pPrim,  cmn.p600">{props.name}</h3>
             </div>
-            <p className={cls(cmn.p, text-sm, cmn.pSec, cmn.mtop5)}>{props.description}</p>
+            <p className=" text-sm, cmn.pSec, cmn.mtop5">{props.description}</p>
           </div>
-          <div className={cls(cmn.mleft10, cmn.mri5, cmn.flex, cmn.flexcv)}>
-            <ArrowForwardRoundedIcon className={cls(cmn.pSec, styles.chainIconxs)} />
+          <div className="cmn.mleft10, cmn.mri5, cmn.flex, cmn.flexcv">
+            <ArrowForwardRoundedIcon className="cmn.pSec, styles.chainIconxs" />
           </div>
         </div>
       </SkPaper>

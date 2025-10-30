@@ -1,7 +1,7 @@
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import Changelog from '../data/changelog.mdx'
-import { cls, SkPaper } from '@skalenetwork/metaport'
+import {SkPaper } from '@skalenetwork/metaport'
 
 export default function ChangelogPage() {
   return (
@@ -13,7 +13,7 @@ export default function ChangelogPage() {
         <p className="text-sm text-sec">
           Stay informed with our latest updates
         </p>
-        <SkPaper gray className={cls('markdown', 'mt-5')}>
+        <SkPaper gray className="'markdown', 'mt-5'">
           <div className="ml-2.5 mr-2.5">
             <Changelog />
           </div>

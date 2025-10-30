@@ -101,19 +101,19 @@ export default function Delegation(props: {
 
   if (!props.validator) return
   return (
-    <div className={cls(cmn.mbott10, 'titleSection')}>
+    <div className="cmn.mbott10, 'titleSection'">
       <Grid
         container
         spacing={0}
         alignItems="center"
-        className={cls('fullH', ['pointer', !noActions])}
+        className="'fullH', ['pointer', !noActions]"
         onClick={() => {
           if (noActions) return
           setOpen(!open)
         }}
       >
         <Grid size={{ xs: 12, md: 3 }}>
-          <div className={cls(cmn.flex, cmn.flexcv)}>
+          <div className="cmn.flex, cmn.flexcv">
             <ValidatorLogo validatorId={Number(props.delegation.id + 500n)} size="md" />
             {!props.isValidatorPage && (
               <ValidatorLogo
@@ -122,48 +122,48 @@ export default function Delegation(props: {
                 className="validatorIconDelegation"
               />
             )}
-            <div className={cls(cmn.mleft10)}>
-              <p className={cls(cmn.p, text-base, cmn.p700)}>ID: {Number(props.delegation.id)}</p>
-              <p className={cls(cmn.p, text-xs, cmn.pSec)}>
+            <div className="cmn.mleft10">
+              <p className=" text-base, cmn.p700">ID: {Number(props.delegation.id)}</p>
+              <p className=" text-xs, cmn.pSec">
                 {formatBigIntTimestampSeconds(props.delegation.created)}
               </p>
             </div>
             {props.delegationType === types.st.DelegationType.ESCROW ? (
               <Tooltip title="Escrow delegation">
-                <AccountBalanceRoundedIcon className={cls('trustedBadge', cmn.mleft10, cmn.pSec)} />
+                <AccountBalanceRoundedIcon className="'trustedBadge', cmn.mleft10, cmn.pSec" />
               </Tooltip>
             ) : null}
             {props.delegationType === types.st.DelegationType.ESCROW2 ? (
               <Tooltip title="Grant Escrow delegation">
-                <ApartmentRoundedIcon className={cls('trustedBadge', cmn.mleft10, cmn.pSec)} />
+                <ApartmentRoundedIcon className="'trustedBadge', cmn.mleft10, cmn.pSec" />
               </Tooltip>
             ) : null}
           </div>
         </Grid>
         <Grid size={{ xs: 6, md: 3 }}>
-          <div className={cls(cmn.flex, [cmn.mtop10, props.isXs])}>
-            <div className={cls([cmn.flexg, !props.isXs])}></div>
-            <div className={cls(`chipXs chip_${props.delegation.state}`)}>
-              <p className={cls(cmn.p, text-xs, 'pOneLine')}>
+          <div className="cmn.flex, [cmn.mtop10, props.isXs]">
+            <div className="[cmn.flexg, !props.isXs]"></div>
+            <div className="`chipXs chip_${props.delegation.state}`">
+              <p className=" text-xs, 'pOneLine'">
                 {props.delegation.state.replace(/_/g, ' ')}
               </p>
             </div>
-            <div className={cls([cmn.flexg, !props.isXs])}></div>
+            <div className="[cmn.flexg, !props.isXs]"></div>
           </div>
         </Grid>
         <Grid size={{ xs: 6, md: 2 }}>
-          <div className={cls(cmn.flex, [cmn.mtop10, props.isXs])}>
-            <div className={cls([cmn.flexg, !props.isXs])}></div>
-            <div className={cls(`chipXs chip_${getKeyByValue(DelegationSource, source)}`)}>
-              <p className={cls(cmn.p, text-xs)}>{source}</p>
+          <div className="cmn.flex, [cmn.mtop10, props.isXs]">
+            <div className="[cmn.flexg, !props.isXs]"></div>
+            <div className="`chipXs chip_${getKeyByValue(DelegationSource, source"`)}>
+              <p className=" text-xs">{source}</p>
             </div>
-            <div className={cls([cmn.flexg, !props.isXs])}></div>
+            <div className="[cmn.flexg, !props.isXs]"></div>
           </div>
         </Grid>
         <Grid size={{ xs: 12, md: 4 }}>
-          <div className={cls(cmn.flex, cmn.flexcv, cmn.mri5, [cmn.mtop10, props.isXs])}>
-            <div className={cls(cmn.flexg)}></div>
-            <div className={cls(cmn.mri20, [cmn.pri, !props.isXs], [cmn.mleft20, !props.isXs])}>
+          <div className="cmn.flex, cmn.flexcv, cmn.mri5, [cmn.mtop10, props.isXs]">
+            <div className="cmn.flexg"></div>
+            <div className="cmn.mri20, [cmn.pri, !props.isXs], [cmn.mleft20, !props.isXs]">
               <Tooltip
                 arrow
                 title={
@@ -172,9 +172,9 @@ export default function Delegation(props: {
                     : ''
                 }
               >
-                <h4 className={cls(cmn.p, cmn.p700, [cmn.pSec, !isActive])}>{delegationAmount}</h4>
+                <h4 className=" cmn.p700, [cmn.pSec, !isActive]">{delegationAmount}</h4>
               </Tooltip>
-              <p className={cls(cmn.p, text-xs, cmn.pSec)}>{getStakingText()}</p>
+              <p className=" text-xs, cmn.pSec">{getStakingText()}</p>
             </div>
             <ArrowForwardIosRoundedIcon
               className={cls(
@@ -189,21 +189,21 @@ export default function Delegation(props: {
         </Grid>
       </Grid>
       <Collapse in={open}>
-        <div className={cls(cmn.mtop20)}>
+        <div className="cmn.mtop20">
           {props.isValidatorPage && (
             <Tile
-              className={cls(cmn.nop, cmn.mtop20)}
+              className="cmn.nop, cmn.mtop20"
               transparent
               value={props.delegation.address}
               text="Token Holder Address"
               grow
               size="md"
-              icon={<AccountCircleRoundedIcon className={cls(styles.chainIconxs)} />}
+              icon={<AccountCircleRoundedIcon className="styles.chainIconxs" />}
             />
           )}
           {isCompleted && (
             <Tile
-              className={cls(cmn.nop, cmn.mtop20)}
+              className="cmn.nop, cmn.mtop20"
               transparent
               tooltip={
                 props.sklPrice && props.delegation.finished
@@ -214,7 +214,7 @@ export default function Delegation(props: {
               text="Delegation completed"
               grow
               size="md"
-              icon={<HistoryRoundedIcon className={cls(styles.chainIconxs)} />}
+              icon={<HistoryRoundedIcon className="styles.chainIconxs" />}
             />
           )}
           {Number(props.delegation.stateId) === DelegationState.PROPOSED && props.accept ? (
@@ -222,7 +222,7 @@ export default function Delegation(props: {
               loading={loading}
               text={loading ? 'Accepting delegation' : 'Accept delegation'}
               color="primary"
-              className={cls('fullW', cmn.mtop20)}
+              className="'fullW', cmn.mtop20"
               onClick={async () => {
                 props.accept && (await props.accept(delegationInfo))
               }}
@@ -234,7 +234,7 @@ export default function Delegation(props: {
               loading={loading}
               text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
               color="error"
-              className={cls('fullW')}
+              className="'fullW'"
               onClick={async () => {
                 props.unstake && (await props.unstake(delegationInfo))
               }}

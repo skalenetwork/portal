@@ -62,7 +62,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
       key: 'website',
       icon: (
         <LanguageRounded
-          className={cls([cmn.pPrim, isMd], [cmn.pSec, !isMd])}
+          className="[cmn.pPrim, isMd], [cmn.pSec, !isMd]"
           fontSize={isMd ? 'medium' : 'small'}
         />
       ),
@@ -73,7 +73,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
       icon: (
         <img
           src={EpicGamesStoreLogo}
-          className={cls('customSocialIcon', isMd && 'customSocialIconMd')}
+          className="'customSocialIcon', isMd && 'customSocialIconMd'"
           alt="egs-logo"
         />
       ),
@@ -85,7 +85,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
         <SwellIcon
           size={isMd ? 'medium' : 'small'}
           style={{ padding: '2px' }}
-          className={cls([cmn.pSec, !isMd], [cmn.pPrim, isMd])}
+          className="[cmn.pSec, !isMd], [cmn.pPrim, isMd]"
         />
       ),
       title: 'Swell'
@@ -94,7 +94,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
       key: 'dappradar',
       icon: (
         <TrackChangesRounded
-          className={cls([cmn.pPrim, isMd], [cmn.pSec, !isMd])}
+          className="[cmn.pPrim, isMd], [cmn.pSec, !isMd]"
           fontSize={isMd ? 'medium' : 'small'}
         />
       ),
@@ -108,7 +108,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
       key: 'dune',
       icon: (
         <JoinLeftRounded
-          className={cls([cmn.pPrim, isMd], [cmn.pSec, !isMd])}
+          className="[cmn.pPrim, isMd], [cmn.pSec, !isMd]"
           fontSize={isMd ? 'medium' : 'small'}
         />
       ),
@@ -118,7 +118,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
       key: 'forum',
       icon: (
         <ForumIcon
-          className={cls([cmn.pPrim, isMd], [cmn.pSec, !isMd])}
+          className="[cmn.pPrim, isMd], [cmn.pSec, !isMd]"
           fontSize={isMd ? 'medium' : 'small'}
         />
       ),
@@ -129,15 +129,15 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
   const visibleLinks = isMd || all ? socialLinks : socialLinks.slice(0, MAX_SOCIALS_SM)
 
   return (
-    <div className={cls(cmn.flex, cmn.flexcv, className)}>
+    <div className="cmn.flex, cmn.flexcv, className">
       {social && (
-        <div className={cls(cmn.flex, cmn.flexg)}>
+        <div className="cmn.flex, cmn.flexg">
           {visibleLinks.map(({ key, icon, network, title }) => {
             const link = social[key as keyof types.AppSocials]
             if (!link) return null
 
             return (
-              <div className={cls([cmn.mri10, isMd])} key={key}>
+              <div className="[mr-2.5, isMd]" key={key}>
                 <Tooltip key={key} title={title}>
                   <IconButton
                     size={isMd ? 'medium' : 'small'}
@@ -154,7 +154,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
                       <SocialIcon
                         network={network}
                         bgColor={isMd ? 'black' : 'transparent'}
-                        className={cls('socialIcon', isMd && 'socialIconMd')}
+                        className="'socialIcon', isMd && 'socialIconMd'"
                         fgColor={isMd ? '' : 'rgb(255 255 255 / 65%)'}
                       />
                     )}

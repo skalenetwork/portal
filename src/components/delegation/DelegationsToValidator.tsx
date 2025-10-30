@@ -108,7 +108,7 @@ export default function DelegationsToValidator(props: {
         sklPrice={props.sklPrice}
       />
       <Collapse in={open}>
-        <div className={cls('nestedSection', ['nestedSectionXs', props.isXs])}>
+        <div className="'nestedSection', ['nestedSectionXs', props.isXs]">
           {props.delegationsToValidator.delegations.map(
             (delegation: types.st.IDelegation, index: number) => (
               <Delegation

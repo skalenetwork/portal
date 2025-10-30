@@ -26,7 +26,7 @@ import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 import Button from '@mui/material/Button'
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 
-import { cls, cmn, styles } from '../core/css'
+import { styles } from '../core/css'
 
 import { useMetaportStore } from '../store/MetaportStore'
 
@@ -68,7 +68,7 @@ export default function SkConnect() {
                       variant="contained"
                       color="primary"
                       size="medium"
-                      className={cls(styles.btnAction, cmn.mtop20)}
+                      className="styles.btnAction, cmn.mtop20"
                       onClick={openConnectModal}
                     >
                       Connect Wallet
@@ -82,7 +82,7 @@ export default function SkConnect() {
                     variant="contained"
                     color="error"
                     size="small"
-                    className={cls(styles.btnAction, cmn.mbott5, cmn.fullWidth)}
+                    className="styles.btnAction, cmn.mbott5, cmn.fullWidth"
                     onClick={openChainModal}
                   >
                     Wrong network
@@ -90,17 +90,17 @@ export default function SkConnect() {
                 )
               }
               return (
-                <div className={cls(cmn.flex)}>
-                  <div className={cls(cmn.flexg, cmn.flex)}></div>
+                <div className="cmn.flex">
+                  <div className="cmn.flexg, cmn.flex"></div>
                   <div>
                     <Button
                       disabled={transferInProgress}
                       size="small"
-                      className={cls(styles.btnChain, cmn.flex, cmn.flexcv, cmn.pPrim)}
+                      className="styles.btnChain, cmn.flex, cmn.flexcv, cmn.pPrim"
                       onClick={openAccountModal}
                       style={{ color: 'white' }}
                     >
-                      <div className={cls(cmn.mri5, cmn.flex)}>
+                      <div className="cmn.mri5, cmn.flex">
                         <Jazzicon diameter={16} seed={jsNumberForAddress(account.address)} />
                       </div>
                       {account.displayName}

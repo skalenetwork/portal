@@ -61,9 +61,9 @@ export default function CopySurface(props: {
         <Tooltip title={copied ? 'Copied!' : 'Click to copy to clipboard'}>
           <ButtonBase className="titleSection" style={{ width: '100%', height: '100%' }}>
             <div style={{ textAlign: 'left', overflow: 'auto' }} className={cmn.flexg}>
-              <div className={cls(cmn.flex)}>
+              <div className="cmn.flex">
                 {props.tokenMetadata ? (
-                  <div className={cls(cmn.mri5)}>
+                  <div className="cmn.mri5">
                     <TokenIcon
                       size="xs"
                       tokenSymbol={props.tokenMetadata.symbol}
@@ -71,22 +71,22 @@ export default function CopySurface(props: {
                     />
                   </div>
                 ) : null}
-                <p className={cls(cmn.p, text-xs, cmn.pSec, cmn.mbott5)}>
+                <p className=" text-xs, cmn.pSec, cmn.mbott5">
                   {props.title}
                   {props.tokenMetadata
                     ? ` (${props.tokenMetadata.decimals ?? constants.DEFAULT_ERC20_DECIMALS})`
                     : null}
                 </p>
               </div>
-              <p className={cls(cmn.p, text-base, cmn.p600, 'shortP')}>{props.value}</p>
+              <p className=" text-base, cmn.p600, 'shortP'">{props.value}</p>
             </div>
             {copied ? (
               <CheckCircleRoundedIcon
                 color="success"
-                className={cls(cmn.mleft20, styles.chainIconxs)}
+                className="cmn.mleft20, styles.chainIconxs"
               />
             ) : (
-              <ContentCopyIcon className={cls(cmn.pSec, cmn.mleft20, styles.chainIconxs)} />
+              <ContentCopyIcon className="cmn.pSec, cmn.mleft20, styles.chainIconxs" />
             )}
           </ButtonBase>
         </Tooltip>

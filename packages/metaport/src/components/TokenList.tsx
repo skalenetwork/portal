@@ -107,16 +107,16 @@ export default function TokenList() {
 
   return (
     <div>
-      <div className={cmn.mri10}>
+      <div className={mr - 2.5}>
         <Button
-          className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mleft10)}
+          className="cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mleft10"
           onClick={handleOpen}
           disabled={transferInProgress}
           endIcon={
             <KeyboardArrowDownRoundedIcon className={cmn.pPrim} style={{ marginRight: '11px' }} />
           }
         >
-          <div className={cls(cmn.flex, cmn.flexc, cmn.mri10, [cmn.pDisabled, noTokens])}>
+          <div className="cmn.flex, cmn.flexc, mr-2.5, [cmn.pDisabled, noTokens]">
             <TokenIcon
               key={token?.meta.symbol}
               tokenSymbol={token?.meta.symbol}
@@ -125,7 +125,7 @@ export default function TokenList() {
           </div>
           <p
             className={cls(
-              cmn.p,
+
               cmn.p1,
               cmn.p700,
               cmn.pPrim,
@@ -141,16 +141,16 @@ export default function TokenList() {
       <Modal
         open={open}
         onClose={handleClose}
-        className={cls(cmn.darkTheme, styles.metaport, styles.backdropBlur)}
+        className="cmn.darkTheme, styles.metaport, styles.backdropBlur"
       >
-        <Container maxWidth="sm" className={cls(styles.modalContainer)}>
-          <div className={cls(cmn.flex, cmn.mbott20)}>
+        <Container maxWidth="sm" className="styles.modalContainer">
+          <div className="cmn.flex, cmn.mbott20">
             <div className={cmn.flexg}></div>
             <SkPaper gray>
               <p
                 className={cls(
-                  cmn.p,
-                  text-base,
+
+                  text - base,
                   cmn.p700,
                   cmn.pPrim,
                   cmn.mtop5,
@@ -164,7 +164,7 @@ export default function TokenList() {
                 Select a token
               </p>
             </SkPaper>
-            <div className={cls(cmn.flexg)}></div>
+            <div className="cmn.flexg"></div>
           </div>
           <SkPaper gray>
             <TextField
@@ -175,11 +175,11 @@ export default function TokenList() {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon className={cls(cmn.pPrim, styles.chainIcons)} />
+                    <SearchIcon className="cmn.pPrim, styles.chainIcons" />
                   </InputAdornment>
                 )
               }}
-              className={cls(styles.skInput)}
+              className="styles.skInput"
               sx={{
                 '& .MuiOutlinedInput-root': { borderRadius: '25px' },
                 '& fieldset': { borderColor: '#353535 !important' }
@@ -196,7 +196,7 @@ export default function TokenList() {
                   cmn.padd10
                 )}
               >
-                <p className={cls(cmn.p, text-base, cmn.pSec, cmn.pCent)}>
+                <p className=" text-base, cmn.pSec, cmn.pCent">
                   🚫 No tokens match your current filters
                 </p>
               </div>

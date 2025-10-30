@@ -57,8 +57,8 @@ const ChainsSection: React.FC<ChainsSectionProps> = ({
   })
 
   return (
-    <div className={cls(cmn.mtop20)}>
-      <Headline className={cls(cmn.mbott10, cmn.mtop5)} text={name} icon={icon} />
+    <div className="cmn.mtop20">
+      <Headline className="cmn.mbott10, cmn.mtop5" text={name} icon={icon} />
       <Grid container spacing={2}>
         {sortedSchains.map((schain) => (
           <Grid key={schain.name} size={gridSize}>

@@ -93,8 +93,8 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
   if (featuredApps.length === 0) {
     return (
       <SkPaper gray className="titleSection">
-        <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, text-base, cmn.pSec, cmn.pCent)}>
+        <div className="cmn.mtop20, cmn.mbott20">
+          <p className=" text-base, cmn.pSec, cmn.pCent">
             🚫 No featured apps match your current filters
           </p>
         </div>
@@ -107,7 +107,7 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
       <Grid container spacing={2}>
         {filteredFeaturedApps.map((app) => (
           <Grid key={`${app.chain}-${app.appName}`} size={{ xs: 12, sm: 6, md: 4, lg: 4 }}>
-            <Box className={cls('fl-centered dappCard')}>{renderAppCard(app)}</Box>
+            <Box className="'fl-centered dappCard'">{renderAppCard(app)}</Box>
           </Grid>
         ))}
       </Grid>
@@ -115,7 +115,7 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
         chainName !== null &&
         chainName !== undefined &&
         chainName.trim() !== '' && (
-          <Box className={cls(cmn.flex, cmn.flexc, cmn.mtop20)}>
+          <Box className="cmn.flex, cmn.flexc, cmn.mtop20">
             <Link
               to={`/ecosystem?search=${encodeURIComponent(metadata.getAlias(chainsMeta, chainName))}`}
               style={{ textDecoration: 'none' }}
@@ -123,7 +123,7 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
               <Button
                 size="medium"
                 startIcon={<AddCircleRoundedIcon />}
-                className={cls(styles.btnAction, cmn.pleft20, cmn.pri20)}
+                className="styles.btnAction, cmn.pleft20, cmn.pri20"
               >
                 See more
               </Button>

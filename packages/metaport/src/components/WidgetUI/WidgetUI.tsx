@@ -90,7 +90,7 @@ export function WidgetUI(props: { config: types.mp.Config }) {
         {fabTop ? fabButton : null}
       </div>
       <Collapse in={isOpen}>
-        <SkPaper className={cls(styles.popper, styles.contentHeight)}>
+        <SkPaper className="styles.popper, styles.contentHeight">
           <Collapse in={!!errorMessage}>
             <ErrorMessage errorMessage={errorMessage} />
           </Collapse>

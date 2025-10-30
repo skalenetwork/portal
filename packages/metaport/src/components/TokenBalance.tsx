@@ -39,13 +39,13 @@ export default function TokenBalance(props: {
   }
   let size = props.size ?? 'xs'
   return (
-    <div className={cls(cmn.flex, cmn.flexcv)}>
+    <div className="cmn.flex, cmn.flexcv">
       <p
         className={cls(
           cmn.pLightGrey,
-          [text-xs, size === 'xs'],
-          [text-sm, size === 'sm'],
-          [text-base, size === 'md'],
+          [text - xs, size === 'xs'],
+          [text - sm, size === 'sm'],
+          [text - base, size === 'md'],
           [cmn.pSec, !props.primary],
           [cmn.pPrim, props.primary],
           cmn.flex,

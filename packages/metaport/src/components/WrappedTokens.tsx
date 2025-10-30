@@ -110,40 +110,40 @@ export default function WrappedTokens() {
   const chainAlias = metadata.getAlias(chainsMeta, chainName1)
 
   return (
-    <div className={cls(cmn.mtop10)}>
+    <div className="cmn.mtop10">
       <Accordion
         disabled={!!loading}
         expanded={expandedWT === 'panel1'}
         onChange={handleChange('panel1')}
       >
         <AccordionSummary
-          className={cls(styles.accordionSummary, styles.accordionSm)}
+          className="styles.accordionSummary, styles.accordionSm"
           expandIcon={<ExpandMoreRoundedIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
           <div className="flex w-full flex items-center">
-            <div className={cls(cmn.flex, cmn.flexc, cmn.mri10)}>
+            <div className="cmn.flex, cmn.flexc, mr-2.5">
               <ErrorIcon color="warning" />
             </div>
-            <p className={cls(cmn.p, text-sm, cmn.p600, cmn.cap, cmn.pPrim, cmn.mri10)}>
+            <p className="text-sm, cmn.p600, cmn.cap, cmn.pPrim, mr-2.5">
               Wrapped tokens found
             </p>
           </div>
         </AccordionSummary>
         <AccordionDetails>
-          <SkPaper background="transparent" className={cls(styles.accordionContent)}>
-            <p className={cls(cmn.flex, text-sm, cmn.p, cmn.errorMessage, cmn.flexg)}>
+          <SkPaper background="transparent" className="styles.accordionContent">
+            <p className="cmn.flex, text-sm,  cmn.errorMessage, cmn.flexg">
               ❗ You have wrapped tokens on {chainAlias}. Unwrap them before proceeding with your
               transfer.
             </p>
-            <div className={cls(cmn.mtop20)}>
+            <div className="cmn.mtop20">
               {Object.keys(filteredTokens).map((key, _) => (
                 <div
                   key={key}
-                  className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.mtop10, cmn.mbott10)}
+                  className="cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.mtop10, cmn.mbott10"
                 >
-                  <div className={cls(cmn.flex, cmn.flexc)}>
+                  <div className="cmn.flex, cmn.flexc">
                     <TokenIcon
                       tokenSymbol={filteredTokens[key]?.meta.symbol}
                       iconUrl={filteredTokens[key]?.meta.iconUrl}
@@ -151,13 +151,13 @@ export default function WrappedTokens() {
                   </div>
                   <p
                     className={cls(
-                      cmn.p,
-                      text-sm,
+
+                      text - sm,
                       cmn.p600,
                       cmn.pPrim,
                       cmn.flex,
                       cmn.flexg,
-                      cmn.mri10,
+                      mr - 2.5,
                       cmn.mleft10
                     )}
                   >
@@ -177,7 +177,7 @@ export default function WrappedTokens() {
                 </div>
               ))}
 
-              <div className={cls(cmn.mtop20, cmn.mbott20)}>
+              <div className="cmn.mtop20, cmn.mbott20">
                 {loading ? (
                   <Button
                     disabled
@@ -185,7 +185,7 @@ export default function WrappedTokens() {
                     variant="contained"
                     color="primary"
                     size="medium"
-                    className={cls(styles.btnAction, cmn.mtop5)}
+                    className="styles.btnAction, cmn.mtop5"
                   >
                     Unwrapping...
                   </Button>
@@ -194,7 +194,7 @@ export default function WrappedTokens() {
                     variant="contained"
                     color="primary"
                     size="medium"
-                    className={cls(styles.btnAction, cmn.mtop5)}
+                    className="styles.btnAction, cmn.mtop5"
                     onClick={() =>
                       unwrapAll(address, switchChainAsync, walletClient, filteredTokens)
                     }

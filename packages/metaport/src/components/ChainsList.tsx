@@ -6,7 +6,6 @@ import Button from '@mui/material/Button'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 
 import SkPaper from './SkPaper'
-import { cls, styles } from '../core/css'
 import { CHAINS_META } from '../core/metadata'
 import BridgeChainCard from './BridgeChainCard'
 import ChainIcon from './ChainIcon'
@@ -81,7 +80,7 @@ export default function ChainsList(props: {
         aria-describedby="modal-modal-description"
         className="styles.metaport, styles.backdropBlur, 'dark'"
       >
-        <Container maxWidth="md" className={cls(styles.modalContainer)}>
+        <Container maxWidth="md" className="styles.modalContainer">
           <div className="flex cmn.mbott20">
             <div className="flex-grow"></div>
             <SkPaper gray>
@@ -97,7 +96,7 @@ export default function ChainsList(props: {
           >
             <Grid container spacing={2}>
               {schainNames.map((name) => (
-                <Grid size={{ xs: 6, md: 4 }} key={name} className={cls(styles.fullHeight)}>
+                <Grid size={{ xs: 6, md: 4 }} key={name} className="styles.fullHeight">
                   <BridgeChainCard
                     skaleNetwork={props.config.skaleNetwork}
                     chainName={name}

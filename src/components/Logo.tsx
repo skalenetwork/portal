@@ -45,7 +45,7 @@ const Logo: React.FC<LogoProps> = ({ chainsMeta, skaleNetwork, chainName, appNam
         }}
       >
         <ChainLogo
-          className={cls('responsive-logo')}
+          className="'responsive-logo'"
           network={skaleNetwork}
           chainName={chainName}
           app={appName}

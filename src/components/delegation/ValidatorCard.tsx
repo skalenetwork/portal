@@ -65,34 +65,34 @@ export default function ValidatorCard(props: {
             ['selectedValidator', props.validatorId === props.validator.id]
           )}
         >
-          <div className={cls(cmn.flex)} style={{ marginBottom: '-20px' }}>
+          <div className="cmn.flex" style={{ marginBottom: '-20px' }}>
             <ValidatorBadge validator={props.validator} />
-            <div className={cls(cmn.flexg)}></div>
+            <div className="cmn.flexg"></div>
             <TrustBadge validator={props.validator} />
           </div>
-          <div className={cls(cmn.flex, cmn.mbott10)}>
-            <div className={cls(cmn.flexg)}></div>
+          <div className="cmn.flex, cmn.mbott10">
+            <div className="cmn.flexg"></div>
             <ValidatorLogo validatorId={props.validator.id} size="xl" />
-            <div className={cls(cmn.flexg)}></div>
+            <div className="cmn.flexg"></div>
           </div>
 
-          <div className={cls(cmn.flex)}>
-            <div className={cls(cmn.flexg)}></div>
+          <div className="cmn.flex">
+            <div className="cmn.flexg"></div>
             <p
-              className={cls(cmn.p, text-base, cmn.p700, cmn.flexg, cmn.pCent, cmn.pPrim, 'pOneLine')}
+              className=" text-base, cmn.p700, cmn.flexg, cmn.pCent, cmn.pPrim, 'pOneLine'"
             >
               {props.validator.name}
             </p>
-            <div className={cls(cmn.flexg)}></div>
+            <div className="cmn.flexg"></div>
           </div>
 
-          <div className={cls(cmn.flex)}>
-            <div className={cls(cmn.flexg)}></div>
+          <div className="cmn.flex">
+            <div className="cmn.flexg"></div>
             <Tooltip title={description}>
               <p
                 className={cls(
-                  cmn.p,
-                  text-xs,
+
+                  text - xs,
                   cmn.p600,
                   cmn.flexg,
                   cmn.pSec,
@@ -104,20 +104,20 @@ export default function ValidatorCard(props: {
                 {description}
               </p>
             </Tooltip>
-            <div className={cls(cmn.flexg)}></div>
+            <div className="cmn.flexg"></div>
           </div>
-          <div className={cls(cmn.flex, cmn.mtop10)}>
-            <div className={cls('chipFee', cmn.flexg)}>
-              <p className={cls(cmn.p, text-xs, cmn.pCent)}>
+          <div className="cmn.flex, cmn.mtop10">
+            <div className="'chipFee', cmn.flexg">
+              <p className=" text-xs, cmn.pCent">
                 {Number(props.validator.feeRate) / 10}% fee
               </p>
             </div>
-            <div className={cls('chipId', cmn.mleft5, cmn.flexg, cmn.pCent)}>
-              <p className={cls(cmn.p, text-xs)}>ID: {props.validator.id}</p>
+            <div className="'chipId', cmn.mleft5, cmn.flexg, cmn.pCent">
+              <p className=" text-xs">ID: {props.validator.id}</p>
             </div>
             {size === 'lg' ? (
-              <div className={cls('chipNodes', cmn.mleft5, cmn.flexg)}>
-                <p className={cls(cmn.p, text-xs, cmn.pCent)}>
+              <div className="'chipNodes', cmn.mleft5, cmn.flexg">
+                <p className=" text-xs, cmn.pCent">
                   Nodes: {props.validator.linkedNodes}
                 </p>
               </div>
@@ -126,8 +126,8 @@ export default function ValidatorCard(props: {
           <div>
             {size !== 'lg' && (
               <Tooltip title={`Minimum delegation amount: ${minDelegation} SKL`}>
-                <div className={cls('chipNodes', cmn.mtop10)}>
-                  <p className={cls(cmn.p, text-xs, cmn.pCent, 'pOneLine')}>
+                <div className="'chipNodes', cmn.mtop10">
+                  <p className=" text-xs, cmn.pCent, 'pOneLine'">
                     Min: {minDelegation} SKL
                   </p>
                 </div>
@@ -135,8 +135,8 @@ export default function ValidatorCard(props: {
             )}
             {size === 'lg' && (
               <Tooltip title={props.validator.validatorAddress}>
-                <div className={cls('chipId', cmn.mtop10)}>
-                  <p className={cls(cmn.p, text-xs, cmn.pCent, 'pOneLine')}>
+                <div className="'chipId', cmn.mtop10">
+                  <p className=" text-xs, cmn.pCent, 'pOneLine'">
                     Address: {props.validator.validatorAddress}
                   </p>
                 </div>

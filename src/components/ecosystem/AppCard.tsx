@@ -44,14 +44,14 @@ export default function AppCard(props: {
     <div>
       <div className="fl-centered">
         <div
-          className={cls('br__tile borderLight radius')}
+          className="'br__tile borderLight radius'"
           style={{
             background: metadata.chainBg(props.chainsMeta, props.schainName, props.appName)
           }}
         >
-          <Link to={url} className={cls('br__tileLogo', 'br__tileIns', cmn.flex)}>
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
-            <div className={cls(cmn.flex, cmn.flexcv, 'inheritSize')}>
+          <Link to={url} className="'br__tileLogo', 'br__tileIns', cmn.flex">
+            <div className="cmn.flex, cmn.flexg"></div>
+            <div className="cmn.flex, cmn.flexcv, 'inheritSize'">
               <ChainLogo
                 network={props.skaleNetwork}
                 chainName={props.schainName}
@@ -59,7 +59,7 @@ export default function AppCard(props: {
                 logos={MAINNET_CHAIN_LOGOS}
               />
             </div>
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
+            <div className="cmn.flex, cmn.flexg"></div>
           </Link>
           <div
             className={cls(
@@ -73,7 +73,7 @@ export default function AppCard(props: {
           ></div>
         </div>
         <Link to={url}>
-          <Button size="small" className={cls('cardBtn')}>
+          <Button size="small" className="'cardBtn'">
             <span
               style={{
                 overflow: 'hidden',
@@ -87,7 +87,7 @@ export default function AppCard(props: {
           </Button>
           {props.transactions ? (
             <div>
-              <p className={cls(cmn.p, text-xs, cmn.pSec, cmn.pCent, cmn.mjtop5, cmn.mjri5)}>
+              <p className=" text-xs, cmn.pSec, cmn.pCent, cmn.mjtop5, cmn.mjri5">
                 {formatNumber(props.transactions)} Txs
               </p>
             </div>

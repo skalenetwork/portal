@@ -23,7 +23,6 @@
 
 import React from 'react'
 import { FiberManualRecord } from '@mui/icons-material'
-import { cls, cmn } from '@skalenetwork/metaport'
 import Headline from '../Headline'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 
@@ -39,7 +38,7 @@ const ProfileModalHeader: React.FC<ProfileModalHeaderProps> = ({ address, isSign
     </div>
     <div className="profileModalStatus">
       <FiberManualRecord
-        className={cls(cmn.mri5)}
+        className="cmn.mri5"
         fontSize="small"
         color={address ? (isSignedIn ? 'success' : 'warning') : 'error'}
       />

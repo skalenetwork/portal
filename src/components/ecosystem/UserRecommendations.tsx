@@ -47,9 +47,9 @@ const UserRecommendations: React.FC<{
   if (!showRecommendations) return null
 
   return (
-    <div className={cls(cmn.mbott10, cmn.mtop20, cmn.ptop20)}>
+    <div className="cmn.mbott10, cmn.mtop20, cmn.ptop20">
       <Headline
-        className={cls(cmn.mbott10)}
+        className="cmn.mbott10"
         text="Recommended for you"
         icon={<AutoAwesomeRoundedIcon color="primary" />}
       />

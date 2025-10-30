@@ -98,7 +98,7 @@ export default function TransactionData(props: {
     props.transactionData.transactionHash
   )
   return (
-    <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop5, cmn.mbott5, cmn.mleft5, cmn.mri5)}>
+    <div className="cmn.flex, cmn.flexcv, cmn.mtop5, cmn.mbott5, cmn.mleft5, cmn.mri5">
       <div>
         <div
           className={cls(
@@ -112,12 +112,12 @@ export default function TransactionData(props: {
           {actionIcons[props.transactionData.txName]}
         </div>
       </div>
-      <div className={cls(cmn.mleft20, cmn.flexg, cmn.flex)}>
+      <div className="cmn.mleft20, cmn.flexg, cmn.flex">
         <div>
-          <p className={cls(cmn.p, text-base, cmn.cap, cmn.pPrim)}>
+          <p className=" text-base, cmn.cap, cmn.pPrim">
             {actionAliases[props.transactionData.txName]}
           </p>
-          <p className={cls(cmn.p, text-xs, cmn.pSec)}>
+          <p className=" text-xs, cmn.pSec">
             {new Date(props.transactionData.timestamp * 1000).toUTCString()}
           </p>
         </div>
@@ -128,7 +128,7 @@ export default function TransactionData(props: {
           href={explorerUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className={cls(cmn.mleft10, localStyles.sk__openExplorerBtn)}
+          className="cmn.mleft10, localStyles.sk__openExplorerBtn"
         >
           <OpenInNewIcon className={cmn.pPrim} />
         </IconButton>

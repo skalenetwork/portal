@@ -25,7 +25,7 @@ import React, { useMemo } from 'react'
 import { type types } from '@/core'
 import AppCard from '../AppCardV2'
 import { Box, Grid } from '@mui/material'
-import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
+import {SkPaper } from '@skalenetwork/metaport'
 import Carousel from '../../Carousel'
 import { isNewApp } from '../../../core/ecosystem/utils'
 import { getAppMeta } from '../../../core/ecosystem/apps'
@@ -63,7 +63,7 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
     )
     const appId = getAppId(app.chain, app.appName)
     return (
-      <Box key={`${app.chain}-${app.appName}`} className={cls('fl-centered dappCard')}>
+      <Box key={`${app.chain}-${app.appName}`} className="'fl-centered dappCard'">
         <AppCard
           skaleNetwork={skaleNetwork}
           schainName={app.chain}
@@ -81,8 +81,8 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
   if (apps.length === 0) {
     return (
       <SkPaper gray className="titleSection">
-        <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, text-base, cmn.pSec, cmn.pCent)}>
+        <div className="cmn.mtop20, cmn.mbott20">
+          <p className=" text-base, cmn.pSec, cmn.pCent">
             🚫 No trending apps match your current filters
           </p>
         </div>

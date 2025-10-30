@@ -26,7 +26,7 @@ import { type Signer } from 'ethers'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
-import { cmn, cls, type MetaportCore, styles, SkPaper, contracts } from '@skalenetwork/metaport'
+import {type MetaportCore, SkPaper, contracts } from '@skalenetwork/metaport'
 
 import { Collapse, Skeleton } from '@mui/material'
 
@@ -185,7 +185,7 @@ export default function Validator(props: {
     <Container maxWidth="md">
       <div className="flex items-center">
         <div className="flex-grow">
-          <h2 className={cls(cmn.nom)}>Validator Operations</h2>
+          <h2 className="m-0">Validator Operations</h2>
           <p className="text-sm text-sec">{META_TAGS.validator.description}</p>
         </div>
         <SkPageInfoIcon meta_tag={META_TAGS.validator} />
@@ -203,7 +203,7 @@ export default function Validator(props: {
       <SkPaper gray className="mt-5">
         <Headline
           text="Validator Summary"
-          icon={<CorporateFareRoundedIcon className={cls(styles.chainIconxs)} />}
+          icon={<CorporateFareRoundedIcon className="styles.chainIconxs" />}
           size="small"
           className="mb-5"
         />
@@ -223,9 +223,9 @@ export default function Validator(props: {
           ) : (
             <div>
               <PeopleRoundedIcon
-                className={cls(cmn.pSec, styles.chainIconlg, 'w-full', 'mt-5')}
+                className="cmn.pSec, styles.chainIconlg, 'w-full', 'mt-5'"
               />
-              <h3 className={cls(cmn.p, cmn.p700, cmn.pSec, cmn.pCent, 'mb-5')}>
+              <h3 className="cmn.p700, cmn.pSec, cmn.pCent, 'mb-5'">
                 Validator doesn't exist
               </h3>
             </div>
@@ -256,7 +256,7 @@ export default function Validator(props: {
                   'Delegations ' +
                   (props.delegations === null ? '' : `(${props.delegations.length})`)
                 }
-                icon={<AllInboxRoundedIcon className={cls(styles.chainIconxs)} />}
+                icon={<AllInboxRoundedIcon className="styles.chainIconxs" />}
                 className="flex-grow"
               />
               <SortToggle onChange={setSortBy} className="mr-1.25" />

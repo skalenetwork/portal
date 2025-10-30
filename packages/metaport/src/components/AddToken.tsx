@@ -29,7 +29,6 @@ import { dc, constants } from '@/core'
 import Button from '@mui/material/Button'
 import TollIcon from '@mui/icons-material/Toll'
 
-import { cls, cmn, styles } from '../core/css'
 import MetaportCore, { createTokenData } from '../core/metaport'
 import { enforceNetwork } from '../core/network'
 import { ICONS_BASE_URL } from '../core/constants'
@@ -110,7 +109,7 @@ export default function AddToken(props: {
       disabled={loading}
       color="primary"
       size="medium"
-      className={cls(styles.btnAction, cmn.mtop10d)}
+      className="styles.btnAction, cmn.mtop10d"
       startIcon={<TollIcon />}
     >
       {loading ? 'Check wallet' : 'Add token'}

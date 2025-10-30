@@ -22,7 +22,7 @@
 
 import React, { useMemo } from 'react'
 import { Grid, Box } from '@mui/material'
-import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@skalenetwork/metaport'
 import AppCard from '../AppCardV2'
 import Carousel from '../../Carousel'
 import { type types } from '@/core'
@@ -73,8 +73,8 @@ const NewApps: React.FC<NewAppsProps> = ({
   if (newApps.length === 0) {
     return (
       <SkPaper gray className="titleSection">
-        <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, text-base, cmn.pSec, cmn.pCent)}>
+        <div className="cmn.mtop20, cmn.mbott20">
+          <p className=" text-base, cmn.pSec, cmn.pCent">
             🚫 No new apps match your current filters
           </p>
         </div>
@@ -86,7 +86,7 @@ const NewApps: React.FC<NewAppsProps> = ({
     <Grid container spacing={2}>
       {newApps.map((app) => (
         <Grid key={`${app.chain}-${app.appName}`} size={{ xs: 12, sm: 6, md: 4, lg: 4 }}>
-          <Box className={cls('fl-centered dappCard')}>{renderAppCard(app)}</Box>
+          <Box className="'fl-centered dappCard'">{renderAppCard(app)}</Box>
         </Grid>
       ))}
     </Grid>

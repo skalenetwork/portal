@@ -49,7 +49,7 @@ import {
   MINIMUM_RECHARGE_AMOUNT
 } from '../core/constants'
 
-import { cls, styles } from '../core/css'
+import { styles } from '../core/css'
 
 import { useCPStore } from '../store/CommunityPoolStore'
 import { useCollapseStore } from '../store/Store'
@@ -177,7 +177,7 @@ export default function CommunityPool() {
 
   if (!address) return null;
   return (
-    <div className={cls(['mt-2.5', !expandedCP])}>
+    <div className="['mt-2.5', !expandedCP]">
       <Accordion
         disabled={!!loading}
         expanded={expandedCP === 'panel1'}
@@ -207,7 +207,7 @@ export default function CommunityPool() {
               </p>
             ) : null}
             <Grid container rowSpacing={2} columnSpacing={1} className="mt-5">
-             <Grid size={{ xs: 12, md: 6 }}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <Tile
                   text="ETH Balance"
                   className={styles.inputAmount}
@@ -220,8 +220,8 @@ export default function CommunityPool() {
                       : ''
                   }
                 />
-                </Grid>
-             <Grid size={{ xs: 12, md: 6 }}>
+              </Grid>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <Tile
                   grow
                   text="Exit Wallet Balance"
@@ -233,14 +233,14 @@ export default function CommunityPool() {
                   }
                   icon={<AccountBalanceWallet />}
                 />
-                </Grid>
-                  <Grid size={{ xs: 12, md: 6 }}>
-                  <Tile
-                    grow
-                    text="Enter amount to recharge"
-                    className={styles.inputAmount}
-                    children={
-                    <div className={cls('flex items-center', 'amountInput')}>
+              </Grid>
+              <Grid size={{ xs: 12, md: 6 }}>
+                <Tile
+                  grow
+                  text="Enter amount to recharge"
+                  className={styles.inputAmount}
+                  children={
+                    <div className="'flex items-center', 'amountInput'">
                       <div className="flex-grow">
                         <TextField
                           inputProps={{ step: '0.1', lang: 'en-US' }}
@@ -258,21 +258,21 @@ export default function CommunityPool() {
                     </div>
                   }
                   icon={<TransitEnterexitRoundedIcon style={{ rotate: '315deg' }} />}
-                  
+
                 />
               </Grid>
               <Grid size={{ xs: 12, md: 6 }}>
                 <Tile
                   disabled={!!loading}
                   value={cpData.recommendedRechargeAmount !== undefined ? String(cpData.recommendedRechargeAmount) : ''}
-                  text="Recommended" 
+                  text="Recommended"
                   icon={<RecommendIcon />}
                   color={true ? undefined : 'error'}
                   grow
                   childrenRi={
                     <div className="flex items-center">
                       <Button
-                        className={cls('btnSm', 'outlined', 'ml-5 flex items-center')}
+                        className="'btnSm', 'outlined', 'ml-5 flex items-center'"
                         onClick={() => {
                           if (!cpData.recommendedRechargeAmount) return
                           setAmount(String(cpData.recommendedRechargeAmount))
@@ -280,7 +280,7 @@ export default function CommunityPool() {
                       >
                         Add
                       </Button>
-                    </div> 
+                    </div>
                   }
                 />
               </Grid>

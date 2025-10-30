@@ -68,33 +68,33 @@ export default function AppCard(props: {
     <SkPaper gray={gray} fullHeight className="sk-app-card">
       <Link to={url}>
         <div>
-          <div className={cls(cmn.flex)}>
+          <div className="cmn.flex">
             <Logo
               chainsMeta={props.chainsMeta}
               skaleNetwork={props.skaleNetwork}
               chainName={props.schainName}
               appName={props.appName}
             />
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
+            <div className="cmn.flex, cmn.flexg"></div>
             {props.schainName !== OFFCHAIN_APP && (
               <ChainIcon skaleNetwork={props.skaleNetwork} chainName={props.schainName} />
             )}
           </div>
         </div>
-        <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10)}>
-          <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri10)}>
+        <div className="cmn.flex, cmn.flexcv, cmn.mtop10">
+          <p className=" cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, mr-2.5">
             {metadata.getAlias(props.chainsMeta, props.schainName, props.appName)}
           </p>
-          <div className={cls(cmn.flex, cmn.flexcv)}>{visibleStatusChips}</div>
+          <div className="cmn.flex, cmn.flexcv">{visibleStatusChips}</div>
         </div>
         <CollapsibleDescription text={appDescription} />
-        <CategoriesChips categories={appMeta.categories} className={cls(cmn.mtop20)} />
+        <CategoriesChips categories={appMeta.categories} className="cmn.mtop20" />
       </Link>
       <SocialButtons
         social={appMeta.social}
         chainName={props.schainName}
         appName={props.appName}
-        className={cls(cmn.mtop20)}
+        className="cmn.mtop20"
       />
     </SkPaper>
   )

@@ -63,9 +63,9 @@ export default function TokenSurface(props: {
         <Tooltip title={copied ? 'Copied!' : 'Click to copy to clipboard'}>
           <ButtonBase className="titleSection" style={{ width: '100%' }}>
             <div style={{ textAlign: 'left', overflow: 'auto' }} className={cmn.flexg}>
-              <div className={cls(cmn.flex)}>
+              <div className="cmn.flex">
                 {props.tokenMetadata ? (
-                  <div className={cls(cmn.mri5)}>
+                  <div className="cmn.mri5">
                     <TokenIcon
                       size="xs"
                       tokenSymbol={props.tokenMetadata.symbol}
@@ -75,7 +75,7 @@ export default function TokenSurface(props: {
                 ) : null}
 
                 {props.chainName && props.skaleNetwork ? (
-                  <div className={cls(cmn.mri5)}>
+                  <div className="cmn.mri5">
                     <ChainIcon
                       size="xs"
                       skaleNetwork={props.skaleNetwork}
@@ -83,22 +83,22 @@ export default function TokenSurface(props: {
                     />
                   </div>
                 ) : null}
-                <p className={cls(cmn.p, text-xs, cmn.pSec, cmn.mbott5, 'shortP')}>
+                <p className=" text-xs, cmn.pSec, cmn.mbott5, 'shortP'">
                   {props.title}
                   {props.tokenMetadata
                     ? ` (${props.tokenMetadata.decimals ?? constants.DEFAULT_ERC20_DECIMALS})`
                     : null}
                 </p>
               </div>
-              <p className={cls(cmn.p, text-base, cmn.p600, 'shortP')}>{props.value}</p>
+              <p className=" text-base, cmn.p600, 'shortP'">{props.value}</p>
             </div>
             {copied ? (
               <CheckCircleRoundedIcon
                 color="success"
-                className={cls(cmn.mleft20, styles.chainIconxs)}
+                className="cmn.mleft20, styles.chainIconxs"
               />
             ) : (
-              <UnfoldMoreRoundedIcon className={cls(cmn.pSec, cmn.mleft20, styles.chainIconxs)} />
+              <UnfoldMoreRoundedIcon className="cmn.pSec, cmn.mleft20, styles.chainIconxs" />
             )}
           </ButtonBase>
         </Tooltip>

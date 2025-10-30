@@ -57,12 +57,12 @@ export default function PopularActions(props: {
 
   return (
     <div>
-      <div className={cls(cmn.ptop20, cmn.flex)}></div>
-      <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.p, cmn.p600, cmn.pSec)}>
-        <StarIcon color="primary" className={cls(cmn.mri10)} />
+      <div className="cmn.ptop20, cmn.flex"></div>
+      <div className="cmn.flex, cmn.flexcv, cmn.mbott10,  cmn.p600, cmn.pSec">
+        <StarIcon color="primary" className="mr-2.5" />
         Popular Actions
       </div>
-      <div className={cls(cmn.flex, cmn.flexRow, cmn.flexcv)}>
+      <div className="cmn.flex, cmn.flexRow, cmn.flexcv">
         <Grid container spacing={2}>
           {actions.map((action) => (
             <Grid size={{ xs: 12, md: 6 }}>
@@ -71,12 +71,12 @@ export default function PopularActions(props: {
                   chainMeta.apps?.[action.app].social?.website ||
                   `/ecosystem/${shortAlias}/${action.app}`
                 }
-                className={cls(cmn.flex, cmn.fullWidth)}
+                className="cmn.flex, cmn.fullWidth"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <SkPaper gray className={cls(cmn.fullWidth, 'hoverable')} key={action.text}>
-                  <div className={cls(cmn.flex, cmn.flexcv)}>
+                <SkPaper gray className="cmn.fullWidth, 'hoverable'" key={action.text}>
+                  <div className="cmn.flex, cmn.flexcv">
                     <Logo
                       chainsMeta={props.chainsMeta}
                       skaleNetwork={props.skaleNetwork}
@@ -86,17 +86,17 @@ export default function PopularActions(props: {
                     <div>
                       <div
                         className={cls(
-                          text-sm,
+                          text - sm,
                           'shortP',
                           cmn.p700,
                           cmn.pPrim,
                           cmn.mleft10,
-                          cmn.mri10
+                          mr - 2.5
                         )}
                       >
                         {action.text}
                       </div>
-                      <div className={cls(text-xs, cmn.pSec, cmn.mri10, cmn.mleft10)}>
+                      <div className="text-xs, cmn.pSec, mr-2.5, cmn.mleft10">
                         {getActionDescription(action)}
                       </div>
                     </div>

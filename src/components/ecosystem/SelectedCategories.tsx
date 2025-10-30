@@ -39,7 +39,7 @@ const CustomChipLabel: React.FC<{ category: string; subcategory?: string }> = ({
 }) => (
   <Box display="flex" alignItems="center">
     <p
-      className={cls([cmn.pSec, subcategory], [cmn.pPrim, !subcategory], cmn.p, text-sm, [
+      className={cls([cmn.pSec, subcategory], [cmn.pPrim, !subcategory], text - sm, [
         cmn.p600,
         !subcategory
       ])}
@@ -49,7 +49,7 @@ const CustomChipLabel: React.FC<{ category: string; subcategory?: string }> = ({
     {subcategory && (
       <>
         <Box component="span" className="borderLeft" sx={{ height: '1em', mx: 0.75 }} />
-        <p className={cls(cmn.pPrim, cmn.p, text-sm, cmn.p600)}>{subcategory}</p>
+        <p className="cmn.pPrim,  text-sm, cmn.p600">{subcategory}</p>
       </>
     )}
   </Box>
@@ -85,7 +85,7 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
   if (checkedItems.length === 0) return null
 
   return (
-    <Box className={cls(cmn.flex, cmn.flexcv, 'flex-w', cmn.mbottf10)}>
+    <Box className="cmn.flex, cmn.flexcv, 'flex-w', cmn.mbottf10">
       {checkedItems.map((item) => {
         const [category, subcategory] = item.split('_')
         return (
@@ -99,16 +99,16 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
               />
             }
             onDelete={() => handleDelete(item)}
-            deleteIcon={<CloseIcon className={cls(styles.chainIconxs)} />}
-            className={cls('outlined', cmn.p600)}
+            deleteIcon={<CloseIcon className="styles.chainIconxs" />}
+            className="'outlined', cmn.p600"
           />
         )
       })}
-      <p className={cls(cmn.p, text-xs, cmn.pPrim, cmn.mleft10, cmn.mri10)}>
+      <p className=" text-xs, cmn.pPrim, cmn.mleft10, mr-2.5">
         {filteredAppsCount} project{filteredAppsCount !== 1 ? 's' : ''}
       </p>
       <p
-        className={cls(cmn.p, text-xs00, text-xs, cmn.nop, cmn.nom, cmn.pSec, cmn.mleft20)}
+        className=" text-xs00, text-xs, cmn.nop, cmn.nom, cmn.pSec, cmn.mleft20"
         style={{ cursor: 'pointer' }}
         onClick={clearAll}
       >

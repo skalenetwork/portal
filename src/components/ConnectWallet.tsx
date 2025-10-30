@@ -46,31 +46,31 @@ export default function ConnectWallet(props: {
   if (isSignedIn) return null
 
   return (
-    <div className={cls(props.className)}>
-      <SkPaper gray={!props.tile} className={cls(['titleSection', props.tile])}>
-        <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, text-sm, 'pSec', cmn.pCent)}>
+    <div className="props.className">
+      <SkPaper gray={!props.tile} className="['titleSection', props.tile]">
+        <div className="cmn.mtop20, cmn.mbott20">
+          <p className=" text-sm, 'pSec', cmn.pCent">
             {props.customText ?? 'Connect your wallet to continue'}
           </p>
-          <div className={cls(cmn.flex)}>
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
-            <div className={cls(cmn.flex)}>
+          <div className="cmn.flex">
+            <div className="cmn.flex, cmn.flexg"></div>
+            <div className="cmn.flex">
               <RainbowConnectButton.Custom>
                 {({ openConnectModal }) => {
                   return (
                     <Button
                       onClick={() => handleButtonClick(openConnectModal)}
                       variant="contained"
-                      className={cls(cmn.pCent, cmn.mtop10, cmn.flex, 'btn')}
+                      className="cmn.pCent, cmn.mtop10, cmn.flex, 'btn'"
                     >
-                      <LooksRoundedIcon className={cls(cmn.mri10)} />
+                      <LooksRoundedIcon className="mr-2.5" />
                       {address ? 'Sign in' : 'Connect Wallet'}
                     </Button>
                   )
                 }}
               </RainbowConnectButton.Custom>
             </div>
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
+            <div className="cmn.flex, cmn.flexg"></div>
           </div>
         </div>
       </SkPaper>

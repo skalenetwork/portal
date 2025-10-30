@@ -151,13 +151,13 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
   }
 
   return (
-    <div className={cls(['fullW', isXs])}>
+    <div className="['fullW', isXs]">
       <Button
         variant="text"
         ref={buttonRef}
         onClick={handleMenuOpen}
         startIcon={<ManageSearchRoundedIcon />}
-        className={cls('outlined', 'skMenuBtn', 'btn', cmn.pPrim, ['fullW', isXs])}
+        className="'outlined', 'skMenuBtn', 'btn', cmn.pPrim, ['fullW', isXs]"
         style={{ background: 'transparent' }}
       >
         Browse by categories
@@ -176,14 +176,14 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
           }
         }}
       >
-        <div className={cls(cmn.padd10)}>
+        <div className="cmn.padd10">
           {isXs && (
-            <Button className={cls('btn fullW outlined', cmn.mbott10)} onClick={handleMenuClose}>
+            <Button className="'btn fullW outlined', cmn.mbott10" onClick={handleMenuClose}>
               Close
             </Button>
           )}
           <SearchBar
-            className={cls(cmn.mbott10)}
+            className="cmn.mbott10"
             searchTerm={searchTerm}
             onSearchChange={handleSearch}
             onClear={handleClearSearch}
@@ -197,7 +197,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
                 index !== filteredCategories.length - 1 && 'divider'
               )}
             >
-              <div className={cls(cmn.flex, cmn.flexcv)}>
+              <div className="cmn.flex, cmn.flexcv">
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -206,11 +206,11 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
                     />
                   }
                   label={
-                    <span className={cls(cmn.p, text-sm, cmn.p600)}>
+                    <span className=" text-sm, cmn.p600">
                       {highlightMatch(data.name, searchTerm)}
                     </span>
                   }
-                  className={cls(cmn.flexg)}
+                  className="cmn.flexg"
                 />
                 {getSelectedSubcategoriesCount(shortName) > 0 && (
                   <FiberManualRecordIcon color="primary" style={{ fontSize: '8pt' }} />

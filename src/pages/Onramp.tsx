@@ -26,8 +26,6 @@ import { Helmet } from 'react-helmet'
 
 import { constants } from '@/core'
 import {
-  cmn,
-  cls,
   SkPaper,
   MetaportCore,
   useWagmiAccount,
@@ -141,8 +139,8 @@ export default function Onramp(props: { mpc: MetaportCore }) {
       <Stack spacing={0}>
         <div className="flex items-center">
           <div className="flex-grow">
-            <h2 className={cls(cmn.nom)}>On-ramp</h2>
-            <p className={cls(cmn.nom, cmn.p, 'text-sm', cmn.pSec)}>
+            <h2 className="m-0">On-ramp</h2>
+            <p className="cmn.nom, 'text-sm', cmn.pSec">
               Transfer your assets to SKALE Europa Hub
             </p>
           </div>
@@ -160,7 +158,7 @@ export default function Onramp(props: { mpc: MetaportCore }) {
         )}
         {address ? (
           <SkPaper gray className="mt-5">
-            <div id="transakMount" className={cls('transakFrame', 'mt-1.25')}></div>
+            <div id="transakMount" className="'transakFrame', 'mt-1.25'"></div>
             <TokenBalanceTile mpc={props.mpc} chain={chain} />
           </SkPaper>
         ) : (

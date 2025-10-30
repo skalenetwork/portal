@@ -36,8 +36,8 @@ const Chip: React.FC<{
       ])}
       onClick={onClick}
     >
-      {icon && <div className={cls(cmn.mri5, cmn.flex)}>{icon}</div>}
-      <p className={cls(cmn.p, text-xs)} style={{ whiteSpace: 'nowrap' }}>
+      {icon && <div className="cmn.mri5, cmn.flex">{icon}</div>}
+      <p className=" text-xs" style={{ whiteSpace: 'nowrap' }}>
         {label}
       </p>
     </div>
@@ -48,25 +48,25 @@ export const ChipTrending: React.FC<{ trending?: number }> = ({ trending }) => {
   return (
     <Chip
       label={trending ? `#${trending} on Trending` : 'Trending'}
-      className={cls(cmn.mleft5, 'chipTrending', 'chipXs')}
+      className="cmn.mleft5, 'chipTrending', 'chipXs'"
     />
   )
 }
 
-export const ChipMostLiked: React.FC<{}> = ({}) => {
-  return <Chip label="Most Liked" className={cls(cmn.mleft5, 'chipMostLiked', 'chipXs')} />
+export const ChipMostLiked: React.FC<{}> = ({ }) => {
+  return <Chip label="Most Liked" className="cmn.mleft5, 'chipMostLiked', 'chipXs'" />
 }
 
-export const ChipNew: React.FC<{}> = ({}) => {
-  return <Chip label="NEW" className={cls(cmn.mleft5, 'chipNewApp', 'chipXs')} />
+export const ChipNew: React.FC<{}> = ({ }) => {
+  return <Chip label="NEW" className="cmn.mleft5, 'chipNewApp', 'chipXs'" />
 }
 
-export const ChipFeatured: React.FC<{}> = ({}) => {
-  return <Chip label="Featured" className={cls(cmn.mleft5, 'chipFeatured', 'chipXs')} />
+export const ChipFeatured: React.FC<{}> = ({ }) => {
+  return <Chip label="Featured" className="cmn.mleft5, 'chipFeatured', 'chipXs'" />
 }
 
-export const ChipPreTge: React.FC<{}> = ({}) => {
-  return <Chip label="Pre-TGE" className={cls(cmn.mleft5, 'chipPreTge', 'chipXs')} />
+export const ChipPreTge: React.FC<{}> = ({ }) => {
+  return <Chip label="Pre-TGE" className="cmn.mleft5, 'chipPreTge', 'chipXs'" />
 }
 
 export default Chip

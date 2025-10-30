@@ -37,16 +37,16 @@ export default function AccordionLink(props: {
 }) {
   return (
     <div className={props.className}>
-      <Link to={props.url} className={cls(cmn.pPrim)}>
-        <ButtonBase className={cls(cmn.fullWidth, cmn.flex, cmn.pleft, cmn.bordRad)}>
-          <div className={cls(cmn.m10, cmn.flex, cmn.flexg, cmn.flexcv)}>
+      <Link to={props.url} className="cmn.pPrim">
+        <ButtonBase className="cmn.fullWidth, cmn.flex, cmn.pleft, cmn.bordRad">
+          <div className="cmn.m10, cmn.flex, cmn.flexg, cmn.flexcv">
             {props.icon ? (
-              <div className={cls(cmn.mri10, cmn.flexcv, cmn.flex, styles.chainIconxs, cmn.pSec)}>
+              <div className="mr-2.5, cmn.flexcv, cmn.flex, styles.chainIconxs, cmn.pSec">
                 {props.icon}
               </div>
             ) : null}
-            <p className={cls(cmn.p, text-base, cmn.p700, cmn.flexg)}>{props.title}</p>
-            <AddCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
+            <p className=" text-base, cmn.p700, cmn.flexg">{props.title}</p>
+            <AddCircleRoundedIcon className="cmn.mri5, styles.chainIconxs, cmn.pSec" />
           </div>
         </ButtonBase>
       </Link>

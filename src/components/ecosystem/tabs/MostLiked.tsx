@@ -55,7 +55,7 @@ const MostLikedApps: React.FC<MostLikedAppsProps> = ({
   const renderAppCard = (app: types.AppWithChainAndName) => {
     const isNew = isNewApp({ chain: app.chain, app: app.appName }, newApps)
     return (
-      <Box key={`${app.chain}-${app.appName}`} className={cls('fl-centered dappCard')}>
+      <Box key={`${app.chain}-${app.appName}`} className="'fl-centered dappCard'">
         <AppCard
           skaleNetwork={skaleNetwork}
           schainName={app.chain}
@@ -72,8 +72,8 @@ const MostLikedApps: React.FC<MostLikedAppsProps> = ({
   if (apps.length === 0) {
     return (
       <SkPaper gray className="titleSection">
-        <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, text-base, cmn.pSec, cmn.pCent)}>
+        <div className="cmn.mtop20, cmn.mbott20">
+          <p className=" text-base, cmn.pSec, cmn.pCent">
             🚫 No trending apps match your current filters
           </p>
         </div>

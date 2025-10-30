@@ -69,12 +69,12 @@ export default function VerifiedContracts(props: {
   }
 
   return (
-    <SkPaper gray className={cls(cmn.mtop20)}>
-      <Grid container spacing={2} className={cls(cmn.full)}>
+    <SkPaper gray className="cmn.mtop20">
+      <Grid container spacing={2} className="cmn.full">
         {contracts.map((contract: any, index: number) => (
           <Grid key={index} size={{ xs: 12, sm: 6, md: 6, lg: 6 }}>
             <LinkSurface
-              className={cls(styles.fullHeight)}
+              className="styles.fullHeight"
               title={contract.ContractName}
               value={contract.Address}
               url={explorer.addressUrl(props.explorerUrl, contract.Address)}
@@ -85,8 +85,8 @@ export default function VerifiedContracts(props: {
       {!loading && contracts.length === 0 ? (
         <p
           className={cls(
-            cmn.p,
-            text-base,
+
+            text - base,
             cmn.p700,
             cmn.pSec,
             cmn.fullWidth,
@@ -107,7 +107,7 @@ export default function VerifiedContracts(props: {
           }}
           color="primary"
           size="small"
-          className={cls(styles.btnAction, cmn.mtop20)}
+          className="styles.btnAction, cmn.mtop20"
           startIcon={loading ? <HourglassBottomRoundedIcon /> : <ExpandCircleDownRoundedIcon />}
           disabled={loading}
         >

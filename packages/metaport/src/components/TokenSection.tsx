@@ -36,10 +36,10 @@ interface TokenSectionProps {
 
 export default function TokenSection({ text, icon, tokens, onTokenClick }: TokenSectionProps) {
   return (
-    <div className={cls(cmn.mtop20)}>
-      <div className={cls(cmn.flex, cmn.flexcv, cmn.flexg, cmn.pSec, cmn.mleft10, cmn.mbott5)}>
-        <div className={cls(cmn.flexcv, cmn.flex, cmn.mri10)}>{icon}</div>
-        <p className={cls(cmn.p, text-sm, cmn.p600, cmn.flexg, cmn.cap)}>{text}</p>
+    <div className="cmn.mtop20">
+      <div className="cmn.flex, cmn.flexcv, cmn.flexg, cmn.pSec, cmn.mleft10, cmn.mbott5">
+        <div className="cmn.flexcv, cmn.flex, mr-2.5">{icon}</div>
+        <p className=" text-sm, cmn.p600, cmn.flexg, cmn.cap">{text}</p>
       </div>
       {tokens
         .sort((a, b) => a.key.localeCompare(b.key))
@@ -48,7 +48,7 @@ export default function TokenSection({ text, icon, tokens, onTokenClick }: Token
             key={key}
             color="secondary"
             size="small"
-            className={cls(cmn.fullWidth, cmn.pleft10, cmn.ptop5, cmn.pbott5)}
+            className="cmn.fullWidth, cmn.pleft10, cmn.ptop5, cmn.pbott5"
             onClick={() => onTokenClick(tokenData)}
           >
             <div
@@ -61,36 +61,36 @@ export default function TokenSection({ text, icon, tokens, onTokenClick }: Token
                 cmn.bordRad
               )}
             >
-              <div className={cls(cmn.flex, cmn.flexc)}>
+              <div className="cmn.flex, cmn.flexc">
                 <TokenIcon tokenSymbol={tokenData?.meta.symbol} iconUrl={tokenData?.meta.iconUrl} />
               </div>
-              <div className={cls(cmn.flexg)}>
+              <div className="cmn.flexg">
                 <p
                   className={cls(
-                    cmn.p,
-                    text-sm,
+
+                    text - sm,
                     cmn.p600,
                     cmn.pPrim,
                     cmn.flex,
-                    cmn.mri10,
+                    mr - 2.5,
                     cmn.mleft10
                   )}
                 >
                   {getTokenName(tokenData)}
                 </p>
                 {tokenData.address ? (
-                  <p className={cls(cmn.p, text-xs, cmn.pSec, text-xs00, cmn.flex, cmn.mleft10)}>
+                  <p className=" text-xs, cmn.pSec, text-xs00, cmn.flex, cmn.mleft10">
                     {tokenData.address.substring(0, 5) +
                       '...' +
                       tokenData.address.substring(tokenData.address.length - 3)}
                   </p>
                 ) : (
-                  <p className={cls(cmn.p, text-xs, cmn.pSec, text-xs00, cmn.flex, cmn.mleft10)}>
+                  <p className=" text-xs, cmn.pSec, text-xs00, cmn.flex, cmn.mleft10">
                     Ethereum
                   </p>
                 )}
               </div>
-              <div className={cmn.mri10}>
+              <div className={mr - 2.5}>
                 <TokenBalance
                   balance={balance}
                   symbol={tokenData?.meta.symbol}

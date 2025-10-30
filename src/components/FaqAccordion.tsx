@@ -35,7 +35,7 @@ export default function FaqAccordion() {
   }
 
   return (
-    <SkPaper gray className={cls(cmn.mtop20, cmn.mbott20)}>
+    <SkPaper gray className="cmn.mtop20, cmn.mbott20">
       {FAQ.map((question: any, index: number) => (
         <AccordionSection
           handleChange={handleChange}
@@ -43,7 +43,7 @@ export default function FaqAccordion() {
           panel={`panel${index}`}
           title={question.question}
         >
-          <p className={cls(cmn.p, text-base, cmn.pSec, cmn.mleft10, cmn.mri10)}>{question.answer}</p>
+          <p className=" text-base, cmn.pSec, cmn.mleft10, mr-2.5">{question.answer}</p>
         </AccordionSection>
       ))}
     </SkPaper>

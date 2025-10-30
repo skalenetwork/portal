@@ -44,11 +44,11 @@ const SubcategoryList: React.FC<SubcategoryListProps> = ({
   onCheck,
   searchTerm
 }) => (
-  <div className={cls(cmn.mleft20, cmn.fullWidth, cmn.mtop5)}>
+  <div className="cmn.mleft20, cmn.fullWidth, cmn.mtop5">
     {Object.entries(subcategories).map(([shortName, subcategory]) => (
       <div
         key={`${category}_${shortName}`}
-        className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.mbott5)}
+        className="cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.mbott5"
       >
         <FormControlLabel
           control={
@@ -60,7 +60,7 @@ const SubcategoryList: React.FC<SubcategoryListProps> = ({
             />
           }
           label={
-            <span className={cls(cmn.p, text-sm, text-xs00)}>
+            <span className=" text-sm, text-xs00">
               {highlightMatch(subcategory.name, searchTerm)}
             </span>
           }

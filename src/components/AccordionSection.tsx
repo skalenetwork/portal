@@ -57,30 +57,30 @@ export default function AccordionSection(props: {
   const panel = props.panel ?? 'panel1'
 
   return (
-    <div className={cls(props.className)}>
+    <div className="props.className">
       <ButtonBase
         onClick={() => {
           handleChange(panel)
         }}
-        className={cls(cmn.fullWidth, cmn.flex, cmn.pleft, cmn.bordRad)}
+        className="cmn.fullWidth, cmn.flex, cmn.pleft, cmn.bordRad"
       >
-        <div className={cls(cmn.m10, cmn.flex, cmn.flexg, cmn.flexcv)}>
+        <div className="cmn.m10, cmn.flex, cmn.flexg, cmn.flexcv">
           {props.icon ? (
-            <div className={cls(cmn.mri10, cmn.flexcv, cmn.flex, styles.chainIconxs, cmn.pSec)}>
+            <div className="mr-2.5, cmn.flexcv, cmn.flex, styles.chainIconxs, cmn.pSec">
               {props.icon}
             </div>
           ) : null}
-          <p className={cls(cmn.p, text-base, cmn.p700, cmn.flexg)}>{props.title}</p>
-          <p className={cls(cmn.p, text-xs, cmn.p600, cmn.pSec, cmn.mri20)}>{props.subtitle}</p>
+          <p className=" text-base, cmn.p700, cmn.flexg">{props.title}</p>
+          <p className=" text-xs, cmn.p600, cmn.pSec, cmn.mri20">{props.subtitle}</p>
           {expanded === panel ? (
-            <RemoveCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
+            <RemoveCircleRoundedIcon className="cmn.mri5, styles.chainIconxs, cmn.pSec" />
           ) : (
-            <AddCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
+            <AddCircleRoundedIcon className="cmn.mri5, styles.chainIconxs, cmn.pSec" />
           )}
         </div>
       </ButtonBase>
       <Collapse in={expanded === panel}>
-        <div className={cls([cmn.mtop10, marg], [cmn.mbott10, marg])}>{props.children}</div>
+        <div className="[cmn.mtop10, marg], [cmn.mbott10, marg]">{props.children}</div>
       </Collapse>
     </div>
   )

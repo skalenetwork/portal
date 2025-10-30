@@ -45,12 +45,12 @@ export default function History(props: { size?: types.Size }) {
   return (
     <div>
       {transactionsHistory.length !== 0 ? (
-        <SkPaper gray className={cls(cmn.nop)}>
+        <SkPaper gray className="cmn.nop">
           <p
             className={cls(
               cmn.p,
-              [text-sm, size == 'sm'],
-              [text-base, size == 'md'],
+              [text - sm, size == 'sm'],
+              [text - base, size == 'md'],
               cmn.p600,
               cmn.pPrim,
               [cmn.ptop15, size === 'sm'],
@@ -119,7 +119,7 @@ export default function History(props: { size?: types.Size }) {
                       [cmn.mleft5, size === 'sm'],
                       [cmn.mleft10, size === 'md'],
                       [cmn.mri5, size === 'sm'],
-                      [cmn.mri10, size === 'md'],
+                      [mr - 2.5, size === 'md'],
                       styles.chainIconxs
                     )}
                   />
@@ -130,7 +130,7 @@ export default function History(props: { size?: types.Size }) {
                     decIcon
                   />
                 </div>
-                <div className={cls(cmn.flexg)}></div>
+                <div className="cmn.flexg"></div>
 
                 <div
                   className={cls(
@@ -141,7 +141,7 @@ export default function History(props: { size?: types.Size }) {
                     cmn.mri20
                   )}
                 >
-                  <div className={cls(cmn.flex, cmn.flexcv)}>
+                  <div className="cmn.flex, cmn.flexcv">
                     <TokenIcon
                       tokenSymbol={transfer.tokenKeyname}
                       size={size == 'sm' ? 'xs' : 'sm'}
@@ -149,9 +149,9 @@ export default function History(props: { size?: types.Size }) {
                   </div>
                   <p
                     className={cls(
-                      cmn.p,
-                      [text-sm, size == 'sm'],
-                      [text-base, size == 'md'],
+
+                      [text - sm, size == 'sm'],
+                      [text - base, size == 'md'],
                       cmn.p600,
                       cmn.cap,
                       cmn.pPrim,
@@ -163,9 +163,9 @@ export default function History(props: { size?: types.Size }) {
                   </p>
                   <p
                     className={cls(
-                      cmn.p,
-                      [text-sm, size === 'sm'],
-                      [text-base, size === 'md'],
+
+                      [text - sm, size === 'sm'],
+                      [text - base, size === 'md'],
                       cmn.p600,
                       cmn.cap,
                       cmn.pPrim,
@@ -175,8 +175,8 @@ export default function History(props: { size?: types.Size }) {
                   >
                     {transfer.address !== undefined
                       ? `• ${transfer.address.substring(0, 6)}...${transfer.address.substring(
-                          transfer.address.length - 4
-                        )}`
+                        transfer.address.length - 4
+                      )}`
                       : '• UNFINISHED'}
                   </p>
                 </div>

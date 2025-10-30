@@ -34,21 +34,21 @@ export default function DelegationTypeSelect(props: {
   return (
     <div className="sk-select">
       <NativeSelect
-        className={cls(cmn.p, text-xs, 'titleBadge')}
+        className=" text-xs, 'titleBadge'"
         defaultValue={30}
         value={props.delegationType}
         onChange={props.handleChange}
       >
-        <option value={types.st.DelegationType.REGULAR} className={cls(cmn.p, text-xs)}>
+        <option value={types.st.DelegationType.REGULAR} className=" text-xs">
           Regular delegation
         </option>
         {isDelegationTypeAvailable(props.si, types.st.DelegationType.ESCROW) ? (
-          <option value={types.st.DelegationType.ESCROW} className={cls(cmn.p, text-xs)}>
+          <option value={types.st.DelegationType.ESCROW} className=" text-xs">
             Escrow delegation
           </option>
         ) : null}
         {isDelegationTypeAvailable(props.si, types.st.DelegationType.ESCROW2) ? (
-          <option value={types.st.DelegationType.ESCROW2} className={cls(cmn.p, text-xs)}>
+          <option value={types.st.DelegationType.ESCROW2} className=" text-xs">
             Grant delegation
           </option>
         ) : null}

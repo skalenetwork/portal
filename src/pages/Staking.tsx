@@ -26,7 +26,7 @@ import { Helmet } from 'react-helmet'
 import { Link } from 'react-router-dom'
 import { type Signer, isAddress } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
-import { cmn, cls, styles, SkPaper, contracts, type MetaportCore } from '@skalenetwork/metaport'
+import { SkPaper, contracts, type MetaportCore } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
@@ -166,7 +166,7 @@ export default function Staking(props: {
       <Stack spacing={0}>
         <div className="flex items-center">
           <div className="flex-grow">
-            <h2 className={cls(cmn.nom)}>Staking</h2>
+            <h2 className="m-0">Staking</h2>
             <p className="text-sm text-sec">
               {props.isXs
                 ? 'Manage your delegations'
@@ -236,7 +236,7 @@ export default function Staking(props: {
         <Collapse in={props.address === undefined}>
           <Headline
             text="Account info"
-            icon={<AccountCircleRoundedIcon className={cls(styles.chainIconxs)} />}
+            icon={<AccountCircleRoundedIcon className="styles.chainIconxs" />}
             size="small"
           />
           <ConnectWallet tile className="flex-grow mt-2.5" />
@@ -293,12 +293,12 @@ export default function Staking(props: {
         <Collapse in={props.address === undefined}>
           <Headline
             text="Delegations"
-            icon={<AllInboxRoundedIcon className={cls(styles.chainIconxs)} />}
+            icon={<AllInboxRoundedIcon className="styles.chainIconxs" />}
             size="small"
           />
           <div className="mt-5">
-            <PieChartRoundedIcon className={cls(cmn.pSec, styles.chainIconmd, 'w-full')} />
-            <h5 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.pCent, cmn.mtop5, cmn.mbott20)}>
+            <PieChartRoundedIcon className="cmn.pSec, styles.chainIconmd, 'w-full'" />
+            <h5 className="cmn.p600, cmn.pSec, cmn.pCent, cmn.mtop5, cmn.mbott20">
               Connect your wallet to view delegations
             </h5>
           </div>

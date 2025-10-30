@@ -22,7 +22,7 @@
  */
 
 import React, { useRef, useEffect } from 'react'
-import { cls, cmn, styles, Tile } from '@skalenetwork/metaport'
+import {Tile } from '@skalenetwork/metaport'
 import { TextField, Button } from '@mui/material'
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded'
 
@@ -48,8 +48,7 @@ const EmailSection: React.FC<EmailSectionProps> = ({
   setNewEmail,
   handleStartEditing,
   handleUpdateEmail,
-  handleCancelEditing,
-  className
+  handleCancelEditing
 }) => {
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -62,7 +61,7 @@ const EmailSection: React.FC<EmailSectionProps> = ({
   return (
     <Tile
       text="Email Address"
-      className={cls(styles.inputAmount, className)}
+      className="styles.inputAmount, className"
       icon={<EmailRoundedIcon />}
       value={!isEditing ? (email ?? 'Not set') : undefined}
       children={
@@ -80,10 +79,10 @@ const EmailSection: React.FC<EmailSectionProps> = ({
       }
       childrenRi={
         isEditing ? (
-          <div className={cls(cmn.flex, cmn.flexcv)}>
+          <div className="cmn.flex, cmn.flexcv">
             <Button
               variant="contained"
-              className={cls('btnSm')}
+              className="'btnSm'"
               onClick={handleUpdateEmail}
               disabled={isEmailUpdating}
             >
@@ -91,7 +90,7 @@ const EmailSection: React.FC<EmailSectionProps> = ({
             </Button>
             <Button
               variant="text"
-              className={cls('btnSm', 'filled', cmn.mleft5)}
+              className="'btnSm', 'filled', cmn.mleft5"
               onClick={handleCancelEditing}
             >
               Cancel
@@ -101,7 +100,7 @@ const EmailSection: React.FC<EmailSectionProps> = ({
           email && (
             <Button
               variant="text"
-              className={cls('btnSm', 'filled')}
+              className="'btnSm', 'filled'"
               onClick={handleStartEditing}
               disabled={isEmailLoading || isEmailUpdating}
             >

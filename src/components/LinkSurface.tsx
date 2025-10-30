@@ -36,16 +36,16 @@ export default function LinkSurface(props: {
   if (!props.value) return
   return (
     <div className={props.className}>
-      <a target="_blank" rel="noreferrer" href={props.url} className={cls('undec', cmn.pPrim)}>
+      <a target="_blank" rel="noreferrer" href={props.url} className="'undec', cmn.pPrim">
         <Tooltip title={'Click to see contract'}>
           <ButtonBase className="titleSection" style={{ width: '100%' }}>
             <div style={{ textAlign: 'left', overflow: 'auto' }} className={cmn.flexg}>
-              <div className={cls(cmn.flex)}>
-                <p className={cls(cmn.p, cmn.pPrim, text-xs, cmn.pSec, cmn.mbott5)}>{props.title}</p>
+              <div className="cmn.flex">
+                <p className=" cmn.pPrim, text-xs, cmn.pSec, cmn.mbott5">{props.title}</p>
               </div>
-              <p className={cls(cmn.p, text-base, cmn.p600, 'shortP')}>{props.value}</p>
+              <p className=" text-base, cmn.p600, 'shortP'">{props.value}</p>
             </div>
-            <ArrowOutwardRoundedIcon className={cls(cmn.pSec, cmn.mleft20, styles.chainIconxs)} />
+            <ArrowOutwardRoundedIcon className="cmn.pSec, cmn.mleft20, styles.chainIconxs" />
           </ButtonBase>
         </Tooltip>
       </a>

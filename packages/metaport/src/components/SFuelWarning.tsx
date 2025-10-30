@@ -39,7 +39,6 @@ import { isFaucetAvailable } from '../core/faucet'
 import { useMetaportStore } from '../store/MetaportStore'
 import { useSFuelStore } from '../store/SFuelStore'
 
-import { cls, cmn, styles } from '../core/css'
 
 const log = new Logger<ILogObj>({ name: 'metaport:components:SFuel' })
 
@@ -193,7 +192,7 @@ export default function SFuelWarning(props: {}) {
 
   return (
     <Collapse in={!loading && !isOk}>
-      <div className={cls(cmn.mtop20, cmn.mbott5)}>
+      <div className="cmn.mtop20, cmn.mbott5">
         <p className="flex text-sm cmn.pPrim cmn.flexGrow ml-2.5">
           ⛽ {getSFuelText()}
         </p>
@@ -211,7 +210,7 @@ export default function SFuelWarning(props: {}) {
                 startIcon={<ArrowOutwardRoundedIcon />}
                 size="small"
                 variant="contained"
-                className={cls(styles.btnAction, cmn.mtop10)}
+                className="styles.btnAction, cmn.mtop10"
               >
                 Getting sFUEL...
               </Button>
@@ -220,7 +219,7 @@ export default function SFuelWarning(props: {}) {
                 variant="contained"
                 color="primary"
                 size="medium"
-                className={cls(styles.btnAction, cmn.mtop10)}
+                className="styles.btnAction, cmn.mtop10"
                 onClick={doPoW}
               >
                 Get sFUEL

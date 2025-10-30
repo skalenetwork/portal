@@ -49,7 +49,7 @@ export default function ErrorTile(props: {
                 if (props.setErrorMsg === undefined) return
                 props.setErrorMsg(undefined)
               }}
-              className={cls('blackP', cmn.p, text-xs, cmn.mtop10)}
+              className="'blackP',  text-xs, cmn.mtop10"
               style={{ background: 'rgba(0, 0, 0, 0.3)' }}
             >
               Close

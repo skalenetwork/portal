@@ -61,15 +61,15 @@ export default function Reward(props: {
 
   const minimizeBtn = (
     <div
-      className={cls(cmn.mleft20, styles.chainIconxs, 'pointer')}
+      className="cmn.mleft20, styles.chainIconxs, 'pointer'"
       onClick={() => {
         props.setOpen(!props.open)
       }}
     >
       {props.open ? (
-        <RemoveCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
+        <RemoveCircleRoundedIcon className="cmn.mri5, styles.chainIconxs, cmn.pSec" />
       ) : (
-        <AddCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
+        <AddCircleRoundedIcon className="cmn.mri5, styles.chainIconxs, cmn.pSec" />
       )}
     </div>
   )
@@ -89,40 +89,40 @@ export default function Reward(props: {
 
   return (
     <div>
-      <div className={cls(cmn.mbott10, 'titleSection')}>
+      <div className="cmn.mbott10, 'titleSection'">
         <Grid container spacing={0} alignItems="center">
           <Grid size={{ xs: 12, md: 4 }}>
-            <div className={cls(cmn.flex, cmn.flexcv)}>
+            <div className="cmn.flex, cmn.flexcv">
               <ValidatorLogo validatorId={validator.id} size="lg" />
-              <div className={cls(cmn.mleft10, [cmn.flexg, props.isXs])}>
-                <h4 className={cls(cmn.p, cmn.p700, 'pOneLine')}>{validator.name}</h4>
-                <p className={cls(cmn.p, text-xs, cmn.pSec)}>Validator ID: {Number(validator.id)}</p>
+              <div className="cmn.mleft10, [cmn.flexg, props.isXs]">
+                <h4 className=" cmn.p700, 'pOneLine'">{validator.name}</h4>
+                <p className=" text-xs, cmn.pSec">Validator ID: {Number(validator.id)}</p>
               </div>
               {props.isXs ? minimizeBtn : null}
             </div>
           </Grid>
-          <Grid size={{ xs: 12, md: 8 }} className={cls([cmn.mtop20, props.isXs])}>
-            <div className={cls(cmn.flex, cmn.flexcv)}>
-              <div className={cls([cmn.flexg, !props.isXs])}></div>
+          <Grid size={{ xs: 12, md: 8 }} className="[cmn.mtop20, props.isXs]">
+            <div className="cmn.flex, cmn.flexcv">
+              <div className="[cmn.flexg, !props.isXs]"></div>
               {!props.isXs && !props.open ? (
-                <div className={cls([cmn.pri, !props.isXs], cmn.flex)}>
+                <div className="[cmn.pri, !props.isXs], cmn.flex">
                   <div>
-                    <p className={cls(cmn.p, text-xs, cmn.pSec)}>Total staked</p>
-                     <Tooltip
+                    <p className=" text-xs, cmn.pSec">Total staked</p>
+                    <Tooltip
                       arrow
                       title={
                         props.sklPrice !== undefined && props.delegationsToValidator.staked !== undefined
                           ? units.displaySklValueUsd(
-                              props.delegationsToValidator.staked,
-                              props.sklPrice
-                            )
+                            props.delegationsToValidator.staked,
+                            props.sklPrice
+                          )
                           : ''
                       }
                     >
-                      <h3 className={cls(cmn.p, cmn.p700)}>{totalStakedAmount}</h3>
+                      <h3 className=" cmn.p700">{totalStakedAmount}</h3>
                     </Tooltip>
                   </div>
-                  <div className={cls('borderVert', cmn.mleft10)}></div>
+                  <div className="'borderVert', cmn.mleft10"></div>
                 </div>
               ) : null}
               <div
@@ -133,28 +133,28 @@ export default function Reward(props: {
                   [cmn.mleft10, !props.isXs]
                 )}
               >
-                <p className={cls(cmn.p, text-xs, cmn.pSec)}>Rewards available</p>
+                <p className=" text-xs, cmn.pSec">Rewards available</p>
                 <Tooltip
                   arrow
                   title={
                     props.sklPrice
                       ? units.displaySklValueUsd(
-                          props.delegationsToValidator.rewards,
-                          props.sklPrice
-                        )
+                        props.delegationsToValidator.rewards,
+                        props.sklPrice
+                      )
                       : ''
                   }
                 >
-                  <h3 className={cls(cmn.p, cmn.p700)}>{rewardsAmount}</h3>
+                  <h3 className=" cmn.p700">{rewardsAmount}</h3>
                 </Tooltip>
               </div>
-              <div className={cls(cmn.flex, cmn.flexcv)}>
+              <div className="cmn.flex, cmn.flexcv">
                 {loading ? (
                   <Button
                     disabled
                     size="small"
                     variant="contained"
-                    className={cls('btnSm btnSmLoading')}
+                    className="'btnSm btnSmLoading'"
                   >
                     Retrieving
                   </Button>
