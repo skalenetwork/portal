@@ -2,7 +2,7 @@ import { type types } from '@/core'
 
 export const METAPORT_CONFIG: types.mp.Config = {
   skaleNetwork: "base-sepolia-testnet",
-  mainnetEndpoint: 'https://base-rpc.publicnode.com',
+  mainnetEndpoint: 'https://base-sepolia-rpc.publicnode.com/',
   openOnLoad: true,
   openButton: true,
   debug: false,
@@ -38,17 +38,20 @@ export const METAPORT_CONFIG: types.mp.Config = {
     weth: {
       decimals: 18,
       symbol: 'WETH',
-      name: 'Wrapped Ether'
+      name: 'Wrapped Ether',
+      iconUrl: 'https://assets.coingecko.com/coins/images/2518/standard/weth.png?1696503332'
     },
-    nativetesttoken: {
+    ntest: {
       decimals: 18,
       symbol: 'NTEST',
-      name: 'Native Test Token'
+      name: 'Native Test Token',
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png'
     },
     axiosusd: {
       decimals: 6,
       symbol: 'AxiosUSD',
-      name: 'Axios USD'
+      name: 'Axios USD',
+      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/3408.png'
     }
   },
 
@@ -92,7 +95,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
             'jubilant-horrible-ancha': {}
           }
         },
-        nativetesttoken: {
+        ntest: {
           address: '0x366727B410fE55774C8b0B5b5A6E2d74199a088A',
           chains: {
             'jubilant-horrible-ancha': {}
@@ -152,7 +155,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
             }
           }
         },
-        nativetesttoken: {
+        ntest: {
           address: '0xbEbe120F44F2F0E35841DE45a044885bB933f1e2',
           chains: {
             mainnet: {
