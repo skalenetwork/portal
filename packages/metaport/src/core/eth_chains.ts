@@ -49,3 +49,17 @@ export const hoodi: Chain = {
     etherscan: { name: 'Etherscan', url: 'https://hoodi.etherscan.io' }
   }
 } as const
+
+export const base_sepolia_testnet: Chain = {
+  id: 84532,
+  name: 'Base Sepolia Testnet',
+  nativeCurrency: { name: 'Ether', symbol: 'ETH', decimals: 18 },
+  rpcUrls: {
+    default: { http: ['https://base-sepolia-testnet.rpc.publicnode.com'] },
+    public: { http: ['https://base-sepolia-testnet.rpc.publicnode.com'] }
+  },
+  blockExplorers: {
+    default: { name: 'Etherscan', url: 'https://base-sepolia-testnet.etherscan.io' },
+    etherscan: { name: 'Etherscan', url: 'https://base-sepolia-testnet.etherscan.io' }
+  }
+} as const
