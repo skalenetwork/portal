@@ -54,7 +54,7 @@ export default function App() {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={muiTheme}>
           <MetaportProvider config={METAPORT_CONFIG}>
-                <Portal />
+            <Portal />
           </MetaportProvider>
         </ThemeProvider>
       </StyledEngineProvider>

@@ -21,16 +21,20 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import { type types, metadata } from '@/core'
+import { type types, metadata, constants, networks } from '@/core'
 
 export function extractFirstSentence(description: string): string {
   return description.split('.')[0] + (description.includes('.') ? '.' : '')
 }
 
 export function getChainDescription(
+  network: types.SkaleNetwork,
   chainsMeta: types.ChainsMetadataMap,
   chainName: string
 ): string {
+  if (chainName === constants.MAINNET_CHAIN_NAME) {
+    return networks.MAINNET_DESCRIPTIONS[network]
+  }
   const chainMeta = chainsMeta[chainName]
   return chainMeta
     ? chainMeta.description
@@ -38,9 +42,10 @@ export function getChainDescription(
 }
 
 export function getChainCardBackgroundColor(
+  network: types.SkaleNetwork,
   disabled: boolean,
   chainsMeta: types.ChainsMetadataMap,
   chainName: string
 ): string {
-  return disabled ? '#a1a1a133' : metadata.chainBg(chainsMeta, chainName)
+  return disabled ? '#a1a1a133' : metadata.chainBg(network, chainsMeta, chainName)
 }

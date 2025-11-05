@@ -83,7 +83,7 @@ export default function SchainDetails(props: {
     chainName:
       'SKALE' +
       (network === 'testnet' ? ' Testnet ' : ' ') +
-      metadata.getAlias(props.chainsMeta, props.schainName),
+      metadata.getAlias(network, props.chainsMeta, props.schainName),
     rpcUrls: [rpcUrl],
     nativeCurrency: {
       name: 'sFUEL',
@@ -115,7 +115,7 @@ export default function SchainDetails(props: {
 
   const chainMeta = props.chainsMeta[props.schainName]
 
-  const chainAlias = metadata.getAlias(props.chainsMeta, props.schainName)
+  const chainAlias = metadata.getAlias(network, props.chainsMeta, props.schainName)
   const chainDescription = metadata.getChainDescription(chainMeta)
 
   const isMainnet = props.mpc.config.skaleNetwork === constants.MAINNET_CHAIN_NAME

@@ -114,7 +114,7 @@ export default function Meson(props: {
                           logos={MAINNET_CHAIN_LOGOS}
                         />
                         <p className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p, cmn.p3, cmn.p700)}>
-                          {metadata.getAlias(props.chainsMeta, chain)}
+                          {metadata.getAlias(props.skaleNetwork, props.chainsMeta, chain)}
                         </p>
                       </div>
                     </SkPaper>

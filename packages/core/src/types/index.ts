@@ -31,6 +31,7 @@ export type {
   AppWithChainAndName,
   ChainAction
 } from './ChainsMetadata'
+export type { NetworkFeature, NetworkConfig, NetworksConfig } from './networks'
 export * as st from './staking'
 export * as mp from './metaport'
 export * as pm from './paymaster'

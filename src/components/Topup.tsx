@@ -91,7 +91,7 @@ export default function Topup(props: {
       <SkStack>
         <Tile
           value={`${units.truncateDecimals(totalPriceSkl.toString(), 6)} SKL`}
-           tooltip={
+          tooltip={
             props.info.oneSklPrice !== undefined && totalPriceWei !== undefined
               ? units.displaySklValueUsd(totalPriceWei, props.info.oneSklPrice)
               : ''

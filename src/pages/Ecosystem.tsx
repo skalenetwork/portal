@@ -66,10 +66,7 @@ export default function Ecosystem(props: {
     getSearchTermFromUrl,
     setSearchTermInUrl
   } = useUrlParams()
-  const { allApps, newApps, trendingApps, featuredApps } = useApps(
-    props.chainsMeta,
-    props.metrics
-  )
+  const { allApps, newApps, trendingApps, featuredApps } = useApps(props.chainsMeta, props.metrics)
 
   const [checkedItems, setCheckedItems] = useState<string[]>([])
   const [filteredApps, setFilteredApps] = useState<types.AppWithChainAndName[]>([])
@@ -131,6 +128,7 @@ export default function Ecosystem(props: {
 
   useEffect(() => {
     const filtered = filterAppsBySearchTerm(
+      props.mpc.config.skaleNetwork,
       filterAppsByCategory(allApps, checkedItems),
       searchTerm,
       props.chainsMeta
@@ -177,7 +175,7 @@ export default function Ecosystem(props: {
             (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
           )
         )
-      ],
+      ]
     ])
 
     return (tabIndex: number) => filterMap.get(tabIndex) || filteredApps
@@ -208,10 +206,7 @@ export default function Ecosystem(props: {
               width: '100%'
             }}
           >
-            <Container 
-              maxWidth="md"
-              sx={props.isXs ? { paddingLeft: 0, paddingRight: 0 } : {}}
-            >
+            <Container maxWidth="md" sx={props.isXs ? { paddingLeft: 0, paddingRight: 0 } : {}}>
               <SkStack>
                 <div className={cls(cmn.flexg, cmn.mbott20, cmn.mtop10)}>
                   <h2 className={cls(cmn.nom)}>Ecosystem</h2>

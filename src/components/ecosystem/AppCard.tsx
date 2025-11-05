@@ -46,7 +46,12 @@ export default function AppCard(props: {
         <div
           className={cls('br__tile borderLight radius')}
           style={{
-            background: metadata.chainBg(props.chainsMeta, props.schainName, props.appName)
+            background: metadata.chainBg(
+              props.skaleNetwork,
+              props.chainsMeta,
+              props.schainName,
+              props.appName
+            )
           }}
         >
           <Link to={url} className={cls('br__tileLogo', 'br__tileIns', cmn.flex)}>
@@ -82,7 +87,12 @@ export default function AppCard(props: {
                 textOverflow: 'ellipsis'
               }}
             >
-              {metadata.getAlias(props.chainsMeta, props.schainName, props.appName)}
+              {metadata.getAlias(
+                props.skaleNetwork,
+                props.chainsMeta,
+                props.schainName,
+                props.appName
+              )}
             </span>
           </Button>
           {props.transactions ? (

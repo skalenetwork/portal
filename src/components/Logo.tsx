@@ -41,7 +41,7 @@ const Logo: React.FC<LogoProps> = ({ chainsMeta, skaleNetwork, chainName, appNam
       <div
         className={cls('logo-wrapper borderLight')}
         style={{
-          background: metadata.chainBg(chainsMeta, chainName, appName)
+          background: metadata.chainBg(skaleNetwork, chainsMeta, chainName, appName)
         }}
       >
         <ChainLogo

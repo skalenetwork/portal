@@ -29,6 +29,10 @@ import PieChartOutlineRoundedIcon from '@mui/icons-material/PieChartOutlineRound
 import OutboundRoundedIcon from '@mui/icons-material/OutboundRounded'
 import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined'
 import AppShortcutIcon from '@mui/icons-material/AppShortcut'
+import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
+import PaymentsRoundedIcon from '@mui/icons-material/PaymentsRounded'
+
+import { types } from '@/core'
 
 interface SectionIcons {
   [key: string]: JSX.Element
@@ -46,6 +50,7 @@ interface ExploreCard {
   name: string
   description: string
   icon: JSX.Element
+  feature: types.NetworkFeature
   url?: string
 }
 
@@ -55,24 +60,42 @@ export const EXPLORE_CARDS: ExploreCard[] = [
     description:
       'Select a validator to delegate your SKL to for a 2-month period to help secure the network.',
     url: '/staking',
-    icon: <PieChartOutlineRoundedIcon />
+    icon: <PieChartOutlineRoundedIcon />,
+    feature: 'staking'
   },
   {
     name: 'Play on Nebula',
     description: 'SKALE is home to dozens of amazing games. Explore the gaming ecosystem!',
     url: '/ecosystem?categories=gaming',
-    icon: <SportsEsportsOutlinedIcon />
+    icon: <SportsEsportsOutlinedIcon />,
+    feature: 'ecosystem'
   },
   {
     name: "Explore SKALE's DeFi",
     description: 'The SKALE DeFi ecosystem is rapidly expanding on Europa. Check it out!',
     url: '/ecosystem?categories=defi',
-    icon: <PublicOutlinedIcon />
+    icon: <PublicOutlinedIcon />,
+    feature: 'ecosystem'
   },
   {
     name: 'Swap on SKALE',
     description: 'Swap your favorite tokens on SKALE with zero gas fees using SushiSwap.',
     url: 'https://www.sushi.com/skale-europa/swap',
-    icon: <SwapHorizontalCircleOutlinedIcon />
+    icon: <SwapHorizontalCircleOutlinedIcon />,
+    feature: 'swap'
+  },
+  {
+    name: 'Discover SKALE Chains',
+    description: 'Check out endpoints, tokens and more for SKALE Chains.',
+    url: '/chains',
+    icon: <LinkRoundedIcon />,
+    feature: 'chains'
+  },
+  {
+    name: 'Buy Chain Credits',
+    description: 'Check out endpoints, tokens and more for SKALE Chains.',
+    url: '/credits',
+    icon: <PaymentsRoundedIcon />,
+    feature: 'credits'
   }
 ]

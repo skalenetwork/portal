@@ -33,7 +33,7 @@ export function constructWagmiChain(network: types.SkaleNetwork, chainName: stri
   const endpointWs = endpoints.schain(network, chainName, 'ws')
   const explorerUrl = getExplorerUrl(network, chainName)
   const chainsMeta = CHAINS_META[network]
-  const name = metadata.getAlias(chainsMeta, chainName)
+  const name = metadata.getAlias(network, chainsMeta, chainName)
   const chainId = getChainId(chainName)
   return {
     id: chainId,

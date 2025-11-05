@@ -54,7 +54,7 @@ const ChainCard: React.FC<{
           <div className="sk-app-logo sk-logo-sm br__tile">
             <div
               className={cls('logo-wrapper borderLight')}
-              style={{ background: metadata.chainBg(chainsMeta, schain.name) }}
+              style={{ background: metadata.chainBg(skaleNetwork, chainsMeta, schain.name) }}
             >
               <ChainLogo
                 className={cls('responsive-logo')}
@@ -77,7 +77,7 @@ const ChainCard: React.FC<{
         </div>
         <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10)}>
           <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri5)}>
-            {metadata.getAlias(chainsMeta, schain.name)}
+            {metadata.getAlias(skaleNetwork, chainsMeta, schain.name)}
           </p>
         </div>
         <CollapsibleDescription text={chainMeta?.description ?? 'No description'} />

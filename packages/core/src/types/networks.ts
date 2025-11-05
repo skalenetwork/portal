@@ -15,36 +15,23 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
-/**
- * @file index.ts
- * @copyright SKALE Labs 2024-Present
- */
 
-import * as types from './types'
-import * as dc from './dataclasses'
-import * as constants from './constants'
-import * as metadata from './metadata'
-import * as contracts from './contracts'
-import * as units from './units'
-import * as endpoints from './endpoints'
-import * as helper from './helper'
-import * as timeUtils from './timeUtils'
-import * as networks from './networks'
+import { types } from ".."
 
-import { ERC_ABIS } from './abi'
-import { FAUCET_DATA } from './metadata'
+export type NetworkFeature =
+    | 'bridge'
+    | 'onramp'
+    | 'ecosystem'
+    | 'chains'
+    | 'staking'
+    | 'stats'
+    | 'paymaster'
+    | 'sfuel'
+    | 'credits'
+    | 'swap'
 
-export {
-  types,
-  dc,
-  constants,
-  metadata,
-  contracts,
-  units,
-  endpoints,
-  helper,
-  timeUtils,
-  networks,
-  ERC_ABIS,
-  FAUCET_DATA
+export interface NetworkConfig {
+    features: NetworkFeature[]
 }
+
+export type NetworksConfig = Record<types.SkaleNetwork, NetworkConfig>

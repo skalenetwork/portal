@@ -31,7 +31,6 @@ export default function ConnectWallet(props: {
 }) {
   const { address } = useWagmiAccount()
 
- 
   return (
     <div className={cls(props.className)}>
       <SkPaper gray={!props.tile} className={cls(['titleSection', props.tile])}>

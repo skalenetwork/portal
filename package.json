@@ -29,6 +29,7 @@
     "@transak/transak-sdk": "^3.1.1",
     "@vercel/analytics": "^1.0.2",
     "@wagmi/core": "^2.22.1",
+    "boring-avatars": "^2.0.4",
     "embla-carousel-react": "^8.3.0",
     "ethers": "^6.15.0",
     "react": "19.1.1",

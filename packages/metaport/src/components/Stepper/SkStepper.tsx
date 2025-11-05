@@ -102,7 +102,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                         />
                       </div>
                       <h4 className={cls(cmn.nom, cmn.flex)}>
-                        {metadata.getAlias(chainsMeta, step.onSource ? step.from : step.to)}
+                        {metadata.getAlias(props.skaleNetwork, chainsMeta, step.onSource ? step.from : step.to)}
                       </h4>
                     </div>
                   </div>

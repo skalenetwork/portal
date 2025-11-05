@@ -26,15 +26,7 @@ import { Helmet } from 'react-helmet'
 import { useParams } from 'react-router-dom'
 import { type types, metadata, units, constants } from '@/core'
 
-import {
-  cmn,
-  cls,
-  styles,
-  explorer,
-  MetaportCore,
-  SkPaper,
-  Tile
-} from '@skalenetwork/metaport'
+import { cmn, cls, styles, explorer, MetaportCore, SkPaper, Tile } from '@skalenetwork/metaport'
 
 import { Grid } from '@mui/material'
 import Container from '@mui/material/Container'
@@ -99,7 +91,7 @@ export default function App(props: {
       </Container>
     )
 
-  const appAlias = metadata.getAlias(props.chainsMeta, chain, app)
+  const appAlias = metadata.getAlias(network, props.chainsMeta, chain, app)
   const appMeta = chainMeta.apps?.[app]
 
   if (!appMeta)
@@ -116,7 +108,7 @@ export default function App(props: {
   const isNew = isNewApp({ chain, app }, newApps)
   const trending = isTrending(trendingApps, chain, app)
   const featured = isFeatured({ chain, app }, featuredApps)
-  
+
   const explorerUrl = explorer.getExplorerUrl(network, chain)
 
   const isAppChain = chainMeta.apps && Object.keys(chainMeta.apps).length === 1

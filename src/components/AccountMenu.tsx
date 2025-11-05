@@ -32,7 +32,7 @@ import { cls, styles, cmn, RainbowConnectButton } from '@skalenetwork/metaport'
 import { helper } from '@/core'
 
 export default function AccountMenu(props: any) {
-    const { openProfileModal } = props
+  const { openProfileModal } = props
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>

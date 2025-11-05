@@ -45,8 +45,8 @@ interface ChainCardProps {
 
 export default function BridgeChainCard(props: ChainCardProps) {
   const { skaleNetwork, chainName, chainsMeta, onClick, disabled } = props
-  const chainDescription = getChainDescription(chainsMeta, chainName)
-  const backgroundColor = getChainCardBackgroundColor(disabled, chainsMeta, chainName)
+  const chainDescription = getChainDescription(skaleNetwork, chainsMeta, chainName)
+  const backgroundColor = getChainCardBackgroundColor(skaleNetwork, disabled, chainsMeta, chainName)
   const firstSentence = extractFirstSentence(chainDescription)
 
   const disabledText = props.from ? 'Destination chain' : 'Source chain'
@@ -73,13 +73,13 @@ export default function BridgeChainCard(props: ChainCardProps) {
         <div className={cls(cmn.mbott10, cmn.mtop20, cmn.fullWidth, styles.fullHeight)}>
           <div className={cls(cmn.mbott10, cmn.mtop20, cmn.bordRad)}>
             <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop20)}></div>
-            <div className={cls(cmn.bordRad, cmn.flex, cmn.flexc, styles.fullHeight,  cmn.mtop20)}>
+            <div className={cls(cmn.bordRad, cmn.flex, cmn.flexc, styles.fullHeight, cmn.mtop20)}>
               <ChainIcon skaleNetwork={skaleNetwork} chainName={chainName} size={iconSize} />
             </div>
           </div>
 
           <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, cmn.pCent)}>
-            {metadata.getAlias(chainsMeta, chainName, undefined, true)}
+            {metadata.getAlias(skaleNetwork, chainsMeta, chainName, undefined, true)}
           </p>
 
           {disabled && (

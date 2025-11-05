@@ -61,7 +61,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
             <ProfileModalActions
               className={cls(cmn.mtop20)}
               address={address}
-              isMobile={isMobile}     
+              isMobile={isMobile}
             />
           </div>
         ) : (
