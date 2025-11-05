@@ -41,7 +41,6 @@ export default function AppCard(props: {
   newApps?: types.AppWithChainAndName[]
   isNew?: boolean
   isFeatured?: boolean
-  mostLiked?: number
   trending?: boolean
   gray?: boolean
 }) {
