@@ -27,25 +27,17 @@ import { cls, RainbowConnectButton, useWagmiDisconnect } from '@skalenetwork/met
 import SkStack from '../SkStack'
 import LaunchIcon from '@mui/icons-material/Launch'
 import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
-import LoginIcon from '@mui/icons-material/Login'
-import LogoutIcon from '@mui/icons-material/Logout'
 import PowerOffIcon from '@mui/icons-material/PowerOff'
 
 interface ProfileModalActionsProps {
   address: string
-  isSignedIn: boolean
   isMobile: boolean
-  handleSignIn: () => void
-  handleSignOut: () => void
   className?: string
 }
 
 const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
   address,
-  isSignedIn,
   isMobile,
-  handleSignIn,
-  handleSignOut,
   className
 }) => {
   const { disconnect } = useWagmiDisconnect()
@@ -84,16 +76,6 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
         fullWidth={isMobile}
       >
         Disconnect
-      </Button>
-
-      <Button
-        variant="text"
-        startIcon={isSignedIn ? <LogoutIcon /> : <LoginIcon />}
-        className={cls('btn', 'btnSm', 'filled')}
-        onClick={isSignedIn ? handleSignOut : handleSignIn}
-        fullWidth={isMobile}
-      >
-        {isSignedIn ? 'Sign out' : 'Sign in'}
       </Button>
     </SkStack>
   )
