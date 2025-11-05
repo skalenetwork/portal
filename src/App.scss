@@ -414,6 +414,10 @@ body {
     font-size: 1.2rem;
   }
 
+  @media (max-width: 600px) {
+    bottom: calc(50px + 1rem);
+    right: 1rem;
+  }
 }
 
 .btn {

@@ -81,6 +81,11 @@ export default function Ecosystem(props: {
   const [headerHeight, setHeaderHeight] = useState(0)
 
   useLayoutEffect(() => {
+    if (props.isXs) {
+      setHeaderHeight(0)
+      return
+    }
+
     const syncPosition = () => {
       if (!containerRef.current || !fixedHeaderRef.current) return
       const rect = containerRef.current.getBoundingClientRect()
@@ -107,7 +112,7 @@ export default function Ecosystem(props: {
       window.removeEventListener('resize', handleResize)
       window.removeEventListener('scroll', handleScroll)
     }
-  }, [checkedItems])
+  }, [checkedItems, props.isXs])
 
   useEffect(() => {
     props.loadData()
@@ -195,15 +200,18 @@ export default function Ecosystem(props: {
             ref={fixedHeaderRef}
             className="sk-header"
             style={{
-              position: 'fixed',
-              top: '101px',
+              position: props.isXs ? 'static' : 'fixed',
+              top: props.isXs ? 'auto' : '101px',
               background: 'black',
               borderRadius: '35px',
-              zIndex: 1000,
+              zIndex: props.isXs ? 'undefined' : 1000,
               width: '100%'
             }}
           >
-            <Container maxWidth="md">
+            <Container 
+              maxWidth="md"
+              sx={props.isXs ? { paddingLeft: 0, paddingRight: 0 } : {}}
+            >
               <SkStack>
                 <div className={cls(cmn.flexg, cmn.mbott20, cmn.mtop10)}>
                   <h2 className={cls(cmn.nom)}>Ecosystem</h2>
@@ -218,7 +226,7 @@ export default function Ecosystem(props: {
                   </div>
                 </div>
               </SkStack>
-              <SkStack className={cls(cmn.mbott20, cmn.flex, cmn.flexcv)}>
+              <SkStack className={cls(cmn.mbott20, cmn.flex, cmn.flexcv, [cmn.mtop10, props.isXs])}>
                 <SearchComponent
                   className={cls(cmn.flexg, [cmn.mri10, !props.isXs], ['fullW', props.isXs])}
                   searchTerm={searchTerm}
@@ -269,7 +277,7 @@ export default function Ecosystem(props: {
               </Tabs>
             </Container>
           </div>
-          <div style={{ height: headerHeight }} />
+          {!props.isXs && <div style={{ height: headerHeight }} />}
           <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20, 'fwmobile')}>
             {activeTab === 0 && (
               <AllApps
