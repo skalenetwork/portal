@@ -74,14 +74,14 @@
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "7.3.2",
     "@mui/material": "7.3.2",
-    "@rainbow-me/rainbowkit": "^2.2.8",
+    "@rainbow-me/rainbowkit": "^2.2.9",
     "@tanstack/react-query": "^5.54.1",
-    "@wagmi/core": "^2.20.3",
+    "@wagmi/core": "^2.22.1",
     "ethers": "^6.15.0",
     "react": "19.1.1",
     "react-dom": "19.1.1",
-    "viem": "^2.37.6",
-    "wagmi": "^2.16.9"
+    "viem": "^2.38.6",
+    "wagmi": "^2.19.2"
   },
   "files": [
     "dist"
