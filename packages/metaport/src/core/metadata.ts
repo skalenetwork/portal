@@ -42,7 +42,8 @@ const CHAIN_ICONS: { [network in types.SkaleNetwork]: any } = {
   legacy: LEGACY_CHAIN_ICONS,
   regression: REGRESSION_CHAIN_ICONS,
   testnet: TESTNET_CHAIN_ICONS,
-  "base-sepolia-testnet": BASE_SEPOLIA_TESTNET_CHAIN_ICONS
+  "base-sepolia-testnet": BASE_SEPOLIA_TESTNET_CHAIN_ICONS,
+  base: BASE_SEPOLIA_TESTNET_CHAIN_ICONS // todo: tmp
 }
 
 export const CHAINS_META: types.NetworksMetadataMap = {
@@ -50,7 +51,8 @@ export const CHAINS_META: types.NetworksMetadataMap = {
   legacy: legacyMeta,
   regression: regressionMeta,
   testnet: testnetMeta,
-  "base-sepolia-testnet": baseSepoliaTestnet
+  "base-sepolia-testnet": baseSepoliaTestnet,
+  base: baseSepoliaTestnet // todo: tmp
 
 }
 

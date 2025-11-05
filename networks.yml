@@ -1,0 +1,39 @@
+mainnet:
+  features:
+    - bridge
+    - onramp
+    - ecosystem
+    - chains
+    - staking
+    - validators
+    - stats
+    - paymaster
+    - sfuel
+legacy:
+  features:
+    - bridge
+    - onramp
+    - ecosystem
+    - chains
+    - staking
+    - validators
+    - stats
+    - paymaster
+    - sfuel
+testnet:
+  features:
+    - bridge
+    - chains
+    - sfuel
+base:
+  features:
+    - bridge
+    - ecosystem
+    - chains
+    - credits
+base-sepolia-testnet:
+  features:
+    - bridge
+    - ecosystem
+    - chains
+    - credits

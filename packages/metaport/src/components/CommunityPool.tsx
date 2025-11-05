@@ -59,7 +59,8 @@ import TokenIcon from './TokenIcon'
 import Tile from './Tile'
 
 export default function CommunityPool() {
-  const { data: walletClient } = useWalletClient()
+  const { address, chainId } = useAccount()
+  const { data: walletClient } = useWalletClient({ chainId })
   const { switchChainAsync } = useSwitchChain()
 
   const cpData = useCPStore((state) => state.cpData)
@@ -78,8 +79,6 @@ export default function CommunityPool() {
 
   const expandedCP = useCollapseStore((state) => state.expandedCP)
   const setExpandedCP = useCollapseStore((state) => state.setExpandedCP)
-
-  const { address } = useAccount()
 
   let chainName
   if (token && chainName2) {
@@ -207,7 +206,7 @@ export default function CommunityPool() {
               </p>
             ) : null}
             <Grid container rowSpacing={2} columnSpacing={1} className={cmn.mtop20}>
-             <Grid size={{ xs: 12, md: 6 }}>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <Tile
                   text="ETH Balance"
                   className={cls(styles.inputAmount)}
@@ -220,8 +219,8 @@ export default function CommunityPool() {
                       : ''
                   }
                 />
-                </Grid>
-             <Grid size={{ xs: 12, md: 6 }}>
+              </Grid>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <Tile
                   grow
                   text="Exit Wallet Balance"
@@ -233,13 +232,13 @@ export default function CommunityPool() {
                   }
                   icon={<AccountBalanceWallet />}
                 />
-                </Grid>
-                  <Grid size={{ xs: 12, md: 6 }}>
-                  <Tile
-                    grow
-                    text="Enter amount to recharge"
-                    className={cls(styles.inputAmount)}
-                    children={
+              </Grid>
+              <Grid size={{ xs: 12, md: 6 }}>
+                <Tile
+                  grow
+                  text="Enter amount to recharge"
+                  className={cls(styles.inputAmount)}
+                  children={
                     <div className={cls(cmn.flex, cmn.flexcv, 'amountInput')}>
                       <div className={cls(cmn.flexg)}>
                         <TextField
@@ -258,14 +257,14 @@ export default function CommunityPool() {
                     </div>
                   }
                   icon={<TransitEnterexitRoundedIcon style={{ rotate: '315deg' }} />}
-                  
+
                 />
-                </Grid>
-             <Grid size={{ xs: 12, md: 6 }}>
+              </Grid>
+              <Grid size={{ xs: 12, md: 6 }}>
                 <Tile
                   disabled={!!loading}
                   value={cpData.recommendedRechargeAmount !== undefined ? String(cpData.recommendedRechargeAmount) : ''}
-                  text="Recommended" 
+                  text="Recommended"
                   icon={<RecommendIcon />}
                   color={true ? undefined : 'error'}
                   grow
@@ -280,11 +279,11 @@ export default function CommunityPool() {
                       >
                         Add
                       </Button>
-                    </div> 
+                    </div>
                   }
                 />
-                </Grid>
-                </Grid>
+              </Grid>
+            </Grid>
             <div className={cls(cmn.mbott20, cmn.mtop20)}>
               <Button
                 variant="contained"
@@ -325,4 +324,4 @@ export default function CommunityPool() {
       </Accordion>
     </div>
   )
-  }
+}

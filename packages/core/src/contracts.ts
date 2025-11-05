@@ -74,6 +74,12 @@ export const CONTRACTS: ContractsConfig = {
     'skale-allocator': constants.ZERO_ADDRESS,
     'skale-grants': constants.ZERO_ADDRESS
   },
+  base: {
+    'skale-manager': constants.ZERO_ADDRESS,
+    'mainnet-ima': constants.ZERO_ADDRESS,
+    'skale-allocator': constants.ZERO_ADDRESS,
+    'skale-grants': constants.ZERO_ADDRESS
+  },
 }
 
 export const PAYMASTER_CONTRACTS = {
