@@ -25,8 +25,6 @@ import { Contract, id } from 'ethers'
 import { useState, useEffect } from 'react'
 import { type types, metadata, constants, ERC_ABIS, units, helper } from '@/core'
 import {
-  cmn,
-  cls,
   type MetaportCore,
   useWagmiAccount,
   enforceNetwork,
@@ -35,7 +33,6 @@ import {
   useWagmiSwitchNetwork,
   walletClientToSigner,
   sendTransaction,
-  styles,
   contracts
 } from '@skalenetwork/metaport'
 
@@ -176,7 +173,7 @@ export default function Paymaster(props: {
         text="Error occurred"
         icon={<ErrorRoundedIcon />}
         color="error"
-        className="cmn.mtop20"
+        className="mt-5"
       />
     )
   if (info.oneSklPrice === 0n)
@@ -186,7 +183,7 @@ export default function Paymaster(props: {
         text="Error occurred"
         icon={<ErrorRoundedIcon />}
         color="error"
-        className="cmn.mtop20"
+        className="mt-5"
       />
     )
 
@@ -195,12 +192,12 @@ export default function Paymaster(props: {
       <PricingInfo info={info} />
       <Headline
         text="Top-up chain"
-        className="cmn.mtop20, cmn.mbott10"
+        className="mt-5 mb-2.5"
         icon={<MonetizationOnRoundedIcon className="styles.chainIconxs" />}
         size="small"
       />
       {!address ? (
-        <ConnectWallet tile className="cmn.flexg" />
+        <ConnectWallet tile className="flex-grow" />
       ) : (
         <Topup
           mpc={props.mpc}

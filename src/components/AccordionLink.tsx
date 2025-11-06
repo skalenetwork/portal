@@ -26,7 +26,6 @@ import { type ReactElement } from 'react'
 import ButtonBase from '@mui/material/ButtonBase'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 
-import { cmn, cls, styles } from '@skalenetwork/metaport'
 import { Link } from 'react-router-dom'
 
 export default function AccordionLink(props: {
@@ -37,16 +36,16 @@ export default function AccordionLink(props: {
 }) {
   return (
     <div className={props.className}>
-      <Link to={props.url} className="cmn.pPrim">
-        <ButtonBase className="cmn.fullWidth, cmn.flex, cmn.pleft, cmn.bordRad">
-          <div className="cmn.m10, cmn.flex, cmn.flexg, cmn.flexcv">
+      <Link to={props.url} className="text-primary">
+        <ButtonBase className="cmn.fullWidth flex cmn.pleft cmn.bordRad">
+          <div className="m-2.5 flex flex-grow items-center">
             {props.icon ? (
-              <div className="mr-2.5, cmn.flexcv, cmn.flex, styles.chainIconxs, cmn.pSec">
+              <div className="mr-2.5 items-center flex styles.chainIconxs text-secondary">
                 {props.icon}
               </div>
             ) : null}
-            <p className=" text-base, cmn.p700, cmn.flexg">{props.title}</p>
-            <AddCircleRoundedIcon className="cmn.mri5, styles.chainIconxs, cmn.pSec" />
+            <p className="text-base cmn.p700 flex-grow">{props.title}</p>
+            <AddCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary" />
           </div>
         </ButtonBase>
       </Link>

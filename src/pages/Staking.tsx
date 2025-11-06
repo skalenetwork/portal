@@ -297,8 +297,8 @@ export default function Staking(props: {
             size="small"
           />
           <div className="mt-5">
-            <PieChartRoundedIcon className="cmn.pSec, styles.chainIconmd, 'w-full'" />
-            <h5 className="cmn.p600, cmn.pSec, cmn.pCent, cmn.mtop5, cmn.mbott20">
+            <PieChartRoundedIcon className="text-secondary styles.chainIconmd w-full" />
+            <h5 className="font-semibold text-secondary text-center mt-1.5 mb-5">
               Connect your wallet to view delegations
             </h5>
           </div>

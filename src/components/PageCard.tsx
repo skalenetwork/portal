@@ -22,7 +22,7 @@
  */
 
 import { Link } from 'react-router-dom'
-import { cmn, cls, SkPaper, styles } from '@skalenetwork/metaport'
+import { SkPaper } from '@skalenetwork/metaport'
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 
 export default function PageCard(props: {
@@ -38,19 +38,19 @@ export default function PageCard(props: {
       {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
     >
       <SkPaper gray className="'br__tile'">
-        <div className="cmn.flex, cmn.flexcv, cmn.m10">
-          <div className="cmn.flexg">
-            <div className="cmn.flex, cmn.flexg, cmn.flexcv">
-              <div className="styles.chainIcons, mr-2.5, cmn.pPrim">{props.icon}</div>
-              <h3 className="cmn.cap, cmn.nom, cmn.pPrim,  cmn.p600">{props.name}</h3>
+        <div className="flex items-center m-2.5">
+          <div className="flex-grow">
+            <div className="flex flex-grow items-center">
+              <div className="styles.chainIcons mr-2.5 text-primary">{props.icon}</div>
+              <h3 className="capitalize m-0 text-primary font-semibold">{props.name}</h3>
             </div>
-            <p className=" text-sm, cmn.pSec, cmn.mtop5">{props.description}</p>
+            <p className="text-sm text-secondary mt-1.5">{props.description}</p>
           </div>
-          <div className="cmn.mleft10, cmn.mri5, cmn.flex, cmn.flexcv">
-            <ArrowForwardRoundedIcon className="cmn.pSec, styles.chainIconxs" />
+          <div className="cmn.mleft10 mr-1.5 flex items-center">
+            <ArrowForwardRoundedIcon className="text-secondary styles.chainIconxs" />
           </div>
         </div>
-      </SkPaper>
-    </Link>
+      </SkPaper >
+    </Link >
   )
 }

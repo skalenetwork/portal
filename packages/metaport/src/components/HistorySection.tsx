@@ -48,14 +48,14 @@ export default function TransactionsHistory() {
   if (transactionsHistory.length === 0 && transfersHistory.length === 0) return
   return (
     <Collapse in={expandedTH}>
-      <div className="cmn.flex, cmn.mbott10, cmn.mtop10">
+      <div className="flex mb-2.5 mt-10">
         <Button
           onClick={() => {
             setExpandedTH(false)
           }}
           color="warning"
           size="medium"
-          className="styles.btnAction"
+          className="btn-action"
           startIcon={<CloseRoundedIcon />}
         >
           Close history
@@ -64,7 +64,7 @@ export default function TransactionsHistory() {
           onClick={clearTransferHistory}
           color="error"
           size="medium"
-          className="styles.btnAction"
+          className="btn-action"
           startIcon={<DeleteRoundedIcon />}
         >
           Clear history

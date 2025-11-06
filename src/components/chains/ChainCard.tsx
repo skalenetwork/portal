@@ -22,7 +22,7 @@
  */
 
 import { Link } from 'react-router-dom'
-import { cmn, cls, SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@skalenetwork/metaport'
 import { type types, metadata } from '@/core'
 
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
@@ -50,22 +50,22 @@ const ChainCard: React.FC<{
   return (
     <SkPaper gray fullHeight className="sk-app-card">
       <Link to={url}>
-        <div className="cmn.flex)}>
+        <div className="flex">
           <div className="sk-app-logo sk-logo-sm br__tile">
             <div
-              className="'logo-wrapper borderLight')}
+              className="logo-wrapper borderLight"
               style={{ background: metadata.chainBg(chainsMeta, schain.name) }}
             >
               <ChainLogo
-                className="'responsive-logo')}
+                className="responsive-logo"
                 network={skaleNetwork}
                 chainName={schain.name}
                 logos={MAINNET_CHAIN_LOGOS}
               />
             </div>
-            <div className="cmn.flex, cmn.flexg)}></div>
+            <div className="flex flex-grow"></div>
           </div>
-          <div className="cmn.flexg)}></div>
+          <div className="flex-grow"></div>
           {chainMeta && (
             <div>
               <Chip
@@ -75,21 +75,21 @@ const ChainCard: React.FC<{
             </div>
           )}
         </div>
-        <div className="cmn.flex, cmn.flexcv, cmn.mtop10)}>
-          <p className=" cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri5)}>
+        <div className="flex items-center cmn.mtop10">
+          <p className="text-primary cmn.p600 cmn.p1 'shortP' flex-grow mr-1.5">
             {metadata.getAlias(chainsMeta, schain.name)}
-          </p>
-        </div>
+          </p >
+        </div >
         <CollapsibleDescription text={chainMeta?.description ?? 'No description'} />
-      </Link>
-      <CategoriesChips categories={chainMeta?.categories} className="cmn.mtop20)} />
+      </Link >
+      <CategoriesChips categories={chainMeta?.categories} className="mt-5" />
       <ChainActions
-        className="cmn.mtop20)}
+        className="mt-5"
         chainMeta={chainMeta}
         schainName={schain.name}
         skaleNetwork={skaleNetwork}
       />
-    </SkPaper>
+    </SkPaper >
   )
 }
 

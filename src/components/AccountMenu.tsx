@@ -29,7 +29,7 @@ import Button from '@mui/material/Button'
 import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
 import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 
-import { cls, styles, cmn, RainbowConnectButton } from '@skalenetwork/metaport'
+import { RainbowConnectButton } from '@skalenetwork/metaport'
 
 import { useAuth } from '../AuthContext'
 
@@ -47,10 +47,10 @@ export default function AccountMenu(props: any) {
                     onClick={() => {
                       openConnectModal()
                     }}
-                    className="styles.paperGrey, cmn.pPrim, 'mp__btnConnect', cmn.flex"
+                    className="styles.paperGrey, text-primary, 'mp__btnConnect', flex"
                   >
                     <LooksRoundedIcon
-                      className={cmn.mri5}
+                      className="mr-1.5"
                       style={{ height: '18px', width: '18px' }}
                     />
                     Connect wallet
@@ -64,14 +64,14 @@ export default function AccountMenu(props: any) {
         <Tooltip arrow title={isSignedIn ? 'Conneced and signed-in' : 'Wallet connect, signed-out'}>
           <Button
             onClick={openProfileModal}
-            className="'mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex"
+            className="'mp__btnConnect', styles.paperGrey, text-primary, flex"
           >
             <div
-              className="cmn.mri5, cmn.flexcv"
+              className="mr-1.5, items-center"
               style={{ height: '20px', position: 'relative' }}
             >
               <Jazzicon diameter={20} seed={jsNumberForAddress(props.address)} />
-              <div className="'icon-overlay', cmn.flex, cmn.flexcv">
+              <div className="'icon-overlay', flex items-center">
                 {isSignedIn ? (
                   <FiberManualRecordRoundedIcon
                     color="success"

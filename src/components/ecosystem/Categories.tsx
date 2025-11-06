@@ -21,7 +21,6 @@
  */
 
 import React, { useState, useMemo, useRef } from 'react'
-import { cmn, cls } from '@skalenetwork/metaport'
 import { filterCategories } from '../../core/ecosystem/utils'
 import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
@@ -151,13 +150,13 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
   }
 
   return (
-    <div className="['fullW', isXs]">
+    <div className={isXs ? 'w-full' : ''}>
       <Button
         variant="text"
         ref={buttonRef}
         onClick={handleMenuOpen}
         startIcon={<ManageSearchRoundedIcon />}
-        className="'outlined', 'skMenuBtn', 'btn', cmn.pPrim, ['fullW', isXs]"
+        className={`outlined skMenuBtn btn text-primary ${isXs ? 'w-full' : ''}`}
         style={{ background: 'transparent' }}
       >
         Browse by categories
@@ -176,14 +175,14 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
           }
         }}
       >
-        <div className="cmn.padd10">
+        <div className="p-2.5">
           {isXs && (
-            <Button className="'btn fullW outlined', cmn.mbott10" onClick={handleMenuClose}>
+            <Button className="btn w-full outlined mb-2.5" onClick={handleMenuClose}>
               Close
             </Button>
           )}
           <SearchBar
-            className="cmn.mbott10"
+            className="mb-2.5"
             searchTerm={searchTerm}
             onSearchChange={handleSearch}
             onClear={handleClearSearch}
@@ -191,13 +190,9 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
           {filteredCategories.map(([shortName, data], index) => (
             <div
               key={shortName}
-              className={cls(
-                cmn.fullWidth,
-                cmn.mbott10,
-                index !== filteredCategories.length - 1 && 'divider'
-              )}
+              className={`w-full mb-2.5 ${index !== filteredCategories.length - 1 ? 'divider' : ''}`}
             >
-              <div className="cmn.flex, cmn.flexcv">
+              <div className="flex items-center">
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -206,11 +201,11 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
                     />
                   }
                   label={
-                    <span className=" text-sm, cmn.p600">
+                    <span className="text-sm font-semibold">
                       {highlightMatch(data.name, searchTerm)}
                     </span>
                   }
-                  className="cmn.flexg"
+                  className="flex-grow"
                 />
                 {getSelectedSubcategoriesCount(shortName) > 0 && (
                   <FiberManualRecordIcon color="primary" style={{ fontSize: '8pt' }} />

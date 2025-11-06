@@ -25,7 +25,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Tooltip } from '@mui/material'
 
-import { cmn, cls, SkPaper, styles } from '@skalenetwork/metaport'
+import { SkPaper } from '@skalenetwork/metaport'
 import { type types, metadata } from '@/core'
 
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
@@ -60,61 +60,55 @@ export default function HubTile(props: {
   const chainDescription = metadata.getChainDescription(chainMeta)
 
   return (
-    <Link to={'/chains/' + shortAlias} className="cmn.flex, cmn.pPrim, cmn.flexg">
+    <Link to={'/chains/' + shortAlias} className="flex text-primary flex-grow">
       <SkPaper
         gray
-        className="'titleSectionOut', 'hoverable', 'pointer', cmn.flexg"
+        className="'titleSectionOut', 'hoverable', 'pointer', flex-grow"
         background={props.bg ? metadata.chainBg(props.chainsMeta, props.schainName) : ''}
       >
-        <Tooltip title="Click to see Hub details">
-          <div className="'titleSectionBg', cmn.flex, cmn.flexcv">
-            <div
-              className="cmn.flex, cmn.flexcv, cmn.flexg, cmn.mtop20, cmn.mbott20, cmn.mleft20"
-            >
-              <div className="styles.chainIconlg, cmn.flex, cmn.flexcv">
-                <ChainLogo
-                  network={props.network}
-                  chainName={props.schainName}
-                  logos={MAINNET_CHAIN_LOGOS}
-                  className="responsive-logo"
-                />
-              </div>
-              <div
-                className="[cmn.mleft20, !props.isXs], [cmn.mleft10, props.isXs], cmn.flexg"
-              >
-                <h4 className=" cmn.p700, 'pOneLine'">{alias}</h4>
-                <p
-                  className={cls(
-
-                    [text - xs, !props.isXs],
-                    [text - xs, props.isXs],
-                    [mr - 2.5, props.isXs],
-                    cmn.pSec
-                  )}
-                >
-                  {chainDescription.split('.', 1)[0]}
-                </p>
-              </div>
-            </div>
-            {props.isXs || !props.showStats ? null : (
-              <div className="'chipSm', mr-2.5, cmn.flex, cmn.flexcv">
-                <TrendingUpRoundedIcon />
-                <p className=" text-xs, cmn.mleft10">
-                  {schainMetrics
-                    ? formatNumber(schainMetrics.chain_stats?.transactions_today)
-                    : '...'}
-                  + Daily Tx
-                </p>
-              </div>
-            )}
-            {!props.isXs && (
-              <div className="cmn.mri20, styles.chainIconxs">
-                <ArrowForwardIosRoundedIcon className="cmn.pSec" />
-              </div>
-            )}
-          </div>
-        </Tooltip>
-      </SkPaper>
-    </Link>
+    <Tooltip title="Click to see Hub details">
+      <div className="'titleSectionBg', flex items-center">
+        <div
+          className="flex items-center flex-grow mt-5 mb-5 cmn.mleft20"
+        >
+        <div className="styles.chainIconlg, flex items-center">
+          <ChainLogo
+            network={props.network}
+            chainName={props.schainName}
+            logos={MAINNET_CHAIN_LOGOS}
+            className="responsive-logo"
+          />
+        </div>
+        <div
+          className="[cmn.mleft20, !props.isXs], [cmn.mleft10, props.isXs], flex-grow"
+        >
+          <h4 className="cmn.p700 pOneLine">{alias}</h4>
+          <p
+            className="[text - xs, !props.isXs], [text - xs, props.isXs],[mr - 2.5, props.isXs], text-secondary"
+          >
+            {chainDescription.split('.', 1)[0]}
+          </p>
+        </div>
+      </div>
+      {props.isXs || !props.showStats ? null : (
+        <div className="'chipSm' mr-2.5 flex items-center">
+          <TrendingUpRoundedIcon />
+          <p className="text-xs cmn.mleft10">
+            {schainMetrics
+              ? formatNumber(schainMetrics.chain_stats?.transactions_today)
+              : '...'}
+            + Daily Tx
+          </p>
+        </div>
+      )}
+      {!props.isXs && (
+        <div className="cmn.mri20, styles.chainIconxs">
+          <ArrowForwardIosRoundedIcon className="text-secondary" />
+        </div>
+      )}
+    </div>
+        </Tooltip >
+      </SkPaper >
+    </Link >
   )
 }

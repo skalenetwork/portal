@@ -22,10 +22,10 @@
  */
 
 import { Link } from 'react-router-dom'
-import Grid from '@mui/material/Grid'
+
 import StarIcon from '@mui/icons-material/Star'
 
-import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@skalenetwork/metaport'
 import { types, metadata } from '@/core'
 
 import Logo from './Logo'
@@ -57,56 +57,50 @@ export default function PopularActions(props: {
 
   return (
     <div>
-      <div className="cmn.ptop20, cmn.flex"></div>
-      <div className="cmn.flex, cmn.flexcv, cmn.mbott10,  cmn.p600, cmn.pSec">
+      <div className="pt-5 flex"></div>
+      <div className="flex items-center mb-2.5 font-semibold text-secondary">
         <StarIcon color="primary" className="mr-2.5" />
         Popular Actions
       </div>
-      <div className="cmn.flex, cmn.flexRow, cmn.flexcv">
-        <Grid container spacing={2}>
-          {actions.map((action) => (
-            <Grid size={{ xs: 12, md: 6 }}>
-              <Link
-                to={
-                  chainMeta.apps?.[action.app].social?.website ||
-                  `/ecosystem/${shortAlias}/${action.app}`
-                }
-                className="cmn.flex, cmn.fullWidth"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <SkPaper gray className="cmn.fullWidth, 'hoverable'" key={action.text}>
-                  <div className="cmn.flex, cmn.flexcv">
-                    <Logo
-                      chainsMeta={props.chainsMeta}
-                      skaleNetwork={props.skaleNetwork}
-                      chainName={props.chainName}
-                      appName={action.app}
-                    />
-                    <div>
-                      <div
-                        className={cls(
-                          text - sm,
-                          'shortP',
-                          cmn.p700,
-                          cmn.pPrim,
-                          cmn.mleft10,
-                          mr - 2.5
-                        )}
-                      >
-                        {action.text}
-                      </div>
-                      <div className="text-xs, cmn.pSec, mr-2.5, cmn.mleft10">
-                        {getActionDescription(action)}
+      <div className="flex flex-row items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          {
+            actions.map((action) => (
+              <div className="col-span-1">
+                <Link
+                  to={
+                    chainMeta.apps?.[action.app].social?.website ||
+                    `/ecosystem/${shortAlias}/${action.app}`
+                  }
+                  className="flex w-full"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <SkPaper gray className="cmn.fullWidth hoverable" key={action.text}>
+                    <div className="flex items-center">
+                      <Logo
+                        chainsMeta={props.chainsMeta}
+                        skaleNetwork={props.skaleNetwork}
+                        chainName={props.chainName}
+                        appName={action.app}
+                      />
+                      <div>
+                        <div
+                          className="text-sm shortP cmn.p700 text-primary cmn.mleft10 mr-2.5">
+                          {action.text}
+                        </div>
+                        <div className="text-xs text-secondary mr-2.5 cmn.mleft10">
+                          {getActionDescription(action)}
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </SkPaper>
-              </Link>
-            </Grid>
-          ))}
-        </Grid>
-      </div>
-    </div>
+                  </SkPaper>
+                </Link >
+              </div >
+            ))
+          }
+        </div >
+      </div >
+    </div >
   )
 }

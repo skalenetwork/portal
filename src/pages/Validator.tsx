@@ -26,7 +26,7 @@ import { type Signer } from 'ethers'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
-import {type MetaportCore, SkPaper, contracts } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper, contracts } from '@skalenetwork/metaport'
 
 import { Collapse, Skeleton } from '@mui/material'
 
@@ -223,9 +223,9 @@ export default function Validator(props: {
           ) : (
             <div>
               <PeopleRoundedIcon
-                className="cmn.pSec, styles.chainIconlg, 'w-full', 'mt-5'"
+                className="text-secondary styles.chainIconlg w-full mt-5"
               />
-              <h3 className="cmn.p700, cmn.pSec, cmn.pCent, 'mb-5'">
+              <h3 className="cmn.p700 text-secondary cmn.pCent mb-5">
                 Validator doesn't exist
               </h3>
             </div>

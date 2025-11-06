@@ -26,7 +26,6 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
-import { cmn, cls } from '@skalenetwork/metaport'
 
 import { formatTimePeriod } from '../core/timeHelper'
 
@@ -49,11 +48,11 @@ export default function MonthSelector(props: {
   }
 
   if (props.max <= 0) {
-    return <p className=" cmn.p1, cmn.p700, cmn.mtop5">No topup periods available</p>
+    return <p className="text-base font-bold mt-1.5">No topup periods available</p>
   }
 
   return (
-    <div className="props.className, cmn.flexcv, cmn.flex">
+    <div className={`${props.className} items-center flex`}>
       {monthRecommendations
         .filter((x) => x <= props.max)
         .map((month: any, i: number) => (
@@ -69,8 +68,8 @@ export default function MonthSelector(props: {
           </Button>
         ))}
       {openCustom ? (
-        <div className="'flexi', cmn.flexcv">
-          <div className="'monthInputWrap', cmn.flex, cmn.flexcv">
+        <div className="flex items-center">
+          <div className="'monthInputWrap', flex items-center">
             <TextField
               variant="standard"
               type="number"
@@ -120,7 +119,7 @@ export default function MonthSelector(props: {
           <Button
             startIcon={<CancelOutlinedIcon />}
             variant="text"
-            className="'roundBtn', cmn.mleft5"
+            className="'roundBtn', ml-1.5"
             onClick={() => {
               setOpenCustom(false)
             }}

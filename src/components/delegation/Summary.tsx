@@ -22,7 +22,7 @@
  */
 
 import { helper, types, units } from '@/core'
-import { cmn, cls, styles, TokenIcon, Tile } from '@skalenetwork/metaport'
+import { TokenIcon, Tile } from '@skalenetwork/metaport'
 
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
@@ -38,9 +38,9 @@ import AccordionSection from '../AccordionSection'
 import SkBtn from '../SkBtn'
 
 const icons: { [key in types.st.DelegationType]: any } = {
-  0: <AccountCircleRoundedIcon className="cmn.mri5, styles.chainIconxs, cmn.pSec" />,
-  1: <AccountBalanceRoundedIcon className="cmn.mri5, styles.chainIconxs, cmn.pSec" />,
-  2: <ApartmentRoundedIcon className="cmn.mri5, styles.chainIconxs, cmn.pSec" />
+  0: <AccountCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary" />,
+  1: <AccountBalanceRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary" />,
+  2: <ApartmentRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary" />
 }
 
 const SUMMARY_VALIDATOR_ID = -1
@@ -79,7 +79,7 @@ export default function Summary(props: {
         icon={icons[props.type]}
         marg={false}
       >
-        <SkStack className="cmn.mtop5">
+        <SkStack className="mt-1.5">
           <Tile
             disabled={props.accountInfo?.balance === 0n}
             tooltip={
@@ -94,9 +94,9 @@ export default function Summary(props: {
             grow
             icon={<TokenIcon tokenSymbol="skl" size="xs" />}
             childrenRi={
-              <SkStack className="cmn.flex">
+              <SkStack className="flex">
                 {props.type !== types.st.DelegationType.REGULAR ? (
-                  <div className="cmn.flex">
+                  <div className="flex">
                     <Tile
                       size="md"
                       transparent
@@ -178,7 +178,7 @@ export default function Summary(props: {
               icon={<EventAvailableRoundedIcon />}
               grow
               childrenRi={
-                <SkStack className="cmn.flex">
+                <SkStack className="flex">
                   {props.accountInfo?.fullAmount !== undefined ? (
                     <Tile
                       disabled={props.accountInfo?.fullAmount === 0n}
@@ -197,7 +197,7 @@ export default function Summary(props: {
                       grow
                       size="md"
                       transparent
-                      className="cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs]"
+                      className="cmn.nop [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs]"
                       ri={!props.isXs}
                     />
                   ) : (
@@ -224,13 +224,13 @@ export default function Summary(props: {
                     grow
                     ri={!props.isXs}
                     childrenRi={
-                      <div className="cmn.flexcv, cmn.flex">
+                      <div className="items-center flex">
                         <SkBtn
                           loading={loading}
                           text={loading ? 'Retrieving' : 'Retrieve'}
                           variant="contained"
                           size="sm"
-                          className="[cmn.mleft20, !props.isXs], cmn.flexcv"
+                          className="[cmn.mleft20 !props.isXs] items-center"
                           disabled={
                             props.accountInfo?.unlocked === 0n ||
                             props.loading !== false ||

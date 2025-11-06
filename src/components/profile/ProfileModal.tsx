@@ -54,10 +54,10 @@ const ProfileModal: React.FC = () => {
               value={address}
               icon={<Jazzicon diameter={20} seed={jsNumberForAddress(address)} />}
               copy={address}
-              className="cmn.mbott10"
+              className="mb-2.5"
             />
             <ProfileModalActions
-              className="cmn.mtop20"
+              className="mt-5"
               address={address}
               isSignedIn={isSignedIn}
               isMobile={isMobile}

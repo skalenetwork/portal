@@ -28,8 +28,6 @@ import ButtonBase from '@mui/material/ButtonBase'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
 
-import { cmn, cls, styles } from '@skalenetwork/metaport'
-
 export default function AccordionSection(props: {
   title: string
   handleChange?: (panel: string | false) => void
@@ -42,8 +40,6 @@ export default function AccordionSection(props: {
   expandedByDefault?: boolean
   marg?: boolean
 }) {
-  const marg = props.marg ?? true
-
   const [expandedInternal, setExpandedInternal] = useState<string | false>(
     props.expandedByDefault ? 'panel1' : false
   )
@@ -62,25 +58,25 @@ export default function AccordionSection(props: {
         onClick={() => {
           handleChange(panel)
         }}
-        className="cmn.fullWidth, cmn.flex, cmn.pleft, cmn.bordRad"
+        className="cmn.fullWidth flex cmn.pleft cmn.bordRad"
       >
-        <div className="cmn.m10, cmn.flex, cmn.flexg, cmn.flexcv">
+        <div className="m-2.5 flex flex-grow items-center">
           {props.icon ? (
-            <div className="mr-2.5, cmn.flexcv, cmn.flex, styles.chainIconxs, cmn.pSec">
+            <div className="mr-2.5 items-center flex styles.chainIconxs text-secondary">
               {props.icon}
             </div>
           ) : null}
-          <p className=" text-base, cmn.p700, cmn.flexg">{props.title}</p>
-          <p className=" text-xs, cmn.p600, cmn.pSec, cmn.mri20">{props.subtitle}</p>
+          <p className=" text-base, cmn.p700, flex-grow">{props.title}</p>
+          <p className="text-xs cmn.p600 text-secondary cmn.mri20">{props.subtitle}</p>
           {expanded === panel ? (
-            <RemoveCircleRoundedIcon className="cmn.mri5, styles.chainIconxs, cmn.pSec" />
+            <RemoveCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary" />
           ) : (
-            <AddCircleRoundedIcon className="cmn.mri5, styles.chainIconxs, cmn.pSec" />
+            <AddCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary" />
           )}
         </div>
       </ButtonBase>
       <Collapse in={expanded === panel}>
-        <div className="[cmn.mtop10, marg], [cmn.mbott10, marg]">{props.children}</div>
+        <div className="[cmn.mtop10 marg] [mb-2.5 marg]">{props.children}</div>
       </Collapse>
     </div>
   )

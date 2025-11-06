@@ -30,7 +30,6 @@ import SearchIcon from '@mui/icons-material/Search'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 
 import { getAvailableTokensTotal, getDefaultToken } from '../core/tokens/helper'
-import { cls, cmn, styles } from '../core/css'
 import TokenListSection from './TokenListSection'
 import TokenIcon from './TokenIcon'
 import { useCollapseStore } from '../store/Store'
@@ -107,33 +106,23 @@ export default function TokenList() {
 
   return (
     <div>
-      <div className={mr - 2.5}>
+      <div className="mr-2.5">
         <Button
-          className="cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mleft10"
+          className="flex items-center w-full p-2.5 ml-2.5"
           onClick={handleOpen}
           disabled={transferInProgress}
           endIcon={
-            <KeyboardArrowDownRoundedIcon className={cmn.pPrim} style={{ marginRight: '11px' }} />
+            <KeyboardArrowDownRoundedIcon className="text-primary" style={{ marginRight: '11px' }} />
           }
         >
-          <div className="cmn.flex, cmn.flexc, mr-2.5, [cmn.pDisabled, noTokens]">
+          <div className={`flex items-center mr-2.5 ${noTokens ? 'opacity-50' : ''}`}>
             <TokenIcon
               key={token?.meta.symbol}
               tokenSymbol={token?.meta.symbol}
               iconUrl={token?.meta.iconUrl}
             />
           </div>
-          <p
-            className={cls(
-
-              cmn.p1,
-              cmn.p700,
-              cmn.pPrim,
-              [cmn.pDisabled, noTokens],
-              cmn.flex,
-              cmn.flexg
-            )}
-          >
+          <p className={`text-lg font-bold text-primary ${noTokens ? 'opacity-50' : ''} flex flex-grow`}>
             {tokensText}
           </p>
         </Button>
@@ -141,30 +130,17 @@ export default function TokenList() {
       <Modal
         open={open}
         onClose={handleClose}
-        className="cmn.darkTheme, styles.metaport, styles.backdropBlur"
+        className="darkTheme styles.metaport styles.backdropBlur"
       >
         <Container maxWidth="sm" className="styles.modalContainer">
-          <div className="cmn.flex, cmn.mbott20">
-            <div className={cmn.flexg}></div>
+          <div className="flex mb-5">
+            <div className="flex-grow"></div>
             <SkPaper gray>
-              <p
-                className={cls(
-
-                  text - base,
-                  cmn.p700,
-                  cmn.pPrim,
-                  cmn.mtop5,
-                  cmn.mbott5,
-                  cmn.mleft20,
-                  cmn.mri20,
-                  cmn.flexcv,
-                  cmn.pCent
-                )}
-              >
+              <p className="text-base font-bold text-primary mt-1.5 mb-1.5 ml-5 mr-5">
                 Select a token
               </p>
             </SkPaper>
-            <div className="cmn.flexg"></div>
+            <div className="flex-grow"></div>
           </div>
           <SkPaper gray>
             <TextField
@@ -175,7 +151,7 @@ export default function TokenList() {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon className="cmn.pPrim, styles.chainIcons" />
+                    <SearchIcon className="text-primary styles.chainIcons" />
                   </InputAdornment>
                 )
               }}
@@ -186,17 +162,8 @@ export default function TokenList() {
               }}
             />
             {filteredTokensCount === 0 && (
-              <div
-                className={cls(
-                  cmn.flex,
-                  cmn.flexc,
-                  cmn.flexcv,
-                  cmn.mtop20,
-                  cmn.mbott20,
-                  cmn.padd10
-                )}
-              >
-                <p className=" text-base, cmn.pSec, cmn.pCent">
+              <div className="flex items-center justify-center mt-5 mb-5 p-2.5">
+                <p className="text-base text-secondary text-center">
                   🚫 No tokens match your current filters
                 </p>
               </div>

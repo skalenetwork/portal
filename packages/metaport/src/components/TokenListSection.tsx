@@ -26,7 +26,6 @@ import LocalMallIcon from '@mui/icons-material/LocalMall'
 import Button from '@mui/material/Button'
 
 import { dc, types, constants } from '@/core'
-import { cls, cmn, styles } from '../core/css'
 import { getTokenName } from '../core/metadata'
 
 import TokenSection from './TokenSection'
@@ -83,39 +82,44 @@ export default function TokenListSection(props: {
         <Button
           color="primary"
           size="small"
-          className="cmn.mtop20, cmn.flexcv, cmn.mleft10, styles.filled"
+          className="mt-5 items-center cmn.mleft10 styles.filled"
           variant="contained"
           key={key}
           onClick={() => handle(props.tokens[key])}
         >
-          <div className="cmn.flex, cmn.flexcv">
+          <div className="flex items-center">
             <TokenIcon
               tokenSymbol={props.tokens[key]?.meta.symbol}
               iconUrl={props.tokens[key]?.meta.iconUrl}
             />
-            <span className=" cmn.pPrim, cmn.mleft10">
+            <span className=" text-primary cmn.mleft10">
               {props.tokens[key]?.meta.symbol}
             </span>
           </div>
         </Button>
-      ))}
-      {nonZeroBalanceTokens.length > 0 && (
-        <TokenSection
-          text="Your Tokens"
-          icon={<SavingsIcon className="styles.chainIconxs" />}
-          tokens={nonZeroBalanceTokens}
-          onTokenClick={handle}
-        />
-      )}
+      ))
+      }
+      {
+        nonZeroBalanceTokens.length > 0 && (
+          <TokenSection
+            text="Your Tokens"
+            icon={<SavingsIcon className="styles.chainIconxs" />}
+            tokens={nonZeroBalanceTokens}
+            onTokenClick={handle}
+          />
+        )
+      }
 
-      {zeroBalanceTokens.length > 0 && (
-        <TokenSection
-          text="Tokens"
-          icon={<LocalMallIcon className="styles.chainIconxs" />}
-          tokens={zeroBalanceTokens}
-          onTokenClick={handle}
-        />
-      )}
-    </div>
+      {
+        zeroBalanceTokens.length > 0 && (
+          <TokenSection
+            text="Tokens"
+            icon={<LocalMallIcon className="styles.chainIconxs" />}
+            tokens={zeroBalanceTokens}
+            onTokenClick={handle}
+          />
+        )
+      }
+    </div >
   )
 }

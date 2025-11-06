@@ -23,7 +23,7 @@
 
 import { useEffect, useState } from 'react'
 
-import { cmn, cls, MetaportCore, SkPaper, explorer } from '@skalenetwork/metaport'
+import { MetaportCore, SkPaper, explorer } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
@@ -113,8 +113,8 @@ export default function ChainTabsSection(props: {
     ) {
       currentTabs.unshift({ label: 'Featured Apps', icon: <WidgetsRoundedIcon /> })
       currentTabsContent.unshift(
-        <SkPaper gray className="cmn.mtop20)}>
-          <div className="cmn.mtop10, cmn.mbott10, ml-1.5, cmn.mri5)}>
+        <SkPaper gray className="mt-5">
+          <div className="mt-2.5 mb-2.5 ml-1.5 mr-1.5">
             <FeaturedApps
               featuredApps={chainFeaturedApps}
               skaleNetwork={network}
@@ -139,7 +139,7 @@ export default function ChainTabsSection(props: {
   }
 
   return (
-    <div className="cmn.mtop20)} style={{ paddingBottom: '60px' }}>
+    <div className="mt-5" style={{ paddingBottom: '60px' }}>
       <ChainTabs
         chainMeta={chainMeta}
         handleChange={handleChange}

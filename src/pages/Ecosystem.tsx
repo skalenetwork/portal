@@ -22,7 +22,7 @@
 
 import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react'
 import { Helmet } from 'react-helmet'
-import { Container, Stack, Box, Tab, Tabs, Button } from '@mui/material'
+import { Container, Stack, Tab, Tabs, Button } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
@@ -298,7 +298,7 @@ export default function Ecosystem(props: {
             </Container>
           </div>
           {!props.isXs && <div style={{ height: headerHeight }} />}
-          <Box sx={{ flexGrow: 1 }} className={cn('mt-5', 'fwmobile')}>
+          <div className={cn('flex-grow', 'mt-5', 'fwmobile')}>
             {activeTab === 0 && (
               <AllApps
                 apps={currentFilteredApps}
@@ -350,7 +350,7 @@ export default function Ecosystem(props: {
                 error={null}
               />
             )}
-          </Box>
+          </div>
         </Stack>
         <div className="flex mt-5 mb-5">
           <div className="flex-grow"></div>

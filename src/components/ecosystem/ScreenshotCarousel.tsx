@@ -26,7 +26,6 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { Box, IconButton } from '@mui/material'
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
-import { cls, cmn, styles } from '@skalenetwork/metaport'
 
 type PropType = {
   screenshots: string[]
@@ -104,7 +103,7 @@ const ScreenshotCarousel: React.FC<PropType> = ({ screenshots, appName }) => {
           zIndex: 1
         }}
       >
-        <ArrowBackIosNewRoundedIcon className="cmn.pSec, styles.chainIconxs" />
+        <ArrowBackIosNewRoundedIcon className="text-secondary styles.chainIconxs" />
       </IconButton>
       <IconButton
         onClick={scrollNext}
@@ -119,7 +118,7 @@ const ScreenshotCarousel: React.FC<PropType> = ({ screenshots, appName }) => {
           zIndex: 1
         }}
       >
-        <ArrowForwardIosRoundedIcon className="cmn.pSec, styles.chainIconxs" />
+        <ArrowForwardIosRoundedIcon className="text-secondary styles.chainIconxs" />
       </IconButton>
     </Box>
   )

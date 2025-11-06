@@ -22,7 +22,7 @@
 
 import { useState, useEffect, ChangeEvent } from 'react'
 import { isAddress } from 'ethers'
-import { SkPaper, cls, cmn, styles, Tile } from '@skalenetwork/metaport'
+import { SkPaper, Tile } from '@skalenetwork/metaport'
 import { type types, constants } from '@/core'
 
 import { Collapse, Container, TextField, Box, Button, Modal } from '@mui/material'
@@ -94,19 +94,19 @@ export default function RetrieveRewardModal(props: {
             transform: 'translate(-50%, -50%)',
             minWidth: { xs: '100%', md: 'max-content' }
           }}
-          className="cmn.flexg, cmn.flexcv, cmn.flex, cmn.flexc"
+          className="flex-grow items-center flex flex-col"
         >
           <Container maxWidth="md">
             <SkPaper className="cmn.nop">
               <SkPaper gray>
-                <p className=" text-base, cmn.p700, cmn.pCent, cmn.mtop10, cmn.mbott10">
+                <p className="text-base cmn.p700 cmn.pCent cmn.mtop10 mb-2.5">
                   Confirm reward retrieval
                 </p>
                 <Message
                   text="Double-check the address. Withdrawing to a wallet you don't control will lead to permanent loss of funds."
                   type="warning"
                   icon={<WarningRoundedIcon />}
-                  className="cmn.mbott10"
+                  className="mb-2.5"
                   closable={false}
                 />
                 <Collapse in={!!errorMsg}>
@@ -114,7 +114,7 @@ export default function RetrieveRewardModal(props: {
                     text={errorMsg ?? ''}
                     type="error"
                     icon={<ReportProblemRoundedIcon />}
-                    className="cmn.mbott10"
+                    className="mb-2.5"
                     closable={false}
                   />
                 </Collapse>
@@ -122,24 +122,17 @@ export default function RetrieveRewardModal(props: {
                   text="Receiver address"
                   className="styles.inputAmount"
                   children={
-                    <div className="cmn.flex, cmn.flexcv, cmn.mtop5">
-                      <div className="cmn.flexg">
+                    <div className="flex items-center mt-1.5">
+                      <div className="flex-grow">
                         <div
-                          className={cls(
-                            cmn.flex,
-                            cmn.flexg,
-                            cmn.flexcv,
-                            'amountInput',
-                            'addressInput'
-                          )}
-                        >
+                          className="flex flex-grow items-center 'amountInput''addressInput'">
                           <Jazzicon
                             diameter={25}
                             seed={jsNumberForAddress(
                               (edit ? inputAddress : props.customRewardAddress) || ''
                             )}
                           />
-                          <div className="cmn.flexg, cmn.mleft10">
+                          <div className="flex-grow cmn.mleft10">
                             <TextField
                               inputRef={(input) => input?.focus()}
                               variant="standard"
@@ -195,14 +188,14 @@ export default function RetrieveRewardModal(props: {
                   text={props.loading ? 'Retrieving' : 'Retrieve'}
                   disabled={props.disabled || edit}
                   onClick={props.retrieveRewards}
-                  className="'btn', cmn.mleft10, cmn.mbott10, cmn.mtop20"
+                  className="'btn' cmn.mleft10 mb-2.5 mt-5"
                   variant="contained"
                 />
               </SkPaper>
             </SkPaper>
           </Container>
-        </Box>
-      </Modal>
-    </div>
+        </Box >
+      </Modal >
+    </div >
   )
 }

@@ -27,8 +27,6 @@ import { Box, IconButton, useTheme, useMediaQuery } from '@mui/material'
 import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
 
-import { cmn, cls } from '@skalenetwork/metaport'
-
 interface CarouselProps {
   children: ReactNode[]
   showArrows?: boolean
@@ -93,7 +91,7 @@ const Carousel: React.FC<CarouselProps> = ({ children, showArrows = true, classN
             onClick={handlePrev}
             disabled={startIndex === 0}
             size="small"
-            className="'filled', cmn.mri5"
+            className="'filled' mr-1.5"
           >
             <ArrowBackIosRoundedIcon />
           </IconButton>
@@ -101,7 +99,7 @@ const Carousel: React.FC<CarouselProps> = ({ children, showArrows = true, classN
             onClick={handleNext}
             disabled={startIndex >= children.length - itemsToShow}
             size="small"
-            className="cmn.pSec, 'filled', cmn.mleft5"
+            className="text-secondary filled ml-1.5"
           >
             <ArrowForwardIosRoundedIcon />
           </IconButton>

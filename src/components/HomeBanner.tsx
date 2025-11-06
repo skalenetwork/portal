@@ -24,7 +24,6 @@
 import { Button } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { cmn, cls } from '@skalenetwork/metaport'
 import { Link } from 'react-router-dom'
 
 export default function HomeBanner(): JSX.Element {
@@ -34,7 +33,7 @@ export default function HomeBanner(): JSX.Element {
 
   return (
     <div
-      className="'home-banner', cmn.mtop10, cmn.flex, cmn.flexc, cmn.flexcv"
+      className="'home-banner' mt-2.5 flex flex-col items-center"
       style={{ marginBottom: '24px' }}
     >
       <div
@@ -47,7 +46,7 @@ export default function HomeBanner(): JSX.Element {
           textAlign: 'center'
         }}
       >
-        <h1 className="'home-banner-title', cmn.pPrim, cmn.nom">Bridge to SKALE</h1>
+        <h1 className="'home-banner-title' text-primary cmn.nom">Bridge to SKALE</h1>
         <Link to="/bridge">
           <Button
             size={isXs ? 'small' : 'medium'}

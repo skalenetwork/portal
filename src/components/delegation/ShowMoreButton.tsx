@@ -21,7 +21,6 @@
  */
 
 import { Button } from '@mui/material'
-import { cls, cmn } from '@skalenetwork/metaport'
 import ExpandCircleDownRoundedIcon from '@mui/icons-material/ExpandCircleDownRounded'
 
 interface ShowMoreButtonProps {
@@ -35,13 +34,12 @@ const ShowMoreButton: React.FC<ShowMoreButtonProps> = ({
   onClick,
   remainingItems,
   loading,
-  className
 }) => {
   return (
     <Button
       onClick={onClick}
       color="primary"
-      className="cmn.mtop10, cmn.mbott10, className, 'btn'"
+      className="cmn.mtop10 mb-2.5 className 'btn'"
       startIcon={<ExpandCircleDownRoundedIcon />}
       disabled={loading}
     >

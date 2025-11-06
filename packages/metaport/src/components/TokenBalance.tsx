@@ -22,7 +22,6 @@
  */
 
 import { units } from '@/core'
-import { cls, cmn } from '../core/css'
 
 export default function TokenBalance(props: {
   balance: bigint
@@ -39,20 +38,17 @@ export default function TokenBalance(props: {
   }
   let size = props.size ?? 'xs'
   return (
-    <div className="cmn.flex, cmn.flexcv">
+    <div className="flex items-center">
       <p
-        className={cls(
-          cmn.pLightGrey,
-          [text - xs, size === 'xs'],
-          [text - sm, size === 'sm'],
-          [text - base, size === 'md'],
-          [cmn.pSec, !props.primary],
-          [cmn.pPrim, props.primary],
-          cmn.flex,
-          cmn.flexcv,
-          cmn.nom,
-          cmn.mri5
-        )}
+        className={`
+          text-gray-400
+          ${size === 'xs' ? 'text-xs' : ''}
+          ${size === 'sm' ? 'text-sm' : ''}
+          ${size === 'md' ? 'text-base' : ''}
+          ${!props.primary ? 'text-secondary' : ''}
+          ${props.primary ? 'text-primary' : ''}
+          flex items-center font-normal mr-1.5
+        `.replace(/\s+/g, ' ').trim()}
       >
         {balance} {props.symbol}
       </p>

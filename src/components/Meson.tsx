@@ -21,10 +21,10 @@
  */
 
 import { useState } from 'react'
-import { cmn, cls, styles, SkPaper, useWagmiAccount } from '@skalenetwork/metaport'
+import { SkPaper, useWagmiAccount } from '@skalenetwork/metaport'
 import { type types, metadata, constants } from '@/core'
 
-import { Collapse, Grid } from '@mui/material'
+import { Collapse } from '@mui/material'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
 
 import SkStack from './SkStack'
@@ -52,75 +52,72 @@ export default function Meson(props: {
 
   if (props.skaleNetwork !== constants.MAINNET_CHAIN_NAME) return
   return (
-    <div className="props.className, 'paddBott60'">
+    <div className={`${props.className || ''} paddBott60`}>
       <div
         onClick={() => {
           setShow(!show)
         }}
       >
-        <SkPaper gray className="'hoverable pointer'">
-          <SkStack className="cmn.m10, cmn.flexcv">
+        <SkPaper gray className="hoverable cursor-pointer">
+          <SkStack className="p-2.5 items-center">
             <img src={networks} className="mr-2.5" style={{ height: '40px' }} />
-            <div className="cmn.flexg">
-              <div className="cmn.flex, cmn.flexg, cmn.flexcv">
+            <div className="flex-grow">
+              <div className="flex flex-grow items-center">
                 <p
-                  className="cmn.cap, cmn.nom, cmn.pPrim, cmn.p"
+                  className="uppercase font-bold text-primary"
                   style={{ fontSize: '1.05rem', fontWeight: 700 }}
                 >
                   Bridge from Other Popular Networks
                 </p>
               </div>
-              <p className="text-xs cmn.pSec [cmn.pCent, props.isXs]">
+              <p className={`text-xs text-secondary ${props.isXs ? 'text-center' : ''}`}>
                 Transfer from 45+ chains using Meson.Fi
               </p>
             </div>
             {!props.isXs ? (
-              <div className="cmn.mleft10, cmn.mri5, cmn.flex, cmn.flexcv">
+              <div className="ml-2.5 mr-1.5 flex items-center">
                 <ArrowForwardIosRoundedIcon
-                  className="cmn.pSec, styles.chainIconxs, 'rotate-90', ['active', show]"
+                  className={`text-secondary styles.chainIconxs rotate-90 ${show ? 'active' : ''}`}
                 />
               </div>
             ) : null}
           </SkStack>
         </SkPaper>
       </div>
-      <Collapse in={show} className="cmn.mtop10">
+      <Collapse in={show} className="mt-2.5">
         {!address ? (
-          <ConnectWallet className="cmn.flexg" />
+          <ConnectWallet className="flex-grow" />
         ) : (
           <div>
-            <p className=" text-sm, cmn.pSec, text-xs00, cmn.mbott10">
+            <p className="text-sm text-secondary mb-2.5">
               Select destination chain
             </p>
             <div>
-              <Grid container spacing={2} className="cmn.full">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 w-full">
                 {SUPPORTED_CHAINS.map((chain: string) => (
-                  <Grid
+                  <div
                     key={chain}
-                    item
-                    md={4}
-                    sm={6}
-                    xs={12}
+                    className="col-span-1"
                     onClick={() => {
                       openMeson(chain)
                     }}
                   >
-                    <SkPaper gray className="'hoverable pointer'">
-                      <div className="cmn.pCent, cmn.mtop10, cmn.mbott10">
+                    <SkPaper gray className="hoverable cursor-pointer">
+                      <div className="text-center mt-2.5 mb-2.5">
                         <ChainLogo
                           network={props.skaleNetwork}
                           className="styles.chainIconlg"
                           chainName={chain}
                           logos={MAINNET_CHAIN_LOGOS}
                         />
-                        <p className="cmn.cap, cmn.nom, cmn.pPrim,  text-sm, cmn.p700">
+                        <p className="uppercase font-bold text-primary text-sm">
                           {metadata.getAlias(props.chainsMeta, chain)}
                         </p>
                       </div>
                     </SkPaper>
-                  </Grid>
+                  </div>
                 ))}
-              </Grid>
+              </div>
             </div>
           </div>
         )}

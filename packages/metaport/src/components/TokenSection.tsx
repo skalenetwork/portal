@@ -22,7 +22,6 @@
  */
 
 import Button from '@mui/material/Button'
-import { cls, cmn } from '../core/css'
 import TokenBalance from './TokenBalance'
 import TokenIcon from './TokenIcon'
 import { getTokenName } from '../core/metadata'
@@ -36,10 +35,10 @@ interface TokenSectionProps {
 
 export default function TokenSection({ text, icon, tokens, onTokenClick }: TokenSectionProps) {
   return (
-    <div className="cmn.mtop20">
-      <div className="cmn.flex, cmn.flexcv, cmn.flexg, cmn.pSec, cmn.mleft10, cmn.mbott5">
-        <div className="cmn.flexcv, cmn.flex, mr-2.5">{icon}</div>
-        <p className=" text-sm, cmn.p600, cmn.flexg, cmn.cap">{text}</p>
+    <div className="mt-5">
+      <div className="flex items-center flex-grow text-secondary ml-2.5 mb-1.5">
+        <div className="items-center flex mr-2.5">{icon}</div>
+        <p className="text-sm font-semibold flex-grow uppercase">{text}</p>
       </div>
       {tokens
         .sort((a, b) => a.key.localeCompare(b.key))
@@ -48,49 +47,30 @@ export default function TokenSection({ text, icon, tokens, onTokenClick }: Token
             key={key}
             color="secondary"
             size="small"
-            className="cmn.fullWidth, cmn.pleft10, cmn.ptop5, cmn.pbott5"
+            className="w-full pl-2.5 pt-1.5 pb-1.5"
             onClick={() => onTokenClick(tokenData)}
           >
-            <div
-              className={cls(
-                cmn.flex,
-                cmn.flexcv,
-                cmn.fullWidth,
-                cmn.mtop10,
-                cmn.mbott10,
-                cmn.bordRad
-              )}
-            >
-              <div className="cmn.flex, cmn.flexc">
+            <div className="flex items-center w-full mt-2.5 mb-2.5 rounded">
+              <div className="flex items-center">
                 <TokenIcon tokenSymbol={tokenData?.meta.symbol} iconUrl={tokenData?.meta.iconUrl} />
               </div>
-              <div className="cmn.flexg">
-                <p
-                  className={cls(
-
-                    text - sm,
-                    cmn.p600,
-                    cmn.pPrim,
-                    cmn.flex,
-                    mr - 2.5,
-                    cmn.mleft10
-                  )}
-                >
+              <div className="flex-grow">
+                <p className="text-sm font-semibold text-primary flex mr-2.5 ml-2.5">
                   {getTokenName(tokenData)}
                 </p>
                 {tokenData.address ? (
-                  <p className=" text-xs, cmn.pSec, text-xs00, cmn.flex, cmn.mleft10">
+                  <p className="text-xs text-secondary flex ml-2.5">
                     {tokenData.address.substring(0, 5) +
                       '...' +
                       tokenData.address.substring(tokenData.address.length - 3)}
                   </p>
                 ) : (
-                  <p className=" text-xs, cmn.pSec, text-xs00, cmn.flex, cmn.mleft10">
+                  <p className="text-xs text-secondary flex ml-2.5">
                     Ethereum
                   </p>
                 )}
               </div>
-              <div className={mr - 2.5}>
+              <div className="mr-2.5">
                 <TokenBalance
                   balance={balance}
                   symbol={tokenData?.meta.symbol}

@@ -73,28 +73,31 @@ export default function AmountInput() {
   }
 
   return (
-    <div className="cmn.flex, styles.inputAmount">
-      {expandedTokens ? null : (
-        <div className="cmn.flex, cmn.flexg, cmn.flexcv">
-          <TextField
-            type="number"
-            variant="standard"
-            placeholder="0.00"
-            value={amount}
-            onChange={handleChange}
-            disabled={transferInProgress || currentStep !== 0}
-            style={{ width: '100%' }}
-          />
-          <Button
-            size="small"
-            disabled={transferInProgress || currentStep !== 0 || maxAmount === 0n}
-            className="styles.paperGrey, styles.btnXs, cmn.flex, cmn.flexcv, text-xs"
-            onClick={setMaxAmount}
-          >
-            MAX
-          </Button>
-        </div>
-      )}
+    <div className="flex styles.inputAmount">
+      {
+        expandedTokens ? null : (
+          <div className="flex flex-grow items-center">
+            < TextField
+              type="number"
+              variant="standard"
+              placeholder="0.00"
+              value={amount}
+              onChange={handleChange}
+              disabled={transferInProgress || currentStep !== 0
+              }
+              style={{ width: '100%' }
+              }
+            />
+            < Button
+              size="small"
+              disabled={transferInProgress || currentStep !== 0 || maxAmount === 0n}
+              className="styles.paperGrey styles.btnXs flex items-center text-xs"
+              onClick={setMaxAmount}
+            >
+              MAX
+            </Button>
+          </div>
+        )}
       <div className="[cmn.fullWidth, expandedTokens]">
         <TokenList />
       </div>

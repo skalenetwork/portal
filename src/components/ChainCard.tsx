@@ -22,7 +22,6 @@
  */
 
 import { Link } from 'react-router-dom'
-import { cmn, cls } from '@skalenetwork/metaport'
 import { type types, metadata } from '@/core'
 
 import Button from '@mui/material/Button'
@@ -38,17 +37,17 @@ export default function ChainCard(props: {
   const shortAlias = metadata.getChainShortAlias(props.chainsMeta, props.schain.name)
   return (
     <div>
-      <div className="fl-centered">
+      <div className="flex justify-center items-center">
         <div
-          className="'br__tile'"
+          className="br__tile"
           style={{ background: metadata.chainBg(props.chainsMeta, props.schain.name) }}
         >
           <Link
             to={'/chains/' + shortAlias}
-            className="'br__tileLogo', 'br__tileIns', cmn.flex"
+            className="br__tileLogo br__tileIns flex"
           >
-            <div className="cmn.flex, cmn.flexg"></div>
-            <div className="cmn.flex, cmn.flexcv, 'inheritSize'">
+            <div className="flex flex-grow"></div>
+            <div className="flex items-center inheritSize">
               <Logo
                 chainsMeta={props.chainsMeta}
                 skaleNetwork={props.skaleNetwork}
@@ -56,10 +55,10 @@ export default function ChainCard(props: {
               />
             </div>
           </Link>
-          <div className="cmn.flex, cmn.flexcv, cmn.mbott10, 'br__tileBott', 'fullW'"></div>
+          <div className="flex items-center mb-2.5 br__tileBott w-full"></div>
         </div>
         <Link to={'/chains/' + shortAlias}>
-          <Button size="small" className={'cardBtn'}>
+          <Button size="small" className="cardBtn">
             <span
               style={{
                 overflow: 'hidden',

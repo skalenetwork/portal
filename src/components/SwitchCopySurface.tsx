@@ -33,8 +33,6 @@ import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { styled } from '@mui/material/styles'
 import Switch from '@mui/material/Switch'
 
-import { cmn, cls, styles } from '@skalenetwork/metaport'
-
 export default function CopySurface(props: {
   title: string
   value: string | undefined
@@ -101,29 +99,29 @@ export default function CopySurface(props: {
 
   if (!props.value) return
   return (
-    <div className="props.className, 'titleSection'">
-      <div className="cmn.flex, cmn.flexcv, cmn.mbott5">
-        <p className=" text-xs, cmn.pSec, cmn.flexg">{props.title}</p>
-        <p className=" text-xs, cmn.pSec, cmn.mri5">Decimal / Hex</p>
+    <div className={`${props.className} titleSection`}>
+      <div className="flex items-center cmn.mbott5">
+        <p className="text-xs text-secondary flex-grow">{props.title}</p>
+        <p className="text-xs text-secondary mr-1.5">Decimal / Hex</p>
         <AntSwitch inputProps={{ 'aria-label': 'ant design' }} />
       </div>
       <CopyToClipboard text={props.value} onCopy={handleClick}>
         <Tooltip title={copied ? 'Copied!' : 'Click to copy to clipboard'}>
           <ButtonBase style={{ width: '100%' }}>
-            <div style={{ textAlign: 'left', overflow: 'auto' }} className={cmn.flexg}>
-              <p className=" text-base, cmn.p600, 'shortP'">{props.value}</p>
+            <div style={{ textAlign: 'left', overflow: 'auto' }} className="flex-grow">
+              <p className="text-base cmn.p600 shortP">{props.value}</p>
             </div>
             {copied ? (
               <CheckCircleRoundedIcon
                 color="success"
-                className="cmn.mleft20, styles.chainIconxs"
+                className="cmn.mleft20 styles.chainIconxs"
               />
             ) : (
-              <ContentCopyIcon className="cmn.pSec, cmn.mleft20, styles.chainIconxs" />
+              <ContentCopyIcon className="text-secondary cmn.mleft20 styles.chainIconxs" />
             )}
           </ButtonBase>
         </Tooltip>
       </CopyToClipboard>
-    </div>
+    </div >
   )
 }

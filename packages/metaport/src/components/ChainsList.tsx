@@ -1,7 +1,7 @@
 import React from 'react'
 import { types } from '@/core'
 
-import { Modal, Container, Grid } from '@mui/material'
+import { Modal, Container } from '@mui/material'
 import Button from '@mui/material/Button'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
 
@@ -81,7 +81,7 @@ export default function ChainsList(props: {
         className="styles.metaport, styles.backdropBlur, 'dark'"
       >
         <Container maxWidth="md" className="styles.modalContainer">
-          <div className="flex cmn.mbott20">
+          <div className="flex mb-5">
             <div className="flex-grow"></div>
             <SkPaper gray>
               <p
@@ -94,9 +94,9 @@ export default function ChainsList(props: {
           <div
             className="styles.bridgeModalScroll mb-2.5 mr-2.5 ml-2.5"
           >
-            <Grid container spacing={2}>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {schainNames.map((name) => (
-                <Grid size={{ xs: 6, md: 4 }} key={name} className="styles.fullHeight">
+                <div key={name} className="col-span-1 h-full">
                   <BridgeChainCard
                     skaleNetwork={props.config.skaleNetwork}
                     chainName={name}
@@ -105,9 +105,9 @@ export default function ChainsList(props: {
                     disabled={name === props.disabledChain}
                     from={props.from}
                   />
-                </Grid>
+                </div>
               ))}
-            </Grid>
+            </div>
           </div>
         </Container>
       </Modal>

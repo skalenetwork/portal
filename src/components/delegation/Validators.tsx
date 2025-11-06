@@ -24,7 +24,7 @@
 import { type MetaportCore } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
-import Grid from '@mui/material/Grid'
+
 
 import Loader from '../Loader'
 import ValidatorCard from './ValidatorCard'
@@ -51,7 +51,7 @@ export default function Validators(props: {
     : filterValidators(props.validators, ESCROW_VALIDATORS, internal)
 
   return (
-    <Grid container spacing={size === 'md' ? 2 : 3}>
+    <div className={`grid grid-cols-1 ${size === 'md' ? 'gap-2' : 'gap-3'}`}>
       {validators.map((validator: types.st.IValidator, index) => (
         <ValidatorCard
           key={index}
@@ -62,6 +62,6 @@ export default function Validators(props: {
           delegationType={props.delegationType}
         />
       ))}
-    </Grid>
+    </div>
   )
 }

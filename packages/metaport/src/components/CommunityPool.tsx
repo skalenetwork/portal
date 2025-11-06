@@ -54,7 +54,7 @@ import { styles } from '../core/css'
 import { useCPStore } from '../store/CommunityPoolStore'
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
-import { Collapse, Grid } from '@mui/material'
+import { Collapse } from '@mui/material'
 import TokenIcon from './TokenIcon'
 import Tile from './Tile'
 
@@ -206,8 +206,8 @@ export default function CommunityPool() {
                 {cpData.recommendedRechargeAmount} ETH.
               </p>
             ) : null}
-            <Grid container rowSpacing={2} columnSpacing={1} className="mt-5">
-              <Grid size={{ xs: 12, md: 6 }}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-1 mt-5">
+              <div className="col-span-1">
                 <Tile
                   text="ETH Balance"
                   className={styles.inputAmount}
@@ -220,8 +220,8 @@ export default function CommunityPool() {
                       : ''
                   }
                 />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
+              </div>
+              <div className="col-span-1">
                 <Tile
                   grow
                   text="Exit Wallet Balance"
@@ -233,14 +233,14 @@ export default function CommunityPool() {
                   }
                   icon={<AccountBalanceWallet />}
                 />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
+              </div>
+              <div className="col-span-1">
                 <Tile
                   grow
                   text="Enter amount to recharge"
                   className={styles.inputAmount}
                   children={
-                    <div className="'flex items-center', 'amountInput'">
+                    <div className="flex items-center amountInput">
                       <div className="flex-grow">
                         <TextField
                           inputProps={{ step: '0.1', lang: 'en-US' }}
@@ -260,8 +260,8 @@ export default function CommunityPool() {
                   icon={<TransitEnterexitRoundedIcon style={{ rotate: '315deg' }} />}
 
                 />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
+              </div>
+              <div className="col-span-1">
                 <Tile
                   disabled={!!loading}
                   value={cpData.recommendedRechargeAmount !== undefined ? String(cpData.recommendedRechargeAmount) : ''}
@@ -283,8 +283,8 @@ export default function CommunityPool() {
                     </div>
                   }
                 />
-              </Grid>
-            </Grid>
+              </div>
+            </div>
             <div className="mb-5 mt-5">
               <Button
                 variant="contained"

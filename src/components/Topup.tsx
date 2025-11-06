@@ -24,7 +24,7 @@
 import { Link } from 'react-router-dom'
 
 import { constants, units, helper, type types } from '@/core'
-import { cmn, cls, type MetaportCore, Tile } from '@skalenetwork/metaport'
+import { type MetaportCore, Tile } from '@skalenetwork/metaport'
 
 import Button from '@mui/material/Button'
 import { Collapse } from '@mui/material'
@@ -72,13 +72,13 @@ export default function Topup(props: {
 
   return (
     <div>
-      <SkStack className={cmn.mbott10}>
+      <SkStack className="mb-2.5">
         <Tile
           text="Top-up period (months)"
           icon={<MoreTimeIcon />}
           children={
             <MonthSelector
-              className={cmn.mtop10}
+              className="mt-2.5"
               max={maxTopupPeriod}
               topupPeriod={props.topupPeriod}
               setTopupPeriod={props.setTopupPeriod}
@@ -91,7 +91,7 @@ export default function Topup(props: {
       <SkStack>
         <Tile
           value={`${units.truncateDecimals(totalPriceSkl.toString(), 6)} SKL`}
-           tooltip={
+          tooltip={
             props.info.oneSklPrice !== undefined && totalPriceWei !== undefined
               ? units.displaySklValueUsd(totalPriceWei, props.info.oneSklPrice)
               : ''
@@ -114,7 +114,7 @@ export default function Topup(props: {
         />
       </SkStack>
       <Collapse in={props.errorMsg !== undefined}>
-        <SkStack className={cmn.mtop10}>
+        <SkStack className="mt-2.5">
           <Tile
             value={props.errorMsg}
             text="Error occurred"
@@ -127,7 +127,7 @@ export default function Topup(props: {
                 onClick={() => {
                   props.setErrorMsg(undefined)
                 }}
-                className="'blackP',  text-xs, cmn.mtop10)}
+                className="blackP text-xs mt-2.5"
                 style={{ background: 'rgba(0, 0, 0, 0.3)' }}
               >
                 Close
@@ -136,11 +136,11 @@ export default function Topup(props: {
           />
         </SkStack>
       </Collapse>
-      <div className="cmn.mtop20, cmn.mbott10, ml-1.5, cmn.flex)}>
-        <div className="cmn.flex)}>
+      <div className="mt-5 mb-2.5 ml-1.5 flex">
+        <div className="flex">
           <Button
             variant="contained"
-            className="'btn')}
+            className="btn"
             disabled={!balanceOk || props.loading || maxTopupPeriod <= 0}
             onClick={props.topupChain}
           >
@@ -148,7 +148,7 @@ export default function Topup(props: {
           </Button>
           {!balanceOk ? (
             <Link to="/bridge">
-              <Button variant="contained" className="'btn', ml-2.5)}>
+              <Button variant="contained" className="btn ml-2.5">
                 Bridge SKL to Europa Hub
               </Button>
             </Link>

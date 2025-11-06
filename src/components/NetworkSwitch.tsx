@@ -31,7 +31,7 @@ import Button from '@mui/material/Button'
 
 import SensorsRoundedIcon from '@mui/icons-material/SensorsRounded'
 import ChangeCircleRoundedIcon from '@mui/icons-material/ChangeCircleRounded'
-import { cls, styles, cmn, type MetaportCore } from '@skalenetwork/metaport'
+import { type MetaportCore } from '@skalenetwork/metaport'
 
 import { PORTAL_URLS } from '../core/constants'
 
@@ -49,14 +49,14 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
     <div>
       <Box
         sx={{ alignItems: 'center', textAlign: 'center', display: { xs: 'none', sm: 'flex' } }}
-        className="cmn.mleft5"
+        className="ml-1.5"
       >
         <Tooltip arrow title="Switch SKALE Network">
           <Button
             onClick={handleClick}
-            className="'mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex, cmn.cap"
+            className="'mp__btnConnect', styles.paperGrey, text-primary, flex capitalize"
           >
-            <SensorsRoundedIcon className={cmn.mri5} style={{ height: '18px', width: '18px' }} />
+            <SensorsRoundedIcon className="mr-1.5" style={{ height: '18px', width: '18px' }} />
             {props.mpc.config.skaleNetwork}
           </Button>
         </Tooltip>
@@ -101,9 +101,9 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
           props.mpc.config.skaleNetwork !== network ? (
             <a rel="noreferrer" href={PORTAL_URLS[network]} className="undec" key={network}>
               <MenuItem onClick={handleClose}>
-                <ChangeCircleRoundedIcon className={mr - 2.5} />
+                <ChangeCircleRoundedIcon className="mr-2.5" />
                 Switch to{' '}
-                <div className="cmn.cap, cmn.mleft5">
+                <div className="capitalize ml-1.5">
                   {' '}
                   {network === 'staging' ? 'testnet' : network} Portal
                 </div>

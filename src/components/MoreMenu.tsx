@@ -37,7 +37,6 @@ import { Link } from 'react-router-dom'
 
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined'
 
-import { cls, styles, cmn } from '@skalenetwork/metaport'
 import { DOCS_PORTAL_URL, SKALE_FORUM_URL } from '../core/constants'
 
 export default function MoreMenu() {
@@ -59,10 +58,10 @@ export default function MoreMenu() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
-            className="styles.paperGrey, cmn.pPrim, cmn.mleft5"
+            className="styles.paperGrey text-primary ml-1.5"
             style={{ width: '34px', height: '34px' }}
           >
-            <MoreVertIcon className="cmn.pPrim" style={{ height: '18px', width: '18px' }} />
+            <MoreVertIcon className="text-primary" style={{ height: '18px', width: '18px' }} />
           </IconButton>
         </Tooltip>
       </Box>
@@ -104,32 +103,32 @@ export default function MoreMenu() {
       >
         <Link to="/other/terms-of-service" className="undec fullW">
           <MenuItem onClick={handleClose}>
-            <InventoryOutlinedIcon className={mr - 2.5} /> Terms of service
+            <InventoryOutlinedIcon className="mr-2.5" /> Terms of service
           </MenuItem>
         </Link>
         <Link to="/other/changelog" className="undec fullW">
           <MenuItem onClick={handleClose}>
-            <FormatListBulletedRoundedIcon className={mr - 2.5} /> Changelog
+            <FormatListBulletedRoundedIcon className="mr-2.5" /> Changelog
           </MenuItem>
         </Link>
         <a className="undec fullW" target="_blank" href={DOCS_PORTAL_URL} rel="noreferrer">
           <MenuItem onClick={handleClose} className="undec">
-            <div className={cmn.flex}>
-              <MenuBookRoundedIcon className={mr - 2.5} />
+            <div className="flex">
+              <MenuBookRoundedIcon className="mr-2.5" />
             </div>
-            <div className="cmn.flex, cmn.flexg">SKALE Network Docs</div>
-            <div className="cmn.flex, cmn.mleft10">
+            <div className="flex flex-grow">SKALE Network Docs</div>
+            <div className="flex ml-2.5">
               <ArrowOutwardIcon className="menuIconRi" />
             </div>
           </MenuItem>
         </a>
         <a className="undec fullW" target="_blank" href={SKALE_FORUM_URL} rel="noreferrer">
           <MenuItem onClick={handleClose} className="undec">
-            <div className={cmn.flex}>
-              <ForumIcon className={mr - 2.5} />
+            <div className="flex">
+              <ForumIcon className="mr-2.5" />
             </div>
-            <div className="cmn.flex, cmn.flexg">SKALE Forum </div>
-            <div className="cmn.flex, cmn.mleft10">
+            <div className="flex flex-grow">SKALE Forum </div>
+            <div className="flex ml-2.5">
               <ArrowOutwardIcon className="menuIconRi" />
             </div>
           </MenuItem>

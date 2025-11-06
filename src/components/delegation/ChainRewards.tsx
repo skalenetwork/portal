@@ -23,8 +23,6 @@
 import { useEffect, useState } from 'react'
 import { Contract } from 'ethers'
 import {
-  cmn,
-  cls,
   type MetaportCore,
   enforceNetwork,
   useWagmiWalletClient,
@@ -33,7 +31,6 @@ import {
   Tile,
   walletClientToSigner,
   sendTransaction,
-  styles,
   SkPaper,
   Station,
   explorer,
@@ -66,7 +63,6 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   validator,
   address,
   customAddress,
-  className,
   isXs
 }) => {
   const [rewardAmount, setRewardAmount] = useState<bigint | undefined>(undefined)
@@ -183,12 +179,12 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   }
 
   return (
-    <SkPaper gray className="cmn.mtop20, className">
+    <SkPaper gray className="mt-5 className">
       <Headline
         size="small"
         text="Chain Rewards"
         icon={<StarsRoundedIcon className="styles.chainIconxs" />}
-        className="cmn.mbott20"
+        className="mb-5"
       />
       <Tile
         disabled={rewardAmount === 0n}
@@ -202,56 +198,56 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
             : ''
         }
         childrenRi={
-          <SkStack className="cmn.flex, [cmn.flexcv, !isXs]">
-            <SkBtn
-              loading={loading}
-              text={btnText ?? 'Retrieve'}
-              variant="contained"
-              size="sm"
-              className="[cmn.mleft20, !isXs], cmn.mri20, cmn.flexcv"
-              disabled={
-                customAddress !== undefined ||
-                rewardAmount === null ||
-                rewardAmount === 0n ||
-                loading
-              }
-              onClick={retrieveRewards}
-            />
-            <div className="['borderVert', !isXs]">
-              <Tile
-                className="cmn.nop, [cmn.mleft20, !isXs]"
-                size="md"
-                transparent
-                grow
-                value={tokenBalance !== undefined && units.displayBalance(tokenBalance, 'SKL')}
-                ri={!isXs}
-                text="Balance on Europa Hub"
-                icon={<TokenIcon tokenSymbol="skl" size="xs" />}
-                tooltip={
-                  sklPrice !== undefined && tokenBalance !== undefined
-                    ? units.displaySklValueUsd(tokenBalance, sklPrice)
-                    : ''
-                }
-                childrenRi={
-                  <Tooltip title="Open in block explorer">
-                    <a target="_blank" rel="noreferrer" href={tokenUrl ?? ''} className="undec">
-                      <Button
-                        disabled={tokenUrl === null}
-                        variant="text"
-                        className="'roundBtn', cmn.mleft5"
-                      >
-                        <ViewInArRoundedIcon className="styles.chainIconxs" />
-                      </Button>
-                    </a>
-                  </Tooltip>
-                }
-              />
-            </div>
-          </SkStack>
+          <SkStack className="flex items-center !isXs">
+      <SkBtn
+        loading={loading}
+        text={btnText ?? 'Retrieve'}
+        variant="contained"
+        size="sm"
+        className="[cmn.mleft20, !isXs], cmn.mri20, items-center"
+        disabled={
+          customAddress !== undefined ||
+          rewardAmount === null ||
+          rewardAmount === 0n ||
+          loading
+        }
+        onClick={retrieveRewards}
+      />
+      <div className="['borderVert', !isXs]">
+        <Tile
+          className="cmn.nop, [cmn.mleft20, !isXs]"
+          size="md"
+          transparent
+          grow
+          value={tokenBalance !== undefined && units.displayBalance(tokenBalance, 'SKL')}
+          ri={!isXs}
+          text="Balance on Europa Hub"
+          icon={<TokenIcon tokenSymbol="skl" size="xs" />}
+          tooltip={
+            sklPrice !== undefined && tokenBalance !== undefined
+              ? units.displaySklValueUsd(tokenBalance, sklPrice)
+              : ''
+          }
+          childrenRi={
+            <Tooltip title="Open in block explorer">
+              <a target="_blank" rel="noreferrer" href={tokenUrl ?? ''} className="undec">
+                <Button
+                  disabled={tokenUrl === null}
+                  variant="text"
+                  className="'roundBtn' ml-1.5"
+                >
+                  <ViewInArRoundedIcon className="styles.chainIconxs" />
+                </Button>
+              </a>
+            </Tooltip>
+          }
+        />
+      </div>
+    </SkStack>
         }
       />
-      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="cmn.mtop10" />
-    </SkPaper>
+  < ErrorTile errorMsg = { errorMsg } setErrorMsg = { setErrorMsg } className = "cmn.mtop10" />
+    </SkPaper >
   )
 }
 

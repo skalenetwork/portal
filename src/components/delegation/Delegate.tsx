@@ -26,10 +26,7 @@ import { useNavigate } from 'react-router-dom'
 import { type Signer } from 'ethers'
 
 import {
-  cmn,
-  cls,
   TokenIcon,
-  styles,
   type MetaportCore,
   sendTransaction,
   contracts,
@@ -146,7 +143,7 @@ export default function Delegate(props: {
       <SkStack>
         <Tile
           grow
-          className="cmn.mbott10"
+          className="mb-2.5"
           value="2 months"
           text="Delegation period"
           icon={<AccessTimeRoundedIcon />}
@@ -156,7 +153,7 @@ export default function Delegate(props: {
         <Tile
           size="md"
           grow
-          className="cmn.mbott10"
+          className="mb-2.5"
           value="Auto-renewed"
           text="Renewal"
           icon={<EventRepeatRoundedIcon />}
@@ -165,7 +162,7 @@ export default function Delegate(props: {
 
       <Tile
         text="Delegation flow"
-        className="cmn.mbott10"
+        className="mb-2.5"
         icon={<AccountTreeRoundedIcon />}
         grow
         children={<DelegationFlow className="cmn.mtop10" />}
@@ -176,8 +173,8 @@ export default function Delegate(props: {
           text="Enter amount to stake"
           className="styles.inputAmount"
           children={
-            <div className="cmn.flex, cmn.flexcv, 'amountInput'">
-              <div className="cmn.flexg">
+            <div className="flex items-center 'amountInput'">
+              <div className="flex-grow">
                 <Tooltip
                   title={
                     props.sklPrice !== undefined
@@ -203,7 +200,7 @@ export default function Delegate(props: {
               <div className="cmn.p1,  cmn.p700, mr-2.5">SKL</div>
             </div>
           }
-          icon={<TransitEnterexitRoundedIcon style={{ rotate: '315deg' }} />}
+          icon={< TransitEnterexitRoundedIcon style={{ rotate: '315deg' }} />}
           grow
         />
         <Tile
@@ -218,9 +215,9 @@ export default function Delegate(props: {
           icon={<TokenIcon tokenSymbol="skl" size="xs" />}
           color={true ? undefined : 'error'}
           childrenRi={
-            <div className="cmn.flexcv, cmn.flex">
+            <div className="items-center flex">
               <Button
-                className="'btnSm', 'outlined', cmn.mleft20, cmn.flexcv"
+                className="'btnSm' 'outlined' cmn.mleft20 items-center"
                 disabled={info.allowedToDelegate === 0n || loading}
                 onClick={() => {
                   if (!info.allowedToDelegate) return
@@ -235,7 +232,7 @@ export default function Delegate(props: {
             </div>
           }
         />
-      </SkStack>
+      </SkStack >
 
       <ErrorTile
         errorMsg={props.errorMsg}
@@ -243,32 +240,34 @@ export default function Delegate(props: {
         className="cmn.mtop10"
       />
 
-      {loading ? (
-        <Button
-          disabled
-          size="small"
-          variant="contained"
-          className="'btn', cmn.mleft10, cmn.mbott10, cmn.mtop20"
-        >
-          Staking SKL
-        </Button>
-      ) : (
-        <Button
-          disabled={
-            amount === '' ||
-            parseFloat(amount) === 0 ||
-            !info.allowedToDelegate ||
-            amountWei > info.allowedToDelegate ||
-            amountWei < props.validator.minimumDelegationAmount ||
-            loading
-          }
-          variant="contained"
-          className="'btn', cmn.mleft10, cmn.mbott10, cmn.mtop20"
-          onClick={stake}
-        >
-          {getBtnText()}
-        </Button>
-      )}
-    </div>
+      {
+        loading ? (
+          <Button
+            disabled
+            size="small"
+            variant="contained"
+            className="'btn' cmn.mleft10 mb-2.5 mt-5"
+          >
+            Staking SKL
+          </Button>
+        ) : (
+          <Button
+            disabled={
+              amount === '' ||
+              parseFloat(amount) === 0 ||
+              !info.allowedToDelegate ||
+              amountWei > info.allowedToDelegate ||
+              amountWei < props.validator.minimumDelegationAmount ||
+              loading
+            }
+            variant="contained"
+            className="'btn' cmn.mleft10 mb-2.5 mt-5"
+            onClick={stake}
+          >
+            {getBtnText()}
+          </Button>
+        )
+      }
+    </div >
   )
 }

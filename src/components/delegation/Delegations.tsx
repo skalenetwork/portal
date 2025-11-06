@@ -21,7 +21,6 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, styles } from '@skalenetwork/metaport'
 import Skeleton from '@mui/material/Skeleton'
 import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
 import PieChartRoundedIcon from '@mui/icons-material/PieChartRounded'
@@ -64,16 +63,16 @@ export default function Delegations(props: {
       <div className="cmn.mtop10" style={{ paddingBottom: '5px' }}></div>
       {!loaded ? (
         <div>
-          <Skeleton variant="rectangular" height={86} className="cmn.mbott10" />
+          <Skeleton variant="rectangular" height={86} className="mb-2.5" />
           <div className="'nestedSection', ['nestedSectionXs', props.isXs]">
-            <Skeleton variant="rectangular" height={83} className="cmn.mbott10" />
+            <Skeleton variant="rectangular" height={83} className="mb-2.5" />
           </div>
         </div>
       ) : null}
       {loaded && noDelegations ? (
-        <div className="cmn.mtop20">
-          <PieChartRoundedIcon className="cmn.pSec, styles.chainIconlg, cmn.fullWidth" />
-          <h3 className=" cmn.p700, cmn.pSec, cmn.pCent, cmn.mtop5, cmn.mbott20">
+        <div className="mt-5">
+          <PieChartRoundedIcon className="text-secondary styles.chainIconlg cmn.fullWidth" />
+          <h3 className="font-bold text-secondary text-center mt-1.5 mb-5">
             No tokens staked
           </h3>
         </div>

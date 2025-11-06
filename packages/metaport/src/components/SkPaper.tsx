@@ -46,7 +46,7 @@ export default function SkPaper(props: {
         styles.paper,
         [styles.paperGrey, props.gray],
         [styles.fullHeight, props.fullHeight],
-        [cmn.mtop20, props.margTop]
+        [mt-5 props.margTop]
       "
     >
       {props.children}

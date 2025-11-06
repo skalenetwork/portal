@@ -23,9 +23,7 @@
 
 import { useState, useEffect } from 'react'
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
-import { cls } from '@skalenetwork/metaport'
 import { Fab } from '@mui/material'
-import '../styles/components.scss'
 
 export default function ScrollToTopButton() {
   const [isVisible, setIsVisible] = useState(false)
@@ -54,7 +52,8 @@ export default function ScrollToTopButton() {
       aria-label="scroll to top"
       onClick={scrollToTop}
       size="small"
-      className="'scrollToTopButton', 'secondary')}
+      className="fixed bottom-6 right-6 z-50"
+      color="secondary"
     >
       <KeyboardArrowUpIcon />
     </Fab>

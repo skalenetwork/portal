@@ -23,7 +23,7 @@
 
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Container, Stack, Box, Grid, Button } from '@mui/material'
+import { Container, Stack, Button } from '@mui/material'
 import { SkPaper } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
@@ -133,15 +133,15 @@ export default function Home({
 }
 function ExploreSection(): JSX.Element {
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={3}>
+    <div className="flex-grow">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-3">
         {EXPLORE_CARDS.map((card, index) => (
-          <Grid key={index} className="fl-centered dappCard" size={{ xs: 12, sm: 6, md: 6, lg: 6 }}>
+          <div key={index} className="flex justify-center items-center dappCard">
             <PageCard {...card} />
-          </Grid>
+          </div>
         ))}
-      </Grid>
-    </Box>
+      </div>
+    </div>
   )
 }
 interface AppSectionProps {

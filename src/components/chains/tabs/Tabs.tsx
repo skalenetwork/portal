@@ -27,7 +27,6 @@ import { Link } from 'react-router-dom'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 
-import { cls, cmn } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
 import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded'
@@ -42,7 +41,7 @@ export default function ChainTabs(props: {
   isXs: boolean
 }) {
   return (
-    <div className="cmn.mtop10, cmn.fullWidth)}>
+    <div className="mt-2.5 w-full">
       <Tabs
         variant={props.isXs ? 'scrollable' : 'standard'}
         value={props.tab}
@@ -58,15 +57,14 @@ export default function ChainTabs(props: {
               label={tab.label}
               icon={tab.icon}
               iconPosition="start"
-              className="'btn', 'btnSm', cmn.mri5, ml-1.5, 'tab', 'fwmobile')}
+              className="btn btnSm mr-1.5 ml-1.5 tab fwmobile"
             />
           ) : null
         )}
         <Link to={`/admin/${props.schainName}`}>
           <Button
             startIcon={<AdminPanelSettingsRoundedIcon />}
-            className="'btn', 'btnSm', cmn.mri5, ml-1.5, 'tab', cmn.pSec, text-xs00)}
-          >
+            className="btn btnSm mr-1.5 ml-1.5 tab text-secondary text-xs">
             Manage
           </Button>
         </Link>

@@ -33,7 +33,7 @@ export function ValidatorBadge(props: { validator: types.st.IValidator; classNam
     return (
       <Tooltip title="Escrow validator">
         <AccountBalanceRoundedIcon
-          className="'trustedBadge', cmn.mri5, cmn.pSec, props.className"
+          className="'trustedBadge' mr-1.5 text-secondary props.className"
         />
       </Tooltip>
     )

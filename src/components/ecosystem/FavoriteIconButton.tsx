@@ -25,7 +25,7 @@ import React from 'react'
 import { IconButton, Tooltip } from '@mui/material'
 import FavoriteIcon from '@mui/icons-material/Favorite'
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder'
-import { cls, cmn, useWagmiAccount, useConnectModal } from '@skalenetwork/metaport'
+import { useWagmiAccount, useConnectModal } from '@skalenetwork/metaport'
 import { useLikedApps } from '../../LikedAppsContext'
 import { useAuth } from '../../AuthContext'
 
@@ -66,7 +66,7 @@ const FavoriteIconButton: React.FC<FavoriteIconButtonProps> = ({ chainName, appN
         {isLiked ? (
           <FavoriteIcon className="iconRed" />
         ) : (
-          <FavoriteBorderIcon className="cmn.pSec" />
+          <FavoriteBorderIcon className="text-secondary" />
         )}
       </IconButton>
     </Tooltip>

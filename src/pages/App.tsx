@@ -35,7 +35,7 @@ import {
   Tile
 } from '@skalenetwork/metaport'
 
-import { Button, Grid } from '@mui/material'
+import { Button } from '@mui/material'
 import Container from '@mui/material/Container'
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded'
 import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded'
@@ -174,7 +174,7 @@ export default function App(props: {
 
   return (
     <Container maxWidth="md">
-      <div className="'chainDetails', cmn.mbott20">
+      <div className="'chainDetails' mb-5">
         <Helmet>
           <title>SKALE Portal - {appAlias}</title>
           <meta name="description" content={appDescription} />
@@ -182,7 +182,7 @@ export default function App(props: {
           <meta property="og:description" content={appDescription} />
         </Helmet>
 
-        <div className="cmn.flex">
+        <div className="flex">
           <Breadcrumbs
             className="bg"
             sections={[
@@ -197,11 +197,11 @@ export default function App(props: {
               }
             ]}
           />
-          <div className="cmn.flexg"></div>
+          <div className="flex-grow"></div>
         </div>
         <SkPaper gray className="cmn.mtop10">
-          <div className="cmn.m10">
-            <div className="'responsive-app-header', cmn.flex, cmn.flexcvd">
+          <div className="m-2.5">
+            <div className="'responsive-app-header' flex items-centerd">
               <Logo
                 chainsMeta={props.chainsMeta}
                 skaleNetwork={network}
@@ -210,13 +210,13 @@ export default function App(props: {
                 size="md"
               />
 
-              <div className="'app-info', cmn.flexg">
-                <div className="[cmn.flex, !props.isXs]">
-                  <div className="cmn.flexg, cmn.mbott10">
+              <div className="'app-info' flex-grow">
+                <div className="[flex !props.isXs]">
+                  <div className="flex-grow mb-2.5">
                     <CategoriesChips categories={appMeta.categories} all />
                   </div>
                   <Button
-                    className="cmn.mbott10, [cmn.mtop10, props.isXs], 'btn btnSm favsBtn'"
+                    className="mb-2.5 [cmn.mtop10, props.isXs] 'btn btnSm favsBtn'"
                     variant="contained"
                     startIcon={isLiked ? <FavoriteRoundedIcon /> : <FavoriteBorderOutlinedIcon />}
                     onClick={handleToggleLike}
@@ -225,9 +225,9 @@ export default function App(props: {
                   </Button>
                 </div>
 
-                <div className="cmn.flex, cmn.flexcv">
+                <div className="flex items-center">
                   <h2 className="cmn.nom, cmn.p1">{appAlias}</h2>
-                  <div className="cmn.flex, cmn.mleft10">
+                  <div className="flex cmn.mleft10">
                     {featured && <ChipFeatured />}
                     {trending && <ChipTrending />}
                     {isNew && <ChipNew />}
@@ -236,32 +236,32 @@ export default function App(props: {
                 </div>
 
                 <CollapsibleDescription text={appDescription} expandable />
-                <SocialButtons size="md" social={appMeta.social} className="cmn.mtop20" />
+                <SocialButtons size="md" social={appMeta.social} className="mt-5" />
               </div>
             </div>
-          </div>
-        </SkPaper>
+          </div >
+        </SkPaper >
         <SkPaper gray className="cmn.mtop10">
-          <Grid container spacing={1} className="cmn.full">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 w-full">
             {appMeta.contracts && (
-              <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+              <div className="col-span-1">
                 <Tile
                   grow
                   text="Total transactions"
                   value={counters ? formatNumber(Number(counters.transactions_count)) : undefined}
                   icon={<DataSaverOffRoundedIcon />}
                 />
-              </Grid>
+              </div>
             )}
             {appMeta.contracts && (
-              <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+              <div className="col-span-1">
                 <Tile
                   grow
                   text="Gas saved"
                   childrenRi={
                     !props.isXs ? (
                       <InfoOutlinedIcon
-                        className="cmn.pSec, styles.chainIconxs, cmn.mleft10"
+                        className="text-secondary styles.chainIconxs cmn.mleft10"
                       />
                     ) : undefined
                   }
@@ -273,18 +273,18 @@ export default function App(props: {
                   value={props.metrics && counters ? `${formatGas()} ETH` : undefined}
                   icon={<SavingsRoundedIcon />}
                 />
-              </Grid>
+              </div>
             )}
-            <Grid size={{ xs: 12, md: appMeta.contracts ? 6 : 12, lg: appMeta.contracts ? 4 : 12 }}>
+            <div className={`col-span-1 ${appMeta.contracts ? 'md:col-span-1 lg:col-span-1' : 'md:col-span-2 lg:col-span-3'}`}>
               <Tile
                 grow
                 text="Favorites"
                 value={likesCount.toString()}
                 icon={<FavoriteRoundedIcon />}
               />
-            </Grid>
+            </div>
             {appMeta.contracts && (
-              <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+              <div className="col-span-1">
                 <Tile
                   grow
                   text="30d transactions"
@@ -293,10 +293,10 @@ export default function App(props: {
                   }
                   icon={<HourglassFullRoundedIcon />}
                 />
-              </Grid>
+              </div>
             )}
             {appMeta.contracts && (
-              <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+              <div className="col-span-1">
                 <Tile
                   grow
                   text="7d transactions"
@@ -305,64 +305,66 @@ export default function App(props: {
                   }
                   icon={<HourglassBottomRoundedIcon />}
                 />
-              </Grid>
+              </div>
             )}
             {appMeta.contracts && (
-              <Grid size={{ xs: 12, md: 6, lg: 4 }}>
+              <div className="col-span-1">
                 <Tile
                   grow
                   text="Daily transactions"
                   value={counters ? formatNumber(Number(counters.transactions_today)) : undefined}
                   icon={<HourglassTopRoundedIcon />}
                 />
-              </Grid>
+              </div>
             )}
-          </Grid>
+          </div>
         </SkPaper>
         <AppScreenshots chainName={chain} appName={app} skaleNetwork={network} />
-        {chain !== OFFCHAIN_APP && (
-          <SkPaper gray className="cmn.mtop10, 'fwmobile'">
-            <AccordionSection
-              handleChange={handleChange}
-              expanded={expanded}
-              panel="panel3"
-              title={`Runs on SKALE ${isAppChain ? 'Chain' : 'Hub'}`}
-              icon={<HubRoundedIcon />}
-            >
-              <HubTile
-                network={props.mpc.config.skaleNetwork}
-                schainName={chain}
-                isXs={props.isXs}
-                metrics={null}
-                chainsMeta={props.chainsMeta}
-              />
-            </AccordionSection>
-            {appMeta.contracts ? (
+        {
+          chain !== OFFCHAIN_APP && (
+            <SkPaper gray className="cmn.mtop10, 'fwmobile'">
               <AccordionSection
-                expandedByDefault={true}
-                title="Smart contracts"
-                icon={<ArticleRoundedIcon />}
+                handleChange={handleChange}
+                expanded={expanded}
+                panel="panel3"
+                title={`Runs on SKALE ${isAppChain ? 'Chain' : 'Hub'}`}
+                icon={<HubRoundedIcon />}
               >
-                <div>
-                  <Grid container spacing={2} className="cmn.full">
-                    {appMeta.contracts.map((contractAddress: string, index: number) => (
-                      <Grid key={contractAddress} size={{ xs: 12, lg: 6 }}>
-                        <LinkSurface
-                          className="styles.fullHeight"
-                          title={`Contract ${index + 1}`}
-                          value={contractAddress}
-                          url={explorer.addressUrl(explorerUrl, contractAddress)}
-                        />
-                      </Grid>
-                    ))}
-                  </Grid>
-                </div>
+                <HubTile
+                  network={props.mpc.config.skaleNetwork}
+                  schainName={chain}
+                  isXs={props.isXs}
+                  metrics={null}
+                  chainsMeta={props.chainsMeta}
+                />
               </AccordionSection>
-            ) : (
-              <div></div>
-            )}
-          </SkPaper>
-        )}
+              {appMeta.contracts ? (
+                <AccordionSection
+                  expandedByDefault={true}
+                  title="Smart contracts"
+                  icon={<ArticleRoundedIcon />}
+                >
+                  <div>
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 w-full">
+                      {appMeta.contracts.map((contractAddress: string, index: number) => (
+                        <div key={contractAddress} className="col-span-1">
+                          <LinkSurface
+                            className="styles.fullHeight"
+                            title={`Contract ${index + 1}`}
+                            value={contractAddress}
+                            url={explorer.addressUrl(explorerUrl, contractAddress)}
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </AccordionSection>
+              ) : (
+                <div></div>
+              )}
+            </SkPaper>
+          )
+        }
 
         <SkPaper gray className="cmn.mtop10, 'fwmobile'">
           <AccordionSection
@@ -384,7 +386,7 @@ export default function App(props: {
             />
           </AccordionSection>
         </SkPaper>
-      </div>
-    </Container>
+      </div >
+    </Container >
   )
 }

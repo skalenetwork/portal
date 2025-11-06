@@ -21,12 +21,12 @@
  */
 
 import React, { useMemo } from 'react'
-import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
 import { useLikedApps } from '../../../LikedAppsContext'
 import AppCardV2 from '../AppCardV2'
-import { Grid } from '@mui/material'
+
 import { isNewApp, isTrending, isFeatured } from '../../../core/ecosystem/utils'
 import Loader from '../../Loader'
 
@@ -57,8 +57,8 @@ const AllApps: React.FC<AllAppsProps> = ({
   if (apps.length === 0)
     return (
       <SkPaper gray className="titleSection">
-        <div className="cmn.mtop20, cmn.mbott20">
-          <p className=" text-base, cmn.pSec, cmn.pCent">
+        <div className="mt-5 mb-5">
+          <p className="text-base text-secondary cmn.pCent">
             🚫 No apps match your current filters
           </p>
         </div>
@@ -66,12 +66,12 @@ const AllApps: React.FC<AllAppsProps> = ({
     )
 
   return (
-    <Grid container spacing={2}>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
       {apps.map((app: types.AppWithChainAndName) => {
         const appId = getAppId(app.chain, app.appName)
         const isNew = isNewApp({ chain: app.chain, app: app.appName }, newApps)
         return (
-          <Grid key={appId} size={{ xs: 12, sm: 6, md: 4, lg: 4 }}>
+          <div key={appId} className="col-span-1">
             <AppCardV2
               skaleNetwork={skaleNetwork}
               schainName={app.chain}
@@ -82,10 +82,10 @@ const AllApps: React.FC<AllAppsProps> = ({
               isNew={isNew}
               isFeatured={isFeatured({ chain: app.chain, app: app.appName }, featuredApps)}
             />
-          </Grid>
+          </div>
         )
       })}
-    </Grid>
+    </div>
   )
 }
 

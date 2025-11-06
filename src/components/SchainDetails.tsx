@@ -25,9 +25,6 @@ import { useState } from 'react'
 import { Helmet } from 'react-helmet'
 
 import {
-  cmn,
-  cls,
-  styles,
   type MetaportCore,
   SkPaper,
   explorer,
@@ -139,8 +136,8 @@ export default function SchainDetails(props: {
   }
 
   return (
-    <div className="'chainDetails', cmn.mbott20">
-      <div className="cmn.flex">
+    <div className="chainDetails mb-5">
+      <div className="flex">
         <Breadcrumbs
           className="bg"
           sections={[
@@ -155,7 +152,7 @@ export default function SchainDetails(props: {
             }
           ]}
         />
-        <div className="cmn.flexg"></div>
+        <div className="flex-grow"></div>
       </div>
       <Helmet>
         <title>SKALE Portal - {chainAlias}</title>
@@ -163,46 +160,40 @@ export default function SchainDetails(props: {
         <meta property="og:title" content={`SKALE Portal - ${chainAlias}`} />
         <meta property="og:description" content={chainDescription} />
       </Helmet>
-      <SkPaper gray className="cmn.mtop10">
-        <div className="cmn.m10">
-          <div className="'responsive-app-header', cmn.flex, cmn.flexcvd">
+      <SkPaper gray className="mt-2.5">
+        <div className="p-2.5">
+          <div className="responsive-app-header flex items-center">
             <Logo
               chainsMeta={props.chainsMeta}
               skaleNetwork={network}
               chainName={props.schainName}
               size="md"
             />
-            <div className="'app-info', cmn.flexg">
-              <div className="cmn.flex, cmn.flexcv, cmn.mbott10">
-                <div className={cmn.flexg}>
+            <div className="app-info flex-grow">
+              <div className="flex items-center mb-2.5">
+                <div className="flex-grow">
                   <CategoriesChips categories={chainMeta?.categories} all />
                 </div>
               </div>
 
-              <h2 className="cmn.nom, cmn.p1">{chainAlias}</h2>
+              <h2 className="font-bold text-lg">{chainAlias}</h2>
               <CollapsibleDescription text={chainDescription} expandable />
             </div>
           </div>
         </div>
       </SkPaper>
-      <SkPaper gray className="cmn.mtop10">
-        <SkStack className={cmn.mbott10}>
+      <SkPaper gray className="mt-2.5">
+        <SkStack className="mb-2.5">
           <Tile
-            className="cmn.nop, cmn.flex, cmn.flexcv"
+            className="p-0 flex items-center"
             children={
               <div
-                className={cls(
-                  cmn.m10,
-                  cmn.mleft20,
-                  cmn.mri20,
-                  [cmn.flex, !props.isXs],
-                  cmn.flexcv
-                )}
+                className={`p-2.5 ml-5 mr-5 ${!props.isXs ? 'flex' : ''} items-center`}
               >
                 <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
                   <Button
                     size="medium"
-                    className="styles.btnAction, mr-2.5"
+                    className="btnAction mr-2.5"
                     startIcon={<ViewInArRoundedIcon />}
                   >
                     Block Explorer
@@ -211,13 +202,7 @@ export default function SchainDetails(props: {
                 <SkBtn
                   startIcon={added ? <CheckCircleRoundedIcon /> : <AddCircleRoundedIcon />}
                   size="md"
-                  className={cls(
-                    styles.btnAction,
-                    mr - 2.5,
-                    'btnPadd',
-                    ['btnPaddLoading', loading],
-                    [cmn.fullWidth, props.isXs]
-                  )}
+                  className={`btnAction mr-2.5 btnPadd ${loading ? 'btnPaddLoading' : ''} ${props.isXs ? 'w-full' : ''}`}
                   onClick={addNetwork}
                   disabled={loading}
                   text={connectBtnText()}
@@ -227,7 +212,7 @@ export default function SchainDetails(props: {
                   <a target="_blank" rel="noreferrer" href={chainMeta.url} className="undec">
                     <Button
                       size="medium"
-                      className="styles.btnAction"
+                      className="btnAction"
                       startIcon={<ArrowOutwardRoundedIcon />}
                     >
                       Open Website
@@ -250,7 +235,7 @@ export default function SchainDetails(props: {
           />
         </SkStack>
 
-        <SkStack className={cmn.md10}>
+        <SkStack className="p-2.5">
           <Tile
             size="md"
             grow
@@ -291,6 +276,6 @@ export default function SchainDetails(props: {
         schainName={props.schainName}
         isXs={props.isXs}
       />
-    </div>
+    </div >
   )
 }

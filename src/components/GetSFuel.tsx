@@ -24,7 +24,7 @@
 import { Box, Button, Tooltip } from '@mui/material'
 import BoltRoundedIcon from '@mui/icons-material/BoltRounded'
 import AutoModeRoundedIcon from '@mui/icons-material/AutoModeRounded'
-import { cls, styles, cmn, type MetaportCore, useWagmiAccount } from '@skalenetwork/metaport'
+import { type MetaportCore, useWagmiAccount } from '@skalenetwork/metaport'
 import { usesFuel } from '../useSFuel'
 
 export default function GetSFuel({ mpc }: { mpc: MetaportCore }) {
@@ -41,20 +41,20 @@ export default function GetSFuel({ mpc }: { mpc: MetaportCore }) {
   return (
     <Box
       sx={{ alignItems: 'center', textAlign: 'center', display: { xs: 'none', sm: 'flex' } }}
-      className="cmn.mleft5"
+      className="ml-1.5"
     >
       <Tooltip arrow title={sFuelOk ? 'sFUEL balance is OK' : 'Click to get sFUEL for all chains'}>
         <Button
           onClick={sFuelOk ? undefined : mineSFuel}
           disabled={isMining || loading || sFuelOk}
-          className="'mp__btnConnect', styles.paperGrey, [cmn.pPrim, !isMining], cmn.flex"
+          className="'mp__btnConnect', styles.paperGrey, [text-primary, !isMining], flex"
           color="success"
         >
           {loading ? (
-            <AutoModeRoundedIcon className="cmn.mri5, styles.chainIconxs" />
+            <AutoModeRoundedIcon className="mr-1.5, styles.chainIconxs" />
           ) : (
             <BoltRoundedIcon
-              className="cmn.mri5, styles.chainIconxs"
+              className="mr-1.5, styles.chainIconxs"
               color={sFuelOk ? 'success' : 'primary'}
             />
           )}

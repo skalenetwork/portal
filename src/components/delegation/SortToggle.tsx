@@ -21,7 +21,6 @@
  */
 
 import { useState } from 'react'
-import { cls, cmn, styles } from '@skalenetwork/metaport'
 import { ToggleButtonGroup, ToggleButton } from '@mui/material'
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded'
 import ContrastRoundedIcon from '@mui/icons-material/ContrastRounded'
@@ -50,16 +49,16 @@ const SortToggle: React.FC<SortToggleProps> = ({ onChange, className }) => {
       className={className}
       size="small"
     >
-      <ToggleButton value="id" aria-label="sort by id" className="cmn.pPrim,  text-xs">
-        <FilterListRoundedIcon className="cmn.mri5, styles.chainIconxs" />
+      <ToggleButton value="id" aria-label="sort by id" className="text-primary text-xs">
+        <FilterListRoundedIcon className="mr-1.5 styles.chainIconxs" />
         Sort by ID
       </ToggleButton>
       <ToggleButton
         value="status"
         aria-label="sort by status"
-        className="cmn.pPrim,  text-xs"
+        className="text-primary text-xs"
       >
-        <ContrastRoundedIcon className="cmn.mri5, styles.chainIconxs" />
+        <ContrastRoundedIcon className="mr-1.5 styles.chainIconxs" />
         Sort by Status
       </ToggleButton>
     </ToggleButtonGroup>

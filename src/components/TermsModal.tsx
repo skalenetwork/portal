@@ -26,13 +26,13 @@ import { useState, type Dispatch, type SetStateAction } from 'react'
 import Container from '@mui/material/Container'
 import Button from '@mui/material/Button'
 import Link from '@mui/material/Link'
-import Grid from '@mui/material/Grid'
+
 import Box from '@mui/material/Box'
 
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded'
 import LockRoundedIcon from '@mui/icons-material/LockRounded'
 import GradingRoundedIcon from '@mui/icons-material/GradingRounded'
-import { type MetaportCore, SkPaper, cls, cmn, styles } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
 
 import { PORTAL_URLS } from '../core/constants'
 import TermsOfService from '../data/terms-of-service.mdx'
@@ -62,52 +62,52 @@ export default function TermsModal(props: {
   return (
     <div>
       <Container maxWidth="md" className="cmn.mdtop5">
-        <div className="cmn.flex">
+        <div className="flex">
           <h2 className="m-0">{title}</h2>
         </div>
-        <p className="text - sm, cmn.pSec, cmn.mbott20">
+        <p className="text-sm text-secondary mb-5">
           Review the terms of service carefully and confirm
         </p>
         <Box>
-          <Grid container spacing={2}>
-            <Grid size={{ xs: 12, md: 6 }}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <div className="col-span-1">
               <SkPaper gray className="styles.fullHeight">
-                <div className="cmn.m10">
+                <div className="m-2.5">
                   <KeyRoundedIcon color="primary" />
-                  <p className="text - sm, cmn.p700, cmn.mtop5">
+                  <p className="text-sm font-bold mt-1.5">
                     SKALE will NEVER ask you for your seed phrase or private keys
                   </p>
                 </div>
               </SkPaper>
-            </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
+            </div>
+            <div className="col-span-1">
               <SkPaper gray className="styles.fullHeight">
-                <div className="cmn.m10">
+                <div className="m-2.5">
                   <LockRoundedIcon color="primary" />
-                  <p className="text - sm, cmn.p700, cmn.mtop5">
+                  <p className="text-sm font-bold mt-1.5">
                     Make sure you are connected to the correct URL and only use this official link:
                     <Link
                       target="_blank"
                       rel="noopener noreferrer"
                       href={portalUrl}
-                      className="cmn.mleft5"
+                      className="ml-1.5"
                     >
                       {portalUrl}
                     </Link>
                   </p>
                 </div>
               </SkPaper>
-            </Grid>
-          </Grid>
+            </div>
+          </div>
         </Box>
-        <SkPaper gray className="cmn.mtop20">
-          <div className="cmn.m10, 'scrollable'">
+        <SkPaper gray className="mt-5">
+          <div className="m-2.5 overflow-auto">
             <GradingRoundedIcon color="primary" />
-            <p className="text - sm, cmn.p700, cmn.mtop10, cmn.pPrim">
+            <p className="text-sm font-bold mt-2.5 text-primary">
               Before you use the SKALE {title}, you must review the terms of service carefully and
               confirm below.
             </p>
-            <div onScroll={handleTermsScroll} className="'br__modalScroll', cmn.mtop20">
+            <div onScroll={handleTermsScroll} className="'br__modalScroll', mt-5">
               <div id="terms" style={{ paddingRight: '20px' }}>
                 <TermsOfService />
               </div>
@@ -120,7 +120,7 @@ export default function TermsModal(props: {
           }}
           variant="contained"
           disabled={!scrolled}
-          className="styles.btnAction, cmn.mtop20"
+          className="styles.btnAction, mt-5"
           style={{ marginBottom: '40px' }}
           size="large"
         >

@@ -48,10 +48,10 @@ export default function SwitchDirection() {
   }
 
   return (
-    <div className="styles.sk__btnSwitch, cmn.flex">
-      <div className="cmn.flex, cmn.flexg"></div>
+    <div className="relative flex justify-center">
+      <div className="flex flex-grow"></div>
       <div
-        className="cmn.flex, styles.btnSwitchAnimation"
+        className="flex justify-center items-center"
         ref={myElement}
         style={{
           background: metaportTheme.background,
@@ -73,7 +73,7 @@ export default function SwitchDirection() {
           <ArrowDownwardRoundedIcon />
         </IconButton>
       </div>
-      <div className="cmn.flex, cmn.flexg"></div>
+      <div className="flex flex-grow"></div>
     </div>
   )
 }

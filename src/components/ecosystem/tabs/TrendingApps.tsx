@@ -24,8 +24,8 @@
 import React, { useMemo } from 'react'
 import { type types } from '@/core'
 import AppCard from '../AppCardV2'
-import { Box, Grid } from '@mui/material'
-import {SkPaper } from '@skalenetwork/metaport'
+import { Box } from '@mui/material'
+import { SkPaper } from '@skalenetwork/metaport'
 import Carousel from '../../Carousel'
 import { isNewApp } from '../../../core/ecosystem/utils'
 import { getAppMeta } from '../../../core/ecosystem/apps'
@@ -63,7 +63,7 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
     )
     const appId = getAppId(app.chain, app.appName)
     return (
-      <Box key={`${app.chain}-${app.appName}`} className="'fl-centered dappCard'">
+      <Box key={`${app.chain}-${app.appName}`} className="flex justify-center items-center dappCard">
         <AppCard
           skaleNetwork={skaleNetwork}
           schainName={app.chain}
@@ -81,8 +81,8 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
   if (apps.length === 0) {
     return (
       <SkPaper gray className="titleSection">
-        <div className="cmn.mtop20, cmn.mbott20">
-          <p className=" text-base, cmn.pSec, cmn.pCent">
+        <div className="mt-5 mb-5">
+          <p className="text-base text-secondary cmn.pCent">
             🚫 No trending apps match your current filters
           </p>
         </div>
@@ -95,13 +95,13 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
   }
 
   return (
-    <Grid container spacing={2}>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
       {filteredApps.map((app) => (
-        <Grid key={`${app.chain}-${app.appName}`} size={{ xs: 12, sm: 6, md: 4, lg: 4 }}>
+        <div key={`${app.chain}-${app.appName}`} className="col-span-1">
           {renderAppCard(app)}
-        </Grid>
+        </div>
       ))}
-    </Grid>
+    </div>
   )
 }
 

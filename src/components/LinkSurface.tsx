@@ -25,8 +25,6 @@ import Tooltip from '@mui/material/Tooltip'
 import ButtonBase from '@mui/material/ButtonBase'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 
-import { cmn, cls, styles } from '@skalenetwork/metaport'
-
 export default function LinkSurface(props: {
   title: string
   value: string | undefined
@@ -36,16 +34,16 @@ export default function LinkSurface(props: {
   if (!props.value) return
   return (
     <div className={props.className}>
-      <a target="_blank" rel="noreferrer" href={props.url} className="'undec', cmn.pPrim">
+      <a target="_blank" rel="noreferrer" href={props.url} className="'undec', text-primary">
         <Tooltip title={'Click to see contract'}>
           <ButtonBase className="titleSection" style={{ width: '100%' }}>
-            <div style={{ textAlign: 'left', overflow: 'auto' }} className={cmn.flexg}>
-              <div className="cmn.flex">
-                <p className=" cmn.pPrim, text-xs, cmn.pSec, cmn.mbott5">{props.title}</p>
+            <div style={{ textAlign: 'left', overflow: 'auto' }} className="flex-grow">
+              <div className="flex">
+                <p className="text-primary text-xs text-secondary cmn.mbott5">{props.title}</p>
               </div>
-              <p className=" text-base, cmn.p600, 'shortP'">{props.value}</p>
+              <p className="text-base cmn.p600 'shortP'">{props.value}</p>
             </div>
-            <ArrowOutwardRoundedIcon className="cmn.pSec, cmn.mleft20, styles.chainIconxs" />
+            <ArrowOutwardRoundedIcon className="text-secondary cmn.mleft20 styles.chainIconxs" />
           </ButtonBase>
         </Tooltip>
       </a>

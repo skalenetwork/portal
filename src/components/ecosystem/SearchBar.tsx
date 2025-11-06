@@ -28,7 +28,6 @@ import IconButton from '@mui/material/IconButton'
 import SearchIcon from '@mui/icons-material/Search'
 import ClearIcon from '@mui/icons-material/Clear'
 import Tooltip from '@mui/material/Tooltip'
-import { cmn, cls, styles } from '@skalenetwork/metaport'
 
 interface SearchBarProps {
   searchTerm: string
@@ -41,31 +40,30 @@ const SearchBar: React.FC<SearchBarProps> = ({
   searchTerm,
   onSearchChange,
   onClear,
-  className
 }) => (
-  <div className="cmn.flex, cmn.flexcv, className">
-    <TextField
-      fullWidth
-      className="skInput"
-      placeholder="Search categories"
-      value={searchTerm}
-      onChange={onSearchChange}
-      InputProps={{
-        startAdornment: (
-          <InputAdornment position="start">
-            <SearchIcon className="cmn.pPrim, styles.chainIcons" />
-          </InputAdornment>
-        ),
-        endAdornment: (
-          <Tooltip title="Clear all" arrow>
-            <IconButton onClick={onClear} size="small">
-              <ClearIcon className="cmn.pSec, styles.chainIconxs" />
-            </IconButton>
-          </Tooltip>
-        )
-      }}
+  <div className="flex items-center className">
+    < TextField
+fullWidth
+className = "skInput"
+placeholder = "Search categories"
+value = { searchTerm }
+onChange = { onSearchChange }
+InputProps = {{
+  startAdornment: (
+    <InputAdornment position="start">
+      <SearchIcon className="text-primary styles.chainIcons" />
+    </InputAdornment>
+  ),
+    endAdornment: (
+      <Tooltip title="Clear all" arrow>
+        <IconButton onClick={onClear} size="small">
+          <ClearIcon className="text-secondary styles.chainIconxs" />
+        </IconButton>
+      </Tooltip>
+    )
+}}
     />
-  </div>
+  </div >
 )
 
 export const highlightMatch = (text: string, searchTerm: string): React.ReactNode => {

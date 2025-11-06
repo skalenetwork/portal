@@ -24,7 +24,6 @@ import React from 'react'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
 import SearchIcon from '@mui/icons-material/Search'
-import { cmn, cls, styles } from '@skalenetwork/metaport'
 
 interface SearchComponentProps {
   searchTerm: string
@@ -51,7 +50,7 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <SearchIcon className="cmn.pPrim, styles.chainIcons" />
+              <SearchIcon className="text-primary styles.chainIcons" />
             </InputAdornment>
           )
         }}

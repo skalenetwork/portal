@@ -24,8 +24,6 @@
 import { ReactElement } from 'react'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
-import { cmn, cls } from '@skalenetwork/metaport'
-
 export interface BreadcrumbSection {
   icon: ReactElement
   text: string
@@ -34,23 +32,23 @@ export interface BreadcrumbSection {
 
 export default function Breadcrumbs(props: { sections: BreadcrumbSection[]; className?: string }) {
   return (
-    <div className="cmn.flex, cmn.flexcv, 'titleBadge', props.className">
+    <div className={`flex items-center titleBadge ${props.className || ''}`}>
       {props.sections.map((section: BreadcrumbSection, index) => (
-        <div className="cmn.flex, cmn.flexcv" key={index}>
+        <div className="flex items-center" key={index}>
           {section.url ? (
-            <Link to={section.url} className="undec fullW">
-              <Button className={cmn.pPrim}>
+            <Link to={section.url} className="undec w-full">
+              <Button className="text-primary">
                 {section.icon}
-                <p className=" text-xs, cmn.mleft5">{section.text}</p>
+                <p className="text-xs ml-1.5">{section.text}</p>
               </Button>
             </Link>
           ) : (
             <Button>
               {section.icon}
-              <p className=" text-xs, cmn.mleft5">{section.text}</p>
+              <p className="text-xs ml-1.5">{section.text}</p>
             </Button>
           )}
-          {index + 1 !== props.sections.length ? <p className=" text-xs">|</p> : null}
+          {index + 1 !== props.sections.length ? <p className="text-xs">|</p> : null}
         </div>
       ))}
     </div>

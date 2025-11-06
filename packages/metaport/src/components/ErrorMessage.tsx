@@ -61,16 +61,16 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
   if (!props.errorMessage) return
   return (
     <div>
-      <div className="cmn.mtop20Pt, styles.infoIcon, cmn.pPrim">
+      <div className="mt-5 text-2xl text-primary flex justify-center">
         {ERROR_ICONS[props.errorMessage.icon]}
       </div>
       <p
         style={{ wordBreak: 'break-word' }}
-        className="cmn.p1,  cmn.pPrim, 'font-semibold flex-grow text-center mt-2.5'"
+        className="text-base text-primary font-semibold flex-grow text-center mt-2.5"
       >
         {props.errorMessage.headline ?? DEFAULT_ERROR_MSG}
       </p>
-      <p className="text-xs,  cmn.pSec, 'font-medium flex-grow text-center mb-2.5'">
+      <p className="text-xs text-secondary font-medium flex-grow text-center mb-2.5">
         Logs are available in your browser's developer console
       </p>
       {props.errorMessage.showTips ? (
@@ -79,7 +79,7 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
             <div className="flex items-center justify-center mr-2.5">
               <HourglassBottomRoundedIcon color="info" />
             </div>
-            <p className=" text-sm, cmn.pPrim, 'font-semibold mr-2.5'">
+            <p className="text-sm text-primary font-semibold mr-2.5">
               Transfers might occasionally delay, but all tokens will be sent.
             </p>
           </div>
@@ -87,7 +87,7 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
             <div className="flex items-center justify-center mr-2.5">
               <RestartAltRoundedIcon color="info" />
             </div>
-            <p className="text-sm, cmn.pPrim, 'font-semibold mr-2.5'">
+            <p className="text-sm text-primary font-semibold mr-2.5">
               If a transfer is interrupted, you can continue from where you stopped.
             </p>
           </div>
@@ -95,7 +95,7 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
             <div className="flex items-center justify-center mr-2.5">
               <AvTimerRoundedIcon color="info" />
             </div>
-            <p className=" text-sm, cmn.pPrim, 'font-semibold mr-2.5'">
+            <p className="text-sm text-primary font-semibold mr-2.5">
               Transfers from SKALE to Ethereum Mainnet have frequency limits.
             </p>
           </div>
@@ -103,7 +103,7 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
             <div className="flex items-center justify-center mr-2.5">
               <HelpOutlineRoundedIcon color="info" />
             </div>
-            <p className=" text-sm, cmn.pPrim, 'font-semibold mr-2.5'">
+            <p className="text-sm text-primary font-semibold mr-2.5">
               If you still have questions, consult FAQ or contact the support team.
             </p>
           </div>
@@ -120,7 +120,7 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
             <div className="flex items-center justify-center mr-2.5">
               <SortRoundedIcon />
             </div>
-            <p className=" text-sm, cmn.pPrim, 'font-semibold capitalize mr-2.5'">
+            <p className="text-sm text-primary font-semibold capitalize mr-2.5">
               {expanded === 'panel1' ? 'Hide' : 'Show'} error details
             </p>
           </div>
@@ -129,7 +129,7 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
           <div className="mb-5">
             <code
               style={{ wordBreak: 'break-all' }}
-              className="text-xs cmn.pPrim flex-grow text-center ml-2.5 mr-2.5 mb-5"
+              className="text-xs text-primary flex-grow text-center ml-2.5 mr-2.5 mb-5"
             >
               {props.errorMessage.text}
             </code>

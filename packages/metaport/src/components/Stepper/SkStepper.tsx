@@ -14,7 +14,7 @@ import Collapse from '@mui/material/Collapse'
 import SettingsBackupRestoreRoundedIcon from '@mui/icons-material/SettingsBackupRestoreRounded'
 import AnimatedLoadingIcon from '../AnimatedLoadingIcon'
 
-import { cls, cmn, styles } from '../../core/css'
+import { cmn } from '../../core/css'
 import localStyles from './SkStepper.module.scss'
 
 import ChainIcon from '../ChainIcon'
@@ -91,17 +91,17 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
             {stepsMetadata.map((step, i) => (
               <Step key={i}>
                 <StepLabel className={localStyles.labelStep}>
-                  <div className="cmn.flex, cmn.flexcv">
-                    <div className="cmn.flex, cmn.flexcv">
-                      <h4 className="cmn.nom, cmn.flex">{step.headline}</h4>
-                      <div className="cmn.mleft5, cmn.mri5, cmn.flex">
+                  <div className="flex items-center">
+                    <div className="flex items-center">
+                      <h4 className="m-0 flex">{step.headline}</h4>
+                      <div className="ml-1.5 mr-1.5 flex">
                         <ChainIcon
                           skaleNetwork={props.skaleNetwork}
                           chainName={step.onSource ? step.from : step.to}
                           size="xs"
                         />
                       </div>
-                      <h4 className="cmn.nom, cmn.flex">
+                      <h4 className="m-0 flex">
                         {metadata.getAlias(chainsMeta, step.onSource ? step.from : step.to)}
                       </h4>
                     </div>
@@ -109,7 +109,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                 </StepLabel>
                 <StepContent className={cmn.margTop}>
                   <Box sx={{ mb: 2 }}>
-                    <p className="cmn.flex,  cmn.pSec, text-xs, cmn.flexg">{step.text}</p>
+                    <p className="flex text-secondary text-xs flex-grow">{step.text}</p>
                     <div className={cmn.mtop10}>
                       {loading ? (
                         <Button
@@ -118,7 +118,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                           variant="contained"
                           color="primary"
                           size="medium"
-                          className="styles.btnAction, cmn.mtop5"
+                          className="btn-action mt-1.5"
                         >
                           {btnText}
                         </Button>
@@ -127,7 +127,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                           variant="contained"
                           color="primary"
                           size="medium"
-                          className="styles.btnAction, cmn.mtop5"
+                          className="btn-action mt-1.5"
                           onClick={() => execute(address, switchChainAsync, walletClient)}
                           disabled={!!actionDisabled}
                         >
@@ -142,48 +142,42 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
           </Stepper>
         </Collapse>
 
-        {currentStep === stepsMetadata.length && (
-          <div>
-            <div className="cmn.d">
-              <p
-                className={cls(
-                  cmn.p1,
-
-                  cmn.p600,
-                  cmn.pPrim,
-                  cmn.flexg,
-                  cmn.pCent,
-                  cmn.mtop20
-                )}
-              >
-                {emoji} Transfer completed
-              </p>
-              <p
-                className="text-sm,  cmn.p600, cmn.pSec, cmn.flexg, cmn.pCent, cmn.mtop5"
-              >
-                Transfer details are available in History section
-              </p>
-            </div>
-            <div className="cmn.flex, cmn.mtop20">
-              <AddToken
-                token={token}
-                destChainName={chainName2}
-                mpc={mpc}
-                provider={ima2.provider}
-              />
-              <Button
-                onClick={startOver}
-                color="primary"
-                size="medium"
-                className="styles.btnAction"
-                startIcon={<SettingsBackupRestoreRoundedIcon />}
-              >
-                Start over
-              </Button>
-            </div>
-          </div>
-        )}
-      </Box>
-    </Collapse>
+        {
+          currentStep === stepsMetadata.length && (
+            <div>
+              <div className="cmn.d">
+                <p
+                  className="cmn.p1 cmn.p600 text-primary flex-grow cmn.pCent mt-5"
+                >
+                  {emoji} Transfer completed
+                </p>
+                <p
+                  className="text-sm font-semibold text-secondary flex-grow text-center mt-1.5"
+                >
+                  Transfer details are available in History section
+                </p>
+              </div>
+              <div className="flex mt-5">
+                <AddToken
+                  token={token}
+                  destChainName={chainName2}
+                  mpc={mpc}
+                  provider={ima2.provider}
+                />
+                <Button
+                  onClick={startOver}
+                  color="primary"
+                  size="medium"
+                  className="styles.btnAction"
+                  startIcon={<SettingsBackupRestoreRoundedIcon />}
+                >
+                  Start over
+                </Button>
+              </div>
+            </div >
+          )
+        }
+      </Box >
+    </Collapse >
   )
 }

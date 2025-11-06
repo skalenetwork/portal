@@ -23,7 +23,7 @@
 
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { cmn, cls, SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@skalenetwork/metaport'
 
 interface CategoryCardProps {
   categoryName: string
@@ -35,20 +35,20 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ categoryName, fullName, pro
   return (
     <Link to={`/ecosystem?categories=${categoryName}`}>
       <SkPaper gray className="'br__tile'">
-        <div className="cmn.flex, cmn.flexcv, cmn.m10">
-          <div className="cmn.flexg">
-            <div className="cmn.flex, cmn.flexg, cmn.flexcv">
-              <h4 className="cmn.cap, cmn.nom, cmn.pPrim,  cmn.p600, 'pOneLine'">
+        <div className="flex items-center m-2.5">
+          <div className="flex-grow">
+            <div className="flex flex-grow items-center">
+              <h4 className="capitalize m-0 text-primary font-semibold truncate">
                 {fullName}
               </h4>
             </div>
-            <p className=" text-sm, cmn.pSec, cmn.mtop5">
+            <p className="text-sm text-secondary mt-1.5">
               {projectCount} project{projectCount !== 1 ? 's' : ''}
             </p>
           </div>
         </div>
-      </SkPaper>
-    </Link>
+      </SkPaper >
+    </Link >
   )
 }
 

@@ -26,8 +26,6 @@ import { useState, useEffect } from 'react'
 
 import { dc, constants, units } from '@/core'
 import {
-  cmn,
-  cls,
   TokenIcon,
   useWagmiAccount,
   MetaportCore,
@@ -107,10 +105,10 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
         text="USDC on SKALE Europa"
         icon={<TokenIcon tokenSymbol="usdc" size="xs" />}
         childrenRi={
-          <div className="cmn.flexcv, cmn.flex">
+          <div className="items-center flex">
             <Button
               disabled={loading}
-              className="'btnSm', 'outlined', cmn.mleft20, cmn.flexcv"
+              className="btnSm outlined cmn.mleft20 items-center"
               onClick={() => {
                 addToken()
               }}

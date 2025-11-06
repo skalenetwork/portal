@@ -26,9 +26,9 @@ import { types } from '@/core'
 import { useLikedApps } from '../../../LikedAppsContext'
 import AppCard from '../AppCardV2'
 import Button from '@mui/material/Button'
-import { Grid } from '@mui/material'
+
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
-import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@skalenetwork/metaport'
 import Carousel from '../../Carousel'
 import ConnectWallet from '../../ConnectWallet'
 import { Link } from 'react-router-dom'
@@ -58,7 +58,7 @@ export default function FavoriteApps(props: {
     const isFeaturedApps = isFeatured({ chain: app.chain, app: app.appName }, props.featuredApps)
 
     return (
-      <Grid key={`${app.appName}-${app.chain}`} size={{ xs: 12, sm: 6, md: 4, lg: 4 }}>
+      <div key={`${app.appName}-${app.chain}`} className="col-span-1">
         <AppCard
           key={`${app.chain}-${app.appName}`}
           schainName={app.chain}
@@ -70,33 +70,33 @@ export default function FavoriteApps(props: {
           trending={isTrending(props.trendingApps, app.chain, app.appName)}
           isFeatured={isFeaturedApps}
         />
-      </Grid>
+      </div>
     )
   })
   if (appCards.length === 0)
     return (
       <SkPaper gray className="titleSection">
-        <div className="cmn.mtop20, cmn.mbott20">
-          <p className=" text-base, cmn.pSec, cmn.pCent">
+        <div className="mt-5 mb-5">
+          <p className="text-base text-secondary cmn.pCent">
             {props.favoriteApps.length === 0
               ? "You don't have any favorites yet"
               : '🚫 No favorite apps match your current filters'}
           </p>
           {props.useCarousel && (
-            <div className="cmn.flex">
-              <div className="cmn.flex, cmn.flexg"></div>
-              <div className="cmn.flex">
+            <div className="flex">
+              <div className="flex-grow"></div>
+              <div className="flex">
                 <Link to="/ecosystem">
                   <Button
                     startIcon={<GridViewRoundedIcon />}
                     variant="contained"
-                    className="cmn.pCent, cmn.mtop10, cmn.flex, 'btn'"
+                    className="text-center mt-10 flex btn"
                   >
                     Explore dApps
                   </Button>
                 </Link>
               </div>
-              <div className="cmn.flex, cmn.flexg"></div>
+              <div className="flex flex-grow"></div>
             </div>
           )}
         </div>
@@ -108,8 +108,8 @@ export default function FavoriteApps(props: {
   }
 
   return (
-    <Grid container spacing={2}>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
       {appCards}
-    </Grid>
+    </div>
   )
 }

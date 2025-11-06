@@ -51,7 +51,6 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
   social,
   chainName,
   appName,
-  className,
   all = false,
   size = 'sm'
 }) => {
@@ -62,7 +61,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
       key: 'website',
       icon: (
         <LanguageRounded
-          className="[cmn.pPrim, isMd], [cmn.pSec, !isMd]"
+          className="[text-primary isMd], [text-secondary !isMd]"
           fontSize={isMd ? 'medium' : 'small'}
         />
       ),
@@ -85,7 +84,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
         <SwellIcon
           size={isMd ? 'medium' : 'small'}
           style={{ padding: '2px' }}
-          className="[cmn.pSec, !isMd], [cmn.pPrim, isMd]"
+          className="[text-secondary !isMd], [text-primary isMd]"
         />
       ),
       title: 'Swell'
@@ -94,7 +93,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
       key: 'dappradar',
       icon: (
         <TrackChangesRounded
-          className="[cmn.pPrim, isMd], [cmn.pSec, !isMd]"
+          className="[text-primary isMd], [text-secondary !isMd]"
           fontSize={isMd ? 'medium' : 'small'}
         />
       ),
@@ -108,7 +107,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
       key: 'dune',
       icon: (
         <JoinLeftRounded
-          className="[cmn.pPrim, isMd], [cmn.pSec, !isMd]"
+          className="[text-primary isMd], [text-secondary !isMd]"
           fontSize={isMd ? 'medium' : 'small'}
         />
       ),
@@ -118,7 +117,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
       key: 'forum',
       icon: (
         <ForumIcon
-          className="[cmn.pPrim, isMd], [cmn.pSec, !isMd]"
+          className="[text-primary isMd], [text-secondary !isMd]"
           fontSize={isMd ? 'medium' : 'small'}
         />
       ),
@@ -129,47 +128,52 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
   const visibleLinks = isMd || all ? socialLinks : socialLinks.slice(0, MAX_SOCIALS_SM)
 
   return (
-    <div className="cmn.flex, cmn.flexcv, className">
-      {social && (
-        <div className="cmn.flex, cmn.flexg">
-          {visibleLinks.map(({ key, icon, network, title }) => {
-            const link = social[key as keyof types.AppSocials]
-            if (!link) return null
+    <div className="flex items-center className">
+  {
+    social && (
+      <div className="flex flex-grow">
+    {
+      visibleLinks.map(({ key, icon, network, title }) => {
+        const link = social[key as keyof types.AppSocials]
+        if (!link) return null
 
-            return (
-              <div className="[mr-2.5, isMd]" key={key}>
-                <Tooltip key={key} title={title}>
-                  <IconButton
-                    size={isMd ? 'medium' : 'small'}
-                    href={link}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className={cls(
-                      network ? cmn.nop : undefined,
-                      [cmn.pPrim, isMd],
-                      ['bgBlack', isMd]
-                    )}
-                  >
-                    {icon || (
-                      <SocialIcon
-                        network={network}
-                        bgColor={isMd ? 'black' : 'transparent'}
-                        className="'socialIcon', isMd && 'socialIconMd'"
-                        fgColor={isMd ? '' : 'rgb(255 255 255 / 65%)'}
-                      />
-                    )}
-                  </IconButton>
-                </Tooltip>
-              </div>
-            )
-          })}
-        </div>
+        return (
+          <div className="[mr-2.5, isMd]" key={key}>
+            <Tooltip key={key} title={title}>
+              <IconButton
+                size={isMd ? 'medium' : 'small'}
+                href={link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className={cls(
+                  network ? cmn.nop : undefined,
+                  ['text-primary', isMd],
+                  ['bgBlack', isMd]
+                )}
+              >
+                {icon || (
+                  <SocialIcon
+                    network={network}
+                    bgColor={isMd ? 'black' : 'transparent'}
+                    className="'socialIcon', isMd && 'socialIconMd'"
+                    fgColor={isMd ? '' : 'rgb(255 255 255 / 65%)'}
+                  />
+                )}
+              </IconButton>
+            </Tooltip>
+          </div>
+        )
+      })
+    }
+        </div >
       )}
-      {!social && <div className={cmn.flexg}></div>}
-      {!isMd && chainName && appName ? (
-        <FavoriteIconButton chainName={chainName} appName={appName} />
-      ) : null}
-    </div>
+{ !social && <div className="flex-grow"></div> }
+{
+  !isMd && chainName && appName ? (
+    <FavoriteIconButton chainName={chainName} appName={appName} />
+  ) : null
+}
+    </div >
   )
 }
 

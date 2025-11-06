@@ -23,7 +23,7 @@
 
 import Container from '@mui/material/Container'
 import { useParams } from 'react-router-dom'
-import {type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
 import { types, metadata } from '@/core'
 
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
@@ -64,7 +64,7 @@ export default function Admin(props: { mpc: MetaportCore; chainsMeta: types.Chai
         </div>
         <div className="mt-2.5 ml-1.25">
           <h2 className="m-0">Manage {alias}</h2>
-          <p className="'mt-1.25', text - sm, cmn.pSec, 'mb-2.5', 'pbott5'">
+          <p className="'mt-1.25' text-sm text-secondary 'mb-2.5' 'pbott5'">
             {alias} admin area - you can manage the chain here
           </p>
         </div>

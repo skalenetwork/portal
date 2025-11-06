@@ -22,7 +22,7 @@
  */
 
 import React, { useRef, useEffect } from 'react'
-import {Tile } from '@skalenetwork/metaport'
+import { Tile } from '@skalenetwork/metaport'
 import { TextField, Button } from '@mui/material'
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded'
 
@@ -79,35 +79,35 @@ const EmailSection: React.FC<EmailSectionProps> = ({
       }
       childrenRi={
         isEditing ? (
-          <div className="cmn.flex, cmn.flexcv">
-            <Button
-              variant="contained"
-              className="'btnSm'"
-              onClick={handleUpdateEmail}
-              disabled={isEmailUpdating}
-            >
-              Save
-            </Button>
-            <Button
-              variant="text"
-              className="'btnSm', 'filled', cmn.mleft5"
-              onClick={handleCancelEditing}
-            >
-              Cancel
-            </Button>
-          </div>
+          <div className="flex items-center">
+            < Button
+  variant = "contained"
+  className = "'btnSm'"
+  onClick = { handleUpdateEmail }
+  disabled = { isEmailUpdating }
+    >
+    Save
+            </Button >
+  <Button
+    variant="text"
+    className="'btnSm' 'filled' ml-1.5"
+    onClick={handleCancelEditing}
+  >
+    Cancel
+  </Button>
+          </div >
         ) : (
-          email && (
-            <Button
-              variant="text"
-              className="'btnSm', 'filled'"
-              onClick={handleStartEditing}
-              disabled={isEmailLoading || isEmailUpdating}
-            >
-              Change
-            </Button>
-          )
-        )
+  email && (
+    <Button
+      variant="text"
+      className="'btnSm', 'filled'"
+      onClick={handleStartEditing}
+      disabled={isEmailLoading || isEmailUpdating}
+    >
+      Change
+    </Button>
+  )
+)
       }
     />
   )

@@ -36,7 +36,7 @@ import DoneRoundedIcon from '@mui/icons-material/DoneRounded'
 import { getTxUrl } from '../../core/explorer'
 
 import localStyles from './TransactionData.module.scss'
-import { cls, styles, cmn } from '../../core/css'
+import { styles } from '../../core/css'
 
 type ActionStateIconMap = {
   [key in types.mp.ActionState]: ReactElement | null
@@ -98,26 +98,20 @@ export default function TransactionData(props: {
     props.transactionData.transactionHash
   )
   return (
-    <div className="cmn.flex, cmn.flexcv, cmn.mtop5, cmn.mbott5, cmn.mleft5, cmn.mri5">
+    <div className="flex items-center mt-1.5 mb-1.5 ml-1.5 mr-1.5">
       <div>
         <div
-          className={cls(
-            localStyles.transactionDataIcon,
-            cmn.flex,
-            cmn.flexc,
-            cmn.pPrim,
-            styles[`action_${props.transactionData.txName}`]
-          )}
+          className={`${localStyles.transactionDataIcon} flex items-center text-primary ${styles[`action_${props.transactionData.txName}`]}`}
         >
           {actionIcons[props.transactionData.txName]}
         </div>
       </div>
-      <div className="cmn.mleft20, cmn.flexg, cmn.flex">
+      <div className="ml-5 flex-grow flex">
         <div>
-          <p className=" text-base, cmn.cap, cmn.pPrim">
+          <p className="text-base uppercase text-primary">
             {actionAliases[props.transactionData.txName]}
           </p>
-          <p className=" text-xs, cmn.pSec">
+          <p className="text-xs text-secondary">
             {new Date(props.transactionData.timestamp * 1000).toUTCString()}
           </p>
         </div>
@@ -128,9 +122,9 @@ export default function TransactionData(props: {
           href={explorerUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="cmn.mleft10, localStyles.sk__openExplorerBtn"
+          className={`ml-2.5 ${localStyles.sk__openExplorerBtn}`}
         >
-          <OpenInNewIcon className={cmn.pPrim} />
+          <OpenInNewIcon className="text-primary" />
         </IconButton>
       </div>
     </div>

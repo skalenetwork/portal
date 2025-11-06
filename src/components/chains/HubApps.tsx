@@ -24,7 +24,7 @@
 import { ReactElement } from 'react'
 import { type types, helper } from '@/core'
 
-import { Grid } from '@mui/material'
+
 
 import AppCard from '../ecosystem/AppCard'
 
@@ -41,21 +41,21 @@ export default function HubApps(props: {
   for (const appName in helper.sortObjectByKeys(chainMeta.apps)) {
     if (chainMeta.apps.hasOwnProperty(appName)) {
       appCards.push(
-        <Grid key={appName} className="fl-centered dappCard" size={{ xs: 6, sm: 6, md: 4, lg: 3 }}>
+        <div key={appName} className="flex justify-center items-center col-span-1">
           <AppCard
             skaleNetwork={props.skaleNetwork}
             schainName={props.schainName}
             appName={appName}
             chainsMeta={props.chainsMeta}
           />
-        </Grid>
+        </div>
       )
     }
   }
 
   return (
-    <Grid container spacing={2} style={{ marginTop: '-30px' }}>
+    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" style={{ marginTop: '-30px' }}>
       {appCards}
-    </Grid>
+    </div>
   )
 }

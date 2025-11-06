@@ -21,10 +21,10 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, styles, SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@skalenetwork/metaport'
 import { type types, endpoints, constants } from '@/core'
 
-import Grid from '@mui/material/Grid'
+
 
 import CopySurface from '../../CopySurface'
 
@@ -43,36 +43,36 @@ export default function DeveloperInfo(props: {
   const chainId = getChainId(props.schainName)
 
   return (
-    <SkPaper gray className="cmn.mtop20">
-      <Grid container spacing={2} className="cmn.full">
-        <Grid size={{ xs: 12, md: 12 }}>
-          <CopySurface className="styles.fullHeight" title="RPC Endpoint" value={rpcUrl} />
-        </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
+    <SkPaper gray className="mt-5">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
+        <div className="col-span-1 md:col-span-2">
+          <CopySurface className="h-full" title="RPC Endpoint" value={rpcUrl} />
+        </div>
+        <div className="col-span-1">
           <CopySurface
-            className="styles.fullHeight"
+            className="h-full"
             title="Websocket Endpoint"
             value={rpcWssUrl}
           />
-        </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
+        </div>
+        <div className="col-span-1">
           <CopySurface
-            className="styles.fullHeight"
+            className="h-full"
             title="Filestorage Endpoint"
             value={fsUrl}
           />
-        </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
+        </div>
+        <div className="col-span-1">
           <CopySurface
-            className="styles.fullHeight"
+            className="h-full"
             title="SKALE Manager name"
             value={props.schainName}
           />
-        </Grid>
-        <Grid size={{ xs: 12, md: 6 }}>
-          <CopySurface className="styles.fullHeight" title="Chain ID Hex" value={chainId} />
-        </Grid>
-      </Grid>
+        </div>
+        <div className="col-span-1">
+          <CopySurface className="h-full" title="Chain ID Hex" value={chainId} />
+        </div>
+      </div>
     </SkPaper>
   )
 }

@@ -22,7 +22,6 @@
  */
 
 import React from 'react'
-import { cmn, cls } from '@skalenetwork/metaport'
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded'
 
 import { type types } from '@/core'
@@ -47,9 +46,9 @@ const UserRecommendations: React.FC<{
   if (!showRecommendations) return null
 
   return (
-    <div className="cmn.mbott10, cmn.mtop20, cmn.ptop20">
+    <div className="mb-2.5 mt-5 cmn.ptop20">
       <Headline
-        className="cmn.mbott10"
+        className="mb-2.5"
         text="Recommended for you"
         icon={<AutoAwesomeRoundedIcon color="primary" />}
       />

@@ -34,7 +34,6 @@ import {
   useMetaportStore,
   useUIStore,
   useWagmiAccount,
-  cls,
   cmn,
   AmountErrorMessage,
   TokenBalance,
@@ -85,8 +84,8 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
       </Collapse>
       <SkPaper background={sourceBg} className={cmn.nop}>
         <Collapse in={showFrom()}>
-          <div className="cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex">
-            <p className="cmn.nom,  text-xs, cmn.pSec, cmn.flex, cmn.flexg">From</p>
+          <div className="pt-5 ml-5 mr-5 flex">
+            <p className="m-0 text-xs text-secondary flex flex-grow">From</p>
             {token ? (
               <TokenBalance
                 balance={tokenBalances[token.keyname]}
@@ -121,8 +120,8 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
 
       <Collapse in={showTo()}>
         <SkPaper background={destBg} className={cmn.nop}>
-          <div className="cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex">
-            <p className="cmn.nom,  text-xs, cmn.pSec, cmn.flex, cmn.flexg">To</p>
+          <div className="pt-5 ml-5 mr-5 flex">
+            <p className="m-0 text-xs text-secondary flex flex-grow">To</p>
             <DestTokenBalance />
           </div>
           <ChainsList
@@ -155,7 +154,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
 
       {!address ? <SkConnect /> : null}
 
-      <Collapse in={showStepper(address!)} className={cmn.mtop20}>
+      <Collapse in={showStepper(address!)} className="mt-5">
         <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
       </Collapse>
 

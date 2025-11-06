@@ -26,9 +26,8 @@ import IconButton from '@mui/material/IconButton'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import Collapse from '@mui/material/Collapse'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
-import { SkPaper, cls, cmn } from '@skalenetwork/metaport'
+import { SkPaper } from '@skalenetwork/metaport'
 import { Link } from 'react-router-dom'
-import { cn } from 'src/core/ecosystem/utils'
 
 export default function Message(props: {
   text: string | null
@@ -50,52 +49,44 @@ export default function Message(props: {
     <Collapse in={show}>
       <SkPaper
         gray={gray}
-        className={cls(
-          props.className,
-          'skMessage',
-          cmn.flexcv,
-          cmn.flex,
-          ['warningMsg', type === 'warning'],
-          ['errorMsg', type === 'error']
-        )}
+        className={`${props.className || ''} skMessage items-center flex ${type === 'warning' ? 'warningMsg' : ''} ${type === 'error' ? 'errorMsg' : ''}`}
       >
-        <div
-          className={cn(cmn.fullWidth, cmn.flexcv, cmn.mtop5, cmn.mbott5, 'ml-2.5', 'mr-2.5')}
-          <div className={cn(cmn.flex, cmn.flexc, cmn.mri15)}>{props.icon}</div>
-        {props.text ? (
-          <p className="cmn.p, text-sm, cmn.p600, [cmn.pPrim, type !== 'warning'], cmn.mri5">
-            {props.text}
-          </p>
-        ) : null}
-        {props.link ? (
-          <div className="cmn.flex, cmn.flexcv, cmn.flexg">
-            <Link to={props.link}>
-              <p className="cmn.p, text-sm, cmn.p600, cmn.mri5">{props.linkText}</p>
-            </Link>
-            <ArrowOutwardRoundedIcon
-              className="cmn.flex, cmn.flexcv, 'a'"
-              style={{ height: '14px', width: '14px' }}
-            />
-          </div>
-        ) : null}
+        <div className="w-full items-center mt-1.5 mb-1.5 ml-2.5 mr-2.5">
+          <div className="flex items-center mr-4">{props.icon}</div>
+          {props.text ? (
+            <p className={`text-sm font-semibold mr-1.5 ${type !== 'warning' ? 'text-primary' : ''}`}>
+              {props.text}
+            </p>
+          ) : null}
+          {props.link ? (
+            <div className="flex items-center flex-grow">
+              <Link to={props.link}>
+                <p className="text-sm font-semibold mr-1.5">{props.linkText}</p>
+              </Link>
+              <ArrowOutwardRoundedIcon
+                className="flex items-center"
+                style={{ height: '14px', width: '14px' }}
+              />
+            </div>
+          ) : null}
 
-        <div className={cmn.flexg}></div>
-        {props.button}
-        {closable ? (
-          <IconButton
-            onClick={() => {
-              setShow(false)
-            }}
-            className="cmn.paperGrey, 'ml-2.5'"
-          >
-            <CloseRoundedIcon
-              className="[cmn.pSec, type !== 'warning']"
-              style={{ height: '16px', width: '16px' }}
-            />
-          </IconButton>
-        ) : null}
-      </div>
-    </SkPaper>
-    </Collapse >
+          <div className="flex-grow"></div>
+          {props.button}
+          {closable ? (
+            <IconButton
+              onClick={() => {
+                setShow(false)
+              }}
+              className="paperGrey ml-2.5"
+            >
+              <CloseRoundedIcon
+                className={type !== 'warning' ? 'text-secondary' : ''}
+                style={{ height: '16px', width: '16px' }}
+              />
+            </IconButton>
+          ) : null}
+        </div>
+      </SkPaper>
+    </Collapse>
   )
 }

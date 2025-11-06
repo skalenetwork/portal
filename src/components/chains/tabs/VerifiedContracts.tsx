@@ -22,9 +22,9 @@
  */
 
 import { useState, useEffect } from 'react'
-import { cmn, cls, styles, type MetaportCore, SkPaper, explorer } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper, explorer } from '@skalenetwork/metaport'
 import Button from '@mui/material/Button'
-import Grid from '@mui/material/Grid'
+
 import ExpandCircleDownRoundedIcon from '@mui/icons-material/ExpandCircleDownRounded'
 import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded'
 
@@ -69,32 +69,22 @@ export default function VerifiedContracts(props: {
   }
 
   return (
-    <SkPaper gray className="cmn.mtop20">
-      <Grid container spacing={2} className="cmn.full">
+    <SkPaper gray className="mt-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
         {contracts.map((contract: any, index: number) => (
-          <Grid key={index} size={{ xs: 12, sm: 6, md: 6, lg: 6 }}>
+          <div key={index} className="col-span-1">
             <LinkSurface
-              className="styles.fullHeight"
+              className="h-full"
               title={contract.ContractName}
               value={contract.Address}
               url={explorer.addressUrl(props.explorerUrl, contract.Address)}
             />
-          </Grid>
+          </div>
         ))}
-      </Grid>
+      </div>
       {!loading && contracts.length === 0 ? (
         <p
-          className={cls(
-
-            text - base,
-            cmn.p700,
-            cmn.pSec,
-            cmn.fullWidth,
-            cmn.mtop20,
-            cmn.mbott20,
-            cmn.pCent
-          )}
-        >
+          className="text-base cmn.p700 text-secondary cmn.fullWidth mt-5 mb-5 cmn.pCent">
           No verified contracts
         </p>
       ) : (
@@ -107,7 +97,7 @@ export default function VerifiedContracts(props: {
           }}
           color="primary"
           size="small"
-          className="styles.btnAction, cmn.mtop20"
+          className="styles.btnAction mt-5"
           startIcon={loading ? <HourglassBottomRoundedIcon /> : <ExpandCircleDownRoundedIcon />}
           disabled={loading}
         >

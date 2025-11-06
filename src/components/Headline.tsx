@@ -22,8 +22,6 @@
  */
 
 import React from 'react'
-import { cls, cmn, styles } from '@skalenetwork/metaport'
-import { cn } from 'src/core/ecosystem/utils'
 
 interface HeadlineProps {
   text: string
@@ -33,30 +31,25 @@ interface HeadlineProps {
 }
 
 const Headline: React.FC<HeadlineProps> = ({ text, className, icon, size = 'medium' }) => {
-  const commonClasses = cls(cmn.flex, cmn.flexcv, cmn.flexg, className)
+  const commonClasses = `flex items-center flex-grow ${className || ''}`
 
   const textElement =
     size === 'small' ? (
-      <p className={cn(text, cmn.p700, cmn.flexg, cmn.cap)}>{text}</p>
+      <p className="font-bold flex-grow uppercase">{text}</p>
     ) : (
-      <h3 className=" cmn.p600, cmn.pSec, cmn.mleft10">{text}</h3>
+      <h3 className="font-semibold text-secondary ml-2.5">{text}</h3>
     )
 
   const iconElement = icon && (
     <div
-      className={cls(
-        cmn.flexcv,
-        cmn.flex,
-        cmn.pSec,
-        size === 'small' && [mr - 2.5, styles.chainIconxs]
-      )}
+      className={`items-center flex text-secondary ${size === 'small' ? 'mr-2.5 styles.chainIconxs' : ''}`}
     >
       {icon}
     </div>
   )
 
   return (
-    <div className="commonClasses, size === 'small' && cmn.m10">
+    <div className={`${commonClasses} ${size === 'small' ? 'p-2.5' : ''}`}>
       {iconElement}
       {textElement}
     </div>

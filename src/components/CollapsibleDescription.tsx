@@ -22,7 +22,6 @@
  */
 
 import React, { useState, useRef, useEffect } from 'react'
-import { cls, cmn } from '@skalenetwork/metaport'
 
 interface TruncateTextProps {
   text: string
@@ -65,7 +64,7 @@ const CollapsibleDescription: React.FC<TruncateTextProps> = ({
     <div>
       <p
         ref={textRef}
-        className="cmn.mtop5,  text-sm, cmn.pSec"
+        className="mt-1.5 text-sm text-secondary"
         style={{
           display: '-webkit-box',
           WebkitLineClamp: isExpanded ? '' : lines,
@@ -76,7 +75,7 @@ const CollapsibleDescription: React.FC<TruncateTextProps> = ({
         {text}
       </p>
       {isTruncated && expandable && (
-        <p className="cmn.mtop5, text-sm, 'pointer'" onClick={toggleExpansion}>
+        <p className="mt-1.5 text-sm cursor-pointer" onClick={toggleExpansion}>
           Show {isExpanded ? 'less' : 'more'}
         </p>
       )}

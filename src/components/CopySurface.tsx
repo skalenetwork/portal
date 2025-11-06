@@ -23,7 +23,7 @@
 
 import { useState, useEffect } from 'react'
 import { type types, constants } from '@/core'
-import { cmn, cls, styles, TokenIcon } from '@skalenetwork/metaport'
+import { TokenIcon } from '@skalenetwork/metaport'
 
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Tooltip from '@mui/material/Tooltip'
@@ -60,10 +60,10 @@ export default function CopySurface(props: {
       <CopyToClipboard text={props.value} onCopy={handleClick}>
         <Tooltip title={copied ? 'Copied!' : 'Click to copy to clipboard'}>
           <ButtonBase className="titleSection" style={{ width: '100%', height: '100%' }}>
-            <div style={{ textAlign: 'left', overflow: 'auto' }} className={cmn.flexg}>
-              <div className="cmn.flex">
+            <div style={{ textAlign: 'left', overflow: 'auto' }} className="flex-grow">
+              <div className="flex">
                 {props.tokenMetadata ? (
-                  <div className="cmn.mri5">
+                  <div className="mr-1.5">
                     <TokenIcon
                       size="xs"
                       tokenSymbol={props.tokenMetadata.symbol}
@@ -71,7 +71,7 @@ export default function CopySurface(props: {
                     />
                   </div>
                 ) : null}
-                <p className=" text-xs, cmn.pSec, cmn.mbott5">
+                <p className="text-xs text-secondary cmn.mbott5">
                   {props.title}
                   {props.tokenMetadata
                     ? ` (${props.tokenMetadata.decimals ?? constants.DEFAULT_ERC20_DECIMALS})`
@@ -86,7 +86,7 @@ export default function CopySurface(props: {
                 className="cmn.mleft20, styles.chainIconxs"
               />
             ) : (
-              <ContentCopyIcon className="cmn.pSec, cmn.mleft20, styles.chainIconxs" />
+              <ContentCopyIcon className="text-secondary cmn.mleft20 styles.chainIconxs" />
             )}
           </ButtonBase>
         </Tooltip>

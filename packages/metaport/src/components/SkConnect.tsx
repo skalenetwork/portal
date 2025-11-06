@@ -26,8 +26,6 @@ import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 import Button from '@mui/material/Button'
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 
-import { styles } from '../core/css'
-
 import { useMetaportStore } from '../store/MetaportStore'
 
 export default function SkConnect() {
@@ -68,7 +66,7 @@ export default function SkConnect() {
                       variant="contained"
                       color="primary"
                       size="medium"
-                      className="styles.btnAction, cmn.mtop20"
+                      className="btn-action mt-5"
                       onClick={openConnectModal}
                     >
                       Connect Wallet
@@ -82,7 +80,7 @@ export default function SkConnect() {
                     variant="contained"
                     color="error"
                     size="small"
-                    className="styles.btnAction, cmn.mbott5, cmn.fullWidth"
+                    className="btn-action mb-5 w-full"
                     onClick={openChainModal}
                   >
                     Wrong network
@@ -90,21 +88,21 @@ export default function SkConnect() {
                 )
               }
               return (
-                <div className="cmn.flex">
-                  <div className="cmn.flexg, cmn.flex"></div>
+                <div className="flex">
+                  <div className="flex-grow flex"></div>
                   <div>
                     <Button
                       disabled={transferInProgress}
                       size="small"
-                      className="styles.btnChain, cmn.flex, cmn.flexcv, cmn.pPrim"
+                      className="btn-chain flex items-center text-primary"
                       onClick={openAccountModal}
                       style={{ color: 'white' }}
                     >
-                      <div className="cmn.mri5, cmn.flex">
+                      <div className="mr-1.5 flex">
                         <Jazzicon diameter={16} seed={jsNumberForAddress(account.address)} />
                       </div>
                       {account.displayName}
-                      <ExpandMoreRoundedIcon className={styles.chainIconxs} />
+                      <ExpandMoreRoundedIcon className="w-4 h-4" />
                     </Button>
                   </div>
                 </div>

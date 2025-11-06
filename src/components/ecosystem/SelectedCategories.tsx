@@ -22,7 +22,7 @@
  */
 
 import React from 'react'
-import { cmn, cls, styles } from '@skalenetwork/metaport'
+import { cmn, cls } from '@skalenetwork/metaport'
 import { Chip, Box } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { categories } from '../../core/ecosystem/categories'
@@ -39,7 +39,7 @@ const CustomChipLabel: React.FC<{ category: string; subcategory?: string }> = ({
 }) => (
   <Box display="flex" alignItems="center">
     <p
-      className={cls([cmn.pSec, subcategory], [cmn.pPrim, !subcategory], text - sm, [
+      className={cls(["text-secondary", subcategory], ["text-primary", !subcategory], "text-sm", [
         cmn.p600,
         !subcategory
       ])}
@@ -49,7 +49,7 @@ const CustomChipLabel: React.FC<{ category: string; subcategory?: string }> = ({
     {subcategory && (
       <>
         <Box component="span" className="borderLeft" sx={{ height: '1em', mx: 0.75 }} />
-        <p className="cmn.pPrim,  text-sm, cmn.p600">{subcategory}</p>
+        <p className="text-primary text-sm cmn.p600">{subcategory}</p>
       </>
     )}
   </Box>
@@ -85,36 +85,38 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
   if (checkedItems.length === 0) return null
 
   return (
-    <Box className="cmn.flex, cmn.flexcv, 'flex-w', cmn.mbottf10">
-      {checkedItems.map((item) => {
-        const [category, subcategory] = item.split('_')
-        return (
-          <Chip
-            variant="outlined"
-            key={item}
-            label={
-              <CustomChipLabel
-                category={getCategoryName(category)}
-                subcategory={subcategory ? getSubcategoryName(category, subcategory) : undefined}
-              />
-            }
-            onDelete={() => handleDelete(item)}
-            deleteIcon={<CloseIcon className="styles.chainIconxs" />}
-            className="'outlined', cmn.p600"
-          />
-        )
-      })}
-      <p className=" text-xs, cmn.pPrim, cmn.mleft10, mr-2.5">
+    <Box className="flex items-center 'flex-w' cmn.mbottf10">
+      {
+        checkedItems.map((item) => {
+          const [category, subcategory] = item.split('_')
+          return (
+            <Chip
+              variant="outlined"
+              key={item}
+              label={
+                <CustomChipLabel
+                  category={getCategoryName(category)}
+                  subcategory={subcategory ? getSubcategoryName(category, subcategory) : undefined}
+                />
+              }
+              onDelete={() => handleDelete(item)}
+              deleteIcon={<CloseIcon className="styles.chainIconxs" />}
+              className="'outlined', cmn.p600"
+            />
+          )
+        })
+      }
+      <p className="text-xs text-primary cmn.mleft10 mr-2.5">
         {filteredAppsCount} project{filteredAppsCount !== 1 ? 's' : ''}
       </p>
       <p
-        className=" text-xs00, text-xs, cmn.nop, cmn.nom, cmn.pSec, cmn.mleft20"
+        className="text-xs00 text-xs cmn.nop cmn.nom text-secondary cmn.mleft20"
         style={{ cursor: 'pointer' }}
         onClick={clearAll}
       >
         Clear all
       </p>
-    </Box>
+    </Box >
   )
 }
 
