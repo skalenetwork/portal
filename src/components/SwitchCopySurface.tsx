@@ -100,7 +100,7 @@ export default function CopySurface(props: {
   if (!props.value) return
   return (
     <div className={`${props.className} titleSection`}>
-      <div className="flex items-center cmn.mbott5">
+      <div className="flex items-center mb-1.5">
         <p className="text-xs text-secondary flex-grow">{props.title}</p>
         <p className="text-xs text-secondary mr-1.5">Decimal / Hex</p>
         <AntSwitch inputProps={{ 'aria-label': 'ant design' }} />
@@ -109,15 +109,15 @@ export default function CopySurface(props: {
         <Tooltip title={copied ? 'Copied!' : 'Click to copy to clipboard'}>
           <ButtonBase style={{ width: '100%' }}>
             <div style={{ textAlign: 'left', overflow: 'auto' }} className="flex-grow">
-              <p className="text-base cmn.p600 shortP">{props.value}</p>
+              <p className="text-base font-semibold shortP">{props.value}</p>
             </div>
             {copied ? (
               <CheckCircleRoundedIcon
                 color="success"
-                className="cmn.mleft20 styles.chainIconxs"
+                className="ml-5 styles.chainIconxs"
               />
             ) : (
-              <ContentCopyIcon className="text-secondary cmn.mleft20 styles.chainIconxs" />
+              <ContentCopyIcon className="text-secondary ml-5 styles.chainIconxs" />
             )}
           </ButtonBase>
         </Tooltip>

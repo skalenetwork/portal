@@ -198,7 +198,7 @@ export default function SFuelWarning(props: {}) {
         </p>
         {!sFuelBtn || noEth ? (
           <p
-            className="flex text-sm text-primary flex-grow ml-2.5 cmn.mtop10"
+            className="flex text-sm text-primary flex-grow ml-2.5 mt-2.5"
           >
             ❗️ Faucet is not available for one of the selected chains
           </p>
@@ -210,7 +210,7 @@ export default function SFuelWarning(props: {}) {
                 startIcon={<ArrowOutwardRoundedIcon />}
                 size="small"
                 variant="contained"
-                className="styles.btnAction, cmn.mtop10"
+                className="styles.btnAction, mt-2.5"
               >
                 Getting sFUEL...
               </Button>
@@ -219,7 +219,7 @@ export default function SFuelWarning(props: {}) {
                 variant="contained"
                 color="primary"
                 size="medium"
-                className="styles.btnAction, cmn.mtop10"
+                className="styles.btnAction, mt-2.5"
                 onClick={doPoW}
               >
                 Get sFUEL

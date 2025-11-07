@@ -71,7 +71,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
           <List>
             <ListItem>
               <Link to="/" className="undec fullW">
-                <ListItemButton className="text-white" selected={location.pathname === '/'}>
+                <ListItemButton className="text-primary" selected={location.pathname === '/'}>
                   <ListItemIcon>
                     <HomeOutlinedIcon />
                   </ListItemIcon>
@@ -81,7 +81,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
             </ListItem>
             <ListItem>
               <a className="undec fullW" target="_blank" href={GET_STARTED_URL} rel="noreferrer">
-                <ListItemButton className="text-white">
+                <ListItemButton className="text-primary">
                   <ListItemIcon>
                     <ExploreOutlinedIcon />
                   </ListItemIcon>
@@ -95,7 +95,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
             <ListItem>
               <Link to="/bridge" className="undec fullW">
                 <ListItemButton
-                  className="text-white"
+                  className="text-primary"
                   selected={
                     location.pathname === '/bridge/history' || location.pathname === '/bridge'
                   }
@@ -110,7 +110,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
             <ListItem>
               <Link to="/onramp" className="undec fullW">
                 <ListItemButton
-                  className="text-white"
+                  className="text-primary"
                   selected={location.pathname === '/onramp'}
                 >
                   <ListItemIcon>
@@ -126,7 +126,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
             <ListItem>
               <Link to="/ecosystem" className="undec fullW">
                 <ListItemButton
-                  className="text-white"
+                  className="text-primary"
                   selected={location.pathname.includes('/ecosystem')}
                 >
                   <ListItemIcon>
@@ -142,7 +142,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
             <ListItem>
               <Link to="/chains" className="undec fullW">
                 <ListItemButton
-                  className="text-white"
+                  className="text-primary"
                   selected={
                     location.pathname.includes('/chains') || location.pathname.includes('/admin')
                   }
@@ -157,7 +157,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
             <ListItem>
               <Link to="/staking" className="undec fullW">
                 <ListItemButton
-                  className="text-white"
+                  className="text-primary"
                   selected={location.pathname.includes('/staking')}
                 >
                   <ListItemIcon>
@@ -170,7 +170,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
             <ListItem>
               <Link to="/validators" className="undec fullW">
                 <ListItemButton
-                  className="text-white"
+                  className="text-primary"
                   selected={location.pathname.includes('/validator')}
                 >
                   <ListItemIcon>
@@ -187,7 +187,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
             <ListItem>
               <Link to="/stats" className="undec fullW">
                 <ListItemButton
-                  className="text-white"
+                  className="text-primary"
                   selected={location.pathname === '/stats'}
                 >
                   <ListItemIcon>

@@ -109,7 +109,7 @@ export default function AddToken(props: {
       disabled={loading}
       color="primary"
       size="medium"
-      className="styles.btnAction, cmn.mtop10d"
+      className="styles.btnAction mt-2.5"
       startIcon={<TollIcon />}
     >
       {loading ? 'Check wallet' : 'Add token'}

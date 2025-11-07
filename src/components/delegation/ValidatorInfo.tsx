@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, TokenIcon, Tile } from '@skalenetwork/metaport'
+import { TokenIcon, Tile } from '@skalenetwork/metaport'
 import { type types, units, constants } from '@/core'
 
 import { Skeleton } from '@mui/material'
@@ -47,11 +47,11 @@ export default function ValidatorInfo(props: {
       <div className="flex mb-2.5 'titleSection'">
         <ValidatorLogo validatorId={props.validator?.id} size="xl" />
         {props.validator ? (
-          <div className="cmn.mleft20">
+          <div className="ml-5">
             <div className="lex, items-center">
-              <p className=" cmn.p1, cmn.p700, text-primary">{props.validator.name}</p>
+              <p className="text-base font-bold text-primary">{props.validator.name}</p>
               <TrustBadge validator={props.validator} />
-              <ValidatorBadge validator={props.validator} className={cmn.mleft10} />
+              <ValidatorBadge validator={props.validator} className="ml-2.5" />
             </div>
             <p className="text-xs font-semibold text-secondary mr-5 mt-1.5">
               {description}
@@ -60,12 +60,12 @@ export default function ValidatorInfo(props: {
         ) : (
           <div className="flex-grow">
             <Skeleton variant="rectangular" width={200} height={40} />
-            <Skeleton variant="rectangular" width={200} height={20} className="cmn.mtop10" />
+            <Skeleton variant="rectangular" width={200} height={20} className="mt-2.5" />
           </div>
         )
         }
       </div >
-      <SkStack className="cmn.mtop10">
+      <SkStack className="mt-2.5">
         <Tile
           value={props.validator && `${Number(props.validator.feeRate) / 10}% fee`}
           text="Validator fee"

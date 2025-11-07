@@ -60,7 +60,7 @@ export default function Delegations(props: {
         text="Delegations"
         icon={<AllInboxRoundedIcon className="styles.chainIconxs" />}
       />
-      <div className="cmn.mtop10" style={{ paddingBottom: '5px' }}></div>
+      <div className="mt-2.5" style={{ paddingBottom: '5px' }}></div>
       {!loaded ? (
         <div>
           <Skeleton variant="rectangular" height={86} className="mb-2.5" />
@@ -71,7 +71,7 @@ export default function Delegations(props: {
       ) : null}
       {loaded && noDelegations ? (
         <div className="mt-5">
-          <PieChartRoundedIcon className="text-secondary styles.chainIconlg cmn.fullWidth" />
+          <PieChartRoundedIcon className="text-secondary styles.chainIconlg w-full" />
           <h3 className="font-bold text-secondary text-center mt-1.5 mb-5">
             No tokens staked
           </h3>

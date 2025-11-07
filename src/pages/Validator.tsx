@@ -225,7 +225,7 @@ export default function Validator(props: {
               <PeopleRoundedIcon
                 className="text-secondary styles.chainIconlg w-full mt-5"
               />
-              <h3 className="cmn.p700 text-secondary cmn.pCent mb-5">
+              <h3 className="font-bold text-secondary text-center mb-5">
                 Validator doesn't exist
               </h3>
             </div>

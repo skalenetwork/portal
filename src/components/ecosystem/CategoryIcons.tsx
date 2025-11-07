@@ -68,7 +68,6 @@ import {
   DonutLargeRounded,
   PeopleAltRounded
 } from '@mui/icons-material'
-import { cls, styles } from '@skalenetwork/metaport'
 import EpicGamesStoreLogo from '../../assets/egs.svg'
 
 export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {

@@ -24,7 +24,6 @@
 import { useState } from 'react'
 import { useState as useReactState } from 'react'
 
-import { cls } from '@skalenetwork/metaport'
 import { Collapse } from '@mui/material'
 
 import { types } from '@/core'

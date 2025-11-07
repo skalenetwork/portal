@@ -189,7 +189,7 @@ Thank you for your understanding!"
         <meta property="og:description" content={META_TAGS.bridge.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className="flex flex items-center">
+        <div className="flex items-center">
           <div className="flex-grow">
             <h2 className="m-0">Bridge</h2>
             <p className="text-sm text-sec">

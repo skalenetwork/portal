@@ -93,7 +93,7 @@ export default function Meson(props: {
               Select destination chain
             </p>
             <div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-2 w-full">
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
                 {SUPPORTED_CHAINS.map((chain: string) => (
                   <div
                     key={chain}

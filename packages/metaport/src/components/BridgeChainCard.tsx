@@ -60,7 +60,7 @@ export default function BridgeChainCard(props: ChainCardProps) {
       <SkPaper
         gray={disabled}
         className="flex items-center justify-center mt-5 [['cursor-pointer', !disabled]],          [styles.disabledCard, disabled], styles.fullHeight"
-      
+
         background={backgroundColor}
       >
         <div className="mb-2.5 mt-5 w-full styles.fullHeight">
@@ -71,7 +71,7 @@ export default function BridgeChainCard(props: ChainCardProps) {
             </div>
           </div>
 
-          <p className="text-white font-semibold text-xl text-center">
+          <p className="text-primary font-semibold text-xl text-center">
             {metadata.getAlias(chainsMeta, chainName, undefined, true)}
           </p>
 

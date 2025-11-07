@@ -86,7 +86,7 @@ const Carousel: React.FC<CarouselProps> = ({ children, showArrows = true, classN
         ))}
       </Box>
       {showArrows && children.length > itemsToShow && (
-        <Box className="cmn.mtop10, 'skArrows'">
+        <Box className="mt-2.5, 'skArrows'">
           <IconButton
             onClick={handlePrev}
             disabled={startIndex === 0}

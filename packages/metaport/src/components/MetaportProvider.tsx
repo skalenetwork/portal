@@ -173,7 +173,7 @@ export default function MetaportProvider(props: {
 
   const Disclaimer: DisclaimerComponent = ({ Text, Link }) => (
     <Text>
-      <h3 className="cmn.nop, cmn.nom">SKALE Portal Terms of Use</h3>
+      <h3 className="p-0, m-0">SKALE Portal Terms of Use</h3>
       By connecting your wallet, you agree to the{' '}
       <Link href="https://portal.skale.space/other/terms-of-service">Terms of Service</Link> and
       acknowledge you have read and understand them. These are subject to change.

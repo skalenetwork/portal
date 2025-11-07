@@ -22,7 +22,7 @@
  */
 
 import React, { useState, useEffect } from 'react'
-import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@skalenetwork/metaport'
 import { constants } from '@/core'
 
 import { Collapse } from '@mui/material'
@@ -83,7 +83,7 @@ const AppScreenshots: React.FC<AppScreenshotsProps> = ({ chainName, appName, ska
 
   return (
     <Collapse in={!loading && !error}>
-      <SkPaper gray className="cmn.mtop10, 'fwmobile'">
+      <SkPaper gray className="mt-2.5, 'fwmobile'">
         <AccordionSection
           expandedByDefault
           title="Explore project"

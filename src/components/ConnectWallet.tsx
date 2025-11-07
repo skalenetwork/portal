@@ -49,29 +49,29 @@ export default function ConnectWallet(props: {
     <div className={props.className}>
       <SkPaper gray={!props.tile} className={['titleSection', props.tile]}>
         <div className="mt-5 mb-5">
-          <p className="text-sm pSec cmn.pCent">
+          <p className="text-sm pSec text-center">
             {props.customText ?? 'Connect your wallet to continue'}
           </p>
           <div className="flex">
             <div className="flex flex-grow"></div>
-          <div className="flex">
-            <RainbowConnectButton.Custom>
-              {({ openConnectModal }) => {
-                return (
-                  <Button
-                    onClick={() => handleButtonClick(openConnectModal)}
-                    variant="contained"
-                    className="cmn.pCent cmn.mtop10 flex 'btn'"
-                  >
-                    <LooksRoundedIcon className="mr-2.5" />
-                    {address ? 'Sign in' : 'Connect Wallet'}
-                  </Button>
-                )
-              }}
-            </RainbowConnectButton.Custom>
+            <div className="flex">
+              <RainbowConnectButton.Custom>
+                {({ openConnectModal }) => {
+                  return (
+                    <Button
+                      onClick={() => handleButtonClick(openConnectModal)}
+                      variant="contained"
+                      className="text-center mt-2.5 flex 'btn'"
+                    >
+                      <LooksRoundedIcon className="mr-2.5" />
+                      {address ? 'Sign in' : 'Connect Wallet'}
+                    </Button>
+                  )
+                }}
+              </RainbowConnectButton.Custom>
+            </div>
+            <div className="flex flex-grow"></div>
           </div>
-          <div className="flex flex-grow"></div>
-    </div>
         </div >
       </SkPaper >
     </div >

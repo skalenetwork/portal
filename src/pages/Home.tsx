@@ -134,7 +134,7 @@ export default function Home({
 function ExploreSection(): JSX.Element {
   return (
     <div className="flex-grow">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
         {EXPLORE_CARDS.map((card, index) => (
           <div key={index} className="flex justify-center items-center dappCard">
             <PageCard {...card} />
@@ -156,7 +156,7 @@ function AppSection({ title, icon, linkTo, component }: AppSectionProps): JSX.El
       <div className="flex items-center mb-2.5 mt-5 pt-5">
         <Headline text={title} icon={icon} />
         <Link to={linkTo}>
-          <Button className="btn btnSm bg text-white">See all</Button>
+          <Button className="btn btnSm bg text-primary">See all</Button>
         </Link>
       </div>
       {component}

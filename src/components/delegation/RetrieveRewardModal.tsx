@@ -97,9 +97,9 @@ export default function RetrieveRewardModal(props: {
           className="flex-grow items-center flex flex-col"
         >
           <Container maxWidth="md">
-            <SkPaper className="cmn.nop">
+            <SkPaper className="p-0">
               <SkPaper gray>
-                <p className="text-base cmn.p700 cmn.pCent cmn.mtop10 mb-2.5">
+                <p className="text-base font-bold text-center mt-2.5 mb-2.5">
                   Confirm reward retrieval
                 </p>
                 <Message
@@ -132,7 +132,7 @@ export default function RetrieveRewardModal(props: {
                               (edit ? inputAddress : props.customRewardAddress) || ''
                             )}
                           />
-                          <div className="flex-grow cmn.mleft10">
+                          <div className="flex-grow ml-2.5">
                             <TextField
                               inputRef={(input) => input?.focus()}
                               variant="standard"
@@ -157,7 +157,7 @@ export default function RetrieveRewardModal(props: {
                             </Button>
                             <Button
                               variant="text"
-                              className="'btnSm', 'filled', cmn.mleft10"
+                              className="'btnSm', 'filled', ml-2.5"
                               onClick={() => {
                                 setInputAddress(props.address)
                                 props.setCustomRewardAddress(props.address)
@@ -188,7 +188,7 @@ export default function RetrieveRewardModal(props: {
                   text={props.loading ? 'Retrieving' : 'Retrieve'}
                   disabled={props.disabled || edit}
                   onClick={props.retrieveRewards}
-                  className="'btn' cmn.mleft10 mb-2.5 mt-5"
+                  className="'btn' ml-2.5 mb-2.5 mt-5"
                   variant="contained"
                 />
               </SkPaper>

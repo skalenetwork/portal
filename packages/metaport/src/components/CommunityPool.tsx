@@ -189,9 +189,9 @@ export default function CommunityPool() {
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <div className="flex w-full flex items-center">
+          <div className="flex w-full items-center">
             <div className="flex items-center justify-center mr-2.5">{icon}</div>
-            <p className="text-sm text-white font-semibold capitalize mr-2.5">{text}</p>
+            <p className="text-sm text-primary font-semibold capitalize mr-2.5">{text}</p>
           </div>
         </AccordionSummary>
         <AccordionDetails>
@@ -206,7 +206,7 @@ export default function CommunityPool() {
                 {cpData.recommendedRechargeAmount} ETH.
               </p>
             ) : null}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-y-2 gap-x-1 mt-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
               <div className="col-span-1">
                 <Tile
                   text="ETH Balance"

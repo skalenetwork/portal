@@ -34,7 +34,6 @@ import {
   useMetaportStore,
   useUIStore,
   useWagmiAccount,
-  cmn,
   AmountErrorMessage,
   TokenBalance,
   DestTokenBalance,
@@ -82,7 +81,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
       <Collapse in={!!errorMessage}>
         <ErrorMessage errorMessage={errorMessage} />
       </Collapse>
-      <SkPaper background={sourceBg} className={cmn.nop}>
+      <SkPaper background={sourceBg} className="p-0">
         <Collapse in={showFrom()}>
           <div className="pt-5 ml-5 mr-5 flex">
             <p className="m-0 text-xs text-secondary flex flex-grow">From</p>
@@ -119,7 +118,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
       </Collapse>
 
       <Collapse in={showTo()}>
-        <SkPaper background={destBg} className={cmn.nop}>
+        <SkPaper background={destBg} className="p-0">
           <div className="pt-5 ml-5 mr-5 flex">
             <p className="m-0 text-xs text-secondary flex flex-grow">To</p>
             <DestTokenBalance />
@@ -137,13 +136,13 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
         </SkPaper>
       </Collapse>
       <Collapse in={showCP()}>
-        <SkPaper gray className={cmn.nop}>
+        <SkPaper gray className="p-0">
           <CommunityPool />
         </SkPaper>
       </Collapse>
 
       <Collapse in={showWT(address!)}>
-        <SkPaper gray className={cmn.nop}>
+        <SkPaper gray className="p-0">
           <WrappedTokens />
         </SkPaper>
       </Collapse>

@@ -66,47 +66,47 @@ export default function HubTile(props: {
         className="'titleSectionOut', 'hoverable', 'pointer', flex-grow"
         background={props.bg ? metadata.chainBg(props.chainsMeta, props.schainName) : ''}
       >
-    <Tooltip title="Click to see Hub details">
-      <div className="'titleSectionBg', flex items-center">
-        <div
-          className="flex items-center flex-grow mt-5 mb-5 cmn.mleft20"
-        >
-        <div className="styles.chainIconlg, flex items-center">
-          <ChainLogo
-            network={props.network}
-            chainName={props.schainName}
-            logos={MAINNET_CHAIN_LOGOS}
-            className="responsive-logo"
-          />
-        </div>
-        <div
-          className="[cmn.mleft20, !props.isXs], [cmn.mleft10, props.isXs], flex-grow"
-        >
-          <h4 className="cmn.p700 pOneLine">{alias}</h4>
-          <p
-            className="[text - xs, !props.isXs], [text - xs, props.isXs],[mr - 2.5, props.isXs], text-secondary"
-          >
-            {chainDescription.split('.', 1)[0]}
-          </p>
-        </div>
-      </div>
-      {props.isXs || !props.showStats ? null : (
-        <div className="'chipSm' mr-2.5 flex items-center">
-          <TrendingUpRoundedIcon />
-          <p className="text-xs cmn.mleft10">
-            {schainMetrics
-              ? formatNumber(schainMetrics.chain_stats?.transactions_today)
-              : '...'}
-            + Daily Tx
-          </p>
-        </div>
-      )}
-      {!props.isXs && (
-        <div className="cmn.mri20, styles.chainIconxs">
-          <ArrowForwardIosRoundedIcon className="text-secondary" />
-        </div>
-      )}
-    </div>
+        <Tooltip title="Click to see Hub details">
+          <div className="'titleSectionBg', flex items-center">
+            <div
+              className="flex items-center flex-grow mt-5 mb-5 ml-5"
+            >
+              <div className="styles.chainIconlg, flex items-center">
+                <ChainLogo
+                  network={props.network}
+                  chainName={props.schainName}
+                  logos={MAINNET_CHAIN_LOGOS}
+                  className="responsive-logo"
+                />
+              </div>
+              <div
+                className="[ml-5, !props.isXs], [ml-2.5, props.isXs], flex-grow"
+              >
+                <h4 className="font-bold pOneLine">{alias}</h4>
+                <p
+                  className="[text - xs, !props.isXs], [text - xs, props.isXs],[mr - 2.5, props.isXs], text-secondary"
+                >
+                  {chainDescription.split('.', 1)[0]}
+                </p>
+              </div>
+            </div>
+            {props.isXs || !props.showStats ? null : (
+              <div className="'chipSm' mr-2.5 flex items-center">
+                <TrendingUpRoundedIcon />
+                <p className="text-xs ml-2.5">
+                  {schainMetrics
+                    ? formatNumber(schainMetrics.chain_stats?.transactions_today)
+                    : '...'}
+                  + Daily Tx
+                </p>
+              </div>
+            )}
+            {!props.isXs && (
+              <div className="mr-5, styles.chainIconxs">
+                <ArrowForwardIosRoundedIcon className="text-secondary" />
+              </div>
+            )}
+          </div>
         </Tooltip >
       </SkPaper >
     </Link >

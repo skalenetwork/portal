@@ -45,33 +45,33 @@ const ChainActions: React.FC<ChainActionsProps> = ({
   const isMd = false
 
   return (
-    <div className={`flex items-center cmn.mtop10 ${className}`}>
-  {
-    chainMeta && chainMeta.url && (
-      <Tooltip title="Website">
+    <div className={`flex items-center mt-2.5 ${className}`}>
+      {
+        chainMeta && chainMeta.url && (
+          <Tooltip title="Website">
+            <IconButton
+              size="small"
+              href={chainMeta.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="[text-primary isMd] ['bgBlack', isMd]"
+            >
+              <LanguageIcon className="text-secondary" fontSize="small" />
+            </IconButton>
+          </Tooltip>
+        )
+      }
+      <Tooltip title="Block Explorer">
         <IconButton
           size="small"
-          href={chainMeta.url}
+          href={explorerUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="[text-primary isMd] ['bgBlack', isMd]"
+          className="[text-primary isMd] ['bgBlack' isMd]"
         >
-          <LanguageIcon className="text-secondary" fontSize="small" />
+          <ViewInArRoundedIcon className="text-secondary" fontSize="small" />
         </IconButton>
       </Tooltip>
-    )
-  }
-  <Tooltip title="Block Explorer">
-    <IconButton
-      size="small"
-      href={explorerUrl}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="[text-primary isMd] ['bgBlack' isMd]"
-    >
-      <ViewInArRoundedIcon className="text-secondary" fontSize="small" />
-    </IconButton>
-  </Tooltip>
     </div >
   )
 }

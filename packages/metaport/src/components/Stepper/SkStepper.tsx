@@ -14,7 +14,6 @@ import Collapse from '@mui/material/Collapse'
 import SettingsBackupRestoreRoundedIcon from '@mui/icons-material/SettingsBackupRestoreRounded'
 import AnimatedLoadingIcon from '../AnimatedLoadingIcon'
 
-import { cmn } from '../../core/css'
 import localStyles from './SkStepper.module.scss'
 
 import ChainIcon from '../ChainIcon'
@@ -107,10 +106,10 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                     </div>
                   </div>
                 </StepLabel>
-                <StepContent className={cmn.margTop}>
+                <StepContent className="mt-2.5">
                   <Box sx={{ mb: 2 }}>
                     <p className="flex text-secondary text-xs flex-grow">{step.text}</p>
-                    <div className={cmn.mtop10}>
+                    <div className="mt-2.5">
                       {loading ? (
                         <Button
                           disabled
@@ -145,9 +144,9 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
         {
           currentStep === stepsMetadata.length && (
             <div>
-              <div className="cmn.d">
+              <div className="block">
                 <p
-                  className="cmn.p1 cmn.p600 text-primary flex-grow cmn.pCent mt-5"
+                  className="text-base font-semibold text-primary flex-grow text-center mt-5"
                 >
                   {emoji} Transfer completed
                 </p>

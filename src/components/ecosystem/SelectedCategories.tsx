@@ -22,7 +22,7 @@
  */
 
 import React from 'react'
-import { cmn, cls } from '@skalenetwork/metaport'
+import { cls } from '@skalenetwork/metaport'
 import { Chip, Box } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { categories } from '../../core/ecosystem/categories'
@@ -40,7 +40,7 @@ const CustomChipLabel: React.FC<{ category: string; subcategory?: string }> = ({
   <Box display="flex" alignItems="center">
     <p
       className={cls(["text-secondary", subcategory], ["text-primary", !subcategory], "text-sm", [
-        cmn.p600,
+        "font-semibold",
         !subcategory
       ])}
     >
@@ -49,7 +49,7 @@ const CustomChipLabel: React.FC<{ category: string; subcategory?: string }> = ({
     {subcategory && (
       <>
         <Box component="span" className="borderLeft" sx={{ height: '1em', mx: 0.75 }} />
-        <p className="text-primary text-sm cmn.p600">{subcategory}</p>
+        <p className="text-primary text-sm font-semibold">{subcategory}</p>
       </>
     )}
   </Box>
@@ -85,7 +85,7 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
   if (checkedItems.length === 0) return null
 
   return (
-    <Box className="flex items-center 'flex-w' cmn.mbottf10">
+    <Box className="flex items-center flex-wrap mb-2.5">
       {
         checkedItems.map((item) => {
           const [category, subcategory] = item.split('_')
@@ -101,16 +101,16 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
               }
               onDelete={() => handleDelete(item)}
               deleteIcon={<CloseIcon className="styles.chainIconxs" />}
-              className="'outlined', cmn.p600"
+              className="'outlined', font-semibold"
             />
           )
         })
       }
-      <p className="text-xs text-primary cmn.mleft10 mr-2.5">
+      <p className="text-xs text-primary ml-2.5 mr-2.5">
         {filteredAppsCount} project{filteredAppsCount !== 1 ? 's' : ''}
       </p>
       <p
-        className="text-xs00 text-xs cmn.nop cmn.nom text-secondary cmn.mleft20"
+        className="text-xs text-xs p-0 m-0 text-secondary ml-5"
         style={{ cursor: 'pointer' }}
         onClick={clearAll}
       >

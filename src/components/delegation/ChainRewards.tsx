@@ -199,54 +199,54 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
         }
         childrenRi={
           <SkStack className="flex items-center !isXs">
-      <SkBtn
-        loading={loading}
-        text={btnText ?? 'Retrieve'}
-        variant="contained"
-        size="sm"
-        className="[cmn.mleft20, !isXs], cmn.mri20, items-center"
-        disabled={
-          customAddress !== undefined ||
-          rewardAmount === null ||
-          rewardAmount === 0n ||
-          loading
+            <SkBtn
+              loading={loading}
+              text={btnText ?? 'Retrieve'}
+              variant="contained"
+              size="sm"
+              className="[ml-5, !isXs], mr-5, items-center"
+              disabled={
+                customAddress !== undefined ||
+                rewardAmount === null ||
+                rewardAmount === 0n ||
+                loading
+              }
+              onClick={retrieveRewards}
+            />
+            <div className="['borderVert', !isXs]">
+              <Tile
+                className="p-0, [ml-5, !isXs]"
+                size="md"
+                transparent
+                grow
+                value={tokenBalance !== undefined && units.displayBalance(tokenBalance, 'SKL')}
+                ri={!isXs}
+                text="Balance on Europa Hub"
+                icon={<TokenIcon tokenSymbol="skl" size="xs" />}
+                tooltip={
+                  sklPrice !== undefined && tokenBalance !== undefined
+                    ? units.displaySklValueUsd(tokenBalance, sklPrice)
+                    : ''
+                }
+                childrenRi={
+                  <Tooltip title="Open in block explorer">
+                    <a target="_blank" rel="noreferrer" href={tokenUrl ?? ''} className="undec">
+                      <Button
+                        disabled={tokenUrl === null}
+                        variant="text"
+                        className="'roundBtn' ml-1.5"
+                      >
+                        <ViewInArRoundedIcon className="styles.chainIconxs" />
+                      </Button>
+                    </a>
+                  </Tooltip>
+                }
+              />
+            </div>
+          </SkStack>
         }
-        onClick={retrieveRewards}
       />
-      <div className="['borderVert', !isXs]">
-        <Tile
-          className="cmn.nop, [cmn.mleft20, !isXs]"
-          size="md"
-          transparent
-          grow
-          value={tokenBalance !== undefined && units.displayBalance(tokenBalance, 'SKL')}
-          ri={!isXs}
-          text="Balance on Europa Hub"
-          icon={<TokenIcon tokenSymbol="skl" size="xs" />}
-          tooltip={
-            sklPrice !== undefined && tokenBalance !== undefined
-              ? units.displaySklValueUsd(tokenBalance, sklPrice)
-              : ''
-          }
-          childrenRi={
-            <Tooltip title="Open in block explorer">
-              <a target="_blank" rel="noreferrer" href={tokenUrl ?? ''} className="undec">
-                <Button
-                  disabled={tokenUrl === null}
-                  variant="text"
-                  className="'roundBtn' ml-1.5"
-                >
-                  <ViewInArRoundedIcon className="styles.chainIconxs" />
-                </Button>
-              </a>
-            </Tooltip>
-          }
-        />
-      </div>
-    </SkStack>
-        }
-      />
-  < ErrorTile errorMsg = { errorMsg } setErrorMsg = { setErrorMsg } className = "cmn.mtop10" />
+      < ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-2.5" />
     </SkPaper >
   )
 }

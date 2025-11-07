@@ -27,7 +27,6 @@ import { type types } from '@/core'
 import { categories as categoriesData } from '../../core/ecosystem/categories'
 import Chip from '../Chip'
 import { CategoryIcons } from './CategoryIcons'
-import { cls } from '@skalenetwork/metaport'
 
 interface CategoriesChipsProps {
   categories: string[] | types.CategoriesMap

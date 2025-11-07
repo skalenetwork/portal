@@ -61,7 +61,7 @@ export default function Chain(props: {
           [['font-semibold', !props.bold]],
           [['font-bold', props.bold]],
           'capitalize',
-          [['text-white', prim]],
+          [['text-primary', prim]],
           [['text-gray-400', !prim]]
         "
       >

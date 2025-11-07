@@ -91,7 +91,7 @@ const RecommendedApps: React.FC<RecommendedAppsProps> = ({
     return <Carousel className={className}>{similarApps.map(renderAppCard)}</Carousel>
   }
   return (
-    <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-2 ${className}`}>
+    <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 ${className}`}>
       {similarApps.map((app) => (
         <div key={`${app.chain}-${app.appName}`} className="col-span-1">
           {renderAppCard(app)}

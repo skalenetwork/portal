@@ -51,7 +51,7 @@ export default function Validators(props: {
     : filterValidators(props.validators, ESCROW_VALIDATORS, internal)
 
   return (
-    <div className={`grid grid-cols-1 ${size === 'md' ? 'gap-2' : 'gap-3'}`}>
+    <div className="grid grid-cols-1 gap-4">
       {validators.map((validator: types.st.IValidator, index) => (
         <ValidatorCard
           key={index}

@@ -98,7 +98,7 @@ export default function AmountInput() {
             </Button>
           </div>
         )}
-      <div className="[cmn.fullWidth, expandedTokens]">
+      <div className={expandedTokens ? "w-full" : "w-full"}>
         <TokenList />
       </div>
     </div>

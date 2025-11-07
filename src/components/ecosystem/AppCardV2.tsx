@@ -76,26 +76,26 @@ export default function AppCard(props: {
               appName={props.appName}
             />
             <div className="flex flex-grow"></div>
-          {props.schainName !== OFFCHAIN_APP && (
-            <ChainIcon skaleNetwork={props.skaleNetwork} chainName={props.schainName} />
-          )}
+            {props.schainName !== OFFCHAIN_APP && (
+              <ChainIcon skaleNetwork={props.skaleNetwork} chainName={props.schainName} />
+            )}
+          </div>
         </div>
-      </div>
-      <div className="flex items-center cmn.mtop10">
-      <p className="text-primary cmn.p600 cmn.p1 shortP flex-grow mr-2.5">
-        {metadata.getAlias(props.chainsMeta, props.schainName, props.appName)}
-      </p>
-      <div className="flex items-center">{visibleStatusChips}</div>
+        <div className="flex items-center mt-2.5">
+          <p className="text-primary font-semibold text-base shortP flex-grow mr-2.5">
+            {metadata.getAlias(props.chainsMeta, props.schainName, props.appName)}
+          </p>
+          <div className="flex items-center">{visibleStatusChips}</div>
         </div >
         <CollapsibleDescription text={appDescription} />
         <CategoriesChips categories={appMeta.categories} className="mt-5" />
       </Link >
-    <SocialButtons
-      social={appMeta.social}
-      chainName={props.schainName}
-      appName={props.appName}
-      className="mt-5"
-    />
+      <SocialButtons
+        social={appMeta.social}
+        chainName={props.schainName}
+        appName={props.appName}
+        className="mt-5"
+      />
     </SkPaper >
   )
 }

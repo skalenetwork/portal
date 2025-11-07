@@ -63,7 +63,7 @@ export default function PopularActions(props: {
         Popular Actions
       </div>
       <div className="flex flex-row items-center">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {
             actions.map((action) => (
               <div className="col-span-1">
@@ -76,7 +76,7 @@ export default function PopularActions(props: {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <SkPaper gray className="cmn.fullWidth hoverable" key={action.text}>
+                  <SkPaper gray className="w-full hoverable" key={action.text}>
                     <div className="flex items-center">
                       <Logo
                         chainsMeta={props.chainsMeta}
@@ -86,10 +86,10 @@ export default function PopularActions(props: {
                       />
                       <div>
                         <div
-                          className="text-sm shortP cmn.p700 text-primary cmn.mleft10 mr-2.5">
+                          className="text-sm shortP font-bold text-primary ml-2.5 mr-2.5">
                           {action.text}
                         </div>
-                        <div className="text-xs text-secondary mr-2.5 cmn.mleft10">
+                        <div className="text-xs text-secondary mr-2.5 ml-2.5">
                           {getActionDescription(action)}
                         </div>
                       </div>

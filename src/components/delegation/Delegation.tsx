@@ -119,20 +119,20 @@ export default function Delegation(props: {
                 className="validatorIconDelegation"
               />
             )}
-            <div className="cmn.mleft10">
-              <p className=" text-base, cmn.p700">ID: {Number(props.delegation.id)}</p>
+            <div className="ml-2.5">
+              <p className="text-base font-bold">ID: {Number(props.delegation.id)}</p>
               <p className=" text-xs text-secondary">
                 {formatBigIntTimestampSeconds(props.delegation.created)}
               </p>
             </div>
             {props.delegationType === types.st.DelegationType.ESCROW ? (
               <Tooltip title="Escrow delegation">
-                <AccountBalanceRoundedIcon className="'trustedBadge' cmn.mleft10 text-secondary" />
+                <AccountBalanceRoundedIcon className="'trustedBadge' ml-2.5 text-secondary" />
               </Tooltip>
             ) : null}
             {props.delegationType === types.st.DelegationType.ESCROW2 ? (
               <Tooltip title="Grant Escrow delegation">
-                <ApartmentRoundedIcon className="'trustedBadge' cmn.mleft10 text-secondary" />
+                <ApartmentRoundedIcon className="'trustedBadge' ml-2.5 text-secondary" />
               </Tooltip>
             ) : null}
           </div>
@@ -158,9 +158,9 @@ export default function Delegation(props: {
           </div>
         </div>
         <div className="w-full md:w-1/3">
-          <div className="flex items-center mr-1.5 [cmn.mtop10 props.isXs]">
+          <div className="flex items-center mr-1.5 [mt-2.5 props.isXs]">
             <div className="flex-grow"></div>
-            <div className="cmn.mri20 [cmn.pri !props.isXs] [cmn.mleft20 !props.isXs]">
+            <div className="mr-5 [text-primary !props.isXs] [ml-5 !props.isXs]">
               <Tooltip
                 arrow
                 title={
@@ -169,7 +169,7 @@ export default function Delegation(props: {
                     : ''
                 }
               >
-                <h4 className=" cmn.p700 [text-secondary !isActive]">{delegationAmount}</h4>
+                <h4 className="font-bold [text-secondary !isActive]">{delegationAmount}</h4>
               </Tooltip>
               <p className=" text-xs text-secondary">{getStakingText()}</p>
             </div>
@@ -183,7 +183,7 @@ export default function Delegation(props: {
         <div className="mt-5">
           {props.isValidatorPage && (
             <Tile
-              className="cmn.nop mt-5"
+              className="p-0 mt-5"
               transparent
               value={props.delegation.address}
               text="Token Holder Address"
@@ -194,7 +194,7 @@ export default function Delegation(props: {
           )}
           {isCompleted && (
             <Tile
-              className="cmn.nop mt-5"
+              className="p-0 mt-5"
               transparent
               tooltip={
                 props.sklPrice && props.delegation.finished

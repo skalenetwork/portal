@@ -46,7 +46,7 @@ export default function HomeBanner(): JSX.Element {
           textAlign: 'center'
         }}
       >
-        <h1 className="'home-banner-title' text-primary cmn.nom">Bridge to SKALE</h1>
+        <h1 className="'home-banner-title' text-primary m-0">Bridge to SKALE</h1>
         <Link to="/bridge">
           <Button
             size={isXs ? 'small' : 'medium'}

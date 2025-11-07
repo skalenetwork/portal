@@ -95,7 +95,7 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
   return (
     <div>
       <Tile
-        className="cmn.mtop10"
+        className="mt-2.5"
         disabled={false}
         value={
           balance !== undefined
@@ -108,7 +108,7 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
           <div className="items-center flex">
             <Button
               disabled={loading}
-              className="btnSm outlined cmn.mleft20 items-center"
+              className="btnSm outlined ml-5 items-center"
               onClick={() => {
                 addToken()
               }}

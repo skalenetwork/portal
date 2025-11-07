@@ -82,7 +82,7 @@ export default function TokenListSection(props: {
         <Button
           color="primary"
           size="small"
-          className="mt-5 items-center cmn.mleft10 styles.filled"
+          className="mt-5 items-center ml-2.5 styles.filled"
           variant="contained"
           key={key}
           onClick={() => handle(props.tokens[key])}
@@ -92,7 +92,7 @@ export default function TokenListSection(props: {
               tokenSymbol={props.tokens[key]?.meta.symbol}
               iconUrl={props.tokens[key]?.meta.iconUrl}
             />
-            <span className=" text-primary cmn.mleft10">
+            <span className=" text-primary ml-2.5">
               {props.tokens[key]?.meta.symbol}
             </span>
           </div>

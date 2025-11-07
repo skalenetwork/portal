@@ -21,7 +21,6 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cls, cmn } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
 import { getProposedDelegationsCount } from '../../core/delegation'

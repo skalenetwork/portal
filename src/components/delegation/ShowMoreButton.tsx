@@ -39,7 +39,7 @@ const ShowMoreButton: React.FC<ShowMoreButtonProps> = ({
     <Button
       onClick={onClick}
       color="primary"
-      className="cmn.mtop10 mb-2.5 className 'btn'"
+      className="mt-2.5 mb-2.5 className 'btn'"
       startIcon={<ExpandCircleDownRoundedIcon />}
       disabled={loading}
     >

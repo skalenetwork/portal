@@ -46,7 +46,7 @@ const UserRecommendations: React.FC<{
   if (!showRecommendations) return null
 
   return (
-    <div className="mb-2.5 mt-5 cmn.ptop20">
+    <div className="mb-2.5 mt-5 pt-5">
       <Headline
         className="mb-2.5"
         text="Recommended for you"

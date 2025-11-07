@@ -59,7 +59,7 @@ const ScreenshotCarousel: React.FC<PropType> = ({ screenshots, appName }) => {
   }, [emblaApi, onSelect])
 
   return (
-    <Box position="relative" className="cmn.mtop10">
+    <Box position="relative" className="mt-2.5">
       <Box className="embla" ref={emblaRef} sx={{ overflow: 'hidden' }}>
         <Box className="embla__container" display="flex" height={400}>
           {screenshots.map((screenshot, index) => (

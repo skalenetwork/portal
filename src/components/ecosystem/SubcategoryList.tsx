@@ -47,7 +47,7 @@ const SubcategoryList: React.FC<SubcategoryListProps> = ({
     {Object.entries(subcategories).map(([shortName, subcategory]) => (
       <div
         key={`${category}_${shortName}`}
-        className="flex items-center cmn.fullWidth cmn.mbott5"
+        className="flex items-center w-full mb-1.5"
       >
         <FormControlLabel
           control={

@@ -42,7 +42,7 @@ const ProfileModalHeader: React.FC<ProfileModalHeaderProps> = ({ address, isSign
         fontSize="small"
         color={address ? (isSignedIn ? 'success' : 'warning') : 'error'}
       />
-      <p className="text-xs, 'pSec', cmn.mri20">
+      <p className="text-xs, 'pSec', mr-5">
         {address ? (isSignedIn ? 'Signed in' : 'Connected but not signed in') : 'Not connected'}
       </p>
     </div>

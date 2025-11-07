@@ -29,7 +29,6 @@ import Stack from '@mui/material/Stack'
 
 
 import {
-  cmn,
   type MetaportCore,
   TokenIcon,
   SkPaper,
@@ -98,14 +97,14 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
     <Container maxWidth="md">
       <Stack spacing={0}>
         <div className="flex">
-          <h2 className="cmn.nom flex-grow">Portfolio</h2>
+          <h2 className="m-0 flex-grow">Portfolio</h2>
         </div>
-        <p className="cmn.nom text-sm text-secondary">Your assets across all SKALE Chains</p>
+        <p className="m-0 text-sm text-secondary">Your assets across all SKALE Chains</p>
         <div>
           {!address ? <ConnectWallet className="mt-5" /> : null}
           {Object.keys(props.mpc.config.tokens)?.map((token: string, index: number) => (
             <div key={index} className="mt-5">
-              <SkPaper gray className={cmn.n}>
+              <SkPaper gray className="">
                 <div
                   className="flex items-center mb-2.5 mt-1.25 ml-2.5 mr-2.5"
                 >
@@ -115,22 +114,22 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                     iconUrl={props.mpc.config.tokens[token].iconUrl}
                   />
                   <div className="ml-2.5 flex-grow">
-                    <p className=" text-primary text-base cmn.p700">
+                    <p className="text-primary text-base font-bold">
                       {props.mpc.config.tokens[token].symbol}
                     </p>
-                    <p className=" text-secondary text-sm cmn.p600">
+                    <p className="text-secondary text-sm font-semibold">
                       {props.mpc.config.tokens[token].name ?? (token === 'eth' ? 'Ethereum' : '')}
                     </p>
                   </div>
                   <div className="mr-1.25">
-                    <p className=" text-primary cmn.p1 cmn.p700 cmn.pri">
+                    <p className="text-primary text-base font-bold pr-1.5">
                       {units.fromWei(getTotalBalance(token).toString(), getTokenDecimals(token))}{' '}
                       {props.mpc.config.tokens[token].symbol}
                     </p>
-                    <p className=" text-secondary text-xs cmn.p600 cmn.pri">On 2 chains</p>
+                    <p className="text-secondary text-xs font-semibold pr-1.5">On 2 chains</p>
                   </div>
                 </div>
-                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 w-full">
+                <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
                   {props.mpc.config.chains
                     .filter((chain: string) => {
                       return isTokenInChain(chain, token)

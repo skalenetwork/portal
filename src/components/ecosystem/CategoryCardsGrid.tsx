@@ -65,7 +65,7 @@ const CategoryCardsGrid: React.FC<CategoryCardsGridProps> = ({ chainsMeta, maxCa
   }, [chainsMeta, maxCategories])
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {topCategories.map(({ name, fullName, projectCount }) => (
         <div className="col-span-1" key={name}>
           <CategoryCard categoryName={name} fullName={fullName} projectCount={projectCount} />

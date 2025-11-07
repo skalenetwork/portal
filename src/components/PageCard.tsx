@@ -46,7 +46,7 @@ export default function PageCard(props: {
             </div>
             <p className="text-sm text-secondary mt-1.5">{props.description}</p>
           </div>
-          <div className="cmn.mleft10 mr-1.5 flex items-center">
+          <div className="ml-2.5 mr-1.5 flex items-center">
             <ArrowForwardRoundedIcon className="text-secondary styles.chainIconxs" />
           </div>
         </div>

@@ -94,7 +94,7 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
     return (
       <SkPaper gray className="titleSection">
         <div className="mt-5 mb-5">
-          <p className="text-base text-secondary cmn.pCent">
+          <p className="text-base text-secondary text-center">
             🚫 No featured apps match your current filters
           </p>
         </div>

@@ -100,7 +100,7 @@ export default function Summary(props: {
                     <Tile
                       size="md"
                       transparent
-                      className="cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs]"
+                      className="p-0, [mr-5, !props.isXs], [ml-5, !props.isXs]"
                       value={helper.shortAddress(props.accountInfo?.address)}
                       text="Escrow"
                       grow
@@ -109,7 +109,7 @@ export default function Summary(props: {
                       icon={<ContentCopyRoundedIcon />}
                     />
                     <div
-                      className="['borderVert', !props.isXs], [cmn.mleft10, !props.isXs]"
+                      className="['borderVert', !props.isXs], [ml-2.5, !props.isXs]"
                     ></div>
                   </div>
                 ) : (
@@ -118,7 +118,7 @@ export default function Summary(props: {
                 <Tile
                   size="md"
                   transparent
-                  className="cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs]"
+                  className="p-0, [mr-5, !props.isXs], [ml-5, !props.isXs]"
                   disabled={props.accountInfo?.staked === 0n}
                   tooltip={
                     props.sklPrice && props.accountInfo
@@ -135,7 +135,7 @@ export default function Summary(props: {
                 />
                 <div className="borderVert"></div>
                 <Tile
-                  className="cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs]"
+                  className="p-0, [mr-5, !props.isXs], [ml-5, !props.isXs]"
                   size="md"
                   transparent
                   grow
@@ -165,7 +165,7 @@ export default function Summary(props: {
           <SkStack>
             <Tile
               disabled={props.accountInfo?.vested === 0n}
-              className="cmn.mtop10"
+              className="mt-2.5"
               tooltip={
                 props.sklPrice && props.accountInfo
                   ? units.displaySklValueUsd(props.accountInfo.vested, props.sklPrice)
@@ -197,7 +197,7 @@ export default function Summary(props: {
                       grow
                       size="md"
                       transparent
-                      className="cmn.nop [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs]"
+                      className="p-0 [mr-5, !props.isXs], [ml-5, !props.isXs]"
                       ri={!props.isXs}
                     />
                   ) : (
@@ -208,7 +208,7 @@ export default function Summary(props: {
                     size="md"
                     transparent
                     disabled={props.accountInfo?.unlocked === 0n}
-                    className="cmn.nop, [cmn.mleft20, !props.isXs]"
+                    className="p-0, [ml-5, !props.isXs]"
                     tooltip={
                       props.sklPrice && props.accountInfo
                         ? units.displaySklValueUsd(props.accountInfo.unlocked, props.sklPrice)
@@ -230,7 +230,7 @@ export default function Summary(props: {
                           text={loading ? 'Retrieving' : 'Retrieve'}
                           variant="contained"
                           size="sm"
-                          className="[cmn.mleft20 !props.isXs] items-center"
+                          className="[ml-5 !props.isXs] items-center"
                           disabled={
                             props.accountInfo?.unlocked === 0n ||
                             props.loading !== false ||

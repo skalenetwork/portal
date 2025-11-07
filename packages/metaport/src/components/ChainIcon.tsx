@@ -17,5 +17,5 @@ export default function ChainIcon(props: {
   if (iconPath !== undefined) {
     return <img className={className} src={iconPath.default ?? iconPath} />
   }
-  return <OfflineBoltRoundedIcon className="styles.defaultChainIcon, 'text-white', className" />
+  return <OfflineBoltRoundedIcon className="styles.defaultChainIcon, 'text-primary', className" />
 }

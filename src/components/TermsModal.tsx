@@ -61,7 +61,7 @@ export default function TermsModal(props: {
   if (props.termsAccepted) return null
   return (
     <div>
-      <Container maxWidth="md" className="cmn.mdtop5">
+      <Container maxWidth="md" className="mt-1.5">
         <div className="flex">
           <h2 className="m-0">{title}</h2>
         </div>
@@ -69,7 +69,7 @@ export default function TermsModal(props: {
           Review the terms of service carefully and confirm
         </p>
         <Box>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="col-span-1">
               <SkPaper gray className="styles.fullHeight">
                 <div className="m-2.5">

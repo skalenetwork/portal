@@ -76,7 +76,7 @@ export default function History() {
           />
           <div className="flex-grow"></div>
         </div>
-        <div className="[cmn.mtop10, transactionsHistory.length !== 0]">
+        <div className="[mt-2.5, transactionsHistory.length !== 0]">
           <TransfersHistory size="md" />
         </div>
         <div>

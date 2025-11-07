@@ -75,8 +75,8 @@ const ChainCard: React.FC<{
             </div>
           )}
         </div>
-        <div className="flex items-center cmn.mtop10">
-          <p className="text-primary cmn.p600 cmn.p1 'shortP' flex-grow mr-1.5">
+        <div className="flex items-center mt-2.5">
+          <p className="text-primary font-semibold text-base 'shortP' flex-grow mr-1.5">
             {metadata.getAlias(chainsMeta, schain.name)}
           </p >
         </div >

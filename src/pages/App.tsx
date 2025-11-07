@@ -199,9 +199,9 @@ export default function App(props: {
           />
           <div className="flex-grow"></div>
         </div>
-        <SkPaper gray className="cmn.mtop10">
+        <SkPaper gray className="mt-2.5">
           <div className="m-2.5">
-            <div className="'responsive-app-header' flex items-centerd">
+            <div className="'responsive-app-header' flex items-center">
               <Logo
                 chainsMeta={props.chainsMeta}
                 skaleNetwork={network}
@@ -216,7 +216,7 @@ export default function App(props: {
                     <CategoriesChips categories={appMeta.categories} all />
                   </div>
                   <Button
-                    className="mb-2.5 [cmn.mtop10, props.isXs] 'btn btnSm favsBtn'"
+                    className="mb-2.5 [mt-2.5, props.isXs] 'btn btnSm favsBtn'"
                     variant="contained"
                     startIcon={isLiked ? <FavoriteRoundedIcon /> : <FavoriteBorderOutlinedIcon />}
                     onClick={handleToggleLike}
@@ -226,8 +226,8 @@ export default function App(props: {
                 </div>
 
                 <div className="flex items-center">
-                  <h2 className="cmn.nom, cmn.p1">{appAlias}</h2>
-                  <div className="flex cmn.mleft10">
+                  <h2 className="m-0 text-base">{appAlias}</h2>
+                  <div className="flex ml-2.5">
                     {featured && <ChipFeatured />}
                     {trending && <ChipTrending />}
                     {isNew && <ChipNew />}
@@ -241,8 +241,8 @@ export default function App(props: {
             </div>
           </div >
         </SkPaper >
-        <SkPaper gray className="cmn.mtop10">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-1 w-full">
+        <SkPaper gray className="mt-2.5">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
             {appMeta.contracts && (
               <div className="col-span-1">
                 <Tile
@@ -261,7 +261,7 @@ export default function App(props: {
                   childrenRi={
                     !props.isXs ? (
                       <InfoOutlinedIcon
-                        className="text-secondary styles.chainIconxs cmn.mleft10"
+                        className="text-secondary styles.chainIconxs ml-2.5"
                       />
                     ) : undefined
                   }
@@ -322,7 +322,7 @@ export default function App(props: {
         <AppScreenshots chainName={chain} appName={app} skaleNetwork={network} />
         {
           chain !== OFFCHAIN_APP && (
-            <SkPaper gray className="cmn.mtop10, 'fwmobile'">
+            <SkPaper gray className="mt-2.5, 'fwmobile'">
               <AccordionSection
                 handleChange={handleChange}
                 expanded={expanded}
@@ -345,7 +345,7 @@ export default function App(props: {
                   icon={<ArticleRoundedIcon />}
                 >
                   <div>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-2 w-full">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
                       {appMeta.contracts.map((contractAddress: string, index: number) => (
                         <div key={contractAddress} className="col-span-1">
                           <LinkSurface
@@ -366,7 +366,7 @@ export default function App(props: {
           )
         }
 
-        <SkPaper gray className="cmn.mtop10, 'fwmobile'">
+        <SkPaper gray className="mt-2.5, 'fwmobile'">
           <AccordionSection
             expandedByDefault
             title="Discover more"
@@ -374,7 +374,7 @@ export default function App(props: {
             marg={false}
           >
             <RecommendedApps
-              className="cmn.mtop10"
+              className="mt-2.5"
               skaleNetwork={props.mpc.config.skaleNetwork}
               chainsMeta={props.chainsMeta}
               allApps={allApps}

@@ -165,7 +165,7 @@ export default function Delegate(props: {
         className="mb-2.5"
         icon={<AccountTreeRoundedIcon />}
         grow
-        children={<DelegationFlow className="cmn.mtop10" />}
+        children={<DelegationFlow className="mt-2.5" />}
       />
 
       <SkStack>
@@ -197,7 +197,7 @@ export default function Delegate(props: {
                 </Tooltip>
               </div>
 
-              <div className="cmn.p1,  cmn.p700, mr-2.5">SKL</div>
+              <div className="text-base font-bold mr-2.5">SKL</div>
             </div>
           }
           icon={< TransitEnterexitRoundedIcon style={{ rotate: '315deg' }} />}
@@ -217,7 +217,7 @@ export default function Delegate(props: {
           childrenRi={
             <div className="items-center flex">
               <Button
-                className="'btnSm' 'outlined' cmn.mleft20 items-center"
+                className="'btnSm' 'outlined' ml-5 items-center"
                 disabled={info.allowedToDelegate === 0n || loading}
                 onClick={() => {
                   if (!info.allowedToDelegate) return
@@ -237,7 +237,7 @@ export default function Delegate(props: {
       <ErrorTile
         errorMsg={props.errorMsg}
         setErrorMsg={props.setErrorMsg}
-        className="cmn.mtop10"
+        className="mt-2.5"
       />
 
       {
@@ -246,7 +246,7 @@ export default function Delegate(props: {
             disabled
             size="small"
             variant="contained"
-            className="'btn' cmn.mleft10 mb-2.5 mt-5"
+            className="'btn' ml-2.5 mb-2.5 mt-5"
           >
             Staking SKL
           </Button>
@@ -261,7 +261,7 @@ export default function Delegate(props: {
               loading
             }
             variant="contained"
-            className="'btn' cmn.mleft10 mb-2.5 mt-5"
+            className="'btn' ml-2.5 mb-2.5 mt-5"
             onClick={stake}
           >
             {getBtnText()}

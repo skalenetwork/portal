@@ -29,7 +29,7 @@ import 'react-social-icons/discord'
 import 'react-social-icons/github'
 import 'react-social-icons/telegram'
 import 'react-social-icons/x'
-import { cmn, cls } from '@skalenetwork/metaport'
+import { cls } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 import FavoriteIconButton from './FavoriteIconButton'
 import SwellIcon from './SwellIcon'
@@ -129,50 +129,50 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
 
   return (
     <div className="flex items-center className">
-  {
-    social && (
-      <div className="flex flex-grow">
-    {
-      visibleLinks.map(({ key, icon, network, title }) => {
-        const link = social[key as keyof types.AppSocials]
-        if (!link) return null
+      {
+        social && (
+          <div className="flex flex-grow">
+            {
+              visibleLinks.map(({ key, icon, network, title }) => {
+                const link = social[key as keyof types.AppSocials]
+                if (!link) return null
 
-        return (
-          <div className="[mr-2.5, isMd]" key={key}>
-            <Tooltip key={key} title={title}>
-              <IconButton
-                size={isMd ? 'medium' : 'small'}
-                href={link}
-                target="_blank"
-                rel="noopener noreferrer"
-                className={cls(
-                  network ? cmn.nop : undefined,
-                  ['text-primary', isMd],
-                  ['bgBlack', isMd]
-                )}
-              >
-                {icon || (
-                  <SocialIcon
-                    network={network}
-                    bgColor={isMd ? 'black' : 'transparent'}
-                    className="'socialIcon', isMd && 'socialIconMd'"
-                    fgColor={isMd ? '' : 'rgb(255 255 255 / 65%)'}
-                  />
-                )}
-              </IconButton>
-            </Tooltip>
-          </div>
-        )
-      })
-    }
-        </div >
-      )}
-{ !social && <div className="flex-grow"></div> }
-{
-  !isMd && chainName && appName ? (
-    <FavoriteIconButton chainName={chainName} appName={appName} />
-  ) : null
-}
+                return (
+                  <div className="[mr-2.5, isMd]" key={key}>
+                    <Tooltip key={key} title={title}>
+                      <IconButton
+                        size={isMd ? 'medium' : 'small'}
+                        href={link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={cls(
+                          network ? 'p-0' : undefined,
+                          ['text-primary', isMd],
+                          ['bgBlack', isMd]
+                        )}
+                      >
+                        {icon || (
+                          <SocialIcon
+                            network={network}
+                            bgColor={isMd ? 'black' : 'transparent'}
+                            className="'socialIcon', isMd && 'socialIconMd'"
+                            fgColor={isMd ? '' : 'rgb(255 255 255 / 65%)'}
+                          />
+                        )}
+                      </IconButton>
+                    </Tooltip>
+                  </div>
+                )
+              })
+            }
+          </div >
+        )}
+      {!social && <div className="flex-grow"></div>}
+      {
+        !isMd && chainName && appName ? (
+          <FavoriteIconButton chainName={chainName} appName={appName} />
+        ) : null
+      }
     </div >
   )
 }

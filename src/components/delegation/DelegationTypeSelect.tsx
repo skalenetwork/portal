@@ -20,8 +20,6 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls } from '@skalenetwork/metaport'
-
 import NativeSelect from '@mui/material/NativeSelect'
 import { isDelegationTypeAvailable } from '../../core/delegation/staking'
 import { types } from '@/core'
