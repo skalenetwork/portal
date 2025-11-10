@@ -1,0 +1,373 @@
+/**
+ * @license
+ * SKALE portal
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program.  If not, see <https://www.gnu.org/licenses/>.
+ */
+/**
+ * @file ChainCreditsTile.tsx
+ * @copyright SKALE Labs 2025-Present
+ */
+
+import {
+  cmn,
+  cls,
+  type MetaportCore,
+  Tile,
+  SkPaper,
+  styles,
+  TokenIcon,
+  useWagmiAccount,
+  sendTransaction,
+  walletClientToSigner,
+  useWagmiWalletClient,
+  useWagmiSwitchNetwork,
+  enforceNetwork
+} from '@skalenetwork/metaport'
+import { types, metadata, units, constants, helper, ERC_ABIS } from '@/core'
+
+import { useState, useEffect } from 'react'
+import { Grid, Button, Dialog } from '@mui/material'
+import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
+import PaymentsRoundedIcon from '@mui/icons-material/PaymentsRounded'
+import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
+import TollRoundedIcon from '@mui/icons-material/TollRounded'
+import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded'
+
+import Logo from '../Logo'
+import SkStack from '../SkStack'
+import Headline from '../Headline'
+import { Contract } from 'ethers'
+import { Link } from 'react-router-dom'
+import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
+
+interface ChainCreditsTileProps {
+  mpc: MetaportCore
+  chainsMeta: types.ChainsMetadataMap
+  schain: types.ISChain
+  isXs: boolean
+  creditStation: Contract | undefined
+  tokenPrices: Record<string, bigint>
+  tokenBalances: types.mp.TokenBalancesMap | undefined
+  setErrorMsg: (msg: string | undefined) => void
+}
+
+const DEFAULT_CREDITS_AMOUNT = 1n
+
+const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
+  mpc,
+  chainsMeta,
+  schain,
+  isXs,
+  creditStation,
+  tokenPrices,
+  tokenBalances,
+  setErrorMsg
+}) => {
+  const [openModal, setOpenModal] = useState(false)
+  const [loading, setLoading] = useState<boolean>(false)
+  const [token, setToken] = useState<string>('skl')
+  const [chainBalance, setChainBalance] = useState<bigint | undefined>(undefined)
+
+  const { address, chainId } = useWagmiAccount()
+  const { data: walletClient } = useWagmiWalletClient({ chainId })
+  const { switchChainAsync } = useWagmiSwitchNetwork()
+
+  const network = mpc.config.skaleNetwork
+  const chainAlias = metadata.getAlias(network, chainsMeta, schain.name)
+  const shortAlias = metadata.getChainShortAlias(chainsMeta, schain.name)
+
+  const tokens = mpc.config.connections.mainnet?.erc20
+  const tokensMeta = mpc.config.tokens
+
+  useEffect(() => {
+    async function loadChainBalance() {
+      if (!address) return
+      try {
+        const provider = mpc.provider(schain.name)
+        const balance = await provider.getBalance(address)
+        setChainBalance(balance)
+      } catch (error) {
+        console.error('Failed to load chain balance:', error)
+        setChainBalance(0n)
+      }
+    }
+    loadChainBalance()
+  }, [mpc, schain.name, address])
+
+  function getAmountToPayWei(): bigint {
+    if (!token || !tokenPrices || !tokens[token].address) return 0n
+    const tokenAddress = tokens[token].address
+    if (!tokenAddress) return 0n
+    const pricePerCredit = tokenPrices[tokenAddress]
+    if (!pricePerCredit) return 0n
+    return BigInt(DEFAULT_CREDITS_AMOUNT) * pricePerCredit
+  }
+
+  function getBtnText(): string {
+    if (tokenBalances?.[token] === undefined) return 'Loading...'
+    if (loading) return 'Processing...'
+    if (tokenBalances[token] < getAmountToPayWei()) {
+      return 'Insufficient Token Balance'
+    }
+    return 'Buy Credits'
+  }
+
+  async function buyCredits() {
+    if (!creditStation) return
+    if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
+      setErrorMsg('Something is wrong with your wallet, try again')
+      setOpenModal(false)
+      return
+    }
+    setLoading(true)
+
+    const tokenAddress = tokens[token].address
+    if (!tokenAddress) return
+
+    const { chainId } = await creditStation.runner.provider.getNetwork()
+    await enforceNetwork(
+      chainId,
+      walletClient,
+      switchChainAsync,
+      network,
+      constants.MAINNET_CHAIN_NAME
+    )
+
+    const signer = walletClientToSigner(walletClient)
+    creditStation.connect(signer)
+
+    const amountWei = getAmountToPayWei()
+
+    const connectedToken = new Contract(tokenAddress, ERC_ABIS.erc20.abi, signer)
+    const creditStationAddress = await creditStation.getAddress()
+
+    const approveRes = await sendTransaction(
+      signer,
+      connectedToken.approve,
+      [creditStationAddress, amountWei],
+      'creditStation:approve',
+      2
+    )
+    if (!approveRes.status) {
+      setErrorMsg(approveRes.err?.name)
+      return
+    }
+
+    const res = await sendTransaction(
+      signer,
+      creditStation.buy,
+      [schain.name, address, tokens[token].address],
+      'creditStation:buy',
+      2
+    )
+    if (!res.status) {
+      setErrorMsg(res.err?.name)
+      return
+    }
+
+    // await loadTokenPrices()
+    setLoading(false)
+    setOpenModal(false)
+  }
+
+  return (
+    <div>
+      <div className={cls(cmn.mbott10, 'titleSection')}>
+        <Grid container spacing={0} alignItems="center">
+          <Grid size={{ xs: 12, md: 4 }}>
+            <div className={cls(cmn.flex, cmn.flexcv)}>
+              <Link to={'/chains/' + shortAlias}>
+                <Logo
+                  chainsMeta={chainsMeta}
+                  skaleNetwork={network}
+                  chainName={schain.name}
+                  size="xs"
+                />
+              </Link>
+              <div className={cls(cmn.mleft10, [cmn.flexg, isXs])}>
+                <h4 className={cls(cmn.p, cmn.p700, 'pOneLine')}>{chainAlias}</h4>
+                <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>{schain.name}</p>
+              </div>
+            </div>
+          </Grid>
+          <Grid size={{ xs: 12, md: 8 }} className={cls([cmn.mtop20, isXs], cmn.flex)}>
+            <div className={cls(cmn.flexg)}></div>
+            <SkStack className={cls(cmn.flex)}>
+              <Tile
+                size="lg"
+                transparent
+                className={cls(cmn.nop, [cmn.mri20, !isXs], [cmn.mleft20, !isXs])}
+                value={
+                  chainBalance !== undefined && units.displayBalance(chainBalance, 'CREDITS', 18)
+                }
+                text="Available"
+                grow
+                ri={!isXs}
+                icon={<PaymentsRoundedIcon />}
+              />
+              <div className="borderVert"></div>
+              <div className={cls(cmn.flex, cmn.flexcv)}>
+                <Button
+                  size="small"
+                  variant="contained"
+                  startIcon={<AddCircleRoundedIcon />}
+                  className={cls('btnMd', cmn.mleft20)}
+                  onClick={() => setOpenModal(true)}
+                  disabled={creditStation === undefined}
+                >
+                  Buy Credits
+                </Button>
+              </div>
+            </SkStack>
+          </Grid>
+        </Grid>
+      </div>
+      <Dialog
+        open={openModal}
+        onClose={() => setOpenModal(false)}
+        maxWidth="sm"
+        fullWidth
+        className={cls(cmn.darkTheme)}
+        PaperProps={{
+          sx: {
+            background: 'transparent',
+            boxShadow: 'none'
+          }
+        }}
+      >
+        <SkPaper gray>
+          <Headline
+            text={`Buy Credits - ${chainAlias}`}
+            icon={<MonetizationOnRoundedIcon className={cls(styles.chainIconxs)} />}
+            className={cls(cmn.mbott20)}
+            size="small"
+          />
+
+          <SkPaper className={cls(cmn.nop)}>
+            <Tile
+              size="md"
+              transparent
+              text="Select Token to Buy Credits With"
+              grow
+              icon={<TollRoundedIcon />}
+              children={
+                <div className={cls(cmn.flex)}>
+                  {Object.entries(tokens).map(
+                    ([symbol, tokenData]) =>
+                      tokenData.address &&
+                      tokenPrices[tokenData.address] && (
+                        <div key={symbol}>
+                          <Button
+                            color="primary"
+                            size="small"
+                            className={cls(
+                              cmn.flexcv,
+                              cmn.mri10,
+                              cmn.mtop10,
+                              cmn.upp,
+                              'btnLg',
+                              [styles.filled, symbol !== token],
+                              [cmn.pPrim, symbol !== token]
+                            )}
+                            variant="contained"
+                            onClick={() => setToken(symbol)}
+                          >
+                            <div className={cls(cmn.flex, cmn.flexcv)}>
+                              <TokenIcon
+                                tokenSymbol={symbol}
+                                iconUrl={tokensMeta[symbol]?.iconUrl}
+                              />
+                              <span className={cls(cmn.p, cmn.mleft10, cmn.upp)}>{symbol}</span>
+                            </div>
+                          </Button>
+                        </div>
+                      )
+                  )}
+                </div>
+              }
+            />
+          </SkPaper>
+          <SkPaper className={cls(cmn.nop, cmn.mtop10)}>
+            <Tile
+              size="md"
+              transparent
+              value={units.displayBalance(
+                tokenBalances?.[token] || 0n,
+                token,
+                tokensMeta[token].decimals
+              )}
+              text={`Token Balance - ${helper.shortAddress(address)}`}
+              grow
+              icon={
+                address && (
+                  <div>
+                    <Jazzicon diameter={18} seed={jsNumberForAddress(address)} />
+                  </div>
+                )
+              }
+            />
+          </SkPaper>
+          <Grid container spacing={1} alignItems="center" className={cls(cmn.mtop10, cmn.flexcv)}>
+            <Grid size={{ xs: 6 }} className={cls(cmn.flex, cmn.flexcv)}>
+              <SkPaper className={cls(cmn.nop, cmn.flexg)}>
+                <Tile
+                  size="lg"
+                  transparent
+                  value={units.displayBalance(
+                    getAmountToPayWei(),
+                    token,
+                    tokensMeta[token].decimals
+                  )}
+                  text="Amount to Pay"
+                  grow
+                  icon={<TokenIcon size="xs" tokenSymbol={token} />}
+                />
+              </SkPaper>
+              <NavigateNextRoundedIcon className={cls(styles.chainIconmd, styles.creditsArrow)} />
+            </Grid>
+            <Grid size={{ xs: 6 }}>
+              <SkPaper className={cls(cmn.nop, cmn.flexg)}>
+                <Tile
+                  size="lg"
+                  transparent
+                  value={`${DEFAULT_CREDITS_AMOUNT} CREDIT`}
+                  text="Credits to Receive"
+                  grow
+                  icon={<PaymentsRoundedIcon />}
+                />
+              </SkPaper>
+            </Grid>
+          </Grid>
+          <Button
+            variant="contained"
+            className={cls(styles.btnAction, cmn.mtop20)}
+            startIcon={<PaymentsRoundedIcon />}
+            size="large"
+            onClick={buyCredits}
+            disabled={
+              loading ||
+              tokenBalances?.[token] === undefined ||
+              tokenBalances[token] < getAmountToPayWei()
+            }
+          >
+            {getBtnText()}
+          </Button>
+        </SkPaper>
+      </Dialog>
+    </div>
+  )
+}
+
+export default ChainCreditsTile

@@ -31,7 +31,7 @@ interface LogoProps {
   skaleNetwork: types.SkaleNetwork
   chainName: string
   appName?: string
-  size?: 'sm' | 'md'
+  size?: 'xs' | 'sm' | 'md'
 }
 
 const Logo: React.FC<LogoProps> = ({ chainsMeta, skaleNetwork, chainName, appName, size }) => {

@@ -25,6 +25,7 @@ export type NetworkFeature =
     | 'chains'
     | 'staking'
     | 'stats'
+    | 'metrics'
     | 'paymaster'
     | 'sfuel'
     | 'credits'

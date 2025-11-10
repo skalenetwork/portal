@@ -26,16 +26,16 @@ import { NetworksConfig } from './types';
 
 export const networks: NetworksConfig = {
     mainnet: {
-        features: ['bridge', 'onramp', 'ecosystem', 'chains', 'staking', 'stats', 'paymaster', 'sfuel', 'swap']
+        features: ['bridge', 'onramp', 'ecosystem', 'chains', 'staking', 'stats', 'paymaster', 'sfuel', 'swap', 'metrics']
     },
     legacy: {
-        features: ['bridge', 'onramp', 'ecosystem', 'chains', 'staking', 'stats', 'paymaster', 'sfuel']
+        features: ['bridge', 'onramp', 'ecosystem', 'chains', 'staking', 'stats', 'paymaster', 'sfuel', 'metrics']
     },
     regression: {
         features: []
     },
     testnet: {
-        features: ['bridge', 'chains', 'sfuel']
+        features: ['bridge', 'chains', 'sfuel', 'metrics']
     },
     base: {
         features: ['bridge', 'chains', 'credits']

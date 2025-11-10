@@ -25,7 +25,7 @@
     "@mui/icons-material": "7.3.2",
     "@mui/material": "7.3.2",
     "@skalenetwork/metaport": "workspace:*",
-    "@skalenetwork/skale-contracts-ethers-v6": "2.0.0-develop.1",
+    "@skalenetwork/skale-contracts-ethers-v6": "2.0.0-develop.5",
     "@transak/transak-sdk": "^3.1.1",
     "@vercel/analytics": "^1.0.2",
     "@wagmi/core": "^2.22.1",

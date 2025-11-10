@@ -22,15 +22,13 @@
 
 import { Button } from '@mui/material'
 import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
-import { cmn, cls, SkPaper, useWagmiAccount, RainbowConnectButton } from '@skalenetwork/metaport'
+import { cmn, cls, SkPaper, RainbowConnectButton } from '@skalenetwork/metaport'
 
 export default function ConnectWallet(props: {
   tile?: boolean
   className?: string
   customText?: string
 }) {
-  const { address } = useWagmiAccount()
-
   return (
     <div className={cls(props.className)}>
       <SkPaper gray={!props.tile} className={cls(['titleSection', props.tile])}>
@@ -50,7 +48,7 @@ export default function ConnectWallet(props: {
                       className={cls(cmn.pCent, cmn.mtop10, cmn.flex, 'btn')}
                     >
                       <LooksRoundedIcon className={cls(cmn.mri10)} />
-                      {address ? 'Sign in' : 'Connect Wallet'}
+                      Connect Wallet
                     </Button>
                   )
                 }}

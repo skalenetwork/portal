@@ -147,7 +147,8 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                   <ListItemButton
                     className={cls(cmn.pPrim)}
                     selected={
-                      location.pathname.includes('/chains') || location.pathname.includes('/admin')
+                      location.pathname.includes('/chains') ||
+                      location.pathname.includes('/chains/admin')
                     }
                   >
                     <ListItemIcon>
@@ -212,7 +213,9 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                 <Link to="/credits" className="undec fullW">
                   <ListItemButton
                     className={cls(cmn.pPrim)}
-                    selected={location.pathname === '/credits'}
+                    selected={
+                      location.pathname === '/credits' || location.pathname === '/credits/admin'
+                    }
                   >
                     <ListItemIcon>
                       <PaymentsRoundedIcon />

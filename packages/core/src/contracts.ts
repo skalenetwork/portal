@@ -25,7 +25,8 @@ import { types, constants } from '.'
 export enum Project {
   MANAGER = 'skale-manager',
   ALLOCATOR = 'skale-allocator',
-  MAINNET_IMA = 'mainnet-ima'
+  MAINNET_IMA = 'mainnet-ima',
+  CREDIT_STATION = 'credit-station'
 }
 
 export enum SchainProject {
@@ -72,7 +73,8 @@ export const CONTRACTS: ContractsConfig = {
     'skale-manager': '0xd2c33198A5D03E5Da2784FbE4BfDd9a8A5862A9A',
     'mainnet-ima': '0xA1e244C6cE94FF2bb5f4533783FBc44D1f190045',
     'skale-allocator': constants.ZERO_ADDRESS,
-    'skale-grants': constants.ZERO_ADDRESS
+    'skale-grants': constants.ZERO_ADDRESS,
+    'credit-station': '0x25B6CF1f87fA65Ea0FDE87Ec4411d4E311557064'
   },
   base: {
     'skale-manager': constants.ZERO_ADDRESS,
@@ -80,6 +82,18 @@ export const CONTRACTS: ContractsConfig = {
     'skale-allocator': constants.ZERO_ADDRESS,
     'skale-grants': constants.ZERO_ADDRESS
   },
+}
+
+export const CREDIT_STATION_LEDGER_CONTRACTS: {
+  [key in types.SkaleNetwork]: { [key: string]: types.AddressType } } = {
+  mainnet: {},
+  legacy: {},
+  regression: {},
+  testnet: {},
+  base: {},
+  'base-sepolia-testnet': {
+    'jubilant-horrible-ancha': '0xA97A47eCB389a74BDb4ff62F205CBE79F612e67C'
+  }
 }
 
 export const PAYMASTER_CONTRACTS = {

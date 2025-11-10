@@ -25,7 +25,7 @@ import { useState, useEffect } from 'react'
 import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
 
-import { type types, endpoints } from '@/core'
+import { type types, endpoints, networks } from '@/core'
 import {
   useMetaportStore,
   useWagmiAccount,
@@ -96,6 +96,7 @@ export default function Portal() {
   }
 
   async function loadMetrics() {
+    if (!networks.hasFeature(mpc.config.skaleNetwork, 'metrics')) return
     try {
       const response = await fetch(`https://${endpoint}/files/metrics.json`)
       const metricsJson = await response.json()
@@ -106,6 +107,7 @@ export default function Portal() {
   }
 
   async function loadStats() {
+    if (!networks.hasFeature(mpc.config.skaleNetwork, 'stats')) return
     if (statsApi === null) return
     try {
       const response = await fetch(statsApi)
@@ -117,6 +119,7 @@ export default function Portal() {
   }
 
   async function loadValidator() {
+    if (!networks.hasFeature(mpc.config.skaleNetwork, 'staking')) return
     const addr = customAddress ?? address
     if (!sc || !addr) {
       setValidator(null)

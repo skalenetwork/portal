@@ -62,7 +62,7 @@ export default function ChainTabs(props: {
             />
           ) : null
         )}
-        <Link to={`/admin/${props.schainName}`}>
+        <Link to={`/chains/admin/${props.schainName}`}>
           <Button
             startIcon={<AdminPanelSettingsRoundedIcon />}
             className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', cmn.pSec, cmn.p500)}
