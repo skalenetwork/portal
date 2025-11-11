@@ -359,6 +359,7 @@ export default function Router(props: {
               isXs={isXs}
               delegations={props.validatorDelegations}
               getMainnetSigner={getMainnetSigner}
+              chainsMeta={chainsMeta}
             />
           }
         />

@@ -154,7 +154,9 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
           </div>
         </Grid>
         <Grid size={{ xs: 12, md: 2 }} className={cls(cmn.flex)}>
-          <div className={cls('chipXs', getChipClass(tokenPriceWei), cmn.mri20, cmn.flex, cmn.flexcv)}>
+          <div
+            className={cls('chipXs', getChipClass(tokenPriceWei), cmn.mri20, cmn.flex, cmn.flexcv)}
+          >
             {tokenPriceWei === 0n ? <DoDisturbOnRoundedIcon /> : <CheckCircleRoundedIcon />}
             <p className={cls(cmn.p, cmn.p4, 'pOneLine', cmn.mleft5)}>
               {tokenPriceWei === 0n ? 'DISABLED' : 'ENABLED'}

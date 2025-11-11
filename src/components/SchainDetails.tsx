@@ -75,7 +75,11 @@ export default function SchainDetails(props: {
   const proxyBase = endpoints.getProxyEndpoint(network)
 
   const rpcUrl = getRpcUrl(proxyBase, props.schainName, constants.HTTPS_PREFIX)
-  const explorerUrl = explorer.getExplorerUrl(network, props.schainName)
+  const explorerUrl = explorer.getExplorerUrl(
+    props.chainsMeta[props.schainName],
+    network,
+    props.schainName
+  )
   const chainId = getChainId(props.schainName)
 
   const networkParams = {

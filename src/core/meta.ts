@@ -55,7 +55,7 @@ export const META_TAGS = {
   credits: {
     title: 'SKALE Portal - Credits',
     description: 'Manage your SKALE Chain Credits, purchase credits and view credit usage history.',
-    help: 'Chain Credits are used to pay for transaction fees on SKALE Chains.'
+    help: 'Chain Credits are used to pay for transaction fees on SKALE Chains. SKL Credits apply ONLY on SKALE chain on Base / SKALE chain on Sepolia Base.'
   },
   ecosystem: {
     title: 'SKALE Portal - Ecosystem',

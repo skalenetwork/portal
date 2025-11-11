@@ -31,6 +31,7 @@ import SportsEsportsOutlinedIcon from '@mui/icons-material/SportsEsportsOutlined
 import AppShortcutIcon from '@mui/icons-material/AppShortcut'
 import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
 import PaymentsRoundedIcon from '@mui/icons-material/PaymentsRounded'
+import HelpRoundedIcon from '@mui/icons-material/HelpRounded'
 
 import { types } from '@/core'
 
@@ -92,10 +93,17 @@ export const EXPLORE_CARDS: ExploreCard[] = [
     feature: 'chains'
   },
   {
-    name: 'Buy Chain Credits',
-    description: 'Check out endpoints, tokens and more for SKALE Chains.',
+    name: 'Get Chain Access',
+    description: 'Buy Chain Credits to use SKALE Chains - deploy smart contracts and more.',
     url: '/credits',
     icon: <PaymentsRoundedIcon />,
+    feature: 'credits'
+  },
+  {
+    name: 'Learn about Chain Credits',
+    description: 'Find out how Chain Credits work and how to use them on SKALE.',
+    url: 'https://docs.skale.space/welcome/get-started',
+    icon: <HelpRoundedIcon />,
     feature: 'credits'
   }
 ]

@@ -257,10 +257,13 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
           <Headline
             text={`Buy Credits - ${chainAlias}`}
             icon={<MonetizationOnRoundedIcon className={cls(styles.chainIconxs)} />}
-            className={cls(cmn.mbott20)}
+            className={cls(cmn.mbott10)}
             size="small"
           />
-
+          <p className={cls(cmn.p, cmn.pSec, cmn.p3, cmn.mleft10, cmn.mbott10)}>
+            All purchases are converted to SKL on the backend for distribution per governance
+            agreements.
+          </p>
           <SkPaper className={cls(cmn.nop)}>
             <Tile
               size="md"

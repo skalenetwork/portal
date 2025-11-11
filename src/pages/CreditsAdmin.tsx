@@ -34,7 +34,6 @@ import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
 
-
 import { META_TAGS } from '../core/meta'
 import { getCreditStation } from '../core/credit-station'
 
@@ -50,7 +49,7 @@ interface CreditsProps {
   chainsMeta: types.ChainsMetadataMap
 }
 
-const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains, chainsMeta }) => {
+const Credits: React.FC<CreditsProps> = ({ mpc, isXs, loadData, schains, chainsMeta }) => {
   const [_, setIntervalId] = useState<NodeJS.Timeout>()
   const [creditStation, setCreditStation] = useState<Contract | undefined>(undefined)
 
@@ -98,9 +97,15 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
           </div>
           <SkPageInfoIcon meta_tag={META_TAGS.credits} />
         </div>
-        <CreditTokensAdmin mpc={mpc} isXs={isXs} creditStation={creditStation} />
+        <CreditTokensAdmin
+          mpc={mpc}
+          isXs={isXs}
+          creditStation={creditStation}
+          schains={schains}
+          chainsMeta={chainsMeta}
+        />
       </Stack>
-    </Container >
+    </Container>
   )
 }
 

@@ -109,7 +109,7 @@ export default function App(props: {
   const trending = isTrending(trendingApps, chain, app)
   const featured = isFeatured({ chain, app }, featuredApps)
 
-  const explorerUrl = explorer.getExplorerUrl(network, chain)
+  const explorerUrl = explorer.getExplorerUrl(chainMeta, network, chain)
 
   const isAppChain = chainMeta.apps && Object.keys(chainMeta.apps).length === 1
 

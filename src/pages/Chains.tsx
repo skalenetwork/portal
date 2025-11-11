@@ -60,6 +60,7 @@ export default function Chains(props: {
 
   const appChains = props.schains.filter(
     (schain) =>
+      !props.chainsMeta[schain.name].alias?.includes('SKALE') &&
       props.chainsMeta[schain.name] &&
       (!props.chainsMeta[schain.name].apps ||
         (props.chainsMeta[schain.name].apps &&
@@ -105,9 +106,10 @@ export default function Chains(props: {
           name="SKALE Hubs"
           schains={props.schains.filter(
             (schain) =>
-              props.chainsMeta[schain.name] &&
-              props.chainsMeta[schain.name].apps &&
-              Object.keys(props.chainsMeta[schain.name].apps!).length > 1
+              (props.chainsMeta[schain.name] &&
+                props.chainsMeta[schain.name].apps &&
+                Object.keys(props.chainsMeta[schain.name].apps!).length > 1) ||
+              props.chainsMeta[schain.name].alias?.includes('SKALE')
           )}
           chainsMeta={props.chainsMeta}
           metrics={props.metrics}

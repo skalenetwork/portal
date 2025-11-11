@@ -221,6 +221,9 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                       <PaymentsRoundedIcon />
                     </ListItemIcon>
                     <ListItemText primary="Chain Credits" />
+                    <div className="chipNew">
+                      <p className={cls(cmn.p, cmn.p6)}>NEW</p>
+                    </div>
                   </ListItemButton>
                 </Link>
               </ListItem>

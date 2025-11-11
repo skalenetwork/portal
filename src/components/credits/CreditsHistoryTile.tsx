@@ -30,13 +30,19 @@ import {
   Tile,
   ChainIcon,
   TokenIcon,
-  explorer
+  explorer,
+  useWagmiAccount,
+  sendTransaction,
+  walletClientToSigner,
+  useWagmiWalletClient,
+  useWagmiSwitchNetwork,
+  enforceNetwork
 } from '@skalenetwork/metaport'
 import { Contract } from 'ethers'
-import { types, metadata, constants, timeUtils } from '@/core'
+import { types, metadata, constants, timeUtils, helper } from '@/core'
 import * as cs from '../../core/credit-station'
 
-import { Grid } from '@mui/material'
+import { Grid, Button } from '@mui/material'
 import PaymentsRoundedIcon from '@mui/icons-material/PaymentsRounded'
 import HistoryToggleOffRoundedIcon from '@mui/icons-material/HistoryToggleOffRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
@@ -69,7 +75,11 @@ interface CreditsHistoryTileProps {
   tokenPrices: Record<string, bigint>
   ledgerContract: Contract | undefined
   creditStation: Contract | undefined
+  isAdmin?: boolean
+  setErrorMsg?: (msg: string | undefined) => void
 }
+
+const CREDITS_CONFIRMATION_BLOCKS = 2
 
 const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
   mpc,
@@ -78,7 +88,9 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
   isXs,
   tokenPrices,
   ledgerContract,
-  creditStation
+  creditStation,
+  isAdmin = false,
+  setErrorMsg
 }) => {
   const network = mpc.config.skaleNetwork
   const chainAlias = metadata.getAlias(network, chainsMeta, creditsPurchase.schainName)
@@ -92,6 +104,11 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
 
   const [isFulfilled, setIsFulfilled] = useState<boolean>(false)
   const [txTimestamp, setTxTimestamp] = useState<number | undefined>(undefined)
+  const [loading, setLoading] = useState<boolean>(false)
+
+  const { chainId } = useWagmiAccount()
+  const { data: walletClient } = useWagmiWalletClient({ chainId })
+  const { switchChainAsync } = useWagmiSwitchNetwork()
 
   useEffect(() => {
     if (!creditStation || !creditsPurchase) return
@@ -104,7 +121,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
           const block = await provider.getBlock(tx.blockNumber)
           if (block) setTxTimestamp(block.timestamp)
         }
-      } catch (error) { }
+      } catch (error) {}
     }
     fetchTimestamp()
   }, [creditStation, creditsPurchase, payment.transactionHash])
@@ -114,12 +131,55 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
     const checkFulfillment = async () => {
       try {
         setIsFulfilled(await ledgerContract.isFulfilled(payment.id))
-      } catch (error) { }
+      } catch (error) {}
     }
     checkFulfillment()
     const interval = setInterval(checkFulfillment, 10000)
     return () => clearInterval(interval)
   }, [ledgerContract, payment.id])
+
+  async function fulfillPayment() {
+    if (!ledgerContract || !walletClient || !switchChainAsync) {
+      setErrorMsg?.('Something is wrong with your wallet, try again')
+      return
+    }
+    if (!ledgerContract.runner?.provider) {
+      setErrorMsg?.('Ledger contract provider not available')
+      return
+    }
+    setLoading(true)
+    setErrorMsg?.(undefined)
+
+    try {
+      const { chainId } = await ledgerContract.runner.provider.getNetwork()
+      await enforceNetwork(
+        chainId,
+        walletClient,
+        switchChainAsync,
+        network,
+        creditsPurchase.schainName
+      )
+
+      const signer = walletClientToSigner(walletClient)
+      ledgerContract.connect(signer)
+
+      const res = await sendTransaction(
+        signer,
+        ledgerContract.fulfill,
+        [payment.id, payment.to],
+        'ledger:fulfill',
+        CREDITS_CONFIRMATION_BLOCKS
+      )
+      if (!res.status) {
+        setErrorMsg?.(res.err?.name)
+        return
+      }
+    } catch (e: any) {
+      setErrorMsg?.(e.toString())
+    } finally {
+      setLoading(false)
+    }
+  }
 
   return (
     <div>
@@ -129,13 +189,18 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
             <Link
               target="_blank"
               rel="noopener noreferrer"
-              to={explorer.getTxUrl(constants.MAINNET_CHAIN_NAME, network, payment.transactionHash)}
+              to={explorer.getTxUrl(
+                undefined,
+                constants.MAINNET_CHAIN_NAME,
+                network,
+                payment.transactionHash
+              )}
             >
               <div className={cls(cmn.flex, cmn.flexcv)}>
                 <Avatar
                   size={45}
                   variant="marble"
-                  name={creditsPurchase.schainName + (payment.id * 2n)}
+                  name={isAdmin ? payment.from : creditsPurchase.schainName + payment.id * 2n}
                   colors={LIGHT_COLORS}
                 />
                 <ChainIcon
@@ -146,11 +211,11 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
                 />
                 <div className={cls(cmn.mleft10, [cmn.flexg, isXs])}>
                   <h4 className={cls(cmn.p, cmn.p700, 'pOneLine', cmn.pPrim)}>
-                    {txTimestamp ? timeUtils.timestampToDate(txTimestamp, true) : chainAlias}
+                    {txTimestamp && !isAdmin
+                      ? timeUtils.timestampToDate(txTimestamp, true)
+                      : helper.shortAddress(payment.from)}
                   </h4>
-                  <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>
-                    {chainAlias}
-                  </p>
+                  <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>{chainAlias}</p>
                 </div>
               </div>
             </Link>
@@ -195,6 +260,19 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
                 icon={<PaymentsRoundedIcon />}
               />
             </SkStack>
+            {isAdmin && (
+              <div className={cls(cmn.flex, cmn.flexcv)}>
+                <Button
+                  size="small"
+                  // variant="contained"
+                  className={cls('btnMd', 'filled', cmn.mleft20)}
+                  onClick={fulfillPayment}
+                  disabled={isFulfilled || loading || !ledgerContract}
+                >
+                  Fulfill
+                </Button>
+              </div>
+            )}
           </Grid>
         </Grid>
       </div>

@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import { Contract } from 'ethers'
+import { Contract, EventLog } from 'ethers'
 import { MetaportCore } from '@skalenetwork/metaport'
 import { skaleContracts } from '@skalenetwork/skale-contracts-ethers-v6'
 import { type types, contracts } from '@/core'
@@ -30,11 +30,11 @@ import { MAINNET_CHAIN_NAME } from '@/core/constants'
 export interface PaymentEvent {
   id: bigint
   schainHash: string
-  from: string
-  to: string
-  tokenAddress: string
+  from: `0x${string}`
+  to: `0x${string}`
+  tokenAddress: `0x${string}`
   blockNumber: number
-  transactionHash: string
+  transactionHash: `0x${string}`
 }
 
 function getCreditStationAddress(network: types.SkaleNetwork): types.AddressType | undefined {
@@ -90,7 +90,7 @@ export async function getTokenPrices(
 
 export async function getPaymentEvents(
   creditStation: Contract | undefined,
-  address: string,
+  address?: string,
   fromBlock?: number
 ): Promise<PaymentEvent[]> {
   if (!creditStation) return []
@@ -105,13 +105,13 @@ export async function getPaymentEvents(
   const startBlock = fromBlock ?? currentBlock - MAX_BLOCKS_TO_SCAN
   const endBlock = fromBlock ?? currentBlock
 
-  const filter = creditStation.filters.PaymentReceived(null, null, address)
-  const allEvents: import('ethers').EventLog[] = []
+  const filter = creditStation.filters.PaymentReceived(null, null, address ?? null)
+  const allEvents: EventLog[] = []
 
   for (let block = startBlock; block <= endBlock; block += CHUNK_SIZE) {
     const toBlock = Math.min(block + CHUNK_SIZE - 1, endBlock)
     const events = await creditStation.queryFilter(filter, block, toBlock)
-    const eventLogs = events.filter((event): event is import('ethers').EventLog => 'args' in event)
+    const eventLogs = events.filter((event): event is EventLog => 'args' in event)
     allEvents.push(...eventLogs)
   }
 
@@ -124,4 +124,11 @@ export async function getPaymentEvents(
     blockNumber: event.blockNumber,
     transactionHash: event.transactionHash
   }))
+}
+
+export async function getAllPaymentEvents(
+  creditStation: Contract | undefined,
+  fromBlock?: number
+): Promise<PaymentEvent[]> {
+  return getPaymentEvents(creditStation, undefined, fromBlock)
 }

@@ -74,7 +74,7 @@ export const CONTRACTS: ContractsConfig = {
     'mainnet-ima': '0xA1e244C6cE94FF2bb5f4533783FBc44D1f190045',
     'skale-allocator': constants.ZERO_ADDRESS,
     'skale-grants': constants.ZERO_ADDRESS,
-    'credit-station': '0x25B6CF1f87fA65Ea0FDE87Ec4411d4E311557064'
+    'credit-station': '0x9Eb1d345C1edF3F088c10c2ff1F6329aF7DF99Cd'
   },
   base: {
     'skale-manager': constants.ZERO_ADDRESS,
@@ -92,7 +92,7 @@ export const CREDIT_STATION_LEDGER_CONTRACTS: {
   testnet: {},
   base: {},
   'base-sepolia-testnet': {
-    'jubilant-horrible-ancha': '0xA97A47eCB389a74BDb4ff62F205CBE79F612e67C'
+    'jubilant-horrible-ancha': '0x32Bfa8B5C6a450e9EF7d7Fc99fcCC349E7671FFb'
   }
 }
 

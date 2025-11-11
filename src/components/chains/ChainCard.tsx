@@ -66,7 +66,7 @@ const ChainCard: React.FC<{
             <div className={cls(cmn.flex, cmn.flexg)}></div>
           </div>
           <div className={cls(cmn.flexg)}></div>
-          {chainMeta && (
+          {chainMeta && transactions && (
             <div>
               <Chip
                 label={`${transactions ? formatNumber(transactions) : '...'}+ Daily Tx`}
