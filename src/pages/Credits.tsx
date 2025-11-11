@@ -27,7 +27,7 @@ import { useState, useEffect } from 'react'
 
 import { Contract } from 'ethers'
 
-import { cmn, cls, type MetaportCore, SkPaper, Tile, styles } from '@skalenetwork/metaport'
+import { cmn, cls, type MetaportCore, SkPaper, styles } from '@skalenetwork/metaport'
 import { constants, dc, type types } from '@/core'
 import * as cs from '../core/credit-station'
 
@@ -36,16 +36,12 @@ import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
 import { Collapse } from '@mui/material'
 
-import StorefrontRoundedIcon from '@mui/icons-material/StorefrontRounded'
-import PaymentsRoundedIcon from '@mui/icons-material/PaymentsRounded'
-import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded'
 import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
 
 import { META_TAGS } from '../core/meta'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import AccordionSection from '../components/AccordionSection'
-import SkStack from '../components/SkStack'
 import ConnectWallet from '../components/ConnectWallet'
 import ChainCreditsTile from '../components/credits/ChainCreditsTile'
 import CreditsHistoryTile from '../components/credits/CreditsHistoryTile'
@@ -67,6 +63,7 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
   const [tokenPrices, setTokenPrices] = useState<Record<string, bigint>>({})
   const [tokenBalances, setTokenBalances] = useState<types.mp.TokenBalancesMap>()
   const [tokenContracts, setTokenContracts] = useState<types.mp.TokenContractsMap>({})
+  const [ledgerContracts, setLedgerContracts] = useState<{ [schainName: string]: Contract }>({})
   const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined)
   const [allPayments, setAllPayments] = useState<Record<string, cs.PaymentEvent[]>>({})
   const [lastBlocks, setLastBlocks] = useState<Record<string, number>>({})
@@ -135,6 +132,15 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
     setTokenContracts(contracts)
   }
 
+  async function initLedgerContracts() {
+    const results = await Promise.all(
+      schains.map(async (schain) => [schain.name, await cs.getLedgerContract(mpc, schain.name)])
+    )
+    setLedgerContracts(
+      Object.fromEntries(results.filter(([_, contract]) => contract !== undefined))
+    )
+  }
+
   useEffect(() => {
     loadData()
     initTokenContracts()
@@ -145,6 +151,10 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
   useEffect(() => {
     loadCreditStationData()
   }, [address, tokenContracts])
+
+  useEffect(() => {
+    initLedgerContracts()
+  }, [schains])
 
   useEffect(() => {
     if (creditStation) {
@@ -195,9 +205,7 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
           </div>
           <SkPageInfoIcon meta_tag={META_TAGS.credits} />
         </div>
-
         <ErrorTile errorMsg={errorMsg} className={cls(cmn.mbott10)} />
-
         <SkPaper gray className={cls(cmn.mtop20)}>
           <AccordionSection
             expandedByDefault={true}
@@ -245,6 +253,7 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
                   mpc={mpc}
                   chainsMeta={chainsMeta}
                   tokenPrices={tokenPrices}
+                  ledgerContract={ledgerContracts[item.schainName]}
                 />
               ))}
             </Collapse>

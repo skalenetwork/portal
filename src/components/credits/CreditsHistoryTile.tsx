@@ -20,6 +20,7 @@
  * @copyright SKALE Labs 2025-Present
  */
 
+import { useState, useEffect } from 'react'
 import Avatar from 'boring-avatars'
 
 import {
@@ -31,24 +32,31 @@ import {
   TokenIcon,
   explorer
 } from '@skalenetwork/metaport'
-import { types, units, metadata, constants } from '@/core'
+import { Contract } from 'ethers'
+import { types, metadata, constants } from '@/core'
 import * as cs from '../../core/credit-station'
 
-import { Grid, Tooltip, Button } from '@mui/material'
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
-import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
-import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded'
+import { Grid } from '@mui/material'
 import PaymentsRoundedIcon from '@mui/icons-material/PaymentsRounded'
+import HistoryToggleOffRoundedIcon from '@mui/icons-material/HistoryToggleOffRounded'
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
-import ChainLogo from '../ChainLogo'
-
-import { getValidatorById } from '../../core/delegation'
-import { MAINNET_CHAIN_LOGOS } from '../../core/constants'
-import Logo from '../Logo'
 import SkStack from '../SkStack'
 import { Link } from 'react-router-dom'
 
-export const LIGHT_COLORS = ['#c8b6ff', '#90E0EF', '#F786AA', '#256EFF', '#31E981', '#ffbf81']
+export const LIGHT_COLORS = [
+  '#efeecc',
+  '#fe8b05',
+  '#fe0557',
+  '#400403',
+  '#0aabba',
+  '#c8b6ff',
+  '#90E0EF',
+  '#F786AA',
+  '#256EFF',
+  '#31E981',
+  '#ffbf81'
+]
 
 interface CreditsHistoryTileProps {
   mpc: MetaportCore
@@ -59,6 +67,7 @@ interface CreditsHistoryTileProps {
   chainsMeta: types.ChainsMetadataMap
   isXs: boolean
   tokenPrices: Record<string, bigint>
+  ledgerContract: Contract | undefined
 }
 
 const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
@@ -66,7 +75,8 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
   creditsPurchase,
   chainsMeta,
   isXs,
-  tokenPrices
+  tokenPrices,
+  ledgerContract
 }) => {
   const network = mpc.config.skaleNetwork
   const chainAlias = metadata.getAlias(network, chainsMeta, creditsPurchase.schainName)
@@ -77,6 +87,20 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
     Object.keys(tokens).find(
       (symbol) => tokens[symbol].address?.toLowerCase() === payment.tokenAddress.toLowerCase()
     ) || 'unknown'
+
+  const [isFulfilled, setIsFulfilled] = useState<boolean>(false)
+
+  useEffect(() => {
+    if (!ledgerContract) return
+    const checkFulfillment = async () => {
+      try {
+        setIsFulfilled(await ledgerContract.isFulfilled(payment.id))
+      } catch (error) { }
+    }
+    checkFulfillment()
+    const interval = setInterval(checkFulfillment, 10000)
+    return () => clearInterval(interval)
+  }, [ledgerContract, payment.id])
 
   return (
     <div>
@@ -92,7 +116,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
                 <Avatar
                   size={45}
                   variant="marble"
-                  name={creditsPurchase.schainName + payment.id}
+                  name={creditsPurchase.schainName + (payment.id * 2n)}
                   colors={LIGHT_COLORS}
                 />
                 <ChainIcon
@@ -112,8 +136,20 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
             </Link>
           </Grid>
           <Grid size={{ xs: 12, md: 8 }} className={cls([cmn.mtop20, isXs], cmn.flex, cmn.flexcv)}>
-            <div className={cls('chipXs chip_DELEGATED', cmn.mleft20)}>
-              <p className={cls(cmn.p, cmn.p4, 'pOneLine')}>COMPLETED</p>
+            <div
+              className={cls(
+                'chipXs',
+                cmn.mleft20,
+                cmn.flex,
+                cmn.flexcv,
+                ['chip_DELEGATED', isFulfilled],
+                ['chip_SELF', !isFulfilled]
+              )}
+            >
+              {isFulfilled ? <CheckCircleRoundedIcon /> : <HistoryToggleOffRoundedIcon />}
+              <p className={cls(cmn.p, cmn.p4, 'pOneLine', cmn.mleft5)}>
+                {isFulfilled ? 'COMPLETED' : 'PENDING'}
+              </p>
             </div>
             <div className={cls(cmn.flexg)}></div>
             <SkStack className={cls(cmn.flex)}>
@@ -139,31 +175,6 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
                 icon={<PaymentsRoundedIcon />}
               />
             </SkStack>
-            <div className={cls(cmn.flex, cmn.flexdcv)}>
-              <div className={cls([cmn.flexg, !isXs])}></div>
-              {/* <div
-                                className={cls(
-                                    [cmn.flexg, isXs],
-                                    cmn.mri20,
-                                    [cmn.pri, !isXs],
-                                    [cmn.mleft10, !isXs]
-                                )}
-                            >
-                                <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Rewards available</p>
-                                <h3 className={cls(cmn.p, cmn.p700)}>10005 CREDITS</h3>
-                            </div> */}
-
-              {/* <div className={cls(cmn.flex, cmn.flexcv)}>
-                                <Button
-                                    size="small"
-                                    variant="contained"
-                                    className={cls('btnSm')}
-                                >
-                                    Go to chain
-                                </Button>
-
-                            </div> */}
-            </div>
           </Grid>
         </Grid>
       </div>

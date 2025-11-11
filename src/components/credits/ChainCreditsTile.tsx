@@ -64,6 +64,7 @@ interface ChainCreditsTileProps {
 }
 
 const DEFAULT_CREDITS_AMOUNT = 1n
+const CREDITS_CONFIRMATION_BLOCKS = 2
 
 const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   mpc,
@@ -132,54 +133,59 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
       return
     }
     setLoading(true)
+    setErrorMsg(undefined)
 
-    const tokenAddress = tokens[token].address
-    if (!tokenAddress) return
+    try {
+      const tokenAddress = tokens[token].address
+      if (!tokenAddress) return
 
-    const { chainId } = await creditStation.runner.provider.getNetwork()
-    await enforceNetwork(
-      chainId,
-      walletClient,
-      switchChainAsync,
-      network,
-      constants.MAINNET_CHAIN_NAME
-    )
+      const { chainId } = await creditStation.runner.provider.getNetwork()
+      await enforceNetwork(
+        chainId,
+        walletClient,
+        switchChainAsync,
+        network,
+        constants.MAINNET_CHAIN_NAME
+      )
 
-    const signer = walletClientToSigner(walletClient)
-    creditStation.connect(signer)
+      const signer = walletClientToSigner(walletClient)
+      creditStation.connect(signer)
 
-    const amountWei = getAmountToPayWei()
+      const amountWei = getAmountToPayWei()
 
-    const connectedToken = new Contract(tokenAddress, ERC_ABIS.erc20.abi, signer)
-    const creditStationAddress = await creditStation.getAddress()
+      const connectedToken = new Contract(tokenAddress, ERC_ABIS.erc20.abi, signer)
+      const creditStationAddress = await creditStation.getAddress()
 
-    const approveRes = await sendTransaction(
-      signer,
-      connectedToken.approve,
-      [creditStationAddress, amountWei],
-      'creditStation:approve',
-      2
-    )
-    if (!approveRes.status) {
-      setErrorMsg(approveRes.err?.name)
-      return
+      const approveRes = await sendTransaction(
+        signer,
+        connectedToken.approve,
+        [creditStationAddress, amountWei],
+        'creditStation:approve',
+        CREDITS_CONFIRMATION_BLOCKS
+      )
+      if (!approveRes.status) {
+        setErrorMsg(approveRes.err?.name)
+        return
+      }
+
+      const res = await sendTransaction(
+        signer,
+        creditStation.buy,
+        [schain.name, address, tokens[token].address],
+        'creditStation:buy',
+        CREDITS_CONFIRMATION_BLOCKS
+      )
+      if (!res.status) {
+        setErrorMsg(res.err?.name)
+        return
+      }
+    } catch (e: any) {
+      console.error(e)
+      setErrorMsg(e.toString())
+    } finally {
+      setLoading(false)
+      setOpenModal(false)
     }
-
-    const res = await sendTransaction(
-      signer,
-      creditStation.buy,
-      [schain.name, address, tokens[token].address],
-      'creditStation:buy',
-      2
-    )
-    if (!res.status) {
-      setErrorMsg(res.err?.name)
-      return
-    }
-
-    // await loadTokenPrices()
-    setLoading(false)
-    setOpenModal(false)
   }
 
   return (

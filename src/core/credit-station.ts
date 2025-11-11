@@ -27,8 +27,18 @@ import { skaleContracts } from '@skalenetwork/skale-contracts-ethers-v6'
 import { type types, contracts } from '@/core'
 import { MAINNET_CHAIN_NAME } from '@/core/constants'
 
+export interface PaymentEvent {
+  id: bigint
+  schainHash: string
+  from: string
+  to: string
+  tokenAddress: string
+  blockNumber: number
+  transactionHash: string
+}
+
 function getCreditStationAddress(network: types.SkaleNetwork): types.AddressType | undefined {
-  return contracts.CONTRACTS[network][contracts.Project.CREDIT_STATION]
+  return contracts.CONTRACTS[network][contracts.PortalProject.CREDIT_STATION]
 }
 
 function getLedgerContractAddress(
@@ -76,16 +86,6 @@ export async function getTokenPrices(
     {} as Record<string, bigint>
   )
   return priceMap
-}
-
-export interface PaymentEvent {
-  id: bigint
-  schainHash: string
-  from: string
-  to: string
-  tokenAddress: string
-  blockNumber: number
-  transactionHash: string
 }
 
 export async function getPaymentEvents(

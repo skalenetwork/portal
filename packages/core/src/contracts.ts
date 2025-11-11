@@ -26,7 +26,6 @@ export enum Project {
   MANAGER = 'skale-manager',
   ALLOCATOR = 'skale-allocator',
   MAINNET_IMA = 'mainnet-ima',
-  CREDIT_STATION = 'credit-station'
 }
 
 export enum SchainProject {
@@ -34,7 +33,8 @@ export enum SchainProject {
 }
 
 export enum PortalProject {
-  GRANTS = 'skale-grants'
+  GRANTS = 'skale-grants',
+  CREDIT_STATION = 'credit-station'
 }
 
 export type ISkaleContractsProject = Project | SchainProject
