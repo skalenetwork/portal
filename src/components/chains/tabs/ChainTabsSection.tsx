@@ -88,7 +88,11 @@ export default function ChainTabsSection(props: {
   const explorerUrl = explorer.getExplorerUrl(chainMeta, network, props.schainName)
 
   const BASE_TABS_CONTENT = [
-    <DeveloperInfo schainName={props.schainName} skaleNetwork={network} />,
+    <DeveloperInfo
+      schainName={props.schainName}
+      skaleNetwork={network}
+      shortAlias={chainMeta?.shortAlias}
+    />,
     <VerifiedContracts mpc={props.mpc} schainName={props.schainName} explorerUrl={explorerUrl} />
   ]
 
