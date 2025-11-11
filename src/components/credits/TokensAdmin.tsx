@@ -22,9 +22,11 @@
 
 import { Contract } from 'ethers'
 import { useEffect, useState } from 'react'
-import GeneratingTokensRoundedIcon from '@mui/icons-material/GeneratingTokensRounded'
 
-import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
+import { cmn, cls, type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+
+import GeneratingTokensRoundedIcon from '@mui/icons-material/GeneratingTokensRounded'
+import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
 
 import TokenAdminTile from './TokenAdminTile'
 import AccordionSection from '../AccordionSection'
@@ -57,30 +59,44 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({ mpc, creditStatio
 
   return (
     <div>
-      <AccordionSection
-        expandedByDefault={true}
-        title="Manage Credit Tokens"
-        icon={<GeneratingTokensRoundedIcon />}
-        marg={false}
-      >
-        <div className={cls(cmn.mtop10)}>
-          <ErrorTile errorMsg={errorMsg} className={cls(cmn.mbott10)} />
-          {Object.entries(tokens).map(([symbol, tokenData]) => (
-            <TokenAdminTile
-              key={symbol}
-              mpc={mpc}
-              tokenPrices={tokenPrices}
-              loadTokenPrices={loadTokenPrices}
-              creditStation={creditStation}
-              tokenMeta={tokensMeta[symbol]}
-              tokenData={tokenData}
-              symbol={symbol}
-              isXs={isXs}
-              setErrorMsg={setErrorMsg}
-            />
-          ))}
-        </div>
-      </AccordionSection>
+      <SkPaper gray className={cls(cmn.mtop20)}>
+        <AccordionSection
+          expandedByDefault={true}
+          title="Manage Credit Tokens"
+          icon={<GeneratingTokensRoundedIcon />}
+          marg={false}
+        >
+          <div className={cls(cmn.mtop10)}>
+            <ErrorTile errorMsg={errorMsg} className={cls(cmn.mbott10)} />
+            {Object.entries(tokens).map(([symbol, tokenData]) => (
+              <TokenAdminTile
+                key={symbol}
+                mpc={mpc}
+                tokenPrices={tokenPrices}
+                loadTokenPrices={loadTokenPrices}
+                creditStation={creditStation}
+                tokenMeta={tokensMeta[symbol]}
+                tokenData={tokenData}
+                symbol={symbol}
+                isXs={isXs}
+                setErrorMsg={setErrorMsg}
+              />
+            ))}
+          </div>
+        </AccordionSection>
+      </SkPaper>
+      <SkPaper gray className={cls(cmn.mtop20)}>
+        <AccordionSection
+          expandedByDefault={true}
+          title="Purchases History"
+          icon={<HistoryRoundedIcon />}
+          marg={false}
+        >
+          <div className={cls(cmn.mtop10)}>
+            !!!
+          </div>
+        </AccordionSection>
+      </SkPaper>
     </div>
   )
 }

@@ -27,12 +27,13 @@ import { useState, useEffect } from 'react'
 
 import { Contract } from 'ethers'
 
-import { cmn, cls, type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
+
 
 import { META_TAGS } from '../core/meta'
 import { getCreditStation } from '../core/credit-station'
@@ -97,12 +98,9 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
           </div>
           <SkPageInfoIcon meta_tag={META_TAGS.credits} />
         </div>
-
-        <SkPaper gray className={cls(cmn.mtop20)}>
-          <CreditTokensAdmin mpc={mpc} isXs={isXs} creditStation={creditStation} />
-        </SkPaper>
+        <CreditTokensAdmin mpc={mpc} isXs={isXs} creditStation={creditStation} />
       </Stack>
-    </Container>
+    </Container >
   )
 }
 

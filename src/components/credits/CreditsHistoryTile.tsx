@@ -33,7 +33,7 @@ import {
   explorer
 } from '@skalenetwork/metaport'
 import { Contract } from 'ethers'
-import { types, metadata, constants } from '@/core'
+import { types, metadata, constants, timeUtils } from '@/core'
 import * as cs from '../../core/credit-station'
 
 import { Grid } from '@mui/material'
@@ -68,6 +68,7 @@ interface CreditsHistoryTileProps {
   isXs: boolean
   tokenPrices: Record<string, bigint>
   ledgerContract: Contract | undefined
+  creditStation: Contract | undefined
 }
 
 const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
@@ -76,7 +77,8 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
   chainsMeta,
   isXs,
   tokenPrices,
-  ledgerContract
+  ledgerContract,
+  creditStation
 }) => {
   const network = mpc.config.skaleNetwork
   const chainAlias = metadata.getAlias(network, chainsMeta, creditsPurchase.schainName)
@@ -89,6 +91,23 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
     ) || 'unknown'
 
   const [isFulfilled, setIsFulfilled] = useState<boolean>(false)
+  const [txTimestamp, setTxTimestamp] = useState<number | undefined>(undefined)
+
+  useEffect(() => {
+    if (!creditStation || !creditsPurchase) return
+    const fetchTimestamp = async () => {
+      try {
+        const provider = creditStation.runner?.provider
+        if (!provider) return
+        const tx = await provider.getTransaction(payment.transactionHash)
+        if (tx?.blockNumber) {
+          const block = await provider.getBlock(tx.blockNumber)
+          if (block) setTxTimestamp(block.timestamp)
+        }
+      } catch (error) { }
+    }
+    fetchTimestamp()
+  }, [creditStation, creditsPurchase, payment.transactionHash])
 
   useEffect(() => {
     if (!ledgerContract) return
@@ -126,10 +145,11 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
                   className="creditHistoryIcon"
                 />
                 <div className={cls(cmn.mleft10, [cmn.flexg, isXs])}>
-                  <h4 className={cls(cmn.p, cmn.p700, 'pOneLine', cmn.pPrim)}>{chainAlias}</h4>
-
+                  <h4 className={cls(cmn.p, cmn.p700, 'pOneLine', cmn.pPrim)}>
+                    {txTimestamp ? timeUtils.timestampToDate(txTimestamp, true) : chainAlias}
+                  </h4>
                   <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>
-                    {payment.transactionHash ? `${payment.transactionHash.slice(0, 10)}...` : ''}
+                    {chainAlias}
                   </p>
                 </div>
               </div>

@@ -40,6 +40,8 @@ import { types, units, constants } from '@/core'
 import PaidRoundedIcon from '@mui/icons-material/PaidRounded'
 import PriceChangeRoundedIcon from '@mui/icons-material/PriceChangeRounded'
 import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
+import DoDisturbOnRoundedIcon from '@mui/icons-material/DoDisturbOnRounded'
 
 import { Contract } from 'ethers'
 import { Button, Dialog, Grid, TextField } from '@mui/material'
@@ -152,8 +154,9 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
           </div>
         </Grid>
         <Grid size={{ xs: 12, md: 2 }} className={cls(cmn.flex)}>
-          <div className={cls('chipXs', getChipClass(tokenPriceWei), cmn.mri20)}>
-            <p className={cls(cmn.p, cmn.p4, 'pOneLine')}>
+          <div className={cls('chipXs', getChipClass(tokenPriceWei), cmn.mri20, cmn.flex, cmn.flexcv)}>
+            {tokenPriceWei === 0n ? <DoDisturbOnRoundedIcon /> : <CheckCircleRoundedIcon />}
+            <p className={cls(cmn.p, cmn.p4, 'pOneLine', cmn.mleft5)}>
               {tokenPriceWei === 0n ? 'DISABLED' : 'ENABLED'}
             </p>
           </div>
@@ -176,10 +179,11 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
               ri={!isXs}
               icon={<PaidRoundedIcon />}
             />
+            <div className="borderVert"></div>
             <Button
               size="small"
               startIcon={<PriceChangeRoundedIcon />}
-              className={cls('btnSm')}
+              className={cls('btnSm', 'filled', cmn.mleft10)}
               onClick={() => setOpenModal(true)}
               disabled={creditStation === undefined}
             >

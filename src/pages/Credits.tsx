@@ -254,6 +254,7 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
                   chainsMeta={chainsMeta}
                   tokenPrices={tokenPrices}
                   ledgerContract={ledgerContracts[item.schainName]}
+                  creditStation={creditStation}
                 />
               ))}
             </Collapse>
