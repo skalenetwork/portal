@@ -41,7 +41,7 @@ export type ISkaleContractsProject = Project | SchainProject
 export type IPortalProject = Project | PortalProject
 
 export type ContractAddresses = {
-  [project in IPortalProject]?: types.AddressType
+  [project in IPortalProject]?: types.AddressType | string
 }
 
 export type ContractsConfig = {
@@ -70,17 +70,14 @@ export const CONTRACTS: ContractsConfig = {
     'skale-grants': '0xCEabf2b0c4F9d75A49a7B1E3e3c3179cDe949C9F'
   },
   "base-sepolia-testnet": {
-    'skale-manager': '0xd2c33198A5D03E5Da2784FbE4BfDd9a8A5862A9A',
-    'mainnet-ima': '0xA1e244C6cE94FF2bb5f4533783FBc44D1f190045',
-    'skale-allocator': constants.ZERO_ADDRESS,
-    'skale-grants': constants.ZERO_ADDRESS,
+    'skale-manager': 'production',
+    'mainnet-ima': 'production',
     'credit-station': '0x9Eb1d345C1edF3F088c10c2ff1F6329aF7DF99Cd'
   },
   base: {
-    'skale-manager': constants.ZERO_ADDRESS,
-    'mainnet-ima': constants.ZERO_ADDRESS,
-    'skale-allocator': constants.ZERO_ADDRESS,
-    'skale-grants': constants.ZERO_ADDRESS
+    'skale-manager': 'production',
+    'mainnet-ima': 'production',
+    'credit-station': constants.ZERO_ADDRESS // todo
   },
 }
 
@@ -90,7 +87,9 @@ export const CREDIT_STATION_LEDGER_CONTRACTS: {
   legacy: {},
   regression: {},
   testnet: {},
-  base: {},
+  base: {
+    'bold-ill-informed-jabbah': constants.ZERO_ADDRESS, // todo
+  },
   'base-sepolia-testnet': {
     'jubilant-horrible-ancha': '0x32Bfa8B5C6a450e9EF7d7Fc99fcCC349E7671FFb'
   }

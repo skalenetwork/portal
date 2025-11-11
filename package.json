@@ -11,6 +11,7 @@
     "build:mainnet": "bun run build:packages && NETWORK_NAME=mainnet bash scripts/build.sh",
     "build:testnet": "bun run build:packages && NETWORK_NAME=testnet bash scripts/build.sh",
     "build:base-sepolia-testnet": "bun run build:packages && NETWORK_NAME=base-sepolia-testnet bash scripts/build.sh",
+    "build:base": "bun run build:packages && NETWORK_NAME=base bash scripts/build.sh",
     "build:qa": "bun run build:packages && NETWORK_NAME=legacy bash scripts/build.sh",
     "dev": "bun run build:packages && vite",
     "dev:portal": "vite",

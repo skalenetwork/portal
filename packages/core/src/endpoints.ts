@@ -56,7 +56,7 @@ const PROXY_ENDPOINTS: EndpointsNetworkMap = {
   regression: 'regression-proxy.skalenodes.com',
   testnet: 'testnet.skalenodes.com',
   "base-sepolia-testnet": 'base-sepolia-testnet.skalenodes.com',
-  base: 'base.skalenodes.com'
+  base: 'skale-base.skalenodes.com'
 }
 
 export function getProxyEndpoint(network: types.SkaleNetwork) {
