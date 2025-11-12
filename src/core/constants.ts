@@ -36,7 +36,7 @@ export const STAKING_PAGES = ['/staking']
 export const PORTAL_URLS: Record<string, string> = {
   mainnet: 'https://portal.skale.space/',
   testnet: 'https://testnet.portal.skale.space/',
-  base: 'https://base.portal.skale.space/',
+  base: 'https://base.skalenodes.com/',
   'base-sepolia-testnet': 'https://base-sepolia.skalenodes.com/'
 }
 
