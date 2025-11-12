@@ -41,12 +41,6 @@ export const METAPORT_CONFIG: types.mp.Config = {
       name: 'Wrapped Ether',
       iconUrl: 'https://assets.coingecko.com/coins/images/2518/standard/weth.png?1696503332'
     },
-    ntest: {
-      decimals: 18,
-      symbol: 'NTEST',
-      name: 'Native Test Token',
-      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png'
-    },
     axiosusd: {
       decimals: 6,
       symbol: 'AxiosUSD',
