@@ -21,8 +21,6 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
-
 import Box from '@mui/material/Box'
 import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'
@@ -30,6 +28,8 @@ import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
 
 import { cls, styles, cmn, RainbowConnectButton } from '@skalenetwork/metaport'
 import { helper } from '@/core'
+import Avatar from 'boring-avatars'
+import { AVATAR_COLORS } from '../core/constants'
 
 export default function AccountMenu(props: any) {
   const { openProfileModal } = props
@@ -66,7 +66,7 @@ export default function AccountMenu(props: any) {
             className={cls(styles.paperGrey, cmn.pPrim, 'mp__btnConnect', cmn.flex)}
           >
             <div className={cls(cmn.mri5, cmn.flex)}>
-              <Jazzicon diameter={20} seed={jsNumberForAddress(props.address)} />
+              <Avatar variant="marble" name={props.address} colors={AVATAR_COLORS} size={20} />
             </div>
             {helper.shortAddress(props.address)}
           </Button>

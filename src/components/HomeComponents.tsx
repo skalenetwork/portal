@@ -98,12 +98,12 @@ export const EXPLORE_CARDS: ExploreCard[] = [
     url: '/credits',
     icon: <PaymentsRoundedIcon />,
     feature: 'credits'
-  },
-  {
-    name: 'Learn about Chain Credits',
-    description: 'Find out how Chain Credits work and how to use them on SKALE.',
-    url: 'https://docs.skale.space/welcome/get-started',
-    icon: <HelpRoundedIcon />,
-    feature: 'credits'
   }
+  // {
+  //   name: 'Learn about Chain Credits',
+  //   description: 'Find out how Chain Credits work and how to use them on SKALE.',
+  //   url: 'https://docs.skale.space/welcome/get-started',
+  //   icon: <HelpRoundedIcon />,
+  //   feature: 'credits'
+  // }
 ]
