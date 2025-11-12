@@ -148,7 +148,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
           }
         },
         usdc: {
-          address: '0x036CbD53842c5426634e7929541eC2318f3dCF7e',
+          address: '0x2e08028E3C4c2356572E096d8EF835cD5C6030bD',
           chains: {
             mainnet: {
               clone: true

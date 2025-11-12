@@ -454,7 +454,7 @@ body {
 .btnMd {
   text-transform: none !important;
   font-size: 0.8025rem !important;
-  line-height: 1.5 !important;
+  line-height: 2.5 !important;
   letter-spacing: 0.02857em !important;
   font-weight: 600 !important;
   padding: 0.6em 2em !important;
@@ -1220,6 +1220,12 @@ input[type=number] {
 }
 
 
+.creditHistoryIcon {
+  margin-left: -15px;
+  margin-top: -20px;
+}
+
+
 .rotate-90 {
   transition: transform 0.5s ease;
   /* Adjust duration and easing as needed */
@@ -1476,7 +1482,7 @@ input[type=number] {
   font-family: inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
   font-weight: 800 !important;
   text-align: center;
-  font-size: 55px;
+  font-size: 45px;
 
   @media (max-width: 768px) {
     font-size: 40px !important;

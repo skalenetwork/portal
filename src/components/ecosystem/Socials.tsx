@@ -162,7 +162,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
           })}
         </div>
       )}
-      {!social && <div className={cmn.flexg}></div>} 
+      {!social && <div className={cmn.flexg}></div>}
     </div>
   )
 }

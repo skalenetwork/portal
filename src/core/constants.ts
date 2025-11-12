@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import { type types } from '@/core'
+import { type types, networks } from '@/core'
 import FAQ from '../data/faq.json'
 
 import * as MAINNET_CHAIN_LOGOS from '../meta/logos'
@@ -95,3 +95,5 @@ export const PATH_CONFIGS = {
   }
 }
 export type PathConfigsType = typeof PATH_CONFIGS
+
+export const NETWORKS = networks.parse(import.meta.env.VITE_NETWORKS)

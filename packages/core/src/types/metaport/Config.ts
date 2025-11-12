@@ -22,8 +22,7 @@
  */
 
 import { TokenConnectionsMap, TokenMetadataMap, Theme } from '.'
-
-export type SkaleNetwork = 'mainnet' | 'legacy' | 'regression' | 'testnet' | "base-sepolia-testnet"
+import { SkaleNetwork } from '../../types'
 
 export interface Config {
   openOnLoad?: boolean

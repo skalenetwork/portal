@@ -37,7 +37,7 @@ export default function Admin(props: { mpc: MetaportCore; chainsMeta: types.Chai
   let { name } = useParams()
   name = name ?? ''
 
-  const alias = metadata.getAlias(props.chainsMeta, name)
+  const alias = metadata.getAlias(props.mpc.config.skaleNetwork, props.chainsMeta, name)
 
   return (
     <Container maxWidth="md">

@@ -44,7 +44,6 @@ const NewApps: React.FC<NewAppsProps> = ({
   featuredApps,
   useCarousel = false
 }) => {
-
   const renderAppCard = (app: types.AppWithChainAndName) => {
     return (
       <AppCard

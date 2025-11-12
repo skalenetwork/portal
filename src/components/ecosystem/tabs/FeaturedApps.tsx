@@ -112,7 +112,7 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
         chainName.trim() !== '' && (
           <Box className={cls(cmn.flex, cmn.flexc, cmn.mtop20)}>
             <Link
-              to={`/ecosystem?search=${encodeURIComponent(metadata.getAlias(chainsMeta, chainName))}`}
+              to={`/ecosystem?search=${encodeURIComponent(metadata.getAlias(skaleNetwork, chainsMeta, chainName))}`}
               style={{ textDecoration: 'none' }}
             >
               <Button

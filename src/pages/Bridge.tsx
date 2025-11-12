@@ -37,7 +37,7 @@ import {
   useWagmiAccount,
   Tile
 } from '@skalenetwork/metaport'
-import { type types, dc } from '@/core'
+import { type types, dc, networks } from '@/core'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
@@ -48,7 +48,7 @@ import { META_TAGS } from '../core/meta'
 import Meson from '../components/Meson'
 import { Button } from '@mui/material'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
-import { DISABLE_BRIDGE } from '../core/constants'
+import { DISABLE_BRIDGE, NETWORKS } from '../core/constants'
 
 interface TokenParams {
   keyname: string | null
@@ -195,9 +195,11 @@ Thank you for your understanding!"
         <div className={cls(cmn.flex, cmn.flexcv)}>
           <div className={cls(cmn.flexg)}>
             <h2 className={cls(cmn.nom)}>Bridge</h2>
-            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-              Zero Gas Fees between SKALE Chains
-            </p>
+            {networks.hasFeatureInAny(NETWORKS, 'sfuel') && (
+              <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+                Zero Gas Fees between SKALE Chains
+              </p>
+            )}
           </div>
           <div>
             <Link to="/bridge/history">

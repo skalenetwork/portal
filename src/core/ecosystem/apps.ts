@@ -62,6 +62,7 @@ export function filterAppsByCategory(
 }
 
 export function filterAppsBySearchTerm(
+  network: types.SkaleNetwork,
   apps: types.AppWithChainAndName[],
   searchTerm: string,
   chainsMeta: types.ChainsMetadataMap
@@ -72,7 +73,7 @@ export function filterAppsBySearchTerm(
     (app) =>
       app.alias.toLowerCase().includes(st) ||
       app.chain.toLowerCase().includes(st) ||
-      metadata.getAlias(chainsMeta, app.chain).toLowerCase().includes(st)
+      metadata.getAlias(network, chainsMeta, app.chain).toLowerCase().includes(st)
   )
   return sortAndFilterApps(filteredApps)
 }

@@ -3,6 +3,7 @@
 .paper {
     padding: 10px;
     border-radius: $sk-border-radius;
+    backdrop-filter: blur(6px);
 }
 
 .paperGrey {
@@ -465,10 +466,14 @@ button {
     padding: 5px 10px 5px 5px !important;
 }
 
+.filledActive {
+    background: $sk-bg;
+}
+
 .disabledCard {
     filter: saturate(0) !important;
     cursor: not-allowed !important;
-  }
+}
 
 .wordBreakAll {
     word-break: break-all;
@@ -476,4 +481,14 @@ button {
 
 .noWrap {
     white-space: nowrap;
+}
+
+
+.creditsArrow {
+    margin: 0px -20px 0 -10px;
+    z-index: 99;
+    border: 6px #181818 solid;
+    background: $sk-prim;
+    border-radius: 50%;
+    color: black;
 }

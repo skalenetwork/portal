@@ -47,7 +47,6 @@ const AllApps: React.FC<AllAppsProps> = ({
   trendingApps,
   featuredApps
 }) => {
-
   if (!loaded) return <Loader text="Loading apps" />
   if (apps.length === 0)
     return (

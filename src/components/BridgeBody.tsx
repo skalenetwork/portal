@@ -71,9 +71,11 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
   const { address } = useWagmiAccount()
 
   const sourceBg = theme.vibrant
-    ? metadata.chainBg(props.chainsMeta, chainName1)
+    ? metadata.chainBg(mpc.config.skaleNetwork, props.chainsMeta, chainName1)
     : constants.GRAY_BG
-  const destBg = theme.vibrant ? metadata.chainBg(props.chainsMeta, chainName2) : constants.GRAY_BG
+  const destBg = theme.vibrant
+    ? metadata.chainBg(mpc.config.skaleNetwork, props.chainsMeta, chainName2)
+    : constants.GRAY_BG
 
   const stepsMetadata = useMetaportStore((state) => state.stepsMetadata)
   const currentStep = useMetaportStore((state) => state.currentStep)

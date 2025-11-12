@@ -27,7 +27,7 @@ import Chip from '@mui/material/Chip'
 
 import logo from './assets/skale_lg.svg'
 
-import { constants } from '@/core'
+import { constants, networks } from '@/core'
 import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
 
 import HelpZen from './components/HelpZen'
@@ -36,11 +36,12 @@ import AccountMenu from './components/AccountMenu'
 import NetworkSwitch from './components/NetworkSwitch'
 import GetSFuel from './components/GetSFuel'
 import { Link } from 'react-router-dom'
+import { NETWORKS } from './core/constants'
 
-export default function Header(props: { 
-  address: `0x${string}` | undefined; 
-  mpc: MetaportCore;
-  openProfileModal: () => void;
+export default function Header(props: {
+  address: `0x${string}` | undefined
+  mpc: MetaportCore
+  openProfileModal: () => void
 }) {
   return (
     <AppBar
@@ -66,7 +67,7 @@ export default function Header(props: {
           ) : null}
         </div>
         <AccountMenu address={props.address} openProfileModal={props.openProfileModal} />
-        <GetSFuel mpc={props.mpc} />
+        {networks.hasFeatureInAny(NETWORKS, 'sfuel') && <GetSFuel mpc={props.mpc} />}
         <NetworkSwitch mpc={props.mpc} />
         <HelpZen />
         <MoreMenu />

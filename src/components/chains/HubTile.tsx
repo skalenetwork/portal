@@ -56,7 +56,13 @@ export default function HubTile(props: {
   const chainMeta = props.chainsMeta[props.schainName]
 
   const shortAlias = metadata.getChainShortAlias(props.chainsMeta, props.schainName)
-  const alias = metadata.getAlias(props.chainsMeta, props.schainName, undefined, true)
+  const alias = metadata.getAlias(
+    props.network,
+    props.chainsMeta,
+    props.schainName,
+    undefined,
+    true
+  )
   const chainDescription = metadata.getChainDescription(chainMeta)
 
   return (
@@ -64,7 +70,9 @@ export default function HubTile(props: {
       <SkPaper
         gray
         className={cls('titleSectionOut', 'hoverable', 'pointer', cmn.flexg)}
-        background={props.bg ? metadata.chainBg(props.chainsMeta, props.schainName) : ''}
+        background={
+          props.bg ? metadata.chainBg(props.network, props.chainsMeta, props.schainName) : ''
+        }
       >
         <Tooltip title="Click to see Hub details">
           <div className={cls('titleSectionBg', cmn.flex, cmn.flexcv)}>

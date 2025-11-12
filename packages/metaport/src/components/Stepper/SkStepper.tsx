@@ -26,11 +26,11 @@ import { SUCCESS_EMOJIS } from '../../core/constants'
 import { CHAINS_META } from '../../core/metadata'
 
 export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
-  const { address } = useAccount()
+  const { address, chainId } = useAccount()
   const { switchChainAsync } = useSwitchChain()
   const addRecentTransaction = useAddRecentTransaction()
 
-  const { data: walletClient } = useWalletClient()
+  const { data: walletClient } = useWalletClient({ chainId })
 
   const stepsMetadata = useMetaportStore((state) => state.stepsMetadata)
   const currentStep = useMetaportStore((state) => state.currentStep)
@@ -102,7 +102,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                         />
                       </div>
                       <h4 className={cls(cmn.nom, cmn.flex)}>
-                        {metadata.getAlias(chainsMeta, step.onSource ? step.from : step.to)}
+                        {metadata.getAlias(props.skaleNetwork, chainsMeta, step.onSource ? step.from : step.to)}
                       </h4>
                     </div>
                   </div>

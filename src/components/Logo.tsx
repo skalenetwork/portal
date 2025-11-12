@@ -31,7 +31,7 @@ interface LogoProps {
   skaleNetwork: types.SkaleNetwork
   chainName: string
   appName?: string
-  size?: 'sm' | 'md'
+  size?: 'xs' | 'sm' | 'md'
 }
 
 const Logo: React.FC<LogoProps> = ({ chainsMeta, skaleNetwork, chainName, appName, size }) => {
@@ -41,7 +41,7 @@ const Logo: React.FC<LogoProps> = ({ chainsMeta, skaleNetwork, chainName, appNam
       <div
         className={cls('logo-wrapper borderLight')}
         style={{
-          background: metadata.chainBg(chainsMeta, chainName, appName)
+          background: metadata.chainBg(skaleNetwork, chainsMeta, chainName, appName)
         }}
       >
         <ChainLogo

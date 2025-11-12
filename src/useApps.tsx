@@ -27,7 +27,6 @@ import { getRecentApps } from './core/ecosystem/utils'
 import { MAX_APPS_DEFAULT } from './core/constants'
 
 export function useApps(chainsMeta: types.ChainsMetadataMap, metrics: types.IMetrics | null) {
-
   const allApps = useMemo<types.AppWithChainAndName[]>(() => {
     const apps = Object.entries(chainsMeta).flatMap(([chainName, chainData]) =>
       Object.entries(chainData.apps || {}).map(([appName, app]) => ({

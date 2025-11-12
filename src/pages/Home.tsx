@@ -25,7 +25,7 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Stack, Box, Grid, Button } from '@mui/material'
 import { cmn, cls, SkPaper } from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { networks, type types } from '@/core'
 
 import { useApps } from '../useApps'
 import Headline from '../components/Headline'
@@ -36,7 +36,7 @@ import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import FeaturedApps from '../components/ecosystem/tabs/FeaturedApps'
 import HomeBanner from '../components/HomeBanner'
 
-import { SKALE_SOCIAL_LINKS } from '../core/constants'
+import { NETWORKS, SKALE_SOCIAL_LINKS } from '../core/constants'
 import { SECTION_ICONS, EXPLORE_CARDS } from '../components/HomeComponents'
 import SocialButtons from '../components/ecosystem/Socials'
 
@@ -63,58 +63,68 @@ export default function Home({
         <Headline text="Popular Actions" icon={SECTION_ICONS.explore} />
         <HomeBanner />
         <ExploreSection />
-        <AppSection
-          title="Featured dApps on SKALE"
-          icon={SECTION_ICONS.featured}
-          linkTo="/ecosystem?tab=1"
-          component={
-            <FeaturedApps
-              featuredApps={featuredApps}
-              newApps={newApps}
-              skaleNetwork={skaleNetwork}
-              chainsMeta={chainsMeta}
-              trendingApps={trendingApps}
-              useCarousel={true}
-            />
-          }
-        />
-        <AppSection
-          title="New dApps on SKALE"
-          icon={SECTION_ICONS.new}
-          linkTo="/ecosystem?tab=2"
-          component={
-            <NewApps
-              newApps={newApps}
-              skaleNetwork={skaleNetwork}
-              chainsMeta={chainsMeta}
-              useCarousel={true}
-              trendingApps={trendingApps}
-              featuredApps={featuredApps}
-            />
-          }
-        />
-        <AppSection
-          title="Trending dApps on SKALE"
-          icon={SECTION_ICONS.trending}
-          linkTo="/ecosystem?tab=3"
-          component={
-            <TrendingApps
-              chainsMeta={chainsMeta}
-              skaleNetwork={skaleNetwork}
-              newApps={newApps}
-              featuredApps={featuredApps}
-              filteredApps={trendingApps}
-              useCarousel
-            />
-          }
-        />
+        {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
+          <AppSection
+            title="Featured dApps on SKALE"
+            icon={SECTION_ICONS.featured}
+            linkTo="/ecosystem?tab=1"
+            component={
+              <FeaturedApps
+                featuredApps={featuredApps}
+                newApps={newApps}
+                skaleNetwork={skaleNetwork}
+                chainsMeta={chainsMeta}
+                trendingApps={trendingApps}
+                useCarousel={true}
+              />
+            }
+          />
+        )}
+        {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
+          <AppSection
+            title="New dApps on SKALE"
+            icon={SECTION_ICONS.new}
+            linkTo="/ecosystem?tab=2"
+            component={
+              <NewApps
+                newApps={newApps}
+                skaleNetwork={skaleNetwork}
+                chainsMeta={chainsMeta}
+                useCarousel={true}
+                trendingApps={trendingApps}
+                featuredApps={featuredApps}
+              />
+            }
+          />
+        )}
+        {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
+          <AppSection
+            title="Trending dApps on SKALE"
+            icon={SECTION_ICONS.trending}
+            linkTo="/ecosystem?tab=3"
+            component={
+              <TrendingApps
+                chainsMeta={chainsMeta}
+                skaleNetwork={skaleNetwork}
+                newApps={newApps}
+                featuredApps={featuredApps}
+                filteredApps={trendingApps}
+                useCarousel
+              />
+            }
+          />
+        )}
       </Stack>
-      <Headline
-        text="Top Categories"
-        icon={SECTION_ICONS.categories}
-        className={cls(cmn.mbott10, cmn.mtop20, cmn.ptop20)}
-      />
-      <CategoryCardsGrid chainsMeta={chainsMeta} />
+      {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
+        <Headline
+          text="Top Categories"
+          icon={SECTION_ICONS.categories}
+          className={cls(cmn.mbott10, cmn.mtop20, cmn.ptop20)}
+        />
+      )}
+      {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
+        <CategoryCardsGrid chainsMeta={chainsMeta} />
+      )}
       <div className={cls(cmn.flex, cmn.mtop20, cmn.ptop20)}>
         <div className={cls(cmn.flexg)}></div>
         <SkPaper gray className={cls(cmn.mtop20)}>
@@ -125,19 +135,28 @@ export default function Home({
     </Container>
   )
 }
+
 function ExploreSection(): JSX.Element {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={3}>
-        {EXPLORE_CARDS.map((card, index) => (
-          <Grid key={index} className="fl-centered dappCard" size={{ xs: 12, sm: 6, md: 6, lg: 6 }}>
-            <PageCard {...card} />
-          </Grid>
-        ))}
+        {EXPLORE_CARDS.map(
+          (card, index) =>
+            networks.hasFeatureInAny(NETWORKS, card.feature) && (
+              <Grid
+                key={index}
+                className="fl-centered dappCard"
+                size={{ xs: 12, sm: 6, md: 6, lg: 6 }}
+              >
+                <PageCard {...card} />
+              </Grid>
+            )
+        )}
       </Grid>
     </Box>
   )
 }
+
 interface AppSectionProps {
   title: string
   icon: JSX.Element
