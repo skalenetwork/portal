@@ -50,7 +50,12 @@ import SkStack from '../SkStack'
 import Headline from '../Headline'
 import { Contract } from 'ethers'
 import { Link } from 'react-router-dom'
-import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
+import {
+  AVATAR_COLORS,
+  CREDITS_CONFIRMATION_BLOCKS,
+  DEFAULT_CREDITS_AMOUNT
+} from '../../core/constants'
+import Avatar from 'boring-avatars'
 
 interface ChainCreditsTileProps {
   mpc: MetaportCore
@@ -62,9 +67,6 @@ interface ChainCreditsTileProps {
   tokenBalances: types.mp.TokenBalancesMap | undefined
   setErrorMsg: (msg: string | undefined) => void
 }
-
-const DEFAULT_CREDITS_AMOUNT = 1n
-const CREDITS_CONFIRMATION_BLOCKS = 2
 
 const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   mpc,
@@ -88,6 +90,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   const network = mpc.config.skaleNetwork
   const chainAlias = metadata.getAlias(network, chainsMeta, schain.name)
   const shortAlias = metadata.getChainShortAlias(chainsMeta, schain.name)
+  const chainDescription = metadata.getChainDescription(chainsMeta[schain.name])
 
   const tokens = mpc.config.connections.mainnet?.erc20
   const tokensMeta = mpc.config.tokens
@@ -192,7 +195,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
     <div>
       <div className={cls(cmn.mbott10, 'titleSection')}>
         <Grid container spacing={0} alignItems="center">
-          <Grid size={{ xs: 12, md: 4 }}>
+          <Grid size={{ xs: 12, md: 5 }}>
             <div className={cls(cmn.flex, cmn.flexcv)}>
               <Link to={'/chains/' + shortAlias}>
                 <Logo
@@ -202,13 +205,13 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                   size="xs"
                 />
               </Link>
-              <div className={cls(cmn.mleft10, [cmn.flexg, isXs])}>
+              <div className={cls(cmn.mleft10, [cmn.flexg, isXs])} style={{ minWidth: 0 }}>
                 <h4 className={cls(cmn.p, cmn.p700, 'pOneLine')}>{chainAlias}</h4>
-                <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>{schain.name}</p>
+                <p className={cls(cmn.p, cmn.p4, cmn.pSec, 'pOneLine')}>{chainDescription}</p>
               </div>
             </div>
           </Grid>
-          <Grid size={{ xs: 12, md: 8 }} className={cls([cmn.mtop20, isXs], cmn.flex)}>
+          <Grid size={{ xs: 12, md: 7 }} className={cls([cmn.mtop20, isXs], cmn.flex)}>
             <div className={cls(cmn.flexg)}></div>
             <SkStack className={cls(cmn.flex)}>
               <Tile
@@ -319,13 +322,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
               )}
               text={`Token Balance - ${helper.shortAddress(address)}`}
               grow
-              icon={
-                address && (
-                  <div>
-                    <Jazzicon diameter={18} seed={jsNumberForAddress(address)} />
-                  </div>
-                )
-              }
+              icon={address && <Avatar variant="marble" name={address} colors={AVATAR_COLORS} />}
             />
           </SkPaper>
           <Grid container spacing={1} alignItems="center" className={cls(cmn.mtop10, cmn.flexcv)}>

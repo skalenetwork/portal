@@ -59,7 +59,14 @@ export const METAPORT_CONFIG: types.mp.Config = {
         }
       },
       erc20: {
-
+        usdc: {
+          address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
+          chains: {}
+        },
+        skl: {
+          address: '0x91D00CF7bE6F47bf9BFAaA974d80Ea79a4A3bfe7',
+          chains: {}
+        }
       },
     },
     'jubilant-horrible-ancha': {

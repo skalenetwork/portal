@@ -22,12 +22,13 @@
  */
 
 import React from 'react'
+import Avatar from 'boring-avatars'
 import { Modal, Box, useTheme, useMediaQuery } from '@mui/material'
 import { cls, cmn, SkPaper, useWagmiAccount, Tile } from '@skalenetwork/metaport'
 import ConnectWallet from '../ConnectWallet'
 import ProfileModalHeader from './ProfileModalHeader'
 import ProfileModalActions from './ProfileModalActions'
-import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
+import { AVATAR_COLORS } from '../../core/constants'
 
 interface ProfileModalProps {
   isOpen: boolean
@@ -54,7 +55,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
             <Tile
               text="Wallet Address"
               value={address}
-              icon={<Jazzicon diameter={20} seed={jsNumberForAddress(address)} />}
+              icon={<Avatar variant="marble" name={address} colors={AVATAR_COLORS} size={20} />}
               copy={address}
               className={cls(cmn.mbott10)}
             />

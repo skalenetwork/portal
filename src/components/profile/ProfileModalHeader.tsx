@@ -34,7 +34,7 @@ interface ProfileModalHeaderProps {
 const ProfileModalHeader: React.FC<ProfileModalHeaderProps> = ({ address }) => (
   <div className={cls('profileModalHeader', cmn.flexcv)}>
     <div className={cls(cmn.flexg)}>
-      <Headline text="Profile" icon={<AccountCircleRoundedIcon />} size="small" />
+      <Headline text="Wallet Info" icon={<AccountCircleRoundedIcon />} size="small" />
     </div>
     <div className="profileModalStatus">
       <FiberManualRecord
