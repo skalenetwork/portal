@@ -41,12 +41,6 @@ export const METAPORT_CONFIG: types.mp.Config = {
       name: 'Wrapped Ether',
       iconUrl: 'https://assets.coingecko.com/coins/images/2518/standard/weth.png?1696503332'
     },
-    ntest: {
-      decimals: 18,
-      symbol: 'NTEST',
-      name: 'Native Test Token',
-      iconUrl: 'https://s2.coinmarketcap.com/static/img/coins/64x64/1027.png'
-    },
     axiosusd: {
       decimals: 6,
       symbol: 'AxiosUSD',
@@ -91,12 +85,6 @@ export const METAPORT_CONFIG: types.mp.Config = {
         },
         weth: {
           address: '0x4200000000000000000000000000000000000006',
-          chains: {
-            'jubilant-horrible-ancha': {}
-          }
-        },
-        ntest: {
-          address: '0x366727B410fE55774C8b0B5b5A6E2d74199a088A',
           chains: {
             'jubilant-horrible-ancha': {}
           }
@@ -149,14 +137,6 @@ export const METAPORT_CONFIG: types.mp.Config = {
         },
         usdc: {
           address: '0x2e08028E3C4c2356572E096d8EF835cD5C6030bD',
-          chains: {
-            mainnet: {
-              clone: true
-            }
-          }
-        },
-        ntest: {
-          address: '0xbEbe120F44F2F0E35841DE45a044885bB933f1e2',
           chains: {
             mainnet: {
               clone: true
