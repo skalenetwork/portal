@@ -24,16 +24,18 @@
 import React from 'react'
 import { Modal, Box, useTheme, useMediaQuery } from '@mui/material'
 import { cls, cmn, SkPaper, useWagmiAccount, Tile } from '@skalenetwork/metaport'
-import { useAuth } from '../../AuthContext'
 import ConnectWallet from '../ConnectWallet'
 import ProfileModalHeader from './ProfileModalHeader'
 import ProfileModalActions from './ProfileModalActions'
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 
-const ProfileModal: React.FC = () => {
+interface ProfileModalProps {
+  isOpen: boolean
+  onClose: () => void
+}
+
+const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
   const { address } = useWagmiAccount()
-  const { isSignedIn, handleSignIn, handleSignOut, isProfileModalOpen, closeProfileModal } =
-    useAuth()
 
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
@@ -41,7 +43,7 @@ const ProfileModal: React.FC = () => {
   const modalContent = (
     <Box className="profileModal">
       <SkPaper gray>
-        <ProfileModalHeader address={address} isSignedIn={isSignedIn} />
+        <ProfileModalHeader address={address} />
         {!address ? (
           <ConnectWallet customText="Connect your wallet to use your profile" />
         ) : (
@@ -59,10 +61,7 @@ const ProfileModal: React.FC = () => {
             <ProfileModalActions
               className={cls(cmn.mtop20)}
               address={address}
-              isSignedIn={isSignedIn}
               isMobile={isMobile}
-              handleSignIn={handleSignIn}
-              handleSignOut={handleSignOut}
             />
           </div>
         ) : (
@@ -74,8 +73,8 @@ const ProfileModal: React.FC = () => {
 
   return (
     <Modal
-      open={isProfileModalOpen}
-      onClose={closeProfileModal}
+      open={isOpen}
+      onClose={onClose}
       aria-labelledby="profile-modal-title"
       aria-describedby="profile-modal-description"
     >

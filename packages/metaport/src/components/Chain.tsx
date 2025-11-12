@@ -66,7 +66,7 @@ export default function Chain(props: {
           [cmn.pSec, !prim]
         )}
       >
-        {metadata.getAlias(chainsMeta, props.chainName, props.app)}
+        {metadata.getAlias(props.skaleNetwork, chainsMeta, props.chainName, props.app)}
       </p>
     </div>
   )

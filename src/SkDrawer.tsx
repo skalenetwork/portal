@@ -23,7 +23,7 @@
 
 import { cls, cmn } from '@skalenetwork/metaport'
 import { useLocation, Link } from 'react-router-dom'
-import { types } from '@/core'
+import { networks, types } from '@/core'
 
 import Box from '@mui/material/Box'
 
@@ -45,8 +45,9 @@ import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined'
 import AddCardRoundedIcon from '@mui/icons-material/AddCardRounded'
 import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
 import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined'
+import PaymentsRoundedIcon from '@mui/icons-material/PaymentsRounded'
 
-import { GET_STARTED_URL } from './core/constants'
+import { GET_STARTED_URL, NETWORKS } from './core/constants'
 import DelegationsNotification from './components/delegation/DelegationsNotification'
 
 const drawerWidth = 220
@@ -107,96 +108,126 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                 </ListItemButton>
               </Link>
             </ListItem>
-            <ListItem>
-              <Link to="/onramp" className="undec fullW">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={location.pathname === '/onramp'}
-                >
-                  <ListItemIcon>
-                    <AddCardRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="On-Ramp" />
-                </ListItemButton>
-              </Link>
-            </ListItem>
+            {networks.hasFeatureInAny(NETWORKS, 'onramp') && (
+              <ListItem>
+                <Link to="/onramp" className="undec fullW">
+                  <ListItemButton
+                    className={cls(cmn.pPrim)}
+                    selected={location.pathname === '/onramp'}
+                  >
+                    <ListItemIcon>
+                      <AddCardRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="On-Ramp" />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            )}
           </List>
           <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Network</h4>
           <List>
-            <ListItem>
-              <Link to="/ecosystem" className="undec fullW">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={location.pathname.includes('/ecosystem')}
-                >
-                  <ListItemIcon>
-                    <PublicOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Ecosystem" />
-                  <div className="chipNew">
-                    <p className={cls(cmn.p, cmn.p5)}>NEW</p>
-                  </div>
-                </ListItemButton>
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/chains" className="undec fullW">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={
-                    location.pathname.includes('/chains') || location.pathname.includes('/admin')
-                  }
-                >
-                  <ListItemIcon>
-                    <LinkRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="SKALE Chains" />
-                </ListItemButton>
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/staking" className="undec fullW">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={location.pathname.includes('/staking')}
-                >
-                  <ListItemIcon>
-                    <PieChartOutlineOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Staking" />
-                </ListItemButton>
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/validators" className="undec fullW">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={location.pathname.includes('/validator')}
-                >
-                  <ListItemIcon>
-                    <GroupOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Validators" />
-                  <DelegationsNotification
-                    validatorDelegations={props.validatorDelegations}
-                    className={cls(cmn.mri5)}
-                  />
-                </ListItemButton>
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/stats" className="undec fullW">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={location.pathname === '/stats'}
-                >
-                  <ListItemIcon>
-                    <InsertChartOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Stats" />
-                </ListItemButton>
-              </Link>
-            </ListItem>
+            {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
+              <ListItem>
+                <Link to="/ecosystem" className="undec fullW">
+                  <ListItemButton
+                    className={cls(cmn.pPrim)}
+                    selected={location.pathname.includes('/ecosystem')}
+                  >
+                    <ListItemIcon>
+                      <PublicOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Ecosystem" />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            )}
+            {networks.hasFeatureInAny(NETWORKS, 'chains') && (
+              <ListItem>
+                <Link to="/chains" className="undec fullW">
+                  <ListItemButton
+                    className={cls(cmn.pPrim)}
+                    selected={
+                      location.pathname.includes('/chains') ||
+                      location.pathname.includes('/chains/admin')
+                    }
+                  >
+                    <ListItemIcon>
+                      <LinkRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="SKALE Chains" />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            )}
+            {networks.hasFeatureInAny(NETWORKS, 'staking') && (
+              <ListItem>
+                <Link to="/staking" className="undec fullW">
+                  <ListItemButton
+                    className={cls(cmn.pPrim)}
+                    selected={location.pathname.includes('/staking')}
+                  >
+                    <ListItemIcon>
+                      <PieChartOutlineOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Staking" />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            )}
+            {networks.hasFeatureInAny(NETWORKS, 'staking') && (
+              <ListItem>
+                <Link to="/validators" className="undec fullW">
+                  <ListItemButton
+                    className={cls(cmn.pPrim)}
+                    selected={location.pathname.includes('/validator')}
+                  >
+                    <ListItemIcon>
+                      <GroupOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Validators" />
+                    <DelegationsNotification
+                      validatorDelegations={props.validatorDelegations}
+                      className={cls(cmn.mri5)}
+                    />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            )}
+            {networks.hasFeatureInAny(NETWORKS, 'stats') && (
+              <ListItem>
+                <Link to="/stats" className="undec fullW">
+                  <ListItemButton
+                    className={cls(cmn.pPrim)}
+                    selected={location.pathname === '/stats'}
+                  >
+                    <ListItemIcon>
+                      <InsertChartOutlinedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Stats" />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            )}
+            {networks.hasFeatureInAny(NETWORKS, 'credits') && (
+              <ListItem>
+                <Link to="/credits" className="undec fullW">
+                  <ListItemButton
+                    className={cls(cmn.pPrim)}
+                    selected={
+                      location.pathname === '/credits' || location.pathname === '/credits/admin'
+                    }
+                  >
+                    <ListItemIcon>
+                      <PaymentsRoundedIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Chain Credits" />
+                    <div className="chipNew">
+                      <p className={cls(cmn.p, cmn.p6)}>NEW</p>
+                    </div>
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            )}
           </List>
         </Box>
       </Drawer>

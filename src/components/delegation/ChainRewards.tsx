@@ -58,7 +58,7 @@ interface ChainRewardsProps {
   customAddress?: types.AddressType
   className?: string
   isXs?: boolean
-  sklPrice: bigint
+  chainsMeta: types.ChainsMetadataMap
 }
 
 const ChainRewards: React.FC<ChainRewardsProps> = ({
@@ -67,7 +67,8 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   address,
   customAddress,
   className,
-  isXs
+  isXs,
+  chainsMeta
 }) => {
   const [rewardAmount, setRewardAmount] = useState<bigint | undefined>(undefined)
   const [sklToken, setSklToken] = useState<Contract | undefined>(undefined)
@@ -128,7 +129,14 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
     let skl = sklToken
     if (skl === undefined) {
       skl = new Contract(tokenAddress, ERC_ABIS.erc20.abi, paymaster.runner)
-      setTokenUrl(explorer.getExplorerUrlForAddress(network, paymasterChain, tokenAddress))
+      setTokenUrl(
+        explorer.getExplorerUrlForAddress(
+          chainsMeta[paymasterChain],
+          network,
+          paymasterChain,
+          tokenAddress
+        )
+      )
       setSklToken(skl)
     }
     setTokenBalance(await skl.balanceOf(addr))

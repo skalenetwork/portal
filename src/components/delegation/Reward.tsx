@@ -108,10 +108,11 @@ export default function Reward(props: {
                 <div className={cls([cmn.pri, !props.isXs], cmn.flex)}>
                   <div>
                     <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Total staked</p>
-                     <Tooltip
+                    <Tooltip
                       arrow
                       title={
-                        props.sklPrice !== undefined && props.delegationsToValidator.staked !== undefined
+                        props.sklPrice !== undefined &&
+                        props.delegationsToValidator.staked !== undefined
                           ? units.displaySklValueUsd(
                               props.delegationsToValidator.staked,
                               props.sklPrice

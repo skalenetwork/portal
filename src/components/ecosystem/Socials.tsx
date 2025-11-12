@@ -31,7 +31,6 @@ import 'react-social-icons/telegram'
 import 'react-social-icons/x'
 import { cmn, cls } from '@skalenetwork/metaport'
 import { type types } from '@/core'
-import FavoriteIconButton from './FavoriteIconButton'
 import SwellIcon from './SwellIcon'
 import EpicGamesStoreLogo from '../../assets/egs.svg'
 import ForumIcon from '@mui/icons-material/Forum'
@@ -49,8 +48,6 @@ const MAX_SOCIALS_SM = 6
 
 const SocialButtons: React.FC<SocialButtonsProps> = ({
   social,
-  chainName,
-  appName,
   className,
   all = false,
   size = 'sm'
@@ -166,9 +163,6 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
         </div>
       )}
       {!social && <div className={cmn.flexg}></div>}
-      {!isMd && chainName && appName ? (
-        <FavoriteIconButton chainName={chainName} appName={appName} />
-      ) : null}
     </div>
   )
 }

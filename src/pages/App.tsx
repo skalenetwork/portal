@@ -26,19 +26,9 @@ import { Helmet } from 'react-helmet'
 import { useParams } from 'react-router-dom'
 import { type types, metadata, units, constants } from '@/core'
 
-import {
-  cmn,
-  cls,
-  styles,
-  explorer,
-  MetaportCore,
-  SkPaper,
-  useWagmiAccount,
-  useConnectModal,
-  Tile
-} from '@skalenetwork/metaport'
+import { cmn, cls, styles, explorer, MetaportCore, SkPaper, Tile } from '@skalenetwork/metaport'
 
-import { Button, Grid } from '@mui/material'
+import { Grid } from '@mui/material'
 import Container from '@mui/material/Container'
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded'
 import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded'
@@ -47,8 +37,6 @@ import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRound
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import HubRoundedIcon from '@mui/icons-material/HubRounded'
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
 import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded'
 import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded'
 import HourglassFullRoundedIcon from '@mui/icons-material/HourglassFullRounded'
@@ -63,8 +51,6 @@ import { getRecentApps, isNewApp, isTrending, isFeatured } from '../core/ecosyst
 
 import SocialButtons from '../components/ecosystem/Socials'
 import CategoriesChips from '../components/ecosystem/CategoriesChips'
-import { useLikedApps } from '../LikedAppsContext'
-import { useAuth } from '../AuthContext'
 import ErrorTile from '../components/ErrorTile'
 import { ChipNew, ChipPreTge, ChipTrending, ChipFeatured } from '../components/Chip'
 import AppScreenshots from '../components/ecosystem/AppScreenshots'
@@ -84,11 +70,6 @@ export default function App(props: {
   chainsMeta: types.ChainsMetadataMap
 }) {
   let { chain, app } = useParams()
-  const { likedApps, appLikes, toggleLikedApp, getAppId, refreshLikedApps } = useLikedApps()
-  const { isSignedIn, handleSignIn } = useAuth()
-
-  const { address } = useWagmiAccount()
-  const { openConnectModal } = useConnectModal()
 
   const newApps = useMemo(
     () => getRecentApps(props.chainsMeta, MAX_APPS_DEFAULT),
@@ -110,7 +91,7 @@ export default function App(props: {
       </Container>
     )
 
-  const appAlias = metadata.getAlias(props.chainsMeta, chain, app)
+  const appAlias = metadata.getAlias(network, props.chainsMeta, chain, app)
   const appMeta = chainMeta.apps?.[app]
 
   if (!appMeta)
@@ -124,28 +105,11 @@ export default function App(props: {
 
   const { trendingApps, allApps, featuredApps } = useApps(props.chainsMeta, props.metrics)
 
-  const appId = getAppId(chain, app)
-  const isLiked = likedApps.includes(appId)
-  const likesCount = appLikes[appId] || 0
-
   const isNew = isNewApp({ chain, app }, newApps)
   const trending = isTrending(trendingApps, chain, app)
   const featured = isFeatured({ chain, app }, featuredApps)
 
-  const handleToggleLike = async () => {
-    if (!address) {
-      openConnectModal?.()
-      return
-    }
-    if (!isSignedIn) {
-      await handleSignIn()
-      return
-    }
-    await toggleLikedApp(appId)
-    refreshLikedApps()
-  }
-
-  const explorerUrl = explorer.getExplorerUrl(network, chain)
+  const explorerUrl = explorer.getExplorerUrl(chainMeta, network, chain)
 
   const isAppChain = chainMeta.apps && Object.keys(chainMeta.apps).length === 1
 
@@ -218,14 +182,6 @@ export default function App(props: {
                   <div className={cls(cmn.flexg, cmn.mbott10)}>
                     <CategoriesChips categories={appMeta.categories} all />
                   </div>
-                  <Button
-                    className={cls(cmn.mbott10, [cmn.mtop10, props.isXs], 'btn btnSm favsBtn')}
-                    variant="contained"
-                    startIcon={isLiked ? <FavoriteRoundedIcon /> : <FavoriteBorderOutlinedIcon />}
-                    onClick={handleToggleLike}
-                  >
-                    {isLiked ? 'Favorite' : 'Add to favorites'}
-                  </Button>
                 </div>
 
                 <div className={cls(cmn.flex, cmn.flexcv)}>
@@ -278,14 +234,6 @@ export default function App(props: {
                 />
               </Grid>
             )}
-            <Grid size={{ xs: 12, md: appMeta.contracts ? 6 : 12, lg: appMeta.contracts ? 4 : 12 }}>
-              <Tile
-                grow
-                text="Favorites"
-                value={likesCount.toString()}
-                icon={<FavoriteRoundedIcon />}
-              />
-            </Grid>
             {appMeta.contracts && (
               <Grid size={{ xs: 12, md: 6, lg: 4 }}>
                 <Tile

@@ -25,7 +25,7 @@ import { useState, useEffect } from 'react'
 import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
 
-import { type types, endpoints } from '@/core'
+import { type types, endpoints, networks } from '@/core'
 import {
   useMetaportStore,
   useWagmiAccount,
@@ -59,12 +59,16 @@ export default function Portal() {
   const [customAddress, setCustomAddress] = useState<types.AddressType | undefined>(undefined)
   const [sc, setSc] = useState<types.st.ISkaleContractsMap | null>(null)
   const [loadCalled, setLoadCalled] = useState<boolean>(false)
+  const [isProfileModalOpen, setIsProfileModalOpen] = useState<boolean>(false)
 
   const endpoint = endpoints.getProxyEndpoint(mpc.config.skaleNetwork)
   const statsApi = STATS_API[mpc.config.skaleNetwork]
 
   const { address } = useWagmiAccount()
   if (!mpc) return <div></div>
+
+  const openProfileModal = () => setIsProfileModalOpen(true)
+  const closeProfileModal = () => setIsProfileModalOpen(false)
 
   useEffect(() => {
     initSkaleContracts()
@@ -92,6 +96,7 @@ export default function Portal() {
   }
 
   async function loadMetrics() {
+    if (!networks.hasFeature(mpc.config.skaleNetwork, 'metrics')) return
     try {
       const response = await fetch(`https://${endpoint}/files/metrics.json`)
       const metricsJson = await response.json()
@@ -102,6 +107,7 @@ export default function Portal() {
   }
 
   async function loadStats() {
+    if (!networks.hasFeature(mpc.config.skaleNetwork, 'stats')) return
     if (statsApi === null) return
     try {
       const response = await fetch(statsApi)
@@ -113,6 +119,7 @@ export default function Portal() {
   }
 
   async function loadValidator() {
+    if (!networks.hasFeature(mpc.config.skaleNetwork, 'staking')) return
     const addr = customAddress ?? address
     if (!sc || !addr) {
       setValidator(null)
@@ -139,7 +146,7 @@ export default function Portal() {
   return (
     <Box sx={{ display: 'flex' }} className="AppWrap">
       <CssBaseline />
-      <Header address={address} mpc={mpc} />
+      <Header address={address} mpc={mpc} openProfileModal={openProfileModal} />
       <SkDrawer validatorDelegations={validatorDelegations} />
       <div className={cls(cmn.fullWidth)} id="appContentScroll">
         <Router
@@ -154,7 +161,7 @@ export default function Portal() {
           sc={sc}
           loadValidator={loadValidator}
         />
-        <ProfileModal />
+        <ProfileModal isOpen={isProfileModalOpen} onClose={closeProfileModal} />
         <div className={cls(cmn.mtop20, cmn.fullWidth)}>
           <Debug />
         </div>

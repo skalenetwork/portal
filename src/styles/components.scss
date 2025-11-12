@@ -49,6 +49,11 @@
     }
 }
 
+.sk-logo-xs {
+    width: 60px;
+    height: 60px;
+}
+
 .sk-logo-sm {
     width: 80px;
     height: 80px;
@@ -152,6 +157,7 @@
         padding: 2px 10px;
     }
 }
+
 .secondary {
     background-color: variables.$sk-secondary !important;
 }

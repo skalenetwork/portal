@@ -75,7 +75,11 @@ export default function SchainDetails(props: {
   const proxyBase = endpoints.getProxyEndpoint(network)
 
   const rpcUrl = getRpcUrl(proxyBase, props.schainName, constants.HTTPS_PREFIX)
-  const explorerUrl = explorer.getExplorerUrl(network, props.schainName)
+  const explorerUrl = explorer.getExplorerUrl(
+    props.chainsMeta[props.schainName],
+    network,
+    props.schainName
+  )
   const chainId = getChainId(props.schainName)
 
   const networkParams = {
@@ -83,7 +87,7 @@ export default function SchainDetails(props: {
     chainName:
       'SKALE' +
       (network === 'testnet' ? ' Testnet ' : ' ') +
-      metadata.getAlias(props.chainsMeta, props.schainName),
+      metadata.getAlias(network, props.chainsMeta, props.schainName),
     rpcUrls: [rpcUrl],
     nativeCurrency: {
       name: 'sFUEL',
@@ -115,7 +119,7 @@ export default function SchainDetails(props: {
 
   const chainMeta = props.chainsMeta[props.schainName]
 
-  const chainAlias = metadata.getAlias(props.chainsMeta, props.schainName)
+  const chainAlias = metadata.getAlias(network, props.chainsMeta, props.schainName)
   const chainDescription = metadata.getChainDescription(chainMeta)
 
   const isMainnet = props.mpc.config.skaleNetwork === constants.MAINNET_CHAIN_NAME

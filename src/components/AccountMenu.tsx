@@ -27,14 +27,13 @@ import Box from '@mui/material/Box'
 import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'
 import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
-import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 
 import { cls, styles, cmn, RainbowConnectButton } from '@skalenetwork/metaport'
-
-import { useAuth } from '../AuthContext'
+import { helper } from '@/core'
 
 export default function AccountMenu(props: any) {
-  const { isSignedIn, openProfileModal } = useAuth()
+  const { openProfileModal } = props
+
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
       {!props.address ? (
@@ -61,33 +60,15 @@ export default function AccountMenu(props: any) {
           </div>
         </Tooltip>
       ) : (
-        <Tooltip arrow title={isSignedIn ? 'Conneced and signed-in' : 'Wallet connect, signed-out'}>
+        <Tooltip arrow title="Click to open profile">
           <Button
             onClick={openProfileModal}
-            className={cls('mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex)}
+            className={cls(styles.paperGrey, cmn.pPrim, 'mp__btnConnect', cmn.flex)}
           >
-            <div
-              className={cls(cmn.mri5, cmn.flexcv)}
-              style={{ height: '20px', position: 'relative' }}
-            >
+            <div className={cls(cmn.mri5, cmn.flex)}>
               <Jazzicon diameter={20} seed={jsNumberForAddress(props.address)} />
-              <div className={cls('icon-overlay', cmn.flex, cmn.flexcv)}>
-                {isSignedIn ? (
-                  <FiberManualRecordRoundedIcon
-                    color="success"
-                    className={cls(styles.chainIconxs)}
-                  />
-                ) : (
-                  <FiberManualRecordRoundedIcon
-                    color="warning"
-                    className={cls(styles.chainIconxs)}
-                  />
-                )}
-              </div>
             </div>
-            {props.address.substring(0, 5) +
-              '...' +
-              props.address.substring(props.address.length - 3)}
+            {helper.shortAddress(props.address)}
           </Button>
         </Tooltip>
       )}

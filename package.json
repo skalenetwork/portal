@@ -11,6 +11,7 @@
     "build:mainnet": "bun run build:packages && NETWORK_NAME=mainnet bash scripts/build.sh",
     "build:testnet": "bun run build:packages && NETWORK_NAME=testnet bash scripts/build.sh",
     "build:base-sepolia-testnet": "bun run build:packages && NETWORK_NAME=base-sepolia-testnet bash scripts/build.sh",
+    "build:base": "bun run build:packages && NETWORK_NAME=base bash scripts/build.sh",
     "build:qa": "bun run build:packages && NETWORK_NAME=legacy bash scripts/build.sh",
     "dev": "bun run build:packages && vite",
     "dev:portal": "vite",
@@ -22,12 +23,16 @@
   },
   "dependencies": {
     "@/core": "workspace:*",
-    "@skalenetwork/metaport": "workspace:*",
     "@mui/icons-material": "7.3.2",
     "@mui/material": "7.3.2",
+    "@skalenetwork/metaport": "workspace:*",
+    "@skalenetwork/skale-contracts-ethers-v6": "2.0.0-develop.5",
     "@transak/transak-sdk": "^3.1.1",
     "@vercel/analytics": "^1.0.2",
+    "@wagmi/core": "^2.22.1",
+    "boring-avatars": "^2.0.4",
     "embla-carousel-react": "^8.3.0",
+    "ethers": "^6.15.0",
     "react": "19.1.1",
     "react-copy-to-clipboard": "^5.1.0",
     "react-dom": "19.1.1",
@@ -36,7 +41,7 @@
     "react-router-dom": "^7.8.2",
     "react-social-icons": "^6.17.0",
     "siwe": "^3.0.0",
-    "@skalenetwork/skale-contracts-ethers-v6": "2.0.0-develop.1"
+    "tslog": "^4.10.2"
   },
   "devDependencies": {
     "@mdx-js/rollup": "^3.1.1",

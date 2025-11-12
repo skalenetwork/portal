@@ -77,8 +77,8 @@ export function WidgetBody(props) {
   }, [tokens])
 
   const chainsMeta = CHAINS_META[mpc.config.skaleNetwork]
-  const sourceBg = theme.vibrant ? metadata.chainBg(chainsMeta, chainName1) : constants.GRAY_BG
-  const destBg = theme.vibrant ? metadata.chainBg(chainsMeta, chainName2) : constants.GRAY_BG
+  const sourceBg = theme.vibrant ? metadata.chainBg(mpc.config.skaleNetwork, chainsMeta, chainName1) : constants.GRAY_BG
+  const destBg = theme.vibrant ? metadata.chainBg(mpc.config.skaleNetwork, chainsMeta, chainName2) : constants.GRAY_BG
   const overlayBg = theme.vibrant ? 'rgb(0 0 0 / 40%)' : 'transparent'
 
   return (

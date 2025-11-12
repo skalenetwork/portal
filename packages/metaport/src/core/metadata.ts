@@ -28,13 +28,14 @@ import legacyMeta from '../meta/legacy/chains.json'
 import regressionMeta from '../meta/regression/chains.json'
 import testnetMeta from '../meta/testnet/chains.json'
 import baseSepoliaTestnet from '../meta/base-sepolia-testnet/chains.json'
-
+import base from '../meta/base/chains.json'
 
 import * as MAINNET_CHAIN_ICONS from '../meta/mainnet/icons'
 import * as LEGACY_CHAIN_ICONS from '../meta/legacy/icons'
 import * as REGRESSION_CHAIN_ICONS from '../meta/regression/icons'
 import * as TESTNET_CHAIN_ICONS from '../meta/testnet/icons'
 import * as BASE_SEPOLIA_TESTNET_CHAIN_ICONS from '../meta/base-sepolia-testnet/icons'
+import * as BASE_CHAIN_ICONS from '../meta/base/icons'
 
 
 const CHAIN_ICONS: { [network in types.SkaleNetwork]: any } = {
@@ -42,7 +43,8 @@ const CHAIN_ICONS: { [network in types.SkaleNetwork]: any } = {
   legacy: LEGACY_CHAIN_ICONS,
   regression: REGRESSION_CHAIN_ICONS,
   testnet: TESTNET_CHAIN_ICONS,
-  "base-sepolia-testnet": BASE_SEPOLIA_TESTNET_CHAIN_ICONS
+  "base-sepolia-testnet": BASE_SEPOLIA_TESTNET_CHAIN_ICONS,
+  base: BASE_CHAIN_ICONS
 }
 
 export const CHAINS_META: types.NetworksMetadataMap = {
@@ -50,8 +52,8 @@ export const CHAINS_META: types.NetworksMetadataMap = {
   legacy: legacyMeta,
   regression: regressionMeta,
   testnet: testnetMeta,
-  "base-sepolia-testnet": baseSepoliaTestnet
-
+  "base-sepolia-testnet": baseSepoliaTestnet,
+  base: base
 }
 
 export function chainIconPath(skaleNetwork: types.SkaleNetwork, name: string, app?: string) {
