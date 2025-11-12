@@ -22,6 +22,13 @@
 
 import { useState, useEffect } from 'react'
 import Avatar from 'boring-avatars'
+import { Link } from 'react-router-dom'
+import { Contract } from 'ethers'
+
+import { Grid, Button } from '@mui/material'
+import PaymentsRoundedIcon from '@mui/icons-material/PaymentsRounded'
+import HistoryToggleOffRoundedIcon from '@mui/icons-material/HistoryToggleOffRounded'
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
 import {
   cmn,
@@ -38,31 +45,16 @@ import {
   useWagmiSwitchNetwork,
   enforceNetwork
 } from '@skalenetwork/metaport'
-import { Contract } from 'ethers'
-import { types, metadata, constants, timeUtils, helper } from '@/core'
-import * as cs from '../../core/credit-station'
-
-import { Grid, Button } from '@mui/material'
-import PaymentsRoundedIcon from '@mui/icons-material/PaymentsRounded'
-import HistoryToggleOffRoundedIcon from '@mui/icons-material/HistoryToggleOffRounded'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
+import { types, metadata, constants, timeUtils, helper, units } from '@/core'
 
 import SkStack from '../SkStack'
-import { Link } from 'react-router-dom'
 
-export const LIGHT_COLORS = [
-  '#efeecc',
-  '#fe8b05',
-  '#fe0557',
-  '#400403',
-  '#0aabba',
-  '#c8b6ff',
-  '#90E0EF',
-  '#F786AA',
-  '#256EFF',
-  '#31E981',
-  '#ffbf81'
-]
+import * as cs from '../../core/credit-station'
+import {
+  CREDITS_CONFIRMATION_BLOCKS,
+  AVATAR_COLORS,
+  DEFAULT_CREDITS_AMOUNT
+} from '../../core/constants'
 
 interface CreditsHistoryTileProps {
   mpc: MetaportCore
@@ -72,21 +64,17 @@ interface CreditsHistoryTileProps {
   }
   chainsMeta: types.ChainsMetadataMap
   isXs: boolean
-  tokenPrices: Record<string, bigint>
   ledgerContract: Contract | undefined
   creditStation: Contract | undefined
   isAdmin?: boolean
   setErrorMsg?: (msg: string | undefined) => void
 }
 
-const CREDITS_CONFIRMATION_BLOCKS = 2
-
 const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
   mpc,
   creditsPurchase,
   chainsMeta,
   isXs,
-  tokenPrices,
   ledgerContract,
   creditStation,
   isAdmin = false,
@@ -168,7 +156,8 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
         ledgerContract.fulfill,
         [payment.id, payment.to],
         'ledger:fulfill',
-        CREDITS_CONFIRMATION_BLOCKS
+        CREDITS_CONFIRMATION_BLOCKS,
+        units.toWei(DEFAULT_CREDITS_AMOUNT.toString(), constants.DEFAULT_ERC20_DECIMALS)
       )
       if (!res.status) {
         setErrorMsg?.(res.err?.name)
@@ -201,7 +190,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
                   size={45}
                   variant="marble"
                   name={isAdmin ? payment.from : creditsPurchase.schainName + payment.id * 2n}
-                  colors={LIGHT_COLORS}
+                  colors={AVATAR_COLORS}
                 />
                 <ChainIcon
                   skaleNetwork={network}

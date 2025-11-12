@@ -58,16 +58,16 @@ export default function ChainsList(props: {
         >
           {props.chain ? (
             <div className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv, cmn.mri10)}>
-              <Chain skaleNetwork={props.config.skaleNetwork} chainName={props.chain} size={size} />
+              <Chain skaleNetwork={props.config.skaleNetwork} chainName={props.chain} size={size} bold />
               <div className={cls(cmn.flex, cmn.flexg)}></div>
             </div>
           ) : (
-            <div className={cls(cmn.flex, cmn.flexcv)}>
+            <div className={cls(cmn.flex, cmn.flexcv, cmn.flexg, cmn.mtop5, cmn.mbott5)}>
               <div className={cls(cmn.flex, cmn.flexc, cmn.mri10)}>
                 <ChainIcon skaleNetwork={props.config.skaleNetwork} chainName={props.chain} />
               </div>
               <p className={cls(cmn.flex, cmn.p3, cmn.p600, cmn.p, cmn.pPrim, cmn.mri10)}>
-                Transfer {props.from ? 'from' : 'to'}...
+                Loading chains...
               </p>
             </div>
           )}

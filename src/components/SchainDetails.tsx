@@ -33,7 +33,7 @@ import {
   explorer,
   Tile
 } from '@skalenetwork/metaport'
-import { type types, metadata, constants, endpoints } from '@/core'
+import { type types, metadata, constants, endpoints, networks } from '@/core'
 
 import Button from '@mui/material/Button'
 
@@ -190,7 +190,7 @@ export default function SchainDetails(props: {
         </div>
       </SkPaper>
       <SkPaper gray className={cls(cmn.mtop10)}>
-        <SkStack className={cmn.mbott10}>
+        <SkStack>
           <Tile
             className={cls(cmn.nop, cmn.flex, cmn.flexcv)}
             children={
@@ -241,53 +241,61 @@ export default function SchainDetails(props: {
               </div>
             }
           />
-          <Tile
-            size="md"
-            grow
-            text="Daily transactions"
-            value={
-              props.schainMetrics
-                ? formatNumber(props.schainMetrics.chain_stats?.transactions_today)
-                : '0'
-            }
-            icon={<TrendingUpRoundedIcon />}
-          />
-        </SkStack>
-
-        <SkStack className={cmn.md10}>
-          <Tile
-            size="md"
-            grow
-            text="Total transactions"
-            value={formatNumber(getTxCount())}
-            icon={<DataSaverOffRoundedIcon />}
-          />
-          {isMainnet && (
+          {networks.hasFeature(network, 'metrics') && (
             <Tile
               size="md"
               grow
-              text="Gas saved"
+              text="Daily transactions"
               value={
-                props.schainStats ? `${formatNumber(props.schainStats.gas_fees_total_eth)} ETH` : ''
+                props.schainMetrics
+                  ? formatNumber(props.schainMetrics.chain_stats?.transactions_today)
+                  : '0'
               }
-              icon={<SavingsRoundedIcon />}
+              icon={<TrendingUpRoundedIcon />}
             />
           )}
-          <Tile
-            size="md"
-            grow
-            text={isMainnet ? 'Unique active wallets' : 'Total addresses'}
-            value={formatNumber(getUAW())}
-            icon={<PersonRoundedIcon />}
-          />
-          <Tile
-            size="md"
-            grow
-            text="Total blocks"
-            value={formatNumber(getTotalBlocks())}
-            icon={<GridViewRoundedIcon />}
-          />
         </SkStack>
+
+        {networks.hasFeature(network, 'metrics') ? (
+          <SkStack className={cmn.mtop10}>
+            <Tile
+              size="md"
+              grow
+              text="Total transactions"
+              value={formatNumber(getTxCount())}
+              icon={<DataSaverOffRoundedIcon />}
+            />
+            {isMainnet && (
+              <Tile
+                size="md"
+                grow
+                text="Gas saved"
+                value={
+                  props.schainStats
+                    ? `${formatNumber(props.schainStats.gas_fees_total_eth)} ETH`
+                    : ''
+                }
+                icon={<SavingsRoundedIcon />}
+              />
+            )}
+            <Tile
+              size="md"
+              grow
+              text={isMainnet ? 'Unique active wallets' : 'Total addresses'}
+              value={formatNumber(getUAW())}
+              icon={<PersonRoundedIcon />}
+            />
+            <Tile
+              size="md"
+              grow
+              text="Total blocks"
+              value={formatNumber(getTotalBlocks())}
+              icon={<GridViewRoundedIcon />}
+            />
+          </SkStack>
+        ) : (
+          <div></div>
+        )}
       </SkPaper>
       <ChainTabsSection
         chainsMeta={props.chainsMeta}

@@ -70,7 +70,7 @@ export const MAINNET_BACKGROUNDS: { [key in types.SkaleNetwork]: string } = {
     regression: 'linear-gradient(273.67deg, rgb(47 50 80), rgb(39 43 68))',
     testnet: 'linear-gradient(273.67deg, rgb(47 50 80), rgb(39 43 68))',
     base: 'linear-gradient(rgb(0 0 129), rgb(40 40 121))',
-    'base-sepolia-testnet': 'linear-gradient(rgb(0 0 129), rgb(40 40 121))',
+    'base-sepolia-testnet': 'linear-gradient(#B8A581, #625741)',
 }
 
 export function parse(networksEnv: string | undefined): types.SkaleNetwork[] {
