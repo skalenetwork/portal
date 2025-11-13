@@ -22,6 +22,7 @@ export default function ChainsList(props: {
   disabled?: boolean
   size?: 'sm' | 'md'
   destChains?: string[]
+  balance: React.ReactNode | null
 }) {
   const [open, setOpen] = React.useState(false)
 
@@ -39,38 +40,44 @@ export default function ChainsList(props: {
   }
 
   const size = props.size ?? 'sm'
-
   const modalTitle = props.from ? 'Choose source chain' : 'Choose destination chain'
 
   return (
     <div>
-      <div className={cls(cmn.mleft10, cmn.pbott10, cmn.ptop10)} style={{ marginRight: '10px' }}>
+      <div className={cls(cmn.mleft10, cmn.pbott10, cmn.ptop10, cmn.mri10)}>
         <Button
-          className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mri10)}
+          className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd5)}
           onClick={handleOpen}
           disabled={props.disabled}
           endIcon={
             <KeyboardArrowDownRoundedIcon
-              className={cls(cmn.pPrim, cmn.mleft10)}
-              style={{ marginRight: '12px' }}
+              className={cls(cmn.pPrim)}
+              style={{ marginRight: '16px' }}
             />
           }
         >
           {props.chain ? (
-            <div className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv, cmn.mri10)}>
-              <Chain skaleNetwork={props.config.skaleNetwork} chainName={props.chain} size={size} bold />
+            <div className={cls(cmn.flex, cmn.flexg, cmn.flexcv, cmn.mri10)}>
+              <Chain
+                skaleNetwork={props.config.skaleNetwork}
+                chainName={props.chain}
+                size={size}
+                from={props.from}
+                bold
+              />
               <div className={cls(cmn.flex, cmn.flexg)}></div>
             </div>
           ) : (
-            <div className={cls(cmn.flex, cmn.flexcv, cmn.flexg, cmn.mtop5, cmn.mbott5)}>
+            <div className={cls(cmn.flex, cmn.flexcv, cmn.flexg, cmn.mtop20, cmn.mbott20, cmn.mleft20)}>
               <div className={cls(cmn.flex, cmn.flexc, cmn.mri10)}>
-                <ChainIcon skaleNetwork={props.config.skaleNetwork} chainName={props.chain} />
+                <ChainIcon skaleNetwork={props.config.skaleNetwork} chainName={props.chain} chainsMeta={CHAINS_META[props.config.skaleNetwork]} />
               </div>
               <p className={cls(cmn.flex, cmn.p3, cmn.p600, cmn.p, cmn.pPrim, cmn.mri10)}>
                 Loading chains...
               </p>
             </div>
           )}
+          {props.balance}
         </Button>
       </div>
 

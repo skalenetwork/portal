@@ -87,16 +87,6 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
       </Collapse>
       <SkPaper background={sourceBg} className={cmn.nop}>
         <Collapse in={showFrom()}>
-          <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
-            <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>From</p>
-            {token ? (
-              <TokenBalance
-                balance={tokenBalances[token.keyname]}
-                symbol={token.meta.symbol}
-                decimals={token.meta.decimals ?? undefined}
-              />
-            ) : null}
-          </div>
           <ChainsList
             config={mpc.config}
             chain={chainName1}
@@ -106,6 +96,16 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
             disabled={transferInProgress}
             from={true}
             size="md"
+            balance={
+              token ? (
+                <TokenBalance
+                  balance={tokenBalances[token.keyname]}
+                  symbol={token.meta.symbol}
+                  decimals={token.meta.decimals ?? undefined}
+                  truncate={3}
+                />
+              ) : null
+            }
           />
         </Collapse>
 
@@ -123,10 +123,6 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
 
       <Collapse in={showTo()}>
         <SkPaper background={destBg} className={cmn.nop}>
-          <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
-            <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>To</p>
-            <DestTokenBalance />
-          </div>
           <ChainsList
             config={mpc.config}
             chain={chainName2}
@@ -136,6 +132,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
             disabledChain={chainName1}
             disabled={transferInProgress}
             size="md"
+            balance={<DestTokenBalance />}
           />
         </SkPaper>
       </Collapse>

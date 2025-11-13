@@ -65,12 +65,12 @@ export const MAINNET_DESCRIPTIONS: { [key in types.SkaleNetwork]: string } = {
 }
 
 export const MAINNET_BACKGROUNDS: { [key in types.SkaleNetwork]: string } = {
-    mainnet: 'linear-gradient(273.67deg, rgb(47 50 80), rgb(39 43 68))',
-    legacy: 'linear-gradient(273.67deg, rgb(47 50 80), rgb(39 43 68))',
-    regression: 'linear-gradient(273.67deg, rgb(47 50 80), rgb(39 43 68))',
-    testnet: 'linear-gradient(273.67deg, rgb(47 50 80), rgb(39 43 68))',
-    base: 'linear-gradient(rgb(0 0 129), rgb(40 40 121))',
-    'base-sepolia-testnet': 'linear-gradient(#B8A581, #625741)',
+    mainnet: 'linear-gradient(273.67deg, #FFF3EF, #D8C4FF)',
+    legacy: 'linear-gradient(273.67deg, #D6FFFC, #B8CFFF)',
+    regression: 'linear-gradient(273.67deg, #D6FFFC, #B8CFFF)',
+    testnet: 'linear-gradient(273.67deg, #FFDADA, #D6FFDE)',
+    base: 'linear-gradient(#0000FF, #0000D8)',
+    'base-sepolia-testnet': 'linear-gradient(#B8A581, #9a8a6bff)',
 }
 
 export function parse(networksEnv: string | undefined): types.SkaleNetwork[] {

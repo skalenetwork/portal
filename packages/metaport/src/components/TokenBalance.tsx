@@ -22,7 +22,9 @@
  */
 
 import { units } from '@/core'
-import { cls, cmn } from '../core/css'
+import { cls, cmn, styles } from '../core/css'
+import TokenIcon from './TokenIcon'
+import { Tooltip } from '@mui/material'
 
 export default function TokenBalance(props: {
   balance: bigint
@@ -33,29 +35,34 @@ export default function TokenBalance(props: {
   size?: 'xs' | 'sm' | 'md'
 }) {
   if (props.balance === undefined || props.balance === null) return
-  let balance = units.formatBalance(props.balance, props.decimals)
+  let balanceFull = units.formatBalance(props.balance, props.decimals)
+  let balance = balanceFull
   if (props.truncate) {
-    balance = units.truncateDecimals(balance, props.truncate)
+    balance = units.truncateDecimals(balanceFull, props.truncate)
   }
   let size = props.size ?? 'xs'
   return (
-    <div className={cls(cmn.flex, cmn.flexcv)}>
-      <p
-        className={cls(
-          cmn.pLightGrey,
-          [cmn.p4, size === 'xs'],
-          [cmn.p3, size === 'sm'],
-          [cmn.p2, size === 'md'],
-          [cmn.pSec, !props.primary],
-          [cmn.pPrim, props.primary],
-          cmn.flex,
-          cmn.flexcv,
-          cmn.nom,
-          cmn.mri5
-        )}
-      >
-        {balance} {props.symbol}
-      </p>
-    </div>
+    <Tooltip arrow title={balanceFull + ' ' + props.symbol}>
+      <div className={cls(cmn.flex, cmn.flexcv, styles.paperGrey, cmn.padd5, cmn.pleft10, cmn.pri10, cmn.bordRad)}>
+        <p
+          className={cls(
+            cmn.pLightGrey,
+            [cmn.p3, size === 'xs'],
+            [cmn.p3, size === 'sm'],
+            [cmn.p2, size === 'md'],
+            [cmn.pSec, !props.primary],
+            [cmn.pPrim, props.primary],
+            cmn.flex,
+            cmn.flexcv,
+            cmn.nom,
+            cmn.mri5
+          )}
+        >
+          <TokenIcon tokenSymbol={props.symbol} size='xs' />
+          <div className={cls(cmn.mri5)}></div>
+          {balance} {props.symbol}
+        </p>
+      </div>
+    </Tooltip>
   )
 }

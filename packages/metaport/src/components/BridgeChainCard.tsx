@@ -74,7 +74,7 @@ export default function BridgeChainCard(props: ChainCardProps) {
           <div className={cls(cmn.mbott10, cmn.mtop20, cmn.bordRad)}>
             <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop20)}></div>
             <div className={cls(cmn.bordRad, cmn.flex, cmn.flexc, styles.fullHeight, cmn.mtop20)}>
-              <ChainIcon skaleNetwork={skaleNetwork} chainName={chainName} size={iconSize} />
+              <ChainIcon skaleNetwork={skaleNetwork} chainName={chainName} size={iconSize} chainsMeta={chainsMeta} bg={false} />
             </div>
           </div>
 
