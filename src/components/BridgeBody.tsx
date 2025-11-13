@@ -103,6 +103,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
                   symbol={token.meta.symbol}
                   decimals={token.meta.decimals ?? undefined}
                   truncate={3}
+                  mpc={mpc}
                 />
               ) : null
             }

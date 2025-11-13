@@ -22,9 +22,10 @@
  */
 
 import { units } from '@/core'
+import { Tooltip } from '@mui/material'
 import { cls, cmn, styles } from '../core/css'
 import TokenIcon from './TokenIcon'
-import { Tooltip } from '@mui/material'
+import MetaportCore from '../core/metaport'
 
 export default function TokenBalance(props: {
   balance: bigint
@@ -33,6 +34,7 @@ export default function TokenBalance(props: {
   truncate?: number
   primary?: boolean
   size?: 'xs' | 'sm' | 'md'
+  mpc?: MetaportCore
 }) {
   if (props.balance === undefined || props.balance === null) return
   let balanceFull = units.formatBalance(props.balance, props.decimals)
@@ -41,6 +43,10 @@ export default function TokenBalance(props: {
     balance = units.truncateDecimals(balanceFull, props.truncate)
   }
   let size = props.size ?? 'xs'
+  let iconUrl = undefined
+  if (props.mpc !== undefined) {
+    iconUrl = props.mpc.config.tokens[props.symbol.toLowerCase()]?.iconUrl
+  }
   return (
     <Tooltip arrow title={balanceFull + ' ' + props.symbol}>
       <div className={cls(cmn.flex, cmn.flexcv, styles.paperGrey, cmn.padd5, cmn.pleft10, cmn.pri10, cmn.bordRad)}>
@@ -58,7 +64,7 @@ export default function TokenBalance(props: {
             cmn.mri5
           )}
         >
-          <TokenIcon tokenSymbol={props.symbol} size='xs' />
+          <TokenIcon tokenSymbol={props.symbol} size='xs' iconUrl={iconUrl} />
           <div className={cls(cmn.mri5)}></div>
           {balance} {props.symbol}
         </p>

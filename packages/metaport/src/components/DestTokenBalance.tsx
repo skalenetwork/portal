@@ -8,6 +8,7 @@ import { BALANCE_UPDATE_INTERVAL_MS } from '../core/constants'
 export default function DestTokenBalance() {
   const { address } = useAccount()
 
+  const mpc = useMetaportStore((state) => state.mpc)
   const token = useMetaportStore((state) => state.token)
   const destTokenBalance = useMetaportStore((state) => state.destTokenBalance)
   const updateDestTokenBalance = useMetaportStore((state) => state.updateDestTokenBalance)
@@ -30,6 +31,7 @@ export default function DestTokenBalance() {
       symbol={token.meta.symbol}
       decimals={token.meta.decimals}
       truncate={3}
+      mpc={mpc}
     />
   )
 }
