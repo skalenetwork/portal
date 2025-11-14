@@ -48,19 +48,20 @@
         margin-top: 1pt;
     }
 
-    :global(.MuiStepLabel-labelContainer) {
-        img {
-            filter: saturate(0) opacity(0.7);
-        }
+
+    :global(.Mui-disabled) {
+        filter: saturate(0) opacity(0.9);
     }
 
     :global(.MuiStepLabel-label.Mui-active) {
-        span, svg {
+
+        span,
+        svg {
             color: inherit;
         }
 
         img {
-            filter:  inherit;
+            filter: inherit;
         }
     }
 }

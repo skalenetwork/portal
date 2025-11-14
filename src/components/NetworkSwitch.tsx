@@ -30,7 +30,7 @@ import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'
 
 import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded'
-import { cls, styles, cmn, type MetaportCore, ChainIcon } from '@skalenetwork/metaport'
+import { cls, styles, cmn, type MetaportCore, ChainIcon, mp_metadata } from '@skalenetwork/metaport'
 
 import { PORTAL_URLS } from '../core/constants'
 import { constants } from '@/core'
@@ -60,7 +60,8 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
               skaleNetwork={props.mpc.config.skaleNetwork}
               chainName={constants.MAINNET_CHAIN_NAME}
               size="xs"
-              className={cls(cmn.mri10, cmn.mleft5)}
+              className={cls(cmn.mri10)}
+              chainsMeta={mp_metadata.CHAINS_META[props.mpc.config.skaleNetwork]}
             />
             {props.mpc.config.skaleNetwork.replace(/-/g, ' ')}
           </Button>
@@ -109,8 +110,9 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
                 <ChainIcon
                   skaleNetwork={network}
                   chainName={constants.MAINNET_CHAIN_NAME}
-                  size="sm"
+                  size="xs"
                   className={cls(cmn.mri10)}
+                  chainsMeta={mp_metadata.CHAINS_META[network]}
                 />
                 SKALE{' '}
                 <div className={cls(cmn.cap, cmn.mleft5)}>{network.replace(/-/g, ' ')} Portal</div>

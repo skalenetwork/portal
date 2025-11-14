@@ -195,23 +195,25 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
     <div>
       <div className={cls(cmn.mbott10, 'titleSection')}>
         <Grid container spacing={0} alignItems="center">
-          <Grid size={{ xs: 12, md: 5 }}>
-            <div className={cls(cmn.flex, cmn.flexcv)}>
-              <Link to={'/chains/' + shortAlias}>
+          <Grid size={{ xs: 12, md: 4 }}>
+            <Link to={'/chains/' + shortAlias}>
+              <div className={cls(cmn.flex, cmn.flexcv)}>
                 <Logo
                   chainsMeta={chainsMeta}
                   skaleNetwork={network}
                   chainName={schain.name}
                   size="xs"
                 />
-              </Link>
-              <div className={cls(cmn.mleft10, [cmn.flexg, isXs])} style={{ minWidth: 0 }}>
-                <h4 className={cls(cmn.p, cmn.p700, 'pOneLine')}>{chainAlias}</h4>
-                <p className={cls(cmn.p, cmn.p4, cmn.pSec, 'pOneLine')}>{chainDescription}</p>
+                <div className={cls(cmn.mleft10, [cmn.flexg, isXs])} style={{ minWidth: 0 }}>
+                  <h4 className={cls(cmn.p, cmn.p700, 'pOneLine', cmn.pPrim)}>{chainAlias}</h4>
+                  <p className={cls(cmn.p, cmn.p4, cmn.pSec, 'pOneLine')}>
+                    Click for chain details
+                  </p>
+                </div>
               </div>
-            </div>
+            </Link>
           </Grid>
-          <Grid size={{ xs: 12, md: 7 }} className={cls([cmn.mtop20, isXs], cmn.flex)}>
+          <Grid size={{ xs: 12, md: 8 }} className={cls([cmn.mtop20, isXs], cmn.flex)}>
             <div className={cls(cmn.flexg)}></div>
             <SkStack className={cls(cmn.flex)}>
               <Tile
@@ -219,7 +221,12 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                 transparent
                 className={cls(cmn.nop, [cmn.mri20, !isXs], [cmn.mleft20, !isXs])}
                 value={
-                  chainBalance !== undefined && units.displayBalance(chainBalance, 'CREDITS', 18)
+                  chainBalance !== undefined &&
+                  units.displayBalance(
+                    chainBalance,
+                    chainBalance === 10n ** 18n ? 'CREDIT' : 'CREDITS',
+                    18
+                  )
                 }
                 text="Available"
                 grow
