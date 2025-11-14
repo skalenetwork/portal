@@ -70,11 +70,20 @@ export default function BridgeChainCard(props: ChainCardProps) {
         )}
         background={backgroundColor}
       >
-        <div className={cls(cmn.mbott10, cmn.mtop20, cmn.fullWidth, styles.fullHeight)}>
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to bottom, transparent 20%, rgba(0, 0, 0, 0.7) 100%)',
+            borderRadius: 'inherit',
+            pointerEvents: 'none'
+          }}
+        />
+        <div className={cls(cmn.mbott10, cmn.mtop20, cmn.fullWidth, styles.fullHeight)} style={{ position: 'relative', zIndex: 1 }}>
           <div className={cls(cmn.mbott10, cmn.mtop20, cmn.bordRad)}>
             <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop20)}></div>
             <div className={cls(cmn.bordRad, cmn.flex, cmn.flexc, styles.fullHeight, cmn.mtop20)}>
-              <ChainIcon skaleNetwork={skaleNetwork} chainName={chainName} size={iconSize} />
+              <ChainIcon skaleNetwork={skaleNetwork} chainName={chainName} size={iconSize} chainsMeta={chainsMeta} bg={false} />
             </div>
           </div>
 

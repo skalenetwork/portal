@@ -96,18 +96,6 @@ export function WidgetBody(props) {
         <SkPaper background={overlayBg} className={cmn.nop}>
           <SkPaper background="transparent" className={cmn.nop}>
             <Collapse in={showFrom()}>
-              <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
-                <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>From</p>
-                <div>
-                  {token ? (
-                    <TokenBalance
-                      balance={tokenBalances[token.keyname]}
-                      symbol={token.meta.symbol}
-                      decimals={token.meta.decimals}
-                    />
-                  ) : null}
-                </div>
-              </div>
               <ChainsList
                 config={props.config}
                 chain={chainName1}
@@ -116,6 +104,16 @@ export function WidgetBody(props) {
                 disabledChain={chainName2}
                 disabled={transferInProgress}
                 from={true}
+                balance={
+                  token ? (
+                    <TokenBalance
+                      balance={tokenBalances[token.keyname]}
+                      symbol={token.meta.symbol}
+                      decimals={token.meta.decimals ?? undefined}
+                    />
+                  ) : null
+                }
+                size="md"
               />
             </Collapse>
           </SkPaper>
@@ -134,10 +132,6 @@ export function WidgetBody(props) {
       <Collapse in={showTo()}>
         <SkPaper background={destBg} className={cmn.nop}>
           <SkPaper background={overlayBg} className={cmn.nop}>
-            <div className={cls(cmn.ptop20, cmn.mleft20, cmn.mri20, cmn.flex)}>
-              <p className={cls(cmn.nom, cmn.p, cmn.p4, cmn.pSec, cmn.flex, cmn.flexg)}>To</p>
-              <DestTokenBalance />
-            </div>
             <ChainsList
               config={props.config}
               chain={chainName2}
@@ -146,6 +140,7 @@ export function WidgetBody(props) {
               setChain={setChainName2}
               disabledChain={chainName1}
               disabled={transferInProgress}
+              balance={<DestTokenBalance />}
             />
           </SkPaper>
         </SkPaper>

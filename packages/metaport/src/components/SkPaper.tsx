@@ -41,7 +41,7 @@ export default function SkPaper(props: {
   }
   return (
     <div
-      style={localStyle}
+      style={{ ...localStyle, position: 'relative' }}
       className={cls(
         props.className,
         styles.paper,

@@ -22,7 +22,10 @@
  */
 
 import { units } from '@/core'
-import { cls, cmn } from '../core/css'
+import { Tooltip } from '@mui/material'
+import { cls, cmn, styles } from '../core/css'
+import TokenIcon from './TokenIcon'
+import MetaportCore from '../core/metaport'
 
 export default function TokenBalance(props: {
   balance: bigint
@@ -31,31 +34,41 @@ export default function TokenBalance(props: {
   truncate?: number
   primary?: boolean
   size?: 'xs' | 'sm' | 'md'
+  mpc?: MetaportCore
 }) {
   if (props.balance === undefined || props.balance === null) return
-  let balance = units.formatBalance(props.balance, props.decimals)
+  let balanceFull = units.formatBalance(props.balance, props.decimals)
+  let balance = balanceFull
   if (props.truncate) {
-    balance = units.truncateDecimals(balance, props.truncate)
+    balance = units.truncateDecimals(balanceFull, props.truncate)
   }
   let size = props.size ?? 'xs'
+  let iconUrl = undefined
+  if (props.mpc !== undefined) {
+    iconUrl = props.mpc.config.tokens[props.symbol.toLowerCase()]?.iconUrl
+  }
   return (
-    <div className={cls(cmn.flex, cmn.flexcv)}>
-      <p
-        className={cls(
-          cmn.pLightGrey,
-          [cmn.p4, size === 'xs'],
-          [cmn.p3, size === 'sm'],
-          [cmn.p2, size === 'md'],
-          [cmn.pSec, !props.primary],
-          [cmn.pPrim, props.primary],
-          cmn.flex,
-          cmn.flexcv,
-          cmn.nom,
-          cmn.mri5
-        )}
-      >
-        {balance} {props.symbol}
-      </p>
-    </div>
+    <Tooltip arrow title={balanceFull + ' ' + props.symbol}>
+      <div className={cls(cmn.flex, cmn.flexcv, styles.paperGrey, cmn.padd5, cmn.pleft10, cmn.pri10, cmn.bordRad)}>
+        <p
+          className={cls(
+            cmn.pLightGrey,
+            [cmn.p3, size === 'xs'],
+            [cmn.p3, size === 'sm'],
+            [cmn.p2, size === 'md'],
+            [cmn.pSec, !props.primary],
+            [cmn.pPrim, props.primary],
+            cmn.flex,
+            cmn.flexcv,
+            cmn.nom,
+            cmn.mri5
+          )}
+        >
+          <TokenIcon tokenSymbol={props.symbol} size='xs' iconUrl={iconUrl} />
+          <div className={cls(cmn.mri5)}></div>
+          {balance} {props.symbol}
+        </p>
+      </div>
+    </Tooltip>
   )
 }
