@@ -230,6 +230,53 @@ button {
     position: fixed;
 }
 
+.chainIconBg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.chainIconBgxs {
+    width: 23px;
+    height: 23px;
+    border-radius: 8px;
+}
+
+.chainIconBgs {
+    width: 26px;
+    height: 26px;
+    border-radius: 20px;
+}
+
+.chainIconBgsm {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+}
+
+.chainIconBgmd {
+    width: 55px;
+    height: 55px;
+    border-radius: 15px;
+}
+
+.chainIconBglg {
+    width: 87px;
+    height: 87px;
+    border-radius: 30px;
+}
+
+.chainIconBgxl {
+    width: 160px;
+    height: 160px;
+    border-radius: 40px;
+}
+
+.chainIcon {
+    display: block;
+}
+
 .chainIconxs {
     width: 17px;
     height: 17px;

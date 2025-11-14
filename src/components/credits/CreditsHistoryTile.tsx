@@ -195,7 +195,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
                 <ChainIcon
                   skaleNetwork={network}
                   chainName={creditsPurchase.schainName}
-                  size="sm"
+                  size="xs"
                   className="creditHistoryIcon"
                 />
                 <div className={cls(cmn.mleft10, [cmn.flexg, isXs])}>
