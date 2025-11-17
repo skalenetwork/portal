@@ -35,7 +35,7 @@ import SkPaper from '../SkPaper'
 
 import WidgetBody from '../WidgetBody'
 
-import { cls, styles } from '../../core/css'
+import { styles } from '../../core/css'
 
 import ErrorMessage from '../ErrorMessage'
 
@@ -90,7 +90,7 @@ export function WidgetUI(props: { config: types.mp.Config }) {
         {fabTop ? fabButton : null}
       </div>
       <Collapse in={isOpen}>
-        <SkPaper className="styles.popper, styles.contentHeight">
+        <SkPaper className={`${styles.popper} ${styles.contentHeight}`}>
           <Collapse in={!!errorMessage}>
             <ErrorMessage errorMessage={errorMessage} />
           </Collapse>

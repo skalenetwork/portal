@@ -42,7 +42,6 @@ const ChainActions: React.FC<ChainActionsProps> = ({
   className
 }) => {
   const explorerUrl = explorer.getExplorerUrl(skaleNetwork, schainName)
-  const isMd = false
 
   return (
     <div className={`flex items-center mt-2.5 ${className}`}>
@@ -54,9 +53,9 @@ const ChainActions: React.FC<ChainActionsProps> = ({
               href={chainMeta.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="[text-primary isMd] ['bgBlack', isMd]"
+              className="text-primary"
             >
-              <LanguageIcon className="text-secondary" fontSize="small" />
+              <LanguageIcon className="text-secondary-foreground/60" fontSize="small" />
             </IconButton>
           </Tooltip>
         )
@@ -67,9 +66,9 @@ const ChainActions: React.FC<ChainActionsProps> = ({
           href={explorerUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className="[text-primary isMd] ['bgBlack' isMd]"
+          className="text-primary"
         >
-          <ViewInArRoundedIcon className="text-secondary" fontSize="small" />
+          <ViewInArRoundedIcon className="text-secondary-foreground/60" fontSize="small" />
         </IconButton>
       </Tooltip>
     </div >

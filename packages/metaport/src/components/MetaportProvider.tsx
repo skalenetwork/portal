@@ -56,7 +56,7 @@ import { constructWagmiChain } from '../core/wagmi_network'
 
 import { getWidgetTheme, getMuiZIndex } from '../core/themes'
 
-import { cmn, styles } from '../core/css'
+import { styles } from '../core/css'
 
 import { useUIStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
@@ -112,9 +112,6 @@ export default function MetaportProvider(props: {
   const addTransaction = useMetaportStore((state) => state.addTransaction)
   const setOpen = useUIStore((state) => state.setOpen)
   const metaportTheme = useUIStore((state) => state.theme)
-
-  const themeCls = widgetTheme.mode === 'dark' ? styles.darkTheme : styles.lightTheme
-  const commonThemeCls = widgetTheme.mode === 'dark' ? cmn.darkTheme : cmn.lightTheme
 
   useEffect(() => {
     setOpen(props.config.openOnLoad)
@@ -194,7 +191,7 @@ export default function MetaportProvider(props: {
         >
           <StyledEngineProvider injectFirst>
             <ThemeProvider theme={theme}>
-              <div className="themeCls, commonThemeCls, styles.metaport">{props.children}</div>
+              <div className={styles.metaport}>{props.children}</div>
             </ThemeProvider>
           </StyledEngineProvider>
         </RainbowKitProvider>

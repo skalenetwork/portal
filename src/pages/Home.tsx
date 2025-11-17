@@ -61,7 +61,7 @@ export default function Home({
   return (
     <Container maxWidth="md" className="paddBott60">
       <Stack spacing={0}>
-        <Headline text="Popular Actions" icon={SECTION_ICONS.explore} />
+        <Headline text="Popular Actions" icon={SECTION_ICONS.explore} className='mb-2.5' />
         <HomeBanner />
         <ExploreSection />
         <UserRecommendations
@@ -156,7 +156,7 @@ function AppSection({ title, icon, linkTo, component }: AppSectionProps): JSX.El
       <div className="flex items-center mb-2.5 mt-5 pt-5">
         <Headline text={title} icon={icon} />
         <Link to={linkTo}>
-          <Button className="btn btnSm bg text-primary">See all</Button>
+          <Button className="btn btnSm bg text-primary!">See all</Button>
         </Link>
       </div>
       {component}

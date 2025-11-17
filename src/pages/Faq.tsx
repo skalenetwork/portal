@@ -2,7 +2,9 @@
  * @license
  * SKALE portal
  *
- * This program is free software: you can redistribute it and/or modify
+ * This           <h2 className="m-0 text-3xl font-bold">FAQ</h2>
+        </div>
+        <p className="text-sm text-secondary-foreground/60">Common questions about SKALE Bridge</p>gram is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -41,9 +43,9 @@ export default function Faq() {
       </Helmet>
       <Stack spacing={0}>
         <div className="flex">
-          <h2 className="m-0">FAQ</h2>
+          <h2 className="m-0 text-2xl font-bold">FAQ</h2>
         </div>
-        <p className="text-sm text-sec">Common questions about SKALE Bridge</p>
+        <p className="text-sm text-secondary-foreground/60">Common questions about SKALE Bridge</p>
         <FaqAccordion />
       </Stack>
     </Container>

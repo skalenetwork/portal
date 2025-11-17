@@ -65,7 +65,7 @@ export default function TermsModal(props: {
         <div className="flex">
           <h2 className="m-0">{title}</h2>
         </div>
-        <p className="text-sm text-secondary mb-5">
+        <p className="text-sm text-secondary-foreground/60 mb-5">
           Review the terms of service carefully and confirm
         </p>
         <Box>
@@ -107,7 +107,7 @@ export default function TermsModal(props: {
               Before you use the SKALE {title}, you must review the terms of service carefully and
               confirm below.
             </p>
-            <div onScroll={handleTermsScroll} className="'br__modalScroll', mt-5">
+            <div onScroll={handleTermsScroll} className="br__modalScroll mt-5">
               <div id="terms" style={{ paddingRight: '20px' }}>
                 <TermsOfService />
               </div>
@@ -120,8 +120,16 @@ export default function TermsModal(props: {
           }}
           variant="contained"
           disabled={!scrolled}
-          className="styles.btnAction, mt-5"
-          style={{ marginBottom: '40px' }}
+          className="w-full text-none text-sm font-semibold py-4 px-8 rounded-[25px] shadow-none mt-5 transition-all duration-200 ease-in-out"
+          style={{
+            marginTop: '20px',
+            marginBottom: '40px',
+            minHeight: '47px',
+            textTransform: 'none',
+            fontSize: '0.8025rem',
+            lineHeight: '1.6',
+            letterSpacing: '0.02857em'
+          }}
           size="large"
         >
           {getAgreeButtonText()}

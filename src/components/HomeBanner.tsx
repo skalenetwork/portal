@@ -33,7 +33,7 @@ export default function HomeBanner(): JSX.Element {
 
   return (
     <div
-      className="'home-banner' mt-2.5 flex flex-col items-center"
+      className="home-banner mt-2.5 flex flex-col items-center"
       style={{ marginBottom: '24px' }}
     >
       <div
@@ -43,16 +43,17 @@ export default function HomeBanner(): JSX.Element {
           alignItems: 'center',
           gap: isXs ? '15px' : '20px',
           padding: isMobile ? '20px 15px' : '30px 20px',
+          paddingTop: isMobile ? '40px' : '70px',
           textAlign: 'center'
         }}
       >
-        <h1 className="'home-banner-title' text-primary m-0">Bridge to SKALE</h1>
+        <h1 className="home-banner-title text-primary m-0">Bridge to SKALE</h1>
         <Link to="/bridge">
           <Button
             size={isXs ? 'small' : 'medium'}
             variant="contained"
             color="primary"
-            className="'btn', [isXs ? 'btnSm' : 'btnMd']"
+            className={isXs ? 'btn btnSm' : 'btn btnMd'}
             fullWidth={isMobile}
             style={{ minWidth: isMobile ? 'auto' : '180px' }}
           >

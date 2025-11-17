@@ -66,9 +66,9 @@ export default function Reward(props: {
       }}
     >
       {props.open ? (
-        <RemoveCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary" />
+        <RemoveCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary-foreground/60" />
       ) : (
-        <AddCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary" />
+        <AddCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary-foreground/60" />
       )}
     </div>
   )
@@ -95,7 +95,7 @@ export default function Reward(props: {
               <ValidatorLogo validatorId={validator.id} size="lg" />
               <div className={`ml-2.5 ${props.isXs ? 'flex-grow' : ''}`}>
                 <h4 className="font-bold truncate">{validator.name}</h4>
-                <p className="text-xs text-secondary">Validator ID: {Number(validator.id)}</p>
+                <p className="text-xs text-secondary-foreground/60">Validator ID: {Number(validator.id)}</p>
               </div>
               {props.isXs ? minimizeBtn : null}
             </div>
@@ -106,7 +106,7 @@ export default function Reward(props: {
               {!props.isXs && !props.open ? (
                 <div className="flex">
                   <div>
-                    <p className="text-xs text-secondary">Total staked</p>
+                    <p className="text-xs text-secondary-foreground/60">Total staked</p>
                     <Tooltip
                       arrow
                       title={
@@ -125,7 +125,7 @@ export default function Reward(props: {
                 </div>
               ) : null}
               <div className={`${props.isXs ? 'flex-grow mr-5' : 'ml-2.5'}`}>
-                <p className="text-xs text-secondary">Rewards available</p>
+                <p className="text-xs text-secondary-foreground/60">Rewards available</p>
                 <Tooltip
                   arrow
                   title={

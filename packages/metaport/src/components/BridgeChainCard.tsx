@@ -32,6 +32,7 @@ import {
   getChainCardBackgroundColor,
   extractFirstSentence
 } from '../utils/helper'
+import { styles, cls } from '../core/css'
 
 interface ChainCardProps {
   skaleNetwork: types.SkaleNetwork
@@ -59,14 +60,18 @@ export default function BridgeChainCard(props: ChainCardProps) {
     <div onClick={disabled ? undefined : onClick} style={{ height: 287 }}>
       <SkPaper
         gray={disabled}
-        className="flex items-center justify-center mt-5 [['cursor-pointer', !disabled]],          [styles.disabledCard, disabled], styles.fullHeight"
-
+        className={cls(
+          'flex items-center justify-center mt-5',
+          ['cursor-pointer', !disabled],
+          [styles.disabledCard, disabled],
+          styles.fullHeight
+        )}
         background={backgroundColor}
       >
-        <div className="mb-2.5 mt-5 w-full styles.fullHeight">
+        <div className={`mb-2.5 mt-5 w-full ${styles.fullHeight}`}>
           <div className="mb-2.5 mt-5 rounded-3xl">
             <div className="flex items-center mt-5"></div>
-            <div className="rounded-3xl flex items-center justify-center mt-5 styles.fullHeight">
+            <div className={`rounded-3xl flex items-center justify-center mt-5 ${styles.fullHeight}`}>
               <ChainIcon skaleNetwork={skaleNetwork} chainName={chainName} size={iconSize} />
             </div>
           </div>

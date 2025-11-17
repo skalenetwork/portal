@@ -39,11 +39,11 @@ export default function LinkSurface(props: {
           <ButtonBase className="titleSection" style={{ width: '100%' }}>
             <div style={{ textAlign: 'left', overflow: 'auto' }} className="flex-grow">
               <div className="flex">
-                <p className="text-primary text-xs text-secondary mb-1.5">{props.title}</p>
+                <p className="text-primary text-xs text-secondary-foreground/60 mb-1.5">{props.title}</p>
               </div>
               <p className="text-base font-semibold 'shortP'">{props.value}</p>
             </div>
-            <ArrowOutwardRoundedIcon className="text-secondary ml-5 styles.chainIconxs" />
+            <ArrowOutwardRoundedIcon className="text-secondary-foreground/60 ml-5 styles.chainIconxs" />
           </ButtonBase>
         </Tooltip>
       </a>

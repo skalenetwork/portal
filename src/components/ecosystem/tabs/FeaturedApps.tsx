@@ -94,7 +94,7 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
     return (
       <SkPaper gray className="titleSection">
         <div className="mt-5 mb-5">
-          <p className="text-base text-secondary text-center">
+          <p className="text-base text-secondary-foreground/60 text-center">
             🚫 No featured apps match your current filters
           </p>
         </div>
@@ -115,7 +115,7 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
         chainName !== null &&
         chainName !== undefined &&
         chainName.trim() !== '' && (
-          <Box className="flex flex-col mt-5">
+          <Box className="flex flex-col mt-5 text-center">
             <Link
               to={`/ecosystem?search=${encodeURIComponent(metadata.getAlias(chainsMeta, chainName))}`}
               style={{ textDecoration: 'none' }}

@@ -70,7 +70,7 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
       >
         {props.errorMessage.headline ?? DEFAULT_ERROR_MSG}
       </p>
-      <p className="text-xs text-secondary font-medium flex-grow text-center mb-2.5">
+      <p className="text-xs text-secondary-foreground/60 font-medium flex-grow text-center mb-2.5">
         Logs are available in your browser's developer console
       </p>
       {props.errorMessage.showTips ? (

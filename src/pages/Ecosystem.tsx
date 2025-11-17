@@ -228,8 +228,8 @@ export default function Ecosystem(props: {
             >
               <SkStack>
                 <div className={cn('flex-grow flex flex-col mb-5 mt-2.5')}>
-                  <h2 className="m-0">Ecosystem</h2>
-                  <p className="text-sm text-sec">
+                  <h2 className="m-0 text-3xl font-bold">Ecosystem</h2>
+                  <p className="text-sm text-secondary-foreground/60">
                     Explore dApps across the SKALE ecosystem
                   </p>
                 </div>
@@ -240,9 +240,9 @@ export default function Ecosystem(props: {
                   </div>
                 </div>
               </SkStack>
-              <SkStack className="mb-5 flex items-center mt-2.5 props.isXs">
+              <SkStack className={`mb-5 flex items-center mt-2.5 ${props.isXs ? 'flex-col' : ''}`}>
                 <SearchComponent
-                  className="flex-grow mr-2.5 !props.isXs] ['fullW' props.isXs]"
+                  className={`flex-grow ${!props.isXs ? 'mr-2.5' : 'fullW'}`}
                   searchTerm={searchTerm}
                   setSearchTerm={handleSetSearchTerm}
                 />
@@ -262,37 +262,37 @@ export default function Ecosystem(props: {
                 value={activeTab}
                 onChange={handleTabChange}
                 scrollButtons="auto"
-                className="mb-5 mt-5 [isFiltersApplied], 'skTabs', 'fwmobile')"
+                className="mb-5 mt-5 skTabs fwmobile"
               >
                 <Tab
                   label="All"
                   icon={<GridViewRoundedIcon />}
                   iconPosition="start"
-                  className="btn btnSm mr-1.5 tab fwmobile"
+                  className="btn btnSm mr-2.5! tab fwmobile"
                 />
                 <Tab
                   label="Featured"
                   icon={<AppShortcutIcon />}
                   iconPosition="start"
-                  className="btn btnSm mr-1.5 ml-1.5 tab fwmobile"
+                  className="btn btnSm mr-2.5! tab fwmobile"
                 />
                 <Tab
                   label="New"
                   icon={<StarRoundedIcon />}
                   iconPosition="start"
-                  className="btn btnSm mr-1.5 ml-1.5 tab fwmobile"
+                  className="btn btnSm mr-2.5! tab fwmobile"
                 />
                 <Tab
                   label="Trending"
                   icon={<TrendingUpRoundedIcon />}
                   iconPosition="start"
-                  className="btn btnSm mr-1.5 ml-1.5 tab fwmobile"
+                  className="btn btnSm mr-2.5! tab fwmobile"
                 />
                 <Tab
                   label="Favorites"
                   icon={<FavoriteRoundedIcon />}
                   iconPosition="start"
-                  className="btn btnSm mr-1.5 ml-1.5 tab fwmobile"
+                  className="btn btnSm mr-2.5! tab fwmobile"
                 />
               </Tabs>
             </Container>

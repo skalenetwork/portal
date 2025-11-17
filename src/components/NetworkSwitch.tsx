@@ -54,7 +54,7 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
         <Tooltip arrow title="Switch SKALE Network">
           <Button
             onClick={handleClick}
-            className="'mp__btnConnect', styles.paperGrey, text-primary, flex capitalize"
+            className="mp__btnConnect bg-gray-800/90 text-secondary-foreground/60 flex capitalize"
           >
             <SensorsRoundedIcon className="mr-1.5" style={{ height: '18px', width: '18px' }} />
             {props.mpc.config.skaleNetwork}

@@ -39,7 +39,7 @@ const CustomChipLabel: React.FC<{ category: string; subcategory?: string }> = ({
 }) => (
   <Box display="flex" alignItems="center">
     <p
-      className={cls(["text-secondary", subcategory], ["text-primary", !subcategory], "text-sm", [
+      className={cls(["text-secondary-foreground/60", subcategory], ["text-primary", !subcategory], "text-sm", [
         "font-semibold",
         !subcategory
       ])}
@@ -110,7 +110,7 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
         {filteredAppsCount} project{filteredAppsCount !== 1 ? 's' : ''}
       </p>
       <p
-        className="text-xs text-xs p-0 m-0 text-secondary ml-5"
+        className="text-xs text-xs p-0 m-0 text-secondary-foreground/60 ml-5"
         style={{ cursor: 'pointer' }}
         onClick={clearAll}
       >

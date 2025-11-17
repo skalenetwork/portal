@@ -121,18 +121,18 @@ export default function Delegation(props: {
             )}
             <div className="ml-2.5">
               <p className="text-base font-bold">ID: {Number(props.delegation.id)}</p>
-              <p className=" text-xs text-secondary">
+              <p className=" text-xs text-secondary-foreground/60">
                 {formatBigIntTimestampSeconds(props.delegation.created)}
               </p>
             </div>
             {props.delegationType === types.st.DelegationType.ESCROW ? (
               <Tooltip title="Escrow delegation">
-                <AccountBalanceRoundedIcon className="'trustedBadge' ml-2.5 text-secondary" />
+                <AccountBalanceRoundedIcon className="'trustedBadge' ml-2.5 text-secondary-foreground/60" />
               </Tooltip>
             ) : null}
             {props.delegationType === types.st.DelegationType.ESCROW2 ? (
               <Tooltip title="Grant Escrow delegation">
-                <ApartmentRoundedIcon className="'trustedBadge' ml-2.5 text-secondary" />
+                <ApartmentRoundedIcon className="'trustedBadge' ml-2.5 text-secondary-foreground/60" />
               </Tooltip>
             ) : null}
           </div>
@@ -158,9 +158,9 @@ export default function Delegation(props: {
           </div>
         </div>
         <div className="w-full md:w-1/3">
-          <div className="flex items-center mr-1.5 [mt-2.5 props.isXs]">
+          <div className={`flex items-center mr-1.5 ${props.isXs ? 'mt-2.5' : ''}`}>
             <div className="flex-grow"></div>
-            <div className="mr-5 [text-primary !props.isXs] [ml-5 !props.isXs]">
+            <div className={`mr-5 ${!props.isXs ? 'text-primary ml-5' : ''}`}>
               <Tooltip
                 arrow
                 title={
@@ -169,12 +169,12 @@ export default function Delegation(props: {
                     : ''
                 }
               >
-                <h4 className="font-bold [text-secondary !isActive]">{delegationAmount}</h4>
+                <h4 className="font-bold [text-secondary-foreground/60 !isActive]">{delegationAmount}</h4>
               </Tooltip>
-              <p className=" text-xs text-secondary">{getStakingText()}</p>
+              <p className=" text-xs text-secondary-foreground/60">{getStakingText()}</p>
             </div>
             <ArrowForwardIosRoundedIcon
-              className="text-secondary styles.chainIconxs rotate-90 ['active', open] ['opacity0', noActions]"
+              className="text-secondary-foreground/60 styles.chainIconxs rotate-90 ['active', open] ['opacity0', noActions]"
             />
           </div>
         </div>

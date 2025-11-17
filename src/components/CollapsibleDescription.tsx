@@ -64,7 +64,7 @@ const CollapsibleDescription: React.FC<TruncateTextProps> = ({
     <div>
       <p
         ref={textRef}
-        className="mt-1.5 text-sm text-secondary"
+        className="mt-1.5 text-sm text-secondary-foreground/60"
         style={{
           display: '-webkit-box',
           WebkitLineClamp: isExpanded ? '' : lines,

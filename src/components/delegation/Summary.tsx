@@ -38,9 +38,9 @@ import AccordionSection from '../AccordionSection'
 import SkBtn from '../SkBtn'
 
 const icons: { [key in types.st.DelegationType]: any } = {
-  0: <AccountCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary" />,
-  1: <AccountBalanceRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary" />,
-  2: <ApartmentRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary" />
+  0: <AccountCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary-foreground/60" />,
+  1: <AccountBalanceRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary-foreground/60" />,
+  2: <ApartmentRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary-foreground/60" />
 }
 
 const SUMMARY_VALIDATOR_ID = -1
@@ -100,7 +100,7 @@ export default function Summary(props: {
                     <Tile
                       size="md"
                       transparent
-                      className="p-0, [mr-5, !props.isXs], [ml-5, !props.isXs]"
+                      className={`p-0 ${!props.isXs ? 'mr-5 ml-5' : ''}`}
                       value={helper.shortAddress(props.accountInfo?.address)}
                       text="Escrow"
                       grow
@@ -109,7 +109,7 @@ export default function Summary(props: {
                       icon={<ContentCopyRoundedIcon />}
                     />
                     <div
-                      className="['borderVert', !props.isXs], [ml-2.5, !props.isXs]"
+                      className={`${!props.isXs ? 'borderVert ml-2.5' : ''}`}
                     ></div>
                   </div>
                 ) : (
@@ -118,7 +118,7 @@ export default function Summary(props: {
                 <Tile
                   size="md"
                   transparent
-                  className="p-0, [mr-5, !props.isXs], [ml-5, !props.isXs]"
+                  className={`p-0 ${!props.isXs ? 'mr-5 ml-5' : ''}`}
                   disabled={props.accountInfo?.staked === 0n}
                   tooltip={
                     props.sklPrice && props.accountInfo
@@ -135,7 +135,7 @@ export default function Summary(props: {
                 />
                 <div className="borderVert"></div>
                 <Tile
-                  className="p-0, [mr-5, !props.isXs], [ml-5, !props.isXs]"
+                  className={`p-0 ${!props.isXs ? 'mr-5 ml-5' : ''}`}
                   size="md"
                   transparent
                   grow
@@ -197,7 +197,7 @@ export default function Summary(props: {
                       grow
                       size="md"
                       transparent
-                      className="p-0 [mr-5, !props.isXs], [ml-5, !props.isXs]"
+                      className={`p-0 ${!props.isXs ? 'mr-5 ml-5' : ''}`}
                       ri={!props.isXs}
                     />
                   ) : (
@@ -208,7 +208,7 @@ export default function Summary(props: {
                     size="md"
                     transparent
                     disabled={props.accountInfo?.unlocked === 0n}
-                    className="p-0, [ml-5, !props.isXs]"
+                    className={`p-0 ${!props.isXs ? 'ml-5' : ''}`}
                     tooltip={
                       props.sklPrice && props.accountInfo
                         ? units.displaySklValueUsd(props.accountInfo.unlocked, props.sklPrice)
@@ -230,7 +230,7 @@ export default function Summary(props: {
                           text={loading ? 'Retrieving' : 'Retrieve'}
                           variant="contained"
                           size="sm"
-                          className="[ml-5 !props.isXs] items-center"
+                          className={`${!props.isXs ? 'ml-5' : ''} items-center`}
                           disabled={
                             props.accountInfo?.unlocked === 0n ||
                             props.loading !== false ||

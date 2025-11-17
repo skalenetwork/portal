@@ -53,7 +53,7 @@ export default function ValidatorsPage(props: {
       <div className="flex items-center">
         <div className="flex-grow">
           <h2 className="m-0">Validators</h2>
-          <p className="m-0 text-sm text-secondary">
+          <p className="m-0 text-sm text-secondary-foreground/60">
             List of validators on SKALE Network
           </p>
         </div>

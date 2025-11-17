@@ -35,6 +35,7 @@ import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import { BALANCE_UPDATE_INTERVAL_MS, SFUEL_TEXT } from '../core/constants'
 import { Station } from '../core/sfuel'
 import { isFaucetAvailable } from '../core/faucet'
+import { styles } from '../core/css'
 
 import { useMetaportStore } from '../store/MetaportStore'
 import { useSFuelStore } from '../store/SFuelStore'
@@ -210,7 +211,7 @@ export default function SFuelWarning(props: {}) {
                 startIcon={<ArrowOutwardRoundedIcon />}
                 size="small"
                 variant="contained"
-                className="styles.btnAction, mt-2.5"
+                className={`${styles.btnAction} mt-2.5`}
               >
                 Getting sFUEL...
               </Button>
@@ -219,7 +220,7 @@ export default function SFuelWarning(props: {}) {
                 variant="contained"
                 color="primary"
                 size="medium"
-                className="styles.btnAction, mt-2.5"
+                className={`${styles.btnAction} mt-2.5`}
                 onClick={doPoW}
               >
                 Get sFUEL

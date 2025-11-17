@@ -186,7 +186,7 @@ export default function Validator(props: {
       <div className="flex items-center">
         <div className="flex-grow">
           <h2 className="m-0">Validator Operations</h2>
-          <p className="text-sm text-sec">{META_TAGS.validator.description}</p>
+          <p className="text-sm text-secondary-foreground/60">{META_TAGS.validator.description}</p>
         </div>
         <SkPageInfoIcon meta_tag={META_TAGS.validator} />
       </div>
@@ -223,9 +223,9 @@ export default function Validator(props: {
           ) : (
             <div>
               <PeopleRoundedIcon
-                className="text-secondary styles.chainIconlg w-full mt-5"
+                className="text-secondary-foreground/60 styles.chainIconlg w-full mt-5"
               />
-              <h3 className="font-bold text-secondary text-center mb-5">
+              <h3 className="font-bold text-secondary-foreground/60 text-center mb-5">
                 Validator doesn't exist
               </h3>
             </div>

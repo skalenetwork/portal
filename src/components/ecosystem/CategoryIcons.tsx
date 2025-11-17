@@ -157,7 +157,7 @@ export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
     case 'strategy':
       return <FlagRounded />
     case 'epic-games-store':
-      return <img src={EpicGamesStoreLogo} className="styles.chainIconxs" alt="egs-logo" />
+      return <img src={EpicGamesStoreLogo} className="w-[17px] h-[17px]" alt="egs-logo" />
 
     // DeFi subcategories
     case 'custody':

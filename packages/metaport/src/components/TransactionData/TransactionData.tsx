@@ -111,7 +111,7 @@ export default function TransactionData(props: {
           <p className="text-base uppercase text-primary">
             {actionAliases[props.transactionData.txName]}
           </p>
-          <p className="text-xs text-secondary">
+          <p className="text-xs text-secondary-foreground/60">
             {new Date(props.transactionData.timestamp * 1000).toUTCString()}
           </p>
         </div>

@@ -156,7 +156,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
         ref={buttonRef}
         onClick={handleMenuOpen}
         startIcon={<ManageSearchRoundedIcon />}
-        className={`outlined skMenuBtn btn text-primary ${isXs ? 'w-full' : ''}`}
+        className={`outlined skMenuBtn btn text-primary! ${isXs ? 'w-full' : ''}`}
         style={{ background: 'transparent' }}
       >
         Browse by categories
@@ -182,7 +182,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
             </Button>
           )}
           <SearchBar
-            className="mb-2.5"
+            className="mb-5"
             searchTerm={searchTerm}
             onSearchChange={handleSearch}
             onClear={handleClearSearch}

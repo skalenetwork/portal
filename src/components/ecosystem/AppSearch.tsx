@@ -50,11 +50,11 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <SearchIcon className="text-primary styles.chainIcons" />
+              <SearchIcon className="text-primary chainIcons" />
             </InputAdornment>
           )
         }}
-        className="'skInput'"
+        className="skInput"
       />
     </div>
   )

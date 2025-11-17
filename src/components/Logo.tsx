@@ -37,15 +37,15 @@ interface LogoProps {
 const Logo: React.FC<LogoProps> = ({ chainsMeta, skaleNetwork, chainName, appName, size }) => {
   size = size || 'sm'
   return (
-    <div className={`sk-app-logo sk-logo-${size} br__tile`}>
+    <div className={cls('sk-app-logo', `sk-logo-${size}`, 'br__tile')}>
       <div
-        className="'logo-wrapper borderLight'"
+        className="logo-wrapper borderLight"
         style={{
           background: metadata.chainBg(chainsMeta, chainName, appName)
         }}
       >
         <ChainLogo
-          className="'responsive-logo'"
+          className="responsive-logo"
           network={skaleNetwork}
           chainName={chainName}
           app={appName}

@@ -28,7 +28,7 @@ const Chip: React.FC<{
 }> = ({ label, icon, onClick, className }) => {
   return (
     <div
-      className={`skChip chipSm ${className || ''} flex items-center text-primary ${onClick !== undefined ? 'cursor-pointer' : ''}`}
+      className={`skChip chipXs ${className || ''} flex items-center text-primary ${onClick !== undefined ? 'cursor-pointer' : ''}`}
       onClick={onClick}
     >
       {icon && <div className="mr-1.5 flex">{icon}</div>}

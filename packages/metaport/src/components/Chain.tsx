@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { types } from '@/core'
+import { types, metadata } from '@/core'
 import ChainIcon from './ChainIcon'
 
 import { dec } from '../core/css'
@@ -49,21 +49,19 @@ export default function Chain(props: {
         size={props.decIcon ? dec(props.size) : props.size}
       />
       <p
-        className="
-          [['text-xs', size === 'xs']],
-          [['text-sm', size === 'sm']],
-          [['text-base', size === 'md']],
-          [['text-xl', size === 'lg']],
-          [['ml-1.5', size === 'xs']],
-          [['ml-2.5', size === 'sm']],
-          [['ml-4', size === 'md']],
-          [['ml-5', size === 'lg']],
-          [['font-semibold', !props.bold]],
-          [['font-bold', props.bold]],
-          'capitalize',
-          [['text-primary', prim]],
-          [['text-gray-400', !prim]]
-        "
+        className={`
+          ${size === 'xs' ? 'text-xs' : ''} 
+          ${size === 'sm' ? 'text-sm' : ''} 
+          ${size === 'md' ? 'text-base' : ''} 
+          ${size === 'lg' ? 'text-xl' : ''}
+          ${size === 'xs' ? 'ml-1.5' : ''} 
+          ${size === 'sm' ? 'ml-2.5' : ''} 
+          ${size === 'md' ? 'ml-4' : ''} 
+          ${size === 'lg' ? 'ml-5' : ''}
+          ${!props.bold ? 'font-semibold' : 'font-bold'}
+          capitalize
+          ${prim ? 'text-primary' : 'text-gray-400'}
+        `}
       >
         {metadata.getAlias(chainsMeta, props.chainName, props.app)}
       </p>

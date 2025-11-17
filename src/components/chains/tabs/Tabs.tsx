@@ -64,7 +64,7 @@ export default function ChainTabs(props: {
         <Link to={`/admin/${props.schainName}`}>
           <Button
             startIcon={<AdminPanelSettingsRoundedIcon />}
-            className="btn btnSm mr-1.5 ml-1.5 tab text-secondary text-xs">
+            className="btn btnSm mr-1.5 ml-1.5 tab text-secondary-foreground/60 text-xs">
             Manage
           </Button>
         </Link>

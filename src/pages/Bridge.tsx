@@ -192,7 +192,7 @@ Thank you for your understanding!"
         <div className="flex items-center">
           <div className="flex-grow">
             <h2 className="m-0">Bridge</h2>
-            <p className="text-sm text-sec">
+            <p className="text-sm text-secondary-foreground/60">
               Zero Gas Fees between SKALE Chains
             </p>
           </div>

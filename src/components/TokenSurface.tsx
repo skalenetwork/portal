@@ -83,7 +83,7 @@ export default function TokenSurface(props: {
                     />
                   </div>
                 ) : null}
-                <p className="text-xs text-secondary mb-1.5 shortP">
+                <p className="text-xs text-secondary-foreground/60 mb-1.5 shortP">
                   {props.title}
                   {props.tokenMetadata
                     ? ` (${props.tokenMetadata.decimals ?? constants.DEFAULT_ERC20_DECIMALS})`
@@ -98,7 +98,7 @@ export default function TokenSurface(props: {
                 className="ml-5 styles.chainIconxs"
               />
             ) : (
-              <UnfoldMoreRoundedIcon className="text-secondary ml-5 styles.chainIconxs" />
+              <UnfoldMoreRoundedIcon className="text-secondary-foreground/60 ml-5 styles.chainIconxs" />
             )}
           </ButtonBase>
         </Tooltip>

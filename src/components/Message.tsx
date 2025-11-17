@@ -80,7 +80,7 @@ export default function Message(props: {
               className="paperGrey ml-2.5"
             >
               <CloseRoundedIcon
-                className={type !== 'warning' ? 'text-secondary' : ''}
+                className={type !== 'warning' ? 'text-secondary-foreground/60' : ''}
                 style={{ height: '16px', width: '16px' }}
               />
             </IconButton>

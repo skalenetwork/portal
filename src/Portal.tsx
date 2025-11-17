@@ -135,7 +135,7 @@ export default function Portal() {
   }
 
   return (
-    <Box sx={{ display: 'flex' }} className="AppWrap">
+    <Box sx={{ display: 'flex' }} className="AppWrap dark">
       <CssBaseline />
       <Header address={address} mpc={mpc} />
       <SkDrawer validatorDelegations={validatorDelegations} />

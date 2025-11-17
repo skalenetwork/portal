@@ -64,7 +64,7 @@ export default function StakeValidator(props: {
 
   return (
     <Container maxWidth="md">
-      <SkPaper gray className="'mt-2.5', 'chainDetails'">
+      <SkPaper gray className="mt-2.5 chainDetails">
         <SkStack>
           <div className="flex flex-grow">
             <Breadcrumbs
@@ -90,8 +90,8 @@ export default function StakeValidator(props: {
           </div>
         </SkStack>
         <div className="mt-2.5 ml-1.25 mb-2.5" style={{ paddingBottom: '5px' }}>
-          <h2 className="m-0">Stake SKL</h2>
-          <p className="text-sm text-sec">Choose a validator to delegate your SKL</p>
+          <h2 className="m-0 text-2xl font-bold">Stake SKL</h2>
+          <p className="text-sm text-secondary-foreground/60">Choose a validator to delegate your SKL</p>
         </div>
         <Validators
           mpc={props.mpc}

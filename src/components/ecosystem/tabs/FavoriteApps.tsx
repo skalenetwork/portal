@@ -77,7 +77,7 @@ export default function FavoriteApps(props: {
     return (
       <SkPaper gray className="titleSection">
         <div className="mt-5 mb-5">
-          <p className="text-base text-secondary text-center">
+          <p className="text-base text-secondary-foreground/60 text-center">
             {props.favoriteApps.length === 0
               ? "You don't have any favorites yet"
               : '🚫 No favorite apps match your current filters'}

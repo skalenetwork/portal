@@ -86,12 +86,12 @@ const Carousel: React.FC<CarouselProps> = ({ children, showArrows = true, classN
         ))}
       </Box>
       {showArrows && children.length > itemsToShow && (
-        <Box className="mt-2.5, 'skArrows'">
+        <Box className="mt-2.5 skArrows">
           <IconButton
             onClick={handlePrev}
             disabled={startIndex === 0}
             size="small"
-            className="'filled' mr-1.5"
+            className="filled mr-1.5"
           >
             <ArrowBackIosRoundedIcon />
           </IconButton>
@@ -99,7 +99,7 @@ const Carousel: React.FC<CarouselProps> = ({ children, showArrows = true, classN
             onClick={handleNext}
             disabled={startIndex >= children.length - itemsToShow}
             size="small"
-            className="text-secondary filled ml-1.5"
+            className="text-secondary-foreground/60 filled ml-1.5"
           >
             <ArrowForwardIosRoundedIcon />
           </IconButton>

@@ -163,7 +163,7 @@ export default function TokenList() {
             />
             {filteredTokensCount === 0 && (
               <div className="flex items-center justify-center mt-5 mb-5 p-2.5">
-                <p className="text-base text-secondary text-center">
+                <p className="text-base text-secondary-foreground/60 text-center">
                   🚫 No tokens match your current filters
                 </p>
               </div>

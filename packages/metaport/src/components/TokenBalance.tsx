@@ -45,7 +45,7 @@ export default function TokenBalance(props: {
           ${size === 'xs' ? 'text-xs' : ''}
           ${size === 'sm' ? 'text-sm' : ''}
           ${size === 'md' ? 'text-base' : ''}
-          ${!props.primary ? 'text-secondary' : ''}
+          ${!props.primary ? 'text-secondary-foreground/60' : ''}
           ${props.primary ? 'text-primary' : ''}
           flex items-center font-normal mr-1.5
         `.replace(/\s+/g, ' ').trim()}

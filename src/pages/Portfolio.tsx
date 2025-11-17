@@ -97,9 +97,9 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
     <Container maxWidth="md">
       <Stack spacing={0}>
         <div className="flex">
-          <h2 className="m-0 flex-grow">Portfolio</h2>
+          <h2 className="m-0 flex-grow text-2xl font-bold">Portfolio</h2>
         </div>
-        <p className="m-0 text-sm text-secondary">Your assets across all SKALE Chains</p>
+        <p className="m-0 text-sm text-secondary-foreground/60">Your assets across all SKALE Chains</p>
         <div>
           {!address ? <ConnectWallet className="mt-5" /> : null}
           {Object.keys(props.mpc.config.tokens)?.map((token: string, index: number) => (
@@ -117,7 +117,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                     <p className="text-primary text-base font-bold">
                       {props.mpc.config.tokens[token].symbol}
                     </p>
-                    <p className="text-secondary text-sm font-semibold">
+                    <p className="text-secondary-foreground/60 text-sm font-semibold">
                       {props.mpc.config.tokens[token].name ?? (token === 'eth' ? 'Ethereum' : '')}
                     </p>
                   </div>
@@ -126,7 +126,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                       {units.fromWei(getTotalBalance(token).toString(), getTokenDecimals(token))}{' '}
                       {props.mpc.config.tokens[token].symbol}
                     </p>
-                    <p className="text-secondary text-xs font-semibold pr-1.5">On 2 chains</p>
+                    <p className="text-secondary-foreground/60 text-xs font-semibold pr-1.5">On 2 chains</p>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">

@@ -76,7 +76,7 @@ export default function History() {
           />
           <div className="flex-grow"></div>
         </div>
-        <div className="[mt-2.5, transactionsHistory.length !== 0]">
+        <div className={transactionsHistory.length !== 0 ? "mt-2.5" : ""}>
           <TransfersHistory size="md" />
         </div>
         <div>
@@ -91,7 +91,7 @@ export default function History() {
               Clear transfers history
             </Button>
           ) : (
-            <div className="text-base text-sec mt-5 text-center">
+            <div className="text-base text-secondary-foreground/60 mt-5 text-center">
               No past transfers found
             </div>
           )}

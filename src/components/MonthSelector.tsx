@@ -58,7 +58,7 @@ export default function MonthSelector(props: {
         .map((month: any, i: number) => (
           <Button
             variant={props.topupPeriod === month ? 'contained' : 'text'}
-            className="mr-2.5, 'roundBtn', ['outlined', props.topupPeriod !== month]"
+            className={`mr-2.5 roundBtn ${props.topupPeriod !== month ? 'outlined' : ''}`}
             key={i}
             onClick={() => {
               props.setTopupPeriod(month)
@@ -69,7 +69,7 @@ export default function MonthSelector(props: {
         ))}
       {openCustom ? (
         <div className="flex items-center">
-          <div className="'monthInputWrap', flex items-center">
+          <div className="monthInputWrap flex items-center">
             <TextField
               variant="standard"
               type="number"
@@ -84,13 +84,13 @@ export default function MonthSelector(props: {
                 }
                 setTextPeriod(event.target.value)
               }}
-              className="mr-2.5, 'monthInput'"
+              className="mr-2.5 monthInput"
               placeholder="0"
             />
             <Button
               variant="text"
               startIcon={<CheckCircleRoundedIcon />}
-              className="'roundBtn', 'outlined'"
+              className="roundBtn outlined"
               onClick={() => {
                 if (
                   textPeriod === undefined ||
@@ -119,7 +119,7 @@ export default function MonthSelector(props: {
           <Button
             startIcon={<CancelOutlinedIcon />}
             variant="text"
-            className="'roundBtn', ml-1.5"
+            className="roundBtn ml-1.5"
             onClick={() => {
               setOpenCustom(false)
             }}
@@ -130,7 +130,7 @@ export default function MonthSelector(props: {
       ) : (
         <Button
           variant={props.topupPeriod === customPeriod ? 'contained' : 'text'}
-          className="mr-2.5, 'roundBtn', ['outlined', props.topupPeriod !== customPeriod]"
+          className={`mr-2.5 roundBtn ${props.topupPeriod !== customPeriod ? 'outlined' : ''}`}
           onClick={() => {
             setOpenCustom(true)
           }}

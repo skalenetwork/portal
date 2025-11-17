@@ -63,15 +63,15 @@ export default function HubTile(props: {
     <Link to={'/chains/' + shortAlias} className="flex text-primary flex-grow">
       <SkPaper
         gray
-        className="'titleSectionOut', 'hoverable', 'pointer', flex-grow"
+        className="titleSectionOut hoverable pointer flex-grow"
         background={props.bg ? metadata.chainBg(props.chainsMeta, props.schainName) : ''}
       >
         <Tooltip title="Click to see Hub details">
-          <div className="'titleSectionBg', flex items-center">
+          <div className="titleSectionBg flex items-center">
             <div
               className="flex items-center flex-grow mt-5 mb-5 ml-5"
             >
-              <div className="styles.chainIconlg, flex items-center">
+              <div className="w-[45px] h-[45px] flex items-center">
                 <ChainLogo
                   network={props.network}
                   chainName={props.schainName}
@@ -80,18 +80,18 @@ export default function HubTile(props: {
                 />
               </div>
               <div
-                className="[ml-5, !props.isXs], [ml-2.5, props.isXs], flex-grow"
+                className={`${!props.isXs ? 'ml-5' : 'ml-2.5'} flex-grow`}
               >
                 <h4 className="font-bold pOneLine">{alias}</h4>
                 <p
-                  className="[text - xs, !props.isXs], [text - xs, props.isXs],[mr - 2.5, props.isXs], text-secondary"
+                  className={`text-xs ${props.isXs ? 'mr-2.5' : ''} text-secondary-foreground/60`}
                 >
                   {chainDescription.split('.', 1)[0]}
                 </p>
               </div>
             </div>
             {props.isXs || !props.showStats ? null : (
-              <div className="'chipSm' mr-2.5 flex items-center">
+              <div className="chipSm mr-2.5 flex items-center">
                 <TrendingUpRoundedIcon />
                 <p className="text-xs ml-2.5">
                   {schainMetrics
@@ -102,8 +102,8 @@ export default function HubTile(props: {
               </div>
             )}
             {!props.isXs && (
-              <div className="mr-5, styles.chainIconxs">
-                <ArrowForwardIosRoundedIcon className="text-secondary" />
+              <div className="mr-5 w-4 h-4">
+                <ArrowForwardIosRoundedIcon className="text-secondary-foreground/60" />
               </div>
             )}
           </div>

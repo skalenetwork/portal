@@ -80,7 +80,7 @@ export default function AppCard(props: {
           </Button>
           {props.transactions ? (
             <div>
-              <p className="text-xs text-secondary text-center mt-1.25 mr-1.25">
+              <p className="text-xs text-secondary-foreground/60 text-center mt-1.25 mr-1.25">
                 {formatNumber(props.transactions)} Txs
               </p>
             </div>

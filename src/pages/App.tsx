@@ -210,13 +210,13 @@ export default function App(props: {
                 size="md"
               />
 
-              <div className="'app-info' flex-grow">
-                <div className="[flex !props.isXs]">
+              <div className="app-info flex-grow">
+                <div className={!props.isXs ? "flex" : ""}>
                   <div className="flex-grow mb-2.5">
                     <CategoriesChips categories={appMeta.categories} all />
                   </div>
                   <Button
-                    className="mb-2.5 [mt-2.5, props.isXs] 'btn btnSm favsBtn'"
+                    className={`mb-2.5 ${props.isXs ? 'mt-2.5' : ''} btn btnSm favsBtn`}
                     variant="contained"
                     startIcon={isLiked ? <FavoriteRoundedIcon /> : <FavoriteBorderOutlinedIcon />}
                     onClick={handleToggleLike}
@@ -261,7 +261,7 @@ export default function App(props: {
                   childrenRi={
                     !props.isXs ? (
                       <InfoOutlinedIcon
-                        className="text-secondary styles.chainIconxs ml-2.5"
+                        className="text-secondary-foreground/60 styles.chainIconxs ml-2.5"
                       />
                     ) : undefined
                   }
@@ -322,7 +322,7 @@ export default function App(props: {
         <AppScreenshots chainName={chain} appName={app} skaleNetwork={network} />
         {
           chain !== OFFCHAIN_APP && (
-            <SkPaper gray className="mt-2.5, 'fwmobile'">
+            <SkPaper gray className="mt-2.5 fwmobile">
               <AccordionSection
                 handleChange={handleChange}
                 expanded={expanded}
@@ -366,7 +366,7 @@ export default function App(props: {
           )
         }
 
-        <SkPaper gray className="mt-2.5, 'fwmobile'">
+        <SkPaper gray className="mt-2.5 fwmobile">
           <AccordionSection
             expandedByDefault
             title="Discover more"

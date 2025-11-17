@@ -62,16 +62,16 @@ export default function AccordionSection(props: {
       >
         <div className="m-2.5 flex flex-grow items-center">
           {props.icon ? (
-            <div className="mr-2.5 items-center flex styles.chainIconxs text-secondary">
+            <div className="mr-2.5 items-center flex styles.chainIconxs text-secondary-foreground/60">
               {props.icon}
             </div>
           ) : null}
-          <p className="text-base font-bold flex-grow">{props.title}</p>
-          <p className="text-xs font-semibold text-secondary mr-5">{props.subtitle}</p>
+          <p className="text-base font-bold flex-grow text-left">{props.title}</p>
+          <p className="text-xs font-semibold text-secondary-foreground/60 mr-5">{props.subtitle}</p>
           {expanded === panel ? (
-            <RemoveCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary" />
+            <RemoveCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary-foreground/60" />
           ) : (
-            <AddCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary" />
+            <AddCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary-foreground/60" />
           )}
         </div>
       </ButtonBase>

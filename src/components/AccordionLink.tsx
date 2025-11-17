@@ -40,12 +40,12 @@ export default function AccordionLink(props: {
         <ButtonBase className="w-full flex pl-2.5 rounded">
           <div className="m-2.5 flex flex-grow items-center">
             {props.icon ? (
-              <div className="mr-2.5 items-center flex styles.chainIconxs text-secondary">
+              <div className="mr-2.5 items-center flex styles.chainIconxs text-secondary-foreground/60">
                 {props.icon}
               </div>
             ) : null}
             <p className="text-base font-bold flex-grow">{props.title}</p>
-            <AddCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary" />
+            <AddCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary-foreground/60" />
           </div>
         </ButtonBase>
       </Link>

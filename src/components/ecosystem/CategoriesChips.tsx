@@ -85,7 +85,7 @@ const CategoriesChips: React.FC<CategoriesChipsProps> = ({ categories, all, clas
   const remainingChips = chips.length - maxChips
 
   return (
-    <Box className="`chipContainer ${className}`, ['flex-w', all]">
+    <Box className={`chipContainer ${className} ${all ? 'flex-w' : ''}`}>
       {visibleChips}
       {remainingChips > 0 && !all && <Chip label={`+${remainingChips}`} />}
     </Box>

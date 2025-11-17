@@ -71,7 +71,7 @@ export default function CopySurface(props: {
                     />
                   </div>
                 ) : null}
-                <p className="text-xs text-secondary mb-1.5">
+                <p className="text-xs text-secondary-foreground/60 mb-1.5">
                   {props.title}
                   {props.tokenMetadata
                     ? ` (${props.tokenMetadata.decimals ?? constants.DEFAULT_ERC20_DECIMALS})`
@@ -86,7 +86,7 @@ export default function CopySurface(props: {
                 className="ml-5 styles.chainIconxs"
               />
             ) : (
-              <ContentCopyIcon className="text-secondary ml-5 styles.chainIconxs" />
+              <ContentCopyIcon className="text-secondary-foreground/60 ml-5 styles.chainIconxs" />
             )}
           </ButtonBase>
         </Tooltip>

@@ -42,7 +42,7 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ categoryName, fullName, pro
                 {fullName}
               </h4>
             </div>
-            <p className="text-sm text-secondary mt-1.5">
+            <p className="text-sm text-secondary-foreground/60 mt-1.5">
               {projectCount} project{projectCount !== 1 ? 's' : ''}
             </p>
           </div>

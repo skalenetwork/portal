@@ -75,7 +75,11 @@ const SkIconBtn: React.FC<SkIconBtnProps> = ({
   const button = (
     <IconButton
       onClick={handleClick}
-      className="styles.paperGrey, 'sk-icon-btn', `sk-icon-btn-${size}`, className"
+      className={cls(
+        'sk-icon-btn',
+        `sk-icon-btn-${size}`,
+        className
+      )}
       size={size}
       {...props}
     >
@@ -83,7 +87,7 @@ const SkIconBtn: React.FC<SkIconBtnProps> = ({
         className={cls(
           iconClassName,
           ['text-primary', primary],
-          ['text-secondary', !primary],
+          ['text-secondary-foreground/60', !primary],
           'sk-icon-btn-img'
         )}
       />

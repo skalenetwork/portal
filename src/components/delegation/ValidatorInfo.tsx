@@ -53,7 +53,7 @@ export default function ValidatorInfo(props: {
               <TrustBadge validator={props.validator} />
               <ValidatorBadge validator={props.validator} className="ml-2.5" />
             </div>
-            <p className="text-xs font-semibold text-secondary mr-5 mt-1.5">
+            <p className="text-xs font-semibold text-secondary-foreground/60 mr-5 mt-1.5">
               {description}
             </p>
           </div>

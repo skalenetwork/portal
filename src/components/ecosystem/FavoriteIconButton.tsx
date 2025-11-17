@@ -66,7 +66,7 @@ const FavoriteIconButton: React.FC<FavoriteIconButtonProps> = ({ chainName, appN
         {isLiked ? (
           <FavoriteIcon className="iconRed" />
         ) : (
-          <FavoriteBorderIcon className="text-secondary" />
+          <FavoriteBorderIcon className="text-secondary-foreground/60" />
         )}
       </IconButton>
     </Tooltip>

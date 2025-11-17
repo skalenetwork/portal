@@ -24,6 +24,7 @@
 import { Link } from 'react-router-dom'
 
 import StarIcon from '@mui/icons-material/Star'
+import { useTheme } from '@mui/material/styles'
 
 import { SkPaper } from '@skalenetwork/metaport'
 import { types, metadata } from '@/core'
@@ -35,6 +36,7 @@ export default function PopularActions(props: {
   chainsMeta: types.ChainsMetadataMap
   chainName: string
 }) {
+  const theme = useTheme()
   const shortAlias = metadata.getChainShortAlias(props.chainsMeta, props.chainName)
 
   const chainMeta = props.chainsMeta[props.chainName]
@@ -58,8 +60,11 @@ export default function PopularActions(props: {
   return (
     <div>
       <div className="pt-5 flex"></div>
-      <div className="flex items-center mb-2.5 font-semibold text-secondary">
-        <StarIcon color="primary" className="mr-2.5" />
+      <div
+        className="flex items-center mb-2.5 font-semibold"
+        style={{ color: theme.palette.primary.main }}
+      >
+        <StarIcon color="primary" className="mr-2.5 mb-2.5" />
         Popular Actions
       </div>
       <div className="flex flex-row items-center">
@@ -89,7 +94,7 @@ export default function PopularActions(props: {
                           className="text-sm shortP font-bold text-primary ml-2.5 mr-2.5">
                           {action.text}
                         </div>
-                        <div className="text-xs text-secondary mr-2.5 ml-2.5">
+                        <div className="text-xs text-secondary-foreground/60 mr-2.5 ml-2.5">
                           {getActionDescription(action)}
                         </div>
                       </div>

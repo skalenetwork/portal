@@ -90,7 +90,7 @@ export default function ValidatorCard(props: {
             <div className="flex-grow"></div>
             <Tooltip title={description}>
               <p
-                className="text-xs font-semibold flex-grow text-secondary mt-5 text-center truncate">
+                className="text-xs font-semibold flex-grow text-secondary-foreground/60 mt-5 text-center truncate">
                 {description}
               </p>
             </Tooltip>

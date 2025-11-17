@@ -37,15 +37,15 @@ export default function Breadcrumbs(props: { sections: BreadcrumbSection[]; clas
         <div className="flex items-center" key={index}>
           {section.url ? (
             <Link to={section.url} className="undec w-full">
-              <Button className="text-primary">
+              <Button className={index === 0 ? "text-white" : "text-primary"}>
                 {section.icon}
-                <p className="text-xs ml-1.5">{section.text}</p>
+                <p className={`text-xs ml-1.5 ${index === 0 ? "text-white" : "text-primary"}`}>{section.text}</p>
               </Button>
             </Link>
           ) : (
-            <Button>
+            <Button className={index === 0 ? "text-white" : "text-primary"}>
               {section.icon}
-              <p className="text-xs ml-1.5">{section.text}</p>
+              <p className={`text-xs ml-1.5 ${index === 0 ? "text-white" : "text-primary"}`}>{section.text}</p>
             </Button>
           )}
           {index + 1 !== props.sections.length ? <p className="text-xs">|</p> : null}

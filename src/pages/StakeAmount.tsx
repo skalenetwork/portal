@@ -24,7 +24,7 @@
 import { useState, useEffect } from 'react'
 import { type Signer } from 'ethers'
 import { useParams } from 'react-router-dom'
-import { type MetaportCore, SkPaper,contracts } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper, contracts } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
@@ -110,7 +110,7 @@ export default function StakeAmount(props: {
 
   return (
     <Container maxWidth="md">
-      <SkPaper gray className="'mt-2.5', 'chainDetails'">
+      <SkPaper gray className="mt-2.5 chainDetails">
         <div className="flex items-center">
           <div className="flex flex-grow">
             <Breadcrumbs
@@ -141,8 +141,8 @@ export default function StakeAmount(props: {
           ) : null}
         </div>
         <div className="mt-2.5 ml-1.25 mb-2.5" style={{ paddingBottom: '5px' }}>
-          <h2 className="m-0">Stake SKL</h2>
-          <p className="text-sm text-sec">
+          <h2 className="m-0 text-2xl font-bold">Stake SKL</h2>
+          <p className="text-sm text-secondary-foreground/60">
             Review validator info and enter delegation amount
           </p>
         </div>

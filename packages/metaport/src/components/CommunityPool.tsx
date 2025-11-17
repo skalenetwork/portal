@@ -177,7 +177,7 @@ export default function CommunityPool() {
 
   if (!address) return null;
   return (
-    <div className="['mt-2.5', !expandedCP]">
+    <div className={!expandedCP ? "mt-2.5" : ""}>
       <Accordion
         disabled={!!loading}
         expanded={expandedCP === 'panel1'}
@@ -272,7 +272,7 @@ export default function CommunityPool() {
                   childrenRi={
                     <div className="flex items-center">
                       <Button
-                        className="'btnSm', 'outlined', 'ml-5 flex items-center'"
+                        className="btnSm outlined ml-5 flex items-center"
                         onClick={() => {
                           if (!cpData.recommendedRechargeAmount) return
                           setAmount(String(cpData.recommendedRechargeAmount))

@@ -166,8 +166,8 @@ export default function Staking(props: {
       <Stack spacing={0}>
         <div className="flex items-center">
           <div className="flex-grow">
-            <h2 className="m-0">Staking</h2>
-            <p className="text-sm text-sec">
+            <h2 className="m-0 text-2xl font-bold">Staking</h2>
+            <p className="text-sm text-secondary-foreground/60">
               {props.isXs
                 ? 'Manage your delegations'
                 : 'Delegate, review delegations and withdraw staking rewards'}
@@ -297,8 +297,8 @@ export default function Staking(props: {
             size="small"
           />
           <div className="mt-5">
-            <PieChartRoundedIcon className="text-secondary styles.chainIconmd w-full" />
-            <h5 className="font-semibold text-secondary text-center mt-1.5 mb-5">
+            <PieChartRoundedIcon className="text-secondary-foreground/60 styles.chainIconmd w-full" />
+            <h5 className="font-semibold text-secondary-foreground/60 text-center mt-1.5 mb-5">
               Connect your wallet to view delegations
             </h5>
           </div>

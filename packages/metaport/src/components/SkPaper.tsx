@@ -24,6 +24,7 @@
 import { ReactElement } from 'react'
 
 import { useUIStore } from '../store/Store'
+import styles from '../styles/styles.module.scss'
 
 export default function SkPaper(props: {
   className?: string
@@ -41,13 +42,7 @@ export default function SkPaper(props: {
   return (
     <div
       style={localStyle}
-      className="
-        props.className,
-        styles.paper,
-        [styles.paperGrey, props.gray],
-        [styles.fullHeight, props.fullHeight],
-        [mt-5 props.margTop]
-      "
+      className={`${props.className || ''} ${styles.paper} ${props.gray ? styles.paperGrey : ''} ${props.fullHeight ? styles.fullHeight : ''} ${props.margTop ? 'mt-5' : ''}`}
     >
       {props.children}
     </div>

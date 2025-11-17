@@ -10,6 +10,7 @@ import { CHAINS_META } from '../core/metadata'
 import BridgeChainCard from './BridgeChainCard'
 import ChainIcon from './ChainIcon'
 import Chain from './Chain'
+import { styles } from '../core/css'
 
 export default function ChainsList(props: {
   config: types.mp.Config
@@ -78,9 +79,9 @@ export default function ChainsList(props: {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        className="styles.metaport, styles.backdropBlur, 'dark'"
+        className={`${styles.metaport} ${styles.backdropBlur} dark`}
       >
-        <Container maxWidth="md" className="styles.modalContainer">
+        <Container maxWidth="md" className={styles.modalContainer}>
           <div className="flex mb-5">
             <div className="flex-grow"></div>
             <SkPaper gray>
