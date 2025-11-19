@@ -35,6 +35,7 @@ export interface ChainMetadata {
   url?: string
   apps?: AppMetadataMap
   actions?: ChainAction[];
+  explorerUrl?: string
 }
 
 export interface AppMetadata {

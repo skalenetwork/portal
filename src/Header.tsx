@@ -27,7 +27,7 @@ import Chip from '@mui/material/Chip'
 
 import logo from './assets/skale_lg.svg'
 
-import { constants } from '@/core'
+import { constants, networks } from '@/core'
 import { type MetaportCore } from '@skalenetwork/metaport'
 
 import HelpZen from './components/HelpZen'
@@ -35,11 +35,14 @@ import MoreMenu from './components/MoreMenu'
 import AccountMenu from './components/AccountMenu'
 import NetworkSwitch from './components/NetworkSwitch'
 import GetSFuel from './components/GetSFuel'
-import FavoritesButton from './components/FavoritesButton'
-
 import { Link } from 'react-router-dom'
+import { NETWORKS } from './core/constants'
 
-export default function Header(props: { address: `0x${string}` | undefined; mpc: MetaportCore }) {
+export default function Header(props: {
+  address: `0x${string}` | undefined
+  mpc: MetaportCore
+  openProfileModal: () => void
+}) {
   return (
     <AppBar
       elevation={0}
@@ -63,11 +66,10 @@ export default function Header(props: { address: `0x${string}` | undefined; mpc:
             />
           ) : null}
         </div>
-        <AccountMenu address={props.address} />
-        <GetSFuel mpc={props.mpc} />
+        <AccountMenu address={props.address} openProfileModal={props.openProfileModal} />
+        {networks.hasFeatureInAny(NETWORKS, 'sfuel') && <GetSFuel mpc={props.mpc} />}
         <NetworkSwitch mpc={props.mpc} />
         <HelpZen />
-        <FavoritesButton />
         <MoreMenu />
       </Toolbar>
     </AppBar>

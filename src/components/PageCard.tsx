@@ -31,7 +31,7 @@ export default function PageCard(props: {
   description: string
   url?: string
 }) {
-  const isExternal = props.url === 'https://www.sushi.com/skale-europa/swap'
+  const isExternal = props.url?.startsWith('http') ?? false
   return (
     <Link
       to={props.url ?? props.name}

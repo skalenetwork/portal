@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import { type types } from '@/core'
+import { type types, networks } from '@/core'
 import FAQ from '../data/faq.json'
 
 import * as MAINNET_CHAIN_LOGOS from '../meta/logos'
@@ -35,7 +35,9 @@ export const STAKING_PAGES = ['/staking']
 
 export const PORTAL_URLS: Record<string, string> = {
   mainnet: 'https://portal.skale.space/',
-  staging: 'https://testnet.portal.skale.space/'
+  testnet: 'https://testnet.portal.skale.space/',
+  base: 'https://base.skalenodes.com/',
+  'base-sepolia-testnet': 'https://base-sepolia.skalenodes.com/'
 }
 
 export { FAQ, MAINNET_CHAIN_LOGOS, VALIDATOR_LOGOS }
@@ -95,3 +97,22 @@ export const PATH_CONFIGS = {
   }
 }
 export type PathConfigsType = typeof PATH_CONFIGS
+
+export const NETWORKS = networks.parse(import.meta.env.VITE_NETWORKS)
+
+export const CREDITS_CONFIRMATION_BLOCKS = 2
+export const DEFAULT_CREDITS_AMOUNT = 1n
+
+export const AVATAR_COLORS = [
+  '#efeecc',
+  '#fe8b05',
+  '#fe0557',
+  '#400403',
+  '#0aabba',
+  '#c8b6ff',
+  '#90E0EF',
+  '#F786AA',
+  '#256EFF',
+  '#31E981',
+  '#ffbf81'
+]

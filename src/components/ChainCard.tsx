@@ -40,7 +40,9 @@ export default function ChainCard(props: {
       <div className="flex justify-center items-center">
         <div
           className="br__tile"
-          style={{ background: metadata.chainBg(props.chainsMeta, props.schain.name) }}
+          style={{
+            background: metadata.chainBg(props.skaleNetwork, props.chainsMeta, props.schain.name)
+          }}
         >
           <Link
             to={'/chains/' + shortAlias}
@@ -67,7 +69,13 @@ export default function ChainCard(props: {
                 textOverflow: 'ellipsis'
               }}
             >
-              {metadata.getAlias(props.chainsMeta, props.schain.name, undefined, true)}
+              {metadata.getAlias(
+                props.skaleNetwork,
+                props.chainsMeta,
+                props.schain.name,
+                undefined,
+                true
+              )}
             </span>
           </Button>
         </Link>

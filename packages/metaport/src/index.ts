@@ -39,6 +39,7 @@ import { cls, styles, cmn } from './core/css'
 import MetaportCore from './core/metaport'
 import { sendTransaction } from './core/transactions'
 import { Station, StationData } from './core/sfuel'
+import * as mp_metadata from './core/metadata'
 
 import { getWidgetTheme as getMetaportTheme } from './core/themes'
 
@@ -104,5 +105,6 @@ export {
   Station,
   type StationData,
   contracts,
-  explorer
+  explorer,
+  mp_metadata
 }

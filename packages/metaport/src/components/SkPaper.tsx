@@ -41,7 +41,7 @@ export default function SkPaper(props: {
   }
   return (
     <div
-      style={localStyle}
+      style={{ ...localStyle, position: 'relative' }}
       className={`${props.className || ''} ${styles.paper} ${props.gray ? styles.paperGrey : ''} ${props.fullHeight ? styles.fullHeight : ''} ${props.margTop ? 'mt-5' : ''}`}
     >
       {props.children}

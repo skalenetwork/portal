@@ -37,6 +37,7 @@ import { getTxUrl } from '../../core/explorer'
 
 import localStyles from './TransactionData.module.scss'
 import { styles } from '../../core/css'
+import { CHAINS_META } from '../../core/metadata'
 
 type ActionStateIconMap = {
   [key in types.mp.ActionState]: ReactElement | null
@@ -92,7 +93,10 @@ export default function TransactionData(props: {
   transactionData: types.mp.TransactionHistory
   config: types.mp.Config
 }) {
+  const chainsMeta = CHAINS_META[props.config.skaleNetwork]
+  const chainMeta = chainsMeta[props.transactionData.chainName]
   const explorerUrl = getTxUrl(
+    chainMeta,
     props.transactionData.chainName,
     props.config.skaleNetwork,
     props.transactionData.transactionHash

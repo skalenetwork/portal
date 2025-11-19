@@ -20,11 +20,10 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import React, { useMemo } from 'react'
+import React from 'react'
 import { SkPaper } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 
-import { useLikedApps } from '../../../LikedAppsContext'
 import AppCardV2 from '../AppCardV2'
 
 import { isNewApp, isTrending, isFeatured } from '../../../core/ecosystem/utils'
@@ -49,10 +48,6 @@ const AllApps: React.FC<AllAppsProps> = ({
   trendingApps,
   featuredApps
 }) => {
-  const { getMostLikedApps, getAppId, getMostLikedRank } = useLikedApps()
-
-  const mostLikedAppIds = useMemo(() => getMostLikedApps(), [getMostLikedApps])
-
   if (!loaded) return <Loader text="Loading apps" />
   if (apps.length === 0)
     return (
@@ -68,16 +63,14 @@ const AllApps: React.FC<AllAppsProps> = ({
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
       {apps.map((app: types.AppWithChainAndName) => {
-        const appId = getAppId(app.chain, app.appName)
         const isNew = isNewApp({ chain: app.chain, app: app.appName }, newApps)
         return (
-          <div key={appId} className="col-span-1">
+          <div key={`${app.chain}-${app.appName}`} className="col-span-1">
             <AppCardV2
               skaleNetwork={skaleNetwork}
               schainName={app.chain}
               appName={app.appName}
               chainsMeta={chainsMeta}
-              mostLiked={getMostLikedRank(mostLikedAppIds, appId)}
               trending={isTrending(trendingApps, app.chain, app.appName)}
               isNew={isNew}
               isFeatured={isFeatured({ chain: app.chain, app: app.appName }, featuredApps)}

@@ -63,6 +63,8 @@ import Validator from './pages/Validator'
 import Onramp from './pages/Onramp'
 import TermsModal from './components/TermsModal'
 import Changelog from './pages/Changelog'
+import Credits from './pages/Credits'
+import CreditsAdmin from './pages/CreditsAdmin'
 
 import MetricsWarning from './components/MetricsWarning'
 import ScrollToTop from './components/ScrollToTop'
@@ -277,13 +279,39 @@ export default function Router(props: {
           />
         </Route>
         <Route path="onramp" element={<Onramp mpc={mpc} />} />
+        <Route
+          path="credits"
+          element={
+            <Credits
+              mpc={mpc}
+              address={address}
+              isXs={isXs}
+              loadData={props.loadData}
+              schains={props.schains}
+              chainsMeta={chainsMeta}
+            />
+          }
+        />
+        <Route
+          path="credits/admin"
+          element={
+            <CreditsAdmin
+              mpc={mpc}
+              address={address}
+              isXs={isXs}
+              loadData={props.loadData}
+              schains={props.schains}
+              chainsMeta={chainsMeta}
+            />
+          }
+        />
         <Route path="stats" element={<Stats />} />
         <Route path="other">
           <Route path="faq" element={<Faq />} />
           <Route path="terms-of-service" element={<Terms />} />
           <Route path="changelog" element={<Changelog />} />
         </Route>
-        <Route path="admin">
+        <Route path="chains/admin">
           <Route path=":name" element={<Admin chainsMeta={chainsMeta} mpc={mpc} />} />
         </Route>
 
@@ -329,6 +357,7 @@ export default function Router(props: {
               isXs={isXs}
               delegations={props.validatorDelegations}
               getMainnetSigner={getMainnetSigner}
+              chainsMeta={chainsMeta}
             />
           }
         />

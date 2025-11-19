@@ -26,16 +26,8 @@ import { Helmet } from 'react-helmet'
 import { useParams } from 'react-router-dom'
 import { type types, metadata, units, constants } from '@/core'
 
-import {
-  explorer,
-  MetaportCore,
-  SkPaper,
-  useWagmiAccount,
-  useConnectModal,
-  Tile
-} from '@skalenetwork/metaport'
+import { explorer, MetaportCore, SkPaper, Tile } from '@skalenetwork/metaport'
 
-import { Button } from '@mui/material'
 import Container from '@mui/material/Container'
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded'
 import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded'
@@ -44,8 +36,6 @@ import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRound
 import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import HubRoundedIcon from '@mui/icons-material/HubRounded'
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined'
 import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded'
 import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded'
 import HourglassFullRoundedIcon from '@mui/icons-material/HourglassFullRounded'
@@ -60,8 +50,6 @@ import { getRecentApps, isNewApp, isTrending, isFeatured } from '../core/ecosyst
 
 import SocialButtons from '../components/ecosystem/Socials'
 import CategoriesChips from '../components/ecosystem/CategoriesChips'
-import { useLikedApps } from '../LikedAppsContext'
-import { useAuth } from '../AuthContext'
 import ErrorTile from '../components/ErrorTile'
 import { ChipNew, ChipPreTge, ChipTrending, ChipFeatured } from '../components/Chip'
 import AppScreenshots from '../components/ecosystem/AppScreenshots'
@@ -81,11 +69,6 @@ export default function App(props: {
   chainsMeta: types.ChainsMetadataMap
 }) {
   let { chain, app } = useParams()
-  const { likedApps, appLikes, toggleLikedApp, getAppId, refreshLikedApps } = useLikedApps()
-  const { isSignedIn, handleSignIn } = useAuth()
-
-  const { address } = useWagmiAccount()
-  const { openConnectModal } = useConnectModal()
 
   const newApps = useMemo(
     () => getRecentApps(props.chainsMeta, MAX_APPS_DEFAULT),
@@ -107,7 +90,7 @@ export default function App(props: {
       </Container>
     )
 
-  const appAlias = metadata.getAlias(props.chainsMeta, chain, app)
+  const appAlias = metadata.getAlias(network, props.chainsMeta, chain, app)
   const appMeta = chainMeta.apps?.[app]
 
   if (!appMeta)
@@ -121,28 +104,11 @@ export default function App(props: {
 
   const { trendingApps, allApps, featuredApps } = useApps(props.chainsMeta, props.metrics)
 
-  const appId = getAppId(chain, app)
-  const isLiked = likedApps.includes(appId)
-  const likesCount = appLikes[appId] || 0
-
   const isNew = isNewApp({ chain, app }, newApps)
   const trending = isTrending(trendingApps, chain, app)
   const featured = isFeatured({ chain, app }, featuredApps)
 
-  const handleToggleLike = async () => {
-    if (!address) {
-      openConnectModal?.()
-      return
-    }
-    if (!isSignedIn) {
-      await handleSignIn()
-      return
-    }
-    await toggleLikedApp(appId)
-    refreshLikedApps()
-  }
-
-  const explorerUrl = explorer.getExplorerUrl(network, chain)
+  const explorerUrl = explorer.getExplorerUrl(chainMeta, network, chain)
 
   const isAppChain = chainMeta.apps && Object.keys(chainMeta.apps).length === 1
 
@@ -215,16 +181,7 @@ export default function App(props: {
                   <div className="flex-grow mb-2.5">
                     <CategoriesChips categories={appMeta.categories} all />
                   </div>
-                  <Button
-                    className={`mb-2.5 ${props.isXs ? 'mt-2.5' : ''} btn btnSm favsBtn`}
-                    variant="contained"
-                    startIcon={isLiked ? <FavoriteRoundedIcon /> : <FavoriteBorderOutlinedIcon />}
-                    onClick={handleToggleLike}
-                  >
-                    {isLiked ? 'Favorite' : 'Add to favorites'}
-                  </Button>
-                </div>
-
+                </div >
                 <div className="flex items-center">
                   <h2 className="m-0 text-base">{appAlias}</h2>
                   <div className="flex ml-2.5">
@@ -237,8 +194,8 @@ export default function App(props: {
 
                 <CollapsibleDescription text={appDescription} expandable />
                 <SocialButtons size="md" social={appMeta.social} className="mt-5" />
-              </div>
-            </div>
+              </div >
+            </div >
           </div >
         </SkPaper >
         <SkPaper gray className="mt-2.5">
@@ -275,50 +232,48 @@ export default function App(props: {
                 />
               </div>
             )}
-            <div className={`col-span-1 ${appMeta.contracts ? 'md:col-span-1 lg:col-span-1' : 'md:col-span-2 lg:col-span-3'}`}>
-              <Tile
-                grow
-                text="Favorites"
-                value={likesCount.toString()}
-                icon={<FavoriteRoundedIcon />}
-              />
-            </div>
-            {appMeta.contracts && (
-              <div className="col-span-1">
-                <Tile
-                  grow
-                  text="30d transactions"
-                  value={
-                    counters ? formatNumber(Number(counters.transactions_last_30_days)) : undefined
-                  }
-                  icon={<HourglassFullRoundedIcon />}
-                />
-              </div>
-            )}
-            {appMeta.contracts && (
-              <div className="col-span-1">
-                <Tile
-                  grow
-                  text="7d transactions"
-                  value={
-                    counters ? formatNumber(Number(counters.transactions_last_7_days)) : undefined
-                  }
-                  icon={<HourglassBottomRoundedIcon />}
-                />
-              </div>
-            )}
-            {appMeta.contracts && (
-              <div className="col-span-1">
-                <Tile
-                  grow
-                  text="Daily transactions"
-                  value={counters ? formatNumber(Number(counters.transactions_today)) : undefined}
-                  icon={<HourglassTopRoundedIcon />}
-                />
-              </div>
-            )}
-          </div>
-        </SkPaper>
+            {
+              appMeta.contracts && (
+                <div className="col-span-1">
+                  <Tile
+                    grow
+                    text="30d transactions"
+                    value={
+                      counters ? formatNumber(Number(counters.transactions_last_30_days)) : undefined
+                    }
+                    icon={<HourglassFullRoundedIcon />}
+                  />
+                </div>
+              )
+            }
+            {
+              appMeta.contracts && (
+                <div className="col-span-1">
+                  <Tile
+                    grow
+                    text="7d transactions"
+                    value={
+                      counters ? formatNumber(Number(counters.transactions_last_7_days)) : undefined
+                    }
+                    icon={<HourglassBottomRoundedIcon />}
+                  />
+                </div>
+              )
+            }
+            {
+              appMeta.contracts && (
+                <div className="col-span-1">
+                  <Tile
+                    grow
+                    text="Daily transactions"
+                    value={counters ? formatNumber(Number(counters.transactions_today)) : undefined}
+                    icon={<HourglassTopRoundedIcon />}
+                  />
+                </div>
+              )
+            }
+          </div >
+        </SkPaper >
         <AppScreenshots chainName={chain} appName={app} skaleNetwork={network} />
         {
           chain !== OFFCHAIN_APP && (

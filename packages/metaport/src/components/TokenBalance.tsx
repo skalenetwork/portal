@@ -22,6 +22,10 @@
  */
 
 import { units } from '@/core'
+import { Tooltip } from '@mui/material'
+import TokenIcon from './TokenIcon'
+import MetaportCore from '../core/metaport'
+import styles from '../styles/styles.module.scss'
 
 export default function TokenBalance(props: {
   balance: bigint
@@ -30,28 +34,37 @@ export default function TokenBalance(props: {
   truncate?: number
   primary?: boolean
   size?: 'xs' | 'sm' | 'md'
+  mpc?: MetaportCore
 }) {
   if (props.balance === undefined || props.balance === null) return
-  let balance = units.formatBalance(props.balance, props.decimals)
+  let balanceFull = units.formatBalance(props.balance, props.decimals)
+  let balance = balanceFull
   if (props.truncate) {
-    balance = units.truncateDecimals(balance, props.truncate)
+    balance = units.truncateDecimals(balanceFull, props.truncate)
   }
   let size = props.size ?? 'xs'
+  let iconUrl = undefined
+  if (props.mpc !== undefined) {
+    iconUrl = props.mpc.config.tokens[props.symbol.toLowerCase()]?.iconUrl
+  }
   return (
-    <div className="flex items-center">
-      <p
-        className={`
-          text-gray-400
-          ${size === 'xs' ? 'text-xs' : ''}
-          ${size === 'sm' ? 'text-sm' : ''}
-          ${size === 'md' ? 'text-base' : ''}
-          ${!props.primary ? 'text-secondary-foreground/60' : ''}
-          ${props.primary ? 'text-primary' : ''}
-          flex items-center font-normal mr-1.5
-        `.replace(/\s+/g, ' ').trim()}
-      >
-        {balance} {props.symbol}
-      </p>
-    </div>
+    <Tooltip arrow title={balanceFull + ' ' + props.symbol}>
+      <div className={`flex items-center ${styles.paperGrey} p-1.5 pl-2.5 pr-2.5 rounded`}>
+        <div
+          className={`
+            ${size === 'xs' ? 'text-xs' : ''}
+            ${size === 'sm' ? 'text-sm' : ''}
+            ${size === 'md' ? 'text-base' : ''}
+            ${!props.primary ? 'text-secondary-foreground/60' : ''}
+            ${props.primary ? 'text-primary' : ''}
+            flex items-center font-normal mr-1.5
+          `}
+        >
+          <TokenIcon tokenSymbol={props.symbol} size='xs' iconUrl={iconUrl} />
+          <div className="mr-1.5"></div>
+          {balance} {props.symbol}
+        </div>
+      </div>
+    </Tooltip>
   )
 }

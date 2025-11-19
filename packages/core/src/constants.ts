@@ -33,7 +33,7 @@ export const MAINNET_CHAIN_NAME = 'mainnet'
 export const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
 export const ZERO_FUNCSIG_FAUCET = '0x00000000'
 
-export const DEFAULT_FRACTION_DIGITS = 5
+export const DEFAULT_FRACTION_DIGITS = 3
 export const DEFAULT_FRACTION_DIGITS_USD = 2
 export const ROUNDING_DECIMALS = 6
 
@@ -48,7 +48,7 @@ export const TRANSFER_ERROR_MSG = 'Error during the transfer'
 export const TRANSACTION_ERROR_MSG = 'Transaction sending failed'
 
 export const BASE_METADATA_URL =
-   'https://raw.githubusercontent.com/skalenetwork/skale-network/master/metadata/'
+  'https://raw.githubusercontent.com/skalenetwork/skale-network/master/metadata/'
 
 export const BASE_TOKEN_ICON_URL =
   'https://raw.githubusercontent.com/skalenetwork/skale-network/refs/heads/master/assets/token-icons/'

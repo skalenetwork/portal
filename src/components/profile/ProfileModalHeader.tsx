@@ -28,22 +28,21 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 
 interface ProfileModalHeaderProps {
   address: string | undefined
-  isSignedIn: boolean
 }
 
-const ProfileModalHeader: React.FC<ProfileModalHeaderProps> = ({ address, isSignedIn }) => (
+const ProfileModalHeader: React.FC<ProfileModalHeaderProps> = ({ address }) => (
   <div className="profileModalHeader items-center">
     <div className="flex-grow">
-      <Headline text="Profile" icon={<AccountCircleRoundedIcon />} size="small" />
+      <Headline text="Wallet Info" icon={<AccountCircleRoundedIcon />} size="small" />
     </div>
     <div className="profileModalStatus">
       <FiberManualRecord
         className="mr-1.5"
         fontSize="small"
-        color={address ? (isSignedIn ? 'success' : 'warning') : 'error'}
+        color={address ? 'success' : 'error'}
       />
       <p className="text-xs pSec mr-5">
-        {address ? (isSignedIn ? 'Signed in' : 'Connected but not signed in') : 'Not connected'}
+        {address ? 'Connected' : 'Not connected'}
       </p>
     </div>
   </div>

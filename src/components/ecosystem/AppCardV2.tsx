@@ -41,7 +41,6 @@ export default function AppCard(props: {
   newApps?: types.AppWithChainAndName[]
   isNew?: boolean
   isFeatured?: boolean
-  mostLiked?: number
   trending?: boolean
   gray?: boolean
 }) {
@@ -83,7 +82,12 @@ export default function AppCard(props: {
         </div>
         <div className="flex items-center mt-2.5">
           <p className="text-primary font-semibold text-base shortP flex-grow mr-2.5">
-            {metadata.getAlias(props.chainsMeta, props.schainName, props.appName)}
+            {metadata.getAlias(
+              props.skaleNetwork,
+              props.chainsMeta,
+              props.schainName,
+              props.appName
+            )}
           </p>
           <div className="flex items-center">{visibleStatusChips}</div>
         </div >

@@ -60,15 +60,15 @@ export default function Reward(props: {
 
   const minimizeBtn = (
     <div
-      className="ml-5 styles.chainIconxs cursor-pointer"
+      className="ml-5 w-4 h-4 cursor-pointer"
       onClick={() => {
         props.setOpen(!props.open)
       }}
     >
       {props.open ? (
-        <RemoveCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary-foreground/60" />
+        <RemoveCircleRoundedIcon className="mr-1.5 w-4 h-4 text-secondary-foreground/60" />
       ) : (
-        <AddCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary-foreground/60" />
+        <AddCircleRoundedIcon className="mr-1.5 w-4 h-4 text-secondary-foreground/60" />
       )}
     </div>
   )
@@ -110,7 +110,8 @@ export default function Reward(props: {
                     <Tooltip
                       arrow
                       title={
-                        props.sklPrice !== undefined && props.delegationsToValidator.staked !== undefined
+                        props.sklPrice !== undefined &&
+                          props.delegationsToValidator.staked !== undefined
                           ? units.displaySklValueUsd(
                             props.delegationsToValidator.staked,
                             props.sklPrice

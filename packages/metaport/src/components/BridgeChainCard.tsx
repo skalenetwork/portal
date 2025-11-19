@@ -32,7 +32,7 @@ import {
   getChainCardBackgroundColor,
   extractFirstSentence
 } from '../utils/helper'
-import { styles, cls } from '../core/css'
+import { styles } from '../core/css'
 
 interface ChainCardProps {
   skaleNetwork: types.SkaleNetwork
@@ -45,8 +45,8 @@ interface ChainCardProps {
 
 export default function BridgeChainCard(props: ChainCardProps) {
   const { skaleNetwork, chainName, chainsMeta, onClick, disabled } = props
-  const chainDescription = getChainDescription(chainsMeta, chainName)
-  const backgroundColor = getChainCardBackgroundColor(disabled, chainsMeta, chainName)
+  const chainDescription = getChainDescription(skaleNetwork, chainsMeta, chainName)
+  const backgroundColor = getChainCardBackgroundColor(skaleNetwork, disabled, chainsMeta, chainName)
   const firstSentence = extractFirstSentence(chainDescription)
 
   const disabledText = props.from ? 'Destination chain' : 'Source chain'
@@ -60,24 +60,28 @@ export default function BridgeChainCard(props: ChainCardProps) {
     <div onClick={disabled ? undefined : onClick} style={{ height: 287 }}>
       <SkPaper
         gray={disabled}
-        className={cls(
-          'flex items-center justify-center mt-5',
-          ['cursor-pointer', !disabled],
-          [styles.disabledCard, disabled],
-          styles.fullHeight
-        )}
+        className={`${'flex items-center justify-center mt-5'} ${!disabled ? 'cursor-pointer' : ''} ${disabled ? styles.disabledCard : ''} ${styles.fullHeight}`}
         background={backgroundColor}
       >
-        <div className={`mb-2.5 mt-5 w-full ${styles.fullHeight}`}>
+        <div
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'linear-gradient(to bottom, transparent 20%, rgba(0, 0, 0, 0.7) 100%)',
+            borderRadius: 'inherit',
+            pointerEvents: 'none'
+          }}
+        />
+        <div className={`mb-2.5 mt-5 w-full ${styles.fullHeight}`} style={{ position: 'relative', zIndex: 1 }}>
           <div className="mb-2.5 mt-5 rounded-3xl">
             <div className="flex items-center mt-5"></div>
             <div className={`rounded-3xl flex items-center justify-center mt-5 ${styles.fullHeight}`}>
-              <ChainIcon skaleNetwork={skaleNetwork} chainName={chainName} size={iconSize} />
+              <ChainIcon skaleNetwork={skaleNetwork} chainName={chainName} size={iconSize} chainsMeta={chainsMeta} bg={false} />
             </div>
           </div>
 
           <p className="text-primary font-semibold text-xl text-center">
-            {metadata.getAlias(chainsMeta, chainName, undefined, true)}
+            {metadata.getAlias(skaleNetwork, chainsMeta, chainName, undefined, true)}
           </p>
 
           {disabled && (

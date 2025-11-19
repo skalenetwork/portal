@@ -24,7 +24,6 @@
 import { types, metadata } from '@/core'
 import ChainIcon from './ChainIcon'
 
-import { dec } from '../core/css'
 import { CHAINS_META } from '../core/metadata'
 
 export default function Chain(props: {
@@ -36,35 +35,46 @@ export default function Chain(props: {
   size?: types.Size
   decIcon?: boolean
   prim?: boolean
+  from?: boolean
 }) {
   const size = props.size ?? 'sm'
   const prim = props.prim ?? true
   const chainsMeta = CHAINS_META[props.skaleNetwork]
   return (
-    <div className="flex items-center">
+    <div className="flex items-center m-1">
       <ChainIcon
         skaleNetwork={props.skaleNetwork}
         chainName={props.chainName}
         app={props.app}
-        size={props.decIcon ? dec(props.size) : props.size}
+        size='md'
+        chainsMeta={chainsMeta}
       />
-      <p
+      <div
         className={`
-          ${size === 'xs' ? 'text-xs' : ''} 
-          ${size === 'sm' ? 'text-sm' : ''} 
-          ${size === 'md' ? 'text-base' : ''} 
-          ${size === 'lg' ? 'text-xl' : ''}
           ${size === 'xs' ? 'ml-1.5' : ''} 
           ${size === 'sm' ? 'ml-2.5' : ''} 
           ${size === 'md' ? 'ml-4' : ''} 
           ${size === 'lg' ? 'ml-5' : ''}
-          ${!props.bold ? 'font-semibold' : 'font-bold'}
-          capitalize
-          ${prim ? 'text-primary' : 'text-gray-400'}
         `}
       >
-        {metadata.getAlias(chainsMeta, props.chainName, props.app)}
-      </p>
+        <p className="text-xs text-gray-400 ml-1">
+          {props.from ? 'From' : 'To'}
+        </p>
+        <p
+          className={`
+            ${size === 'xs' ? 'text-xs' : ''} 
+            ${size === 'sm' ? 'text-sm' : ''} 
+            ${size === 'md' ? 'text-base' : ''} 
+            ${size === 'lg' ? 'text-xl' : ''}
+            ${!props.bold ? 'font-semibold' : 'font-bold'}
+            capitalize
+            ${prim ? 'text-primary' : 'text-gray-400'}
+          `}
+        >
+          {metadata.getAlias(props.skaleNetwork, chainsMeta, props.chainName, props.app)}
+        </p>
+      </div>
+
     </div>
   )
 }

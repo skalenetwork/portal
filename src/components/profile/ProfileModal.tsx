@@ -22,18 +22,21 @@
  */
 
 import React from 'react'
+import Avatar from 'boring-avatars'
 import { Modal, Box, useTheme, useMediaQuery } from '@mui/material'
 import { SkPaper, useWagmiAccount, Tile } from '@skalenetwork/metaport'
-import { useAuth } from '../../AuthContext'
 import ConnectWallet from '../ConnectWallet'
 import ProfileModalHeader from './ProfileModalHeader'
 import ProfileModalActions from './ProfileModalActions'
-import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
+import { AVATAR_COLORS } from '../../core/constants'
 
-const ProfileModal: React.FC = () => {
+interface ProfileModalProps {
+  isOpen: boolean
+  onClose: () => void
+}
+
+const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
   const { address } = useWagmiAccount()
-  const { isSignedIn, handleSignIn, handleSignOut, isProfileModalOpen, closeProfileModal } =
-    useAuth()
 
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
@@ -41,7 +44,7 @@ const ProfileModal: React.FC = () => {
   const modalContent = (
     <Box className="profileModal">
       <SkPaper gray>
-        <ProfileModalHeader address={address} isSignedIn={isSignedIn} />
+        <ProfileModalHeader address={address} />
         {!address ? (
           <ConnectWallet customText="Connect your wallet to use your profile" />
         ) : (
@@ -52,17 +55,14 @@ const ProfileModal: React.FC = () => {
             <Tile
               text="Wallet Address"
               value={address}
-              icon={<Jazzicon diameter={20} seed={jsNumberForAddress(address)} />}
+              icon={<Avatar variant="marble" name={address} colors={AVATAR_COLORS} size={20} />}
               copy={address}
               className="mb-2.5"
             />
             <ProfileModalActions
               className="mt-5"
               address={address}
-              isSignedIn={isSignedIn}
               isMobile={isMobile}
-              handleSignIn={handleSignIn}
-              handleSignOut={handleSignOut}
             />
           </div>
         ) : (
@@ -74,8 +74,8 @@ const ProfileModal: React.FC = () => {
 
   return (
     <Modal
-      open={isProfileModalOpen}
-      onClose={closeProfileModal}
+      open={isOpen}
+      onClose={onClose}
       aria-labelledby="profile-modal-title"
       aria-describedby="profile-modal-description"
     >
