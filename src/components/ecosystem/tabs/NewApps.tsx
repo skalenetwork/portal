@@ -20,13 +20,12 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import React, { useMemo } from 'react'
+import React from 'react'
 import { Box } from '@mui/material'
 import { SkPaper } from '@skalenetwork/metaport'
 import AppCard from '../AppCardV2'
 import Carousel from '../../Carousel'
 import { type types } from '@/core'
-import { useLikedApps } from '../../../LikedAppsContext'
 import { isTrending, isFeatured } from '../../../core/ecosystem/utils'
 
 interface NewAppsProps {
@@ -46,11 +45,7 @@ const NewApps: React.FC<NewAppsProps> = ({
   featuredApps,
   useCarousel = false
 }) => {
-  const { getMostLikedApps, getAppId, getMostLikedRank } = useLikedApps()
-  const trendingAppIds = useMemo(() => getMostLikedApps(), [getMostLikedApps])
-
   const renderAppCard = (app: types.AppWithChainAndName) => {
-    const appId = getAppId(app.chain, app.appName)
     return (
       <AppCard
         key={`${app.chain}-${app.appName}`}
@@ -58,7 +53,6 @@ const NewApps: React.FC<NewAppsProps> = ({
         schainName={app.chain}
         appName={app.appName}
         chainsMeta={chainsMeta}
-        mostLiked={getMostLikedRank(trendingAppIds, appId)}
         trending={isTrending(trendingApps, app.chain, app.appName)}
         isFeatured={isFeatured({ chain: app.chain, app: app.appName }, featuredApps)}
         isNew={true}

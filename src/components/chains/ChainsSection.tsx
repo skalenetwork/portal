@@ -50,8 +50,8 @@ const ChainsSection: React.FC<ChainsSectionProps> = ({
   const gridClasses = size === 'lg' ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1 md:grid-cols-3'
 
   const sortedSchains = [...schains].sort((a, b) => {
-    const aliasA = metadata.getAlias(chainsMeta, a.name).toLowerCase()
-    const aliasB = metadata.getAlias(chainsMeta, b.name).toLowerCase()
+    const aliasA = metadata.getAlias(skaleNetwork, chainsMeta, a.name).toLowerCase()
+    const aliasB = metadata.getAlias(skaleNetwork, chainsMeta, b.name).toLowerCase()
     return aliasA.localeCompare(aliasB)
   })
 

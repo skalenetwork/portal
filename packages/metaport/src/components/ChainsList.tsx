@@ -22,6 +22,7 @@ export default function ChainsList(props: {
   disabled?: boolean
   size?: 'sm' | 'md'
   destChains?: string[]
+  balance: React.ReactNode | null
 }) {
   const [open, setOpen] = React.useState(false)
 
@@ -39,7 +40,6 @@ export default function ChainsList(props: {
   }
 
   const size = props.size ?? 'sm'
-
   const modalTitle = props.from ? 'Choose source chain' : 'Choose destination chain'
 
   return (
@@ -51,26 +51,33 @@ export default function ChainsList(props: {
           disabled={props.disabled}
           endIcon={
             <KeyboardArrowDownRoundedIcon
-              className="text-primary left10"
-              style={{ marginRight: '12px' }}
+              className="text-primary"
+              style={{ marginRight: '16px' }}
             />
           }
         >
           {props.chain ? (
             <div className="flex w-full items-center mr-2.5">
-              <Chain skaleNetwork={props.config.skaleNetwork} chainName={props.chain} size={size} />
+              <Chain
+                skaleNetwork={props.config.skaleNetwork}
+                chainName={props.chain}
+                size={size}
+                from={props.from}
+                bold
+              />
               <div className="flex flex-grow"></div>
             </div>
           ) : (
-            <div className="flex items-center">
+            <div className="flex items-center flex-grow mt-5 mb-5 ml-5">
               <div className="flex items-center justify-center mr-2.5">
-                <ChainIcon skaleNetwork={props.config.skaleNetwork} chainName={props.chain} />
+                <ChainIcon skaleNetwork={props.config.skaleNetwork} chainName={props.chain} chainsMeta={CHAINS_META[props.config.skaleNetwork]} />
               </div>
-              <p className="flex text-sm text-gray-500 font-semibold mr-2.5">
-                Transfer {props.from ? 'from' : 'to'}...
+              <p className="flex text-sm font-semibold text-primary mr-2.5">
+                Loading chains...
               </p>
             </div>
           )}
+          {props.balance}
         </Button>
       </div>
 

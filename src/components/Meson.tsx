@@ -77,7 +77,7 @@ export default function Meson(props: {
             {!props.isXs ? (
               <div className="ml-2.5 mr-1.5 flex items-center">
                 <ArrowForwardIosRoundedIcon
-                  className={`text-secondary-foreground/60 styles.chainIconxs rotate-90 ${show ? 'active' : ''}`}
+                  className={`text-secondary-foreground/60 w-5 h-5 rotate-90 ${show ? 'active' : ''}`}
                 />
               </div>
             ) : null}
@@ -106,12 +106,12 @@ export default function Meson(props: {
                       <div className="text-center mt-2.5 mb-2.5">
                         <ChainLogo
                           network={props.skaleNetwork}
-                          className="styles.chainIconlg"
+                          className="w-10 h-10"
                           chainName={chain}
                           logos={MAINNET_CHAIN_LOGOS}
                         />
                         <p className="uppercase font-bold text-primary text-sm">
-                          {metadata.getAlias(props.chainsMeta, chain)}
+                          {metadata.getAlias(props.skaleNetwork, props.chainsMeta, chain)}
                         </p>
                       </div>
                     </SkPaper>

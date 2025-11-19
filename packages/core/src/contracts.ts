@@ -20,12 +20,12 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import { types } from '.'
+import { types, constants } from '.'
 
 export enum Project {
   MANAGER = 'skale-manager',
   ALLOCATOR = 'skale-allocator',
-  MAINNET_IMA = 'mainnet-ima'
+  MAINNET_IMA = 'mainnet-ima',
 }
 
 export enum SchainProject {
@@ -33,14 +33,15 @@ export enum SchainProject {
 }
 
 export enum PortalProject {
-  GRANTS = 'skale-grants'
+  GRANTS = 'skale-grants',
+  CREDIT_STATION = 'credit-station'
 }
 
 export type ISkaleContractsProject = Project | SchainProject
 export type IPortalProject = Project | PortalProject
 
 export type ContractAddresses = {
-  [project in IPortalProject]?: types.AddressType
+  [project in IPortalProject]?: types.AddressType | string
 }
 
 export type ContractsConfig = {
@@ -67,6 +68,30 @@ export const CONTRACTS: ContractsConfig = {
     'mainnet-ima': '0x6c0d044a2C5Bcaff75C8ad7894d8b454b005F4D2',
     'skale-allocator': '0xDC2F6568608C8dABe101914489A25b07567C96bC',
     'skale-grants': '0xCEabf2b0c4F9d75A49a7B1E3e3c3179cDe949C9F'
+  },
+  "base-sepolia-testnet": {
+    'skale-manager': 'production',
+    'mainnet-ima': 'production',
+    'credit-station': '0x9Eb1d345C1edF3F088c10c2ff1F6329aF7DF99Cd'
+  },
+  base: {
+    'skale-manager': 'production',
+    'mainnet-ima': 'production',
+    'credit-station': '0x892F8D56Bfc03C3213236A11B39908f5BCC2b053'
+  },
+}
+
+export const CREDIT_STATION_LEDGER_CONTRACTS: {
+  [key in types.SkaleNetwork]: { [key: string]: types.AddressType } } = {
+  mainnet: {},
+  legacy: {},
+  regression: {},
+  testnet: {},
+  base: {
+    'bold-ill-informed-jabbah': '0x892F8D56Bfc03C3213236A11B39908f5BCC2b053'
+  },
+  'base-sepolia-testnet': {
+    'jubilant-horrible-ancha': '0x32Bfa8B5C6a450e9EF7d7Fc99fcCC349E7671FFb'
   }
 }
 

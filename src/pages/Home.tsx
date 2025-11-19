@@ -25,7 +25,7 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Stack, Button } from '@mui/material'
 import { SkPaper } from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { networks, type types } from '@/core'
 
 import { useApps } from '../useApps'
 import Headline from '../components/Headline'
@@ -36,10 +36,9 @@ import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import FeaturedApps from '../components/ecosystem/tabs/FeaturedApps'
 import HomeBanner from '../components/HomeBanner'
 
-import { SKALE_SOCIAL_LINKS } from '../core/constants'
+import { NETWORKS, SKALE_SOCIAL_LINKS } from '../core/constants'
 import { SECTION_ICONS, EXPLORE_CARDS } from '../components/HomeComponents'
 import SocialButtons from '../components/ecosystem/Socials'
-import UserRecommendations from '../components/ecosystem/UserRecommendations'
 
 interface HomeProps {
   skaleNetwork: types.SkaleNetwork
@@ -52,7 +51,7 @@ export default function Home({
   chainsMeta,
   metrics,
   loadData
-}: HomeProps): JSX.Element {
+}: HomeProps) {
   const { newApps, trendingApps, featuredApps } = useApps(chainsMeta, metrics)
 
   useEffect(() => {
@@ -64,63 +63,68 @@ export default function Home({
         <Headline text="Popular Actions" icon={SECTION_ICONS.explore} className='mb-2.5' />
         <HomeBanner />
         <ExploreSection />
-        <UserRecommendations
-          skaleNetwork={skaleNetwork}
-          chainsMeta={chainsMeta}
-          metrics={metrics}
-        />
-        <AppSection
-          title="Featured dApps on SKALE"
-          icon={SECTION_ICONS.featured}
-          linkTo="/ecosystem?tab=1"
-          component={
-            <FeaturedApps
-              featuredApps={featuredApps}
-              newApps={newApps}
-              skaleNetwork={skaleNetwork}
-              chainsMeta={chainsMeta}
-              trendingApps={trendingApps}
-              useCarousel={true}
-            />
-          }
-        />
-        <AppSection
-          title="New dApps on SKALE"
-          icon={SECTION_ICONS.new}
-          linkTo="/ecosystem?tab=2"
-          component={
-            <NewApps
-              newApps={newApps}
-              skaleNetwork={skaleNetwork}
-              chainsMeta={chainsMeta}
-              useCarousel={true}
-              trendingApps={trendingApps}
-              featuredApps={featuredApps}
-            />
-          }
-        />
-        <AppSection
-          title="Trending dApps on SKALE"
-          icon={SECTION_ICONS.trending}
-          linkTo="/ecosystem?tab=3"
-          component={
-            <TrendingApps
-              chainsMeta={chainsMeta}
-              skaleNetwork={skaleNetwork}
-              newApps={newApps}
-              featuredApps={featuredApps}
-              filteredApps={trendingApps}
-              useCarousel
-            />
-          }
-        />
+        {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
+          <AppSection
+            title="Featured dApps on SKALE"
+            icon={SECTION_ICONS.featured}
+            linkTo="/ecosystem?tab=1"
+            component={
+              <FeaturedApps
+                featuredApps={featuredApps}
+                newApps={newApps}
+                skaleNetwork={skaleNetwork}
+                chainsMeta={chainsMeta}
+                trendingApps={trendingApps}
+                useCarousel={true}
+              />
+            }
+          />
+        )}
+        {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
+          <AppSection
+            title="New dApps on SKALE"
+            icon={SECTION_ICONS.new}
+            linkTo="/ecosystem?tab=2"
+            component={
+              <NewApps
+                newApps={newApps}
+                skaleNetwork={skaleNetwork}
+                chainsMeta={chainsMeta}
+                useCarousel={true}
+                trendingApps={trendingApps}
+                featuredApps={featuredApps}
+              />
+            }
+          />
+        )}
+        {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
+          <AppSection
+            title="Trending dApps on SKALE"
+            icon={SECTION_ICONS.trending}
+            linkTo="/ecosystem?tab=3"
+            component={
+              <TrendingApps
+                chainsMeta={chainsMeta}
+                skaleNetwork={skaleNetwork}
+                newApps={newApps}
+                featuredApps={featuredApps}
+                filteredApps={trendingApps}
+                useCarousel
+              />
+            }
+          />
+        )}
       </Stack>
-      <Headline
-        text="Top Categories"
-        icon={SECTION_ICONS.categories}
-        className="mb-2.5 mt-5 pt-5"
-      />
-      <CategoryCardsGrid chainsMeta={chainsMeta} />
+      {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
+        <Headline
+          text="Top Categories"
+          icon={SECTION_ICONS.categories}
+          className="mb-2.5 mt-5 pt-5"
+        />
+      )}
+      {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
+        <CategoryCardsGrid chainsMeta={chainsMeta} />
+      )}
       <div className="flex items-center mt-5 pt-5">
         <div className="flex-grow"></div>
         <SkPaper gray className="mt-5">
@@ -131,26 +135,31 @@ export default function Home({
     </Container>
   )
 }
-function ExploreSection(): JSX.Element {
+
+function ExploreSection() {
   return (
     <div className="flex-grow">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
-        {EXPLORE_CARDS.map((card, index) => (
-          <div key={index} className="flex justify-center items-center dappCard">
-            <PageCard {...card} />
-          </div>
-        ))}
+        {EXPLORE_CARDS.map(
+          (card, index) =>
+            networks.hasFeatureInAny(NETWORKS, card.feature) && (
+              <div key={index} className="flex justify-center items-center dappCard">
+                <PageCard {...card} />
+              </div>
+            )
+        )}
       </div>
     </div>
   )
 }
+
 interface AppSectionProps {
   title: string
   icon: JSX.Element
   linkTo: string
   component: JSX.Element
 }
-function AppSection({ title, icon, linkTo, component }: AppSectionProps): JSX.Element {
+function AppSection({ title, icon, linkTo, component }: AppSectionProps) {
   return (
     <>
       <div className="flex items-center mb-2.5 mt-5 pt-5">

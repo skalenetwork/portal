@@ -26,7 +26,9 @@ import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { Link } from 'react-router-dom'
 
-export default function HomeBanner(): JSX.Element {
+import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded'
+
+export default function HomeBanner() {
   const theme = useTheme()
   const isXs = useMediaQuery(theme.breakpoints.down('sm'))
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
@@ -53,9 +55,10 @@ export default function HomeBanner(): JSX.Element {
             size={isXs ? 'small' : 'medium'}
             variant="contained"
             color="primary"
-            className={isXs ? 'btn btnSm' : 'btn btnMd'}
+            className={(isXs ? 'btn btnSm' : 'btn btnMd') + ' mt-2.5'}
             fullWidth={isMobile}
             style={{ minWidth: isMobile ? 'auto' : '180px' }}
+            startIcon={<AutoAwesomeRoundedIcon />}
           >
             Bridge Now
           </Button>

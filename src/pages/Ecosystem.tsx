@@ -25,7 +25,6 @@ import { Helmet } from 'react-helmet'
 import { Container, Stack, Tab, Tabs, Button } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import StarRoundedIcon from '@mui/icons-material/StarRounded'
 import AppShortcutIcon from '@mui/icons-material/AppShortcut'
@@ -47,7 +46,6 @@ import SelectedCategories from '../components/ecosystem/SelectedCategories'
 import SkStack from '../components/SkStack'
 import AllApps from '../components/ecosystem/tabs/AllApps'
 import NewApps from '../components/ecosystem/tabs/NewApps'
-import FavoriteApps from '../components/ecosystem/tabs/FavoriteApps'
 import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import SocialButtons from '../components/ecosystem/Socials'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
@@ -69,10 +67,7 @@ export default function Ecosystem(props: {
     getSearchTermFromUrl,
     setSearchTermInUrl
   } = useUrlParams()
-  const { allApps, newApps, trendingApps, favoriteApps, isSignedIn, featuredApps } = useApps(
-    props.chainsMeta,
-    props.metrics
-  )
+  const { allApps, newApps, trendingApps, featuredApps } = useApps(props.chainsMeta, props.metrics)
 
   const [checkedItems, setCheckedItems] = useState<string[]>([])
   const [filteredApps, setFilteredApps] = useState<types.AppWithChainAndName[]>([])
@@ -134,6 +129,7 @@ export default function Ecosystem(props: {
 
   useEffect(() => {
     const filtered = filterAppsBySearchTerm(
+      props.mpc.config.skaleNetwork,
       filterAppsByCategory(allApps, checkedItems),
       searchTerm,
       props.chainsMeta
@@ -180,22 +176,11 @@ export default function Ecosystem(props: {
             (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
           )
         )
-      ],
-      [
-        4,
-        isSignedIn
-          ? favoriteApps.filter((app) =>
-            filteredApps.some(
-              (filteredApp) =>
-                filteredApp.chain === app.chain && filteredApp.appName === app.appName
-            )
-          )
-          : []
       ]
     ])
 
     return (tabIndex: number) => filterMap.get(tabIndex) || filteredApps
-  }, [filteredApps, newApps, trendingApps, favoriteApps, featuredApps, isSignedIn])
+  }, [filteredApps, newApps, trendingApps, featuredApps])
 
   const currentFilteredApps = getFilteredAppsByTab(activeTab)
 
@@ -222,10 +207,7 @@ export default function Ecosystem(props: {
               width: '100%'
             }}
           >
-            <Container
-              maxWidth="md"
-              sx={props.isXs ? { paddingLeft: 0, paddingRight: 0 } : {}}
-            >
+            <Container maxWidth="md" sx={props.isXs ? { paddingLeft: 0, paddingRight: 0 } : {}}>
               <SkStack>
                 <div className={cn('flex-grow flex flex-col mb-5 mt-2.5')}>
                   <h2 className="m-0 text-3xl font-bold">Ecosystem</h2>
@@ -288,16 +270,11 @@ export default function Ecosystem(props: {
                   iconPosition="start"
                   className="btn btnSm mr-2.5! tab fwmobile"
                 />
-                <Tab
-                  label="Favorites"
-                  icon={<FavoriteRoundedIcon />}
-                  iconPosition="start"
-                  className="btn btnSm mr-2.5! tab fwmobile"
-                />
-              </Tabs>
-            </Container>
-          </div>
-          {!props.isXs && <div style={{ height: headerHeight }} />}
+              </Tabs >
+            </Container >
+          </div >
+          {!props.isXs && <div style={{ height: headerHeight }} />
+          }
           <div className={cn('flex-grow', 'mt-5', 'fwmobile')}>
             {activeTab === 0 && (
               <AllApps
@@ -337,21 +314,8 @@ export default function Ecosystem(props: {
                 featuredApps={featuredApps}
               />
             )}
-            {activeTab === 4 && (
-              <FavoriteApps
-                chainsMeta={props.chainsMeta}
-                skaleNetwork={props.mpc.config.skaleNetwork}
-                newApps={newApps}
-                featuredApps={featuredApps}
-                filteredApps={currentFilteredApps}
-                trendingApps={trendingApps}
-                favoriteApps={favoriteApps}
-                isSignedIn={isSignedIn}
-                error={null}
-              />
-            )}
           </div>
-        </Stack>
+        </Stack >
         <div className="flex mt-5 mb-5">
           <div className="flex-grow"></div>
           <div>
@@ -368,7 +332,7 @@ export default function Ecosystem(props: {
           </div>
           <div className="flex-grow"></div>
         </div>
-      </Container>
+      </Container >
 
       <ScrollToTopButton />
     </>

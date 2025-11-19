@@ -29,11 +29,11 @@ import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'
 
-import SensorsRoundedIcon from '@mui/icons-material/SensorsRounded'
-import ChangeCircleRoundedIcon from '@mui/icons-material/ChangeCircleRounded'
-import { type MetaportCore } from '@skalenetwork/metaport'
+import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded'
+import { type MetaportCore, ChainIcon, mp_metadata } from '@skalenetwork/metaport'
 
 import { PORTAL_URLS } from '../core/constants'
+import { constants } from '@/core'
 
 export default function NetworkSwitch(props: { mpc: MetaportCore }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -56,8 +56,14 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
             onClick={handleClick}
             className="mp__btnConnect bg-gray-800/90 text-secondary-foreground/60 flex capitalize"
           >
-            <SensorsRoundedIcon className="mr-1.5" style={{ height: '18px', width: '18px' }} />
-            {props.mpc.config.skaleNetwork}
+            <ChainIcon
+              skaleNetwork={props.mpc.config.skaleNetwork}
+              chainName={constants.MAINNET_CHAIN_NAME}
+              size="xs"
+              className="mr-2.5"
+              chainsMeta={mp_metadata.CHAINS_META[props.mpc.config.skaleNetwork]}
+            />
+            {props.mpc.config.skaleNetwork.replace(/-/g, ' ')}
           </Button>
         </Tooltip>
       </Box>
@@ -100,13 +106,21 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
         {Object.keys(PORTAL_URLS).map((network: string) =>
           props.mpc.config.skaleNetwork !== network ? (
             <a rel="noreferrer" href={PORTAL_URLS[network]} className="undec" key={network}>
-              <MenuItem onClick={handleClose}>
-                <ChangeCircleRoundedIcon className="mr-2.5" />
-                Switch to{' '}
-                <div className="capitalize ml-1.5">
-                  {' '}
-                  {network === 'staging' ? 'testnet' : network} Portal
-                </div>
+              <MenuItem onClick={handleClose} style={{ padding: '10px 4px 10px 8px' }}>
+                <ChainIcon
+                  skaleNetwork={network as any}
+                  chainName={constants.MAINNET_CHAIN_NAME}
+                  size="xs"
+                  className="mr-2.5"
+                  chainsMeta={mp_metadata.CHAINS_META[network as keyof typeof mp_metadata.CHAINS_META]}
+                />
+                SKALE{' '}
+                <div className="capitalize ml-1.5">{network.replace(/-/g, ' ')} Portal</div>
+                <div className="flex-grow"></div>
+                <KeyboardArrowRightRoundedIcon
+                  className="ml-2.5 w-4 h-4"
+                  style={{ opacity: 0.5 }}
+                />
               </MenuItem>
             </a>
           ) : null

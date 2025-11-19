@@ -76,8 +76,8 @@ export function WidgetBody(props) {
   }, [tokens])
 
   const chainsMeta = CHAINS_META[mpc.config.skaleNetwork]
-  const sourceBg = theme.vibrant ? metadata.chainBg(chainsMeta, chainName1) : constants.GRAY_BG
-  const destBg = theme.vibrant ? metadata.chainBg(chainsMeta, chainName2) : constants.GRAY_BG
+  const sourceBg = theme.vibrant ? metadata.chainBg(mpc.config.skaleNetwork, chainsMeta, chainName1) : constants.GRAY_BG
+  const destBg = theme.vibrant ? metadata.chainBg(mpc.config.skaleNetwork, chainsMeta, chainName2) : constants.GRAY_BG
   const overlayBg = theme.vibrant ? 'rgb(0 0 0 / 40%)' : 'transparent'
 
   return (
@@ -95,18 +95,7 @@ export function WidgetBody(props) {
         <SkPaper background={overlayBg} className="p-0">
           <SkPaper background="transparent" className="p-0">
             <Collapse in={showFrom()}>
-              <div className="pt-5 ml-5 mr-5 flex items-center">
-                <p className="text-xs text-gray-400 flex flex-grow">From</p>
-                <div>
-                  {token ? (
-                    <TokenBalance
-                      balance={tokenBalances[token.keyname]}
-                      symbol={token.meta.symbol}
-                      decimals={token.meta.decimals}
-                    />
-                  ) : null}
-                </div>
-              </div>
+
               <ChainsList
                 config={props.config}
                 chain={chainName1}
@@ -115,6 +104,16 @@ export function WidgetBody(props) {
                 disabledChain={chainName2}
                 disabled={transferInProgress}
                 from={true}
+                balance={
+                  token ? (
+                    <TokenBalance
+                      balance={tokenBalances[token.keyname]}
+                      symbol={token.meta.symbol}
+                      decimals={token.meta.decimals ?? undefined}
+                    />
+                  ) : null
+                }
+                size="md"
               />
             </Collapse>
           </SkPaper>
@@ -133,10 +132,6 @@ export function WidgetBody(props) {
       <Collapse in={showTo()}>
         <SkPaper background={destBg} className="p-0">
           <SkPaper background={overlayBg} className="p-0">
-            <div className="pt-5 ml-5 mr-5 flex items-center">
-              <p className="text-xs text-gray-400 flex flex-grow">To</p>
-              <DestTokenBalance />
-            </div>
             <ChainsList
               config={props.config}
               chain={chainName2}
@@ -145,6 +140,7 @@ export function WidgetBody(props) {
               setChain={setChainName2}
               disabledChain={chainName1}
               disabled={transferInProgress}
+              balance={<DestTokenBalance />}
             />
           </SkPaper>
         </SkPaper>

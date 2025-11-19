@@ -31,13 +31,14 @@ export type {
   AppWithChainAndName,
   ChainAction
 } from './ChainsMetadata'
+export type { NetworkFeature, NetworkConfig, NetworksConfig } from './networks'
 export * as st from './staking'
 export * as mp from './metaport'
 export * as pm from './paymaster'
 
 export type AddressType = `0x${string}`
 export type Size = 'xs' | 'sm' | 'md' | 'lg'
-export type SkaleNetwork = 'mainnet' | 'legacy' | 'regression' | 'testnet'
+export type SkaleNetwork = 'mainnet' | 'legacy' | 'regression' | 'testnet' | 'base' | 'base-sepolia-testnet'
 
 export type TSChainArray = [
   string,

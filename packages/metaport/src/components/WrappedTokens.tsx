@@ -107,7 +107,7 @@ export default function WrappedTokens() {
   if (Object.keys(filteredTokens).length === 0 || currentStep !== 0 || transferInProgress) return
 
   const chainsMeta = CHAINS_META[mpc.config.skaleNetwork]
-  const chainAlias = metadata.getAlias(chainsMeta, chainName1)
+  const chainAlias = metadata.getAlias(mpc.config.skaleNetwork, chainsMeta, chainName1)
 
   return (
     <div className="mt-2.5">

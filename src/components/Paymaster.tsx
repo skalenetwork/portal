@@ -110,7 +110,7 @@ export default function Paymaster(props: {
       return
     }
     setLoading(true)
-    setBtnText(`Switch network to ${metadata.getAlias(props.chainsMeta, paymasterChain)}`)
+    setBtnText(`Switch network to ${metadata.getAlias(network, props.chainsMeta, paymasterChain)}`)
     setErrorMsg(undefined)
     try {
       const { chainId } = await paymaster.runner.provider.getNetwork()

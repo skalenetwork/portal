@@ -29,9 +29,7 @@ import 'react-social-icons/discord'
 import 'react-social-icons/github'
 import 'react-social-icons/telegram'
 import 'react-social-icons/x'
-import { cls } from '@skalenetwork/metaport'
 import { type types } from '@/core'
-import FavoriteIconButton from './FavoriteIconButton'
 import SwellIcon from './SwellIcon'
 import EpicGamesStoreLogo from '../../assets/egs.svg'
 import ForumIcon from '@mui/icons-material/Forum'
@@ -49,8 +47,6 @@ const MAX_SOCIALS_SM = 6
 
 const SocialButtons: React.FC<SocialButtonsProps> = ({
   social,
-  chainName,
-  appName,
   all = false,
   size = 'sm',
   className
@@ -146,13 +142,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
                         href={link}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={cls(
-                          'flex items-center justify-center',
-                          isMd ? 'min-w-[40px] min-h-[40px]' : 'min-w-[30px] min-h-[30px]',
-                          network ? 'p-0!' : undefined,
-                          'text-secondary-foreground/60',
-                          ['bgBlack', isMd]
-                        )}
+                        className={`flex items-center justify-center ${isMd ? 'min-w-[40px] min-h-[40px]' : 'min-w-[30px] min-h-[30px]'} ${network ? 'p-0!' : ''} text-secondary-foreground/60 ${isMd ? 'bgBlack' : ''}`}
                       >
                         {icon || (
                           <SocialIcon
@@ -171,13 +161,6 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
           </div >
         )}
       {!social && <div className="flex-grow"></div>}
-      {
-        !isMd && chainName && appName ? (
-          <div className="ml-auto">
-            <FavoriteIconButton chainName={chainName} appName={appName} />
-          </div>
-        ) : null
-      }
     </div >
   )
 }

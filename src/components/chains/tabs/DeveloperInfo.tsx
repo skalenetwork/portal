@@ -34,11 +34,16 @@ export default function DeveloperInfo(props: {
   schainName: string
   skaleNetwork: types.SkaleNetwork
   className?: string
+  shortAlias?: string | undefined
 }) {
   const proxyBase = endpoints.getProxyEndpoint(props.skaleNetwork)
-  const rpcUrl = getRpcUrl(proxyBase, props.schainName, constants.HTTPS_PREFIX)
-  const rpcWssUrl = getRpcWsUrl(proxyBase, props.schainName, constants.WSS_PREFIX)
-  const fsUrl = getFsUrl(proxyBase, props.schainName, constants.HTTPS_PREFIX)
+  const rpcUrl = getRpcUrl(proxyBase, props.shortAlias || props.schainName, constants.HTTPS_PREFIX)
+  const rpcWssUrl = getRpcWsUrl(
+    proxyBase,
+    props.shortAlias || props.schainName,
+    constants.WSS_PREFIX
+  )
+  const fsUrl = getFsUrl(proxyBase, props.shortAlias || props.schainName, constants.HTTPS_PREFIX)
 
   const chainId = getChainId(props.schainName)
 

@@ -59,7 +59,8 @@ import TokenIcon from './TokenIcon'
 import Tile from './Tile'
 
 export default function CommunityPool() {
-  const { data: walletClient } = useWalletClient()
+  const { address, chainId } = useAccount()
+  const { data: walletClient } = useWalletClient({ chainId })
   const { switchChainAsync } = useSwitchChain()
 
   const cpData = useCPStore((state) => state.cpData)
@@ -78,8 +79,6 @@ export default function CommunityPool() {
 
   const expandedCP = useCollapseStore((state) => state.expandedCP)
   const setExpandedCP = useCollapseStore((state) => state.setExpandedCP)
-
-  const { address } = useAccount()
 
   let chainName
   if (token && chainName2) {

@@ -3,6 +3,7 @@
 .paper {
     padding: 10px;
     border-radius: $sk-border-radius;
+    backdrop-filter: blur(6px);
 }
 
 .paperGrey {
@@ -229,6 +230,53 @@ button {
     position: fixed;
 }
 
+.chainIconBg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.chainIconBgxs {
+    width: 23px;
+    height: 23px;
+    border-radius: 8px;
+}
+
+.chainIconBgs {
+    width: 26px;
+    height: 26px;
+    border-radius: 20px;
+}
+
+.chainIconBgsm {
+    width: 36px;
+    height: 36px;
+    border-radius: 10px;
+}
+
+.chainIconBgmd {
+    width: 55px;
+    height: 55px;
+    border-radius: 15px;
+}
+
+.chainIconBglg {
+    width: 87px;
+    height: 87px;
+    border-radius: 30px;
+}
+
+.chainIconBgxl {
+    width: 160px;
+    height: 160px;
+    border-radius: 40px;
+}
+
+.chainIcon {
+    display: block;
+}
+
 .chainIconxs {
     width: 17px;
     height: 17px;
@@ -260,12 +308,12 @@ button {
 }
 
 .chainIconmd {
-    width: 35px;
-    height: 35px;
+    width: 37px;
+    height: 37px;
 
     svg {
-        width: 35px;
-        height: 35px;
+        width: 37;
+        height: 37;
     }
 }
 
@@ -465,10 +513,14 @@ button {
     padding: 5px 10px 5px 5px !important;
 }
 
+.filledActive {
+    background: $sk-bg;
+}
+
 .disabledCard {
     filter: saturate(0) !important;
     cursor: not-allowed !important;
-  }
+}
 
 .wordBreakAll {
     word-break: break-all;
@@ -476,4 +528,14 @@ button {
 
 .noWrap {
     white-space: nowrap;
+}
+
+
+.creditsArrow {
+    margin: 0px -20px 0 -10px;
+    z-index: 99;
+    border: 6px #181818 solid;
+    background: $sk-prim;
+    border-radius: 50%;
+    color: black;
 }

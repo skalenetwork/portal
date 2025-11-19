@@ -68,6 +68,7 @@ export default function Validator(props: {
   isXs: boolean
   delegations: types.st.IDelegation[] | null
   getMainnetSigner: () => Promise<Signer>
+  chainsMeta: types.ChainsMetadataMap
 }) {
   const [sortBy, setSortBy] = useState<SortType>('id')
   const [visibleItems, setVisibleItems] = useState(ITEMS_PER_PAGE)
@@ -242,7 +243,7 @@ export default function Validator(props: {
           customAddress={props.customAddress}
           className="mt-5"
           isXs={props.isXs}
-          sklPrice={sklPrice}
+          chainsMeta={props.chainsMeta}
         />
       )}
       <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-5" />

@@ -69,9 +69,11 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
   const { address } = useWagmiAccount()
 
   const sourceBg = theme.vibrant
-    ? metadata.chainBg(props.chainsMeta, chainName1)
+    ? metadata.chainBg(mpc.config.skaleNetwork, props.chainsMeta, chainName1)
     : constants.GRAY_BG
-  const destBg = theme.vibrant ? metadata.chainBg(props.chainsMeta, chainName2) : constants.GRAY_BG
+  const destBg = theme.vibrant
+    ? metadata.chainBg(mpc.config.skaleNetwork, props.chainsMeta, chainName2)
+    : constants.GRAY_BG
 
   const stepsMetadata = useMetaportStore((state) => state.stepsMetadata)
   const currentStep = useMetaportStore((state) => state.currentStep)
@@ -83,16 +85,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
       </Collapse>
       <SkPaper background={sourceBg} className="p-0">
         <Collapse in={showFrom()}>
-          <div className="pt-5 ml-5 mr-5 flex">
-            <p className="m-0 text-xs text-secondary-foreground/60 flex flex-grow">From</p>
-            {token ? (
-              <TokenBalance
-                balance={tokenBalances[token.keyname]}
-                symbol={token.meta.symbol}
-                decimals={token.meta.decimals ?? undefined}
-              />
-            ) : null}
-          </div>
+
           <ChainsList
             config={mpc.config}
             chain={chainName1}
@@ -102,6 +95,17 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
             disabled={transferInProgress}
             from={true}
             size="md"
+            balance={
+              token ? (
+                <TokenBalance
+                  balance={tokenBalances[token.keyname]}
+                  symbol={token.meta.symbol}
+                  decimals={token.meta.decimals ?? undefined}
+                  truncate={3}
+                  mpc={mpc}
+                />
+              ) : null
+            }
           />
         </Collapse>
 
@@ -119,10 +123,6 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
 
       <Collapse in={showTo()}>
         <SkPaper background={destBg} className="p-0">
-          <div className="pt-5 ml-5 mr-5 flex">
-            <p className="m-0 text-xs text-secondary-foreground/60 flex flex-grow">To</p>
-            <DestTokenBalance />
-          </div>
           <ChainsList
             config={mpc.config}
             chain={chainName2}
@@ -132,6 +132,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
             disabledChain={chainName1}
             disabled={transferInProgress}
             size="md"
+            balance={<DestTokenBalance />}
           />
         </SkPaper>
       </Collapse>

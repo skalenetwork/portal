@@ -85,10 +85,14 @@ export default function ChainTabsSection(props: {
 
   const chainFeaturedApps = featuredApps.filter((app) => app.chain === props.schainName)
 
-  const explorerUrl = explorer.getExplorerUrl(network, props.schainName)
+  const explorerUrl = explorer.getExplorerUrl(chainMeta, network, props.schainName)
 
   const BASE_TABS_CONTENT = [
-    <DeveloperInfo schainName={props.schainName} skaleNetwork={network} />,
+    <DeveloperInfo
+      schainName={props.schainName}
+      skaleNetwork={network}
+      shortAlias={chainMeta?.shortAlias}
+    />,
     <VerifiedContracts mpc={props.mpc} schainName={props.schainName} explorerUrl={explorerUrl} />
   ]
 

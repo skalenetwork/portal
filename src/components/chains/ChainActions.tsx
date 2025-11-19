@@ -41,7 +41,7 @@ const ChainActions: React.FC<ChainActionsProps> = ({
   skaleNetwork,
   className
 }) => {
-  const explorerUrl = explorer.getExplorerUrl(skaleNetwork, schainName)
+  const explorerUrl = explorer.getExplorerUrl(chainMeta, skaleNetwork, schainName)
 
   return (
     <div className={`flex items-center mt-2.5 ${className}`}>

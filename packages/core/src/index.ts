@@ -29,6 +29,7 @@ import * as units from './units'
 import * as endpoints from './endpoints'
 import * as helper from './helper'
 import * as timeUtils from './timeUtils'
+import * as networks from './networks'
 
 import { ERC_ABIS } from './abi'
 import { FAUCET_DATA } from './metadata'
@@ -43,6 +44,7 @@ export {
   endpoints,
   helper,
   timeUtils,
+  networks,
   ERC_ABIS,
   FAUCET_DATA
 }

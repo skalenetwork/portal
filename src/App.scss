@@ -454,7 +454,7 @@ body {
 .btnMd {
   text-transform: none !important;
   font-size: 0.8025rem !important;
-  line-height: 1.5 !important;
+  line-height: 2.5 !important;
   letter-spacing: 0.02857em !important;
   font-weight: 600 !important;
   padding: 0.6em 2em !important;
@@ -816,15 +816,6 @@ input[type=number] {
 
 
   background: linear-gradient(180deg, #ff7e91, #e63946) !important;
-
-  p {
-    color: black !important
-  }
-}
-
-.chipMostLiked {
-  background: linear-gradient(180deg, #e8a25b, #e58e36) !important;
-
 
   p {
     color: black !important
@@ -1229,6 +1220,12 @@ input[type=number] {
 }
 
 
+.creditHistoryIcon {
+  margin-left: -15px;
+  margin-top: -25px;
+}
+
+
 .rotate-90 {
   transition: transform 0.5s ease;
   /* Adjust duration and easing as needed */
@@ -1483,9 +1480,9 @@ input[type=number] {
 
 .home-banner-title {
   font-family: inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
-  font-weight: 800 !important;
+  font-weight: 700 !important;
   text-align: center;
-  font-size: 55px;
+  font-size: 50px;
 
   @media (max-width: 768px) {
     font-size: 40px !important;

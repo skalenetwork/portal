@@ -21,20 +21,19 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
-
 import Box from '@mui/material/Box'
 import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'
 import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
-import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
 
 import { RainbowConnectButton } from '@skalenetwork/metaport'
-
-import { useAuth } from '../AuthContext'
+import { helper } from '@/core'
+import Avatar from 'boring-avatars'
+import { AVATAR_COLORS } from '../core/constants'
 
 export default function AccountMenu(props: any) {
-  const { isSignedIn, openProfileModal } = useAuth()
+  const { openProfileModal } = props
+
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
       {!props.address ? (
@@ -47,7 +46,7 @@ export default function AccountMenu(props: any) {
                     onClick={() => {
                       openConnectModal()
                     }}
-                    className="styles.paperGrey, text-primary, 'mp__btnConnect', flex"
+                    className="bg-gray-100 text-primary mp__btnConnect flex items-center"
                   >
                     <LooksRoundedIcon
                       className="mr-1.5"
@@ -61,33 +60,15 @@ export default function AccountMenu(props: any) {
           </div>
         </Tooltip>
       ) : (
-        <Tooltip arrow title={isSignedIn ? 'Conneced and signed-in' : 'Wallet connect, signed-out'}>
+        <Tooltip arrow title="Click to open profile">
           <Button
             onClick={openProfileModal}
-            className="'mp__btnConnect', styles.paperGrey, text-primary, flex"
+            className="bg-gray-100 text-primary mp__btnConnect flex items-center"
           >
-            <div
-              className="mr-1.5, items-center"
-              style={{ height: '20px', position: 'relative' }}
-            >
-              <Jazzicon diameter={20} seed={jsNumberForAddress(props.address)} />
-              <div className="'icon-overlay', flex items-center">
-                {isSignedIn ? (
-                  <FiberManualRecordRoundedIcon
-                    color="success"
-                    className="styles.chainIconxs"
-                  />
-                ) : (
-                  <FiberManualRecordRoundedIcon
-                    color="warning"
-                    className="styles.chainIconxs"
-                  />
-                )}
-              </div>
+            <div className="mr-1.5 flex">
+              <Avatar variant="marble" name={props.address} colors={AVATAR_COLORS} size={20} />
             </div>
-            {props.address.substring(0, 5) +
-              '...' +
-              props.address.substring(props.address.length - 3)}
+            {helper.shortAddress(props.address)}
           </Button>
         </Tooltip>
       )}

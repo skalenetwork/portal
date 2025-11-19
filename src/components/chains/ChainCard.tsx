@@ -54,7 +54,7 @@ const ChainCard: React.FC<{
           <div className="sk-app-logo sk-logo-sm br__tile">
             <div
               className="logo-wrapper borderLight"
-              style={{ background: metadata.chainBg(chainsMeta, schain.name) }}
+              style={{ background: metadata.chainBg(skaleNetwork, chainsMeta, schain.name) }}
             >
               <ChainLogo
                 className="responsive-logo"
@@ -66,7 +66,7 @@ const ChainCard: React.FC<{
             <div className="flex flex-grow"></div>
           </div>
           <div className="flex-grow"></div>
-          {chainMeta && (
+          {chainMeta && transactions && (
             <div>
               <Chip
                 label={`${transactions ? formatNumber(transactions) : '...'}+ Daily Tx`}
@@ -77,7 +77,7 @@ const ChainCard: React.FC<{
         </div>
         <div className="flex items-center mt-2.5">
           <p className="text-primary font-semibold text-base 'shortP' flex-grow mr-1.5">
-            {metadata.getAlias(chainsMeta, schain.name)}
+            {metadata.getAlias(skaleNetwork, chainsMeta, schain.name)}
           </p >
         </div >
         <CollapsibleDescription text={chainMeta?.description ?? 'No description'} />

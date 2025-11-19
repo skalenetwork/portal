@@ -55,7 +55,7 @@ interface ChainRewardsProps {
   customAddress?: types.AddressType
   className?: string
   isXs?: boolean
-  sklPrice: bigint
+  chainsMeta: types.ChainsMetadataMap
 }
 
 const ChainRewards: React.FC<ChainRewardsProps> = ({
@@ -63,7 +63,9 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   validator,
   address,
   customAddress,
-  isXs
+  className,
+  isXs,
+  chainsMeta
 }) => {
   const [rewardAmount, setRewardAmount] = useState<bigint | undefined>(undefined)
   const [sklToken, setSklToken] = useState<Contract | undefined>(undefined)
@@ -124,7 +126,14 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
     let skl = sklToken
     if (skl === undefined) {
       skl = new Contract(tokenAddress, ERC_ABIS.erc20.abi, paymaster.runner)
-      setTokenUrl(explorer.getExplorerUrlForAddress(network, paymasterChain, tokenAddress))
+      setTokenUrl(
+        explorer.getExplorerUrlForAddress(
+          chainsMeta[paymasterChain],
+          network,
+          paymasterChain,
+          tokenAddress
+        )
+      )
       setSklToken(skl)
     }
     setTokenBalance(await skl.balanceOf(addr))
@@ -179,11 +188,11 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   }
 
   return (
-    <SkPaper gray className="mt-5 className">
+    <SkPaper gray className={`mt-5 ${className || ''}`}>
       <Headline
         size="small"
         text="Chain Rewards"
-        icon={<StarsRoundedIcon className="styles.chainIconxs" />}
+        icon={<StarsRoundedIcon className="w-4 h-4" />}
         className="mb-5"
       />
       <Tile
@@ -198,13 +207,13 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
             : ''
         }
         childrenRi={
-          <SkStack className="flex items-center !isXs">
+          <SkStack className="flex items-center">
             <SkBtn
               loading={loading}
               text={btnText ?? 'Retrieve'}
               variant="contained"
               size="sm"
-              className="[ml-5, !isXs], mr-5, items-center"
+              className={`${!isXs ? 'ml-5' : ''} mr-5 items-center`}
               disabled={
                 customAddress !== undefined ||
                 rewardAmount === null ||
@@ -213,9 +222,9 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
               }
               onClick={retrieveRewards}
             />
-            <div className="['borderVert', !isXs]">
+            <div className={!isXs ? 'borderVert' : ''}>
               <Tile
-                className="p-0, [ml-5, !isXs]"
+                className={`p-0 ${!isXs ? 'ml-5' : ''}`}
                 size="md"
                 transparent
                 grow
@@ -234,9 +243,9 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
                       <Button
                         disabled={tokenUrl === null}
                         variant="text"
-                        className="'roundBtn' ml-1.5"
+                        className="roundBtn ml-1.5"
                       >
-                        <ViewInArRoundedIcon className="styles.chainIconxs" />
+                        <ViewInArRoundedIcon className="w-4 h-4" />
                       </Button>
                     </a>
                   </Tooltip>
