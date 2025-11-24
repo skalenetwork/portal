@@ -21,7 +21,6 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-
 import { useLocation, Link } from 'react-router-dom'
 import { networks, types } from '@/core'
 
@@ -36,16 +35,18 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 
-import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontalCircleOutlined'
-import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
-import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
-import PieChartOutlineOutlinedIcon from '@mui/icons-material/PieChartOutlineOutlined'
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
-import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined'
-import AddCardRoundedIcon from '@mui/icons-material/AddCardRounded'
-import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
-import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined'
-import PaymentsRoundedIcon from '@mui/icons-material/PaymentsRounded'
+import {
+  House,
+  ArrowLeftRight,
+  Globe2,
+  BarChart2,
+  PieChart,
+  Users,
+  CreditCard,
+  Link2,
+  BadgeDollarSign,
+  Route
+} from 'lucide-react'
 
 import { GET_STARTED_URL, NETWORKS } from './core/constants'
 import DelegationsNotification from './components/delegation/DelegationsNotification'
@@ -63,7 +64,8 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: {
             width: drawerWidth,
-            boxSizing: 'border-box'
+            boxSizing: 'border-box',
+            background: 'var(--background)'
           }
         }}
       >
@@ -71,38 +73,43 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
         <Box sx={{ overflow: 'auto' }} className="mt-5">
           <List>
             <ListItem>
-              <Link to="/" className="undec fullW">
+              <Link to="/" className="w-full text-foreground!">
                 <ListItemButton className="text-primary" selected={location.pathname === '/'}>
                   <ListItemIcon>
-                    <HomeOutlinedIcon />
+                    <House className="text-foreground" size={18} />
                   </ListItemIcon>
                   <ListItemText primary="Home" />
                 </ListItemButton>
               </Link>
             </ListItem>
             <ListItem>
-              <a className="undec fullW" target="_blank" href={GET_STARTED_URL} rel="noreferrer">
+              <a
+                className="w-full text-foreground!"
+                target="_blank"
+                href={GET_STARTED_URL}
+                rel="noreferrer"
+              >
                 <ListItemButton className="text-primary">
                   <ListItemIcon>
-                    <ExploreOutlinedIcon />
+                    <Route className="text-foreground" size={18} />
                   </ListItemIcon>
                   <ListItemText primary="Get Started" />
                 </ListItemButton>
               </a>
             </ListItem>
           </List>
-          <h4 className="text-gray-400 text-xs mt-2.5 ml-5">Transfer</h4>
+          <h4 className="text-secondary-foreground text-xs font-medium mt-2.5 ml-5">Transfer</h4>
           <List>
             <ListItem>
-              <Link to="/bridge" className="undec fullW">
+              <Link to="/bridge" className="w-full text-foreground!">
                 <ListItemButton
-                  className="text-primary"
+                  className=""
                   selected={
                     location.pathname === '/bridge/history' || location.pathname === '/bridge'
                   }
                 >
                   <ListItemIcon>
-                    <SwapHorizontalCircleOutlinedIcon />
+                    <ArrowLeftRight className="text-foreground" size={18} />
                   </ListItemIcon>
                   <ListItemText primary="Bridge" />
                 </ListItemButton>
@@ -110,13 +117,13 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
             </ListItem>
             {networks.hasFeatureInAny(NETWORKS, 'onramp') && (
               <ListItem>
-                <Link to="/onramp" className="undec fullW">
+                <Link to="/onramp" className="w-full text-foreground!">
                   <ListItemButton
                     className="text-primary"
                     selected={location.pathname === '/onramp'}
                   >
                     <ListItemIcon>
-                      <AddCardRoundedIcon />
+                      <CreditCard className="text-foreground" size={18} />
                     </ListItemIcon>
                     <ListItemText primary="On-Ramp" />
                   </ListItemButton>
@@ -124,29 +131,26 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
               </ListItem>
             )}
           </List>
-          <h4 className="text-gray-400 text-xs mt-2.5 ml-5">Network</h4>
+          <h4 className="text-secondary-foreground text-xs font-medium mt-2.5 ml-5">Network</h4>
           <List>
             {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
               <ListItem>
-                <Link to="/ecosystem" className="undec fullW">
+                <Link to="/ecosystem" className="w-full text-foreground!">
                   <ListItemButton
                     className="text-primary"
                     selected={location.pathname.includes('/ecosystem')}
                   >
                     <ListItemIcon>
-                      <PublicOutlinedIcon />
+                      <Globe2 className="text-foreground" size={18} />
                     </ListItemIcon>
                     <ListItemText primary="Ecosystem" />
-                    <div className="chipNew">
-                      <p className="text-xs">NEW</p>
-                    </div>
                   </ListItemButton>
                 </Link>
               </ListItem>
             )}
             {networks.hasFeatureInAny(NETWORKS, 'chains') && (
               <ListItem>
-                <Link to="/chains" className="undec fullW">
+                <Link to="/chains" className="w-full text-foreground!">
                   <ListItemButton
                     className="text-primary"
                     selected={
@@ -154,7 +158,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                     }
                   >
                     <ListItemIcon>
-                      <LinkRoundedIcon />
+                      <Link2 className="text-foreground" size={18} />
                     </ListItemIcon>
                     <ListItemText primary="SKALE Chains" />
                   </ListItemButton>
@@ -163,13 +167,13 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
             )}
             {networks.hasFeatureInAny(NETWORKS, 'staking') && (
               <ListItem>
-                <Link to="/staking" className="undec fullW">
+                <Link to="/staking" className="w-full text-foreground!">
                   <ListItemButton
                     className="text-primary"
                     selected={location.pathname.includes('/staking')}
                   >
                     <ListItemIcon>
-                      <PieChartOutlineOutlinedIcon />
+                      <PieChart className="text-foreground" size={18} />
                     </ListItemIcon>
                     <ListItemText primary="Staking" />
                   </ListItemButton>
@@ -178,13 +182,13 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
             )}
             {networks.hasFeatureInAny(NETWORKS, 'staking') && (
               <ListItem>
-                <Link to="/validators" className="undec fullW">
+                <Link to="/validators" className="w-full text-foreground!">
                   <ListItemButton
                     className="text-primary"
                     selected={location.pathname.includes('/validator')}
                   >
                     <ListItemIcon>
-                      <GroupOutlinedIcon />
+                      <Users className="text-foreground" size={18} />
                     </ListItemIcon>
                     <ListItemText primary="Validators" />
                     <DelegationsNotification
@@ -197,13 +201,13 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
             )}
             {networks.hasFeatureInAny(NETWORKS, 'stats') && (
               <ListItem>
-                <Link to="/stats" className="undec fullW">
+                <Link to="/stats" className="w-full text-foreground!">
                   <ListItemButton
                     className="text-primary"
                     selected={location.pathname === '/stats'}
                   >
                     <ListItemIcon>
-                      <InsertChartOutlinedIcon />
+                      <BarChart2 className="text-foreground" size={18} />
                     </ListItemIcon>
                     <ListItemText primary="Stats" />
                   </ListItemButton>
@@ -212,7 +216,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
             )}
             {networks.hasFeatureInAny(NETWORKS, 'credits') && (
               <ListItem>
-                <Link to="/credits" className="undec fullW">
+                <Link to="/credits" className="w-full text-foreground!">
                   <ListItemButton
                     className="text-primary"
                     selected={
@@ -220,7 +224,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                     }
                   >
                     <ListItemIcon>
-                      <PaymentsRoundedIcon />
+                      <BadgeDollarSign className="text-foreground" size={18} />
                     </ListItemIcon>
                     <ListItemText primary="Chain Credits" />
                     <div className="chipNew">

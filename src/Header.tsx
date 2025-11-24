@@ -24,6 +24,9 @@
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Chip from '@mui/material/Chip'
+import IconButton from '@mui/material/IconButton'
+import { useEffect, useState } from 'react'
+import { MoonStar, SunMedium } from 'lucide-react'
 
 import logo from './assets/skale_lg.svg'
 
@@ -43,6 +46,16 @@ export default function Header(props: {
   mpc: MetaportCore
   openProfileModal: () => void
 }) {
+  const [isDark, setIsDark] = useState(false)
+
+  useEffect(() => {
+    if (isDark) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [isDark])
+
   return (
     <AppBar
       elevation={0}
@@ -53,7 +66,7 @@ export default function Header(props: {
       <Toolbar className="flex items-center">
         <div className="flex items-center">
           <Link to="/" className="flex items-center">
-            <img src={logo} className="skLogo" alt="logo" />
+            <img src={logo} className="skLogo invert dark:invert-0" alt="logo" />
           </Link>
         </div>
         <div className="flex items-center flex-grow ml-2.5">
@@ -69,6 +82,13 @@ export default function Header(props: {
         <AccountMenu address={props.address} openProfileModal={props.openProfileModal} />
         {networks.hasFeatureInAny(NETWORKS, 'sfuel') && <GetSFuel mpc={props.mpc} />}
         <NetworkSwitch mpc={props.mpc} />
+        <IconButton
+          size="small"
+          className="ml-1.5! h-8 w-8 rounded-full bg-card! text-foreground! hover:bg-muted"
+          onClick={() => setIsDark((v) => !v)}
+        >
+          {isDark ? <MoonStar className="h-4 w-4" /> : <SunMedium className="h-4 w-4" />}
+        </IconButton>
         <HelpZen />
         <MoreMenu />
       </Toolbar>

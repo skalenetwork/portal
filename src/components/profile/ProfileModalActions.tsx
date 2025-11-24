@@ -77,7 +77,7 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
       >
         Disconnect
       </Button>
-    </SkStack >
+    </SkStack>
   )
 }
 

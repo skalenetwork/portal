@@ -83,8 +83,7 @@ export default function VerifiedContracts(props: {
         ))}
       </div>
       {!loading && contracts.length === 0 ? (
-        <p
-          className="text-base font-bold text-secondary-foreground/60 w-full mt-5 mb-5 text-center">
+        <p className="text-base font-bold text-secondary-foreground w-full mt-5 mb-5 text-center">
           No verified contracts
         </p>
       ) : (

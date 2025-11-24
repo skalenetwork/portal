@@ -76,9 +76,7 @@ export default function HubTile(props: {
       >
         <Tooltip title="Click to see Hub details">
           <div className="titleSectionBg flex items-center">
-            <div
-              className="flex items-center flex-grow mt-5 mb-5 ml-5"
-            >
+            <div className="flex items-center flex-grow mt-5 mb-5 ml-5">
               <div className="w-[45px] h-[45px] flex items-center">
                 <ChainLogo
                   network={props.network}
@@ -87,13 +85,9 @@ export default function HubTile(props: {
                   className="responsive-logo"
                 />
               </div>
-              <div
-                className={`${!props.isXs ? 'ml-5' : 'ml-2.5'} flex-grow`}
-              >
+              <div className={`${!props.isXs ? 'ml-5' : 'ml-2.5'} flex-grow`}>
                 <h4 className="font-bold pOneLine">{alias}</h4>
-                <p
-                  className={`text-xs ${props.isXs ? 'mr-2.5' : ''} text-secondary-foreground/60`}
-                >
+                <p className={`text-xs ${props.isXs ? 'mr-2.5' : ''} text-secondary-foreground`}>
                   {chainDescription.split('.', 1)[0]}
                 </p>
               </div>
@@ -111,12 +105,12 @@ export default function HubTile(props: {
             )}
             {!props.isXs && (
               <div className="mr-5 w-4 h-4">
-                <ArrowForwardIosRoundedIcon className="text-secondary-foreground/60" />
+                <ArrowForwardIosRoundedIcon className="text-secondary-foreground" />
               </div>
             )}
           </div>
-        </Tooltip >
-      </SkPaper >
-    </Link >
+        </Tooltip>
+      </SkPaper>
+    </Link>
   )
 }

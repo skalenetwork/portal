@@ -45,21 +45,19 @@ const ChainActions: React.FC<ChainActionsProps> = ({
 
   return (
     <div className={`flex items-center mt-2.5 ${className}`}>
-      {
-        chainMeta && chainMeta.url && (
-          <Tooltip title="Website">
-            <IconButton
-              size="small"
-              href={chainMeta.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-primary"
-            >
-              <LanguageIcon className="text-secondary-foreground/60" fontSize="small" />
-            </IconButton>
-          </Tooltip>
-        )
-      }
+      {chainMeta && chainMeta.url && (
+        <Tooltip title="Website">
+          <IconButton
+            size="small"
+            href={chainMeta.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-primary"
+          >
+            <LanguageIcon className="text-secondary-foreground" fontSize="small" />
+          </IconButton>
+        </Tooltip>
+      )}
       <Tooltip title="Block Explorer">
         <IconButton
           size="small"
@@ -68,10 +66,10 @@ const ChainActions: React.FC<ChainActionsProps> = ({
           rel="noopener noreferrer"
           className="text-primary"
         >
-          <ViewInArRoundedIcon className="text-secondary-foreground/60" fontSize="small" />
+          <ViewInArRoundedIcon className="text-secondary-foreground" fontSize="small" />
         </IconButton>
       </Tooltip>
-    </div >
+    </div>
   )
 }
 

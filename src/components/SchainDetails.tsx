@@ -24,12 +24,7 @@
 import { useState } from 'react'
 import { Helmet } from 'react-helmet'
 
-import {
-  type MetaportCore,
-  SkPaper,
-  explorer,
-  Tile
-} from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper, explorer, Tile } from '@skalenetwork/metaport'
 import { type types, metadata, constants, endpoints, networks } from '@/core'
 
 import Button from '@mui/material/Button'
@@ -191,9 +186,7 @@ export default function SchainDetails(props: {
           <Tile
             className="p-0 flex items-center"
             children={
-              <div
-                className={`p-2.5 ml-5 mr-5 ${!props.isXs ? 'flex' : ''} items-center`}
-              >
+              <div className={`p-2.5 ml-5 mr-5 ${!props.isXs ? 'flex' : ''} items-center`}>
                 <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
                   <Button
                     size="medium"
@@ -288,6 +281,6 @@ export default function SchainDetails(props: {
         schainName={props.schainName}
         isXs={props.isXs}
       />
-    </div >
+    </div>
   )
 }

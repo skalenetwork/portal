@@ -78,6 +78,7 @@ const SkIconBtn: React.FC<SkIconBtnProps> = ({
       className={cls(
         'sk-icon-btn',
         `sk-icon-btn-${size}`,
+        'ml-1.5! h-8 w-8 rounded-full bg-card! text-foreground! hover:bg-muted',
         className
       )}
       size={size}
@@ -86,8 +87,8 @@ const SkIconBtn: React.FC<SkIconBtnProps> = ({
       <Icon
         className={cls(
           iconClassName,
-          ['text-primary', primary],
-          ['text-secondary-foreground/60', !primary],
+          ['text-foreground', primary],
+          ['text-secondary-foreground', !primary],
           'sk-icon-btn-img'
         )}
       />

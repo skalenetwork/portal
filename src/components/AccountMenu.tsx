@@ -46,7 +46,7 @@ export default function AccountMenu(props: any) {
                     onClick={() => {
                       openConnectModal()
                     }}
-                    className="bg-gray-100 text-primary mp__btnConnect flex items-center"
+                    className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! normal-case! rounded-full min-w-0!"
                   >
                     <LooksRoundedIcon
                       className="mr-1.5"
@@ -60,10 +60,10 @@ export default function AccountMenu(props: any) {
           </div>
         </Tooltip>
       ) : (
-        <Tooltip arrow title="Click to open profile">
+        <Tooltip arrow title="Click to open wallet details">
           <Button
             onClick={openProfileModal}
-            className="bg-gray-100 text-primary mp__btnConnect flex items-center"
+            className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! normal-case! rounded-full min-w-0!"
           >
             <div className="mr-1.5 flex">
               <Avatar variant="marble" name={props.address} colors={AVATAR_COLORS} size={20} />

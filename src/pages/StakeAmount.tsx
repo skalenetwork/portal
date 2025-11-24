@@ -134,24 +134,18 @@ export default function StakeAmount(props: {
           </div>
           {loaded && available ? (
             <div className="titleBadge" style={{ padding: '10px 15px' }}>
-              <p className="text-xs">
-                {getDelegationTypeAlias(delegationType)} delegation
-              </p>
+              <p className="text-xs">{getDelegationTypeAlias(delegationType)} delegation</p>
             </div>
           ) : null}
         </div>
         <div className="mt-2.5 ml-1.25 mb-2.5" style={{ paddingBottom: '5px' }}>
           <h2 className="m-0 text-2xl font-bold">Stake SKL</h2>
-          <p className="text-sm text-secondary-foreground/60">
+          <p className="text-sm text-secondary-foreground">
             Review validator info and enter delegation amount
           </p>
         </div>
         {currentValidator ? (
-          <ValidatorInfo
-            validator={currentValidator}
-            sklPrice={sklPrice}
-            className="mt-2.5"
-          />
+          <ValidatorInfo validator={currentValidator} sklPrice={sklPrice} className="mt-2.5" />
         ) : (
           <Loader text="Loading validator info" />
         )}

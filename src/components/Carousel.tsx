@@ -99,7 +99,7 @@ const Carousel: React.FC<CarouselProps> = ({ children, showArrows = true, classN
             onClick={handleNext}
             disabled={startIndex >= children.length - itemsToShow}
             size="small"
-            className="text-secondary-foreground/60 filled ml-1.5"
+            className="text-secondary-foreground filled ml-1.5"
           >
             <ArrowForwardIosRoundedIcon />
           </IconButton>

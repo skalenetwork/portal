@@ -67,12 +67,12 @@ const CategoriesChips: React.FC<CategoriesChipsProps> = ({ categories, all, clas
         />,
         ...(Array.isArray(subcategories)
           ? subcategories.map((subTag) => (
-            <Chip
-              key={`${categoryTag}-${subTag}`}
-              label={getSubcategoryName(categoryTag, subTag)}
-              icon={<CategoryIcons category={subTag} />}
-            />
-          ))
+              <Chip
+                key={`${categoryTag}-${subTag}`}
+                label={getSubcategoryName(categoryTag, subTag)}
+                icon={<CategoryIcons category={subTag} />}
+              />
+            ))
           : [])
       ])
     }

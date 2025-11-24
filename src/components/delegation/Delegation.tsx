@@ -121,18 +121,18 @@ export default function Delegation(props: {
             )}
             <div className="ml-2.5">
               <p className="text-base font-bold">ID: {Number(props.delegation.id)}</p>
-              <p className=" text-xs text-secondary-foreground/60">
+              <p className=" text-xs text-secondary-foreground">
                 {formatBigIntTimestampSeconds(props.delegation.created)}
               </p>
             </div>
             {props.delegationType === types.st.DelegationType.ESCROW ? (
               <Tooltip title="Escrow delegation">
-                <AccountBalanceRoundedIcon className="'trustedBadge' ml-2.5 text-secondary-foreground/60" />
+                <AccountBalanceRoundedIcon className="'trustedBadge' ml-2.5 text-secondary-foreground" />
               </Tooltip>
             ) : null}
             {props.delegationType === types.st.DelegationType.ESCROW2 ? (
               <Tooltip title="Grant Escrow delegation">
-                <ApartmentRoundedIcon className="'trustedBadge' ml-2.5 text-secondary-foreground/60" />
+                <ApartmentRoundedIcon className="'trustedBadge' ml-2.5 text-secondary-foreground" />
               </Tooltip>
             ) : null}
           </div>
@@ -141,9 +141,7 @@ export default function Delegation(props: {
           <div className={`flex ${props.isXs ? 'mt-10' : ''}`}>
             <div className={props.isXs ? '' : 'flex-grow'}></div>
             <div className={`chipXs chip_${props.delegation.state}`}>
-              <p className="text-xs truncate">
-                {props.delegation.state.replace(/_/g, ' ')}
-              </p>
+              <p className="text-xs truncate">{props.delegation.state.replace(/_/g, ' ')}</p>
             </div>
             <div className={props.isXs ? '' : 'flex-grow'}></div>
           </div>
@@ -169,13 +167,13 @@ export default function Delegation(props: {
                     : ''
                 }
               >
-                <h4 className="font-bold [text-secondary-foreground/60 !isActive]">{delegationAmount}</h4>
+                <h4 className="font-bold [text-secondary-foreground !isActive]">
+                  {delegationAmount}
+                </h4>
               </Tooltip>
-              <p className=" text-xs text-secondary-foreground/60">{getStakingText()}</p>
+              <p className=" text-xs text-secondary-foreground">{getStakingText()}</p>
             </div>
-            <ArrowForwardIosRoundedIcon
-              className="text-secondary-foreground/60 styles.chainIconxs rotate-90 ['active', open] ['opacity0', noActions]"
-            />
+            <ArrowForwardIosRoundedIcon className="text-secondary-foreground styles.chainIconxs rotate-90 ['active', open] ['opacity0', noActions]" />
           </div>
         </div>
       </div>

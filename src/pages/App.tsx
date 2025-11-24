@@ -177,11 +177,11 @@ export default function App(props: {
               />
 
               <div className="app-info flex-grow">
-                <div className={!props.isXs ? "flex" : ""}>
+                <div className={!props.isXs ? 'flex' : ''}>
                   <div className="flex-grow mb-2.5">
                     <CategoriesChips categories={appMeta.categories} all />
                   </div>
-                </div >
+                </div>
                 <div className="flex items-center">
                   <h2 className="m-0 text-base">{appAlias}</h2>
                   <div className="flex ml-2.5">
@@ -194,10 +194,10 @@ export default function App(props: {
 
                 <CollapsibleDescription text={appDescription} expandable />
                 <SocialButtons size="md" social={appMeta.social} className="mt-5" />
-              </div >
-            </div >
-          </div >
-        </SkPaper >
+              </div>
+            </div>
+          </div>
+        </SkPaper>
         <SkPaper gray className="mt-2.5">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
             {appMeta.contracts && (
@@ -217,9 +217,7 @@ export default function App(props: {
                   text="Gas saved"
                   childrenRi={
                     !props.isXs ? (
-                      <InfoOutlinedIcon
-                        className="text-secondary-foreground/60 styles.chainIconxs ml-2.5"
-                      />
+                      <InfoOutlinedIcon className="text-secondary-foreground styles.chainIconxs ml-2.5" />
                     ) : undefined
                   }
                   tooltip={
@@ -232,94 +230,86 @@ export default function App(props: {
                 />
               </div>
             )}
-            {
-              appMeta.contracts && (
-                <div className="col-span-1">
-                  <Tile
-                    grow
-                    text="30d transactions"
-                    value={
-                      counters ? formatNumber(Number(counters.transactions_last_30_days)) : undefined
-                    }
-                    icon={<HourglassFullRoundedIcon />}
-                  />
-                </div>
-              )
-            }
-            {
-              appMeta.contracts && (
-                <div className="col-span-1">
-                  <Tile
-                    grow
-                    text="7d transactions"
-                    value={
-                      counters ? formatNumber(Number(counters.transactions_last_7_days)) : undefined
-                    }
-                    icon={<HourglassBottomRoundedIcon />}
-                  />
-                </div>
-              )
-            }
-            {
-              appMeta.contracts && (
-                <div className="col-span-1">
-                  <Tile
-                    grow
-                    text="Daily transactions"
-                    value={counters ? formatNumber(Number(counters.transactions_today)) : undefined}
-                    icon={<HourglassTopRoundedIcon />}
-                  />
-                </div>
-              )
-            }
-          </div >
-        </SkPaper >
-        <AppScreenshots chainName={chain} appName={app} skaleNetwork={network} />
-        {
-          chain !== OFFCHAIN_APP && (
-            <SkPaper gray className="mt-2.5 fwmobile">
-              <AccordionSection
-                handleChange={handleChange}
-                expanded={expanded}
-                panel="panel3"
-                title={`Runs on SKALE ${isAppChain ? 'Chain' : 'Hub'}`}
-                icon={<HubRoundedIcon />}
-              >
-                <HubTile
-                  network={props.mpc.config.skaleNetwork}
-                  schainName={chain}
-                  isXs={props.isXs}
-                  metrics={null}
-                  chainsMeta={props.chainsMeta}
+            {appMeta.contracts && (
+              <div className="col-span-1">
+                <Tile
+                  grow
+                  text="30d transactions"
+                  value={
+                    counters ? formatNumber(Number(counters.transactions_last_30_days)) : undefined
+                  }
+                  icon={<HourglassFullRoundedIcon />}
                 />
-              </AccordionSection>
-              {appMeta.contracts ? (
-                <AccordionSection
-                  expandedByDefault={true}
-                  title="Smart contracts"
-                  icon={<ArticleRoundedIcon />}
-                >
-                  <div>
-                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
-                      {appMeta.contracts.map((contractAddress: string, index: number) => (
-                        <div key={contractAddress} className="col-span-1">
-                          <LinkSurface
-                            className="styles.fullHeight"
-                            title={`Contract ${index + 1}`}
-                            value={contractAddress}
-                            url={explorer.addressUrl(explorerUrl, contractAddress)}
-                          />
-                        </div>
-                      ))}
-                    </div>
+              </div>
+            )}
+            {appMeta.contracts && (
+              <div className="col-span-1">
+                <Tile
+                  grow
+                  text="7d transactions"
+                  value={
+                    counters ? formatNumber(Number(counters.transactions_last_7_days)) : undefined
+                  }
+                  icon={<HourglassBottomRoundedIcon />}
+                />
+              </div>
+            )}
+            {appMeta.contracts && (
+              <div className="col-span-1">
+                <Tile
+                  grow
+                  text="Daily transactions"
+                  value={counters ? formatNumber(Number(counters.transactions_today)) : undefined}
+                  icon={<HourglassTopRoundedIcon />}
+                />
+              </div>
+            )}
+          </div>
+        </SkPaper>
+        <AppScreenshots chainName={chain} appName={app} skaleNetwork={network} />
+        {chain !== OFFCHAIN_APP && (
+          <SkPaper gray className="mt-2.5 fwmobile">
+            <AccordionSection
+              handleChange={handleChange}
+              expanded={expanded}
+              panel="panel3"
+              title={`Runs on SKALE ${isAppChain ? 'Chain' : 'Hub'}`}
+              icon={<HubRoundedIcon />}
+            >
+              <HubTile
+                network={props.mpc.config.skaleNetwork}
+                schainName={chain}
+                isXs={props.isXs}
+                metrics={null}
+                chainsMeta={props.chainsMeta}
+              />
+            </AccordionSection>
+            {appMeta.contracts ? (
+              <AccordionSection
+                expandedByDefault={true}
+                title="Smart contracts"
+                icon={<ArticleRoundedIcon />}
+              >
+                <div>
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
+                    {appMeta.contracts.map((contractAddress: string, index: number) => (
+                      <div key={contractAddress} className="col-span-1">
+                        <LinkSurface
+                          className="styles.fullHeight"
+                          title={`Contract ${index + 1}`}
+                          value={contractAddress}
+                          url={explorer.addressUrl(explorerUrl, contractAddress)}
+                        />
+                      </div>
+                    ))}
                   </div>
-                </AccordionSection>
-              ) : (
-                <div></div>
-              )}
-            </SkPaper>
-          )
-        }
+                </div>
+              </AccordionSection>
+            ) : (
+              <div></div>
+            )}
+          </SkPaper>
+        )}
 
         <SkPaper gray className="mt-2.5 fwmobile">
           <AccordionSection
@@ -341,7 +331,7 @@ export default function App(props: {
             />
           </AccordionSection>
         </SkPaper>
-      </div >
-    </Container >
+      </div>
+    </Container>
   )
 }

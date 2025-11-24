@@ -64,12 +64,9 @@ export default function AppCard(props: {
               />
             </div>
             <div className="flex flex-grow"></div>
-          </Link >
-          <div
-            className="flex items-center mb-2.5 br__tileBott fullW">
-
-          </div>
-        </div >
+          </Link>
+          <div className="flex items-center mb-2.5 br__tileBott fullW"></div>
+        </div>
         <Link to={url}>
           <Button size="small" className="'cardBtn'">
             <span
@@ -90,7 +87,7 @@ export default function AppCard(props: {
           </Button>
           {props.transactions ? (
             <div>
-              <p className="text-xs text-secondary-foreground/60 text-center mt-1.25 mr-1.25">
+              <p className="text-xs text-secondary-foreground text-center mt-1.25 mr-1.25">
                 {formatNumber(props.transactions)} Txs
               </p>
             </div>
@@ -98,7 +95,7 @@ export default function AppCard(props: {
             <div></div>
           )}
         </Link>
-      </div >
-    </div >
+      </div>
+    </div>
   )
 }

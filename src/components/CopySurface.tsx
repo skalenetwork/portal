@@ -71,7 +71,7 @@ export default function CopySurface(props: {
                     />
                   </div>
                 ) : null}
-                <p className="text-xs text-secondary-foreground/60 mb-1.5">
+                <p className="text-xs text-secondary-foreground mb-1.5">
                   {props.title}
                   {props.tokenMetadata
                     ? ` (${props.tokenMetadata.decimals ?? constants.DEFAULT_ERC20_DECIMALS})`
@@ -81,12 +81,9 @@ export default function CopySurface(props: {
               <p className="text-base font-semibold 'shortP'">{props.value}</p>
             </div>
             {copied ? (
-              <CheckCircleRoundedIcon
-                color="success"
-                className="ml-5 styles.chainIconxs"
-              />
+              <CheckCircleRoundedIcon color="success" className="ml-5 styles.chainIconxs" />
             ) : (
-              <ContentCopyIcon className="text-secondary-foreground/60 ml-5 styles.chainIconxs" />
+              <ContentCopyIcon className="text-secondary-foreground ml-5 styles.chainIconxs" />
             )}
           </ButtonBase>
         </Tooltip>

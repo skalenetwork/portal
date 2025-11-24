@@ -62,50 +62,47 @@ export default function PopularActions(props: {
       <div className="pt-5 flex"></div>
       <div
         className="flex items-center mb-2.5 font-semibold"
-        style={{ color: theme.palette.primary.main }}
+        //  style={{ color: theme.palette.primary.main }}
       >
         <StarIcon color="primary" className="mr-2.5 mb-2.5" />
         Popular Actions
       </div>
       <div className="flex flex-row items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          {
-            actions.map((action) => (
-              <div className="col-span-1">
-                <Link
-                  to={
-                    chainMeta.apps?.[action.app].social?.website ||
-                    `/ecosystem/${shortAlias}/${action.app}`
-                  }
-                  className="flex w-full"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  <SkPaper gray className="w-full hoverable" key={action.text}>
-                    <div className="flex items-center">
-                      <Logo
-                        chainsMeta={props.chainsMeta}
-                        skaleNetwork={props.skaleNetwork}
-                        chainName={props.chainName}
-                        appName={action.app}
-                      />
-                      <div>
-                        <div
-                          className="text-sm shortP font-bold text-primary ml-2.5 mr-2.5">
-                          {action.text}
-                        </div>
-                        <div className="text-xs text-secondary-foreground/60 mr-2.5 ml-2.5">
-                          {getActionDescription(action)}
-                        </div>
+          {actions.map((action) => (
+            <div className="col-span-1">
+              <Link
+                to={
+                  chainMeta.apps?.[action.app].social?.website ||
+                  `/ecosystem/${shortAlias}/${action.app}`
+                }
+                className="flex w-full"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <SkPaper gray className="w-full hoverable" key={action.text}>
+                  <div className="flex items-center">
+                    <Logo
+                      chainsMeta={props.chainsMeta}
+                      skaleNetwork={props.skaleNetwork}
+                      chainName={props.chainName}
+                      appName={action.app}
+                    />
+                    <div>
+                      <div className="text-sm shortP font-bold text-primary ml-2.5 mr-2.5">
+                        {action.text}
+                      </div>
+                      <div className="text-xs text-secondary-foreground mr-2.5 ml-2.5">
+                        {getActionDescription(action)}
                       </div>
                     </div>
-                  </SkPaper>
-                </Link >
-              </div >
-            ))
-          }
-        </div >
-      </div >
-    </div >
+                  </div>
+                </SkPaper>
+              </Link>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
   )
 }

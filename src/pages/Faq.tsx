@@ -4,7 +4,7 @@
  *
  * This           <h2 className="m-0 text-3xl font-bold">FAQ</h2>
         </div>
-        <p className="text-sm text-secondary-foreground/60">Common questions about SKALE Bridge</p>gram is free software: you can redistribute it and/or modify
+        <p className="text-sm text-secondary-foreground">Common questions about SKALE Bridge</p>gram is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -28,7 +28,6 @@ import { Helmet } from 'react-helmet'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 
-
 import FaqAccordion from '../components/FaqAccordion'
 import { META_TAGS } from '../core/meta'
 
@@ -45,7 +44,7 @@ export default function Faq() {
         <div className="flex">
           <h2 className="m-0 text-2xl font-bold">FAQ</h2>
         </div>
-        <p className="text-sm text-secondary-foreground/60">Common questions about SKALE Bridge</p>
+        <p className="text-sm text-secondary-foreground">Common questions about SKALE Bridge</p>
         <FaqAccordion />
       </Stack>
     </Container>

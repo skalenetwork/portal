@@ -26,12 +26,7 @@ import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
 
 import { type types, endpoints, networks } from '@/core'
-import {
-  useMetaportStore,
-  useWagmiAccount,
-  Debug,
-  contracts
-} from '@skalenetwork/metaport'
+import { useMetaportStore, useWagmiAccount, Debug, contracts } from '@skalenetwork/metaport'
 
 import Header from './Header'
 import SkDrawer from './SkDrawer'
@@ -142,7 +137,7 @@ export default function Portal() {
   }
 
   return (
-    <Box sx={{ display: 'flex' }} className="AppWrap dark">
+    <Box sx={{ display: 'flex' }} className="AppWrap">
       <CssBaseline />
       <Header address={address} mpc={mpc} openProfileModal={openProfileModal} />
       <SkDrawer validatorDelegations={validatorDelegations} />

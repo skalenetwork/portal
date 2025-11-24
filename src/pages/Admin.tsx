@@ -64,7 +64,7 @@ export default function Admin(props: { mpc: MetaportCore; chainsMeta: types.Chai
         </div>
         <div className="mt-2.5 ml-1.25">
           <h2 className="m-0 text-2xl font-bold">Manage {alias}</h2>
-          <p className="'mt-1.25' text-sm text-secondary-foreground/60 'mb-2.5' 'pbott5'">
+          <p className="'mt-1.25' text-sm text-secondary-foreground 'mb-2.5' 'pbott5'">
             {alias} admin area - you can manage the chain here
           </p>
         </div>

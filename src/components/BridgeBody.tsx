@@ -85,7 +85,6 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
       </Collapse>
       <SkPaper background={sourceBg} className="p-0">
         <Collapse in={showFrom()}>
-
           <ChainsList
             config={mpc.config}
             chain={chainName1}

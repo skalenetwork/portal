@@ -44,10 +44,7 @@ export default function ChainCard(props: {
             background: metadata.chainBg(props.skaleNetwork, props.chainsMeta, props.schain.name)
           }}
         >
-          <Link
-            to={'/chains/' + shortAlias}
-            className="br__tileLogo br__tileIns flex"
-          >
+          <Link to={'/chains/' + shortAlias} className="br__tileLogo br__tileIns flex">
             <div className="flex flex-grow"></div>
             <div className="flex items-center inheritSize">
               <Logo

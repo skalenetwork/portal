@@ -45,10 +45,7 @@ const SubcategoryList: React.FC<SubcategoryListProps> = ({
 }) => (
   <div className="ml-5 w-full mt-1.5">
     {Object.entries(subcategories).map(([shortName, subcategory]) => (
-      <div
-        key={`${category}_${shortName}`}
-        className="flex items-center w-full mb-1.5"
-      >
+      <div key={`${category}_${shortName}`} className="flex items-center w-full mb-1.5">
         <FormControlLabel
           control={
             <Checkbox
@@ -66,7 +63,7 @@ const SubcategoryList: React.FC<SubcategoryListProps> = ({
         />
       </div>
     ))}
-  </div >
+  </div>
 )
 
 export default SubcategoryList

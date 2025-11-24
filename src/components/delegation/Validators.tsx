@@ -24,8 +24,6 @@
 import { type MetaportCore } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
-
-
 import Loader from '../Loader'
 import ValidatorCard from './ValidatorCard'
 import { ESCROW_VALIDATORS, filterValidators } from '../../core/delegation/validators'

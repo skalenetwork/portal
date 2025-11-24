@@ -255,8 +255,8 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
           </SkStack>
         }
       />
-      < ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-2.5" />
-    </SkPaper >
+      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-2.5" />
+    </SkPaper>
   )
 }
 

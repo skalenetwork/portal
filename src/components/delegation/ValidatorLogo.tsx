@@ -77,9 +77,7 @@ export default function ValidatorLogo(props: {
     )
   }
   return (
-    <div
-      className="styles[`chainIcon${size}`], ['validatorIcon', !props.size], props.className"
-    >
+    <div className="styles[`chainIcon${size}`], ['validatorIcon', !props.size], props.className">
       <Jazzicon diameter={sizes[size]} seed={getPseudoRandomNumber(iconPath)} />
     </div>
   )

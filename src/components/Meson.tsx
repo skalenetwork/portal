@@ -70,14 +70,14 @@ export default function Meson(props: {
                   Bridge from Other Popular Networks
                 </p>
               </div>
-              <p className={`text-xs text-secondary-foreground/60 ${props.isXs ? 'text-center' : ''}`}>
+              <p className={`text-xs text-secondary-foreground ${props.isXs ? 'text-center' : ''}`}>
                 Transfer from 45+ chains using Meson.Fi
               </p>
             </div>
             {!props.isXs ? (
               <div className="ml-2.5 mr-1.5 flex items-center">
                 <ArrowForwardIosRoundedIcon
-                  className={`text-secondary-foreground/60 w-5 h-5 rotate-90 ${show ? 'active' : ''}`}
+                  className={`text-secondary-foreground w-5 h-5 rotate-90 ${show ? 'active' : ''}`}
                 />
               </div>
             ) : null}
@@ -89,9 +89,7 @@ export default function Meson(props: {
           <ConnectWallet className="flex-grow" />
         ) : (
           <div>
-            <p className="text-sm text-secondary-foreground/60 mb-2.5">
-              Select destination chain
-            </p>
+            <p className="text-sm text-secondary-foreground mb-2.5">Select destination chain</p>
             <div>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
                 {SUPPORTED_CHAINS.map((chain: string) => (

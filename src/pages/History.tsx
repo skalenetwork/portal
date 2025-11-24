@@ -27,10 +27,7 @@ import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
-import {
-  History as TransfersHistory,
-  useMetaportStore
-} from '@skalenetwork/metaport'
+import { History as TransfersHistory, useMetaportStore } from '@skalenetwork/metaport'
 
 import HistoryIcon from '@mui/icons-material/History'
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
@@ -76,7 +73,7 @@ export default function History() {
           />
           <div className="flex-grow"></div>
         </div>
-        <div className={transactionsHistory.length !== 0 ? "mt-2.5" : ""}>
+        <div className={transactionsHistory.length !== 0 ? 'mt-2.5' : ''}>
           <TransfersHistory size="md" />
         </div>
         <div>
@@ -91,7 +88,7 @@ export default function History() {
               Clear transfers history
             </Button>
           ) : (
-            <div className="text-base text-secondary-foreground/60 mt-5 text-center">
+            <div className="text-base text-secondary-foreground mt-5 text-center">
               No past transfers found
             </div>
           )}

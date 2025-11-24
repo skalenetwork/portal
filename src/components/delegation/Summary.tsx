@@ -38,9 +38,9 @@ import AccordionSection from '../AccordionSection'
 import SkBtn from '../SkBtn'
 
 const icons: { [key in types.st.DelegationType]: any } = {
-  0: <AccountCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary-foreground/60" />,
-  1: <AccountBalanceRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary-foreground/60" />,
-  2: <ApartmentRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary-foreground/60" />
+  0: <AccountCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary-foreground" />,
+  1: <AccountBalanceRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary-foreground" />,
+  2: <ApartmentRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary-foreground" />
 }
 
 const SUMMARY_VALIDATOR_ID = -1
@@ -108,9 +108,7 @@ export default function Summary(props: {
                       copy={props.accountInfo?.address}
                       icon={<ContentCopyRoundedIcon />}
                     />
-                    <div
-                      className={`${!props.isXs ? 'borderVert ml-2.5' : ''}`}
-                    ></div>
+                    <div className={`${!props.isXs ? 'borderVert ml-2.5' : ''}`}></div>
                   </div>
                 ) : (
                   <div></div>
@@ -143,9 +141,9 @@ export default function Summary(props: {
                   tooltip={
                     props.sklPrice && props.accountInfo?.allowedToDelegate !== undefined
                       ? units.displaySklValueUsd(
-                        props.accountInfo.allowedToDelegate,
-                        props.sklPrice
-                      )
+                          props.accountInfo.allowedToDelegate,
+                          props.sklPrice
+                        )
                       : ''
                   }
                   value={

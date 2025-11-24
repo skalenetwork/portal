@@ -90,16 +90,16 @@ export default function AppCard(props: {
             )}
           </p>
           <div className="flex items-center">{visibleStatusChips}</div>
-        </div >
+        </div>
         <CollapsibleDescription text={appDescription} />
         <CategoriesChips categories={appMeta.categories} className="mt-5" />
-      </Link >
+      </Link>
       <SocialButtons
         social={appMeta.social}
         chainName={props.schainName}
         appName={props.appName}
         className="mt-5"
       />
-    </SkPaper >
+    </SkPaper>
   )
 }

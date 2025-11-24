@@ -30,11 +30,7 @@ interface ShowMoreButtonProps {
   className?: string
 }
 
-const ShowMoreButton: React.FC<ShowMoreButtonProps> = ({
-  onClick,
-  remainingItems,
-  loading,
-}) => {
+const ShowMoreButton: React.FC<ShowMoreButtonProps> = ({ onClick, remainingItems, loading }) => {
   return (
     <Button
       onClick={onClick}

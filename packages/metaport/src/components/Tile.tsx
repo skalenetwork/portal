@@ -83,7 +83,7 @@ export default function Tile(props: {
         ${size === 'md' ? 'text-base' : ''}
         font-bold
         ${!props.color && !props.disabled ? 'text-primary' : ''}
-        ${props.disabled ? 'text-secondary-foreground/60' : ''}
+        ${props.disabled ? 'text-secondary-foreground' : ''}
         ${props.color ? 'text-black' : ''}
         ${props.copy ? 'cursor-pointer' : ''}
       `.replace(/\s+/g, ' ').trim()}
@@ -103,7 +103,7 @@ export default function Tile(props: {
             <div
               className={`
                 flex items-center mb-1.5
-                ${!props.color && !props.textColor ? 'text-secondary-foreground/60' : ''}
+                ${!props.color && !props.textColor ? 'text-secondary-foreground' : ''}
                 ${props.color ? 'text-black' : ''}
               `.replace(/\s+/g, ' ').trim()}
             >

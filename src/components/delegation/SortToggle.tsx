@@ -53,11 +53,7 @@ const SortToggle: React.FC<SortToggleProps> = ({ onChange, className }) => {
         <FilterListRoundedIcon className="mr-1.5 styles.chainIconxs" />
         Sort by ID
       </ToggleButton>
-      <ToggleButton
-        value="status"
-        aria-label="sort by status"
-        className="text-primary text-xs"
-      >
+      <ToggleButton value="status" aria-label="sort by status" className="text-primary text-xs">
         <ContrastRoundedIcon className="mr-1.5 styles.chainIconxs" />
         Sort by Status
       </ToggleButton>

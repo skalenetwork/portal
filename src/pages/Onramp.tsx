@@ -25,13 +25,7 @@ import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 
 import { constants } from '@/core'
-import {
-  SkPaper,
-  MetaportCore,
-  useWagmiAccount,
-  contracts,
-  Tile
-} from '@skalenetwork/metaport'
+import { SkPaper, MetaportCore, useWagmiAccount, contracts, Tile } from '@skalenetwork/metaport'
 import { TransakConfig, Transak } from '@transak/transak-sdk'
 
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
@@ -140,7 +134,7 @@ export default function Onramp(props: { mpc: MetaportCore }) {
         <div className="flex items-center">
           <div className="flex-grow">
             <h2 className="m-0">On-ramp</h2>
-            <p className="m-0 'text-sm' text-secondary-foreground/60">
+            <p className="m-0 'text-sm' text-secondary-foreground">
               Transfer your assets to SKALE Europa Hub
             </p>
           </div>

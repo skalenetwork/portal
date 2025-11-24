@@ -10,9 +10,7 @@ export default function Terms() {
         <div className="flex">
           <h2 className="m-0">Terms of Service</h2>
         </div>
-        <p className="text-sm text-gray-400">
-          SKALE Network Blockchain Bridge Terms of Service
-        </p>
+        <p className="text-sm text-gray-400">SKALE Network Blockchain Bridge Terms of Service</p>
         <TermsOfService />
       </Stack>
     </Container>

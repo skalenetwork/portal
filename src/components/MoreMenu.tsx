@@ -38,6 +38,7 @@ import { Link } from 'react-router-dom'
 import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined'
 
 import { DOCS_PORTAL_URL, SKALE_FORUM_URL } from '../core/constants'
+import { EllipsisVertical } from 'lucide-react'
 
 export default function MoreMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -58,10 +59,10 @@ export default function MoreMenu() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
-            className="styles.paperGrey text-primary ml-1.5"
+            className="ml-1.5! h-8 w-8 rounded-full bg-card! text-foreground! hover:bg-muted"
             style={{ width: '34px', height: '34px' }}
           >
-            <MoreVertIcon className="text-primary" style={{ height: '18px', width: '18px' }} />
+            <EllipsisVertical className="text-foreground h-4 w-4" />
           </IconButton>
         </Tooltip>
       </Box>

@@ -76,12 +76,12 @@ const ChainCard: React.FC<{
           )}
         </div>
         <div className="flex items-center mt-2.5">
-          <p className="text-primary font-semibold text-base 'shortP' flex-grow mr-1.5">
+          <p className="text-foreground font-semibold text-base 'shortP' flex-grow mr-1.5">
             {metadata.getAlias(skaleNetwork, chainsMeta, schain.name)}
-          </p >
-        </div >
+          </p>
+        </div>
         <CollapsibleDescription text={chainMeta?.description ?? 'No description'} />
-      </Link >
+      </Link>
       <CategoriesChips categories={chainMeta?.categories} className="mt-5" />
       <ChainActions
         className="mt-5"
@@ -89,7 +89,7 @@ const ChainCard: React.FC<{
         schainName={schain.name}
         skaleNetwork={skaleNetwork}
       />
-    </SkPaper >
+    </SkPaper>
   )
 }
 

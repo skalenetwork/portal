@@ -71,8 +71,8 @@ export default function Delegations(props: {
       ) : null}
       {loaded && noDelegations ? (
         <div className="mt-5">
-          <PieChartRoundedIcon className="text-secondary-foreground/60 styles.chainIconlg w-full" />
-          <h3 className="font-bold text-secondary-foreground/60 text-center mt-1.5 mb-5">
+          <PieChartRoundedIcon className="text-secondary-foreground styles.chainIconlg w-full" />
+          <h3 className="font-bold text-secondary-foreground text-center mt-1.5 mb-5">
             No tokens staked
           </h3>
         </div>

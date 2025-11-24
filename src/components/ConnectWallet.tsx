@@ -57,8 +57,8 @@ export default function ConnectWallet(props: {
             </div>
             <div className="flex flex-grow"></div>
           </div>
-        </div >
-      </SkPaper >
-    </div >
+        </div>
+      </SkPaper>
+    </div>
   )
 }

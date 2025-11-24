@@ -6,6 +6,7 @@ export { useDisplayFunctions, type DisplayFunctions } from './store/DisplayFunct
 
 import * as contracts from './core/contracts'
 import * as explorer from './core/explorer'
+import './styles/theme.css'
 
 import Metaport from './components/Metaport'
 import MetaportProvider from './components/MetaportProvider'

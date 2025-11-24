@@ -8,6 +8,7 @@ import QuestionMarkRoundedIcon from '@mui/icons-material/QuestionMarkRounded'
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
 import MarkUnreadChatAltRoundedIcon from '@mui/icons-material/MarkUnreadChatAltRounded'
 import SkIconBtn from './SkIconBth'
+import { CircleQuestionMark } from 'lucide-react'
 
 export default function HelpZen() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -38,12 +39,9 @@ export default function HelpZen() {
 
   return (
     <div>
-      <Box
-        className="ml-1.5"
-        sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}
-      >
+      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         <SkIconBtn
-          icon={QuestionMarkRoundedIcon}
+          icon={CircleQuestionMark}
           onClick={handleClick}
           size="small"
           tooltipTitle="Get help"

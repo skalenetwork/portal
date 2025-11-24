@@ -46,12 +46,7 @@ interface HomeProps {
   metrics: types.IMetrics | null
   loadData: () => Promise<void>
 }
-export default function Home({
-  skaleNetwork,
-  chainsMeta,
-  metrics,
-  loadData
-}: HomeProps) {
+export default function Home({ skaleNetwork, chainsMeta, metrics, loadData }: HomeProps) {
   const { newApps, trendingApps, featuredApps } = useApps(chainsMeta, metrics)
 
   useEffect(() => {
@@ -60,7 +55,7 @@ export default function Home({
   return (
     <Container maxWidth="md" className="paddBott60">
       <Stack spacing={0}>
-        <Headline text="Popular Actions" icon={SECTION_ICONS.explore} className='mb-2.5' />
+        <Headline text="Popular Actions" icon={SECTION_ICONS.explore} className="mb-2.5" />
         <HomeBanner />
         <ExploreSection />
         {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (

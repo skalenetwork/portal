@@ -49,13 +49,13 @@ export default function TokenBalance(props: {
   }
   return (
     <Tooltip arrow title={balanceFull + ' ' + props.symbol}>
-      <div className={`flex items-center ${styles.paperGrey} p-1.5 pl-2.5 pr-2.5 rounded`}>
+      <div className={`flex items-center bg-secondary-foreground p-1.5 pl-2.5 pr-2.5 rounded`}>
         <div
           className={`
             ${size === 'xs' ? 'text-xs' : ''}
             ${size === 'sm' ? 'text-sm' : ''}
             ${size === 'md' ? 'text-base' : ''}
-            ${!props.primary ? 'text-secondary-foreground/60' : ''}
+            ${!props.primary ? 'text-secondary-foreground' : ''}
             ${props.primary ? 'text-primary' : ''}
             flex items-center font-normal mr-1.5
           `}

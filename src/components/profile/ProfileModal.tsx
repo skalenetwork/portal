@@ -59,11 +59,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
               copy={address}
               className="mb-2.5"
             />
-            <ProfileModalActions
-              className="mt-5"
-              address={address}
-              isMobile={isMobile}
-            />
+            <ProfileModalActions className="mt-5" address={address} isMobile={isMobile} />
           </div>
         ) : (
           <div></div>

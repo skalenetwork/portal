@@ -109,7 +109,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                 </StepLabel>
                 <StepContent className="mt-2.5">
                   <Box sx={{ mb: 2 }}>
-                    <p className="flex text-secondary-foreground/60 text-xs flex-grow">{step.text}</p>
+                    <p className="flex text-secondary-foreground text-xs flex-grow">{step.text}</p>
                     <div className="mt-2.5">
                       {loading ? (
                         <Button
@@ -152,7 +152,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                   {emoji} Transfer completed
                 </p>
                 <p
-                  className="text-sm font-semibold text-secondary-foreground/60 flex-grow text-center mt-1.5"
+                  className="text-sm font-semibold text-secondary-foreground flex-grow text-center mt-1.5"
                 >
                   Transfer details are available in History section
                 </p>

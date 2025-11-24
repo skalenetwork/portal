@@ -66,9 +66,9 @@ export default function Reward(props: {
       }}
     >
       {props.open ? (
-        <RemoveCircleRoundedIcon className="mr-1.5 w-4 h-4 text-secondary-foreground/60" />
+        <RemoveCircleRoundedIcon className="mr-1.5 w-4 h-4 text-secondary-foreground" />
       ) : (
-        <AddCircleRoundedIcon className="mr-1.5 w-4 h-4 text-secondary-foreground/60" />
+        <AddCircleRoundedIcon className="mr-1.5 w-4 h-4 text-secondary-foreground" />
       )}
     </div>
   )
@@ -95,7 +95,9 @@ export default function Reward(props: {
               <ValidatorLogo validatorId={validator.id} size="lg" />
               <div className={`ml-2.5 ${props.isXs ? 'flex-grow' : ''}`}>
                 <h4 className="font-bold truncate">{validator.name}</h4>
-                <p className="text-xs text-secondary-foreground/60">Validator ID: {Number(validator.id)}</p>
+                <p className="text-xs text-secondary-foreground">
+                  Validator ID: {Number(validator.id)}
+                </p>
               </div>
               {props.isXs ? minimizeBtn : null}
             </div>
@@ -106,16 +108,16 @@ export default function Reward(props: {
               {!props.isXs && !props.open ? (
                 <div className="flex">
                   <div>
-                    <p className="text-xs text-secondary-foreground/60">Total staked</p>
+                    <p className="text-xs text-secondary-foreground">Total staked</p>
                     <Tooltip
                       arrow
                       title={
                         props.sklPrice !== undefined &&
-                          props.delegationsToValidator.staked !== undefined
+                        props.delegationsToValidator.staked !== undefined
                           ? units.displaySklValueUsd(
-                            props.delegationsToValidator.staked,
-                            props.sklPrice
-                          )
+                              props.delegationsToValidator.staked,
+                              props.sklPrice
+                            )
                           : ''
                       }
                     >
@@ -126,15 +128,15 @@ export default function Reward(props: {
                 </div>
               ) : null}
               <div className={`${props.isXs ? 'flex-grow mr-5' : 'ml-2.5'}`}>
-                <p className="text-xs text-secondary-foreground/60">Rewards available</p>
+                <p className="text-xs text-secondary-foreground">Rewards available</p>
                 <Tooltip
                   arrow
                   title={
                     props.sklPrice
                       ? units.displaySklValueUsd(
-                        props.delegationsToValidator.rewards,
-                        props.sklPrice
-                      )
+                          props.delegationsToValidator.rewards,
+                          props.sklPrice
+                        )
                       : ''
                   }
                 >
@@ -143,12 +145,7 @@ export default function Reward(props: {
               </div>
               <div className="flex items-center">
                 {loading ? (
-                  <Button
-                    disabled
-                    size="small"
-                    variant="contained"
-                    className="btnSm btnSmLoading"
-                  >
+                  <Button disabled size="small" variant="contained" className="btnSm btnSmLoading">
                     Retrieving
                   </Button>
                 ) : (
@@ -161,9 +158,7 @@ export default function Reward(props: {
                       retrieveRewards={retrieveRewards}
                       loading={loading}
                     />
-                    {props.unstakeAllBtn && (
-                      <span className="ml-2.5">{props.unstakeAllBtn}</span>
-                    )}
+                    {props.unstakeAllBtn && <span className="ml-2.5">{props.unstakeAllBtn}</span>}
                   </>
                 )}
               </div>

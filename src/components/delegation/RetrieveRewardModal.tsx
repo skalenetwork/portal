@@ -124,8 +124,7 @@ export default function RetrieveRewardModal(props: {
                   children={
                     <div className="flex items-center mt-1.5">
                       <div className="flex-grow">
-                        <div
-                          className="flex flex-grow items-center 'amountInput''addressInput'">
+                        <div className="flex flex-grow items-center 'amountInput''addressInput'">
                           <Jazzicon
                             diameter={25}
                             seed={jsNumberForAddress(
@@ -148,11 +147,7 @@ export default function RetrieveRewardModal(props: {
                       <div>
                         {edit ? (
                           <div>
-                            <Button
-                              variant="contained"
-                              className="'btnSm'"
-                              onClick={saveAddress}
-                            >
+                            <Button variant="contained" className="'btnSm'" onClick={saveAddress}>
                               Save
                             </Button>
                             <Button
@@ -194,8 +189,8 @@ export default function RetrieveRewardModal(props: {
               </SkPaper>
             </SkPaper>
           </Container>
-        </Box >
-      </Modal >
-    </div >
+        </Box>
+      </Modal>
+    </div>
   )
 }

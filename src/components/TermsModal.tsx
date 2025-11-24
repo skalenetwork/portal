@@ -65,7 +65,7 @@ export default function TermsModal(props: {
         <div className="flex">
           <h2 className="m-0">{title}</h2>
         </div>
-        <p className="text-sm text-secondary-foreground/60 mb-5">
+        <p className="text-sm text-secondary-foreground mb-5">
           Review the terms of service carefully and confirm
         </p>
         <Box>

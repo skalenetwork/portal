@@ -24,8 +24,6 @@
 import { ReactElement } from 'react'
 import { type types, helper } from '@/core'
 
-
-
 import AppCard from '../ecosystem/AppCard'
 
 export default function HubApps(props: {
@@ -54,7 +52,10 @@ export default function HubApps(props: {
   }
 
   return (
-    <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4" style={{ marginTop: '-30px' }}>
+    <div
+      className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"
+      style={{ marginTop: '-30px' }}
+    >
       {appCards}
     </div>
   )

@@ -58,7 +58,10 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
       (featuredApp) => featuredApp.chain === app.chain && featuredApp.appName === app.appName
     )
     return (
-      <Box key={`${app.chain}-${app.appName}`} className="flex justify-center items-center dappCard">
+      <Box
+        key={`${app.chain}-${app.appName}`}
+        className="flex justify-center items-center dappCard"
+      >
         <AppCard
           skaleNetwork={skaleNetwork}
           schainName={app.chain}
@@ -76,7 +79,7 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
     return (
       <SkPaper gray className="titleSection">
         <div className="mt-5 mb-5">
-          <p className="text-base text-secondary-foreground/60 text-center">
+          <p className="text-base text-secondary-foreground text-center">
             🚫 No trending apps match your current filters
           </p>
         </div>

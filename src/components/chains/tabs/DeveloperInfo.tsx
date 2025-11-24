@@ -24,8 +24,6 @@
 import { SkPaper } from '@skalenetwork/metaport'
 import { type types, endpoints, constants } from '@/core'
 
-
-
 import CopySurface from '../../CopySurface'
 
 import { getRpcUrl, getRpcWsUrl, getFsUrl, getChainId } from '../../../core/chain'
@@ -54,25 +52,13 @@ export default function DeveloperInfo(props: {
           <CopySurface className="h-full" title="RPC Endpoint" value={rpcUrl} />
         </div>
         <div className="col-span-1">
-          <CopySurface
-            className="h-full"
-            title="Websocket Endpoint"
-            value={rpcWssUrl}
-          />
+          <CopySurface className="h-full" title="Websocket Endpoint" value={rpcWssUrl} />
         </div>
         <div className="col-span-1">
-          <CopySurface
-            className="h-full"
-            title="Filestorage Endpoint"
-            value={fsUrl}
-          />
+          <CopySurface className="h-full" title="Filestorage Endpoint" value={fsUrl} />
         </div>
         <div className="col-span-1">
-          <CopySurface
-            className="h-full"
-            title="SKALE Manager name"
-            value={props.schainName}
-          />
+          <CopySurface className="h-full" title="SKALE Manager name" value={props.schainName} />
         </div>
         <div className="col-span-1">
           <CopySurface className="h-full" title="Chain ID Hex" value={chainId} />

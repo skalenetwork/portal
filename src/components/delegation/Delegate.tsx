@@ -200,7 +200,7 @@ export default function Delegate(props: {
               <div className="text-base font-bold mr-2.5">SKL</div>
             </div>
           }
-          icon={< TransitEnterexitRoundedIcon style={{ rotate: '315deg' }} />}
+          icon={<TransitEnterexitRoundedIcon style={{ rotate: '315deg' }} />}
           grow
         />
         <Tile
@@ -232,42 +232,31 @@ export default function Delegate(props: {
             </div>
           }
         />
-      </SkStack >
+      </SkStack>
 
-      <ErrorTile
-        errorMsg={props.errorMsg}
-        setErrorMsg={props.setErrorMsg}
-        className="mt-2.5"
-      />
+      <ErrorTile errorMsg={props.errorMsg} setErrorMsg={props.setErrorMsg} className="mt-2.5" />
 
-      {
-        loading ? (
-          <Button
-            disabled
-            size="small"
-            variant="contained"
-            className="'btn' ml-2.5 mb-2.5 mt-5"
-          >
-            Staking SKL
-          </Button>
-        ) : (
-          <Button
-            disabled={
-              amount === '' ||
-              parseFloat(amount) === 0 ||
-              !info.allowedToDelegate ||
-              amountWei > info.allowedToDelegate ||
-              amountWei < props.validator.minimumDelegationAmount ||
-              loading
-            }
-            variant="contained"
-            className="'btn' ml-2.5 mb-2.5 mt-5"
-            onClick={stake}
-          >
-            {getBtnText()}
-          </Button>
-        )
-      }
-    </div >
+      {loading ? (
+        <Button disabled size="small" variant="contained" className="'btn' ml-2.5 mb-2.5 mt-5">
+          Staking SKL
+        </Button>
+      ) : (
+        <Button
+          disabled={
+            amount === '' ||
+            parseFloat(amount) === 0 ||
+            !info.allowedToDelegate ||
+            amountWei > info.allowedToDelegate ||
+            amountWei < props.validator.minimumDelegationAmount ||
+            loading
+          }
+          variant="contained"
+          className="'btn' ml-2.5 mb-2.5 mt-5"
+          onClick={stake}
+        >
+          {getBtnText()}
+        </Button>
+      )}
+    </div>
   )
 }

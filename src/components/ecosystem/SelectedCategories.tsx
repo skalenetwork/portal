@@ -39,10 +39,12 @@ const CustomChipLabel: React.FC<{ category: string; subcategory?: string }> = ({
 }) => (
   <Box display="flex" alignItems="center">
     <p
-      className={cls(["text-secondary-foreground/60", subcategory], ["text-primary", !subcategory], "text-sm", [
-        "font-semibold",
-        !subcategory
-      ])}
+      className={cls(
+        ['text-secondary-foreground', subcategory],
+        ['text-primary', !subcategory],
+        'text-sm',
+        ['font-semibold', !subcategory]
+      )}
     >
       {category}
     </p>
@@ -86,37 +88,35 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
 
   return (
     <Box className="flex items-center flex-wrap mb-2.5">
-      {
-        checkedItems.map((item) => {
-          const [category, subcategory] = item.split('_')
-          return (
-            <Chip
-              variant="outlined"
-              key={item}
-              label={
-                <CustomChipLabel
-                  category={getCategoryName(category)}
-                  subcategory={subcategory ? getSubcategoryName(category, subcategory) : undefined}
-                />
-              }
-              onDelete={() => handleDelete(item)}
-              deleteIcon={<CloseIcon className="styles.chainIconxs" />}
-              className="'outlined', font-semibold"
-            />
-          )
-        })
-      }
+      {checkedItems.map((item) => {
+        const [category, subcategory] = item.split('_')
+        return (
+          <Chip
+            variant="outlined"
+            key={item}
+            label={
+              <CustomChipLabel
+                category={getCategoryName(category)}
+                subcategory={subcategory ? getSubcategoryName(category, subcategory) : undefined}
+              />
+            }
+            onDelete={() => handleDelete(item)}
+            deleteIcon={<CloseIcon className="styles.chainIconxs" />}
+            className="'outlined', font-semibold"
+          />
+        )
+      })}
       <p className="text-xs text-primary ml-2.5 mr-2.5">
         {filteredAppsCount} project{filteredAppsCount !== 1 ? 's' : ''}
       </p>
       <p
-        className="text-xs text-xs p-0 m-0 text-secondary-foreground/60 ml-5"
+        className="text-xs text-xs p-0 m-0 text-secondary-foreground ml-5"
         style={{ cursor: 'pointer' }}
         onClick={clearAll}
       >
         Clear all
       </p>
-    </Box >
+    </Box>
   )
 }
 

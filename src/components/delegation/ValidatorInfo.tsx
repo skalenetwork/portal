@@ -53,7 +53,7 @@ export default function ValidatorInfo(props: {
               <TrustBadge validator={props.validator} />
               <ValidatorBadge validator={props.validator} className="ml-2.5" />
             </div>
-            <p className="text-xs font-semibold text-secondary-foreground/60 mr-5 mt-1.5">
+            <p className="text-xs font-semibold text-secondary-foreground mr-5 mt-1.5">
               {description}
             </p>
           </div>
@@ -62,9 +62,8 @@ export default function ValidatorInfo(props: {
             <Skeleton variant="rectangular" width={200} height={40} />
             <Skeleton variant="rectangular" width={200} height={20} className="mt-2.5" />
           </div>
-        )
-        }
-      </div >
+        )}
+      </div>
       <SkStack className="mt-2.5">
         <Tile
           value={props.validator && `${Number(props.validator.feeRate) / 10}% fee`}
@@ -93,6 +92,6 @@ export default function ValidatorInfo(props: {
           icon={<TokenIcon tokenSymbol="skl" size="xs" />}
         />
       </SkStack>
-    </div >
+    </div>
   )
 }

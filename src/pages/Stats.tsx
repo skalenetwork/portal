@@ -3,7 +3,7 @@
  * SKALE portal
  *
  * This pr            <h2 className="m-0 text-3xl font-bold">Stats</h2>
-            <p className="text-sm text-secondary-foreground/60">SKALE Network statistics</p>ram is free software: you can redistribute it and/or modify
+            <p className="text-sm text-secondary-foreground">SKALE Network statistics</p>ram is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -27,7 +27,6 @@ import { Helmet } from 'react-helmet'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 
-
 import { DASHBOARD_URL } from '../core/constants'
 import { META_TAGS } from '../core/meta'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
@@ -45,7 +44,7 @@ export default function Stats() {
         <div className="flex items-center">
           <div className="flex-grow" style={{ zIndex: '2' }}>
             <h2 className="m-0 text-2xl font-bold">Stats</h2>
-            <p className="text-sm text-secondary-foreground/60">SKALE Network statistics</p>
+            <p className="text-sm text-secondary-foreground">SKALE Network statistics</p>
           </div>
           <SkPageInfoIcon meta_tag={META_TAGS.stats} />
         </div>

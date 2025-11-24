@@ -1,10 +1,8 @@
-@use '../variables';
-
 .skTabs {
 
     .MuiTab-root,
     .MuiButton-root {
-        background-color: variables.$sk-bg !important;
+        background-color: var(--background) !important;
     }
 }
 
@@ -101,14 +99,14 @@
 .skInput {
     .MuiInputBase-root {
         min-height: 53px;
-        border-radius: variables.$sk-border-radius;
-        border: 1px variables.$border-color solid;
+        border-radius: var(--radius);
+        border: 1px var(--border) solid;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
             'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
             sans-serif !important;
 
         &:focus {
-            border-color: variables.$border-color;
+            border-color: var(--border);
         }
     }
 
@@ -129,16 +127,16 @@
 }
 
 .outlined {
-    border-radius: variables.$sk-border-radius;
-    border: 1px variables.$border-color solid;
+    border-radius: var(--radius);
+    border: 1px var(--border) solid;
 }
 
 .filled {
-    background: variables.$sk-bg;
+    background: var(--background);
 }
 
 .borderLeft {
-    border-left: 1px variables.$border-color solid;
+    border-left: 1px var(--border) solid;
 }
 
 .skMenuBtn {
@@ -148,8 +146,8 @@
 .skMenu {
     .MuiMenu-paper {
         background-image: none !important;
-        border-radius: variables.$sk-border-radius;
-        border: 1px variables.$border-color solid;
+        border-radius: var(--radius);
+        border: 1px var(--border) solid;
     }
 
     .MuiCheckbox-root {
@@ -158,5 +156,5 @@
 }
 
 .secondary {
-    background-color: variables.$sk-secondary !important;
+    background-color: var(--secondary) !important;
 }

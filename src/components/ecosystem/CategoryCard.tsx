@@ -38,17 +38,15 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ categoryName, fullName, pro
         <div className="flex items-center m-2.5">
           <div className="flex-grow">
             <div className="flex flex-grow items-center">
-              <h4 className="capitalize m-0 text-primary font-semibold truncate">
-                {fullName}
-              </h4>
+              <h4 className="capitalize m-0 text-primary font-semibold truncate">{fullName}</h4>
             </div>
-            <p className="text-sm text-secondary-foreground/60 mt-1.5">
+            <p className="text-sm text-secondary-foreground mt-1.5">
               {projectCount} project{projectCount !== 1 ? 's' : ''}
             </p>
           </div>
         </div>
-      </SkPaper >
-    </Link >
+      </SkPaper>
+    </Link>
   )
 }
 

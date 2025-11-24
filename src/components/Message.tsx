@@ -54,7 +54,9 @@ export default function Message(props: {
         <div className="w-full items-center mt-1.5 mb-1.5 ml-2.5 mr-2.5">
           <div className="flex items-center mr-4">{props.icon}</div>
           {props.text ? (
-            <p className={`text-sm font-semibold mr-1.5 ${type !== 'warning' ? 'text-primary' : ''}`}>
+            <p
+              className={`text-sm font-semibold mr-1.5 ${type !== 'warning' ? 'text-primary' : ''}`}
+            >
               {props.text}
             </p>
           ) : null}
@@ -80,7 +82,7 @@ export default function Message(props: {
               className="paperGrey ml-2.5"
             >
               <CloseRoundedIcon
-                className={type !== 'warning' ? 'text-secondary-foreground/60' : ''}
+                className={type !== 'warning' ? 'text-secondary-foreground' : ''}
                 style={{ height: '16px', width: '16px' }}
               />
             </IconButton>

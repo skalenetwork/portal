@@ -35,14 +35,14 @@ const Headline: React.FC<HeadlineProps> = ({ text, className, icon, size = 'medi
 
   const textElement =
     size === 'small' ? (
-      <p className="font-bold flex-grow uppercase">{text}</p>
+      <p className="font-bold grow uppercase">{text}</p>
     ) : (
-      <h3 className="font-semibold text-secondary-foreground/60-foreground/70 ml-2.5">{text}</h3>
+      <h3 className="font-semibold text-foreground/80 ml-2.5">{text}</h3>
     )
 
   const iconElement = icon && (
     <div
-      className={`items-center flex text-secondary-foreground/60 ${size === 'small' ? 'mr-2.5 styles.chainIconxs' : ''}`}
+      className={`items-center text-foreground/80 flex ${size === 'small' ? 'mr-2.5 styles.chainIconxs' : ''}`}
     >
       {icon}
     </div>

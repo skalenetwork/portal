@@ -211,7 +211,7 @@ export default function Ecosystem(props: {
               <SkStack>
                 <div className={cn('flex-grow flex flex-col mb-5 mt-2.5')}>
                   <h2 className="m-0 text-3xl font-bold">Ecosystem</h2>
-                  <p className="text-sm text-secondary-foreground/60">
+                  <p className="text-sm text-secondary-foreground">
                     Explore dApps across the SKALE ecosystem
                   </p>
                 </div>
@@ -270,11 +270,10 @@ export default function Ecosystem(props: {
                   iconPosition="start"
                   className="btn btnSm mr-2.5! tab fwmobile"
                 />
-              </Tabs >
-            </Container >
-          </div >
-          {!props.isXs && <div style={{ height: headerHeight }} />
-          }
+              </Tabs>
+            </Container>
+          </div>
+          {!props.isXs && <div style={{ height: headerHeight }} />}
           <div className={cn('flex-grow', 'mt-5', 'fwmobile')}>
             {activeTab === 0 && (
               <AllApps
@@ -315,7 +314,7 @@ export default function Ecosystem(props: {
               />
             )}
           </div>
-        </Stack >
+        </Stack>
         <div className="flex mt-5 mb-5">
           <div className="flex-grow"></div>
           <div>
@@ -332,7 +331,7 @@ export default function Ecosystem(props: {
           </div>
           <div className="flex-grow"></div>
         </div>
-      </Container >
+      </Container>
 
       <ScrollToTopButton />
     </>

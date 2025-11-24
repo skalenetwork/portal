@@ -60,7 +60,7 @@ export default function ValidatorCard(props: {
         <SkPaper
           className={cls(
             'br__tile titleSection validatorCard',
-            [styles.paperGrey, size === 'lg'],
+            ['bg-secondary-foreground', size === 'lg'],
             ['disabledCard', !props.validator.acceptNewRequests],
             ['selectedValidator', props.validatorId === props.validator.id]
           )}
@@ -78,9 +78,7 @@ export default function ValidatorCard(props: {
 
           <div className="flex">
             <div className="flex-grow"></div>
-            <p
-              className="text-base text-primary flex-grow text-center truncate"
-            >
+            <p className="text-base text-primary flex-grow text-center truncate">
               {props.validator.name}
             </p>
             <div className="flex-grow"></div>
@@ -89,8 +87,7 @@ export default function ValidatorCard(props: {
           <div className="flex">
             <div className="flex-grow"></div>
             <Tooltip title={description}>
-              <p
-                className="text-xs font-semibold flex-grow text-secondary-foreground/60 mt-5 text-center truncate">
+              <p className="text-xs font-semibold flex-grow text-secondary-foreground mt-5 text-center truncate">
                 {description}
               </p>
             </Tooltip>
@@ -98,18 +95,14 @@ export default function ValidatorCard(props: {
           </div>
           <div className="flex mt-10">
             <div className="bg-gray-100 rounded px-2 py-1 flex-grow">
-              <p className="text-xs text-center">
-                {Number(props.validator.feeRate) / 10}% fee
-              </p>
+              <p className="text-xs text-center">{Number(props.validator.feeRate) / 10}% fee</p>
             </div>
             <div className="bg-blue-100 rounded px-2 py-1 ml-1.5 flex-grow text-center">
               <p className="text-xs">ID: {props.validator.id}</p>
             </div>
             {size === 'lg' ? (
               <div className="bg-green-100 rounded px-2 py-1 ml-1.5 flex-grow">
-                <p className="text-xs text-center">
-                  Nodes: {props.validator.linkedNodes}
-                </p>
+                <p className="text-xs text-center">Nodes: {props.validator.linkedNodes}</p>
               </div>
             ) : null}
           </div>
@@ -117,9 +110,7 @@ export default function ValidatorCard(props: {
             {size !== 'lg' && (
               <Tooltip title={`Minimum delegation amount: ${minDelegation} SKL`}>
                 <div className="bg-green-100 rounded px-2 py-1 mt-10">
-                  <p className="text-xs text-center truncate">
-                    Min: {minDelegation} SKL
-                  </p>
+                  <p className="text-xs text-center truncate">Min: {minDelegation} SKL</p>
                 </div>
               </Tooltip>
             )}

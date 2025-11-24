@@ -54,7 +54,7 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
         <Tooltip arrow title="Switch SKALE Network">
           <Button
             onClick={handleClick}
-            className="mp__btnConnect bg-gray-800/90 text-secondary-foreground/60 flex capitalize"
+            className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! capitalize! rounded-full min-w-0!"
           >
             <ChainIcon
               skaleNetwork={props.mpc.config.skaleNetwork}
@@ -112,10 +112,11 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
                   chainName={constants.MAINNET_CHAIN_NAME}
                   size="xs"
                   className="mr-2.5"
-                  chainsMeta={mp_metadata.CHAINS_META[network as keyof typeof mp_metadata.CHAINS_META]}
+                  chainsMeta={
+                    mp_metadata.CHAINS_META[network as keyof typeof mp_metadata.CHAINS_META]
+                  }
                 />
-                SKALE{' '}
-                <div className="capitalize ml-1.5">{network.replace(/-/g, ' ')} Portal</div>
+                SKALE <div className="capitalize ml-1.5">{network.replace(/-/g, ' ')} Portal</div>
                 <div className="flex-grow"></div>
                 <KeyboardArrowRightRoundedIcon
                   className="ml-2.5 w-4 h-4"

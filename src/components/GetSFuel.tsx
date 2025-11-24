@@ -26,6 +26,7 @@ import BoltRoundedIcon from '@mui/icons-material/BoltRounded'
 import AutoModeRoundedIcon from '@mui/icons-material/AutoModeRounded'
 import { type MetaportCore, useWagmiAccount } from '@skalenetwork/metaport'
 import { usesFuel } from '../useSFuel'
+import { Zap } from 'lucide-react'
 
 export default function GetSFuel({ mpc }: { mpc: MetaportCore }) {
   const { sFuelOk, isMining, mineSFuel, sFuelCompletionPercentage, loading } = usesFuel(mpc)
@@ -47,16 +48,13 @@ export default function GetSFuel({ mpc }: { mpc: MetaportCore }) {
         <Button
           onClick={sFuelOk ? undefined : mineSFuel}
           disabled={isMining || loading || sFuelOk}
-          className="'mp__btnConnect', styles.paperGrey, [text-primary, !isMining], flex"
+          className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! normal-case! rounded-full min-w-0!"
           color="success"
         >
           {loading ? (
-            <AutoModeRoundedIcon className="mr-1.5, styles.chainIconxs" />
+            <AutoModeRoundedIcon className="mr-1.5" />
           ) : (
-            <BoltRoundedIcon
-              className="mr-1.5, styles.chainIconxs"
-              color={sFuelOk ? 'success' : 'primary'}
-            />
+            <Zap className="text-green-400 h-5 w-5 pr-1" />
           )}
           {btnText()}
         </Button>

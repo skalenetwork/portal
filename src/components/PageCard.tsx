@@ -41,16 +41,16 @@ export default function PageCard(props: {
         <div className="flex items-center m-2.5">
           <div className="flex-grow">
             <div className="flex flex-grow items-center">
-              <div className="styles.chainIcons mr-2.5 text-primary">{props.icon}</div>
-              <h3 className="capitalize m-0 text-primary font-semibold">{props.name}</h3>
+              <div className="styles.chainIcons mr-2.5 text-foreground">{props.icon}</div>
+              <h3 className="capitalize m-0 text-foreground font-semibold">{props.name}</h3>
             </div>
-            <p className="text-sm text-secondary-foreground/60 mt-1.5">{props.description}</p>
+            <p className="text-sm text-secondary-foreground mt-1.5">{props.description}</p>
           </div>
           <div className="ml-2.5 mr-1.5 flex items-center">
-            <ArrowForwardRoundedIcon className="text-secondary-foreground/60 h-5! w-5!" />
+            <ArrowForwardRoundedIcon className="text-secondary-foreground h-4! w-4!" />
           </div>
         </div>
-      </SkPaper >
-    </Link >
+      </SkPaper>
+    </Link>
   )
 }

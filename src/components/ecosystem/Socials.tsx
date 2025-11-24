@@ -58,7 +58,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
       key: 'website',
       icon: (
         <LanguageRounded
-          className={`${isMd ? 'text-primary' : 'text-secondary-foreground/60'}`}
+          className={`${isMd ? 'text-primary' : 'text-secondary-foreground'}`}
           fontSize={isMd ? 'medium' : 'small'}
         />
       ),
@@ -81,7 +81,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
         <SwellIcon
           size={isMd ? 'medium' : 'small'}
           style={{ padding: '2px' }}
-          className={`${isMd ? 'text-primary' : 'text-secondary-foreground/60'}`}
+          className={`${isMd ? 'text-primary' : 'text-secondary-foreground'}`}
         />
       ),
       title: 'Swell'
@@ -90,7 +90,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
       key: 'dappradar',
       icon: (
         <TrackChangesRounded
-          className={`${isMd ? 'text-primary' : 'text-secondary-foreground/60'}`}
+          className={`${isMd ? 'text-primary' : 'text-secondary-foreground'}`}
           fontSize={isMd ? 'medium' : 'small'}
         />
       ),
@@ -104,7 +104,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
       key: 'dune',
       icon: (
         <JoinLeftRounded
-          className={`${isMd ? 'text-primary' : 'text-secondary-foreground/60'}`}
+          className={`${isMd ? 'text-primary' : 'text-secondary-foreground'}`}
           fontSize={isMd ? 'medium' : 'small'}
         />
       ),
@@ -114,7 +114,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
       key: 'forum',
       icon: (
         <ForumIcon
-          className={`${isMd ? 'text-primary' : 'text-secondary-foreground/60'}`}
+          className={`${isMd ? 'text-primary' : 'text-secondary-foreground'}`}
           fontSize={isMd ? 'medium' : 'small'}
         />
       ),
@@ -126,42 +126,39 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
 
   return (
     <div className={`flex items-center ${className || ''}`}>
-      {
-        social && (
-          <div className="flex items-center flex-grow">
-            {
-              visibleLinks.map(({ key, icon, network, title }) => {
-                const link = social[key as keyof types.AppSocials]
-                if (!link) return null
+      {social && (
+        <div className="flex items-center flex-grow">
+          {visibleLinks.map(({ key, icon, network, title }) => {
+            const link = social[key as keyof types.AppSocials]
+            if (!link) return null
 
-                return (
-                  <div className={isMd ? "mr-2.5" : "mr-1.5"} key={key}>
-                    <Tooltip key={key} title={title}>
-                      <IconButton
-                        size={isMd ? 'medium' : 'small'}
-                        href={link}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className={`flex items-center justify-center ${isMd ? 'min-w-[40px] min-h-[40px]' : 'min-w-[30px] min-h-[30px]'} ${network ? 'p-0!' : ''} text-secondary-foreground/60 ${isMd ? 'bgBlack' : ''}`}
-                      >
-                        {icon || (
-                          <SocialIcon
-                            network={network}
-                            bgColor={isMd ? 'rgba(0, 0, 0, 0.1)' : 'transparent'}
-                            className={`socialIcon ${isMd ? 'socialIconMd' : ''}`}
-                            fgColor={isMd ? '' : 'rgb(255 255 255 / 65%)'}
-                          />
-                        )}
-                      </IconButton>
-                    </Tooltip>
-                  </div>
-                )
-              })
-            }
-          </div >
-        )}
+            return (
+              <div className={isMd ? 'mr-2.5' : 'mr-1.5'} key={key}>
+                <Tooltip key={key} title={title}>
+                  <IconButton
+                    size={isMd ? 'medium' : 'small'}
+                    href={link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`flex items-center justify-center ${isMd ? 'min-w-[40px] min-h-[40px]' : 'min-w-[30px] min-h-[30px]'} ${network ? 'p-0!' : ''} text-secondary-foreground ${isMd ? 'bgBlack' : ''}`}
+                  >
+                    {icon || (
+                      <SocialIcon
+                        network={network}
+                        bgColor={isMd ? 'rgba(0, 0, 0, 0.1)' : 'transparent'}
+                        className={`socialIcon ${isMd ? 'socialIconMd' : ''}`}
+                        fgColor={isMd ? '' : 'rgb(255 255 255 / 65%)'}
+                      />
+                    )}
+                  </IconButton>
+                </Tooltip>
+              </div>
+            )
+          })}
+        </div>
+      )}
       {!social && <div className="flex-grow"></div>}
-    </div >
+    </div>
   )
 }
 

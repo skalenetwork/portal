@@ -27,13 +27,7 @@ import { type types, dc, units } from '@/core'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 
-
-import {
-  type MetaportCore,
-  TokenIcon,
-  SkPaper,
-  useWagmiAccount
-} from '@skalenetwork/metaport'
+import { type MetaportCore, TokenIcon, SkPaper, useWagmiAccount } from '@skalenetwork/metaport'
 
 import TokenSurface from '../components/TokenSurface'
 import ConnectWallet from '../components/ConnectWallet'
@@ -99,15 +93,13 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
         <div className="flex">
           <h2 className="m-0 flex-grow text-2xl font-bold">Portfolio</h2>
         </div>
-        <p className="m-0 text-sm text-secondary-foreground/60">Your assets across all SKALE Chains</p>
+        <p className="m-0 text-sm text-secondary-foreground">Your assets across all SKALE Chains</p>
         <div>
           {!address ? <ConnectWallet className="mt-5" /> : null}
           {Object.keys(props.mpc.config.tokens)?.map((token: string, index: number) => (
             <div key={index} className="mt-5">
               <SkPaper gray className="">
-                <div
-                  className="flex items-center mb-2.5 mt-1.25 ml-2.5 mr-2.5"
-                >
+                <div className="flex items-center mb-2.5 mt-1.25 ml-2.5 mr-2.5">
                   <TokenIcon
                     size="md"
                     tokenSymbol={token}
@@ -117,7 +109,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                     <p className="text-primary text-base font-bold">
                       {props.mpc.config.tokens[token].symbol}
                     </p>
-                    <p className="text-secondary-foreground/60 text-sm font-semibold">
+                    <p className="text-secondary-foreground text-sm font-semibold">
                       {props.mpc.config.tokens[token].name ?? (token === 'eth' ? 'Ethereum' : '')}
                     </p>
                   </div>
@@ -126,7 +118,9 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                       {units.fromWei(getTotalBalance(token).toString(), getTokenDecimals(token))}{' '}
                       {props.mpc.config.tokens[token].symbol}
                     </p>
-                    <p className="text-secondary-foreground/60 text-xs font-semibold pr-1.5">On 2 chains</p>
+                    <p className="text-secondary-foreground text-xs font-semibold pr-1.5">
+                      On 2 chains
+                    </p>
                   </div>
                 </div>
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 w-full">
@@ -142,9 +136,9 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                           value={
                             (balances[index] && balances[index][token]
                               ? units.fromWei(
-                                balances[index][token].toString(),
-                                getTokenDecimals(token)
-                              )
+                                  balances[index][token].toString(),
+                                  getTokenDecimals(token)
+                                )
                               : '0') +
                             ' ' +
                             props.mpc.config.tokens[token].symbol

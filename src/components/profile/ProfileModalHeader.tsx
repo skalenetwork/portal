@@ -41,9 +41,7 @@ const ProfileModalHeader: React.FC<ProfileModalHeaderProps> = ({ address }) => (
         fontSize="small"
         color={address ? 'success' : 'error'}
       />
-      <p className="text-xs pSec mr-5">
-        {address ? 'Connected' : 'Not connected'}
-      </p>
+      <p className="text-xs pSec mr-5">{address ? 'Connected' : 'Not connected'}</p>
     </div>
   </div>
 )

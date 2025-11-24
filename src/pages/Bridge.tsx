@@ -193,7 +193,7 @@ Thank you for your understanding!"
           <div className="flex-grow">
             <h2 className="m-0">Bridge</h2>
             {networks.hasFeatureInAny(NETWORKS, 'sfuel') && (
-              <p className="text-sm text-secondary-foreground/60">
+              <p className="text-sm text-secondary-foreground">
                 Zero Gas Fees between SKALE Chains
               </p>
             )}
@@ -202,7 +202,7 @@ Thank you for your understanding!"
             <Link to="/bridge/history">
               <Button
                 variant="contained"
-                className="btnMd styles.paperGrey text-primary mr-2.5"
+                className="btnMd bg-secondary-foreground text-primary mr-2.5"
                 startIcon={<HistoryIcon />}
               >
                 History
@@ -216,7 +216,7 @@ Thank you for your understanding!"
           <BridgeBody chainsMeta={props.chainsMeta} />
           {transactionsHistory.length !== 0 ? (
             <div className="mb-5">
-              <p className="text-base text-primary font-bold mt-5 mb-2.5">
+              <p className="text-base text-foreground font-bold mt-5 mb-2.5">
                 Completed transactions
               </p>
               <SkPaper gray>

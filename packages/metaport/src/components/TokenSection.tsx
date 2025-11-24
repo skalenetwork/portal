@@ -36,7 +36,7 @@ interface TokenSectionProps {
 export default function TokenSection({ text, icon, tokens, onTokenClick }: TokenSectionProps) {
   return (
     <div className="mt-5">
-      <div className="flex items-center flex-grow text-secondary-foreground/60 ml-2.5 mb-1.5">
+      <div className="flex items-center flex-grow text-secondary-foreground ml-2.5 mb-1.5">
         <div className="items-center flex mr-2.5">{icon}</div>
         <p className="text-sm font-semibold flex-grow uppercase">{text}</p>
       </div>
@@ -59,13 +59,13 @@ export default function TokenSection({ text, icon, tokens, onTokenClick }: Token
                   {getTokenName(tokenData)}
                 </p>
                 {tokenData.address ? (
-                  <p className="text-xs text-secondary-foreground/60 flex ml-2.5">
+                  <p className="text-xs text-secondary-foreground flex ml-2.5">
                     {tokenData.address.substring(0, 5) +
                       '...' +
                       tokenData.address.substring(tokenData.address.length - 3)}
                   </p>
                 ) : (
-                  <p className="text-xs text-secondary-foreground/60 flex ml-2.5">
+                  <p className="text-xs text-secondary-foreground flex ml-2.5">
                     Ethereum
                   </p>
                 )}
