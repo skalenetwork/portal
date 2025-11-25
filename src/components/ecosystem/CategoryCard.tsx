@@ -36,9 +36,9 @@ const CategoryCard: React.FC<CategoryCardProps> = ({ categoryName, fullName, pro
     <Link to={`/ecosystem?categories=${categoryName}`}>
       <SkPaper gray className="'br__tile'">
         <div className="flex items-center m-2.5">
-          <div className="flex-grow">
-            <div className="flex flex-grow items-center">
-              <h4 className="capitalize m-0 text-primary font-semibold truncate">{fullName}</h4>
+          <div className="grow">
+            <div className="flex grow items-center">
+              <h4 className="capitalize m-0 text-foreground font-semibold truncate">{fullName}</h4>
             </div>
             <p className="text-sm text-secondary-foreground mt-1.5">
               {projectCount} project{projectCount !== 1 ? 's' : ''}

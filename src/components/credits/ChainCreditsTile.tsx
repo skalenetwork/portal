@@ -21,7 +21,6 @@
  */
 
 import {
-  cmn,
   cls,
   type MetaportCore,
   Tile,
@@ -193,33 +192,33 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
 
   return (
     <div>
-      <div className={cls(cmn.mbott10, 'titleSection')}>
+      <div className="mb-2.5 titleSection">
         <Grid container spacing={0} alignItems="center">
           <Grid size={{ xs: 12, md: 4 }}>
             <Link to={'/chains/' + shortAlias}>
-              <div className={cls(cmn.flex, cmn.flexcv)}>
+              <div className="flex items-center">
                 <Logo
                   chainsMeta={chainsMeta}
                   skaleNetwork={network}
                   chainName={schain.name}
                   size="xs"
                 />
-                <div className={cls(cmn.mleft10, [cmn.flexg, isXs])} style={{ minWidth: 0 }}>
-                  <h4 className={cls(cmn.p, cmn.p700, 'pOneLine', cmn.pPrim)}>{chainAlias}</h4>
-                  <p className={cls(cmn.p, cmn.p4, cmn.pSec, 'pOneLine')}>
+                <div className={cls('ml-2.5', ['grow', isXs])} style={{ minWidth: 0 }}>
+                  <h4 className="p font-bold pOneLine text-primary">{chainAlias}</h4>
+                  <p className="p text-xs text-secondary pOneLine">
                     Click for chain details
                   </p>
                 </div>
               </div>
             </Link>
           </Grid>
-          <Grid size={{ xs: 12, md: 8 }} className={cls([cmn.mtop20, isXs], cmn.flex)}>
-            <div className={cls(cmn.flexg)}></div>
-            <SkStack className={cls(cmn.flex)}>
+          <Grid size={{ xs: 12, md: 8 }} className={cls(['mt-5', isXs], 'flex')}>
+            <div className="grow"></div>
+            <SkStack className="flex">
               <Tile
                 size="lg"
                 transparent
-                className={cls(cmn.nop, [cmn.mri20, !isXs], [cmn.mleft20, !isXs])}
+                className={cls('p-0', ['mr-5', !isXs], ['ml-5', !isXs])}
                 value={
                   chainBalance !== undefined &&
                   units.displayBalance(
@@ -234,12 +233,12 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                 icon={<PaymentsRoundedIcon />}
               />
               <div className="borderVert"></div>
-              <div className={cls(cmn.flex, cmn.flexcv)}>
+              <div className="flex items-center">
                 <Button
                   size="small"
                   variant="contained"
                   startIcon={<AddCircleRoundedIcon />}
-                  className={cls('btnMd', cmn.mleft20)}
+                  className="btnMd ml-5"
                   onClick={() => setOpenModal(true)}
                   disabled={creditStation === undefined}
                 >
@@ -255,7 +254,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
         onClose={() => setOpenModal(false)}
         maxWidth="sm"
         fullWidth
-        className={cls(cmn.darkTheme)}
+        className={cls('dark')}
         PaperProps={{
           sx: {
             background: 'transparent',
@@ -266,15 +265,15 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
         <SkPaper gray>
           <Headline
             text={`Buy Credits - ${chainAlias}`}
-            icon={<MonetizationOnRoundedIcon className={cls(styles.chainIconxs)} />}
-            className={cls(cmn.mbott10)}
+            icon={<MonetizationOnRoundedIcon className='text-[17px]!' />}
+            className="mb-2.5"
             size="small"
           />
-          <p className={cls(cmn.p, cmn.pSec, cmn.p3, cmn.mleft10, cmn.mbott10)}>
+          <p className="p text-secondary text-sm ml-2.5 mb-2.5">
             All purchases are converted to SKL on the backend for distribution per governance
             agreements.
           </p>
-          <SkPaper className={cls(cmn.nop)}>
+          <SkPaper className="p-0">
             <Tile
               size="md"
               transparent
@@ -282,7 +281,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
               grow
               icon={<TollRoundedIcon />}
               children={
-                <div className={cls(cmn.flex)}>
+                <div className="flex">
                   {Object.entries(tokens).map(
                     ([symbol, tokenData]) =>
                       tokenData.address &&
@@ -292,23 +291,19 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                             color="primary"
                             size="small"
                             className={cls(
-                              cmn.flexcv,
-                              cmn.mri10,
-                              cmn.mtop10,
-                              cmn.upp,
-                              'btnLg',
+                              'items-center mr-2.5 mt-2.5 uppercase btnLg',
                               [styles.filled, symbol !== token],
-                              [cmn.pPrim, symbol !== token]
+                              ['text-primary', symbol !== token]
                             )}
                             variant="contained"
                             onClick={() => setToken(symbol)}
                           >
-                            <div className={cls(cmn.flex, cmn.flexcv)}>
+                            <div className="flex items-center">
                               <TokenIcon
                                 tokenSymbol={symbol}
                                 iconUrl={tokensMeta[symbol]?.iconUrl}
                               />
-                              <span className={cls(cmn.p, cmn.mleft10, cmn.upp)}>{symbol}</span>
+                              <span className="p ml-2.5 uppercase">{symbol}</span>
                             </div>
                           </Button>
                         </div>
@@ -318,7 +313,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
               }
             />
           </SkPaper>
-          <SkPaper className={cls(cmn.nop, cmn.mtop10)}>
+          <SkPaper className="p-0 mt-2.5">
             <Tile
               size="md"
               transparent
@@ -332,9 +327,9 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
               icon={address && <Avatar variant="marble" name={address} colors={AVATAR_COLORS} />}
             />
           </SkPaper>
-          <Grid container spacing={1} alignItems="center" className={cls(cmn.mtop10, cmn.flexcv)}>
-            <Grid size={{ xs: 6 }} className={cls(cmn.flex, cmn.flexcv)}>
-              <SkPaper className={cls(cmn.nop, cmn.flexg)}>
+          <Grid container spacing={1} alignItems="center" className="mt-2.5 items-center">
+            <Grid size={{ xs: 6 }} className="flex items-center">
+              <SkPaper className="p-0 grow">
                 <Tile
                   size="lg"
                   transparent
@@ -351,7 +346,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
               <NavigateNextRoundedIcon className={cls(styles.chainIconmd, styles.creditsArrow)} />
             </Grid>
             <Grid size={{ xs: 6 }}>
-              <SkPaper className={cls(cmn.nop, cmn.flexg)}>
+              <SkPaper className="p-0 grow">
                 <Tile
                   size="lg"
                   transparent
@@ -365,7 +360,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
           </Grid>
           <Button
             variant="contained"
-            className={cls(styles.btnAction, cmn.mtop20)}
+            className={cls(styles.btnAction, 'mt-5')}
             startIcon={<PaymentsRoundedIcon />}
             size="large"
             onClick={buyCredits}

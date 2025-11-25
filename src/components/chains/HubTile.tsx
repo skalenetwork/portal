@@ -25,7 +25,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Tooltip } from '@mui/material'
 
-import { SkPaper } from '@skalenetwork/metaport'
+import { SkPaper, useThemeMode } from '@skalenetwork/metaport'
 import { type types, metadata } from '@/core'
 
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
@@ -46,7 +46,7 @@ export default function HubTile(props: {
   showStats?: boolean
 }) {
   const [schainMetrics, setSchainMetrics] = useState<types.IChainMetrics | null>(null)
-
+  const { mode } = useThemeMode()
   useEffect(() => {
     if (props.metrics !== null && props.metrics.metrics[props.schainName]) {
       setSchainMetrics(props.metrics.metrics[props.schainName])
@@ -66,17 +66,17 @@ export default function HubTile(props: {
   const chainDescription = metadata.getChainDescription(chainMeta)
 
   return (
-    <Link to={'/chains/' + shortAlias} className="flex text-primary flex-grow">
+    <Link to={'/chains/' + shortAlias} className="flex text-primary grow">
       <SkPaper
         gray
-        className="titleSectionOut hoverable pointer flex-grow"
+        className="titleSectionOut hoverable pointer grow"
         background={
-          props.bg ? metadata.chainBg(props.network, props.chainsMeta, props.schainName) : ''
+          props.bg ? metadata.chainBg(props.network, props.chainsMeta, props.schainName, mode) : ''
         }
       >
         <Tooltip title="Click to see Hub details">
           <div className="titleSectionBg flex items-center">
-            <div className="flex items-center flex-grow mt-5 mb-5 ml-5">
+            <div className="flex items-center grow mt-5 mb-5 ml-5">
               <div className="w-[45px] h-[45px] flex items-center">
                 <ChainLogo
                   network={props.network}
@@ -85,7 +85,7 @@ export default function HubTile(props: {
                   className="responsive-logo"
                 />
               </div>
-              <div className={`${!props.isXs ? 'ml-5' : 'ml-2.5'} flex-grow`}>
+              <div className={`${!props.isXs ? 'ml-5' : 'ml-2.5'} grow`}>
                 <h4 className="font-bold pOneLine">{alias}</h4>
                 <p className={`text-xs ${props.isXs ? 'mr-2.5' : ''} text-secondary-foreground`}>
                   {chainDescription.split('.', 1)[0]}

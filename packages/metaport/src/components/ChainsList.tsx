@@ -44,20 +44,17 @@ export default function ChainsList(props: {
 
   return (
     <div>
-      <div className="ml-2.5 pb-2.5 pt-2.5 mr-2.5">
+      <div className="py-2 mx-2">
         <Button
-          className="flex items-center w-full p-2.5 mr-2.5"
+          className="flex items-center w-full p-2"
           onClick={handleOpen}
           disabled={props.disabled}
           endIcon={
-            <KeyboardArrowDownRoundedIcon
-              className="text-primary"
-              style={{ marginRight: '16px' }}
-            />
+            <KeyboardArrowDownRoundedIcon className="text-foreground mr-2" />
           }
         >
           {props.chain ? (
-            <div className="flex w-full items-center mr-2.5">
+            <div className="flex w-full items-center">
               <Chain
                 skaleNetwork={props.config.skaleNetwork}
                 chainName={props.chain}
@@ -65,10 +62,10 @@ export default function ChainsList(props: {
                 from={props.from}
                 bold
               />
-              <div className="flex flex-grow"></div>
+              <div className="flex grow"></div>
             </div>
           ) : (
-            <div className="flex items-center flex-grow mt-5 mb-5 ml-5">
+            <div className="flex items-center grow mt-5 mb-5 ml-5">
               <div className="flex items-center justify-center mr-2.5">
                 <ChainIcon skaleNetwork={props.config.skaleNetwork} chainName={props.chain} chainsMeta={CHAINS_META[props.config.skaleNetwork]} />
               </div>
@@ -77,7 +74,9 @@ export default function ChainsList(props: {
               </p>
             </div>
           )}
-          {props.balance}
+          <div className='mr-2'>
+            {props.balance}
+          </div>
         </Button>
       </div>
 
@@ -90,14 +89,14 @@ export default function ChainsList(props: {
       >
         <Container maxWidth="md" className={styles.modalContainer}>
           <div className="flex mb-5">
-            <div className="flex-grow"></div>
+            <div className="grow"></div>
             <SkPaper gray>
               <p
                 className="text-base text-primary font-bold mt-1.5 mb-1.5 ml-5 mr-5 flex items-center text-center">
                 {modalTitle}
               </p>
             </SkPaper>
-            <div className="flex-grow"></div>
+            <div className="grow"></div>
           </div>
           <div
             className="styles.bridgeModalScroll mb-2.5 mr-2.5 ml-2.5"

@@ -32,7 +32,7 @@ interface ProfileModalHeaderProps {
 
 const ProfileModalHeader: React.FC<ProfileModalHeaderProps> = ({ address }) => (
   <div className="profileModalHeader items-center">
-    <div className="flex-grow">
+    <div className="grow">
       <Headline text="Wallet Info" icon={<AccountCircleRoundedIcon />} size="small" />
     </div>
     <div className="profileModalStatus">

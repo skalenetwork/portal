@@ -42,7 +42,7 @@ export default function Stats() {
       </Helmet>
       <Stack spacing={0}>
         <div className="flex items-center">
-          <div className="flex-grow" style={{ zIndex: '2' }}>
+          <div className="grow" style={{ zIndex: '2' }}>
             <h2 className="m-0 text-2xl font-bold">Stats</h2>
             <p className="text-sm text-secondary-foreground">SKALE Network statistics</p>
           </div>

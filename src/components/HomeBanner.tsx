@@ -38,7 +38,7 @@ export default function HomeBanner() {
             size="medium"
             variant="contained"
             color="primary"
-            className="btn mt-3! w-full px-10! bg-accent-foreground! text-accent! text-sm!"
+            className="btn mt-3! w-full px-10! bg-accent-foreground! text-accent! text-sm! ease-in-out transition-transform duration-150 active:scale-[0.97]"
             startIcon={<Sparkles size={18} />}
           >
             Bridge Now

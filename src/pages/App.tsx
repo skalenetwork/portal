@@ -163,7 +163,7 @@ export default function App(props: {
               }
             ]}
           />
-          <div className="flex-grow"></div>
+          <div className="grow"></div>
         </div>
         <SkPaper gray className="mt-2.5">
           <div className="m-2.5">
@@ -176,9 +176,9 @@ export default function App(props: {
                 size="md"
               />
 
-              <div className="app-info flex-grow">
+              <div className="app-info grow">
                 <div className={!props.isXs ? 'flex' : ''}>
-                  <div className="flex-grow mb-2.5">
+                  <div className="grow mb-2.5">
                     <CategoriesChips categories={appMeta.categories} all />
                   </div>
                 </div>
@@ -217,7 +217,7 @@ export default function App(props: {
                   text="Gas saved"
                   childrenRi={
                     !props.isXs ? (
-                      <InfoOutlinedIcon className="text-secondary-foreground styles.chainIconxs ml-2.5" />
+                      <InfoOutlinedIcon className="text-secondary-foreground text-[17px]! ml-2.5" />
                     ) : undefined
                   }
                   tooltip={

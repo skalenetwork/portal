@@ -33,6 +33,7 @@ import { SFUEL_RESERVE_AMOUNT } from '../core/constants'
 import TokenList from './TokenList'
 import { useMetaportStore } from '../store/MetaportStore'
 import { useCollapseStore } from '../store/Store'
+import { styles } from '../core/css'
 
 export default function AmountInput() {
   const { address } = useAccount()
@@ -73,11 +74,12 @@ export default function AmountInput() {
   }
 
   return (
-    <div className="flex styles.inputAmount">
+    // <div className={`flex ${styles.inputAmount}`}>
+    <div className={`flex`}>
       {
         expandedTokens ? null : (
-          <div className="flex flex-grow items-center">
-            < TextField
+          <div className="flex grow items-center">
+            <TextField
               type="number"
               variant="standard"
               placeholder="0.00"
@@ -91,7 +93,7 @@ export default function AmountInput() {
             < Button
               size="small"
               disabled={transferInProgress || currentStep !== 0 || maxAmount === 0n}
-              className="bg-secondary-foreground styles.btnXs flex items-center text-xs"
+              className="bg-secondary-foreground flex items-center text-xs"
               onClick={setMaxAmount}
             >
               MAX

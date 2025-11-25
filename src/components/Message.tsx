@@ -61,7 +61,7 @@ export default function Message(props: {
             </p>
           ) : null}
           {props.link ? (
-            <div className="flex items-center flex-grow">
+            <div className="flex items-center grow">
               <Link to={props.link}>
                 <p className="text-sm font-semibold mr-1.5">{props.linkText}</p>
               </Link>
@@ -72,7 +72,7 @@ export default function Message(props: {
             </div>
           ) : null}
 
-          <div className="flex-grow"></div>
+          <div className="grow"></div>
           {props.button}
           {closable ? (
             <IconButton

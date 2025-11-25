@@ -209,7 +209,7 @@ export default function Ecosystem(props: {
           >
             <Container maxWidth="md" sx={props.isXs ? { paddingLeft: 0, paddingRight: 0 } : {}}>
               <SkStack>
-                <div className={cn('flex-grow flex flex-col mb-5 mt-2.5')}>
+                <div className={cn('grow flex flex-col mb-5 mt-2.5')}>
                   <h2 className="m-0 text-3xl font-bold">Ecosystem</h2>
                   <p className="text-sm text-secondary-foreground">
                     Explore dApps across the SKALE ecosystem
@@ -224,7 +224,7 @@ export default function Ecosystem(props: {
               </SkStack>
               <SkStack className={`mb-5 flex items-center mt-2.5 ${props.isXs ? 'flex-col' : ''}`}>
                 <SearchComponent
-                  className={`flex-grow ${!props.isXs ? 'mr-2.5' : 'fullW'}`}
+                  className={`grow ${!props.isXs ? 'mr-2.5' : 'fullW'}`}
                   searchTerm={searchTerm}
                   setSearchTerm={handleSetSearchTerm}
                 />
@@ -274,7 +274,7 @@ export default function Ecosystem(props: {
             </Container>
           </div>
           {!props.isXs && <div style={{ height: headerHeight }} />}
-          <div className={cn('flex-grow', 'mt-5', 'fwmobile')}>
+          <div className={cn('grow', 'mt-5', 'fwmobile')}>
             {activeTab === 0 && (
               <AllApps
                 apps={currentFilteredApps}
@@ -316,7 +316,7 @@ export default function Ecosystem(props: {
           </div>
         </Stack>
         <div className="flex mt-5 mb-5">
-          <div className="flex-grow"></div>
+          <div className="grow"></div>
           <div>
             <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">
               <Button
@@ -329,7 +329,7 @@ export default function Ecosystem(props: {
               </Button>
             </a>
           </div>
-          <div className="flex-grow"></div>
+          <div className="grow"></div>
         </div>
       </Container>
 

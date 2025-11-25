@@ -66,11 +66,11 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
       </div>
       <p
         style={{ wordBreak: 'break-word' }}
-        className="text-base text-primary font-semibold flex-grow text-center mt-2.5"
+        className="text-base text-primary font-semibold grow text-center mt-2.5"
       >
         {props.errorMessage.headline ?? DEFAULT_ERROR_MSG}
       </p>
-      <p className="text-xs text-secondary-foreground font-medium flex-grow text-center mb-2.5">
+      <p className="text-xs text-secondary-foreground font-medium grow text-center mb-2.5">
         Logs are available in your browser's developer console
       </p>
       {props.errorMessage.showTips ? (
@@ -129,7 +129,7 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
           <div className="mb-5">
             <code
               style={{ wordBreak: 'break-all' }}
-              className="text-xs text-primary flex-grow text-center ml-2.5 mr-2.5 mb-5"
+              className="text-xs text-primary grow text-center ml-2.5 mr-2.5 mb-5"
             >
               {props.errorMessage.text}
             </code>

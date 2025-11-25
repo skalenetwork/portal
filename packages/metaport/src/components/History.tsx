@@ -96,7 +96,7 @@ export default function History(props: { size?: types.Size }) {
                     decIcon
                   />
                 </div>
-                <div className="flex-grow"></div>
+                <div className="grow"></div>
 
                 <div
                   className={`flex items-center ${size === 'sm' ? 'mb-2.5' : 'mb-5'
@@ -116,7 +116,7 @@ export default function History(props: { size?: types.Size }) {
                   </p>
                   <p
                     className={`${size === 'sm' ? 'text-sm' : 'text-base'
-                      } font-semibold capitalize text-primary ml-1.5 flex-grow`}
+                      } font-semibold capitalize text-primary ml-1.5 grow`}
                   >
                     {transfer.address !== undefined
                       ? `• ${transfer.address.substring(0, 6)}...${transfer.address.substring(

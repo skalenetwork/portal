@@ -112,7 +112,7 @@ export default function StakeAmount(props: {
     <Container maxWidth="md">
       <SkPaper gray className="mt-2.5 chainDetails">
         <div className="flex items-center">
-          <div className="flex flex-grow">
+          <div className="flex grow">
             <Breadcrumbs
               sections={[
                 {
@@ -152,7 +152,7 @@ export default function StakeAmount(props: {
 
         <Headline
           text="Staking details"
-          icon={<MonetizationOnRoundedIcon className="styles.chainIconxs" />}
+          icon={<MonetizationOnRoundedIcon className="text-[17px]!" />}
           className="mt-5 mb-2.5"
           size="small"
         />
@@ -171,7 +171,7 @@ export default function StakeAmount(props: {
             sklPrice={sklPrice}
           />
         ) : (
-          <ConnectWallet tile className="flex-grow" />
+          <ConnectWallet tile className="grow" />
         )}
       </SkPaper>
     </Container>

@@ -38,14 +38,14 @@ export default function AccordionLink(props: {
     <div className={props.className}>
       <Link to={props.url} className="text-primary">
         <ButtonBase className="w-full flex pl-2.5 rounded">
-          <div className="m-2.5 flex flex-grow items-center">
+          <div className="m-2.5 flex grow items-center">
             {props.icon ? (
-              <div className="mr-2.5 items-center flex styles.chainIconxs text-secondary-foreground">
+              <div className="mr-2.5 items-center flex text-[17px]! text-secondary-foreground">
                 {props.icon}
               </div>
             ) : null}
-            <p className="text-base font-bold flex-grow">{props.title}</p>
-            <AddCircleRoundedIcon className="mr-1.5 styles.chainIconxs text-secondary-foreground" />
+            <p className="text-base font-bold grow">{props.title}</p>
+            <AddCircleRoundedIcon className="mr-1.5 text-[17px]! text-secondary-foreground" />
           </div>
         </ButtonBase>
       </Link>

@@ -71,54 +71,6 @@ body {
   font-family: inherit !important;
 }
 
-.fullH {
-  height: 100%;
-}
-
-.mp__btnConnect {
-  position: relative;
-
-  width: 100%;
-  border-radius: 18px !important;
-
-  text-transform: none;
-
-  text-align: center;
-
-  height: 36px;
-
-  font-size: .7rem;
-  line-height: 1.6;
-  font-weight: 600;
-  padding-right: 12px;
-  padding-left: 8px;
-
-  min-height: 0 !important;
-
-  .mp__iconConnect {
-    margin-left: 10px;
-    width: 18pt !important;
-    height: 18pt !important;
-  }
-
-  .MuiPaper-root {
-    width: 100%;
-    padding: 0 10pt;
-    border-radius: 18px !important;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-  }
-
-  .mp__iconGray {
-    width: 12pt;
-  }
-
-  .icon-overlay {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-  }
-}
-
 .MuiDrawer-paper {
   margin-bottom: 20px !important;
   border: none !important;
@@ -185,7 +137,7 @@ body {
   }
 
   @media screen and (min-height: 670px) and (min-width: 900px) {
-    max-height: calc(75vh - 350px);
+    max-height: calc(75vh - 300px);
   }
 }
 
@@ -799,39 +751,54 @@ input[type=number] {
   }
 }
 
-.chipTrending {
-  background: linear-gradient(180deg, #e56d36, #D0602D) !important;
-
-  p {
-    color: black !important
-  }
-}
 
 .chipFeatured {
-
-
-  background: linear-gradient(180deg, #ff7e91, #e63946) !important;
-
-  p {
-    color: black !important
-  }
+  background: linear-gradient(180deg, rgb(253 187 187 / 29%), rgb(255 68 84 / 35%)) !important;
+  color: #ff3971;
+  font-weight: 600;
 }
 
-.chipNewApp {
-  background: linear-gradient(180deg, #65a974, #508d5e) !important;
+.chipTrending {
+  background: linear-gradient(180deg, #ff976736, #ff8e5a70) !important;
+  color: #ef4b00;
+  font-weight: 600;
+}
 
-  p {
-    color: black !important
-  }
+
+.chipNewApp {
+  background: linear-gradient(180deg, #bdffcb82, #a1ffb7a6) !important;
+  color: #00ae3a;
+  font-weight: 600;
 }
 
 .chipPreTge {
-  background: linear-gradient(180deg, #EBB84F, #bc923b) !important;
+  background: linear-gradient(180deg, #faf88d82, #e6ff84a6) !important;
+  color: #647300;
+  font-weight: 600;
+}
 
-  p {
-    color: black !important
+.dark {
+  .chipFeatured {
+    background: linear-gradient(180deg, #69101d6f, #5e1117a8) !important;
+    color: #ff5183;
+  }
+
+  .chipTrending {
+    background: linear-gradient(180deg, #57240c98, #3f1a09c2) !important;
+    color: #ff7a3c;
+  }
+
+  .chipNewApp {
+    background: linear-gradient(180deg, #13692582, #14401ea6) !important;
+    color: #5bff92;
+  }
+
+  .chipPreTge {
+    background: linear-gradient(180deg, #58582f82, #414824a6) !important;
+    color: #e8ff52;
   }
 }
+
 
 .chipXs {
   border-radius: 15px;
@@ -1345,10 +1312,6 @@ input[type=number] {
   transform: scale(1.03);
 }
 
-.paddBott60 {
-  padding-bottom: 60px;
-}
-
 .m5 {
   margin: 5px;
 }
@@ -1452,7 +1415,7 @@ input[type=number] {
 .home-banner {
   width: 100%;
   max-width: 852px;
-  height: 290px;
+  height: 285px;
   border-radius: 25px;
   position: relative;
   margin: 0 auto;

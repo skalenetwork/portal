@@ -36,9 +36,9 @@ interface TokenSectionProps {
 export default function TokenSection({ text, icon, tokens, onTokenClick }: TokenSectionProps) {
   return (
     <div className="mt-5">
-      <div className="flex items-center flex-grow text-secondary-foreground ml-2.5 mb-1.5">
+      <div className="flex items-center grow text-secondary-foreground ml-2.5 mb-1.5">
         <div className="items-center flex mr-2.5">{icon}</div>
-        <p className="text-sm font-semibold flex-grow uppercase">{text}</p>
+        <p className="text-sm font-semibold grow uppercase">{text}</p>
       </div>
       {tokens
         .sort((a, b) => a.key.localeCompare(b.key))
@@ -54,7 +54,7 @@ export default function TokenSection({ text, icon, tokens, onTokenClick }: Token
               <div className="flex items-center">
                 <TokenIcon tokenSymbol={tokenData?.meta.symbol} iconUrl={tokenData?.meta.iconUrl} />
               </div>
-              <div className="flex-grow">
+              <div className="grow">
                 <p className="text-sm font-semibold text-primary flex mr-2.5 ml-2.5">
                   {getTokenName(tokenData)}
                 </p>

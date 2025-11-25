@@ -122,7 +122,7 @@ export default function TokenList() {
               iconUrl={token?.meta.iconUrl}
             />
           </div>
-          <p className={`text-lg font-bold text-primary ${noTokens ? 'opacity-50' : ''} flex flex-grow`}>
+          <p className={`text-lg font-bold text-primary ${noTokens ? 'opacity-50' : ''} flex grow`}>
             {tokensText}
           </p>
         </Button>
@@ -134,13 +134,13 @@ export default function TokenList() {
       >
         <Container maxWidth="sm" className="styles.modalContainer">
           <div className="flex mb-5">
-            <div className="flex-grow"></div>
+            <div className="grow"></div>
             <SkPaper gray>
               <p className="text-base font-bold text-primary mt-1.5 mb-1.5 ml-5 mr-5">
                 Select a token
               </p>
             </SkPaper>
-            <div className="flex-grow"></div>
+            <div className="grow"></div>
           </div>
           <SkPaper gray>
             <TextField

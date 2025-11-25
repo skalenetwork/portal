@@ -32,9 +32,7 @@ import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
 
-import StarRoundedIcon from '@mui/icons-material/StarRounded'
-import HubRoundedIcon from '@mui/icons-material/HubRounded'
-import CategoryRoundedIcon from '@mui/icons-material/CategoryRounded'
+import { Star, Network, Shapes } from 'lucide-react'
 
 import ChainsSection from '../components/chains/ChainsSection'
 import { META_TAGS } from '../core/meta'
@@ -94,9 +92,9 @@ export default function Chains(props: {
       </Helmet>
       <Stack spacing={0}>
         <div className="flex items-center">
-          <div className="flex-grow">
-            <h2 className="m-0 text-2xl font-bold">SKALE Chains</h2>
-            <p className="text-sm text-secondary-foreground">
+          <div className="grow">
+            <h2 className="m-0 text-2xl font-bold text-foreground">SKALE Chains</h2>
+            <p className="text-sm text-secondary-foreground font-semibold">
               Connect, get block explorer links and endpoints
             </p>
           </div>
@@ -115,7 +113,7 @@ export default function Chains(props: {
           metrics={props.metrics}
           skaleNetwork={network}
           size="lg"
-          icon={<HubRoundedIcon color="primary" />}
+          icon={<Network size={18} />}
         />
         {appChains.length !== 0 && (
           <ChainsSection
@@ -125,7 +123,7 @@ export default function Chains(props: {
             metrics={props.metrics}
             skaleNetwork={network}
             size="md"
-            icon={<StarRoundedIcon color="primary" />}
+            icon={<Star size={18} />}
           />
         )}
         {network !== constants.MAINNET_CHAIN_NAME && otherChains.length !== 0 && (
@@ -136,7 +134,7 @@ export default function Chains(props: {
             metrics={props.metrics}
             skaleNetwork={network}
             size="md"
-            icon={<CategoryRoundedIcon color="primary" />}
+            icon={<Shapes size={18} />}
           />
         )}
         <div className="mb-5 mt-5"></div>

@@ -37,7 +37,7 @@ export default function LinkSurface(props: {
       <a target="_blank" rel="noreferrer" href={props.url} className="'undec', text-primary">
         <Tooltip title={'Click to see contract'}>
           <ButtonBase className="titleSection" style={{ width: '100%' }}>
-            <div style={{ textAlign: 'left', overflow: 'auto' }} className="flex-grow">
+            <div style={{ textAlign: 'left', overflow: 'auto' }} className="grow">
               <div className="flex">
                 <p className="text-primary text-xs text-secondary-foreground mb-1.5">
                   {props.title}
@@ -45,7 +45,7 @@ export default function LinkSurface(props: {
               </div>
               <p className="text-base font-semibold 'shortP'">{props.value}</p>
             </div>
-            <ArrowOutwardRoundedIcon className="text-secondary-foreground ml-5 styles.chainIconxs" />
+            <ArrowOutwardRoundedIcon className="text-secondary-foreground ml-5 text-[17px]!" />
           </ButtonBase>
         </Tooltip>
       </a>

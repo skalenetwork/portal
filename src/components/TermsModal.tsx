@@ -36,6 +36,7 @@ import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
 
 import { PORTAL_URLS } from '../core/constants'
 import TermsOfService from '../data/terms-of-service.mdx'
+import { Handshake, Key, Lock, Signature } from 'lucide-react'
 
 export default function TermsModal(props: {
   mpc: MetaportCore
@@ -48,7 +49,7 @@ export default function TermsModal(props: {
   const portalUrl = PORTAL_URLS[props.mpc.config.skaleNetwork] ?? PORTAL_URLS.mainnet
 
   function getAgreeButtonText(): string {
-    if (!scrolled) return '⬆️ Read Terms of Service to continue ⬆️'
+    if (!scrolled) return 'Read Terms of Service to continue'
     return 'Agree to terms'
   }
 
@@ -60,37 +61,35 @@ export default function TermsModal(props: {
   const title = props.type === 'bridge' ? 'Bridge' : 'Staking'
   if (props.termsAccepted) return null
   return (
-    <div>
-      <Container maxWidth="md" className="mt-1.5">
-        <div className="flex">
-          <h2 className="m-0">{title}</h2>
-        </div>
-        <p className="text-sm text-secondary-foreground mb-5">
+    <div >
+      <Container maxWidth="md" className="">
+        <h2 className="m-0 text-2xl font-bold text-foreground">{title}</h2>
+        <p className="text-sm text-secondary-foreground font-semibold">
           Review the terms of service carefully and confirm
         </p>
-        <Box>
+        <Box className='mt-4'>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="col-span-1">
-              <SkPaper gray className="styles.fullHeight">
+              <SkPaper gray className="h-full">
                 <div className="m-2.5">
-                  <KeyRoundedIcon color="primary" />
-                  <p className="text-sm font-bold mt-1.5">
+                  <Key className='text-amber-500' />
+                  <p className="text-sm font-bold mt-1.5 text-foreground">
                     SKALE will NEVER ask you for your seed phrase or private keys
                   </p>
                 </div>
               </SkPaper>
             </div>
             <div className="col-span-1">
-              <SkPaper gray className="styles.fullHeight">
+              <SkPaper gray className="h-full">
                 <div className="m-2.5">
-                  <LockRoundedIcon color="primary" />
-                  <p className="text-sm font-bold mt-1.5">
+                  <Lock className='text-emerald-500' />
+                  <p className="text-sm font-bold mt-1.5 text-foreground">
                     Make sure you are connected to the correct URL and only use this official link:
                     <Link
                       target="_blank"
                       rel="noopener noreferrer"
                       href={portalUrl}
-                      className="ml-1.5"
+                      className="ml-1!"
                     >
                       {portalUrl}
                     </Link>
@@ -102,13 +101,13 @@ export default function TermsModal(props: {
         </Box>
         <SkPaper gray className="mt-5">
           <div className="m-2.5 overflow-auto">
-            <GradingRoundedIcon color="primary" />
-            <p className="text-sm font-bold mt-2.5 text-primary">
+            <Signature className='text-cyan-500' />
+            <p className="text-sm font-bold mt-2.5 text-foreground">
               Before you use the SKALE {title}, you must review the terms of service carefully and
               confirm below.
             </p>
             <div onScroll={handleTermsScroll} className="br__modalScroll mt-5">
-              <div id="terms" style={{ paddingRight: '20px' }}>
+              <div id="terms" style={{ paddingRight: '20px' }} className='text-foreground/80 font-medium text-sm'>
                 <TermsOfService />
               </div>
             </div>
@@ -120,10 +119,10 @@ export default function TermsModal(props: {
           }}
           variant="contained"
           disabled={!scrolled}
-          className="w-full text-none text-sm font-semibold py-4 px-8 rounded-[25px] shadow-none mt-5 transition-all duration-200 ease-in-out"
+          className={`w-full text-none text-sm font-semibold py-5! ${scrolled ? 'bg-accent-foreground!' : 'bg-accent-foreground/50!'} text-accent! px-8 rounded-[25px] shadow-none mt-5 ease-in-out transition-transform duration-150 active:scale-[0.97]`}
           style={{
             marginTop: '20px',
-            marginBottom: '40px',
+            marginBottom: '0px',
             minHeight: '47px',
             textTransform: 'none',
             fontSize: '0.8025rem',
@@ -135,6 +134,6 @@ export default function TermsModal(props: {
           {getAgreeButtonText()}
         </Button>
       </Container>
-    </div>
+    </div >
   )
 }

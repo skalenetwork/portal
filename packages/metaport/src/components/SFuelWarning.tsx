@@ -194,12 +194,12 @@ export default function SFuelWarning(props: {}) {
   return (
     <Collapse in={!loading && !isOk}>
       <div className="mt-5 mb-5">
-        <p className="flex text-sm text-primary flex-grow ml-2.5">
+        <p className="flex text-sm text-primary grow ml-2.5">
           ⛽ {getSFuelText()}
         </p>
         {!sFuelBtn || noEth ? (
           <p
-            className="flex text-sm text-primary flex-grow ml-2.5 mt-2.5"
+            className="flex text-sm text-primary grow ml-2.5 mt-2.5"
           >
             ❗️ Faucet is not available for one of the selected chains
           </p>

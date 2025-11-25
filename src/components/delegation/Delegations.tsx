@@ -58,7 +58,7 @@ export default function Delegations(props: {
       <Headline
         size="small"
         text="Delegations"
-        icon={<AllInboxRoundedIcon className="styles.chainIconxs" />}
+        icon={<AllInboxRoundedIcon className="text-[17px]!" />}
       />
       <div className="mt-2.5" style={{ paddingBottom: '5px' }}></div>
       {!loaded ? (

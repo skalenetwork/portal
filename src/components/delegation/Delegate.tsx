@@ -174,7 +174,7 @@ export default function Delegate(props: {
           className="styles.inputAmount"
           children={
             <div className="flex items-center 'amountInput'">
-              <div className="flex-grow">
+              <div className="grow">
                 <Tooltip
                   title={
                     props.sklPrice !== undefined

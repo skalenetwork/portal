@@ -57,7 +57,7 @@ export default function Chain(props: {
           ${size === 'lg' ? 'ml-5' : ''}
         `}
       >
-        <p className="text-xs text-gray-400 ml-1">
+        <p className="text-xs text-secondary-foreground capitalize text-left">
           {props.from ? 'From' : 'To'}
         </p>
         <p
@@ -68,7 +68,7 @@ export default function Chain(props: {
             ${size === 'lg' ? 'text-xl' : ''}
             ${!props.bold ? 'font-semibold' : 'font-bold'}
             capitalize
-            ${prim ? 'text-primary' : 'text-gray-400'}
+            ${prim ? 'text-foreground' : 'text-gray-400'}
           `}
         >
           {metadata.getAlias(props.skaleNetwork, chainsMeta, props.chainName, props.app)}

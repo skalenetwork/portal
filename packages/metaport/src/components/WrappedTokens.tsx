@@ -133,7 +133,7 @@ export default function WrappedTokens() {
         </AccordionSummary>
         <AccordionDetails>
           <SkPaper background="transparent" className={styles.accordionContent}>
-            <p className="flex text-sm errorMessage flex-grow">
+            <p className="flex text-sm errorMessage grow">
               ❗ You have wrapped tokens on {chainAlias}. Unwrap them before proceeding with your
               transfer.
             </p>
@@ -149,7 +149,7 @@ export default function WrappedTokens() {
                       iconUrl={filteredTokens[key]?.meta.iconUrl}
                     />
                   </div>
-                  <p className="text-sm font-semibold text-primary flex flex-grow mr-2.5 ml-2.5">
+                  <p className="text-sm font-semibold text-primary flex grow mr-2.5 ml-2.5">
                     Wrapped {getTokenName(filteredTokens[key])}
                   </p>
                   <div className="mr-2.5">

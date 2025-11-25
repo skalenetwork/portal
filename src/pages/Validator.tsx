@@ -169,13 +169,13 @@ export default function Validator(props: {
         ))}
         {remainingItems > 0 && (
           <div className="flex items-center">
-            <div className="flex-grow"></div>
+            <div className="grow"></div>
             <ShowMoreButton
               onClick={handleShowMore}
               remainingItems={remainingItems}
               loading={props.delegations === undefined}
             />
-            <div className="flex-grow"></div>
+            <div className="grow"></div>
           </div>
         )}
       </>
@@ -185,8 +185,8 @@ export default function Validator(props: {
   return (
     <Container maxWidth="md">
       <div className="flex items-center">
-        <div className="flex-grow">
-          <h2 className="m-0">Validator Operations</h2>
+        <div className="grow">
+          <h2 className="m-0 text-2xl font-bold text-foreground">Validator Operations</h2>
           <p className="text-sm text-secondary-foreground">{META_TAGS.validator.description}</p>
         </div>
         <SkPageInfoIcon meta_tag={META_TAGS.validator} />
@@ -204,12 +204,12 @@ export default function Validator(props: {
       <SkPaper gray className="mt-5">
         <Headline
           text="Validator Summary"
-          icon={<CorporateFareRoundedIcon className="styles.chainIconxs" />}
+          icon={<CorporateFareRoundedIcon className="text-[17px]!" />}
           size="small"
           className="mb-5"
         />
         <Collapse in={props.address === undefined && props.customAddress === undefined}>
-          <ConnectWallet tile className="flex-grow" />
+          <ConnectWallet tile className="grow" />
         </Collapse>
         {props.address || props.customAddress ? (
           props.validator !== undefined ? (
@@ -255,8 +255,8 @@ export default function Validator(props: {
                   'Delegations ' +
                   (props.delegations === null ? '' : `(${props.delegations.length})`)
                 }
-                icon={<AllInboxRoundedIcon className="styles.chainIconxs" />}
-                className="flex-grow"
+                icon={<AllInboxRoundedIcon className="text-[17px]!" />}
+                className="grow"
               />
               <SortToggle onChange={setSortBy} className="mr-1.25" />
             </div>

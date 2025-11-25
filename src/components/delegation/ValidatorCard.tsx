@@ -67,41 +67,41 @@ export default function ValidatorCard(props: {
         >
           <div className="flex" style={{ marginBottom: '-20px' }}>
             <ValidatorBadge validator={props.validator} />
-            <div className="flex-grow"></div>
+            <div className="grow"></div>
             <TrustBadge validator={props.validator} />
           </div>
           <div className="flex" style={{ marginBottom: '10px' }}>
-            <div className="flex-grow"></div>
+            <div className="grow"></div>
             <ValidatorLogo validatorId={props.validator.id} size="xl" />
-            <div className="flex-grow"></div>
+            <div className="grow"></div>
           </div>
 
           <div className="flex">
-            <div className="flex-grow"></div>
-            <p className="text-base text-primary flex-grow text-center truncate">
+            <div className="grow"></div>
+            <p className="text-base text-primary grow text-center truncate">
               {props.validator.name}
             </p>
-            <div className="flex-grow"></div>
+            <div className="grow"></div>
           </div>
 
           <div className="flex">
-            <div className="flex-grow"></div>
+            <div className="grow"></div>
             <Tooltip title={description}>
-              <p className="text-xs font-semibold flex-grow text-secondary-foreground mt-5 text-center truncate">
+              <p className="text-xs font-semibold grow text-secondary-foreground mt-5 text-center truncate">
                 {description}
               </p>
             </Tooltip>
-            <div className="flex-grow"></div>
+            <div className="grow"></div>
           </div>
           <div className="flex mt-10">
-            <div className="bg-gray-100 rounded px-2 py-1 flex-grow">
+            <div className="bg-gray-100 rounded px-2 py-1 grow">
               <p className="text-xs text-center">{Number(props.validator.feeRate) / 10}% fee</p>
             </div>
-            <div className="bg-blue-100 rounded px-2 py-1 ml-1.5 flex-grow text-center">
+            <div className="bg-blue-100 rounded px-2 py-1 ml-1.5 grow text-center">
               <p className="text-xs">ID: {props.validator.id}</p>
             </div>
             {size === 'lg' ? (
-              <div className="bg-green-100 rounded px-2 py-1 ml-1.5 flex-grow">
+              <div className="bg-green-100 rounded px-2 py-1 ml-1.5 grow">
                 <p className="text-xs text-center">Nodes: {props.validator.linkedNodes}</p>
               </div>
             ) : null}

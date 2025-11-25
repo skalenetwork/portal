@@ -151,7 +151,7 @@ export default function SchainDetails(props: {
             }
           ]}
         />
-        <div className="flex-grow"></div>
+        <div className="grow"></div>
       </div>
       <Helmet>
         <title>SKALE Portal - {chainAlias}</title>
@@ -168,14 +168,14 @@ export default function SchainDetails(props: {
               chainName={props.schainName}
               size="md"
             />
-            <div className="app-info flex-grow">
+            <div className="app-info grow">
               <div className="flex items-center mb-2.5">
-                <div className="flex-grow">
+                <div className="grow">
                   <CategoriesChips categories={chainMeta?.categories} all />
                 </div>
               </div>
 
-              <h2 className="font-bold text-lg">{chainAlias}</h2>
+              <h2 className="font-bold text-xl text-foreground">{chainAlias}</h2>
               <CollapsibleDescription text={chainDescription} expandable />
             </div>
           </div>

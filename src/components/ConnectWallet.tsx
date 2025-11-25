@@ -38,7 +38,7 @@ export default function ConnectWallet(props: {
             {props.customText ?? 'Connect your wallet to continue'}
           </p>
           <div className="flex">
-            <div className="flex flex-grow"></div>
+            <div className="flex grow"></div>
             <div className="flex">
               <RainbowConnectButton.Custom>
                 {({ openConnectModal }) => {
@@ -55,7 +55,7 @@ export default function ConnectWallet(props: {
                 }}
               </RainbowConnectButton.Custom>
             </div>
-            <div className="flex flex-grow"></div>
+            <div className="flex grow"></div>
           </div>
         </div>
       </SkPaper>

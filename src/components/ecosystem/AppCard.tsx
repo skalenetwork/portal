@@ -54,7 +54,7 @@ export default function AppCard(props: {
           }}
         >
           <Link to={url} className="'br__tileLogo', 'br__tileIns', flex">
-            <div className="flex flex-grow"></div>
+            <div className="flex grow"></div>
             <div className="flex items-center inheritSize">
               <ChainLogo
                 network={props.skaleNetwork}
@@ -63,7 +63,7 @@ export default function AppCard(props: {
                 logos={MAINNET_CHAIN_LOGOS}
               />
             </div>
-            <div className="flex flex-grow"></div>
+            <div className="flex grow"></div>
           </Link>
           <div className="flex items-center mb-2.5 br__tileBott fullW"></div>
         </div>

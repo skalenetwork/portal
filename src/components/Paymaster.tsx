@@ -193,11 +193,11 @@ export default function Paymaster(props: {
       <Headline
         text="Top-up chain"
         className="mt-5 mb-2.5"
-        icon={<MonetizationOnRoundedIcon className="styles.chainIconxs" />}
+        icon={<MonetizationOnRoundedIcon className="text-[17px]!" />}
         size="small"
       />
       {!address ? (
-        <ConnectWallet tile className="flex-grow" />
+        <ConnectWallet tile className="grow" />
       ) : (
         <Topup
           mpc={props.mpc}

@@ -53,7 +53,7 @@ export default function Home({ skaleNetwork, chainsMeta, metrics, loadData }: Ho
     loadData()
   }, [])
   return (
-    <Container maxWidth="md" className="paddBott60">
+    <Container maxWidth="md" className="pb-12">
       <Stack spacing={0}>
         <Headline text="Popular Actions" icon={SECTION_ICONS.explore} className="mb-2.5" />
         <HomeBanner />
@@ -121,11 +121,11 @@ export default function Home({ skaleNetwork, chainsMeta, metrics, loadData }: Ho
         <CategoryCardsGrid chainsMeta={chainsMeta} />
       )}
       <div className="flex items-center mt-5 pt-5">
-        <div className="flex-grow"></div>
+        <div className="grow"></div>
         <SkPaper gray className="mt-5">
           <SocialButtons social={SKALE_SOCIAL_LINKS} size="md" className="m-ri-min10" />
         </SkPaper>
-        <div className="flex-grow"></div>
+        <div className="grow"></div>
       </div>
     </Container>
   )
@@ -133,7 +133,7 @@ export default function Home({ skaleNetwork, chainsMeta, metrics, loadData }: Ho
 
 function ExploreSection() {
   return (
-    <div className="flex-grow">
+    <div className="grow">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
         {EXPLORE_CARDS.map(
           (card, index) =>
@@ -160,7 +160,7 @@ function AppSection({ title, icon, linkTo, component }: AppSectionProps) {
       <div className="flex items-center mb-2.5 mt-5 pt-5">
         <Headline text={title} icon={icon} />
         <Link to={linkTo}>
-          <Button className="btn btnSm bg text-primary!">See all</Button>
+          <Button className="btn btnSm bg text-primary! bg-card!">See all</Button>
         </Link>
       </div>
       {component}

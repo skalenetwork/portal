@@ -165,7 +165,7 @@ export default function Staking(props: {
       </Helmet>
       <Stack spacing={0}>
         <div className="flex items-center">
-          <div className="flex-grow">
+          <div className="grow">
             <h2 className="m-0 text-2xl font-bold">Staking</h2>
             <p className="text-sm text-secondary-foreground">
               {props.isXs
@@ -236,10 +236,10 @@ export default function Staking(props: {
         <Collapse in={props.address === undefined}>
           <Headline
             text="Account info"
-            icon={<AccountCircleRoundedIcon className="styles.chainIconxs" />}
+            icon={<AccountCircleRoundedIcon className="text-[17px]!" />}
             size="small"
           />
-          <ConnectWallet tile className="flex-grow mt-2.5" />
+          <ConnectWallet tile className="grow mt-2.5" />
         </Collapse>
       </SkPaper>
       <Collapse in={props.si[1] !== null}>
@@ -293,7 +293,7 @@ export default function Staking(props: {
         <Collapse in={props.address === undefined}>
           <Headline
             text="Delegations"
-            icon={<AllInboxRoundedIcon className="styles.chainIconxs" />}
+            icon={<AllInboxRoundedIcon className="text-[17px]!" />}
             size="small"
           />
           <div className="mt-5">

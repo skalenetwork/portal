@@ -59,6 +59,9 @@ const Carousel: React.FC<CarouselProps> = ({ children, showArrows = true, classN
 
   const visibleChildren = children.slice(startIndex, startIndex + itemsToShow)
 
+  const prevDisabled = startIndex === 0
+  const nextDisabled = startIndex >= children.length - itemsToShow
+
   return (
     <Box sx={{ position: 'relative' }} className={className}>
       <Box
@@ -89,19 +92,19 @@ const Carousel: React.FC<CarouselProps> = ({ children, showArrows = true, classN
         <Box className="mt-2.5 skArrows">
           <IconButton
             onClick={handlePrev}
-            disabled={startIndex === 0}
+            disabled={prevDisabled}
             size="small"
-            className="filled mr-1.5"
+            className={`ml-1.5 ${!prevDisabled && 'bg-card!'}`}
           >
-            <ArrowBackIosRoundedIcon />
+            <ArrowBackIosRoundedIcon className='text-secondary-foreground!' />
           </IconButton>
           <IconButton
             onClick={handleNext}
-            disabled={startIndex >= children.length - itemsToShow}
+            disabled={nextDisabled}
             size="small"
-            className="text-secondary-foreground filled ml-1.5"
+            className={`ml-1.5 ${!nextDisabled && 'bg-card!'}`}
           >
-            <ArrowForwardIosRoundedIcon />
+            <ArrowForwardIosRoundedIcon className='text-secondary-foreground!' />
           </IconButton>
         </Box>
       )}

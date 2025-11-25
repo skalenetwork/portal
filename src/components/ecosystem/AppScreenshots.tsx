@@ -30,6 +30,7 @@ import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded'
 
 import ScreenshotCarousel from './ScreenshotCarousel'
 import AccordionSection from '../AccordionSection'
+import { Compass } from 'lucide-react'
 
 interface AppScreenshotsProps {
   chainName: string
@@ -87,7 +88,7 @@ const AppScreenshots: React.FC<AppScreenshotsProps> = ({ chainName, appName, ska
         <AccordionSection
           expandedByDefault
           title="Explore project"
-          icon={<ExploreRoundedIcon />}
+          icon={<Compass size={17} />}
           marg={false}
         >
           <ScreenshotCarousel screenshots={screenshots} appName={appName} />

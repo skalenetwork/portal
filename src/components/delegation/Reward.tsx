@@ -93,7 +93,7 @@ export default function Reward(props: {
           <div className="w-full md:w-1/3">
             <div className="flex items-center">
               <ValidatorLogo validatorId={validator.id} size="lg" />
-              <div className={`ml-2.5 ${props.isXs ? 'flex-grow' : ''}`}>
+              <div className={`ml-2.5 ${props.isXs ? 'grow' : ''}`}>
                 <h4 className="font-bold truncate">{validator.name}</h4>
                 <p className="text-xs text-secondary-foreground">
                   Validator ID: {Number(validator.id)}
@@ -104,7 +104,7 @@ export default function Reward(props: {
           </div>
           <div className={`w-full md:w-2/3 ${props.isXs ? 'mt-5' : ''}`}>
             <div className="flex items-center">
-              <div className={!props.isXs ? 'flex-grow' : ''}></div>
+              <div className={!props.isXs ? 'grow' : ''}></div>
               {!props.isXs && !props.open ? (
                 <div className="flex">
                   <div>
@@ -113,11 +113,11 @@ export default function Reward(props: {
                       arrow
                       title={
                         props.sklPrice !== undefined &&
-                        props.delegationsToValidator.staked !== undefined
+                          props.delegationsToValidator.staked !== undefined
                           ? units.displaySklValueUsd(
-                              props.delegationsToValidator.staked,
-                              props.sklPrice
-                            )
+                            props.delegationsToValidator.staked,
+                            props.sklPrice
+                          )
                           : ''
                       }
                     >
@@ -127,16 +127,16 @@ export default function Reward(props: {
                   <div className="borderVert ml-2.5"></div>
                 </div>
               ) : null}
-              <div className={`${props.isXs ? 'flex-grow mr-5' : 'ml-2.5'}`}>
+              <div className={`${props.isXs ? 'grow mr-5' : 'ml-2.5'}`}>
                 <p className="text-xs text-secondary-foreground">Rewards available</p>
                 <Tooltip
                   arrow
                   title={
                     props.sklPrice
                       ? units.displaySklValueUsd(
-                          props.delegationsToValidator.rewards,
-                          props.sklPrice
-                        )
+                        props.delegationsToValidator.rewards,
+                        props.sklPrice
+                      )
                       : ''
                   }
                 >

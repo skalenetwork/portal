@@ -23,7 +23,7 @@
 import { Contract, ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 
-import { cmn, cls, type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
 import { types } from '@/core'
 import * as cs from '../../core/credit-station'
 
@@ -108,8 +108,8 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
 
   return (
     <div>
-      <ErrorTile errorMsg={errorMsg} className={cls(cmn.mbott10)} />
-      <SkPaper gray className={cls(cmn.mtop20)}>
+      <ErrorTile errorMsg={errorMsg} className="mb-2.5" />
+      <SkPaper gray className="mt-5">
         <AccordionSection
           expandedByDefault={true}
           title="Manage Credit Station"
@@ -123,14 +123,14 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
           />
         </AccordionSection>
       </SkPaper>
-      <SkPaper gray className={cls(cmn.mtop20)}>
+      <SkPaper gray className="mt-5">
         <AccordionSection
           expandedByDefault={true}
           title="Manage Credit Tokens"
           icon={<GeneratingTokensRoundedIcon />}
           marg={false}
         >
-          <div className={cls(cmn.mtop10)}>
+          <div className="mt-2.5">
             {Object.entries(tokens).map(([symbol, tokenData]) => (
               <TokenAdminTile
                 key={symbol}
@@ -148,23 +148,23 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
           </div>
         </AccordionSection>
       </SkPaper>
-      <SkPaper gray className={cls(cmn.mtop20)}>
+      <SkPaper gray className="mt-5">
         <AccordionSection
           expandedByDefault={true}
           title="Purchases History"
           icon={<HistoryRoundedIcon />}
           marg={false}
         >
-          <div className={cls(cmn.mtop10)}>
+          <div className="mt-2.5">
             {isLoading && (
-              <div className={cls(cmn.pCent, cmn.mtop20, cmn.mbott20)}>
-                <p className={cls(cmn.p, cmn.p3, cmn.pSec)}>Loading purchases history...</p>
+              <div className="text-center mt-5 mb-5">
+                <p className="p text-sm text-secondary">Loading purchases history...</p>
               </div>
             )}
             {!isLoading && creditsHistory.length === 0 && (
-              <div className={cls(cmn.mtop20)}>
-                <HistoryRoundedIcon className={cls(cmn.pSec, cmn.fullWidth)} />
-                <h5 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.pCent, cmn.mtop5, cmn.mbott20)}>
+              <div className="mt-5">
+                <HistoryRoundedIcon className="text-secondary w-full" />
+                <h5 className="p font-semibold text-secondary text-center mt-1.5 mb-5">
                   No purchases found
                 </h5>
               </div>

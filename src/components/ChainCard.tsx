@@ -27,6 +27,7 @@ import { type types, metadata } from '@/core'
 import Button from '@mui/material/Button'
 
 import Logo from './Logo'
+import { useThemeMode } from '@skalenetwork/metaport'
 
 export default function ChainCard(props: {
   skaleNetwork: types.SkaleNetwork
@@ -34,6 +35,7 @@ export default function ChainCard(props: {
   chainsMeta: types.ChainsMetadataMap
   transactions?: number
 }) {
+  const { mode } = useThemeMode()
   const shortAlias = metadata.getChainShortAlias(props.chainsMeta, props.schain.name)
   return (
     <div>
@@ -41,11 +43,11 @@ export default function ChainCard(props: {
         <div
           className="br__tile"
           style={{
-            background: metadata.chainBg(props.skaleNetwork, props.chainsMeta, props.schain.name)
+            background: metadata.chainBg(props.skaleNetwork, props.chainsMeta, props.schain.name, mode)
           }}
         >
           <Link to={'/chains/' + shortAlias} className="br__tileLogo br__tileIns flex">
-            <div className="flex flex-grow"></div>
+            <div className="flex grow"></div>
             <div className="flex items-center inheritSize">
               <Logo
                 chainsMeta={props.chainsMeta}

@@ -91,7 +91,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
     <Container maxWidth="md">
       <Stack spacing={0}>
         <div className="flex">
-          <h2 className="m-0 flex-grow text-2xl font-bold">Portfolio</h2>
+          <h2 className="m-0 grow text-2xl font-bold">Portfolio</h2>
         </div>
         <p className="m-0 text-sm text-secondary-foreground">Your assets across all SKALE Chains</p>
         <div>
@@ -105,7 +105,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                     tokenSymbol={token}
                     iconUrl={props.mpc.config.tokens[token].iconUrl}
                   />
-                  <div className="ml-2.5 flex-grow">
+                  <div className="ml-2.5 grow">
                     <p className="text-primary text-base font-bold">
                       {props.mpc.config.tokens[token].symbol}
                     </p>
@@ -136,9 +136,9 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                           value={
                             (balances[index] && balances[index][token]
                               ? units.fromWei(
-                                  balances[index][token].toString(),
-                                  getTokenDecimals(token)
-                                )
+                                balances[index][token].toString(),
+                                getTokenDecimals(token)
+                              )
                               : '0') +
                             ' ' +
                             props.mpc.config.tokens[token].symbol

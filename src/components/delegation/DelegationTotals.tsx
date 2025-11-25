@@ -63,7 +63,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
         grow
         size="md"
         textColor={totals?.proposed.count ? theme.primary : undefined}
-        icon={<InboxRoundedIcon className="styles.chainIconxs" />}
+        icon={<InboxRoundedIcon className="text-[17px]!" />}
       />
       <Tile
         value={totals && units.displayBalance(totals.accepted.amount, 'SKL')}
@@ -73,7 +73,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
         text={getTileText('Accepted', totals?.accepted.count)}
         grow
         size="md"
-        icon={<TaskAltRoundedIcon className="styles.chainIconxs" />}
+        icon={<TaskAltRoundedIcon className="text-[17px]!" />}
       />
       <Tile
         value={totals && units.displayBalance(totals.delegated.amount, 'SKL')}
@@ -83,7 +83,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
         text={getTileText('Delegated', totals?.delegated.count)}
         grow
         size="md"
-        icon={<DonutLargeRoundedIcon className="styles.chainIconxs" />}
+        icon={<DonutLargeRoundedIcon className="text-[17px]!" />}
       />
       <Tile
         value={totals && units.displayBalance(totals.completed.amount, 'SKL')}
@@ -93,7 +93,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
         text={getTileText('Completed', totals?.completed.count)}
         grow
         size="md"
-        icon={<LibraryAddCheckRoundedIcon className="styles.chainIconxs" />}
+        icon={<LibraryAddCheckRoundedIcon className="text-[17px]!" />}
       />
     </SkStack>
   )

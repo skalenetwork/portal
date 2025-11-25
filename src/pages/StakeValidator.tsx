@@ -66,7 +66,7 @@ export default function StakeValidator(props: {
     <Container maxWidth="md">
       <SkPaper gray className="mt-2.5 chainDetails">
         <SkStack>
-          <div className="flex flex-grow">
+          <div className="flex grow">
             <Breadcrumbs
               sections={[
                 {

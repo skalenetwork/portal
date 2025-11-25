@@ -25,7 +25,6 @@ import { units } from '@/core'
 import { Tooltip } from '@mui/material'
 import TokenIcon from './TokenIcon'
 import MetaportCore from '../core/metaport'
-import styles from '../styles/styles.module.scss'
 
 export default function TokenBalance(props: {
   balance: bigint
@@ -49,21 +48,20 @@ export default function TokenBalance(props: {
   }
   return (
     <Tooltip arrow title={balanceFull + ' ' + props.symbol}>
-      <div className={`flex items-center bg-secondary-foreground p-1.5 pl-2.5 pr-2.5 rounded`}>
-        <div
-          className={`
+      <div
+        className={`
             ${size === 'xs' ? 'text-xs' : ''}
             ${size === 'sm' ? 'text-sm' : ''}
             ${size === 'md' ? 'text-base' : ''}
-            ${!props.primary ? 'text-secondary-foreground' : ''}
-            ${props.primary ? 'text-primary' : ''}
-            flex items-center font-normal mr-1.5
+            ${!props.primary && 'text-muted-foreground!'}
+            ${props.primary && 'text-primary!'}
+            flex items-center font-semibold
+            bg-muted rounded-2xl p-2 pr-7
           `}
-        >
-          <TokenIcon tokenSymbol={props.symbol} size='xs' iconUrl={iconUrl} />
-          <div className="mr-1.5"></div>
-          {balance} {props.symbol}
-        </div>
+      >
+        <TokenIcon tokenSymbol={props.symbol} size='xs' iconUrl={iconUrl} />
+        <div className="mr-1.5"></div>
+        {balance}
       </div>
     </Tooltip>
   )

@@ -25,14 +25,12 @@ import { Helmet } from 'react-helmet'
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import HistoryIcon from '@mui/icons-material/History'
-import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
 
 import {
   useMetaportStore,
   SkPaper,
   TransactionData,
   useWagmiAccount,
-  Tile
 } from '@skalenetwork/metaport'
 import { type types, dc, networks } from '@/core'
 
@@ -45,7 +43,7 @@ import { META_TAGS } from '../core/meta'
 import Meson from '../components/Meson'
 import { Button } from '@mui/material'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
-import { DISABLE_BRIDGE, NETWORKS } from '../core/constants'
+import { NETWORKS } from '../core/constants'
 
 interface TokenParams {
   keyname: string | null
@@ -165,21 +163,6 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
     }
   }, [tokenParams, tokens])
 
-  if (DISABLE_BRIDGE)
-    return (
-      <Container maxWidth="md">
-        <Tile
-          value="Bridge operations on the SKALE Testnet will be temporarily disabled from July 9 to July 18 due to planned migration from Holesky to Hoodi.
-As Ethereum phases out the Holesky testnet (ending September 2025), SKALE is updating its testnet bridge connection to ensure continued stability and a smooth developer experience.
-Thank you for your understanding!"
-          text="Testnet Bridge Maintenance Notice."
-          icon={<ErrorRoundedIcon />}
-          color="warning"
-          className="mt-5"
-        />
-      </Container>
-    )
-
   return (
     <Container maxWidth="sm">
       <Helmet>
@@ -190,10 +173,10 @@ Thank you for your understanding!"
       </Helmet>
       <Stack spacing={0}>
         <div className="flex items-center">
-          <div className="flex-grow">
-            <h2 className="m-0">Bridge</h2>
+          <div className="grow">
+            <h2 className="m-0 text-2xl font-bold text-foreground">Bridge</h2>
             {networks.hasFeatureInAny(NETWORKS, 'sfuel') && (
-              <p className="text-sm text-secondary-foreground">
+              <p className="text-sm text-secondary-foreground font-semibold">
                 Zero Gas Fees between SKALE Chains
               </p>
             )}
@@ -202,7 +185,7 @@ Thank you for your understanding!"
             <Link to="/bridge/history">
               <Button
                 variant="contained"
-                className="btnMd bg-secondary-foreground text-primary mr-2.5"
+                className="btn px-4! py-2! bg-card! text-foreground! mr-2.5"
                 startIcon={<HistoryIcon />}
               >
                 History

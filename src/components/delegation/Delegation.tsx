@@ -139,25 +139,25 @@ export default function Delegation(props: {
         </div>
         <div className="w-full md:w-1/4">
           <div className={`flex ${props.isXs ? 'mt-10' : ''}`}>
-            <div className={props.isXs ? '' : 'flex-grow'}></div>
+            <div className={props.isXs ? '' : 'grow'}></div>
             <div className={`chipXs chip_${props.delegation.state}`}>
               <p className="text-xs truncate">{props.delegation.state.replace(/_/g, ' ')}</p>
             </div>
-            <div className={props.isXs ? '' : 'flex-grow'}></div>
+            <div className={props.isXs ? '' : 'grow'}></div>
           </div>
         </div>
         <div className="w-full md:w-1/6">
           <div className={`flex ${props.isXs ? 'mt-10' : ''}`}>
-            <div className={props.isXs ? '' : 'flex-grow'}></div>
+            <div className={props.isXs ? '' : 'grow'}></div>
             <div className={`chipXs chip_${getKeyByValue(DelegationSource, source)}`}>
               <p className="text-xs">{source}</p>
             </div>
-            <div className={props.isXs ? '' : 'flex-grow'}></div>
+            <div className={props.isXs ? '' : 'grow'}></div>
           </div>
         </div>
         <div className="w-full md:w-1/3">
           <div className={`flex items-center mr-1.5 ${props.isXs ? 'mt-2.5' : ''}`}>
-            <div className="flex-grow"></div>
+            <div className="grow"></div>
             <div className={`mr-5 ${!props.isXs ? 'text-primary ml-5' : ''}`}>
               <Tooltip
                 arrow
@@ -173,7 +173,7 @@ export default function Delegation(props: {
               </Tooltip>
               <p className=" text-xs text-secondary-foreground">{getStakingText()}</p>
             </div>
-            <ArrowForwardIosRoundedIcon className="text-secondary-foreground styles.chainIconxs rotate-90 ['active', open] ['opacity0', noActions]" />
+            <ArrowForwardIosRoundedIcon className="text-secondary-foreground text-[17px]! rotate-90 ['active', open] ['opacity0', noActions]" />
           </div>
         </div>
       </div>
@@ -187,7 +187,7 @@ export default function Delegation(props: {
               text="Token Holder Address"
               grow
               size="md"
-              icon={<AccountCircleRoundedIcon className="styles.chainIconxs" />}
+              icon={<AccountCircleRoundedIcon className="text-[17px]!" />}
             />
           )}
           {isCompleted && (
@@ -203,7 +203,7 @@ export default function Delegation(props: {
               text="Delegation completed"
               grow
               size="md"
-              icon={<HistoryRoundedIcon className="styles.chainIconxs" />}
+              icon={<HistoryRoundedIcon className="text-[17px]!" />}
             />
           )}
           {Number(props.delegation.stateId) === DelegationState.PROPOSED && props.accept ? (

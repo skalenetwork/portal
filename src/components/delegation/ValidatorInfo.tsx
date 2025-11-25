@@ -58,7 +58,7 @@ export default function ValidatorInfo(props: {
             </p>
           </div>
         ) : (
-          <div className="flex-grow">
+          <div className="grow">
             <Skeleton variant="rectangular" width={200} height={40} />
             <Skeleton variant="rectangular" width={200} height={20} className="mt-2.5" />
           </div>

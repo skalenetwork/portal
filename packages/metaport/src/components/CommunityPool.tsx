@@ -195,12 +195,12 @@ export default function CommunityPool() {
         </AccordionSummary>
         <AccordionDetails>
           <SkPaper background="transparent" className="px-5">
-            <p className="m-0 text-sm text-red-400 flex flex-grow">
+            <p className="m-0 text-sm text-red-400 flex grow">
               This wallet is used to pay for gas fees on transactions that are send to the Ethereum
               Mainnet. You may withdraw funds from your SKALE Gas Wallet at anytime.
             </p>
             {cpData.recommendedRechargeAmount ? (
-              <p className="m-0 text-sm text-red-400 flex flex-grow mt-2.5">
+              <p className="m-0 text-sm text-red-400 flex grow mt-2.5">
                 Minimum recommended recharge amount for your wallet is{' '}
                 {cpData.recommendedRechargeAmount} ETH.
               </p>
@@ -240,7 +240,7 @@ export default function CommunityPool() {
                   className={styles.inputAmount}
                   children={
                     <div className="flex items-center amountInput">
-                      <div className="flex-grow">
+                      <div className="grow">
                         <TextField
                           inputProps={{ step: '0.1', lang: 'en-US' }}
                           inputRef={(input) => input?.focus()}

@@ -74,14 +74,14 @@ export default function AppCard(props: {
               chainName={props.schainName}
               appName={props.appName}
             />
-            <div className="flex flex-grow"></div>
+            <div className="flex grow"></div>
             {props.schainName !== OFFCHAIN_APP && (
               <ChainIcon skaleNetwork={props.skaleNetwork} chainName={props.schainName} />
             )}
           </div>
         </div>
-        <div className="flex items-center mt-2.5">
-          <p className="text-primary font-semibold text-base shortP flex-grow mr-2.5">
+        <div className="flex items-center mt-2.5 mb-2">
+          <p className="text-foreground font-semibold text-lg shortP grow mr-2.5">
             {metadata.getAlias(
               props.skaleNetwork,
               props.chainsMeta,

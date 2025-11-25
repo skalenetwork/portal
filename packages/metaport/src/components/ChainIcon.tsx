@@ -1,5 +1,6 @@
 import { metadata, types } from '@/core'
 import OfflineBoltRoundedIcon from '@mui/icons-material/OfflineBoltRounded'
+import { useThemeMode } from './ThemeProvider'
 import { chainIconPath, CHAINS_META } from '../core/metadata'
 
 import { styles } from '../core/css'
@@ -13,6 +14,7 @@ export default function ChainIcon(props: {
   app?: string
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }) {
+  const { mode } = useThemeMode()
   const iconPath = chainIconPath(props.skaleNetwork, props.chainName, props.app)
   const size = props.size ?? 'sm'
   const className = styles.chainIcon + ' ' + styles[`chainIcon${size}`]
@@ -25,7 +27,7 @@ export default function ChainIcon(props: {
     return (
       <div
         className={'logo-wrapper ' + styles.chainIconBg + ' ' + [styles[`chainIconBg${size}`], bg].join(' ') + ' ' + props.className}
-        style={bg ? { background: metadata.chainBg(props.skaleNetwork, chainsMeta, props.chainName) } : undefined}
+        style={bg ? { background: metadata.chainBg(props.skaleNetwork, chainsMeta, props.chainName, props.app, mode) } : undefined}
       >
         <img className={className} src={iconPath.default ?? iconPath} /></div>)
   }

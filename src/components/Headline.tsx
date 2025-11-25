@@ -31,7 +31,7 @@ interface HeadlineProps {
 }
 
 const Headline: React.FC<HeadlineProps> = ({ text, className, icon, size = 'medium' }) => {
-  const commonClasses = `flex items-center flex-grow ${className || ''}`
+  const commonClasses = `flex items-center grow ${className || ''}`
 
   const textElement =
     size === 'small' ? (
@@ -42,7 +42,7 @@ const Headline: React.FC<HeadlineProps> = ({ text, className, icon, size = 'medi
 
   const iconElement = icon && (
     <div
-      className={`items-center text-foreground/80 flex ${size === 'small' ? 'mr-2.5 styles.chainIconxs' : ''}`}
+      className={`items-center text-foreground/80 flex ${size === 'small' ? 'mr-2.5 text-[17px]!' : ''}`}
     >
       {icon}
     </div>

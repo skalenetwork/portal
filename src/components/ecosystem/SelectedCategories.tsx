@@ -101,7 +101,7 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
               />
             }
             onDelete={() => handleDelete(item)}
-            deleteIcon={<CloseIcon className="styles.chainIconxs" />}
+            deleteIcon={<CloseIcon className="text-[17px]!" />}
             className="'outlined', font-semibold"
           />
         )

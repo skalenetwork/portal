@@ -29,7 +29,8 @@ export function chainBg(
   network: types.SkaleNetwork,
   chainsMeta: types.ChainsMetadataMap,
   chainName: string,
-  app?: string
+  app?: string,
+  theme?: 'light' | 'dark'
 ): string | undefined {
   if (chainName === constants.MAINNET_CHAIN_NAME) {
     return networks.MAINNET_BACKGROUNDS[network]
@@ -38,7 +39,8 @@ export function chainBg(
   if (chainData) {
     const appData = chainData.apps && app ? chainData.apps[app] : null
 
-    return appData?.gradientBackground || chainData.gradientBackground || chainData.background
+    const chainGradientBg = theme === 'light' && chainData.gradientBackgroundLight ? chainData.gradientBackgroundLight : chainData.gradientBackground
+    return appData?.gradientBackground || chainGradientBg || chainData.background
   }
   return 'linear-gradient(273.67deg, rgb(47 50 80), rgb(39 43 68))'
 }

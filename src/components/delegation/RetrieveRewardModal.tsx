@@ -94,7 +94,7 @@ export default function RetrieveRewardModal(props: {
             transform: 'translate(-50%, -50%)',
             minWidth: { xs: '100%', md: 'max-content' }
           }}
-          className="flex-grow items-center flex flex-col"
+          className="grow items-center flex flex-col"
         >
           <Container maxWidth="md">
             <SkPaper className="p-0">
@@ -123,15 +123,15 @@ export default function RetrieveRewardModal(props: {
                   className="styles.inputAmount"
                   children={
                     <div className="flex items-center mt-1.5">
-                      <div className="flex-grow">
-                        <div className="flex flex-grow items-center 'amountInput''addressInput'">
+                      <div className="grow">
+                        <div className="flex grow items-center 'amountInput''addressInput'">
                           <Jazzicon
                             diameter={25}
                             seed={jsNumberForAddress(
                               (edit ? inputAddress : props.customRewardAddress) || ''
                             )}
                           />
-                          <div className="flex-grow ml-2.5">
+                          <div className="grow ml-2.5">
                             <TextField
                               inputRef={(input) => input?.focus()}
                               variant="standard"

@@ -28,11 +28,11 @@ const Chip: React.FC<{
 }> = ({ label, icon, onClick, className }) => {
   return (
     <div
-      className={`skChip chipXs ${className || ''} flex items-center text-primary ${onClick !== undefined ? 'cursor-pointer' : ''}`}
+      className={`chipXs ${className || ''} flex items-center text-foreground bg-muted ${onClick !== undefined ? 'cursor-pointer' : ''}`}
       onClick={onClick}
     >
       {icon && <div className="mr-1.5 flex">{icon}</div>}
-      <p className="text-xs" style={{ whiteSpace: 'nowrap' }}>
+      <p className="text-[8pt]" style={{ whiteSpace: 'nowrap' }}>
         {label}
       </p>
     </div>
@@ -48,19 +48,19 @@ export const ChipTrending: React.FC<{ trending?: number }> = ({ trending }) => {
   )
 }
 
-export const ChipMostLiked: React.FC<{}> = ({}) => {
+export const ChipMostLiked: React.FC<{}> = ({ }) => {
   return <Chip label="Most Liked" className="ml-1.5 chipMostLiked chipXs" />
 }
 
-export const ChipNew: React.FC<{}> = ({}) => {
+export const ChipNew: React.FC<{}> = ({ }) => {
   return <Chip label="NEW" className="ml-1.5 chipNewApp chipXs" />
 }
 
-export const ChipFeatured: React.FC<{}> = ({}) => {
+export const ChipFeatured: React.FC<{}> = ({ }) => {
   return <Chip label="Featured" className="ml-1.5 chipFeatured chipXs" />
 }
 
-export const ChipPreTge: React.FC<{}> = ({}) => {
+export const ChipPreTge: React.FC<{}> = ({ }) => {
   return <Chip label="Pre-TGE" className="ml-1.5 chipPreTge chipXs" />
 }
 

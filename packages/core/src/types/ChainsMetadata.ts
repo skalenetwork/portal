@@ -31,6 +31,7 @@ export interface ChainMetadata {
   categories: CategoriesMap
   background?: string
   gradientBackground?: string
+  gradientBackgroundLight?: string
   description?: string
   url?: string
   apps?: AppMetadataMap

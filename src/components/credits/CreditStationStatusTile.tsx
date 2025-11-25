@@ -23,8 +23,6 @@
 import { useState, useEffect } from 'react'
 import { Contract } from 'ethers'
 import {
-  cmn,
-  cls,
   type MetaportCore,
   Tile,
   enforceNetwork,
@@ -110,7 +108,7 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
   }
 
   return (
-    <div className={cls(cmn.mtop10)}>
+    <div className="mt-2.5">
       <Tile
         size="lg"
         grow
@@ -128,7 +126,7 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
           <Button
             size="medium"
             startIcon={isPaused ? <ToggleOnRoundedIcon /> : <ToggleOffRoundedIcon />}
-            className={cls('btnMd', 'filled', cmn.mleft10)}
+            className="btnMd filled ml-2.5"
             onClick={togglePause}
             disabled={loading || !creditStation}
           >

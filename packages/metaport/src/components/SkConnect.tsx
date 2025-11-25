@@ -89,7 +89,7 @@ export default function SkConnect() {
               }
               return (
                 <div className="flex">
-                  <div className="flex-grow flex"></div>
+                  <div className="grow flex"></div>
                   <div>
                     <Button
                       disabled={transferInProgress}

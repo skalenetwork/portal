@@ -84,7 +84,7 @@ export function WidgetBody(props) {
     <div>
       {!!address ? (
         <div className="flex items-center mr-2.5 mb-1.5">
-          <div className="flex-grow"></div>
+          <div className="grow"></div>
           <div className="mr-1.5">
             <HistoryButton />
           </div>
@@ -95,7 +95,6 @@ export function WidgetBody(props) {
         <SkPaper background={overlayBg} className="p-0">
           <SkPaper background="transparent" className="p-0">
             <Collapse in={showFrom()}>
-
               <ChainsList
                 config={props.config}
                 chain={chainName1}

@@ -52,32 +52,29 @@ export default function Meson(props: {
 
   if (props.skaleNetwork !== constants.MAINNET_CHAIN_NAME) return
   return (
-    <div className={`${props.className || ''} paddBott60`}>
+    <div className={props.className}>
       <div
         onClick={() => {
           setShow(!show)
         }}
       >
         <SkPaper gray className="hoverable cursor-pointer">
-          <SkStack className="p-2.5 items-center">
-            <img src={networks} className="mr-2.5" style={{ height: '40px' }} />
-            <div className="flex-grow">
-              <div className="flex flex-grow items-center">
-                <p
-                  className="uppercase font-bold text-primary"
-                  style={{ fontSize: '1.05rem', fontWeight: 700 }}
-                >
+          <SkStack className="p-2 items-center">
+            <img src={networks} className="mr-2.5" style={{ height: '30px' }} />
+            <div className="grow">
+              <div className="flex grow items-center">
+                <p className="font-bold text-foreground">
                   Bridge from Other Popular Networks
                 </p>
               </div>
-              <p className={`text-xs text-secondary-foreground ${props.isXs ? 'text-center' : ''}`}>
+              <p className={`text-xs font-medium text-secondary-foreground ${props.isXs ? 'text-center' : ''}`}>
                 Transfer from 45+ chains using Meson.Fi
               </p>
             </div>
             {!props.isXs ? (
               <div className="ml-2.5 mr-1.5 flex items-center">
                 <ArrowForwardIosRoundedIcon
-                  className={`text-secondary-foreground w-5 h-5 rotate-90 ${show ? 'active' : ''}`}
+                  className={`text-secondary-foreground text-xs! ${show ? 'rotate-90' : ''}`}
                 />
               </div>
             ) : null}
@@ -86,7 +83,7 @@ export default function Meson(props: {
       </div>
       <Collapse in={show} className="mt-2.5">
         {!address ? (
-          <ConnectWallet className="flex-grow" />
+          <ConnectWallet className="grow" />
         ) : (
           <div>
             <p className="text-sm text-secondary-foreground mb-2.5">Select destination chain</p>

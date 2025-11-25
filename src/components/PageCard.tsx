@@ -37,10 +37,10 @@ export default function PageCard(props: {
       to={props.url ?? props.name}
       {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
     >
-      <SkPaper gray className="'br__tile'">
+      <SkPaper gray className="ease-in-out transition-transform duration-150 active:scale-[0.97] hover:scale-[1.01]">
         <div className="flex items-center m-2.5">
-          <div className="flex-grow">
-            <div className="flex flex-grow items-center">
+          <div className="grow">
+            <div className="flex grow items-center">
               <div className="styles.chainIcons mr-2.5 text-foreground">{props.icon}</div>
               <h3 className="capitalize m-0 text-foreground font-semibold">{props.name}</h3>
             </div>

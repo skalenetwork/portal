@@ -103,7 +103,7 @@ export default function TokenListSection(props: {
         nonZeroBalanceTokens.length > 0 && (
           <TokenSection
             text="Your Tokens"
-            icon={<SavingsIcon className="styles.chainIconxs" />}
+            icon={<SavingsIcon className="text-[17px]!" />}
             tokens={nonZeroBalanceTokens}
             onTokenClick={handle}
           />
@@ -114,7 +114,7 @@ export default function TokenListSection(props: {
         zeroBalanceTokens.length > 0 && (
           <TokenSection
             text="Tokens"
-            icon={<LocalMallIcon className="styles.chainIconxs" />}
+            icon={<LocalMallIcon className="text-[17px]!" />}
             tokens={zeroBalanceTokens}
             onTokenClick={handle}
           />

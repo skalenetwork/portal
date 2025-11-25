@@ -117,7 +117,7 @@ export default function MoreMenu() {
             <div className="flex">
               <MenuBookRoundedIcon className="mr-2.5" />
             </div>
-            <div className="flex flex-grow">SKALE Network Docs</div>
+            <div className="flex grow">SKALE Network Docs</div>
             <div className="flex ml-2.5">
               <ArrowOutwardIcon className="menuIconRi" />
             </div>
@@ -128,7 +128,7 @@ export default function MoreMenu() {
             <div className="flex">
               <ForumIcon className="mr-2.5" />
             </div>
-            <div className="flex flex-grow">SKALE Forum </div>
+            <div className="flex grow">SKALE Forum </div>
             <div className="flex ml-2.5">
               <ArrowOutwardIcon className="menuIconRi" />
             </div>

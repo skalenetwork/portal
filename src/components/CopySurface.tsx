@@ -60,7 +60,7 @@ export default function CopySurface(props: {
       <CopyToClipboard text={props.value} onCopy={handleClick}>
         <Tooltip title={copied ? 'Copied!' : 'Click to copy to clipboard'}>
           <ButtonBase className="titleSection" style={{ width: '100%', height: '100%' }}>
-            <div style={{ textAlign: 'left', overflow: 'auto' }} className="flex-grow">
+            <div style={{ textAlign: 'left', overflow: 'auto' }} className="grow">
               <div className="flex">
                 {props.tokenMetadata ? (
                   <div className="mr-1.5">
@@ -81,9 +81,9 @@ export default function CopySurface(props: {
               <p className="text-base font-semibold 'shortP'">{props.value}</p>
             </div>
             {copied ? (
-              <CheckCircleRoundedIcon color="success" className="ml-5 styles.chainIconxs" />
+              <CheckCircleRoundedIcon color="success" className="ml-5 text-[17px]!" />
             ) : (
-              <ContentCopyIcon className="text-secondary-foreground ml-5 styles.chainIconxs" />
+              <ContentCopyIcon className="text-secondary-foreground ml-5 text-[17px]!" />
             )}
           </ButtonBase>
         </Tooltip>

@@ -83,7 +83,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
       <Collapse in={!!errorMessage}>
         <ErrorMessage errorMessage={errorMessage} />
       </Collapse>
-      <SkPaper background={sourceBg} className="p-0">
+      <SkPaper background={sourceBg} className="p-0!">
         <Collapse in={showFrom()}>
           <ChainsList
             config={mpc.config}
@@ -121,7 +121,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
       </Collapse>
 
       <Collapse in={showTo()}>
-        <SkPaper background={destBg} className="p-0">
+        <SkPaper background={destBg} className="p-0!">
           <ChainsList
             config={mpc.config}
             chain={chainName2}
@@ -136,13 +136,13 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
         </SkPaper>
       </Collapse>
       <Collapse in={showCP()}>
-        <SkPaper gray className="p-0">
+        <SkPaper gray className="p-0!">
           <CommunityPool />
         </SkPaper>
       </Collapse>
 
       <Collapse in={showWT(address!)}>
-        <SkPaper gray className="p-0">
+        <SkPaper gray className="p-0!">
           <WrappedTokens />
         </SkPaper>
       </Collapse>

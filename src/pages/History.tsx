@@ -71,7 +71,7 @@ export default function History() {
               }
             ]}
           />
-          <div className="flex-grow"></div>
+          <div className="grow"></div>
         </div>
         <div className={transactionsHistory.length !== 0 ? 'mt-2.5' : ''}>
           <TransfersHistory size="md" />

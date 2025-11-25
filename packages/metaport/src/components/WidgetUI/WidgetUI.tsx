@@ -58,7 +58,7 @@ export function WidgetUI(props: { config: types.mp.Config }) {
 
   const fabButton = (
     <div className="flex items-center">
-      <div className={fabLeft ? null : 'flex-grow'}></div>
+      <div className={fabLeft ? null : 'grow'}></div>
       <div className="flex items-center">
         <Fab
           color={isOpen ? 'secondary' : 'primary'}

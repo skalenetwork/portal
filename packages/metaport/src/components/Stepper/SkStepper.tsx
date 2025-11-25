@@ -92,7 +92,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                 <StepLabel className={localStyles.labelStep}>
                   <div className="flex items-center">
                     <div className="flex items-center">
-                      <h4 className="m-0 flex">{step.headline}</h4>
+                      <h4 className="m-0 flex text-foreground">{step.headline}</h4>
                       <div className="ml-1.5 mr-1.5 flex">
                         <ChainIcon
                           skaleNetwork={props.skaleNetwork}
@@ -101,15 +101,15 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                           chainsMeta={chainsMeta}
                         />
                       </div>
-                      <h4 className="m-0 flex">
+                      <h4 className="m-0 flex text-foreground">
                         {metadata.getAlias(props.skaleNetwork, chainsMeta, step.onSource ? step.from : step.to)}
                       </h4>
                     </div>
                   </div>
                 </StepLabel>
-                <StepContent className="mt-2.5">
+                <StepContent className="">
                   <Box sx={{ mb: 2 }}>
-                    <p className="flex text-secondary-foreground text-xs flex-grow">{step.text}</p>
+                    <p className="flex text-secondary-foreground! font-semibold text-xs grow">{step.text}</p>
                     <div className="mt-2.5">
                       {loading ? (
                         <Button
@@ -118,7 +118,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                           variant="contained"
                           color="primary"
                           size="medium"
-                          className="btn-action mt-1.5"
+                          className="btn-action mt-1.5 p-3.5! w-full capitalize! bg-accent-foreground/50!"
                         >
                           {btnText}
                         </Button>
@@ -127,7 +127,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                           variant="contained"
                           color="primary"
                           size="medium"
-                          className="btn-action mt-1.5"
+                          className={`btn-action mt-1.5 w-full capitalize! text-accent! p-3.5! ${actionDisabled ? 'bg-accent-foreground/50! pointer-events-none' : 'bg-accent-foreground!'} ease-in-out transition-transform duration-150 active:scale-[0.97]`}
                           onClick={() => execute(address, switchChainAsync, walletClient)}
                           disabled={!!actionDisabled}
                         >
@@ -147,12 +147,12 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
             <div>
               <div className="block">
                 <p
-                  className="text-base font-semibold text-primary flex-grow text-center mt-5"
+                  className="text-base font-semibold text-primary grow text-center mt-5"
                 >
                   {emoji} Transfer completed
                 </p>
                 <p
-                  className="text-sm font-semibold text-secondary-foreground flex-grow text-center mt-1.5"
+                  className="text-sm font-semibold text-secondary-foreground grow text-center mt-1.5"
                 >
                   Transfer details are available in History section
                 </p>

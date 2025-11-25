@@ -40,7 +40,7 @@ const muiTheme = createMuiTheme(mpTheme)
 
 export default function App() {
   return (
-    <div className="bg-background">
+    <div className="min-h-screen bg-background">
       <Helmet>
         <title>{META_TAGS.main.title}</title>
         <meta name="description" content={META_TAGS.main.description} />

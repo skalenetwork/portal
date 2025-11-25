@@ -67,7 +67,7 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation }) => {
           {delegation ? formatBigIntTimestampSeconds(delegation.created) : getCurrentDate()}
         </p>
       </div>
-      <ArrowForwardRoundedIcon className="text-secondary-foreground styles.chainIconxs mr-2.5 ml-2.5 'delegationFlowIcon'" />
+      <ArrowForwardRoundedIcon className="text-secondary-foreground text-[17px]! mr-2.5 ml-2.5 'delegationFlowIcon'" />
       <div>
         <div className="chipXs chip_ACCEPTED">
           <p className="text-xs truncate">ACCEPTED</p>
@@ -76,7 +76,7 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation }) => {
           Until {getFirstDayNextMonth()}
         </p>
       </div>
-      <ArrowForwardRoundedIcon className="text-secondary-foreground styles.chainIconxs mr-2.5 ml-2.5 'delegationFlowIcon'" />
+      <ArrowForwardRoundedIcon className="text-secondary-foreground text-[17px]! mr-2.5 ml-2.5 'delegationFlowIcon'" />
       <div>
         <div className="chipXs chip_DELEGATED">
           <p className="text-xs">DELEGATED</p>
@@ -85,7 +85,7 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation }) => {
           From {getFirstDayNextMonth()}
         </p>
       </div>
-      <ArrowForwardRoundedIcon className="text-secondary-foreground styles.chainIconxs mr-2.5 ml-2.5 'delegationFlowIcon'" />
+      <ArrowForwardRoundedIcon className="text-secondary-foreground text-[17px]! mr-2.5 ml-2.5 'delegationFlowIcon'" />
       <div>
         <div className="chipXs chip_REWARDS">
           <p className="text-xs truncate">REWARDS GENERATED</p>

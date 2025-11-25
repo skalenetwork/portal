@@ -110,7 +110,7 @@ export default function TransactionData(props: {
           {actionIcons[props.transactionData.txName]}
         </div>
       </div>
-      <div className="ml-5 flex-grow flex">
+      <div className="ml-5 grow flex">
         <div>
           <p className="text-base uppercase text-primary">
             {actionAliases[props.transactionData.txName]}

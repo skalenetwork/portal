@@ -117,7 +117,7 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
                   }
                 />
                 SKALE <div className="capitalize ml-1.5">{network.replace(/-/g, ' ')} Portal</div>
-                <div className="flex-grow"></div>
+                <div className="grow"></div>
                 <KeyboardArrowRightRoundedIcon
                   className="ml-2.5 w-4 h-4"
                   style={{ opacity: 0.5 }}

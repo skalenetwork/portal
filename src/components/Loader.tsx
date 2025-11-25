@@ -26,14 +26,14 @@ import CircularProgress from '@mui/material/CircularProgress'
 export default function Loader(props: { text: string }) {
   return (
     <div className="flex mt-5 mb-5">
-      <div className="flex-grow"></div>
+      <div className="grow"></div>
       <div className="flex items-center mr-5">
         <CircularProgress className="fullscreen-spin" />
       </div>
       <div className="flex items-center">
         <h3 className="fullscreen-msg-text">{props.text}</h3>
       </div>
-      <div className="flex-grow"></div>
+      <div className="grow"></div>
     </div>
   )
 }

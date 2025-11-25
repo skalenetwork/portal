@@ -46,7 +46,10 @@ interface ChainCardProps {
 export default function BridgeChainCard(props: ChainCardProps) {
   const { skaleNetwork, chainName, chainsMeta, onClick, disabled } = props
   const chainDescription = getChainDescription(skaleNetwork, chainsMeta, chainName)
-  const backgroundColor = getChainCardBackgroundColor(skaleNetwork, disabled, chainsMeta, chainName)
+  const mode = document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+
+
+  const backgroundColor = getChainCardBackgroundColor(skaleNetwork, disabled, chainsMeta, chainName, mode)
   const firstSentence = extractFirstSentence(chainDescription)
 
   const disabledText = props.from ? 'Destination chain' : 'Source chain'
@@ -86,7 +89,7 @@ export default function BridgeChainCard(props: ChainCardProps) {
 
           {disabled && (
             <div className="flex items-center mt-2.5 mb-5">
-              <div className="flex-grow"></div>
+              <div className="grow"></div>
               <SkPaper gray className="p-0">
                 <p
                   className="text-xs font-semibold text-gray-400 mt-1.5 mb-1.5 ml-2.5 mr-2.5 truncate"
@@ -94,7 +97,7 @@ export default function BridgeChainCard(props: ChainCardProps) {
                   {disabledText}
                 </p>
               </SkPaper>
-              <div className="flex-grow"></div>
+              <div className="grow"></div>
             </div>
           )}
           {!disabled && <p className="text-gray-400 text-xs text-center">{firstSentence}</p>}

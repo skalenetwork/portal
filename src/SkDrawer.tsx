@@ -55,6 +55,11 @@ const drawerWidth = 220
 
 export default function SkDrawer(props: { validatorDelegations: types.st.IDelegation[] | null }) {
   const location = useLocation()
+  const getItemButtonClass = (isSelected: boolean) =>
+    `w-full ${isSelected
+      ? 'bg-foreground/10! text-foreground!'
+      : 'text-foreground hover:bg-muted'
+    }`
   return (
     <Box display={{ sm: 'block', xs: 'none' }} m={1}>
       <Drawer
@@ -74,7 +79,10 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
           <List>
             <ListItem>
               <Link to="/" className="w-full text-foreground!">
-                <ListItemButton className="text-primary" selected={location.pathname === '/'}>
+                <ListItemButton
+                  selected={location.pathname === '/'}
+                  className={getItemButtonClass(location.pathname === '/')}
+                >
                   <ListItemIcon>
                     <House className="text-foreground" size={18} />
                   </ListItemIcon>
@@ -89,7 +97,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                 href={GET_STARTED_URL}
                 rel="noreferrer"
               >
-                <ListItemButton className="text-primary">
+                <ListItemButton className={getItemButtonClass(false)}>
                   <ListItemIcon>
                     <Route className="text-foreground" size={18} />
                   </ListItemIcon>
@@ -103,10 +111,12 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
             <ListItem>
               <Link to="/bridge" className="w-full text-foreground!">
                 <ListItemButton
-                  className=""
                   selected={
                     location.pathname === '/bridge/history' || location.pathname === '/bridge'
                   }
+                  className={getItemButtonClass(
+                    location.pathname === '/bridge/history' || location.pathname === '/bridge'
+                  )}
                 >
                   <ListItemIcon>
                     <ArrowLeftRight className="text-foreground" size={18} />
@@ -119,8 +129,8 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
               <ListItem>
                 <Link to="/onramp" className="w-full text-foreground!">
                   <ListItemButton
-                    className="text-primary"
                     selected={location.pathname === '/onramp'}
+                    className={getItemButtonClass(location.pathname === '/onramp')}
                   >
                     <ListItemIcon>
                       <CreditCard className="text-foreground" size={18} />
@@ -137,8 +147,8 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
               <ListItem>
                 <Link to="/ecosystem" className="w-full text-foreground!">
                   <ListItemButton
-                    className="text-primary"
                     selected={location.pathname.includes('/ecosystem')}
+                    className={getItemButtonClass(location.pathname.includes('/ecosystem'))}
                   >
                     <ListItemIcon>
                       <Globe2 className="text-foreground" size={18} />
@@ -152,10 +162,13 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
               <ListItem>
                 <Link to="/chains" className="w-full text-foreground!">
                   <ListItemButton
-                    className="text-primary"
                     selected={
                       location.pathname.includes('/chains') || location.pathname.includes('/admin')
                     }
+                    className={getItemButtonClass(
+                      location.pathname.includes('/chains') ||
+                      location.pathname.includes('/admin')
+                    )}
                   >
                     <ListItemIcon>
                       <Link2 className="text-foreground" size={18} />
@@ -169,8 +182,8 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
               <ListItem>
                 <Link to="/staking" className="w-full text-foreground!">
                   <ListItemButton
-                    className="text-primary"
                     selected={location.pathname.includes('/staking')}
+                    className={getItemButtonClass(location.pathname.includes('/staking'))}
                   >
                     <ListItemIcon>
                       <PieChart className="text-foreground" size={18} />
@@ -184,8 +197,8 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
               <ListItem>
                 <Link to="/validators" className="w-full text-foreground!">
                   <ListItemButton
-                    className="text-primary"
                     selected={location.pathname.includes('/validator')}
+                    className={getItemButtonClass(location.pathname.includes('/validator'))}
                   >
                     <ListItemIcon>
                       <Users className="text-foreground" size={18} />
@@ -203,8 +216,8 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
               <ListItem>
                 <Link to="/stats" className="w-full text-foreground!">
                   <ListItemButton
-                    className="text-primary"
                     selected={location.pathname === '/stats'}
+                    className={getItemButtonClass(location.pathname === '/stats')}
                   >
                     <ListItemIcon>
                       <BarChart2 className="text-foreground" size={18} />
@@ -218,10 +231,13 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
               <ListItem>
                 <Link to="/credits" className="w-full text-foreground!">
                   <ListItemButton
-                    className="text-primary"
                     selected={
                       location.pathname === '/credits' || location.pathname === '/credits/admin'
                     }
+                    className={getItemButtonClass(
+                      location.pathname === '/credits' ||
+                      location.pathname === '/credits/admin'
+                    )}
                   >
                     <ListItemIcon>
                       <BadgeDollarSign className="text-foreground" size={18} />

@@ -103,7 +103,7 @@ const ScreenshotCarousel: React.FC<PropType> = ({ screenshots, appName }) => {
           zIndex: 1
         }}
       >
-        <ArrowBackIosNewRoundedIcon className="text-secondary-foreground styles.chainIconxs" />
+        <ArrowBackIosNewRoundedIcon className="text-secondary-foreground text-[17px]!" />
       </IconButton>
       <IconButton
         onClick={scrollNext}
@@ -118,7 +118,7 @@ const ScreenshotCarousel: React.FC<PropType> = ({ screenshots, appName }) => {
           zIndex: 1
         }}
       >
-        <ArrowForwardIosRoundedIcon className="text-secondary-foreground styles.chainIconxs" />
+        <ArrowForwardIosRoundedIcon className="text-secondary-foreground text-[17px]!" />
       </IconButton>
     </Box>
   )

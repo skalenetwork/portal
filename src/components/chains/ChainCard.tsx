@@ -22,7 +22,7 @@
  */
 
 import { Link } from 'react-router-dom'
-import { SkPaper } from '@skalenetwork/metaport'
+import { SkPaper, useThemeMode } from '@skalenetwork/metaport'
 import { type types, metadata } from '@/core'
 
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
@@ -44,8 +44,11 @@ const ChainCard: React.FC<{
   transactions: number | null
 }> = ({ skaleNetwork, schain, chainsMeta, transactions }) => {
   const shortAlias = metadata.getChainShortAlias(chainsMeta, schain.name)
+  const { mode } = useThemeMode()
   const url = `/chains/${shortAlias}`
   const chainMeta = chainsMeta[schain.name]
+
+  console.log(mode)
 
   return (
     <SkPaper gray fullHeight className="sk-app-card">
@@ -54,7 +57,7 @@ const ChainCard: React.FC<{
           <div className="sk-app-logo sk-logo-sm br__tile">
             <div
               className="logo-wrapper borderLight"
-              style={{ background: metadata.chainBg(skaleNetwork, chainsMeta, schain.name) }}
+              style={{ background: metadata.chainBg(skaleNetwork, chainsMeta, schain.name, undefined, mode) }}
             >
               <ChainLogo
                 className="responsive-logo"
@@ -63,9 +66,9 @@ const ChainCard: React.FC<{
                 logos={MAINNET_CHAIN_LOGOS}
               />
             </div>
-            <div className="flex flex-grow"></div>
+            <div className="flex grow"></div>
           </div>
-          <div className="flex-grow"></div>
+          <div className="grow"></div>
           {chainMeta && transactions && (
             <div>
               <Chip
@@ -76,7 +79,7 @@ const ChainCard: React.FC<{
           )}
         </div>
         <div className="flex items-center mt-2.5">
-          <p className="text-foreground font-semibold text-base 'shortP' flex-grow mr-1.5">
+          <p className="text-foreground font-semibold text-lg grow mr-1.5">
             {metadata.getAlias(skaleNetwork, chainsMeta, schain.name)}
           </p>
         </div>

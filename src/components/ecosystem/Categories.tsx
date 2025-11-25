@@ -205,7 +205,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
                       {highlightMatch(data.name, searchTerm)}
                     </span>
                   }
-                  className="flex-grow"
+                  className="grow"
                 />
                 {getSelectedSubcategoriesCount(shortName) > 0 && (
                   <FiberManualRecordIcon color="primary" style={{ fontSize: '8pt' }} />
