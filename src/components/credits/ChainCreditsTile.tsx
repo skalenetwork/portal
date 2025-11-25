@@ -205,9 +205,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                 />
                 <div className={cls('ml-2.5', ['grow', isXs])} style={{ minWidth: 0 }}>
                   <h4 className="p font-bold pOneLine text-primary">{chainAlias}</h4>
-                  <p className="p text-xs text-secondary pOneLine">
-                    Click for chain details
-                  </p>
+                  <p className="p text-xs text-secondary pOneLine">Click for chain details</p>
                 </div>
               </div>
             </Link>
@@ -265,7 +263,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
         <SkPaper gray>
           <Headline
             text={`Buy Credits - ${chainAlias}`}
-            icon={<MonetizationOnRoundedIcon className='text-[17px]!' />}
+            icon={<MonetizationOnRoundedIcon className="text-[17px]!" />}
             className="mb-2.5"
             size="small"
           />

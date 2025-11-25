@@ -83,7 +83,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
       <Collapse in={!!errorMessage}>
         <ErrorMessage errorMessage={errorMessage} />
       </Collapse>
-      <SkPaper background={sourceBg} className="p-0!">
+      <SkPaper gray className="p-0!">
         <Collapse in={showFrom()}>
           <ChainsList
             config={mpc.config}
@@ -107,13 +107,6 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
             }
           />
         </Collapse>
-
-        <Collapse in={showInput()}>
-          <SkPaper gray className="">
-            <AmountInput />
-            <AmountErrorMessage />
-          </SkPaper>
-        </Collapse>
       </SkPaper>
 
       <Collapse in={showSwitch()}>
@@ -121,7 +114,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
       </Collapse>
 
       <Collapse in={showTo()}>
-        <SkPaper background={destBg} className="p-0!">
+        <SkPaper gray className="p-0!">
           <ChainsList
             config={mpc.config}
             chain={chainName2}
@@ -141,6 +134,13 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
         </SkPaper>
       </Collapse>
 
+      <Collapse in={showInput()} className="mt-3.5">
+        <SkPaper gray>
+          <AmountInput />
+          <AmountErrorMessage />
+        </SkPaper>
+      </Collapse>
+
       <Collapse in={showWT(address!)}>
         <SkPaper gray className="p-0!">
           <WrappedTokens />
@@ -153,7 +153,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
 
       {!address ? <SkConnect /> : null}
 
-      <Collapse in={showStepper(address!)} className="mt-5">
+      <Collapse in={showStepper(address!)} className="mt-4 p-1">
         <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
       </Collapse>
 

@@ -52,7 +52,7 @@ export default function ValidatorsPage(props: {
     <Container maxWidth="md">
       <div className="flex items-center">
         <div className="grow">
-          <h2 className="m-0 text-2xl font-bold text-foreground">Validators</h2>
+          <h2 className="m-0 text-xl font-bold text-foreground">Validators</h2>
           <p className="m-0 text-sm text-secondary-foreground">
             List of validators on SKALE Network
           </p>
@@ -75,7 +75,7 @@ export default function ValidatorsPage(props: {
           mpc={props.mpc}
           validators={props.validators}
           validatorId={0}
-          setValidatorId={(): void => { }}
+          setValidatorId={(): void => {}}
           delegationType={types.st.DelegationType.REGULAR}
           size="lg"
         />

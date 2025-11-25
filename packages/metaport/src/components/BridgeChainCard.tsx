@@ -33,6 +33,7 @@ import {
   extractFirstSentence
 } from '../utils/helper'
 import { styles } from '../core/css'
+import { useThemeMode } from './ThemeProvider'
 
 interface ChainCardProps {
   skaleNetwork: types.SkaleNetwork
@@ -46,8 +47,7 @@ interface ChainCardProps {
 export default function BridgeChainCard(props: ChainCardProps) {
   const { skaleNetwork, chainName, chainsMeta, onClick, disabled } = props
   const chainDescription = getChainDescription(skaleNetwork, chainsMeta, chainName)
-  const mode = document.documentElement.classList.contains('dark') ? 'dark' : 'light'
-
+  const { mode } = useThemeMode()
 
   const backgroundColor = getChainCardBackgroundColor(skaleNetwork, disabled, chainsMeta, chainName, mode)
   const firstSentence = extractFirstSentence(chainDescription)
@@ -70,20 +70,20 @@ export default function BridgeChainCard(props: ChainCardProps) {
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(to bottom, transparent 20%, rgba(0, 0, 0, 0.7) 100%)',
+            background: 'linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 90%)',
             borderRadius: 'inherit',
             pointerEvents: 'none'
           }}
         />
-        <div className={`mb-2.5 mt-5 w-full ${styles.fullHeight}`} style={{ position: 'relative', zIndex: 1 }}>
-          <div className="mb-2.5 mt-5 rounded-3xl">
-            <div className="flex items-center mt-5"></div>
-            <div className={`rounded-3xl flex items-center justify-center mt-5 ${styles.fullHeight}`}>
+        <div className={`mb-2.5 mt-0 w-full ${styles.fullHeight}`} style={{ position: 'relative', zIndex: 1 }}>
+          <div className="rounded-3xl">
+            <div className="flex items-center mt-3"></div>
+            <div className={`rounded-3xl flex items-center justify-center mt-0 ${styles.fullHeight}`}>
               <ChainIcon skaleNetwork={skaleNetwork} chainName={chainName} size={iconSize} chainsMeta={chainsMeta} bg={false} />
             </div>
           </div>
 
-          <p className="text-primary font-semibold text-xl text-center">
+          <p className="text-foreground font-semibold text-xl text-center">
             {metadata.getAlias(skaleNetwork, chainsMeta, chainName, undefined, true)}
           </p>
 
@@ -100,7 +100,7 @@ export default function BridgeChainCard(props: ChainCardProps) {
               <div className="grow"></div>
             </div>
           )}
-          {!disabled && <p className="text-gray-400 text-xs text-center">{firstSentence}</p>}
+          {!disabled && <p className="text-foreground/80 font-medium p-2 text-xs text-center">{firstSentence}</p>}
         </div>
       </SkPaper>
     </div>

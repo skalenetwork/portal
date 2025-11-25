@@ -105,14 +105,14 @@ export default function TokenList() {
   const filteredTokensCount = Object.keys(filteredTokens).length
 
   return (
-    <div>
-      <div className="mr-2.5">
+    <div className='flex items-center'>
+      <div>
         <Button
-          className="flex items-center w-full p-2.5 ml-2.5"
+          className="flex items-center w-full p-3.5! pr-1! ml-2"
           onClick={handleOpen}
           disabled={transferInProgress}
           endIcon={
-            <KeyboardArrowDownRoundedIcon className="text-primary" style={{ marginRight: '11px' }} />
+            <KeyboardArrowDownRoundedIcon className="text-foreground" style={{ marginRight: '11px' }} />
           }
         >
           <div className={`flex items-center mr-2.5 ${noTokens ? 'opacity-50' : ''}`}>
@@ -122,7 +122,7 @@ export default function TokenList() {
               iconUrl={token?.meta.iconUrl}
             />
           </div>
-          <p className={`text-lg font-bold text-primary ${noTokens ? 'opacity-50' : ''} flex grow`}>
+          <p className={`text-lg font-bold text-foreground ${noTokens ? 'opacity-50' : ''} flex grow`}>
             {tokensText}
           </p>
         </Button>

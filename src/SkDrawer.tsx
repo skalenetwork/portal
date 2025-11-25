@@ -56,10 +56,7 @@ const drawerWidth = 220
 export default function SkDrawer(props: { validatorDelegations: types.st.IDelegation[] | null }) {
   const location = useLocation()
   const getItemButtonClass = (isSelected: boolean) =>
-    `w-full ${isSelected
-      ? 'bg-foreground/10! text-foreground!'
-      : 'text-foreground hover:bg-muted'
-    }`
+    `w-full ${isSelected ? 'bg-foreground/10! text-foreground!' : 'text-foreground hover:bg-muted'}`
   return (
     <Box display={{ sm: 'block', xs: 'none' }} m={1}>
       <Drawer
@@ -166,8 +163,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                       location.pathname.includes('/chains') || location.pathname.includes('/admin')
                     }
                     className={getItemButtonClass(
-                      location.pathname.includes('/chains') ||
-                      location.pathname.includes('/admin')
+                      location.pathname.includes('/chains') || location.pathname.includes('/admin')
                     )}
                   >
                     <ListItemIcon>
@@ -235,8 +231,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                       location.pathname === '/credits' || location.pathname === '/credits/admin'
                     }
                     className={getItemButtonClass(
-                      location.pathname === '/credits' ||
-                      location.pathname === '/credits/admin'
+                      location.pathname === '/credits' || location.pathname === '/credits/admin'
                     )}
                   >
                     <ListItemIcon>

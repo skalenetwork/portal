@@ -7,7 +7,7 @@ export default function AmountErrorMessage() {
   return (
     <Collapse in={!!amountErrorMessage || amountErrorMessage === ''}>
       <p
-        className="flex grow mt-2.5 ml-2.5 text-sm text-gray-400 text-red-400"
+        className="flex grow m-3 text-xs text-secondary-foreground font-semibold"
       >
         🔴 {amountErrorMessage}
       </p>

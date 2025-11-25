@@ -30,7 +30,8 @@ import {
   type MetaportCore,
   sendTransaction,
   contracts,
-  Tile
+  Tile,
+  styles
 } from '@skalenetwork/metaport'
 import { type types, constants, units } from '@/core'
 
@@ -171,7 +172,7 @@ export default function Delegate(props: {
       <SkStack>
         <Tile
           text="Enter amount to stake"
-          className="styles.inputAmount"
+          className={styles.inputAmount}
           children={
             <div className="flex items-center 'amountInput'">
               <div className="grow">

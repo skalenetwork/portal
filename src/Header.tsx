@@ -79,11 +79,7 @@ export default function Header(props: {
           className="ml-1.5! h-8 w-8 rounded-full bg-card! text-foreground! hover:bg-muted"
           onClick={toggleMode}
         >
-          {mode === 'dark' ? (
-            <MoonStar className="h-4 w-4" />
-          ) : (
-            <SunMedium className="h-4 w-4" />
-          )}
+          {mode === 'dark' ? <MoonStar className="h-4 w-4" /> : <SunMedium className="h-4 w-4" />}
         </IconButton>
         <HelpZen />
         <MoreMenu />

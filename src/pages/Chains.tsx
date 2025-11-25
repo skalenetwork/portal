@@ -93,8 +93,8 @@ export default function Chains(props: {
       <Stack spacing={0}>
         <div className="flex items-center">
           <div className="grow">
-            <h2 className="m-0 text-2xl font-bold text-foreground">SKALE Chains</h2>
-            <p className="text-sm text-secondary-foreground font-semibold">
+            <h2 className="m-0 text-xl font-bold text-foreground">SKALE Chains</h2>
+            <p className="text-xs text-secondary-foreground font-semibold">
               Connect, get block explorer links and endpoints
             </p>
           </div>

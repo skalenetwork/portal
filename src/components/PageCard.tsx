@@ -37,7 +37,10 @@ export default function PageCard(props: {
       to={props.url ?? props.name}
       {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
     >
-      <SkPaper gray className="ease-in-out transition-transform duration-150 active:scale-[0.97] hover:scale-[1.01]">
+      <SkPaper
+        gray
+        className="ease-in-out transition-transform duration-150 active:scale-[0.97] hover:scale-[1.01]"
+      >
         <div className="flex items-center m-2.5">
           <div className="grow">
             <div className="flex grow items-center">

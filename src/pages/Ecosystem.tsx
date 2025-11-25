@@ -210,8 +210,8 @@ export default function Ecosystem(props: {
             <Container maxWidth="md" sx={props.isXs ? { paddingLeft: 0, paddingRight: 0 } : {}}>
               <SkStack>
                 <div className={cn('grow flex flex-col mb-5 mt-2.5')}>
-                  <h2 className="m-0 text-3xl font-bold">Ecosystem</h2>
-                  <p className="text-sm text-secondary-foreground">
+                  <h2 className="m-0 text-xl font-bold text-foreground">Ecosystem</h2>
+                  <p className="text-xs text-secondary-foreground font-semibold">
                     Explore dApps across the SKALE ecosystem
                   </p>
                 </div>

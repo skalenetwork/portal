@@ -43,7 +43,12 @@ export default function ChainCard(props: {
         <div
           className="br__tile"
           style={{
-            background: metadata.chainBg(props.skaleNetwork, props.chainsMeta, props.schain.name, mode)
+            background: metadata.chainBg(
+              props.skaleNetwork,
+              props.chainsMeta,
+              props.schain.name,
+              mode
+            )
           }}
         >
           <Link to={'/chains/' + shortAlias} className="br__tileLogo br__tileIns flex">

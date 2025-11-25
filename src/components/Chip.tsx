@@ -48,19 +48,19 @@ export const ChipTrending: React.FC<{ trending?: number }> = ({ trending }) => {
   )
 }
 
-export const ChipMostLiked: React.FC<{}> = ({ }) => {
+export const ChipMostLiked: React.FC<{}> = ({}) => {
   return <Chip label="Most Liked" className="ml-1.5 chipMostLiked chipXs" />
 }
 
-export const ChipNew: React.FC<{}> = ({ }) => {
+export const ChipNew: React.FC<{}> = ({}) => {
   return <Chip label="NEW" className="ml-1.5 chipNewApp chipXs" />
 }
 
-export const ChipFeatured: React.FC<{}> = ({ }) => {
+export const ChipFeatured: React.FC<{}> = ({}) => {
   return <Chip label="Featured" className="ml-1.5 chipFeatured chipXs" />
 }
 
-export const ChipPreTge: React.FC<{}> = ({ }) => {
+export const ChipPreTge: React.FC<{}> = ({}) => {
   return <Chip label="Pre-TGE" className="ml-1.5 chipPreTge chipXs" />
 }
 

@@ -63,11 +63,13 @@ export default function Meson(props: {
             <img src={networks} className="mr-2.5" style={{ height: '30px' }} />
             <div className="grow">
               <div className="flex grow items-center">
-                <p className="font-bold text-foreground">
+                <p className="font-semibold text-foreground text-md">
                   Bridge from Other Popular Networks
                 </p>
               </div>
-              <p className={`text-xs font-medium text-secondary-foreground ${props.isXs ? 'text-center' : ''}`}>
+              <p
+                className={`text-xs font-medium text-secondary-foreground ${props.isXs ? 'text-center' : ''}`}
+              >
                 Transfer from 45+ chains using Meson.Fi
               </p>
             </div>

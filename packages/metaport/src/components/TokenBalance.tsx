@@ -48,7 +48,7 @@ export default function TokenBalance(props: {
   }
   return (
     <Tooltip arrow title={balanceFull + ' ' + props.symbol}>
-      <div
+      <p
         className={`
             ${size === 'xs' ? 'text-xs' : ''}
             ${size === 'sm' ? 'text-sm' : ''}
@@ -61,8 +61,10 @@ export default function TokenBalance(props: {
       >
         <TokenIcon tokenSymbol={props.symbol} size='xs' iconUrl={iconUrl} />
         <div className="mr-1.5"></div>
-        {balance}
-      </div>
+        <span className='whitespace-nowrap'>
+          {balance} {props.symbol}
+        </span>
+      </p>
     </Tooltip>
   )
 }

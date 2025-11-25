@@ -26,12 +26,7 @@ import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import HistoryIcon from '@mui/icons-material/History'
 
-import {
-  useMetaportStore,
-  SkPaper,
-  TransactionData,
-  useWagmiAccount,
-} from '@skalenetwork/metaport'
+import { useMetaportStore, SkPaper, TransactionData, useWagmiAccount } from '@skalenetwork/metaport'
 import { type types, dc, networks } from '@/core'
 
 import Container from '@mui/material/Container'
@@ -164,7 +159,7 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
   }, [tokenParams, tokens])
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" className="mt-2">
       <Helmet>
         <title>{META_TAGS.bridge.title}</title>
         <meta name="description" content={META_TAGS.bridge.description} />
@@ -174,9 +169,9 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
       <Stack spacing={0}>
         <div className="flex items-center">
           <div className="grow">
-            <h2 className="m-0 text-2xl font-bold text-foreground">Bridge</h2>
+            <h2 className="m-0 text-xl font-bold text-foreground">Bridge</h2>
             {networks.hasFeatureInAny(NETWORKS, 'sfuel') && (
-              <p className="text-sm text-secondary-foreground font-semibold">
+              <p className="text-xs text-secondary-foreground font-semibold">
                 Zero Gas Fees between SKALE Chains
               </p>
             )}
@@ -185,7 +180,7 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
             <Link to="/bridge/history">
               <Button
                 variant="contained"
-                className="btn px-4! py-2! bg-card! text-foreground! mr-2.5"
+                className="btn px-4! py-2! bg-card! text-foreground! mr-2.5 text-xs!"
                 startIcon={<HistoryIcon />}
               >
                 History
@@ -195,7 +190,7 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
           </div>
         </div>
 
-        <div className="mt-5">
+        <div className="mt-6">
           <BridgeBody chainsMeta={props.chainsMeta} />
           {transactionsHistory.length !== 0 ? (
             <div className="mb-5">
@@ -217,7 +212,7 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
       </Stack>
       <Meson
         chainsMeta={props.chainsMeta}
-        className="mt-5"
+        className="mt-6"
         skaleNetwork={mpc.config.skaleNetwork}
         isXs={props.isXs}
       />

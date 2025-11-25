@@ -22,8 +22,6 @@
  */
 
 import { ReactElement } from 'react'
-
-import { useUIStore } from '../store/Store'
 import styles from '../styles/styles.module.scss'
 
 export default function SkPaper(props: {
@@ -35,13 +33,9 @@ export default function SkPaper(props: {
   fullHeight?: boolean
   margTop?: boolean
 }) {
-  const metaportTheme = useUIStore((state) => state.theme)
-  const localStyle = {
-    background: props.background ?? metaportTheme.background
-  }
   return (
     <div
-      style={{ ...localStyle, position: 'relative' }}
+      style={{ position: 'relative', background: props.background }}
 
       className={`${props.className || ''} ${styles.paper} ${props.gray ? 'bg-card!' : ''} ${props.fullHeight ? styles.fullHeight : ''} ${props.margTop ? 'mt-5' : ''}`}
     >

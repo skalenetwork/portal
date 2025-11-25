@@ -146,11 +146,9 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
                     {icon || (
                       <SocialIcon
                         network={network}
-
-                        bgColor='transparent'
+                        bgColor="transparent"
                         className={`socialIcon ${isMd ? 'socialIconMd' : ''}`}
                         fgColor={isMd ? 'var(--foreground)' : 'var(--muted-foreground)'}
-
                       />
                     )}
                   </IconButton>

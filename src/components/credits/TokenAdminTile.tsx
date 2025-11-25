@@ -208,7 +208,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
         <SkPaper gray>
           <Headline
             text={`Set CREDIT Price - ${tokenMeta?.name}`}
-            icon={<MonetizationOnRoundedIcon className='text-[17px]!' />}
+            icon={<MonetizationOnRoundedIcon className="text-[17px]!" />}
             className="mb-5"
             size="small"
           />
@@ -232,9 +232,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
                       style={{ width: '100%' }}
                     />
                   </div>
-                  <div className="text-xs p font-bold mr-2.5 uppercase">
-                    {symbol}
-                  </div>
+                  <div className="text-xs p font-bold mr-2.5 uppercase">{symbol}</div>
                 </div>
               }
               icon={<TokenIcon tokenSymbol={symbol} size="xs" />}

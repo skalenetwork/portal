@@ -260,7 +260,9 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
             </Collapse>
             <Collapse in={creditsHistory.length === 0 && address !== undefined}>
               <div className="mt-5">
-                <HistoryRoundedIcon className={cls('text-secondary', styles.chainIconmd, 'w-full')} />
+                <HistoryRoundedIcon
+                  className={cls('text-secondary', styles.chainIconmd, 'w-full')}
+                />
                 <h5 className="p font-semibold text-secondary text-center mt-1.5 mb-5">
                   No past purchases found
                 </h5>
@@ -268,7 +270,9 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
             </Collapse>
             <Collapse in={address === undefined}>
               <div className="mt-5">
-                <HistoryRoundedIcon className={cls('text-secondary', styles.chainIconmd, 'w-full')} />
+                <HistoryRoundedIcon
+                  className={cls('text-secondary', styles.chainIconmd, 'w-full')}
+                />
                 <h5 className="p font-semibold text-secondary text-center mt-1.5 mb-5">
                   Connect your wallet to view credits history
                 </h5>

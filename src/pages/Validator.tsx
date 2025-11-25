@@ -186,8 +186,10 @@ export default function Validator(props: {
     <Container maxWidth="md">
       <div className="flex items-center">
         <div className="grow">
-          <h2 className="m-0 text-2xl font-bold text-foreground">Validator Operations</h2>
-          <p className="text-sm text-secondary-foreground">{META_TAGS.validator.description}</p>
+          <h2 className="m-0 text-xl font-bold text-foreground">Validator Operations</h2>
+          <p className="text-xs text-secondary-foreground font-semibold">
+            {META_TAGS.validator.description}
+          </p>
         </div>
         <SkPageInfoIcon meta_tag={META_TAGS.validator} />
       </div>

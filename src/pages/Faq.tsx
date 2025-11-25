@@ -4,7 +4,7 @@
  *
  * This           <h2 className="m-0 text-3xl font-bold">FAQ</h2>
         </div>
-        <p className="text-sm text-secondary-foreground">Common questions about SKALE Bridge</p>gram is free software: you can redistribute it and/or modify
+        <p className="text-xs text-secondary-foreground font-semibold">Common questions about SKALE Bridge</p>gram is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
@@ -42,9 +42,11 @@ export default function Faq() {
       </Helmet>
       <Stack spacing={0}>
         <div className="flex">
-          <h2 className="m-0 text-2xl font-bold">FAQ</h2>
+          <h2 className="m-0 text-xl font-bold text-foreground">FAQ</h2>
         </div>
-        <p className="text-sm text-secondary-foreground">Common questions about SKALE Bridge</p>
+        <p className="text-xs text-secondary-foreground font-semibold">
+          Common questions about SKALE Bridge
+        </p>
         <FaqAccordion />
       </Stack>
     </Container>

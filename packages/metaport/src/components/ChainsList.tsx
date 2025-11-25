@@ -74,7 +74,7 @@ export default function ChainsList(props: {
               </p>
             </div>
           )}
-          <div className='mr-2'>
+          <div className='mr-0.5'>
             {props.balance}
           </div>
         </Button>
@@ -92,7 +92,7 @@ export default function ChainsList(props: {
             <div className="grow"></div>
             <SkPaper gray>
               <p
-                className="text-base text-primary font-bold mt-1.5 mb-1.5 ml-5 mr-5 flex items-center text-center">
+                className="text-base text-foreground font-bold mt-1.5 mb-1.5 ml-5 mr-5 flex items-center text-center">
                 {modalTitle}
               </p>
             </SkPaper>

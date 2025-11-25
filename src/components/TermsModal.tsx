@@ -61,18 +61,18 @@ export default function TermsModal(props: {
   const title = props.type === 'bridge' ? 'Bridge' : 'Staking'
   if (props.termsAccepted) return null
   return (
-    <div >
+    <div>
       <Container maxWidth="md" className="">
-        <h2 className="m-0 text-2xl font-bold text-foreground">{title}</h2>
-        <p className="text-sm text-secondary-foreground font-semibold">
+        <h2 className="m-0 text-xl font-bold text-foreground">{title}</h2>
+        <p className="text-xs text-secondary-foreground font-semibold">
           Review the terms of service carefully and confirm
         </p>
-        <Box className='mt-4'>
+        <Box className="mt-4">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="col-span-1">
               <SkPaper gray className="h-full">
                 <div className="m-2.5">
-                  <Key className='text-amber-500' />
+                  <Key className="text-amber-500" />
                   <p className="text-sm font-bold mt-1.5 text-foreground">
                     SKALE will NEVER ask you for your seed phrase or private keys
                   </p>
@@ -82,7 +82,7 @@ export default function TermsModal(props: {
             <div className="col-span-1">
               <SkPaper gray className="h-full">
                 <div className="m-2.5">
-                  <Lock className='text-emerald-500' />
+                  <Lock className="text-emerald-500" />
                   <p className="text-sm font-bold mt-1.5 text-foreground">
                     Make sure you are connected to the correct URL and only use this official link:
                     <Link
@@ -101,13 +101,17 @@ export default function TermsModal(props: {
         </Box>
         <SkPaper gray className="mt-5">
           <div className="m-2.5 overflow-auto">
-            <Signature className='text-cyan-500' />
+            <Signature className="text-cyan-500" />
             <p className="text-sm font-bold mt-2.5 text-foreground">
               Before you use the SKALE {title}, you must review the terms of service carefully and
               confirm below.
             </p>
             <div onScroll={handleTermsScroll} className="br__modalScroll mt-5">
-              <div id="terms" style={{ paddingRight: '20px' }} className='text-foreground/80 font-medium text-sm'>
+              <div
+                id="terms"
+                style={{ paddingRight: '20px' }}
+                className="text-foreground/80 font-medium text-sm"
+              >
                 <TermsOfService />
               </div>
             </div>
@@ -134,6 +138,6 @@ export default function TermsModal(props: {
           {getAgreeButtonText()}
         </Button>
       </Container>
-    </div >
+    </div>
   )
 }

@@ -51,7 +51,7 @@ export default function SwitchDirection() {
     <div className="relative flex justify-center">
       <div className="flex grow"></div>
       <div
-        className="flex justify-center items-center bg-background! p-3 -my-4 z-30 rounded-full"
+        className="flex justify-center items-center bg-background! p-2.5 -my-5 z-30 rounded-full"
         ref={myElement}
 
       >

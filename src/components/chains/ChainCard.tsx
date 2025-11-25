@@ -57,7 +57,9 @@ const ChainCard: React.FC<{
           <div className="sk-app-logo sk-logo-sm br__tile">
             <div
               className="logo-wrapper borderLight"
-              style={{ background: metadata.chainBg(skaleNetwork, chainsMeta, schain.name, undefined, mode) }}
+              style={{
+                background: metadata.chainBg(skaleNetwork, chainsMeta, schain.name, undefined, mode)
+              }}
             >
               <ChainLogo
                 className="responsive-logo"

@@ -166,8 +166,8 @@ export default function Staking(props: {
       <Stack spacing={0}>
         <div className="flex items-center">
           <div className="grow">
-            <h2 className="m-0 text-2xl font-bold">Staking</h2>
-            <p className="text-sm text-secondary-foreground">
+            <h2 className="m-0 text-xl font-bold text-foreground">Staking</h2>
+            <p className="text-xs text-secondary-foreground font-semibold">
               {props.isXs
                 ? 'Manage your delegations'
                 : 'Delegate, review delegations and withdraw staking rewards'}

@@ -136,9 +136,9 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                           value={
                             (balances[index] && balances[index][token]
                               ? units.fromWei(
-                                balances[index][token].toString(),
-                                getTokenDecimals(token)
-                              )
+                                  balances[index][token].toString(),
+                                  getTokenDecimals(token)
+                                )
                               : '0') +
                             ' ' +
                             props.mpc.config.tokens[token].symbol

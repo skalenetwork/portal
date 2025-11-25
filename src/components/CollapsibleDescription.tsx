@@ -75,7 +75,10 @@ const CollapsibleDescription: React.FC<TruncateTextProps> = ({
         {text}
       </p>
       {isTruncated && expandable && (
-        <p className="mt-1.5 text-sm font-semibold text-foreground cursor-pointer" onClick={toggleExpansion}>
+        <p
+          className="mt-1.5 text-sm font-semibold text-foreground cursor-pointer"
+          onClick={toggleExpansion}
+        >
           Show {isExpanded ? 'less' : 'more'}
         </p>
       )}

@@ -52,7 +52,7 @@ export default function GetSFuel({ mpc }: { mpc: MetaportCore }) {
           color="success"
         >
           {loading ? (
-            <AutoModeRoundedIcon className="mr-1.5" />
+            <AutoModeRoundedIcon className="h-5 w-5 pr-1" />
           ) : (
             <Zap className="text-green-400 h-5 w-5 pr-1" />
           )}

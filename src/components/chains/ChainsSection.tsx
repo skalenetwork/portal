@@ -56,7 +56,7 @@ const ChainsSection: React.FC<ChainsSectionProps> = ({
   })
 
   return (
-    <div className="mt-5">
+    <div className="mt-1">
       <Headline className="mb-2.5 mt-5" text={name} icon={icon} />
       <div className={`grid ${gridClasses} gap-4`}>
         {sortedSchains.map((schain) => (
