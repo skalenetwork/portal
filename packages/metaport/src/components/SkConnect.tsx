@@ -66,7 +66,7 @@ export default function SkConnect() {
                       variant="contained"
                       color="primary"
                       size="medium"
-                      className="btn-action mt-5"
+                      className="btn-action mt-5 w-full my-4! p-4! bg-accent-foreground! text-accent! capitalize!"
                       onClick={openConnectModal}
                     >
                       Connect Wallet

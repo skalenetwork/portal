@@ -30,6 +30,7 @@ import { getTokenName } from '../core/metadata'
 
 import TokenSection from './TokenSection'
 import TokenIcon from './TokenIcon'
+import { styles } from '../core/css'
 
 export default function TokenListSection(props: {
   setExpanded: (expanded: string | false) => void
@@ -77,13 +78,11 @@ export default function TokenListSection(props: {
     }))
 
   return (
-    <div className="styles.bridgeModalScroll">
+    <div className={styles.bridgeModalScroll}>
       {popularTokens.map((key) => (
         <Button
-          color="primary"
           size="small"
-          className="mt-5 items-center ml-2.5 styles.filled"
-          variant="contained"
+          className="mt-3! items-center bg-muted! mr-1! p-2! pr-3!"
           key={key}
           onClick={() => handle(props.tokens[key])}
         >
@@ -92,7 +91,7 @@ export default function TokenListSection(props: {
               tokenSymbol={props.tokens[key]?.meta.symbol}
               iconUrl={props.tokens[key]?.meta.iconUrl}
             />
-            <span className=" text-primary ml-2.5">
+            <span className=" text-foreground ml-2.5">
               {props.tokens[key]?.meta.symbol}
             </span>
           </div>

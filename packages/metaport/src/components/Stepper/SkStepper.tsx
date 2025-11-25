@@ -82,15 +82,45 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
 
   const chainsMeta = CHAINS_META[props.skaleNetwork]
 
+  if (stepsMetadata && stepsMetadata.length === 1) {
+    let step = stepsMetadata[0]
+    return (<div>
+      {loading ? (
+        <Button
+          disabled
+          startIcon={<AnimatedLoadingIcon />}
+          variant="contained"
+          size="medium"
+          className="btn-action p-4! w-full capitalize! bg-accent-foreground/50!"
+        >
+          {btnText}
+        </Button>
+      ) : (
+        <Button
+          variant="contained"
+          size="medium"
+          className={`
+            btn-action w-full capitalize! text-accent! p-4!
+            ${actionDisabled ? 'bg-muted-foreground/30! dark:bg-muted-foreground/10! text-muted! pointer-events-none' : 'bg-accent-foreground!'}
+            ease-in-out transition-transform duration-150 active:scale-[0.97]`}
+          onClick={() => execute(address, switchChainAsync, walletClient)}
+          disabled={!!actionDisabled}
+        >
+          {step.btnText}
+        </Button>
+      )}
+    </div>)
+  }
+
   return (
     <Collapse in={stepsMetadata && stepsMetadata.length !== 0}>
-      <Box className="">
+      <Box>
         <Collapse in={currentStep !== stepsMetadata.length}>
-          <Stepper className={localStyles.stepper} activeStep={currentStep} orientation="vertical">
+          <Stepper className={localStyles.stepper} activeStep={currentStep} orientation="vertical" >
             {stepsMetadata.map((step, i) => (
-              <Step key={i}>
+              <Step key={i} >
                 <StepLabel className={localStyles.labelStep}>
-                  <div className="flex items-center">
+                  <div className="flex items-center ml-1">
                     <div className="flex items-center">
                       <h4 className="m-0 flex text-foreground">{step.headline}</h4>
                       <div className="ml-1.5 mr-1.5 flex">
@@ -108,15 +138,13 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                   </div>
                 </StepLabel>
                 <StepContent className="">
-                  <Box sx={{ mb: 2 }}>
-                    <p className="flex text-secondary-foreground! font-semibold text-xs grow">{step.text}</p>
+                  <Box className='my-2!'>
                     <div className="mt-2.5">
                       {loading ? (
                         <Button
                           disabled
                           startIcon={<AnimatedLoadingIcon />}
                           variant="contained"
-                          color="primary"
                           size="medium"
                           className="btn-action mt-1.5 p-3.5! w-full capitalize! bg-accent-foreground/50!"
                         >
@@ -125,9 +153,11 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                       ) : (
                         <Button
                           variant="contained"
-                          color="primary"
                           size="medium"
-                          className={`btn-action mt-1.5 w-full capitalize! text-accent! p-3.5! ${actionDisabled ? 'bg-accent-foreground/50! pointer-events-none' : 'bg-accent-foreground!'} ease-in-out transition-transform duration-150 active:scale-[0.97]`}
+                          className={`
+                            btn-action mt-1.5 w-full capitalize! text-accent! p-3.5!
+                            ${actionDisabled ? 'bg-muted-foreground/30! text-muted! pointer-events-none' : 'bg-accent-foreground!'}
+                            ease-in-out transition-transform duration-150 active:scale-[0.97]`}
                           onClick={() => execute(address, switchChainAsync, walletClient)}
                           disabled={!!actionDisabled}
                         >

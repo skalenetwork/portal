@@ -43,11 +43,11 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
   const { disconnect } = useWagmiDisconnect()
 
   return (
-    <SkStack className="className, 'profileModalActions'">
+    <SkStack className={`${className} profileModalActions`}>
       <Button
         variant="text"
         startIcon={<LaunchIcon />}
-        className="'btn', 'btnSm', 'filled'"
+        className="btn btnSm bg-muted! text-foreground!"
         onClick={() => window.open(`https://etherscan.io/address/${address}`, '_blank')}
         fullWidth={isMobile}
       >
@@ -59,7 +59,7 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
           <Button
             variant="text"
             startIcon={<LooksRoundedIcon />}
-            className="'btn', 'btnSm', 'filled'"
+            className="btn btnSm bg-muted! text-foreground!"
             onClick={openAccountModal}
             fullWidth={isMobile}
           >
@@ -71,7 +71,7 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
       <Button
         variant="text"
         startIcon={<PowerOffIcon />}
-        className="'btn', 'btnSm', 'filled'"
+        className="btn btnSm bg-muted! text-foreground!"
         onClick={() => disconnect()}
         fullWidth={isMobile}
       >

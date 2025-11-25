@@ -32,9 +32,9 @@ export default function ConnectWallet(props: {
   const { address } = useWagmiAccount()
   return (
     <div className={props.className}>
-      <SkPaper gray={!props.tile} className="titleSection">
+      <SkPaper gray={!props.tile} className="bg-muted!">
         <div className="mt-5 mb-5">
-          <p className="text-sm pSec text-center">
+          <p className="text-sm text-muted-foreground font-semibold mb-2 text-center">
             {props.customText ?? 'Connect your wallet to continue'}
           </p>
           <div className="flex">
@@ -46,7 +46,7 @@ export default function ConnectWallet(props: {
                     <Button
                       onClick={() => openConnectModal()}
                       variant="contained"
-                      className="text-center mt-2.5 flex 'btn'"
+                      className="text-center mt-2.5! flex btn bg-accent-foreground! text-accent!"
                     >
                       <LooksRoundedIcon className="mr-2.5" />
                       {address ? 'Sign in' : 'Connect Wallet'}

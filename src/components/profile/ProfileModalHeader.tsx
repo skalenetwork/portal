@@ -22,26 +22,24 @@
  */
 
 import React from 'react'
-import { FiberManualRecord } from '@mui/icons-material'
 import Headline from '../Headline'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
+import { networks } from '@/core'
+import { NETWORKS } from '../../core/constants'
+import GetSFuel from '../GetSFuel'
+import { MetaportCore } from '@skalenetwork/metaport'
 
 interface ProfileModalHeaderProps {
-  address: string | undefined
+  mpc: MetaportCore
 }
 
-const ProfileModalHeader: React.FC<ProfileModalHeaderProps> = ({ address }) => (
+const ProfileModalHeader: React.FC<ProfileModalHeaderProps> = ({ mpc }) => (
   <div className="profileModalHeader items-center">
     <div className="grow">
       <Headline text="Wallet Info" icon={<AccountCircleRoundedIcon />} size="small" />
     </div>
     <div className="profileModalStatus">
-      <FiberManualRecord
-        className="mr-1.5"
-        fontSize="small"
-        color={address ? 'success' : 'error'}
-      />
-      <p className="text-xs pSec mr-5">{address ? 'Connected' : 'Not connected'}</p>
+      {networks.hasFeatureInAny(NETWORKS, 'sfuel') && <GetSFuel mpc={mpc} />}
     </div>
   </div>
 )

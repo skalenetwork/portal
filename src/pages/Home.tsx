@@ -160,7 +160,7 @@ function AppSection({ title, icon, linkTo, component }: AppSectionProps) {
       <div className="flex items-center mb-2.5 mt-5 pt-5">
         <Headline text={title} icon={icon} />
         <Link to={linkTo}>
-          <Button className="btn btnSm bg text-primary! bg-card!">See all</Button>
+          <Button className="btn btnSm bg text-foreground! bg-card!">See all</Button>
         </Link>
       </div>
       {component}

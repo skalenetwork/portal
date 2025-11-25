@@ -21,7 +21,7 @@
  */
 
 import { useState } from 'react'
-import { SkPaper, useWagmiAccount } from '@skalenetwork/metaport'
+import { ChainIcon, SkPaper, useWagmiAccount } from '@skalenetwork/metaport'
 import { type types, metadata, constants } from '@/core'
 
 import { Collapse } from '@mui/material'
@@ -59,11 +59,11 @@ export default function Meson(props: {
         }}
       >
         <SkPaper gray className="hoverable cursor-pointer">
-          <SkStack className="p-2 items-center">
-            <img src={networks} className="mr-2.5" style={{ height: '30px' }} />
+          <SkStack className="p-1 items-center">
+            <img src={networks} className="mr-2.5" style={{ height: '25px' }} />
             <div className="grow">
               <div className="flex grow items-center">
-                <p className="font-semibold text-foreground text-md">
+                <p className="font-semibold text-foreground text-sm">
                   Bridge from Other Popular Networks
                 </p>
               </div>
@@ -88,7 +88,6 @@ export default function Meson(props: {
           <ConnectWallet className="grow" />
         ) : (
           <div>
-            <p className="text-sm text-secondary-foreground mb-2.5">Select destination chain</p>
             <div>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
                 {SUPPORTED_CHAINS.map((chain: string) => (
@@ -101,14 +100,16 @@ export default function Meson(props: {
                   >
                     <SkPaper gray className="hoverable cursor-pointer">
                       <div className="text-center mt-2.5 mb-2.5">
-                        <ChainLogo
-                          network={props.skaleNetwork}
-                          className="w-10 h-10"
-                          chainName={chain}
-                          logos={MAINNET_CHAIN_LOGOS}
-                        />
-                        <p className="uppercase font-bold text-primary text-sm">
-                          {metadata.getAlias(props.skaleNetwork, props.chainsMeta, chain)}
+                        <div className="flex justify-center">
+                          <ChainIcon
+                            skaleNetwork={props.skaleNetwork}
+                            chainName={chain}
+                            size="lg"
+                            chainsMeta={props.chainsMeta}
+                          />
+                        </div>
+                        <p className="font-semibold text-foreground text-xs mt-4">
+                          to {metadata.getAlias(props.skaleNetwork, props.chainsMeta, chain)}
                         </p>
                       </div>
                     </SkPaper>

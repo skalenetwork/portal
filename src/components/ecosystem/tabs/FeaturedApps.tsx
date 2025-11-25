@@ -118,7 +118,7 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
               <Button
                 size="medium"
                 startIcon={<AddCircleRoundedIcon />}
-                className="btn-action pl-20 pr-20"
+                className="btn-action pl-20 pr-20 capitalize! text-accent-foreground!"
               >
                 See more
               </Button>

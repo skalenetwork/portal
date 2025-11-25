@@ -51,15 +51,14 @@ export default function TokenBalance(props: {
       <p
         className={`
             ${size === 'xs' ? 'text-xs' : ''}
-            ${size === 'sm' ? 'text-sm' : ''}
+            ${size === 'sm' ? 'text-xs' : ''}
             ${size === 'md' ? 'text-base' : ''}
             ${!props.primary && 'text-muted-foreground!'}
-            ${props.primary && 'text-primary!'}
+            ${props.primary && 'text-foreground!'}
             flex items-center font-semibold
-            bg-muted rounded-2xl p-2 pr-7
+            bg-muted rounded-2xl p-2 pr-3.5
           `}
       >
-        <TokenIcon tokenSymbol={props.symbol} size='xs' iconUrl={iconUrl} />
         <div className="mr-1.5"></div>
         <span className='whitespace-nowrap'>
           {balance} {props.symbol}

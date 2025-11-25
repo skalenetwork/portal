@@ -72,7 +72,6 @@ export default function Header(props: {
           ) : null}
         </div>
         <AccountMenu address={props.address} openProfileModal={props.openProfileModal} />
-        {networks.hasFeatureInAny(NETWORKS, 'sfuel') && <GetSFuel mpc={props.mpc} />}
         <NetworkSwitch mpc={props.mpc} />
         <IconButton
           size="small"

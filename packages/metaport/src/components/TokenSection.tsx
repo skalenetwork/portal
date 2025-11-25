@@ -35,19 +35,18 @@ interface TokenSectionProps {
 
 export default function TokenSection({ text, icon, tokens, onTokenClick }: TokenSectionProps) {
   return (
-    <div className="mt-5">
-      <div className="flex items-center grow text-secondary-foreground ml-2.5 mb-1.5">
-        <div className="items-center flex mr-2.5">{icon}</div>
-        <p className="text-sm font-semibold grow uppercase">{text}</p>
+    <div className="mt-6">
+      <div className="flex items-center grow text-secondary-foreground ml-1.5 mb-1.5">
+        <div className="items-center flex mr-2">{icon}</div>
+        <p className="text-xs font-semibold grow ">{text}</p>
       </div>
       {tokens
         .sort((a, b) => a.key.localeCompare(b.key))
         .map(({ key, tokenData, balance }) => (
           <Button
             key={key}
-            color="secondary"
             size="small"
-            className="w-full pl-2.5 pt-1.5 pb-1.5"
+            className="w-full pl-2.5 pt-1.5 pb-1.5 capitalize!"
             onClick={() => onTokenClick(tokenData)}
           >
             <div className="flex items-center w-full mt-2.5 mb-2.5 rounded">
@@ -55,7 +54,7 @@ export default function TokenSection({ text, icon, tokens, onTokenClick }: Token
                 <TokenIcon tokenSymbol={tokenData?.meta.symbol} iconUrl={tokenData?.meta.iconUrl} />
               </div>
               <div className="grow">
-                <p className="text-sm font-semibold text-primary flex mr-2.5 ml-2.5">
+                <p className="text-sm font-semibold text-foreground flex mr-2.5 ml-2.5">
                   {getTokenName(tokenData)}
                 </p>
                 {tokenData.address ? (

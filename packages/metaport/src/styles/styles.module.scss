@@ -480,6 +480,13 @@ button {
 }
 
 
+
+.skInputLight {
+    input {
+        color: black;
+    }
+}
+
 .skInput {
     .MuiInputBase-root {
         min-height: 53px;
@@ -499,7 +506,7 @@ button {
     }
 
     input {
-        font-size: 0.8025rem !important;
+        font-size: 0.9025rem !important;
         line-height: 1.6 !important;
         letter-spacing: 0.02857em !important;
         font-weight: 600 !important;

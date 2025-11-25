@@ -142,12 +142,12 @@ export default function SchainDetails(props: {
           sections={[
             {
               text: 'Chains',
-              icon: <ArrowBackIosNewRoundedIcon />,
+              icon: <ArrowBackIosNewRoundedIcon className='w-3! h-3! text-foreground' />,
               url: '/chains'
             },
             {
               text: chainAlias,
-              icon: <LinkRoundedIcon />
+              icon: <LinkRoundedIcon className='w-3! h-3!' />
             }
           ]}
         />
@@ -182,15 +182,15 @@ export default function SchainDetails(props: {
         </div>
       </SkPaper>
       <SkPaper gray className="mt-2.5">
-        <SkStack className="mb-2.5">
+        <SkStack>
           <Tile
-            className="p-0 flex items-center"
+            className="flex items-center"
             children={
-              <div className={`p-2.5 ml-5 mr-5 ${!props.isXs ? 'flex' : ''} items-center`}>
+              <div className={`${!props.isXs ? 'flex' : ''} items-center`}>
                 <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
                   <Button
                     size="medium"
-                    className="btnAction mr-2.5"
+                    className="mr-2.5 capitalize! text-accent-foreground! p-4! py-3!"
                     startIcon={<ViewInArRoundedIcon />}
                   >
                     Block Explorer
@@ -199,7 +199,7 @@ export default function SchainDetails(props: {
                 <SkBtn
                   startIcon={added ? <CheckCircleRoundedIcon /> : <AddCircleRoundedIcon />}
                   size="md"
-                  className={`btnAction mr-2.5 btnPadd ${loading ? 'btnPaddLoading' : ''} ${props.isXs ? 'w-full' : ''}`}
+                  className={`mr-2.5 text-accent-foreground! p-4! py-3! ${loading ? 'btnPaddLoading' : ''} ${props.isXs ? 'w-full' : ''}`}
                   onClick={addNetwork}
                   disabled={loading}
                   text={connectBtnText()}
@@ -209,7 +209,7 @@ export default function SchainDetails(props: {
                   <a target="_blank" rel="noreferrer" href={chainMeta.url} className="undec">
                     <Button
                       size="medium"
-                      className="btnAction"
+                      className="capitalize! text-accent-foreground!  p-4! py-3!"
                       startIcon={<ArrowOutwardRoundedIcon />}
                     >
                       Open Website
@@ -229,19 +229,19 @@ export default function SchainDetails(props: {
                   ? formatNumber(props.schainMetrics.chain_stats?.transactions_today)
                   : '0'
               }
-              icon={<TrendingUpRoundedIcon />}
+              icon={<TrendingUpRoundedIcon className='w-4! h-4!' />}
             />
           )}
         </SkStack>
 
         {networks.hasFeature(network, 'metrics') ? (
-          <SkStack className="p-2.5">
+          <SkStack className="pt-2.5">
             <Tile
               size="md"
               grow
               text="Total transactions"
               value={formatNumber(getTxCount())}
-              icon={<DataSaverOffRoundedIcon />}
+              icon={<DataSaverOffRoundedIcon className='w-4! h-4!' />}
             />
             {isMainnet && (
               <Tile
@@ -253,7 +253,7 @@ export default function SchainDetails(props: {
                     ? `${formatNumber(props.schainStats.gas_fees_total_eth)} ETH`
                     : ''
                 }
-                icon={<SavingsRoundedIcon />}
+                icon={<SavingsRoundedIcon className='w-4! h-4!' />}
               />
             )}
             <Tile
@@ -261,14 +261,14 @@ export default function SchainDetails(props: {
               grow
               text={isMainnet ? 'Unique active wallets' : 'Total addresses'}
               value={formatNumber(getUAW())}
-              icon={<PersonRoundedIcon />}
+              icon={<PersonRoundedIcon className='w-4! h-4!' />}
             />
             <Tile
               size="md"
               grow
               text="Total blocks"
               value={formatNumber(getTotalBlocks())}
-              icon={<GridViewRoundedIcon />}
+              icon={<GridViewRoundedIcon className='w-4! h-4!' />}
             />
           </SkStack>
         ) : (

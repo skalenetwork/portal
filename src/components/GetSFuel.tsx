@@ -22,7 +22,6 @@
  */
 
 import { Box, Button, Tooltip } from '@mui/material'
-import BoltRoundedIcon from '@mui/icons-material/BoltRounded'
 import AutoModeRoundedIcon from '@mui/icons-material/AutoModeRounded'
 import { type MetaportCore, useWagmiAccount } from '@skalenetwork/metaport'
 import { usesFuel } from '../useSFuel'
@@ -48,7 +47,7 @@ export default function GetSFuel({ mpc }: { mpc: MetaportCore }) {
         <Button
           onClick={sFuelOk ? undefined : mineSFuel}
           disabled={isMining || loading || sFuelOk}
-          className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! normal-case! rounded-full min-w-0!"
+          className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! normal-case! rounded-full! min-w-0!"
           color="success"
         >
           {loading ? (

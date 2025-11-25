@@ -70,7 +70,7 @@ export default function BridgeChainCard(props: ChainCardProps) {
           style={{
             position: 'absolute',
             inset: 0,
-            background: 'linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 90%)',
+            background: mode === 'dark' ? 'linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 90%)' : 'linear-gradient(to bottom, transparent 0%, rgba(225, 225, 225, 0.7) 90%)',
             borderRadius: 'inherit',
             pointerEvents: 'none'
           }}
@@ -100,7 +100,7 @@ export default function BridgeChainCard(props: ChainCardProps) {
               <div className="grow"></div>
             </div>
           )}
-          {!disabled && <p className="text-foreground/80 font-medium p-2 text-xs text-center">{firstSentence}</p>}
+          {!disabled && <p className="text-foreground/70 font-medium p-2 text-xs text-center">{firstSentence}</p>}
         </div>
       </SkPaper>
     </div>

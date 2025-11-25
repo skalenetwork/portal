@@ -88,7 +88,7 @@ const SkIconBtn: React.FC<SkIconBtnProps> = ({
         className={cls(
           iconClassName,
           ['text-foreground', primary],
-          ['text-secondary-foreground', !primary],
+          ['text-muted-foreground', !primary],
           'sk-icon-btn-img'
         )}
       />

@@ -37,7 +37,7 @@ export default function SkPaper(props: {
     <div
       style={{ position: 'relative', background: props.background }}
 
-      className={`${props.className || ''} ${styles.paper} ${props.gray ? 'bg-card!' : ''} ${props.fullHeight ? styles.fullHeight : ''} ${props.margTop ? 'mt-5' : ''}`}
+      className={`${props.className || ''} ${styles.paper} ${props.gray ? 'bg-card!' : 'bg-background!'} ${props.fullHeight ? styles.fullHeight : ''} ${props.margTop ? 'mt-5' : ''}`}
     >
       {props.children}
     </div>

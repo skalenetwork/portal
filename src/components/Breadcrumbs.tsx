@@ -32,27 +32,27 @@ export interface BreadcrumbSection {
 
 export default function Breadcrumbs(props: { sections: BreadcrumbSection[]; className?: string }) {
   return (
-    <div className={`flex items-center titleBadge ${props.className || ''}`}>
+    <div className={`flex items-center bg-card! p-1 rounded-full ${props.className || ''}`}>
       {props.sections.map((section: BreadcrumbSection, index) => (
         <div className="flex items-center" key={index}>
           {section.url ? (
             <Link to={section.url} className="undec w-full">
-              <Button className={index === 0 ? 'text-white' : 'text-primary'}>
+              <Button className={index === 0 ? 'text-foreground' : 'text-muted!'}>
                 {section.icon}
-                <p className={`text-xs ml-1.5 ${index === 0 ? 'text-white' : 'text-primary'}`}>
+                <p className={`text-xs capitalize! ml-1.5 ${index === 0 ? 'text-foreground!' : 'text-muted'}`}>
                   {section.text}
                 </p>
               </Button>
             </Link>
           ) : (
-            <Button className={index === 0 ? 'text-white' : 'text-primary'}>
+            <Button className={index === 0 ? 'text-foreground' : 'text-muted-foreground! capitalize!'}>
               {section.icon}
-              <p className={`text-xs ml-1.5 ${index === 0 ? 'text-white' : 'text-primary'}`}>
+              <p className={`text-xs ml-1.5 ${index === 0 ? 'text-foreground' : 'text-muted-foreground'}`}>
                 {section.text}
               </p>
             </Button>
           )}
-          {index + 1 !== props.sections.length ? <p className="text-xs">|</p> : null}
+          {index + 1 !== props.sections.length ? <p className="text-xs text-muted-foreground">|</p> : null}
         </div>
       ))}
     </div>

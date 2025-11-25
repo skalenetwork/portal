@@ -24,7 +24,7 @@
 import React from 'react'
 import Avatar from 'boring-avatars'
 import { Modal, Box, useTheme, useMediaQuery } from '@mui/material'
-import { SkPaper, useWagmiAccount, Tile } from '@skalenetwork/metaport'
+import { SkPaper, useWagmiAccount, Tile, useMetaportStore } from '@skalenetwork/metaport'
 import ConnectWallet from '../ConnectWallet'
 import ProfileModalHeader from './ProfileModalHeader'
 import ProfileModalActions from './ProfileModalActions'
@@ -37,6 +37,7 @@ interface ProfileModalProps {
 
 const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
   const { address } = useWagmiAccount()
+  const mpc = useMetaportStore((state) => state.mpc)
 
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
@@ -44,9 +45,9 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
   const modalContent = (
     <Box className="profileModal">
       <SkPaper gray>
-        <ProfileModalHeader address={address} />
+        <ProfileModalHeader mpc={mpc} />
         {!address ? (
-          <ConnectWallet customText="Connect your wallet to use your profile" />
+          <ConnectWallet customText="Connect your wallet to see details" />
         ) : (
           <div></div>
         )}

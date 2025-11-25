@@ -36,10 +36,13 @@ import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
 import { BALANCE_UPDATE_INTERVAL_MS } from '../core/constants'
 import SkPaper from './SkPaper'
+import { styles } from '../core/css'
+import { useThemeMode } from './ThemeProvider'
 
 export default function TokenList() {
   const [open, setOpen] = React.useState(false)
   const [searchQuery, setSearchQuery] = useState('')
+  const { mode } = useThemeMode()
 
   const handleOpen = () => setOpen(true)
   const handleClose = () => {
@@ -130,13 +133,13 @@ export default function TokenList() {
       <Modal
         open={open}
         onClose={handleClose}
-        className="darkTheme styles.metaport styles.backdropBlur"
+        className={styles.metaport + ' ' + styles.backdropBlur}
       >
-        <Container maxWidth="sm" className="styles.modalContainer">
+        <Container maxWidth="sm" className={styles.modalContainer}>
           <div className="flex mb-5">
             <div className="grow"></div>
             <SkPaper gray>
-              <p className="text-base font-bold text-primary mt-1.5 mb-1.5 ml-5 mr-5">
+              <p className="text-base font-bold text-foreground mt-1.5 mb-1.5 ml-5 mr-5">
                 Select a token
               </p>
             </SkPaper>
@@ -151,14 +154,14 @@ export default function TokenList() {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon className="text-primary styles.chainIcons" />
+                    <SearchIcon className="text-muted-foreground w-5! h-5!" />
                   </InputAdornment>
                 )
               }}
-              className="styles.skInput"
+              className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-muted! rounded-lg`}
               sx={{
                 '& .MuiOutlinedInput-root': { borderRadius: '25px' },
-                '& fieldset': { borderColor: '#353535 !important' }
+                '& fieldset': { border: '0px red solid !important' }
               }}
             />
             {filteredTokensCount === 0 && (

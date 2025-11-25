@@ -36,9 +36,9 @@ import BridgeBody from '../components/BridgeBody'
 
 import { META_TAGS } from '../core/meta'
 import Meson from '../components/Meson'
-import { Button } from '@mui/material'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import { NETWORKS } from '../core/constants'
+import SkIconBtn from '../components/SkIconBth'
 
 interface TokenParams {
   keyname: string | null
@@ -178,13 +178,12 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
           </div>
           <div>
             <Link to="/bridge/history">
-              <Button
-                variant="contained"
-                className="btn px-4! py-2! bg-card! text-foreground! mr-2.5 text-xs!"
-                startIcon={<HistoryIcon />}
-              >
-                History
-              </Button>
+              <SkIconBtn
+                primary
+                icon={HistoryIcon}
+                size="small"
+                tooltipTitle='Bridge History'
+              />
             </Link>
             <SkPageInfoIcon meta_tag={META_TAGS.bridge} />
           </div>
@@ -212,7 +211,7 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
       </Stack>
       <Meson
         chainsMeta={props.chainsMeta}
-        className="mt-6"
+        className="mt-12"
         skaleNetwork={mpc.config.skaleNetwork}
         isXs={props.isXs}
       />

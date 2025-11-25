@@ -69,7 +69,7 @@ export default function ChainsList(props: {
               <div className="flex items-center justify-center mr-2.5">
                 <ChainIcon skaleNetwork={props.config.skaleNetwork} chainName={props.chain} chainsMeta={CHAINS_META[props.config.skaleNetwork]} />
               </div>
-              <p className="flex text-sm font-semibold text-primary mr-2.5">
+              <p className="flex text-md font-bold text-foreground! mr-2.5">
                 Loading chains...
               </p>
             </div>
@@ -85,7 +85,7 @@ export default function ChainsList(props: {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        className={`${styles.metaport} ${styles.backdropBlur} dark`}
+        className={`${styles.metaport} ${styles.backdropBlur}`}
       >
         <Container maxWidth="md" className={styles.modalContainer}>
           <div className="flex mb-5">
@@ -99,7 +99,7 @@ export default function ChainsList(props: {
             <div className="grow"></div>
           </div>
           <div
-            className="styles.bridgeModalScroll mb-2.5 mr-2.5 ml-2.5"
+            className={`mb-2.5 mr-2.5 ml-2.5 ${styles.bridgeModalScroll}`}
           >
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {schainNames.map((name) => (
