@@ -23,7 +23,6 @@
 
 import { units } from '@/core'
 import { Tooltip } from '@mui/material'
-import TokenIcon from './TokenIcon'
 import MetaportCore from '../core/metaport'
 
 export default function TokenBalance(props: {
@@ -42,10 +41,6 @@ export default function TokenBalance(props: {
     balance = units.truncateDecimals(balanceFull, props.truncate)
   }
   let size = props.size ?? 'xs'
-  let iconUrl = undefined
-  if (props.mpc !== undefined) {
-    iconUrl = props.mpc.config.tokens[props.symbol.toLowerCase()]?.iconUrl
-  }
   return (
     <Tooltip arrow title={balanceFull + ' ' + props.symbol}>
       <p

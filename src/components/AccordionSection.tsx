@@ -76,7 +76,7 @@ export default function AccordionSection(props: {
         </div>
       </ButtonBase>
       <Collapse in={expanded === panel}>
-        <div className="[mt-2.5 marg] [mb-2.5 marg]">{props.children}</div>
+        <div className="mt-1">{props.children}</div>
       </Collapse>
     </div>
   )

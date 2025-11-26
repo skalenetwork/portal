@@ -27,10 +27,11 @@ import { Link } from 'react-router-dom'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 
-import { type types } from '@/core'
+import { networks, type types } from '@/core'
 
 import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded'
 import { Button } from '@mui/material'
+import { NETWORKS } from '../../../core/constants'
 
 export default function ChainTabs(props: {
   chainMeta: types.ChainMetadata
@@ -62,14 +63,14 @@ export default function ChainTabs(props: {
             />
           ) : null
         )}
-        <Link to={`/chains/admin/${props.schainName}`}>
+        {networks.hasFeatureInAny(NETWORKS, 'paymaster') && <Link to={`/chains/admin/${props.schainName}`}>
           <Button
             startIcon={<AdminPanelSettingsRoundedIcon />}
             className="btn btnSm mr-1.5 ml-1.5 tab text-muted-foreground! text-xs"
           >
             Manage
           </Button>
-        </Link>
+        </Link>}
       </Tabs>
     </div>
   )

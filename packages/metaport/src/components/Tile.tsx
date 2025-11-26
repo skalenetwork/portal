@@ -115,10 +115,9 @@ export default function Tile(props: {
               ) : null}
               <p
                 className={`
-                  text-xs flex
+                  text-xs flex font-medium
                   ${!props.ri ? 'grow' : ''}
-                  ${props.textColor ? 'font-semibold' : ''}
-                `.replace(/\s+/g, ' ').trim()}
+                  ${props.textColor ? 'font-semibold' : ''}`}
                 style={{ color: props.textColor }}
               >
                 {props.text}

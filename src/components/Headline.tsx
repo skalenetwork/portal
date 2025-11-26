@@ -42,7 +42,7 @@ const Headline: React.FC<HeadlineProps> = ({ text, className, icon, size = 'medi
 
   const iconElement = icon && (
     <div
-      className={`items-center text-foreground/80 flex ${size === 'small' ? 'mr-4 h-4! w-4!' : ''}`}
+      className={`items-center text-foreground/80 flex ${size === 'small' ? 'mr-2 h-4! w-4!' : ''}`}
     >
       {icon}
     </div>

@@ -95,7 +95,7 @@ export default function AmountInput() {
             < Button
               size="small"
               disabled={transferInProgress || currentStep !== 0 || maxAmount === 0n}
-              className="bg-secondary-foreground/10! flex items-center text-[10px]! p-1! text-foreground!"
+              className="bg-secondary-foreground/10! flex items-center text-[10px]! py-1! px-3! min-w-0! text-foreground! mr-2!"
               onClick={setMaxAmount}
             >
               MAX

@@ -96,7 +96,7 @@ export default function VerifiedContracts(props: {
           }}
           color="primary"
           size="small"
-          className="styles.btnAction mt-5"
+          className="py-5! mt-2! capitalize! text-accent-foreground! w-full"
           startIcon={loading ? <HourglassBottomRoundedIcon /> : <ExpandCircleDownRoundedIcon />}
           disabled={loading}
         >

@@ -55,7 +55,6 @@ export default function Home({ skaleNetwork, chainsMeta, metrics, loadData }: Ho
   return (
     <Container maxWidth="md" className="pb-12">
       <Stack spacing={0}>
-        <Headline text="Popular Actions" icon={SECTION_ICONS.explore} className="mb-2.5" />
         <HomeBanner />
         <ExploreSection />
         {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (

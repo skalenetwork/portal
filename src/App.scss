@@ -847,9 +847,27 @@ input[type=number] {
   background: linear-gradient(#5C9B6A, #477a52);
 }
 
+
+.dark {
+  .chip_DELEGATED {
+    background: linear-gradient(180deg, #0f3d29, #0a2a1c) !important;
+    color: #3cda94 !important;
+  }
+
+  .chip_SELF {
+    background: linear-gradient(180deg, #4e3300, #372400);
+    color: #fcbb81;
+  }
+}
+
 .chip_DELEGATED {
-  background: linear-gradient(180deg, #0f3d29, #0a2a1c);
-  color: #3cda94;
+  background: linear-gradient(180deg, #00ff9057, #5dffb8ad) !important;
+  color: #003c22 !important;
+}
+
+.chip_SELF {
+  background: linear-gradient(180deg, #ffd992, #ffb62d);
+  color: #6f3500;
 }
 
 .chip_REWARDS {
@@ -909,10 +927,7 @@ input[type=number] {
   color: #9681fc;
 }
 
-.chip_SELF {
-  background: linear-gradient(180deg, #4e3300, #372400);
-  color: #fcbb81;
-}
+
 
 .chip_OTHER {
   background: linear-gradient(180deg, #3e1f3f, #2b152b);

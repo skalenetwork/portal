@@ -47,6 +47,7 @@ import ChainCreditsTile from '../components/credits/ChainCreditsTile'
 import CreditsHistoryTile from '../components/credits/CreditsHistoryTile'
 import { getCreditStation, getTokenPrices } from '../core/credit-station'
 import ErrorTile from '../components/ErrorTile'
+import { History, Link2 } from 'lucide-react'
 
 interface CreditsProps {
   mpc: MetaportCore
@@ -198,9 +199,9 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
       <Stack spacing={0}>
         <div className="flex items-center">
           <div className="grow">
-            <h2 className="nom">Chain Credits</h2>
-            <p className="nom p text-sm text-secondary">
-              Manage your SKALE Chain Credits - purchase and view balances.
+            <h2 className="m-0 text-xl font-bold text-foreground">Chain Credits</h2>
+            <p className="text-xs text-secondary-foreground font-semibold">
+              Manage your SKALE Chain Credits - purchase and view balances
             </p>
           </div>
           <SkPageInfoIcon meta_tag={META_TAGS.credits} />
@@ -210,7 +211,7 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
           <AccordionSection
             expandedByDefault={true}
             title="Chains"
-            icon={<LinkRoundedIcon />}
+            icon={<Link2 size={17} />}
             marg={false}
           >
             <Collapse in={address !== undefined}>
@@ -241,7 +242,7 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
           <AccordionSection
             expandedByDefault={true}
             title="History"
-            icon={<HistoryRoundedIcon />}
+            icon={<History size={17} />}
             marg={false}
           >
             <Collapse in={creditsHistory.length !== 0 && address !== undefined}>

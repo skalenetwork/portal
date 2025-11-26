@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useWalletClient, useSwitchChain, useAccount } from 'wagmi'
 import { useAddRecentTransaction } from '@rainbow-me/rainbowkit'
-import { type types, metadata, helper, constants } from '@/core'
+import { type types, metadata, helper, constants, dc } from '@/core'
 
 import Box from '@mui/material/Box'
 import Stepper from '@mui/material/Stepper'
@@ -23,8 +23,24 @@ import { useMetaportStore } from '../../store/MetaportStore'
 import { useCPStore } from '../../store/CommunityPoolStore'
 import { SUCCESS_EMOJIS } from '../../core/constants'
 import { CHAINS_META } from '../../core/metadata'
+import { Send, SendToBack } from 'lucide-react'
+
+//
 
 export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
+  const actionIconMap: Record<dc.ActionType, JSX.Element> = {
+    erc20_m2s: <Send size={17} />,
+    erc20_s2m: <Send size={17} />,
+    erc20_s2s: <Send size={17} />,
+    eth_m2s: <Send size={17} />,
+    eth_s2m: <Send size={17} />,
+    eth_s2s: <Send size={17} />,
+    eth_unlock: <Send size={17} />,
+    wrap: <SendToBack size={17} />,
+    unwrap: <SendToBack size={17} />,
+    unwrap_stuck: <SendToBack size={17} />
+  }
+
   const { address, chainId } = useAccount()
   const { switchChainAsync } = useSwitchChain()
   const addRecentTransaction = useAddRecentTransaction()
@@ -97,6 +113,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
         </Button>
       ) : (
         <Button
+          startIcon={actionIconMap[step.type]}
           variant="contained"
           size="medium"
           className={`
@@ -152,6 +169,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                         </Button>
                       ) : (
                         <Button
+                          startIcon={actionIconMap[step.type]}
                           variant="contained"
                           size="medium"
                           className={`

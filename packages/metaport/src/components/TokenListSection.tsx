@@ -78,7 +78,7 @@ export default function TokenListSection(props: {
     }))
 
   return (
-    <div className={styles.bridgeModalScroll}>
+    <div className={`${styles.bridgeModalScroll} mt-2`}>
       {popularTokens.map((key) => (
         <Button
           size="small"

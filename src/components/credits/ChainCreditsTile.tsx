@@ -55,6 +55,7 @@ import {
   DEFAULT_CREDITS_AMOUNT
 } from '../../core/constants'
 import Avatar from 'boring-avatars'
+import { BadgeDollarSign, ChevronRight, Coins, Wallet } from 'lucide-react'
 
 interface ChainCreditsTileProps {
   mpc: MetaportCore
@@ -89,8 +90,6 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   const network = mpc.config.skaleNetwork
   const chainAlias = metadata.getAlias(network, chainsMeta, schain.name)
   const shortAlias = metadata.getChainShortAlias(chainsMeta, schain.name)
-  const chainDescription = metadata.getChainDescription(chainsMeta[schain.name])
-
   const tokens = mpc.config.connections.mainnet?.erc20
   const tokensMeta = mpc.config.tokens
 
@@ -192,8 +191,8 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
 
   return (
     <div>
-      <div className="mb-2.5 titleSection">
-        <Grid container spacing={0} alignItems="center">
+      <div className="mb-2.5 bg-background rounded-3xl p-5">
+        <Grid container spacing={0} alignItems="center" >
           <Grid size={{ xs: 12, md: 4 }}>
             <Link to={'/chains/' + shortAlias}>
               <div className="flex items-center">
@@ -204,19 +203,19 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                   size="xs"
                 />
                 <div className={cls('ml-2.5', ['grow', isXs])} style={{ minWidth: 0 }}>
-                  <h4 className="p font-bold pOneLine text-primary">{chainAlias}</h4>
-                  <p className="p text-xs text-secondary pOneLine">Click for chain details</p>
+                  <h4 className="p font-bold pOneLine text-foreground">{chainAlias}</h4>
+                  <p className="p text-xs text-secondary-foreground pt-0.5 pOneLine">Click for chain details</p>
                 </div>
               </div>
             </Link>
           </Grid>
-          <Grid size={{ xs: 12, md: 8 }} className={cls(['mt-5', isXs], 'flex')}>
+          <Grid size={{ xs: 12, md: 8 }} className={cls('flex')}>
             <div className="grow"></div>
             <SkStack className="flex">
               <Tile
                 size="lg"
                 transparent
-                className={cls('p-0', ['mr-5', !isXs], ['ml-5', !isXs])}
+                className={cls('p-0!', ['mr-5', !isXs], ['ml-5', !isXs])}
                 value={
                   chainBalance !== undefined &&
                   units.displayBalance(
@@ -228,15 +227,15 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                 text="Available"
                 grow
                 ri={!isXs}
-                icon={<PaymentsRoundedIcon />}
+                icon={<Wallet size={17} />}
               />
-              <div className="borderVert"></div>
+              <div className="borderVert mr-4"></div>
               <div className="flex items-center">
                 <Button
                   size="small"
                   variant="contained"
                   startIcon={<AddCircleRoundedIcon />}
-                  className="btnMd ml-5"
+                  className="btnMd ml-5 bg-accent-foreground! text-accent!"
                   onClick={() => setOpenModal(true)}
                   disabled={creditStation === undefined}
                 >
@@ -252,7 +251,6 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
         onClose={() => setOpenModal(false)}
         maxWidth="sm"
         fullWidth
-        className={cls('dark')}
         PaperProps={{
           sx: {
             background: 'transparent',
@@ -264,22 +262,21 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
           <Headline
             text={`Buy Credits - ${chainAlias}`}
             icon={<MonetizationOnRoundedIcon className="text-[17px]!" />}
-            className="mb-2.5"
             size="small"
           />
-          <p className="p text-secondary text-sm ml-2.5 mb-2.5">
+          <p className="text-secondary-foreground font-medium text-sm ml-2.5 mb-2.5 mr-4">
             All purchases are converted to SKL on the backend for distribution per governance
             agreements.
           </p>
-          <SkPaper className="p-0">
+          <SkPaper className="p-0!">
             <Tile
               size="md"
               transparent
               text="Select Token to Buy Credits With"
               grow
-              icon={<TollRoundedIcon />}
+              icon={<Coins size={17} />}
               children={
-                <div className="flex">
+                <div className="flex mt-2">
                   {Object.entries(tokens).map(
                     ([symbol, tokenData]) =>
                       tokenData.address &&
@@ -289,9 +286,9 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                             color="primary"
                             size="small"
                             className={cls(
-                              'items-center mr-2.5 mt-2.5 uppercase btnLg',
-                              [styles.filled, symbol !== token],
-                              ['text-primary', symbol !== token]
+                              'items-center mr-2.5! uppercase btnLg bg-accent-foreground! text-accent!',
+                              ['bg-card!', symbol !== token],
+                              ['text-foreground!', symbol !== token]
                             )}
                             variant="contained"
                             onClick={() => setToken(symbol)}
@@ -311,9 +308,9 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
               }
             />
           </SkPaper>
-          <SkPaper className="p-0 mt-2.5">
+          <SkPaper className="p-0! mt-2.5">
             <Tile
-              size="md"
+              size="lg"
               transparent
               value={units.displayBalance(
                 tokenBalances?.[token] || 0n,
@@ -322,12 +319,12 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
               )}
               text={`Token Balance - ${helper.shortAddress(address)}`}
               grow
-              icon={address && <Avatar variant="marble" name={address} colors={AVATAR_COLORS} />}
+              icon={address && <Avatar size={17} variant="marble" name={address} colors={AVATAR_COLORS} />}
             />
           </SkPaper>
           <Grid container spacing={1} alignItems="center" className="mt-2.5 items-center">
             <Grid size={{ xs: 6 }} className="flex items-center">
-              <SkPaper className="p-0 grow">
+              <SkPaper className="p-0! grow">
                 <Tile
                   size="lg"
                   transparent
@@ -341,25 +338,27 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                   icon={<TokenIcon size="xs" tokenSymbol={token} />}
                 />
               </SkPaper>
-              <NavigateNextRoundedIcon className={cls(styles.chainIconmd, styles.creditsArrow)} />
+              <div className='bg-accent-foreground text-accent! p-1 rounded-full -ml-4 z-10 border-6 border-card dark:border-black'>
+                <ChevronRight size={17} />
+              </div>
             </Grid>
             <Grid size={{ xs: 6 }}>
-              <SkPaper className="p-0 grow">
+              <SkPaper className="p-0! grow -ml-4">
                 <Tile
                   size="lg"
                   transparent
                   value={`${DEFAULT_CREDITS_AMOUNT} CREDIT`}
                   text="Credits to Receive"
                   grow
-                  icon={<PaymentsRoundedIcon />}
+                  icon={<BadgeDollarSign size={17} />}
                 />
               </SkPaper>
             </Grid>
           </Grid>
           <Button
             variant="contained"
-            className={cls(styles.btnAction, 'mt-5')}
-            startIcon={<PaymentsRoundedIcon />}
+            className='btn mt-4! p-4! w-full capitalize! bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent!'
+            startIcon={<BadgeDollarSign size={17} />}
             size="large"
             onClick={buyCredits}
             disabled={

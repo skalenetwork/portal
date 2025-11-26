@@ -123,6 +123,7 @@ export default function TokenList() {
               key={token?.meta.symbol}
               tokenSymbol={token?.meta.symbol}
               iconUrl={token?.meta.iconUrl}
+              size='md'
             />
           </div>
           <p className={`text-lg font-bold text-foreground ${noTokens ? 'opacity-50' : ''} flex grow`}>
@@ -139,13 +140,13 @@ export default function TokenList() {
           <div className="flex mb-5">
             <div className="grow"></div>
             <SkPaper gray>
-              <p className="text-base font-bold text-foreground mt-1.5 mb-1.5 ml-5 mr-5">
+              <p className="text-sm font-bold text-foreground mt-1.5 mb-1.5 ml-5 mr-5">
                 Select a token
               </p>
             </SkPaper>
             <div className="grow"></div>
           </div>
-          <SkPaper gray>
+          <SkPaper gray className='p-4!'>
             <TextField
               fullWidth
               placeholder="Search tokens"

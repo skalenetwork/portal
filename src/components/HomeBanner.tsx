@@ -27,7 +27,7 @@ import { Sparkles } from 'lucide-react'
 
 export default function HomeBanner() {
   return (
-    <div className="home-banner mt-2.5 mb-6! flex flex-col items-center">
+    <div className="home-banner mt-2.5 mb-4! flex flex-col items-center">
       <div className="home-banner-inner flex h-full flex-col items-center justify-start gap-2 px-4 pt-10 text-center sm:gap-3 sm:px-5 sm:pt-12 md:pt-16">
         <h1 className="home-banner-title text-foreground m-0">Bridge to SKALE</h1>
         <p className="text-sm text-secondary-foreground font-medium m-0">

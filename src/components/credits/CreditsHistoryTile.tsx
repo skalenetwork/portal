@@ -54,6 +54,7 @@ import {
   AVATAR_COLORS,
   DEFAULT_CREDITS_AMOUNT
 } from '../../core/constants'
+import { IdCard, IdCardLanyard } from 'lucide-react'
 
 interface CreditsHistoryTileProps {
   mpc: MetaportCore
@@ -108,7 +109,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
           const block = await provider.getBlock(tx.blockNumber)
           if (block) setTxTimestamp(block.timestamp)
         }
-      } catch (error) {}
+      } catch (error) { }
     }
     fetchTimestamp()
   }, [creditStation, creditsPurchase, payment.transactionHash])
@@ -118,7 +119,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
     const checkFulfillment = async () => {
       try {
         setIsFulfilled(await ledgerContract.isFulfilled(payment.id))
-      } catch (error) {}
+      } catch (error) { }
     }
     checkFulfillment()
     const interval = setInterval(checkFulfillment, 10000)
@@ -171,7 +172,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
 
   return (
     <div>
-      <div className={cls('mb-2.5', 'titleSection')}>
+      <div className='mb-2.5 bg-background rounded-3xl p-5'>
         <Grid container spacing={0} alignItems="center">
           <Grid size={{ xs: 12, md: 4 }}>
             <Link
@@ -198,12 +199,12 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
                   className="creditHistoryIcon"
                 />
                 <div className={cls('ml-2.5', ['grow', isXs])}>
-                  <h4 className={cls('p', 'font-bold', 'pOneLine', 'text-primary')}>
+                  <h4 className='font-bold pOneLine text-foreground'>
                     {txTimestamp && !isAdmin
                       ? timeUtils.timestampToDate(txTimestamp, true)
                       : helper.shortAddress(payment.from)}
                   </h4>
-                  <p className={cls('p', 'text-xs', 'text-secondary')}>{chainAlias}</p>
+                  <p className={cls('p', 'text-xs', 'text-secondary-foreground')}>{chainAlias}</p>
                 </div>
               </div>
             </Link>
@@ -216,7 +217,8 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
                 'flex',
                 'items-center',
                 ['chip_DELEGATED', isFulfilled],
-                ['chip_SELF', !isFulfilled]
+                ['chip_SELF', !isFulfilled],
+                'font-semibold'
               )}
             >
               {isFulfilled ? <CheckCircleRoundedIcon /> : <HistoryToggleOffRoundedIcon />}
@@ -229,7 +231,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
               <Tile
                 size="md"
                 transparent
-                className={cls('p-0', ['mr-5', !isXs], ['ml-5', !isXs])}
+                className={cls('p-0!', ['mr-5', !isXs], ['ml-5', !isXs])}
                 value={tokenSymbol.toUpperCase()}
                 text="Token Used"
                 grow
@@ -240,12 +242,12 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
               <Tile
                 size="md"
                 transparent
-                className={cls('p-0', ['mr-5', !isXs], ['ml-5', !isXs])}
+                className={cls('p-0!', ['mr-5', !isXs], ['ml-5', !isXs])}
                 value={`ID: ${payment.id.toString()}`}
                 text="Payment ID"
                 grow
                 ri={!isXs}
-                icon={<PaymentsRoundedIcon />}
+                icon={<IdCard size={17} />}
               />
             </SkStack>
             {isAdmin && (

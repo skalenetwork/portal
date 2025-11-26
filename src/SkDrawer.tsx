@@ -238,9 +238,6 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                       <BadgeDollarSign className="text-foreground" size={18} />
                     </ListItemIcon>
                     <ListItemText primary="Chain Credits" />
-                    <div className="chipNew">
-                      <p className="text-xs">NEW</p>
-                    </div>
                   </ListItemButton>
                 </Link>
               </ListItem>

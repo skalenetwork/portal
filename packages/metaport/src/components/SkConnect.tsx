@@ -27,6 +27,7 @@ import Button from '@mui/material/Button'
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 
 import { useMetaportStore } from '../store/MetaportStore'
+import { Wallet } from 'lucide-react'
 
 export default function SkConnect() {
   const transferInProgress = useMetaportStore((state) => state.transferInProgress)
@@ -68,6 +69,7 @@ export default function SkConnect() {
                       size="medium"
                       className="btn-action mt-5 w-full my-4! p-4! bg-accent-foreground! text-accent! capitalize!"
                       onClick={openConnectModal}
+                      startIcon={<Wallet size={17} />}
                     >
                       Connect Wallet
                     </Button>
