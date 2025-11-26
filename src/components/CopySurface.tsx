@@ -23,7 +23,7 @@
 
 import { useState, useEffect } from 'react'
 import { type types, constants } from '@/core'
-import { cmn, cls, styles, TokenIcon } from '@skalenetwork/metaport'
+import { TokenIcon } from '@skalenetwork/metaport'
 
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Tooltip from '@mui/material/Tooltip'
@@ -59,11 +59,14 @@ export default function CopySurface(props: {
     <div className={props.className}>
       <CopyToClipboard text={props.value} onCopy={handleClick}>
         <Tooltip title={copied ? 'Copied!' : 'Click to copy to clipboard'}>
-          <ButtonBase className="titleSection" style={{ width: '100%', height: '100%' }}>
-            <div style={{ textAlign: 'left', overflow: 'auto' }} className={cmn.flexg}>
-              <div className={cls(cmn.flex)}>
+          <ButtonBase
+            className="bg-background! p-5! rounded-3xl!"
+            style={{ width: '100%', height: '100%' }}
+          >
+            <div style={{ textAlign: 'left', overflow: 'auto' }} className="grow">
+              <div className="flex">
                 {props.tokenMetadata ? (
-                  <div className={cls(cmn.mri5)}>
+                  <div className="mr-1.5">
                     <TokenIcon
                       size="xs"
                       tokenSymbol={props.tokenMetadata.symbol}
@@ -71,22 +74,19 @@ export default function CopySurface(props: {
                     />
                   </div>
                 ) : null}
-                <p className={cls(cmn.p, cmn.p4, cmn.pSec, cmn.mbott5)}>
+                <p className="text-xs text-secondary-foreground mb-1.5">
                   {props.title}
                   {props.tokenMetadata
                     ? ` (${props.tokenMetadata.decimals ?? constants.DEFAULT_ERC20_DECIMALS})`
                     : null}
                 </p>
               </div>
-              <p className={cls(cmn.p, cmn.p2, cmn.p600, 'shortP')}>{props.value}</p>
+              <p className="text-base font-semibold shortP text-foreground">{props.value}</p>
             </div>
             {copied ? (
-              <CheckCircleRoundedIcon
-                color="success"
-                className={cls(cmn.mleft20, styles.chainIconxs)}
-              />
+              <CheckCircleRoundedIcon color="success" className="ml-5 text-[17px]!" />
             ) : (
-              <ContentCopyIcon className={cls(cmn.pSec, cmn.mleft20, styles.chainIconxs)} />
+              <ContentCopyIcon className="text-secondary-foreground ml-5 text-[17px]!" />
             )}
           </ButtonBase>
         </Tooltip>

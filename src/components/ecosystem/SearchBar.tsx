@@ -28,7 +28,6 @@ import IconButton from '@mui/material/IconButton'
 import SearchIcon from '@mui/icons-material/Search'
 import ClearIcon from '@mui/icons-material/Clear'
 import Tooltip from '@mui/material/Tooltip'
-import { cmn, cls, styles } from '@skalenetwork/metaport'
 
 interface SearchBarProps {
   searchTerm: string
@@ -43,7 +42,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
   onClear,
   className
 }) => (
-  <div className={cls(cmn.flex, cmn.flexcv, className)}>
+  <div className={`flex items-center ${className || ''}`}>
     <TextField
       fullWidth
       className="skInput"
@@ -53,13 +52,13 @@ const SearchBar: React.FC<SearchBarProps> = ({
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
-            <SearchIcon className={cls(cmn.pPrim, styles.chainIcons)} />
+            <SearchIcon className="primary" />
           </InputAdornment>
         ),
         endAdornment: (
           <Tooltip title="Clear all" arrow>
             <IconButton onClick={onClear} size="small">
-              <ClearIcon className={cls(cmn.pSec, styles.chainIconxs)} />
+              <ClearIcon className="'primary" />
             </IconButton>
           </Tooltip>
         )

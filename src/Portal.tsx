@@ -26,14 +26,7 @@ import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
 
 import { type types, endpoints, networks } from '@/core'
-import {
-  useMetaportStore,
-  useWagmiAccount,
-  Debug,
-  cls,
-  cmn,
-  contracts
-} from '@skalenetwork/metaport'
+import { useMetaportStore, useWagmiAccount, Debug, contracts } from '@skalenetwork/metaport'
 
 import Header from './Header'
 import SkDrawer from './SkDrawer'
@@ -148,7 +141,7 @@ export default function Portal() {
       <CssBaseline />
       <Header address={address} mpc={mpc} openProfileModal={openProfileModal} />
       <SkDrawer validatorDelegations={validatorDelegations} />
-      <div className={cls(cmn.fullWidth)} id="appContentScroll">
+      <div className="w-full" id="appContentScroll">
         <Router
           loadData={loadData}
           schains={schains}
@@ -162,7 +155,7 @@ export default function Portal() {
           loadValidator={loadValidator}
         />
         <ProfileModal isOpen={isProfileModalOpen} onClose={closeProfileModal} />
-        <div className={cls(cmn.mtop20, cmn.fullWidth)}>
+        <div className="mt-5 w-full">
           <Debug />
         </div>
       </div>

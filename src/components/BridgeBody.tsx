@@ -34,8 +34,6 @@ import {
   useMetaportStore,
   useUIStore,
   useWagmiAccount,
-  cls,
-  cmn,
   AmountErrorMessage,
   TokenBalance,
   DestTokenBalance,
@@ -85,7 +83,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
       <Collapse in={!!errorMessage}>
         <ErrorMessage errorMessage={errorMessage} />
       </Collapse>
-      <SkPaper background={sourceBg} className={cmn.nop}>
+      <SkPaper gray className="p-0!">
         <Collapse in={showFrom()}>
           <ChainsList
             config={mpc.config}
@@ -109,13 +107,6 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
             }
           />
         </Collapse>
-
-        <Collapse in={showInput()}>
-          <SkPaper gray className={cls()}>
-            <AmountInput />
-            <AmountErrorMessage />
-          </SkPaper>
-        </Collapse>
       </SkPaper>
 
       <Collapse in={showSwitch()}>
@@ -123,7 +114,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
       </Collapse>
 
       <Collapse in={showTo()}>
-        <SkPaper background={destBg} className={cmn.nop}>
+        <SkPaper gray className="p-0!">
           <ChainsList
             config={mpc.config}
             chain={chainName2}
@@ -137,14 +128,15 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
           />
         </SkPaper>
       </Collapse>
-      <Collapse in={showCP()}>
-        <SkPaper gray className={cmn.nop}>
-          <CommunityPool />
+      <Collapse in={showInput()} className="mt-3.5">
+        <SkPaper gray>
+          <AmountInput />
+          <AmountErrorMessage />
         </SkPaper>
       </Collapse>
 
       <Collapse in={showWT(address!)}>
-        <SkPaper gray className={cmn.nop}>
+        <SkPaper gray className="p-0!">
           <WrappedTokens />
         </SkPaper>
       </Collapse>
@@ -153,9 +145,15 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
         <SFuelWarning />
       </Collapse>
 
+      <Collapse in={showCP()}>
+        <SkPaper gray className="p-0!">
+          <CommunityPool />
+        </SkPaper>
+      </Collapse>
+
       {!address ? <SkConnect /> : null}
 
-      <Collapse in={showStepper(address!)} className={cmn.mtop20}>
+      <Collapse in={showStepper(address!)} className="mt-3.5">
         <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
       </Collapse>
 

@@ -14,12 +14,12 @@ export default function DestTokenBalance() {
   const updateDestTokenBalance = useMetaportStore((state) => state.updateDestTokenBalance)
 
   useEffect(() => {
-    updateDestTokenBalance(address) // Fetch users immediately on component mount
+    updateDestTokenBalance(address)
     const intervalId = setInterval(() => {
       updateDestTokenBalance(address)
     }, BALANCE_UPDATE_INTERVAL_MS)
     return () => {
-      clearInterval(intervalId) // Clear interval on component unmount
+      clearInterval(intervalId)
     }
   }, [updateDestTokenBalance, token, address])
 

@@ -35,11 +35,12 @@ import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import { BALANCE_UPDATE_INTERVAL_MS, SFUEL_TEXT } from '../core/constants'
 import { Station } from '../core/sfuel'
 import { isFaucetAvailable } from '../core/faucet'
+import { styles } from '../core/css'
 
 import { useMetaportStore } from '../store/MetaportStore'
 import { useSFuelStore } from '../store/SFuelStore'
+import SkPaper from './SkPaper'
 
-import { cls, cmn, styles } from '../core/css'
 
 const log = new Logger<ILogObj>({ name: 'metaport:components:SFuel' })
 
@@ -171,7 +172,7 @@ export default function SFuelWarning(props: {}) {
 
   if (loading && chainName2)
     return (
-      <div className={cls(cmn.mleft10, cmn.mri10, cmn.mtop20, cmn.mbott10)}>
+      <div className="ml-2.5 mr-2.5 mt-5 mb-2.5">
         <LinearProgress />
       </div>
     )
@@ -193,50 +194,44 @@ export default function SFuelWarning(props: {}) {
 
   return (
     <Collapse in={!loading && !isOk}>
-      <div className={cls(cmn.mtop20, cmn.mbott5)}>
-        <p className={cls(cmn.flex, cmn.p3, cmn.p, cmn.pPrim, cmn.flexGrow, cmn.mleft10)}>
-          ⛽ {getSFuelText()}
-        </p>
-        {!sFuelBtn || noEth ? (
-          <p
-            className={cls(
-              cmn.flex,
-              cmn.p3,
-              cmn.p,
-              cmn.pPrim,
-              cmn.flexGrow,
-              cmn.mleft10,
-              cmn.mtop10
-            )}
-          >
-            ❗️ Faucet is not available for one of the selected chains
+      <SkPaper gray className="px-6! py-2! mt-3.5 mb-3.5">
+        <div className="mt-5 mb-5">
+          <p className="flex text-sm text-foreground grow ml-2.5 font-semibold">
+            ⛽ {getSFuelText()}
           </p>
-        ) : (
-          <div>
-            {mining ? (
-              <Button
-                disabled
-                startIcon={<ArrowOutwardRoundedIcon />}
-                size="small"
-                variant="contained"
-                className={cls(styles.btnAction, cmn.mtop10)}
-              >
-                Getting sFUEL...
-              </Button>
-            ) : (
-              <Button
-                variant="contained"
-                color="primary"
-                size="medium"
-                className={cls(styles.btnAction, cmn.mtop10)}
-                onClick={doPoW}
-              >
-                Get sFUEL
-              </Button>
-            )}
-          </div>
-        )}
-      </div>
+          {!sFuelBtn || noEth ? (
+            <p
+              className="flex text-sm text-foreground grow ml-2.5 mt-2.5 font-semibold"
+            >
+              ❗️ Faucet is not available for one of the selected chains
+            </p>
+          ) : (
+            <div>
+              {mining ? (
+                <Button
+                  disabled
+                  startIcon={<ArrowOutwardRoundedIcon />}
+                  size="small"
+                  variant="contained"
+                  className={`${styles.btnAction} mt-2.5`}
+                >
+                  Getting sFUEL...
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="medium"
+                  className={`${styles.btnAction} mt-2.5`}
+                  onClick={doPoW}
+                >
+                  Get sFUEL
+                </Button>
+              )}
+            </div>
+          )}
+        </div>
+      </SkPaper>
     </Collapse>
   )
 }

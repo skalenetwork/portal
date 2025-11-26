@@ -26,7 +26,7 @@ import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'
 import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
 
-import { cls, styles, cmn, RainbowConnectButton } from '@skalenetwork/metaport'
+import { RainbowConnectButton } from '@skalenetwork/metaport'
 import { helper } from '@/core'
 import Avatar from 'boring-avatars'
 import { AVATAR_COLORS } from '../core/constants'
@@ -46,10 +46,10 @@ export default function AccountMenu(props: any) {
                     onClick={() => {
                       openConnectModal()
                     }}
-                    className={cls(styles.paperGrey, cmn.pPrim, 'mp__btnConnect', cmn.flex)}
+                    className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! normal-case! rounded-full min-w-0!"
                   >
                     <LooksRoundedIcon
-                      className={cmn.mri5}
+                      className="mr-1.5"
                       style={{ height: '18px', width: '18px' }}
                     />
                     Connect wallet
@@ -60,12 +60,12 @@ export default function AccountMenu(props: any) {
           </div>
         </Tooltip>
       ) : (
-        <Tooltip arrow title="Click to open profile">
+        <Tooltip arrow title="Click to open wallet details">
           <Button
             onClick={openProfileModal}
-            className={cls(styles.paperGrey, cmn.pPrim, 'mp__btnConnect', cmn.flex)}
+            className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! normal-case! rounded-full min-w-0!"
           >
-            <div className={cls(cmn.mri5, cmn.flex)}>
+            <div className="mr-1.5 flex">
               <Avatar variant="marble" name={props.address} colors={AVATAR_COLORS} size={20} />
             </div>
             {helper.shortAddress(props.address)}

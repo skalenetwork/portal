@@ -1,13 +1,11 @@
-@use './variables' as *;
-
 .paper {
     padding: 10px;
-    border-radius: $sk-border-radius;
+    border-radius: var(--radius);
     backdrop-filter: blur(6px);
 }
 
 .paperGrey {
-    background-color: $sk-paper-color !important;
+    background-color: var(--card) !important;
 }
 
 .fullHeight {
@@ -30,7 +28,7 @@
     max-width: 390px;
     max-height: calc(100vh - 110pt);
     padding: 10pt;
-    border-radius: $sk-border-radius-outter;
+    border-radius: var(--radius-xl);
     border: 1px rgba(127, 127, 127, .2705882353) solid;
 }
 
@@ -45,7 +43,7 @@
 
     .sk__btnSwitch {
         :global(.Mui-disabled) {
-            background-color: $sk-paper-color !important;
+            background-color: var(--card) !important;
         }
     }
 
@@ -62,7 +60,7 @@
     }
 
     :global(.Mui-completed) {
-        color: $sk-disabled-dark;
+        color: rgba(255, 255, 255, 0.5);
     }
 
     .action_transferDone,
@@ -145,7 +143,7 @@
     }
 
     :global(.Mui-completed) {
-        color: $sk-disabled-light;
+        color: rgba(0, 0, 0, 0.38);
     }
 }
 
@@ -197,7 +195,7 @@ button {
     :global(.MuiButton-root) {
         font-weight: 600 !important;
         box-shadow: none !important;
-        border-radius: $sk-border-radius !important;
+        border-radius: var(--radius) !important;
     }
 
     :global(.Mui-disabled) {
@@ -216,7 +214,7 @@ button {
 .widgetContent {
     max-height: calc(100vh - 180px);
     overflow-y: auto;
-    border-radius: $sk-border-radius-outter !important;
+    border-radius: var(--radius-xl) !important;
 }
 
 .contentHeight {
@@ -226,7 +224,7 @@ button {
 
 
 .imaWidgetBody {
-    border-radius: $sk-border-radius-outter !important;
+    border-radius: var(--radius-xl) !important;
     position: fixed;
 }
 
@@ -362,8 +360,8 @@ button {
     font-weight: 600 !important;
     padding-top: 0.9em !important;
     padding-bottom: 0.9em !important;
-    min-height: $sk-btn-height !important;
-    border-radius: $sk-border-radius !important;
+    min-height: var(--btn-height) !important;
+    border-radius: var(--radius) !important;
     box-shadow: none !important;
 }
 
@@ -429,6 +427,11 @@ button {
     padding-right: 11pt !important;
 }
 
+.inputAmountLight {
+    input {
+        color: black;
+    }
+}
 
 .inputAmount {
 
@@ -446,9 +449,9 @@ button {
 
     :global(input) {
         border-radius: 4px 0 0 4px;
-        padding: 9pt 15pt;
+        padding: 15px 17px;
         font-weight: bold !important;
-        font-size: 22px;
+        font-size: 28px;
         transition: font-size 0.2s ease-in-out;
     }
 
@@ -477,11 +480,18 @@ button {
 }
 
 
+
+.skInputLight {
+    input {
+        color: black;
+    }
+}
+
 .skInput {
     .MuiInputBase-root {
         min-height: 53px;
         border-radius: 35px !important;
-        border: 1px $border-color solid;
+        border: 1px var(--border) solid;
         font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
             'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
             sans-serif !important;
@@ -496,7 +506,7 @@ button {
     }
 
     input {
-        font-size: 0.8025rem !important;
+        font-size: 0.9025rem !important;
         line-height: 1.6 !important;
         letter-spacing: 0.02857em !important;
         font-weight: 600 !important;
@@ -509,12 +519,12 @@ button {
 }
 
 .filled {
-    background: $sk-bg;
+    background: var(--background);
     padding: 5px 10px 5px 5px !important;
 }
 
 .filledActive {
-    background: $sk-bg;
+    background: var(--background);
 }
 
 .disabledCard {
@@ -535,7 +545,7 @@ button {
     margin: 0px -20px 0 -10px;
     z-index: 99;
     border: 6px #181818 solid;
-    background: $sk-prim;
+    background: var(--primary);
     border-radius: 50%;
     color: black;
 }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useWalletClient, useSwitchChain, useAccount } from 'wagmi'
 import { useAddRecentTransaction } from '@rainbow-me/rainbowkit'
-import { type types, metadata, helper, constants } from '@/core'
+import { type types, metadata, helper, constants, dc } from '@/core'
 
 import Box from '@mui/material/Box'
 import Stepper from '@mui/material/Stepper'
@@ -14,7 +14,6 @@ import Collapse from '@mui/material/Collapse'
 import SettingsBackupRestoreRoundedIcon from '@mui/icons-material/SettingsBackupRestoreRounded'
 import AnimatedLoadingIcon from '../AnimatedLoadingIcon'
 
-import { cls, cmn, styles } from '../../core/css'
 import localStyles from './SkStepper.module.scss'
 
 import ChainIcon from '../ChainIcon'
@@ -24,8 +23,24 @@ import { useMetaportStore } from '../../store/MetaportStore'
 import { useCPStore } from '../../store/CommunityPoolStore'
 import { SUCCESS_EMOJIS } from '../../core/constants'
 import { CHAINS_META } from '../../core/metadata'
+import { Send, SendToBack } from 'lucide-react'
+
+//
 
 export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
+  const actionIconMap: Record<dc.ActionType, any> = {
+    erc20_m2s: <Send size={17} />,
+    erc20_s2m: <Send size={17} />,
+    erc20_s2s: <Send size={17} />,
+    eth_m2s: <Send size={17} />,
+    eth_s2m: <Send size={17} />,
+    eth_s2s: <Send size={17} />,
+    eth_unlock: <Send size={17} />,
+    wrap: <SendToBack size={17} />,
+    unwrap: <SendToBack size={17} />,
+    unwrap_stuck: <SendToBack size={17} />
+  }
+
   const { address, chainId } = useAccount()
   const { switchChainAsync } = useSwitchChain()
   const addRecentTransaction = useAddRecentTransaction()
@@ -83,18 +98,49 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
 
   const chainsMeta = CHAINS_META[props.skaleNetwork]
 
+  if (stepsMetadata && stepsMetadata.length === 1) {
+    let step = stepsMetadata[0]
+    return (<div>
+      {loading ? (
+        <Button
+          disabled
+          startIcon={<AnimatedLoadingIcon />}
+          variant="contained"
+          size="medium"
+          className="btn-action p-4! w-full capitalize! bg-accent-foreground/50!"
+        >
+          {btnText}
+        </Button>
+      ) : (
+        <Button
+          startIcon={actionIconMap[step.type]}
+          variant="contained"
+          size="medium"
+          className={`
+            btn-action w-full normal-case! text-accent! p-4!
+            ${actionDisabled ? 'bg-muted-foreground/30! dark:bg-muted-foreground/10! text-muted! pointer-events-none' : 'bg-accent-foreground!'}
+            ease-in-out transition-transform duration-150 active:scale-[0.97]`}
+          onClick={() => execute(address, switchChainAsync, walletClient)}
+          disabled={!!actionDisabled}
+        >
+          {Number(amount) === 0 ? 'Enter an amount' : step.btnText}
+        </Button>
+      )}
+    </div>)
+  }
+
   return (
     <Collapse in={stepsMetadata && stepsMetadata.length !== 0}>
-      <Box className={cls()}>
+      <Box>
         <Collapse in={currentStep !== stepsMetadata.length}>
-          <Stepper className={localStyles.stepper} activeStep={currentStep} orientation="vertical">
+          <Stepper className={localStyles.stepper} activeStep={currentStep} orientation="vertical" >
             {stepsMetadata.map((step, i) => (
-              <Step key={i}>
+              <Step key={i} >
                 <StepLabel className={localStyles.labelStep}>
-                  <div className={cls(cmn.flex, cmn.flexcv)}>
-                    <div className={cls(cmn.flex, cmn.flexcv)}>
-                      <h4 className={cls(cmn.nom, cmn.flex)}>{step.headline}</h4>
-                      <div className={cls(cmn.mleft5, cmn.mri5, cmn.flex)}>
+                  <div className="flex items-center ml-1">
+                    <div className="flex items-center">
+                      <h4 className="m-0 flex text-foreground">{step.headline}</h4>
+                      <div className="ml-1.5 mr-1.5 flex">
                         <ChainIcon
                           skaleNetwork={props.skaleNetwork}
                           chainName={step.onSource ? step.from : step.to}
@@ -102,33 +148,34 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                           chainsMeta={chainsMeta}
                         />
                       </div>
-                      <h4 className={cls(cmn.nom, cmn.flex)}>
+                      <h4 className="m-0 flex text-foreground">
                         {metadata.getAlias(props.skaleNetwork, chainsMeta, step.onSource ? step.from : step.to)}
                       </h4>
                     </div>
                   </div>
                 </StepLabel>
-                <StepContent className={cmn.margTop}>
-                  <Box sx={{ mb: 2 }}>
-                    <p className={cls(cmn.flex, cmn.p, cmn.pSec, cmn.p4, cmn.flexg)}>{step.text}</p>
-                    <div className={cmn.mtop10}>
+                <StepContent className="">
+                  <Box className='my-2!'>
+                    <div className="mt-2.5">
                       {loading ? (
                         <Button
                           disabled
                           startIcon={<AnimatedLoadingIcon />}
                           variant="contained"
-                          color="primary"
                           size="medium"
-                          className={cls(styles.btnAction, cmn.mtop5)}
+                          className="btn-action mt-1.5 p-3.5! w-full capitalize! bg-accent-foreground/50!"
                         >
                           {btnText}
                         </Button>
                       ) : (
                         <Button
+                          startIcon={actionIconMap[step.type]}
                           variant="contained"
-                          color="primary"
                           size="medium"
-                          className={cls(styles.btnAction, cmn.mtop5)}
+                          className={`
+                            btn-action mt-1.5 w-full capitalize! text-accent! p-3.5!
+                            ${actionDisabled ? 'bg-muted-foreground/30! text-muted! pointer-events-none' : 'bg-accent-foreground!'}
+                            ease-in-out transition-transform duration-150 active:scale-[0.97]`}
                           onClick={() => execute(address, switchChainAsync, walletClient)}
                           disabled={!!actionDisabled}
                         >
@@ -143,48 +190,42 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
           </Stepper>
         </Collapse>
 
-        {currentStep === stepsMetadata.length && (
-          <div>
-            <div className={cls(cmn.d)}>
-              <p
-                className={cls(
-                  cmn.p1,
-                  cmn.p,
-                  cmn.p600,
-                  cmn.pPrim,
-                  cmn.flexg,
-                  cmn.pCent,
-                  cmn.mtop20
-                )}
-              >
-                {emoji} Transfer completed
-              </p>
-              <p
-                className={cls(cmn.p3, cmn.p, cmn.p600, cmn.pSec, cmn.flexg, cmn.pCent, cmn.mtop5)}
-              >
-                Transfer details are available in History section
-              </p>
-            </div>
-            <div className={cls(cmn.flex, cmn.mtop20)}>
-              <AddToken
-                token={token}
-                destChainName={chainName2}
-                mpc={mpc}
-                provider={ima2.provider}
-              />
-              <Button
-                onClick={startOver}
-                color="primary"
-                size="medium"
-                className={cls(styles.btnAction)}
-                startIcon={<SettingsBackupRestoreRoundedIcon />}
-              >
-                Start over
-              </Button>
-            </div>
-          </div>
-        )}
-      </Box>
-    </Collapse>
+        {
+          currentStep === stepsMetadata.length && (
+            <div>
+              <div className="block">
+                <p
+                  className="text-base font-semibold text-primary grow text-center mt-5"
+                >
+                  {emoji} Transfer completed
+                </p>
+                <p
+                  className="text-sm font-semibold text-secondary-foreground grow text-center mt-1.5"
+                >
+                  Transfer details are available in History section
+                </p>
+              </div>
+              <div className="flex mt-5">
+                <AddToken
+                  token={token}
+                  destChainName={chainName2}
+                  mpc={mpc}
+                  provider={ima2.provider}
+                />
+                <Button
+                  onClick={startOver}
+                  color="primary"
+                  size="medium"
+                  className="styles.btnAction"
+                  startIcon={<SettingsBackupRestoreRoundedIcon />}
+                >
+                  Start over
+                </Button>
+              </div>
+            </div >
+          )
+        }
+      </Box >
+    </Collapse >
   )
 }

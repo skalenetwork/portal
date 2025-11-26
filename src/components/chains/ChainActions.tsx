@@ -23,7 +23,7 @@
 
 import React from 'react'
 import { IconButton, Tooltip } from '@mui/material'
-import { cls, cmn, explorer } from '@skalenetwork/metaport'
+import { explorer } from '@skalenetwork/metaport'
 import { type types } from '@/core'
 import LanguageIcon from '@mui/icons-material/Language'
 import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
@@ -42,10 +42,9 @@ const ChainActions: React.FC<ChainActionsProps> = ({
   className
 }) => {
   const explorerUrl = explorer.getExplorerUrl(chainMeta, skaleNetwork, schainName)
-  const isMd = false
 
   return (
-    <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10, className)}>
+    <div className={`flex items-center mt-2.5 ${className}`}>
       {chainMeta && chainMeta.url && (
         <Tooltip title="Website">
           <IconButton
@@ -53,9 +52,9 @@ const ChainActions: React.FC<ChainActionsProps> = ({
             href={chainMeta.url}
             target="_blank"
             rel="noopener noreferrer"
-            className={cls([cmn.pPrim, isMd], ['bgBlack', isMd])}
+            className="text-primary"
           >
-            <LanguageIcon className={cls(cmn.pSec)} fontSize="small" />
+            <LanguageIcon className="text-secondary-foreground" fontSize="small" />
           </IconButton>
         </Tooltip>
       )}
@@ -65,9 +64,9 @@ const ChainActions: React.FC<ChainActionsProps> = ({
           href={explorerUrl}
           target="_blank"
           rel="noopener noreferrer"
-          className={cls([cmn.pPrim, isMd], ['bgBlack', isMd])}
+          className="text-primary"
         >
-          <ViewInArRoundedIcon className={cls(cmn.pSec)} fontSize="small" />
+          <ViewInArRoundedIcon className="text-secondary-foreground" fontSize="small" />
         </IconButton>
       </Tooltip>
     </div>

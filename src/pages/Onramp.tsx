@@ -25,15 +25,7 @@ import { useEffect, useState } from 'react'
 import { Helmet } from 'react-helmet'
 
 import { constants } from '@/core'
-import {
-  cmn,
-  cls,
-  SkPaper,
-  MetaportCore,
-  useWagmiAccount,
-  contracts,
-  Tile
-} from '@skalenetwork/metaport'
+import { SkPaper, MetaportCore, useWagmiAccount, contracts, Tile } from '@skalenetwork/metaport'
 import { TransakConfig, Transak } from '@transak/transak-sdk'
 
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
@@ -69,7 +61,7 @@ export default function Onramp(props: { mpc: MetaportCore }) {
           text="Temporary unavailable"
           icon={<ErrorRoundedIcon />}
           color="warning"
-          className={cls(cmn.mtop20)}
+          className="mt-5"
         />
       </Container>
     )
@@ -82,7 +74,7 @@ export default function Onramp(props: { mpc: MetaportCore }) {
           text="Error occurred"
           icon={<ErrorRoundedIcon />}
           color="warning"
-          className={cls(cmn.mtop20)}
+          className="mt-5"
         />
       </Container>
     )
@@ -95,7 +87,7 @@ export default function Onramp(props: { mpc: MetaportCore }) {
           text="Error occurred"
           icon={<ErrorRoundedIcon />}
           color="warning"
-          className={cls(cmn.mtop20)}
+          className="mt-5"
         />
       </Container>
     )
@@ -139,10 +131,10 @@ export default function Onramp(props: { mpc: MetaportCore }) {
         <meta property="og:description" content={META_TAGS.onramp.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className={cls(cmn.flex, cmn.flexcv)}>
-          <div className={cmn.flexg}>
-            <h2 className={cls(cmn.nom)}>On-ramp</h2>
-            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+        <div className="flex items-center">
+          <div className="grow">
+            <h2 className="m-0 text-xl font-bold text-foreground">On-ramp</h2>
+            <p className="m-0 'text-sm' text-secondary-foreground">
               Transfer your assets to SKALE Europa Hub
             </p>
           </div>
@@ -150,7 +142,7 @@ export default function Onramp(props: { mpc: MetaportCore }) {
         </div>
         {!isProd ? (
           <Message
-            className={cls(cmn.mtop20)}
+            className="mt-5"
             text="You are using staging environment"
             icon={<HardwareRoundedIcon />}
             type="warning"
@@ -159,12 +151,12 @@ export default function Onramp(props: { mpc: MetaportCore }) {
           <div> </div>
         )}
         {address ? (
-          <SkPaper gray className={cls(cmn.mtop20)}>
-            <div id="transakMount" className={cls('transakFrame', cmn.mtop5)}></div>
+          <SkPaper gray className="mt-5">
+            <div id="transakMount" className="'transakFrame', 'mt-1.25'"></div>
             <TokenBalanceTile mpc={props.mpc} chain={chain} />
           </SkPaper>
         ) : (
-          <ConnectWallet className={cmn.mtop20} />
+          <ConnectWallet className="mt-5" />
         )}
       </Stack>
     </Container>

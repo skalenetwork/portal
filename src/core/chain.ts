@@ -28,21 +28,43 @@ export function formatSChains(schainsData: types.ISChainData[]): types.ISChain[]
   return schainsData.map((schainData) => formatSChain(schainData.schain))
 }
 
-function formatSChain(schainArray: types.TSChainArray): types.ISChain {
+function formatSChain(schain: types.ISChainProxy | types.TSChainArray): types.ISChain {
+  const isArray = Array.isArray(schain)
+  if (isArray) {
+    const schainArray = schain as types.TSChainArray
+    return {
+      name: schainArray[0],
+      mainnetOwner: schainArray[1],
+      indexInOwnerList: schainArray[2],
+      partOfNode: schainArray[3],
+      lifetime: schainArray[4],
+      startDate: schainArray[5],
+      startBlock: schainArray[6],
+      deposit: schainArray[7],
+      index: schainArray[8],
+      generation: schainArray[9],
+      originator: schainArray[10],
+      multitransactionMode: schainArray[11],
+      thresholdEncryption: schainArray[12],
+      allocationType: 0
+    }
+  }
+  const schainProxy = schain as types.ISChainProxy
   return {
-    name: schainArray[0],
-    mainnetOwner: schainArray[1],
-    indexInOwnerList: schainArray[2],
-    partOfNode: schainArray[3],
-    lifetime: schainArray[4],
-    startDate: schainArray[5],
-    startBlock: schainArray[6],
-    deposit: schainArray[7],
-    index: schainArray[8],
-    generation: schainArray[9],
-    originator: schainArray[10],
-    multitransactionMode: schainArray[11],
-    thresholdEncryption: schainArray[12]
+    name: schainProxy['name'],
+    mainnetOwner: schainProxy['mainnet_owner'],
+    indexInOwnerList: schainProxy['index_in_owner_list'],
+    partOfNode: schainProxy['part_of_node'],
+    lifetime: schainProxy['lifetime'],
+    startDate: schainProxy['start_date'],
+    startBlock: schainProxy['start_block'],
+    deposit: schainProxy['deposit'],
+    index: schainProxy['index'],
+    generation: schainProxy['generation'],
+    originator: schainProxy['originator'],
+    multitransactionMode: schainProxy['options']['multitransaction_mode'],
+    thresholdEncryption: schainProxy['options']['threshold_encryption'],
+    allocationType: schainProxy['options']['allocation_type']
   }
 }
 

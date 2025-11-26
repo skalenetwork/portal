@@ -28,14 +28,16 @@ import { dc, units } from '@/core'
 import TextField from '@mui/material/TextField'
 import { Button } from '@mui/material'
 
-import { cls, cmn, styles } from '../core/css'
 import { SFUEL_RESERVE_AMOUNT } from '../core/constants'
 
 import TokenList from './TokenList'
 import { useMetaportStore } from '../store/MetaportStore'
 import { useCollapseStore } from '../store/Store'
+import { styles } from '../core/css'
+import { useThemeMode } from './ThemeProvider'
 
 export default function AmountInput() {
+  const { mode } = useThemeMode()
   const { address } = useAccount()
   const transferInProgress = useMetaportStore((state) => state.transferInProgress)
   const currentStep = useMetaportStore((state) => state.currentStep)
@@ -54,11 +56,11 @@ export default function AmountInput() {
       return
     }
     if (event.target.value.length > 12) {
-      let initialSize = 22 - event.target.value.length / 3
+      let initialSize = 28 - event.target.value.length / 3
       initialSize = initialSize <= 12 ? 12 : initialSize
       event.target.style.fontSize = initialSize + 'px'
     } else {
-      event.target.style.fontSize = '22px'
+      event.target.style.fontSize = '28px'
     }
     setAmount(event.target.value, address)
   }
@@ -74,31 +76,33 @@ export default function AmountInput() {
   }
 
   return (
-    <div className={cls(cmn.flex, styles.inputAmount)}>
-      {expandedTokens ? null : (
-        <div className={cls(cmn.flex, cmn.flexg, cmn.flexcv)}>
-          <TextField
-            type="number"
-            variant="standard"
-            placeholder="0.00"
-            value={amount}
-            onChange={handleChange}
-            disabled={transferInProgress || currentStep !== 0}
-            style={{ width: '100%' }}
-          />
-          <Button
-            size="small"
-            disabled={transferInProgress || currentStep !== 0 || maxAmount === 0n}
-            className={cls(styles.paperGrey, styles.btnXs, cmn.flex, cmn.flexcv, cmn.p5)}
-            onClick={setMaxAmount}
-          >
-            MAX
-          </Button>
-        </div>
-      )}
-      <div className={cls([cmn.fullWidth, expandedTokens])}>
-        <TokenList />
-      </div>
+    <div className={`flex ${styles.inputAmount} ${mode == 'light' && styles.inputAmountLight} items-center`}>
+      {
+        expandedTokens ? null : (
+          <div className="flex grow items-center">
+            <TextField
+              className='text-foreground!'
+              type="number"
+              variant="standard"
+              placeholder="0.00"
+              value={amount}
+              onChange={handleChange}
+              disabled={transferInProgress || currentStep !== 0
+              }
+              style={{ width: '100%' }
+              }
+            />
+            < Button
+              size="small"
+              disabled={transferInProgress || currentStep !== 0 || maxAmount === 0n}
+              className="bg-secondary-foreground/10! flex items-center text-[10px]! py-1! px-3! min-w-0! text-foreground! mr-2!"
+              onClick={setMaxAmount}
+            >
+              MAX
+            </Button>
+          </div>
+        )}
+      <TokenList />
     </div>
   )
 }

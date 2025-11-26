@@ -23,8 +23,6 @@
 import { useState, useEffect } from 'react'
 import { Contract } from 'ethers'
 import {
-  cmn,
-  cls,
   type MetaportCore,
   Tile,
   enforceNetwork,
@@ -40,6 +38,7 @@ import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import DoDisturbOnRoundedIcon from '@mui/icons-material/DoDisturbOnRounded'
 import ToggleOnRoundedIcon from '@mui/icons-material/ToggleOnRounded'
 import ToggleOffRoundedIcon from '@mui/icons-material/ToggleOffRounded'
+import { Badge, BadgeCheck, ToggleLeft, ToggleRight } from 'lucide-react'
 
 interface CreditStationStatusTileProps {
   mpc: MetaportCore
@@ -110,25 +109,24 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
   }
 
   return (
-    <div className={cls(cmn.mtop10)}>
+    <div className="mt-2.5">
       <Tile
         size="lg"
         grow
         text="Credit Station Status"
         value={isPaused ? 'Disabled' : 'Enabled'}
-        textColor={isPaused ? 'error' : 'success'}
         icon={
           isPaused ? (
-            <DoDisturbOnRoundedIcon color="error" />
+            <Badge size={17} className="text-red-600" />
           ) : (
-            <CheckCircleRoundedIcon color="success" />
+            <BadgeCheck size={17} className="text-green-600" />
           )
         }
         childrenRi={
           <Button
             size="medium"
-            startIcon={isPaused ? <ToggleOnRoundedIcon /> : <ToggleOffRoundedIcon />}
-            className={cls('btnMd', 'filled', cmn.mleft10)}
+            startIcon={isPaused ? <ToggleRight size={17} /> : <ToggleLeft size={17} />}
+            className="btnMd bg-secondary-foreground/10! text-foreground! ml-2.5"
             onClick={togglePause}
             disabled={loading || !creditStation}
           >

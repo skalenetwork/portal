@@ -37,14 +37,10 @@ METAPORT_CONFIG.projectId = import.meta.env.VITE_WC_PROJECT_ID
 
 const mpTheme = getMetaportTheme(METAPORT_CONFIG.theme)
 const muiTheme = createMuiTheme(mpTheme)
-const isDarkMode = mpTheme.mode === 'dark'
 
 export default function App() {
   return (
-    <div
-      className={'bridge ' + (isDarkMode ? 'bridge-dark' : 'bridge-light')}
-      style={{ background: mpTheme.background }}
-    >
+    <div className="min-h-screen bg-background">
       <Helmet>
         <title>{META_TAGS.main.title}</title>
         <meta name="description" content={META_TAGS.main.description} />

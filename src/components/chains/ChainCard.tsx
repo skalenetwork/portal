@@ -22,7 +22,7 @@
  */
 
 import { Link } from 'react-router-dom'
-import { cmn, cls, SkPaper } from '@skalenetwork/metaport'
+import { SkPaper, useThemeMode } from '@skalenetwork/metaport'
 import { type types, metadata } from '@/core'
 
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
@@ -44,28 +44,33 @@ const ChainCard: React.FC<{
   transactions: number | null
 }> = ({ skaleNetwork, schain, chainsMeta, transactions }) => {
   const shortAlias = metadata.getChainShortAlias(chainsMeta, schain.name)
+  const { mode } = useThemeMode()
   const url = `/chains/${shortAlias}`
   const chainMeta = chainsMeta[schain.name]
+
+  console.log(mode)
 
   return (
     <SkPaper gray fullHeight className="sk-app-card">
       <Link to={url}>
-        <div className={cls(cmn.flex)}>
+        <div className="flex">
           <div className="sk-app-logo sk-logo-sm br__tile">
             <div
-              className={cls('logo-wrapper borderLight')}
-              style={{ background: metadata.chainBg(skaleNetwork, chainsMeta, schain.name) }}
+              className="logo-wrapper borderLight"
+              style={{
+                background: metadata.chainBg(skaleNetwork, chainsMeta, schain.name, undefined, mode)
+              }}
             >
               <ChainLogo
-                className={cls('responsive-logo')}
+                className="responsive-logo"
                 network={skaleNetwork}
                 chainName={schain.name}
                 logos={MAINNET_CHAIN_LOGOS}
               />
             </div>
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
+            <div className="flex grow"></div>
           </div>
-          <div className={cls(cmn.flexg)}></div>
+          <div className="grow"></div>
           {chainMeta && transactions && (
             <div>
               <Chip
@@ -75,16 +80,16 @@ const ChainCard: React.FC<{
             </div>
           )}
         </div>
-        <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10)}>
-          <p className={cls(cmn.p, cmn.pPrim, cmn.p600, cmn.p1, 'shortP', cmn.flexg, cmn.mri5)}>
+        <div className="flex items-center mt-2.5">
+          <p className="text-foreground font-semibold text-lg grow mr-1.5">
             {metadata.getAlias(skaleNetwork, chainsMeta, schain.name)}
           </p>
         </div>
         <CollapsibleDescription text={chainMeta?.description ?? 'No description'} />
       </Link>
-      <CategoriesChips categories={chainMeta?.categories} className={cls(cmn.mtop20)} />
+      <CategoriesChips categories={chainMeta?.categories} className="mt-5" />
       <ChainActions
-        className={cls(cmn.mtop20)}
+        className="mt-5"
         chainMeta={chainMeta}
         schainName={schain.name}
         skaleNetwork={skaleNetwork}

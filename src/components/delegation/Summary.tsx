@@ -22,7 +22,7 @@
  */
 
 import { helper, types, units } from '@/core'
-import { cmn, cls, styles, TokenIcon, Tile } from '@skalenetwork/metaport'
+import { TokenIcon, Tile } from '@skalenetwork/metaport'
 
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
@@ -38,9 +38,9 @@ import AccordionSection from '../AccordionSection'
 import SkBtn from '../SkBtn'
 
 const icons: { [key in types.st.DelegationType]: any } = {
-  0: <AccountCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />,
-  1: <AccountBalanceRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />,
-  2: <ApartmentRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
+  0: <AccountCircleRoundedIcon className="mr-1.5 text-[17px]! text-secondary-foreground" />,
+  1: <AccountBalanceRoundedIcon className="mr-1.5 text-[17px]! text-secondary-foreground" />,
+  2: <ApartmentRoundedIcon className="mr-1.5 text-[17px]! text-secondary-foreground" />
 }
 
 const SUMMARY_VALIDATOR_ID = -1
@@ -79,7 +79,7 @@ export default function Summary(props: {
         icon={icons[props.type]}
         marg={false}
       >
-        <SkStack className={cls(cmn.mtop5)}>
+        <SkStack className="mt-1.5">
           <Tile
             disabled={props.accountInfo?.balance === 0n}
             tooltip={
@@ -94,13 +94,13 @@ export default function Summary(props: {
             grow
             icon={<TokenIcon tokenSymbol="skl" size="xs" />}
             childrenRi={
-              <SkStack className={cls(cmn.flex)}>
+              <SkStack className="flex">
                 {props.type !== types.st.DelegationType.REGULAR ? (
-                  <div className={cls(cmn.flex)}>
+                  <div className="flex">
                     <Tile
                       size="md"
                       transparent
-                      className={cls(cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs])}
+                      className={`p-0 ${!props.isXs ? 'mr-5 ml-5' : ''}`}
                       value={helper.shortAddress(props.accountInfo?.address)}
                       text="Escrow"
                       grow
@@ -108,9 +108,7 @@ export default function Summary(props: {
                       copy={props.accountInfo?.address}
                       icon={<ContentCopyRoundedIcon />}
                     />
-                    <div
-                      className={cls(['borderVert', !props.isXs], [cmn.mleft10, !props.isXs])}
-                    ></div>
+                    <div className={`${!props.isXs ? 'borderVert ml-2.5' : ''}`}></div>
                   </div>
                 ) : (
                   <div></div>
@@ -118,7 +116,7 @@ export default function Summary(props: {
                 <Tile
                   size="md"
                   transparent
-                  className={cls(cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs])}
+                  className={`p-0 ${!props.isXs ? 'mr-5 ml-5' : ''}`}
                   disabled={props.accountInfo?.staked === 0n}
                   tooltip={
                     props.sklPrice && props.accountInfo
@@ -135,7 +133,7 @@ export default function Summary(props: {
                 />
                 <div className="borderVert"></div>
                 <Tile
-                  className={cls(cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs])}
+                  className={`p-0 ${!props.isXs ? 'mr-5 ml-5' : ''}`}
                   size="md"
                   transparent
                   grow
@@ -165,7 +163,7 @@ export default function Summary(props: {
           <SkStack>
             <Tile
               disabled={props.accountInfo?.vested === 0n}
-              className={cls(cmn.mtop10)}
+              className="mt-2.5"
               tooltip={
                 props.sklPrice && props.accountInfo
                   ? units.displaySklValueUsd(props.accountInfo.vested, props.sklPrice)
@@ -178,7 +176,7 @@ export default function Summary(props: {
               icon={<EventAvailableRoundedIcon />}
               grow
               childrenRi={
-                <SkStack className={cls(cmn.flex)}>
+                <SkStack className="flex">
                   {props.accountInfo?.fullAmount !== undefined ? (
                     <Tile
                       disabled={props.accountInfo?.fullAmount === 0n}
@@ -197,7 +195,7 @@ export default function Summary(props: {
                       grow
                       size="md"
                       transparent
-                      className={cls(cmn.nop, [cmn.mri20, !props.isXs], [cmn.mleft20, !props.isXs])}
+                      className={`p-0 ${!props.isXs ? 'mr-5 ml-5' : ''}`}
                       ri={!props.isXs}
                     />
                   ) : (
@@ -208,7 +206,7 @@ export default function Summary(props: {
                     size="md"
                     transparent
                     disabled={props.accountInfo?.unlocked === 0n}
-                    className={cls(cmn.nop, [cmn.mleft20, !props.isXs])}
+                    className={`p-0 ${!props.isXs ? 'ml-5' : ''}`}
                     tooltip={
                       props.sklPrice && props.accountInfo
                         ? units.displaySklValueUsd(props.accountInfo.unlocked, props.sklPrice)
@@ -224,13 +222,13 @@ export default function Summary(props: {
                     grow
                     ri={!props.isXs}
                     childrenRi={
-                      <div className={cls(cmn.flexcv, cmn.flex)}>
+                      <div className="items-center flex">
                         <SkBtn
                           loading={loading}
                           text={loading ? 'Retrieving' : 'Retrieve'}
                           variant="contained"
                           size="sm"
-                          className={cls([cmn.mleft20, !props.isXs], cmn.flexcv)}
+                          className={`${!props.isXs ? 'ml-5' : ''} items-center`}
                           disabled={
                             props.accountInfo?.unlocked === 0n ||
                             props.loading !== false ||

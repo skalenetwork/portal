@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cls, cmn, Tile } from '@skalenetwork/metaport'
+import { Tile } from '@skalenetwork/metaport'
 
 import Button from '@mui/material/Button'
 import Collapse from '@mui/material/Collapse'
@@ -49,7 +49,7 @@ export default function ErrorTile(props: {
                 if (props.setErrorMsg === undefined) return
                 props.setErrorMsg(undefined)
               }}
-              className={cls('blackP', cmn.p, cmn.p4, cmn.mtop10)}
+              className="'blackP' text-xs mt-2.5"
               style={{ background: 'rgba(0, 0, 0, 0.3)' }}
             >
               Close

@@ -50,7 +50,6 @@ export const BALANCE_UPDATE_INTERVAL_MS = _BALANCE_UPDATE_INTERVAL_SECONDS * 100
 export const TRANSAK_STAGING_ENV = import.meta.env.VITE_TRANSAK_STAGING_ENV === 'true'
 export const TRANSAK_API_KEY = import.meta.env.VITE_TRANSAK_API_KEY
 export const DISABLE_TRANSAK = import.meta.env.VITE_DISABLE_TRANSAK === 'true'
-export const DISABLE_BRIDGE = import.meta.env.VITE_DISABLE_BRIDGE === 'true'
 
 export const STATS_API: { [key in types.SkaleNetwork]: string | null } = {
   mainnet: 'https://stats.explorer.mainnet.skalenodes.com/v2/stats/',
@@ -101,7 +100,7 @@ export type PathConfigsType = typeof PATH_CONFIGS
 export const NETWORKS = networks.parse(import.meta.env.VITE_NETWORKS)
 
 export const CREDITS_CONFIRMATION_BLOCKS = 2
-export const DEFAULT_CREDITS_AMOUNT = 1n
+export const DEFAULT_CREDITS_AMOUNT = 40n
 
 export const AVATAR_COLORS = [
   '#efeecc',
@@ -115,4 +114,16 @@ export const AVATAR_COLORS = [
   '#256EFF',
   '#31E981',
   '#ffbf81'
+]
+
+export const HOME_CARD_COLORS = [
+  '#ff699b',
+  '#ff5c59',
+  '#e2ffd1',
+  '#ffd1ea',
+  '#b3ccff',
+  '#ffb5cc',
+  '#5ce6f2',
+  '#efeecc',
+  '#ffa945'
 ]
