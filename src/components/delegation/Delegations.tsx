@@ -21,7 +21,6 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, styles } from '@skalenetwork/metaport'
 import Skeleton from '@mui/material/Skeleton'
 import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
 import PieChartRoundedIcon from '@mui/icons-material/PieChartRounded'
@@ -59,21 +58,21 @@ export default function Delegations(props: {
       <Headline
         size="small"
         text="Delegations"
-        icon={<AllInboxRoundedIcon className={cls(styles.chainIconxs)} />}
+        icon={<AllInboxRoundedIcon className="text-[17px]!" />}
       />
-      <div className={cls(cmn.mtop10)} style={{ paddingBottom: '5px' }}></div>
+      <div className="mt-2.5" style={{ paddingBottom: '5px' }}></div>
       {!loaded ? (
         <div>
-          <Skeleton variant="rectangular" height={86} className={cls(cmn.mbott10)} />
-          <div className={cls('nestedSection', ['nestedSectionXs', props.isXs])}>
-            <Skeleton variant="rectangular" height={83} className={cls(cmn.mbott10)} />
+          <Skeleton variant="rectangular" height={86} className="mb-2.5" />
+          <div className="'nestedSection', ['nestedSectionXs', props.isXs]">
+            <Skeleton variant="rectangular" height={83} className="mb-2.5" />
           </div>
         </div>
       ) : null}
       {loaded && noDelegations ? (
-        <div className={cls(cmn.mtop20)}>
-          <PieChartRoundedIcon className={cls(cmn.pSec, styles.chainIconlg, cmn.fullWidth)} />
-          <h3 className={cls(cmn.p, cmn.p700, cmn.pSec, cmn.pCent, cmn.mtop5, cmn.mbott20)}>
+        <div className="mt-5">
+          <PieChartRoundedIcon className="text-secondary-foreground styles.chainIconlg w-full" />
+          <h3 className="font-bold text-secondary-foreground text-center mt-1.5 mb-5">
             No tokens staked
           </h3>
         </div>

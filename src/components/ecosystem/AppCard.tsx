@@ -22,7 +22,6 @@
  */
 
 import { Link } from 'react-router-dom'
-import { cmn, cls } from '@skalenetwork/metaport'
 import { type types, metadata } from '@/core'
 
 import Button from '@mui/material/Button'
@@ -42,9 +41,9 @@ export default function AppCard(props: {
 
   return (
     <div>
-      <div className="fl-centered">
+      <div className="flex justify-center items-center">
         <div
-          className={cls('br__tile borderLight radius')}
+          className="'br__tile borderLight radius'"
           style={{
             background: metadata.chainBg(
               props.skaleNetwork,
@@ -54,9 +53,9 @@ export default function AppCard(props: {
             )
           }}
         >
-          <Link to={url} className={cls('br__tileLogo', 'br__tileIns', cmn.flex)}>
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
-            <div className={cls(cmn.flex, cmn.flexcv, 'inheritSize')}>
+          <Link to={url} className="'br__tileLogo', 'br__tileIns', flex">
+            <div className="flex grow"></div>
+            <div className="flex items-center inheritSize">
               <ChainLogo
                 network={props.skaleNetwork}
                 chainName={props.schainName}
@@ -64,21 +63,12 @@ export default function AppCard(props: {
                 logos={MAINNET_CHAIN_LOGOS}
               />
             </div>
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
+            <div className="flex grow"></div>
           </Link>
-          <div
-            className={cls(
-              cmn.flex,
-              cmn.flexcv,
-              cmn.mbott10,
-
-              'br__tileBott',
-              'fullW'
-            )}
-          ></div>
+          <div className="flex items-center mb-2.5 br__tileBott fullW"></div>
         </div>
         <Link to={url}>
-          <Button size="small" className={cls('cardBtn')}>
+          <Button size="small" className="'cardBtn'">
             <span
               style={{
                 overflow: 'hidden',
@@ -97,7 +87,7 @@ export default function AppCard(props: {
           </Button>
           {props.transactions ? (
             <div>
-              <p className={cls(cmn.p, cmn.p5, cmn.pSec, cmn.pCent, cmn.mjtop5, cmn.mjri5)}>
+              <p className="text-xs text-secondary-foreground text-center mt-1.25 mr-1.25">
                 {formatNumber(props.transactions)} Txs
               </p>
             </div>

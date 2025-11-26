@@ -25,7 +25,7 @@ import TollIcon from '@mui/icons-material/Toll'
 import AvTimerRoundedIcon from '@mui/icons-material/AvTimerRounded'
 
 import { constants, units, type types, helper } from '@/core'
-import { cmn, TokenIcon, Tile } from '@skalenetwork/metaport'
+import { TokenIcon, Tile } from '@skalenetwork/metaport'
 
 import {
   daysBetweenNowAndTimestamp,
@@ -96,7 +96,7 @@ export default function PricingInfo(props: { info: types.pm.PaymasterInfo }) {
           grow
         />
       </SkStack>
-      <SkStack className={cmn.mtop10}>
+      <SkStack className="mt-2.5">
         <Tile
           value={formatBigIntTimestampSeconds(props.info.schain.paidUntil)}
           text="Paid until"

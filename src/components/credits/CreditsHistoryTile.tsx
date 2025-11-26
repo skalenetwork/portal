@@ -31,7 +31,6 @@ import HistoryToggleOffRoundedIcon from '@mui/icons-material/HistoryToggleOffRou
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
 import {
-  cmn,
   cls,
   type MetaportCore,
   Tile,
@@ -55,6 +54,7 @@ import {
   AVATAR_COLORS,
   DEFAULT_CREDITS_AMOUNT
 } from '../../core/constants'
+import { BadgeCheck, HandCoins, IdCard } from 'lucide-react'
 
 interface CreditsHistoryTileProps {
   mpc: MetaportCore
@@ -172,7 +172,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
 
   return (
     <div>
-      <div className={cls(cmn.mbott10, 'titleSection')}>
+      <div className="mb-2.5 bg-background rounded-3xl p-4">
         <Grid container spacing={0} alignItems="center">
           <Grid size={{ xs: 12, md: 4 }}>
             <Link
@@ -185,9 +185,9 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
                 payment.transactionHash
               )}
             >
-              <div className={cls(cmn.flex, cmn.flexcv)}>
+              <div className={cls('flex', 'items-center')}>
                 <Avatar
-                  size={45}
+                  size={50}
                   variant="marble"
                   name={isAdmin ? payment.from : creditsPurchase.schainName + payment.id * 2n}
                   colors={AVATAR_COLORS}
@@ -198,39 +198,40 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
                   size="xs"
                   className="creditHistoryIcon"
                 />
-                <div className={cls(cmn.mleft10, [cmn.flexg, isXs])}>
-                  <h4 className={cls(cmn.p, cmn.p700, 'pOneLine', cmn.pPrim)}>
+                <div className={cls('ml-2.5', ['grow', isXs])}>
+                  <h4 className="font-bold pOneLine text-foreground">
                     {txTimestamp && !isAdmin
                       ? timeUtils.timestampToDate(txTimestamp, true)
                       : helper.shortAddress(payment.from)}
                   </h4>
-                  <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>{chainAlias}</p>
+                  <p className={cls('p', 'text-xs', 'text-secondary-foreground')}>{chainAlias}</p>
                 </div>
               </div>
             </Link>
           </Grid>
-          <Grid size={{ xs: 12, md: 8 }} className={cls([cmn.mtop20, isXs], cmn.flex, cmn.flexcv)}>
+          <Grid size={{ xs: 12, md: 8 }} className={cls(['mt-5', isXs], 'flex', 'items-center')}>
             <div
               className={cls(
                 'chipXs',
-                cmn.mleft20,
-                cmn.flex,
-                cmn.flexcv,
+                'ml-5',
+                'flex',
+                'items-center',
                 ['chip_DELEGATED', isFulfilled],
-                ['chip_SELF', !isFulfilled]
+                ['chip_SELF', !isFulfilled],
+                'font-semibold'
               )}
             >
               {isFulfilled ? <CheckCircleRoundedIcon /> : <HistoryToggleOffRoundedIcon />}
-              <p className={cls(cmn.p, cmn.p4, 'pOneLine', cmn.mleft5)}>
+              <p className={cls('p', 'text-xs', 'pOneLine', 'ml-1.5')}>
                 {isFulfilled ? 'COMPLETED' : 'PENDING'}
               </p>
             </div>
-            <div className={cls(cmn.flexg)}></div>
-            <SkStack className={cls(cmn.flex)}>
+            <div className={cls('grow')}></div>
+            <SkStack className={cls('flex')}>
               <Tile
                 size="md"
                 transparent
-                className={cls(cmn.nop, [cmn.mri20, !isXs], [cmn.mleft20, !isXs])}
+                className={cls('p-0!', ['mr-5', !isXs], ['ml-5', !isXs])}
                 value={tokenSymbol.toUpperCase()}
                 text="Token Used"
                 grow
@@ -241,24 +242,24 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
               <Tile
                 size="md"
                 transparent
-                className={cls(cmn.nop, [cmn.mri20, !isXs], [cmn.mleft20, !isXs])}
+                className={cls('p-0!', ['mr-5', !isXs], ['ml-5', !isXs])}
                 value={`ID: ${payment.id.toString()}`}
                 text="Payment ID"
                 grow
                 ri={!isXs}
-                icon={<PaymentsRoundedIcon />}
+                icon={<IdCard size={17} />}
               />
             </SkStack>
             {isAdmin && (
-              <div className={cls(cmn.flex, cmn.flexcv)}>
+              <div className={cls('flex', 'items-center')}>
                 <Button
                   size="small"
-                  // variant="contained"
-                  className={cls('btnMd', 'filled', cmn.mleft20)}
+                  startIcon={isFulfilled ? <BadgeCheck size={17} /> : <HandCoins size={17} />}
+                  className="btnMd bg-secondary-foreground/10! text-foreground! disabled:opacity-50! ml-2.5"
                   onClick={fulfillPayment}
                   disabled={isFulfilled || loading || !ledgerContract}
                 >
-                  Fulfill
+                  {isFulfilled ? 'Done' : 'Fulfill'}
                 </Button>
               </div>
             )}

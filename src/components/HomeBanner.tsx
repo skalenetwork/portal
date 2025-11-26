@@ -22,43 +22,24 @@
  */
 
 import { Button } from '@mui/material'
-import { useTheme } from '@mui/material/styles'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import { cmn, cls } from '@skalenetwork/metaport'
 import { Link } from 'react-router-dom'
+import { Sparkles } from 'lucide-react'
 
-import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded'
-
-export default function HomeBanner(): JSX.Element {
-  const theme = useTheme()
-  const isXs = useMediaQuery(theme.breakpoints.down('sm'))
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
-
+export default function HomeBanner() {
   return (
-    <div
-      className={cls('home-banner', cmn.mtop10, cmn.flex, cmn.flexc, cmn.flexcv)}
-      style={{ marginBottom: '24px' }}
-    >
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          gap: isXs ? '15px' : '20px',
-          padding: isMobile ? '20px 15px' : '30px 20px',
-          textAlign: 'center'
-        }}
-      >
-        <h1 className={cls('home-banner-title', cmn.pPrim, cmn.nom)}>Bridge to SKALE</h1>
+    <div className="home-banner mt-2.5 mb-4! flex flex-col items-center">
+      <div className="home-banner-inner flex h-full flex-col items-center justify-start gap-2 px-4 pt-10 text-center sm:gap-2 sm:px-5 sm:pt-12 md:pt-16">
+        <h1 className="font-bold text-foreground m-0!">Bridge to SKALE</h1>
+        <p className="text-sm text-secondary-foreground font-medium m-0!">
+          Blazingly fast transfers, free between SKALE Chains
+        </p>
         <Link to="/bridge">
           <Button
-            size={isXs ? 'small' : 'medium'}
+            size="medium"
             variant="contained"
             color="primary"
-            className={cls('btn', [isXs ? 'btnSm' : 'btnMd'], cmn.mtop10)}
-            fullWidth={isMobile}
-            style={{ minWidth: isMobile ? 'auto' : '180px' }}
-            startIcon={<AutoAwesomeRoundedIcon />}
+            className="btn mt-3! w-full px-10! bg-accent-foreground! text-accent! text-sm! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+            startIcon={<Sparkles size={18} />}
           >
             Bridge Now
           </Button>

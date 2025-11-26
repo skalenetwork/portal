@@ -22,8 +22,7 @@
  */
 
 import React, { useMemo } from 'react'
-import { Grid, Box } from '@mui/material'
-import { cls } from '@skalenetwork/metaport'
+import { Box } from '@mui/material'
 
 import { type types } from '@/core'
 
@@ -66,7 +65,10 @@ const RecommendedApps: React.FC<RecommendedAppsProps> = ({
 
   const renderAppCard = (app: SimilarApp) => {
     return (
-      <Box key={`${app.chain}-${app.appName}`} className={cls('fl-centered dappCard')}>
+      <Box
+        key={`${app.chain}-${app.appName}`}
+        className="flex justify-center items-center dappCard"
+      >
         <AppCardV2
           skaleNetwork={skaleNetwork}
           schainName={app.chain}
@@ -84,13 +86,15 @@ const RecommendedApps: React.FC<RecommendedAppsProps> = ({
     return <Carousel className={className}>{similarApps.map(renderAppCard)}</Carousel>
   }
   return (
-    <Grid container spacing={2} className={className}>
+    <div
+      className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 ${className}`}
+    >
       {similarApps.map((app) => (
-        <Grid key={`${app.chain}-${app.appName}`} size={{ xs: 12, sm: 6, md: 4, lg: 4 }}>
+        <div key={`${app.chain}-${app.appName}`} className="col-span-1">
           {renderAppCard(app)}
-        </Grid>
+        </div>
       ))}
-    </Grid>
+    </div>
   )
 }
 

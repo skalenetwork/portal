@@ -25,16 +25,14 @@ import { Helmet } from 'react-helmet'
 
 import { useState, useEffect } from 'react'
 
-import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
+import { type MetaportCore } from '@skalenetwork/metaport'
 import { type types, constants } from '@/core'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
 
-import StarRoundedIcon from '@mui/icons-material/StarRounded'
-import HubRoundedIcon from '@mui/icons-material/HubRounded'
-import CategoryRoundedIcon from '@mui/icons-material/CategoryRounded'
+import { Star, Network, Shapes } from 'lucide-react'
 
 import ChainsSection from '../components/chains/ChainsSection'
 import { META_TAGS } from '../core/meta'
@@ -72,12 +70,12 @@ export default function Chains(props: {
   if (props.schains.length === 0) {
     return (
       <div className="fullscreen-msg">
-        <div className={cls(cmn.flex)}>
-          <div className={cls(cmn.flex, cmn.flexcv, cmn.mri20)}>
+        <div className="flex">
+          <div className="flex items-center mr-5">
             <CircularProgress className="fullscreen-spin" />
           </div>
-          <div className={cls(cmn.flex, cmn.flexcv)}>
-            <h3 className="fullscreen-msg-text">Loading SKALE Chains</h3>
+          <div className="flex items-center">
+            <h3 className="fullscreen-msg-text text-foreground! font-semibold">Loading SKALE Chains</h3>
           </div>
         </div>
       </div>
@@ -85,7 +83,7 @@ export default function Chains(props: {
   }
 
   return (
-    <Container maxWidth="md" className={cls(cmn.mbott20)}>
+    <Container maxWidth="md" className="mb-5">
       <Helmet>
         <title>{META_TAGS.chains.title}</title>
         <meta name="description" content={META_TAGS.chains.description} />
@@ -93,10 +91,10 @@ export default function Chains(props: {
         <meta property="og:description" content={META_TAGS.chains.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className={cls(cmn.flex, cmn.flexcv)}>
-          <div className={cmn.flexg}>
-            <h2 className={cls(cmn.nom)}>SKALE Chains</h2>
-            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+        <div className="flex items-center">
+          <div className="grow">
+            <h2 className="m-0 text-xl font-bold text-foreground">SKALE Chains</h2>
+            <p className="text-xs text-secondary-foreground font-semibold">
               Connect, get block explorer links and endpoints
             </p>
           </div>
@@ -115,7 +113,7 @@ export default function Chains(props: {
           metrics={props.metrics}
           skaleNetwork={network}
           size="lg"
-          icon={<HubRoundedIcon color="primary" />}
+          icon={<Network size={18} />}
         />
         {appChains.length !== 0 && (
           <ChainsSection
@@ -125,7 +123,7 @@ export default function Chains(props: {
             metrics={props.metrics}
             skaleNetwork={network}
             size="md"
-            icon={<StarRoundedIcon color="primary" />}
+            icon={<Star size={18} />}
           />
         )}
         {network !== constants.MAINNET_CHAIN_NAME && otherChains.length !== 0 && (
@@ -136,10 +134,10 @@ export default function Chains(props: {
             metrics={props.metrics}
             skaleNetwork={network}
             size="md"
-            icon={<CategoryRoundedIcon color="primary" />}
+            icon={<Shapes size={18} />}
           />
         )}
-        <div className={cls(cmn.mbott20, cmn.mtop20)}></div>
+        <div className="mb-5 mt-5"></div>
       </Stack>
     </Container>
   )

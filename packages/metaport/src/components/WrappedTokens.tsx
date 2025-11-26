@@ -40,7 +40,7 @@ import TokenIcon from './TokenIcon'
 import { CHAINS_META, getTokenName } from '../core/metadata'
 import { BALANCE_UPDATE_INTERVAL_MS } from '../core/constants'
 
-import { cls, cmn, styles } from '../core/css'
+import { styles } from '../core/css'
 
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
@@ -110,60 +110,49 @@ export default function WrappedTokens() {
   const chainAlias = metadata.getAlias(mpc.config.skaleNetwork, chainsMeta, chainName1)
 
   return (
-    <div className={cls(cmn.mtop10)}>
+    <div className="mt-2.5">
       <Accordion
         disabled={!!loading}
         expanded={expandedWT === 'panel1'}
         onChange={handleChange('panel1')}
       >
         <AccordionSummary
-          className={cls(styles.accordionSummary, styles.accordionSm)}
+          className={`py-2! px-6!`}
           expandIcon={<ExpandMoreRoundedIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <div className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv)}>
-            <div className={cls(cmn.flex, cmn.flexc, cmn.mri10)}>
+          <div className="flex w-full items-center">
+            <div className="flex items-center mr-2.5">
               <ErrorIcon color="warning" />
             </div>
-            <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.cap, cmn.pPrim, cmn.mri10)}>
+            <p className="text-sm font-semibold text-primary mr-2.5 capitalize!">
               Wrapped tokens found
             </p>
           </div>
         </AccordionSummary>
         <AccordionDetails>
-          <SkPaper background="transparent" className={cls(styles.accordionContent)}>
-            <p className={cls(cmn.flex, cmn.p3, cmn.p, cmn.errorMessage, cmn.flexg)}>
+          <SkPaper background="transparent" className={styles.accordionContent}>
+            <p className="flex text-sm errorMessage grow">
               ❗ You have wrapped tokens on {chainAlias}. Unwrap them before proceeding with your
               transfer.
             </p>
-            <div className={cls(cmn.mtop20)}>
+            <div className="mt-5">
               {Object.keys(filteredTokens).map((key, _) => (
                 <div
                   key={key}
-                  className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.mtop10, cmn.mbott10)}
+                  className="flex items-center w-full mt-2.5 mb-2.5"
                 >
-                  <div className={cls(cmn.flex, cmn.flexc)}>
+                  <div className="flex items-center">
                     <TokenIcon
                       tokenSymbol={filteredTokens[key]?.meta.symbol}
                       iconUrl={filteredTokens[key]?.meta.iconUrl}
                     />
                   </div>
-                  <p
-                    className={cls(
-                      cmn.p,
-                      cmn.p3,
-                      cmn.p600,
-                      cmn.pPrim,
-                      cmn.flex,
-                      cmn.flexg,
-                      cmn.mri10,
-                      cmn.mleft10
-                    )}
-                  >
+                  <p className="text-sm font-semibold text-primary flex grow mr-2.5 ml-2.5">
                     Wrapped {getTokenName(filteredTokens[key])}
                   </p>
-                  <div className={cmn.mfri10}>
+                  <div className="mr-2.5">
                     <TokenBalance
                       balance={
                         wrappedTokenBalances
@@ -176,33 +165,33 @@ export default function WrappedTokens() {
                   </div>
                 </div>
               ))}
+            </div>
 
-              <div className={cls(cmn.mtop20, cmn.mbott20)}>
-                {loading ? (
-                  <Button
-                    disabled
-                    startIcon={<AnimatedLoadingIcon />}
-                    variant="contained"
-                    color="primary"
-                    size="medium"
-                    className={cls(styles.btnAction, cmn.mtop5)}
-                  >
-                    Unwrapping...
-                  </Button>
-                ) : (
-                  <Button
-                    variant="contained"
-                    color="primary"
-                    size="medium"
-                    className={cls(styles.btnAction, cmn.mtop5)}
-                    onClick={() =>
-                      unwrapAll(address, switchChainAsync, walletClient, filteredTokens)
-                    }
-                  >
-                    Unwrap all
-                  </Button>
-                )}
-              </div>
+            <div className="mt-5 mb-5">
+              {loading ? (
+                <Button
+                  disabled
+                  startIcon={<AnimatedLoadingIcon />}
+                  variant="contained"
+                  color="primary"
+                  size="medium"
+                  className={`${styles.btnAction} mt-1.5`}
+                >
+                  Unwrapping...
+                </Button>
+              ) : (
+                <Button
+                  variant="contained"
+                  color="primary"
+                  size="medium"
+                  className={`${styles.btnAction} mt-1.5`}
+                  onClick={() =>
+                    unwrapAll(address, switchChainAsync, walletClient, filteredTokens)
+                  }
+                >
+                  Unwrap all
+                </Button>
+              )}
             </div>
           </SkPaper>
         </AccordionDetails>

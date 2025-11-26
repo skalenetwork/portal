@@ -64,9 +64,10 @@
   },
   "dependencies": {
     "@/core": "workspace:*",
+    "lucide-react": "^0.554.0",
     "react-jazzicon": "^1.0.4",
-    "zustand": "^5.0.8",
-    "tslog": "^4.9.3"
+    "tslog": "^4.9.3",
+    "zustand": "^5.0.8"
   },
   "peerDependencies": {
     "@skalenetwork/skale-contracts-ethers-v6": "2.0.0-develop.5",

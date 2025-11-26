@@ -20,10 +20,9 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, styles } from '@skalenetwork/metaport'
 import { types, units } from '@/core'
 
-import { Grid, Tooltip, Button } from '@mui/material'
+import { Tooltip, Button } from '@mui/material'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
 
@@ -61,15 +60,15 @@ export default function Reward(props: {
 
   const minimizeBtn = (
     <div
-      className={cls(cmn.mleft20, styles.chainIconxs, 'pointer')}
+      className="ml-5 w-4 h-4 cursor-pointer"
       onClick={() => {
         props.setOpen(!props.open)
       }}
     >
       {props.open ? (
-        <RemoveCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
+        <RemoveCircleRoundedIcon className="mr-1.5 w-4 h-4 text-secondary-foreground" />
       ) : (
-        <AddCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
+        <AddCircleRoundedIcon className="mr-1.5 w-4 h-4 text-secondary-foreground" />
       )}
     </div>
   )
@@ -89,25 +88,27 @@ export default function Reward(props: {
 
   return (
     <div>
-      <div className={cls(cmn.mbott10, 'titleSection')}>
-        <Grid container spacing={0} alignItems="center">
-          <Grid size={{ xs: 12, md: 4 }}>
-            <div className={cls(cmn.flex, cmn.flexcv)}>
+      <div className="mb-2.5 titleSection">
+        <div className="flex flex-col md:flex-row items-center gap-0">
+          <div className="w-full md:w-1/3">
+            <div className="flex items-center">
               <ValidatorLogo validatorId={validator.id} size="lg" />
-              <div className={cls(cmn.mleft10, [cmn.flexg, props.isXs])}>
-                <h4 className={cls(cmn.p, cmn.p700, 'pOneLine')}>{validator.name}</h4>
-                <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Validator ID: {Number(validator.id)}</p>
+              <div className={`ml-2.5 ${props.isXs ? 'grow' : ''}`}>
+                <h4 className="font-bold truncate">{validator.name}</h4>
+                <p className="text-xs text-secondary-foreground">
+                  Validator ID: {Number(validator.id)}
+                </p>
               </div>
               {props.isXs ? minimizeBtn : null}
             </div>
-          </Grid>
-          <Grid size={{ xs: 12, md: 8 }} className={cls([cmn.mtop20, props.isXs])}>
-            <div className={cls(cmn.flex, cmn.flexcv)}>
-              <div className={cls([cmn.flexg, !props.isXs])}></div>
+          </div>
+          <div className={`w-full md:w-2/3 ${props.isXs ? 'mt-5' : ''}`}>
+            <div className="flex items-center">
+              <div className={!props.isXs ? 'grow' : ''}></div>
               {!props.isXs && !props.open ? (
-                <div className={cls([cmn.pri, !props.isXs], cmn.flex)}>
+                <div className="flex">
                   <div>
-                    <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Total staked</p>
+                    <p className="text-xs text-secondary-foreground">Total staked</p>
                     <Tooltip
                       arrow
                       title={
@@ -120,21 +121,14 @@ export default function Reward(props: {
                           : ''
                       }
                     >
-                      <h3 className={cls(cmn.p, cmn.p700)}>{totalStakedAmount}</h3>
+                      <h3 className="font-bold">{totalStakedAmount}</h3>
                     </Tooltip>
                   </div>
-                  <div className={cls('borderVert', cmn.mleft10)}></div>
+                  <div className="borderVert ml-2.5"></div>
                 </div>
               ) : null}
-              <div
-                className={cls(
-                  [cmn.flexg, props.isXs],
-                  cmn.mri20,
-                  [cmn.pri, !props.isXs],
-                  [cmn.mleft10, !props.isXs]
-                )}
-              >
-                <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>Rewards available</p>
+              <div className={`${props.isXs ? 'grow mr-5' : 'ml-2.5'}`}>
+                <p className="text-xs text-secondary-foreground">Rewards available</p>
                 <Tooltip
                   arrow
                   title={
@@ -146,17 +140,12 @@ export default function Reward(props: {
                       : ''
                   }
                 >
-                  <h3 className={cls(cmn.p, cmn.p700)}>{rewardsAmount}</h3>
+                  <h3 className="font-bold">{rewardsAmount}</h3>
                 </Tooltip>
               </div>
-              <div className={cls(cmn.flex, cmn.flexcv)}>
+              <div className="flex items-center">
                 {loading ? (
-                  <Button
-                    disabled
-                    size="small"
-                    variant="contained"
-                    className={cls('btnSm btnSmLoading')}
-                  >
+                  <Button disabled size="small" variant="contained" className="btnSm btnSmLoading">
                     Retrieving
                   </Button>
                 ) : (
@@ -169,16 +158,14 @@ export default function Reward(props: {
                       retrieveRewards={retrieveRewards}
                       loading={loading}
                     />
-                    {props.unstakeAllBtn && (
-                      <span className={cmn.mleft10}>{props.unstakeAllBtn}</span>
-                    )}
+                    {props.unstakeAllBtn && <span className="ml-2.5">{props.unstakeAllBtn}</span>}
                   </>
                 )}
               </div>
               {!props.isXs ? minimizeBtn : null}
             </div>
-          </Grid>
-        </Grid>
+          </div>
+        </div>
       </div>
     </div>
   )

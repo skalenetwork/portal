@@ -22,7 +22,7 @@
  */
 
 import { useState } from 'react'
-import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@skalenetwork/metaport'
 
 import AccordionSection from './AccordionSection'
 import { FAQ } from '../core/constants'
@@ -35,7 +35,7 @@ export default function FaqAccordion() {
   }
 
   return (
-    <SkPaper gray className={cls(cmn.mtop20, cmn.mbott20)}>
+    <SkPaper gray className="mt-5 mb-5">
       {FAQ.map((question: any, index: number) => (
         <AccordionSection
           handleChange={handleChange}
@@ -43,7 +43,7 @@ export default function FaqAccordion() {
           panel={`panel${index}`}
           title={question.question}
         >
-          <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.mleft10, cmn.mri10)}>{question.answer}</p>
+          <p className="text-base text-secondary-foreground ml-2.5 mr-2.5">{question.answer}</p>
         </AccordionSection>
       ))}
     </SkPaper>

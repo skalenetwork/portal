@@ -27,7 +27,7 @@ import Tooltip, { TooltipProps } from '@mui/material/Tooltip'
 import { SvgIconProps } from '@mui/material/SvgIcon'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { cls, styles, cmn } from '@skalenetwork/metaport'
+import { cls } from '@skalenetwork/metaport'
 
 type IconType = React.ComponentType<SvgIconProps>
 
@@ -75,15 +75,20 @@ const SkIconBtn: React.FC<SkIconBtnProps> = ({
   const button = (
     <IconButton
       onClick={handleClick}
-      className={cls(styles.paperGrey, 'sk-icon-btn', `sk-icon-btn-${size}`, className)}
+      className={cls(
+        'sk-icon-btn',
+        `sk-icon-btn-${size}`,
+        'ml-1.5! h-8 w-8 rounded-full bg-card! text-foreground! hover:bg-muted',
+        className
+      )}
       size={size}
       {...props}
     >
       <Icon
         className={cls(
           iconClassName,
-          [cmn.pPrim, primary],
-          [cmn.pSec, !primary],
+          ['text-foreground', primary],
+          ['text-muted-foreground', !primary],
           'sk-icon-btn-img'
         )}
       />

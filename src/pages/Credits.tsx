@@ -27,7 +27,7 @@ import { useState, useEffect } from 'react'
 
 import { Contract } from 'ethers'
 
-import { cmn, cls, type MetaportCore, SkPaper, styles } from '@skalenetwork/metaport'
+import { cls, type MetaportCore, SkPaper, styles } from '@skalenetwork/metaport'
 import { constants, dc, type types } from '@/core'
 import * as cs from '../core/credit-station'
 
@@ -47,6 +47,7 @@ import ChainCreditsTile from '../components/credits/ChainCreditsTile'
 import CreditsHistoryTile from '../components/credits/CreditsHistoryTile'
 import { getCreditStation, getTokenPrices } from '../core/credit-station'
 import ErrorTile from '../components/ErrorTile'
+import { History, HistoryIcon, Link2 } from 'lucide-react'
 
 interface CreditsProps {
   mpc: MetaportCore
@@ -175,11 +176,11 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
   if (schains.length === 0) {
     return (
       <div className="fullscreen-msg">
-        <div className={cls(cmn.flex)}>
-          <div className={cls(cmn.flex, cmn.flexcv, cmn.mri20)}>
+        <div className="flex">
+          <div className="flex items-center mr-5">
             <CircularProgress className="fullscreen-spin" />
           </div>
-          <div className={cls(cmn.flex, cmn.flexcv)}>
+          <div className="flex items-center">
             <h3 className="fullscreen-msg-text">Loading credits info</h3>
           </div>
         </div>
@@ -188,7 +189,7 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
   }
 
   return (
-    <Container maxWidth="md" className={cls(cmn.mbott20)}>
+    <Container maxWidth="md" className="mb-5">
       <Helmet>
         <title>{META_TAGS.credits.title}</title>
         <meta name="description" content={META_TAGS.credits.description} />
@@ -196,21 +197,21 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
         <meta property="og:description" content={META_TAGS.credits.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className={cls(cmn.flex, cmn.flexcv)}>
-          <div className={cmn.flexg}>
-            <h2 className={cls(cmn.nom)}>Chain Credits</h2>
-            <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-              Manage your SKALE Chain Credits - purchase and view balances.
+        <div className="flex items-center">
+          <div className="grow">
+            <h2 className="m-0 text-xl font-bold text-foreground">Chain Credits</h2>
+            <p className="text-xs text-secondary-foreground font-semibold">
+              Manage your SKALE Chain Credits - purchase and view balances
             </p>
           </div>
           <SkPageInfoIcon meta_tag={META_TAGS.credits} />
         </div>
-        <ErrorTile errorMsg={errorMsg} className={cls(cmn.mbott10)} />
-        <SkPaper gray className={cls(cmn.mtop20)}>
+        <ErrorTile errorMsg={errorMsg} className="mb-2.5" />
+        <SkPaper gray className="mt-5">
           <AccordionSection
             expandedByDefault={true}
             title="Chains"
-            icon={<LinkRoundedIcon />}
+            icon={<Link2 size={17} />}
             marg={false}
           >
             <Collapse in={address !== undefined}>
@@ -231,17 +232,17 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
             <Collapse in={address === undefined}>
               <ConnectWallet
                 tile
-                className={cls(cmn.flexg, cmn.mtop10)}
+                className="grow mt-2.5"
                 customText="Connect your wallet to buy credits"
               />
             </Collapse>
           </AccordionSection>
         </SkPaper>
-        <SkPaper gray className={cls(cmn.mtop20)}>
+        <SkPaper gray className="mt-5">
           <AccordionSection
             expandedByDefault={true}
             title="History"
-            icon={<HistoryRoundedIcon />}
+            icon={<History size={17} />}
             marg={false}
           >
             <Collapse in={creditsHistory.length !== 0 && address !== undefined}>
@@ -259,17 +260,21 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
               ))}
             </Collapse>
             <Collapse in={creditsHistory.length === 0 && address !== undefined}>
-              <div className={cls(cmn.mtop20)}>
-                <HistoryRoundedIcon className={cls(cmn.pSec, styles.chainIconmd, cmn.fullWidth)} />
-                <h5 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.pCent, cmn.mtop5, cmn.mbott20)}>
+              <div className="mt-5">
+                <div className="flex items-center justify-center mb-4">
+                  <HistoryIcon size={27} className="text-muted-foreground" />
+                </div>
+                <h5 className="p font-semibold text-sm text-muted-foreground text-center mb-5">
                   No past purchases found
                 </h5>
               </div>
             </Collapse>
             <Collapse in={address === undefined}>
-              <div className={cls(cmn.mtop20)}>
-                <HistoryRoundedIcon className={cls(cmn.pSec, styles.chainIconmd, cmn.fullWidth)} />
-                <h5 className={cls(cmn.p, cmn.p600, cmn.pSec, cmn.pCent, cmn.mtop5, cmn.mbott20)}>
+              <div className="mt-5">
+                <div className="flex items-center justify-center mb-4">
+                  <HistoryIcon size={27} className="text-muted-foreground" />
+                </div>
+                <h5 className="p font-semibold text-sm text-muted-foreground text-center mb-5">
                   Connect your wallet to view credits history
                 </h5>
               </div>
@@ -277,7 +282,7 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
           </AccordionSection>
         </SkPaper>
 
-        <div className={cls(cmn.mbott20, cmn.mtop20)}></div>
+        <div className="mb-5 mt-5"></div>
       </Stack>
     </Container>
   )

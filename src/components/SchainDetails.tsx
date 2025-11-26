@@ -24,15 +24,7 @@
 import { useState } from 'react'
 import { Helmet } from 'react-helmet'
 
-import {
-  cmn,
-  cls,
-  styles,
-  type MetaportCore,
-  SkPaper,
-  explorer,
-  Tile
-} from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper, explorer, Tile } from '@skalenetwork/metaport'
 import { type types, metadata, constants, endpoints, networks } from '@/core'
 
 import Button from '@mui/material/Button'
@@ -143,23 +135,23 @@ export default function SchainDetails(props: {
   }
 
   return (
-    <div className={cls('chainDetails', cmn.mbott20)}>
-      <div className={cls(cmn.flex)}>
+    <div className="chainDetails mb-5">
+      <div className="flex">
         <Breadcrumbs
           className="bg"
           sections={[
             {
               text: 'Chains',
-              icon: <ArrowBackIosNewRoundedIcon />,
+              icon: <ArrowBackIosNewRoundedIcon className="w-3! h-3! text-foreground" />,
               url: '/chains'
             },
             {
               text: chainAlias,
-              icon: <LinkRoundedIcon />
+              icon: <LinkRoundedIcon className="w-3! h-3!" />
             }
           ]}
         />
-        <div className={cls(cmn.flexg)}></div>
+        <div className="grow"></div>
       </div>
       <Helmet>
         <title>SKALE Portal - {chainAlias}</title>
@@ -167,46 +159,38 @@ export default function SchainDetails(props: {
         <meta property="og:title" content={`SKALE Portal - ${chainAlias}`} />
         <meta property="og:description" content={chainDescription} />
       </Helmet>
-      <SkPaper gray className={cls(cmn.mtop10)}>
-        <div className={cls(cmn.m10)}>
-          <div className={cls('responsive-app-header', cmn.flex, cmn.flexcvd)}>
+      <SkPaper gray className="mt-2.5">
+        <div className="p-2.5">
+          <div className="responsive-app-header flex items-center">
             <Logo
               chainsMeta={props.chainsMeta}
               skaleNetwork={network}
               chainName={props.schainName}
               size="md"
             />
-            <div className={cls('app-info', cmn.flexg)}>
-              <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10)}>
-                <div className={cmn.flexg}>
+            <div className="app-info grow">
+              <div className="flex items-center mb-2.5">
+                <div className="grow">
                   <CategoriesChips categories={chainMeta?.categories} all />
                 </div>
               </div>
 
-              <h2 className={cls(cmn.nom, cmn.p1)}>{chainAlias}</h2>
+              <h2 className="font-bold text-xl text-foreground">{chainAlias}</h2>
               <CollapsibleDescription text={chainDescription} expandable />
             </div>
           </div>
         </div>
       </SkPaper>
-      <SkPaper gray className={cls(cmn.mtop10)}>
+      <SkPaper gray className="mt-2.5">
         <SkStack>
           <Tile
-            className={cls(cmn.nop, cmn.flex, cmn.flexcv)}
+            className="flex items-center"
             children={
-              <div
-                className={cls(
-                  cmn.m10,
-                  cmn.mleft20,
-                  cmn.mri20,
-                  [cmn.flex, !props.isXs],
-                  cmn.flexcv
-                )}
-              >
+              <div className={`${!props.isXs ? 'flex' : ''} items-center`}>
                 <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
                   <Button
                     size="medium"
-                    className={cls(styles.btnAction, cmn.mri10)}
+                    className="mr-2.5 capitalize! text-accent-foreground! p-4! py-3!"
                     startIcon={<ViewInArRoundedIcon />}
                   >
                     Block Explorer
@@ -215,13 +199,7 @@ export default function SchainDetails(props: {
                 <SkBtn
                   startIcon={added ? <CheckCircleRoundedIcon /> : <AddCircleRoundedIcon />}
                   size="md"
-                  className={cls(
-                    styles.btnAction,
-                    cmn.mri10,
-                    'btnPadd',
-                    ['btnPaddLoading', loading],
-                    [cmn.fullWidth, props.isXs]
-                  )}
+                  className={`mr-2.5 text-accent-foreground! p-4! py-3! ${loading ? 'btnPaddLoading' : ''} ${props.isXs ? 'w-full' : ''}`}
                   onClick={addNetwork}
                   disabled={loading}
                   text={connectBtnText()}
@@ -231,7 +209,7 @@ export default function SchainDetails(props: {
                   <a target="_blank" rel="noreferrer" href={chainMeta.url} className="undec">
                     <Button
                       size="medium"
-                      className={cls(styles.btnAction)}
+                      className="capitalize! text-accent-foreground!  p-4! py-3!"
                       startIcon={<ArrowOutwardRoundedIcon />}
                     >
                       Open Website
@@ -251,19 +229,19 @@ export default function SchainDetails(props: {
                   ? formatNumber(props.schainMetrics.chain_stats?.transactions_today)
                   : '0'
               }
-              icon={<TrendingUpRoundedIcon />}
+              icon={<TrendingUpRoundedIcon className="w-4! h-4!" />}
             />
           )}
         </SkStack>
 
         {networks.hasFeature(network, 'metrics') ? (
-          <SkStack className={cmn.mtop10}>
+          <SkStack className="pt-2.5">
             <Tile
               size="md"
               grow
               text="Total transactions"
               value={formatNumber(getTxCount())}
-              icon={<DataSaverOffRoundedIcon />}
+              icon={<DataSaverOffRoundedIcon className="w-4! h-4!" />}
             />
             {isMainnet && (
               <Tile
@@ -275,7 +253,7 @@ export default function SchainDetails(props: {
                     ? `${formatNumber(props.schainStats.gas_fees_total_eth)} ETH`
                     : ''
                 }
-                icon={<SavingsRoundedIcon />}
+                icon={<SavingsRoundedIcon className="w-4! h-4!" />}
               />
             )}
             <Tile
@@ -283,14 +261,14 @@ export default function SchainDetails(props: {
               grow
               text={isMainnet ? 'Unique active wallets' : 'Total addresses'}
               value={formatNumber(getUAW())}
-              icon={<PersonRoundedIcon />}
+              icon={<PersonRoundedIcon className="w-4! h-4!" />}
             />
             <Tile
               size="md"
               grow
               text="Total blocks"
               value={formatNumber(getTotalBlocks())}
-              icon={<GridViewRoundedIcon />}
+              icon={<GridViewRoundedIcon className="w-4! h-4!" />}
             />
           </SkStack>
         ) : (

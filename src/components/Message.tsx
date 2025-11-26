@@ -26,7 +26,7 @@ import IconButton from '@mui/material/IconButton'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import Collapse from '@mui/material/Collapse'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
-import { SkPaper, cls, cmn } from '@skalenetwork/metaport'
+import { SkPaper } from '@skalenetwork/metaport'
 import { Link } from 'react-router-dom'
 
 export default function Message(props: {
@@ -49,55 +49,40 @@ export default function Message(props: {
     <Collapse in={show}>
       <SkPaper
         gray={gray}
-        className={cls(
-          props.className,
-          'skMessage',
-          cmn.flexcv,
-          cmn.flex,
-          ['warningMsg', type === 'warning'],
-          ['errorMsg', type === 'error']
-        )}
+        className={`${props.className || ''} skMessage items-center flex ${type === 'warning' ? 'warningMsg' : ''} ${type === 'error' ? 'errorMsg' : ''}`}
       >
-        <div
-          className={cls(
-            cmn.flex,
-            cmn.fullWidth,
-            cmn.flexcv,
-            cmn.mtop5,
-            cmn.mbott5,
-            cmn.mleft10,
-            cmn.mri10
-          )}
-        >
-          <div className={cls(cmn.flex, cmn.flexc, cmn.mri15)}>{props.icon}</div>
+        <div className="w-full items-center mt-1.5 mb-1.5 ml-2.5 mr-2.5">
+          <div className="flex items-center mr-4">{props.icon}</div>
           {props.text ? (
-            <p className={cls(cmn.p, cmn.p3, cmn.p600, [cmn.pPrim, type !== 'warning'], cmn.mri5)}>
+            <p
+              className={`text-sm font-semibold mr-1.5 ${type !== 'warning' ? 'text-primary' : ''}`}
+            >
               {props.text}
             </p>
           ) : null}
           {props.link ? (
-            <div className={cls(cmn.flex, cmn.flexcv, cmn.flexg)}>
+            <div className="flex items-center grow">
               <Link to={props.link}>
-                <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.mri5)}>{props.linkText}</p>
+                <p className="text-sm font-semibold mr-1.5">{props.linkText}</p>
               </Link>
               <ArrowOutwardRoundedIcon
-                className={cls(cmn.flex, cmn.flexcv, 'a')}
+                className="flex items-center"
                 style={{ height: '14px', width: '14px' }}
               />
             </div>
           ) : null}
 
-          <div className={cmn.flexg}></div>
+          <div className="grow"></div>
           {props.button}
           {closable ? (
             <IconButton
               onClick={() => {
                 setShow(false)
               }}
-              className={cls(cmn.paperGrey, cmn.mleft10)}
+              className="paperGrey ml-2.5"
             >
               <CloseRoundedIcon
-                className={cls([cmn.pSec, type !== 'warning'])}
+                className={type !== 'warning' ? 'text-secondary-foreground' : ''}
                 style={{ height: '16px', width: '16px' }}
               />
             </IconButton>
