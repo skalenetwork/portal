@@ -2,9 +2,7 @@
  * @license
  * SKALE portal
  *
- * This           <h2 className="m-0 text-3xl font-bold">FAQ</h2>
-        </div>
-        <p className="text-xs text-secondary-foreground font-semibold">Common questions about SKALE Bridge</p>gram is free software: you can redistribute it and/or modify
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.

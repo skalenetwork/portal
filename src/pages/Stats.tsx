@@ -2,8 +2,7 @@
  * @license
  * SKALE portal
  *
- * This pr            <h2 className="m-0 text-3xl font-bold">Stats</h2>
-            <p className="text-xs text-secondary-foreground font-semibold">SKALE Network statistics</p>ram is free software: you can redistribute it and/or modify
+ * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
  * (at your option) any later version.
