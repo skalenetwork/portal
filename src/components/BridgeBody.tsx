@@ -128,12 +128,6 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
           />
         </SkPaper>
       </Collapse>
-      <Collapse in={showCP()}>
-        <SkPaper gray className="p-0!">
-          <CommunityPool />
-        </SkPaper>
-      </Collapse>
-
       <Collapse in={showInput()} className="mt-3.5">
         <SkPaper gray>
           <AmountInput />
@@ -149,6 +143,12 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
 
       <Collapse in={!!address}>
         <SFuelWarning />
+      </Collapse>
+
+      <Collapse in={showCP()}>
+        <SkPaper gray className="p-0!">
+          <CommunityPool />
+        </SkPaper>
       </Collapse>
 
       {!address ? <SkConnect /> : null}

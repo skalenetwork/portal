@@ -156,7 +156,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
         ref={buttonRef}
         onClick={handleMenuOpen}
         startIcon={<ManageSearchRoundedIcon />}
-        className={`outlined skMenuBtn btn text-primary! ${isXs ? 'w-full' : ''}`}
+        className={`outlined btn text-primary! ${isXs ? 'w-full' : ''}`}
         style={{ background: 'transparent' }}
       >
         Browse by categories
@@ -165,13 +165,14 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
-        className="skMenu outlined"
-        PaperProps={{
-          style: {
-            maxHeight: 'calc(80vh - 100px)',
-            width: buttonRef.current?.offsetWidth,
-            borderRadius: '25px',
-            margin: '10px 0'
+        slotProps={{
+          paper: {
+            style: {
+              maxHeight: 'calc(80vh - 100px)',
+              width: buttonRef.current?.offsetWidth
+            },
+            className:
+              'mt-2.5! overflow-visible rounded-3xl! bg-white! text-foreground! shadow-sm! border-none! ring-0! [&_.MuiList-root]:bg-white! [&_.MuiList-root]:p-0!'
           }
         }}
       >

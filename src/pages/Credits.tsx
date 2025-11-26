@@ -47,7 +47,7 @@ import ChainCreditsTile from '../components/credits/ChainCreditsTile'
 import CreditsHistoryTile from '../components/credits/CreditsHistoryTile'
 import { getCreditStation, getTokenPrices } from '../core/credit-station'
 import ErrorTile from '../components/ErrorTile'
-import { History, Link2 } from 'lucide-react'
+import { History, HistoryIcon, Link2 } from 'lucide-react'
 
 interface CreditsProps {
   mpc: MetaportCore
@@ -261,20 +261,20 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
             </Collapse>
             <Collapse in={creditsHistory.length === 0 && address !== undefined}>
               <div className="mt-5">
-                <HistoryRoundedIcon
-                  className={cls('text-secondary', styles.chainIconmd, 'w-full')}
-                />
-                <h5 className="p font-semibold text-secondary text-center mt-1.5 mb-5">
+                <div className="flex items-center justify-center mb-4">
+                  <HistoryIcon size={27} className="text-muted-foreground" />
+                </div>
+                <h5 className="p font-semibold text-sm text-muted-foreground text-center mb-5">
                   No past purchases found
                 </h5>
               </div>
             </Collapse>
             <Collapse in={address === undefined}>
               <div className="mt-5">
-                <HistoryRoundedIcon
-                  className={cls('text-secondary', styles.chainIconmd, 'w-full')}
-                />
-                <h5 className="p font-semibold text-secondary text-center mt-1.5 mb-5">
+                <div className="flex items-center justify-center mb-4">
+                  <HistoryIcon size={27} className="text-muted-foreground" />
+                </div>
+                <h5 className="p font-semibold text-sm text-muted-foreground text-center mb-5">
                   Connect your wallet to view credits history
                 </h5>
               </div>

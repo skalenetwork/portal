@@ -33,7 +33,7 @@ import { type types } from '@/core'
 import SwellIcon from './SwellIcon'
 import EpicGamesStoreLogo from '../../assets/egs.svg'
 import ForumIcon from '@mui/icons-material/Forum'
-import { Globe } from 'lucide-react'
+import { Globe, MessageCircle, MessagesSquare } from 'lucide-react'
 
 interface SocialButtonsProps {
   social?: types.AppSocials
@@ -114,9 +114,9 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
     {
       key: 'forum',
       icon: (
-        <ForumIcon
+        <MessagesSquare
           className={`${isMd ? 'text-foreground' : 'text-muted-foreground'}`}
-          fontSize={isMd ? 'medium' : 'small'}
+          size={isMd ? 24 : 17}
         />
       ),
       title: 'SKALE Forum'

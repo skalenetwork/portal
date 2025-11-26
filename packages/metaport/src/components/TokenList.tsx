@@ -123,7 +123,7 @@ export default function TokenList() {
               key={token?.meta.symbol}
               tokenSymbol={token?.meta.symbol}
               iconUrl={token?.meta.iconUrl}
-              size='md'
+              size='sm'
             />
           </div>
           <p className={`text-lg font-bold text-foreground ${noTokens ? 'opacity-50' : ''} flex grow`}>

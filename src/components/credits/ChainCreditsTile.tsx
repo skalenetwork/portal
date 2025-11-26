@@ -39,10 +39,7 @@ import { types, metadata, units, constants, helper, ERC_ABIS } from '@/core'
 import { useState, useEffect } from 'react'
 import { Grid, Button, Dialog } from '@mui/material'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
-import PaymentsRoundedIcon from '@mui/icons-material/PaymentsRounded'
 import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
-import TollRoundedIcon from '@mui/icons-material/TollRounded'
-import NavigateNextRoundedIcon from '@mui/icons-material/NavigateNextRounded'
 
 import Logo from '../Logo'
 import SkStack from '../SkStack'
@@ -114,7 +111,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
     if (!tokenAddress) return 0n
     const pricePerCredit = tokenPrices[tokenAddress]
     if (!pricePerCredit) return 0n
-    return BigInt(DEFAULT_CREDITS_AMOUNT) * pricePerCredit
+    return pricePerCredit
   }
 
   function getBtnText(): string {
@@ -353,7 +350,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                 <Tile
                   size="lg"
                   transparent
-                  value={`${DEFAULT_CREDITS_AMOUNT} CREDIT`}
+                  value={`${DEFAULT_CREDITS_AMOUNT} CREDITS`}
                   text="Credits to Receive"
                   grow
                   icon={<BadgeDollarSign size={17} />}

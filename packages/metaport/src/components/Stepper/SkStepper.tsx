@@ -117,13 +117,13 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
           variant="contained"
           size="medium"
           className={`
-            btn-action w-full capitalize! text-accent! p-4!
+            btn-action w-full normal-case! text-accent! p-4!
             ${actionDisabled ? 'bg-muted-foreground/30! dark:bg-muted-foreground/10! text-muted! pointer-events-none' : 'bg-accent-foreground!'}
             ease-in-out transition-transform duration-150 active:scale-[0.97]`}
           onClick={() => execute(address, switchChainAsync, walletClient)}
           disabled={!!actionDisabled}
         >
-          {step.btnText}
+          {Number(amount) === 0 ? 'Enter an amount' : step.btnText}
         </Button>
       )}
     </div>)

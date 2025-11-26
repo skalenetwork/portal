@@ -160,10 +160,10 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                 <Link to="/chains" className="w-full text-foreground!">
                   <ListItemButton
                     selected={
-                      location.pathname.includes('/chains') || location.pathname.includes('/admin')
+                      location.pathname.includes('/chains') || location.pathname.includes('/admin/')
                     }
                     className={getItemButtonClass(
-                      location.pathname.includes('/chains') || location.pathname.includes('/admin')
+                      location.pathname.includes('/chains') || location.pathname.includes('/admin/')
                     )}
                   >
                     <ListItemIcon>

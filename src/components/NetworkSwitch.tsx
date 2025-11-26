@@ -29,7 +29,7 @@ import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'
 
-import KeyboardArrowRightRoundedIcon from '@mui/icons-material/KeyboardArrowRightRounded'
+import { ChevronRight } from 'lucide-react'
 import { type MetaportCore, ChainIcon, mp_metadata } from '@skalenetwork/metaport'
 
 import { PORTAL_URLS } from '../core/constants'
@@ -68,36 +68,15 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
         </Tooltip>
       </Box>
       <Menu
-        className="mp__moreMenu"
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
         onClose={handleClose}
         onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
-            '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1
-            },
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0
-            }
+        slotProps={{
+          paper: {
+            className:
+              'mt-2.5! overflow-visible rounded-md! bg-card! text-foreground! shadow-sm! border-none! ring-0! ring-border/40 [&_.MuiList-root]:bg-card! [&_.MuiList-root]:p-1.5!'
           }
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
@@ -106,7 +85,10 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
         {Object.keys(PORTAL_URLS).map((network: string) =>
           props.mpc.config.skaleNetwork !== network ? (
             <a rel="noreferrer" href={PORTAL_URLS[network]} className="undec" key={network}>
-              <MenuItem onClick={handleClose} style={{ padding: '10px 4px 10px 8px' }}>
+              <MenuItem
+                onClick={handleClose}
+                className="flex items-center px-2.5! py-2! text-sm! font-sans! font-semibold! text-foreground! hover:bg-muted! rounded-lg!"
+              >
                 <ChainIcon
                   skaleNetwork={network as any}
                   chainName={constants.MAINNET_CHAIN_NAME}
@@ -118,10 +100,7 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
                 />
                 SKALE <div className="capitalize ml-1.5">{network.replace(/-/g, ' ')} Portal</div>
                 <div className="grow"></div>
-                <KeyboardArrowRightRoundedIcon
-                  className="ml-2.5 w-4 h-4"
-                  style={{ opacity: 0.5 }}
-                />
+                <ChevronRight className="ml-2.5 h-[17px] w-[17px] text-muted-foreground" />
               </MenuItem>
             </a>
           ) : null

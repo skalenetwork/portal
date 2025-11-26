@@ -100,7 +100,7 @@ export type PathConfigsType = typeof PATH_CONFIGS
 export const NETWORKS = networks.parse(import.meta.env.VITE_NETWORKS)
 
 export const CREDITS_CONFIRMATION_BLOCKS = 2
-export const DEFAULT_CREDITS_AMOUNT = 1n
+export const DEFAULT_CREDITS_AMOUNT = 40n
 
 export const AVATAR_COLORS = [
   '#efeecc',

@@ -25,6 +25,7 @@ import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Chip from '@mui/material/Chip'
 import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
 import { MoonStar, SunMedium } from 'lucide-react'
 
 import logo from './assets/skale_lg.svg'
@@ -73,13 +74,15 @@ export default function Header(props: {
         </div>
         <AccountMenu address={props.address} openProfileModal={props.openProfileModal} />
         <NetworkSwitch mpc={props.mpc} />
-        <IconButton
-          size="small"
-          className="ml-1.5! h-8 w-8 rounded-full bg-card! text-foreground! hover:bg-muted"
-          onClick={toggleMode}
-        >
-          {mode === 'dark' ? <MoonStar className="h-4 w-4" /> : <SunMedium className="h-4 w-4" />}
-        </IconButton>
+        <Tooltip title={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
+          <IconButton
+            size="small"
+            className="ml-1.5! h-8 w-8 rounded-full bg-card! text-foreground! hover:bg-muted"
+            onClick={toggleMode}
+          >
+            {mode === 'dark' ? <MoonStar className="h-4 w-4" /> : <SunMedium className="h-4 w-4" />}
+          </IconButton>
+        </Tooltip>
         <HelpZen />
         <MoreMenu />
       </Toolbar>

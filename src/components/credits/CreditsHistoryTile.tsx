@@ -54,7 +54,7 @@ import {
   AVATAR_COLORS,
   DEFAULT_CREDITS_AMOUNT
 } from '../../core/constants'
-import { IdCard, IdCardLanyard } from 'lucide-react'
+import { IdCard } from 'lucide-react'
 
 interface CreditsHistoryTileProps {
   mpc: MetaportCore

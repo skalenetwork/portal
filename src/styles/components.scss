@@ -110,21 +110,7 @@
     border-left: 1px var(--border) solid;
 }
 
-.skMenuBtn {
-    min-height: 53px;
-}
 
-.skMenu {
-    .MuiMenu-paper {
-        background-image: none !important;
-        border-radius: var(--radius);
-        border: 1px var(--border) solid;
-    }
-
-    .MuiCheckbox-root {
-        padding: 2px 10px;
-    }
-}
 
 .secondary {
     background-color: var(--secondary) !important;

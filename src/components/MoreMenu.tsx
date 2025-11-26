@@ -27,18 +27,18 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
-import FormatListBulletedRoundedIcon from '@mui/icons-material/FormatListBulletedRounded'
-import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded'
-import ForumIcon from '@mui/icons-material/ForumRounded'
 
 import { Link } from 'react-router-dom'
 
-import InventoryOutlinedIcon from '@mui/icons-material/InventoryOutlined'
-
 import { DOCS_PORTAL_URL, SKALE_FORUM_URL } from '../core/constants'
-import { EllipsisVertical } from 'lucide-react'
+import {
+  EllipsisVertical,
+  FileText,
+  ListOrdered,
+  BookOpen,
+  MessagesSquare,
+  ExternalLink
+} from 'lucide-react'
 
 export default function MoreMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -67,70 +67,63 @@ export default function MoreMenu() {
         </Tooltip>
       </Box>
       <Menu
-        className="mp__moreMenu"
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
         onClose={handleClose}
         onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
-            '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1
-            },
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0
-            }
+        slotProps={{
+          paper: {
+            className:
+              'mt-2.5! overflow-visible rounded-md! bg-card! text-foreground! shadow-sm! border-none! ring-0! [&_.MuiList-root]:bg-card! [&_.MuiList-root]:p-1.5!'
           }
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <Link to="/other/terms-of-service" className="undec fullW">
-          <MenuItem onClick={handleClose}>
-            <InventoryOutlinedIcon className="mr-2.5" /> Terms of service
+        <Link to="/other/terms-of-service" className="undec">
+          <MenuItem
+            onClick={handleClose}
+            className="flex items-center px-2.5! py-2! text-sm! font-sans! font-semibold! text-foreground! hover:bg-muted! rounded-lg!"
+          >
+            <FileText className="mr-2.5 h-[17px] w-[17px] text-muted-foreground" />
+            Terms of service
           </MenuItem>
         </Link>
-        <Link to="/other/changelog" className="undec fullW">
-          <MenuItem onClick={handleClose}>
-            <FormatListBulletedRoundedIcon className="mr-2.5" /> Changelog
+        <Link to="/other/changelog" className="undec">
+          <MenuItem
+            onClick={handleClose}
+            className="flex items-center px-2.5! py-2! text-sm! font-sans! font-semibold! text-foreground! hover:bg-muted! rounded-lg!"
+          >
+            <ListOrdered className="mr-2.5 h-[17px] w-[17px] text-muted-foreground" />
+            Changelog
           </MenuItem>
         </Link>
-        <a className="undec fullW" target="_blank" href={DOCS_PORTAL_URL} rel="noreferrer">
-          <MenuItem onClick={handleClose} className="undec">
+        <a className="undec" target="_blank" href={DOCS_PORTAL_URL} rel="noreferrer">
+          <MenuItem
+            onClick={handleClose}
+            className="flex items-center px-2.5! py-2! text-sm! font-sans! font-semibold! text-foreground! hover:bg-muted! rounded-lg!"
+          >
             <div className="flex">
-              <MenuBookRoundedIcon className="mr-2.5" />
+              <BookOpen className="mr-2.5 h-[17px] w-[17px] text-muted-foreground" />
             </div>
             <div className="flex grow">SKALE Network Docs</div>
             <div className="flex ml-2.5">
-              <ArrowOutwardIcon className="menuIconRi" />
+              <ExternalLink className="h-[17px] w-[17px] text-muted-foreground" />
             </div>
           </MenuItem>
         </a>
-        <a className="undec fullW" target="_blank" href={SKALE_FORUM_URL} rel="noreferrer">
-          <MenuItem onClick={handleClose} className="undec">
+        <a className="undec" target="_blank" href={SKALE_FORUM_URL} rel="noreferrer">
+          <MenuItem
+            onClick={handleClose}
+            className="flex items-center px-2.5! py-2! text-sm! font-sans! font-semibold! text-foreground! hover:bg-muted! rounded-lg!"
+          >
             <div className="flex">
-              <ForumIcon className="mr-2.5" />
+              <MessagesSquare className="mr-2.5 h-[17px] w-[17px] text-muted-foreground" />
             </div>
             <div className="flex grow">SKALE Forum </div>
             <div className="flex ml-2.5">
-              <ArrowOutwardIcon className="menuIconRi" />
+              <ExternalLink className="h-[17px] w-[17px] text-muted-foreground" />
             </div>
           </MenuItem>
         </a>

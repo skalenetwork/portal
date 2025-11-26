@@ -30,7 +30,9 @@ import {
   PieChart,
   Rocket,
   WalletCards,
-  Link2
+  Link2,
+  Star,
+  Sparkle
 } from 'lucide-react'
 
 import CoinIcon from '../icons/coin.svg'
@@ -38,6 +40,7 @@ import ChartIcon from '../icons/chart.svg'
 import SwapIcon from '../icons/swap.svg'
 import ChainsIcon from '../icons/chains.svg'
 import MoneyIcon from '../icons/money.svg'
+import QuestionIcon from '../icons/question.svg'
 
 import { types } from '@/core'
 
@@ -46,11 +49,11 @@ interface SectionIcons {
 }
 
 export const SECTION_ICONS: SectionIcons = {
-  explore: <Rocket size={18} />,
-  new: <BadgeCheck size={18} />,
-  trending: <LineChart size={18} />,
-  categories: <ArrowUpRight size={18} />,
-  featured: <WalletCards size={18} />
+  explore: <Rocket size={17} />,
+  new: <BadgeCheck size={17} />,
+  trending: <LineChart size={17} />,
+  categories: <ArrowUpRight size={17} />,
+  featured: <Sparkle size={17} />
 }
 
 interface ExploreCard {
@@ -103,12 +106,13 @@ export const EXPLORE_CARDS: ExploreCard[] = [
     icon: MoneyIcon,
     feature: 'credits',
     bgKey: 'credits_12345678'
+  },
+  {
+    name: 'Learn about Chain Credits',
+    description: 'Find out how Chain Credits work and how to use them on SKALE.',
+    url: 'https://docs.skale.space/welcome/get-started',
+    icon: QuestionIcon,
+    feature: 'credits',
+    bgKey: 'credits_1234'
   }
-  // {
-  //   name: 'Learn about Chain Credits',
-  //   description: 'Find out how Chain Credits work and how to use them on SKALE.',
-  //   url: 'https://docs.skale.space/welcome/get-started',
-  //   icon: <HelpRoundedIcon />,
-  //   feature: 'credits'
-  // }
 ]

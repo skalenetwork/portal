@@ -117,7 +117,7 @@ export default function WrappedTokens() {
         onChange={handleChange('panel1')}
       >
         <AccordionSummary
-          className={`${styles.accordionSummary} ${styles.accordionSm}`}
+          className={`py-2! px-6!`}
           expandIcon={<ExpandMoreRoundedIcon />}
           aria-controls="panel1a-content"
           id="panel1a-header"
@@ -126,7 +126,7 @@ export default function WrappedTokens() {
             <div className="flex items-center mr-2.5">
               <ErrorIcon color="warning" />
             </div>
-            <p className="text-sm font-semibold uppercase text-primary mr-2.5">
+            <p className="text-sm font-semibold text-primary mr-2.5 capitalize!">
               Wrapped tokens found
             </p>
           </div>

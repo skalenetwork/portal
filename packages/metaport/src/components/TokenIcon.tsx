@@ -36,11 +36,16 @@ export default function TokenIcon(props: {
     return <TollRoundedIcon />
   }
   if (props.iconUrl !== undefined && props.iconUrl !== null) {
-    return <img className={className} src={props.iconUrl} />
+    return (
+      <img
+        className={cls(className, 'object-contain max-w-fit')}
+        src={props.iconUrl}
+      />
+    )
   }
   return (
     <img
-      className={className}
+      className={cls(className, 'object-contain max-w-fit')}
       src={`${constants.BASE_TOKEN_ICON_URL}${props.tokenSymbol.toLowerCase()}.svg`}
     />
   )

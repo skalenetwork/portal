@@ -53,72 +53,74 @@ export default function Home({ skaleNetwork, chainsMeta, metrics, loadData }: Ho
     loadData()
   }, [])
   return (
-    <Container maxWidth="md" className="pb-12">
-      <Stack spacing={0}>
-        <HomeBanner />
-        <ExploreSection />
+    <Container maxWidth="md" className="min-h-[calc(100vh-115px)] flex flex-col">
+      <div className="flex-1">
+        <Stack spacing={0}>
+          <HomeBanner />
+          <ExploreSection />
+          {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
+            <AppSection
+              title="Featured dApps on SKALE"
+              icon={SECTION_ICONS.featured}
+              linkTo="/ecosystem?tab=1"
+              component={
+                <FeaturedApps
+                  featuredApps={featuredApps}
+                  newApps={newApps}
+                  skaleNetwork={skaleNetwork}
+                  chainsMeta={chainsMeta}
+                  trendingApps={trendingApps}
+                  useCarousel={true}
+                />
+              }
+            />
+          )}
+          {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
+            <AppSection
+              title="New dApps on SKALE"
+              icon={SECTION_ICONS.new}
+              linkTo="/ecosystem?tab=2"
+              component={
+                <NewApps
+                  newApps={newApps}
+                  skaleNetwork={skaleNetwork}
+                  chainsMeta={chainsMeta}
+                  useCarousel={true}
+                  trendingApps={trendingApps}
+                  featuredApps={featuredApps}
+                />
+              }
+            />
+          )}
+          {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
+            <AppSection
+              title="Trending dApps on SKALE"
+              icon={SECTION_ICONS.trending}
+              linkTo="/ecosystem?tab=3"
+              component={
+                <TrendingApps
+                  chainsMeta={chainsMeta}
+                  skaleNetwork={skaleNetwork}
+                  newApps={newApps}
+                  featuredApps={featuredApps}
+                  filteredApps={trendingApps}
+                  useCarousel
+                />
+              }
+            />
+          )}
+        </Stack>
         {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
-          <AppSection
-            title="Featured dApps on SKALE"
-            icon={SECTION_ICONS.featured}
-            linkTo="/ecosystem?tab=1"
-            component={
-              <FeaturedApps
-                featuredApps={featuredApps}
-                newApps={newApps}
-                skaleNetwork={skaleNetwork}
-                chainsMeta={chainsMeta}
-                trendingApps={trendingApps}
-                useCarousel={true}
-              />
-            }
+          <Headline
+            text="Top Categories"
+            icon={SECTION_ICONS.categories}
+            className="mb-2.5 mt-5 pt-5"
           />
         )}
         {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
-          <AppSection
-            title="New dApps on SKALE"
-            icon={SECTION_ICONS.new}
-            linkTo="/ecosystem?tab=2"
-            component={
-              <NewApps
-                newApps={newApps}
-                skaleNetwork={skaleNetwork}
-                chainsMeta={chainsMeta}
-                useCarousel={true}
-                trendingApps={trendingApps}
-                featuredApps={featuredApps}
-              />
-            }
-          />
+          <CategoryCardsGrid chainsMeta={chainsMeta} />
         )}
-        {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
-          <AppSection
-            title="Trending dApps on SKALE"
-            icon={SECTION_ICONS.trending}
-            linkTo="/ecosystem?tab=3"
-            component={
-              <TrendingApps
-                chainsMeta={chainsMeta}
-                skaleNetwork={skaleNetwork}
-                newApps={newApps}
-                featuredApps={featuredApps}
-                filteredApps={trendingApps}
-                useCarousel
-              />
-            }
-          />
-        )}
-      </Stack>
-      {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
-        <Headline
-          text="Top Categories"
-          icon={SECTION_ICONS.categories}
-          className="mb-2.5 mt-5 pt-5"
-        />
-      )}
-      {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
-        <CategoryCardsGrid chainsMeta={chainsMeta} />
-      )}
+      </div>
       <div className="flex items-center mt-5 pt-5">
         <div className="grow"></div>
         <SkPaper gray className="mt-5">

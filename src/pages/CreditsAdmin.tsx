@@ -90,9 +90,9 @@ const Credits: React.FC<CreditsProps> = ({ mpc, isXs, loadData, schains, chainsM
       <Stack spacing={0}>
         <div className="flex items-center">
           <div className="grow">
-            <h2 className="nom">Chain Credits Admin</h2>
-            <p className="nom p text-sm text-secondary">
-              Manage admin functions for SKALE Chain Credits.
+            <h2 className="m-0 text-xl font-bold text-foreground">Chain Credits Admin</h2>
+            <p className="text-xs text-secondary-foreground font-semibold">
+              Manage admin functions for SKALE Chain Credits
             </p>
           </div>
           <SkPageInfoIcon meta_tag={META_TAGS.credits} />
