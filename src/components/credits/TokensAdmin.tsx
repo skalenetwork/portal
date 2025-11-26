@@ -37,6 +37,7 @@ import ErrorTile from '../ErrorTile'
 import CreditsHistoryTile from './CreditsHistoryTile'
 import CreditStationStatusTile from './CreditStationStatusTile'
 import { getTokenPrices, getLedgerContract } from '../../core/credit-station'
+import { Coins, SwatchBook } from 'lucide-react'
 
 interface CreditTokensAdminProps {
   mpc: MetaportCore
@@ -113,7 +114,7 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
         <AccordionSection
           expandedByDefault={true}
           title="Manage Credit Station"
-          icon={<EvStationRoundedIcon />}
+          icon={<SwatchBook size={17} />}
           marg={false}
         >
           <CreditStationStatusTile
@@ -127,7 +128,7 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
         <AccordionSection
           expandedByDefault={true}
           title="Manage Credit Tokens"
-          icon={<GeneratingTokensRoundedIcon />}
+          icon={<Coins size={17} />}
           marg={false}
         >
           <div className="mt-2.5">

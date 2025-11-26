@@ -47,6 +47,7 @@ import { Button, Dialog, Grid, TextField } from '@mui/material'
 import SkStack from '../SkStack'
 import { useState } from 'react'
 import Headline from '../Headline'
+import { Bolt, Coins } from 'lucide-react'
 
 interface TokenAdminTileProps {
   mpc: MetaportCore
@@ -141,14 +142,14 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
   const tokenPriceWei = getTokenPriceWei()
 
   return (
-    <div className="mb-2.5 titleSection">
+    <div className="mb-2.5 bg-background rounded-3xl p-4">
       <Grid container spacing={0} alignItems="center">
         <Grid size={{ xs: 12, md: 4 }}>
           <div className="flex items-center">
             <TokenIcon tokenSymbol={symbol} size="lg" iconUrl={tokenMeta?.iconUrl} />
-            <div className={cls('ml-2.5', ['grow', isXs])}>
-              <h4 className="p font-bold pOneLine uppercase">{symbol}</h4>
-              <p className="p text-xs text-secondary">{tokenMeta?.name}</p>
+            <div className={cls('ml-3.5', ['grow', isXs])}>
+              <h4 className="p font-bold pOneLine uppercase text-foreground">{symbol}</h4>
+              <p className="p text-xs text-muted-foreground font-semibold">{tokenMeta?.name}</p>
             </div>
           </div>
         </Grid>
@@ -157,7 +158,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
             className={cls('chipXs', getChipClass(tokenPriceWei), 'mr-5', 'flex', 'items-center')}
           >
             {tokenPriceWei === 0n ? <DoDisturbOnRoundedIcon /> : <CheckCircleRoundedIcon />}
-            <p className="p text-xs pOneLine ml-1.5">
+            <p className="p text-xs pOneLine ml-1.5 font-semibold">
               {tokenPriceWei === 0n ? 'DISABLED' : 'ENABLED'}
             </p>
           </div>
@@ -168,7 +169,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
             <Tile
               size="md"
               transparent
-              className={cls('p-0', 'uppercase', ['mr-5', !isXs], ['ml-5', !isXs])}
+              className={cls('p-0!', 'uppercase', ['mr-5', !isXs], ['ml-5', !isXs])}
               value={units.displayBalance(
                 tokenPriceWei,
                 symbol,
@@ -178,13 +179,12 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
               grow
               disabled={tokenPriceWei === 0n}
               ri={!isXs}
-              icon={<PaidRoundedIcon />}
+              icon={<Coins size={17} />}
             />
-            <div className="borderVert"></div>
             <Button
               size="small"
-              startIcon={<PriceChangeRoundedIcon />}
-              className="btnSm filled ml-2.5"
+              startIcon={<Bolt size={17} />}
+              className="btnSm bg-secondary-foreground/10! text-foreground! ml-2.5"
               onClick={() => setOpenModal(true)}
               disabled={creditStation === undefined}
             >
@@ -212,7 +212,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
             className="mb-5"
             size="small"
           />
-          <SkPaper className="p-0">
+          <SkPaper className="p-0!">
             <Tile
               grow
               text="Enter the new price"

@@ -777,6 +777,12 @@ input[type=number] {
   font-weight: 600;
 }
 
+
+.chip_CANCELED {
+  color: rgb(0 0 0);
+  background: linear-gradient(rgb(217 217 217), rgb(166 166 166));
+}
+
 .dark {
   .chipFeatured {
     background: linear-gradient(180deg, #69101d6f, #5e1117a8) !important;
@@ -796,6 +802,11 @@ input[type=number] {
   .chipPreTge {
     background: linear-gradient(180deg, #58582f82, #414824a6) !important;
     color: #e8ff52;
+  }
+
+  .chip_CANCELED {
+    color: rgb(219 219 219);
+    background: linear-gradient(rgb(59 59 59), rgb(36 36 36));
   }
 }
 
@@ -893,11 +904,6 @@ input[type=number] {
 .chip_UNDELEGATION_REQUESTED {
   color: rgb(252 248 129);
   background: linear-gradient(rgb(78 71 0), rgb(36 39 0));
-}
-
-.chip_CANCELED {
-  color: rgb(219 219 219);
-  background: linear-gradient(rgb(59 59 59), rgb(36 36 36));
 }
 
 .chip_PROPOSED {
@@ -1199,7 +1205,7 @@ input[type=number] {
 
 .creditHistoryIcon {
   margin-left: -15px;
-  margin-top: -25px;
+  margin-top: -28px;
 }
 
 

@@ -54,7 +54,7 @@ import {
   AVATAR_COLORS,
   DEFAULT_CREDITS_AMOUNT
 } from '../../core/constants'
-import { IdCard } from 'lucide-react'
+import { BadgeCheck, HandCoins, IdCard } from 'lucide-react'
 
 interface CreditsHistoryTileProps {
   mpc: MetaportCore
@@ -172,7 +172,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
 
   return (
     <div>
-      <div className="mb-2.5 bg-background rounded-3xl p-5">
+      <div className="mb-2.5 bg-background rounded-3xl p-4">
         <Grid container spacing={0} alignItems="center">
           <Grid size={{ xs: 12, md: 4 }}>
             <Link
@@ -187,7 +187,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
             >
               <div className={cls('flex', 'items-center')}>
                 <Avatar
-                  size={45}
+                  size={50}
                   variant="marble"
                   name={isAdmin ? payment.from : creditsPurchase.schainName + payment.id * 2n}
                   colors={AVATAR_COLORS}
@@ -254,11 +254,12 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
               <div className={cls('flex', 'items-center')}>
                 <Button
                   size="small"
-                  className={cls('btnMd', 'filled', 'ml-5')}
+                  startIcon={isFulfilled ? <BadgeCheck size={17} /> : <HandCoins size={17} />}
+                  className="btnMd bg-secondary-foreground/10! text-foreground! disabled:opacity-50! ml-2.5"
                   onClick={fulfillPayment}
                   disabled={isFulfilled || loading || !ledgerContract}
                 >
-                  Fulfill
+                  {isFulfilled ? 'Done' : 'Fulfill'}
                 </Button>
               </div>
             )}
