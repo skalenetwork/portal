@@ -39,9 +39,7 @@ export default function LinkSurface(props: {
           <ButtonBase className="bg-background! p-5! rounded-3xl!" style={{ width: '100%' }}>
             <div style={{ textAlign: 'left', overflow: 'auto' }} className="grow">
               <div className="flex">
-                <p className="text-xs text-secondary-foreground mb-1.5">
-                  {props.title}
-                </p>
+                <p className="text-xs text-secondary-foreground mb-1.5">{props.title}</p>
               </div>
               <p className="text-base font-semibold shortP text-foreground">{props.value}</p>
             </div>

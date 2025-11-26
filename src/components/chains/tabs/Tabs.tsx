@@ -58,19 +58,24 @@ export default function ChainTabs(props: {
               label={tab.label}
               icon={tab.icon}
               iconPosition="start"
-              className={`btn btnSm mr-1.5 ml-1.5 tab fwmobile ${props.tab === index ? 'text-foreground! bg-foreground/10!' : 'text-muted-foreground!'
-                }`}
+              className={`btn btnSm mr-1.5 ml-1.5 tab fwmobile ${
+                props.tab === index
+                  ? 'text-foreground! bg-foreground/10!'
+                  : 'text-muted-foreground!'
+              }`}
             />
           ) : null
         )}
-        {networks.hasFeatureInAny(NETWORKS, 'paymaster') && <Link to={`/chains/admin/${props.schainName}`}>
-          <Button
-            startIcon={<AdminPanelSettingsRoundedIcon />}
-            className="btn btnSm mr-1.5 ml-1.5 tab text-muted-foreground! text-xs"
-          >
-            Manage
-          </Button>
-        </Link>}
+        {networks.hasFeatureInAny(NETWORKS, 'paymaster') && (
+          <Link to={`/chains/admin/${props.schainName}`}>
+            <Button
+              startIcon={<AdminPanelSettingsRoundedIcon />}
+              className="btn btnSm mr-1.5 ml-1.5 tab text-muted-foreground! text-xs"
+            >
+              Manage
+            </Button>
+          </Link>
+        )}
       </Tabs>
     </div>
   )

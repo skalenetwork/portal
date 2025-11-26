@@ -46,11 +46,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
     <Box className="profileModal">
       <SkPaper gray>
         <ProfileModalHeader mpc={mpc} />
-        {!address ? (
-          <ConnectWallet customText="Connect your wallet to see details" />
-        ) : (
-          <div></div>
-        )}
+        {!address ? <ConnectWallet customText="Connect your wallet to see details" /> : <div></div>}
         {address ? (
           <div>
             <Tile

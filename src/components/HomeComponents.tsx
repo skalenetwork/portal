@@ -33,6 +33,12 @@ import {
   Link2
 } from 'lucide-react'
 
+import CoinIcon from '../icons/coin.svg'
+import ChartIcon from '../icons/chart.svg'
+import SwapIcon from '../icons/swap.svg'
+import ChainsIcon from '../icons/chains.svg'
+import MoneyIcon from '../icons/money.svg'
+
 import { types } from '@/core'
 
 interface SectionIcons {
@@ -52,6 +58,7 @@ interface ExploreCard {
   description: string
   icon: JSX.Element
   feature: types.NetworkFeature
+  bgKey: string
   url?: string
 }
 
@@ -61,36 +68,41 @@ export const EXPLORE_CARDS: ExploreCard[] = [
     description:
       'Select a validator to delegate your SKL to for a 2-month period to help secure the network.',
     url: '/staking',
-    icon: <PieChart size={18} />,
-    feature: 'staking'
+    icon: CoinIcon,
+    feature: 'staking',
+    bgKey: 'stake_12345'
   },
   {
     name: "Explore SKALE's DeFi",
     description: 'The SKALE DeFi ecosystem is rapidly expanding on Europa. Check it out!',
     url: '/ecosystem?categories=defi',
-    icon: <Globe2 size={18} />,
-    feature: 'ecosystem'
+    icon: ChartIcon,
+    feature: 'ecosystem',
+    bgKey: 'ecosystem_123456789'
   },
   {
     name: 'Swap on SKALE',
     description: 'Swap your favorite tokens on SKALE with zero gas fees using SushiSwap.',
     url: 'https://www.sushi.com/skale-europa/swap',
-    icon: <ArrowRightLeft size={18} />,
-    feature: 'swap'
+    icon: SwapIcon,
+    feature: 'swap',
+    bgKey: 'swap_12346789123456789sav'
   },
   {
     name: 'Discover SKALE Chains',
     description: 'Check out endpoints, tokens and more for SKALE Chains.',
     url: '/chains',
-    icon: <Link2 size={18} />,
-    feature: 'chains'
+    icon: ChainsIcon,
+    feature: 'chains',
+    bgKey: 'chains_12345'
   },
   {
     name: 'Get Chain Access',
     description: 'Buy Chain Credits to use SKALE Chains - deploy smart contracts and more.',
     url: '/credits',
-    icon: <WalletCards size={18} />,
-    feature: 'credits'
+    icon: MoneyIcon,
+    feature: 'credits',
+    bgKey: 'credits_12345678'
   }
   // {
   //   name: 'Learn about Chain Credits',

@@ -24,11 +24,14 @@
 import { Link } from 'react-router-dom'
 import { SkPaper } from '@skalenetwork/metaport'
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
+import Avatar from 'boring-avatars'
+import { HOME_CARD_COLORS } from '../core/constants'
 
 export default function PageCard(props: {
   name: string
   icon: any
   description: string
+  bgKey: string
   url?: string
 }) {
   const isExternal = props.url?.startsWith('http') ?? false
@@ -41,13 +44,31 @@ export default function PageCard(props: {
         gray
         className="ease-in-out transition-transform duration-150 active:scale-[0.97] hover:scale-[1.01]"
       >
-        <div className="flex items-center m-2.5">
+        <div className="flex items-center m-1">
           <div className="grow">
             <div className="flex grow items-center">
-              <div className="styles.chainIcons mr-2.5 text-foreground">{props.icon}</div>
-              <h3 className="capitalize m-0 text-foreground font-semibold">{props.name}</h3>
+              <div className="relative w-[65px] h-[65px] shrink-0 dark:opacity-90 dark:saturate-90 mr-3">
+                <Avatar
+                  size={65}
+                  name={props.bgKey}
+                  variant="marble"
+                  colors={HOME_CARD_COLORS}
+                  square={true}
+                  className="opacity-30 dark:opacity-90 rounded-2xl group-hover:scale-105 transition-all duration-300"
+                />
+                <div className="absolute inset-0 grid place-items-center">
+                  <img
+                    src={props.icon}
+                    alt=""
+                    className="group-hover:scale-105 transition-all duration-300 h-12 w-12 iconHomeCard"
+                  />
+                </div>
+              </div>
+              <div>
+                <h3 className="capitalize m-0 text-foreground font-semibold">{props.name}</h3>
+                <p className="text-xs text-secondary-foreground mt-0.5">{props.description}</p>
+              </div>
             </div>
-            <p className="text-sm text-secondary-foreground mt-1.5">{props.description}</p>
           </div>
           <div className="ml-2.5 mr-1.5 flex items-center">
             <ArrowForwardRoundedIcon className="text-secondary-foreground h-4! w-4!" />

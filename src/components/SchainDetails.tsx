@@ -142,12 +142,12 @@ export default function SchainDetails(props: {
           sections={[
             {
               text: 'Chains',
-              icon: <ArrowBackIosNewRoundedIcon className='w-3! h-3! text-foreground' />,
+              icon: <ArrowBackIosNewRoundedIcon className="w-3! h-3! text-foreground" />,
               url: '/chains'
             },
             {
               text: chainAlias,
-              icon: <LinkRoundedIcon className='w-3! h-3!' />
+              icon: <LinkRoundedIcon className="w-3! h-3!" />
             }
           ]}
         />
@@ -229,7 +229,7 @@ export default function SchainDetails(props: {
                   ? formatNumber(props.schainMetrics.chain_stats?.transactions_today)
                   : '0'
               }
-              icon={<TrendingUpRoundedIcon className='w-4! h-4!' />}
+              icon={<TrendingUpRoundedIcon className="w-4! h-4!" />}
             />
           )}
         </SkStack>
@@ -241,7 +241,7 @@ export default function SchainDetails(props: {
               grow
               text="Total transactions"
               value={formatNumber(getTxCount())}
-              icon={<DataSaverOffRoundedIcon className='w-4! h-4!' />}
+              icon={<DataSaverOffRoundedIcon className="w-4! h-4!" />}
             />
             {isMainnet && (
               <Tile
@@ -253,7 +253,7 @@ export default function SchainDetails(props: {
                     ? `${formatNumber(props.schainStats.gas_fees_total_eth)} ETH`
                     : ''
                 }
-                icon={<SavingsRoundedIcon className='w-4! h-4!' />}
+                icon={<SavingsRoundedIcon className="w-4! h-4!" />}
               />
             )}
             <Tile
@@ -261,14 +261,14 @@ export default function SchainDetails(props: {
               grow
               text={isMainnet ? 'Unique active wallets' : 'Total addresses'}
               value={formatNumber(getUAW())}
-              icon={<PersonRoundedIcon className='w-4! h-4!' />}
+              icon={<PersonRoundedIcon className="w-4! h-4!" />}
             />
             <Tile
               size="md"
               grow
               text="Total blocks"
               value={formatNumber(getTotalBlocks())}
-              icon={<GridViewRoundedIcon className='w-4! h-4!' />}
+              icon={<GridViewRoundedIcon className="w-4! h-4!" />}
             />
           </SkStack>
         ) : (

@@ -39,20 +39,28 @@ export default function Breadcrumbs(props: { sections: BreadcrumbSection[]; clas
             <Link to={section.url} className="undec w-full">
               <Button className={index === 0 ? 'text-foreground' : 'text-muted!'}>
                 {section.icon}
-                <p className={`text-xs capitalize! ml-1.5 ${index === 0 ? 'text-foreground!' : 'text-muted'}`}>
+                <p
+                  className={`text-xs capitalize! ml-1.5 ${index === 0 ? 'text-foreground!' : 'text-muted'}`}
+                >
                   {section.text}
                 </p>
               </Button>
             </Link>
           ) : (
-            <Button className={index === 0 ? 'text-foreground' : 'text-muted-foreground! capitalize!'}>
+            <Button
+              className={index === 0 ? 'text-foreground' : 'text-muted-foreground! capitalize!'}
+            >
               {section.icon}
-              <p className={`text-xs ml-1.5 ${index === 0 ? 'text-foreground' : 'text-muted-foreground'}`}>
+              <p
+                className={`text-xs ml-1.5 ${index === 0 ? 'text-foreground' : 'text-muted-foreground'}`}
+              >
                 {section.text}
               </p>
             </Button>
           )}
-          {index + 1 !== props.sections.length ? <p className="text-xs text-muted-foreground">|</p> : null}
+          {index + 1 !== props.sections.length ? (
+            <p className="text-xs text-muted-foreground">|</p>
+          ) : null}
         </div>
       ))}
     </div>

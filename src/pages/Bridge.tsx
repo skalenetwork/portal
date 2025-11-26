@@ -178,12 +178,7 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
           </div>
           <div>
             <Link to="/bridge/history">
-              <SkIconBtn
-                primary
-                icon={HistoryIcon}
-                size="small"
-                tooltipTitle='Bridge History'
-              />
+              <SkIconBtn primary icon={HistoryIcon} size="small" tooltipTitle="Bridge History" />
             </Link>
             <SkPageInfoIcon meta_tag={META_TAGS.bridge} />
           </div>

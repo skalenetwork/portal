@@ -115,3 +115,15 @@ export const AVATAR_COLORS = [
   '#31E981',
   '#ffbf81'
 ]
+
+export const HOME_CARD_COLORS = [
+  '#ff699b',
+  '#ff5c59',
+  '#e2ffd1',
+  '#ffd1ea',
+  '#b3ccff',
+  '#ffb5cc',
+  '#5ce6f2',
+  '#efeecc',
+  '#ffa945'
+]

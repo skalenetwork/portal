@@ -1518,3 +1518,15 @@ input[type=number] {
 body::-webkit-scrollbar {
   display: none;
 }
+
+.iconHomeCard {
+  mix-blend-mode: color-burn;
+  filter: brightness(0.3);
+}
+
+.dark {
+  .iconHomeCard {
+    mix-blend-mode: color-burn;
+    filter: brightness(0.5);
+  }
+}

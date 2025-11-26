@@ -192,7 +192,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   return (
     <div>
       <div className="mb-2.5 bg-background rounded-3xl p-5">
-        <Grid container spacing={0} alignItems="center" >
+        <Grid container spacing={0} alignItems="center">
           <Grid size={{ xs: 12, md: 4 }}>
             <Link to={'/chains/' + shortAlias}>
               <div className="flex items-center">
@@ -204,7 +204,9 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                 />
                 <div className={cls('ml-2.5', ['grow', isXs])} style={{ minWidth: 0 }}>
                   <h4 className="p font-bold pOneLine text-foreground">{chainAlias}</h4>
-                  <p className="p text-xs text-secondary-foreground pt-0.5 pOneLine">Click for chain details</p>
+                  <p className="p text-xs text-secondary-foreground pt-0.5 pOneLine">
+                    Click for chain details
+                  </p>
                 </div>
               </div>
             </Link>
@@ -319,7 +321,11 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
               )}
               text={`Token Balance - ${helper.shortAddress(address)}`}
               grow
-              icon={address && <Avatar size={17} variant="marble" name={address} colors={AVATAR_COLORS} />}
+              icon={
+                address && (
+                  <Avatar size={17} variant="marble" name={address} colors={AVATAR_COLORS} />
+                )
+              }
             />
           </SkPaper>
           <Grid container spacing={1} alignItems="center" className="mt-2.5 items-center">
@@ -338,7 +344,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                   icon={<TokenIcon size="xs" tokenSymbol={token} />}
                 />
               </SkPaper>
-              <div className='bg-accent-foreground text-accent! p-1 rounded-full -ml-4 z-10 border-6 border-card dark:border-black'>
+              <div className="bg-accent-foreground text-accent! p-1 rounded-full -ml-4 z-10 border-6 border-card dark:border-black">
                 <ChevronRight size={17} />
               </div>
             </Grid>
@@ -357,7 +363,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
           </Grid>
           <Button
             variant="contained"
-            className='btn mt-4! p-4! w-full capitalize! bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent!'
+            className="btn mt-4! p-4! w-full capitalize! bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent!"
             startIcon={<BadgeDollarSign size={17} />}
             size="large"
             onClick={buyCredits}

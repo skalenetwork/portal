@@ -109,7 +109,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
           const block = await provider.getBlock(tx.blockNumber)
           if (block) setTxTimestamp(block.timestamp)
         }
-      } catch (error) { }
+      } catch (error) {}
     }
     fetchTimestamp()
   }, [creditStation, creditsPurchase, payment.transactionHash])
@@ -119,7 +119,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
     const checkFulfillment = async () => {
       try {
         setIsFulfilled(await ledgerContract.isFulfilled(payment.id))
-      } catch (error) { }
+      } catch (error) {}
     }
     checkFulfillment()
     const interval = setInterval(checkFulfillment, 10000)
@@ -172,7 +172,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
 
   return (
     <div>
-      <div className='mb-2.5 bg-background rounded-3xl p-5'>
+      <div className="mb-2.5 bg-background rounded-3xl p-5">
         <Grid container spacing={0} alignItems="center">
           <Grid size={{ xs: 12, md: 4 }}>
             <Link
@@ -199,7 +199,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
                   className="creditHistoryIcon"
                 />
                 <div className={cls('ml-2.5', ['grow', isXs])}>
-                  <h4 className='font-bold pOneLine text-foreground'>
+                  <h4 className="font-bold pOneLine text-foreground">
                     {txTimestamp && !isAdmin
                       ? timeUtils.timestampToDate(txTimestamp, true)
                       : helper.shortAddress(payment.from)}

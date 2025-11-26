@@ -28,7 +28,7 @@ import { Send, SendToBack } from 'lucide-react'
 //
 
 export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
-  const actionIconMap: Record<dc.ActionType, JSX.Element> = {
+  const actionIconMap: Record<dc.ActionType, any> = {
     erc20_m2s: <Send size={17} />,
     erc20_s2m: <Send size={17} />,
     erc20_s2s: <Send size={17} />,
