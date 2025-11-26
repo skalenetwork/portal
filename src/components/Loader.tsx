@@ -21,20 +21,19 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { cmn, cls } from '@skalenetwork/metaport'
 import CircularProgress from '@mui/material/CircularProgress'
 
 export default function Loader(props: { text: string }) {
   return (
-    <div className={cls(cmn.flex, cmn.mtop20, cmn.mbott20)}>
-      <div className={cls(cmn.flexg)}></div>
-      <div className={cls(cmn.flex, cmn.flexcv, cmn.mri20)}>
+    <div className="flex mt-5 mb-5">
+      <div className="grow"></div>
+      <div className="flex items-center mr-5">
         <CircularProgress className="fullscreen-spin" />
       </div>
-      <div className={cls(cmn.flex, cmn.flexcv)}>
+      <div className="flex items-center">
         <h3 className="fullscreen-msg-text">{props.text}</h3>
       </div>
-      <div className={cls(cmn.flexg)}></div>
+      <div className="grow"></div>
     </div>
   )
 }

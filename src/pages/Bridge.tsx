@@ -25,18 +25,8 @@ import { Helmet } from 'react-helmet'
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import HistoryIcon from '@mui/icons-material/History'
-import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
 
-import {
-  cls,
-  cmn,
-  useMetaportStore,
-  SkPaper,
-  TransactionData,
-  styles,
-  useWagmiAccount,
-  Tile
-} from '@skalenetwork/metaport'
+import { useMetaportStore, SkPaper, TransactionData, useWagmiAccount } from '@skalenetwork/metaport'
 import { type types, dc, networks } from '@/core'
 
 import Container from '@mui/material/Container'
@@ -46,9 +36,9 @@ import BridgeBody from '../components/BridgeBody'
 
 import { META_TAGS } from '../core/meta'
 import Meson from '../components/Meson'
-import { Button } from '@mui/material'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
-import { DISABLE_BRIDGE, NETWORKS } from '../core/constants'
+import { NETWORKS } from '../core/constants'
+import SkIconBtn from '../components/SkIconBth'
 
 interface TokenParams {
   keyname: string | null
@@ -168,23 +158,8 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
     }
   }, [tokenParams, tokens])
 
-  if (DISABLE_BRIDGE)
-    return (
-      <Container maxWidth="md">
-        <Tile
-          value="Bridge operations on the SKALE Testnet will be temporarily disabled from July 9 to July 18 due to planned migration from Holesky to Hoodi.
-As Ethereum phases out the Holesky testnet (ending September 2025), SKALE is updating its testnet bridge connection to ensure continued stability and a smooth developer experience.
-Thank you for your understanding!"
-          text="Testnet Bridge Maintenance Notice."
-          icon={<ErrorRoundedIcon />}
-          color="warning"
-          className={cls(cmn.mtop20)}
-        />
-      </Container>
-    )
-
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" className="mt-2">
       <Helmet>
         <title>{META_TAGS.bridge.title}</title>
         <meta name="description" content={META_TAGS.bridge.description} />
@@ -192,34 +167,28 @@ Thank you for your understanding!"
         <meta property="og:description" content={META_TAGS.bridge.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className={cls(cmn.flex, cmn.flexcv)}>
-          <div className={cls(cmn.flexg)}>
-            <h2 className={cls(cmn.nom)}>Bridge</h2>
+        <div className="flex items-center">
+          <div className="grow">
+            <h2 className="m-0 text-xl font-bold text-foreground">Bridge</h2>
             {networks.hasFeatureInAny(NETWORKS, 'sfuel') && (
-              <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+              <p className="text-xs text-secondary-foreground font-semibold">
                 Zero Gas Fees between SKALE Chains
               </p>
             )}
           </div>
           <div>
             <Link to="/bridge/history">
-              <Button
-                variant="contained"
-                className={cls('btnMd', styles.paperGrey, cmn.pPrim, cmn.mri10)}
-                startIcon={<HistoryIcon />}
-              >
-                History
-              </Button>
+              <SkIconBtn primary icon={HistoryIcon} size="small" tooltipTitle="Bridge History" />
             </Link>
             <SkPageInfoIcon meta_tag={META_TAGS.bridge} />
           </div>
         </div>
 
-        <div className={cls(cmn.mtop20)}>
+        <div className="mt-6">
           <BridgeBody chainsMeta={props.chainsMeta} />
           {transactionsHistory.length !== 0 ? (
-            <div className={cls(cmn.mbott20)}>
-              <p className={cls(cmn.p, cmn.p2, cmn.pPrim, cmn.p700, cmn.mtop20, cmn.mbott10)}>
+            <div className="mb-5">
+              <p className="text-base text-foreground font-bold mt-5 mb-2.5">
                 Completed transactions
               </p>
               <SkPaper gray>
@@ -237,7 +206,7 @@ Thank you for your understanding!"
       </Stack>
       <Meson
         chainsMeta={props.chainsMeta}
-        className={cls(cmn.mtop20)}
+        className="mt-12"
         skaleNetwork={mpc.config.skaleNetwork}
         isXs={props.isXs}
       />

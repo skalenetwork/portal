@@ -20,7 +20,6 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cls, cmn, styles } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
@@ -32,7 +31,7 @@ interface DelegationFlowProps {
   className?: string
 }
 
-const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation, className }) => {
+const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation }) => {
   function formatDate(date: Date): string {
     const day = date.getDate().toString().padStart(2, '0')
     const month = (date.getMonth() + 1).toString().padStart(2, '0')
@@ -59,45 +58,39 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation, className }
   }
 
   return (
-    <div className={cls(cmn.flex, cmn.flexcv, className)}>
+    <div className="flex items-center className">
       <div>
-        <div className={cls(`chipXs chip_PROPOSED`)}>
-          <p className={cls(cmn.p, cmn.p4, 'pOneLine')}>PROPOSED</p>
+        <div className="chipXs chip_PROPOSED">
+          <p className="text-xs truncate">PROPOSED</p>
         </div>
-        <p className={cls(cmn.p, cmn.p5, cmn.pSec, cmn.pCent, cmn.mtop5)}>
+        <p className="text-xs text-secondary-foreground text-center mt-1.5">
           {delegation ? formatBigIntTimestampSeconds(delegation.created) : getCurrentDate()}
         </p>
       </div>
-      <ArrowForwardRoundedIcon
-        className={cls(cmn.pSec, styles.chainIconxs, cmn.mri10, cmn.mleft10, 'delegationFlowIcon')}
-      />
+      <ArrowForwardRoundedIcon className="text-secondary-foreground text-[17px]! mr-2.5 ml-2.5 'delegationFlowIcon'" />
       <div>
-        <div className={cls(`chipXs chip_ACCEPTED`)}>
-          <p className={cls(cmn.p, cmn.p4, 'pOneLine')}>ACCEPTED</p>
+        <div className="chipXs chip_ACCEPTED">
+          <p className="text-xs truncate">ACCEPTED</p>
         </div>
-        <p className={cls(cmn.p, cmn.p5, cmn.pSec, cmn.pCent, cmn.mtop5)}>
+        <p className="text-xs text-secondary-foreground text-center mt-1.5">
           Until {getFirstDayNextMonth()}
         </p>
       </div>
-      <ArrowForwardRoundedIcon
-        className={cls(cmn.pSec, styles.chainIconxs, cmn.mri10, cmn.mleft10, 'delegationFlowIcon')}
-      />
+      <ArrowForwardRoundedIcon className="text-secondary-foreground text-[17px]! mr-2.5 ml-2.5 'delegationFlowIcon'" />
       <div>
-        <div className={cls(`chipXs chip_DELEGATED`)}>
-          <p className={cls(cmn.p, cmn.p4)}>DELEGATED</p>
+        <div className="chipXs chip_DELEGATED">
+          <p className="text-xs">DELEGATED</p>
         </div>
-        <p className={cls(cmn.p, cmn.p5, cmn.pSec, cmn.pCent, cmn.mtop5)}>
+        <p className="text-xs text-secondary-foreground text-center mt-1.5">
           From {getFirstDayNextMonth()}
         </p>
       </div>
-      <ArrowForwardRoundedIcon
-        className={cls(cmn.pSec, styles.chainIconxs, cmn.mri10, cmn.mleft10, 'delegationFlowIcon')}
-      />
+      <ArrowForwardRoundedIcon className="text-secondary-foreground text-[17px]! mr-2.5 ml-2.5 'delegationFlowIcon'" />
       <div>
-        <div className={cls(`chipXs chip_REWARDS`)}>
-          <p className={cls(cmn.p, cmn.p4, 'pOneLine')}>REWARDS GENERATED</p>
+        <div className="chipXs chip_REWARDS">
+          <p className="text-xs truncate">REWARDS GENERATED</p>
         </div>
-        <p className={cls(cmn.p, cmn.p5, cmn.pSec, cmn.pCent, cmn.mtop5)}>
+        <p className="text-xs text-secondary-foreground text-center mt-1.5">
           Monthly, starting on {getFirstDayMonthAfterNext()}
         </p>
       </div>

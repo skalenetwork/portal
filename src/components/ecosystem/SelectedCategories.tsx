@@ -22,7 +22,7 @@
  */
 
 import React from 'react'
-import { cmn, cls, styles } from '@skalenetwork/metaport'
+import { cls } from '@skalenetwork/metaport'
 import { Chip, Box } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { categories } from '../../core/ecosystem/categories'
@@ -39,17 +39,19 @@ const CustomChipLabel: React.FC<{ category: string; subcategory?: string }> = ({
 }) => (
   <Box display="flex" alignItems="center">
     <p
-      className={cls([cmn.pSec, subcategory], [cmn.pPrim, !subcategory], cmn.p, cmn.p3, [
-        cmn.p600,
-        !subcategory
-      ])}
+      className={cls(
+        ['text-secondary-foreground', subcategory],
+        ['text-primary', !subcategory],
+        'text-sm',
+        ['font-semibold', !subcategory]
+      )}
     >
       {category}
     </p>
     {subcategory && (
       <>
         <Box component="span" className="borderLeft" sx={{ height: '1em', mx: 0.75 }} />
-        <p className={cls(cmn.pPrim, cmn.p, cmn.p3, cmn.p600)}>{subcategory}</p>
+        <p className="text-primary text-sm font-semibold">{subcategory}</p>
       </>
     )}
   </Box>
@@ -85,7 +87,7 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
   if (checkedItems.length === 0) return null
 
   return (
-    <Box className={cls(cmn.flex, cmn.flexcv, 'flex-w', cmn.mbottf10)}>
+    <Box className="flex items-center flex-wrap mb-2.5">
       {checkedItems.map((item) => {
         const [category, subcategory] = item.split('_')
         return (
@@ -99,16 +101,16 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
               />
             }
             onDelete={() => handleDelete(item)}
-            deleteIcon={<CloseIcon className={cls(styles.chainIconxs)} />}
-            className={cls('outlined', cmn.p600)}
+            deleteIcon={<CloseIcon className="text-[17px]!" />}
+            className="'outlined', font-semibold"
           />
         )
       })}
-      <p className={cls(cmn.p, cmn.p4, cmn.pPrim, cmn.mleft10, cmn.mri10)}>
+      <p className="text-xs text-primary ml-2.5 mr-2.5">
         {filteredAppsCount} project{filteredAppsCount !== 1 ? 's' : ''}
       </p>
       <p
-        className={cls(cmn.p, cmn.p500, cmn.p4, cmn.nop, cmn.nom, cmn.pSec, cmn.mleft20)}
+        className="text-xs text-xs p-0 m-0 text-secondary-foreground ml-5"
         style={{ cursor: 'pointer' }}
         onClick={clearAll}
       >

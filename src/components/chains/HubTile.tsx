@@ -25,7 +25,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Tooltip } from '@mui/material'
 
-import { cmn, cls, SkPaper, styles } from '@skalenetwork/metaport'
+import { SkPaper, useThemeMode } from '@skalenetwork/metaport'
 import { type types, metadata } from '@/core'
 
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
@@ -46,7 +46,7 @@ export default function HubTile(props: {
   showStats?: boolean
 }) {
   const [schainMetrics, setSchainMetrics] = useState<types.IChainMetrics | null>(null)
-
+  const { mode } = useThemeMode()
   useEffect(() => {
     if (props.metrics !== null && props.metrics.metrics[props.schainName]) {
       setSchainMetrics(props.metrics.metrics[props.schainName])
@@ -66,20 +66,18 @@ export default function HubTile(props: {
   const chainDescription = metadata.getChainDescription(chainMeta)
 
   return (
-    <Link to={'/chains/' + shortAlias} className={cls(cmn.flex, cmn.pPrim, cmn.flexg)}>
+    <Link to={'/chains/' + shortAlias} className="flex text-primary grow">
       <SkPaper
         gray
-        className={cls('titleSectionOut', 'hoverable', 'pointer', cmn.flexg)}
+        className="titleSectionOut hoverable pointer grow"
         background={
-          props.bg ? metadata.chainBg(props.network, props.chainsMeta, props.schainName) : ''
+          props.bg ? metadata.chainBg(props.network, props.chainsMeta, props.schainName, mode) : ''
         }
       >
         <Tooltip title="Click to see Hub details">
-          <div className={cls('titleSectionBg', cmn.flex, cmn.flexcv)}>
-            <div
-              className={cls(cmn.flex, cmn.flexcv, cmn.flexg, cmn.mtop20, cmn.mbott20, cmn.mleft20)}
-            >
-              <div className={cls(styles.chainIconlg, cmn.flex, cmn.flexcv)}>
+          <div className="titleSectionBg flex items-center">
+            <div className="flex items-center grow mt-5 mb-5 ml-5">
+              <div className="w-[45px] h-[45px] flex items-center">
                 <ChainLogo
                   network={props.network}
                   chainName={props.schainName}
@@ -87,27 +85,17 @@ export default function HubTile(props: {
                   className="responsive-logo"
                 />
               </div>
-              <div
-                className={cls([cmn.mleft20, !props.isXs], [cmn.mleft10, props.isXs], cmn.flexg)}
-              >
-                <h4 className={cls(cmn.p, cmn.p700, 'pOneLine')}>{alias}</h4>
-                <p
-                  className={cls(
-                    cmn.p,
-                    [cmn.p4, !props.isXs],
-                    [cmn.p5, props.isXs],
-                    [cmn.mri10, props.isXs],
-                    cmn.pSec
-                  )}
-                >
+              <div className={`${!props.isXs ? 'ml-5' : 'ml-2.5'} grow`}>
+                <h4 className="font-bold pOneLine">{alias}</h4>
+                <p className={`text-xs ${props.isXs ? 'mr-2.5' : ''} text-secondary-foreground`}>
                   {chainDescription.split('.', 1)[0]}
                 </p>
               </div>
             </div>
             {props.isXs || !props.showStats ? null : (
-              <div className={cls('chipSm', cmn.mri10, cmn.flex, cmn.flexcv)}>
+              <div className="chipSm mr-2.5 flex items-center">
                 <TrendingUpRoundedIcon />
-                <p className={cls(cmn.p, cmn.p5, cmn.mleft10)}>
+                <p className="text-xs ml-2.5">
                   {schainMetrics
                     ? formatNumber(schainMetrics.chain_stats?.transactions_today)
                     : '...'}
@@ -116,8 +104,8 @@ export default function HubTile(props: {
               </div>
             )}
             {!props.isXs && (
-              <div className={cls(cmn.mri20, styles.chainIconxs)}>
-                <ArrowForwardIosRoundedIcon className={cls(cmn.pSec)} />
+              <div className="mr-5 w-4 h-4">
+                <ArrowForwardIosRoundedIcon className="text-secondary-foreground" />
               </div>
             )}
           </div>

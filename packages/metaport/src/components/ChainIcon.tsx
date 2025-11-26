@@ -1,8 +1,9 @@
 import { metadata, types } from '@/core'
 import OfflineBoltRoundedIcon from '@mui/icons-material/OfflineBoltRounded'
+import { useThemeMode } from './ThemeProvider'
 import { chainIconPath, CHAINS_META } from '../core/metadata'
 
-import { cls, styles, cmn } from '../core/css'
+import { styles } from '../core/css'
 
 export default function ChainIcon(props: {
   skaleNetwork: types.SkaleNetwork
@@ -13,9 +14,10 @@ export default function ChainIcon(props: {
   app?: string
   size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }) {
+  const { mode } = useThemeMode()
   const iconPath = chainIconPath(props.skaleNetwork, props.chainName, props.app)
   const size = props.size ?? 'sm'
-  const className = cls(styles.chainIcon, styles[`chainIcon${size}`])
+  const className = styles.chainIcon + ' ' + styles[`chainIcon${size}`]
   const bg = props.bg ?? true
   let chainsMeta = props.chainsMeta
   if (props.chainsMeta === undefined) {
@@ -24,10 +26,10 @@ export default function ChainIcon(props: {
   if (iconPath !== undefined) {
     return (
       <div
-        className={cls('logo-wrapper', styles.chainIconBg, [styles[`chainIconBg${size}`], bg], props.className)}
-        style={bg ? { background: metadata.chainBg(props.skaleNetwork, chainsMeta, props.chainName) } : undefined}
+        className={'logo-wrapper ' + styles.chainIconBg + ' ' + [styles[`chainIconBg${size}`], bg].join(' ') + ' ' + props.className}
+        style={bg ? { background: metadata.chainBg(props.skaleNetwork, chainsMeta, props.chainName, props.app, mode) } : undefined}
       >
         <img className={className} src={iconPath.default ?? iconPath} /></div>)
   }
-  return <OfflineBoltRoundedIcon className={cls(styles.defaultChainIcon, cmn.pPrim, className)} />
+  return <OfflineBoltRoundedIcon className={styles.defaultChainIcon + ' text-foreground ' + className} />
 }

@@ -23,8 +23,6 @@
 
 import { units } from '@/core'
 import { Tooltip } from '@mui/material'
-import { cls, cmn, styles } from '../core/css'
-import TokenIcon from './TokenIcon'
 import MetaportCore from '../core/metaport'
 
 export default function TokenBalance(props: {
@@ -43,32 +41,24 @@ export default function TokenBalance(props: {
     balance = units.truncateDecimals(balanceFull, props.truncate)
   }
   let size = props.size ?? 'xs'
-  let iconUrl = undefined
-  if (props.mpc !== undefined) {
-    iconUrl = props.mpc.config.tokens[props.symbol.toLowerCase()]?.iconUrl
-  }
   return (
     <Tooltip arrow title={balanceFull + ' ' + props.symbol}>
-      <div className={cls(cmn.flex, cmn.flexcv, styles.paperGrey, cmn.padd5, cmn.pleft10, cmn.pri10, cmn.bordRad)}>
-        <p
-          className={cls(
-            cmn.pLightGrey,
-            [cmn.p3, size === 'xs'],
-            [cmn.p3, size === 'sm'],
-            [cmn.p2, size === 'md'],
-            [cmn.pSec, !props.primary],
-            [cmn.pPrim, props.primary],
-            cmn.flex,
-            cmn.flexcv,
-            cmn.nom,
-            cmn.mri5
-          )}
-        >
-          <TokenIcon tokenSymbol={props.symbol} size='xs' iconUrl={iconUrl} />
-          <div className={cls(cmn.mri5)}></div>
+      <p
+        className={`
+            ${size === 'xs' ? 'text-xs' : ''}
+            ${size === 'sm' ? 'text-xs' : ''}
+            ${size === 'md' ? 'text-base' : ''}
+            ${!props.primary && 'text-muted-foreground!'}
+            ${props.primary && 'text-foreground!'}
+            flex items-center font-semibold
+            bg-muted rounded-2xl p-2 pr-3.5
+          `}
+      >
+        <div className="mr-1.5"></div>
+        <span className='whitespace-nowrap'>
           {balance} {props.symbol}
-        </p>
-      </div>
+        </span>
+      </p>
     </Tooltip>
   )
 }

@@ -23,9 +23,8 @@
 
 import { types } from '@/core'
 import styles from '../styles/styles.module.scss'
-import cmn from '../styles/cmn.module.scss'
 
-export { styles, cmn }
+export { styles }
 
 export function cls(...args: any): string {
   const filteredArgs = args.map((clsName: any) => {

@@ -24,11 +24,14 @@
 import AppBar from '@mui/material/AppBar'
 import Toolbar from '@mui/material/Toolbar'
 import Chip from '@mui/material/Chip'
+import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
+import { MoonStar, SunMedium } from 'lucide-react'
 
 import logo from './assets/skale_lg.svg'
 
 import { constants, networks } from '@/core'
-import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
+import { type MetaportCore } from '@skalenetwork/metaport'
 
 import HelpZen from './components/HelpZen'
 import MoreMenu from './components/MoreMenu'
@@ -37,12 +40,15 @@ import NetworkSwitch from './components/NetworkSwitch'
 import GetSFuel from './components/GetSFuel'
 import { Link } from 'react-router-dom'
 import { NETWORKS } from './core/constants'
+import { useThemeMode } from '@skalenetwork/metaport'
 
 export default function Header(props: {
   address: `0x${string}` | undefined
   mpc: MetaportCore
   openProfileModal: () => void
 }) {
+  const { mode, toggleMode } = useThemeMode()
+
   return (
     <AppBar
       elevation={0}
@@ -50,13 +56,13 @@ export default function Header(props: {
       className="sk-header"
       sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
     >
-      <Toolbar className={cmn.flex}>
-        <div className={cls(cmn.flex, cmn.flexcv)}>
-          <Link to="/" className={cls(cmn.flex, cmn.flexcv)}>
-            <img src={logo} className="skLogo" alt="logo" />
+      <Toolbar className="flex items-center">
+        <div className="flex items-center">
+          <Link to="/" className="flex items-center">
+            <img src={logo} className="skLogo invert dark:invert-0" alt="logo" />
           </Link>
         </div>
-        <div className={cls(cmn.flex, cmn.flexg, cmn.mleft10)}>
+        <div className="flex items-center grow ml-2.5">
           {constants.MAINNET_CHAIN_NAME !== 'mainnet' ? (
             <Chip
               label="TESTNET"
@@ -67,8 +73,16 @@ export default function Header(props: {
           ) : null}
         </div>
         <AccountMenu address={props.address} openProfileModal={props.openProfileModal} />
-        {networks.hasFeatureInAny(NETWORKS, 'sfuel') && <GetSFuel mpc={props.mpc} />}
         <NetworkSwitch mpc={props.mpc} />
+        <Tooltip title={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
+          <IconButton
+            size="small"
+            className="ml-1.5! h-8 w-8 rounded-full bg-card! text-foreground! hover:bg-muted"
+            onClick={toggleMode}
+          >
+            {mode === 'dark' ? <MoonStar className="h-4 w-4" /> : <SunMedium className="h-4 w-4" />}
+          </IconButton>
+        </Tooltip>
         <HelpZen />
         <MoreMenu />
       </Toolbar>

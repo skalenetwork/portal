@@ -23,8 +23,6 @@
 import { useEffect, useState } from 'react'
 import { Contract } from 'ethers'
 import {
-  cmn,
-  cls,
   type MetaportCore,
   enforceNetwork,
   useWagmiWalletClient,
@@ -33,7 +31,6 @@ import {
   Tile,
   walletClientToSigner,
   sendTransaction,
-  styles,
   SkPaper,
   Station,
   explorer,
@@ -191,12 +188,12 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   }
 
   return (
-    <SkPaper gray className={cls(cmn.mtop20, className)}>
+    <SkPaper gray className={`mt-5 ${className || ''}`}>
       <Headline
         size="small"
         text="Chain Rewards"
-        icon={<StarsRoundedIcon className={cls(styles.chainIconxs)} />}
-        className={cls(cmn.mbott20)}
+        icon={<StarsRoundedIcon className="w-4 h-4" />}
+        className="mb-5"
       />
       <Tile
         disabled={rewardAmount === 0n}
@@ -210,13 +207,13 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
             : ''
         }
         childrenRi={
-          <SkStack className={cls(cmn.flex, [cmn.flexcv, !isXs])}>
+          <SkStack className="flex items-center">
             <SkBtn
               loading={loading}
               text={btnText ?? 'Retrieve'}
               variant="contained"
               size="sm"
-              className={cls([cmn.mleft20, !isXs], cmn.mri20, cmn.flexcv)}
+              className={`${!isXs ? 'ml-5' : ''} mr-5 items-center`}
               disabled={
                 customAddress !== undefined ||
                 rewardAmount === null ||
@@ -225,9 +222,9 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
               }
               onClick={retrieveRewards}
             />
-            <div className={cls(['borderVert', !isXs])}>
+            <div className={!isXs ? 'borderVert' : ''}>
               <Tile
-                className={cls(cmn.nop, [cmn.mleft20, !isXs])}
+                className={`p-0 ${!isXs ? 'ml-5' : ''}`}
                 size="md"
                 transparent
                 grow
@@ -246,9 +243,9 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
                       <Button
                         disabled={tokenUrl === null}
                         variant="text"
-                        className={cls('roundBtn', cmn.mleft5)}
+                        className="roundBtn ml-1.5"
                       >
-                        <ViewInArRoundedIcon className={cls(styles.chainIconxs)} />
+                        <ViewInArRoundedIcon className="w-4 h-4" />
                       </Button>
                     </a>
                   </Tooltip>
@@ -258,7 +255,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
           </SkStack>
         }
       />
-      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className={cls(cmn.mtop10)} />
+      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-2.5" />
     </SkPaper>
   )
 }

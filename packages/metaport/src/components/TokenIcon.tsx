@@ -23,7 +23,7 @@
 
 import TollRoundedIcon from '@mui/icons-material/TollRounded'
 import { constants } from '@/core'
-import { styles, cmn, cls } from '../core/css'
+import { styles, cls } from '../core/css'
 
 export default function TokenIcon(props: {
   tokenSymbol: string | undefined | null
@@ -31,16 +31,21 @@ export default function TokenIcon(props: {
   size?: 'xs' | 'sm' | 'md' | 'lg'
 }) {
   const size = props.size ?? 'sm'
-  const className = cls(styles[`chainIcon${size}`], cmn.rad50)
+  const className = cls(styles[`chainIcon${size}`], 'rounded-full')
   if (props.tokenSymbol === undefined || props.tokenSymbol === null) {
     return <TollRoundedIcon />
   }
   if (props.iconUrl !== undefined && props.iconUrl !== null) {
-    return <img className={className} src={props.iconUrl} />
+    return (
+      <img
+        className={cls(className, 'object-contain max-w-fit')}
+        src={props.iconUrl}
+      />
+    )
   }
   return (
     <img
-      className={className}
+      className={cls(className, 'object-contain max-w-fit')}
       src={`${constants.BASE_TOKEN_ICON_URL}${props.tokenSymbol.toLowerCase()}.svg`}
     />
   )

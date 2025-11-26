@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, TokenIcon, Tile } from '@skalenetwork/metaport'
+import { TokenIcon, Tile } from '@skalenetwork/metaport'
 import { type types, units, constants } from '@/core'
 
 import { Skeleton } from '@mui/material'
@@ -43,28 +43,28 @@ export default function ValidatorInfo(props: {
     units.fromWei(props.validator.minimumDelegationAmount, constants.DEFAULT_ERC20_DECIMALS)
 
   return (
-    <div className={cls(props.className)}>
-      <div className={cls(cmn.flex, cmn.mbott10, 'titleSection')}>
+    <div className="props.className">
+      <div className="flex mb-2.5 'titleSection'">
         <ValidatorLogo validatorId={props.validator?.id} size="xl" />
         {props.validator ? (
-          <div className={cls(cmn.mleft20)}>
-            <div className={cls(cmn.flex, cmn.flexcv)}>
-              <p className={cls(cmn.p, cmn.p1, cmn.p700, cmn.pPrim)}>{props.validator.name}</p>
+          <div className="ml-5">
+            <div className="lex, items-center">
+              <p className="text-base font-bold text-primary">{props.validator.name}</p>
               <TrustBadge validator={props.validator} />
-              <ValidatorBadge validator={props.validator} className={cmn.mleft10} />
+              <ValidatorBadge validator={props.validator} className="ml-2.5" />
             </div>
-            <p className={cls(cmn.p, cmn.p4, cmn.p600, cmn.pSec, cmn.mri20, cmn.mtop5)}>
+            <p className="text-xs font-semibold text-secondary-foreground mr-5 mt-1.5">
               {description}
             </p>
           </div>
         ) : (
-          <div className={cls(cmn.flexg)}>
+          <div className="grow">
             <Skeleton variant="rectangular" width={200} height={40} />
-            <Skeleton variant="rectangular" width={200} height={20} className={cls(cmn.mtop10)} />
+            <Skeleton variant="rectangular" width={200} height={20} className="mt-2.5" />
           </div>
         )}
       </div>
-      <SkStack className={cls(cmn.mtop10)}>
+      <SkStack className="mt-2.5">
         <Tile
           value={props.validator && `${Number(props.validator.feeRate) / 10}% fee`}
           text="Validator fee"

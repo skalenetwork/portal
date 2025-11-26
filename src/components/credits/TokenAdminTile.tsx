@@ -21,7 +21,6 @@
  */
 
 import {
-  cmn,
   cls,
   styles,
   type MetaportCore,
@@ -48,6 +47,7 @@ import { Button, Dialog, Grid, TextField } from '@mui/material'
 import SkStack from '../SkStack'
 import { useState } from 'react'
 import Headline from '../Headline'
+import { Bolt, Coins } from 'lucide-react'
 
 interface TokenAdminTileProps {
   mpc: MetaportCore
@@ -142,34 +142,34 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
   const tokenPriceWei = getTokenPriceWei()
 
   return (
-    <div className={cls(cmn.mbott10, 'titleSection')}>
+    <div className="mb-2.5 bg-background rounded-3xl p-4">
       <Grid container spacing={0} alignItems="center">
         <Grid size={{ xs: 12, md: 4 }}>
-          <div className={cls(cmn.flex, cmn.flexcv)}>
+          <div className="flex items-center">
             <TokenIcon tokenSymbol={symbol} size="lg" iconUrl={tokenMeta?.iconUrl} />
-            <div className={cls(cmn.mleft10, [cmn.flexg, isXs])}>
-              <h4 className={cls(cmn.p, cmn.p700, 'pOneLine', cmn.upp)}>{symbol}</h4>
-              <p className={cls(cmn.p, cmn.p4, cmn.pSec)}>{tokenMeta?.name}</p>
+            <div className={cls('ml-3.5', ['grow', isXs])}>
+              <h4 className="p font-bold pOneLine uppercase text-foreground">{symbol}</h4>
+              <p className="p text-xs text-muted-foreground font-semibold">{tokenMeta?.name}</p>
             </div>
           </div>
         </Grid>
-        <Grid size={{ xs: 12, md: 2 }} className={cls(cmn.flex)}>
+        <Grid size={{ xs: 12, md: 2 }} className="flex">
           <div
-            className={cls('chipXs', getChipClass(tokenPriceWei), cmn.mri20, cmn.flex, cmn.flexcv)}
+            className={cls('chipXs', getChipClass(tokenPriceWei), 'mr-5', 'flex', 'items-center')}
           >
             {tokenPriceWei === 0n ? <DoDisturbOnRoundedIcon /> : <CheckCircleRoundedIcon />}
-            <p className={cls(cmn.p, cmn.p4, 'pOneLine', cmn.mleft5)}>
+            <p className="p text-xs pOneLine ml-1.5 font-semibold">
               {tokenPriceWei === 0n ? 'DISABLED' : 'ENABLED'}
             </p>
           </div>
         </Grid>
-        <Grid size={{ xs: 12, md: 6 }} className={cls(cmn.flex)}>
-          <div className={cls(cmn.flexg)}></div>
-          <SkStack className={cls(cmn.flex)}>
+        <Grid size={{ xs: 12, md: 6 }} className="flex">
+          <div className="grow"></div>
+          <SkStack className="flex">
             <Tile
               size="md"
               transparent
-              className={cls(cmn.nop, cmn.upp, [cmn.mri20, !isXs], [cmn.mleft20, !isXs])}
+              className={cls('p-0!', 'uppercase', ['mr-5', !isXs], ['ml-5', !isXs])}
               value={units.displayBalance(
                 tokenPriceWei,
                 symbol,
@@ -179,13 +179,12 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
               grow
               disabled={tokenPriceWei === 0n}
               ri={!isXs}
-              icon={<PaidRoundedIcon />}
+              icon={<Coins size={17} />}
             />
-            <div className="borderVert"></div>
             <Button
               size="small"
-              startIcon={<PriceChangeRoundedIcon />}
-              className={cls('btnSm', 'filled', cmn.mleft10)}
+              startIcon={<Bolt size={17} />}
+              className="btnSm bg-secondary-foreground/10! text-foreground! ml-2.5"
               onClick={() => setOpenModal(true)}
               disabled={creditStation === undefined}
             >
@@ -209,18 +208,18 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
         <SkPaper gray>
           <Headline
             text={`Set CREDIT Price - ${tokenMeta?.name}`}
-            icon={<MonetizationOnRoundedIcon className={cls(styles.chainIconxs)} />}
-            className={cls(cmn.mbott20)}
+            icon={<MonetizationOnRoundedIcon className="text-[17px]!" />}
+            className="mb-5"
             size="small"
           />
-          <SkPaper className={cls(cmn.nop)}>
+          <SkPaper className="p-0!">
             <Tile
               grow
               text="Enter the new price"
               className={cls(styles.inputAmount)}
               children={
-                <div className={cls(cmn.flex, cmn.flexcv, 'amountInput')}>
-                  <div className={cls(cmn.flexg)}>
+                <div className="flex items-center amountInput">
+                  <div className="grow">
                     <TextField
                       inputProps={{ step: '0.1', lang: 'en-US' }}
                       inputRef={(input) => input?.focus()}
@@ -233,7 +232,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
                       style={{ width: '100%' }}
                     />
                   </div>
-                  <div className={cls(cmn.p1, cmn.p, cmn.p700, cmn.mri10, cmn.upp)}>{symbol}</div>
+                  <div className="text-xs p font-bold mr-2.5 uppercase">{symbol}</div>
                 </div>
               }
               icon={<TokenIcon tokenSymbol={symbol} size="xs" />}
@@ -241,7 +240,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
           </SkPaper>
           <Button
             variant="contained"
-            className={cls(styles.btnAction, cmn.mtop20)}
+            className={cls(styles.btnAction, 'mt-5')}
             size="large"
             onClick={updatePrice}
             disabled={loading || price === ''}

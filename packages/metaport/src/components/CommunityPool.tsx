@@ -35,12 +35,8 @@ import SkPaper from './SkPaper'
 
 import Button from '@mui/material/Button'
 
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
-import TransitEnterexitRoundedIcon from '@mui/icons-material/TransitEnterexitRounded'
-import AccountBalanceWallet from '@mui/icons-material/AccountBalanceWallet'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import ErrorIcon from '@mui/icons-material/Error'
-import RecommendIcon from '@mui/icons-material/Recommend'
 
 import { withdraw, recharge } from '../core/community_pool'
 import {
@@ -49,14 +45,16 @@ import {
   MINIMUM_RECHARGE_AMOUNT
 } from '../core/constants'
 
-import { cls, cmn, styles } from '../core/css'
+import { styles } from '../core/css'
 
 import { useCPStore } from '../store/CommunityPoolStore'
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
-import { Collapse, Grid } from '@mui/material'
+import { Collapse } from '@mui/material'
 import TokenIcon from './TokenIcon'
 import Tile from './Tile'
+import { ArrowDown, ChevronDown, ThumbsUp, Wallet } from 'lucide-react'
+import { useThemeMode } from './ThemeProvider'
 
 export default function CommunityPool() {
   const { address, chainId } = useAccount()
@@ -79,6 +77,8 @@ export default function CommunityPool() {
 
   const expandedCP = useCollapseStore((state) => state.expandedCP)
   const setExpandedCP = useCollapseStore((state) => state.setExpandedCP)
+
+  const { mode } = useThemeMode()
 
   let chainName
   if (token && chainName2) {
@@ -176,40 +176,40 @@ export default function CommunityPool() {
 
   if (!address) return null;
   return (
-    <div className={cls([cmn.mtop10, !expandedCP])}>
+    <div>
       <Accordion
         disabled={!!loading}
         expanded={expandedCP === 'panel1'}
         onChange={handleChange('panel1')}
       >
         <AccordionSummary
-          className={cls(styles.accordionSummary, styles.accordionSm)}
-          expandIcon={<ExpandMoreRoundedIcon />}
+          className="py-2! px-6! mt-3.5!"
+          expandIcon={<ChevronDown size={18} className="text-foreground" />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
-          <div className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv)}>
-            <div className={cls(cmn.flex, cmn.flexc, cmn.mri10)}>{icon}</div>
-            <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.cap, cmn.pPrim, cmn.mri10)}>{text}</p>
+          <div className="flex w-full items-center">
+            <div className="flex items-center justify-center mr-2.5">{icon}</div>
+            <p className="text-sm text-foreground font-semibold capitalize mr-2.5">{text}</p>
           </div>
         </AccordionSummary>
-        <AccordionDetails>
-          <SkPaper background="transparent" className={cls(styles.accordionContent)}>
-            <p className={cls(cmn.flex, cmn.p3, cmn.p, cmn.errorMessage, cmn.flexg)}>
+        <AccordionDetails >
+          <SkPaper gray className="m-2 p-5! mt-0! pt-0!">
+            <p className="m-0 text-sm text-muted-foreground font-medium flex grow">
               This wallet is used to pay for gas fees on transactions that are send to the Ethereum
               Mainnet. You may withdraw funds from your SKALE Gas Wallet at anytime.
             </p>
             {cpData.recommendedRechargeAmount ? (
-              <p className={cls(cmn.flex, cmn.p3, cmn.p, cmn.errorMessage, cmn.flexg, cmn.mtop10)}>
+              <p className="m-0 text-sm text-muted-foreground font-medium flex grow mt-2.5">
                 Minimum recommended recharge amount for your wallet is{' '}
                 {cpData.recommendedRechargeAmount} ETH.
               </p>
             ) : null}
-            <Grid container rowSpacing={2} columnSpacing={1} className={cmn.mtop20}>
-              <Grid size={{ xs: 12, md: 6 }}>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
+              <div className="col-span-1">
                 <Tile
                   text="ETH Balance"
-                  className={cls(styles.inputAmount)}
+                  className={styles.inputAmount}
                   icon={<TokenIcon tokenSymbol="eth" size="xs" />}
                   grow
                   size="md"
@@ -219,8 +219,8 @@ export default function CommunityPool() {
                       : ''
                   }
                 />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
+              </div>
+              <div className="col-span-1">
                 <Tile
                   grow
                   text="Exit Wallet Balance"
@@ -230,17 +230,17 @@ export default function CommunityPool() {
                       ? `${units.truncateDecimals(units.formatBalance(cpData.balance, constants.DEFAULT_ERC20_DECIMALS), COMMUNITY_POOL_DECIMALS)} ETH`
                       : ''
                   }
-                  icon={<AccountBalanceWallet />}
+                  icon={<Wallet size={17} />}
                 />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
+              </div>
+              <div className="col-span-1">
                 <Tile
                   grow
                   text="Enter amount to recharge"
-                  className={cls(styles.inputAmount)}
+                  className={`${styles.inputAmount} ${mode == 'light' && styles.inputAmountLight}`}
                   children={
-                    <div className={cls(cmn.flex, cmn.flexcv, 'amountInput')}>
-                      <div className={cls(cmn.flexg)}>
+                    <div className="flex items-center amountInput">
+                      <div className="grow">
                         <TextField
                           inputProps={{ step: '0.1', lang: 'en-US' }}
                           inputRef={(input) => input?.focus()}
@@ -253,25 +253,25 @@ export default function CommunityPool() {
                           style={{ width: '100%' }}
                         />
                       </div>
-                      <div className={cls(cmn.p1, cmn.p, cmn.p700, cmn.mri10)}>ETH</div>
+                      <div className="text-2xl font-bold text-foreground mr-2.5">ETH</div>
                     </div>
                   }
-                  icon={<TransitEnterexitRoundedIcon style={{ rotate: '315deg' }} />}
 
+                  icon={<ArrowDown size={17} />}
                 />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }}>
+              </div>
+              <div className="col-span-1">
                 <Tile
                   disabled={!!loading}
                   value={cpData.recommendedRechargeAmount !== undefined ? String(cpData.recommendedRechargeAmount) : ''}
                   text="Recommended"
-                  icon={<RecommendIcon />}
+                  icon={<ThumbsUp size={17} />}
                   color={true ? undefined : 'error'}
                   grow
                   childrenRi={
-                    <div className={cls(cmn.flexcv, cmn.flex)}>
+                    <div className="flex items-center">
                       <Button
-                        className={cls('btnSm', 'outlined', cmn.mleft20, cmn.flexcv)}
+                        className="bg-secondary-foreground/10! flex items-center text-[10px]! py-1! px-3! min-w-0! text-foreground! mr-2!"
                         onClick={() => {
                           if (!cpData.recommendedRechargeAmount) return
                           setAmount(String(cpData.recommendedRechargeAmount))
@@ -282,14 +282,14 @@ export default function CommunityPool() {
                     </div>
                   }
                 />
-              </Grid>
-            </Grid>
-            <div className={cls(cmn.mbott20, cmn.mtop20)}>
+              </div>
+            </div>
+            <div>
               <Button
                 variant="contained"
                 color="primary"
                 size="medium"
-                className={cls(styles.btnAction, cmn.mtop5)}
+                className="w-full normal-case text-sm font-semibold py-3.5 px-4 rounded shadow-none mt-1.5"
                 onClick={rechargeCP}
                 disabled={
                   !!loading ||
@@ -305,12 +305,12 @@ export default function CommunityPool() {
                 {getRechargeBtnText()}
               </Button>
               <Collapse in={cpData.balance !== 0n || loading === 'withdraw'}>
-                <div className={cls(cmn.mtop5)}>
+                <div>
                   <Button
                     variant="text"
                     color="warning"
                     size="small"
-                    className={cls(styles.btnAction, cmn.mtop5)}
+                    className="w-full normal-case text-sm font-semibold py-3.5! px-4! rounded shadow-none mt-1.5 bg-amber-500/10! text-amber-500!"
                     onClick={withdrawCP}
                     disabled={!!loading || !chainName || cpData.balance === 0n}
                   >

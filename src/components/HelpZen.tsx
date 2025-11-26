@@ -4,11 +4,8 @@ import { useEffect, useState, type MouseEvent } from 'react'
 import Box from '@mui/material/Box'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
-import QuestionMarkRoundedIcon from '@mui/icons-material/QuestionMarkRounded'
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined'
-import MarkUnreadChatAltRoundedIcon from '@mui/icons-material/MarkUnreadChatAltRounded'
-import { cmn } from '@skalenetwork/metaport'
 import SkIconBtn from './SkIconBth'
+import { CircleQuestionMark, MessageCircle, HelpCircle } from 'lucide-react'
 
 export default function HelpZen() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -39,59 +36,43 @@ export default function HelpZen() {
 
   return (
     <div>
-      <Box
-        className={cmn.mleft5}
-        sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}
-      >
+      <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         <SkIconBtn
-          icon={QuestionMarkRoundedIcon}
+          icon={CircleQuestionMark}
           onClick={handleClick}
           size="small"
           tooltipTitle="Get help"
         />
       </Box>
       <Menu
-        className="mp__moreMenu"
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
         onClose={handleClose}
         onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
-            '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1
-            },
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0
-            }
+        slotProps={{
+          paper: {
+            className:
+              'mt-2.5! overflow-visible rounded-md! bg-card! text-foreground! shadow-sm! border-none! ring-0! [&_.MuiList-root]:bg-card! [&_.MuiList-root]:p-1.5!'
           }
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <MenuItem onClick={handleClickZen}>
-          <MarkUnreadChatAltRoundedIcon className={cmn.mri10} /> Open support chat
+        <MenuItem
+          onClick={handleClickZen}
+          className="flex items-center px-2.5! py-2! text-sm! font-sans! font-semibold! text-foreground! hover:bg-muted! rounded-lg!"
+        >
+          <MessageCircle className="mr-2.5 h-[17px] w-[17px] text-muted-foreground" />
+          Open support chat
         </MenuItem>
-        <Link to="/other/faq" className="undec fullW">
-          <MenuItem onClick={handleClose}>
-            <HelpOutlineOutlinedIcon className={cmn.mri10} /> Bridge FAQ
+        <Link to="/other/faq" className="undec">
+          <MenuItem
+            onClick={handleClose}
+            className="flex items-center px-2.5! py-2! text-sm! font-sans! font-semibold! text-foreground! hover:bg-muted! rounded-lg!"
+          >
+            <HelpCircle className="mr-2.5 h-[17px] w-[17px] text-muted-foreground" />
+            Bridge FAQ
           </MenuItem>
         </Link>
       </Menu>

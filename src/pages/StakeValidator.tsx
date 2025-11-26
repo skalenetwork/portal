@@ -22,7 +22,7 @@
  */
 
 import { useState, useEffect } from 'react'
-import { cmn, cls, type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
@@ -64,9 +64,9 @@ export default function StakeValidator(props: {
 
   return (
     <Container maxWidth="md">
-      <SkPaper gray className={cls(cmn.mtop10, 'chainDetails')}>
+      <SkPaper gray className="mt-2.5 chainDetails">
         <SkStack>
-          <div className={cls(cmn.flex, cmn.flexg)}>
+          <div className="flex grow">
             <Breadcrumbs
               sections={[
                 {
@@ -81,7 +81,7 @@ export default function StakeValidator(props: {
               ]}
             />
           </div>
-          <div className={cls(cmn.flex)}>
+          <div className="flex">
             <DelegationTypeSelect
               delegationType={delegationType}
               handleChange={handleChange}
@@ -89,9 +89,11 @@ export default function StakeValidator(props: {
             />
           </div>
         </SkStack>
-        <div className={cls(cmn.mtop10, cmn.mleft5, cmn.mbott10)} style={{ paddingBottom: '5px' }}>
-          <h2 className={cls(cmn.nom)}>Stake SKL</h2>
-          <p className={cls(cmn.p, cmn.p3, cmn.pSec)}>Choose a validator to delegate your SKL</p>
+        <div className="mt-2.5 ml-1.25 mb-2.5" style={{ paddingBottom: '5px' }}>
+          <h2 className="m-0 text-xl font-bold text-foreground">Stake SKL</h2>
+          <p className="text-xs text-secondary-foreground font-semibold">
+            Choose a validator to delegate your SKL
+          </p>
         </div>
         <Validators
           mpc={props.mpc}

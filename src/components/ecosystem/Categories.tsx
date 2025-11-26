@@ -21,7 +21,6 @@
  */
 
 import React, { useState, useMemo, useRef } from 'react'
-import { cmn, cls } from '@skalenetwork/metaport'
 import { filterCategories } from '../../core/ecosystem/utils'
 import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
@@ -151,13 +150,13 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
   }
 
   return (
-    <div className={cls(['fullW', isXs])}>
+    <div className={isXs ? 'w-full' : ''}>
       <Button
         variant="text"
         ref={buttonRef}
         onClick={handleMenuOpen}
         startIcon={<ManageSearchRoundedIcon />}
-        className={cls('outlined', 'skMenuBtn', 'btn', cmn.pPrim, ['fullW', isXs])}
+        className={`outlined btn text-primary! ${isXs ? 'w-full' : ''}`}
         style={{ background: 'transparent' }}
       >
         Browse by categories
@@ -166,24 +165,25 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
-        className="skMenu outlined"
-        PaperProps={{
-          style: {
-            maxHeight: 'calc(80vh - 100px)',
-            width: buttonRef.current?.offsetWidth,
-            borderRadius: '25px',
-            margin: '10px 0'
+        slotProps={{
+          paper: {
+            style: {
+              maxHeight: 'calc(80vh - 100px)',
+              width: buttonRef.current?.offsetWidth
+            },
+            className:
+              'mt-2.5! overflow-visible rounded-3xl! bg-white! text-foreground! shadow-sm! border-none! ring-0! [&_.MuiList-root]:bg-white! [&_.MuiList-root]:p-0!'
           }
         }}
       >
-        <div className={cls(cmn.padd10)}>
+        <div className="p-2.5">
           {isXs && (
-            <Button className={cls('btn fullW outlined', cmn.mbott10)} onClick={handleMenuClose}>
+            <Button className="btn w-full outlined mb-2.5" onClick={handleMenuClose}>
               Close
             </Button>
           )}
           <SearchBar
-            className={cls(cmn.mbott10)}
+            className="mb-5"
             searchTerm={searchTerm}
             onSearchChange={handleSearch}
             onClear={handleClearSearch}
@@ -191,13 +191,9 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
           {filteredCategories.map(([shortName, data], index) => (
             <div
               key={shortName}
-              className={cls(
-                cmn.fullWidth,
-                cmn.mbott10,
-                index !== filteredCategories.length - 1 && 'divider'
-              )}
+              className={`w-full mb-2.5 ${index !== filteredCategories.length - 1 ? 'divider' : ''}`}
             >
-              <div className={cls(cmn.flex, cmn.flexcv)}>
+              <div className="flex items-center">
                 <FormControlLabel
                   control={
                     <Checkbox
@@ -206,11 +202,11 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
                     />
                   }
                   label={
-                    <span className={cls(cmn.p, cmn.p3, cmn.p600)}>
+                    <span className="text-sm font-semibold">
                       {highlightMatch(data.name, searchTerm)}
                     </span>
                   }
-                  className={cls(cmn.flexg)}
+                  className="grow"
                 />
                 {getSelectedSubcategoriesCount(shortName) > 0 && (
                   <FiberManualRecordIcon color="primary" style={{ fontSize: '8pt' }} />

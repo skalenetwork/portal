@@ -31,8 +31,6 @@ import { Skeleton, Tooltip } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
-import { cmn, cls, styles } from '../core/css'
-
 export default function Tile(props: {
   text?: string
   value?: string | null | false
@@ -78,16 +76,15 @@ export default function Tile(props: {
 
   const value = (
     <p
-      className={cls(
-        cmn.p,
-        [cmn.p1, size === 'lg'],
-        [cmn.p2, size === 'md'],
-        cmn.p700,
-        [cmn.pPrim, !props.color && !props.disabled],
-        ['pSec', props.disabled],
-        ['blackP', props.color],
-        ['pointer', props.copy]
-      )}
+      className={`
+        ${size === 'lg' ? 'text-xl' : ''}
+        ${size === 'md' ? 'text-base' : ''}
+        font-bold
+        ${!props.color && !props.disabled ? 'text-foreground' : ''}
+        ${props.disabled ? 'text-secondary-foreground' : ''}
+        ${props.color ? 'text-black' : ''}
+        ${props.copy ? 'cursor-pointer' : ''}
+      `.replace(/\s+/g, ' ').trim()}
     >
       {props.value}
     </p>
@@ -95,48 +92,39 @@ export default function Tile(props: {
 
   return (
     <div
-      className={cls(props.className, styles.fullHefight, 'titleSection', `titleSection_${size}`, [
-        cmn.flexg,
-        props.grow
-      ])}
-      style={{ background: color }}
+      className={`${props.className || ''} h-full bg-background rounded-md p-4 titleSection_${size} ${props.grow ? 'grow' : ''}`}
     >
-      <div className={cls(cmn.flex, [cmn.flexcv, !isXs])}>
-        <div className={cls(cmn.flexg)}>
+      <div className={`flex ${!isXs ? 'items-center' : ''}`}>
+        <div className="grow">
           {props.text ? (
             <div
-              className={cls(
-                cmn.flex,
-                cmn.flexcv,
-                cmn.mbott5,
-                ['pSec', !props.color && !props.textColor],
-                ['blackP', props.color]
-              )}
+              className={`
+                flex items-center mb-1.5
+                ${!props.color && !props.textColor ? 'text-secondary-foreground' : ''}
+                ${props.color ? 'text-black' : ''}
+              `.replace(/\s+/g, ' ').trim()}
             >
-              {props.ri ? <div className={cls(cmn.flexg)}></div> : null}
+              {props.ri ? <div className="grow"></div> : null}
               {props.icon ? (
                 <div
-                  className={cls(cmn.mri5, cmn.flex, styles.chainIconxs)}
+                  className="mr-1.5 flex text-[17px]!"
                   style={{ color: props.textColor }}
                 >
                   {copied ? <CheckCircleRoundedIcon color="success" /> : props.icon}
                 </div>
               ) : null}
               <p
-                className={cls(
-                  cmn.p,
-                  cmn.p4,
-                  cmn.flex,
-                  [cmn.flexg, !props.ri],
-                  [cmn.p600, props.textColor]
-                )}
+                className={`
+                  text-xs flex font-medium
+                  ${!props.ri ? 'grow' : ''}
+                  ${props.textColor ? 'font-semibold' : ''}`}
                 style={{ color: props.textColor }}
               >
                 {props.text}
               </p>
               {props.textRi ? (
                 <p
-                  className={cls(cmn.p, cmn.p4, cmn.flex, cmn.mleft5)}
+                  className="text-xs flex ml-1.5"
                   style={{ color: props.textColor }}
                 >
                   {props.textRi}
@@ -144,8 +132,8 @@ export default function Tile(props: {
               ) : null}
             </div>
           ) : null}
-          <div className={cls(cmn.flex, cmn.flexcv)}>
-            {props.ri ? <div className={cls(cmn.flexg)}></div> : null}
+          <div className="flex items-center">
+            {props.ri ? <div className="grow"></div> : null}
             {props.value && props.copy ? (
               <Tooltip arrow title={copied ? 'Copied' : 'Click to copy'}>
                 <div>
@@ -160,7 +148,7 @@ export default function Tile(props: {
                 {value}
               </Tooltip>
             ) : null}
-            {props.children && <div className={cls(cmn.flexg)}>{props.children}</div>}
+            {props.children && <div className="grow">{props.children}</div>}
             {!props.value && !props.children ? (
               <Skeleton variant="rectangular" width={150} height={33} />
             ) : null}
@@ -170,7 +158,7 @@ export default function Tile(props: {
                 value={props.progress}
                 color={props.progressColor}
                 style={{ height: '20px' }}
-                className={cls(cmn.flexg, cmn.mleft10)}
+                className="grow ml-2.5"
               />
             ) : null}
           </div>

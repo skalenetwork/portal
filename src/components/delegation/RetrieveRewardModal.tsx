@@ -22,7 +22,7 @@
 
 import { useState, useEffect, ChangeEvent } from 'react'
 import { isAddress } from 'ethers'
-import { SkPaper, cls, cmn, styles, Tile } from '@skalenetwork/metaport'
+import { SkPaper, Tile } from '@skalenetwork/metaport'
 import { type types, constants } from '@/core'
 
 import { Collapse, Container, TextField, Box, Button, Modal } from '@mui/material'
@@ -73,7 +73,7 @@ export default function RetrieveRewardModal(props: {
     <div>
       <Button
         variant="contained"
-        className={cls('btnSm')}
+        className="'btnSm'"
         onClick={handleOpen}
         disabled={props.disabled}
       >
@@ -94,19 +94,19 @@ export default function RetrieveRewardModal(props: {
             transform: 'translate(-50%, -50%)',
             minWidth: { xs: '100%', md: 'max-content' }
           }}
-          className={cls(cmn.flexg, cmn.flexcv, cmn.flex, cmn.flexc)}
+          className="grow items-center flex flex-col"
         >
           <Container maxWidth="md">
-            <SkPaper className={cls(cmn.nop)}>
+            <SkPaper className="p-0">
               <SkPaper gray>
-                <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.pCent, cmn.mtop10, cmn.mbott10)}>
+                <p className="text-base font-bold text-center mt-2.5 mb-2.5">
                   Confirm reward retrieval
                 </p>
                 <Message
                   text="Double-check the address. Withdrawing to a wallet you don't control will lead to permanent loss of funds."
                   type="warning"
                   icon={<WarningRoundedIcon />}
-                  className={cls(cmn.mbott10)}
+                  className="mb-2.5"
                   closable={false}
                 />
                 <Collapse in={!!errorMsg}>
@@ -114,32 +114,24 @@ export default function RetrieveRewardModal(props: {
                     text={errorMsg ?? ''}
                     type="error"
                     icon={<ReportProblemRoundedIcon />}
-                    className={cls(cmn.mbott10)}
+                    className="mb-2.5"
                     closable={false}
                   />
                 </Collapse>
                 <Tile
                   text="Receiver address"
-                  className={cls(styles.inputAmount)}
+                  className="styles.inputAmount"
                   children={
-                    <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop5)}>
-                      <div className={cls(cmn.flexg)}>
-                        <div
-                          className={cls(
-                            cmn.flex,
-                            cmn.flexg,
-                            cmn.flexcv,
-                            'amountInput',
-                            'addressInput'
-                          )}
-                        >
+                    <div className="flex items-center mt-1.5">
+                      <div className="grow">
+                        <div className="flex grow items-center 'amountInput''addressInput'">
                           <Jazzicon
                             diameter={25}
                             seed={jsNumberForAddress(
                               (edit ? inputAddress : props.customRewardAddress) || ''
                             )}
                           />
-                          <div className={cls(cmn.flexg, cmn.mleft10)}>
+                          <div className="grow ml-2.5">
                             <TextField
                               inputRef={(input) => input?.focus()}
                               variant="standard"
@@ -155,16 +147,12 @@ export default function RetrieveRewardModal(props: {
                       <div>
                         {edit ? (
                           <div>
-                            <Button
-                              variant="contained"
-                              className={cls('btnSm')}
-                              onClick={saveAddress}
-                            >
+                            <Button variant="contained" className="'btnSm'" onClick={saveAddress}>
                               Save
                             </Button>
                             <Button
                               variant="text"
-                              className={cls('btnSm', 'filled', cmn.mleft10)}
+                              className="'btnSm', 'filled', ml-2.5"
                               onClick={() => {
                                 setInputAddress(props.address)
                                 props.setCustomRewardAddress(props.address)
@@ -178,7 +166,7 @@ export default function RetrieveRewardModal(props: {
                         ) : (
                           <Button
                             variant="text"
-                            className={cls('btnSm', 'filled')}
+                            className="'btnSm', 'filled'"
                             onClick={() => setEdit(!edit)}
                             disabled={props.disabled}
                           >
@@ -195,7 +183,7 @@ export default function RetrieveRewardModal(props: {
                   text={props.loading ? 'Retrieving' : 'Retrieve'}
                   disabled={props.disabled || edit}
                   onClick={props.retrieveRewards}
-                  className={cls('btn', cmn.mleft10, cmn.mbott10, cmn.mtop20)}
+                  className="'btn' ml-2.5 mb-2.5 mt-5"
                   variant="contained"
                 />
               </SkPaper>

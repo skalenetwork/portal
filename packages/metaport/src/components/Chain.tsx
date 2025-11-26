@@ -24,7 +24,6 @@
 import { types, metadata } from '@/core'
 import ChainIcon from './ChainIcon'
 
-import { cls, cmn } from '../core/css'
 import { CHAINS_META } from '../core/metadata'
 
 export default function Chain(props: {
@@ -42,7 +41,7 @@ export default function Chain(props: {
   const prim = props.prim ?? true
   const chainsMeta = CHAINS_META[props.skaleNetwork]
   return (
-    <div className={cls(cmn.flex, cmn.flexcv, cmn.m5)}>
+    <div className="flex items-center m-1">
       <ChainIcon
         skaleNetwork={props.skaleNetwork}
         chainName={props.chainName}
@@ -51,41 +50,26 @@ export default function Chain(props: {
         chainsMeta={chainsMeta}
       />
       <div
-        className={cls(
-          cmn.p,
-          [cmn.mleft5, size === 'xs'],
-          [cmn.mleft10, size === 'sm'],
-          [cmn.mleft15, size === 'md'],
-          [cmn.mleft20, size === 'lg'],
-        )}
+        className={`
+          ${size === 'xs' ? 'ml-1.5' : ''} 
+          ${size === 'sm' ? 'ml-2.5' : ''} 
+          ${size === 'md' ? 'ml-4' : ''} 
+          ${size === 'lg' ? 'ml-5' : ''}
+        `}
       >
-        <p
-          className={cls(
-            cmn.p,
-            [cmn.p5, size === 'xs'],
-            [cmn.p5, size === 'sm'],
-            [cmn.p4, size === 'md'],
-            cmn.p500,
-            cmn.pSec,
-            cmn.pleft
-          )}
-        >
+        <p className="text-xs text-secondary-foreground capitalize text-left">
           {props.from ? 'From' : 'To'}
         </p>
         <p
-          className={cls(
-            cmn.p,
-            [cmn.p4, size === 'xs'],
-            [cmn.p3, size === 'sm'],
-            [cmn.p2, size === 'md'],
-            [cmn.p1, size === 'lg'],
-
-            [cmn.p600, !props.bold],
-            [cmn.p700, props.bold],
-            cmn.cap,
-            [cmn.pPrim, prim],
-            [cmn.pSec, !prim]
-          )}
+          className={`
+            ${size === 'xs' ? 'text-xs' : ''} 
+            ${size === 'sm' ? 'text-sm' : ''} 
+            ${size === 'md' ? 'text-base' : ''} 
+            ${size === 'lg' ? 'text-xl' : ''}
+            ${!props.bold ? 'font-semibold' : 'font-bold'}
+            capitalize
+            ${prim ? 'text-foreground' : 'text-gray-400'}
+          `}
         >
           {metadata.getAlias(props.skaleNetwork, chainsMeta, props.chainName, props.app)}
         </p>

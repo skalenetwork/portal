@@ -47,7 +47,7 @@ export const SFUEL_TEXT = {
   },
   gas: {
     warning: 'You need ETH on the destination chain',
-    error: 'You need ETH to perform a transfer'
+    error: 'You need ETH on Mainnet to perform a transfer'
   }
 }
 

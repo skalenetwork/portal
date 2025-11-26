@@ -22,8 +22,8 @@
  */
 
 import { type types } from '@/core'
-import { cmn, cls, styles, type MetaportCore, SkPaper } from '@skalenetwork/metaport'
-import Grid from '@mui/material/Grid'
+import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+
 import CopySurface from '../../CopySurface'
 import { getAddress } from 'ethers'
 
@@ -46,24 +46,24 @@ export default function Tokens(props: {
     return Object.entries(tokens).flatMap(([tokenSymbol, tokenData]: [string, any]) => {
       const wrapperAddress = findWrapperAddress(tokenData)
       return [
-        <Grid key={`${tokenSymbol}`} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+        <div key={`${tokenSymbol}`} className="col-span-1">
           <CopySurface
-            className={cls(styles.fullHeight)}
+            className="h-full"
             title={`${tokenSymbol.toUpperCase()}`}
             value={getAddress(tokenData.address)}
             tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
           />
-        </Grid>,
+        </div>,
         ...(wrapperAddress
           ? [
-              <Grid key={`w${tokenSymbol}`} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+              <div key={`w${tokenSymbol}`} className="col-span-1">
                 <CopySurface
-                  className={cls(styles.fullHeight)}
+                  className="h-full"
                   title={`w${tokenSymbol.toUpperCase()}`}
                   value={getAddress(wrapperAddress)}
                   tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
                 />
-              </Grid>
+              </div>
             ]
           : [])
       ]
@@ -71,11 +71,11 @@ export default function Tokens(props: {
   }
 
   return (
-    <SkPaper gray className={cls(cmn.mtop20)}>
-      <Grid container spacing={2}>
+    <SkPaper gray className="mt-5">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {renderTokens(ethToken)}
         {renderTokens(chainTokens)}
-      </Grid>
+      </div>
     </SkPaper>
   )
 }

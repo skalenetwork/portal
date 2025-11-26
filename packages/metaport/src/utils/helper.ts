@@ -45,7 +45,8 @@ export function getChainCardBackgroundColor(
   network: types.SkaleNetwork,
   disabled: boolean,
   chainsMeta: types.ChainsMetadataMap,
-  chainName: string
+  chainName: string,
+  theme?: 'light' | 'dark'
 ): string {
-  return disabled ? '#a1a1a133' : metadata.chainBg(network, chainsMeta, chainName)
+  return disabled ? '#a1a1a133' : metadata.chainBg(network, chainsMeta, chainName, undefined, theme)
 }

@@ -1,7 +1,7 @@
 import { type types } from '@/core'
 
 export const METAPORT_CONFIG: types.mp.Config = {
-  skaleNetwork: "base-sepolia-testnet",
+  skaleNetwork: 'base-sepolia-testnet',
   mainnetEndpoint: 'https://base-sepolia-rpc.publicnode.com/',
   openOnLoad: true,
   openButton: true,

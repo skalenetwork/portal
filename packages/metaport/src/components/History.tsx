@@ -30,8 +30,6 @@ import SkPaper from './SkPaper'
 import Chain from './Chain'
 
 import { useMetaportStore } from '../store/MetaportStore'
-import { cls, cmn, styles } from '../core/css'
-
 export default function History(props: { size?: types.Size }) {
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
   const transfersHistory = useMetaportStore((state) => state.transfersHistory)
@@ -45,20 +43,10 @@ export default function History(props: { size?: types.Size }) {
   return (
     <div>
       {transactionsHistory.length !== 0 ? (
-        <SkPaper gray className={cls(cmn.nop)}>
+        <SkPaper gray className="p-0">
           <p
-            className={cls(
-              cmn.p,
-              [cmn.p3, size == 'sm'],
-              [cmn.p2, size == 'md'],
-              cmn.p600,
-              cmn.pPrim,
-              [cmn.ptop15, size === 'sm'],
-              [cmn.ptop25, size === 'md'],
-              [cmn.mbott10, size === 'sm'],
-              [cmn.mbott20, size === 'md'],
-              cmn.mleft15
-            )}
+            className={`p-0 ${size === 'sm' ? 'text-sm' : 'text-base'} font-semibold text-primary ${size === 'sm' ? 'pt-15' : 'pt-25'
+              } ${size === 'sm' ? 'mb-2.5' : 'mb-5'} ml-15`}
           >
             Current transfer
           </p>
@@ -81,31 +69,15 @@ export default function History(props: { size?: types.Size }) {
             <SkPaper
               gray
               key={key}
-              className={cls(
-                [cmn.mtop10, size === 'sm'],
-                [cmn.mbott10, size === 'sm'],
-                [cmn.mtop20, size === 'md'],
-                [cmn.mbott20, size === 'md'],
-                cmn.nop
-              )}
+              className={`${size === 'sm' ? 'mt-10 mb-2.5' : 'mt-5 mb-5'} p-0`}
             >
               <div
-                className={cls(
-                  cmn.flex,
-                  cmn.flexcv,
-                  cmn.flexw,
-                  cmn.mleft15,
-                  [cmn.ptop15, size === 'sm'],
-                  [cmn.ptop25, size === 'md']
-                )}
+                className={`flex items-center flex-wrap ml-15 ${size === 'sm' ? 'pt-15' : 'pt-25'
+                  }`}
               >
                 <div
-                  className={cls(
-                    cmn.flex,
-                    cmn.flexcv,
-                    [cmn.mbott10, size === 'sm'],
-                    [cmn.mbott20, size === 'md']
-                  )}
+                  className={`flex items-center ${size === 'sm' ? 'mb-2.5' : 'mb-5'
+                    }`}
                 >
                   <Chain
                     skaleNetwork={network}
@@ -114,14 +86,8 @@ export default function History(props: { size?: types.Size }) {
                     decIcon
                   />
                   <ArrowForwardRoundedIcon
-                    className={cls(
-                      cmn.pPrim,
-                      [cmn.mleft5, size === 'sm'],
-                      [cmn.mleft10, size === 'md'],
-                      [cmn.mri5, size === 'sm'],
-                      [cmn.mri10, size === 'md'],
-                      styles.chainIconxs
-                    )}
+                    className={`text-primary ${size === 'sm' ? 'ml-1.5 mr-1.5' : 'ml-10 mr-2.5'
+                      } w-4 h-4`}
                   />
                   <Chain
                     skaleNetwork={network}
@@ -130,53 +96,32 @@ export default function History(props: { size?: types.Size }) {
                     decIcon
                   />
                 </div>
-                <div className={cls(cmn.flexg)}></div>
+                <div className="grow"></div>
 
                 <div
-                  className={cls(
-                    cmn.flex,
-                    cmn.flexcv,
-                    [cmn.mbott10, size === 'sm'],
-                    [cmn.mbott20, size === 'md'],
-                    cmn.mri20
-                  )}
+                  className={`flex items-center ${size === 'sm' ? 'mb-2.5' : 'mb-5'
+                    } mr-20`}
                 >
-                  <div className={cls(cmn.flex, cmn.flexcv)}>
+                  <div className="flex items-center">
                     <TokenIcon
                       tokenSymbol={transfer.tokenKeyname}
                       size={size == 'sm' ? 'xs' : 'sm'}
                     />
                   </div>
                   <p
-                    className={cls(
-                      cmn.p,
-                      [cmn.p3, size == 'sm'],
-                      [cmn.p2, size == 'md'],
-                      cmn.p600,
-                      cmn.cap,
-                      cmn.pPrim,
-                      cmn.upp,
-                      cmn.mleft5
-                    )}
+                    className={`${size === 'sm' ? 'text-sm' : 'text-base'
+                      } font-semibold capitalize text-primary uppercase ml-1.5`}
                   >
                     {transfer.amount} {transfer.tokenKeyname}
                   </p>
                   <p
-                    className={cls(
-                      cmn.p,
-                      [cmn.p3, size === 'sm'],
-                      [cmn.p2, size === 'md'],
-                      cmn.p600,
-                      cmn.cap,
-                      cmn.pPrim,
-                      cmn.mleft5,
-                      cmn.flexg
-                    )}
+                    className={`${size === 'sm' ? 'text-sm' : 'text-base'
+                      } font-semibold capitalize text-primary ml-1.5 grow`}
                   >
                     {transfer.address !== undefined
                       ? `• ${transfer.address.substring(0, 6)}...${transfer.address.substring(
-                          transfer.address.length - 4
-                        )}`
+                        transfer.address.length - 4
+                      )}`
                       : '• UNFINISHED'}
                   </p>
                 </div>

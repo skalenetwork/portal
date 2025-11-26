@@ -22,7 +22,6 @@
 
 import React from 'react'
 import { FormControlLabel, Checkbox } from '@mui/material'
-import { cls, cmn } from '@skalenetwork/metaport'
 import { highlightMatch } from './SearchBar'
 
 interface Subcategory {
@@ -44,12 +43,9 @@ const SubcategoryList: React.FC<SubcategoryListProps> = ({
   onCheck,
   searchTerm
 }) => (
-  <div className={cls(cmn.mleft20, cmn.fullWidth, cmn.mtop5)}>
+  <div className="ml-5 w-full mt-1.5">
     {Object.entries(subcategories).map(([shortName, subcategory]) => (
-      <div
-        key={`${category}_${shortName}`}
-        className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.mbott5)}
-      >
+      <div key={`${category}_${shortName}`} className="flex items-center w-full mb-1.5">
         <FormControlLabel
           control={
             <Checkbox
@@ -60,7 +56,7 @@ const SubcategoryList: React.FC<SubcategoryListProps> = ({
             />
           }
           label={
-            <span className={cls(cmn.p, cmn.p3, cmn.p500)}>
+            <span className="text-sm text-xs00">
               {highlightMatch(subcategory.name, searchTerm)}
             </span>
           }

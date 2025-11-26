@@ -22,11 +22,11 @@
  */
 
 import { Link } from 'react-router-dom'
-import Grid from '@mui/material/Grid'
+
 import Tooltip from '@mui/material/Tooltip'
 
 import { type types, constants, units } from '@/core'
-import { cmn, cls, styles, SkPaper } from '@skalenetwork/metaport'
+import { cls, styles, SkPaper } from '@skalenetwork/metaport'
 
 import ValidatorLogo from './ValidatorLogo'
 import { TrustBadge, ValidatorBadge } from './ValidatorBadges'
@@ -49,7 +49,7 @@ export default function ValidatorCard(props: {
   )
 
   return (
-    <Grid className="fl-centered" size={{ xs: 12, sm: 6, md: 4, lg: size === 'md' ? 3 : 4 }}>
+    <div className="flex justify-center items-center w-full">
       <Link
         to={
           props.validator.acceptNewRequests
@@ -60,83 +60,64 @@ export default function ValidatorCard(props: {
         <SkPaper
           className={cls(
             'br__tile titleSection validatorCard',
-            [styles.paperGrey, size === 'lg'],
+            ['bg-secondary-foreground', size === 'lg'],
             ['disabledCard', !props.validator.acceptNewRequests],
             ['selectedValidator', props.validatorId === props.validator.id]
           )}
         >
-          <div className={cls(cmn.flex)} style={{ marginBottom: '-20px' }}>
+          <div className="flex" style={{ marginBottom: '-20px' }}>
             <ValidatorBadge validator={props.validator} />
-            <div className={cls(cmn.flexg)}></div>
+            <div className="grow"></div>
             <TrustBadge validator={props.validator} />
           </div>
-          <div className={cls(cmn.flex, cmn.mbott10)}>
-            <div className={cls(cmn.flexg)}></div>
+          <div className="flex" style={{ marginBottom: '10px' }}>
+            <div className="grow"></div>
             <ValidatorLogo validatorId={props.validator.id} size="xl" />
-            <div className={cls(cmn.flexg)}></div>
+            <div className="grow"></div>
           </div>
 
-          <div className={cls(cmn.flex)}>
-            <div className={cls(cmn.flexg)}></div>
-            <p
-              className={cls(cmn.p, cmn.p2, cmn.p700, cmn.flexg, cmn.pCent, cmn.pPrim, 'pOneLine')}
-            >
+          <div className="flex">
+            <div className="grow"></div>
+            <p className="text-base text-primary grow text-center truncate">
               {props.validator.name}
             </p>
-            <div className={cls(cmn.flexg)}></div>
+            <div className="grow"></div>
           </div>
 
-          <div className={cls(cmn.flex)}>
-            <div className={cls(cmn.flexg)}></div>
+          <div className="flex">
+            <div className="grow"></div>
             <Tooltip title={description}>
-              <p
-                className={cls(
-                  cmn.p,
-                  cmn.p5,
-                  cmn.p600,
-                  cmn.flexg,
-                  cmn.pSec,
-                  cmn.mtop5,
-                  cmn.pCent,
-                  'pOneLine'
-                )}
-              >
+              <p className="text-xs font-semibold grow text-secondary-foreground mt-5 text-center truncate">
                 {description}
               </p>
             </Tooltip>
-            <div className={cls(cmn.flexg)}></div>
+            <div className="grow"></div>
           </div>
-          <div className={cls(cmn.flex, cmn.mtop10)}>
-            <div className={cls('chipFee', cmn.flexg)}>
-              <p className={cls(cmn.p, cmn.p4, cmn.pCent)}>
-                {Number(props.validator.feeRate) / 10}% fee
-              </p>
+          <div className="flex mt-10">
+            <div className="bg-gray-100 rounded px-2 py-1 grow">
+              <p className="text-xs text-center">{Number(props.validator.feeRate) / 10}% fee</p>
             </div>
-            <div className={cls('chipId', cmn.mleft5, cmn.flexg, cmn.pCent)}>
-              <p className={cls(cmn.p, cmn.p4)}>ID: {props.validator.id}</p>
+            <div className="bg-blue-100 rounded px-2 py-1 ml-1.5 grow text-center">
+              <p className="text-xs">ID: {props.validator.id}</p>
             </div>
             {size === 'lg' ? (
-              <div className={cls('chipNodes', cmn.mleft5, cmn.flexg)}>
-                <p className={cls(cmn.p, cmn.p4, cmn.pCent)}>
-                  Nodes: {props.validator.linkedNodes}
-                </p>
+              <div className="bg-green-100 rounded px-2 py-1 ml-1.5 grow">
+                <p className="text-xs text-center">Nodes: {props.validator.linkedNodes}</p>
               </div>
             ) : null}
           </div>
           <div>
             {size !== 'lg' && (
               <Tooltip title={`Minimum delegation amount: ${minDelegation} SKL`}>
-                <div className={cls('chipNodes', cmn.mtop10)}>
-                  <p className={cls(cmn.p, cmn.p4, cmn.pCent, 'pOneLine')}>
-                    Min: {minDelegation} SKL
-                  </p>
+                <div className="bg-green-100 rounded px-2 py-1 mt-10">
+                  <p className="text-xs text-center truncate">Min: {minDelegation} SKL</p>
                 </div>
               </Tooltip>
             )}
             {size === 'lg' && (
               <Tooltip title={props.validator.validatorAddress}>
-                <div className={cls('chipId', cmn.mtop10)}>
-                  <p className={cls(cmn.p, cmn.p4, cmn.pCent, 'pOneLine')}>
+                <div className="bg-blue-100 rounded px-2 py-1 mt-10">
+                  <p className="text-xs text-center truncate">
                     Address: {props.validator.validatorAddress}
                   </p>
                 </div>
@@ -145,6 +126,6 @@ export default function ValidatorCard(props: {
           </div>
         </SkPaper>
       </Link>
-    </Grid>
+    </div>
   )
 }

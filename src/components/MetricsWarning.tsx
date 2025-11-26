@@ -22,7 +22,6 @@
  */
 
 import { type types, timeUtils } from '@/core'
-import { cmn, cls } from '@skalenetwork/metaport'
 import { Container } from '@mui/material'
 import RestoreRoundedIcon from '@mui/icons-material/RestoreRounded'
 
@@ -35,7 +34,7 @@ export default function MetricsWarning(props: { metrics: types.IMetrics | null }
   return (
     <Container maxWidth="md">
       <Message
-        className={cls(cmn.mbott20)}
+        className="mb-5"
         icon={<RestoreRoundedIcon />}
         text={`Apps metrics may be outdated. Last updated: ${timeUtils.timestampToDate(
           props.metrics.last_updated,

@@ -24,7 +24,6 @@
 import { useState } from 'react'
 import { useState as useReactState } from 'react'
 
-import { cls } from '@skalenetwork/metaport'
 import { Collapse } from '@mui/material'
 
 import { types } from '@/core'
@@ -108,7 +107,7 @@ export default function DelegationsToValidator(props: {
         sklPrice={props.sklPrice}
       />
       <Collapse in={open}>
-        <div className={cls('nestedSection', ['nestedSectionXs', props.isXs])}>
+        <div className="'nestedSection', ['nestedSectionXs', props.isXs]">
           {props.delegationsToValidator.delegations.map(
             (delegation: types.st.IDelegation, index: number) => (
               <Delegation

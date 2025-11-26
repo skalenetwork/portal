@@ -26,14 +26,12 @@ import { useNavigate } from 'react-router-dom'
 import { type Signer } from 'ethers'
 
 import {
-  cmn,
-  cls,
   TokenIcon,
-  styles,
   type MetaportCore,
   sendTransaction,
   contracts,
-  Tile
+  Tile,
+  styles
 } from '@skalenetwork/metaport'
 import { type types, constants, units } from '@/core'
 
@@ -146,7 +144,7 @@ export default function Delegate(props: {
       <SkStack>
         <Tile
           grow
-          className={cls(cmn.mbott10)}
+          className="mb-2.5"
           value="2 months"
           text="Delegation period"
           icon={<AccessTimeRoundedIcon />}
@@ -156,7 +154,7 @@ export default function Delegate(props: {
         <Tile
           size="md"
           grow
-          className={cls(cmn.mbott10)}
+          className="mb-2.5"
           value="Auto-renewed"
           text="Renewal"
           icon={<EventRepeatRoundedIcon />}
@@ -165,19 +163,19 @@ export default function Delegate(props: {
 
       <Tile
         text="Delegation flow"
-        className={cls(cmn.mbott10)}
+        className="mb-2.5"
         icon={<AccountTreeRoundedIcon />}
         grow
-        children={<DelegationFlow className={cls(cmn.mtop10)} />}
+        children={<DelegationFlow className="mt-2.5" />}
       />
 
       <SkStack>
         <Tile
           text="Enter amount to stake"
-          className={cls(styles.inputAmount)}
+          className={styles.inputAmount}
           children={
-            <div className={cls(cmn.flex, cmn.flexcv, 'amountInput')}>
-              <div className={cls(cmn.flexg)}>
+            <div className="flex items-center 'amountInput'">
+              <div className="grow">
                 <Tooltip
                   title={
                     props.sklPrice !== undefined
@@ -200,7 +198,7 @@ export default function Delegate(props: {
                 </Tooltip>
               </div>
 
-              <div className={cls(cmn.p1, cmn.p, cmn.p700, cmn.mri10)}>SKL</div>
+              <div className="text-base font-bold mr-2.5">SKL</div>
             </div>
           }
           icon={<TransitEnterexitRoundedIcon style={{ rotate: '315deg' }} />}
@@ -218,9 +216,9 @@ export default function Delegate(props: {
           icon={<TokenIcon tokenSymbol="skl" size="xs" />}
           color={true ? undefined : 'error'}
           childrenRi={
-            <div className={cls(cmn.flexcv, cmn.flex)}>
+            <div className="items-center flex">
               <Button
-                className={cls('btnSm', 'outlined', cmn.mleft20, cmn.flexcv)}
+                className="'btnSm' 'outlined' ml-5 items-center"
                 disabled={info.allowedToDelegate === 0n || loading}
                 onClick={() => {
                   if (!info.allowedToDelegate) return
@@ -237,19 +235,10 @@ export default function Delegate(props: {
         />
       </SkStack>
 
-      <ErrorTile
-        errorMsg={props.errorMsg}
-        setErrorMsg={props.setErrorMsg}
-        className={cls(cmn.mtop10)}
-      />
+      <ErrorTile errorMsg={props.errorMsg} setErrorMsg={props.setErrorMsg} className="mt-2.5" />
 
       {loading ? (
-        <Button
-          disabled
-          size="small"
-          variant="contained"
-          className={cls('btn', cmn.mleft10, cmn.mbott10, cmn.mtop20)}
-        >
+        <Button disabled size="small" variant="contained" className="'btn' ml-2.5 mb-2.5 mt-5">
           Staking SKL
         </Button>
       ) : (
@@ -263,7 +252,7 @@ export default function Delegate(props: {
             loading
           }
           variant="contained"
-          className={cls('btn', cmn.mleft10, cmn.mbott10, cmn.mtop20)}
+          className="'btn' ml-2.5 mb-2.5 mt-5"
           onClick={stake}
         >
           {getBtnText()}

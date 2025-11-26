@@ -28,7 +28,7 @@ import Container from '@mui/material/Container'
 import SchainDetails from '../components/SchainDetails'
 import CircularProgress from '@mui/material/CircularProgress'
 
-import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
+import { type MetaportCore } from '@skalenetwork/metaport'
 import { type types, metadata } from '@/core'
 
 export default function Chain(props: {
@@ -66,11 +66,11 @@ export default function Chain(props: {
   if (props.schains.length === 0) {
     return (
       <div className="fullscreen-msg">
-        <div className={cls(cmn.flex)}>
-          <div className={cls(cmn.flex, cmn.flexcv, cmn.mri20)}>
+        <div className="flex">
+          <div className="flex items-center mr-5">
             <CircularProgress className="fullscreen-spin" />
           </div>
-          <div className={cls(cmn.flex, cmn.flexcv)}>
+          <div className="flex items-center">
             <h3 className="fullscreen-msg-text">Loading SKALE Chain</h3>
           </div>
         </div>

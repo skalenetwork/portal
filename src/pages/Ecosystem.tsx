@@ -22,7 +22,7 @@
 
 import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react'
 import { Helmet } from 'react-helmet'
-import { Container, Stack, Box, Tab, Tabs, Button } from '@mui/material'
+import { Container, Stack, Tab, Tabs, Button } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
@@ -31,7 +31,7 @@ import AppShortcutIcon from '@mui/icons-material/AppShortcut'
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded'
 
 import { type types } from '@/core'
-import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
+import { type MetaportCore } from '@skalenetwork/metaport'
 import { META_TAGS } from '../core/meta'
 import { filterAppsByCategory, filterAppsBySearchTerm } from '../core/ecosystem/apps'
 import { useUrlParams } from '../core/ecosystem/urlParamsUtil'
@@ -49,6 +49,7 @@ import NewApps from '../components/ecosystem/tabs/NewApps'
 import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import SocialButtons from '../components/ecosystem/Socials'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
+import { cn } from '../core/ecosystem/utils'
 
 export default function Ecosystem(props: {
   mpc: MetaportCore
@@ -208,22 +209,22 @@ export default function Ecosystem(props: {
           >
             <Container maxWidth="md" sx={props.isXs ? { paddingLeft: 0, paddingRight: 0 } : {}}>
               <SkStack>
-                <div className={cls(cmn.flexg, cmn.mbott20, cmn.mtop10)}>
-                  <h2 className={cls(cmn.nom)}>Ecosystem</h2>
-                  <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+                <div className={cn('grow flex flex-col mb-5 mt-2.5')}>
+                  <h2 className="m-0 text-xl font-bold text-foreground">Ecosystem</h2>
+                  <p className="text-xs text-secondary-foreground font-semibold">
                     Explore dApps across the SKALE ecosystem
                   </p>
                 </div>
-                <div className={cls(cmn.flex, cmn.flexcv)}>
+                <div className="flex items-center">
                   <SocialButtons social={SKALE_SOCIAL_LINKS} all />
-                  <div className={cls(cmn.mleft10)}>
+                  <div className="ml-2.5">
                     <SkPageInfoIcon meta_tag={META_TAGS.ecosystem} />
                   </div>
                 </div>
               </SkStack>
-              <SkStack className={cls(cmn.mbott20, cmn.flex, cmn.flexcv, [cmn.mtop10, props.isXs])}>
+              <SkStack className={`mb-5 flex items-center mt-2.5 ${props.isXs ? 'flex-col' : ''}`}>
                 <SearchComponent
-                  className={cls(cmn.flexg, [cmn.mri10, !props.isXs], ['fullW', props.isXs])}
+                  className={`grow ${!props.isXs ? 'mr-2.5' : 'fullW'}`}
                   searchTerm={searchTerm}
                   setSearchTerm={handleSetSearchTerm}
                 />
@@ -243,37 +244,37 @@ export default function Ecosystem(props: {
                 value={activeTab}
                 onChange={handleTabChange}
                 scrollButtons="auto"
-                className={cls(cmn.mbott20, [cmn.mtop20, isFiltersApplied], 'skTabs', 'fwmobile')}
+                className="mb-5 mt-5 skTabs fwmobile"
               >
                 <Tab
                   label="All"
                   icon={<GridViewRoundedIcon />}
                   iconPosition="start"
-                  className={cls('btn', 'btnSm', cmn.mri5, 'tab', 'fwmobile')}
+                  className="btn btnSm mr-2.5! tab fwmobile"
                 />
                 <Tab
                   label="Featured"
                   icon={<AppShortcutIcon />}
                   iconPosition="start"
-                  className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+                  className="btn btnSm mr-2.5! tab fwmobile"
                 />
                 <Tab
                   label="New"
                   icon={<StarRoundedIcon />}
                   iconPosition="start"
-                  className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+                  className="btn btnSm mr-2.5! tab fwmobile"
                 />
                 <Tab
                   label="Trending"
                   icon={<TrendingUpRoundedIcon />}
                   iconPosition="start"
-                  className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
+                  className="btn btnSm mr-2.5! tab fwmobile"
                 />
               </Tabs>
             </Container>
           </div>
           {!props.isXs && <div style={{ height: headerHeight }} />}
-          <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20, 'fwmobile')}>
+          <div className={cn('grow', 'mt-5', 'fwmobile')}>
             {activeTab === 0 && (
               <AllApps
                 apps={currentFilteredApps}
@@ -312,23 +313,23 @@ export default function Ecosystem(props: {
                 featuredApps={featuredApps}
               />
             )}
-          </Box>
+          </div>
         </Stack>
-        <div className={cls(cmn.flex, cmn.mtop20, cmn.mbott20)}>
-          <div className={cls(cmn.flexg)}></div>
+        <div className="flex mt-5 mb-5">
+          <div className="grow"></div>
           <div>
             <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">
               <Button
                 size="medium"
                 variant="contained"
-                className={cls('btn', cmn.mtop20, cmn.mbott20, cmn.pCent)}
+                className={cn('btn', 'mt-5 mb-5 text-center')}
                 startIcon={<AddCircleOutlineRoundedIcon />}
               >
                 Submit Your Project
               </Button>
             </a>
           </div>
-          <div className={cls(cmn.flexg)}></div>
+          <div className="grow"></div>
         </div>
       </Container>
 

@@ -23,7 +23,7 @@
 
 import React from 'react'
 import { Button } from '@mui/material'
-import { cls, RainbowConnectButton, useWagmiDisconnect } from '@skalenetwork/metaport'
+import { RainbowConnectButton, useWagmiDisconnect } from '@skalenetwork/metaport'
 import SkStack from '../SkStack'
 import LaunchIcon from '@mui/icons-material/Launch'
 import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
@@ -43,11 +43,11 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
   const { disconnect } = useWagmiDisconnect()
 
   return (
-    <SkStack className={cls(className, 'profileModalActions')}>
+    <SkStack className={`${className} profileModalActions`}>
       <Button
         variant="text"
         startIcon={<LaunchIcon />}
-        className={cls('btn', 'btnSm', 'filled')}
+        className="btn btnSm bg-muted! text-foreground!"
         onClick={() => window.open(`https://etherscan.io/address/${address}`, '_blank')}
         fullWidth={isMobile}
       >
@@ -59,7 +59,7 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
           <Button
             variant="text"
             startIcon={<LooksRoundedIcon />}
-            className={cls('btn', 'btnSm', 'filled')}
+            className="btn btnSm bg-muted! text-foreground!"
             onClick={openAccountModal}
             fullWidth={isMobile}
           >
@@ -71,7 +71,7 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
       <Button
         variant="text"
         startIcon={<PowerOffIcon />}
-        className={cls('btn', 'btnSm', 'filled')}
+        className="btn btnSm bg-muted! text-foreground!"
         onClick={() => disconnect()}
         fullWidth={isMobile}
       >
