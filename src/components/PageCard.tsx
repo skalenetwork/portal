@@ -54,13 +54,13 @@ export default function PageCard(props: {
                   variant="marble"
                   colors={HOME_CARD_COLORS}
                   square={true}
-                  className="opacity-30 dark:opacity-90 rounded-2xl group-hover:scale-105 transition-all duration-300"
+                  className="border border-background! opacity-40 dark:opacity-90 rounded-2xl group-hover:scale-105 transition-all duration-300"
                 />
                 <div className="absolute inset-0 grid place-items-center">
                   <img
                     src={props.icon}
                     alt=""
-                    className="group-hover:scale-105 transition-all duration-300 h-12 w-12 iconHomeCard"
+                    className="group-hover:scale-105 transition-all duration-300 h-11 w-11 iconHomeCard"
                   />
                 </div>
               </div>

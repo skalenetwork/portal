@@ -70,7 +70,7 @@ export const EXPLORE_CARDS: ExploreCard[] = [
     url: '/staking',
     icon: CoinIcon,
     feature: 'staking',
-    bgKey: 'stake_12345'
+    bgKey: 'stake_1234'
   },
   {
     name: "Explore SKALE's DeFi",
@@ -78,7 +78,7 @@ export const EXPLORE_CARDS: ExploreCard[] = [
     url: '/ecosystem?categories=defi',
     icon: ChartIcon,
     feature: 'ecosystem',
-    bgKey: 'ecosystem_123456789'
+    bgKey: 'defi_123456'
   },
   {
     name: 'Swap on SKALE',
@@ -86,7 +86,7 @@ export const EXPLORE_CARDS: ExploreCard[] = [
     url: 'https://www.sushi.com/skale-europa/swap',
     icon: SwapIcon,
     feature: 'swap',
-    bgKey: 'swap_12346789123456789sav'
+    bgKey: 'swap_1'
   },
   {
     name: 'Discover SKALE Chains',
