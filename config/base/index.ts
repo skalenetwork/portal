@@ -55,23 +55,33 @@ export const METAPORT_CONFIG: types.mp.Config = {
       erc20: {
         usdc: {
           address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
-          chains: {}
+          chains: {
+            'bold-ill-informed-jabbah': {}
+          }
         },
         skl: {
           address: '0x91D00CF7bE6F47bf9BFAaA974d80Ea79a4A3bfe7',
-          chains: {}
+          chains: {
+            'bold-ill-informed-jabbah': {}
+          }
         },
         usdt: {
           address: '0xfde4C96c8593536E31F229EA8f37b2ADa2699bb2',
-          chains: {}
+          chains: {
+            'bold-ill-informed-jabbah': {}
+          }
         },
         wbtc: {
           address: '0x0555E30da8f98308EdB960aa94C0Db47230d2B9c',
-          chains: {}
+          chains: {
+            'bold-ill-informed-jabbah': {}
+          }
         },
         weth: {
           address: '0x4200000000000000000000000000000000000006',
-          chains: {}
+          chains: {
+            'bold-ill-informed-jabbah': {}
+          }
         }
       }
     },
