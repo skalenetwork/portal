@@ -36,7 +36,7 @@ import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
 
 import { PORTAL_URLS } from '../core/constants'
 import TermsOfService from '../data/terms-of-service.mdx'
-import { Handshake, Key, Lock, Signature } from 'lucide-react'
+import { Handshake, Key, Lock } from 'lucide-react'
 
 export default function TermsModal(props: {
   mpc: MetaportCore
@@ -61,78 +61,75 @@ export default function TermsModal(props: {
   const title = props.type === 'bridge' ? 'Bridge' : 'Staking'
   if (props.termsAccepted) return null
   return (
-    <div>
-      <Container maxWidth="md" className="">
-        <h2 className="m-0 text-xl font-bold text-foreground">{title}</h2>
-        <p className="text-xs text-secondary-foreground font-semibold">
-          Review the terms of service carefully and confirm
-        </p>
-        <Box className="mt-4">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="col-span-1">
-              <SkPaper gray className="h-full">
-                <div className="m-2.5">
-                  <Key className="text-amber-500" />
-                  <p className="text-sm font-bold mt-1.5 text-foreground">
-                    SKALE will NEVER ask you for your seed phrase or private keys
-                  </p>
-                </div>
-              </SkPaper>
-            </div>
-            <div className="col-span-1">
-              <SkPaper gray className="h-full">
-                <div className="m-2.5">
-                  <Lock className="text-emerald-500" />
-                  <p className="text-sm font-bold mt-1.5 text-foreground">
-                    Make sure you are connected to the correct URL and only use this official link:
-                    <Link
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      href={portalUrl}
-                      className="ml-1!"
-                    >
-                      {portalUrl}
-                    </Link>
-                  </p>
-                </div>
-              </SkPaper>
-            </div>
-          </div>
-        </Box>
-        <SkPaper gray className="mt-5">
-          <div className="m-2.5 overflow-auto">
-            <Signature className="text-cyan-500" />
-            <p className="text-sm font-bold mt-2.5 text-foreground">
-              Before you use the SKALE {title}, you must review the terms of service carefully and
-              confirm below.
-            </p>
-            <div onScroll={handleTermsScroll} className="br__modalScroll mt-5">
-              <div
-                id="terms"
-                style={{ paddingRight: '20px' }}
-                className="text-foreground/80 font-medium text-sm"
-              >
-                <TermsOfService />
+    <div className="h-[calc(100vh-112px)] flex flex-col overflow-hidden">
+      <Container maxWidth="md" className="flex flex-col flex-1 overflow-hidden px-2! py-0! md:px-0 md:py-4">
+        <div>
+          <h2 className="m-0 text-base md:text-xl font-bold text-foreground">{title}</h2>
+          <p className="text-[11px] md:text-xs text-secondary-foreground font-semibold mt-1">
+            Review the terms of service carefully and confirm
+          </p>
+          <Box className="mt-3 md:mt-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 md:gap-3">
+              <div className="col-span-1">
+                <SkPaper gray className="h-full">
+                  <div className="p-2 md:p-2.5">
+                    <Key className="text-amber-500" size={20} />
+                    <p className="text-[13px] md:text-sm font-bold mt-2 text-foreground">
+                      SKALE will NEVER ask you for your seed phrase or private keys
+                    </p>
+                  </div>
+                </SkPaper>
+              </div>
+              <div className="col-span-1">
+                <SkPaper gray className="h-full">
+                  <div className="p-2 md:p-2.5">
+                    <Lock className="text-green-500" size={20} />
+                    <p className="text-[13px] md:text-sm font-bold mt-1.5 text-foreground">
+                      Make sure you use only the official URL:
+                      <Link
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href={portalUrl}
+                        className="ml-1!"
+                      >
+                        {portalUrl}
+                      </Link>
+                    </p>
+                  </div>
+                </SkPaper>
               </div>
             </div>
-          </div>
-        </SkPaper>
+          </Box>
+        </div>
+        <div className="mt-3 flex flex-col min-h-0 md:mt-3.5">
+          <SkPaper gray className="flex-1 flex flex-col min-h-0">
+            <div className="p-2.5 md:p-3 flex-1 flex flex-col min-h-0">
+              <p className="text-[13px] md:text-sm font-bold text-foreground">
+                Before you use the SKALE {title}, you must review the terms of service carefully and
+                confirm below:
+              </p>
+              <div
+                onScroll={handleTermsScroll}
+                className="mt-1.5 md:mt-2 flex-1 overflow-y-auto"
+              >
+                <div
+                  id="terms"
+                  style={{ paddingRight: '10px' }}
+                  className="text-foreground text-[13px] md:text-sm tosMd"
+                >
+                  <TermsOfService />
+                </div>
+              </div>
+            </div>
+          </SkPaper>
+        </div>
         <Button
           onClick={() => {
             props.setTermsAccepted(true)
           }}
           variant="contained"
           disabled={!scrolled}
-          className={`w-full text-none text-sm font-semibold py-5! ${scrolled ? 'bg-accent-foreground!' : 'bg-accent-foreground/50!'} text-accent! px-8 rounded-[25px] shadow-none mt-5 ease-in-out transition-transform duration-150 active:scale-[0.97]`}
-          style={{
-            marginTop: '20px',
-            marginBottom: '0px',
-            minHeight: '47px',
-            textTransform: 'none',
-            fontSize: '0.8025rem',
-            lineHeight: '1.6',
-            letterSpacing: '0.02857em'
-          }}
+          className={`w-full mt-3! md:mt-4! capitalize! text-[13px]! md:text-sm! font-semibold! py-3.5! md:py-4! ${scrolled ? 'bg-accent-foreground!' : 'bg-accent-foreground/50!'} text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]`}
           size="large"
         >
           {getAgreeButtonText()}

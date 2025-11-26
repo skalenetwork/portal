@@ -137,7 +137,7 @@ body {
   }
 
   @media screen and (min-height: 670px) and (min-width: 900px) {
-    max-height: calc(75vh - 300px);
+    max-height: calc(75vh - 240px);
   }
 }
 
@@ -1534,5 +1534,49 @@ body::-webkit-scrollbar {
   .iconHomeCard {
     mix-blend-mode: color-burn;
     filter: brightness(0.5);
+  }
+
+
+}
+
+.tosMd {
+  h1 {
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    padding-top: 1rem !important;
+  }
+
+  h2 {
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    padding-top: 1rem !important;
+  }
+
+  h3 {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    padding-top: 1rem !important;
+  }
+
+  p {
+    font-size: 0.825rem !important;
+    padding-top: 0.6rem !important;
+  }
+
+  ul {
+    margin-top: 0.4rem !important;
+    margin-bottom: 0.4rem !important;
+    padding-left: 1.5rem !important;
+    list-style-type: disc !important;
+  }
+
+  li {
+    font-size: 0.825rem !important;
+    line-height: 1.35 !important;
+    padding-top: 0.1rem !important;
+  }
+
+  a {
+    color: #0095f6;
   }
 }
