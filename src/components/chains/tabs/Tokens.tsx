@@ -22,7 +22,7 @@
  */
 
 import { type types } from '@/core'
-import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { type MetaportCore } from '@skalenetwork/metaport'
 
 import CopySurface from '../../CopySurface'
 import { getAddress } from 'ethers'
@@ -71,11 +71,9 @@ export default function Tokens(props: {
   }
 
   return (
-    <SkPaper gray className="mt-5">
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-        {renderTokens(ethToken)}
-        {renderTokens(chainTokens)}
-      </div>
-    </SkPaper>
+    <div className="p-2! pt-0! grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+      {renderTokens(ethToken)}
+      {renderTokens(chainTokens)}
+    </div>
   )
 }

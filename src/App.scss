@@ -21,7 +21,7 @@ body {
 }
 
 .skLogo {
-  width: 75pt;
+  width: 65pt;
 }
 
 .skMessage {
@@ -29,9 +29,15 @@ body {
 }
 
 .sk-header {
+  .MuiToolbar-root {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
   background-color: rgba(0, 0, 0, 0) !important;
-  -webkit-backdrop-filter: blur(80px) !important;
-  backdrop-filter: blur(80px) !important;
+  margin: 10px;
+  width: calc(100vw - 20px);
+  border-radius: 140px;
 }
 
 .bridge-light .logo {
@@ -40,7 +46,7 @@ body {
 
 .MuiAppBar-positionFixed {
   background-image: none !important;
-  padding: 10pt 0;
+  padding: 0;
 }
 
 

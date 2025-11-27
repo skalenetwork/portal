@@ -83,3 +83,28 @@ export function getFsUrl(proxyUrl: string, schainName: string, prefix: string): 
 export function getChainId(schainName: string): string {
   return toQuantity(toBeHex(id(schainName).substring(0, 15)))
 }
+
+export function getChainIdInt(schainName: string): number {
+  return parseInt(getChainId(schainName), 16)
+}
+
+export function getAllocationTypeName(allocationType: number): string {
+  switch (allocationType) {
+    case 0:
+      return 'Default'
+    case 1:
+      return 'No Filestorage'
+    case 2:
+      return 'Max Contract Storage'
+    case 3:
+      return 'Max Consensus DB'
+    case 4:
+      return 'Max Filestorage'
+    default:
+      return 'Unknown'
+  }
+}
+
+export function hasFilestorage(allocationType: number): boolean {
+  return allocationType === 0 || allocationType === 4
+}

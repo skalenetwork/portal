@@ -71,7 +71,9 @@ export default function Chain(props: {
             <CircularProgress className="fullscreen-spin" />
           </div>
           <div className="flex items-center">
-            <h3 className="fullscreen-msg-text">Loading SKALE Chain</h3>
+            <h3 className="fullscreen-msg-text text-foreground! font-semibold">
+              Loading SKALE Chain
+            </h3>
           </div>
         </div>
       </div>
@@ -85,7 +87,6 @@ export default function Chain(props: {
   return (
     <Container maxWidth="md">
       <SchainDetails
-        schainName={chainName}
         chain={chain}
         chainsMeta={props.chainsMeta}
         schainStats={schainStats}

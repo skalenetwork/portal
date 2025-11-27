@@ -26,11 +26,12 @@ import { Link } from 'react-router-dom'
 
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
+import { Button, IconButton, Tooltip } from '@mui/material'
+
+import { Settings2 } from 'lucide-react'
 
 import { networks, type types } from '@/core'
 
-import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded'
-import { Button } from '@mui/material'
 import { NETWORKS } from '../../../core/constants'
 
 export default function ChainTabs(props: {
@@ -42,7 +43,7 @@ export default function ChainTabs(props: {
   isXs: boolean
 }) {
   return (
-    <div className="mt-2.5 w-full">
+    <div className="mt-0 w-full">
       <Tabs
         variant={props.isXs ? 'scrollable' : 'standard'}
         value={props.tab}
@@ -58,23 +59,23 @@ export default function ChainTabs(props: {
               label={tab.label}
               icon={tab.icon}
               iconPosition="start"
-              className={`btn btnSm mr-1.5 ml-1.5 tab fwmobile ${
+              className={`btn btnSm mr-1! ml-1! tab fwmobile ${
                 props.tab === index
-                  ? 'text-foreground! bg-foreground/10!'
+                  ? 'text-foreground! bg-foreground/15!'
                   : 'text-muted-foreground!'
               }`}
             />
           ) : null
         )}
+        <div className="grow"></div>
         {networks.hasFeatureInAny(NETWORKS, 'paymaster') && (
-          <Link to={`/chains/admin/${props.schainName}`}>
-            <Button
-              startIcon={<AdminPanelSettingsRoundedIcon />}
-              className="btn btnSm mr-1.5 ml-1.5 tab text-muted-foreground! text-xs"
-            >
-              Manage
-            </Button>
-          </Link>
+          <Tooltip arrow title="Manage Chain">
+            <Link to={`/chains/admin/${props.schainName}`}>
+              <IconButton className="btn btnSm tab text-foreground! text-xs bg-foreground/5! ease-in-out transition-transform duration-150 active:scale-[0.97]">
+                <Settings2 size={17} />
+              </IconButton>
+            </Link>
+          </Tooltip>
         )}
       </Tabs>
     </div>
