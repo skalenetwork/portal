@@ -76,14 +76,11 @@ export default function SchainDetails(props: {
 
   const networkParams = {
     chainId,
-    chainName:
-      'SKALE' +
-      (network === 'testnet' ? ' Testnet ' : ' ') +
-      metadata.getAlias(network, props.chainsMeta, props.chain.name),
+    chainName: metadata.getAlias(network, props.chainsMeta, props.chain.name),
     rpcUrls: [rpcUrl],
     nativeCurrency: {
-      name: 'sFUEL',
-      symbol: 'sFUEL',
+      name: networks.NATIVE_TOKEN_SYMBOLS[network],
+      symbol: networks.NATIVE_TOKEN_SYMBOLS[network],
       decimals: 18
     },
     blockExplorerUrls: [explorerUrl]
@@ -204,14 +201,11 @@ export default function SchainDetails(props: {
             startIcon={
               added ? (
                 <BadgeCheck size={17} className="text-green-300 dark:text-green-600" />
-              ) : (
-                <CirclePlus size={17} />
-              )
+              ) : <CirclePlus size={17} />
             }
-            className="mr-3! capitalize! text-accent! bg-foreground! text-xs! px-6! py-3! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+            className="mr-3! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-3! ease-in-out transition-transform duration-150 active:scale-[0.97]"
             onClick={addNetwork}
             disabled={loading}
-            loading={loading}
           >
             {connectBtnText()}
           </Button>
