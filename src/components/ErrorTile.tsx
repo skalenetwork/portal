@@ -25,7 +25,7 @@ import { Tile } from '@skalenetwork/metaport'
 
 import Button from '@mui/material/Button'
 import Collapse from '@mui/material/Collapse'
-import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
+import { FileExclamationPoint } from 'lucide-react'
 
 export default function ErrorTile(props: {
   errorMsg: string | undefined
@@ -35,11 +35,10 @@ export default function ErrorTile(props: {
   return (
     <Collapse in={props.errorMsg !== undefined}>
       <Tile
-        className={props.className}
+        className={`${props.className} bg-red-100 border-red-200 dark:bg-red-800/80 dark:border-red-600 border-2`}
         value={props.errorMsg}
         text="Error occurred"
-        icon={<ErrorRoundedIcon />}
-        color="error"
+        icon={<FileExclamationPoint size={17} />}
         grow
         childrenRi={
           props.setErrorMsg && (

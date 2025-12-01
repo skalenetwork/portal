@@ -82,6 +82,15 @@ export const NATIVE_TOKEN_SYMBOLS: { [key in types.SkaleNetwork]: string } = {
     'base-sepolia-testnet': 'CREDIT',
 }
 
+export const KEY_FEATURES: { [key in types.SkaleNetwork]: types.NetworkFeature } = {
+    mainnet: 'bridge',
+    legacy: 'bridge',
+    regression: 'bridge',
+    testnet: 'bridge',
+    base: 'credits',
+    'base-sepolia-testnet': 'credits',
+}
+
 export function parse(networksEnv: string | undefined): types.SkaleNetwork[] {
     if (!networksEnv) throw new Error('VITE_NETWORKS environment variable is not defined');
     return networksEnv.split(',').map((network) => network.trim() as types.SkaleNetwork);

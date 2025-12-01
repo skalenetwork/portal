@@ -22,14 +22,16 @@
  */
 
 import { useState, useEffect } from 'react'
-
 import { useParams } from 'react-router-dom'
-import Container from '@mui/material/Container'
-import SchainDetails from '../components/SchainDetails'
+
 import CircularProgress from '@mui/material/CircularProgress'
+import Container from '@mui/material/Container'
 
 import { type MetaportCore } from '@skalenetwork/metaport'
 import { type types, metadata } from '@/core'
+
+import SchainDetails from '../components/SchainDetails'
+import ErrorTile from '../components/ErrorTile'
 
 export default function Chain(props: {
   loadData: () => Promise<void>
@@ -81,7 +83,11 @@ export default function Chain(props: {
   }
 
   if (chain === undefined || chain === null) {
-    return <h1>No such chain: {chainName}</h1>
+    return (
+      <Container maxWidth="md">
+        <ErrorTile errorMsg={`No such chain: ${chainName}`} />
+      </Container>
+    )
   }
 
   return (

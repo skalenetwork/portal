@@ -12,7 +12,7 @@ export default function ChainIcon(props: {
   chainsMeta?: types.ChainsMetadataMap,
   className?: string
   app?: string
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+  size?: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 }) {
   const { mode } = useThemeMode()
   const iconPath = chainIconPath(props.skaleNetwork, props.chainName, props.app)

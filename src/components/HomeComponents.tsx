@@ -32,7 +32,9 @@ import {
   WalletCards,
   Link2,
   Star,
-  Sparkle
+  Sparkle,
+  Coins,
+  Send
 } from 'lucide-react'
 
 import CoinIcon from '../icons/coin.svg'
@@ -41,6 +43,7 @@ import SwapIcon from '../icons/swap.svg'
 import ChainsIcon from '../icons/chains.svg'
 import MoneyIcon from '../icons/money.svg'
 import QuestionIcon from '../icons/question.svg'
+import ArrowsIcon from '../icons/arrows.svg'
 
 import { types } from '@/core'
 
@@ -63,9 +66,21 @@ interface ExploreCard {
   feature: types.NetworkFeature
   bgKey: string
   url?: string
+  buttonText?: string
+  buttonIcon?: JSX.Element
 }
 
 export const EXPLORE_CARDS: ExploreCard[] = [
+  {
+    name: 'Bridge to SKALE',
+    description: 'Blazingly fast transfers, free between SKALE Chains.',
+    url: '/bridge',
+    icon: ArrowsIcon,
+    feature: 'bridge',
+    bgKey: 'bridge_1234567891',
+    buttonText: 'Bridge Now',
+    buttonIcon: <Send size={17} />
+  },
   {
     name: 'Stake your SKL',
     description:
@@ -105,7 +120,9 @@ export const EXPLORE_CARDS: ExploreCard[] = [
     url: '/credits',
     icon: MoneyIcon,
     feature: 'credits',
-    bgKey: 'credits_12345678'
+    bgKey: 'creditssdidfdfs',
+    buttonText: 'Buy Credits',
+    buttonIcon: <Coins size={17} />
   },
   {
     name: 'Learn about Chain Credits',

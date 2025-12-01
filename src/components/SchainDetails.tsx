@@ -201,7 +201,9 @@ export default function SchainDetails(props: {
             startIcon={
               added ? (
                 <BadgeCheck size={17} className="text-green-300 dark:text-green-600" />
-              ) : <CirclePlus size={17} />
+              ) : (
+                <CirclePlus size={17} />
+              )
             }
             className="mr-3! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-3! ease-in-out transition-transform duration-150 active:scale-[0.97]"
             onClick={addNetwork}

@@ -25,34 +25,42 @@ import {
   type MetaportCore,
   Tile,
   SkPaper,
-  styles,
   TokenIcon,
   useWagmiAccount,
   sendTransaction,
   walletClientToSigner,
   useWagmiWalletClient,
   useWagmiSwitchNetwork,
-  enforceNetwork
+  enforceNetwork,
+  ChainIcon
 } from '@skalenetwork/metaport'
-import { types, metadata, units, constants, helper, ERC_ABIS } from '@/core'
+import { types, metadata, units, constants, ERC_ABIS } from '@/core'
 
 import { useState, useEffect } from 'react'
 import { Grid, Button, Dialog } from '@mui/material'
 import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
-import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
 
 import Logo from '../Logo'
 import SkStack from '../SkStack'
-import Headline from '../Headline'
 import { Contract } from 'ethers'
 import { Link } from 'react-router-dom'
 import {
-  AVATAR_COLORS,
   CREDITS_CONFIRMATION_BLOCKS,
-  DEFAULT_CREDITS_AMOUNT
+  DEFAULT_CREDITS_AMOUNT,
+  CREDITS_USAGE_EXAMPLE_PER_CREDIT
 } from '../../core/constants'
-import Avatar from 'boring-avatars'
-import { BadgeDollarSign, ChevronRight, Coins, Wallet } from 'lucide-react'
+import {
+  BadgeDollarSign,
+  Coins,
+  Wallet,
+  ArrowRightLeft,
+  Shuffle,
+  Fuel,
+  HandCoins,
+  ArrowRight
+} from 'lucide-react'
+import { MAINNET_ALIASES } from '@/core/networks'
+import AccordionSection from '../AccordionSection'
 
 interface ChainCreditsTileProps {
   mpc: MetaportCore
@@ -118,9 +126,14 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
     if (tokenBalances?.[token] === undefined) return 'Loading...'
     if (loading) return 'Processing...'
     if (tokenBalances[token] < getAmountToPayWei()) {
-      return 'Insufficient Token Balance'
+      const displayBalance = units.displayBalance(
+        tokenBalances?.[token] || 0n,
+        token,
+        tokensMeta[token].decimals
+      )
+      return 'Insufficient Token Balance: ' + displayBalance
     }
-    return 'Buy Credits'
+    return `Buy ${DEFAULT_CREDITS_AMOUNT} Credits`
   }
 
   async function buyCredits() {
@@ -223,7 +236,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                     18
                   )
                 }
-                text="Available"
+                text="Balance"
                 grow
                 ri={!isXs}
                 icon={<Wallet size={17} />}
@@ -234,7 +247,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                   size="small"
                   variant="contained"
                   startIcon={<AddCircleRoundedIcon />}
-                  className="btnMd ml-5 bg-accent-foreground! text-accent!"
+                  className="btnMd ml-5 bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
                   onClick={() => setOpenModal(true)}
                   disabled={creditStation === undefined}
                 >
@@ -250,6 +263,11 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
         onClose={() => setOpenModal(false)}
         maxWidth="sm"
         fullWidth
+        BackdropProps={{
+          sx: {
+            backdropFilter: 'blur(4px)'
+          }
+        }}
         PaperProps={{
           sx: {
             background: 'transparent',
@@ -257,21 +275,18 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
           }
         }}
       >
-        <SkPaper gray>
-          <Headline
-            text={`Buy Credits - ${chainAlias}`}
-            icon={<MonetizationOnRoundedIcon className="text-[17px]!" />}
-            size="small"
-          />
-          <p className="text-secondary-foreground font-medium text-sm ml-2.5 mb-2.5 mr-4">
-            All purchases are converted to SKL on the backend for distribution per governance
-            agreements.
-          </p>
+        <SkPaper gray className="p-4!">
+          <div className="grow pb-2.5">
+            <h2 className="m-0 text-2xl font-bold text-foreground pl-1">
+              Buy {DEFAULT_CREDITS_AMOUNT} Credits
+            </h2>
+          </div>
           <SkPaper className="p-0!">
             <Tile
-              size="md"
+              size="lg"
               transparent
-              text="Select Token to Buy Credits With"
+              text={`Select the token to pay with on ${MAINNET_ALIASES[network]}`}
+              className="py-5! px-6! mb-4"
               grow
               icon={<Coins size={17} />}
               children={
@@ -285,7 +300,8 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                             color="primary"
                             size="small"
                             className={cls(
-                              'items-center mr-2.5! uppercase btnLg bg-accent-foreground! text-accent!',
+                              'items-center mr-2.5! p-4! py-3! pr-5! rounded-full! uppercase btnLg bg-accent-foreground/30! text-foreground!',
+                              'ease-in-out transition-transform duration-150 active:scale-[0.97]',
                               ['bg-card!', symbol !== token],
                               ['text-foreground!', symbol !== token]
                             )}
@@ -296,6 +312,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                               <TokenIcon
                                 tokenSymbol={symbol}
                                 iconUrl={tokensMeta[symbol]?.iconUrl}
+                                size="sm"
                               />
                               <span className="p ml-2.5 uppercase">{symbol}</span>
                             </div>
@@ -307,57 +324,67 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
               }
             />
           </SkPaper>
-          <SkPaper className="p-0! mt-2.5">
-            <Tile
-              size="lg"
-              transparent
-              value={units.displayBalance(
-                tokenBalances?.[token] || 0n,
-                token,
-                tokensMeta[token].decimals
-              )}
-              text={`Token Balance - ${helper.shortAddress(address)}`}
-              grow
-              icon={
-                address && (
-                  <Avatar size={17} variant="marble" name={address} colors={AVATAR_COLORS} />
-                )
-              }
-            />
-          </SkPaper>
-          <Grid container spacing={1} alignItems="center" className="mt-2.5 items-center">
-            <Grid size={{ xs: 6 }} className="flex items-center">
-              <SkPaper className="p-0! grow">
+          <div className="relative">
+            <Grid container spacing={2} alignItems="center">
+              <Grid size={{ xs: 12, md: 6 }}>
                 <Tile
-                  size="lg"
-                  transparent
-                  value={units.displayBalance(
-                    getAmountToPayWei(),
-                    token,
-                    tokensMeta[token].decimals
-                  )}
-                  text="Amount to Pay"
-                  grow
-                  icon={<TokenIcon size="xs" tokenSymbol={token} />}
+                  className="py-5! px-6!"
+                  children={
+                    <div>
+                      <p className="inline-flex max-w-full items-center justify-start font-medium text-sm text-muted-foreground mb-2 overflow-hidden">
+                        Pay on{' '}
+                        <ChainIcon
+                          size="xxs"
+                          chainName={constants.MAINNET_CHAIN_NAME}
+                          skaleNetwork={network}
+                          className="mx-1.5"
+                        />{' '}
+                        {MAINNET_ALIASES[network]}
+                      </p>
+                      <p className="text-foreground font-bold text-3xl grow">
+                        {units.displayBalance(
+                          getAmountToPayWei(),
+                          token,
+                          tokensMeta[token].decimals
+                        )}
+                      </p>
+                    </div>
+                  }
                 />
-              </SkPaper>
-              <div className="bg-accent-foreground text-accent! p-1 rounded-full -ml-4 z-10 border-6 border-card dark:border-black">
-                <ChevronRight size={17} />
+              </Grid>
+              <Grid size={{ xs: 12, md: 6 }} className="md:items-end md:text-right">
+                <Tile
+                  className="py-5! px-6!"
+                  children={
+                    <div>
+                      <p className="inline-flex max-w-full items-center justify-end font-medium text-sm text-muted-foreground mb-2 overflow-hidden">
+                        <span className="shrink-0 flex items-center">
+                          Receive on{' '}
+                          <ChainIcon
+                            size="xxs"
+                            chainName={schain.name}
+                            skaleNetwork={network}
+                            className="mx-1.5"
+                          />
+                        </span>
+                        <span className="overflow-hidden text-ellipsis whitespace-nowrap">
+                          {chainAlias}
+                        </span>
+                      </p>
+                      <p className="text-foreground font-bold text-3xl">
+                        {DEFAULT_CREDITS_AMOUNT} CREDITS
+                      </p>
+                    </div>
+                  }
+                />
+              </Grid>
+            </Grid>
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
+              <div className="flex items-center justify-center bg-accent-foreground rounded-full p-2 pointer-events-auto border-10 border-card dark:border-0 rotate-90! md:rotate-0!">
+                <ArrowRight size={17} className="text-accent!" />
               </div>
-            </Grid>
-            <Grid size={{ xs: 6 }}>
-              <SkPaper className="p-0! grow -ml-4">
-                <Tile
-                  size="lg"
-                  transparent
-                  value={`${DEFAULT_CREDITS_AMOUNT} CREDITS`}
-                  text="Credits to Receive"
-                  grow
-                  icon={<BadgeDollarSign size={17} />}
-                />
-              </SkPaper>
-            </Grid>
-          </Grid>
+            </div>
+          </div>
           <Button
             variant="contained"
             className="btn mt-4! p-4! w-full capitalize! bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent!"
@@ -372,6 +399,49 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
           >
             {getBtnText()}
           </Button>
+          <AccordionSection
+            className="mt-4"
+            expandedByDefault
+            title={`What ${DEFAULT_CREDITS_AMOUNT} CREDITS covers?`}
+            marg={false}
+          >
+            <div className="p-1 px-4">
+              <p className="text-foreground font-medium text-sm flex items-center mb-2.5">
+                <ArrowRightLeft size={17} className="mr-2.5 text-muted-foreground/80" />
+                {`${Number(
+                  DEFAULT_CREDITS_AMOUNT * CREDITS_USAGE_EXAMPLE_PER_CREDIT.transfers
+                ).toLocaleString()}`}{' '}
+                Credit transfers
+              </p>
+              <p className="text-foreground font-medium text-sm flex items-center mb-2.5">
+                <HandCoins size={17} className="mr-2.5 text-muted-foreground/80" />
+                {Number(
+                  DEFAULT_CREDITS_AMOUNT * CREDITS_USAGE_EXAMPLE_PER_CREDIT.x402
+                ).toLocaleString()}{' '}
+                x402 transfers
+              </p>
+              <p className="text-foreground font-medium text-sm flex items-center mb-2.5">
+                <Shuffle size={17} className="mr-2.5 text-muted-foreground/80" />
+                {Number(
+                  DEFAULT_CREDITS_AMOUNT * CREDITS_USAGE_EXAMPLE_PER_CREDIT.ammSwaps
+                ).toLocaleString()}{' '}
+                AMM swaps
+              </p>
+              <p className="text-foreground font-medium text-sm flex items-center mb-2.5">
+                <Fuel size={17} className="mr-2.5 text-muted-foreground/80" />
+                {Number(
+                  DEFAULT_CREDITS_AMOUNT * CREDITS_USAGE_EXAMPLE_PER_CREDIT.gasUnits
+                ).toLocaleString()}{' '}
+                Gas units
+              </p>
+            </div>
+            <div className="px-2 py-1">
+              <p className="text-muted-foreground/80 text-xs font-medium">
+                These are estimated transaction amounts which can change at any time based on chain
+                consumption
+              </p>
+            </div>
+          </AccordionSection>
         </SkPaper>
       </Dialog>
     </div>
