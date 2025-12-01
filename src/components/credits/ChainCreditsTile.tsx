@@ -34,7 +34,20 @@ import {
   enforceNetwork,
   ChainIcon
 } from '@skalenetwork/metaport'
+
+import {
+  Coins,
+  Wallet,
+  ArrowRightLeft,
+  Shuffle,
+  Fuel,
+  HandCoins,
+  ArrowRight,
+  CoinsIcon
+} from 'lucide-react'
+
 import { types, metadata, units, constants, ERC_ABIS } from '@/core'
+import { MAINNET_ALIASES } from '@/core/networks'
 
 import { useState, useEffect } from 'react'
 import { Grid, Button, Dialog } from '@mui/material'
@@ -49,18 +62,6 @@ import {
   DEFAULT_CREDITS_AMOUNT,
   CREDITS_USAGE_EXAMPLE_PER_CREDIT
 } from '../../core/constants'
-import {
-  BadgeDollarSign,
-  Coins,
-  Wallet,
-  ArrowRightLeft,
-  Shuffle,
-  Fuel,
-  HandCoins,
-  ArrowRight
-} from 'lucide-react'
-import { MAINNET_ALIASES } from '@/core/networks'
-import AccordionSection from '../AccordionSection'
 
 interface ChainCreditsTileProps {
   mpc: MetaportCore
@@ -276,10 +277,8 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
         }}
       >
         <SkPaper gray className="p-4!">
-          <div className="grow pb-2.5">
-            <h2 className="m-0 text-2xl font-bold text-foreground pl-1">
-              Buy Credits
-            </h2>
+          <div className="grow pb-2.5 pl-1">
+            <h2 className="m-0 text-2xl font-bold text-foreground ">Buy Credits</h2>
           </div>
           <SkPaper className="p-0!">
             <Tile
@@ -331,7 +330,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                   className="py-5! px-6!"
                   children={
                     <div>
-                      <p className="inline-flex max-w-full items-center justify-start font-medium text-sm text-muted-foreground mb-2 overflow-hidden">
+                      <p className="inline-flex max-w-full items-center justify-start font-medium text-sm text-muted-foreground mb-1.5 overflow-hidden">
                         Pay on{' '}
                         <ChainIcon
                           size="xxs"
@@ -357,7 +356,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                   className="py-5! px-6!"
                   children={
                     <div>
-                      <p className="inline-flex max-w-full items-center justify-end font-medium text-sm text-muted-foreground mb-2 overflow-hidden">
+                      <p className="inline-flex max-w-full items-center justify-end font-medium text-sm text-muted-foreground mb-1.5 overflow-hidden">
                         <span className="shrink-0 flex items-center">
                           Receive on{' '}
                           <ChainIcon
@@ -388,7 +387,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
           <Button
             variant="contained"
             className="btn mt-4! p-4! w-full capitalize! bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent!"
-            startIcon={<BadgeDollarSign size={17} />}
+            startIcon={<CoinsIcon size={17} />}
             size="large"
             onClick={buyCredits}
             disabled={
@@ -399,49 +398,50 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
           >
             {getBtnText()}
           </Button>
-          <AccordionSection
-            className="mt-4"
-            expandedByDefault
-            title={`What ${DEFAULT_CREDITS_AMOUNT} CREDITS covers?`}
-            marg={false}
-          >
-            <div className="p-1 px-4">
-              <p className="text-foreground font-medium text-sm flex items-center mb-2.5">
-                <ArrowRightLeft size={17} className="mr-2.5 text-muted-foreground/80" />
-                {`${Number(
-                  DEFAULT_CREDITS_AMOUNT * CREDITS_USAGE_EXAMPLE_PER_CREDIT.transfers
-                ).toLocaleString()}`}{' '}
-                Credit transfers
-              </p>
-              <p className="text-foreground font-medium text-sm flex items-center mb-2.5">
-                <HandCoins size={17} className="mr-2.5 text-muted-foreground/80" />
-                {Number(
-                  DEFAULT_CREDITS_AMOUNT * CREDITS_USAGE_EXAMPLE_PER_CREDIT.x402
-                ).toLocaleString()}{' '}
-                x402 transfers
-              </p>
-              <p className="text-foreground font-medium text-sm flex items-center mb-2.5">
-                <Shuffle size={17} className="mr-2.5 text-muted-foreground/80" />
-                {Number(
-                  DEFAULT_CREDITS_AMOUNT * CREDITS_USAGE_EXAMPLE_PER_CREDIT.ammSwaps
-                ).toLocaleString()}{' '}
-                AMM swaps
-              </p>
-              <p className="text-foreground font-medium text-sm flex items-center mb-2.5">
-                <Fuel size={17} className="mr-2.5 text-muted-foreground/80" />
-                {Number(
-                  DEFAULT_CREDITS_AMOUNT * CREDITS_USAGE_EXAMPLE_PER_CREDIT.gasUnits
-                ).toLocaleString()}{' '}
-                Gas units
-              </p>
-            </div>
-            <div className="px-2 py-1">
-              <p className="text-muted-foreground/80 text-xs font-medium">
-                These are estimated transaction amounts which can change at any time based on chain
-                consumption
-              </p>
-            </div>
-          </AccordionSection>
+          <p className="text-foreground font-medium text-sm flex items-center mb-2.5 mt-4 ml-1">
+            {DEFAULT_CREDITS_AMOUNT} CREDITS is enough for thousands of transactions depending on
+            type:
+          </p>
+          <div className="p-1 px-4">
+            <p className="text-foreground font-medium text-sm flex items-center mb-2.5">
+              <ArrowRightLeft size={17} className="mr-2.5 text-muted-foreground/80" />
+              {Number(
+                DEFAULT_CREDITS_AMOUNT * CREDITS_USAGE_EXAMPLE_PER_CREDIT.transfers
+              ).toLocaleString()}{' '}
+              Credit transfers
+            </p>
+            <p className="text-foreground font-medium text-sm flex items-center mb-2.5">
+              <HandCoins size={17} className="mr-2.5 text-muted-foreground/80" />
+              {Number(
+                DEFAULT_CREDITS_AMOUNT * CREDITS_USAGE_EXAMPLE_PER_CREDIT.x402
+              ).toLocaleString()}{' '}
+              x402 transfers
+            </p>
+            <p className="text-foreground font-medium text-sm flex items-center mb-2.5">
+              <Shuffle size={17} className="mr-2.5 text-muted-foreground/80" />
+              {Number(
+                DEFAULT_CREDITS_AMOUNT * CREDITS_USAGE_EXAMPLE_PER_CREDIT.ammSwaps
+              ).toLocaleString()}{' '}
+              AMM swaps
+            </p>
+            <p className="text-foreground font-medium text-sm flex items-center mb-2.5">
+              <Fuel size={17} className="mr-2.5 text-muted-foreground/80" />
+              {Number(
+                DEFAULT_CREDITS_AMOUNT * CREDITS_USAGE_EXAMPLE_PER_CREDIT.gasUnits
+              ).toLocaleString()}{' '}
+              Gas units
+            </p>
+          </div>
+          <div className="px-2 py-1">
+            <p className="text-muted-foreground/80 text-xs font-medium pb-2">
+              These are estimated transaction amounts which can change at any time based on chain
+              consumption.
+            </p>
+            <p className="text-muted-foreground/80 text-xs font-medium">
+              All purchases are converted to SKL on the backend for distribution per governance
+              agreements.
+            </p>
+          </div>
         </SkPaper>
       </Dialog>
     </div>

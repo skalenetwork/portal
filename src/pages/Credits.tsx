@@ -180,7 +180,9 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
             <CircularProgress className="fullscreen-spin" />
           </div>
           <div className="flex items-center">
-            <h3 className="fullscreen-msg-text">Loading credits info</h3>
+            <h3 className="fullscreen-msg-text font-semibold text-foreground">
+              Loading credits info
+            </h3>
           </div>
         </div>
       </div>

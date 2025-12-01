@@ -109,6 +109,9 @@ export async function getPaymentEvents(
   const allEvents: EventLog[] = []
 
   for (let block = startBlock; block <= endBlock; block += CHUNK_SIZE) {
+    console.log(
+      `Fetching events from block ${block} to ${Math.min(block + CHUNK_SIZE - 1, endBlock)}`
+    )
     const toBlock = Math.min(block + CHUNK_SIZE - 1, endBlock)
     const events = await creditStation.queryFilter(filter, block, toBlock)
     const eventLogs = events.filter((event): event is EventLog => 'args' in event)

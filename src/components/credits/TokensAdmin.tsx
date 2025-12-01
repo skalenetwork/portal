@@ -160,7 +160,9 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
           <div className="mt-2.5">
             {isLoading && (
               <div className="text-center mt-5 mb-5">
-                <p className="p text-sm text-secondary">Loading purchases history...</p>
+                <p className="p text-sm text-secondary-foreground font-semibold">
+                  Loading purchases history...
+                </p>
               </div>
             )}
             {!isLoading && creditsHistory.length === 0 && (
