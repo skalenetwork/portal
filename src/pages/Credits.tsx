@@ -27,7 +27,7 @@ import { useState, useEffect } from 'react'
 
 import { Contract } from 'ethers'
 
-import { cls, type MetaportCore, SkPaper, styles } from '@skalenetwork/metaport'
+import { cls, type MetaportCore, SkPaper } from '@skalenetwork/metaport'
 import { constants, dc, type types } from '@/core'
 import * as cs from '../core/credit-station'
 
@@ -35,9 +35,6 @@ import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
 import { Collapse } from '@mui/material'
-
-import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
-import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
 
 import { META_TAGS } from '../core/meta'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
@@ -86,7 +83,9 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
 
     for (const schain of schains) {
       const startBlock =
-        isUpdate && lastBlocks[schain.name] ? lastBlocks[schain.name] + 1 : undefined
+        isUpdate && lastBlocks[schain.name]
+          ? lastBlocks[schain.name] + 1
+          : constants.CREDIT_STATION_START_BLOCKS[mpc.config.skaleNetwork]
       const events = await cs.getPaymentEvents(creditStation, address, startBlock)
 
       if (isUpdate) {

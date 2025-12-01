@@ -278,7 +278,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
         <SkPaper gray className="p-4!">
           <div className="grow pb-2.5">
             <h2 className="m-0 text-2xl font-bold text-foreground pl-1">
-              Buy {DEFAULT_CREDITS_AMOUNT} Credits
+              Buy Credits
             </h2>
           </div>
           <SkPaper className="p-0!">

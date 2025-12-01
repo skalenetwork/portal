@@ -24,12 +24,10 @@ import { Contract, ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 
 import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
-import { types } from '@/core'
+import { constants, types } from '@/core'
 import * as cs from '../../core/credit-station'
 
-import GeneratingTokensRoundedIcon from '@mui/icons-material/GeneratingTokensRounded'
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
-import EvStationRoundedIcon from '@mui/icons-material/EvStationRounded'
 
 import TokenAdminTile from './TokenAdminTile'
 import AccordionSection from '../AccordionSection'
@@ -95,7 +93,10 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
 
   async function loadAllPayments() {
     setIsLoading(true)
-    const events = await cs.getAllPaymentEvents(creditStation)
+    const events = await cs.getAllPaymentEvents(
+      creditStation,
+      constants.CREDIT_STATION_START_BLOCKS[mpc.config.skaleNetwork]
+    )
     setAllPayments(events)
     setIsLoading(false)
   }

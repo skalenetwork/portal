@@ -102,8 +102,8 @@ export async function getPaymentEvents(
   if (!provider) return []
 
   const currentBlock = await provider.getBlockNumber()
-  const startBlock = fromBlock ?? currentBlock - MAX_BLOCKS_TO_SCAN
-  const endBlock = fromBlock ?? currentBlock
+  const endBlock = currentBlock
+  const startBlock = fromBlock ?? Math.max(currentBlock - MAX_BLOCKS_TO_SCAN, 0)
 
   const filter = creditStation.filters.PaymentReceived(null, null, address ?? null)
   const allEvents: EventLog[] = []
