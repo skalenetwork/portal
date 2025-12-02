@@ -165,6 +165,12 @@ body {
   overflow-x: hidden;
 }
 
+.app-shell {
+  min-height: 100vh;
+  background-color: var(--background);
+  padding-top: env(safe-area-inset-top);
+}
+
 .br__bottomNav {
   position: fixed;
   bottom: env(safe-area-inset-bottom);
