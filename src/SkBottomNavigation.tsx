@@ -64,7 +64,7 @@ export default function SkBottomNavigation() {
 
   return (
     <div className="br__bottomNav sm:hidden block">
-      <nav className="bg-card/60! backdrop-blur-xs m-4 mb-2 border! border-foreground/10! rounded-full py-1! px-1!">
+      <nav className="bg-card/60! backdrop-blur-xs m-4 mb-1 border! border-foreground/10! rounded-full py-1! px-1!">
         <ul className="flex items-center justify-between">
           {visibleItems.map((item) => {
             const isActive = value === item.index
