@@ -46,6 +46,11 @@ interface HomeProps {
   metrics: types.IMetrics | null
   loadData: () => Promise<void>
 }
+
+interface ExploreSectionProps {
+  skaleNetwork: types.SkaleNetwork
+}
+
 export default function Home({ skaleNetwork, chainsMeta, metrics, loadData }: HomeProps) {
   const { newApps, trendingApps, featuredApps } = useApps(chainsMeta, metrics)
 
@@ -56,8 +61,8 @@ export default function Home({ skaleNetwork, chainsMeta, metrics, loadData }: Ho
     <Container maxWidth="md" className="min-h-[calc(100vh-115px)] flex flex-col">
       <div className="flex-1">
         <Stack spacing={0}>
-          <HomeBanner />
-          <ExploreSection />
+          <HomeBanner skaleNetwork={skaleNetwork} />
+          <ExploreSection skaleNetwork={skaleNetwork} />
           {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
             <AppSection
               title="Featured dApps on SKALE"
@@ -132,11 +137,12 @@ export default function Home({ skaleNetwork, chainsMeta, metrics, loadData }: Ho
   )
 }
 
-function ExploreSection() {
+function ExploreSection({ skaleNetwork }: ExploreSectionProps) {
+  const keyFeature = networks.KEY_FEATURES[skaleNetwork]
   return (
     <div className="grow">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 gap-4">
-        {EXPLORE_CARDS.map(
+        {EXPLORE_CARDS.filter((card) => card.feature !== keyFeature).map(
           (card, index) =>
             networks.hasFeatureInAny(NETWORKS, card.feature) && (
               <div key={index} className="flex justify-center items-center dappCard">

@@ -66,5 +66,10 @@ export const DEFAULT_DELEGATION_INFO = 'portal'
 
 export const POPULAR_TOKENS = ['SKL', 'ETH', 'USDC', 'WBTC', 'USDT']
 
+export const CREDIT_STATION_START_BLOCKS: Record<string, number> = {
+  'base-sepolia-testnet': 33559298,
+  base: 38111750,
+}
+
 const _DEFAULT_UPDATE_INTERVAL_SECONDS = 10
 export const DEFAULT_UPDATE_INTERVAL_MS = _DEFAULT_UPDATE_INTERVAL_SECONDS * MS_MULTIPLIER

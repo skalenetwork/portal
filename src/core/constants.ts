@@ -101,6 +101,12 @@ export const NETWORKS = networks.parse(import.meta.env.VITE_NETWORKS)
 
 export const CREDITS_CONFIRMATION_BLOCKS = 2
 export const DEFAULT_CREDITS_AMOUNT = 40n
+export const CREDITS_USAGE_EXAMPLE_PER_CREDIT = {
+  transfers: 1000n,
+  x402: 250n,
+  ammSwaps: 125n,
+  gasUnits: 21000000n
+} as const
 
 export const AVATAR_COLORS = [
   '#efeecc',

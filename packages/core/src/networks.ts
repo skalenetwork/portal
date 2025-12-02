@@ -73,6 +73,24 @@ export const MAINNET_BACKGROUNDS: { [key in types.SkaleNetwork]: string } = {
     'base-sepolia-testnet': 'linear-gradient(#008a47, #006936)',
 }
 
+export const NATIVE_TOKEN_SYMBOLS: { [key in types.SkaleNetwork]: string } = {
+    mainnet: 'sFUEL',
+    legacy: 'sFUEL',
+    regression: 'sFUEL',
+    testnet: 'sFUEL',
+    base: 'CREDIT',
+    'base-sepolia-testnet': 'CREDIT',
+}
+
+export const KEY_FEATURES: { [key in types.SkaleNetwork]: types.NetworkFeature } = {
+    mainnet: 'bridge',
+    legacy: 'bridge',
+    regression: 'bridge',
+    testnet: 'bridge',
+    base: 'credits',
+    'base-sepolia-testnet': 'credits',
+}
+
 export function parse(networksEnv: string | undefined): types.SkaleNetwork[] {
     if (!networksEnv) throw new Error('VITE_NETWORKS environment variable is not defined');
     return networksEnv.split(',').map((network) => network.trim() as types.SkaleNetwork);

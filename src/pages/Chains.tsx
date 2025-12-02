@@ -75,7 +75,9 @@ export default function Chains(props: {
             <CircularProgress className="fullscreen-spin" />
           </div>
           <div className="flex items-center">
-            <h3 className="fullscreen-msg-text text-foreground! font-semibold">Loading SKALE Chains</h3>
+            <h3 className="fullscreen-msg-text text-foreground! font-semibold">
+              Loading SKALE Chains
+            </h3>
           </div>
         </div>
       </div>

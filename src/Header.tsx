@@ -57,34 +57,29 @@ export default function Header(props: {
       sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
     >
       <Toolbar className="flex items-center">
-        <div className="flex items-center">
-          <Link to="/" className="flex items-center">
-            <img src={logo} className="skLogo invert dark:invert-0" alt="logo" />
-          </Link>
-        </div>
-        <div className="flex items-center grow ml-2.5">
-          {constants.MAINNET_CHAIN_NAME !== 'mainnet' ? (
-            <Chip
-              label="TESTNET"
-              color="primary"
+        <Link to="/" className="flex items-center backdrop-blur-xs p-4 rounded-xl bg-background/50">
+          <img src={logo} className="skLogo invert dark:invert-0" alt="logo" />
+        </Link>
+        <div className="grow"></div>
+        <div className="flex backdrop-blur-xs p-3 rounded-xl bg-background/50">
+          <AccountMenu address={props.address} openProfileModal={props.openProfileModal} />
+          <NetworkSwitch mpc={props.mpc} />
+          <Tooltip title={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
+            <IconButton
               size="small"
-              className="br__chipXs br__chipGray"
-            />
-          ) : null}
+              className="ml-1.5! h-8 w-8 rounded-full bg-card! text-foreground! hover:bg-muted"
+              onClick={toggleMode}
+            >
+              {mode === 'dark' ? (
+                <MoonStar className="h-4 w-4" />
+              ) : (
+                <SunMedium className="h-4 w-4" />
+              )}
+            </IconButton>
+          </Tooltip>
+          <HelpZen />
+          <MoreMenu />
         </div>
-        <AccountMenu address={props.address} openProfileModal={props.openProfileModal} />
-        <NetworkSwitch mpc={props.mpc} />
-        <Tooltip title={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
-          <IconButton
-            size="small"
-            className="ml-1.5! h-8 w-8 rounded-full bg-card! text-foreground! hover:bg-muted"
-            onClick={toggleMode}
-          >
-            {mode === 'dark' ? <MoonStar className="h-4 w-4" /> : <SunMedium className="h-4 w-4" />}
-          </IconButton>
-        </Tooltip>
-        <HelpZen />
-        <MoreMenu />
       </Toolbar>
     </AppBar>
   )

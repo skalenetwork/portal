@@ -22,7 +22,7 @@
  */
 
 import { Chain } from 'wagmi/chains'
-import { types, metadata, endpoints } from '@/core'
+import { types, metadata, endpoints, networks } from '@/core'
 
 import { getExplorerUrl } from './explorer'
 import { getChainId } from './chain_id'
@@ -40,8 +40,8 @@ export function constructWagmiChain(network: types.SkaleNetwork, chainName: stri
     name: name,
     nativeCurrency: {
       decimals: 18,
-      name: 'sFUEL',
-      symbol: 'sFUEL'
+      name: networks.NATIVE_TOKEN_SYMBOLS[network],
+      symbol: networks.NATIVE_TOKEN_SYMBOLS[network]
     },
     rpcUrls: {
       public: { http: [endpointHttp], webSocket: [endpointWs] },

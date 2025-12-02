@@ -15,7 +15,6 @@ export default function Terms() {
         <SkPaper gray className="p-6! pt-2! mt-4 text-foreground! tosMd">
           <TermsOfService />
         </SkPaper>
-
       </Stack>
     </Container>
   )

@@ -204,7 +204,9 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
                       ? timeUtils.timestampToDate(txTimestamp, true)
                       : helper.shortAddress(payment.from)}
                   </h4>
-                  <p className={cls('p', 'text-xs', 'text-secondary-foreground')}>{chainAlias}</p>
+                  <p className={cls('p', 'text-xs', 'text-secondary-foreground')}>
+                    {isAdmin ? timeUtils.timestampToDate(txTimestamp, true) : chainAlias}
+                  </p>
                 </div>
               </div>
             </Link>

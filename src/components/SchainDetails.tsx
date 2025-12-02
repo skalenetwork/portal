@@ -29,34 +29,34 @@ import { type types, metadata, constants, endpoints, networks } from '@/core'
 
 import Button from '@mui/material/Button'
 
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
-import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
 import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
-import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
-import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
-import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
-import DataSaverOffRoundedIcon from '@mui/icons-material/DataSaverOffRounded'
-import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded'
-import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
 import SkStack from './SkStack'
 import Breadcrumbs from './Breadcrumbs'
 import CollapsibleDescription from './CollapsibleDescription'
-import SkBtn from './SkBtn'
 import Logo from './Logo'
 import { getRpcUrl, getChainId } from '../core/chain'
 import { formatNumber } from '../core/timeHelper'
 import ChainTabsSection from './chains/tabs/ChainTabsSection'
 import CategoriesChips from './ecosystem/CategoriesChips'
+import {
+  BadgeCheck,
+  Blocks,
+  ChartPie,
+  CirclePlus,
+  ExternalLink,
+  Grid2x2,
+  HandCoins,
+  TrendingUp,
+  Users
+} from 'lucide-react'
 
 export default function SchainDetails(props: {
-  schainName: string
   chainsMeta: types.ChainsMetadataMap
   schainStats: types.IStatsData | null
   schainMetrics: types.IChainMetrics | null
-  chain: any
+  chain: types.ISChain
   mpc: MetaportCore
   isXs: boolean
 }) {
@@ -66,24 +66,21 @@ export default function SchainDetails(props: {
   const network = props.mpc.config.skaleNetwork
   const proxyBase = endpoints.getProxyEndpoint(network)
 
-  const rpcUrl = getRpcUrl(proxyBase, props.schainName, constants.HTTPS_PREFIX)
+  const rpcUrl = getRpcUrl(proxyBase, props.chain.name, constants.HTTPS_PREFIX)
   const explorerUrl = explorer.getExplorerUrl(
-    props.chainsMeta[props.schainName],
+    props.chainsMeta[props.chain.name],
     network,
-    props.schainName
+    props.chain.name
   )
-  const chainId = getChainId(props.schainName)
+  const chainId = getChainId(props.chain.name)
 
   const networkParams = {
     chainId,
-    chainName:
-      'SKALE' +
-      (network === 'testnet' ? ' Testnet ' : ' ') +
-      metadata.getAlias(network, props.chainsMeta, props.schainName),
+    chainName: metadata.getAlias(network, props.chainsMeta, props.chain.name),
     rpcUrls: [rpcUrl],
     nativeCurrency: {
-      name: 'sFUEL',
-      symbol: 'sFUEL',
+      name: networks.NATIVE_TOKEN_SYMBOLS[network],
+      symbol: networks.NATIVE_TOKEN_SYMBOLS[network],
       decimals: 18
     },
     blockExplorerUrls: [explorerUrl]
@@ -109,9 +106,9 @@ export default function SchainDetails(props: {
     return loading ? 'Connecting Chain' : 'Connect to Chain'
   }
 
-  const chainMeta = props.chainsMeta[props.schainName]
+  const chainMeta = props.chainsMeta[props.chain.name]
 
-  const chainAlias = metadata.getAlias(network, props.chainsMeta, props.schainName)
+  const chainAlias = metadata.getAlias(network, props.chainsMeta, props.chain.name)
   const chainDescription = metadata.getChainDescription(chainMeta)
 
   const isMainnet = props.mpc.config.skaleNetwork === constants.MAINNET_CHAIN_NAME
@@ -159,89 +156,84 @@ export default function SchainDetails(props: {
         <meta property="og:title" content={`SKALE Portal - ${chainAlias}`} />
         <meta property="og:description" content={chainDescription} />
       </Helmet>
-      <SkPaper gray className="mt-2.5">
-        <div className="p-2.5">
-          <div className="responsive-app-header flex items-center">
-            <Logo
-              chainsMeta={props.chainsMeta}
-              skaleNetwork={network}
-              chainName={props.schainName}
-              size="md"
-            />
-            <div className="app-info grow">
-              <div className="flex items-center mb-2.5">
-                <div className="grow">
-                  <CategoriesChips categories={chainMeta?.categories} all />
-                </div>
+      <SkPaper gray className="mt-2.5 p-4!">
+        <div className="responsive-app-header flex items-center">
+          <Logo
+            chainsMeta={props.chainsMeta}
+            skaleNetwork={network}
+            chainName={props.chain.name}
+            size="md"
+          />
+          <div className="app-info grow">
+            <div className="flex items-center mb-2.5">
+              <div className="grow">
+                <CategoriesChips categories={chainMeta?.categories} all />
               </div>
-
-              <h2 className="font-bold text-xl text-foreground">{chainAlias}</h2>
-              <CollapsibleDescription text={chainDescription} expandable />
+              {props.isXs || !props.schainMetrics ? null : (
+                <div className="bg-muted! text-foreground! flex items-center py-1.5 px-3! rounded-lg!">
+                  <TrendingUp size={14} />
+                  <p className="text-[8pt] ml-2.5">
+                    {props.schainMetrics
+                      ? formatNumber(props.schainMetrics.chain_stats?.transactions_today)
+                      : '...'}
+                    + Daily Tx
+                  </p>
+                </div>
+              )}
             </div>
+            <h2 className="font-bold text-xl text-foreground">{chainAlias}</h2>
+            <CollapsibleDescription text={chainDescription} expandable />
           </div>
         </div>
       </SkPaper>
-      <SkPaper gray className="mt-2.5">
-        <SkStack>
-          <Tile
-            className="flex items-center"
-            children={
-              <div className={`${!props.isXs ? 'flex' : ''} items-center`}>
-                <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
-                  <Button
-                    size="medium"
-                    className="mr-2.5 capitalize! text-accent-foreground! p-4! py-3!"
-                    startIcon={<ViewInArRoundedIcon />}
-                  >
-                    Block Explorer
-                  </Button>
-                </a>
-                <SkBtn
-                  startIcon={added ? <CheckCircleRoundedIcon /> : <AddCircleRoundedIcon />}
-                  size="md"
-                  className={`mr-2.5 text-accent-foreground! p-4! py-3! ${loading ? 'btnPaddLoading' : ''} ${props.isXs ? 'w-full' : ''}`}
-                  onClick={addNetwork}
-                  disabled={loading}
-                  text={connectBtnText()}
-                  loading={loading}
-                />
-                {chainMeta?.url && (
-                  <a target="_blank" rel="noreferrer" href={chainMeta.url} className="undec">
-                    <Button
-                      size="medium"
-                      className="capitalize! text-accent-foreground!  p-4! py-3!"
-                      startIcon={<ArrowOutwardRoundedIcon />}
-                    >
-                      Open Website
-                    </Button>
-                  </a>
-                )}
-              </div>
+      <SkPaper gray className="mt-2.5 p-4!">
+        <div className={`${!props.isXs ? 'flex' : ''} items-center`}>
+          <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
+            <Button
+              size="medium"
+              className="mr-3! capitalize! text-accent! bg-foreground! text-xs! px-6! py-3! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+              startIcon={<Blocks size={17} />}
+            >
+              Block Explorer
+            </Button>
+          </a>
+          <Button
+            startIcon={
+              added ? (
+                <BadgeCheck size={17} className="text-green-300 dark:text-green-600" />
+              ) : (
+                <CirclePlus size={17} />
+              )
             }
-          />
-          {networks.hasFeature(network, 'metrics') && (
-            <Tile
-              size="md"
-              grow
-              text="Daily transactions"
-              value={
-                props.schainMetrics
-                  ? formatNumber(props.schainMetrics.chain_stats?.transactions_today)
-                  : '0'
-              }
-              icon={<TrendingUpRoundedIcon className="w-4! h-4!" />}
-            />
-          )}
-        </SkStack>
+            className="mr-3! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-3! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+            onClick={addNetwork}
+            disabled={loading}
+          >
+            {connectBtnText()}
+          </Button>
 
-        {networks.hasFeature(network, 'metrics') ? (
-          <SkStack className="pt-2.5">
+          {chainMeta?.url && (
+            <a target="_blank" rel="noreferrer" href={chainMeta.url} className="undec">
+              <Button
+                size="medium"
+                className="mr-2! capitalize! text-accent! bg-foreground! text-xs! px-6! py-3! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+                startIcon={<ExternalLink size={17} className="textd-green-600" />}
+              >
+                Open Website
+              </Button>
+            </a>
+          )}
+        </div>
+      </SkPaper>
+      {networks.hasFeature(network, 'metrics') && (
+        <SkPaper gray className="mt-2.5 p-4!">
+          <SkStack>
             <Tile
               size="md"
               grow
               text="Total transactions"
               value={formatNumber(getTxCount())}
-              icon={<DataSaverOffRoundedIcon className="w-4! h-4!" />}
+              icon={<ChartPie size={14} />}
             />
             {isMainnet && (
               <Tile
@@ -253,7 +245,7 @@ export default function SchainDetails(props: {
                     ? `${formatNumber(props.schainStats.gas_fees_total_eth)} ETH`
                     : ''
                 }
-                icon={<SavingsRoundedIcon className="w-4! h-4!" />}
+                icon={<HandCoins size={14} />}
               />
             )}
             <Tile
@@ -261,24 +253,22 @@ export default function SchainDetails(props: {
               grow
               text={isMainnet ? 'Unique active wallets' : 'Total addresses'}
               value={formatNumber(getUAW())}
-              icon={<PersonRoundedIcon className="w-4! h-4!" />}
+              icon={<Users size={14} />}
             />
             <Tile
               size="md"
               grow
               text="Total blocks"
               value={formatNumber(getTotalBlocks())}
-              icon={<GridViewRoundedIcon className="w-4! h-4!" />}
+              icon={<Grid2x2 size={14} />}
             />
           </SkStack>
-        ) : (
-          <div></div>
-        )}
-      </SkPaper>
+        </SkPaper>
+      )}
       <ChainTabsSection
         chainsMeta={props.chainsMeta}
         mpc={props.mpc}
-        schainName={props.schainName}
+        chain={props.chain}
         isXs={props.isXs}
       />
     </div>

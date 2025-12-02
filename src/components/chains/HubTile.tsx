@@ -35,6 +35,7 @@ import ChainLogo from '../ChainLogo'
 import { formatNumber } from '../../core/timeHelper'
 
 import { MAINNET_CHAIN_LOGOS } from '../../core/constants'
+import { TrendingUp } from 'lucide-react'
 
 export default function HubTile(props: {
   network: types.SkaleNetwork
@@ -94,7 +95,7 @@ export default function HubTile(props: {
             </div>
             {props.isXs || !props.showStats ? null : (
               <div className="chipSm mr-2.5 flex items-center">
-                <TrendingUpRoundedIcon />
+                <TrendingUp />
                 <p className="text-xs ml-2.5">
                   {schainMetrics
                     ? formatNumber(schainMetrics.chain_stats?.transactions_today)

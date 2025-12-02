@@ -62,7 +62,10 @@ export default function TermsModal(props: {
   if (props.termsAccepted) return null
   return (
     <div className="h-[calc(100vh-112px)] flex flex-col overflow-hidden">
-      <Container maxWidth="md" className="flex flex-col flex-1 overflow-hidden px-2! py-0! md:px-0 md:py-4">
+      <Container
+        maxWidth="md"
+        className="flex flex-col flex-1 overflow-hidden px-2! py-0! md:px-0 md:py-4"
+      >
         <div>
           <h2 className="m-0 text-base md:text-xl font-bold text-foreground">{title}</h2>
           <p className="text-[11px] md:text-xs text-secondary-foreground font-semibold mt-1">
@@ -108,10 +111,7 @@ export default function TermsModal(props: {
                 Before you use the SKALE {title}, you must review the terms of service carefully and
                 confirm below:
               </p>
-              <div
-                onScroll={handleTermsScroll}
-                className="mt-1.5 md:mt-2 flex-1 overflow-y-auto"
-              >
+              <div onScroll={handleTermsScroll} className="mt-1.5 md:mt-2 flex-1 overflow-y-auto">
                 <div
                   id="terms"
                   style={{ paddingRight: '10px' }}
