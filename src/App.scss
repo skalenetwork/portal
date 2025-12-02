@@ -3,7 +3,7 @@
 @use 'styles/ProfileModal';
 
 :root {
-  background: black;
+  background: transparent;
 }
 
 body {
@@ -154,20 +154,20 @@ body {
   margin-right: 12px !important;
 }
 
-// .br__modalScroll {
-//   ::-webkit-scrollbar {
-//     display: unset !important;
-//   }
-// }
-
 html,
 body {
   overflow-x: hidden;
 }
 
+.app-shell {
+  min-height: 100vh;
+  background-color: var(--background);
+  padding-top: env(safe-area-inset-top);
+}
+
 .br__bottomNav {
   position: fixed;
-  bottom: 0;
+  bottom: env(safe-area-inset-bottom);
   width: 100%;
 }
 
@@ -257,7 +257,7 @@ body {
 
 
 .AppWrap {
-  padding-top: 91px;
+  padding-top: 80px;
 }
 
 .mp__moreMenu {

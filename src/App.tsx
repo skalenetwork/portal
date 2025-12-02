@@ -40,7 +40,7 @@ const muiTheme = createMuiTheme(mpTheme)
 
 export default function App() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen">
       <Helmet>
         <title>{META_TAGS.main.title}</title>
         <meta name="description" content={META_TAGS.main.description} />
@@ -50,7 +50,9 @@ export default function App() {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={muiTheme}>
           <MetaportProvider config={METAPORT_CONFIG}>
-            <Portal />
+            <div className="app-shell">
+              <Portal />
+            </div>
           </MetaportProvider>
         </ThemeProvider>
       </StyledEngineProvider>

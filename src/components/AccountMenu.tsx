@@ -52,7 +52,7 @@ export default function AccountMenu(props: any) {
                       className="mr-1.5"
                       style={{ height: '18px', width: '18px' }}
                     />
-                    Connect wallet
+                    Connect <span className="hidden md:inline! ml-1">wallet</span>
                   </Button>
                 )
               }}

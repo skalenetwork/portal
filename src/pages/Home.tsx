@@ -128,7 +128,7 @@ export default function Home({ skaleNetwork, chainsMeta, metrics, loadData }: Ho
       </div>
       <div className="flex items-center mt-5 pt-5">
         <div className="grow"></div>
-        <SkPaper gray className="mt-5">
+        <SkPaper gray className="mt-5 mb-16 md:mb-0!">
           <SocialButtons social={SKALE_SOCIAL_LINKS} size="md" className="m-ri-min10" />
         </SkPaper>
         <div className="grow"></div>

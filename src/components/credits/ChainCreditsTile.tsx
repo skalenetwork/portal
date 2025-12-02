@@ -223,8 +223,8 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
             </Link>
           </Grid>
           <Grid size={{ xs: 12, md: 8 }} className={cls('flex')}>
-            <div className="grow"></div>
-            <SkStack className="flex">
+            <div className="md:grow"></div>
+            <SkStack className="flex mt-6 md:mt-0">
               <Tile
                 size="lg"
                 transparent
@@ -240,10 +240,10 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                 text="Balance"
                 grow
                 ri={!isXs}
-                icon={<Wallet size={17} />}
+                icon={<Wallet size={14} />}
               />
               <div className="borderVert mr-4"></div>
-              <div className="flex items-center">
+              <div className="flex items-center ml-6 md:ml-0">
                 <Button
                   size="small"
                   variant="contained"
@@ -262,7 +262,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
       <Dialog
         open={openModal}
         onClose={() => setOpenModal(false)}
-        maxWidth="sm"
+        maxWidth={false}
         fullWidth
         BackdropProps={{
           sx: {
@@ -272,11 +272,15 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
         PaperProps={{
           sx: {
             background: 'transparent',
-            boxShadow: 'none'
+            boxShadow: 'none',
+            margin: { xs: '8px', sm: '24px', md: '24px' },
+            width: { xs: 'calc(100% - 16px)', sm: 'auto' },
+            maxWidth: { xs: 'calc(100% - 16px)', sm: 'calc(100% - 64px)' },
+            maxHeight: { xs: 'calc(100% - 16px)', sm: 'calc(100% - 64px)' }
           }
         }}
       >
-        <SkPaper gray className="p-4!">
+        <SkPaper gray className="p-3! md:p-4!">
           <div className="grow pb-2.5 pl-1">
             <h2 className="m-0 text-2xl font-bold text-foreground ">Buy Credits</h2>
           </div>

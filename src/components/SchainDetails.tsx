@@ -191,7 +191,7 @@ export default function SchainDetails(props: {
           <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
             <Button
               size="medium"
-              className="mr-3! capitalize! text-accent! bg-foreground! text-xs! px-6! py-3! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+              className="mb-2! md:mb-0! w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
               startIcon={<Blocks size={17} />}
             >
               Block Explorer
@@ -205,7 +205,7 @@ export default function SchainDetails(props: {
                 <CirclePlus size={17} />
               )
             }
-            className="mr-3! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-3! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+            className="mb-2! md:mb-0! w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
             onClick={addNetwork}
             disabled={loading}
           >
@@ -216,7 +216,7 @@ export default function SchainDetails(props: {
             <a target="_blank" rel="noreferrer" href={chainMeta.url} className="undec">
               <Button
                 size="medium"
-                className="mr-2! capitalize! text-accent! bg-foreground! text-xs! px-6! py-3! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+                className="mb-2! md:mb-0! w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
                 startIcon={<ExternalLink size={17} className="textd-green-600" />}
               >
                 Open Website

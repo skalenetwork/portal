@@ -32,7 +32,7 @@ import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
 
-import { Star, Network, Shapes } from 'lucide-react'
+import { Shapes, LayoutTemplate } from 'lucide-react'
 
 import ChainsSection from '../components/chains/ChainsSection'
 import { META_TAGS } from '../core/meta'
@@ -115,7 +115,7 @@ export default function Chains(props: {
           metrics={props.metrics}
           skaleNetwork={network}
           size="lg"
-          icon={<Network size={18} />}
+          icon={<LayoutTemplate size={18} />}
         />
         {appChains.length !== 0 && (
           <ChainsSection
@@ -125,7 +125,7 @@ export default function Chains(props: {
             metrics={props.metrics}
             skaleNetwork={network}
             size="md"
-            icon={<Star size={18} />}
+            icon={<Shapes size={18} />}
           />
         )}
         {network !== constants.MAINNET_CHAIN_NAME && otherChains.length !== 0 && (
