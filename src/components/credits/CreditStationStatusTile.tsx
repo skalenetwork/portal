@@ -111,7 +111,7 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
   return (
     <div className="mt-2.5">
       <Tile
-        size="lg"
+        size="md"
         grow
         text="Credit Station Status"
         value={isPaused ? 'Disabled' : 'Enabled'}

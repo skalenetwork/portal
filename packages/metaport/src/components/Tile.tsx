@@ -43,7 +43,7 @@ export default function Tile(props: {
   progress?: number
   children?: ReactElement | ReactElement[] | false
   childrenRi?: ReactElement | ReactElement[] | null | ''
-  size?: 'lg' | 'md'
+  size?: 'lg' | 'md' | 'xl'
   textColor?: string
   disabled?: boolean | null
   ri?: boolean
@@ -77,6 +77,7 @@ export default function Tile(props: {
   const value = (
     <p
       className={`
+        ${size === 'xl' ? 'text-2xl' : ''}
         ${size === 'lg' ? 'text-xl' : ''}
         ${size === 'md' ? 'text-base' : ''}
         font-bold
@@ -115,7 +116,8 @@ export default function Tile(props: {
               ) : null}
               <p
                 className={`
-                  text-xs flex font-medium
+                  flex font-medium
+                  ${props.size === 'md' ? 'text-xs' : 'text-sm'}
                   ${!props.ri ? 'grow' : ''}
                   ${props.textColor ? 'font-semibold' : ''}`}
                 style={{ color: props.textColor }}
@@ -124,7 +126,10 @@ export default function Tile(props: {
               </p>
               {props.textRi ? (
                 <p
-                  className="text-xs flex ml-1.5"
+                  className={`
+                    ${props.size === 'md' ? 'text-xs' : 'text-sm'}
+                    flex ml-1.5 font-medium
+                  `}
                   style={{ color: props.textColor }}
                 >
                   {props.textRi}

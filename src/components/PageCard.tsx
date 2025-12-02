@@ -59,7 +59,6 @@ export default function PageCard(props: {
                 <div className="absolute inset-0 grid place-items-center">
                   <img
                     src={props.icon}
-                    alt=""
                     className="group-hover:scale-105 transition-all duration-300 h-10 w-10 iconHomeCard"
                   />
                 </div>

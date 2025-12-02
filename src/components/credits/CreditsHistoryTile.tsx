@@ -109,7 +109,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
           const block = await provider.getBlock(tx.blockNumber)
           if (block) setTxTimestamp(block.timestamp)
         }
-      } catch (error) {}
+      } catch (error) { }
     }
     fetchTimestamp()
   }, [creditStation, creditsPurchase, payment.transactionHash])
@@ -119,7 +119,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
     const checkFulfillment = async () => {
       try {
         setIsFulfilled(await ledgerContract.isFulfilled(payment.id))
-      } catch (error) {}
+      } catch (error) { }
     }
     checkFulfillment()
     const interval = setInterval(checkFulfillment, 10000)
@@ -204,7 +204,9 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
                       ? timeUtils.timestampToDate(txTimestamp, true)
                       : helper.shortAddress(payment.from)}
                   </h4>
-                  <p className={cls('p', 'text-xs', 'text-secondary-foreground')}>{chainAlias}</p>
+                  <p className={cls('p', 'text-xs', 'text-secondary-foreground')}>
+                    {isAdmin && txTimestamp ? timeUtils.timestampToDate(txTimestamp, true) : chainAlias}
+                  </p>
                 </div>
               </div>
             </Link>

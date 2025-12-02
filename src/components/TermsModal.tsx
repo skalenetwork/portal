@@ -61,8 +61,11 @@ export default function TermsModal(props: {
   const title = props.type === 'bridge' ? 'Bridge' : 'Staking'
   if (props.termsAccepted) return null
   return (
-    <div className="h-[calc(100vh-112px)] flex flex-col overflow-hidden">
-      <Container maxWidth="md" className="flex flex-col flex-1 overflow-hidden px-2! py-0! md:px-0 md:py-4">
+    <div className="h-[calc(100vh-120px)] md:h-[calc(100vh-102px)] flex flex-col overflow-hidden">
+      <Container
+        maxWidth="md"
+        className="flex flex-col flex-1 overflow-hidden px-2! py-0! md:px-0 md:py-4"
+      >
         <div>
           <h2 className="m-0 text-base md:text-xl font-bold text-foreground">{title}</h2>
           <p className="text-[11px] md:text-xs text-secondary-foreground font-semibold mt-1">
@@ -73,8 +76,8 @@ export default function TermsModal(props: {
               <div className="col-span-1">
                 <SkPaper gray className="h-full">
                   <div className="p-2 md:p-2.5">
-                    <Key className="text-amber-500" size={20} />
-                    <p className="text-[13px] md:text-sm font-bold mt-2 text-foreground">
+                    <Key className="text-amber-500 mb-2 hidden md:inline!" size={20} />
+                    <p className="text-[13px] md:text-sm font-bold text-foreground">
                       SKALE will NEVER ask you for your seed phrase or private keys
                     </p>
                   </div>
@@ -83,14 +86,14 @@ export default function TermsModal(props: {
               <div className="col-span-1">
                 <SkPaper gray className="h-full">
                   <div className="p-2 md:p-2.5">
-                    <Lock className="text-green-500" size={20} />
-                    <p className="text-[13px] md:text-sm font-bold mt-1.5 text-foreground">
+                    <Lock className="text-green-500 mb-2 hidden md:inline!" size={20} />
+                    <p className="text-[13px] md:text-sm font-bold text-foreground">
                       Make sure you use only the official URL:
                       <Link
                         target="_blank"
                         rel="noopener noreferrer"
                         href={portalUrl}
-                        className="ml-1!"
+                        className="ml-1! text-blue-600! dark:text-blue-400!"
                       >
                         {portalUrl}
                       </Link>
@@ -108,10 +111,7 @@ export default function TermsModal(props: {
                 Before you use the SKALE {title}, you must review the terms of service carefully and
                 confirm below:
               </p>
-              <div
-                onScroll={handleTermsScroll}
-                className="mt-1.5 md:mt-2 flex-1 overflow-y-auto"
-              >
+              <div onScroll={handleTermsScroll} className="mt-1.5 md:mt-2 flex-1 overflow-y-auto">
                 <div
                   id="terms"
                   style={{ paddingRight: '10px' }}
@@ -129,7 +129,7 @@ export default function TermsModal(props: {
           }}
           variant="contained"
           disabled={!scrolled}
-          className={`w-full mt-3! md:mt-4! capitalize! text-[13px]! md:text-sm! font-semibold! py-3.5! md:py-4! ${scrolled ? 'bg-accent-foreground!' : 'bg-accent-foreground/50!'} text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]`}
+          className={`w-full mt-3! md:mt-4! mb-12! md:mb-0! capitalize! text-[13px]! md:text-sm! font-semibold! py-3.5! md:py-4! ${scrolled ? 'bg-accent-foreground!' : 'bg-accent-foreground/50!'} text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]`}
           size="large"
         >
           {getAgreeButtonText()}
