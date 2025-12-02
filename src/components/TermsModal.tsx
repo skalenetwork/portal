@@ -61,7 +61,7 @@ export default function TermsModal(props: {
   const title = props.type === 'bridge' ? 'Bridge' : 'Staking'
   if (props.termsAccepted) return null
   return (
-    <div className="h-[calc(100vh-102px)] flex flex-col overflow-hidden">
+    <div className="h-[calc(100vh-120px)] md:h-[calc(100vh-102px)] flex flex-col overflow-hidden">
       <Container
         maxWidth="md"
         className="flex flex-col flex-1 overflow-hidden px-2! py-0! md:px-0 md:py-4"
