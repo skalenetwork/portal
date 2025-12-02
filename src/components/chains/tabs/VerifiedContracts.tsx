@@ -69,8 +69,8 @@ export default function VerifiedContracts(props: {
   }
 
   return (
-    <SkPaper gray className="mt-5">
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full">
+    <div className="p-2! pt-0!">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
         {contracts.map((contract: any, index: number) => (
           <div key={index} className="col-span-1">
             <LinkSurface
@@ -105,6 +105,6 @@ export default function VerifiedContracts(props: {
       ) : (
         <div></div>
       )}
-    </SkPaper>
+    </div>
   )
 }

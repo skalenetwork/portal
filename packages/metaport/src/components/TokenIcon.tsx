@@ -28,10 +28,11 @@ import { styles, cls } from '../core/css'
 export default function TokenIcon(props: {
   tokenSymbol: string | undefined | null
   iconUrl?: string | undefined | null
-  size?: 'xs' | 'sm' | 'md' | 'lg'
+  size?: 'xs' | 'sm' | 'md' | 'lg',
+  className?: string
 }) {
   const size = props.size ?? 'sm'
-  const className = cls(styles[`chainIcon${size}`], 'rounded-full')
+  const className = cls(styles[`chainIcon${size}`], 'rounded-full', props.className)
   if (props.tokenSymbol === undefined || props.tokenSymbol === null) {
     return <TollRoundedIcon />
   }

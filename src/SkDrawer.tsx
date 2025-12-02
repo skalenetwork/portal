@@ -43,9 +43,9 @@ import {
   PieChart,
   Users,
   CreditCard,
-  Link2,
   BadgeDollarSign,
-  Route
+  Route,
+  Network
 } from 'lucide-react'
 
 import { GET_STARTED_URL, NETWORKS } from './core/constants'
@@ -167,7 +167,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                     )}
                   >
                     <ListItemIcon>
-                      <Link2 className="text-foreground" size={18} />
+                      <Network className="text-foreground" size={18} />
                     </ListItemIcon>
                     <ListItemText primary="SKALE Chains" />
                   </ListItemButton>

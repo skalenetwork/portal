@@ -24,12 +24,10 @@ import { Contract, ethers } from 'ethers'
 import { useEffect, useState } from 'react'
 
 import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
-import { types } from '@/core'
+import { constants, types } from '@/core'
 import * as cs from '../../core/credit-station'
 
-import GeneratingTokensRoundedIcon from '@mui/icons-material/GeneratingTokensRounded'
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
-import EvStationRoundedIcon from '@mui/icons-material/EvStationRounded'
 
 import TokenAdminTile from './TokenAdminTile'
 import AccordionSection from '../AccordionSection'
@@ -95,7 +93,10 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
 
   async function loadAllPayments() {
     setIsLoading(true)
-    const events = await cs.getAllPaymentEvents(creditStation)
+    const events = await cs.getAllPaymentEvents(
+      creditStation,
+      constants.CREDIT_STATION_START_BLOCKS[mpc.config.skaleNetwork]
+    )
     setAllPayments(events)
     setIsLoading(false)
   }
@@ -159,7 +160,9 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
           <div className="mt-2.5">
             {isLoading && (
               <div className="text-center mt-5 mb-5">
-                <p className="p text-sm text-secondary">Loading purchases history...</p>
+                <p className="p text-sm text-secondary-foreground font-semibold">
+                  Loading purchases history...
+                </p>
               </div>
             )}
             {!isLoading && creditsHistory.length === 0 && (
