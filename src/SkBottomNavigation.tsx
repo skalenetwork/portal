@@ -64,15 +64,15 @@ export default function SkBottomNavigation() {
 
   return (
     <div className="br__bottomNav sm:hidden block">
-      <nav className="bg-card/60! backdrop-blur-xs m-4 mb-2 border! border-foreground/10! rounded-full py-2!">
+      <nav className="bg-card/60! backdrop-blur-xs m-4 mb-2 border! border-foreground/10! rounded-full py-1! px-1!">
         <ul className="flex items-center justify-between">
           {visibleItems.map((item) => {
             const isActive = value === item.index
             const Icon = item.Icon
             return (
-              <li key={item.label} className="flex-1 flex justify-center">
+              <li key={item.label} className="flex-0 flex grow justify-center">
                 <Button
-                  className={`min-w-0 flex flex-col items-center gap-1 text-xs! capitalize! font-medium shadow-none px-4! rounded-full! ${isActive
+                  className={`min-w-0 flex flex-col items-center gap-0 w-full text-[10px]! capitalize! font-medium shadow-none px-4! rounded-full! ${isActive
                     ? 'text-foreground! bg-accent-foreground/10!'
                     : 'text-muted-foreground/80!'
                     }`}
@@ -81,7 +81,7 @@ export default function SkBottomNavigation() {
                     navigate(item.path)
                   }}
                 >
-                  <Icon className="h-5 w-5" />
+                  <Icon className="h-4 w-4" />
                   <span>{item.label}</span>
                 </Button>
               </li>
