@@ -75,12 +75,12 @@ export default function HomeBanner(props: { skaleNetwork: types.SkaleNetwork }) 
           </div>
         </div>
         <div className="absolute inset-0 flex items-center justify-center text-center">
-          <div className="text-center flex flex-col items-center">
+          <div className="text-center flex flex-col items-center p-6">
             <img
               src={exploreCard?.icon}
               className="group-hover:scale-105 transition-all duration-300 h-10 w-10 iconHomeCard"
             />
-            <p className="font-bold text-4xl font-sans m-0! mt-1! text-black">
+            <p className="font-bold text-3xl font-sans m-0! mt-1! text-black">
               {exploreCard?.name}
             </p>
             <p className="text-xs text-secondary-foreground dark:text-black/60 font-medium mt-1">
