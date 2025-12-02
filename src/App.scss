@@ -3,7 +3,7 @@
 @use 'styles/ProfileModal';
 
 :root {
-  background: black;
+  background: transparent;
 }
 
 body {
@@ -167,7 +167,7 @@ body {
 
 .br__bottomNav {
   position: fixed;
-  bottom: 0;
+  bottom: env(safe-area-inset-bottom);
   width: 100%;
 }
 
