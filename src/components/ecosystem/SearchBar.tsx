@@ -24,48 +24,45 @@
 import React from 'react'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
-import IconButton from '@mui/material/IconButton'
 import SearchIcon from '@mui/icons-material/Search'
-import ClearIcon from '@mui/icons-material/Clear'
-import Tooltip from '@mui/material/Tooltip'
+import { useThemeMode, styles } from '@skalenetwork/metaport'
 
 interface SearchBarProps {
   searchTerm: string
   onSearchChange: (event: React.ChangeEvent<HTMLInputElement>) => void
-  onClear: () => void
   className?: string
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({
   searchTerm,
   onSearchChange,
-  onClear,
   className
-}) => (
-  <div className={`flex items-center ${className || ''}`}>
-    <TextField
-      fullWidth
-      className="skInput"
-      placeholder="Search categories"
-      value={searchTerm}
-      onChange={onSearchChange}
-      InputProps={{
-        startAdornment: (
-          <InputAdornment position="start">
-            <SearchIcon className="primary" />
-          </InputAdornment>
-        ),
-        endAdornment: (
-          <Tooltip title="Clear all" arrow>
-            <IconButton onClick={onClear} size="small">
-              <ClearIcon className="'primary" />
-            </IconButton>
-          </Tooltip>
-        )
-      }}
-    />
-  </div>
-)
+}) => {
+  const { mode } = useThemeMode()
+
+  return (
+    <div className={`flex items-center ${className || ''}`}>
+      <TextField
+        fullWidth
+        placeholder="Search categories"
+        value={searchTerm}
+        onChange={onSearchChange}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon className="text-muted-foreground w-4! h-4!" />
+            </InputAdornment>
+          )
+        }}
+        className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-muted! rounded-full`}
+        sx={{
+          '& .MuiOutlinedInput-root': { borderRadius: '50px' },
+          '& fieldset': { border: '0px red solid !important' }
+        }}
+      />
+    </div>
+  )
+}
 
 export const highlightMatch = (text: string, searchTerm: string): React.ReactNode => {
   if (!searchTerm) return text

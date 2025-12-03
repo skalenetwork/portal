@@ -24,6 +24,7 @@ import React from 'react'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
 import SearchIcon from '@mui/icons-material/Search'
+import { useThemeMode, styles } from '@skalenetwork/metaport'
 
 interface SearchComponentProps {
   searchTerm: string
@@ -36,6 +37,8 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
   setSearchTerm,
   className
 }) => {
+  const { mode } = useThemeMode()
+
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value)
   }
@@ -50,11 +53,15 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <SearchIcon className="text-primary chainIcons" />
+              <SearchIcon className="text-muted-foreground w-4! h-4!" />
             </InputAdornment>
           )
         }}
-        className="skInput"
+        className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-muted! rounded-full`}
+        sx={{
+          '& .MuiOutlinedInput-root': { borderRadius: '25px' },
+          '& fieldset': { border: '0px red solid !important' }
+        }}
       />
     </div>
   )

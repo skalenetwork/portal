@@ -32,6 +32,7 @@ import Menu from '@mui/material/Menu'
 import Button from '@mui/material/Button'
 import ManageSearchRoundedIcon from '@mui/icons-material/ManageSearchRounded'
 import { type Category } from '../../core/ecosystem/categories'
+import { useThemeMode } from '@skalenetwork/metaport'
 import SearchBar, { highlightMatch } from './SearchBar'
 import SubcategoryList from './SubcategoryList'
 
@@ -46,6 +47,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
   setCheckedItems,
   isXs
 }) => {
+  const { mode } = useThemeMode()
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({})
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [searchTerm, setSearchTerm] = useState('')
@@ -156,7 +158,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
         ref={buttonRef}
         onClick={handleMenuOpen}
         startIcon={<ManageSearchRoundedIcon />}
-        className={`outlined btn text-primary! ${isXs ? 'w-full' : ''}`}
+        className={`outlined btn ${mode === 'dark' ? 'text-white' : 'text-black'} ${isXs ? 'w-full' : ''}`}
         style={{ background: 'transparent' }}
       >
         Browse by categories
@@ -171,8 +173,9 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
               maxHeight: 'calc(80vh - 100px)',
               width: buttonRef.current?.offsetWidth
             },
-            className:
-              'mt-2.5! overflow-visible rounded-3xl! bg-white! text-foreground! shadow-sm! border-none! ring-0! [&_.MuiList-root]:bg-white! [&_.MuiList-root]:p-0!'
+            className: `mt-2.5! overflow-visible rounded-3xl! ${mode === 'dark' ? 'bg-black! text-white!' : 'bg-white! text-foreground!'
+              } shadow-sm! border-none! ring-0! [&_.MuiList-root]:p-0! ${mode === 'dark' ? '[&_.MuiList-root]:bg-black!' : '[&_.MuiList-root]:bg-white!'
+              }`
           }
         }}
       >
@@ -199,10 +202,16 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
                     <Checkbox
                       checked={checkedItems.includes(shortName)}
                       onChange={() => handleCheck(shortName)}
+                      sx={{
+                        color: mode === 'dark' ? '#ffffff' : '#000000',
+                        '&.Mui-checked': {
+                          color: mode === 'dark' ? '#ffffff' : '#000000'
+                        }
+                      }}
                     />
                   }
                   label={
-                    <span className="text-sm font-semibold">
+                    <span className={`text-sm font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}>
                       {highlightMatch(data.name, searchTerm)}
                     </span>
                   }
@@ -214,7 +223,11 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
                 {typeof data.subcategories === 'object' &&
                   !Array.isArray(data.subcategories) &&
                   Object.keys(data.subcategories).length > 0 && (
-                    <IconButton onClick={() => toggleExpand(shortName)} size="small">
+                    <IconButton
+                      onClick={() => toggleExpand(shortName)}
+                      size="small"
+                      sx={{ color: mode === 'dark' ? '#ffffff' : '#000000' }}
+                    >
                       {expandedItems[shortName] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
                     </IconButton>
                   )}

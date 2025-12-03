@@ -22,7 +22,7 @@
  */
 
 import React from 'react'
-import { cls } from '@skalenetwork/metaport'
+import { cls, useThemeMode } from '@skalenetwork/metaport'
 import { Chip, Box } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { categories } from '../../core/ecosystem/categories'
@@ -33,15 +33,16 @@ interface SelectedCategoriesProps {
   filteredAppsCount: number
 }
 
-const CustomChipLabel: React.FC<{ category: string; subcategory?: string }> = ({
+const CustomChipLabel: React.FC<{ category: string; subcategory?: string; mode: string }> = ({
   category,
-  subcategory
+  subcategory,
+  mode
 }) => (
   <Box display="flex" alignItems="center">
     <p
       className={cls(
-        ['text-secondary-foreground', subcategory],
-        ['text-primary', !subcategory],
+        [mode === 'dark' ? 'text-gray-300' : 'text-secondary-foreground', subcategory],
+        [mode === 'dark' ? 'text-white' : 'text-black', !subcategory],
         'text-sm',
         ['font-semibold', !subcategory]
       )}
@@ -51,7 +52,9 @@ const CustomChipLabel: React.FC<{ category: string; subcategory?: string }> = ({
     {subcategory && (
       <>
         <Box component="span" className="borderLeft" sx={{ height: '1em', mx: 0.75 }} />
-        <p className="text-primary text-sm font-semibold">{subcategory}</p>
+        <p className={`text-sm font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}>
+          {subcategory}
+        </p>
       </>
     )}
   </Box>
@@ -62,6 +65,8 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
   setCheckedItems,
   filteredAppsCount
 }) => {
+  const { mode } = useThemeMode()
+
   const handleDelete = (itemToDelete: string) => {
     setCheckedItems(checkedItems.filter((item) => item !== itemToDelete))
   }
@@ -98,6 +103,7 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
               <CustomChipLabel
                 category={getCategoryName(category)}
                 subcategory={subcategory ? getSubcategoryName(category, subcategory) : undefined}
+                mode={mode}
               />
             }
             onDelete={() => handleDelete(item)}
@@ -106,11 +112,11 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
           />
         )
       })}
-      <p className="text-xs text-primary ml-2.5 mr-2.5">
+      <p className={`text-xs ml-2.5 mr-2.5 ${mode === 'dark' ? 'text-white' : 'text-black'}`}>
         {filteredAppsCount} project{filteredAppsCount !== 1 ? 's' : ''}
       </p>
       <p
-        className="text-xs text-xs p-0 m-0 text-secondary-foreground ml-5"
+        className={`text-xs p-0 m-0 ml-5 ${mode === 'dark' ? 'text-gray-300' : 'text-secondary-foreground'}`}
         style={{ cursor: 'pointer' }}
         onClick={clearAll}
       >

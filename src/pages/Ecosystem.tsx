@@ -20,7 +20,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react'
+import React, { useState, useEffect, useMemo, useRef } from 'react'
 import { Helmet } from 'react-helmet'
 import { Container, Stack, Tab, Tabs, Button } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
@@ -75,42 +75,6 @@ export default function Ecosystem(props: {
   const [activeTab, setActiveTab] = useState(0)
   const [loaded, setLoaded] = useState<boolean>(false)
   const containerRef = useRef<HTMLDivElement | null>(null)
-  const fixedHeaderRef = useRef<HTMLDivElement | null>(null)
-  const [headerHeight, setHeaderHeight] = useState(0)
-
-  useLayoutEffect(() => {
-    if (props.isXs) {
-      setHeaderHeight(0)
-      return
-    }
-
-    const syncPosition = () => {
-      if (!containerRef.current || !fixedHeaderRef.current) return
-      const rect = containerRef.current.getBoundingClientRect()
-      fixedHeaderRef.current.style.width = rect.width + 'px'
-      fixedHeaderRef.current.style.left = rect.left + 'px'
-    }
-    const syncHeight = () => {
-      if (!fixedHeaderRef.current) return
-      const h = fixedHeaderRef.current.offsetHeight
-      setHeaderHeight(h)
-    }
-    const handleResize = () => {
-      syncPosition()
-      syncHeight()
-    }
-    const handleScroll = () => {
-      syncPosition()
-    }
-    syncPosition()
-    syncHeight()
-    window.addEventListener('resize', handleResize)
-    window.addEventListener('scroll', handleScroll)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [checkedItems, props.isXs])
 
   useEffect(() => {
     props.loadData()
@@ -184,7 +148,6 @@ export default function Ecosystem(props: {
 
   const currentFilteredApps = getFilteredAppsByTab(activeTab)
 
-  const isFiltersApplied = Object.keys(checkedItems).length !== 0
   return (
     <>
       <Container maxWidth="md" ref={containerRef}>
@@ -195,18 +158,7 @@ export default function Ecosystem(props: {
           <meta property="og:description" content={META_TAGS.ecosystem.description} />
         </Helmet>
         <Stack spacing={0}>
-          <div
-            ref={fixedHeaderRef}
-            className="sk-header"
-            style={{
-              position: props.isXs ? 'static' : 'fixed',
-              top: props.isXs ? 'auto' : '101px',
-              background: 'black',
-              borderRadius: '35px',
-              zIndex: props.isXs ? 'undefined' : 1000,
-              width: '100%'
-            }}
-          >
+          <div className="sk-header">
             <Container maxWidth="md" sx={props.isXs ? { paddingLeft: 0, paddingRight: 0 } : {}}>
               <SkStack>
                 <div className={cn('grow flex flex-col mb-5 mt-2.5')}>
@@ -273,7 +225,6 @@ export default function Ecosystem(props: {
               </Tabs>
             </Container>
           </div>
-          {!props.isXs && <div style={{ height: headerHeight }} />}
           <div className={cn('grow', 'mt-5', 'fwmobile')}>
             {activeTab === 0 && (
               <AllApps
