@@ -30,12 +30,14 @@ import Tooltip from '@mui/material/Tooltip'
 import ButtonBase from '@mui/material/ButtonBase'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import { CircleCheck, Copy } from 'lucide-react'
 
 export default function CopySurface(props: {
   title: string
   value: string | undefined
   className?: string
   tokenMetadata?: types.mp.TokenMetadata
+  icon?: React.ReactNode
 }) {
   const [copied, setCopied] = useState(false)
 
@@ -60,11 +62,11 @@ export default function CopySurface(props: {
       <CopyToClipboard text={props.value} onCopy={handleClick}>
         <Tooltip title={copied ? 'Copied!' : 'Click to copy to clipboard'}>
           <ButtonBase
-            className="bg-background! p-5! rounded-3xl!"
+            className="bg-background! p-5! rounded-3xl! ease-in-out transition-transform duration-150 active:scale-[0.99]"
             style={{ width: '100%', height: '100%' }}
           >
             <div style={{ textAlign: 'left', overflow: 'auto' }} className="grow">
-              <div className="flex">
+              <div className="flex items-center mb-1.5">
                 {props.tokenMetadata ? (
                   <div className="mr-1.5">
                     <TokenIcon
@@ -74,7 +76,8 @@ export default function CopySurface(props: {
                     />
                   </div>
                 ) : null}
-                <p className="text-xs text-secondary-foreground mb-1.5">
+                {props.icon && <div className="mr-1.5 text-secondary-foreground">{props.icon}</div>}
+                <p className="text-xs text-secondary-foreground">
                   {props.title}
                   {props.tokenMetadata
                     ? ` (${props.tokenMetadata.decimals ?? constants.DEFAULT_ERC20_DECIMALS})`
@@ -84,9 +87,13 @@ export default function CopySurface(props: {
               <p className="text-base font-semibold shortP text-foreground">{props.value}</p>
             </div>
             {copied ? (
-              <CheckCircleRoundedIcon color="success" className="ml-5 text-[17px]!" />
+              <div className="ml-5 shrink-0 p-2 bg-green-600 dark:bg-green-400 rounded-full">
+                <CircleCheck className="text-accent/90" size={17} />
+              </div>
             ) : (
-              <ContentCopyIcon className="text-secondary-foreground ml-5 text-[17px]!" />
+              <div className="ml-5 shrink-0 p-2 bg-muted-foreground/10 rounded-full">
+                <Copy className="text-accent-foreground/90 shrink-0" size={17} />
+              </div>
             )}
           </ButtonBase>
         </Tooltip>
