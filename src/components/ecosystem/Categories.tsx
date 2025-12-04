@@ -25,16 +25,13 @@ import { filterCategories } from '../../core/ecosystem/utils'
 import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import IconButton from '@mui/material/IconButton'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import ExpandLessIcon from '@mui/icons-material/ExpandLess'
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import Menu from '@mui/material/Menu'
 import Button from '@mui/material/Button'
-import ManageSearchRoundedIcon from '@mui/icons-material/ManageSearchRounded'
 import { type Category } from '../../core/ecosystem/categories'
 import { useThemeMode } from '@skalenetwork/metaport'
 import SearchBar, { highlightMatch } from './SearchBar'
 import SubcategoryList from './SubcategoryList'
+import { TextSearch, ChevronDown, ChevronUp, Circle } from 'lucide-react'
 
 interface CategoryDisplayProps {
   checkedItems: string[]
@@ -157,8 +154,8 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
         variant="text"
         ref={buttonRef}
         onClick={handleMenuOpen}
-        startIcon={<ManageSearchRoundedIcon />}
-        className={`outlined btn ${mode === 'dark' ? 'text-white' : 'text-black'} ${isXs ? 'w-full' : ''}`}
+        startIcon={<TextSearch />}
+        className="btn btnMd tab text-foreground! text-xs ease-in-out transition-transform duration-150 active:scale-[0.97]"
         style={{ background: 'transparent' }}
       >
         Browse by categories
@@ -218,7 +215,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
                   className="grow"
                 />
                 {getSelectedSubcategoriesCount(shortName) > 0 && (
-                  <FiberManualRecordIcon color="primary" style={{ fontSize: '8pt' }} />
+                  <Circle fill="currentColor" size={8} className="text-primary" />
                 )}
                 {typeof data.subcategories === 'object' &&
                   !Array.isArray(data.subcategories) &&
@@ -228,7 +225,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
                       size="small"
                       sx={{ color: mode === 'dark' ? '#ffffff' : '#000000' }}
                     >
-                      {expandedItems[shortName] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                      {expandedItems[shortName] ? <ChevronUp /> : <ChevronDown />}
                     </IconButton>
                   )}
               </div>

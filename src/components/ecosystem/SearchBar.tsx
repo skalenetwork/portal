@@ -24,7 +24,7 @@
 import React from 'react'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
-import SearchIcon from '@mui/icons-material/Search'
+import { Search } from 'lucide-react'
 import { useThemeMode, styles } from '@skalenetwork/metaport'
 
 interface SearchBarProps {
@@ -50,7 +50,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <SearchIcon className="text-muted-foreground w-4! h-4!" />
+              <Search className="text-muted-foreground w-4! h-4!" />
             </InputAdornment>
           )
         }}

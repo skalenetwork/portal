@@ -24,11 +24,6 @@ import React, { useState, useEffect, useMemo, useRef } from 'react'
 import { Helmet } from 'react-helmet'
 import { Container, Stack, Tab, Tabs, Button } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
-import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
-import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
-import StarRoundedIcon from '@mui/icons-material/StarRounded'
-import AppShortcutIcon from '@mui/icons-material/AppShortcut'
-import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded'
 
 import { type types } from '@/core'
 import { type MetaportCore } from '@skalenetwork/metaport'
@@ -50,6 +45,12 @@ import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import SocialButtons from '../components/ecosystem/Socials'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import { cn } from '../core/ecosystem/utils'
+
+import {
+  LayoutGrid,
+  Plus
+} from 'lucide-react'
+import { SECTION_ICONS } from '../components/HomeComponents'
 
 export default function Ecosystem(props: {
   mpc: MetaportCore
@@ -158,73 +159,81 @@ export default function Ecosystem(props: {
           <meta property="og:description" content={META_TAGS.ecosystem.description} />
         </Helmet>
         <Stack spacing={0}>
-          <div className="sk-header">
-            <Container maxWidth="md" sx={props.isXs ? { paddingLeft: 0, paddingRight: 0 } : {}}>
-              <SkStack>
-                <div className={cn('grow flex flex-col mb-5 mt-2.5')}>
-                  <h2 className="m-0 text-xl font-bold text-foreground">Ecosystem</h2>
-                  <p className="text-xs text-secondary-foreground font-semibold">
-                    Explore dApps across the SKALE ecosystem
-                  </p>
-                </div>
-                <div className="flex items-center">
-                  <SocialButtons social={SKALE_SOCIAL_LINKS} all />
-                  <div className="ml-2.5">
-                    <SkPageInfoIcon meta_tag={META_TAGS.ecosystem} />
-                  </div>
-                </div>
-              </SkStack>
-              <SkStack className={`mb-5 flex items-center mt-2.5 ${props.isXs ? 'flex-col' : ''}`}>
-                <SearchComponent
-                  className={`grow ${!props.isXs ? 'mr-2.5' : 'fullW'}`}
-                  searchTerm={searchTerm}
-                  setSearchTerm={handleSetSearchTerm}
-                />
-                <CategoryDisplay
-                  checkedItems={checkedItems}
-                  setCheckedItems={handleSetCheckedItems}
-                  isXs={props.isXs}
-                />
-              </SkStack>
-              <SelectedCategories
-                checkedItems={checkedItems}
-                setCheckedItems={handleSetCheckedItems}
-                filteredAppsCount={currentFilteredApps.length}
-              />
-              <Tabs
-                variant={props.isXs ? 'scrollable' : 'standard'}
-                value={activeTab}
-                onChange={handleTabChange}
-                scrollButtons="auto"
-                className="mb-5 mt-5 skTabs fwmobile"
-              >
-                <Tab
-                  label="All"
-                  icon={<GridViewRoundedIcon />}
-                  iconPosition="start"
-                  className="btn btnSm mr-2.5! tab fwmobile"
-                />
-                <Tab
-                  label="Featured"
-                  icon={<AppShortcutIcon />}
-                  iconPosition="start"
-                  className="btn btnSm mr-2.5! tab fwmobile"
-                />
-                <Tab
-                  label="New"
-                  icon={<StarRoundedIcon />}
-                  iconPosition="start"
-                  className="btn btnSm mr-2.5! tab fwmobile"
-                />
-                <Tab
-                  label="Trending"
-                  icon={<TrendingUpRoundedIcon />}
-                  iconPosition="start"
-                  className="btn btnSm mr-2.5! tab fwmobile"
-                />
-              </Tabs>
-            </Container>
-          </div>
+          <SkStack>
+            <div className={cn('grow flex flex-col mb-5 mt-2.5')}>
+              <h2 className="m-0 text-xl font-bold text-foreground">Ecosystem</h2>
+              <p className="text-xs text-secondary-foreground font-semibold">
+                Explore dApps across the SKALE ecosystem
+              </p>
+            </div>
+            <div className="flex items-center">
+              <SocialButtons social={SKALE_SOCIAL_LINKS} all />
+              <div className="ml-2.5">
+                <SkPageInfoIcon meta_tag={META_TAGS.ecosystem} />
+              </div>
+            </div>
+          </SkStack>
+          <SkStack className={`mb-5 flex items-center mt-2.5 ${props.isXs ? 'flex-col' : ''}`}>
+            <SearchComponent
+              className={`grow ${!props.isXs ? 'mr-2.5' : 'fullW'}`}
+              searchTerm={searchTerm}
+              setSearchTerm={handleSetSearchTerm}
+            />
+            <CategoryDisplay
+              checkedItems={checkedItems}
+              setCheckedItems={handleSetCheckedItems}
+              isXs={props.isXs}
+            />
+          </SkStack>
+          <SelectedCategories
+            checkedItems={checkedItems}
+            setCheckedItems={handleSetCheckedItems}
+            filteredAppsCount={currentFilteredApps.length}
+          />
+          <Tabs
+            variant={props.isXs ? 'scrollable' : 'standard'}
+            value={activeTab}
+            onChange={handleTabChange}
+            scrollButtons="auto"
+            className="skTabs"
+          >
+            <Tab
+              label="All"
+              icon={<LayoutGrid />}
+              iconPosition="start"
+              className={`btn btnSm mr-1! ml-1! tab fwmobile ${activeTab === 0
+                ? 'text-foreground! bg-foreground/15!'
+                : 'text-muted-foreground!'
+                }`}
+            />
+            <Tab
+              label="Featured"
+              icon={SECTION_ICONS.featured}
+              iconPosition="start"
+              className={`btn btnSm mr-1! ml-1! tab fwmobile ${activeTab === 1
+                ? 'text-foreground! bg-foreground/15!'
+                : 'text-muted-foreground!'
+                }`}
+            />
+            <Tab
+              label="New"
+              icon={SECTION_ICONS.new}
+              iconPosition="start"
+              className={`btn btnSm mr-1! ml-1! tab fwmobile ${activeTab === 2
+                ? 'text-foreground! bg-foreground/15!'
+                : 'text-muted-foreground!'
+                }`}
+            />
+            <Tab
+              label="Trending"
+              icon={SECTION_ICONS.trending}
+              iconPosition="start"
+              className={`btn btnSm mr-1! ml-1! tab fwmobile ${activeTab === 3
+                ? 'text-foreground! bg-foreground/15!'
+                : 'text-muted-foreground!'
+                }`}
+            />
+          </Tabs>
           <div className={cn('grow', 'mt-5', 'fwmobile')}>
             {activeTab === 0 && (
               <AllApps
@@ -273,8 +282,8 @@ export default function Ecosystem(props: {
               <Button
                 size="medium"
                 variant="contained"
-                className={cn('btn', 'mt-5 mb-5 text-center')}
-                startIcon={<AddCircleOutlineRoundedIcon />}
+                className="btn btnMd text-xs text-accent! bg-foreground!"
+                startIcon={<Plus />}
               >
                 Submit Your Project
               </Button>
@@ -283,7 +292,6 @@ export default function Ecosystem(props: {
           <div className="grow"></div>
         </div>
       </Container>
-
       <ScrollToTopButton />
     </>
   )

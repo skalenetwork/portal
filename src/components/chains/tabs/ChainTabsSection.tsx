@@ -31,7 +31,6 @@ import ChainTabs from './Tabs'
 import DeveloperInfo from './DeveloperInfo'
 import Tokens from './Tokens'
 // import VerifiedContracts from './VerifiedContracts'
-import FeaturedApps from '../../ecosystem/tabs/FeaturedApps'
 import { useApps } from '../../../useApps'
 
 const BASE_TABS = [

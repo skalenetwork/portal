@@ -24,7 +24,7 @@
 import React from 'react'
 import { cls, useThemeMode } from '@skalenetwork/metaport'
 import { Chip, Box } from '@mui/material'
-import CloseIcon from '@mui/icons-material/Close'
+import { X } from 'lucide-react'
 import { categories } from '../../core/ecosystem/categories'
 
 interface SelectedCategoriesProps {
@@ -107,7 +107,7 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
               />
             }
             onDelete={() => handleDelete(item)}
-            deleteIcon={<CloseIcon className="text-[17px]!" />}
+            deleteIcon={<X size={17} />}
             className="'outlined', font-semibold"
           />
         )

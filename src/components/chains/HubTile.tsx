@@ -76,8 +76,8 @@ export default function HubTile(props: {
         }
       >
         <Tooltip title="Click to see Hub details">
-          <div className="titleSectionBg flex items-center">
-            <div className="flex items-center grow mt-5 mb-5 ml-5">
+          <div className="bg-background! flex items-center rounded-3xl ">
+            <div className="flex items-center grow mt-5 mb-5 ml-5 ">
               <div className="w-[45px] h-[45px] flex items-center">
                 <ChainLogo
                   network={props.network}

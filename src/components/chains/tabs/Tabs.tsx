@@ -57,7 +57,7 @@ export default function ChainTabs(props: {
             <Tab
               key={index}
               label={tab.label}
-              icon={tab.icon}
+              icon={<layout-grid />}
               iconPosition="start"
               className={`btn btnSm mr-1! ml-1! tab fwmobile ${
                 props.tab === index

@@ -25,8 +25,6 @@ import { type ReactElement, useState } from 'react'
 
 import Collapse from '@mui/material/Collapse'
 import ButtonBase from '@mui/material/ButtonBase'
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
-import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
 import { CircleMinus, CirclePlus } from 'lucide-react'
 
 export default function AccordionSection(props: {

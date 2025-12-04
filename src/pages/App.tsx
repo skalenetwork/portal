@@ -32,8 +32,7 @@ import Container from '@mui/material/Container'
 import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded'
 import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded'
 import DataSaverOffRoundedIcon from '@mui/icons-material/DataSaverOffRounded'
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
-import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
+import { ChevronLeft, LayoutGrid } from 'lucide-react'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 import HubRoundedIcon from '@mui/icons-material/HubRounded'
 import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded'
@@ -138,6 +137,17 @@ export default function App(props: {
     return formatNumber(Number(units.fromWei(gasSpentWei, constants.DEFAULT_ERC20_DECIMALS)))
   }
 
+  function hasTransactionData(): boolean {
+    if (!counters || !appMeta?.contracts) return false
+    return (
+      Number(counters.transactions_count) > 0 ||
+      Number(counters.transactions_last_30_days) > 0 ||
+      Number(counters.transactions_last_7_days) > 0 ||
+      Number(counters.transactions_today) > 0 ||
+      Number(counters.gas_usage_count) > 0
+    )
+  }
+
   return (
     <Container maxWidth="md">
       <div className="'chainDetails' mb-5">
@@ -154,12 +164,12 @@ export default function App(props: {
             sections={[
               {
                 text: 'Ecosystem',
-                icon: <ArrowBackIosNewRoundedIcon />,
+                icon: <ChevronLeft className="text-foreground" size={16} />,
                 url: '/ecosystem'
               },
               {
                 text: appAlias,
-                icon: <WidgetsRoundedIcon />
+                icon: <LayoutGrid size={17} />
               }
             ]}
           />
@@ -183,7 +193,7 @@ export default function App(props: {
                   </div>
                 </div>
                 <div className="flex items-center">
-                  <h2 className="m-0 text-base">{appAlias}</h2>
+                  <h2 className="m-0 text-base text-foreground font-bold">{appAlias}</h2>
                   <div className="flex ml-2.5">
                     {featured && <ChipFeatured />}
                     {trending && <ChipTrending />}
@@ -198,74 +208,76 @@ export default function App(props: {
             </div>
           </div>
         </SkPaper>
-        <SkPaper gray className="mt-2.5">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-            {appMeta.contracts && (
-              <div className="col-span-1">
-                <Tile
-                  grow
-                  text="Total transactions"
-                  value={counters ? formatNumber(Number(counters.transactions_count)) : undefined}
-                  icon={<DataSaverOffRoundedIcon />}
-                />
-              </div>
-            )}
-            {appMeta.contracts && (
-              <div className="col-span-1">
-                <Tile
-                  grow
-                  text="Gas saved"
-                  childrenRi={
-                    !props.isXs ? (
-                      <InfoOutlinedIcon className="text-secondary-foreground text-[17px]! ml-2.5" />
-                    ) : undefined
-                  }
-                  tooltip={
-                    props.metrics && counters
-                      ? `Given gas price ${props.metrics.gas} wei. ${counters.gas_usage_count} of gas used.`
-                      : undefined
-                  }
-                  value={props.metrics && counters ? `${formatGas()} ETH` : undefined}
-                  icon={<SavingsRoundedIcon />}
-                />
-              </div>
-            )}
-            {appMeta.contracts && (
-              <div className="col-span-1">
-                <Tile
-                  grow
-                  text="30d transactions"
-                  value={
-                    counters ? formatNumber(Number(counters.transactions_last_30_days)) : undefined
-                  }
-                  icon={<HourglassFullRoundedIcon />}
-                />
-              </div>
-            )}
-            {appMeta.contracts && (
-              <div className="col-span-1">
-                <Tile
-                  grow
-                  text="7d transactions"
-                  value={
-                    counters ? formatNumber(Number(counters.transactions_last_7_days)) : undefined
-                  }
-                  icon={<HourglassBottomRoundedIcon />}
-                />
-              </div>
-            )}
-            {appMeta.contracts && (
-              <div className="col-span-1">
-                <Tile
-                  grow
-                  text="Daily transactions"
-                  value={counters ? formatNumber(Number(counters.transactions_today)) : undefined}
-                  icon={<HourglassTopRoundedIcon />}
-                />
-              </div>
-            )}
-          </div>
-        </SkPaper>
+        {hasTransactionData() && (
+          <SkPaper gray className="mt-2.5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
+              {appMeta.contracts && (
+                <div className="col-span-1">
+                  <Tile
+                    grow
+                    text="Total transactions"
+                    value={counters ? formatNumber(Number(counters.transactions_count)) : undefined}
+                    icon={<DataSaverOffRoundedIcon />}
+                  />
+                </div>
+              )}
+              {appMeta.contracts && (
+                <div className="col-span-1">
+                  <Tile
+                    grow
+                    text="Gas saved"
+                    childrenRi={
+                      !props.isXs ? (
+                        <InfoOutlinedIcon className="text-secondary-foreground text-[17px]! ml-2.5" />
+                      ) : undefined
+                    }
+                    tooltip={
+                      props.metrics && counters
+                        ? `Given gas price ${props.metrics.gas} wei. ${counters.gas_usage_count} of gas used.`
+                        : undefined
+                    }
+                    value={props.metrics && counters ? `${formatGas()} ETH` : undefined}
+                    icon={<SavingsRoundedIcon />}
+                  />
+                </div>
+              )}
+              {appMeta.contracts && (
+                <div className="col-span-1">
+                  <Tile
+                    grow
+                    text="30d transactions"
+                    value={
+                      counters ? formatNumber(Number(counters.transactions_last_30_days)) : undefined
+                    }
+                    icon={<HourglassFullRoundedIcon />}
+                  />
+                </div>
+              )}
+              {appMeta.contracts && (
+                <div className="col-span-1">
+                  <Tile
+                    grow
+                    text="7d transactions"
+                    value={
+                      counters ? formatNumber(Number(counters.transactions_last_7_days)) : undefined
+                    }
+                    icon={<HourglassBottomRoundedIcon />}
+                  />
+                </div>
+              )}
+              {appMeta.contracts && (
+                <div className="col-span-1">
+                  <Tile
+                    grow
+                    text="Daily transactions"
+                    value={counters ? formatNumber(Number(counters.transactions_today)) : undefined}
+                    icon={<HourglassTopRoundedIcon />}
+                  />
+                </div>
+              )}
+            </div>
+          </SkPaper>
+        )}
         <AppScreenshots chainName={chain} appName={app} skaleNetwork={network} />
         {chain !== OFFCHAIN_APP && (
           <SkPaper gray className="mt-2.5 fwmobile">

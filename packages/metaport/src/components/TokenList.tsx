@@ -26,8 +26,8 @@ import { dc } from '@/core'
 import { useAccount } from 'wagmi'
 
 import { Button, Modal, TextField, InputAdornment, Container } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search'
 import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
+import { Search } from 'lucide-react'
 
 import { getAvailableTokensTotal, getDefaultToken } from '../core/tokens/helper'
 import TokenListSection from './TokenListSection'
@@ -155,7 +155,7 @@ export default function TokenList() {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon className="text-muted-foreground w-5! h-5!" />
+                    <Search className="text-muted-foreground w-5! h-5!" />
                   </InputAdornment>
                 )
               }}
