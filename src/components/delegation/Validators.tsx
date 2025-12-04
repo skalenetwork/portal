@@ -49,16 +49,17 @@ export default function Validators(props: {
     : filterValidators(props.validators, ESCROW_VALIDATORS, internal)
 
   return (
-    <div className="grid grid-cols-1 gap-4">
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
       {validators.map((validator: types.st.IValidator, index) => (
-        <ValidatorCard
-          key={index}
-          validator={validator}
-          validatorId={props.validatorId}
-          setValidatorId={props.setValidatorId}
-          size={size}
-          delegationType={props.delegationType}
-        />
+        <div key={index} className="col-span-1">
+          <ValidatorCard
+            validator={validator}
+            validatorId={props.validatorId}
+            setValidatorId={props.setValidatorId}
+            size={size}
+            delegationType={props.delegationType}
+          />
+        </div>
       ))}
     </div>
   )

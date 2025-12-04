@@ -28,7 +28,6 @@ import IconButton from '@mui/material/IconButton'
 import Menu from '@mui/material/Menu'
 import Button from '@mui/material/Button'
 import { type Category } from '../../core/ecosystem/categories'
-import { useThemeMode } from '@skalenetwork/metaport'
 import SearchBar, { highlightMatch } from './SearchBar'
 import SubcategoryList from './SubcategoryList'
 import { TextSearch, ChevronDown, ChevronUp, Circle } from 'lucide-react'
@@ -44,7 +43,6 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
   setCheckedItems,
   isXs
 }) => {
-  const { mode } = useThemeMode()
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({})
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [searchTerm, setSearchTerm] = useState('')
@@ -107,16 +105,11 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
     setSearchTerm(event.target.value)
   }
 
-  const handleClearSearch = (): void => {
-    setSearchTerm('')
-    setExpandedItems({})
-  }
-
   const getSelectedSubcategoriesCount = (category: string): number => {
     return checkedItems.filter((item) => item.startsWith(`${category}_`)).length
   }
 
-  const renderSubcategories = (shortName: string, data: Category): JSX.Element | null => {
+  const renderSubcategories = (shortName: string, data: Category): React.JSX.Element | null => {
     const subs = data.subcategories
     if (typeof subs !== 'object' || Array.isArray(subs) || !expandedItems[shortName]) {
       return null
@@ -170,9 +163,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
               maxHeight: 'calc(80vh - 100px)',
               width: buttonRef.current?.offsetWidth
             },
-            className: `mt-2.5! overflow-visible rounded-3xl! ${mode === 'dark' ? 'bg-black! text-white!' : 'bg-white! text-foreground!'
-              } shadow-sm! border-none! ring-0! [&_.MuiList-root]:p-0! ${mode === 'dark' ? '[&_.MuiList-root]:bg-black!' : '[&_.MuiList-root]:bg-white!'
-              }`
+            className: `mt-2.5! overflow-visible rounded-3xl! bg-background! text-foreground! shadow-sm! border-none! ring-0! [&_.MuiList-root]:p-0! [&_.MuiList-root]:bg-background!`
           }
         }}
       >
@@ -186,7 +177,6 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
             className="mb-5"
             searchTerm={searchTerm}
             onSearchChange={handleSearch}
-            onClear={handleClearSearch}
           />
           {filteredCategories.map(([shortName, data], index) => (
             <div
@@ -200,15 +190,15 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
                       checked={checkedItems.includes(shortName)}
                       onChange={() => handleCheck(shortName)}
                       sx={{
-                        color: mode === 'dark' ? '#ffffff' : '#000000',
+                        color: 'currentColor',
                         '&.Mui-checked': {
-                          color: mode === 'dark' ? '#ffffff' : '#000000'
+                          color: 'currentColor'
                         }
                       }}
                     />
                   }
                   label={
-                    <span className={`text-sm font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}>
+                    <span className="text-sm font-semibold text-foreground">
                       {highlightMatch(data.name, searchTerm)}
                     </span>
                   }
@@ -223,7 +213,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
                     <IconButton
                       onClick={() => toggleExpand(shortName)}
                       size="small"
-                      sx={{ color: mode === 'dark' ? '#ffffff' : '#000000' }}
+                      sx={{ color: 'currentColor' }}
                     >
                       {expandedItems[shortName] ? <ChevronUp /> : <ChevronDown />}
                     </IconButton>

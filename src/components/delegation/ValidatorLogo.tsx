@@ -60,15 +60,20 @@ export default function ValidatorLogo(props: {
 
   const iconPath = `v${props.validatorId}`
   const iconModule = (VALIDATOR_LOGOS as any)[iconPath]
-  const size = props.size ?? 'md'
-  const sizes: SizeMap = { xs: 17, sm: 26, md: 35, lg: 45, xl: 70 }
+  const size = props.size ?? 'sm'
+  const sizes: SizeMap = { xs: 60, sm: 80, md: 120, lg: 150, xl: 200 }
+  const borderRadius: SizeMap = { xs: 15, sm: 18, md: 25, lg: 30, xl: 35 }
+
   if (iconModule) {
     return (
       <img
-        style={{ borderRadius: '50%', width: sizes[size], height: sizes[size] }}
+        style={{
+          borderRadius: `${borderRadius[size]}px`,
+          width: sizes[size],
+          height: sizes[size]
+        }}
         className={cls(
           props.className,
-          'border',
           ['validatorIcon', !props.size],
           styles[`chainIcon${size}`]
         )}
@@ -77,7 +82,17 @@ export default function ValidatorLogo(props: {
     )
   }
   return (
-    <div className="styles[`chainIcon${size}`], ['validatorIcon', !props.size], props.className">
+    <div
+      style={{
+        width: sizes[size],
+        height: sizes[size],
+        display: 'flex',
+        alignItems: 'left',
+        justifyContent: 'left',
+        overflow: 'hidden'
+      }}
+      className={cls(styles[`chainIcon${size}`], ['validatorIcon', !props.size], props.className)}
+    >
       <Jazzicon diameter={sizes[size]} seed={getPseudoRandomNumber(iconPath)} />
     </div>
   )

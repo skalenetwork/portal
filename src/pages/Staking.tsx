@@ -177,7 +177,7 @@ export default function Staking(props: {
             {loading !== false || props.customAddress !== undefined ? (
               <Button
                 variant="contained"
-                className="btnMd"
+                className="btn btnMd text-xs text-accent! bg-foreground!"
                 startIcon={<QueueRoundedIcon />}
                 disabled={loading !== false || props.customAddress !== undefined}
               >
@@ -187,7 +187,7 @@ export default function Staking(props: {
               <Link to="/staking/new">
                 <Button
                   variant="contained"
-                  className="btnMd"
+                  className="btn btnMd text-xs text-accent! bg-foreground!"
                   startIcon={<QueueRoundedIcon />}
                   disabled={loading || props.customAddress !== undefined}
                 >

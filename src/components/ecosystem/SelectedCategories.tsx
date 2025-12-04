@@ -42,7 +42,7 @@ const CustomChipLabel: React.FC<{ category: string; subcategory?: string; mode: 
     <p
       className={cls(
         [mode === 'dark' ? 'text-gray-300' : 'text-secondary-foreground', subcategory],
-        [mode === 'dark' ? 'text-white' : 'text-black', !subcategory],
+        [mode === 'dark' ? 'text-gray-300' : 'text-secondary-foreground', !subcategory],
         'text-sm',
         ['font-semibold', !subcategory]
       )}
@@ -52,7 +52,7 @@ const CustomChipLabel: React.FC<{ category: string; subcategory?: string; mode: 
     {subcategory && (
       <>
         <Box component="span" className="borderLeft" sx={{ height: '1em', mx: 0.75 }} />
-        <p className={`text-sm font-semibold ${mode === 'dark' ? 'text-white' : 'text-black'}`}>
+        <p className={`text-sm font-semibold ${mode === 'dark' ? 'text-gray-300' : 'text-secondary-foreground'}`}>
           {subcategory}
         </p>
       </>

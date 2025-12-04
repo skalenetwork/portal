@@ -26,14 +26,15 @@ import { Link } from 'react-router-dom'
 import { type MetaportCore } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
-import { Button } from '@mui/material'
 import Container from '@mui/material/Container'
-import ManageAccountsRoundedIcon from '@mui/icons-material/ManageAccountsRounded'
+import Tooltip from '@mui/material/Tooltip'
+import IconButton from '@mui/material/IconButton'
 
 import Validators from '../components/delegation/Validators'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import { META_TAGS } from '../core/meta'
 import DelegationsNotification from '../components/delegation/DelegationsNotification'
+import { UserCog } from 'lucide-react'
 
 export default function ValidatorsPage(props: {
   mpc: MetaportCore
@@ -58,15 +59,15 @@ export default function ValidatorsPage(props: {
           </p>
         </div>
         <Link to="/validator">
-          <Button
-            size="small"
-            variant="contained"
-            className="'btnMd', mr - 2.5"
-            startIcon={<ManageAccountsRoundedIcon />}
-            endIcon={<DelegationsNotification validatorDelegations={props.validatorDelegations} />}
-          >
-            Validator Operations
-          </Button>
+          <Tooltip title="Validator Operations">
+            <IconButton
+              size="small"
+              className="ml-1.5! h-8 w-8 rounded-full bg-card! text-foreground! hover:bg-muted"
+            >
+              <UserCog className="h-4 w-4 text-foreground" />
+              <DelegationsNotification validatorDelegations={props.validatorDelegations} />
+            </IconButton>
+          </Tooltip>
         </Link>
         <SkPageInfoIcon meta_tag={META_TAGS.validators} />
       </div>
@@ -75,7 +76,7 @@ export default function ValidatorsPage(props: {
           mpc={props.mpc}
           validators={props.validators}
           validatorId={0}
-          setValidatorId={(): void => {}}
+          setValidatorId={(): void => { }}
           delegationType={types.st.DelegationType.REGULAR}
           size="lg"
         />

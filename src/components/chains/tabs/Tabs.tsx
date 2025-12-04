@@ -57,13 +57,12 @@ export default function ChainTabs(props: {
             <Tab
               key={index}
               label={tab.label}
-              icon={<layout-grid />}
+              icon={tab.icon}
               iconPosition="start"
-              className={`btn btnSm mr-1! ml-1! tab fwmobile ${
-                props.tab === index
+              className={`btn btnSm mr-1! ml-1! tab fwmobile ${props.tab === index
                   ? 'text-foreground! bg-foreground/15!'
                   : 'text-muted-foreground!'
-              }`}
+                }`}
             />
           ) : null
         )}

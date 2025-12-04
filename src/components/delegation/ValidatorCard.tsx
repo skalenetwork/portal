@@ -23,10 +23,8 @@
 
 import { Link } from 'react-router-dom'
 
-import Tooltip from '@mui/material/Tooltip'
-
 import { type types, constants, units } from '@/core'
-import { cls, styles, SkPaper } from '@skalenetwork/metaport'
+import { cls, SkPaper } from '@skalenetwork/metaport'
 
 import ValidatorLogo from './ValidatorLogo'
 import { TrustBadge, ValidatorBadge } from './ValidatorBadges'
@@ -48,84 +46,78 @@ export default function ValidatorCard(props: {
     constants.DEFAULT_ERC20_DECIMALS
   )
 
+  const truncatedDescription = description.length > 80 ? description.substring(0, 80) + '...' : description
+
   return (
-    <div className="flex justify-center items-center w-full">
-      <Link
-        to={
-          props.validator.acceptNewRequests
-            ? `/staking/new/${props.delegationType}/${props.validator.id}`
-            : '/staking/new'
-        }
+    <Link
+      to={
+        props.validator.acceptNewRequests
+          ? `/staking/new/${props.delegationType}/${props.validator.id}`
+          : '/staking/new'
+      }
+    >
+      <SkPaper
+        gray={true}
+        fullHeight
+        className={cls(
+          'sk-app-card',
+          ['disabledCard', !props.validator.acceptNewRequests],
+          ['selectedValidator', props.validatorId === props.validator.id]
+        )}
       >
-        <SkPaper
-          className={cls(
-            'br__tile titleSection validatorCard',
-            ['bg-secondary-foreground', size === 'lg'],
-            ['disabledCard', !props.validator.acceptNewRequests],
-            ['selectedValidator', props.validatorId === props.validator.id]
-          )}
-        >
-          <div className="flex" style={{ marginBottom: '-20px' }}>
-            <ValidatorBadge validator={props.validator} />
+        <div>
+          <div className="flex">
+            <div className="flex items-center">
+              <ValidatorLogo validatorId={props.validator.id} />
+            </div>
             <div className="grow"></div>
-            <TrustBadge validator={props.validator} />
-          </div>
-          <div className="flex" style={{ marginBottom: '10px' }}>
-            <div className="grow"></div>
-            <ValidatorLogo validatorId={props.validator.id} size="xl" />
-            <div className="grow"></div>
+            <div className="flex items-left">
+              <ValidatorBadge validator={props.validator} />
+              <TrustBadge validator={props.validator} />
+            </div>
           </div>
 
-          <div className="flex">
-            <div className="grow"></div>
-            <p className="text-base text-primary grow text-center truncate">
+          <div className="flex items-left mt-2.5">
+            <p className="text-foreground font-semibold text-lg grow mr-1.5">
               {props.validator.name}
             </p>
-            <div className="grow"></div>
           </div>
 
-          <div className="flex">
-            <div className="grow"></div>
-            <Tooltip title={description}>
-              <p className="text-xs font-semibold grow text-secondary-foreground mt-5 text-center truncate">
-                {description}
+          <div className="mt-2">
+            <p className="text-xs text-muted-foreground line-clamp-1">
+              {truncatedDescription}
+            </p>
+          </div>
+        </div>
+
+        <div className="flex mt-5">
+          <div className="bg-green-200 dark:bg-green-700 rounded-full px-2 py-1 grow">
+            <p className="text-xs text-center text-foreground">{Number(props.validator.feeRate) / 10}% fee</p>
+          </div>
+          <div className="bg-gray-200 dark:bg-gray-700 rounded-full px-2 py-1 ml-1.5 grow text-center">
+            <p className="text-xs text-foreground">ID: {props.validator.id}</p>
+          </div>
+          {size === 'lg' ? (
+            <div className="bg-purple-200 dark:bg-purple-700 rounded-full px-2 py-1 ml-1.5 grow">
+              <p className="text-xs text-center text-foreground">Nodes: {props.validator.linkedNodes}</p>
+            </div>
+          ) : null}
+        </div>
+        <div>
+          {size !== 'lg' && (
+            <div className="bg-green-200 dark:bg-green-700 rounded-full px-2 py-1 mt-2">
+              <p className="text-xs text-center truncate text-foreground">Min: {minDelegation} SKL</p>
+            </div>
+          )}
+          {size === 'lg' && (
+            <div className="bg-muted rounded-full px-2 py-1 mt-2">
+              <p className="text-xs text-center truncate text-foreground">
+                Address: {props.validator.validatorAddress}
               </p>
-            </Tooltip>
-            <div className="grow"></div>
-          </div>
-          <div className="flex mt-10">
-            <div className="bg-gray-100 rounded px-2 py-1 grow">
-              <p className="text-xs text-center">{Number(props.validator.feeRate) / 10}% fee</p>
             </div>
-            <div className="bg-blue-100 rounded px-2 py-1 ml-1.5 grow text-center">
-              <p className="text-xs">ID: {props.validator.id}</p>
-            </div>
-            {size === 'lg' ? (
-              <div className="bg-green-100 rounded px-2 py-1 ml-1.5 grow">
-                <p className="text-xs text-center">Nodes: {props.validator.linkedNodes}</p>
-              </div>
-            ) : null}
-          </div>
-          <div>
-            {size !== 'lg' && (
-              <Tooltip title={`Minimum delegation amount: ${minDelegation} SKL`}>
-                <div className="bg-green-100 rounded px-2 py-1 mt-10">
-                  <p className="text-xs text-center truncate">Min: {minDelegation} SKL</p>
-                </div>
-              </Tooltip>
-            )}
-            {size === 'lg' && (
-              <Tooltip title={props.validator.validatorAddress}>
-                <div className="bg-blue-100 rounded px-2 py-1 mt-10">
-                  <p className="text-xs text-center truncate">
-                    Address: {props.validator.validatorAddress}
-                  </p>
-                </div>
-              </Tooltip>
-            )}
-          </div>
-        </SkPaper>
-      </Link>
-    </div>
+          )}
+        </div>
+      </SkPaper>
+    </Link>
   )
 }
