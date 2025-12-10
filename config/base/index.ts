@@ -9,7 +9,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
 
   chains: [
     'mainnet',
-    'bold-ill-informed-jabbah' // SKALE Base Mainnet
+    'winged-bubbly-grumium' // SKALE Base Mainnet
   ],
   tokens: {
     eth: {
@@ -48,7 +48,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
       eth: {
         eth: {
           chains: {
-            'bold-ill-informed-jabbah': {}
+            'winged-bubbly-grumium': {}
           }
         }
       },
@@ -56,36 +56,36 @@ export const METAPORT_CONFIG: types.mp.Config = {
         usdc: {
           address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
           chains: {
-            'bold-ill-informed-jabbah': {}
+            'winged-bubbly-grumium': {}
           }
         },
-        skl: {
-          address: '0x91D00CF7bE6F47bf9BFAaA974d80Ea79a4A3bfe7',
-          chains: {
-            'bold-ill-informed-jabbah': {}
-          }
-        },
+        // skl: {
+        //   address: '0x91D00CF7bE6F47bf9BFAaA974d80Ea79a4A3bfe7',
+        //   chains: {
+        //     'winged-bubbly-grumium': {}
+        //   }
+        // },
         usdt: {
           address: '0xfde4C96c8593536E31F229EA8f37b2ADa2699bb2',
           chains: {
-            'bold-ill-informed-jabbah': {}
+            'winged-bubbly-grumium': {}
           }
         },
         wbtc: {
           address: '0x0555E30da8f98308EdB960aa94C0Db47230d2B9c',
           chains: {
-            'bold-ill-informed-jabbah': {}
+            'winged-bubbly-grumium': {}
           }
         },
         weth: {
           address: '0x4200000000000000000000000000000000000006',
           chains: {
-            'bold-ill-informed-jabbah': {}
+            'winged-bubbly-grumium': {}
           }
         }
       }
     },
-    'bold-ill-informed-jabbah': {
+    'winged-bubbly-grumium': {
       eth: {
         eth: {
           address: '0xD2Aaa00700000000000000000000000000000000',
@@ -121,14 +121,14 @@ export const METAPORT_CONFIG: types.mp.Config = {
             }
           }
         },
-        skl: {
-          address: '0x9710566cb041bd4cda6cb24336bc887221d11a6e',
-          chains: {
-            mainnet: {
-              clone: true
-            }
-          }
-        },
+        // skl: {
+        //   address: '0x9710566cb041bd4cda6cb24336bc887221d11a6e',
+        //   chains: {
+        //     mainnet: {
+        //       clone: true
+        //     }
+        //   }
+        // },
         usdc: {
           address: '0x85889c8c714505E0c94b30fcfcF64fE3Ac8FCb20',
           chains: {
