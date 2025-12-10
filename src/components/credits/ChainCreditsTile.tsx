@@ -86,7 +86,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
 }) => {
   const [openModal, setOpenModal] = useState(false)
   const [loading, setLoading] = useState<boolean>(false)
-  const [token, setToken] = useState<string>('skl')
+  const [token, setToken] = useState<string | undefined>(undefined)
   const [chainBalance, setChainBalance] = useState<bigint | undefined>(undefined)
 
   const { address, chainId } = useWagmiAccount()
@@ -114,6 +114,17 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
     loadChainBalance()
   }, [mpc, schain.name, address])
 
+  useEffect(() => {
+    if (!tokens || !tokenPrices) return
+    const match = Object.entries(tokens).find(([, tokenData]) => {
+      if (!tokenData.address) return false
+      return tokenPrices[tokenData.address] !== undefined
+    })
+    if (!match) return
+    const [symbol] = match
+    setToken(prev => (prev === symbol ? prev : symbol))
+  }, [tokenPrices])
+
   function getAmountToPayWei(): bigint {
     if (!token || !tokenPrices || !tokens[token].address) return 0n
     const tokenAddress = tokens[token].address
@@ -124,6 +135,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   }
 
   function getBtnText(): string {
+    if (!token) return 'Select a token'
     if (tokenBalances?.[token] === undefined) return 'Loading...'
     if (loading) return 'Processing...'
     if (tokenBalances[token] < getAmountToPayWei()) {
@@ -138,7 +150,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   }
 
   async function buyCredits() {
-    if (!creditStation) return
+    if (!creditStation || !token) return
     if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
       setErrorMsg('Something is wrong with your wallet, try again')
       setOpenModal(false)
@@ -345,7 +357,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                         {MAINNET_ALIASES[network]}
                       </p>
                       <p className="text-foreground font-bold text-3xl grow">
-                        {units.displayBalance(
+                        {token && units.displayBalance(
                           getAmountToPayWei(),
                           token,
                           tokensMeta[token].decimals
@@ -395,6 +407,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
             size="large"
             onClick={buyCredits}
             disabled={
+              token === undefined ||
               loading ||
               tokenBalances?.[token] === undefined ||
               tokenBalances[token] < getAmountToPayWei()
