@@ -88,7 +88,7 @@ export const CREDIT_STATION_LEDGER_CONTRACTS: {
   regression: {},
   testnet: {},
   base: {
-    'bold-ill-informed-jabbah': '0x892F8D56Bfc03C3213236A11B39908f5BCC2b053'
+    'winged-bubbly-grumium': '0x892F8D56Bfc03C3213236A11B39908f5BCC2b053'
   },
   'base-sepolia-testnet': {
     'jubilant-horrible-ancha': '0x32Bfa8B5C6a450e9EF7d7Fc99fcCC349E7671FFb'
