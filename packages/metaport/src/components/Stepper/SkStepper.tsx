@@ -23,7 +23,7 @@ import { useMetaportStore } from '../../store/MetaportStore'
 import { useCPStore } from '../../store/CommunityPoolStore'
 import { SUCCESS_EMOJIS } from '../../core/constants'
 import { CHAINS_META } from '../../core/metadata'
-import { Send, SendToBack } from 'lucide-react'
+import { RotateCcw, Send, SendToBack } from 'lucide-react'
 
 //
 
@@ -98,7 +98,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
 
   const chainsMeta = CHAINS_META[props.skaleNetwork]
 
-  if (stepsMetadata && stepsMetadata.length === 1) {
+  if (stepsMetadata && stepsMetadata.length === 1 && currentStep !== stepsMetadata.length) {
     let step = stepsMetadata[0]
     return (<div>
       {loading ? (
@@ -216,8 +216,8 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                   onClick={startOver}
                   color="primary"
                   size="medium"
-                  className="styles.btnAction"
-                  startIcon={<SettingsBackupRestoreRoundedIcon />}
+                  className="grow mb-2! md:mb-0! w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+                  startIcon={<RotateCcw size={17} />}
                 >
                   Start over
                 </Button>
