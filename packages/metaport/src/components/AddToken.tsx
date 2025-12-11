@@ -27,7 +27,6 @@ import { useWalletClient, useSwitchChain } from 'wagmi'
 import { dc, constants } from '@/core'
 
 import Button from '@mui/material/Button'
-import TollIcon from '@mui/icons-material/Toll'
 
 import MetaportCore, { createTokenData } from '../core/metaport'
 import { enforceNetwork } from '../core/network'

@@ -39,7 +39,6 @@ import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRound
 import AvTimerRoundedIcon from '@mui/icons-material/AvTimerRounded'
 import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded'
 import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded'
-import SortRoundedIcon from '@mui/icons-material/SortRounded'
 import { DEFAULT_ERROR_MSG } from '../core/constants'
 import { CopySlash } from 'lucide-react'
 

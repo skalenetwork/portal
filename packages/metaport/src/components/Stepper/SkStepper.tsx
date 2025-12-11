@@ -11,7 +11,6 @@ import StepContent from '@mui/material/StepContent'
 import Button from '@mui/material/Button'
 import Collapse from '@mui/material/Collapse'
 
-import SettingsBackupRestoreRoundedIcon from '@mui/icons-material/SettingsBackupRestoreRounded'
 import AnimatedLoadingIcon from '../AnimatedLoadingIcon'
 
 import localStyles from './SkStepper.module.scss'
