@@ -149,6 +149,8 @@ export default function MetaportProvider(props: {
     }
   }
 
+  const disabledInputColor = 'color-mix(in srgb, var(--color-foreground) 50%, transparent)'
+
   let theme = createTheme({
     zIndex: getMuiZIndex(widgetTheme),
     palette: {
@@ -161,6 +163,18 @@ export default function MetaportProvider(props: {
       },
       secondary: {
         main: widgetTheme.background
+      }
+    },
+    components: {
+      MuiInputBase: {
+        styleOverrides: {
+          input: {
+            '&.Mui-disabled': {
+              color: disabledInputColor,
+              WebkitTextFillColor: disabledInputColor
+            }
+          }
+        }
       }
     }
   })

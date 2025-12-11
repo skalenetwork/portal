@@ -81,7 +81,7 @@ export default function AmountInput() {
         expandedTokens ? null : (
           <div className="flex grow items-center">
             <TextField
-              className='text-foreground!'
+              className='text-foreground! disabled:text-foreground/50!'
               type="number"
               variant="standard"
               placeholder="0.00"
