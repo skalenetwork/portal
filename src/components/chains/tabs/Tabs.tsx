@@ -26,7 +26,7 @@ import { Link } from 'react-router-dom'
 
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import { Button, IconButton, Tooltip } from '@mui/material'
+import { IconButton, Tooltip } from '@mui/material'
 
 import { Settings2 } from 'lucide-react'
 

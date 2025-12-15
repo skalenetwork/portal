@@ -24,13 +24,8 @@
 import { helper, types, units } from '@/core'
 import { TokenIcon, Tile } from '@skalenetwork/metaport'
 
-import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
-import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
-import EventAvailableRoundedIcon from '@mui/icons-material/EventAvailableRounded'
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
-import ApartmentRoundedIcon from '@mui/icons-material/ApartmentRounded'
+import { ArrowUpRight, CalendarCheck, CircleUser, Coins, Landmark } from 'lucide-react'
 import LockOpenRoundedIcon from '@mui/icons-material/LockOpenRounded'
-import ControlPointDuplicateRoundedIcon from '@mui/icons-material/ControlPointDuplicateRounded'
 import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded'
 
 import SkStack from '../SkStack'
@@ -38,9 +33,9 @@ import AccordionSection from '../AccordionSection'
 import SkBtn from '../SkBtn'
 
 const icons: { [key in types.st.DelegationType]: any } = {
-  0: <AccountCircleRoundedIcon className="mr-1.5 text-[17px]! text-secondary-foreground" />,
-  1: <AccountBalanceRoundedIcon className="mr-1.5 text-[17px]! text-secondary-foreground" />,
-  2: <ApartmentRoundedIcon className="mr-1.5 text-[17px]! text-secondary-foreground" />
+  0: <CircleUser size={20} className="mr-1.5 text-foreground" />,
+  1: <Landmark size={20} className="mr-1.5 text-foreground" />,
+  2: <Landmark size={20} className="mr-1.5 text-foreground" />
 }
 
 const SUMMARY_VALIDATOR_ID = -1
@@ -129,7 +124,7 @@ export default function Summary(props: {
                   text="Staked Tokens"
                   grow
                   ri={!props.isXs}
-                  icon={<ArrowOutwardRoundedIcon />}
+                  icon={<ArrowUpRight />}
                 />
                 <div className="borderVert"></div>
                 <Tile
@@ -153,7 +148,7 @@ export default function Summary(props: {
                   }
                   ri={!props.isXs}
                   text="Available to stake"
-                  icon={<ControlPointDuplicateRoundedIcon />}
+                  icon={<Coins size={17} />}
                 />
               </SkStack>
             }
@@ -173,7 +168,7 @@ export default function Summary(props: {
                 props.accountInfo ? units.displayBalance(props.accountInfo.vested, 'SKL') : null
               }
               text="Total Vested Tokens"
-              icon={<EventAvailableRoundedIcon />}
+              icon={<CalendarCheck />}
               grow
               childrenRi={
                 <SkStack className="flex">
@@ -191,7 +186,7 @@ export default function Summary(props: {
                           : null
                       }
                       text="Initial Escrow Amount"
-                      icon={<AccountBalanceRoundedIcon />}
+                      icon={<Landmark />}
                       grow
                       size="md"
                       transparent

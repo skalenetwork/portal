@@ -26,13 +26,12 @@ import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
-import PersonSearchRoundedIcon from '@mui/icons-material/PersonSearchRounded'
 
 import Validators from '../components/delegation/Validators'
 import DelegationTypeSelect from '../components/delegation/DelegationTypeSelect'
 import Breadcrumbs from '../components/Breadcrumbs'
 import SkStack from '../components/SkStack'
+import { ChevronLeft, UserRoundSearch } from 'lucide-react'
 
 export default function StakeValidator(props: {
   mpc: MetaportCore
@@ -71,12 +70,12 @@ export default function StakeValidator(props: {
               sections={[
                 {
                   text: 'Staking',
-                  icon: <ArrowBackIosNewRoundedIcon />,
+                  icon: <ChevronLeft size={15} className="text-foreground" />,
                   url: '/staking'
                 },
                 {
                   text: 'Choose a validator',
-                  icon: <PersonSearchRoundedIcon />
+                  icon: <UserRoundSearch size={15} />
                 }
               ]}
             />

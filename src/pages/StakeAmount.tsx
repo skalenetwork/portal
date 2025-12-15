@@ -29,7 +29,6 @@ import { types } from '@/core'
 
 import Container from '@mui/material/Container'
 import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
-import PersonSearchRoundedIcon from '@mui/icons-material/PersonSearchRounded'
 import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded'
 import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
 
@@ -44,6 +43,7 @@ import ErrorTile from '../components/ErrorTile'
 import Headline from '../components/Headline'
 import { isDelegationTypeAvailable, isLoaded } from '../core/delegation/staking'
 import { getDelegationTypeAlias } from '../core/delegation'
+import { UserRoundSearch } from 'lucide-react'
 
 export default function StakeAmount(props: {
   mpc: MetaportCore
@@ -117,12 +117,12 @@ export default function StakeAmount(props: {
               sections={[
                 {
                   text: 'Staking',
-                  icon: <ArrowBackIosNewRoundedIcon />,
+                  icon: <ArrowBackIosNewRoundedIcon className="w-3! h-3! text-foreground" />,
                   url: '/staking'
                 },
                 {
                   text: 'Choose a validator',
-                  icon: <PersonSearchRoundedIcon />,
+                  icon: <UserRoundSearch className="w-3! h-3! text-foreground" />,
                   url: '/staking/new'
                 },
                 {

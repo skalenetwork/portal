@@ -622,20 +622,32 @@ code {
 }
 
 .titleSection {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+  background: var(--muted);
   border-radius: 25px;
   padding: 20px;
 }
 
+.dark .titleSection {
+  background: var(--background);
+}
+
 .titleSectionBg {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+  background: var(--muted);
   border-radius: 25px;
 }
 
+.dark .titleSectionBg {
+  background: var(--background);
+}
+
 .titleSectionOut {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+  background: var(--muted);
   border-radius: 25px;
   padding: 0;
+}
+
+.dark .titleSectionOut {
+  background: var(--background);
 }
 
 button:focus {

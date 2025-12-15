@@ -72,10 +72,10 @@ export default function RetrieveRewardModal(props: {
   return (
     <div>
       <Button
-        variant="contained"
-        className="'btnSm'"
+        size="small"
         onClick={handleOpen}
         disabled={props.disabled}
+        className="font-sans! bg-secondary-foreground/10! py-2! px-3! capitalize! text-foreground! font-semibold! text-xs! ease-in-out transition-transform duration-150 active:scale-[0.97]"
       >
         Retrieve
       </Button>

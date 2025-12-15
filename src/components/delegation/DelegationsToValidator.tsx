@@ -24,7 +24,7 @@
 import { useState } from 'react'
 import { useState as useReactState } from 'react'
 
-import { Collapse } from '@mui/material'
+import { Collapse, Button } from '@mui/material'
 
 import { types } from '@/core'
 
@@ -32,7 +32,6 @@ import { getValidatorById, DelegationState } from '../../core/delegation'
 
 import Delegation from './Delegation'
 import Reward from './Reward'
-import SkBtn from '../SkBtn'
 
 export default function DelegationsToValidator(props: {
   delegationsToValidator: types.st.IDelegationsToValidator
@@ -92,20 +91,25 @@ export default function DelegationsToValidator(props: {
         setCustomRewardAddress={props.setCustomRewardAddress}
         unstakeAllBtn={
           hasActiveDelegations ? (
-            <SkBtn
-              text={groupUnstakeLoading ? 'Unstaking all...' : 'Unstake All'}
-              color="error"
-              className="btnSm"
-              loading={groupUnstakeLoading}
+            <Button
+              size="small"
               onClick={handleUnstakeAll}
               disabled={
                 props.loading !== false || groupUnstakeLoading || props.customAddress !== undefined
               }
-            />
+              className={
+                props.loading !== false || groupUnstakeLoading || props.customAddress !== undefined
+                  ? "font-sans! bg-secondary-foreground/10! py-2! px-3! capitalize! text-foreground! font-semibold! text-xs! cursor-not-allowed!"
+                  : "font-sans! bg-destructive/10! py-2! px-3! capitalize! text-destructive! font-semibold! text-xs! ease-in-out transition-transform duration-150 active:scale-[0.97] hover:scale-[1.01]"
+              }
+            >
+              {groupUnstakeLoading ? 'Unstaking all...' : 'Unstake All'}
+            </Button>
           ) : null
         }
         sklPrice={props.sklPrice}
       />
+      <div className="borderVert"></div>
       <Collapse in={open}>
         <div className="'nestedSection', ['nestedSectionXs', props.isXs]">
           {props.delegationsToValidator.delegations.map(

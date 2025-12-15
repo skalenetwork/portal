@@ -45,7 +45,7 @@ function getPseudoRandomNumber(
   return randomInt
 }
 
-type SizeType = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+type SizeType = 'xxxs' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
 export type SizeMap = {
   [key in SizeType]: number
@@ -60,9 +60,9 @@ export default function ValidatorLogo(props: {
 
   const iconPath = `v${props.validatorId}`
   const iconModule = (VALIDATOR_LOGOS as any)[iconPath]
-  const size = props.size ?? 'sm'
-  const sizes: SizeMap = { xs: 60, sm: 80, md: 120, lg: 150, xl: 200 }
-  const borderRadius: SizeMap = { xs: 15, sm: 18, md: 25, lg: 30, xl: 35 }
+  const size = props.size ?? 'xxs'
+  const sizes: SizeMap = { xxxs: 30, xxs: 45, xs: 60, sm: 80, md: 120, lg: 150, xl: 200 }
+  const borderRadius: SizeMap = {xxxs: 5, xxs: 10, xs: 15, sm: 18, md: 25, lg: 30, xl: 35 }
 
   if (iconModule) {
     return (

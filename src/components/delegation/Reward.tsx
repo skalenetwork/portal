@@ -92,9 +92,9 @@ export default function Reward(props: {
         <div className="flex flex-col md:flex-row items-center gap-0">
           <div className="w-full md:w-1/3">
             <div className="flex items-center">
-              <ValidatorLogo validatorId={validator.id} size="lg" />
+              <ValidatorLogo validatorId={validator.id} size="xxs" />
               <div className={`ml-2.5 ${props.isXs ? 'grow' : ''}`}>
-                <h4 className="font-bold truncate">{validator.name}</h4>
+                <h4 className="font-bold truncate text-foreground">{validator.name}</h4>
                 <p className="text-xs text-secondary-foreground">
                   Validator ID: {Number(validator.id)}
                 </p>
@@ -113,34 +113,34 @@ export default function Reward(props: {
                       arrow
                       title={
                         props.sklPrice !== undefined &&
-                        props.delegationsToValidator.staked !== undefined
+                          props.delegationsToValidator.staked !== undefined
                           ? units.displaySklValueUsd(
-                              props.delegationsToValidator.staked,
-                              props.sklPrice
-                            )
+                            props.delegationsToValidator.staked,
+                            props.sklPrice
+                          )
                           : ''
                       }
                     >
-                      <h3 className="font-bold">{totalStakedAmount}</h3>
+                      <h3 className="font-bold text-foreground">{totalStakedAmount}</h3>
                     </Tooltip>
                   </div>
                   <div className="borderVert ml-2.5"></div>
                 </div>
               ) : null}
-              <div className={`${props.isXs ? 'grow mr-5' : 'ml-2.5'}`}>
+              <div className={`${props.isXs ? 'grow mr-5' : 'ml-2.5 mr-5'}`}>
                 <p className="text-xs text-secondary-foreground">Rewards available</p>
                 <Tooltip
                   arrow
                   title={
                     props.sklPrice
                       ? units.displaySklValueUsd(
-                          props.delegationsToValidator.rewards,
-                          props.sklPrice
-                        )
+                        props.delegationsToValidator.rewards,
+                        props.sklPrice
+                      )
                       : ''
                   }
                 >
-                  <h3 className="font-bold">{rewardsAmount}</h3>
+                  <h3 className="font-bold text-foreground">{rewardsAmount}</h3>
                 </Tooltip>
               </div>
               <div className="flex items-center">

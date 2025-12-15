@@ -93,7 +93,7 @@ export default function Tile(props: {
 
   return (
     <div
-      className={`${props.className || ''} h-full bg-background rounded-md p-4 titleSection_${size} ${props.grow ? 'grow' : ''}`}
+      className={`${props.className || ''} h-full bg-background rounded-md pt-1 pb-2 px-4 titleSection_${size} ${props.grow ? 'grow' : ''}`}
     >
       <div className={`flex ${!isXs ? 'items-center' : ''}`}>
         <div className="grow">

@@ -32,9 +32,9 @@ export default function ConnectWallet(props: {
   const { address } = useWagmiAccount()
   return (
     <div className={props.className}>
-      <SkPaper gray={!props.tile} className="bg-muted!">
+      <SkPaper gray={!props.tile} className="bg!">
         <div className="mt-5 mb-5">
-          <p className="text-sm text-muted-foreground font-semibold mb-2 text-center">
+          <p className="text-sm text-muted-foreground font-semibold mb-1 text-center">
             {props.customText ?? 'Connect your wallet to continue'}
           </p>
           <div className="flex">

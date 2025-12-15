@@ -25,12 +25,12 @@ import { TokenIcon, Tile } from '@skalenetwork/metaport'
 import { type types, units, constants } from '@/core'
 
 import { Skeleton } from '@mui/material'
-import PercentRoundedIcon from '@mui/icons-material/PercentRounded'
-import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
+import { HandCoins, HardDrive, Wallet } from 'lucide-react'
 
 import ValidatorLogo from './ValidatorLogo'
 import { ValidatorBadge, TrustBadge } from './ValidatorBadges'
 import SkStack from '../SkStack'
+import CopySurface from '../CopySurface'
 
 export default function ValidatorInfo(props: {
   validator: types.st.IValidator | null
@@ -45,13 +45,13 @@ export default function ValidatorInfo(props: {
   return (
     <div className="props.className">
       <div className="flex mb-2.5 'titleSection'">
-        <ValidatorLogo validatorId={props.validator?.id} size="xl" />
+        <ValidatorLogo validatorId={props.validator?.id} size="sm" />
         {props.validator ? (
           <div className="ml-5">
-            <div className="lex, items-center">
+            <div className="flex items-center">
               <p className="text-base font-bold text-primary">{props.validator.name}</p>
               <TrustBadge validator={props.validator} />
-              <ValidatorBadge validator={props.validator} className="ml-2.5" />
+              <ValidatorBadge validator={props.validator}/>
             </div>
             <p className="text-xs font-semibold text-secondary-foreground mr-5 mt-1.5">
               {description}
@@ -69,15 +69,13 @@ export default function ValidatorInfo(props: {
           value={props.validator && `${Number(props.validator.feeRate) / 10}% fee`}
           text="Validator fee"
           grow
-          size="md"
-          icon={<PercentRoundedIcon />}
+          icon={<HandCoins size={15} />}
         />
         <Tile
           value={props.validator && props.validator.id.toString()}
           text="Validator ID"
           grow
-          size="md"
-          icon={<PersonRoundedIcon />}
+          icon={<HardDrive size={15} />}
         />
         <Tile
           value={props.validator && `${minDelegation} SKL`}
@@ -88,8 +86,14 @@ export default function ValidatorInfo(props: {
           }
           text="Minimum delegation amount"
           grow
-          size="md"
+  
           icon={<TokenIcon tokenSymbol="skl" size="xs" />}
+        />
+        <CopySurface
+          className="h-full w-full"
+          title="Validator Address"
+          value={props.validator?.validatorAddress}
+          icon={<Wallet size={17} className="text-foreground-600 dark:text-foreground-400" />}
         />
       </SkStack>
     </div>

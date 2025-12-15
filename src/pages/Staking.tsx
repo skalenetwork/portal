@@ -33,12 +33,7 @@ import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 
-import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded'
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
-import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
-import QueueRoundedIcon from '@mui/icons-material/QueueRounded'
-import PieChartRoundedIcon from '@mui/icons-material/PieChartRounded'
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
+import { ChartPie, CircleUser, Coins, Eye, Inbox, TriangleAlert } from 'lucide-react'
 
 import Delegations from '../components/delegation/Delegations'
 
@@ -178,7 +173,7 @@ export default function Staking(props: {
               <Button
                 variant="contained"
                 className="btn btnMd text-xs text-accent! bg-foreground!"
-                startIcon={<QueueRoundedIcon />}
+                startIcon={<Coins />}
                 disabled={loading !== false || props.customAddress !== undefined}
               >
                 Stake SKL
@@ -188,7 +183,7 @@ export default function Staking(props: {
                 <Button
                   variant="contained"
                   className="btn btnMd text-xs text-accent! bg-foreground!"
-                  startIcon={<QueueRoundedIcon />}
+                  startIcon={<Coins size={15} />}
                   disabled={loading || props.customAddress !== undefined}
                 >
                   Stake SKL
@@ -204,7 +199,7 @@ export default function Staking(props: {
         <Message
           className="mt-5"
           text={props.isXs ? 'Preview mode, ' : 'Previewing staking page in read-only mode, '}
-          icon={<VisibilityRoundedIcon />}
+          icon={<Eye />}
           link="/staking"
           linkText="click to exit"
           type="warning"
@@ -215,7 +210,7 @@ export default function Staking(props: {
         <Message
           className="mt-5"
           text={`Custom address will be used for rewards withdrawal: ${customRewardAddress}`}
-          icon={<WarningRoundedIcon />}
+          icon={<TriangleAlert />}
           type="warning"
           closable={false}
         />
@@ -236,7 +231,7 @@ export default function Staking(props: {
         <Collapse in={props.address === undefined}>
           <Headline
             text="Account info"
-            icon={<AccountCircleRoundedIcon className="text-[17px]!" />}
+            icon={<CircleUser />}
             size="small"
           />
           <ConnectWallet tile className="grow mt-2.5" />
@@ -293,12 +288,12 @@ export default function Staking(props: {
         <Collapse in={props.address === undefined}>
           <Headline
             text="Delegations"
-            icon={<AllInboxRoundedIcon className="text-[17px]!" />}
+            icon={<Inbox className="text-[17px]!" />}
             size="small"
           />
-          <div className="mt-5">
-            <PieChartRoundedIcon className="text-secondary-foreground styles.chainIconmd w-full" />
-            <h5 className="font-semibold text-secondary-foreground text-center mt-1.5 mb-5">
+          <div className="mt-5 text-center">
+            <ChartPie className="text-secondary-foreground styles.chainIconmd w-full mb-2" />
+            <h5 className="text-sm text-muted-foreground font-semibold mb-5 text-center">
               Connect your wallet to view delegations
             </h5>
           </div>

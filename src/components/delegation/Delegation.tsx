@@ -21,16 +21,17 @@
  */
 
 import { useState } from 'react'
+import Avatar from 'boring-avatars'
 import { types, units, timeUtils } from '@/core'
-import { Tile } from '@skalenetwork/metaport'
+import { cls, Tile } from '@skalenetwork/metaport'
 
-import { Collapse, Tooltip } from '@mui/material'
+import { Grid, Collapse, Tooltip } from '@mui/material'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
-import ApartmentRoundedIcon from '@mui/icons-material/ApartmentRounded'
 import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
 
+import SkStack from '../SkStack'
 import SkBtn from '../SkBtn'
 import ValidatorLogo from './ValidatorLogo'
 
@@ -41,6 +42,8 @@ import {
   getKeyByValue
 } from '../../core/delegation'
 import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
+import { AVATAR_COLORS } from '../../core/constants'
+import { Landmark, Coins, GitBranch } from 'lucide-react'
 
 export default function Delegation(props: {
   delegation: types.st.IDelegation
@@ -99,86 +102,129 @@ export default function Delegation(props: {
     !isCompleted &&
     !props.isValidatorPage
 
-  if (!props.validator) return
+  if (!props.validator) return null
+
   return (
-    <div className="mb-2.5 titleSection">
-      <div
-        className={`flex flex-col md:flex-row items-center h-full cursor-pointer ${noActions ? 'pointer-events-none' : ''}`}
-        onClick={() => {
-          if (noActions) return
-          setOpen(!open)
-        }}
-      >
-        <div className="w-full md:w-1/4">
-          <div className="flex items-center">
-            <ValidatorLogo validatorId={Number(props.delegation.id + 500n)} size="md" />
-            {!props.isValidatorPage && (
-              <ValidatorLogo
-                validatorId={props.validator.id}
-                size="sm"
-                className="validatorIconDelegation"
+    <div>
+      <div className="mb-2.5 bg-background rounded-3xl p-4">
+        <Grid container spacing={0} alignItems="center">
+          <Grid
+            size={{ xs: 12, md: 4 }}
+            className={`${!noActions ? 'cursor-pointer' : ''}`}
+            onClick={() => {
+              if (noActions) return
+              setOpen(!open)
+            }}
+          >
+            <div className={cls('flex', 'items-center')}>
+              <Avatar
+                size={50}
+                variant="marble"
+                name={`delegation-${props.delegation.id}`}
+                colors={AVATAR_COLORS}
               />
-            )}
-            <div className="ml-2.5">
-              <p className="text-base font-bold">ID: {Number(props.delegation.id)}</p>
-              <p className=" text-xs text-secondary-foreground">
-                {formatBigIntTimestampSeconds(props.delegation.created)}
+              {!props.isValidatorPage && (
+                <ValidatorLogo
+                  validatorId={props.validator.id}
+                  size="xxxs"
+                  className="creditHistoryIcon"
+                />
+              )}
+              <div className={cls('ml-2.5', ['grow', props.isXs])}>
+                <h4 className="font-bold pOneLine text-foreground">
+                  ID: {Number(props.delegation.id)}
+                </h4>
+                <p className={cls('p', 'text-xs', 'text-secondary-foreground')}>
+                  {formatBigIntTimestampSeconds(props.delegation.created)}
+                </p>
+              </div>
+            </div>
+          </Grid>
+          <Grid size={{ xs: 12, md: 8 }} className={cls(['mt-5', props.isXs], 'flex', 'items-center')}>
+            <div
+              className={cls(
+                'chipXs',
+                'ml-5',
+                'flex',
+                'items-center',
+                ['bg-green-500/20 text-green-700 border-green-500/30', delId === DelegationState.DELEGATED],
+                ['bg-red-500/20 text-red-700 border-red-500/30', delId === DelegationState.REJECTED],
+                ['bg-red-500/20 text-red-700 border-red-500/30', delId === DelegationState.CANCELED],
+                ['bg-blue-500/20 text-blue-700 border-blue-500/30', delId === DelegationState.COMPLETED],
+                ['bg-purple-500/20 text-purple-700 border-purple-500/30', delId === DelegationState.PROPOSED],
+                ['bg-yellow-500/20 text-yellow-700 border-yellow-500/30', delId === DelegationState.ACCEPTED],
+                ['bg-orange-500/20 text-orange-700 border-orange-500/30', delId === DelegationState.UNDELEGATION_REQUESTED],
+                'font-semibold'
+              )}
+            >
+              <p className={cls('p', 'text-xs', 'pOneLine')}>
+                {props.delegation.state.replace(/_/g, ' ')}
               </p>
             </div>
-            {props.delegationType === types.st.DelegationType.ESCROW ? (
-              <Tooltip title="Escrow delegation">
-                <AccountBalanceRoundedIcon className="'trustedBadge' ml-2.5 text-secondary-foreground" />
-              </Tooltip>
-            ) : null}
-            {props.delegationType === types.st.DelegationType.ESCROW2 ? (
-              <Tooltip title="Grant Escrow delegation">
-                <ApartmentRoundedIcon className="'trustedBadge' ml-2.5 text-secondary-foreground" />
-              </Tooltip>
-            ) : null}
-          </div>
-        </div>
-        <div className="w-full md:w-1/4">
-          <div className={`flex ${props.isXs ? 'mt-10' : ''}`}>
-            <div className={props.isXs ? '' : 'grow'}></div>
-            <div className={`chipXs chip_${props.delegation.state}`}>
-              <p className="text-xs truncate">{props.delegation.state.replace(/_/g, ' ')}</p>
-            </div>
-            <div className={props.isXs ? '' : 'grow'}></div>
-          </div>
-        </div>
-        <div className="w-full md:w-1/6">
-          <div className={`flex ${props.isXs ? 'mt-10' : ''}`}>
-            <div className={props.isXs ? '' : 'grow'}></div>
-            <div className={`chipXs chip_${getKeyByValue(DelegationSource, source)}`}>
-              <p className="text-xs">{source}</p>
-            </div>
-            <div className={props.isXs ? '' : 'grow'}></div>
-          </div>
-        </div>
-        <div className="w-full md:w-1/3">
-          <div className={`flex items-center mr-1.5 ${props.isXs ? 'mt-2.5' : ''}`}>
-            <div className="grow"></div>
-            <div className={`mr-5 ${!props.isXs ? 'text-primary ml-5' : ''}`}>
-              <Tooltip
-                arrow
-                title={
+            <div className={cls('grow')}></div>
+            <SkStack className={cls('flex')}>
+              <Tile
+                size="md"
+                transparent
+                className={cls('p-0!', ['mr-5', !props.isXs], ['ml-5', !props.isXs])}
+                tooltip={
                   props.sklPrice && props.delegation.amount
                     ? units.displaySklValueUsd(props.delegation.amount, props.sklPrice)
                     : ''
                 }
-              >
-                <h4 className="font-bold [text-secondary-foreground !isActive]">
-                  {delegationAmount}
-                </h4>
+                value={delegationAmount}
+                text={getStakingText()}
+                grow
+                ri={!props.isXs}
+                icon={<Coins size={17} />}
+              />
+              <div className="borderVert"></div>
+              <Tile
+                size="md"
+                transparent
+                className={cls('p-0!', ['mr-5', !props.isXs], ['ml-5', !props.isXs])}
+                value={source}
+                text="Source"
+                grow
+                ri={!props.isXs}
+                icon={
+                  props.delegationType === types.st.DelegationType.ESCROW ? (
+                    <AccountBalanceRoundedIcon className="text-[17px]!" />
+                  ) : props.delegationType === types.st.DelegationType.ESCROW2 ? (
+                    <Tooltip title="Grant Escrow delegation">
+                      <Landmark size={17} />
+                    </Tooltip>
+                  ) : (
+                    <GitBranch size={17} />
+                  )
+                }
+              />
+            </SkStack>
+            {props.delegationType === types.st.DelegationType.ESCROW && (
+              <Tooltip title="Escrow delegation">
+                <AccountBalanceRoundedIcon className="ml-2.5 text-secondary-foreground" />
               </Tooltip>
-              <p className=" text-xs text-secondary-foreground">{getStakingText()}</p>
-            </div>
-            <ArrowForwardIosRoundedIcon className="text-secondary-foreground text-[17px]! rotate-90 ['active', open] ['opacity0', noActions]" />
-          </div>
-        </div>
+            )}
+            <ArrowForwardIosRoundedIcon
+              className={cls(
+                'text-secondary-foreground',
+                'text-[17px]!',
+                'rotate-90',
+                ['active', open],
+                ['opacity0', noActions],
+                'ml-2.5',
+                ['cursor-pointer', !noActions]
+              )}
+              onClick={() => {
+                if (noActions) return
+                setOpen(!open)
+              }}
+            />
+          </Grid>
+        </Grid>
       </div>
       <Collapse in={open}>
-        <div className="mt-5">
+        <div className="nestedSection">
           {props.isValidatorPage && (
             <Tile
               className="p-0 mt-5"
@@ -211,7 +257,7 @@ export default function Delegation(props: {
               loading={loading}
               text={loading ? 'Accepting delegation' : 'Accept delegation'}
               color="primary"
-              className="'fullW' mt-5"
+              className="fullW mt-5"
               onClick={async () => {
                 props.accept && (await props.accept(delegationInfo))
               }}
@@ -223,7 +269,7 @@ export default function Delegation(props: {
               loading={loading}
               text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
               color="error"
-              className="'fullW'"
+              className="fullW mt-5"
               onClick={async () => {
                 props.unstake && (await props.unstake(delegationInfo))
               }}
@@ -235,7 +281,7 @@ export default function Delegation(props: {
               loading={loading}
               text={loading ? 'Canceling staking request' : 'Cancel staking request'}
               color="warning"
-              className="fullW"
+              className="fullW mt-5"
               onClick={async () => {
                 props.cancelRequest && (await props.cancelRequest(delegationInfo))
               }}

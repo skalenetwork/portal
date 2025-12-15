@@ -26,7 +26,6 @@ import { Link } from 'react-router-dom'
 import { Contract } from 'ethers'
 
 import { Grid, Button } from '@mui/material'
-import PaymentsRoundedIcon from '@mui/icons-material/PaymentsRounded'
 import HistoryToggleOffRoundedIcon from '@mui/icons-material/HistoryToggleOffRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 

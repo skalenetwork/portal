@@ -22,8 +22,7 @@
  */
 
 import Skeleton from '@mui/material/Skeleton'
-import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
-import PieChartRoundedIcon from '@mui/icons-material/PieChartRounded'
+import { ChartPie, Inbox } from 'lucide-react'
 
 import Headline from '../Headline'
 import DelegationsToValidator from './DelegationsToValidator'
@@ -58,7 +57,7 @@ export default function Delegations(props: {
       <Headline
         size="small"
         text="Delegations"
-        icon={<AllInboxRoundedIcon className="text-[17px]!" />}
+        icon={<Inbox />}
       />
       <div className="mt-2.5" style={{ paddingBottom: '5px' }}></div>
       {!loaded ? (
@@ -71,7 +70,7 @@ export default function Delegations(props: {
       ) : null}
       {loaded && noDelegations ? (
         <div className="mt-5">
-          <PieChartRoundedIcon className="text-secondary-foreground styles.chainIconlg w-full" />
+          <ChartPie className="text-secondary-foreground styles.chainIconlg w-full align-center" />
           <h3 className="font-bold text-secondary-foreground text-center mt-1.5 mb-5">
             No tokens staked
           </h3>

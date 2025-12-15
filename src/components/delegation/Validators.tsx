@@ -36,9 +36,11 @@ export default function Validators(props: {
   internal?: boolean
   delegationType: types.st.DelegationType
   size?: 'md' | 'lg'
+  showButton?: boolean
 }) {
   const size = props.size ?? 'md'
   const internal = props.internal ?? false
+  const showButton = props.showButton ?? false
 
   if (!props.validators || props.validators.length === 0) {
     return <Loader text="Loading validators list" />
@@ -48,8 +50,12 @@ export default function Validators(props: {
     ? props.validators
     : filterValidators(props.validators, ESCROW_VALIDATORS, internal)
 
+  const gridCols = showButton
+    ? "grid grid-cols-1 sm:grid-cols-2 gap-4"  // 2 columns max for validators page with buttons
+    : "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"  // 3 columns max for stake page
+
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <div className={gridCols}>
       {validators.map((validator: types.st.IValidator, index) => (
         <div key={index} className="col-span-1">
           <ValidatorCard
@@ -58,6 +64,7 @@ export default function Validators(props: {
             setValidatorId={props.setValidatorId}
             size={size}
             delegationType={props.delegationType}
+            showButton={showButton}
           />
         </div>
       ))}
