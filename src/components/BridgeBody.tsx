@@ -100,7 +100,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
                   balance={tokenBalances[token.keyname]}
                   symbol={token.meta.symbol}
                   decimals={token.meta.decimals ?? undefined}
-                  truncate={3}
+                  truncate={10}
                   mpc={mpc}
                 />
               ) : null
@@ -141,9 +141,9 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
         </SkPaper>
       </Collapse>
 
-      <Collapse in={!!address}>
+      {/* <Collapse in={!!address}> // todo: re-enable SFuel warning for networks with sFuel
         <SFuelWarning />
-      </Collapse>
+      </Collapse> */}
 
       <Collapse in={showCP()}>
         <SkPaper gray className="p-0!">
