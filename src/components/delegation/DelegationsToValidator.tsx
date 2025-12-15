@@ -75,7 +75,7 @@ export default function DelegationsToValidator(props: {
     (delegation) => Number(delegation.stateId) === DelegationState.DELEGATED
   )
   return (
-    <div>
+    <div className="mb-5">
       <Reward
         open={open}
         setOpen={setOpen}
@@ -109,25 +109,28 @@ export default function DelegationsToValidator(props: {
         }
         sklPrice={props.sklPrice}
       />
-      <div className="borderVert"></div>
+      <div className="border-l-4 border-border"></div>
       <Collapse in={open}>
-        <div className="'nestedSection', ['nestedSectionXs', props.isXs]">
-          {props.delegationsToValidator.delegations.map(
-            (delegation: types.st.IDelegation, index: number) => (
-              <Delegation
-                key={index}
-                delegation={delegation}
-                validator={validator}
-                delegationType={props.delegationType}
-                unstake={props.unstake}
-                cancelRequest={props.cancelRequest}
-                loading={props.loading}
-                isXs={props.isXs}
-                customAddress={props.customAddress}
-                sklPrice={props.sklPrice}
-              />
-            )
-          )}
+        <div className="relative">
+          <div className="border-l-4 border-border absolute left-4 top-0 bottom-0"></div>
+          <div className="pl-8 'nestedSection', ['nestedSectionXs', props.isXs]">
+            {props.delegationsToValidator.delegations.map(
+              (delegation: types.st.IDelegation, index: number) => (
+                <Delegation
+                  key={index}
+                  delegation={delegation}
+                  validator={validator}
+                  delegationType={props.delegationType}
+                  unstake={props.unstake}
+                  cancelRequest={props.cancelRequest}
+                  loading={props.loading}
+                  isXs={props.isXs}
+                  customAddress={props.customAddress}
+                  sklPrice={props.sklPrice}
+                />
+              )
+            )}
+          </div>
         </div>
       </Collapse>
     </div>

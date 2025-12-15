@@ -39,6 +39,7 @@ export default function Tile(props: {
   className?: string
   grow?: boolean
   color?: types.pm.DueDateStatus
+  chipColor?: types.pm.ChipColor
   progressColor?: types.pm.DueDateStatus
   progress?: number
   children?: ReactElement | ReactElement[] | false
@@ -55,6 +56,8 @@ export default function Tile(props: {
   let color = props.color ? theme.palette[props.color].main : 'rgba(0, 0, 0, 0.6)'
   color = props.transparent ? 'transparent' : color
   const size = props.size ?? 'lg'
+
+  const chipClass = props.chipColor ? `chip_${props.chipColor}` : ''
 
   const [copied, setCopied] = useState(false)
   const isXs = useMediaQuery(theme.breakpoints.down('sm'))
@@ -93,7 +96,7 @@ export default function Tile(props: {
 
   return (
     <div
-      className={`${props.className || ''} h-full bg-background rounded-md pt-1 pb-2 px-4 titleSection_${size} ${props.grow ? 'grow' : ''}`}
+      className={`${props.className || ''} ${chipClass} h-full bg-background rounded-md pt-2 pb-2 px-4 titleSection_${size} ${props.grow ? 'grow' : ''}`}
     >
       <div className={`flex ${!isXs ? 'items-center' : ''}`}>
         <div className="grow">

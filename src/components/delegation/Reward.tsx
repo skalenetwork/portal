@@ -124,7 +124,7 @@ export default function Reward(props: {
                       <h3 className="font-bold text-foreground">{totalStakedAmount}</h3>
                     </Tooltip>
                   </div>
-                  <div className="borderVert ml-2.5"></div>
+                  <div className="border-l-4 border-border ml-2.5"></div>
                 </div>
               ) : null}
               <div className={`${props.isXs ? 'grow mr-5' : 'ml-2.5 mr-5'}`}>

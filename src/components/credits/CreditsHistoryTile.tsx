@@ -239,7 +239,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
                 ri={!isXs}
                 icon={<TokenIcon tokenSymbol={tokenSymbol} size="xs" />}
               />
-              <div className="borderVert"></div>
+              <div className="border-l-4 border-border"></div>
               <Tile
                 size="md"
                 transparent

@@ -51,7 +51,7 @@ const ChainActions: React.FC<ChainActionsProps> = ({
           target="_blank"
           rel="noopener noreferrer"
           startIcon={<Globe size={17} className="text-foreground" />}
-          className="font-sans! bg-secondary-foreground/10! py-2! px-3! capitalize! text-foreground! font-semibold! text-xs! mr-2! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+          className="font-sans! shadow-xs! border! border-accent-foreground/5! bg-secondary-foreground/10! py-2! px-3! capitalize! text-foreground! font-semibold! text-xs! mr-2! ease-in-out transition-transform duration-150 active:scale-[0.97] hover:scale-[1.02]"
         >
           Website
         </Button>
@@ -62,7 +62,7 @@ const ChainActions: React.FC<ChainActionsProps> = ({
         target="_blank"
         rel="noopener noreferrer"
         startIcon={<Blocks size={17} className="text-foreground" />}
-        className="font-sans! bg-secondary-foreground/10! py-2! px-3! capitalize! text-foreground! font-semibold! text-xs! mr-2! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+        className="font-sans! shadow-xs! border! border-accent-foreground/5! bg-secondary-foreground/10! py-2! px-3! capitalize! text-foreground! font-semibold! text-xs! mr-2! ease-in-out transition-transform duration-150 active:scale-[0.97] hover:scale-[1.02]"
       >
         Explorer
       </Button>

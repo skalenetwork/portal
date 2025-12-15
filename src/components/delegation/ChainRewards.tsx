@@ -222,7 +222,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
               }
               onClick={retrieveRewards}
             />
-            <div className={!isXs ? 'borderVert' : ''}>
+            <div className={!isXs ? 'border-l-4 border-border' : ''}>
               <Tile
                 className={`p-0 ${!isXs ? 'ml-5' : ''}`}
                 size="md"

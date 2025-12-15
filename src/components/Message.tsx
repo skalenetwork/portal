@@ -49,26 +49,33 @@ export default function Message(props: {
     <Collapse in={show}>
       <SkPaper
         gray={gray}
-        className={`${props.className || ''} skMessage items-center flex ${type === 'warning' ? 'warningMsg' : ''} ${type === 'error' ? 'errorMsg' : ''}`}
+        className={`${props.className || ''} skMessage items-center flex ${type === 'warning'
+            ? 'warningMsg bg-yellow-50! dark:bg-yellow-700/30! border-yellow-200! dark:border-yellow-700!'
+            : type === 'error'
+              ? 'errorMsg'
+              : ''
+          }`}
       >
-        <div className="w-full items-center mt-1.5 mb-1.5 ml-2.5 mr-2.5">
+        <div className="w-full flex items-center mt-1.5 mb-1.5 ml-2.5 mr-2.5">
           <div className="flex items-center mr-4">{props.icon}</div>
           {props.text ? (
-            <p
-              className={`text-sm font-semibold mr-1.5 ${type !== 'warning' ? 'text-primary' : ''}`}
-            >
-              {props.text}
-            </p>
-          ) : null}
-          {props.link ? (
-            <div className="flex items-center grow">
-              <Link to={props.link}>
-                <p className="text-sm font-semibold mr-1.5">{props.linkText}</p>
-              </Link>
-              <ArrowOutwardRoundedIcon
-                className="flex items-center"
-                style={{ height: '14px', width: '14px' }}
-              />
+            <div className="flex items-center mr-1.5">
+              <p
+                className={`text-sm font-semibold ${type !== 'warning' ? 'text-primary' : ''}`}
+              >
+                {props.text}
+              </p>
+              {props.link && props.linkText ? (
+                <>
+                  <Link to={props.link}>
+                    <p className="text-sm font-semibold ml-1">{props.linkText}</p>
+                  </Link>
+                  <ArrowOutwardRoundedIcon
+                    className="flex items-center ml-1"
+                    style={{ height: '14px', width: '14px' }}
+                  />
+                </>
+              ) : null}
             </div>
           ) : null}
 
