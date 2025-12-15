@@ -135,7 +135,7 @@ export default function ChainTabsSection(props: {
 
   return (
     <SkPaper gray className="mt-3 p-3! mb-12">
-      <div className="m-2 mb-4">
+      <div className="mt-1 mb-4">
         <ChainTabs
           chainMeta={chainMeta}
           handleChange={handleChange}
