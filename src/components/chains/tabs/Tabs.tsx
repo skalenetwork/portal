@@ -43,41 +43,43 @@ export default function ChainTabs(props: {
   isXs: boolean
 }) {
   return (
-    <div className="mt-0 w-full">
-      <Tabs
-        variant={props.isXs ? 'scrollable' : 'standard'}
-        value={props.tab}
-        onChange={props.handleChange}
-        scrollButtons="auto"
-        style={{ maxWidth: 'calc(100vw - 32px)', marginLeft: '-5px' }}
-        className="skTabs"
-      >
-        {props.tabs.map((tab, index) =>
-          tab ? (
-            <Tab
-              key={index}
-              label={tab.label}
-              icon={tab.icon}
-              iconPosition="start"
-              className={`btn btnSm mr-1! ml-1! tab fwmobile ${
-                props.tab === index
-                  ? 'text-foreground! bg-foreground/15!'
+    <div className="mt-0 flex items-center">
+      <div className='grow'>
+        <Tabs
+          variant={props.isXs ? 'scrollable' : 'standard'}
+          value={props.tab}
+          onChange={props.handleChange}
+          scrollButtons="auto"
+          style={{ maxWidth: 'calc(100vw - 32px)' }}
+          className="skTabs bg-background! rounded-full p-1! w-fit"
+        >
+          {props.tabs.map((tab, index) =>
+            tab ? (
+              <Tab
+                key={index}
+                label={tab.label}
+                icon={tab.icon}
+                iconPosition="start"
+                className={`btn btnSm tab fwmobile ${props.tab === index
+                  ? 'text-foreground! bg-foreground/10! shadow-xs!'
                   : 'text-muted-foreground!'
-              }`}
-            />
-          ) : null
-        )}
-        <div className="grow"></div>
-        {networks.hasFeatureInAny(NETWORKS, 'paymaster') && (
-          <Tooltip arrow title="Manage Chain">
-            <Link to={`/chains/admin/${props.schainName}`}>
-              <IconButton className="btn btnSm tab text-foreground! text-xs bg-foreground/5! ease-in-out transition-transform duration-150 active:scale-[0.97]">
-                <Settings2 size={17} />
-              </IconButton>
-            </Link>
-          </Tooltip>
-        )}
-      </Tabs>
+                  }`}
+              />
+            ) : null
+          )}
+          <div className="grow"></div>
+
+        </Tabs>
+      </div>
+      {networks.hasFeatureInAny(NETWORKS, 'paymaster') && (
+        <Tooltip arrow title="Manage Chain">
+          <Link to={`/chains/admin/${props.schainName}`}>
+            <IconButton className="btn btnSm tab h-full! text-foreground! text-xs bg-foreground/5! ease-in-out transition-transform duration-150 active:scale-[0.97] mr-2!">
+              <Settings2 size={17} />
+            </IconButton>
+          </Link>
+        </Tooltip>
+      )}
     </div>
   )
 }
