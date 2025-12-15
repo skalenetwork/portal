@@ -59,12 +59,12 @@ export const METAPORT_CONFIG: types.mp.Config = {
             'winged-bubbly-grumium': {}
           }
         },
-        skl: {
-          address: '0x91D00CF7bE6F47bf9BFAaA974d80Ea79a4A3bfe7',
-          chains: {
-            //'winged-bubbly-grumium': {}
-          }
-        },
+        // skl: {
+        //   address: '0x91D00CF7bE6F47bf9BFAaA974d80Ea79a4A3bfe7',
+        //   chains: {
+        //     'winged-bubbly-grumium': {}
+        //   }
+        // },
         usdt: {
           address: '0xfde4C96c8593536E31F229EA8f37b2ADa2699bb2',
           chains: {
