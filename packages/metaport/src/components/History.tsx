@@ -22,7 +22,6 @@
  */
 
 import { types } from '@/core'
-import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 
 import TokenIcon from './TokenIcon'
 import TransactionData from './TransactionData'
@@ -30,6 +29,7 @@ import SkPaper from './SkPaper'
 import Chain from './Chain'
 
 import { useMetaportStore } from '../store/MetaportStore'
+import { ArrowUpRight } from 'lucide-react'
 export default function History(props: { size?: types.Size }) {
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
   const transfersHistory = useMetaportStore((state) => state.transfersHistory)
@@ -45,12 +45,12 @@ export default function History(props: { size?: types.Size }) {
       {transactionsHistory.length !== 0 ? (
         <SkPaper gray className="p-0">
           <p
-            className={`p-0 ${size === 'sm' ? 'text-sm' : 'text-base'} font-semibold text-primary ${size === 'sm' ? 'pt-15' : 'pt-25'
-              } ${size === 'sm' ? 'mb-2.5' : 'mb-5'} ml-15`}
+            className={`p-0 ${size === 'sm' ? 'text-sm' : 'text-base'} font-semibold text-foreground ${size === 'xs' ? 'pt-4' : 'pt-6'
+              } ${size === 'sm' ? 'mb-2.5' : 'mb-5'} ml-4`}
           >
             Current transfer
           </p>
-          <SkPaper gray>
+          <div className="bg-muted p-4 rounded-3xl">
             {transactionsHistory.map((transactionData: types.mp.TransactionHistory) => (
               <TransactionData
                 key={transactionData.transactionHash}
@@ -58,7 +58,7 @@ export default function History(props: { size?: types.Size }) {
                 config={mpc.config}
               />
             ))}
-          </SkPaper>
+          </div>
         </SkPaper>
       ) : null}
       <div>
@@ -66,13 +66,12 @@ export default function History(props: { size?: types.Size }) {
           .slice()
           .reverse()
           .map((transfer: types.mp.TransferHistory, key: number) => (
-            <SkPaper
-              gray
+            <div
               key={key}
-              className={`${size === 'sm' ? 'mt-10 mb-2.5' : 'mt-5 mb-5'} p-0`}
+              className={`bg-muted ${size === 'sm' ? 'mt-10 mb-2.5' : 'mt-5 mb-5'} p-0 rounded-3xl`}
             >
               <div
-                className={`flex items-center flex-wrap ml-15 ${size === 'sm' ? 'pt-15' : 'pt-25'
+                className={`flex items-center justify-between ml-4 ${size === 'sm' ? 'pt-4' : 'pt-6'
                   }`}
               >
                 <div
@@ -82,25 +81,23 @@ export default function History(props: { size?: types.Size }) {
                   <Chain
                     skaleNetwork={network}
                     chainName={transfer.chainName1}
-                    size={size}
+                    size='sm'
                     decIcon
                   />
-                  <ArrowForwardRoundedIcon
-                    className={`text-primary ${size === 'sm' ? 'ml-1.5 mr-1.5' : 'ml-10 mr-2.5'
-                      } w-4 h-4`}
+                  <ArrowUpRight
+                    className={`text-foreground ml-2 mr-2 w-3 h-3`}
                   />
                   <Chain
                     skaleNetwork={network}
                     chainName={transfer.chainName2}
-                    size={size}
+                    size='sm'
                     decIcon
                   />
                 </div>
-                <div className="grow"></div>
 
                 <div
                   className={`flex items-center ${size === 'sm' ? 'mb-2.5' : 'mb-5'
-                    } mr-20`}
+                    } mr-4`}
                 >
                   <div className="flex items-center">
                     <TokenIcon
@@ -109,14 +106,14 @@ export default function History(props: { size?: types.Size }) {
                     />
                   </div>
                   <p
-                    className={`${size === 'sm' ? 'text-sm' : 'text-base'
-                      } font-semibold capitalize text-primary uppercase ml-1.5`}
+                    className={`${size === 'sm' ? 'text-xs' : 'text-sm'
+                      } font-semibold capitalize text-foreground uppercase ml-1.5`}
                   >
                     {transfer.amount} {transfer.tokenKeyname}
                   </p>
                   <p
-                    className={`${size === 'sm' ? 'text-sm' : 'text-base'
-                      } font-semibold capitalize text-primary ml-1.5 grow`}
+                    className={`${size === 'sm' ? 'text-xs' : 'text-sm'
+                      } font-semibold capitalize text-foreground ml-1.5 grow`}
                   >
                     {transfer.address !== undefined
                       ? `• ${transfer.address.substring(0, 6)}...${transfer.address.substring(
@@ -126,7 +123,7 @@ export default function History(props: { size?: types.Size }) {
                   </p>
                 </div>
               </div>
-              <SkPaper gray>
+              <div className="bg-muted-foreground/10 mx-4 mb-4 p-4 rounded-2xl">
                 {transfer.transactions.map((transactionData: types.mp.TransactionHistory) => (
                   <TransactionData
                     key={transactionData.transactionHash}
@@ -134,8 +131,8 @@ export default function History(props: { size?: types.Size }) {
                     config={mpc.config}
                   />
                 ))}
-              </SkPaper>
-            </SkPaper>
+              </div>
+            </div>
           ))}
       </div>
     </div>

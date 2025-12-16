@@ -105,14 +105,14 @@ export default function TransactionData(props: {
     <div className="flex items-center mt-1.5 mb-1.5 ml-1.5 mr-1.5">
       <div>
         <div
-          className={`${localStyles.transactionDataIcon} flex items-center text-primary ml-4 ${styles[`action_${props.transactionData.txName}`]}`}
+          className={`${localStyles.transactionDataIcon} flex items-center text-foreground ml-4 ${styles[`action_${props.transactionData.txName}`]}`}
         >
           {actionIcons[props.transactionData.txName]}
         </div>
       </div>
       <div className="ml-5 grow flex">
         <div>
-          <p className="text-base capitalize text-primary font-medium">
+          <p className="text-sm capitalize text-foreground font-medium">
             {actionAliases[props.transactionData.txName]}
           </p>
           <p className="text-xs text-secondary-foreground">
@@ -128,7 +128,7 @@ export default function TransactionData(props: {
           rel="noopener noreferrer"
           className={`ml-2.5 ${localStyles.sk__openExplorerBtn}`}
         >
-          <OpenInNewIcon className="text-primary" />
+          <OpenInNewIcon className="text-foreground" />
         </IconButton>
       </div>
     </div>

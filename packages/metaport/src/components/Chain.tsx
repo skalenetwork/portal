@@ -46,7 +46,7 @@ export default function Chain(props: {
         skaleNetwork={props.skaleNetwork}
         chainName={props.chainName}
         app={props.app}
-        size='md'
+        size='sm'
         chainsMeta={chainsMeta}
       />
       <div
@@ -57,9 +57,11 @@ export default function Chain(props: {
           ${size === 'lg' ? 'ml-5' : ''}
         `}
       >
-        <p className="text-xs text-secondary-foreground capitalize text-left">
-          {props.from ? 'From' : 'To'}
-        </p>
+        {!props.decIcon && (
+          <p className="text-xs text-foreground capitalize text-left">
+            {props.from ? 'From' : 'To'}
+          </p>
+        )}
         <p
           className={`
             ${size === 'xs' ? 'text-xs' : ''} 
