@@ -25,7 +25,6 @@ import { types } from '@/core'
 
 import TokenIcon from './TokenIcon'
 import TransactionData from './TransactionData'
-import SkPaper from './SkPaper'
 import Chain from './Chain'
 
 import { useMetaportStore } from '../store/MetaportStore'
@@ -43,7 +42,7 @@ export default function History(props: { size?: types.Size }) {
   return (
     <div>
       {transactionsHistory.length !== 0 ? (
-        <SkPaper gray className="p-0">
+        <div className="bg-muted p-0 rounded-3xl">
           <p
             className={`p-0 ${size === 'sm' ? 'text-sm' : 'text-base'} font-semibold text-foreground ${size === 'xs' ? 'pt-4' : 'pt-6'
               } ${size === 'sm' ? 'mb-2.5' : 'mb-5'} ml-4`}
@@ -59,7 +58,7 @@ export default function History(props: { size?: types.Size }) {
               />
             ))}
           </div>
-        </SkPaper>
+        </div>
       ) : null}
       <div>
         {transfersHistory

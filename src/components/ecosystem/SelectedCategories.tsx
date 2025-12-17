@@ -22,8 +22,7 @@
  */
 
 import React from 'react'
-import { cls, useThemeMode } from '@skalenetwork/metaport'
-import { Chip, Box } from '@mui/material'
+import { Box } from '@mui/material'
 import { X } from 'lucide-react'
 import { categories } from '../../core/ecosystem/categories'
 
@@ -33,39 +32,11 @@ interface SelectedCategoriesProps {
   filteredAppsCount: number
 }
 
-const CustomChipLabel: React.FC<{ category: string; subcategory?: string; mode: string }> = ({
-  category,
-  subcategory,
-  mode
-}) => (
-  <Box display="flex" alignItems="center">
-    <p
-      className={cls(
-        [mode === 'dark' ? 'text-gray-300' : 'text-secondary-foreground', subcategory],
-        [mode === 'dark' ? 'text-gray-300' : 'text-secondary-foreground', !subcategory],
-        'text-sm',
-        ['font-semibold', !subcategory]
-      )}
-    >
-      {category}
-    </p>
-    {subcategory && (
-      <>
-        <Box component="span" className="borderLeft" sx={{ height: '1em', mx: 0.75 }} />
-        <p className={`text-sm font-semibold ${mode === 'dark' ? 'text-gray-300' : 'text-secondary-foreground'}`}>
-          {subcategory}
-        </p>
-      </>
-    )}
-  </Box>
-)
-
 const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
   checkedItems,
   setCheckedItems,
   filteredAppsCount
 }) => {
-  const { mode } = useThemeMode()
 
   const handleDelete = (itemToDelete: string) => {
     setCheckedItems(checkedItems.filter((item) => item !== itemToDelete))
@@ -95,33 +66,38 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
     <Box className="flex items-center flex-wrap mb-2.5">
       {checkedItems.map((item) => {
         const [category, subcategory] = item.split('_')
+        const categoryName = getCategoryName(category)
+        const subcategoryName = subcategory ? getSubcategoryName(category, subcategory) : undefined
+        const displayText = subcategoryName ? `${categoryName} → ${subcategoryName}` : categoryName
+
         return (
-          <Chip
-            variant="outlined"
+          <div
             key={item}
-            label={
-              <CustomChipLabel
-                category={getCategoryName(category)}
-                subcategory={subcategory ? getSubcategoryName(category, subcategory) : undefined}
-                mode={mode}
-              />
-            }
-            onDelete={() => handleDelete(item)}
-            deleteIcon={<X size={17} />}
-            className="'outlined', font-semibold"
-          />
+            className="chipSm bg-card text-foreground border border-border rounded-md flex items-center mr-2 mb-2 pl-3 pr-2 py-1"
+          >
+            <span className="text-sm font-medium mr-2">{displayText}</span>
+            <button
+              onClick={() => handleDelete(item)}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              <X size={14} />
+            </button>
+          </div>
         )
       })}
-      <p className={`text-xs ml-2.5 mr-2.5 ${mode === 'dark' ? 'text-white' : 'text-black'}`}>
-        {filteredAppsCount} project{filteredAppsCount !== 1 ? 's' : ''}
-      </p>
-      <p
-        className={`text-xs p-0 m-0 ml-5 ${mode === 'dark' ? 'text-gray-300' : 'text-secondary-foreground'}`}
-        style={{ cursor: 'pointer' }}
-        onClick={clearAll}
-      >
-        Clear all
-      </p>
+      <div className="chipSm bg-transparent flex items-center mr-2 mb-2 pl-3 pr-2 py-1">
+        <span className="text-xs text-foreground">
+          {filteredAppsCount} project{filteredAppsCount !== 1 ? 's' : ''}
+        </span>
+      </div>
+      <div className="chipSm bg-transparent flex items-center mr-2 mb-2 pl-3 pr-2 py-1">
+        <button
+          className="text-xs text-muted-foreground hover:text-foreground transition-colors cursor-pointer font-medium"
+          onClick={clearAll}
+        >
+          Clear all
+        </button>
+      </div>
     </Box>
   )
 }

@@ -54,7 +54,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
             </InputAdornment>
           )
         }}
-        className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-muted! rounded-full`}
+        className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-background! border border-border rounded-full`}
         sx={{
           '& .MuiOutlinedInput-root': { borderRadius: '50px' },
           '& fieldset': { border: '0px red solid !important' }
