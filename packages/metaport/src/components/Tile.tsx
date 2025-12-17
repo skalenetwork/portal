@@ -96,7 +96,7 @@ export default function Tile(props: {
 
   return (
     <div
-      className={`${props.className || ''} ${chipClass} h-full bg-background rounded-md pt-2 pb-2 px-4 titleSection_${size} ${props.grow ? 'grow' : ''}`}
+      className={`${props.className || ''} ${chipClass} h-full bg-background rounded-md p-4 titleSection_${size} ${props.grow ? 'grow' : ''}`}
     >
       <div className={`flex ${!isXs ? 'items-center' : ''}`}>
         <div className="grow">
@@ -120,7 +120,7 @@ export default function Tile(props: {
               <p
                 className={`
                   flex font-medium
-                  ${props.size === 'md' ? 'text-xs' : 'text-sm'}
+                  ${props.size === 'md' ? 'text-xs' : 'text-xs'}
                   ${!props.ri ? 'grow' : ''}
                   ${props.textColor ? 'font-semibold' : ''}`}
                 style={{ color: props.textColor }}

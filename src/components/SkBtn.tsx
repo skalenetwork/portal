@@ -62,8 +62,7 @@ export default function SkBtn(props: {
         'btn' + props.color,
         props.className,
         ['btnSm', size === 'sm'],
-        ['btnDisabled', props.disabled],
-        'ease-in-out transition-transform duration-150 active:scale-[0.97] hover:scale-[1.01]'
+        'bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]',
       )}
       disabled={props.disabled}
       onClick={props.onClick}

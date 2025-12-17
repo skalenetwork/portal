@@ -70,12 +70,12 @@ export default function StakeValidator(props: {
               sections={[
                 {
                   text: 'Staking',
-                  icon: <ChevronLeft size={15} className="text-foreground" />,
+                  icon: <ChevronLeft size={14} className="text-foreground" />,
                   url: '/staking'
                 },
                 {
                   text: 'Choose a validator',
-                  icon: <UserRoundSearch size={15} />
+                  icon: <UserRoundSearch size={14} />
                 }
               ]}
             />

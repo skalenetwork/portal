@@ -1283,46 +1283,6 @@ input[type=number] {
 }
 
 
-.warningMsg {
-  background-color: #43391d !important;
-
-  p,
-  svg {
-    color: #f9e09c !important;
-  }
-
-  a,
-  .a {
-    color: #ffc832 !important;
-
-    p,
-    svg {
-      color: #ffc832 !important;
-    }
-  }
-}
-
-
-.errorMsg {
-  background-color: #431d1d !important;
-
-  p,
-  svg {
-    color: #f99c9c !important;
-  }
-
-  a,
-  .a {
-    color: #f99c9c !important;
-
-    p,
-    svg {
-      color: #f99c9c !important;
-    }
-  }
-}
-
-
 .appIconHub {
   border-radius: 50%;
   padding: 10px;

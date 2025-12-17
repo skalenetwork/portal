@@ -50,10 +50,10 @@ export default function Message(props: {
       <SkPaper
         gray={gray}
         className={`${props.className || ''} skMessage items-center flex ${type === 'warning'
-            ? 'warningMsg bg-yellow-50! dark:bg-yellow-700/30! border-yellow-200! dark:border-yellow-700!'
-            : type === 'error'
-              ? 'errorMsg'
-              : ''
+          ? 'bg-yellow-50! dark:bg-yellow-300/20! text-yellow-700 dark:text-yellow-200'
+          : type === 'error'
+            ? 'bg-red-50 dark:bg-red-700/30 border-red-200 dark:border-red-700 text-red-800'
+            : ''
           }`}
       >
         <div className="w-full flex items-center mt-1.5 mb-1.5 ml-2.5 mr-2.5">
@@ -66,7 +66,12 @@ export default function Message(props: {
                 {props.text}
               </p>
               {props.link && props.linkText ? (
-                <>
+                <div className={`flex items-center ${type === 'warning'
+                  ? ' text-yellow-700 dark:text-yellow-400'
+                  : type === 'error'
+                    ? 'text-red-800!'
+                    : ''
+                  }`}>
                   <Link to={props.link}>
                     <p className="text-sm font-semibold ml-1">{props.linkText}</p>
                   </Link>
@@ -74,7 +79,7 @@ export default function Message(props: {
                     className="flex items-center ml-1"
                     style={{ height: '14px', width: '14px' }}
                   />
-                </>
+                </div>
               ) : null}
             </div>
           ) : null}
@@ -89,7 +94,12 @@ export default function Message(props: {
               className="paperGrey ml-2.5"
             >
               <CloseRoundedIcon
-                className={type !== 'warning' ? 'text-secondary-foreground' : ''}
+                className={`flex items-center ${type === 'warning'
+                  ? ' text-yellow-700 dark:text-yellow-400'
+                  : type === 'error'
+                    ? 'text-red-800!'
+                    : ''
+                  }`}
                 style={{ height: '16px', width: '16px' }}
               />
             </IconButton>

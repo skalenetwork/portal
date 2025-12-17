@@ -90,7 +90,7 @@ export default function ValidatorCard(props: {
                 size="small"
                 variant="contained"
                 className="btnMd text-xs text-accent! bg-foreground!"
-                startIcon={<Coins size={15} />}
+                startIcon={<Coins size={14} />}
                 fullWidth
               >
                 Stake SKL
