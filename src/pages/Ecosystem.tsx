@@ -173,9 +173,9 @@ export default function Ecosystem(props: {
               </div>
             </div>
           </SkStack>
-          <SkStack className={`mb-5 flex items-center mt-2.5 ${props.isXs ? 'flex-col' : ''}`}>
+          <SkStack className={`mb-5 flex items-center  ${props.isXs ? 'flex-col' : ''}`}>
             <SearchComponent
-              className={`grow ${!props.isXs ? 'mr-2.5' : 'fullW'}`}
+              className={`grow ${!props.isXs ? '' : 'fullW'}`}
               searchTerm={searchTerm}
               setSearchTerm={handleSetSearchTerm}
             />
@@ -190,90 +190,90 @@ export default function Ecosystem(props: {
             setCheckedItems={handleSetCheckedItems}
             filteredAppsCount={currentFilteredApps.length}
           />
-              <Tabs
-                variant={props.isXs ? 'scrollable' : 'standard'}
-                value={activeTab}
-                onChange={handleTabChange}
-                scrollButtons="auto"
-                className="skTabs bg-card! rounded-full p-1! w-fit mb-5"
-              >
-                <Tab
-                  label="All"
-                  icon={<LayoutGrid />}
-                  iconPosition="start"
-                  className={`btn btnMd mr-1! ml-1! tab fwmobile ${activeTab === 0
-                    ? 'text-foreground! bg-foreground/10! shadow-xs!'
-                    : 'text-muted-foreground!'
-                    }`}
-                />
-                <Tab
-                  label="Featured"
-                  icon={SECTION_ICONS.featured}
-                  iconPosition="start"
-                  className={`btn btnMd mr-1! ml-1! tab fwmobile ${activeTab === 1
-                    ? 'text-foreground! bg-foreground/10! shadow-xs!'
-                    : 'text-muted-foreground!'
-                    }`}
-                />
-                <Tab
-                  label="New"
-                  icon={SECTION_ICONS.new}
-                  iconPosition="start"
-                  className={`btn btnMd mr-1! ml-1! tab fwmobile ${activeTab === 2
-                    ? 'text-foreground! bg-foreground/10! shadow-xs!'
-                    : 'text-muted-foreground!'
-                    }`}
-                />
-                <Tab
-                  label="Trending"
-                  icon={SECTION_ICONS.trending}
-                  iconPosition="start"
-                  className={`btn btnMd mr-1! ml-1! tab fwmobile ${activeTab === 3
-                    ? 'text-foreground! bg-foreground/10! shadow-xs!'
-                    : 'text-muted-foreground!'
-                    }`}
-                />
-              </Tabs>
-            <div className={cn('grow', 'fwmobile')}>
-              {activeTab === 0 && (
-                <AllApps
-                  apps={currentFilteredApps}
-                  skaleNetwork={props.mpc.config.skaleNetwork}
-                  chainsMeta={props.chainsMeta}
-                  newApps={newApps}
-                  loaded={loaded}
-                  trendingApps={trendingApps}
-                  featuredApps={featuredApps}
-                />
-              )}
-              {activeTab === 1 && (
-                <FeaturedApps
-                  featuredApps={currentFilteredApps}
-                  newApps={newApps}
-                  skaleNetwork={props.mpc.config.skaleNetwork}
-                  chainsMeta={props.chainsMeta}
-                  trendingApps={trendingApps}
-                />
-              )}
-              {activeTab === 2 && (
-                <NewApps
-                  newApps={currentFilteredApps}
-                  skaleNetwork={props.mpc.config.skaleNetwork}
-                  chainsMeta={props.chainsMeta}
-                  trendingApps={trendingApps}
-                  featuredApps={featuredApps}
-                />
-              )}
-              {activeTab === 3 && (
-                <TrendingApps
-                  chainsMeta={props.chainsMeta}
-                  skaleNetwork={props.mpc.config.skaleNetwork}
-                  newApps={newApps}
-                  filteredApps={currentFilteredApps}
-                  featuredApps={featuredApps}
-                />
-              )}
-            </div>
+          <Tabs
+            variant={props.isXs ? 'scrollable' : 'standard'}
+            value={activeTab}
+            onChange={handleTabChange}
+            scrollButtons="auto"
+            className="skTabs bg-card! rounded-full p-1! w-fit mb-5"
+          >
+            <Tab
+              label="All"
+              icon={<LayoutGrid />}
+              iconPosition="start"
+              className={`btn btnMd mr-1! ml-1! tab fwmobile ${activeTab === 0
+                ? 'text-foreground! bg-foreground/10! shadow-xs!'
+                : 'text-muted-foreground!'
+                }`}
+            />
+            <Tab
+              label="Featured"
+              icon={SECTION_ICONS.featured}
+              iconPosition="start"
+              className={`btn btnMd mr-1! ml-1! tab fwmobile ${activeTab === 1
+                ? 'text-foreground! bg-foreground/10! shadow-xs!'
+                : 'text-muted-foreground!'
+                }`}
+            />
+            <Tab
+              label="New"
+              icon={SECTION_ICONS.new}
+              iconPosition="start"
+              className={`btn btnMd mr-1! ml-1! tab fwmobile ${activeTab === 2
+                ? 'text-foreground! bg-foreground/10! shadow-xs!'
+                : 'text-muted-foreground!'
+                }`}
+            />
+            <Tab
+              label="Trending"
+              icon={SECTION_ICONS.trending}
+              iconPosition="start"
+              className={`btn btnMd mr-1! ml-1! tab fwmobile ${activeTab === 3
+                ? 'text-foreground! bg-foreground/10! shadow-xs!'
+                : 'text-muted-foreground!'
+                }`}
+            />
+          </Tabs>
+          <div className={cn('grow', 'fwmobile')}>
+            {activeTab === 0 && (
+              <AllApps
+                apps={currentFilteredApps}
+                skaleNetwork={props.mpc.config.skaleNetwork}
+                chainsMeta={props.chainsMeta}
+                newApps={newApps}
+                loaded={loaded}
+                trendingApps={trendingApps}
+                featuredApps={featuredApps}
+              />
+            )}
+            {activeTab === 1 && (
+              <FeaturedApps
+                featuredApps={currentFilteredApps}
+                newApps={newApps}
+                skaleNetwork={props.mpc.config.skaleNetwork}
+                chainsMeta={props.chainsMeta}
+                trendingApps={trendingApps}
+              />
+            )}
+            {activeTab === 2 && (
+              <NewApps
+                newApps={currentFilteredApps}
+                skaleNetwork={props.mpc.config.skaleNetwork}
+                chainsMeta={props.chainsMeta}
+                trendingApps={trendingApps}
+                featuredApps={featuredApps}
+              />
+            )}
+            {activeTab === 3 && (
+              <TrendingApps
+                chainsMeta={props.chainsMeta}
+                skaleNetwork={props.mpc.config.skaleNetwork}
+                newApps={newApps}
+                filteredApps={currentFilteredApps}
+                featuredApps={featuredApps}
+              />
+            )}
+          </div>
         </Stack>
         <div className="flex mt-5 mb-5">
           <div className="grow"></div>

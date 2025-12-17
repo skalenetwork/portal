@@ -30,7 +30,7 @@ import Button from '@mui/material/Button'
 import { type Category } from '../../core/ecosystem/categories'
 import SearchBar, { highlightMatch } from './SearchBar'
 import SubcategoryList from './SubcategoryList'
-import { TextSearch, ChevronDown, ChevronUp, Circle } from 'lucide-react'
+import { TextSearch, ChevronDown, ChevronUp, Circle, Shapes } from 'lucide-react'
 
 interface CategoryDisplayProps {
   checkedItems: string[]
@@ -147,11 +147,12 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
         variant="text"
         ref={buttonRef}
         onClick={handleMenuOpen}
-        startIcon={<TextSearch />}
-        className="btn btnMd tab text-foreground! text-xs ease-in-out transition-transform duration-150 active:scale-[0.97]"
+        startIcon={<Shapes />}
+        endIcon={<ChevronDown className='text-muted-foreground' />}
+        className="btn btnMd tab text-foreground! bg-card! border-border py-3! rounded-full! border shadow-xs! text-xs ease-in-out transition-transform duration-150 active:scale-[0.97]"
         style={{ background: 'transparent' }}
       >
-        Browse by categories
+        Categories
       </Button>
       <Menu
         anchorEl={anchorEl}
@@ -161,9 +162,8 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
           paper: {
             style: {
               maxHeight: 'calc(80vh - 100px)',
-              width: buttonRef.current?.offsetWidth
             },
-            className: `mt-2.5! overflow-visible rounded-3xl! bg-background! text-foreground! shadow-sm! border-none! ring-0! [&_.MuiList-root]:p-0! [&_.MuiList-root]:bg-background!`
+            className: `mt-2.5! overflow-visible rounded-3xl! bg-card! text-foreground! shadow-sm! border-none! ring-0! [&_.MuiList-root]:p-0! [&_.MuiList-root]:bg-card!`
           }
         }}
       >
