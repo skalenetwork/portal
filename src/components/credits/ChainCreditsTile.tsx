@@ -254,7 +254,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                 ri={!isXs}
                 icon={<Wallet size={14} />}
               />
-              <div className="border-l-4 border-border mr-4"></div>
+              <div className="border-l-2 border-border mr-4"></div>
               <div className="flex items-center ml-6 md:ml-0">
                 <Button
                   size="small"

@@ -57,6 +57,7 @@ import DelegationTotals from '../components/delegation/DelegationTotals'
 import Message from '../components/Message'
 import ErrorTile from '../components/ErrorTile'
 import ChainRewards from '../components/delegation/ChainRewards'
+import { Building2, Eye, Rows3, UserSearch } from 'lucide-react'
 
 export default function Validator(props: {
   mpc: MetaportCore
@@ -197,7 +198,7 @@ export default function Validator(props: {
         <Message
           className="mt-5"
           text={props.isXs ? 'Preview mode, ' : 'Previewing validator page in read-only mode, '}
-          icon={<VisibilityRoundedIcon />}
+          icon={<Eye />}
           link="/validator"
           linkText="click to exit"
           type="warning"
@@ -206,9 +207,8 @@ export default function Validator(props: {
       <SkPaper gray className="mt-5">
         <Headline
           text="Validator Summary"
-          icon={<CorporateFareRoundedIcon className="text-[17px]!" />}
+          icon={<Building2 size={17} />}
           size="small"
-          className="mb-5"
         />
         <Collapse in={props.address === undefined && props.customAddress === undefined}>
           <ConnectWallet tile className="grow" />
@@ -225,8 +225,8 @@ export default function Validator(props: {
             </div>
           ) : (
             <div>
-              <PeopleRoundedIcon className="text-secondary-foreground styles.chainIconlg w-full mt-5" />
-              <h3 className="font-bold text-secondary-foreground text-center mb-5">
+              <UserSearch className="text-secondary-foreground w-full mt-5" />
+              <h3 className="font-semibold text-secondary-foreground text-center mb-5 mt-2">
                 Validator doesn't exist
               </h3>
             </div>
@@ -241,7 +241,6 @@ export default function Validator(props: {
           validator={props.validator}
           address={props.address}
           customAddress={props.customAddress}
-          className="mt-5"
           isXs={props.isXs}
           chainsMeta={props.chainsMeta}
         />
@@ -257,7 +256,7 @@ export default function Validator(props: {
                   'Delegations ' +
                   (props.delegations === null ? '' : `(${props.delegations.length})`)
                 }
-                icon={<AllInboxRoundedIcon className="text-[17px]!" />}
+                icon={<Rows3 size={17} />}
                 className="grow"
               />
               <SortToggle onChange={setSortBy} className="mr-1.25" />

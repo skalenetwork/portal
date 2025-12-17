@@ -133,7 +133,7 @@ export default function Delegation(props: {
                 <h4 className="font-bold pOneLine text-foreground">
                   ID: {Number(props.delegation.id)}
                 </h4>
-                <p className={cls('p', 'text-xs', 'text-secondary-foreground')}>
+                <p className='text-xs text-secondary-foreground font-medium'>
                   {formatBigIntTimestampSeconds(props.delegation.created)}
                 </p>
               </div>
@@ -146,13 +146,7 @@ export default function Delegation(props: {
                 'ml-5',
                 'flex',
                 'items-center',
-                ['bg-green-500/20 text-green-700 border-green-500/30', delId === DelegationState.DELEGATED],
-                ['bg-red-500/20 text-red-700 border-red-500/30', delId === DelegationState.REJECTED],
-                ['bg-red-500/20 text-red-700 border-red-500/30', delId === DelegationState.CANCELED],
-                ['bg-blue-500/20 text-blue-700 border-blue-500/30', delId === DelegationState.COMPLETED],
-                ['bg-purple-500/20 text-purple-700 border-purple-500/30', delId === DelegationState.PROPOSED],
-                ['bg-yellow-500/20 text-yellow-700 border-yellow-500/30', delId === DelegationState.ACCEPTED],
-                ['bg-orange-500/20 text-orange-700 border-orange-500/30', delId === DelegationState.UNDELEGATION_REQUESTED],
+                `chip_${props.delegation.state.replace(/ /g, '_')}`,
                 'font-semibold'
               )}
             >
@@ -166,7 +160,7 @@ export default function Delegation(props: {
                 'ml-2.5',
                 'flex',
                 'items-center',
-                'bg-secondary-foreground/20 text-secondary-foreground border-secondary-foreground/30',
+                `chip_CANCELED`,
                 'font-semibold'
               )}
             >
@@ -179,7 +173,7 @@ export default function Delegation(props: {
               <Tile
                 size="md"
                 transparent
-                className={cls('p-0!', ['mr-10', !props.isXs], ['ml-10', !props.isXs])}
+                className={cls('p-0!', ['mr-2', !props.isXs], ['ml-2', !props.isXs])}
                 tooltip={
                   props.sklPrice && props.delegation.amount
                     ? units.displaySklValueUsd(props.delegation.amount, props.sklPrice)
@@ -290,6 +284,6 @@ export default function Delegation(props: {
           </div>
         </Collapse>
       </div>
-    </div>
+    </div >
   )
 }

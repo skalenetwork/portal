@@ -33,6 +33,7 @@ import LibraryAddCheckRoundedIcon from '@mui/icons-material/LibraryAddCheckRound
 import { calculateDelegationTotals } from '../../core/delegation/delegations'
 
 import SkStack from '../SkStack'
+import { CheckCheck, CircleCheckBig, Inbox, TrendingUp } from 'lucide-react'
 
 interface DelegationTotalsProps {
   delegations: types.st.IDelegation[] | null
@@ -53,7 +54,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
   const getTileText = (status: string, count?: number) => `${status}${count ? ` (${count})` : ''}`
 
   return (
-    <SkStack className="className">
+    <SkStack className={className}>
       <Tile
         value={totals && units.displayBalance(totals.proposed.amount, 'SKL')}
         tooltip={
@@ -63,7 +64,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
         grow
         size="md"
         textColor={totals?.proposed.count ? theme.primary : undefined}
-        icon={<InboxRoundedIcon className="text-[17px]!" />}
+        icon={<Inbox size={14} />}
       />
       <Tile
         value={totals && units.displayBalance(totals.accepted.amount, 'SKL')}
@@ -73,7 +74,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
         text={getTileText('Accepted', totals?.accepted.count)}
         grow
         size="md"
-        icon={<TaskAltRoundedIcon className="text-[17px]!" />}
+        icon={<CheckCheck size={14} />}
       />
       <Tile
         value={totals && units.displayBalance(totals.delegated.amount, 'SKL')}
@@ -83,7 +84,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
         text={getTileText('Delegated', totals?.delegated.count)}
         grow
         size="md"
-        icon={<DonutLargeRoundedIcon className="text-[17px]!" />}
+        icon={<TrendingUp size={14} />}
       />
       <Tile
         value={totals && units.displayBalance(totals.completed.amount, 'SKL')}
@@ -93,7 +94,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
         text={getTileText('Completed', totals?.completed.count)}
         grow
         size="md"
-        icon={<LibraryAddCheckRoundedIcon className="text-[17px]!" />}
+        icon={<CircleCheckBig size={14} />}
       />
     </SkStack>
   )

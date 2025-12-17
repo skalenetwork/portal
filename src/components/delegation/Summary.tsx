@@ -103,7 +103,7 @@ export default function Summary(props: {
                       copy={props.accountInfo?.address}
                       icon={<ContentCopyRoundedIcon />}
                     />
-                    <div className={`${!props.isXs ? 'border-l-4 border-border ml-2.5' : ''}`}></div>
+                    <div className={`${!props.isXs ? 'border-l-2 border-border ml-2.5' : ''}`}></div>
                   </div>
                 ) : (
                   <div></div>
@@ -126,7 +126,7 @@ export default function Summary(props: {
                   ri={!props.isXs}
                   icon={<ArrowUpRight />}
                 />
-                <div className="border-l-4 border-border"></div>
+                <div className="border-l-2 border-border"></div>
                 <Tile
                   className={`p-0 ${!props.isXs ? 'mr-5 ml-5' : ''}`}
                   size="md"
@@ -196,7 +196,7 @@ export default function Summary(props: {
                   ) : (
                     <div></div>
                   )}
-                  <div className="border-l-4 border-border"></div>
+                  <div className="border-l-2 border-border"></div>
                   <Tile
                     size="md"
                     transparent

@@ -183,7 +183,7 @@ export default function Staking(props: {
                 <Button
                   variant="contained"
                   className="btn btnMd text-xs text-accent! bg-foreground!"
-                  startIcon={<Coins size={15} />}
+                  startIcon={<Coins size={14} />}
                   disabled={loading || props.customAddress !== undefined}
                 >
                   Stake SKL
@@ -292,7 +292,7 @@ export default function Staking(props: {
             size="small"
           />
           <div className="mt-5 text-center">
-            <ChartPie className="text-secondary-foreground styles.chainIconmd w-full mb-2" />
+            <ChartPie className="text-secondary-foreground w-full mb-2" />
             <h5 className="text-sm text-muted-foreground font-semibold mb-5 text-center">
               Connect your wallet to view delegations
             </h5>
