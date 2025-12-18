@@ -53,11 +53,11 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <Search className="text-muted-foreground w-4! h-4!" />
+              <Search className="text-muted-foreground w-4! h-4! mx-1!" />
             </InputAdornment>
           )
         }}
-        className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-background! border border-border rounded-full`}
+        className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-card! border border-border rounded-full shadow-xs`}
         sx={{
           '& .MuiOutlinedInput-root': { borderRadius: '25px' },
           '& fieldset': { border: '0px red solid !important' }
