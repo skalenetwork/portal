@@ -68,7 +68,7 @@ export default function ValidatorCard(props: {
       <div>
         <div className="flex items-start">
           <div className="flex items-center flex-shrink-0">
-            <ValidatorLogo validatorId={props.validator.id} size="xs" />
+            <ValidatorLogo validatorId={props.validator.id} size="sm" />
           </div>
           <div className="flex flex-col ml-4 flex-1 min-w-0">
             <div className="flex items-center justify-between min-w-0">
@@ -83,21 +83,6 @@ export default function ValidatorCard(props: {
           </div>
         </div>
 
-        {showButton && (
-          <div className="mt-2.5">
-            <Link to={linkTo}>
-              <Button
-                size="small"
-                variant="contained"
-                className="btnMd text-xs text-accent! bg-foreground!"
-                startIcon={<Coins size={14} />}
-                fullWidth
-              >
-                Stake SKL
-              </Button>
-            </Link>
-          </div>
-        )}
       </div>
 
       <div className="flex mt-5 gap-2">
@@ -158,6 +143,22 @@ export default function ValidatorCard(props: {
             />
           </div>
         ) : null}
+
+        {showButton && (
+          <div className="mt-2.5">
+            <Link to={linkTo}>
+              <Button
+                size="small"
+                variant="contained"
+                className="btnMd text-xs text-accent! bg-foreground!"
+                startIcon={<Coins size={14} />}
+                fullWidth
+              >
+                Stake SKL
+              </Button>
+            </Link>
+          </div>
+        )}
       </div>
     </SkPaper>
   )

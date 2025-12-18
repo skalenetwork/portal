@@ -36,8 +36,6 @@ import {
 } from '@skalenetwork/metaport'
 import { types, units, constants } from '@/core'
 
-import PaidRoundedIcon from '@mui/icons-material/PaidRounded'
-import PriceChangeRoundedIcon from '@mui/icons-material/PriceChangeRounded'
 import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import DoDisturbOnRoundedIcon from '@mui/icons-material/DoDisturbOnRounded'

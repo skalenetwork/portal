@@ -44,7 +44,7 @@ export default function Tile(props: {
   progress?: number
   children?: ReactElement | ReactElement[] | false
   childrenRi?: ReactElement | ReactElement[] | null | ''
-  size?: 'lg' | 'md' | 'xl'
+  size?:'lg' | 'md' | 'xl'
   textColor?: string
   disabled?: boolean | null
   ri?: boolean

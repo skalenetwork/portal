@@ -27,7 +27,6 @@ import { cls, Tile } from '@skalenetwork/metaport'
 
 import { Grid, Collapse, Tooltip } from '@mui/material'
 import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
 
 import SkStack from '../SkStack'
@@ -35,14 +34,12 @@ import SkBtn from '../SkBtn'
 import ValidatorLogo from './ValidatorLogo'
 
 import {
-  DelegationSource,
   DelegationState,
   getDelegationSource,
-  getKeyByValue
 } from '../../core/delegation'
 import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
 import { AVATAR_COLORS } from '../../core/constants'
-import { Coins, ChevronRight, ChevronDown } from 'lucide-react'
+import { Coins, ChevronRight, ChevronDown, CircleUser, Globe } from 'lucide-react'
 
 export default function Delegation(props: {
   delegation: types.st.IDelegation
@@ -105,15 +102,16 @@ export default function Delegation(props: {
 
   return (
     <div className="mb-2.5 bg-background rounded-3xl p-4">
-      <div>
+      <div
+        className={`${!noActions ? 'cursor-pointer' : ''}`}
+        onClick={() => {
+          if (noActions) return
+          setOpen(!open)
+        }}
+      >
         <Grid container spacing={0} alignItems="center">
           <Grid
             size={{ xs: 12, md: 4 }}
-            className={`${!noActions ? 'cursor-pointer' : ''}`}
-            onClick={() => {
-              if (noActions) return
-              setOpen(!open)
-            }}
           >
             <div className={cls('flex', 'items-center')}>
               <Avatar
@@ -139,36 +137,24 @@ export default function Delegation(props: {
               </div>
             </div>
           </Grid>
-          <Grid size={{ xs: 12, md: 8 }} className={cls(['mt-5', props.isXs], 'flex', 'items-center')}>
+          <Grid size={{ xs: 12, md: 4 }} className="flex items-center justify-center">
             <div
               className={cls(
                 'chipXs',
-                'ml-5',
                 'flex',
                 'items-center',
+                'justify-center',
                 `chip_${props.delegation.state.replace(/ /g, '_')}`,
                 'font-semibold'
               )}
             >
-              <p className={cls('p', 'text-xs', 'pOneLine')}>
+              <p className="p text-xs text-center">
                 {props.delegation.state.replace(/_/g, ' ')}
               </p>
             </div>
-            <div
-              className={cls(
-                'chipXs',
-                'ml-2.5',
-                'flex',
-                'items-center',
-                `chip_CANCELED`,
-                'font-semibold'
-              )}
-            >
-              <p className={cls('p', 'text-xs', 'pOneLine')}>
-                {source}
-              </p>
-            </div>
-            <div className={cls('grow')}></div>
+          </Grid>
+          <Grid size={{ xs: 12, md: 4 }} className={cls(['mt-5', props.isXs], 'flex', 'items-center')}>
+            <div className="grow"></div>
             <SkStack className={cls('flex')}>
               <Tile
                 size="md"
@@ -197,20 +183,16 @@ export default function Delegation(props: {
                   size={17}
                   className={cls(
                     'text-secondary-foreground',
-                    'ml-2.5',
-                    'cursor-pointer'
+                    'ml-2.5'
                   )}
-                  onClick={() => setOpen(!open)}
                 />
               ) : (
                 <ChevronRight
                   size={17}
                   className={cls(
                     'text-secondary-foreground',
-                    'ml-2.5',
-                    'cursor-pointer'
+                    'ml-2.5'
                   )}
-                  onClick={() => setOpen(!open)}
                 />
               )
             ) : null}
@@ -219,20 +201,28 @@ export default function Delegation(props: {
         <Collapse in={open}>
           <div className="mt-4">
             {props.isValidatorPage && (
-              <Tile
-                className="p-0 mt-5"
-                transparent
-                value={props.delegation.address}
-                text="Token Holder Address"
-                grow
-                size="md"
-                icon={<AccountCircleRoundedIcon className="text-[17px]!" />}
-              />
+              <div className="flex gap-2.5">
+                <Tile
+                  className="bg-foreground/5!"
+                  value={props.delegation.address}
+                  text="Token Holder Address"
+                  grow
+                  size="md"
+                  icon={<CircleUser size={14} />}
+                />
+                <Tile
+                  className="bg-foreground/5!"
+                  value={source}
+                  text="Delegation Source"
+                  size="md"
+                  grow
+                  icon={<Globe size={14} />}
+                />
+              </div>
             )}
             {isCompleted && (
               <Tile
-                className="p-0 mt-5"
-                transparent
+                className="p-0"
                 tooltip={
                   props.sklPrice && props.delegation.finished
                     ? units.displaySklValueUsd(props.delegation.finished, props.sklPrice)
@@ -242,7 +232,7 @@ export default function Delegation(props: {
                 text="Delegation completed"
                 grow
                 size="md"
-                icon={<HistoryRoundedIcon className="text-[17px]!" />}
+                icon={<HistoryRoundedIcon className="text-[14px]!" />}
               />
             )}
             {Number(props.delegation.stateId) === DelegationState.PROPOSED && props.accept ? (
@@ -250,7 +240,7 @@ export default function Delegation(props: {
                 loading={loading}
                 text={loading ? 'Accepting delegation' : 'Accept delegation'}
                 color="primary"
-                className="fullW mt-5"
+                className="w-full"
                 onClick={async () => {
                   props.accept && (await props.accept(delegationInfo))
                 }}
@@ -262,7 +252,7 @@ export default function Delegation(props: {
                 loading={loading}
                 text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
                 color="error"
-                className="w-full mt-5"
+                className="w-full mt-5!"
                 onClick={async () => {
                   props.unstake && (await props.unstake(delegationInfo))
                 }}
@@ -274,7 +264,7 @@ export default function Delegation(props: {
                 loading={loading}
                 text={loading ? 'Canceling staking request' : 'Cancel staking request'}
                 color="warning"
-                className="fullW mt-5"
+                className="w-full mt-5"
                 onClick={async () => {
                   props.cancelRequest && (await props.cancelRequest(delegationInfo))
                 }}

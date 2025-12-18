@@ -22,13 +22,8 @@
  */
 
 import { useMemo } from 'react'
-import { cls, styles, useUIStore, Tile } from '@skalenetwork/metaport'
+import { useUIStore, Tile } from '@skalenetwork/metaport'
 import { type types, units } from '@/core'
-
-import InboxRoundedIcon from '@mui/icons-material/InboxRounded'
-import TaskAltRoundedIcon from '@mui/icons-material/TaskAltRounded'
-import DonutLargeRoundedIcon from '@mui/icons-material/DonutLargeRounded'
-import LibraryAddCheckRoundedIcon from '@mui/icons-material/LibraryAddCheckRounded'
 
 import { calculateDelegationTotals } from '../../core/delegation/delegations'
 
@@ -63,7 +58,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
         text={getTileText('Proposed', totals?.proposed.count)}
         grow
         size="md"
-        textColor={totals?.proposed.count ? theme.primary : undefined}
+        textColor={totals?.proposed.count ? 'rgb(57, 218, 248)' : undefined}
         icon={<Inbox size={14} />}
       />
       <Tile
