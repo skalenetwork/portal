@@ -30,12 +30,6 @@ import { type MetaportCore, SkPaper, contracts } from '@skalenetwork/metaport'
 
 import { Collapse, Skeleton } from '@mui/material'
 
-import CorporateFareRoundedIcon from '@mui/icons-material/CorporateFareRounded'
-import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded'
-import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
-
-import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded'
-
 import {
   StakingActionProps,
   unstakeDelegation,
