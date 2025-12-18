@@ -33,9 +33,9 @@ import AccordionSection from '../AccordionSection'
 import SkBtn from '../SkBtn'
 
 const icons: { [key in types.st.DelegationType]: any } = {
-  0: <CircleUser size={20} className="mr-1.5 text-foreground" />,
-  1: <Landmark size={20} className="mr-1.5 text-foreground" />,
-  2: <Landmark size={20} className="mr-1.5 text-foreground" />
+  0: <CircleUser size={17} className="text-foreground" />,
+  1: <Landmark size={17} className="text-foreground" />,
+  2: <Landmark size={17} className="text-foreground" />
 }
 
 const SUMMARY_VALIDATOR_ID = -1
@@ -95,7 +95,7 @@ export default function Summary(props: {
                     <Tile
                       size="md"
                       transparent
-                      className={`p-0 ${!props.isXs ? 'mr-5 ml-5' : ''}`}
+                      className={`p-0! ${!props.isXs ? 'mr-5 ml-5' : ''}`}
                       value={helper.shortAddress(props.accountInfo?.address)}
                       text="Escrow"
                       grow
@@ -111,7 +111,7 @@ export default function Summary(props: {
                 <Tile
                   size="md"
                   transparent
-                  className={`p-0 ${!props.isXs ? 'mr-5 ml-5' : ''}`}
+                  className={`p-0! ${!props.isXs ? 'mr-5 ml-5' : ''}`}
                   disabled={props.accountInfo?.staked === 0n}
                   tooltip={
                     props.sklPrice && props.accountInfo
@@ -124,11 +124,11 @@ export default function Summary(props: {
                   text="Staked Tokens"
                   grow
                   ri={!props.isXs}
-                  icon={<ArrowUpRight />}
+                  icon={<ArrowUpRight size={14} />}
                 />
                 <div className="border-l-2 border-border"></div>
                 <Tile
-                  className={`p-0 ${!props.isXs ? 'mr-5 ml-5' : ''}`}
+                  className={`p-0! ${!props.isXs ? 'mr-5 ml-5' : ''}`}
                   size="md"
                   transparent
                   grow
@@ -148,7 +148,7 @@ export default function Summary(props: {
                   }
                   ri={!props.isXs}
                   text="Available to stake"
-                  icon={<Coins size={17} />}
+                  icon={<Coins size={14} />}
                 />
               </SkStack>
             }

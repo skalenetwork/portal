@@ -35,9 +35,8 @@ export default function DelegationsNotification(props: {
   if (proposedDelegations && proposedDelegations > 0) {
     return (
       <Tooltip
-        title={`You have ${proposedDelegations} pending delegation${
-          proposedDelegations > 1 && 's'
-        }`}
+        title={`You have ${proposedDelegations} pending delegation${proposedDelegations > 1 ? 's' : ''
+          }`}
       >
         <div className={`${props.className} chipNotification`}>
           <p className="text-xs text-foreground!">{proposedDelegations}</p>

@@ -43,7 +43,8 @@ import {
   Fuel,
   HandCoins,
   ArrowRight,
-  CoinsIcon
+  CoinsIcon,
+  CirclePlus
 } from 'lucide-react'
 
 import { types, metadata, units, constants, ERC_ABIS } from '@/core'
@@ -51,7 +52,6 @@ import { MAINNET_ALIASES } from '@/core/networks'
 
 import { useState, useEffect } from 'react'
 import { Grid, Button, Dialog } from '@mui/material'
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 
 import Logo from '../Logo'
 import SkStack from '../SkStack'
@@ -259,7 +259,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                 <Button
                   size="small"
                   variant="contained"
-                  startIcon={<AddCircleRoundedIcon />}
+                  startIcon={<CirclePlus />}
                   className="btnMd ml-5 bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
                   onClick={() => setOpenModal(true)}
                   disabled={creditStation === undefined}

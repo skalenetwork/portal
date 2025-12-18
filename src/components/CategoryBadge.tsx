@@ -23,7 +23,6 @@
 
 import VideogameAssetRoundedIcon from '@mui/icons-material/VideogameAssetRounded'
 import HubRoundedIcon from '@mui/icons-material/HubRounded'
-import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
 import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded'
 import PaidRoundedIcon from '@mui/icons-material/PaidRounded'
 import ColorLensRoundedIcon from '@mui/icons-material/ColorLensRounded'
@@ -37,12 +36,12 @@ import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
 import StoreRoundedIcon from '@mui/icons-material/StoreRounded'
 import GroupRoundedIcon from '@mui/icons-material/GroupRounded'
 import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded'
-import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
 import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded'
 import SportsBasketballRoundedIcon from '@mui/icons-material/SportsBasketballRounded'
 import AgricultureRoundedIcon from '@mui/icons-material/AgricultureRounded'
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded'
 import PhotoCameraRoundedIcon from '@mui/icons-material/PhotoCameraRounded'
+import { Grid2x2, Landmark } from 'lucide-react'
 
 import Chip from './Chip'
 
@@ -51,7 +50,7 @@ export const CATEGORY_ICON: any = {
   games: <VideogameAssetRoundedIcon />,
   Games: <VideogameAssetRoundedIcon />,
   apps: <ExploreRoundedIcon />,
-  other: <GridViewRoundedIcon />,
+  other: <Grid2x2 />,
   Hub: <HubRoundedIcon />,
   Game: <VideogameAssetRoundedIcon />,
   DeFi: <PaidRoundedIcon />,
@@ -68,7 +67,7 @@ export const CATEGORY_ICON: any = {
   Marketplaces: <StoreRoundedIcon />,
   Social: <GroupRoundedIcon />,
   Metaverse: <LanguageRoundedIcon />,
-  Governance: <AccountBalanceRoundedIcon />,
+  Governance: <Landmark />,
   Knowledge: <MenuBookRoundedIcon />,
   Sports: <SportsBasketballRoundedIcon />,
   Farming: <AgricultureRoundedIcon />,

@@ -28,13 +28,12 @@ import { Tooltip } from '@mui/material'
 import { SkPaper, useThemeMode } from '@skalenetwork/metaport'
 import { type types, metadata } from '@/core'
 
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
+import { ChevronRight, TrendingUp } from 'lucide-react'
 
 import ChainLogo from '../ChainLogo'
 import { formatNumber } from '../../core/timeHelper'
 
 import { MAINNET_CHAIN_LOGOS } from '../../core/constants'
-import { ChevronRight, TrendingUp } from 'lucide-react'
 
 export default function HubTile(props: {
   network: types.SkaleNetwork

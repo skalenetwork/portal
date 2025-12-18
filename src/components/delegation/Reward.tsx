@@ -23,13 +23,12 @@
 import { types, units } from '@/core'
 
 import { Tooltip, Button } from '@mui/material'
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
-import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
 
 import ValidatorLogo from './ValidatorLogo'
 
 import { getValidatorById } from '../../core/delegation'
 import RetrieveRewardModal from './RetrieveRewardModal'
+import { CircleMinus, CirclePlus } from 'lucide-react'
 
 export default function Reward(props: {
   validators: types.st.IValidator[]
@@ -66,9 +65,9 @@ export default function Reward(props: {
       }}
     >
       {props.open ? (
-        <RemoveCircleRoundedIcon className="mr-1.5 w-4 h-4 text-secondary-foreground" />
+        <CircleMinus size={17} className="mr-1.5 text-secondary-foreground align-center" />
       ) : (
-        <AddCircleRoundedIcon className="mr-1.5 w-4 h-4 text-secondary-foreground" />
+        <CirclePlus size={17} className="mr-1.5 text-secondary-foreground align-center" />
       )}
     </div>
   )

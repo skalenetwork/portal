@@ -26,7 +26,6 @@ import { types, units, timeUtils } from '@/core'
 import { cls, Tile } from '@skalenetwork/metaport'
 
 import { Grid, Collapse, Tooltip } from '@mui/material'
-import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
 
 import SkStack from '../SkStack'
@@ -39,7 +38,7 @@ import {
 } from '../../core/delegation'
 import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
 import { AVATAR_COLORS } from '../../core/constants'
-import { Coins, ChevronRight, ChevronDown, CircleUser, Globe } from 'lucide-react'
+import { Coins, ChevronRight, ChevronDown, CircleUser, Globe, Landmark } from 'lucide-react'
 
 export default function Delegation(props: {
   delegation: types.st.IDelegation
@@ -174,7 +173,7 @@ export default function Delegation(props: {
             </SkStack>
             {props.delegationType === types.st.DelegationType.ESCROW && (
               <Tooltip title="Escrow delegation">
-                <AccountBalanceRoundedIcon className="ml-2.5 text-secondary-foreground" />
+                <Landmark size={14} className="ml-2.5 text-secondary-foreground" />
               </Tooltip>
             )}
             {!noActions ? (

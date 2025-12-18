@@ -40,7 +40,7 @@ export default function Breadcrumbs(props: { sections: BreadcrumbSection[]; clas
               <Button className={index === 0 ? 'text-foreground' : 'text-muted!'}>
                 {section.icon}
                 <p
-                  className={`text-xs capitalize! ml-1.5 ${index === 0 ? 'text-foreground!' : 'text-muted'}`}
+                  className={`text-xs capitalize! ml-1.5 ${index === 0 ? 'text-foreground!' : 'text-foreground'}`}
                 >
                   {section.text}
                 </p>

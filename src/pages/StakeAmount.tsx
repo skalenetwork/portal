@@ -28,9 +28,7 @@ import { type MetaportCore, SkPaper, contracts } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
-import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded'
-import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
+import { ChevronLeft, CircleDollarSign, HandCoins, UserRoundSearch } from 'lucide-react'
 
 import Loader from '../components/Loader'
 
@@ -43,7 +41,6 @@ import ErrorTile from '../components/ErrorTile'
 import Headline from '../components/Headline'
 import { isDelegationTypeAvailable, isLoaded } from '../core/delegation/staking'
 import { getDelegationTypeAlias } from '../core/delegation'
-import { UserRoundSearch } from 'lucide-react'
 
 export default function StakeAmount(props: {
   mpc: MetaportCore
@@ -117,17 +114,17 @@ export default function StakeAmount(props: {
               sections={[
                 {
                   text: 'Staking',
-                  icon: <ArrowBackIosNewRoundedIcon className="w-3! h-3! text-foreground" />,
+                  icon: <ChevronLeft size={14} className="text-foreground" />,
                   url: '/staking'
                 },
                 {
                   text: 'Choose a validator',
-                  icon: <UserRoundSearch className="w-3! h-3! text-foreground" />,
+                  icon: <UserRoundSearch size={14} className="text-foreground" />,
                   url: '/staking/new'
                 },
                 {
                   text: 'Stake SKL',
-                  icon: <SavingsRoundedIcon />
+                  icon: <HandCoins size={14} className="text-secondary-foreground" />
                 }
               ]}
             />
@@ -152,7 +149,7 @@ export default function StakeAmount(props: {
 
         <Headline
           text="Staking details"
-          icon={<MonetizationOnRoundedIcon className="text-[17px]!" />}
+          icon={<CircleDollarSign size={17} />}
           className="mt-5 mb-2.5"
           size="small"
         />

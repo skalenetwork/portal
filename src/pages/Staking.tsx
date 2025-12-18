@@ -231,8 +231,7 @@ export default function Staking(props: {
         <Collapse in={props.address === undefined}>
           <Headline
             text="Account info"
-            icon={<CircleUser />}
-            size="small"
+            icon={<CircleUser size={17} />}
           />
           <ConnectWallet tile className="grow mt-2.5" />
         </Collapse>

@@ -22,13 +22,16 @@
 
 import NativeSelect from '@mui/material/NativeSelect'
 import { types } from '@/core'
+import { isDelegationTypeAvailable } from '../../core/delegation/staking'
 
 export default function DelegationTypeSelect(props: {
   delegationType: types.st.DelegationType
   handleChange: (event: any) => void
   si: types.st.StakingInfoMap
 }) {
-  const hasEscrowOrGrant = true
+  const hasEscrow = isDelegationTypeAvailable(props.si, types.st.DelegationType.ESCROW)
+  const hasGrant = isDelegationTypeAvailable(props.si, types.st.DelegationType.ESCROW2)
+  const hasEscrowOrGrant = hasEscrow || hasGrant
 
   if (!hasEscrowOrGrant) {
     return null
@@ -45,12 +48,12 @@ export default function DelegationTypeSelect(props: {
         <option value={types.st.DelegationType.REGULAR} className="text-xs!">
           Regular delegation
         </option>
-        {true ? (
+        {hasEscrow ? (
           <option value={types.st.DelegationType.ESCROW} className="text-xs">
             Escrow delegation
           </option>
         ) : null}
-        {true ? (
+        {hasGrant ? (
           <option value={types.st.DelegationType.ESCROW2} className="text-xs">
             Grant delegation
           </option>

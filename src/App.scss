@@ -903,6 +903,14 @@ input[type=number] {
   color: rgb(57 218 248);
   background: linear-gradient(rgb(20 66 59), rgb(11 36 33));
 }
+.chip_ACCEPTED {
+  background: linear-gradient(180deg, #233d0f, #0a1b07);
+  color: #3cda4e;
+}
+.chip_REWARDS {
+  background: linear-gradient(180deg, #35320c, #2a230a);
+  color: #dac83c;
+}
 }
 
 .chip_DELEGATED {
@@ -916,13 +924,13 @@ input[type=number] {
 }
 
 .chip_REWARDS {
-  background: linear-gradient(180deg, #3d390f, #2a230a);
-  color: #dac83c;
+  background: linear-gradient(180deg, #dac83c85, #e5d76d86);
+  color: #4a3605;
 }
 
 .chip_ACCEPTED {
-  background: linear-gradient(180deg, #233d0f, #0a1b07);
-  color: #3cda4e;
+  background: linear-gradient(180deg, #3cda4e7a, #297b1a90);
+  color: #233d0f;
 }
 
 .chip_REJECTED {
