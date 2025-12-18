@@ -29,16 +29,10 @@ import { type types, metadata, units, constants } from '@/core'
 import { explorer, MetaportCore, SkPaper, Tile } from '@skalenetwork/metaport'
 
 import Container from '@mui/material/Container'
-import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded'
-import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded'
-import DataSaverOffRoundedIcon from '@mui/icons-material/DataSaverOffRounded'
-import { ChevronLeft, LayoutGrid } from 'lucide-react'
+
+import { ArrowLeftRight, Binoculars, Boxes, ChartPie, ChevronLeft, FileText, HandCoins, LayoutGrid } from 'lucide-react'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
-import HubRoundedIcon from '@mui/icons-material/HubRounded'
-import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded'
-import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded'
-import HourglassFullRoundedIcon from '@mui/icons-material/HourglassFullRounded'
-import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded'
+
 
 import { useApps } from '../useApps'
 
@@ -175,7 +169,6 @@ export default function App(props: {
                 appName={app}
                 size="md"
               />
-
               <div className="app-info grow">
                 <div className={!props.isXs ? 'flex' : ''}>
                   <div className="grow mb-2.5">
@@ -183,7 +176,7 @@ export default function App(props: {
                   </div>
                 </div>
                 <div className="flex items-center">
-                  <h2 className="m-0 text-base text-foreground font-bold">{appAlias}</h2>
+                  <h2 className="font-bold text-xl text-foreground">{appAlias}</h2>
                   <div className="flex ml-2.5">
                     {featured && <ChipFeatured />}
                     {trending && <ChipTrending />}
@@ -191,7 +184,6 @@ export default function App(props: {
                     {metadata.isPreTge(appMeta) && <ChipPreTge />}
                   </div>
                 </div>
-
                 <CollapsibleDescription text={appDescription} expandable />
                 <SocialButtons size="md" social={appMeta.social} className="mt-5" />
               </div>
@@ -206,7 +198,7 @@ export default function App(props: {
                   grow
                   text="Total transactions"
                   value={counters ? formatNumber(Number(counters.transactions_count)) : undefined}
-                  icon={<DataSaverOffRoundedIcon />}
+                  icon={<ChartPie size={14} />}
                 />
               </div>
               <div className="col-span-1">
@@ -224,7 +216,7 @@ export default function App(props: {
                       : undefined
                   }
                   value={props.metrics && counters ? `${formatGas()} ETH` : undefined}
-                  icon={<SavingsRoundedIcon />}
+                  icon={<HandCoins size={14} />}
                 />
               </div>
               <div className="col-span-1">
@@ -234,7 +226,7 @@ export default function App(props: {
                   value={
                     counters ? formatNumber(Number(counters.transactions_last_30_days)) : undefined
                   }
-                  icon={<HourglassFullRoundedIcon />}
+                  icon={<ArrowLeftRight size={14} />}
                 />
               </div>
               <div className="col-span-1">
@@ -244,7 +236,7 @@ export default function App(props: {
                   value={
                     counters ? formatNumber(Number(counters.transactions_last_7_days)) : undefined
                   }
-                  icon={<HourglassBottomRoundedIcon />}
+                  icon={<ArrowLeftRight size={14} />}
                 />
               </div>
               <div className="col-span-1">
@@ -252,7 +244,7 @@ export default function App(props: {
                   grow
                   text="Daily transactions"
                   value={counters ? formatNumber(Number(counters.transactions_today)) : undefined}
-                  icon={<HourglassTopRoundedIcon />}
+                  icon={<ArrowLeftRight size={14} />}
                 />
               </div>
             </div>
@@ -266,7 +258,7 @@ export default function App(props: {
               expanded={expanded}
               panel="panel3"
               title={`Runs on SKALE ${isAppChain ? 'Chain' : 'Hub'}`}
-              icon={<HubRoundedIcon />}
+              icon={<Boxes size={17} />}
             >
               <HubTile
                 network={props.mpc.config.skaleNetwork}
@@ -277,10 +269,11 @@ export default function App(props: {
               />
             </AccordionSection>
             {appMeta.contracts ? (
-              <AccordionSection
+              <AccordionSection className="mt-5"
                 expandedByDefault={true}
                 title="Smart contracts"
-                icon={<ArticleRoundedIcon />}
+                icon={<FileText size={17}
+                />}
               >
                 <div>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
@@ -307,7 +300,7 @@ export default function App(props: {
           <AccordionSection
             expandedByDefault
             title="Discover more"
-            icon={<AutoAwesomeRoundedIcon />}
+            icon={<Binoculars size={17} />}
             marg={false}
           >
             <RecommendedApps

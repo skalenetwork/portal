@@ -31,7 +31,7 @@ import 'react-social-icons/x'
 import { type types } from '@/core'
 import SwellIcon from './SwellIcon'
 import EpicGamesStoreLogo from '../../assets/egs.svg'
-import { Globe, MessagesSquare, Target, Link } from 'lucide-react'
+import { Globe, MessagesSquare, Target, CircleSlash2 } from 'lucide-react'
 
 interface SocialButtonsProps {
   social?: types.AppSocials
@@ -102,7 +102,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
     {
       key: 'dune',
       icon: (
-        <Link
+        <CircleSlash2
           className={`${isMd ? 'text-foreground' : 'text-muted-foreground'}`}
           size={isMd ? 24 : 17}
         />

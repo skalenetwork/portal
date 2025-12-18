@@ -23,7 +23,7 @@
 
 import Tooltip from '@mui/material/Tooltip'
 import ButtonBase from '@mui/material/ButtonBase'
-import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
+import { ArrowUpRight } from 'lucide-react'
 
 export default function LinkSurface(props: {
   title: string
@@ -43,7 +43,7 @@ export default function LinkSurface(props: {
               </div>
               <p className="text-base font-semibold shortP text-foreground">{props.value}</p>
             </div>
-            <ArrowOutwardRoundedIcon className="text-secondary-foreground ml-5 text-[17px]!" />
+            <ArrowUpRight className="text-secondary-foreground ml-5 text-[17px]!" />
           </ButtonBase>
         </Tooltip>
       </a>

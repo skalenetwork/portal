@@ -65,7 +65,7 @@ export default function AccordionSection(props: {
               {props.icon}
             </div>
           ) : null}
-          <p className="text-sm font-semibold grow text-foreground/80 text-left">{props.title}</p>
+          <p className="text-sm font-semibold grow text-foreground/80! text-left">{props.title}</p>
           <p className="text-xs font-semibold text-secondary-foreground mr-5">{props.subtitle}</p>
           {expanded === panel ? (
             <CircleMinus size={17} className="mr-1.5 text-secondary-foreground" />

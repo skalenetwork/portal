@@ -28,14 +28,13 @@ import { Tooltip } from '@mui/material'
 import { SkPaper, useThemeMode } from '@skalenetwork/metaport'
 import { type types, metadata } from '@/core'
 
-import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
 
 import ChainLogo from '../ChainLogo'
 import { formatNumber } from '../../core/timeHelper'
 
 import { MAINNET_CHAIN_LOGOS } from '../../core/constants'
-import { TrendingUp } from 'lucide-react'
+import { ChevronRight, TrendingUp } from 'lucide-react'
 
 export default function HubTile(props: {
   network: types.SkaleNetwork
@@ -87,7 +86,7 @@ export default function HubTile(props: {
                 />
               </div>
               <div className={`${!props.isXs ? 'ml-5' : 'ml-2.5'} grow`}>
-                <h4 className="font-bold pOneLine">{alias}</h4>
+                <h4 className="font-bold text-lg text-foreground">{alias}</h4>
                 <p className={`text-xs ${props.isXs ? 'mr-2.5' : ''} text-secondary-foreground`}>
                   {chainDescription.split('.', 1)[0]}
                 </p>
@@ -106,7 +105,7 @@ export default function HubTile(props: {
             )}
             {!props.isXs && (
               <div className="mr-5 w-4 h-4">
-                <ArrowForwardIosRoundedIcon className="text-secondary-foreground" />
+                <ChevronRight className="text-secondary-foreground" />
               </div>
             )}
           </div>
