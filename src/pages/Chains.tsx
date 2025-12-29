@@ -72,7 +72,7 @@ export default function Chains(props: {
       <div className="fullscreen-msg">
         <div className="flex">
           <div className="flex items-center mr-5">
-            <CircularProgress className="fullscreen-spin" />
+            <CircularProgress className="fullscreen-spin text-foreground" />
           </div>
           <div className="flex items-center">
             <h3 className="fullscreen-msg-text text-foreground! font-semibold">

@@ -43,7 +43,7 @@ export default function FaqAccordion() {
           panel={`panel${index}`}
           title={question.question}
         >
-          <p className="text-base text-secondary-foreground ml-2.5 mr-2.5">{question.answer}</p>
+          <p className="text-sm text-secondary-foreground font-semibold ml-2.5 mr-2.5">{question.answer}</p>
         </AccordionSection>
       ))}
     </SkPaper>

@@ -173,7 +173,7 @@ export default function Ecosystem(props: {
               </div>
             </div>
           </SkStack>
-          <SkStack className={`mb-5 flex items-center  ${props.isXs ? 'flex-col' : ''}`}>
+          <SkStack className={`mb-5 flex items-center   ${props.isXs ? 'flex-col' : ''}`}>
             <SearchComponent
               className={`grow ${!props.isXs ? '' : 'fullW'}`}
               searchTerm={searchTerm}
@@ -202,8 +202,8 @@ export default function Ecosystem(props: {
               icon={<LayoutGrid />}
               iconPosition="start"
               className={`btn btnMd mr-1! ml-1! tab fwmobile ${activeTab === 0
-                ? 'text-foreground! bg-foreground/10! shadow-xs!'
-                : 'text-muted-foreground!'
+                ? 'text-foreground! bg-gray-100! dark:bg-black!'
+                : 'bg-card! text-muted-foreground!'
                 }`}
             />
             <Tab
@@ -211,8 +211,8 @@ export default function Ecosystem(props: {
               icon={SECTION_ICONS.featured}
               iconPosition="start"
               className={`btn btnMd mr-1! ml-1! tab fwmobile ${activeTab === 1
-                ? 'text-foreground! bg-foreground/10! shadow-xs!'
-                : 'text-muted-foreground!'
+                ? 'text-foreground! bg-gray-100! dark:bg-black!'
+                : 'bg-card! text-muted-foreground!'
                 }`}
             />
             <Tab
@@ -220,8 +220,8 @@ export default function Ecosystem(props: {
               icon={SECTION_ICONS.new}
               iconPosition="start"
               className={`btn btnMd mr-1! ml-1! tab fwmobile ${activeTab === 2
-                ? 'text-foreground! bg-foreground/10! shadow-xs!'
-                : 'text-muted-foreground!'
+                ? 'text-foreground!  dark:bg-black!'
+                : 'bg-card! text-muted-foreground!'
                 }`}
             />
             <Tab
@@ -229,8 +229,8 @@ export default function Ecosystem(props: {
               icon={SECTION_ICONS.trending}
               iconPosition="start"
               className={`btn btnMd mr-1! ml-1! tab fwmobile ${activeTab === 3
-                ? 'text-foreground! bg-foreground/10! shadow-xs!'
-                : 'text-muted-foreground!'
+                ? 'text-foreground! bg-gray-100! dark:bg-black! shadow-xs!'
+                : 'bg-card! text-muted-foreground!'
                 }`}
             />
           </Tabs>

@@ -22,14 +22,14 @@
  */
 
 import { useEffect, useState } from 'react'
+import { useThemeMode } from '@skalenetwork/metaport'
 import { Helmet } from 'react-helmet'
 
 import { constants } from '@/core'
 import { SkPaper, MetaportCore, useWagmiAccount, contracts, Tile } from '@skalenetwork/metaport'
 import { TransakConfig, Transak } from '@transak/transak-sdk'
 
-import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
-import HardwareRoundedIcon from '@mui/icons-material/HardwareRounded'
+import { Ban, Hammer } from 'lucide-react'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
@@ -48,6 +48,7 @@ const NETWORK_NAME = 'skale'
 export default function Onramp(props: { mpc: MetaportCore }) {
   const [transak, setTransak] = useState<Transak | undefined>()
   const { address } = useWagmiAccount()
+  const { mode } = useThemeMode()
 
   const chain = contracts.paymaster.getPaymasterChain(props.mpc.config.skaleNetwork)
   const isProd =
@@ -85,7 +86,7 @@ export default function Onramp(props: { mpc: MetaportCore }) {
         <Tile
           value="Need to set Transak API key"
           text="Error occurred"
-          icon={<ErrorRoundedIcon />}
+          icon={<Ban />}
           color="warning"
           className="mt-5"
         />
@@ -96,6 +97,7 @@ export default function Onramp(props: { mpc: MetaportCore }) {
     if (transak) {
       transak.cleanup()
     }
+    const isDark = mode === 'dark'
     const transakConfig: TransakConfig = {
       apiKey: TRANSAK_API_KEY,
       environment: isProd ? Transak.ENVIRONMENTS.PRODUCTION : Transak.ENVIRONMENTS.STAGING,
@@ -104,9 +106,11 @@ export default function Onramp(props: { mpc: MetaportCore }) {
       network: NETWORK_NAME,
       themeColor: '1B9F52',
       exchangeScreenTitle: 'Transfer to SKALE',
-      colorMode: 'DARK',
-      backgroundColors: ['#141414', '#303030', '#1a1a1a'],
-      borderColors: ['#202020'],
+      colorMode: isDark ? 'DARK' : 'LIGHT',
+      backgroundColors: isDark
+        ? ['#141414', '#303030', '#1a1a1a']
+        : ['#ffffff', '#f5f5f5', '#eaeaea'],
+      borderColors: isDark ? ['#202020'] : ['#e0e0e0'],
       walletAddress: address
     }
 
@@ -120,7 +124,7 @@ export default function Onramp(props: { mpc: MetaportCore }) {
 
   useEffect(() => {
     initTransak()
-  }, [address])
+  }, [address, mode])
 
   return (
     <Container maxWidth="sm">
@@ -144,7 +148,7 @@ export default function Onramp(props: { mpc: MetaportCore }) {
           <Message
             className="mt-5"
             text="You are using staging environment"
-            icon={<HardwareRoundedIcon />}
+            icon={<Hammer />}
             type="warning"
           />
         ) : (
@@ -152,7 +156,7 @@ export default function Onramp(props: { mpc: MetaportCore }) {
         )}
         {address ? (
           <SkPaper gray className="mt-5">
-            <div id="transakMount" className="'transakFrame', 'mt-1.25'"></div>
+            <div id="transakMount" className="transakFrame mt-1.25" style={{ minHeight: 700, height: 700, width: '100%' }}></div>
             <TokenBalanceTile mpc={props.mpc} chain={chain} />
           </SkPaper>
         ) : (

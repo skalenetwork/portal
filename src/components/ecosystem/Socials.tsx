@@ -31,7 +31,8 @@ import 'react-social-icons/x'
 import { type types } from '@/core'
 import SwellIcon from './SwellIcon'
 import EpicGamesStoreLogo from '../../assets/egs.svg'
-import { Globe, MessagesSquare, Target, CircleSlash2 } from 'lucide-react'
+import DuneLogo from '../../assets/dune.svg'
+import { Globe, MessagesSquare, Target } from 'lucide-react'
 
 interface SocialButtonsProps {
   social?: types.AppSocials
@@ -102,9 +103,10 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
     {
       key: 'dune',
       icon: (
-        <CircleSlash2
-          className={`${isMd ? 'text-foreground' : 'text-muted-foreground'}`}
-          size={isMd ? 24 : 17}
+        <img
+          src={DuneLogo}
+          className={`customSocialIcon ${isMd ? 'text-foreground' : 'opacity-60'}`}
+          alt="dune-logo"
         />
       ),
       title: 'Dune Analytics'
