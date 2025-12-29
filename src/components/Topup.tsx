@@ -28,8 +28,7 @@ import { type MetaportCore, Tile } from '@skalenetwork/metaport'
 
 import Button from '@mui/material/Button'
 import { Collapse } from '@mui/material'
-import TollIcon from '@mui/icons-material/Toll'
-import MoreTimeIcon from '@mui/icons-material/MoreTime'
+import { ClockPlus, Gem } from 'lucide-react'
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
 
 import SkStack from './SkStack'
@@ -75,10 +74,10 @@ export default function Topup(props: {
       <SkStack className="mb-2.5">
         <Tile
           text="Top-up period (months)"
-          icon={<MoreTimeIcon />}
+          icon={<ClockPlus size={14} />}
           children={
             <MonthSelector
-              className="mt-2.5"
+              className="mt-2.5 text-foreground"
               max={maxTopupPeriod}
               topupPeriod={props.topupPeriod}
               setTopupPeriod={props.setTopupPeriod}
@@ -98,7 +97,7 @@ export default function Topup(props: {
           }
           text="Top-up amount"
           textRi={helperText}
-          icon={<TollIcon />}
+          icon={<Gem size={14} />}
           grow
         />
         <Tile
@@ -109,7 +108,7 @@ export default function Topup(props: {
               : ''
           }
           text="SKL balance"
-          icon={<TollIcon />}
+          icon={<Gem size={14} />}
           color={balanceOk ? undefined : 'error'}
         />
       </SkStack>
@@ -136,11 +135,11 @@ export default function Topup(props: {
           />
         </SkStack>
       </Collapse>
-      <div className="mt-5 mb-2.5 ml-1.5 flex">
-        <div className="flex">
+      <div className="mt-5 mb-2.5 ml-1.5 flex align-center">
+        <div className="flex gap-2.5 align-center!">
           <Button
             variant="contained"
-            className="btn"
+            className="btn btnMd text-xs bg-secondary-foreground text-foreground! align-center!"
             disabled={!balanceOk || props.loading || maxTopupPeriod <= 0}
             onClick={props.topupChain}
           >
@@ -148,7 +147,7 @@ export default function Topup(props: {
           </Button>
           {!balanceOk ? (
             <Link to="/bridge">
-              <Button variant="contained" className="btn ml-2.5">
+              <Button variant="contained"  className="btn btnMd text-xs text-accent! bg-foreground! align-center!">
                 Bridge SKL to Europa Hub
               </Button>
             </Link>

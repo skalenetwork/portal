@@ -52,7 +52,7 @@ export default function MonthSelector(props: {
   }
 
   return (
-    <div className={`${props.className} items-center flex`}>
+    <div className={`${props.className} gap-1.5 items-center flex`}>
       {monthRecommendations
         .filter((x) => x <= props.max)
         .map((month: any, i: number) => (
@@ -64,7 +64,7 @@ export default function MonthSelector(props: {
               props.setTopupPeriod(month)
             }}
           >
-            <p className=" text-base">{month}</p>
+            <p className="text-foreground">{month}</p>
           </Button>
         ))}
       {openCustom ? (
@@ -84,7 +84,7 @@ export default function MonthSelector(props: {
                 }
                 setTextPeriod(event.target.value)
               }}
-              className="mr-2.5 monthInput"
+              className="mr-2.5 ml-2 monthInput"
               placeholder="0"
             />
             <Button
@@ -113,18 +113,18 @@ export default function MonthSelector(props: {
                 props.setErrorMsg(undefined)
               }}
             >
-              <p className=" text-base">Apply</p>
+              <p className=" text-foreground ml-1.5">Apply</p>
             </Button>
           </div>
           <Button
             startIcon={<CancelOutlinedIcon />}
             variant="text"
-            className="roundBtn ml-1.5"
+            className="roundBtn ml-1.5 text-foreground"
             onClick={() => {
               setOpenCustom(false)
             }}
           >
-            <p className=" text-base">Close</p>
+            <p className="text-muted-foreground">Close</p>
           </Button>
         </div>
       ) : (
@@ -135,7 +135,7 @@ export default function MonthSelector(props: {
             setOpenCustom(true)
           }}
         >
-          <p className=" text-base">{customPeriod ? `${customPeriod} (Edit)` : 'Custom'}</p>
+          <p className=" text-foreground">{customPeriod ? `${customPeriod} (Edit)` : 'Custom'}</p>
         </Button>
       )}
     </div>
