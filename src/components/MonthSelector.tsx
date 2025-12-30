@@ -24,8 +24,7 @@
 import { useState } from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
+import { CircleCheck, CircleX } from 'lucide-react'
 
 import { formatTimePeriod } from '../core/timeHelper'
 
@@ -89,8 +88,8 @@ export default function MonthSelector(props: {
             />
             <Button
               variant="text"
-              startIcon={<CheckCircleRoundedIcon />}
-              className="roundBtn outlined"
+              startIcon={<CircleCheck size={17} />}
+              className="roundBtn outlined text-foreground!"
               onClick={() => {
                 if (
                   textPeriod === undefined ||
@@ -113,13 +112,13 @@ export default function MonthSelector(props: {
                 props.setErrorMsg(undefined)
               }}
             >
-              <p className=" text-foreground ml-1.5">Apply</p>
+              <p className=" text-foreground! ml-1.5">Apply</p>
             </Button>
           </div>
           <Button
-            startIcon={<CancelOutlinedIcon />}
+            startIcon={<CircleX size={17} />}
             variant="text"
-            className="roundBtn ml-1.5 text-foreground"
+            className="roundBtn ml-1.5 text-muted-foreground!"
             onClick={() => {
               setOpenCustom(false)
             }}

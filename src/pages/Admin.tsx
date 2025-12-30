@@ -26,9 +26,7 @@ import { useParams } from 'react-router-dom'
 import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
 import { types, metadata } from '@/core'
 
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
-import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
-import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded'
+import { ChevronLeft, Link2, ShieldUser } from 'lucide-react'
 
 import Paymaster from '../components/Paymaster'
 import Breadcrumbs from '../components/Breadcrumbs'
@@ -47,17 +45,17 @@ export default function Admin(props: { mpc: MetaportCore; chainsMeta: types.Chai
             sections={[
               {
                 text: 'All chains',
-                icon: <ArrowBackIosNewRoundedIcon />,
-                url: '/chains'
-              },
-              {
-                text: alias,
-                icon: <LinkRoundedIcon />,
+                  icon: <ChevronLeft size={16} className="text-foreground" />,
+                  url: '/chains'
+                },
+                {
+                  text: alias,
+                  icon: <Link2 size={16} />,
                 url: `/chains/${name}`
               },
               {
                 text: 'Manage',
-                icon: <AdminPanelSettingsRoundedIcon />
+                icon: <ShieldUser size={16} />
               }
             ]}
           />

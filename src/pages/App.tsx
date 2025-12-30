@@ -153,7 +153,7 @@ export default function App(props: {
               },
               {
                 text: appAlias,
-                icon: <LayoutGrid size={17} />
+                icon: <LayoutGrid size={16} />
               }
             ]}
           />

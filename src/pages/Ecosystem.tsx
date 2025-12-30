@@ -199,7 +199,7 @@ export default function Ecosystem(props: {
           >
             <Tab
               label="All"
-              icon={<LayoutGrid />}
+              icon={<LayoutGrid size={14} />}
               iconPosition="start"
               className={`btn btnMd mr-1! ml-1! tab fwmobile ${activeTab === 0
                 ? 'text-foreground! bg-gray-100! dark:bg-black!'

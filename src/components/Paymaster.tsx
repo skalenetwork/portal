@@ -36,8 +36,7 @@ import {
   contracts
 } from '@skalenetwork/metaport'
 
-import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
-import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
+import { CircleDollarSign, ShieldAlert } from 'lucide-react'
 
 import ConnectWallet from './ConnectWallet'
 import PricingInfo from './PricingInfo'
@@ -171,9 +170,9 @@ export default function Paymaster(props: {
       <Tile
         value="SKALE Chain is not added to Paymaster"
         text="Error occurred"
-        icon={<ErrorRoundedIcon />}
+        icon={<ShieldAlert size={17} />}
         color="error"
-        className="mt-5"
+        className="mt-5 dark:bg-red-800/80 dark:border-red-600 border-2"
       />
     )
   if (info.oneSklPrice === 0n)
@@ -181,9 +180,9 @@ export default function Paymaster(props: {
       <Tile
         value="Need to set oneSklPrice on contracts"
         text="Error occurred"
-        icon={<ErrorRoundedIcon />}
+        icon={<ShieldAlert size={17} />}
         color="error"
-        className="mt-5"
+        className="mt-5 dark:bg-red-800/80 dark:border-red-600 border-2"
       />
     )
 
@@ -193,7 +192,7 @@ export default function Paymaster(props: {
       <Headline
         text="Top-up chain"
         className="mt-5 mb-2.5"
-        icon={<MonetizationOnRoundedIcon className="text-[17px]!" />}
+        icon={<CircleDollarSign size={17} />}
         size="small"
       />
       {!address ? (

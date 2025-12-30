@@ -36,11 +36,11 @@ export default function Breadcrumbs(props: { sections: BreadcrumbSection[]; clas
       {props.sections.map((section: BreadcrumbSection, index) => (
         <div className="flex items-center" key={index}>
           {section.url ? (
-            <Link to={section.url} className="undec w-full">
-              <Button className={index === 0 ? 'text-foreground' : 'text-muted!'}>
+            <Link to={section.url} className="undec w-full text-foreground">
+              <Button className={index === 0 ? 'text-muted-foreground' : 'text-foreground!'}>
                 {section.icon}
                 <p
-                  className={`text-xs capitalize! ml-1.5 ${index === 0 ? 'text-foreground!' : 'text-foreground'}`}
+                  className={`text-xs capitalize! ml-1.5 ${index === 0 ? 'text-muted-foreground!' : 'text-foreground'}`}
                 >
                   {section.text}
                 </p>

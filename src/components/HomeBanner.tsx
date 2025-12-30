@@ -80,10 +80,10 @@ export default function HomeBanner(props: { skaleNetwork: types.SkaleNetwork }) 
               src={exploreCard?.icon}
               className="group-hover:scale-105 transition-all duration-300 h-10 w-10 iconHomeCard"
             />
-            <p className="font-bold text-3xl font-sans m-0! mt-1! text-black">
+            <p className="font-bold text-3xl font-sans m-0! mt-1! text-foreground">
               {exploreCard?.name}
             </p>
-            <p className="text-xs text-secondary-foreground dark:text-black/60 font-medium mt-1">
+            <p className="text-xs text-secondary-foreground dark:text-foreground/60 font-medium mt-1">
               {exploreCard?.description}
             </p>
             <Link to={exploreCard?.url!}>

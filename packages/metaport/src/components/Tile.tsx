@@ -86,7 +86,7 @@ export default function Tile(props: {
         font-bold
         ${!props.color && !props.disabled ? 'text-foreground' : ''}
         ${props.disabled ? 'text-secondary-foreground' : ''}
-        ${props.color ? 'text-black' : ''}
+        ${props.color ? ''  : ''}
         ${props.copy ? 'cursor-pointer' : ''}
       `.replace(/\s+/g, ' ').trim()}
     >
@@ -105,7 +105,7 @@ export default function Tile(props: {
               className={`
                 flex items-center mb-1.5
                 ${!props.color && !props.textColor ? 'text-secondary-foreground' : ''}
-                ${props.color ? 'text-black' : ''}
+                ${props.color ? 'text-foreground' : ''}
               `.replace(/\s+/g, ' ').trim()}
             >
               {props.ri ? <div className="grow"></div> : null}

@@ -28,7 +28,7 @@ import { type MetaportCore, Tile } from '@skalenetwork/metaport'
 
 import Button from '@mui/material/Button'
 import { Collapse } from '@mui/material'
-import { ClockPlus, Gem } from 'lucide-react'
+import { ClockPlus, Gem, ShieldAlert } from 'lucide-react'
 import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
 
 import SkStack from './SkStack'
@@ -100,14 +100,14 @@ export default function Topup(props: {
           icon={<Gem size={14} />}
           grow
         />
-        <Tile
+        <Tile className='text-foreground '
           value={`${units.truncateDecimals(tokenBalanceSkl, 6)} SKL`}
           tooltip={
             props.info.oneSklPrice !== undefined && props.tokenBalance !== undefined
               ? units.displaySklValueUsd(props.tokenBalance, props.info.oneSklPrice)
               : ''
           }
-          text="SKL balance"
+          text="SKL balance"         
           icon={<Gem size={14} />}
           color={balanceOk ? undefined : 'error'}
         />
@@ -117,7 +117,7 @@ export default function Topup(props: {
           <Tile
             value={props.errorMsg}
             text="Error occurred"
-            icon={<ErrorRoundedIcon />}
+            icon={<ShieldAlert size={17} />}
             color="error"
             grow
             children={
@@ -126,8 +126,7 @@ export default function Topup(props: {
                 onClick={() => {
                   props.setErrorMsg(undefined)
                 }}
-                className="blackP text-xs mt-2.5"
-                style={{ background: 'rgba(0, 0, 0, 0.3)' }}
+                className="blackP text-xs mt-2.5 bg-muted! text-foreground!"
               >
                 Close
               </Button>
@@ -139,7 +138,7 @@ export default function Topup(props: {
         <div className="flex gap-2.5 align-center!">
           <Button
             variant="contained"
-            className="btn btnMd text-xs bg-secondary-foreground text-foreground! align-center!"
+            className="btn btnMd text-xs bg-muted! text-muted-foreground! align-center!"
             disabled={!balanceOk || props.loading || maxTopupPeriod <= 0}
             onClick={props.topupChain}
           >

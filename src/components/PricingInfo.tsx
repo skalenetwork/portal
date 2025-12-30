@@ -111,6 +111,7 @@ export default function PricingInfo(props: { info: types.pm.PaymasterInfo }) {
         <Tile
           value={`${formatTimePeriod(Math.abs(untilDueDateMonths), 'month')} `}
           text={dueDateText}
+          className="text-foreground"
           color={dueDateStatus}
           textRi={
             props.info.effectiveTimestamp

@@ -29,7 +29,7 @@ import { constants } from '@/core'
 import { SkPaper, MetaportCore, useWagmiAccount, contracts, Tile } from '@skalenetwork/metaport'
 import { TransakConfig, Transak } from '@transak/transak-sdk'
 
-import { Ban, Hammer } from 'lucide-react'
+import { Ban, Hammer, ShieldAlert } from 'lucide-react'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
@@ -73,7 +73,7 @@ export default function Onramp(props: { mpc: MetaportCore }) {
         <Tile
           value="Onramp is not available for this network"
           text="Error occurred"
-          icon={<ErrorRoundedIcon />}
+          icon={<ShieldAlert size={17} />}
           color="warning"
           className="mt-5"
         />
@@ -86,7 +86,7 @@ export default function Onramp(props: { mpc: MetaportCore }) {
         <Tile
           value="Need to set Transak API key"
           text="Error occurred"
-          icon={<Ban />}
+          icon={<ShieldAlert size={17} />}
           color="warning"
           className="mt-5"
         />
