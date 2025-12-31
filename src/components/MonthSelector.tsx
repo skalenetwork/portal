@@ -68,7 +68,7 @@ export default function MonthSelector(props: {
         ))}
       {openCustom ? (
         <div className="flex items-center">
-          <div className="monthInputWrap flex items-center">
+          <div className="monthInputWrap bg-muted-foreground/10 flex items-center">
             <TextField
               variant="standard"
               type="number"
@@ -83,7 +83,8 @@ export default function MonthSelector(props: {
                 }
                 setTextPeriod(event.target.value)
               }}
-              className="mr-2.5 ml-2 monthInput"
+              slotProps={{ htmlInput: { className: 'text-foreground!' } }}      
+              className="monthInput"
               placeholder="0"
             />
             <Button
