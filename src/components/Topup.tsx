@@ -120,13 +120,13 @@ export default function Topup(props: {
             color="error"
             className="text-foreground"
             grow
-            children={
+            childrenRi={
               <Button
                 size="small"
                 onClick={() => {
                   props.setErrorMsg(undefined)
                 }}
-                className="blackP text-xs mt-2.5 bg-muted! text-foreground!"
+                className="roundBtn outlined text-foreground! bg-muted-foreground/10! hover:bg-muted-foreground/20!"
               >
                 Close
               </Button>
