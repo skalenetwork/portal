@@ -202,6 +202,7 @@ export default function Delegate(props: {
         <Tile
           disabled={info.allowedToDelegate === 0n}
           value={units.displayBalance(info.allowedToDelegate!, 'SKL')}
+          className="h-auto! flex! items-center!"
           tooltip={
             props.sklPrice !== undefined && info.allowedToDelegate !== undefined
               ? units.displaySklValueUsd(info.allowedToDelegate, props.sklPrice)

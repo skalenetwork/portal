@@ -29,7 +29,6 @@ import { type MetaportCore, Tile } from '@skalenetwork/metaport'
 import Button from '@mui/material/Button'
 import { Collapse } from '@mui/material'
 import { ClockPlus, Gem, ShieldAlert } from 'lucide-react'
-import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
 
 import SkStack from './SkStack'
 import MonthSelector from './MonthSelector'
@@ -77,7 +76,7 @@ export default function Topup(props: {
           icon={<ClockPlus size={14} />}
           children={
             <MonthSelector
-              className="mt-2.5 text-foreground"
+              className="text-foreground"
               max={maxTopupPeriod}
               topupPeriod={props.topupPeriod}
               setTopupPeriod={props.setTopupPeriod}
@@ -100,7 +99,7 @@ export default function Topup(props: {
           icon={<Gem size={14} />}
           grow
         />
-        <Tile className='text-foreground '
+        <Tile className='text-foreground'
           value={`${units.truncateDecimals(tokenBalanceSkl, 6)} SKL`}
           tooltip={
             props.info.oneSklPrice !== undefined && props.tokenBalance !== undefined

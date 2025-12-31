@@ -57,13 +57,13 @@ export default function MonthSelector(props: {
         .map((month: any, i: number) => (
           <Button
             variant={props.topupPeriod === month ? 'contained' : 'text'}
-            className={`mr-2.5 roundBtn ${props.topupPeriod !== month ? 'outlined' : ''}`}
+            className={`mr-2.5 roundBtn ${props.topupPeriod !== month ? 'bg-muted-foreground/10! hover:bg-muted-foreground/20! text-foreground!' : 'bg-foreground! text-accent!'}`}
             key={i}
             onClick={() => {
               props.setTopupPeriod(month)
             }}
           >
-            <p className="text-foreground">{month}</p>
+            {month}
           </Button>
         ))}
       {openCustom ? (
@@ -127,14 +127,14 @@ export default function MonthSelector(props: {
           </Button>
         </div>
       ) : (
-        <Button
+       <Button
           variant={props.topupPeriod === customPeriod ? 'contained' : 'text'}
-          className={`mr-2.5 roundBtn ${props.topupPeriod !== customPeriod ? 'outlined' : ''}`}
+          className={`mr-2.5 roundBtn capitalize! ${props.topupPeriod !== customPeriod ? 'bg-muted-foreground/10! hover:bg-muted-foreground/20! text-foreground!' : 'bg-foreground! text-accent!'}`}
           onClick={() => {
             setOpenCustom(true)
           }}
         >
-          <p className=" text-foreground">{customPeriod ? `${customPeriod} (Edit)` : 'Custom'}</p>
+          {customPeriod ? `${customPeriod} (Edit)` : 'Custom'}
         </Button>
       )}
     </div>

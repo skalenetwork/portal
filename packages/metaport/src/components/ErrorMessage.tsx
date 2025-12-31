@@ -28,27 +28,17 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import Button from '@mui/material/Button'
 
-import LinkOffRoundedIcon from '@mui/icons-material/LinkOffRounded'
-import PublicOffRoundedIcon from '@mui/icons-material/PublicOffRounded'
-import SentimentDissatisfiedRoundedIcon from '@mui/icons-material/SentimentDissatisfiedRounded'
-import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
-import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded'
-import CrisisAlertRoundedIcon from '@mui/icons-material/CrisisAlertRounded'
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
-import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded'
-import AvTimerRoundedIcon from '@mui/icons-material/AvTimerRounded'
-import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded'
-import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded'
+import { Ban, ChevronDown, CircleParkingOff, CircleQuestionMark, CopySlash, Frown, Hourglass, Link2Off, RotateCcw, Siren, TimerReset } from 'lucide-react'
+
 import { DEFAULT_ERROR_MSG } from '../core/constants'
-import { CopySlash } from 'lucide-react'
 
 const ERROR_ICONS = {
-  'link-off': <LinkOffRoundedIcon />,
-  'public-off': <PublicOffRoundedIcon />,
-  sentiment: <SentimentDissatisfiedRoundedIcon />,
-  warning: <CrisisAlertRoundedIcon color="warning" />,
-  error: <ErrorRoundedIcon />,
-  time: <HourglassTopRoundedIcon />
+  'link-off': <Link2Off />,
+  'public-off': <CircleParkingOff />,
+  sentiment: <Frown />,
+  warning: <Siren />,
+  error: <Ban />,
+  time: <Hourglass />
 }
 
 export default function Error(props: { errorMessage: dc.ErrorMessage }) {
@@ -61,12 +51,12 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
   if (!props.errorMessage) return
   return (
     <div>
-      <div className="mt-5 text-2xl text-primary flex justify-center">
+      <div className="mt-5 text-2xl flex justify-center text-orange-600">
         {ERROR_ICONS[props.errorMessage.icon]}
       </div>
       <p
         style={{ wordBreak: 'break-word' }}
-        className="text-base text-primary font-semibold grow text-center mt-2.5"
+        className="text-base text-orange-600 font-semibold grow text-center mt-2.5"
       >
         {props.errorMessage.headline ?? DEFAULT_ERROR_MSG}
       </p>
@@ -75,35 +65,35 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
       </p>
       {props.errorMessage.showTips ? (
         <div>
-          <div className="flex w-full items-center mt-5 mb-2.5 ml-2.5">
-            <div className="flex items-center justify-center mr-2.5">
-              <HourglassBottomRoundedIcon color="info" />
+          <div className="flex w-full items-center text-foreground mt-5 mb-2.5 ml-2.5">
+            <div className="flex items-center text-foreground justify-center mr-2.5">
+              <Hourglass size={17} />
             </div>
-            <p className="text-sm text-primary font-semibold mr-2.5">
+            <p className="text-sm text-foreground font-semibold mr-2.5">
               Transfers might occasionally delay, but all tokens will be sent.
             </p>
           </div>
-          <div className="flex w-full items-center mt-5 mb-2.5 ml-2.5">
-            <div className="flex items-center justify-center mr-2.5">
-              <RestartAltRoundedIcon color="info" />
+          <div className="flex w-full items-center text-foreground mt-5 mb-2.5 ml-2.5">
+            <div className="flex items-center text-foreground justify-center mr-2.5">
+              <RotateCcw size={17}  />
             </div>
-            <p className="text-sm text-primary font-semibold mr-2.5">
+            <p className="text-sm text-foreground font-semibold mr-2.5">
               If a transfer is interrupted, you can continue from where you stopped.
             </p>
           </div>
-          <div className="flex w-full items-center mt-5 mb-2.5 ml-2.5">
-            <div className="flex items-center justify-center mr-2.5">
-              <AvTimerRoundedIcon color="info" />
+          <div className="flex w-full items-center text-foreground mt-5 mb-2.5 ml-2.5">
+            <div className="flex items-center text-foreground justify-center mr-2.5">
+              <TimerReset size={17} />
             </div>
-            <p className="text-sm text-primary font-semibold mr-2.5">
+            <p className="text-sm text-foreground font-semibold mr-2.5">
               Transfers from SKALE to Ethereum Mainnet have frequency limits.
             </p>
           </div>
-          <div className="flex w-full items-center mt-5 mb-2.5 ml-2.5">
-            <div className="flex items-center justify-center mr-2.5">
-              <HelpOutlineRoundedIcon color="info" />
+          <div className="flex w-full items-center text-foreground mt-5 mb-2.5 ml-2.5">
+            <div className="flex items-center text-foreground justify-center mr-2.5">
+              <CircleQuestionMark size={17} />
             </div>
-            <p className="text-sm text-primary font-semibold mr-2.5">
+            <p className="text-sm text-foreground! font-semibold mr-2.5">
               If you still have questions, consult FAQ or contact the support team.
             </p>
           </div>
@@ -112,15 +102,15 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary
           className="py-2.5 px-2.5"
-          expandIcon={<ExpandMoreRoundedIcon />}
+          expandIcon={<ChevronDown />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
           <div className="flex w-full items-center">
             <div className="flex items-center justify-center mr-2.5">
-              <CopySlash size={17} className='text-primary' />
+              <CopySlash size={17} className='text-secondary-foreground' />
             </div>
-            <p className="text-sm text-primary font-semibold capitalize mr-2.5">
+            <p className="text-sm text-secondary-foreground font-semibold capitalize mr-2.5">
               {expanded === 'panel1' ? 'Hide' : 'Show'} error details
             </p>
           </div>
@@ -129,7 +119,7 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
           <div className="mb-5">
             <code
               style={{ wordBreak: 'break-all' }}
-              className="text-xs text-primary grow text-center ml-2.5 mr-2.5 mb-5"
+              className="text-xs text-muted-foreground grow text-center ml-2.5 mr-2.5 mb-5"
             >
               {props.errorMessage.text}
             </code>

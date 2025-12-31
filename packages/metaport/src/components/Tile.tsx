@@ -120,7 +120,7 @@ export default function Tile(props: {
               <p
                 className={`
                   flex font-medium
-                  ${props.size === 'md' ? 'text-xs' : 'text-xs'}
+                  text-xs
                   ${!props.ri ? 'grow' : ''}
                   ${props.textColor ? 'font-semibold' : ''}`}
                 style={{ color: props.textColor }}
@@ -130,7 +130,7 @@ export default function Tile(props: {
               {props.textRi ? (
                 <p
                   className={`
-                    ${props.size === 'md' ? 'text-xs' : 'text-sm'}
+                    text-xs
                     flex ml-1.5 font-medium
                   `}
                   style={{ color: props.textColor }}

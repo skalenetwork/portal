@@ -60,7 +60,7 @@ export default function Onramp(props: { mpc: MetaportCore }) {
         <Tile
           value="The SKALE On-ramp is currently unavailable for maintenance."
           text="Temporary unavailable"
-          icon={<ErrorRoundedIcon />}
+          icon={<Ban />}
           color="warning"
           className="mt-5"
         />

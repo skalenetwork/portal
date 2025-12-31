@@ -37,10 +37,10 @@ export default function Breadcrumbs(props: { sections: BreadcrumbSection[]; clas
         <div className="flex items-center" key={index}>
           {section.url ? (
             <Link to={section.url} className="undec w-full text-foreground">
-              <Button className={index === 0 ? 'text-muted-foreground' : 'text-foreground!'}>
+              <Button className={`hover:bg-muted-foreground/10! ${index < props.sections.length - 1 ? 'text-foreground!' : 'text-muted-foreground!'}`}>
                 {section.icon}
                 <p
-                  className={`text-xs capitalize! ml-1.5 ${index === 0 ? 'text-muted-foreground!' : 'text-foreground'}`}
+                  className={`text-xs capitalize! ml-1.5`}
                 >
                   {section.text}
                 </p>
@@ -48,11 +48,11 @@ export default function Breadcrumbs(props: { sections: BreadcrumbSection[]; clas
             </Link>
           ) : (
             <Button
-              className={index === 0 ? 'text-foreground' : 'text-muted-foreground! capitalize!'}
+              className={index < props.sections.length - 1 ? 'text-foreground!' : 'text-muted-foreground! capitalize!'}
             >
               {section.icon}
               <p
-                className={`text-xs ml-1.5 ${index === 0 ? 'text-foreground' : 'text-muted-foreground'}`}
+                className="text-xs ml-1.5"
               >
                 {section.text}
               </p>

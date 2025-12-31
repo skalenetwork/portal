@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { ClockFading, Gem } from 'lucide-react'
+import { Calendar, ClockFading, Gem } from 'lucide-react'
 
 import { constants, units, type types, helper } from '@/core'
 import { TokenIcon, Tile } from '@skalenetwork/metaport'
@@ -111,6 +111,7 @@ export default function PricingInfo(props: { info: types.pm.PaymasterInfo }) {
         <Tile
           value={`${formatTimePeriod(Math.abs(untilDueDateMonths), 'month')} `}
           text={dueDateText}
+          icon={<Calendar size={14} />}
           className="text-foreground"
           color={dueDateStatus}
           textRi={
