@@ -201,36 +201,36 @@ export default function Ecosystem(props: {
               label="All"
               icon={<LayoutGrid size={14} />}
               iconPosition="start"
-              className={`btn btnMd mr-1! ml-1! tab fwmobile ${activeTab === 0
+              className={`btn btnMd tab fwmobile ${activeTab === 0
                 ? 'text-foreground! bg-gray-100! dark:bg-black!'
-                : 'bg-card! text-muted-foreground!'
+                : 'bg-card/0! text-muted-foreground!'
                 }`}
             />
             <Tab
               label="Featured"
               icon={SECTION_ICONS.featured}
               iconPosition="start"
-              className={`btn btnMd mr-1! ml-1! tab fwmobile ${activeTab === 1
+              className={`btn btnMd tab fwmobile ${activeTab === 1
                 ? 'text-foreground! bg-gray-100! dark:bg-black!'
-                : 'bg-card! text-muted-foreground!'
+                : 'bg-card/0! text-muted-foreground!'
                 }`}
             />
             <Tab
               label="New"
               icon={SECTION_ICONS.new}
               iconPosition="start"
-              className={`btn btnMd mr-1! ml-1! tab fwmobile ${activeTab === 2
+              className={`btn btnMd tab fwmobile ${activeTab === 2
                 ? 'text-foreground!  dark:bg-black!'
-                : 'bg-card! text-muted-foreground!'
+                : 'bg-card/0! text-muted-foreground!'
                 }`}
             />
             <Tab
               label="Trending"
               icon={SECTION_ICONS.trending}
               iconPosition="start"
-              className={`btn btnMd mr-1! ml-1! tab fwmobile ${activeTab === 3
+              className={`btn btnMd tab fwmobile ${activeTab === 3
                 ? 'text-foreground! bg-gray-100! dark:bg-black! shadow-xs!'
-                : 'bg-card! text-muted-foreground!'
+                : 'bg-card/0! text-muted-foreground!'
                 }`}
             />
           </Tabs>
