@@ -102,7 +102,7 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary
           className="py-2.5 px-2.5"
-          expandIcon={<ChevronDown />}
+          expandIcon={<ChevronDown className='text-secondary-foreground'/>}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
