@@ -64,7 +64,7 @@ export default function AppCard(props: {
   const visibleStatusChips = statusChips.slice(0, maxStatusChips)
 
   return (
-    <SkPaper gray={gray} fullHeight className="sk-app-card w-full transform transition-all duration-300 ease-in-out hover:shadow-md hover:-translate-y-0.5">
+    <SkPaper gray={gray} fullHeight className="sk-app-card w-full transform transition-all duration-300 ease-in-out">
       <Link to={url}>
         <div>
           <div className="flex">

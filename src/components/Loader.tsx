@@ -31,7 +31,7 @@ export default function Loader(props: { text: string }) {
         <CircularProgress className="fullscreen-spin" color="inherit" />
       </div>
       <div className="flex items-center">
-        <h3 className="fullscreen-msg-text">{props.text}</h3>
+        <h3 className="fullscreen-msg-text font-semibold">{props.text}</h3>
       </div>
       <div className="grow"></div>
     </div>

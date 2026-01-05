@@ -886,30 +886,36 @@ input[type=number] {
     background: linear-gradient(180deg, #4e3300, #372400);
     color: #fcbb81;
   }
-.chip_COMPLETED {
-  background: linear-gradient(180deg, #063821, #042a19);
-  color: #14cf20;
-}
-.chip_REJECTED {
-  background: linear-gradient(180deg, #4e0000, #330000);
-  color: #fc8181;
-}
-.chip_UNDELEGATION_REQUESTED {
-  color: rgb(252 248 129);
-  background: linear-gradient(rgb(78 71 0), rgb(36 39 0));
-}
-.chip_PROPOSED {
-  color: rgb(57 218 248);
-  background: linear-gradient(rgb(20 66 59), rgb(11 36 33));
-}
-.chip_ACCEPTED {
-  background: linear-gradient(180deg, #233d0f, #0a1b07);
-  color: #3cda4e;
-}
-.chip_REWARDS {
-  background: linear-gradient(180deg, #35320c, #2a230a);
-  color: #dac83c;
-}
+
+  .chip_COMPLETED {
+    background: linear-gradient(180deg, #063821, #042a19);
+    color: #14cf20;
+  }
+
+  .chip_REJECTED {
+    background: linear-gradient(180deg, #4e0000, #330000);
+    color: #fc8181;
+  }
+
+  .chip_UNDELEGATION_REQUESTED {
+    color: rgb(252 248 129);
+    background: linear-gradient(rgb(78 71 0), rgb(36 39 0));
+  }
+
+  .chip_PROPOSED {
+    color: rgb(57 218 248);
+    background: linear-gradient(rgb(20 66 59), rgb(11 36 33));
+  }
+
+  .chip_ACCEPTED {
+    background: linear-gradient(180deg, #233d0f, #0a1b07);
+    color: #3cda4e;
+  }
+
+  .chip_REWARDS {
+    background: linear-gradient(180deg, #35320c, #2a230a);
+    color: #dac83c;
+  }
 }
 
 .chip_DELEGATED {
@@ -1406,6 +1412,10 @@ input[type=number] {
   height: 20px;
   width: 20px;
   padding: 1px;
+}
+
+.dark .customSocialIcon {
+  filter: invert(1) brightness(1.1);
 }
 
 .customSocialIconMd {

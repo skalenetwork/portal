@@ -88,7 +88,7 @@ export default function History() {
               Clear transfers history
             </Button>
           ) : (
-            <div className="text-base text-secondary-foreground mt-5 text-center">
+            <div className="text-sm font-semibold text-muted-foreground mt-5 text-center">
               No past transfers found
             </div>
           )}

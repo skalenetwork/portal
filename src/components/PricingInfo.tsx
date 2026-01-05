@@ -91,7 +91,7 @@ export default function PricingInfo(props: { info: types.pm.PaymasterInfo }) {
           value={`${units.truncateDecimals(chainPriceSkl.toString(), 6)} SKL`}
           tooltip={`${units.truncateDecimals(chainPriceUsd, 6)} USD`}
           text="Chain price SKL (per month)"
-          icon={<Gem size={14}/>}
+          icon={<TokenIcon tokenSymbol="skl" size="xs" />}
           grow
         />
       </SkStack>

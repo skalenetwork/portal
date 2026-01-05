@@ -24,11 +24,11 @@
 import { Link } from 'react-router-dom'
 
 import { constants, units, helper, type types } from '@/core'
-import { type MetaportCore, Tile } from '@skalenetwork/metaport'
+import { type MetaportCore, Tile, TokenIcon } from '@skalenetwork/metaport'
 
 import Button from '@mui/material/Button'
 import { Collapse } from '@mui/material'
-import { ClockPlus, Gem, ShieldAlert } from 'lucide-react'
+import { ClockPlus, ShieldAlert } from 'lucide-react'
 
 import SkStack from './SkStack'
 import MonthSelector from './MonthSelector'
@@ -96,7 +96,7 @@ export default function Topup(props: {
           }
           text="Top-up amount"
           textRi={helperText}
-          icon={<Gem size={14} />}
+          icon={<TokenIcon tokenSymbol="skl" size="xs" />}
           grow
         />
         <Tile className='text-foreground'
@@ -106,8 +106,8 @@ export default function Topup(props: {
               ? units.displaySklValueUsd(props.tokenBalance, props.info.oneSklPrice)
               : ''
           }
-          text="SKL balance"         
-          icon={<Gem size={14} />}
+          text="SKL balance"
+          icon={<TokenIcon tokenSymbol="skl" size="xs" />}
           color={balanceOk ? undefined : 'error'}
         />
       </SkStack>
@@ -146,7 +146,7 @@ export default function Topup(props: {
           </Button>
           {!balanceOk ? (
             <Link to="/bridge">
-              <Button variant="contained"  className="btn btnMd text-xs text-accent! bg-foreground! align-center!">
+              <Button variant="contained" className="btn btnMd text-xs text-accent! bg-foreground! align-center!">
                 Bridge SKL to Europa Hub
               </Button>
             </Link>

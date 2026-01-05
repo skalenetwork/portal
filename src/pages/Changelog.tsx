@@ -10,7 +10,7 @@ export default function ChangelogPage() {
         <div className="flex">
           <h2 className="m-0 text-xl font-bold text-foreground">Changelog</h2>
         </div>
-        <p className="text-xs text-foreground font-semibold">
+        <p className="text-xs text-muted-foreground font-semibold">
           Stay informed with our latest updates
         </p>
         <SkPaper gray className="markdown mt-5">
