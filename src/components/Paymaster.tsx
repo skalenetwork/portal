@@ -191,7 +191,7 @@ export default function Paymaster(props: {
       <PricingInfo info={info} />
       <Headline
         text="Top-up chain"
-        className="mt-5 mb-2.5"
+        className="mt-5"
         icon={<CircleDollarSign size={17} />}
         size="small"
       />
