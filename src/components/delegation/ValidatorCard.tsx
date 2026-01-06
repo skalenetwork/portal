@@ -62,7 +62,7 @@ export default function ValidatorCard(props: {
         ['disabledCard', !props.validator.acceptNewRequests],
         ['selectedValidator', props.validatorId === props.validator.id],
         showButton ? 'cursor-default' : 'cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-101 hover:shadow-md hover:-translate-y-0.5',
-        [isStakeValidatorPage ? 'bg-gray-50! dark:bg-card!' : '', isStakeValidatorPage]
+        [isStakeValidatorPage ? 'bg-background!' : '', isStakeValidatorPage]
       )}
     >
       <div>
