@@ -127,6 +127,7 @@ export default function DelegationsToValidator(props: {
                   isXs={props.isXs}
                   customAddress={props.customAddress}
                   sklPrice={props.sklPrice}
+                  isValidatorPage={true}
                 />
               )
             )}

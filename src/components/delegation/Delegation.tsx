@@ -221,7 +221,7 @@ export default function Delegation(props: {
             )}
             {isCompleted && (
               <Tile
-                className="p-0"
+                className="bg-foreground/5!"
                 tooltip={
                   props.sklPrice && props.delegation.finished
                     ? units.displaySklValueUsd(props.delegation.finished, props.sklPrice)

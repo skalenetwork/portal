@@ -234,7 +234,7 @@ export default function Delegate(props: {
       <ErrorTile errorMsg={props.errorMsg} setErrorMsg={props.setErrorMsg} className="mt-2.5" />
 
       {loading ? (
-        <Button disabled size="small" variant="contained" className="'btn' ml-2.5 mb-2.5 mt-5">
+        <Button disabled size="small" variant="contained" className="btn btnMd  text-xs text-accent! bg-foreground!">
           Staking SKL
         </Button>
       ) : (
@@ -248,7 +248,7 @@ export default function Delegate(props: {
             loading
           }
           variant="contained"
-          className="'btn' ml-2.5 mb-2.5 mt-5"
+          className="btn mt-5! ml-2.5! mb-2.5! text-foreground bg-muted"
           onClick={stake}
         >
           {getBtnText()}

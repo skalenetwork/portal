@@ -160,7 +160,7 @@ export default function Ecosystem(props: {
         </Helmet>
         <Stack spacing={0}>
           <SkStack>
-            <div className={cn('grow flex flex-col mb-5 mt-2.5')}>
+            <div className={cn('grow flex flex-col mb-5')}>
               <h2 className="m-0 text-xl font-bold text-foreground">Ecosystem</h2>
               <p className="text-xs text-secondary-foreground font-semibold">
                 Explore dApps across the SKALE ecosystem

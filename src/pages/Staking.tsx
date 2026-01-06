@@ -173,7 +173,7 @@ export default function Staking(props: {
               <Button
                 variant="contained"
                 className="btn btnMd text-xs text-accent! bg-foreground!"
-                startIcon={<Coins />}
+                startIcon={<Coins size={14} />}
                 disabled={loading !== false || props.customAddress !== undefined}
               >
                 Stake SKL

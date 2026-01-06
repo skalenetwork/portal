@@ -127,20 +127,22 @@ export default function Reward(props: {
                 </div>
               ) : null}
               <div className={`${props.isXs ? 'grow mr-5' : 'ml-2.5 mr-5'}`}>
-                <p className="text-xs text-secondary-foreground">Rewards available</p>
-                <Tooltip
-                  arrow
-                  title={
-                    props.sklPrice
-                      ? units.displaySklValueUsd(
-                        props.delegationsToValidator.rewards,
-                        props.sklPrice
-                      )
-                      : ''
-                  }
-                >
-                  <h3 className="font-bold text-foreground">{rewardsAmount}</h3>
-                </Tooltip>
+                <div className="flex flex-col items-end justify-center w-full">
+                  <p className="text-xs text-secondary-foreground">Rewards available</p>
+                  <Tooltip
+                    arrow
+                    title={
+                      props.sklPrice
+                        ? units.displaySklValueUsd(
+                          props.delegationsToValidator.rewards,
+                          props.sklPrice
+                        )
+                        : ''
+                    }
+                  >
+                    <h3 className="font-bold text-foreground">{rewardsAmount}</h3>
+                  </Tooltip>
+                </div>
               </div>
               <div className="flex items-center">
                 {loading ? (
