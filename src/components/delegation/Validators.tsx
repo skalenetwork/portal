@@ -56,8 +56,7 @@ export default function Validators(props: {
 
   return (
     <div className={gridCols}>
-      {validators.map((validator: types.st.IValidator, index) => (
-        <div key={index} className="col-span-1">
+      {validators.map((validator: types.st.IValidator) => (
           <ValidatorCard
             validator={validator}
             validatorId={props.validatorId}
@@ -66,7 +65,6 @@ export default function Validators(props: {
             delegationType={props.delegationType}
             showButton={showButton}
           />
-        </div>
       ))}
     </div>
   )
