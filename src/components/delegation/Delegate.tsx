@@ -248,7 +248,7 @@ export default function Delegate(props: {
             loading
           }
           variant="contained"
-          className="btn mt-5! ml-2.5! mb-2.5! text-foreground bg-muted"
+          className="btn mt-5! ml-2.5! mb-2.5! text-secondary-foreground! bg-muted!"
           onClick={stake}
         >
           {getBtnText()}
