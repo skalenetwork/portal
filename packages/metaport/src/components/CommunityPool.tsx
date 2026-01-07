@@ -31,8 +31,6 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import TextField from '@mui/material/TextField'
 
-import SkPaper from './SkPaper'
-
 import Button from '@mui/material/Button'
 
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
@@ -183,7 +181,7 @@ export default function CommunityPool() {
         onChange={handleChange('panel1')}
       >
         <AccordionSummary
-          className="py-2! px-6! mt-0!"
+          className="py-2! px-6! mt-2.5!"
           expandIcon={<ChevronDown size={18} className="text-foreground" />}
           aria-controls="panel1a-content"
           id="panel1a-header"
@@ -271,7 +269,7 @@ export default function CommunityPool() {
                   childrenRi={
                     <div className="flex items-center">
                       <Button
-                        className="bg-secondary-foreground/10! flex items-center text-[10px]! py-1! px-3! min-w-0! text-foreground! mr-2!"
+                        className="bg-secondary-foreground/10! flex items-center! text-[10px]! py-1! px-3! min-w-0! text-foreground! mr-2!"
                         onClick={() => {
                           if (!cpData.recommendedRechargeAmount) return
                           setAmount(String(cpData.recommendedRechargeAmount))
