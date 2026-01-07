@@ -76,7 +76,7 @@ export default function Topup(props: {
           icon={<ClockPlus size={14} />}
           children={
             <MonthSelector
-              className="text-foreground"
+              className="text-foreground mt-2"
               max={maxTopupPeriod}
               topupPeriod={props.topupPeriod}
               setTopupPeriod={props.setTopupPeriod}
@@ -117,7 +117,7 @@ export default function Topup(props: {
             value={props.errorMsg}
             text="Error occurred"
             icon={<ShieldAlert size={17} />}
-            color="error"
+            color="red-400/700"
             className="text-foreground"
             grow
             childrenRi={
