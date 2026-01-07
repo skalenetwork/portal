@@ -216,6 +216,7 @@ export default function Summary(props: {
                     ri={!props.isXs}
                     childrenRi={
                       <div className="items-center flex">
+                        <div className="mr-5"></div>
                         <SkBtn
                           loading={loading}
                           text={loading ? 'Retrieving' : 'Retrieve'}
