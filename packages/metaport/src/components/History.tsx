@@ -70,8 +70,7 @@ export default function History(props: { size?: types.Size }) {
               className={`bg-muted ${size === 'sm' ? 'mt-10 mb-2.5' : 'mt-5 mb-5'} p-0 rounded-3xl`}
             >
               <div
-                className={`flex items-center justify-between ml-4 ${size === 'sm' ? 'pt-4' : 'pt-6'
-                  }`}
+                className={`flex flex-col sm:flex-row sm:items-center justify-between ml-4 ${size === 'sm' ? 'pt-4' : 'pt-6'}`}
               >
                 <div
                   className={`flex items-center ${size === 'sm' ? 'mb-2.5' : 'mb-5'
