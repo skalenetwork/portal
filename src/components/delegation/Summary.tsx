@@ -24,9 +24,7 @@
 import { helper, types, units } from '@/core'
 import { TokenIcon, Tile } from '@skalenetwork/metaport'
 
-import { ArrowUpRight, CalendarCheck, CircleUser, Coins, Landmark } from 'lucide-react'
-import LockOpenRoundedIcon from '@mui/icons-material/LockOpenRounded'
-import ContentCopyRoundedIcon from '@mui/icons-material/ContentCopyRounded'
+import { ArrowUpRight, CalendarCheck, CircleUser, Coins, Copy, Landmark, LockOpen } from 'lucide-react'
 
 import SkStack from '../SkStack'
 import AccordionSection from '../AccordionSection'
@@ -101,7 +99,7 @@ export default function Summary(props: {
                       grow
                       ri={!props.isXs}
                       copy={props.accountInfo?.address}
-                      icon={<ContentCopyRoundedIcon />}
+                      icon={<Copy size={14} />}
                     />
                     <div className={`${!props.isXs ? 'border-l-2 border-border ml-2.5' : ''}`}></div>
                   </div>
@@ -168,7 +166,7 @@ export default function Summary(props: {
                 props.accountInfo ? units.displayBalance(props.accountInfo.vested, 'SKL') : null
               }
               text="Total Vested Tokens"
-              icon={<CalendarCheck />}
+              icon={<CalendarCheck size={14} />}
               grow
               childrenRi={
                 <SkStack className="flex">
@@ -186,7 +184,7 @@ export default function Summary(props: {
                           : null
                       }
                       text="Initial Escrow Amount"
-                      icon={<Landmark />}
+                      icon={<Landmark size={14} />}
                       grow
                       size="md"
                       transparent
@@ -213,7 +211,7 @@ export default function Summary(props: {
                         : null
                     }
                     text="Unlocked Tokens"
-                    icon={<LockOpenRoundedIcon />}
+                    icon={<LockOpen size={14} />}
                     grow
                     ri={!props.isXs}
                     childrenRi={
