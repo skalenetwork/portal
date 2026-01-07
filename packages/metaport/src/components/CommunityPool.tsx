@@ -181,7 +181,7 @@ export default function CommunityPool() {
         onChange={handleChange('panel1')}
       >
         <AccordionSummary
-          className="py-2! px-6! mt-2.5!"
+          className={`py-2! px-6! ${expandedCP === 'panel1' ? "" : "mt-2.5!"}`}
           expandIcon={<ChevronDown size={18} className="text-foreground" />}
           aria-controls="panel1a-content"
           id="panel1a-header"
