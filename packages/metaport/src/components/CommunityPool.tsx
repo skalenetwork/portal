@@ -183,7 +183,7 @@ export default function CommunityPool() {
         onChange={handleChange('panel1')}
       >
         <AccordionSummary
-          className="py-2! px-6! mt-3.5!"
+          className="py-2! px-6! mt-0!"
           expandIcon={<ChevronDown size={18} className="text-foreground" />}
           aria-controls="panel1a-content"
           id="panel1a-header"
@@ -194,7 +194,7 @@ export default function CommunityPool() {
           </div>
         </AccordionSummary>
         <AccordionDetails >
-          <SkPaper gray className="m-2 p-5! mt-0! pt-0!">
+          <div className="m-2 p-5! mt-0! pt-0!">
             <p className="m-0 text-sm text-muted-foreground font-medium flex grow">
               This wallet is used to pay for gas fees on transactions that are send to the Ethereum
               Mainnet. You may withdraw funds from your SKALE Gas Wallet at anytime.
@@ -205,7 +205,7 @@ export default function CommunityPool() {
                 {cpData.recommendedRechargeAmount} ETH.
               </p>
             ) : null}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-5">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-5">
               <div className="col-span-1">
                 <Tile
                   text="ETH Balance"
@@ -230,7 +230,7 @@ export default function CommunityPool() {
                       ? `${units.truncateDecimals(units.formatBalance(cpData.balance, constants.DEFAULT_ERC20_DECIMALS), COMMUNITY_POOL_DECIMALS)} ETH`
                       : ''
                   }
-                  icon={<Wallet size={17} />}
+                  icon={<Wallet size={14} />}
                 />
               </div>
               <div className="col-span-1">
@@ -257,7 +257,7 @@ export default function CommunityPool() {
                     </div>
                   }
 
-                  icon={<ArrowDown size={17} />}
+                  icon={<ArrowDown size={14} />}
                 />
               </div>
               <div className="col-span-1">
@@ -265,7 +265,7 @@ export default function CommunityPool() {
                   disabled={!!loading}
                   value={cpData.recommendedRechargeAmount !== undefined ? String(cpData.recommendedRechargeAmount) : ''}
                   text="Recommended"
-                  icon={<ThumbsUp size={17} />}
+                  icon={<ThumbsUp size={14} />}
                   color={true ? undefined : 'error'}
                   grow
                   childrenRi={
@@ -288,8 +288,7 @@ export default function CommunityPool() {
               <Button
                 variant="contained"
                 color="primary"
-                size="medium"
-                className="w-full normal-case text-sm font-semibold py-3.5 px-4 rounded shadow-none mt-1.5"
+                className=" w-full mt-5! btnMd normal-case! text-sm font-semibold text-muted-foreground! bg-muted! py-3.5 px-4 rounded shadow-none"
                 onClick={rechargeCP}
                 disabled={
                   !!loading ||
@@ -319,7 +318,7 @@ export default function CommunityPool() {
                 </div>
               </Collapse>
             </div>
-          </SkPaper>
+          </div>
         </AccordionDetails>
       </Accordion>
     </div>
