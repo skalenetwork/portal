@@ -28,7 +28,7 @@ import TransactionData from './TransactionData'
 import Chain from './Chain'
 
 import { useMetaportStore } from '../store/MetaportStore'
-import { ArrowUpRight } from 'lucide-react'
+import { MoveRight } from 'lucide-react'
 export default function History(props: { size?: types.Size }) {
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
   const transfersHistory = useMetaportStore((state) => state.transfersHistory)
@@ -80,10 +80,11 @@ export default function History(props: { size?: types.Size }) {
                   <Chain
                     skaleNetwork={network}
                     chainName={transfer.chainName1}
-                    size='sm'
+                    size='xs'
                     decIcon
+                    iconSize='sm'
                   />
-                  <ArrowUpRight
+                  <MoveRight size={14}
                     className={`text-foreground ml-2 mr-2 w-3 h-3`}
                   />
                   <Chain
@@ -91,11 +92,12 @@ export default function History(props: { size?: types.Size }) {
                     chainName={transfer.chainName2}
                     size='sm'
                     decIcon
+                    iconSize='sm'
                   />
                 </div>
 
                 <div
-                  className={`flex items-center ${size === 'sm' ? 'mb-2.5' : 'mb-5'
+                  className={`flex items-center ${size === 'xs' ? 'mb-2.5' : 'mb-5'
                     } mr-4`}
                 >
                   <div className="flex items-center">
@@ -122,15 +124,17 @@ export default function History(props: { size?: types.Size }) {
                   </p>
                 </div>
               </div>
-              <div className="bg-muted-foreground/10 mx-4 mb-4 p-4 rounded-2xl">
-                {transfer.transactions.map((transactionData: types.mp.TransactionHistory) => (
-                  <TransactionData
-                    key={transactionData.transactionHash}
-                    transactionData={transactionData}
-                    config={mpc.config}
-                  />
-                ))}
-              </div>
+              {transfer.transactions.length > 0 && (
+                <div className="bg-muted-foreground/10 card-bg mx-4 mb-4 p-4 mr-0 ml-0 rounded-4xl">
+                  {transfer.transactions.map((transactionData: types.mp.TransactionHistory) => (
+                    <TransactionData
+                      key={transactionData.transactionHash}
+                      transactionData={transactionData}
+                      config={mpc.config}
+                    />
+                  ))}
+                </div>
+              )}
             </div>
           ))}
       </div>

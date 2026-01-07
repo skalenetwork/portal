@@ -26,12 +26,8 @@ import { types } from '@/core'
 
 import IconButton from '@mui/material/IconButton'
 
-import MoveUpIcon from '@mui/icons-material/MoveUp'
-import MoveDownIcon from '@mui/icons-material/MoveDown'
-import LockOpenIcon from '@mui/icons-material/LockOpen'
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
-import OpenInNewIcon from '@mui/icons-material/OpenInNew'
-import DoneRoundedIcon from '@mui/icons-material/DoneRounded'
+import { ArrowUpRight, Check, ExternalLink, ListChevronsDownUp, LockOpen, TextWrap } from 'lucide-react'
+
 
 import { getTxUrl } from '../../core/explorer'
 
@@ -48,13 +44,13 @@ type ActionStateAliasMap = {
 }
 
 const actionIcons: ActionStateIconMap = {
-  approveDone: <DoneRoundedIcon />,
-  transferDone: <ArrowOutwardIcon />,
-  transferETHDone: <ArrowOutwardIcon />,
-  approveWrapDone: <DoneRoundedIcon />,
-  wrapDone: <MoveDownIcon />,
-  unwrapDone: <MoveUpIcon />,
-  unlockDone: <LockOpenIcon />,
+  approveDone: <Check size={14} />,
+  transferDone: <ArrowUpRight size={14} />,
+  transferETHDone: <ArrowUpRight size={14} />,
+  approveWrapDone: <Check size={14} />,
+  wrapDone: <TextWrap size={14} />,
+  unwrapDone: <ListChevronsDownUp size={14} />,
+  unlockDone: <LockOpen size={14} />,
   receivedETH: null,
   init: null,
   approve: null,
@@ -128,7 +124,7 @@ export default function TransactionData(props: {
           rel="noopener noreferrer"
           className={`ml-2.5 ${localStyles.sk__openExplorerBtn}`}
         >
-          <OpenInNewIcon className="text-foreground" />
+          <ExternalLink  className="text-foreground" />
         </IconButton>
       </div>
     </div>

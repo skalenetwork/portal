@@ -34,6 +34,7 @@ export default function Chain(props: {
   app?: string
   size?: types.Size
   decIcon?: boolean
+  iconSize?: types.Size
   prim?: boolean
   from?: boolean
 }) {
@@ -46,7 +47,7 @@ export default function Chain(props: {
         skaleNetwork={props.skaleNetwork}
         chainName={props.chainName}
         app={props.app}
-        size='md'
+        size={props.iconSize ?? 'md'}
         chainsMeta={chainsMeta}
       />
       <div
