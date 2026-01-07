@@ -58,7 +58,7 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation }) => {
   }
 
   return (
-    <div className="flex items-center className">
+    <div className="flex items-center mt-1.5">
       <div>
         <div className="chipXs chip_PROPOSED">
           <p className="text-xs font-bold truncate">PROPOSED</p>
