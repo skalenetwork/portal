@@ -168,7 +168,7 @@ export default function Delegation(props: {
                 text={getStakingText()}
                 grow
                 ri={!props.isXs}
-                icon={<Coins size={17} />}
+                icon={<Coins size={14} />}
               />
             </SkStack>
             {props.delegationType === types.st.DelegationType.ESCROW && (
