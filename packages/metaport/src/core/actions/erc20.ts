@@ -23,7 +23,7 @@
 
 import { Logger, type ILogObj } from 'tslog'
 import { Contract } from 'ethers'
-import { dc, type types, units } from '@/core'
+import { dc, type types, units, helper } from '@/core'
 
 import { findFirstWrapperChainName } from '../metaport'
 
@@ -62,7 +62,7 @@ export class TransferERC20S2S extends Action {
         erc20SAddress,
         amountWei
       )
-      const txBlock = await sChain.provider.getBlock(approveTx.response.blockNumber)
+      const txBlock = await helper.getBlockWithRetry(sChain.provider, approveTx.response.blockNumber)
       this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
       log.info('ApproveERC20S:execute - tx completed: %O', approveTx)
     }
@@ -89,7 +89,7 @@ export class TransferERC20S2S extends Action {
       [this.chainName2, this.originAddress, amountWei, { address: this.address }],
       `${this.chainName1}:erc20:transferToSchainERC20`
     )
-    const block = await sChain.provider.getBlock(tx.response.blockNumber)
+    const block = await helper.getBlockWithRetry(sChain.provider, tx.response.blockNumber)
     this.updateState('transferDone', tx.response.hash, block.timestamp)
     if (isDestinationSFuel) {
       await this.sChain2.waitETHBalanceChange(this.address, balanceOnDestination)
@@ -143,7 +143,7 @@ export class WrapERC20S extends Action {
         this.token.wrapper(this.chainName2) as types.AddressType,
         amountWei
       )
-      const txBlock = await this.sChain1.provider.getBlock(approveTx.response.blockNumber)
+      const txBlock = await helper.getBlockWithRetry(this.sChain1.provider, approveTx.response.blockNumber)
       this.updateState('approveWrapDone', approveTx.response.hash, txBlock.timestamp)
     }
     this.updateState('wrap')
@@ -155,7 +155,7 @@ export class WrapERC20S extends Action {
       amountWei
     )
 
-    const block = await this.sChain1.provider.getBlock(tx.response.blockNumber)
+    const block = await helper.getBlockWithRetry(this.sChain1.provider, tx.response.blockNumber)
     this.updateState('wrapDone', tx.response.hash, block.timestamp)
   }
 
@@ -189,11 +189,11 @@ export class UnWrapERC20 extends Action {
     sChain.addToken(this.token.type, this.token.keyname, tokenContract)
     const amountWei = await tokenContract.balanceOf(this.address)
     const tx = await sChain.unwrap(this.token.type, this.token.keyname, this.address, amountWei)
-    const block = await sChain.provider.getBlock(tx.response.blockNumber)
+    const block = await helper.getBlockWithRetry(sChain.provider, tx.response.blockNumber)
     this.updateState('unwrapDone', tx.response.hash, block.timestamp)
   }
 
-  async preAction() {}
+  async preAction() { }
 }
 
 export class UnWrapERC20S extends Action {
@@ -210,7 +210,7 @@ export class UnWrapERC20S extends Action {
     const tx = await sChain.unwrap(this.token.type, this.token.keyname, this.address, amountWei)
 
     log.info('UnWrapERC20S:execute - tx completed %O', tx)
-    const block = await sChain.provider.getBlock(tx.response.blockNumber)
+    const block = await helper.getBlockWithRetry(sChain.provider, tx.response.blockNumber)
     this.updateState('unwrapDone', tx.response.hash, block.timestamp)
   }
 
@@ -259,7 +259,7 @@ export class TransferERC20M2S extends Action {
         amountWei
       )
 
-      const txBlock = await mainnet.provider.getBlock(approveTx.response.blockNumber)
+      const txBlock = await helper.getBlockWithRetry(mainnet.provider, approveTx.response.blockNumber)
       this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
     }
     this.updateState('transfer')
@@ -272,7 +272,7 @@ export class TransferERC20M2S extends Action {
       `${this.chainName1}:erc20:depositERC20`
     )
 
-    const block = await mainnet.provider.getBlock(tx.response.blockNumber)
+    const block = await helper.getBlockWithRetry(mainnet.provider, tx.response.blockNumber)
     this.updateState('transferDone', tx.response.hash, block.timestamp)
     log.info('TransferERC20M2S:execute - tx completed %O', tx)
     await this.sChain2.waitERC20BalanceChange(this.destToken, this.address, balanceOnDestination)
@@ -321,7 +321,7 @@ export class TransferERC20S2M extends Action {
         erc20SAddress,
         amountWei
       )
-      const txBlock = await sChain.provider.getBlock(approveTx.response.blockNumber)
+      const txBlock = await helper.getBlockWithRetry(sChain.provider, approveTx.response.blockNumber)
       this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
       log.info('ApproveERC20S:execute - tx completed: %O', approveTx)
     }
@@ -335,7 +335,7 @@ export class TransferERC20S2M extends Action {
       `${this.chainName1}:erc20:exitToMainERC20`
     )
 
-    const block = await sChain.provider.getBlock(tx.response.blockNumber)
+    const block = await helper.getBlockWithRetry(sChain.provider, tx.response.blockNumber)
     this.updateState('transferDone', tx.response.hash, block.timestamp)
     log.info('TransferERC20S2M:execute - tx completed %O', tx)
     await this.mainnet.waitERC20BalanceChange(this.destToken, this.address, balanceOnDestination)
