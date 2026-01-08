@@ -91,12 +91,6 @@ export default function ValidatorInfo(props: {
           size='md'
           icon={<TokenIcon tokenSymbol="skl" size="xs" />}
         />
-        <CopySurface
-          className="h-full w-full"
-          title="Validator Address"
-          value={props.validator?.validatorAddress}
-          icon={<Wallet size={14} className="text-foreground-600 dark:text-foreground-400" />}
-        />
       </SkStack>
     </div >
   )
