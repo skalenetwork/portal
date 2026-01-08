@@ -39,8 +39,8 @@ import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRound
 import AvTimerRoundedIcon from '@mui/icons-material/AvTimerRounded'
 import RestartAltRoundedIcon from '@mui/icons-material/RestartAltRounded'
 import HelpOutlineRoundedIcon from '@mui/icons-material/HelpOutlineRounded'
-import SortRoundedIcon from '@mui/icons-material/SortRounded'
 import { DEFAULT_ERROR_MSG } from '../core/constants'
+import { CopySlash } from 'lucide-react'
 
 const ERROR_ICONS = {
   'link-off': <LinkOffRoundedIcon />,
@@ -118,7 +118,7 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
         >
           <div className="flex w-full items-center">
             <div className="flex items-center justify-center mr-2.5">
-              <SortRoundedIcon />
+              <CopySlash size={17} className='text-primary' />
             </div>
             <p className="text-sm text-primary font-semibold capitalize mr-2.5">
               {expanded === 'panel1' ? 'Hide' : 'Show'} error details
@@ -138,13 +138,12 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
       </Accordion>
       {props.errorMessage.fallback ? (
         <Button
-          variant="contained"
-          color="primary"
-          size="medium"
-          className="w-full normal-case text-sm leading-6 tracking-wider font-semibold py-3.5 px-4 min-h-[44px] rounded shadow-none mt-1.5"
           onClick={() => {
             props.errorMessage.fallback()
           }}
+          variant="contained"
+          className={`w-full mt-3! md:mt-4! mb-12! md:mb-0! capitalize! text-[13px]! md:text-sm! font-semibold! py-3.5! md:py-4! bg-accent-foreground! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]`}
+          size="large"
         >
           {props.errorMessage.btnText}
         </Button>

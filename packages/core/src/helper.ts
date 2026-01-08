@@ -86,3 +86,21 @@ export function roundUp(num: number, decimals: number = constants.ROUNDING_DECIM
 export function divideBigInts(a: bigint, b: bigint): number {
   return Number((a * 10000n) / b) / 10000
 }
+
+type BlockProvider<TBlock extends { timestamp: number }> = {
+  getBlock: (blockNumber: number) => Promise<TBlock | null>
+}
+
+export async function getBlockWithRetry<TBlock extends { timestamp: number }>(
+  provider: BlockProvider<TBlock>,
+  blockNumber: number,
+  sleepInterval = 500,
+  iterations = 10
+): Promise<TBlock> {
+  for (let i = 0; i < iterations; i++) {
+    const block = await provider.getBlock(blockNumber)
+    if (block) return block
+    await sleep(sleepInterval)
+  }
+  throw new Error(`Failed to load block: ${blockNumber}`)
+}

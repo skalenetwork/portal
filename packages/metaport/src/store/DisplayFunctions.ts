@@ -94,7 +94,7 @@ export const useDisplayFunctions = (): DisplayFunctions => {
       !expandedTokens &&
       !errorMessage &&
       !expandedCP &&
-      sFuelOk &&
+      // sFuelOk && // todo: tmp fix: disable sFuel check for stepper display
       !expandedWT &&
       !expandedTH &&
       !!address
