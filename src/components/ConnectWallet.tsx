@@ -21,8 +21,8 @@
  */
 
 import { Button } from '@mui/material'
-import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
 import { SkPaper, useWagmiAccount, RainbowConnectButton } from '@skalenetwork/metaport'
+import { Rainbow } from 'lucide-react'
 
 export default function ConnectWallet(props: {
   tile?: boolean
@@ -48,7 +48,7 @@ export default function ConnectWallet(props: {
                       variant="contained"
                       className="text-center mt-2.5! flex btn bg-accent-foreground! text-accent!"
                     >
-                      <LooksRoundedIcon className="mr-2.5" />
+                      <Rainbow size={17}  className="mr-2.5" />
                       {address ? 'Sign in' : 'Connect Wallet'}
                     </Button>
                   )
