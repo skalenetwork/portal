@@ -48,7 +48,7 @@ export default function ErrorTile(props: {
                 if (props.setErrorMsg === undefined) return
                 props.setErrorMsg(undefined)
               }}
-              className="'blackP' text-xs mt-2.5"
+              className="text-foreground! text-xs mt-2.5"
               style={{ background: 'rgba(0, 0, 0, 0.3)' }}
             >
               Close
