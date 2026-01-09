@@ -107,6 +107,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
           src={DuneLogo}
           className={`customSocialIcon ${isMd ? 'text-foreground' : 'opacity-60'}`}
           alt="dune-logo"
+          style={{ width: isMd ? 24 : 17, height: isMd ? 24 : 17 }}
         />
       ),
       title: 'Dune Analytics'
