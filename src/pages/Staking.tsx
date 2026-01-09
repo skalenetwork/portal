@@ -172,7 +172,7 @@ export default function Staking(props: {
             {loading !== false || props.customAddress !== undefined ? (
               <Button
                 variant="contained"
-                className="btn btnMd text-xs text-accent! bg-foreground!"
+                className="btn btnSm py-3! text-xs text-accent! bg-foreground!"
                 startIcon={<Coins size={14} />}
                 disabled={loading !== false || props.customAddress !== undefined}
               >
