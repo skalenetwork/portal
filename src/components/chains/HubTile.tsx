@@ -103,7 +103,7 @@ export default function HubTile(props: {
               </div>
             )}
             {!props.isXs && (
-              <div className="mr-5 w-4 h-4">
+              <div className="mr-5 w-4 h-4 flex items-center justify-center">
                 <ChevronRight className="text-secondary-foreground" />
               </div>
             )}
