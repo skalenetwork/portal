@@ -107,7 +107,6 @@ export default function StakeAmount(props: {
 
   return (
     <Container maxWidth="md">
-      <SkPaper gray className="mt-2.5 chainDetails">
         <div className="flex items-center">
           <div className="flex grow">
             <Breadcrumbs
@@ -135,6 +134,7 @@ export default function StakeAmount(props: {
             </div>
           ) : null}
         </div>
+        <SkPaper gray className="mt-2.5 chainDetails">
         <div className="mt-2.5 ml-1.25 mb-2.5" style={{ paddingBottom: '5px' }}>
           <h2 className="m-0 text-xl font-bold text-foreground">Stake SKL</h2> 
           <p className="text-xs text-secondary-foreground font-semibold">
