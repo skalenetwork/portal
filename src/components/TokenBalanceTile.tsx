@@ -108,7 +108,7 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
           <div className="items-center flex">
             <Button
               disabled={loading}
-              className="btnSm outlined ml-5 items-center bg-background! text-secondary-foreground!"
+              className="btnSm contained ml-5 items-center bg-card! text-foreground!"
               onClick={() => {
                 addToken()
               }}

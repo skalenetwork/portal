@@ -138,7 +138,7 @@ export default function Onramp(props: { mpc: MetaportCore }) {
         <div className="flex items-center">
           <div className="grow">
             <h2 className="m-0 text-xl font-bold text-foreground">On-ramp</h2>
-            <p className="m-0 'text-sm' text-secondary-foreground">
+            <p className="text-[11px] md:text-xs text-secondary-foreground font-semibold mt-1">
               Transfer your assets to SKALE Europa Hub
             </p>
           </div>
