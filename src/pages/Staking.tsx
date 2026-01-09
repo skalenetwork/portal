@@ -182,7 +182,7 @@ export default function Staking(props: {
               <Link to="/staking/new">
                 <Button
                   variant="contained"
-                  className="btn btnMd text-xs text-accent! bg-foreground!"
+                  className="btn btnSm py-3! text-xs text-accent! bg-foreground!"
                   startIcon={<Coins size={14} />}
                   disabled={loading || props.customAddress !== undefined}
                 >
