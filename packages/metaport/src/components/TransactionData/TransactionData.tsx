@@ -26,13 +26,12 @@ import { types } from '@/core'
 
 import IconButton from '@mui/material/IconButton'
 
-import { ArrowUpRight, Check, ExternalLink, ListChevronsDownUp, LockOpen, TextWrap } from 'lucide-react'
+import { ArrowUpRight, Check, ExternalLink, LockOpen, SendToBack } from 'lucide-react'
 
 
 import { getTxUrl } from '../../core/explorer'
 
 import localStyles from './TransactionData.module.scss'
-import { styles } from '../../core/css'
 import { CHAINS_META } from '../../core/metadata'
 
 type ActionStateIconMap = {
@@ -48,8 +47,8 @@ const actionIcons: ActionStateIconMap = {
   transferDone: <ArrowUpRight size={14} />,
   transferETHDone: <ArrowUpRight size={14} />,
   approveWrapDone: <Check size={14} />,
-  wrapDone: <TextWrap size={14} />,
-  unwrapDone: <ListChevronsDownUp size={14} />,
+  wrapDone: <SendToBack size={14} />,
+  unwrapDone: <SendToBack size={14} />,
   unlockDone: <LockOpen size={14} />,
   receivedETH: null,
   init: null,
@@ -98,13 +97,14 @@ export default function TransactionData(props: {
     props.transactionData.transactionHash
   )
   return (
-    <div className="flex items-center mt-1.5 mb-1.5 ml-1.5 mr-1.5">
+    <div className="flex items-center">
       <div>
-        <div
-          className={`${localStyles.transactionDataIcon} flex items-center text-foreground ml-4 ${styles[`action_${props.transactionData.txName}`]}`}
-        >
-          {actionIcons[props.transactionData.txName]}
-        </div>
+        <span className={`relative flex items-center justify-center`}>
+          <span className={`w-[30px] h-[30px] rounded-full bg-card absolute`} />
+          <span className={`flex items-center justify-center text-foreground w-[30px] h-[30px] z-10`}>
+            {actionIcons[props.transactionData.txName]}
+          </span>
+        </span>
       </div>
       <div className="ml-5 grow flex">
         <div>
@@ -124,7 +124,7 @@ export default function TransactionData(props: {
           rel="noopener noreferrer"
           className={`ml-2.5 ${localStyles.sk__openExplorerBtn}`}
         >
-          <ExternalLink  className="text-foreground" />
+          <ExternalLink className="text-foreground" />
         </IconButton>
       </div>
     </div>
