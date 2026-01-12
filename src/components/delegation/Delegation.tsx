@@ -220,19 +220,21 @@ export default function Delegation(props: {
               </div>
             )}
             {isCompleted && (
-              <Tile
-                className="bg-foreground/5!"
-                tooltip={
-                  props.sklPrice && props.delegation.finished
-                    ? units.displaySklValueUsd(props.delegation.finished, props.sklPrice)
-                    : ''
-                }
-                value={timeUtils.convertMonthIndexToText(Number(props.delegation.finished))}
-                text="Delegation completed"
-                grow
-                size="md"
-                icon={<HistoryRoundedIcon className="text-[14px]!" />}
-              />
+              <div className="mt-2">
+                <Tile
+                  className="bg-foreground/5!"
+                  tooltip={
+                    props.sklPrice && props.delegation.finished
+                      ? units.displaySklValueUsd(props.delegation.finished, props.sklPrice)
+                      : ''
+                  }
+                  value={timeUtils.convertMonthIndexToText(Number(props.delegation.finished))}
+                  text="Delegation completed"
+                  grow
+                  size="md"
+                  icon={<HistoryRoundedIcon className="text-[14px]!" />}
+                />
+              </div>
             )}
             {Number(props.delegation.stateId) === DelegationState.PROPOSED && props.accept ? (
               <SkBtn

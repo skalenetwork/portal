@@ -59,7 +59,6 @@ export default function Delegations(props: {
         text="Delegations"
         icon={<Inbox />}
       />
-      <div className="mt-2.5" style={{ paddingBottom: '5px' }}></div>
       {!loaded ? (
         <div>
           <Skeleton variant="rectangular" height={86} className="mb-2.5" />

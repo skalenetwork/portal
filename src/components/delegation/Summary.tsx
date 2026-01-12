@@ -153,10 +153,9 @@ export default function Summary(props: {
           />
         </SkStack>
         {props.accountInfo?.vested !== undefined && props.accountInfo?.unlocked !== undefined ? (
-          <SkStack>
+          <SkStack className="mt-2.5">
             <Tile
               disabled={props.accountInfo?.vested === 0n}
-              className="mt-2.5"
               tooltip={
                 props.sklPrice && props.accountInfo
                   ? units.displaySklValueUsd(props.accountInfo.vested, props.sklPrice)
@@ -169,73 +168,73 @@ export default function Summary(props: {
               icon={<CalendarCheck size={14} />}
               grow
               childrenRi={
-                <SkStack className="flex">
-                  {props.accountInfo?.fullAmount !== undefined ? (
-                    <Tile
-                      disabled={props.accountInfo?.fullAmount === 0n}
-                      tooltip={
-                        props.sklPrice && props.accountInfo
-                          ? units.displaySklValueUsd(props.accountInfo.fullAmount, props.sklPrice)
-                          : ''
+            <SkStack className="flex">
+              {props.accountInfo?.fullAmount !== undefined ? (
+                <Tile
+                  disabled={props.accountInfo?.fullAmount === 0n}
+                  tooltip={
+                    props.sklPrice && props.accountInfo
+                      ? units.displaySklValueUsd(props.accountInfo.fullAmount, props.sklPrice)
+                      : ''
+                  }
+                  value={
+                    props.accountInfo
+                      ? units.displayBalance(props.accountInfo.fullAmount, 'SKL')
+                      : null
+                  }
+                  text="Initial Escrow Amount"
+                  icon={<Landmark size={14} />}
+                  grow
+                  size="md"
+                  transparent
+                  className={`p-0 ${!props.isXs ? 'mr-1 ml-1' : ''}`}
+                  ri={!props.isXs}
+                />
+              ) : (
+                <div></div>
+              )}
+              <div className="border-l-2 border-border"></div>
+              <Tile
+                size="md"
+                transparent
+                disabled={props.accountInfo?.unlocked === 0n}
+                className={`p-0 ${!props.isXs ? 'ml-1' : ''}`}
+                tooltip={
+                  props.sklPrice && props.accountInfo
+                    ? units.displaySklValueUsd(props.accountInfo.unlocked, props.sklPrice)
+                    : ''
+                }
+                value={
+                  props.accountInfo
+                    ? units.displayBalance(props.accountInfo.unlocked, 'SKL')
+                    : null
+                }
+                text="Unlocked Tokens"
+                icon={<LockOpen size={14} />}
+                grow
+                ri={!props.isXs}
+                childrenRi={
+                  <div className="items-center flex">
+                    <div className="mr-5"></div>
+                    <SkBtn
+                      loading={loading}
+                      text={loading ? 'Retrieving' : 'Retrieve'}
+                      variant="contained"
+                      size="sm"
+                      className={`${!props.isXs ? 'ml-5' : ''} items-center`}
+                      disabled={
+                        props.accountInfo?.unlocked === 0n ||
+                        props.loading !== false ||
+                        props.customAddress !== undefined
                       }
-                      value={
-                        props.accountInfo
-                          ? units.displayBalance(props.accountInfo.fullAmount, 'SKL')
-                          : null
-                      }
-                      text="Initial Escrow Amount"
-                      icon={<Landmark size={14} />}
-                      grow
-                      size="md"
-                      transparent
-                      className={`p-0 ${!props.isXs ? 'mr-5 ml-5' : ''}`}
-                      ri={!props.isXs}
+                      onClick={() => {
+                        props.retrieveUnlocked(rewardInfo)
+                      }}
                     />
-                  ) : (
-                    <div></div>
-                  )}
-                  <div className="border-l-2 border-border"></div>
-                  <Tile
-                    size="md"
-                    transparent
-                    disabled={props.accountInfo?.unlocked === 0n}
-                    className={`p-0 ${!props.isXs ? 'ml-5' : ''}`}
-                    tooltip={
-                      props.sklPrice && props.accountInfo
-                        ? units.displaySklValueUsd(props.accountInfo.unlocked, props.sklPrice)
-                        : ''
-                    }
-                    value={
-                      props.accountInfo
-                        ? units.displayBalance(props.accountInfo.unlocked, 'SKL')
-                        : null
-                    }
-                    text="Unlocked Tokens"
-                    icon={<LockOpen size={14} />}
-                    grow
-                    ri={!props.isXs}
-                    childrenRi={
-                      <div className="items-center flex">
-                        <div className="mr-5"></div>
-                        <SkBtn
-                          loading={loading}
-                          text={loading ? 'Retrieving' : 'Retrieve'}
-                          variant="contained"
-                          size="sm"
-                          className={`${!props.isXs ? 'ml-5' : ''} items-center`}
-                          disabled={
-                            props.accountInfo?.unlocked === 0n ||
-                            props.loading !== false ||
-                            props.customAddress !== undefined
-                          }
-                          onClick={() => {
-                            props.retrieveUnlocked(rewardInfo)
-                          }}
-                        />
-                      </div>
-                    }
-                  />
-                </SkStack>
+                  </div>
+                }
+              />
+            </SkStack>
               }
             />
           </SkStack>

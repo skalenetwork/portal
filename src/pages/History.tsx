@@ -81,7 +81,7 @@ export default function History() {
                 onClick={clearTransferHistory}
                 color="error"
                 size="small"
-                className="w-full normal-case text-sm leading-6 tracking-wider font-semibold py-3.5 px-4 min-h-[44px] rounded shadow-none mb-5"
+                className="w-full normal-case! text-sm leading-6 tracking-wider font-semibold py-3.5 px-4 min-h-[44px] rounded shadow-none mb-5"
                 startIcon={<Trash2 size={14} />}
               >
                 Clear transfers history
