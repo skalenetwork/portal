@@ -20,7 +20,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import React, { useState, useMemo, useRef } from 'react'
+import React, { useEffect, useState, useMemo, useRef } from 'react'
 import { filterCategories } from '../../core/ecosystem/utils'
 import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
@@ -46,6 +46,30 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({})
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [searchTerm, setSearchTerm] = useState('')
+  const prevOverflow = useRef<{ html: string; body: string } | null>(null)
+  const isMenuOpen = Boolean(anchorEl)
+
+  useEffect(() => {
+    if (!isMenuOpen) {
+      return
+    }
+
+    const html = document.documentElement
+    const body = document.body
+
+    prevOverflow.current = { html: html.style.overflow, body: body.style.overflow }
+    html.style.overflow = 'hidden'
+    body.style.overflow = 'hidden'
+
+    return () => {
+      const prev = prevOverflow.current
+      if (!prev) {
+        return
+      }
+      html.style.overflow = prev.html
+      body.style.overflow = prev.body
+    }
+  }, [isMenuOpen])
   const buttonRef = useRef<HTMLButtonElement>(null)
 
   const filteredCategories = useMemo(() => filterCategories(searchTerm), [searchTerm])
@@ -149,7 +173,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
         onClick={handleMenuOpen}
         startIcon={<Shapes />}
         endIcon={<ChevronDown className='text-muted-foreground' />}
-        className="btn btnMd tab text-foreground! bg-card! border-border py-3! rounded-full! border shadow-xs! text-xs ease-in-out transition-transform duration-150 active:scale-[0.97]"
+        className="btn btnMd tab text-foreground! bg-card! border-border py-3! rounded-full! border shadow-xs! text-xs ease-in-out transition-transform duration-150 active:scale-[0.97] w-full"
         style={{ background: 'transparent' }}
       >
         Categories
@@ -163,16 +187,11 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
             style: {
               maxHeight: 'calc(80vh - 100px)',
             },
-            className: `mt-2.5! overflow-visible rounded-3xl! bg-card! text-foreground! shadow-sm! border-none! ring-0! [&_.MuiList-root]:p-0! [&_.MuiList-root]:bg-card!`
+            className: `mt-2.5! rounded-3xl! text-foreground! shadow-sm! border-none! ring-0! [&_.MuiList-root]:p-0! [&_.MuiList-root]:bg-card!`
           }
         }}
       >
         <div className="p-2.5">
-          {isXs && (
-            <Button className="btn w-full outlined mb-2.5" onClick={handleMenuClose}>
-              Close
-            </Button>
-          )}
           <SearchBar
             className="mb-5"
             searchTerm={searchTerm}

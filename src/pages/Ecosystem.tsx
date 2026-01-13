@@ -173,9 +173,9 @@ export default function Ecosystem(props: {
               </div>
             </div>
           </SkStack>
-          <SkStack className={`mb-5 flex items-center   ${props.isXs ? 'flex-col' : ''}`}>
+          <SkStack className={`mb-5 flex ${props.isXs ? 'flex-col gap-2' : 'items-center'}`}>
             <SearchComponent
-              className={`grow ${!props.isXs ? '' : 'fullW'}`}
+              className={`grow ${!props.isXs ? '' : 'fullW mt-2'}`}
               searchTerm={searchTerm}
               setSearchTerm={handleSetSearchTerm}
             />
@@ -195,7 +195,7 @@ export default function Ecosystem(props: {
             value={activeTab}
             onChange={handleTabChange}
             scrollButtons="auto"
-            className="skTabs bg-card! rounded-full p-1! w-fit mb-5"
+            className={`skTabs bg-card! rounded-full p-1! mb-5 ${props.isXs ? '' : 'w-fit'}`}
           >
             <Tab
               label="All"
@@ -220,7 +220,7 @@ export default function Ecosystem(props: {
               icon={SECTION_ICONS.new}
               iconPosition="start"
               className={`btn btnMd tab fwmobile ${activeTab === 2
-                ? 'text-foreground!  dark:bg-black!'
+                ? 'text-foreground! bg-gray-100! dark:bg-black!'
                 : 'bg-card/0! text-muted-foreground!'
                 }`}
             />

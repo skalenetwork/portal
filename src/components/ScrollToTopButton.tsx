@@ -47,6 +47,7 @@ export default function ScrollToTopButton() {
     })
   }
 
+  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 600px)').matches
   return isVisible ? (
     <Fab
       aria-label="scroll to top"
@@ -55,7 +56,7 @@ export default function ScrollToTopButton() {
       className="bg-foreground/5!"
       style={{
         position: 'fixed',
-        bottom: '1.5rem',
+        bottom: isMobile ? '4.5rem' : '1.5rem',
         right: '1.5rem',
         zIndex: 50
       }}
