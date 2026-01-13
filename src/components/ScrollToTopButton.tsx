@@ -53,7 +53,7 @@ export default function ScrollToTopButton() {
       aria-label="scroll to top"
       onClick={scrollToTop}
       size="small"
-      className="bg-foreground/5!"
+      className="bg-foreground/5! text-foreground!"
       style={{
         position: 'fixed',
         bottom: isMobile ? '4.5rem' : '1.5rem',
