@@ -138,7 +138,7 @@ export default function Topup(props: {
         <div className="flex gap-2.5 align-center!">
           <Button
             variant="contained"
-            className={`btn btnMd text-xs align-center! ${!balanceOk || props.loading || maxTopupPeriod <= 0 ? 'bg-muted! text-muted-foreground!' : 'bg-foreground! text-accent!'}`}
+            className={`btn btnMd text-xs align-center! bg-foreground! text-accent! disabled:bg-muted! disabled:text-muted-foreground! '}`}
             disabled={!balanceOk || props.loading || maxTopupPeriod <= 0}
             onClick={props.topupChain}
           >
