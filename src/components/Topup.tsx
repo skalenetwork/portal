@@ -118,7 +118,7 @@ export default function Topup(props: {
             text="Error occurred"
             icon={<ShieldAlert size={17} />}
             color="error"
-            className="text-foreground"
+            className="text-foreground bg-red-100 border-red-200 dark:bg-red-800/80 dark:border-red-600 border-2"
             grow
             childrenRi={
               <Button
@@ -126,7 +126,7 @@ export default function Topup(props: {
                 onClick={() => {
                   props.setErrorMsg(undefined)
                 }}
-                className="roundBtn outlined text-foreground! bg-muted-foreground/10! hover:bg-muted-foreground/20!"
+                className="roundBtn text-foreground! normal-case! bg-muted-foreground/30! hover:bg-muted-foreground/20!"
               >
                 Close
               </Button>
@@ -138,7 +138,7 @@ export default function Topup(props: {
         <div className="flex gap-2.5 align-center!">
           <Button
             variant="contained"
-            className="btn btnMd text-xs bg-muted! text-muted-foreground! align-center!"
+            className={`btn btnMd text-xs align-center! ${!balanceOk || props.loading || maxTopupPeriod <= 0 ? 'bg-muted! text-muted-foreground!' : 'bg-foreground! text-accent!'}`}
             disabled={!balanceOk || props.loading || maxTopupPeriod <= 0}
             onClick={props.topupChain}
           >

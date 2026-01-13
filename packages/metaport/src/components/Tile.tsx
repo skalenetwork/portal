@@ -166,7 +166,7 @@ export default function Tile(props: {
                 value={props.progress}
                 color={props.progressColor}
                 style={{ height: '20px' }}
-                className="grow ml-2.5"
+                className="grow ml-2.5 dark:opacity-100 opacity-50 dark:brightness-100 brightness-125"
               />
             ) : null}
           </div>

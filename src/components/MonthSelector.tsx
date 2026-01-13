@@ -83,14 +83,14 @@ export default function MonthSelector(props: {
                 }
                 setTextPeriod(event.target.value)
               }}
-              slotProps={{ htmlInput: { className: 'text-foreground!' } }}      
+              slotProps={{ htmlInput: { className: 'text-foreground!' } }}
               className="monthInput"
               placeholder="0"
             />
             <Button
               variant="text"
               startIcon={<CircleCheck size={17} />}
-              className="roundBtn outlined text-foreground!"
+              className="roundBtn outlined text-foreground! normal-case! bg-muted-foreground/10! hover:bg-muted-foreground/20!"
               onClick={() => {
                 if (
                   textPeriod === undefined ||
@@ -119,18 +119,18 @@ export default function MonthSelector(props: {
           <Button
             startIcon={<CircleX size={17} />}
             variant="text"
-            className="roundBtn ml-1.5 text-muted-foreground!"
+            className="roundBtn ml-1! text-muted-foreground! normal-case! bg-muted-foreground/10! hover:bg-muted-foreground/20!"
             onClick={() => {
               setOpenCustom(false)
             }}
           >
-            <p className="text-muted-foreground">Close</p>
+            <p>Close</p>
           </Button>
         </div>
       ) : (
-       <Button
+        <Button
           variant={props.topupPeriod === customPeriod ? 'contained' : 'text'}
-          className={`mr-2.5 roundBtn capitalize! ${props.topupPeriod !== customPeriod ? 'bg-muted-foreground/10! hover:bg-muted-foreground/20! text-foreground!' : 'bg-foreground! text-accent!'}`}
+          className={`mr-2.5 roundBtn! ${props.topupPeriod !== customPeriod ? 'normal-case! py-2! bg-muted-foreground/10! hover:bg-muted-foreground/20! text-foreground!' : 'bg-foreground! text-accent!'}`}
           onClick={() => {
             setOpenCustom(true)
           }}
