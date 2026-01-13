@@ -160,7 +160,7 @@ export default function Ecosystem(props: {
         </Helmet>
         <Stack spacing={0}>
           <SkStack>
-            <div className={cn('grow flex flex-col mb-5')}>
+            <div className={cn('grow flex flex-col mb-1')}>
               <h2 className="m-0 text-xl font-bold text-foreground">Ecosystem</h2>
               <p className="text-xs text-secondary-foreground font-semibold">
                 Explore dApps across the SKALE ecosystem
@@ -175,7 +175,7 @@ export default function Ecosystem(props: {
           </SkStack>
           <SkStack className={`mb-5 flex ${props.isXs ? 'flex-col gap-2' : 'items-center'}`}>
             <SearchComponent
-              className={`grow ${!props.isXs ? '' : 'fullW mt-2'}`}
+              className={`grow ${!props.isXs ? '' : 'fullW mt-2 mb-2'}`}
               searchTerm={searchTerm}
               setSearchTerm={handleSetSearchTerm}
             />
