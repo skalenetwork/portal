@@ -29,7 +29,7 @@ import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { Skeleton, Tooltip } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
+import { CircleCheck } from 'lucide-react'
 
 export default function Tile(props: {
   text?: string
@@ -44,7 +44,7 @@ export default function Tile(props: {
   progress?: number
   children?: ReactElement | ReactElement[] | false
   childrenRi?: ReactElement | ReactElement[] | null | ''
-  size?:'lg' | 'md' | 'xl'
+  size?: 'lg' | 'md' | 'xl'
   textColor?: string
   disabled?: boolean | null
   ri?: boolean
@@ -86,7 +86,7 @@ export default function Tile(props: {
         font-bold
         ${!props.color && !props.disabled ? 'text-foreground' : ''}
         ${props.disabled ? 'text-secondary-foreground' : ''}
-        ${props.color ? ''  : ''}
+        ${props.color ? '' : ''}
         ${props.copy ? 'cursor-pointer' : ''}
       `.replace(/\s+/g, ' ').trim()}
     >
@@ -114,7 +114,7 @@ export default function Tile(props: {
                   className="mr-1.5 flex text-[17px]!"
                   style={{ color: props.textColor }}
                 >
-                  {copied ? <CheckCircleRoundedIcon color="success" /> : props.icon}
+                  {copied ? <CircleCheck size={20} color={theme.palette.success.main} /> : props.icon}
                 </div>
               ) : null}
               <p
