@@ -80,7 +80,7 @@ export default function PopularActions(props: {
                 rel="noopener noreferrer"
               >
                 <SkPaper gray className="w-full hoverable" key={action.text}>
-                  <div className="flex items-center">
+                  <div className="flex items-center py-1 pl-1">
                     <Logo
                       chainsMeta={props.chainsMeta}
                       skaleNetwork={props.skaleNetwork}

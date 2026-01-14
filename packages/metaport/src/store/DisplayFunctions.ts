@@ -121,7 +121,6 @@ export const useDisplayFunctions = (): DisplayFunctions => {
       !errorMessage &&
       !expandedCP &&
       !expandedTH &&
-      sFuelOk &&
       !!address &&
       !!token
     )

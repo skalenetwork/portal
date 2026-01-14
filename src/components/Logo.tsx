@@ -35,7 +35,7 @@ interface LogoProps {
 }
 
 const Logo: React.FC<LogoProps> = ({ chainsMeta, skaleNetwork, chainName, appName, size }) => {
-  size = size || 'sm'
+  size = size || 'xs'
   const { mode } = useThemeMode()
   return (
     <div className={cls('sk-app-logo', `sk-logo-${size}`, 'br__tile')}>
