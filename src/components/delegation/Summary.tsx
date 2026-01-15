@@ -187,7 +187,7 @@ export default function Summary(props: {
                   grow
                   size="md"
                   transparent
-                  className={`p-0 ${!props.isXs ? 'mr-1 ml-1' : ''}`}
+                  className={`p-0! ${!props.isXs ? 'mr-1 ml-1' : ''}`}
                   ri={!props.isXs}
                 />
               ) : (
@@ -198,7 +198,7 @@ export default function Summary(props: {
                 size="md"
                 transparent
                 disabled={props.accountInfo?.unlocked === 0n}
-                className={`p-0 ${!props.isXs ? 'ml-1' : ''}`}
+                className={`p-0! ${!props.isXs ? 'ml-1' : ''}`}
                 tooltip={
                   props.sklPrice && props.accountInfo
                     ? units.displaySklValueUsd(props.accountInfo.unlocked, props.sklPrice)
