@@ -72,12 +72,12 @@ export const CONTRACTS: ContractsConfig = {
   "base-sepolia-testnet": {
     'skale-manager': 'production',
     'mainnet-ima': 'production',
-    'credit-station': '0x9Eb1d345C1edF3F088c10c2ff1F6329aF7DF99Cd'
+    'credit-station': '0x9197c60e10ef0e4D44EfB54455A6D24782d8A93f'
   },
   base: {
     'skale-manager': 'production',
     'mainnet-ima': 'production',
-    'credit-station': '0x892F8D56Bfc03C3213236A11B39908f5BCC2b053'
+    'credit-station': '0x0bdEDee74B847094B512700D172CEdd06Cb70F3F'
   },
 }
 
@@ -88,10 +88,10 @@ export const CREDIT_STATION_LEDGER_CONTRACTS: {
   regression: {},
   testnet: {},
   base: {
-    'winged-bubbly-grumium': '0x892F8D56Bfc03C3213236A11B39908f5BCC2b053'
+    'winged-bubbly-grumium': '0x3EB873B8c6efcF495A9Ae3F10450A50e1316362b'
   },
   'base-sepolia-testnet': {
-    'jubilant-horrible-ancha': '0x32Bfa8B5C6a450e9EF7d7Fc99fcCC349E7671FFb'
+    'jubilant-horrible-ancha': '0x5EE1DA726C7F3C261184517f50dADDDcCC3148b8'
   }
 }
 

@@ -22,11 +22,9 @@
 
 import { useState, useEffect } from 'react'
 import Avatar from 'boring-avatars'
-import { Link } from 'react-router-dom'
 import { Contract } from 'ethers'
 
 import { Grid, Button } from '@mui/material'
-import PaymentsRoundedIcon from '@mui/icons-material/PaymentsRounded'
 import HistoryToggleOffRoundedIcon from '@mui/icons-material/HistoryToggleOffRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
@@ -36,7 +34,6 @@ import {
   Tile,
   ChainIcon,
   TokenIcon,
-  explorer,
   useWagmiAccount,
   sendTransaction,
   walletClientToSigner,
@@ -56,12 +53,9 @@ import {
 } from '../../core/constants'
 import { BadgeCheck, HandCoins, IdCard } from 'lucide-react'
 
-interface CreditsHistoryTileProps {
+interface CreditsPaymentTileProps {
   mpc: MetaportCore
-  creditsPurchase: {
-    schainName: string
-    payment: cs.PaymentEvent
-  }
+  payment: cs.Payment
   chainsMeta: types.ChainsMetadataMap
   isXs: boolean
   ledgerContract: Contract | undefined
@@ -70,9 +64,9 @@ interface CreditsHistoryTileProps {
   setErrorMsg?: (msg: string | undefined) => void
 }
 
-const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
+const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
   mpc,
-  creditsPurchase,
+  payment,
   chainsMeta,
   isXs,
   ledgerContract,
@@ -81,8 +75,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
   setErrorMsg
 }) => {
   const network = mpc.config.skaleNetwork
-  const chainAlias = metadata.getAlias(network, chainsMeta, creditsPurchase.schainName)
-  const payment = creditsPurchase.payment
+  const chainAlias = metadata.getAlias(network, chainsMeta, payment.schainName)
 
   const tokens = mpc.config.connections.mainnet?.erc20 || {}
   const tokenSymbol =
@@ -99,27 +92,24 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
   const { switchChainAsync } = useWagmiSwitchNetwork()
 
   useEffect(() => {
-    if (!creditStation || !creditsPurchase) return
+    if (!creditStation || !payment) return
     const fetchTimestamp = async () => {
       try {
         const provider = creditStation.runner?.provider
         if (!provider) return
-        const tx = await provider.getTransaction(payment.transactionHash)
-        if (tx?.blockNumber) {
-          const block = await provider.getBlock(tx.blockNumber)
-          if (block) setTxTimestamp(block.timestamp)
-        }
-      } catch (error) { }
+        const block = await provider.getBlock(payment.blockNumber)
+        if (block) setTxTimestamp(block.timestamp)
+      } catch (error) {}
     }
     fetchTimestamp()
-  }, [creditStation, creditsPurchase, payment.transactionHash])
+  }, [creditStation, payment])
 
   useEffect(() => {
     if (!ledgerContract) return
     const checkFulfillment = async () => {
       try {
         setIsFulfilled(await ledgerContract.isFulfilled(payment.id))
-      } catch (error) { }
+      } catch (error) {}
     }
     checkFulfillment()
     const interval = setInterval(checkFulfillment, 10000)
@@ -140,13 +130,7 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
 
     try {
       const { chainId } = await ledgerContract.runner.provider.getNetwork()
-      await enforceNetwork(
-        chainId,
-        walletClient,
-        switchChainAsync,
-        network,
-        creditsPurchase.schainName
-      )
+      await enforceNetwork(chainId, walletClient, switchChainAsync, network, payment.schainName)
 
       const signer = walletClientToSigner(walletClient)
       ledgerContract.connect(signer)
@@ -175,41 +159,32 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
       <div className="mb-2.5 bg-background rounded-3xl p-4">
         <Grid container spacing={0} alignItems="center">
           <Grid size={{ xs: 12, md: 4 }}>
-            <Link
-              target="_blank"
-              rel="noopener noreferrer"
-              to={explorer.getTxUrl(
-                undefined,
-                constants.MAINNET_CHAIN_NAME,
-                network,
-                payment.transactionHash
-              )}
-            >
-              <div className={cls('flex', 'items-center')}>
-                <Avatar
-                  size={50}
-                  variant="marble"
-                  name={isAdmin ? payment.from : creditsPurchase.schainName + payment.id * 2n}
-                  colors={AVATAR_COLORS}
-                />
-                <ChainIcon
-                  skaleNetwork={network}
-                  chainName={creditsPurchase.schainName}
-                  size="xs"
-                  className="creditHistoryIcon"
-                />
-                <div className={cls('ml-2.5', ['grow', isXs])}>
-                  <h4 className="font-bold pOneLine text-foreground">
-                    {txTimestamp && !isAdmin
-                      ? timeUtils.timestampToDate(txTimestamp, true)
-                      : helper.shortAddress(payment.from)}
-                  </h4>
-                  <p className={cls('p', 'text-xs', 'text-secondary-foreground')}>
-                    {isAdmin && txTimestamp ? timeUtils.timestampToDate(txTimestamp, true) : chainAlias}
-                  </p>
-                </div>
+            <div className={cls('flex', 'items-center')}>
+              <Avatar
+                size={50}
+                variant="marble"
+                name={isAdmin ? payment.from : payment.schainName + payment.id * 2n}
+                colors={AVATAR_COLORS}
+              />
+              <ChainIcon
+                skaleNetwork={network}
+                chainName={payment.schainName}
+                size="xs"
+                className="creditHistoryIcon"
+              />
+              <div className={cls('ml-2.5', ['grow', isXs])}>
+                <h4 className="font-bold pOneLine text-foreground">
+                  {txTimestamp && !isAdmin
+                    ? timeUtils.timestampToDate(txTimestamp, true)
+                    : helper.shortAddress(payment.from)}
+                </h4>
+                <p className={cls('p', 'text-xs', 'text-secondary-foreground font-medium')}>
+                  {isAdmin && txTimestamp
+                    ? timeUtils.timestampToDate(txTimestamp, true)
+                    : chainAlias}
+                </p>
               </div>
-            </Link>
+            </div>
           </Grid>
           <Grid size={{ xs: 12, md: 8 }} className={cls(['mt-5', isXs], 'flex', 'items-center')}>
             <div
@@ -272,4 +247,4 @@ const CreditsHistoryTile: React.FC<CreditsHistoryTileProps> = ({
   )
 }
 
-export default CreditsHistoryTile
+export default CreditsPaymentTile

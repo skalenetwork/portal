@@ -20,11 +20,11 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import { Contract, ethers } from 'ethers'
+import { Contract } from 'ethers'
 import { useEffect, useState } from 'react'
 
 import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
-import { constants, types } from '@/core'
+import { types } from '@/core'
 import * as cs from '../../core/credit-station'
 
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
@@ -32,10 +32,10 @@ import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
 import TokenAdminTile from './TokenAdminTile'
 import AccordionSection from '../AccordionSection'
 import ErrorTile from '../ErrorTile'
-import CreditsHistoryTile from './CreditsHistoryTile'
+import CreditsHistoryTile from './CreditsPaymentTile'
 import CreditStationStatusTile from './CreditStationStatusTile'
 import { getTokenPrices, getLedgerContract } from '../../core/credit-station'
-import { Coins, SwatchBook } from 'lucide-react'
+import { Coins, History, SwatchBook } from 'lucide-react'
 
 interface CreditTokensAdminProps {
   mpc: MetaportCore
@@ -57,23 +57,9 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
 
   const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined)
   const [tokenPrices, setTokenPrices] = useState<Record<string, bigint>>({})
-  const [allPayments, setAllPayments] = useState<cs.PaymentEvent[]>([])
+  const [allPayments, setAllPayments] = useState<cs.Payment[]>([])
   const [ledgerContracts, setLedgerContracts] = useState<{ [schainName: string]: Contract }>({})
   const [isLoading, setIsLoading] = useState<boolean>(false)
-
-  const creditsHistory = allPayments
-    .map((payment) => {
-      const schain = schains.find((s) => {
-        const schainHash = ethers.solidityPackedKeccak256(['string'], [s.name])
-        return schainHash.toLowerCase() === payment.schainHash.toLowerCase()
-      })
-      return {
-        schainName: schain?.name || '',
-        payment
-      }
-    })
-    .filter((item) => item.schainName !== '')
-    .sort((a, b) => b.payment.blockNumber - a.payment.blockNumber)
 
   useEffect(() => {
     loadTokenPrices()
@@ -93,11 +79,7 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
 
   async function loadAllPayments() {
     setIsLoading(true)
-    const events = await cs.getAllPaymentEvents(
-      creditStation,
-      constants.CREDIT_STATION_START_BLOCKS[mpc.config.skaleNetwork]
-    )
-    setAllPayments(events)
+    setAllPayments(await cs.getAllPayments(creditStation, schains))
     setIsLoading(false)
   }
 
@@ -154,7 +136,7 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
         <AccordionSection
           expandedByDefault={true}
           title="Purchases History"
-          icon={<HistoryRoundedIcon />}
+          icon={<History size={17} />}
           marg={false}
         >
           <div className="mt-2.5">
@@ -165,7 +147,7 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
                 </p>
               </div>
             )}
-            {!isLoading && creditsHistory.length === 0 && (
+            {!isLoading && allPayments.length === 0 && (
               <div className="mt-5">
                 <HistoryRoundedIcon className="text-secondary w-full" />
                 <h5 className="p font-semibold text-secondary text-center mt-1.5 mb-5">
@@ -174,15 +156,14 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
               </div>
             )}
             {!isLoading &&
-              creditsHistory.map((item) => (
+              allPayments.map((payment: cs.Payment) => (
                 <CreditsHistoryTile
-                  key={`${item.schainName}-${item.payment.id}`}
-                  creditsPurchase={item}
+                  key={`${payment.schainName}-${payment.id}`}
+                  payment={payment}
                   isXs={isXs}
                   mpc={mpc}
                   chainsMeta={chainsMeta}
-                  tokenPrices={tokenPrices}
-                  ledgerContract={ledgerContracts[item.schainName]}
+                  ledgerContract={ledgerContracts[payment.schainName]}
                   creditStation={creditStation}
                   isAdmin={true}
                   setErrorMsg={setErrorMsg}
