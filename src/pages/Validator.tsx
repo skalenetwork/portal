@@ -239,11 +239,11 @@ export default function Validator(props: {
           chainsMeta={props.chainsMeta}
         />
       )}
-      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-5" />
+      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-2.5" />
       {props.validator && (
         <SkPaper gray className="mt-5">
           <div>
-            <div className="flex items-center mb-2.5">
+            <div className="flex items-center mb-1.5!">
               <Headline
                 size="small"
                 text={
