@@ -197,84 +197,84 @@ export default function Delegation(props: {
             ) : null}
           </Grid>
         </Grid>
-        <Collapse in={open}>
-          <div className="mt-4">
-            {props.isValidatorPage && (
-              <div className="flex gap-2.5 pb-2.5">
-                <Tile
-                  className="bg-foreground/5!"
-                  value={props.delegation.address}
-                  text="Token Holder Address"
-                  grow
-                  size="md"
-                  icon={<CircleUser size={14} />}
-                />
-                <Tile
-                  className="bg-foreground/5!"
-                  value={source}
-                  text="Delegation Source"
-                  size="md"
-                  grow
-                  icon={<Globe size={14} />}
-                />
-              </div>
-            )}
-            {isCompleted && (
-              <div className="mt-2">
-                <Tile
-                  className="bg-foreground/5!"
-                  tooltip={
-                    props.sklPrice && props.delegation.finished
-                      ? units.displaySklValueUsd(props.delegation.finished, props.sklPrice)
-                      : ''
-                  }
-                  value={timeUtils.convertMonthIndexToText(Number(props.delegation.finished))}
-                  text="Delegation completed"
-                  grow
-                  size="md"
-                  icon={<HistoryRoundedIcon className="text-[14px]!" />}
-                />
-              </div>
-            )}
-            {Number(props.delegation.stateId) === DelegationState.PROPOSED && props.accept ? (
-              <SkBtn
-                loading={loading}
-                text={loading ? 'Accepting delegation' : 'Accept delegation'}
-                color="primary"
-                className="w-full"
-                onClick={async () => {
-                  props.accept && (await props.accept(delegationInfo))
-                }}
-                disabled={props.loading !== false || props.customAddress !== undefined}
-              />
-            ) : null}
-            {Number(props.delegation.stateId) === DelegationState.DELEGATED && props.unstake ? (
-              <SkBtn
-                loading={loading}
-                text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
-                color="error"
-                className="w-full mt-5!"
-                onClick={async () => {
-                  props.unstake && (await props.unstake(delegationInfo))
-                }}
-                disabled={props.loading !== false || props.customAddress !== undefined}
-              />
-            ) : null}
-            {Number(props.delegation.stateId) === DelegationState.PROPOSED && props.cancelRequest ? (
-              <SkBtn
-                loading={loading}
-                text={loading ? 'Canceling staking request' : 'Cancel staking request'}
-                color="warning"
-                className="w-full mt-5!"
-                onClick={async () => {
-                  props.cancelRequest && (await props.cancelRequest(delegationInfo))
-                }}
-                disabled={props.loading !== false || props.customAddress !== undefined}
-              />
-            ) : null}
-          </div>
-        </Collapse>
       </div>
+      <Collapse in={open}>
+        <div className="mt-4" onClick={(e) => e.stopPropagation()}>
+          {props.isValidatorPage && (
+            <div className="flex gap-2.5 pb-2.5">
+              <Tile
+                className="bg-foreground/5!"
+                value={props.delegation.address}
+                text="Token Holder Address"
+                grow
+                size="md"
+                icon={<CircleUser size={14} />}
+              />
+              <Tile
+                className="bg-foreground/5!"
+                value={source}
+                text="Delegation Source"
+                size="md"
+                grow
+                icon={<Globe size={14} />}
+              />
+            </div>
+          )}
+          {isCompleted && (
+            <div className="mt-2">
+              <Tile
+                className="bg-foreground/5!"
+                tooltip={
+                  props.sklPrice && props.delegation.finished
+                    ? units.displaySklValueUsd(props.delegation.finished, props.sklPrice)
+                    : ''
+                }
+                value={timeUtils.convertMonthIndexToText(Number(props.delegation.finished))}
+                text="Delegation completed"
+                grow
+                size="md"
+                icon={<HistoryRoundedIcon className="text-[14px]!" />}
+              />
+            </div>
+          )}
+          {Number(props.delegation.stateId) === DelegationState.PROPOSED && props.accept ? (
+            <SkBtn
+              loading={loading}
+              text={loading ? 'Accepting delegation' : 'Accept delegation'}
+              color="primary"
+              className="w-full"
+              onClick={async () => {
+                props.accept && (await props.accept(delegationInfo))
+              }}
+              disabled={props.loading !== false || props.customAddress !== undefined}
+            />
+          ) : null}
+          {Number(props.delegation.stateId) === DelegationState.DELEGATED && props.unstake ? (
+            <SkBtn
+              loading={loading}
+              text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
+              color="error"
+              className="w-full mt-1.5!"
+              onClick={async () => {
+                props.unstake && (await props.unstake(delegationInfo))
+              }}
+            disabled={props.loading !== false || props.customAddress !== undefined}
+            />
+          ) : null}
+          {Number(props.delegation.stateId) === DelegationState.PROPOSED && props.cancelRequest ? (
+            <SkBtn
+              loading={loading}
+              text={loading ? 'Canceling staking request' : 'Cancel staking request'}
+              color="warning"
+              className="w-full mt-5!"
+              onClick={async () => {
+                props.cancelRequest && (await props.cancelRequest(delegationInfo))
+              }}
+              disabled={props.loading !== false || props.customAddress !== undefined}
+            />
+          ) : null}
+        </div>
+      </Collapse>
     </div >
   )
 }
