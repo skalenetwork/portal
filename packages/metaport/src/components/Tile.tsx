@@ -114,7 +114,7 @@ export default function Tile(props: {
                   className="mr-1.5 flex text-[17px]!"
                   style={{ color: props.textColor }}
                 >
-                  {copied ? <CircleCheck size={20} color={theme.palette.success.main} /> : props.icon}
+                  {copied ? <CircleCheck size={14} color={theme.palette.success.main} /> : props.icon}
                 </div>
               ) : null}
               <p
