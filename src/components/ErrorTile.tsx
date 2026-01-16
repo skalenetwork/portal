@@ -35,7 +35,7 @@ export default function ErrorTile(props: {
   return (
     <Collapse in={props.errorMsg !== undefined}>
       <Tile
-        className={`${props.className} bg-red-100 border-red-200 dark:bg-red-800/80 dark:border-red-600 border-2`}
+        className={`${props.className} bg-red-100 border-red-200 dark:bg-red-800/80 dark:border-red-600 border-2 items-center!`}
         value={props.errorMsg}
         text="Error occurred"
         icon={<ShieldAlert size={17} />}
@@ -48,7 +48,7 @@ export default function ErrorTile(props: {
                 if (props.setErrorMsg === undefined) return
                 props.setErrorMsg(undefined)
               }}
-              className="text-foreground! text-xs mt-2.5 normal-case! hover:bg-muted-foreground/20!"
+              className="text-foreground! text-xs normal-case! hover:bg-muted-foreground/20! items-center!"
             >
               Close
             </Button>

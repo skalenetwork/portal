@@ -239,7 +239,7 @@ export default function Validator(props: {
           chainsMeta={props.chainsMeta}
         />
       )}
-      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-2.5" />
+      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-5" />
       {props.validator && (
         <SkPaper gray className="mt-5">
           <div>
