@@ -263,7 +263,7 @@ export default function Staking(props: {
         </SkPaper>
       </Collapse>
 
-      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-5" />
+      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-2.5" />
 
       <SkPaper gray className="mt-5">
         <Collapse in={props.address !== undefined}>
