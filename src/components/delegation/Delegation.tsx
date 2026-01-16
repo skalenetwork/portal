@@ -200,7 +200,7 @@ export default function Delegation(props: {
         <Collapse in={open}>
           <div className="mt-4">
             {props.isValidatorPage && (
-              <div className="flex gap-2.5">
+              <div className="flex gap-2.5 pb-2.5">
                 <Tile
                   className="bg-foreground/5!"
                   value={props.delegation.address}
@@ -265,7 +265,7 @@ export default function Delegation(props: {
                 loading={loading}
                 text={loading ? 'Canceling staking request' : 'Cancel staking request'}
                 color="warning"
-                className="w-full mt-5"
+                className="w-full mt-5!"
                 onClick={async () => {
                   props.cancelRequest && (await props.cancelRequest(delegationInfo))
                 }}
