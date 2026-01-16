@@ -27,7 +27,7 @@ import { useState, useEffect } from 'react'
 
 import { Contract } from 'ethers'
 
-import { cls, type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
 import { constants, dc, type types } from '@/core'
 import * as cs from '../core/credit-station'
 
@@ -41,7 +41,7 @@ import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import AccordionSection from '../components/AccordionSection'
 import ConnectWallet from '../components/ConnectWallet'
 import ChainCreditsTile from '../components/credits/ChainCreditsTile'
-import CreditsHistoryTile from '../components/credits/CreditsHistoryTile'
+import CreditsPaymentTile from '../components/credits/CreditsPaymentTile'
 import { getCreditStation, getTokenPrices } from '../core/credit-station'
 import ErrorTile from '../components/ErrorTile'
 import { History, HistoryIcon, Link2 } from 'lucide-react'
@@ -63,46 +63,11 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
   const [tokenContracts, setTokenContracts] = useState<types.mp.TokenContractsMap>({})
   const [ledgerContracts, setLedgerContracts] = useState<{ [schainName: string]: Contract }>({})
   const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined)
-  const [allPayments, setAllPayments] = useState<Record<string, cs.PaymentEvent[]>>({})
-  const [lastBlocks, setLastBlocks] = useState<Record<string, number>>({})
+  const [payments, setPayments] = useState<cs.Payment[]>([])
 
-  const creditsHistory = Object.entries(allPayments)
-    .flatMap(([schainName, payments]) =>
-      payments.map((p) => ({
-        schainName,
-        payment: p
-      }))
-    )
-    .sort((a, b) => b.payment.blockNumber - a.payment.blockNumber)
-
-  async function loadPayments(isUpdate = false) {
+  async function loadPayments() {
     if (!creditStation || !address || schains.length === 0) return
-
-    const paymentsMap: Record<string, cs.PaymentEvent[]> = {}
-    const blocksMap: Record<string, number> = {}
-
-    for (const schain of schains) {
-      const startBlock =
-        isUpdate && lastBlocks[schain.name]
-          ? lastBlocks[schain.name] + 1
-          : constants.CREDIT_STATION_START_BLOCKS[mpc.config.skaleNetwork]
-      const events = await cs.getPaymentEvents(creditStation, address, startBlock)
-
-      if (isUpdate) {
-        paymentsMap[schain.name] = [...(allPayments[schain.name] || []), ...events]
-      } else {
-        paymentsMap[schain.name] = events
-      }
-
-      if (events.length > 0) {
-        blocksMap[schain.name] = Math.max(...events.map((p) => p.blockNumber))
-      } else if (lastBlocks[schain.name]) {
-        blocksMap[schain.name] = lastBlocks[schain.name]
-      }
-    }
-
-    setAllPayments(paymentsMap)
-    setLastBlocks(blocksMap)
+    setPayments(await cs.getPaymentsByAddress(creditStation, address, schains))
   }
 
   async function initCreditStation() {
@@ -246,21 +211,20 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
             icon={<History size={17} />}
             marg={false}
           >
-            <Collapse in={creditsHistory.length !== 0 && address !== undefined}>
-              {creditsHistory.map((item) => (
-                <CreditsHistoryTile
-                  key={`${item.schainName}-${item.payment.id}`}
-                  creditsPurchase={item}
+            <Collapse in={payments.length !== 0 && address !== undefined} className="-mb-2">
+              {[...payments].reverse().map((payment: cs.Payment) => (
+                <CreditsPaymentTile
+                  key={`${payment.schainName}-${payment.id}`}
+                  payment={payment}
                   isXs={isXs}
                   mpc={mpc}
                   chainsMeta={chainsMeta}
-                  tokenPrices={tokenPrices}
-                  ledgerContract={ledgerContracts[item.schainName]}
+                  ledgerContract={ledgerContracts[payment.schainName]}
                   creditStation={creditStation}
                 />
               ))}
             </Collapse>
-            <Collapse in={creditsHistory.length === 0 && address !== undefined}>
+            <Collapse in={payments.length === 0 && address !== undefined}>
               <div className="mt-5">
                 <div className="flex items-center justify-center mb-4">
                   <HistoryIcon size={27} className="text-muted-foreground" />
@@ -282,8 +246,6 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
             </Collapse>
           </AccordionSection>
         </SkPaper>
-
-        <div className="mb-5 mt-5"></div>
       </Stack>
     </Container>
   )

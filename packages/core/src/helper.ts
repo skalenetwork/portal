@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import { getAddress } from 'ethers'
+import { getAddress, keccak256, toUtf8Bytes } from 'ethers'
 import { types } from '.'
 import * as constants from './constants'
 
@@ -103,4 +103,8 @@ export async function getBlockWithRetry<TBlock extends { timestamp: number }>(
     await sleep(sleepInterval)
   }
   throw new Error(`Failed to load block: ${blockNumber}`)
+}
+
+export function schainNameToHash(schainName: string): string {
+  return keccak256(toUtf8Bytes(schainName))
 }

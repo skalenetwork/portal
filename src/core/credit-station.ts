@@ -21,20 +21,20 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import { Contract, EventLog } from 'ethers'
+import { Contract } from 'ethers'
 import { MetaportCore } from '@skalenetwork/metaport'
 import { skaleContracts } from '@skalenetwork/skale-contracts-ethers-v6'
-import { type types, contracts } from '@/core'
+import { type types, contracts, helper } from '@/core'
 import { MAINNET_CHAIN_NAME } from '@/core/constants'
 
-export interface PaymentEvent {
+export interface Payment {
   id: bigint
   schainHash: string
+  schainName: string
   from: `0x${string}`
   to: `0x${string}`
   tokenAddress: `0x${string}`
   blockNumber: number
-  transactionHash: `0x${string}`
 }
 
 function getCreditStationAddress(network: types.SkaleNetwork): types.AddressType | undefined {
@@ -88,50 +88,61 @@ export async function getTokenPrices(
   return priceMap
 }
 
-export async function getPaymentEvents(
-  creditStation: Contract | undefined,
-  address?: string,
-  fromBlock?: number
-): Promise<PaymentEvent[]> {
-  if (!creditStation) return []
+async function getPayments(
+  paymentIds: bigint[],
+  creditStation: Contract,
+  schains: types.ISChain[]
+): Promise<Payment[]> {
+  const allIds = Array.from(paymentIds)
+  const chunkSize = 10
+  const results: Payment[] = []
 
-  const CHUNK_SIZE = 40000
-  const MAX_BLOCKS_TO_SCAN = 500000
-
-  const provider = creditStation.runner?.provider
-  if (!provider) return []
-
-  const currentBlock = await provider.getBlockNumber()
-  const endBlock = currentBlock
-  const startBlock = fromBlock ?? Math.max(currentBlock - MAX_BLOCKS_TO_SCAN, 0)
-
-  const filter = creditStation.filters.PaymentReceived(null, null, address ?? null)
-  const allEvents: EventLog[] = []
-
-  for (let block = startBlock; block <= endBlock; block += CHUNK_SIZE) {
-    console.log(
-      `Fetching events from block ${block} to ${Math.min(block + CHUNK_SIZE - 1, endBlock)}`
+  for (let i = 0; i < allIds.length; i += chunkSize) {
+    const chunk = allIds.slice(i, i + chunkSize)
+    const chunkPayments = await Promise.all(
+      chunk.map(async (paymentId) => {
+        const rawPayment = await creditStation.getPaymentInfo(paymentId)
+        return toPayment(paymentId, rawPayment, schains)
+      })
     )
-    const toBlock = Math.min(block + CHUNK_SIZE - 1, endBlock)
-    const events = await creditStation.queryFilter(filter, block, toBlock)
-    const eventLogs = events.filter((event): event is EventLog => 'args' in event)
-    allEvents.push(...eventLogs)
+    results.push(...chunkPayments)
   }
-
-  return allEvents.map((event) => ({
-    id: event.args.id,
-    schainHash: event.args.schainHash,
-    from: event.args.from,
-    to: event.args.to,
-    tokenAddress: event.args.tokenAddress,
-    blockNumber: event.blockNumber,
-    transactionHash: event.transactionHash
-  }))
+  return results
 }
 
-export async function getAllPaymentEvents(
+export async function getPaymentsByAddress(
   creditStation: Contract | undefined,
-  fromBlock?: number
-): Promise<PaymentEvent[]> {
-  return getPaymentEvents(creditStation, undefined, fromBlock)
+  address: string,
+  schains: types.ISChain[]
+): Promise<Payment[]> {
+  if (!creditStation) return []
+  const numberOfPayments = await creditStation.getNumberOfPayments(address)
+  const paymentIds = await creditStation.getPaymentIds(address, 0, numberOfPayments)
+  return await getPayments(paymentIds, creditStation, schains)
+}
+
+export async function getAllPayments(
+  creditStation: Contract | undefined,
+  schains: types.ISChain[]
+): Promise<Payment[]> {
+  if (!creditStation) return []
+  const lastPaymentId = await creditStation.getLastPaymentId()
+  return getPayments(
+    Array.from({ length: Number(lastPaymentId) }, (_, i) => BigInt(i + 1)),
+    creditStation,
+    schains
+  )
+}
+
+function toPayment(id: bigint, data: any, schains: types.ISChain[]): Payment {
+  const schainName = schains.find((s) => helper.schainNameToHash(s.name) === data[0])?.name || ''
+  return {
+    id,
+    schainHash: data[0],
+    schainName: schainName,
+    from: data[1],
+    to: data[2],
+    blockNumber: Number(data[3]),
+    tokenAddress: data[4]
+  }
 }
