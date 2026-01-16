@@ -234,7 +234,7 @@ export default function Delegate(props: {
       <ErrorTile errorMsg={props.errorMsg} setErrorMsg={props.setErrorMsg} className="mt-2.5" />
 
       {loading ? (
-        <Button disabled size="small" variant="contained" className="btn btnMd  text-xs text-accent! bg-foreground! mt-5! mb-2.5! ml-2.5! disabled:text-secondary-foreground! disabled:bg-muted!">
+        <Button disabled size="small" variant="contained" className="btn btnMd  text-xs text-accent! bg-foreground! mt-5! mb-1.5! ml-2.5! disabled:text-secondary-foreground! disabled:bg-muted!">
           Staking SKL
         </Button>
       ) : (
