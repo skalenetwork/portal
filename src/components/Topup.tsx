@@ -83,7 +83,7 @@ export default function Topup(props: {
               setErrorMsg={props.setErrorMsg}
             />
           }
-          grow
+          className="w-full!"
         />
       </SkStack>
       <SkStack>
@@ -134,19 +134,19 @@ export default function Topup(props: {
           />
         </SkStack>
       </Collapse>
-      <div className="mt-5 mb-2.5 ml-1.5 flex align-center">
-        <div className="flex gap-2.5 align-center!">
+      <div className="mt-5 mb-2.5 ml-1.5">
+        <div className="flex flex-col md:flex-row gap-2.5">
           <Button
             variant="contained"
-            className={`btn btnMd text-xs align-center! bg-foreground! text-accent! disabled:bg-muted! disabled:text-muted-foreground! '}`}
+            className="btn btnMd text-xs w-full! md:w-fit! bg-foreground! text-accent! disabled:bg-muted! disabled:text-muted-foreground!"
             disabled={!balanceOk || props.loading || maxTopupPeriod <= 0}
             onClick={props.topupChain}
           >
             {props.btnText ?? topupBtnText}
           </Button>
           {!balanceOk ? (
-            <Link to="/bridge">
-              <Button variant="contained" className="btn btnMd text-xs text-accent! bg-foreground! align-center!">
+            <Link to="/bridge" className="w-full md:w-auto">
+              <Button variant="contained" className="btn btnMd text-xs w-full! md:w-fit! text-accent! bg-foreground!">
                 Bridge SKL to Europa Hub
               </Button>
             </Link>

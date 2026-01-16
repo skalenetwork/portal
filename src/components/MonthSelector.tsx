@@ -51,7 +51,7 @@ export default function MonthSelector(props: {
   }
 
   return (
-    <div className={`${props.className} gap-1.5 items-center flex`}>
+    <div className={`${props.className} gap-1.5 items-center flex flex-wrap`}>
       {monthRecommendations
         .filter((x) => x <= props.max)
         .map((month: any, i: number) => (

@@ -187,11 +187,11 @@ export default function SchainDetails(props: {
         </div>
       </SkPaper>
       <SkPaper gray className="mt-2.5 p-4!">
-        <div className={`${!props.isXs ? 'flex' : ''} items-center`}>
-          <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec">
+        <div className="flex flex-col md:flex-row items-stretch md:items-center gap-2 md:gap-0">
+          <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec w-full md:w-auto">
             <Button
               size="medium"
-              className="mb-2! md:mb-0! w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+              className="w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
               startIcon={<Blocks size={17} />}
             >
               Block Explorer
@@ -205,7 +205,7 @@ export default function SchainDetails(props: {
                 <CirclePlus size={17} />
               )
             }
-            className="mb-2! md:mb-0! w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+            className="w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
             onClick={addNetwork}
             disabled={loading}
           >
@@ -213,10 +213,10 @@ export default function SchainDetails(props: {
           </Button>
 
           {chainMeta?.url && (
-            <a target="_blank" rel="noreferrer" href={chainMeta.url} className="undec">
+            <a target="_blank" rel="noreferrer" href={chainMeta.url} className="undec w-full md:w-auto">
               <Button
                 size="medium"
-                className="mb-2! md:mb-0! w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+                className="w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
                 startIcon={<ExternalLink size={17} className="textd-green-600" />}
               >
                 Open Website
