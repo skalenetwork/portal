@@ -106,7 +106,7 @@ export default function Reward(props: {
               <div className={!props.isXs ? 'grow' : ''}></div>
               {!props.isXs && !props.open ? (
                 <div className="flex">
-                  <div>
+                  <div className="flex flex-col items-end justify-center w-full">
                     <p className="text-xs text-secondary-foreground">Total staked</p>
                     <Tooltip
                       arrow
