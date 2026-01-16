@@ -136,7 +136,7 @@ export default function Delegation(props: {
               </div>
             </div>
           </Grid>
-          <Grid size={{ xs: 12, md: 4 }} className="flex items-center justify-center">
+          <Grid size={{ xs: 'auto', md: 4 }} className={cls(['mt-5', props.isXs], 'flex', 'items-center', ['justify-center', !props.isXs])}>
             <div
               className={cls(
                 'chipXs',
@@ -152,8 +152,8 @@ export default function Delegation(props: {
               </p>
             </div>
           </Grid>
-          <Grid size={{ xs: 12, md: 4 }} className={cls(['mt-5', props.isXs], 'flex', 'items-center')}>
-            <div className="grow"></div>
+          <Grid size={{ xs: 'grow', md: 4 }} className={cls(['mt-5', props.isXs], 'flex', 'items-center', ['justify-end', props.isXs])}>
+            <div className={cls(['grow', !props.isXs])}></div>
             <SkStack className={cls('flex')}>
               <Tile
                 size="md"
@@ -201,9 +201,9 @@ export default function Delegation(props: {
       <Collapse in={open}>
         <div className="mt-4" onClick={(e) => e.stopPropagation()}>
           {props.isValidatorPage && (
-            <div className="flex gap-2.5 pb-2.5">
+            <div className={cls('flex', 'gap-2.5', 'pb-2.5', ['flex-col', props.isXs])}>
               <Tile
-                className="bg-foreground/5!"
+                className={cls('bg-foreground/5!', ['break-all', props.isXs])}
                 value={props.delegation.address}
                 text="Token Holder Address"
                 grow
@@ -258,7 +258,7 @@ export default function Delegation(props: {
               onClick={async () => {
                 props.unstake && (await props.unstake(delegationInfo))
               }}
-            disabled={props.loading !== false || props.customAddress !== undefined}
+              disabled={props.loading !== false || props.customAddress !== undefined}
             />
           ) : null}
           {Number(props.delegation.stateId) === DelegationState.PROPOSED && props.cancelRequest ? (

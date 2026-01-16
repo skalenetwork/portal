@@ -127,7 +127,7 @@ export default function Reward(props: {
                 </div>
               ) : null}
               <div className={`${props.isXs ? 'grow mr-5' : 'ml-2.5 mr-5'}`}>
-                <div className="flex flex-col items-end justify-center w-full">
+                <div className={`flex flex-col ${props.isXs ? 'items-start' : 'items-end'} justify-center w-full`}>
                   <p className="text-xs text-secondary-foreground">Rewards available</p>
                   <Tooltip
                     arrow
