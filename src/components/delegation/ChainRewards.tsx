@@ -38,16 +38,13 @@ import {
 } from '@skalenetwork/metaport'
 import { type types, constants, units, ERC_ABIS } from '@/core'
 
-import { Button, IconButton, Tooltip } from '@mui/material'
-import StarsRoundedIcon from '@mui/icons-material/StarsRounded'
-import EventAvailableRoundedIcon from '@mui/icons-material/EventAvailableRounded'
-import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
+import { IconButton, Tooltip } from '@mui/material'
+import { Blocks, CalendarArrowDown, CircleStar } from 'lucide-react'
 
 import Headline from '../Headline'
 import SkBtn from '../SkBtn'
 import ErrorTile from '../ErrorTile'
 import SkStack from '../SkStack'
-import { Blocks, CalendarArrowDown, CircleStar } from 'lucide-react'
 
 interface ChainRewardsProps {
   mpc: MetaportCore
@@ -214,7 +211,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
               text={btnText ?? 'Retrieve'}
               variant="contained"
               size="sm"
-              className={`${!isXs ? 'ml-2' : ''} mr-2! items-center`}
+              className={`${!isXs ? 'ml-2' : ''} mr-2! items-center disabled:bg-muted! disabled:text-muted-foreground!`}
               disabled={
                 customAddress !== undefined ||
                 rewardAmount === null ||

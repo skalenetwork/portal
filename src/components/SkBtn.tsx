@@ -46,7 +46,6 @@ export default function SkBtn(props: {
       className={cls(
         'btn',
         ['btnSm', size === 'sm'],
-        ['btnSmLoading', size === 'sm'],
         ['btnDisabled', props.loading],
         props.className
       )}
