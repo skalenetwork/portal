@@ -26,15 +26,12 @@ import { SkPaper, Tile } from '@skalenetwork/metaport'
 import { type types, constants } from '@/core'
 
 import { Collapse, Container, TextField, Box, Button, Modal } from '@mui/material'
-import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-import ReportProblemRoundedIcon from '@mui/icons-material/ReportProblemRounded'
-
-import Jazzicon from 'react-jazzicon/dist/Jazzicon'
-import { jsNumberForAddress } from 'react-jazzicon'
-
+import { TriangleAlert, User } from 'lucide-react'
 import Message from '../Message'
 import SkBtn from '../SkBtn'
+
+import Avatar from 'boring-avatars'
+import { AVATAR_COLORS } from '../../core/constants'
 
 export default function RetrieveRewardModal(props: {
   address: types.AddressType | undefined
@@ -75,7 +72,7 @@ export default function RetrieveRewardModal(props: {
         size="small"
         onClick={handleOpen}
         disabled={props.disabled}
-        className="btn btnSm text-xs bg-secondary-foreground/10! text-muted-foreground! align-center!"
+        className="btn btnSm text-xs bg-accent-foreground! text-accent! align-center! disabled:bg-muted-foreground!"
       >
         Retrieve
       </Button>
@@ -99,13 +96,13 @@ export default function RetrieveRewardModal(props: {
           <Container maxWidth="md">
             <SkPaper className="p-0">
               <SkPaper gray>
-                <p className="text-base font-bold text-center mt-2.5 mb-2.5">
+                <p className="text-foreground font-bold text-center mt-2.5 mb-2.5">
                   Confirm reward retrieval
                 </p>
                 <Message
                   text="Double-check the address. Withdrawing to a wallet you don't control will lead to permanent loss of funds."
                   type="warning"
-                  icon={<WarningRoundedIcon />}
+                  icon={<TriangleAlert size={17} />}
                   className="mb-2.5"
                   closable={false}
                 />
@@ -113,8 +110,8 @@ export default function RetrieveRewardModal(props: {
                   <Message
                     text={errorMsg ?? ''}
                     type="error"
-                    icon={<ReportProblemRoundedIcon />}
-                    className="mb-2.5"
+                    icon={<TriangleAlert size={17} />}
+                    className="mb-2.5!"
                     closable={false}
                   />
                 </Collapse>
@@ -124,22 +121,21 @@ export default function RetrieveRewardModal(props: {
                   children={
                     <div className="flex items-center mt-1.5">
                       <div className="grow">
-                        <div className="flex grow items-center 'amountInput''addressInput'">
-                          <Jazzicon
-                            diameter={25}
-                            seed={jsNumberForAddress(
-                              (edit ? inputAddress : props.customRewardAddress) || ''
-                            )}
-                          />
+                        <div className="flex grow items-center">
+                        <Avatar variant="marble" name={props.address} colors={AVATAR_COLORS} size={24} />
                           <div className="grow ml-2.5">
                             <TextField
-                              inputRef={(input) => input?.focus()}
+                              className="w-full "
+                                slotProps={{
+                                  input: { disableUnderline: true },
+                                  htmlInput: { className: 'text-foreground!' },
+                                }}
                               variant="standard"
+                              inputRef={(input) => input?.focus()}
                               placeholder={constants.ZERO_ADDRESS}
                               value={edit ? inputAddress : props.customRewardAddress}
                               onChange={handleChange}
                               disabled={!edit}
-                              style={{ width: '100%' }}
                             />
                           </div>
                         </div>
@@ -147,12 +143,12 @@ export default function RetrieveRewardModal(props: {
                       <div>
                         {edit ? (
                           <div>
-                            <Button variant="contained" className="'btnSm'" onClick={saveAddress}>
+                            <Button variant="contained" className="btnSm text-foreground/40! bg-card! ml-2.5!" onClick={saveAddress}>
                               Save
                             </Button>
                             <Button
                               variant="text"
-                              className="'btnSm', 'filled', ml-2.5"
+                              className="btnSm text-foreground/40! ml-1.5!"
                               onClick={() => {
                                 setInputAddress(props.address)
                                 props.setCustomRewardAddress(props.address)
@@ -166,7 +162,7 @@ export default function RetrieveRewardModal(props: {
                         ) : (
                           <Button
                             variant="text"
-                            className="'btnSm', 'filled'"
+                            className="btnSm text-foreground/40! bg-card!"
                             onClick={() => setEdit(!edit)}
                             disabled={props.disabled}
                           >
@@ -176,15 +172,14 @@ export default function RetrieveRewardModal(props: {
                       </div>
                     </div>
                   }
-                  icon={<PersonRoundedIcon />}
+                  icon={<User size={17} />}
                   grow
                 />
                 <SkBtn
                   text={props.loading ? 'Retrieving' : 'Retrieve'}
                   disabled={props.disabled || edit}
                   onClick={props.retrieveRewards}
-                  className="'btn' ml-2.5 mb-2.5 mt-5"
-                  variant="contained"
+                  className="mr-1.5! mt-2.5! w-full!"
                 />
               </SkPaper>
             </SkPaper>
