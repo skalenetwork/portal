@@ -214,7 +214,7 @@ export default function Delegate(props: {
           childrenRi={
             <div className="items-center flex">
               <Button
-                className="btnSm outlined ml-5! items-center text-secondary-foreground!"
+                className="btnSm outlined ml-5! items-center text-secondary-foreground! hover:bg-muted-foreground/20!"
                 disabled={info.allowedToDelegate === 0n || loading}
                 onClick={() => {
                   if (!info.allowedToDelegate) return

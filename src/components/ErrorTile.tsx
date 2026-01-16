@@ -48,7 +48,8 @@ export default function ErrorTile(props: {
                 if (props.setErrorMsg === undefined) return
                 props.setErrorMsg(undefined)
               }}
-              className="text-foreground! text-xs mt-2.5 normal-case!"            >
+              className="text-foreground! text-xs mt-2.5 normal-case! hover:bg-muted-foreground/20!"
+            >
               Close
             </Button>
           )
