@@ -266,7 +266,7 @@ export default function Delegation(props: {
               loading={loading}
               text={loading ? 'Canceling staking request' : 'Cancel staking request'}
               color="warning"
-              className="w-full mt-5!"
+              className="w-full mt-1.5!"
               onClick={async () => {
                 props.cancelRequest && (await props.cancelRequest(delegationInfo))
               }}
