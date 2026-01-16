@@ -77,7 +77,7 @@ export const CONTRACTS: ContractsConfig = {
   base: {
     'skale-manager': 'production',
     'mainnet-ima': 'production',
-    'credit-station': '0xea8c25AD981E397d7f7F7Fd9a62245742b596269'
+    'credit-station': '0x0bdEDee74B847094B512700D172CEdd06Cb70F3F'
   },
 }
 
@@ -88,7 +88,7 @@ export const CREDIT_STATION_LEDGER_CONTRACTS: {
   regression: {},
   testnet: {},
   base: {
-    'winged-bubbly-grumium': '0x572FbcFF42Af089Bc9f00E4bb75019a25E07535F'
+    'winged-bubbly-grumium': '0x3EB873B8c6efcF495A9Ae3F10450A50e1316362b'
   },
   'base-sepolia-testnet': {
     'jubilant-horrible-ancha': '0x5EE1DA726C7F3C261184517f50dADDDcCC3148b8'
