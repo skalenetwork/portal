@@ -50,7 +50,7 @@ export default function TransactionsHistory() {
           <HistoryRoundedIcon className="w-4 h-4" />
         </div>
         History ({totalCount})
-        <ChevronDown  size={17} />
+        <ChevronDown size={17} className="text-secondary-foreground" />
       </Button>
     </div>
   )

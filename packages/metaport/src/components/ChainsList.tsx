@@ -3,7 +3,7 @@ import { types } from '@/core'
 
 import { Modal, Container } from '@mui/material'
 import Button from '@mui/material/Button'
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
+import { ChevronDown } from 'lucide-react'
 
 import SkPaper from './SkPaper'
 import { CHAINS_META } from '../core/metadata'
@@ -50,7 +50,7 @@ export default function ChainsList(props: {
           onClick={handleOpen}
           disabled={props.disabled}
           endIcon={
-            <KeyboardArrowDownRoundedIcon className="text-foreground mr-2" />
+            <ChevronDown size={17} className="text-secondary-foreground mr-2" />
           }
         >
           {props.chain ? (

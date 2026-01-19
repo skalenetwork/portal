@@ -182,7 +182,7 @@ export default function CommunityPool() {
       >
         <AccordionSummary
           className={`py-2! px-6! ${expandedCP === 'panel1' ? "" : "mt-2.5!"}`}
-          expandIcon={<ChevronDown size={18} className="text-foreground" />}
+          expandIcon={<ChevronDown size={18} className="text-secondary-foreground" />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
@@ -266,6 +266,7 @@ export default function CommunityPool() {
                   icon={<ThumbsUp size={14} />}
                   color={true ? undefined : 'error'}
                   grow
+                  className="h-full!"
                   childrenRi={
                     <div className="flex items-center">
                       <Button

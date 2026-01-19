@@ -103,7 +103,7 @@ export default function SkConnect() {
                         <Jazzicon diameter={16} seed={jsNumberForAddress(account.address)} />
                       </div>
                       {account.displayName}
-                      <ChevronDown size={17} />
+                      <ChevronDown size={17} className="text-secondary-foreground" />
                     </Button>
                   </div>
                 </div>

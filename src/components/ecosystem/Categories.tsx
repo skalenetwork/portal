@@ -172,7 +172,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
         ref={buttonRef}
         onClick={handleMenuOpen}
         startIcon={<Shapes />}
-        endIcon={<ChevronDown className='text-muted-foreground' />}
+        endIcon={<ChevronDown className='text-secondary-foreground' />}
         className="btn btnMd tab text-foreground! bg-card! border-border py-3! rounded-full! border shadow-xs! text-xs ease-in-out transition-transform duration-150 active:scale-[0.97] w-full"
         style={{ background: 'transparent' }}
       >

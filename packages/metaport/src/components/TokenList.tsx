@@ -26,8 +26,7 @@ import { dc } from '@/core'
 import { useAccount } from 'wagmi'
 
 import { Button, Modal, TextField, InputAdornment, Container } from '@mui/material'
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
-import { Search } from 'lucide-react'
+import { ChevronDown, Search } from 'lucide-react'
 
 import { getAvailableTokensTotal, getDefaultToken } from '../core/tokens/helper'
 import TokenListSection from './TokenListSection'
@@ -115,7 +114,7 @@ export default function TokenList() {
           onClick={handleOpen}
           disabled={transferInProgress}
           endIcon={
-            <KeyboardArrowDownRoundedIcon className="text-foreground" style={{ marginRight: '11px' }} />
+            <ChevronDown className="text-secondary-foreground mr-3" size={17} />
           }
         >
           <div className={`flex items-center mr-2.5 ${noTokens ? 'opacity-50' : ''}`}>
@@ -167,7 +166,7 @@ export default function TokenList() {
             />
             {filteredTokensCount === 0 && (
               <div className="flex items-center justify-center mt-5 mb-5 p-2.5">
-                <p className="text-base text-secondary-foreground text-center">
+                <p className="text-base text-secondary-foreground text-center font-medium">
                   🚫 No tokens match your current filters
                 </p>
               </div>

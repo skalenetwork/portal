@@ -118,7 +118,7 @@ export default function WrappedTokens() {
       >
         <AccordionSummary
           className={`py-2! px-6! `}
-          expandIcon={<ChevronDown size={17} className='text-foreground!' />}
+          expandIcon={<ChevronDown size={17} className='text-secondary-foreground!' />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
