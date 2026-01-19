@@ -161,7 +161,7 @@ export default function App(props: {
         </div>
         <SkPaper gray className="mt-2.5">
           <div className="m-2.5">
-            <div className="'responsive-app-header' flex items-center">
+          <div className="responsive-app-header flex items-center">
               <Logo
                 chainsMeta={props.chainsMeta}
                 skaleNetwork={network}
