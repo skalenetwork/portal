@@ -58,7 +58,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
         text={getTileText('Proposed', totals?.proposed.count)}
         grow
         size="md"
-        textColor={totals?.proposed.count ? 'rgb(57, 218, 248)' : undefined}
+        textColor={totals?.proposed.count ? "red" : undefined}
         icon={<Inbox size={14} />}
       />
       <Tile
