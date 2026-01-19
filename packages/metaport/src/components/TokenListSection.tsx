@@ -82,7 +82,7 @@ export default function TokenListSection(props: {
       {popularTokens.map((key) => (
         <Button
           size="small"
-          className="mt-3! items-center bg-muted! mr-1! p-2! pr-3!"
+          className="mt-3! items-center bg-muted! mr-1! p-2! pr-3! hover:bg-muted-foreground/10!"
           key={key}
           onClick={() => handle(props.tokens[key])}
         >

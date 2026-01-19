@@ -110,14 +110,14 @@ export default function TokenList() {
     <div className='flex items-center'>
       <div>
         <Button
-          className="flex items-center w-full p-3.5! pr-1! ml-2"
+          className="flex items-center w-full p-3.5! pr-1! ml-2 hover:bg-muted-foreground/10!"
           onClick={handleOpen}
           disabled={transferInProgress}
           endIcon={
             <ChevronDown className="text-secondary-foreground mr-3" size={17} />
           }
         >
-          <div className={`flex items-center mr-2.5 ${noTokens ? 'opacity-50' : ''}`}>
+          <div className={`flex items-center mr-2.5  ${noTokens ? 'opacity-50' : ''}`}>
             <TokenIcon
               key={token?.meta.symbol}
               tokenSymbol={token?.meta.symbol}

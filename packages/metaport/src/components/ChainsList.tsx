@@ -46,7 +46,7 @@ export default function ChainsList(props: {
     <div>
       <div className="py-2 mx-2">
         <Button
-          className="flex items-center w-full p-2"
+          className="flex items-center w-full p-2 hover:bg-muted-foreground/10!"
           onClick={handleOpen}
           disabled={props.disabled}
           endIcon={
@@ -54,7 +54,7 @@ export default function ChainsList(props: {
           }
         >
           {props.chain ? (
-            <div className="flex w-full items-center">
+            <div className="flex w-full items-center ">
               <Chain
                 skaleNetwork={props.config.skaleNetwork}
                 chainName={props.chain}
