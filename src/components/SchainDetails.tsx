@@ -169,14 +169,11 @@ export default function SchainDetails(props: {
               <div className="grow">
                 <CategoriesChips categories={chainMeta?.categories} all />
               </div>
-              {props.isXs || !props.schainMetrics ? null : (
+              {props.schainMetrics && (
                 <div className="bg-muted! text-foreground! flex items-center py-1.5 px-3! rounded-lg!">
                   <TrendingUp size={14} />
                   <p className="text-[8pt] ml-2.5">
-                    {props.schainMetrics
-                      ? formatNumber(props.schainMetrics.chain_stats?.transactions_today)
-                      : '...'}
-                    + Daily Tx
+                    {formatNumber(props.schainMetrics.chain_stats?.transactions_today)}+ Daily Tx
                   </p>
                 </div>
               )}
