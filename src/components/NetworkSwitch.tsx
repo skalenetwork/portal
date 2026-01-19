@@ -76,7 +76,7 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
         slotProps={{
           paper: {
             className:
-              'mt-2.5! overflow-visible rounded-md! bg-card! text-foreground! shadow-sm! border-none! ring-0! ring-border/40 [&_.MuiList-root]:bg-card! [&_.MuiList-root]:p-1.5!'
+              'mt-2.5! rounded-md! text-foreground! shadow-sm! border-none! [&_.MuiList-root]:bg-card! [&_.MuiList-root]:p-1.5!'
           }
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
