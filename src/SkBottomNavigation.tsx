@@ -38,10 +38,10 @@ export default function SkBottomNavigation() {
     setValue(500)
     if (location.pathname === '/') setValue(0)
     if (location.pathname === '/bridge' || location.pathname.includes('/transfer')) setValue(1)
-    if (location.pathname.includes('/chains') || location.pathname.includes('/admin')) setValue(3)
-    if (location.pathname.includes('/staking')) setValue(4) 
+    if (location.pathname.includes('/chains') || location.pathname.includes('/admin')) setValue(2)
+    if (location.pathname.includes('/staking')) setValue(3)
+    if (location.pathname.includes('/ecosystem') || location.pathname.includes('/app/')) setValue(4)
     if (location.pathname === '/credits' || location.pathname === '/credits/admin') setValue(5)
-    if (location.pathname.includes('/ecosystem') || location.pathname.includes('/app/')) setValue(2)
 
   }, [location])
 

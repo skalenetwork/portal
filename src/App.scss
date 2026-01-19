@@ -1304,6 +1304,10 @@ input[type=number] {
   width: 100% !important;
 }
 
+.MuiCircularProgress-root {
+  color: var(--foreground) !important;
+}
+
 
 .amountInput {
   input {
