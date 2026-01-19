@@ -129,7 +129,7 @@ export default function StakeAmount(props: {
             />
           </div>
           {loaded && available ? (
-            <div className="titleBadge" style={{ padding: '10px 15px' }}>
+            <div className="bg-card! text-foreground! flex items-center bg-card! p-2.5 font-medium rounded-full">
               <p className="text-xs">{getDelegationTypeAlias(delegationType)} delegation</p>
             </div>
           ) : null}
