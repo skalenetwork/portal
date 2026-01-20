@@ -70,7 +70,7 @@
     "zustand": "^5.0.8"
   },
   "peerDependencies": {
-    "@skalenetwork/skale-contracts-ethers-v6": "2.0.0-develop.5",
+    "@skalenetwork/skale-contracts-ethers-v6": "2.0.0-develop.6",
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/icons-material": "7.3.2",

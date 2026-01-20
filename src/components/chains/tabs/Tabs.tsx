@@ -44,7 +44,7 @@ export default function ChainTabs(props: {
 }) {
   return (
     <div className="mt-0 flex items-center">
-      <div className='grow'>
+      <div className="grow">
         <Tabs
           variant={props.isXs ? 'scrollable' : 'standard'}
           value={props.tab}
@@ -60,15 +60,15 @@ export default function ChainTabs(props: {
                 label={tab.label}
                 icon={tab.icon}
                 iconPosition="start"
-                className={`btn btnSm tab fwmobile ${props.tab === index
-                  ? 'text-foreground! bg-foreground/10! shadow-xs!'
-                  : 'text-muted-foreground!'
-                  }`}
+                className={`btn btnSm tab fwmobile ${
+                  props.tab === index
+                    ? 'text-foreground! bg-foreground/10! shadow-xs!'
+                    : 'text-muted-foreground!'
+                }`}
               />
             ) : null
           )}
           <div className="grow"></div>
-
         </Tabs>
       </div>
       {networks.hasFeatureInAny(NETWORKS, 'paymaster') && (

@@ -51,13 +51,7 @@ export default function SkBottomNavigation() {
     { label: 'Chains', path: '/chains', index: 2, Icon: Network, featureKey: 'chains' as types.NetworkFeature },
     { label: 'Staking', path: '/staking', index: 3, Icon: PieChart, featureKey: 'staking' as types.NetworkFeature },
     { label: 'Apps', path: '/ecosystem', index: 4, Icon: LayoutGrid, featureKey: 'ecosystem' as types.NetworkFeature },
-    {
-      label: 'Credits',
-      path: '/credits',
-      index: 5,
-      Icon: BadgeDollarSign,
-      featureKey: 'credits' as types.NetworkFeature
-    },
+    { label: 'Credits', path: '/credits', index: 5, Icon: BadgeDollarSign, featureKey: 'credits' as types.NetworkFeature }
   ] as const
 
   const visibleItems = items.filter((item) => {
@@ -75,10 +69,11 @@ export default function SkBottomNavigation() {
             return (
               <li key={item.label} className="flex-0 flex grow justify-center">
                 <Button
-                  className={`min-w-0 flex flex-col items-center gap-0 w-full text-[10px]! capitalize! font-medium shadow-none px-4! rounded-full! ${isActive
-                    ? 'text-foreground! bg-accent-foreground/10!'
-                    : 'text-muted-foreground/80!'
-                    }`}
+                  className={`min-w-0 flex flex-col items-center gap-0 w-full text-[10px]! capitalize! font-medium shadow-none px-4! rounded-full! ${
+                    isActive
+                      ? 'text-foreground! bg-accent-foreground/10!'
+                      : 'text-muted-foreground/80!'
+                  }`}
                   onClick={() => {
                     setValue(item.index)
                     navigate(item.path)

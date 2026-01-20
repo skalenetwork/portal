@@ -122,7 +122,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
     })
     if (!match) return
     const [symbol] = match
-    setToken(prev => (prev === symbol ? prev : symbol))
+    setToken((prev) => (prev === symbol ? prev : symbol))
   }, [tokenPrices])
 
   function getAmountToPayWei(): bigint {
@@ -227,7 +227,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                 />
                 <div className={cls('ml-2.5', ['grow', isXs])} style={{ minWidth: 0 }}>
                   <h4 className="p font-bold pOneLine text-foreground">{chainAlias}</h4>
-                  <p className="p text-xs text-secondary-foreground pt-0.5 pOneLine">
+                  <p className="p text-xs text-secondary-foreground pt-0.5 pOneLine font-medium">
                     Click for chain details
                   </p>
                 </div>
@@ -357,11 +357,12 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                         {MAINNET_ALIASES[network]}
                       </p>
                       <p className="text-foreground font-bold text-3xl grow">
-                        {token && units.displayBalance(
-                          getAmountToPayWei(),
-                          token,
-                          tokensMeta[token].decimals
-                        )}
+                        {token &&
+                          units.displayBalance(
+                            getAmountToPayWei(),
+                            token,
+                            tokensMeta[token].decimals
+                          )}
                       </p>
                     </div>
                   }
