@@ -86,6 +86,7 @@ export default function PopularActions(props: {
                       skaleNetwork={props.skaleNetwork}
                       chainName={props.chainName}
                       appName={action.app}
+                      size='xs'
                     />
                     <div>
                       <div className="text-sm shortP font-bold text-foreground ml-2.5 mr-2.5">
