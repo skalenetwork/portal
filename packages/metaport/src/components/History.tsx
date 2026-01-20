@@ -70,10 +70,10 @@ export default function History(props: { size?: types.Size }) {
               className={`bg-card dark:bg-card ${size === 'sm' ? 'mt-5 mb-1.5' : 'mt-2.5 mb-2.5'} pl-2 pr-2 pb-2 rounded-4xl`}
             >
               <div
-                className={`flex flex-col sm:flex-row sm:items-center justify-between ml-2.5 ${size === 'sm' ? 'pt-2' : 'pt-3'}`}
+                className={`flex flex-col sm:flex-row sm:items-center sm:justify-between ml-2.5 ${size === 'sm' ? 'pt-2' : 'pt-3'}`}
               >
                 <div
-                  className={`flex items-center ${size === 'sm' ? 'mb-1' : 'mb-2'
+                  className={`flex items-center ${size === 'sm' ? 'mb-2 sm:mb-1' : 'mb-2.5 sm:mb-2'
                     }`}
                 >
                   <Chain
@@ -95,10 +95,7 @@ export default function History(props: { size?: types.Size }) {
                   />
                 </div>
 
-                <div
-                  className={`flex items-center ${size === 'xs' ? 'mb-2.5' : 'mb-5'
-                    } mr-4`}
-                >
+                <div className="flex items-center mb-3 sm:mb-0 ml-1.5 sm:ml-0 sm:mr-4">
                   <div className="flex items-center">
                     <TokenIcon
                       tokenSymbol={transfer.tokenKeyname}
@@ -113,7 +110,7 @@ export default function History(props: { size?: types.Size }) {
                   </p>
                   <p
                     className={`${size === 'sm' ? 'text-xs' : 'text-sm'
-                      } font-semibold capitalize text-foreground ml-1.5 grow`}
+                      } font-semibold capitalize text-foreground ml-1.5`}
                   >
                     {transfer.address !== undefined
                       ? `• ${transfer.address.substring(0, 6)}...${transfer.address.substring(
@@ -124,7 +121,7 @@ export default function History(props: { size?: types.Size }) {
                 </div>
               </div>
               {transfer.transactions.length > 0 && (
-                <div className="bg-muted-foreground/15  dark:bg-muted-foreground/10 card-bg p-4 rounded-3xl">
+                <div className="bg-muted-foreground/15 dark:bg-muted-foreground/10 card-bg p-4 rounded-3xl">
                   {transfer.transactions.map((transactionData: types.mp.TransactionHistory) => (
                     <TransactionData
                       key={transactionData.transactionHash}
