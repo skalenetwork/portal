@@ -259,7 +259,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                 <Button
                   size="small"
                   variant="contained"
-                  startIcon={<CirclePlus />}
+                  startIcon={<CirclePlus size={14} />}
                   className="btnMd ml-5 bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
                   onClick={() => setOpenModal(true)}
                   disabled={creditStation === undefined}
