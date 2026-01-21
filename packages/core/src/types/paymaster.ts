@@ -33,14 +33,3 @@ export interface PaymasterInfo {
 }
 
 export type DueDateStatus = 'primary' | 'warning' | 'error' | 'success'
-
-export type ChipColor =
-  | 'DELEGATED'
-  | 'SELF'
-  | 'REWARDS'
-  | 'ACCEPTED'
-  | 'REJECTED'
-  | 'COMPLETED'
-  | 'CANCELED'
-  | 'UNDELEGATION_REQUESTED'
-  | 'PROPOSED'
