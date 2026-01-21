@@ -46,7 +46,7 @@ export default function SkBtn(props: {
       className={cls(
         'btn',
         ['btnSm', size === 'sm'],
-        'disabled:bg-muted-foreground! disabled:text-muted!',
+        'disabled:bg-foreground! disabled:text-muted!',
         props.className
       )}
     >
@@ -61,7 +61,7 @@ export default function SkBtn(props: {
         'btn' + props.color,
         props.className,
         ['btnSm', size === 'sm'],
-        'bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]',
+        'bg-accent-foreground! disabled:bg-muted-foreground! text-accent! disabled:text-muted!',
       )}
       disabled={props.disabled}
       onClick={props.onClick}

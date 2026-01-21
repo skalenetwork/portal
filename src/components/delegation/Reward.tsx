@@ -146,7 +146,7 @@ export default function Reward(props: {
               </div>
               <div className="flex items-center">
                 {loading ? (
-                  <Button disabled size="small" variant="contained" className="btnSm btnSmLoading">
+                  <Button disabled size="small" variant="contained" className="btnSm bg-accent-foreground! disabled:bg-muted-foreground! text-accent! disabled:text-muted!">
                     Retrieving
                   </Button>
                 ) : (

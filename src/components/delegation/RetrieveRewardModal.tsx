@@ -22,11 +22,11 @@
 
 import { useState, useEffect, ChangeEvent } from 'react'
 import { isAddress } from 'ethers'
-import { SkPaper, Tile } from '@skalenetwork/metaport'
+import { SkPaper, Tile, useThemeMode, styles } from '@skalenetwork/metaport'
 import { type types, constants } from '@/core'
 
-import { Collapse, Container, TextField, Box, Button, Modal } from '@mui/material'
-import { TriangleAlert, User } from 'lucide-react'
+import { Collapse, Container, TextField, Box, Button, Modal, InputAdornment } from '@mui/material'
+import { TriangleAlert, User, Wallet } from 'lucide-react'
 import Message from '../Message'
 import SkBtn from '../SkBtn'
 
@@ -41,6 +41,7 @@ export default function RetrieveRewardModal(props: {
   loading: boolean
   disabled: boolean
 }) {
+  const { mode } = useThemeMode()
   const [edit, setEdit] = useState(false)
   const [inputAddress, setInputAddress] = useState<string | undefined>(props.customRewardAddress)
   const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined)
@@ -115,40 +116,57 @@ export default function RetrieveRewardModal(props: {
                     closable={false}
                   />
                 </Collapse>
-                <Tile
-                  text="Receiver address"
-                  className="styles.inputAmount"
-                  children={
-                    <div className="flex items-center mt-1.5">
-                      <div className="grow">
-                        <div className="flex grow items-center">
-                          <Avatar variant="marble" name={props.address} colors={AVATAR_COLORS} size={24} />
-                          <div className="grow ml-2.5">
-                            <TextField
-                              className="w-full "
-                              slotProps={{
-                                input: { disableUnderline: true },
-                                htmlInput: { className: 'text-foreground!' },
-                              }}
-                              variant="standard"
-                              inputRef={(input) => input?.focus()}
-                              placeholder={constants.ZERO_ADDRESS}
-                              value={edit ? inputAddress : props.customRewardAddress}
-                              onChange={handleChange}
-                              disabled={!edit}
-                            />
-                          </div>
-                        </div>
+                {!edit ? (
+                  <Tile
+                    text="Receiver address"
+                    value={props.customRewardAddress}
+                    icon={<Avatar variant="marble" name={props.customRewardAddress} colors={AVATAR_COLORS} size={20} />}
+                    children={
+                      <div className="flex justify-end mt-2">
+                        <Button
+                          variant="text"
+                          className="btnSm bg-foreground! text-accent!"
+                          onClick={() => setEdit(!edit)}
+                        >
+                          Change
+                        </Button>
                       </div>
-                      <div>
-                        {edit ? (
+                    }
+                  />
+                ) : (
+                  <Tile
+                    text="Receiver address"
+                    className="styles.inputAmount"
+                    children={
+                      <div className="flex items-center">
+                        <div className="grow">
+                          <TextField
+                            fullWidth
+                            placeholder="Enter wallet address"
+                            value={inputAddress}
+                            onChange={handleChange}
+                            InputProps={{
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <Avatar variant="marble" name={inputAddress} colors={AVATAR_COLORS} size={20} />
+                                </InputAdornment>
+                              )
+                            }}
+                            className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-card! border border-border rounded-full shadow-xs`}
+                            sx={{
+                              '& .MuiOutlinedInput-root': { borderRadius: '25px' },
+                              '& fieldset': { border: '0px red solid !important' }
+                            }}
+                          />
+                        </div>
+                        <div>
                           <div>
-                            <Button variant="contained" className="btnSm text-foreground/40! bg-card! ml-2.5!" onClick={saveAddress}>
+                            <Button variant="contained" className="btnSm text-accent! bg-foreground! ml-2.5!" onClick={saveAddress}>
                               Save
                             </Button>
                             <Button
                               variant="text"
-                              className="btnSm text-foreground/40! ml-1.5!"
+                              className="btnSm text-foreground! font-semibold hover:bg-foreground/10! ml-1.5!"
                               onClick={() => {
                                 setInputAddress(props.address)
                                 props.setCustomRewardAddress(props.address)
@@ -159,22 +177,13 @@ export default function RetrieveRewardModal(props: {
                               Reset
                             </Button>
                           </div>
-                        ) : (
-                          <Button
-                            variant="text"
-                            className="btnSm text-foreground/40! bg-card!"
-                            onClick={() => setEdit(!edit)}
-                            disabled={props.disabled}
-                          >
-                            Change
-                          </Button>
-                        )}
+                        </div>
                       </div>
-                    </div>
-                  }
-                  icon={<User size={17} />}
-                  grow
-                />
+                    }
+                    icon={<User size={17} />}
+                    grow
+                  />
+                )}
                 <SkBtn
                   text={props.loading ? 'Retrieving' : 'Retrieve'}
                   disabled={props.disabled || edit}

@@ -53,7 +53,7 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <Search className="text-muted-foreground w-4! h-4! mx-1!" />
+              <Search size={17} className="text-muted-foreground" />
             </InputAdornment>
           )
         }}
