@@ -37,7 +37,6 @@ import { type types, constants, units } from '@/core'
 
 import Button from '@mui/material/Button'
 import { TextField, Tooltip } from '@mui/material'
-import TransitEnterexitRoundedIcon from '@mui/icons-material/TransitEnterexitRounded'
 import { ArrowDown, CalendarSync, Clock, Share2 } from 'lucide-react'
 
 import SkStack from '../SkStack'
