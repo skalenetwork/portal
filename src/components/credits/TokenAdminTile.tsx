@@ -21,7 +21,6 @@
  */
 
 import {
-  cls,
   styles,
   type MetaportCore,
   Tile,
@@ -145,7 +144,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
         <Grid size={{ xs: 12, md: 4 }}>
           <div className="flex items-center">
             <TokenIcon tokenSymbol={symbol} size="lg" iconUrl={tokenMeta?.iconUrl} />
-            <div className={cls('ml-3.5', ['grow', isXs])}>
+            <div className={`ml-3.5 ${isXs ? 'grow' : ''}`}>
               <h4 className="p font-bold pOneLine uppercase text-foreground">{symbol}</h4>
               <p className="p text-xs text-muted-foreground font-semibold">{tokenMeta?.name}</p>
             </div>
@@ -153,7 +152,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
         </Grid>
         <Grid size={{ xs: 12, md: 2 }} className="flex">
           <div
-            className={cls('chipXs', getChipClass(tokenPriceWei), 'mr-5', 'flex', 'items-center')}
+            className={`chipXs ${getChipClass(tokenPriceWei)} mr-5 flex items-center`}
           >
             {tokenPriceWei === 0n ? <DoDisturbOnRoundedIcon /> : <CheckCircleRoundedIcon />}
             <p className="p text-xs pOneLine ml-1.5 font-semibold">
@@ -167,7 +166,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
             <Tile
               size="md"
               transparent
-              className={cls('p-0!', 'uppercase', ['mr-5', !isXs], ['ml-5', !isXs])}
+              className={`p-0! uppercase ${!isXs ? 'mr-5' : ''} ${!isXs ? 'ml-5' : ''}`}
               value={units.displayBalance(
                 tokenPriceWei,
                 symbol,
@@ -214,7 +213,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
             <Tile
               grow
               text="Enter the new price"
-              className={cls(styles.inputAmount)}
+              className={styles.inputAmount}
               children={
                 <div className="flex items-center amountInput">
                   <div className="grow">
@@ -238,7 +237,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
           </SkPaper>
           <Button
             variant="contained"
-            className={cls(styles.btnAction, 'mt-5')}
+            className={`${styles.btnAction} mt-5`}
             size="large"
             onClick={updatePrice}
             disabled={loading || price === ''}

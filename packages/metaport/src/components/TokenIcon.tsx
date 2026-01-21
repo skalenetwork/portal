@@ -22,7 +22,7 @@
  */
 
 import { constants } from '@/core'
-import { styles, cls } from '../core/css'
+import { styles } from '../core/css'
 import { Ban } from 'lucide-react'
 
 export default function TokenIcon(props: {
@@ -32,21 +32,21 @@ export default function TokenIcon(props: {
   className?: string
 }) {
   const size = props.size ?? 'sm'
-  const className = cls(styles[`chainIcon${size}`], 'rounded-full', props.className)
+  const className = `${styles[`chainIcon${size}`]} rounded-full ${props.className || ''}`
   if (props.tokenSymbol === undefined || props.tokenSymbol === null) {
     return <Ban size={17} className="text-muted-foreground!" />
   }
   if (props.iconUrl !== undefined && props.iconUrl !== null) {
     return (
       <img
-        className={cls(className, 'object-contain max-w-fit')}
+        className="object-contain max-w-fit"
         src={props.iconUrl}
       />
     )
   }
   return (
     <img
-      className={cls(className, 'object-contain max-w-fit')}
+      className="object-contain max-w-fit"
       src={`${constants.BASE_TOKEN_ICON_URL}${props.tokenSymbol.toLowerCase()}.svg`}
     />
   )

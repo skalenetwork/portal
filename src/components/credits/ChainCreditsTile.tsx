@@ -21,7 +21,6 @@
  */
 
 import {
-  cls,
   type MetaportCore,
   Tile,
   SkPaper,
@@ -225,7 +224,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                   chainName={schain.name}
                   size="xs"
                 />
-                <div className={cls('ml-2.5', ['grow', isXs])} style={{ minWidth: 0 }}>
+                <div className="ml-2.5 grow" style={{ minWidth: 0 }}>
                   <h4 className="p font-bold pOneLine text-foreground">{chainAlias}</h4>
                   <p className="p text-xs text-secondary-foreground pt-0.5 pOneLine font-medium">
                     Click for chain details
@@ -234,13 +233,13 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
               </div>
             </Link>
           </Grid>
-          <Grid size={{ xs: 12, md: 8 }} className={cls('flex')}>
+          <Grid size={{ xs: 12, md: 8 }} className="flex">
             <div className="md:grow"></div>
             <SkStack className="flex mt-6 md:mt-0">
               <Tile
                 size="lg"
                 transparent
-                className={cls('p-0!', ['mr-5', !isXs], ['ml-5', !isXs])}
+                className="p-0! mr-5! ml-5!"
                 value={
                   chainBalance !== undefined &&
                   units.displayBalance(
@@ -314,12 +313,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                           <Button
                             color="primary"
                             size="small"
-                            className={cls(
-                              'items-center mr-2.5! p-4! py-3! pr-5! rounded-full! uppercase btnLg bg-accent-foreground/30! text-foreground!',
-                              'ease-in-out transition-transform duration-150 active:scale-[0.97]',
-                              ['bg-card!', symbol !== token],
-                              ['text-foreground!', symbol !== token]
-                            )}
+                            className={`items-center mr-2.5! p-4! py-3! pr-5! rounded-full! uppercase btnLg bg-accent-foreground/30! text-foreground! ease-in-out transition-transform duration-150 active:scale-[0.97] ${symbol !== token ? 'bg-card!' : ''} ${symbol !== token ? 'text-foreground!' : ''}`}
                             variant="contained"
                             onClick={() => setToken(symbol)}
                           >

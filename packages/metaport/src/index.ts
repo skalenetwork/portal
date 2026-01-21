@@ -37,7 +37,7 @@ import TransactionData from './components/TransactionData'
 import Debug from './components/Debug'
 import AnimatedLoadingIcon from './components/AnimatedLoadingIcon'
 
-import { cls, styles } from './core/css'
+import { styles } from './core/css'
 import MetaportCore from './core/metaport'
 import { sendTransaction } from './core/transactions'
 import { Station, StationData } from './core/sfuel'
@@ -89,7 +89,6 @@ export {
   TransactionData,
   Debug,
   AnimatedLoadingIcon,
-  cls,
   styles,
   getMetaportTheme,
   useWagmiAccount,

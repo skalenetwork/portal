@@ -23,7 +23,7 @@
 
 import { Link, useLocation } from 'react-router-dom'
 import { type types, units, constants } from '@/core'
-import { cls, SkPaper, Tile, TokenIcon } from '@skalenetwork/metaport'
+import { SkPaper, Tile, TokenIcon } from '@skalenetwork/metaport'
 
 import { HandCoins, HardDrive, Wallet, Coins } from 'lucide-react'
 
@@ -57,13 +57,7 @@ export default function ValidatorCard(props: {
     <SkPaper
       gray={!isStakeValidatorPage}
       fullHeight
-      className={cls(
-        'sk-app-card',
-        ['disabledCard', !props.validator.acceptNewRequests],
-        ['selectedValidator', props.validatorId === props.validator.id],
-        showButton ? 'cursor-default' : 'cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-101 hover:shadow-md hover:-translate-y-0.5',
-        [isStakeValidatorPage ? 'bg-background!' : '', isStakeValidatorPage]
-      )}
+      className={`sk-app-card ${!props.validator.acceptNewRequests ? 'disabledCard' : ''} ${props.validatorId === props.validator.id ? 'selectedValidator' : ''} ${showButton ? 'cursor-default' : 'cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-101 hover:shadow-md hover:-translate-y-0.5'} ${isStakeValidatorPage ? 'bg-background!' : ''}`}
     >
       <div>
         <div className="flex items-start">

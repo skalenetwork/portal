@@ -26,14 +26,6 @@ import styles from '../styles/styles.module.scss'
 
 export { styles }
 
-export function cls(...args: any): string {
-  const filteredArgs = args.map((clsName: any) => {
-    if (typeof clsName === 'string') return clsName
-    if (Array.isArray(clsName) && clsName.length === 2 && clsName[1]) return clsName[0]
-  })
-  return filteredArgs.join(' ')
-}
-
 const sizes: types.Size[] = ['xs', 'sm', 'md', 'lg']
 
 export function inc(currentSize: types.Size): types.Size {

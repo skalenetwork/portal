@@ -23,8 +23,6 @@
 
 import Button from '@mui/material/Button'
 
-import { cls } from '@skalenetwork/metaport'
-
 export default function SkBtn(props: {
   text: string
   disabled?: boolean
@@ -43,26 +41,14 @@ export default function SkBtn(props: {
       disabled
       size="small"
       variant={props.variant}
-      className={cls(
-        'btn',
-        ['btnSm', size === 'sm'],
-        'disabled:bg-foreground! disabled:text-muted!',
-        props.className
-      )}
-    >
+      className="btn btnSm disabled:bg-foreground! disabled:text-muted!">
       {props.text}
     </Button>
   ) : (
     <Button
       color={props.color}
       variant={props.variant}
-      className={cls(
-        'btn',
-        'btn' + props.color,
-        props.className,
-        ['btnSm', size === 'sm'],
-        'bg-accent-foreground! disabled:bg-muted-foreground! text-accent! disabled:text-muted!',
-      )}
+      className="btn btnSm disabled:bg-foreground! disabled:text-muted!"
       disabled={props.disabled}
       onClick={props.onClick}
       startIcon={props.startIcon}
