@@ -61,6 +61,6 @@ export const _BALANCE_UPDATE_INTERVAL_SECONDS = 10
 export const BALANCE_UPDATE_INTERVAL_MS = _BALANCE_UPDATE_INTERVAL_SECONDS * 1000
 export const COMMUNITY_POOL_DECIMALS = 6
 
-export const SFUEL_RESERVE_AMOUNT = 0.01
+export const SFUEL_RESERVE_AMOUNT = 0.0001
 
 export const SUCCESS_EMOJIS = ['🎉', '👌', '✅', '🙌', '🎊']
