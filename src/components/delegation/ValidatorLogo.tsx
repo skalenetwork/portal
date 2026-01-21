@@ -87,8 +87,6 @@ export default function ValidatorLogo(props: {
         width: sizes[size],
         height: sizes[size],
         display: 'flex',
-        alignItems: 'left',
-        justifyContent: 'left',
         overflow: 'hidden'
       }}
       className={cls(styles[`chainIcon${size}`], ['validatorIcon', !props.size], props.className)}
