@@ -25,10 +25,6 @@ import { type types, constants } from '@/core'
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
 
-// todo: tmp fix: disable sFuel check for stepper display
-
-// import { useSFuelStore } from '../store/SFuelStore'
-
 export type DisplayFunctions = {
   showFrom: () => boolean
   showTo: () => boolean

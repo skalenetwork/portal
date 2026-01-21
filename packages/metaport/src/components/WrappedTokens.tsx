@@ -151,7 +151,7 @@ export default function WrappedTokens() {
                   <p className="text-sm font-semibold text-foreground flex grow mr-2.5 ml-2.5">
                     Wrapped {getTokenName(filteredTokens[key])}
                   </p>
-                  <div className="mr-2.5v pr-5">
+                  <div className="mr-2.5 pr-5">
                     <TokenBalance
                       balance={
                         wrappedTokenBalances

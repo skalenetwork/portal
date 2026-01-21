@@ -88,7 +88,7 @@ export default function StakeValidator(props: {
           </div>
         </SkStack>
             <SkPaper gray className="mt-2.5 chainDetails">
-        <div className="mt-2.5 ml-1.25 mb-2.5" style={{ paddingBottom: '5px' }}>
+        <div className="mt-2.5 ml-1.25 mb-2.5 pb-1.25">
           <h2 className="m-0 text-xl font-bold text-foreground">Stake SKL</h2>
           <p className="text-xs text-secondary-foreground font-semibold">
             Choose a validator to delegate your SKL

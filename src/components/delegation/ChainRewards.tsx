@@ -237,7 +237,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
                 }
                 childrenRi={
                   <Tooltip title="Open in block explorer">
-                    <a target="_blank" rel="noreferrer" href={tokenUrl ?? ''} className="unde ml-6!">
+                    <a target="_blank" rel="noreferrer" href={tokenUrl ?? ''} className="ml-6!">
                       <IconButton
                         disabled={tokenUrl === null}
                         className="bg-muted-foreground/10!"

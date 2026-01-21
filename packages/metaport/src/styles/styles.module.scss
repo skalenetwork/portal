@@ -1,6 +1,6 @@
 .paper {
     padding: 10px;
-    border-radius: 2rem;
+    border-radius: var(--radius);
     backdrop-filter: blur(6px);
 }
 

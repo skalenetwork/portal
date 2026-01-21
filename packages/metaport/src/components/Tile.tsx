@@ -74,6 +74,8 @@ export default function Tile(props: {
     }
   }, [copied])
 
+  const chipClass = ''
+
   const value = (
     <p
       className={`

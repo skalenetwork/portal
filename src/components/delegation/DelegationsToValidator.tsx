@@ -75,7 +75,7 @@ export default function DelegationsToValidator(props: {
     (delegation) => Number(delegation.stateId) === DelegationState.DELEGATED
   )
   return (
-    <div className="mb-0">
+    <div>
       <Reward
         open={open}
         setOpen={setOpen}
