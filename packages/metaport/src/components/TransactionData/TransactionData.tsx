@@ -99,9 +99,9 @@ export default function TransactionData(props: {
   return (
     <div className="flex items-center mb-2">
       <div>
-        <span className={`relative flex items-center justify-center`}>
-          <span className={`w-[30px] h-[30px] rounded-full bg-muted absolute`} />
-          <span className={`flex items-center justify-center text-foreground w-[30px] h-[30px] z-10`}>
+        <span className= "relative flex items-center justify-center">
+          <span className= "w-[30px] h-[30px] rounded-full bg-muted absolute" />
+          <span className= "flex items-center justify-center text-foreground w-[30px] h-[30px] z-10">
             {actionIcons[props.transactionData.txName]}
           </span>
         </span>
