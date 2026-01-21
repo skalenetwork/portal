@@ -39,7 +39,6 @@ export default function Tile(props: {
   className?: string
   grow?: boolean
   color?: types.pm.DueDateStatus
-  chipColor?: types.pm.ChipColor
   progressColor?: types.pm.DueDateStatus
   progress?: number
   children?: ReactElement | ReactElement[] | false
@@ -56,8 +55,6 @@ export default function Tile(props: {
   let color = props.color ? theme.palette[props.color].main : 'rgba(0, 0, 0, 0.6)'
   color = props.transparent ? 'transparent' : color
   const size = props.size ?? 'lg'
-
-  const chipClass = props.chipColor ? `chip_${props.chipColor}` : ''
 
   const [copied, setCopied] = useState(false)
   const isXs = useMediaQuery(theme.breakpoints.down('sm'))
