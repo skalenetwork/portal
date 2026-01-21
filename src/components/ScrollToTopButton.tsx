@@ -47,19 +47,12 @@ export default function ScrollToTopButton() {
     })
   }
 
-  const isMobile = typeof window !== 'undefined' && window.matchMedia('(max-width: 600px)').matches
   return isVisible ? (
     <Fab
       aria-label="scroll to top"
       onClick={scrollToTop}
       size="small"
-      className="bg-foreground/5! text-foreground!"
-      style={{
-        position: 'fixed',
-        bottom: isMobile ? '4.5rem' : '1.5rem',
-        right: '1.5rem',
-        zIndex: 50
-      }}
+      className="bg-foreground/5! text-foreground! fixed! bottom-[4.5rem]! md:bottom-6! right-6! z-50!"
     >
       <KeyboardArrowUpIcon />
     </Fab>
