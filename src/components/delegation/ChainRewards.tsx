@@ -38,11 +38,10 @@ import {
 } from '@skalenetwork/metaport'
 import { type types, constants, units, ERC_ABIS } from '@/core'
 
-import { IconButton, Tooltip } from '@mui/material'
+import { Button, IconButton, Tooltip } from '@mui/material'
 import { Blocks, CalendarArrowDown, CircleStar } from 'lucide-react'
 
 import Headline from '../Headline'
-import SkBtn from '../SkBtn'
 import ErrorTile from '../ErrorTile'
 import SkStack from '../SkStack'
 
@@ -206,12 +205,11 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
         }
         childrenRi={
           <SkStack className="flex items-center">
-            <SkBtn
+            <Button
               loading={loading}
-              text={btnText ?? 'Retrieve'}
               variant="contained"
-              size="sm"
-              className={`${!isXs ? 'ml-2' : ''} mr-2! items-center disabled:bg-muted! disabled:text-muted-foreground!`}
+              size="small"
+              className="btn btnSm text-xs bg-accent-foreground! text-accent! align-center! disabled:bg-muted-foreground!"
               disabled={
                 customAddress !== undefined ||
                 rewardAmount === null ||
@@ -219,7 +217,9 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
                 loading
               }
               onClick={retrieveRewards}
-            />
+            >
+             Retrieve
+            </Button>
             <div className={!isXs ? 'border-l-2 border-border' : ''}>
               <Tile
                 className={`p-0! ${!isXs ? 'ml-5' : ''}`}

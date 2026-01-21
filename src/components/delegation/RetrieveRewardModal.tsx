@@ -122,14 +122,14 @@ export default function RetrieveRewardModal(props: {
                     <div className="flex items-center mt-1.5">
                       <div className="grow">
                         <div className="flex grow items-center">
-                        <Avatar variant="marble" name={props.address} colors={AVATAR_COLORS} size={24} />
+                          <Avatar variant="marble" name={props.address} colors={AVATAR_COLORS} size={24} />
                           <div className="grow ml-2.5">
                             <TextField
                               className="w-full "
-                                slotProps={{
-                                  input: { disableUnderline: true },
-                                  htmlInput: { className: 'text-foreground!' },
-                                }}
+                              slotProps={{
+                                input: { disableUnderline: true },
+                                htmlInput: { className: 'text-foreground!' },
+                              }}
                               variant="standard"
                               inputRef={(input) => input?.focus()}
                               placeholder={constants.ZERO_ADDRESS}

@@ -46,7 +46,7 @@ export default function SkBtn(props: {
       className={cls(
         'btn',
         ['btnSm', size === 'sm'],
-        ['btnDisabled', props.loading],
+        'disabled:bg-muted-foreground! disabled:text-muted!',
         props.className
       )}
     >
