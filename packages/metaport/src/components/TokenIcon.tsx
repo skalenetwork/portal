@@ -39,14 +39,14 @@ export default function TokenIcon(props: {
   if (props.iconUrl !== undefined && props.iconUrl !== null) {
     return (
       <img
-        className="object-contain max-w-fit"
+        className={className}
         src={props.iconUrl}
       />
     )
   }
   return (
     <img
-      className="object-contain max-w-fit"
+      className={className}
       src={`${constants.BASE_TOKEN_ICON_URL}${props.tokenSymbol.toLowerCase()}.svg`}
     />
   )
