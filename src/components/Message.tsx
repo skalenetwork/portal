@@ -28,6 +28,7 @@ import Collapse from '@mui/material/Collapse'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import { SkPaper } from '@skalenetwork/metaport'
 import { Link } from 'react-router-dom'
+import { cn } from '../core/ecosystem/utils'
 
 export default function Message(props: {
   text: string | null
@@ -49,29 +50,28 @@ export default function Message(props: {
     <Collapse in={show}>
       <SkPaper
         gray={gray}
-        className={`${props.className || ''} skMessage items-center flex ${type === 'warning'
-          ? 'bg-yellow-50! dark:bg-yellow-300/20! text-yellow-700 dark:text-yellow-200'
-          : type === 'error'
-            ? 'bg-red-50 dark:bg-red-700/30 border-red-200 dark:border-red-700 text-red-800'
-            : ''
-          }`}
+        className={cn(
+          'skMessage items-center flex',
+          props.className,
+          type === 'warning' && 'bg-yellow-50! dark:bg-yellow-300/20! text-yellow-700 dark:text-yellow-200',
+          type === 'error' && 'bg-red-50 dark:bg-red-700/30 border-red-200 dark:border-red-700 text-red-800'
+        )}
       >
         <div className="w-full flex items-center mt-1.5 mb-1.5 ml-2.5 mr-2.5">
           <div className="flex items-center mr-4">{props.icon}</div>
           {props.text ? (
             <div className="flex items-center mr-1.5">
-              <p
-                className={`text-sm font-semibold ${type !== 'warning' ? 'text-primary' : ''}`}
-              >
+              <p className={cn('text-sm font-semibold', type !== 'warning' && 'text-primary')}>
                 {props.text}
               </p>
               {props.link && props.linkText ? (
-                <div className={`flex items-center ${type === 'warning'
-                  ? ' text-yellow-700 dark:text-yellow-400'
-                  : type === 'error'
-                    ? 'text-red-800!'
-                    : ''
-                  }`}>
+                <div
+                  className={cn(
+                    'flex items-center',
+                    type === 'warning' && 'text-yellow-700 dark:text-yellow-400',
+                    type === 'error' && 'text-red-800!'
+                  )}
+                >
                   <Link to={props.link}>
                     <p className="text-sm font-semibold ml-1">{props.linkText}</p>
                   </Link>
@@ -94,12 +94,11 @@ export default function Message(props: {
               className="paperGrey ml-2.5"
             >
               <CloseRoundedIcon
-                className={`flex items-center ${type === 'warning'
-                  ? ' text-yellow-700 dark:text-yellow-400'
-                  : type === 'error'
-                    ? 'text-red-800!'
-                    : ''
-                  }`}
+                className={cn(
+                  'flex items-center',
+                  type === 'warning' && 'text-yellow-700 dark:text-yellow-400',
+                  type === 'error' && 'text-red-800!'
+                )}
                 style={{ height: '16px', width: '16px' }}
               />
             </IconButton>

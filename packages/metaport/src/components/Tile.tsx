@@ -30,6 +30,7 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { Skeleton, Tooltip } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress'
 import { CircleCheck } from 'lucide-react'
+import { cn } from '../utils/cn'
 
 export default function Tile(props: {
   text?: string
@@ -78,16 +79,15 @@ export default function Tile(props: {
 
   const value = (
     <p
-      className={`
-        ${size === 'xl' ? 'text-2xl' : ''}
-        ${size === 'lg' ? 'text-xl' : ''}
-        ${size === 'md' ? 'text-base' : ''}
-        font-bold
-        ${!props.color && !props.disabled ? 'text-foreground' : ''}
-        ${props.disabled ? 'text-secondary-foreground' : ''}
-        ${props.color ? '' : ''}
-        ${props.copy ? 'cursor-pointer' : ''}
-      `.replace(/\s+/g, ' ').trim()}
+      className={cn(
+        'font-bold',
+        size === 'xl' && 'text-2xl',
+        size === 'lg' && 'text-xl',
+        size === 'md' && 'text-base',
+        !props.color && !props.disabled && 'text-foreground',
+        props.disabled && 'text-secondary-foreground',
+        props.copy && 'cursor-pointer'
+      )}
     >
       {props.value}
     </p>
@@ -95,17 +95,23 @@ export default function Tile(props: {
 
   return (
     <div
-      className={`${props.className || ''} ${chipClass} bg-background rounded-md p-4 titleSection_${size} ${props.grow ? 'grow' : ''}`}
+      className={cn(
+        'bg-background rounded-md p-4',
+        `titleSection_${size}`,
+        props.grow && 'grow',
+        chipClass,
+        props.className
+      )}
     >
-      <div className={`flex ${!isXs ? 'items-center' : ''}`}>
+      <div className={cn('flex', !isXs && 'items-center')}>
         <div className="grow">
           {props.text ? (
             <div
-              className={`
-                flex items-center mb-1.5
-                ${!props.color && !props.textColor ? 'text-secondary-foreground' : ''}
-                ${props.color ? 'text-foreground' : ''}
-              `.replace(/\s+/g, ' ').trim()}
+              className={cn(
+                'flex items-center mb-1.5',
+                !props.color && !props.textColor && 'text-secondary-foreground',
+                props.color && 'text-foreground'
+              )}
             >
               {props.ri ? <div className="grow"></div> : null}
               {props.icon ? (
@@ -117,23 +123,17 @@ export default function Tile(props: {
                 </div>
               ) : null}
               <p
-                className={`
-                  flex font-medium
-                  text-xs
-                  ${!props.ri ? 'grow' : ''}
-                  ${props.textColor ? 'font-semibold' : ''}`}
+                className={cn(
+                  'flex font-medium text-xs',
+                  !props.ri && 'grow',
+                  props.textColor && 'font-semibold'
+                )}
                 style={{ color: props.textColor }}
               >
                 {props.text}
               </p>
               {props.textRi ? (
-                <p
-                  className={`
-                    text-xs
-                    flex ml-1.5 font-medium
-                  `}
-                  style={{ color: props.textColor }}
-                >
+                <p className="text-xs flex ml-1.5 font-medium" style={{ color: props.textColor }}>
                   {props.textRi}
                 </p>
               ) : null}

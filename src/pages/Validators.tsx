@@ -64,7 +64,8 @@ export default function ValidatorsPage(props: {
               className="ml-1.5! rounded-full bg-card! text-foreground! hover:bg-muted"
             >
               <UserCog className="text-foreground" size={17} />
-              <DelegationsNotification validatorDelegations={props.validatorDelegations} />
+              <DelegationsNotification validatorDelegations={props.validatorDelegations} 
+              className="ml-1.5" />
             </IconButton>
           </Tooltip>
         </Link>
