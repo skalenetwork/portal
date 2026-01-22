@@ -107,36 +107,36 @@ export default function StakeAmount(props: {
 
   return (
     <Container maxWidth="md">
-        <div className="flex items-center">
-          <div className="flex grow">
-            <Breadcrumbs
-              sections={[
-                {
-                  text: 'Staking',
-                  icon: <ChevronLeft size={14} className="text-foreground" />,
-                  url: '/staking'
-                },
-                {
-                  text: 'Choose a validator',
-                  icon: <UserRoundSearch size={14} className="text-foreground" />,
-                  url: '/staking/new'
-                },
-                {
-                  text: 'Stake SKL',
-                  icon: <HandCoins size={14} className="text-secondary-foreground" />
-                }
-              ]}
-            />
-          </div>
-          {loaded && available ? (
-            <div className="bg-card! text-foreground! flex items-center bg-card! p-2.5 font-medium rounded-full">
-              <p className="text-xs">{getDelegationTypeAlias(delegationType)} delegation</p>
-            </div>
-          ) : null}
+      <div className="flex items-center">
+        <div className="flex grow">
+          <Breadcrumbs
+            sections={[
+              {
+                text: 'Staking',
+                icon: <ChevronLeft size={14} className="text-foreground" />,
+                url: '/staking'
+              },
+              {
+                text: 'Choose a validator',
+                icon: <UserRoundSearch size={14} className="text-foreground" />,
+                url: '/staking/new'
+              },
+              {
+                text: 'Stake SKL',
+                icon: <HandCoins size={14} className="text-secondary-foreground" />
+              }
+            ]}
+          />
         </div>
-        <SkPaper gray className="mt-2.5 chainDetails">
+        {loaded && available ? (
+          <div className="bg-card! text-foreground! flex items-center bg-card! p-2.5 font-medium rounded-full">
+            <p className="text-xs">{getDelegationTypeAlias(delegationType)} delegation</p>
+          </div>
+        ) : null}
+      </div>
+      <SkPaper gray className="mt-2.5 chainDetails mb-18! sm:mb-0!">
         <div className="mt-2.5 ml-1.25 mb-2.5 pb-1.25">
-          <h2 className="m-0 text-xl font-bold text-foreground">Stake SKL</h2> 
+          <h2 className="m-0 text-xl font-bold text-foreground">Stake SKL</h2>
           <p className="text-xs text-secondary-foreground font-semibold">
             Review validator info and enter delegation amount
           </p>

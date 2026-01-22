@@ -101,7 +101,7 @@ export default function Tile(props: {
         props.className
       )}
     >
-      <div className="flex items-start sm:items-center">
+      <div className="flex items-center">
         <div className="grow">
           {props.text ? (
             <div

@@ -141,7 +141,7 @@ export default function Delegate(props: {
       <SkStack>
         <Tile
           grow
-          className="mb-2.5"
+          className="md:mb-2.5"
           value="2 months"
           text="Delegation period"
           icon={<Clock size={14} />}
@@ -201,7 +201,7 @@ export default function Delegate(props: {
         <Tile
           disabled={info.allowedToDelegate === 0n}
           value={units.displayBalance(info.allowedToDelegate!, 'SKL')}
-          className="h-auto! flex! items-center!"
+          className="h-auto! sm:flex! items-center! align-middle!"
           tooltip={
             props.sklPrice !== undefined && info.allowedToDelegate !== undefined
               ? units.displaySklValueUsd(info.allowedToDelegate, props.sklPrice)
@@ -248,7 +248,6 @@ export default function Delegate(props: {
           }
           variant="contained"
           className="bg-accent-foreground! disabled:bg-muted-foreground! text-accent! disabled:text-muted! btnMd mt-2.5! mb-1! w-full!"
-
           onClick={stake}
         >
           {getBtnText()}
