@@ -48,7 +48,6 @@ export default function Delegation(props: {
   unstake?: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
   cancelRequest?: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
   loading: types.st.IRewardInfo | types.st.IDelegationInfo | false
-  isXs: boolean
   customAddress: types.AddressType | undefined
   isValidatorPage?: boolean
   sklPrice: bigint
@@ -160,7 +159,7 @@ export default function Delegation(props: {
                 value={delegationAmount}
                 text={getStakingText()}
                 grow
-                ri={!props.isXs}
+                ri={true}
                 icon={<Coins size={14} />}
               />
             </SkStack>
