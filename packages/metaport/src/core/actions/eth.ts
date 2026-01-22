@@ -57,7 +57,8 @@ export class TransferEthM2S extends Action {
       this.mainnet,
       this.address,
       this.amount,
-      this.token
+      this.token,
+      this.mpc.config.skaleNetwork
     )
     if (!checkResBalance.res) {
       this.setAmountErrorMessage(checkResBalance.msg)
@@ -97,7 +98,8 @@ export class TransferEthS2M extends Action {
       this.sChain1,
       this.address,
       this.amount,
-      this.token
+      this.token,
+      this.mpc.config.skaleNetwork
     )
     if (!checkResBalance.res) {
       this.setAmountErrorMessage(checkResBalance.msg)

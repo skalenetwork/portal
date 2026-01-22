@@ -60,9 +60,9 @@ export const METAPORT_CONFIG: types.mp.Config = {
       },
       erc20: {
         skl: {
-          address: '0xC20874EB2D51e4e61bBC07a4E7CA1358F449A2cF',
+          address: '0xBeBb7CA7D7FFB39ad2d87C51c742E29B3C12C2b2',
           chains: {
-            'jubilant-horrible-ancha': {}
+            // 'jubilant-horrible-ancha': {}
           }
         },
         usdc: {
@@ -127,14 +127,14 @@ export const METAPORT_CONFIG: types.mp.Config = {
             }
           }
         },
-        skl: {
-          address: '0xaf2e0ff5b5f51553fdb34ce7f04a6c3201cee57b',
-          chains: {
-            mainnet: {
-              clone: true
-            }
-          }
-        },
+        // skl: {
+        //   address: '0xaf2e0ff5b5f51553fdb34ce7f04a6c3201cee57b',
+        //   chains: {
+        //     mainnet: {
+        //       clone: true
+        //     }
+        //   }
+        // },
         usdc: {
           address: '0x2e08028E3C4c2356572E096d8EF835cD5C6030bD',
           chains: {

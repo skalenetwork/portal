@@ -28,7 +28,7 @@ import { dc, units } from '@/core'
 import TextField from '@mui/material/TextField'
 import { Button } from '@mui/material'
 
-import { SFUEL_RESERVE_AMOUNT } from '../core/constants'
+import { ETH_RESERVE_AMOUNT } from '../core/constants'
 
 import TokenList from './TokenList'
 import { useMetaportStore } from '../store/MetaportStore'
@@ -47,6 +47,7 @@ export default function AmountInput() {
 
   const tokenBalances = useMetaportStore((state) => state.tokenBalances)
   const token = useMetaportStore((state) => state.token)
+  const mpc = useMetaportStore((state) => state.mpc)
 
   const maxAmount = tokenBalances[token?.keyname]
 
@@ -68,7 +69,10 @@ export default function AmountInput() {
   const setMaxAmount = () => {
     let maxAmountWei: bigint = maxAmount
     if (token.type === dc.TokenType.eth) {
-      const reserveAmountEth = units.toWei(SFUEL_RESERVE_AMOUNT.toString(), token.meta.decimals)
+      const reserveAmountEth = units.toWei(
+        ETH_RESERVE_AMOUNT[mpc.config.skaleNetwork].toString(),
+        token.meta.decimals
+      )
       maxAmountWei = maxAmount - reserveAmountEth
     }
     const balanceEther = units.formatBalance(maxAmountWei, token.meta.decimals)
