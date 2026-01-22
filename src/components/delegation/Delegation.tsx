@@ -25,7 +25,7 @@ import Avatar from 'boring-avatars'
 import { types, units, timeUtils } from '@/core'
 import { Tile } from '@skalenetwork/metaport'
 
-import { Grid, Collapse, Tooltip } from '@mui/material'
+import { Grid, Collapse, Tooltip, Grow } from '@mui/material'
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
 
 import SkStack from '../SkStack'
@@ -126,7 +126,7 @@ export default function Delegation(props: {
                   className="creditHistoryIcon"
                 />
               )}
-              <div className={`ml-2.5 ${props.isXs ? 'grow' : ''}`}>
+              <div className="ml-2.5 sm:grow">
                 <h4 className="font-bold pOneLine text-foreground">
                   ID: {Number(props.delegation.id)}
                 </h4>
@@ -136,7 +136,7 @@ export default function Delegation(props: {
               </div>
             </div>
           </Grid>
-          <Grid size={{ xs: 'auto', md: 4 }} className={`${props.isXs ? 'mt-5' : ''} flex items-center ${!props.isXs ? 'justify-center' : ''}`}>
+          <Grid size={{ xs: "auto", md: 4 }} className="mt-5 md:mt-0 flex items-center md:justify-center">
             <div
               className={`chipXs flex items-center justify-center chip_${props.delegation.state.replace(/ /g, '_')} font-semibold`}
             >
@@ -145,13 +145,13 @@ export default function Delegation(props: {
               </p>
             </div>
           </Grid>
-          <Grid size={{ xs: 'grow', md: 4 }} className={`${props.isXs ? 'mt-5' : ''} flex items-center ${props.isXs ? 'justify-end' : ''}`}>
-            <div className={!props.isXs ? 'grow' : ''}></div>
-            <SkStack className="flex">
+          <Grid size={{ xs: "grow", md: 4 }} className="mt-5 md:mt-0 flex items-center sm:justify-end ">
+            <div className="md:grow"></div>
+            <SkStack className="flex w-full sm:w-auto">
               <Tile
                 size="md"
                 transparent
-                className={`p-0! ${!props.isXs ? 'mr-2' : ''} ${!props.isXs ? 'ml-2' : ''}`}
+                className="p-0! md:mr-2 md:ml-2"
                 tooltip={
                   props.sklPrice && props.delegation.amount
                     ? units.displaySklValueUsd(props.delegation.amount, props.sklPrice)
@@ -188,9 +188,9 @@ export default function Delegation(props: {
       <Collapse in={open}>
         <div className="mt-4" onClick={(e) => e.stopPropagation()}>
           {props.isValidatorPage && (
-            <div className={`flex gap-2.5 pb-2.5 ${props.isXs ? 'flex-col' : ''}`}>
+            <div className="flex flex-col gap-2.5 pb-2.5 sm:flex-row">
               <Tile
-                className={`bg-foreground/5! ${props.isXs ? 'break-all' : ''}`}
+                className="bg-foreground/5! break-all"
                 value={props.delegation.address}
                 text="Token Holder Address"
                 grow

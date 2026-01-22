@@ -35,13 +35,12 @@ import { TextSearch, ChevronDown, ChevronUp, Circle, Shapes } from 'lucide-react
 interface CategoryDisplayProps {
   checkedItems: string[]
   setCheckedItems: (items: string[]) => void
-  isXs?: boolean
 }
 
 const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
   checkedItems,
   setCheckedItems,
-  isXs
+
 }) => {
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({})
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -166,7 +165,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
   }
 
   return (
-    <div className={isXs ? 'w-full' : ''}>
+    <div className="w-full sm:w-auto">
       <Button
         variant="text"
         ref={buttonRef}

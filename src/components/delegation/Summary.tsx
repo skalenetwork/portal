@@ -44,7 +44,6 @@ export default function Summary(props: {
   retrieveUnlocked: (rewardInfo: types.st.IRewardInfo) => Promise<void>
   loading: types.st.IRewardInfo | types.st.IDelegationInfo | false
   customAddress: types.AddressType | undefined
-  isXs: boolean
   sklPrice: bigint
 }) {
   function getTitle() {
@@ -93,15 +92,15 @@ export default function Summary(props: {
                     <Tile
                       size="md"
                       transparent
-                      className={`p-0! ${!props.isXs ? 'mr-5 ml-5' : ''}`}
+                      className={`p-0! md:mr-5 md:ml-5`}
                       value={helper.shortAddress(props.accountInfo?.address)}
                       text="Escrow"
                       grow
-                      ri={!props.isXs}
+                      
                       copy={props.accountInfo?.address}
                       icon={<Copy size={14} />}
                     />
-                    <div className={`${!props.isXs ? 'border-l-2 border-border ml-2.5' : ''}`}></div>
+                    <div className="md:border-l-2 md:border-border md:ml-2.5"></div>
                   </div>
                 ) : (
                   <div></div>
@@ -109,7 +108,7 @@ export default function Summary(props: {
                 <Tile
                   size="md"
                   transparent
-                  className={`p-0! ${!props.isXs ? 'mr-5 ml-5' : ''}`}
+                  className={`p-0! md:mr-5 md:ml-5`}
                   disabled={props.accountInfo?.staked === 0n}
                   tooltip={
                     props.sklPrice && props.accountInfo
@@ -121,12 +120,11 @@ export default function Summary(props: {
                   }
                   text="Staked Tokens"
                   grow
-                  ri={!props.isXs}
                   icon={<ArrowUpRight size={14} />}
                 />
                 <div className="border-l-2 border-border"></div>
                 <Tile
-                  className={`p-0! ${!props.isXs ? 'mr-5 ml-5' : ''}`}
+                  className={`p-0! md:mr-5 md:ml-5`}
                   size="md"
                   transparent
                   grow
@@ -144,7 +142,6 @@ export default function Summary(props: {
                       ? units.displayBalance(props.accountInfo.allowedToDelegate, 'SKL')
                       : null
                   }
-                  ri={!props.isXs}
                   text="Available to stake"
                   icon={<Coins size={14} />}
                 />
@@ -187,8 +184,7 @@ export default function Summary(props: {
                   grow
                   size="md"
                   transparent
-                  className={`p-0! ${!props.isXs ? 'mr-1 ml-1' : ''}`}
-                  ri={!props.isXs}
+                  className= "p-0! md:mr-1 md:ml-1"
                 />
               ) : (
                 <div></div>
@@ -198,7 +194,7 @@ export default function Summary(props: {
                 size="md"
                 transparent
                 disabled={props.accountInfo?.unlocked === 0n}
-                className={`p-0! ${!props.isXs ? 'ml-1' : ''}`}
+                className= "p-0! md:ml-1"
                 tooltip={
                   props.sklPrice && props.accountInfo
                     ? units.displaySklValueUsd(props.accountInfo.unlocked, props.sklPrice)
@@ -212,7 +208,6 @@ export default function Summary(props: {
                 text="Unlocked Tokens"
                 icon={<LockOpen size={14} />}
                 grow
-                ri={!props.isXs}
                 childrenRi={
                   <div className="items-center flex">
                     <div className="mr-5"></div>
@@ -221,7 +216,7 @@ export default function Summary(props: {
                       text={loading ? 'Retrieving' : 'Retrieve'}
                       variant="contained"
                       size="sm"
-                      className={`${!props.isXs ? 'ml-5' : ''} items-center`}
+                      className="md:ml-5 items-center"
                       disabled={
                         props.accountInfo?.unlocked === 0n ||
                         props.loading !== false ||

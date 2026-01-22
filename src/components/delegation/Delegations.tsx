@@ -37,7 +37,6 @@ export default function Delegations(props: {
   errorMsg: string | undefined
   unstake: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
   cancelRequest: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
-  isXs: boolean
   address: types.AddressType | undefined
   customAddress: types.AddressType | undefined
   customRewardAddress: types.AddressType | undefined
@@ -62,7 +61,7 @@ export default function Delegations(props: {
       {!loaded ? (
         <div>
           <Skeleton variant="rectangular" height={86} className="mb-2.5" />
-          <div className="'nestedSection', ['nestedSectionXs', props.isXs]">
+          <div className="pl-14 pr-0! sm:pr-5">
             <Skeleton variant="rectangular" height={83} className="mb-2.5" />
           </div>
         </div>
@@ -87,7 +86,6 @@ export default function Delegations(props: {
                 loading={props.loading}
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
-                isXs={props.isXs}
                 address={props.address}
                 customAddress={props.customAddress}
                 customRewardAddress={props.customRewardAddress}
@@ -107,8 +105,6 @@ export default function Delegations(props: {
                 loading={props.loading}
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
-                isXs={props.isXs}
-                address={props.address}
                 customAddress={props.customAddress}
                 customRewardAddress={props.customRewardAddress}
                 setCustomRewardAddress={props.setCustomRewardAddress}
@@ -127,8 +123,6 @@ export default function Delegations(props: {
                 loading={props.loading}
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
-                isXs={props.isXs}
-                address={props.address}
                 customAddress={props.customAddress}
                 customRewardAddress={props.customRewardAddress}
                 setCustomRewardAddress={props.setCustomRewardAddress}

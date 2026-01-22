@@ -38,7 +38,6 @@ export default function Reward(props: {
   retrieveRewards: (rewardInfo: types.st.IRewardInfo) => Promise<void>
   loading: types.st.IRewardInfo | types.st.IDelegationInfo | false
   delegationType: types.st.DelegationType
-  isXs: boolean
   address: types.AddressType | undefined
   customAddress: types.AddressType | undefined
   customRewardAddress: types.AddressType | undefined
@@ -92,19 +91,19 @@ export default function Reward(props: {
           <div className="w-full md:w-1/3">
             <div className="flex items-center">
               <ValidatorLogo validatorId={validator.id} size="xxs" />
-              <div className={`ml-2.5 ${props.isXs ? 'grow' : ''}`}>
+              <div className="ml-2.5 grow sm:grow-0">
                 <h4 className="font-bold truncate text-foreground">{validator.name}</h4>
                 <p className="text-xs text-secondary-foreground">
                   Validator ID: {Number(validator.id)}
                 </p>
               </div>
-              {props.isXs ? minimizeBtn : null}
+              <div className="sm:hidden">{minimizeBtn}</div>
             </div>
           </div>
-          <div className={`w-full md:w-2/3 ${props.isXs ? 'mt-5' : ''}`}>
+          <div className="w-full md:w-2/3 mt-5 sm:mt-0">
             <div className="flex items-center">
-              <div className={!props.isXs ? 'grow' : ''}></div>
-              {!props.isXs && !props.open ? (
+              <div className="grow-0 sm:grow"></div>
+              {!props.open && (
                 <div className="flex">
                   <div className="flex flex-col items-end justify-center w-full">
                     <p className="text-xs text-secondary-foreground">Total staked</p>
@@ -125,9 +124,9 @@ export default function Reward(props: {
                   </div>
                   <div className="border-l-2 border-border ml-2.5"></div>
                 </div>
-              ) : null}
-              <div className={`${props.isXs ? 'grow mr-5' : 'ml-2.5 mr-5'}`}>
-                <div className={`flex flex-col ${props.isXs ? 'items-start' : 'items-end'} justify-center w-full`}>
+              )}
+              <div className="grow mr-5 sm:grow-0 sm:ml-2.5 sm:mr-5">
+                <div className="flex flex-col items-start sm:items-end justify-center w-full">
                   <p className="text-xs text-secondary-foreground">Rewards available</p>
                   <Tooltip
                     arrow
@@ -163,7 +162,7 @@ export default function Reward(props: {
                   </>
                 )}
               </div>
-              {!props.isXs ? minimizeBtn : null}
+              <div className="hidden sm:block">{minimizeBtn}</div>
             </div>
           </div>
         </div>

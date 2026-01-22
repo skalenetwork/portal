@@ -54,7 +54,6 @@ interface TokenAdminTileProps {
   tokenMeta: types.mp.TokenMetadata | undefined
   tokenData: types.mp.Token
   symbol: string
-  isXs: boolean
   setErrorMsg: (msg: string) => void
 }
 
@@ -66,7 +65,6 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
   tokenMeta,
   tokenData,
   symbol,
-  isXs,
   setErrorMsg
 }) => {
   const [openModal, setOpenModal] = useState<boolean>(false)
@@ -144,7 +142,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
         <Grid size={{ xs: 12, md: 4 }}>
           <div className="flex items-center">
             <TokenIcon tokenSymbol={symbol} size="lg" iconUrl={tokenMeta?.iconUrl} />
-            <div className={`ml-3.5 ${isXs ? 'grow' : ''}`}>
+            <div className="ml-3.5 sm:grow">
               <h4 className="p font-bold pOneLine uppercase text-foreground">{symbol}</h4>
               <p className="p text-xs text-muted-foreground font-semibold">{tokenMeta?.name}</p>
             </div>
@@ -166,7 +164,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
             <Tile
               size="md"
               transparent
-              className={`p-0! uppercase ${!isXs ? 'mr-5' : ''} ${!isXs ? 'ml-5' : ''}`}
+              className= "p-0! uppercase md:mr-5 md:ml-5"
               value={units.displayBalance(
                 tokenPriceWei,
                 symbol,
@@ -175,7 +173,6 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
               text="1 CREDIT ="
               grow
               disabled={tokenPriceWei === 0n}
-              ri={!isXs}
               icon={<Coins size={17} />}
             />
             <Button

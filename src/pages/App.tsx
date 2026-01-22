@@ -58,7 +58,6 @@ export default function App(props: {
   mpc: MetaportCore
   loadData: () => Promise<void>
   metrics: types.IMetrics | null
-  isXs: boolean
   chainsMeta: types.ChainsMetadataMap
 }) {
   let { chain, app } = useParams()
@@ -161,7 +160,7 @@ export default function App(props: {
         </div>
         <SkPaper gray className="mt-2.5">
           <div className="m-2.5">
-          <div className="responsive-app-header flex items-center">
+            <div className="responsive-app-header flex items-center">
               <Logo
                 chainsMeta={props.chainsMeta}
                 skaleNetwork={network}
@@ -170,7 +169,7 @@ export default function App(props: {
                 size="md"
               />
               <div className="app-info grow">
-                <div className={!props.isXs ? 'flex' : ''}>
+                <div className="md:flex">
                   <div className="grow mb-2.5">
                     <CategoriesChips categories={appMeta.categories} all />
                   </div>
@@ -206,9 +205,7 @@ export default function App(props: {
                   grow
                   text="Gas saved"
                   childrenRi={
-                    !props.isXs ? (
-                      <InfoOutlinedIcon className="text-secondary-foreground text-[17px]! ml-2.5" />
-                    ) : undefined
+                    <InfoOutlinedIcon className="hidden md:inline text-secondary-foreground text-[17px]! ml-2.5" />
                   }
                   tooltip={
                     props.metrics && counters
@@ -263,7 +260,6 @@ export default function App(props: {
               <HubTile
                 network={props.mpc.config.skaleNetwork}
                 schainName={chain}
-                isXs={props.isXs}
                 metrics={null}
                 chainsMeta={props.chainsMeta}
               />

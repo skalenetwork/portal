@@ -41,7 +41,6 @@ export default function DelegationsToValidator(props: {
   loading: types.st.IRewardInfo | types.st.IDelegationInfo | false
   unstake: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
   cancelRequest: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
-  isXs: boolean
   address: types.AddressType | undefined
   customAddress: types.AddressType | undefined
   customRewardAddress: types.AddressType | undefined
@@ -84,7 +83,6 @@ export default function DelegationsToValidator(props: {
         retrieveRewards={props.retrieveRewards}
         loading={props.loading}
         delegationType={props.delegationType}
-        isXs={props.isXs}
         address={props.address}
         customAddress={props.customAddress}
         customRewardAddress={props.customRewardAddress}
@@ -109,7 +107,7 @@ export default function DelegationsToValidator(props: {
       <Collapse in={open}>
         <div className="relative">
           <div className="border-l-2 border-border absolute left-10 top-0 bottom-0"></div>
-          <div className="pl-14 'nestedSection', ['nestedSectionXs', props.isXs]">
+          <div className="pl-14 pr-0! sm:pr-5">
             {props.delegationsToValidator.delegations.map(
               (delegation: types.st.IDelegation, index: number) => (
                 <Delegation
@@ -120,7 +118,6 @@ export default function DelegationsToValidator(props: {
                   unstake={props.unstake}
                   cancelRequest={props.cancelRequest}
                   loading={props.loading}
-                  isXs={props.isXs}
                   customAddress={props.customAddress}
                   sklPrice={props.sklPrice}
                   isValidatorPage={false}

@@ -58,7 +58,6 @@ export default function SchainDetails(props: {
   schainMetrics: types.IChainMetrics | null
   chain: types.ISChain
   mpc: MetaportCore
-  isXs: boolean
 }) {
   const [loading, setLoading] = useState<boolean>(false)
   const [added, setAdded] = useState<boolean>(false)
@@ -266,7 +265,6 @@ export default function SchainDetails(props: {
         chainsMeta={props.chainsMeta}
         mpc={props.mpc}
         chain={props.chain}
-        isXs={props.isXs}
       />
     </div>
   )

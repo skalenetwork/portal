@@ -82,7 +82,6 @@ export function isString(value: any): value is string {
 
 export default function CategoryBadge(props: {
   category: string
-  isXs: boolean
   className?: string
 }) {
   function getCategoryIcon(category: string) {

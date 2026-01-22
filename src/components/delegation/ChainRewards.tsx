@@ -51,7 +51,6 @@ interface ChainRewardsProps {
   address?: types.AddressType
   customAddress?: types.AddressType
   className?: string
-  isXs?: boolean
   chainsMeta: types.ChainsMetadataMap
 }
 
@@ -61,7 +60,6 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   address,
   customAddress,
   className,
-  isXs,
   chainsMeta
 }) => {
   const [rewardAmount, setRewardAmount] = useState<bigint | undefined>(undefined)
@@ -220,14 +218,13 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
             >
              Retrieve
             </Button>
-            <div className={!isXs ? 'border-l-2 border-border' : ''}>
+            <div className= "md:border-l-2 border-border">
               <Tile
-                className={`p-0! ${!isXs ? 'ml-5' : ''}`}
+                className= "p-0! md:ml-5"
                 size="md"
                 transparent
                 grow
                 value={tokenBalance !== undefined && units.displayBalance(tokenBalance, 'SKL')}
-                ri={!isXs}
                 text="Balance on Europa Hub"
                 icon={<TokenIcon tokenSymbol="skl" size="xs" />}
                 tooltip={

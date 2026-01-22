@@ -27,8 +27,6 @@ import { useState, useEffect } from 'react'
 import { Helmet } from 'react-helmet'
 import { useLocation, Routes, Route, Navigate, useSearchParams } from 'react-router-dom'
 
-import { useTheme } from '@mui/material/styles'
-import useMediaQuery from '@mui/material/useMediaQuery'
 import { CircularProgress } from '@mui/material'
 
 import {
@@ -88,9 +86,6 @@ export default function Router(props: {
 }) {
   const location = useLocation()
   const currentUrl = `${window.location.origin}${location.pathname}${location.search}`
-
-  const theme = useTheme()
-  const isXs = useMediaQuery(theme.breakpoints.down('sm'))
 
   const [chainsMeta, setChainsMeta] = useState<types.ChainsMetadataMap | null>(null)
   const [termsAccepted, setTermsAccepted] = useState<boolean>(false)
@@ -197,7 +192,7 @@ export default function Router(props: {
     )
 
   return (
-    <div style={{ marginBottom: isXs ? '55px' : '' }}>
+    <div className="mb-0 sm:mb-[55px]">
       <Helmet>
         <meta property="og:url" content={currentUrl} />
       </Helmet>
@@ -215,7 +210,7 @@ export default function Router(props: {
             />
           }
         />
-        <Route path="bridge" element={<Bridge isXs={isXs} chainsMeta={chainsMeta} />} />
+        <Route path="bridge" element={<Bridge chainsMeta={chainsMeta} />} />
         <Route path="bridge">
           <Route path="history" element={<History />} />
         </Route>
@@ -229,7 +224,6 @@ export default function Router(props: {
               schains={props.schains}
               metrics={props.metrics}
               mpc={mpc}
-              isXs={isXs}
             />
           }
         />
@@ -244,7 +238,6 @@ export default function Router(props: {
                 metrics={props.metrics}
                 mpc={mpc}
                 chainsMeta={chainsMeta}
-                isXs={isXs}
               />
             }
           />
@@ -257,7 +250,6 @@ export default function Router(props: {
           path="ecosystem"
           element={
             <Ecosystem
-              isXs={isXs}
               mpc={mpc}
               chainsMeta={chainsMeta}
               metrics={props.metrics}
@@ -272,7 +264,6 @@ export default function Router(props: {
               <App
                 chainsMeta={chainsMeta}
                 mpc={mpc}
-                isXs={isXs}
                 metrics={props.metrics}
                 loadData={props.loadData}
               />
@@ -286,7 +277,6 @@ export default function Router(props: {
             <Credits
               mpc={mpc}
               address={address}
-              isXs={isXs}
               loadData={props.loadData}
               schains={props.schains}
               chainsMeta={chainsMeta}
@@ -299,7 +289,6 @@ export default function Router(props: {
             <CreditsAdmin
               mpc={mpc}
               address={address}
-              isXs={isXs}
               loadData={props.loadData}
               schains={props.schains}
               chainsMeta={chainsMeta}
@@ -320,7 +309,6 @@ export default function Router(props: {
           path="staking"
           element={
             <Staking
-              isXs={isXs}
               mpc={mpc}
               validators={validators}
               loadValidators={loadValidators}
@@ -355,7 +343,6 @@ export default function Router(props: {
               loadValidator={props.loadValidator}
               sc={props.sc}
               validator={props.validator}
-              isXs={isXs}
               delegations={props.validatorDelegations}
               getMainnetSigner={getMainnetSigner}
               chainsMeta={chainsMeta}

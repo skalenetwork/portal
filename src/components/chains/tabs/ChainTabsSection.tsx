@@ -71,7 +71,6 @@ export default function ChainTabsSection(props: {
   mpc: MetaportCore
   chainsMeta: types.ChainsMetadataMap
   chain: types.ISChain
-  isXs: boolean
 }) {
   const network = props.mpc.config.skaleNetwork
   const chainMeta = props.chainsMeta[props.chain.name]
@@ -141,7 +140,6 @@ export default function ChainTabsSection(props: {
           tab={tab}
           tabs={tabs}
           schainName={props.chain.name}
-          isXs={props.isXs}
         />
       </div>
       <div>

@@ -32,6 +32,7 @@ import { cn } from '../core/ecosystem/utils'
 
 export default function Message(props: {
   text: string | null
+  textLong?: string
   linkText?: string
   link?: string
   icon: ReactElement
@@ -62,7 +63,8 @@ export default function Message(props: {
           {props.text ? (
             <div className="flex items-center mr-1.5">
               <p className={cn('text-sm font-semibold', type !== 'warning' && 'text-primary')}>
-                {props.text}
+                <span className="sm:hidden">{props.text}</span>
+                <span className="hidden sm:inline">{props.textLong ?? props.text}</span>
               </p>
               {props.link && props.linkText ? (
                 <div

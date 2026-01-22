@@ -26,7 +26,6 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { type types } from '@/core'
 
 import { useTheme } from '@mui/material/styles'
-import useMediaQuery from '@mui/material/useMediaQuery'
 import { Skeleton, Tooltip } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress'
 import { CircleCheck } from 'lucide-react'
@@ -58,7 +57,6 @@ export default function Tile(props: {
   const size = props.size ?? 'lg'
 
   const [copied, setCopied] = useState(false)
-  const isXs = useMediaQuery(theme.breakpoints.down('sm'))
 
   const handleClick = () => {
     setCopied(true)
@@ -103,7 +101,7 @@ export default function Tile(props: {
         props.className
       )}
     >
-      <div className={cn('flex', !isXs && 'items-center')}>
+      <div className="flex items-start sm:items-center">
         <div className="grow">
           {props.text ? (
             <div

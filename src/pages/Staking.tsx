@@ -67,7 +67,6 @@ export default function Staking(props: {
   address: types.AddressType | undefined
   customAddress: types.AddressType | undefined
   getMainnetSigner: () => Promise<Signer>
-  isXs: boolean
 }) {
   const [loading, setLoading] = useState<LoadingState>(false)
   const [errorMsg, setErrorMsg] = useState<string | undefined>()
@@ -163,9 +162,8 @@ export default function Staking(props: {
           <div className="grow">
             <h2 className="m-0 text-xl font-bold text-foreground">Staking</h2>
             <p className="text-xs text-secondary-foreground font-semibold">
-              {props.isXs
-                ? 'Manage your delegations'
-                : 'Delegate, review delegations and withdraw staking rewards'}
+              <span className="sm:hidden">Manage your delegations</span>
+              <span className="hidden sm:inline">Delegate, review delegations and withdraw staking rewards</span>
             </p>
           </div>
           <div className="mr-2.5">
@@ -198,7 +196,8 @@ export default function Staking(props: {
       {props.customAddress !== undefined ? (
         <Message
           className="mt-5"
-          text={props.isXs ? 'Preview mode, ' : 'Previewing staking page in read-only mode, '}
+          text="Preview mode, "
+          textLong="Previewing staking page in read-only mode, "
           icon={<Eye />}
           link="/staking"
           linkText="click to exit"
@@ -224,7 +223,6 @@ export default function Staking(props: {
             accountInfo={props.si[0]?.info}
             loading={loading}
             retrieveUnlocked={handleRetrieveUnlocked}
-            isXs={props.isXs}
             customAddress={props.customAddress}
           />
         </Collapse>
@@ -244,7 +242,6 @@ export default function Staking(props: {
             accountInfo={props.si[1]?.info}
             loading={loading}
             retrieveUnlocked={handleRetrieveUnlocked}
-            isXs={props.isXs}
             customAddress={props.customAddress}
           />
         </SkPaper>
@@ -257,7 +254,6 @@ export default function Staking(props: {
             accountInfo={props.si[2]?.info}
             loading={loading}
             retrieveUnlocked={handleRetrieveUnlocked}
-            isXs={props.isXs}
             customAddress={props.customAddress}
           />
         </SkPaper>
@@ -276,7 +272,6 @@ export default function Staking(props: {
             errorMsg={errorMsg}
             unstake={handleUnstake}
             cancelRequest={handleCancelRequest}
-            isXs={props.isXs}
             address={props.address}
             customAddress={props.customAddress}
             customRewardAddress={customRewardAddress}

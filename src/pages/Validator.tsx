@@ -60,7 +60,6 @@ export default function Validator(props: {
   customAddress: types.AddressType | undefined
   loadValidator: () => Promise<void>
   validator: types.st.IValidator | null | undefined
-  isXs: boolean
   delegations: types.st.IDelegation[] | null
   getMainnetSigner: () => Promise<Signer>
   chainsMeta: types.ChainsMetadataMap
@@ -154,7 +153,6 @@ export default function Validator(props: {
             validator={props.validator!}
             delegationType={types.st.DelegationType.REGULAR}
             loading={loading}
-            isXs={props.isXs}
             customAddress={props.customAddress}
             unstake={handleUnstake}
             accept={handleAccept}
@@ -191,7 +189,8 @@ export default function Validator(props: {
       {props.customAddress !== undefined ? (
         <Message
           className="mt-5"
-          text={props.isXs ? 'Preview mode, ' : 'Previewing validator page in read-only mode, '}
+          text="Preview mode, "
+          textLong="Previewing validator page in read-only mode, "
           icon={<Eye />}
           link="/validator"
           linkText="click to exit"
@@ -235,7 +234,6 @@ export default function Validator(props: {
           validator={props.validator}
           address={props.address}
           customAddress={props.customAddress}
-          isXs={props.isXs}
           chainsMeta={props.chainsMeta}
         />
       )}

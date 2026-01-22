@@ -40,7 +40,6 @@ export default function Chain(props: {
   metrics: types.IMetrics | null
   mpc: MetaportCore
   chainsMeta: types.ChainsMetadataMap
-  isXs: boolean
 }) {
   const [schainStats, setSchainStats] = useState<types.IStatsData | null>(null)
   const [schainMetrics, setSchainMetrics] = useState<types.IChainMetrics | null>(null)
@@ -98,7 +97,6 @@ export default function Chain(props: {
         schainStats={schainStats}
         schainMetrics={schainMetrics}
         mpc={props.mpc}
-        isXs={props.isXs}
       />
     </Container>
   )

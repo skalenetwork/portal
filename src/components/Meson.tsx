@@ -38,7 +38,6 @@ const SUPPORTED_CHAINS = ['elated-tan-skat', 'honorable-steel-rasalhague', 'gree
 export default function Meson(props: {
   skaleNetwork: types.SkaleNetwork
   chainsMeta: types.ChainsMetadataMap
-  isXs?: boolean
   className?: string
 }) {
   const [show, setShow] = useState<boolean>(false)
@@ -68,18 +67,16 @@ export default function Meson(props: {
                 </p>
               </div>
               <p
-                className={`text-xs font-medium text-secondary-foreground ${props.isXs ? 'text-center' : ''}`}
+                className="text-xs font-medium text-secondary-foreground sm:text-center"
               >
                 Transfer from 45+ chains using Meson.Fi
               </p>
             </div>
-            {!props.isXs ? (
-              <div className="ml-2.5 mr-1.5 flex items-center">
+              <div className="md:ml-2.5 md:mr-1.5 flex items-center">
                 <ArrowForwardIosRoundedIcon
                   className={`text-secondary-foreground text-xs! ${show ? 'rotate-90' : ''}`}
                 />
               </div>
-            ) : null}
           </SkStack>
         </SkPaper>
       </div>

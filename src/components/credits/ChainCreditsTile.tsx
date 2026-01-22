@@ -66,7 +66,6 @@ interface ChainCreditsTileProps {
   mpc: MetaportCore
   chainsMeta: types.ChainsMetadataMap
   schain: types.ISChain
-  isXs: boolean
   creditStation: Contract | undefined
   tokenPrices: Record<string, bigint>
   tokenBalances: types.mp.TokenBalancesMap | undefined
@@ -77,7 +76,6 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   mpc,
   chainsMeta,
   schain,
-  isXs,
   creditStation,
   tokenPrices,
   tokenBalances,
@@ -250,7 +248,6 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                 }
                 text="Balance"
                 grow
-                ri={!isXs}
                 icon={<Wallet size={14} />}
               />
               <div className="border-l-2 border-border mr-4"></div>

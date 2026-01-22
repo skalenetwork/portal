@@ -56,7 +56,6 @@ interface CreditsPaymentTileProps {
   mpc: MetaportCore
   payment: cs.Payment
   chainsMeta: types.ChainsMetadataMap
-  isXs: boolean
   ledgerContract: Contract | undefined
   creditStation: Contract | undefined
   isAdmin?: boolean
@@ -67,7 +66,6 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
   mpc,
   payment,
   chainsMeta,
-  isXs,
   ledgerContract,
   creditStation,
   isAdmin = false,
@@ -185,7 +183,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
               </div>
             </div>
           </Grid>
-          <Grid size={{ xs: 12, md: 8 }} className={`${isXs ? 'mt-5' : ''} flex items-center`}>
+          <Grid size={{ xs: 12, md: 8 }} className="sm:mt-5 flex items-center">
             <div
               className={`chipXs ml-5 flex items-center ${isFulfilled ? 'chip_DELEGATED' : 'chip_SELF'} font-semibold`}
             >
@@ -199,22 +197,20 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
               <Tile
                 size="md"
                 transparent
-                className="p-0! mr-5' !isXs ml-5 !isXs"
+                className="p-0! mr-5 md:ml-5"
                 value={tokenSymbol.toUpperCase()}
                 text="Token Used"
                 grow
-                ri={!isXs}
                 icon={<TokenIcon tokenSymbol={tokenSymbol} size="xs" />}
               />
               <div className="border-l-2 border-border"></div>
               <Tile
                 size="md"
                 transparent
-                className="p-0! mr-5 isXs! ml-5 !isXs"
+                className="p-0! mr-5 ml-5"
                 value={`ID: ${payment.id.toString()}`}
                 text="Payment ID"
                 grow
-                ri={!isXs}
                 icon={<IdCard size={17} />}
               />
             </SkStack>

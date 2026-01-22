@@ -56,7 +56,6 @@ export default function Ecosystem(props: {
   mpc: MetaportCore
   chainsMeta: types.ChainsMetadataMap
   metrics: types.IMetrics | null
-  isXs: boolean
   loadData: () => Promise<void>
 }) {
   const [searchParams] = useSearchParams()
@@ -173,16 +172,15 @@ export default function Ecosystem(props: {
               </div>
             </div>
           </SkStack>
-          <SkStack className={`mb-5 flex ${props.isXs ? 'flex-col gap-2' : 'items-center'}`}>
+          <SkStack className="mb-5 flex flex-col gap-2 md:flex-row md:items-center">
             <SearchComponent
-              className={`grow ${!props.isXs ? '' : 'fullW mt-2 mb-2'}`}
+              className="grow fullW mt-2 mb-2 md:mt-0 md:mb-0"
               searchTerm={searchTerm}
               setSearchTerm={handleSetSearchTerm}
             />
             <CategoryDisplay
               checkedItems={checkedItems}
               setCheckedItems={handleSetCheckedItems}
-              isXs={props.isXs}
             />
           </SkStack>
           <SelectedCategories
@@ -191,11 +189,11 @@ export default function Ecosystem(props: {
             filteredAppsCount={currentFilteredApps.length}
           />
           <Tabs
-            variant={props.isXs ? 'scrollable' : 'standard'}
+            variant="scrollable"
+            scrollButtons="auto"
             value={activeTab}
             onChange={handleTabChange}
-            scrollButtons="auto"
-            className={`skTabs bg-card! rounded-full p-1! mb-5 ${props.isXs ? '' : 'w-fit'}`}
+            className="skTabs bg-card! rounded-full p-1! mb-5 md:w-fit"
           >
             <Tab
               label="All"

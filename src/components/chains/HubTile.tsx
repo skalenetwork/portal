@@ -39,7 +39,6 @@ export default function HubTile(props: {
   network: types.SkaleNetwork
   metrics: types.IMetrics | null
   schainName: string
-  isXs: boolean
   chainsMeta: types.ChainsMetadataMap
   bg?: boolean
   showStats?: boolean
@@ -84,15 +83,15 @@ export default function HubTile(props: {
                   className="responsive-logo"
                 />
               </div>
-              <div className={`${!props.isXs ? 'ml-5' : 'ml-2.5'} grow`}>
+              <div className="md:ml-5 ml-2.5 grow">
                 <h4 className="font-bold text-lg text-foreground">{alias}</h4>
-                <p className={`text-xs ${props.isXs ? 'mr-2.5' : ''} text-secondary-foreground`}>
+                <p className="text-xs sm:mr-2.5 text-secondary-foreground">
                   {chainDescription.split('.', 1)[0]}
                 </p>
               </div>
             </div>
-            {props.isXs || !props.showStats ? null : (
-              <div className="chipSm mr-2.5 flex items-center">
+            {props.showStats && (
+              <div className="chipSm mr-2.5 hidden sm:flex items-center">
                 <TrendingUp />
                 <p className="text-xs ml-2.5">
                   {schainMetrics
@@ -102,11 +101,9 @@ export default function HubTile(props: {
                 </p>
               </div>
             )}
-            {!props.isXs && (
-              <div className="mr-5 w-4 h-4 flex items-center justify-center">
-                <ChevronRight className="text-secondary-foreground" />
-              </div>
-            )}
+            <div className="mr-5 w-4 h-4 hidden sm:flex items-center justify-center">
+              <ChevronRight className="text-secondary-foreground" />
+            </div>
           </div>
         </Tooltip>
       </SkPaper>

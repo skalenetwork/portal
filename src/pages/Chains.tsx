@@ -43,7 +43,6 @@ export default function Chains(props: {
   schains: types.ISChain[]
   metrics: types.IMetrics | null
   mpc: MetaportCore
-  isXs: boolean
   chainsMeta: types.ChainsMetadataMap
 }) {
   const [_, setIntervalId] = useState<NodeJS.Timeout>()
