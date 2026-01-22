@@ -35,20 +35,26 @@ export default function SkBtn(props: {
   startIcon?: React.ReactNode
 }) {
   const size = props.size ?? 'md'
+  const buttonSize = size === 'sm' ? 'small' : 'medium'
+  const sizeClass = size === 'sm' ? 'btnSm' : 'btnMd'
+  const baseClasses = `btn ${sizeClass} disabled:bg-foreground! disabled:text-muted!`
+  const className = props.className ? `${baseClasses} ${props.className}` : baseClasses
   return props.loading ? (
     <Button
       color={props.color}
       disabled
-      size="small"
+      size={buttonSize}
       variant={props.variant}
-      className="btn btnSm disabled:bg-foreground! disabled:text-muted!">
+      className={className}
+    >
       {props.text}
     </Button>
   ) : (
     <Button
       color={props.color}
       variant={props.variant}
-      className="btn btnSm disabled:bg-foreground! disabled:text-muted!"
+      size={buttonSize}
+      className={className}
       disabled={props.disabled}
       onClick={props.onClick}
       startIcon={props.startIcon}

@@ -252,8 +252,7 @@ export default function Delegation(props: {
             <SkBtn
               loading={loading}
               text={loading ? 'Canceling staking request' : 'Cancel staking request'}
-              color="warning"
-              className="w-full mt-1.5!"
+              className="w-full! text-accent! bg-foreground!"
               onClick={async () => {
                 props.cancelRequest && (await props.cancelRequest(delegationInfo))
               }}
