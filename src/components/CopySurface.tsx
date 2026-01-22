@@ -28,8 +28,6 @@ import { TokenIcon } from '@skalenetwork/metaport'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Tooltip from '@mui/material/Tooltip'
 import ButtonBase from '@mui/material/ButtonBase'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
-import ContentCopyIcon from '@mui/icons-material/ContentCopy'
 import { CircleCheck, Copy } from 'lucide-react'
 
 export default function CopySurface(props: {
@@ -77,7 +75,7 @@ export default function CopySurface(props: {
                   </div>
                 ) : null}
                 {props.icon && <div className="mr-1.5 text-secondary-foreground">{props.icon}</div>}
-                <p className="text-xs text-secondary-foreground">
+                <p className="text-xs text-secondary-foreground truncate">
                   {props.title}
                   {props.tokenMetadata
                     ? ` (${props.tokenMetadata.decimals ?? constants.DEFAULT_ERC20_DECIMALS})`
