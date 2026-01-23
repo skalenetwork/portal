@@ -21,26 +21,24 @@
  */
 
 import { useState } from 'react'
+import Avatar from 'boring-avatars'
 import { types, units, timeUtils } from '@/core'
 import { Tile } from '@skalenetwork/metaport'
 
-import { Collapse, Tooltip } from '@mui/material'
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
-import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
-import ApartmentRoundedIcon from '@mui/icons-material/ApartmentRounded'
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
+import { Grid, Collapse, Tooltip, Grow } from '@mui/material'
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
 
+import SkStack from '../SkStack'
 import SkBtn from '../SkBtn'
 import ValidatorLogo from './ValidatorLogo'
 
 import {
-  DelegationSource,
   DelegationState,
   getDelegationSource,
-  getKeyByValue
 } from '../../core/delegation'
 import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
+import { AVATAR_COLORS } from '../../core/constants'
+import { Coins, ChevronRight, ChevronDown, CircleUser, Globe, Landmark } from 'lucide-react'
 
 export default function Delegation(props: {
   delegation: types.st.IDelegation
@@ -50,7 +48,6 @@ export default function Delegation(props: {
   unstake?: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
   cancelRequest?: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
   loading: types.st.IRewardInfo | types.st.IDelegationInfo | false
-  isXs: boolean
   customAddress: types.AddressType | undefined
   isValidatorPage?: boolean
   sklPrice: bigint
@@ -99,119 +96,139 @@ export default function Delegation(props: {
     !isCompleted &&
     !props.isValidatorPage
 
-  if (!props.validator) return
+  if (!props.validator) return null
+
   return (
-    <div className="mb-2.5 titleSection">
+    <div className="mb-2.5 bg-background rounded-3xl p-4">
       <div
-        className={`flex flex-col md:flex-row items-center h-full cursor-pointer ${noActions ? 'pointer-events-none' : ''}`}
+        className={`${!noActions ? 'cursor-pointer' : ''}`}
         onClick={() => {
           if (noActions) return
           setOpen(!open)
         }}
       >
-        <div className="w-full md:w-1/4">
-          <div className="flex items-center">
-            <ValidatorLogo validatorId={Number(props.delegation.id + 500n)} size="md" />
-            {!props.isValidatorPage && (
-              <ValidatorLogo
-                validatorId={props.validator.id}
-                size="sm"
-                className="validatorIconDelegation"
+        <Grid container spacing={0} alignItems="center">
+          <Grid
+            size={{ xs: 12, md: 4 }}
+          >
+            <div className="flex items-center">
+              <Avatar
+                size={50}
+                variant="marble"
+                name={`delegation-${props.delegation.id}`}
+                colors={AVATAR_COLORS}
               />
-            )}
-            <div className="ml-2.5">
-              <p className="text-base font-bold">ID: {Number(props.delegation.id)}</p>
-              <p className=" text-xs text-secondary-foreground">
-                {formatBigIntTimestampSeconds(props.delegation.created)}
+              {!props.isValidatorPage && (
+                <ValidatorLogo
+                  validatorId={props.validator.id}
+                  size="xxxs"
+                  className="creditHistoryIcon"
+                />
+              )}
+              <div className="ml-2.5 sm:grow">
+                <h4 className="font-bold pOneLine text-foreground">
+                  ID: {Number(props.delegation.id)}
+                </h4>
+                <p className='text-xs text-secondary-foreground font-medium'>
+                  {formatBigIntTimestampSeconds(props.delegation.created)}
+                </p>
+              </div>
+            </div>
+          </Grid>
+          <Grid size={{ xs: "auto", md: 4 }} className="mt-5 md:mt-0 flex items-center md:justify-center">
+            <div
+              className={`chipXs flex items-center justify-center chip_${props.delegation.state.replace(/ /g, '_')} font-semibold`}
+            >
+              <p className="p text-xs text-center">
+                {props.delegation.state.replace(/_/g, ' ')}
               </p>
             </div>
-            {props.delegationType === types.st.DelegationType.ESCROW ? (
-              <Tooltip title="Escrow delegation">
-                <AccountBalanceRoundedIcon className="'trustedBadge' ml-2.5 text-secondary-foreground" />
-              </Tooltip>
-            ) : null}
-            {props.delegationType === types.st.DelegationType.ESCROW2 ? (
-              <Tooltip title="Grant Escrow delegation">
-                <ApartmentRoundedIcon className="'trustedBadge' ml-2.5 text-secondary-foreground" />
-              </Tooltip>
-            ) : null}
-          </div>
-        </div>
-        <div className="w-full md:w-1/4">
-          <div className={`flex ${props.isXs ? 'mt-10' : ''}`}>
-            <div className={props.isXs ? '' : 'grow'}></div>
-            <div className={`chipXs chip_${props.delegation.state}`}>
-              <p className="text-xs truncate">{props.delegation.state.replace(/_/g, ' ')}</p>
-            </div>
-            <div className={props.isXs ? '' : 'grow'}></div>
-          </div>
-        </div>
-        <div className="w-full md:w-1/6">
-          <div className={`flex ${props.isXs ? 'mt-10' : ''}`}>
-            <div className={props.isXs ? '' : 'grow'}></div>
-            <div className={`chipXs chip_${getKeyByValue(DelegationSource, source)}`}>
-              <p className="text-xs">{source}</p>
-            </div>
-            <div className={props.isXs ? '' : 'grow'}></div>
-          </div>
-        </div>
-        <div className="w-full md:w-1/3">
-          <div className={`flex items-center mr-1.5 ${props.isXs ? 'mt-2.5' : ''}`}>
-            <div className="grow"></div>
-            <div className={`mr-5 ${!props.isXs ? 'text-primary ml-5' : ''}`}>
-              <Tooltip
-                arrow
-                title={
+          </Grid>
+          <Grid size={{ xs: "grow", md: 4 }} className="mt-5 md:mt-0 flex items-center sm:justify-end ">
+            <div className="md:grow"></div>
+            <SkStack className="flex w-full sm:w-auto">
+              <Tile
+                size="md"
+                transparent
+                className="p-0! md:mr-2 md:ml-2"
+                tooltip={
                   props.sklPrice && props.delegation.amount
                     ? units.displaySklValueUsd(props.delegation.amount, props.sklPrice)
                     : ''
                 }
-              >
-                <h4 className="font-bold [text-secondary-foreground !isActive]">
-                  {delegationAmount}
-                </h4>
+                value={delegationAmount}
+                text={getStakingText()}
+                grow
+                ri={true}
+                icon={<Coins size={14} />}
+              />
+            </SkStack>
+            {props.delegationType === types.st.DelegationType.ESCROW && (
+              <Tooltip title="Escrow delegation">
+                <Landmark size={14} className="ml-2.5 text-secondary-foreground" />
               </Tooltip>
-              <p className=" text-xs text-secondary-foreground">{getStakingText()}</p>
-            </div>
-            <ArrowForwardIosRoundedIcon className="text-secondary-foreground text-[17px]! rotate-90 ['active', open] ['opacity0', noActions]" />
-          </div>
-        </div>
+            )}
+            {!noActions ? (
+              open ? (
+                <ChevronDown
+                  size={17}
+                  className="text-secondary-foreground ml-2.5"
+                />
+              ) : (
+                <ChevronRight
+                  size={17}
+                  className="text-secondary-foreground ml-2.5"
+                />
+              )
+            ) : null}
+          </Grid>
+        </Grid>
       </div>
       <Collapse in={open}>
-        <div className="mt-5">
+        <div className="mt-4" onClick={(e) => e.stopPropagation()}>
           {props.isValidatorPage && (
-            <Tile
-              className="p-0 mt-5"
-              transparent
-              value={props.delegation.address}
-              text="Token Holder Address"
-              grow
-              size="md"
-              icon={<AccountCircleRoundedIcon className="text-[17px]!" />}
-            />
+            <div className="flex flex-col gap-2.5 pb-2.5 sm:flex-row">
+              <Tile
+                className="bg-foreground/5! break-all"
+                value={props.delegation.address}
+                text="Token Holder Address"
+                grow
+                size="md"
+                icon={<CircleUser size={14} />}
+              />
+              <Tile
+                className="bg-foreground/5!"
+                value={source}
+                text="Delegation Source"
+                size="md"
+                grow
+                icon={<Globe size={14} />}
+              />
+            </div>
           )}
           {isCompleted && (
-            <Tile
-              className="p-0 mt-5"
-              transparent
-              tooltip={
-                props.sklPrice && props.delegation.finished
-                  ? units.displaySklValueUsd(props.delegation.finished, props.sklPrice)
-                  : ''
-              }
-              value={timeUtils.convertMonthIndexToText(Number(props.delegation.finished))}
-              text="Delegation completed"
-              grow
-              size="md"
-              icon={<HistoryRoundedIcon className="text-[17px]!" />}
-            />
+            <div className="mt-2">
+              <Tile
+                className="bg-foreground/5!"
+                tooltip={
+                  props.sklPrice && props.delegation.finished
+                    ? units.displaySklValueUsd(props.delegation.finished, props.sklPrice)
+                    : ''
+                }
+                value={timeUtils.convertMonthIndexToText(Number(props.delegation.finished))}
+                text="Delegation completed"
+                grow
+                size="md"
+                icon={<HistoryRoundedIcon className="text-[14px]!" />}
+              />
+            </div>
           )}
           {Number(props.delegation.stateId) === DelegationState.PROPOSED && props.accept ? (
             <SkBtn
               loading={loading}
               text={loading ? 'Accepting delegation' : 'Accept delegation'}
               color="primary"
-              className="'fullW' mt-5"
+              className="w-full"
               onClick={async () => {
                 props.accept && (await props.accept(delegationInfo))
               }}
@@ -223,7 +240,7 @@ export default function Delegation(props: {
               loading={loading}
               text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
               color="error"
-              className="'fullW'"
+              className="w-full mt-1.5!"
               onClick={async () => {
                 props.unstake && (await props.unstake(delegationInfo))
               }}
@@ -234,8 +251,7 @@ export default function Delegation(props: {
             <SkBtn
               loading={loading}
               text={loading ? 'Canceling staking request' : 'Cancel staking request'}
-              color="warning"
-              className="fullW"
+              className="w-full! text-accent! bg-foreground!"
               onClick={async () => {
                 props.cancelRequest && (await props.cancelRequest(delegationInfo))
               }}
@@ -244,6 +260,6 @@ export default function Delegation(props: {
           ) : null}
         </div>
       </Collapse>
-    </div>
+    </div >
   )
 }

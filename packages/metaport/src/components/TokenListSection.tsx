@@ -21,7 +21,6 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import SavingsIcon from '@mui/icons-material/Savings'
 import LocalMallIcon from '@mui/icons-material/LocalMall'
 import Button from '@mui/material/Button'
 
@@ -31,6 +30,7 @@ import { getTokenName } from '../core/metadata'
 import TokenSection from './TokenSection'
 import TokenIcon from './TokenIcon'
 import { styles } from '../core/css'
+import { HandCoins } from 'lucide-react'
 
 export default function TokenListSection(props: {
   setExpanded: (expanded: string | false) => void
@@ -82,7 +82,7 @@ export default function TokenListSection(props: {
       {popularTokens.map((key) => (
         <Button
           size="small"
-          className="mt-3! items-center bg-muted! mr-1! p-2! pr-3!"
+          className="mt-3! items-center bg-muted! mr-1! p-2! pr-3! hover:bg-muted-foreground/10!"
           key={key}
           onClick={() => handle(props.tokens[key])}
         >
@@ -102,7 +102,7 @@ export default function TokenListSection(props: {
         nonZeroBalanceTokens.length > 0 && (
           <TokenSection
             text="Your Tokens"
-            icon={<SavingsIcon className="text-[17px]!" />}
+            icon={<HandCoins size={14} />}
             tokens={nonZeroBalanceTokens}
             onTokenClick={handle}
           />

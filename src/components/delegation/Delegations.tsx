@@ -22,8 +22,7 @@
  */
 
 import Skeleton from '@mui/material/Skeleton'
-import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
-import PieChartRoundedIcon from '@mui/icons-material/PieChartRounded'
+import { ChartPie, Inbox } from 'lucide-react'
 
 import Headline from '../Headline'
 import DelegationsToValidator from './DelegationsToValidator'
@@ -38,7 +37,6 @@ export default function Delegations(props: {
   errorMsg: string | undefined
   unstake: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
   cancelRequest: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
-  isXs: boolean
   address: types.AddressType | undefined
   customAddress: types.AddressType | undefined
   customRewardAddress: types.AddressType | undefined
@@ -58,20 +56,19 @@ export default function Delegations(props: {
       <Headline
         size="small"
         text="Delegations"
-        icon={<AllInboxRoundedIcon className="text-[17px]!" />}
+        icon={<Inbox />}
       />
-      <div className="mt-2.5" style={{ paddingBottom: '5px' }}></div>
       {!loaded ? (
         <div>
           <Skeleton variant="rectangular" height={86} className="mb-2.5" />
-          <div className="'nestedSection', ['nestedSectionXs', props.isXs]">
+          <div className="pl-14 pr-0! sm:pr-5">
             <Skeleton variant="rectangular" height={83} className="mb-2.5" />
           </div>
         </div>
       ) : null}
       {loaded && noDelegations ? (
         <div className="mt-5">
-          <PieChartRoundedIcon className="text-secondary-foreground styles.chainIconlg w-full" />
+          <ChartPie className="text-secondary-foreground styles.chainIconlg w-full align-center" />
           <h3 className="font-bold text-secondary-foreground text-center mt-1.5 mb-5">
             No tokens staked
           </h3>
@@ -89,7 +86,6 @@ export default function Delegations(props: {
                 loading={props.loading}
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
-                isXs={props.isXs}
                 address={props.address}
                 customAddress={props.customAddress}
                 customRewardAddress={props.customRewardAddress}
@@ -109,8 +105,6 @@ export default function Delegations(props: {
                 loading={props.loading}
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
-                isXs={props.isXs}
-                address={props.address}
                 customAddress={props.customAddress}
                 customRewardAddress={props.customRewardAddress}
                 setCustomRewardAddress={props.setCustomRewardAddress}
@@ -129,8 +123,6 @@ export default function Delegations(props: {
                 loading={props.loading}
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
-                isXs={props.isXs}
-                address={props.address}
                 customAddress={props.customAddress}
                 customRewardAddress={props.customRewardAddress}
                 setCustomRewardAddress={props.setCustomRewardAddress}

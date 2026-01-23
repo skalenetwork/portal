@@ -194,7 +194,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
             <div>
               <div className="block">
                 <p
-                  className="text-base font-semibold text-primary grow text-center mt-5"
+                  className="text-base font-semibold text-foreground grow text-center mt-5"
                 >
                   {emoji} Transfer completed
                 </p>

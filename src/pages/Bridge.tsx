@@ -49,7 +49,7 @@ function getEmptyTokenParams(): TokenParams {
   return { keyname: null, type: null }
 }
 
-export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsMetadataMap }) {
+export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
   const [searchParams, setSearchParams] = useSearchParams()
   const [tokenParams, setTokenParams] = useState<TokenParams>(getEmptyTokenParams())
 
@@ -208,7 +208,6 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
         chainsMeta={props.chainsMeta}
         className="mt-12"
         skaleNetwork={mpc.config.skaleNetwork}
-        isXs={props.isXs}
       />
     </Container>
   )

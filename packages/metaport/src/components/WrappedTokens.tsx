@@ -29,11 +29,11 @@ import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import Button from '@mui/material/Button'
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
 import ErrorIcon from '@mui/icons-material/Error'
 import AnimatedLoadingIcon from './AnimatedLoadingIcon'
+import { ChevronDown } from 'lucide-react'
 
-import SkPaper from './SkPaper'
+
 import TokenBalance from './TokenBalance'
 import TokenIcon from './TokenIcon'
 
@@ -117,8 +117,8 @@ export default function WrappedTokens() {
         onChange={handleChange('panel1')}
       >
         <AccordionSummary
-          className={`py-2! px-6!`}
-          expandIcon={<ExpandMoreRoundedIcon />}
+          className={`py-2! px-6! `}
+          expandIcon={<ChevronDown size={17} className='text-secondary-foreground!' />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
@@ -126,14 +126,13 @@ export default function WrappedTokens() {
             <div className="flex items-center mr-2.5">
               <ErrorIcon color="warning" />
             </div>
-            <p className="text-sm font-semibold text-primary mr-2.5 capitalize!">
+            <p className="text-sm font-semibold text-foreground mr-2.5 capitalize!">
               Wrapped tokens found
             </p>
           </div>
         </AccordionSummary>
         <AccordionDetails>
-          <SkPaper background="transparent" className={styles.accordionContent}>
-            <p className="flex text-sm errorMessage grow">
+            <p className="flex text-sm text-foreground font-semibold grow pl-5">
               ❗ You have wrapped tokens on {chainAlias}. Unwrap them before proceeding with your
               transfer.
             </p>
@@ -141,7 +140,7 @@ export default function WrappedTokens() {
               {Object.keys(filteredTokens).map((key, _) => (
                 <div
                   key={key}
-                  className="flex items-center w-full mt-2.5 mb-2.5"
+                  className="flex items-center w-full mt-2.5 mb-2.5 pl-5"
                 >
                   <div className="flex items-center">
                     <TokenIcon
@@ -149,10 +148,10 @@ export default function WrappedTokens() {
                       iconUrl={filteredTokens[key]?.meta.iconUrl}
                     />
                   </div>
-                  <p className="text-sm font-semibold text-primary flex grow mr-2.5 ml-2.5">
+                  <p className="text-sm font-semibold text-foreground flex grow mr-2.5 ml-2.5">
                     Wrapped {getTokenName(filteredTokens[key])}
                   </p>
-                  <div className="mr-2.5">
+                  <div className="mr-2.5 pr-5">
                     <TokenBalance
                       balance={
                         wrappedTokenBalances
@@ -167,7 +166,7 @@ export default function WrappedTokens() {
               ))}
             </div>
 
-            <div className="mt-5 mb-5">
+            <div className="mt-5 mb-5 pl-5 pr-5">
               {loading ? (
                 <Button
                   disabled
@@ -182,9 +181,8 @@ export default function WrappedTokens() {
               ) : (
                 <Button
                   variant="contained"
-                  color="primary"
                   size="medium"
-                  className={`${styles.btnAction} mt-1.5`}
+                  className={`${styles.btnAction} mt-1.5 bg-foreground! text-accent!`}
                   onClick={() =>
                     unwrapAll(address, switchChainAsync, walletClient, filteredTokens)
                   }
@@ -193,7 +191,6 @@ export default function WrappedTokens() {
                 </Button>
               )}
             </div>
-          </SkPaper>
         </AccordionDetails>
       </Accordion>
     </div>

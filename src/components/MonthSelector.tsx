@@ -24,8 +24,7 @@
 import { useState } from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
+import { CircleCheck, CircleX } from 'lucide-react'
 
 import { formatTimePeriod } from '../core/timeHelper'
 
@@ -52,24 +51,24 @@ export default function MonthSelector(props: {
   }
 
   return (
-    <div className={`${props.className} items-center flex`}>
+    <div className={`${props.className} gap-1.5 items-center flex flex-wrap`}>
       {monthRecommendations
         .filter((x) => x <= props.max)
         .map((month: any, i: number) => (
           <Button
             variant={props.topupPeriod === month ? 'contained' : 'text'}
-            className={`mr-2.5 roundBtn ${props.topupPeriod !== month ? 'outlined' : ''}`}
+            className={`mr-2.5 roundBtn ${props.topupPeriod !== month ? 'bg-muted-foreground/10! hover:bg-muted-foreground/20! text-foreground!' : 'bg-foreground! text-accent!'}`}
             key={i}
             onClick={() => {
               props.setTopupPeriod(month)
             }}
           >
-            <p className=" text-base">{month}</p>
+            {month}
           </Button>
         ))}
       {openCustom ? (
         <div className="flex items-center">
-          <div className="monthInputWrap flex items-center">
+          <div className="monthInputWrap bg-muted-foreground/10 flex items-center">
             <TextField
               variant="standard"
               type="number"
@@ -84,13 +83,14 @@ export default function MonthSelector(props: {
                 }
                 setTextPeriod(event.target.value)
               }}
-              className="mr-2.5 monthInput"
+              slotProps={{ htmlInput: { className: 'text-foreground!' } }}
+              className="monthInput"
               placeholder="0"
             />
             <Button
               variant="text"
-              startIcon={<CheckCircleRoundedIcon />}
-              className="roundBtn outlined"
+              startIcon={<CircleCheck size={17} />}
+              className="roundBtn outlined text-foreground! normal-case! bg-muted-foreground/10! hover:bg-muted-foreground/20!"
               onClick={() => {
                 if (
                   textPeriod === undefined ||
@@ -113,29 +113,29 @@ export default function MonthSelector(props: {
                 props.setErrorMsg(undefined)
               }}
             >
-              <p className=" text-base">Apply</p>
+              <p className=" text-foreground! ml-1.5">Apply</p>
             </Button>
           </div>
           <Button
-            startIcon={<CancelOutlinedIcon />}
+            startIcon={<CircleX size={17} />}
             variant="text"
-            className="roundBtn ml-1.5"
+            className="roundBtn ml-1! text-muted-foreground! normal-case! bg-muted-foreground/10! hover:bg-muted-foreground/20!"
             onClick={() => {
               setOpenCustom(false)
             }}
           >
-            <p className=" text-base">Close</p>
+            <p>Close</p>
           </Button>
         </div>
       ) : (
         <Button
           variant={props.topupPeriod === customPeriod ? 'contained' : 'text'}
-          className={`mr-2.5 roundBtn ${props.topupPeriod !== customPeriod ? 'outlined' : ''}`}
+          className={`mr-2.5 roundBtn! ${props.topupPeriod !== customPeriod ? 'normal-case! py-2! bg-muted-foreground/10! hover:bg-muted-foreground/20! text-foreground!' : 'bg-foreground! text-accent!'}`}
           onClick={() => {
             setOpenCustom(true)
           }}
         >
-          <p className=" text-base">{customPeriod ? `${customPeriod} (Edit)` : 'Custom'}</p>
+          {customPeriod ? `${customPeriod} (Edit)` : 'Custom'}
         </Button>
       )}
     </div>

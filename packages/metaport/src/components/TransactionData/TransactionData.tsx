@@ -26,17 +26,12 @@ import { types } from '@/core'
 
 import IconButton from '@mui/material/IconButton'
 
-import MoveUpIcon from '@mui/icons-material/MoveUp'
-import MoveDownIcon from '@mui/icons-material/MoveDown'
-import LockOpenIcon from '@mui/icons-material/LockOpen'
-import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward'
-import OpenInNewIcon from '@mui/icons-material/OpenInNew'
-import DoneRoundedIcon from '@mui/icons-material/DoneRounded'
+import { ArrowUpRight, Check, ExternalLink, LockOpen, SendToBack } from 'lucide-react'
+
 
 import { getTxUrl } from '../../core/explorer'
 
 import localStyles from './TransactionData.module.scss'
-import { styles } from '../../core/css'
 import { CHAINS_META } from '../../core/metadata'
 
 type ActionStateIconMap = {
@@ -48,13 +43,13 @@ type ActionStateAliasMap = {
 }
 
 const actionIcons: ActionStateIconMap = {
-  approveDone: <DoneRoundedIcon />,
-  transferDone: <ArrowOutwardIcon />,
-  transferETHDone: <ArrowOutwardIcon />,
-  approveWrapDone: <DoneRoundedIcon />,
-  wrapDone: <MoveDownIcon />,
-  unwrapDone: <MoveUpIcon />,
-  unlockDone: <LockOpenIcon />,
+  approveDone: <Check size={14} />,
+  transferDone: <ArrowUpRight size={14} />,
+  transferETHDone: <ArrowUpRight size={14} />,
+  approveWrapDone: <Check size={14} />,
+  wrapDone: <SendToBack size={14} />,
+  unwrapDone: <SendToBack size={14} />,
+  unlockDone: <LockOpen size={14} />,
   receivedETH: null,
   init: null,
   approve: null,
@@ -102,17 +97,18 @@ export default function TransactionData(props: {
     props.transactionData.transactionHash
   )
   return (
-    <div className="flex items-center mt-1.5 mb-1.5 ml-1.5 mr-1.5">
+    <div className="flex items-center mb-2">
       <div>
-        <div
-          className={`${localStyles.transactionDataIcon} flex items-center text-primary ml-4 ${styles[`action_${props.transactionData.txName}`]}`}
-        >
-          {actionIcons[props.transactionData.txName]}
-        </div>
+        <span className= "relative flex items-center justify-center">
+          <span className= "w-[30px] h-[30px] rounded-full bg-muted absolute" />
+          <span className= "flex items-center justify-center text-foreground w-[30px] h-[30px] z-10">
+            {actionIcons[props.transactionData.txName]}
+          </span>
+        </span>
       </div>
       <div className="ml-5 grow flex">
         <div>
-          <p className="text-base capitalize text-primary font-medium">
+          <p className="text-sm capitalize text-foreground font-medium">
             {actionAliases[props.transactionData.txName]}
           </p>
           <p className="text-xs text-secondary-foreground">
@@ -128,7 +124,7 @@ export default function TransactionData(props: {
           rel="noopener noreferrer"
           className={`ml-2.5 ${localStyles.sk__openExplorerBtn}`}
         >
-          <OpenInNewIcon className="text-primary" />
+          <ExternalLink className="text-foreground" />
         </IconButton>
       </div>
     </div>

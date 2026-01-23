@@ -43,13 +43,12 @@ import CreditTokensAdmin from '../components/credits/TokensAdmin'
 interface CreditsProps {
   mpc: MetaportCore
   address: types.AddressType | undefined
-  isXs: boolean
   loadData: () => Promise<void>
   schains: types.ISChain[]
   chainsMeta: types.ChainsMetadataMap
 }
 
-const Credits: React.FC<CreditsProps> = ({ mpc, isXs, loadData, schains, chainsMeta }) => {
+const Credits: React.FC<CreditsProps> = ({ mpc, loadData, schains, chainsMeta }) => {
   const [_, setIntervalId] = useState<NodeJS.Timeout>()
   const [creditStation, setCreditStation] = useState<Contract | undefined>(undefined)
 
@@ -101,7 +100,6 @@ const Credits: React.FC<CreditsProps> = ({ mpc, isXs, loadData, schains, chainsM
         </div>
         <CreditTokensAdmin
           mpc={mpc}
-          isXs={isXs}
           creditStation={creditStation}
           schains={schains}
           chainsMeta={chainsMeta}

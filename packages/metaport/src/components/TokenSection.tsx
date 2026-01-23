@@ -46,7 +46,7 @@ export default function TokenSection({ text, icon, tokens, onTokenClick }: Token
           <Button
             key={key}
             size="small"
-            className="w-full pl-2.5 pt-1.5 pb-1.5 capitalize!"
+            className="w-full pl-2.5 pt-1.5 pb-1.5 capitalize! hover:bg-muted-foreground/10!"
             onClick={() => onTokenClick(tokenData)}
           >
             <div className="flex items-center w-full mt-2.5 mb-2.5 rounded">

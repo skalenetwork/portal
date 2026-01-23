@@ -29,17 +29,10 @@ import { type types, metadata, units, constants } from '@/core'
 import { explorer, MetaportCore, SkPaper, Tile } from '@skalenetwork/metaport'
 
 import Container from '@mui/material/Container'
-import ArticleRoundedIcon from '@mui/icons-material/ArticleRounded'
-import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded'
-import DataSaverOffRoundedIcon from '@mui/icons-material/DataSaverOffRounded'
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
-import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
+
+import { ArrowLeftRight, Binoculars, Boxes, ChartPie, ChevronLeft, FileText, HandCoins, LayoutGrid } from 'lucide-react'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
-import HubRoundedIcon from '@mui/icons-material/HubRounded'
-import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded'
-import HourglassTopRoundedIcon from '@mui/icons-material/HourglassTopRounded'
-import HourglassFullRoundedIcon from '@mui/icons-material/HourglassFullRounded'
-import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded'
+
 
 import { useApps } from '../useApps'
 
@@ -65,7 +58,6 @@ export default function App(props: {
   mpc: MetaportCore
   loadData: () => Promise<void>
   metrics: types.IMetrics | null
-  isXs: boolean
   chainsMeta: types.ChainsMetadataMap
 }) {
   let { chain, app } = useParams()
@@ -138,6 +130,7 @@ export default function App(props: {
     return formatNumber(Number(units.fromWei(gasSpentWei, constants.DEFAULT_ERC20_DECIMALS)))
   }
 
+
   return (
     <Container maxWidth="md">
       <div className="'chainDetails' mb-5">
@@ -154,12 +147,12 @@ export default function App(props: {
             sections={[
               {
                 text: 'Ecosystem',
-                icon: <ArrowBackIosNewRoundedIcon />,
+                icon: <ChevronLeft className="text-foreground" size={16} />,
                 url: '/ecosystem'
               },
               {
                 text: appAlias,
-                icon: <WidgetsRoundedIcon />
+                icon: <LayoutGrid size={16} />
               }
             ]}
           />
@@ -167,7 +160,7 @@ export default function App(props: {
         </div>
         <SkPaper gray className="mt-2.5">
           <div className="m-2.5">
-            <div className="'responsive-app-header' flex items-center">
+            <div className="responsive-app-header flex items-center">
               <Logo
                 chainsMeta={props.chainsMeta}
                 skaleNetwork={network}
@@ -175,15 +168,14 @@ export default function App(props: {
                 appName={app}
                 size="md"
               />
-
               <div className="app-info grow">
-                <div className={!props.isXs ? 'flex' : ''}>
+                <div className="md:flex">
                   <div className="grow mb-2.5">
                     <CategoriesChips categories={appMeta.categories} all />
                   </div>
                 </div>
                 <div className="flex items-center">
-                  <h2 className="m-0 text-base">{appAlias}</h2>
+                  <h2 className="font-bold text-xl text-foreground">{appAlias}</h2>
                   <div className="flex ml-2.5">
                     {featured && <ChipFeatured />}
                     {trending && <ChipTrending />}
@@ -191,34 +183,29 @@ export default function App(props: {
                     {metadata.isPreTge(appMeta) && <ChipPreTge />}
                   </div>
                 </div>
-
                 <CollapsibleDescription text={appDescription} expandable />
                 <SocialButtons size="md" social={appMeta.social} className="mt-5" />
               </div>
             </div>
           </div>
         </SkPaper>
-        <SkPaper gray className="mt-2.5">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
-            {appMeta.contracts && (
+        {appMeta.contracts && (
+          <SkPaper gray className="mt-2.5">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 w-full">
               <div className="col-span-1">
                 <Tile
                   grow
                   text="Total transactions"
                   value={counters ? formatNumber(Number(counters.transactions_count)) : undefined}
-                  icon={<DataSaverOffRoundedIcon />}
+                  icon={<ChartPie size={14} />}
                 />
               </div>
-            )}
-            {appMeta.contracts && (
               <div className="col-span-1">
                 <Tile
                   grow
                   text="Gas saved"
                   childrenRi={
-                    !props.isXs ? (
-                      <InfoOutlinedIcon className="text-secondary-foreground text-[17px]! ml-2.5" />
-                    ) : undefined
+                    <InfoOutlinedIcon className="hidden md:inline text-secondary-foreground text-[17px]! ml-2.5" />
                   }
                   tooltip={
                     props.metrics && counters
@@ -226,11 +213,9 @@ export default function App(props: {
                       : undefined
                   }
                   value={props.metrics && counters ? `${formatGas()} ETH` : undefined}
-                  icon={<SavingsRoundedIcon />}
+                  icon={<HandCoins size={14} />}
                 />
               </div>
-            )}
-            {appMeta.contracts && (
               <div className="col-span-1">
                 <Tile
                   grow
@@ -238,11 +223,9 @@ export default function App(props: {
                   value={
                     counters ? formatNumber(Number(counters.transactions_last_30_days)) : undefined
                   }
-                  icon={<HourglassFullRoundedIcon />}
+                  icon={<ArrowLeftRight size={14} />}
                 />
               </div>
-            )}
-            {appMeta.contracts && (
               <div className="col-span-1">
                 <Tile
                   grow
@@ -250,22 +233,20 @@ export default function App(props: {
                   value={
                     counters ? formatNumber(Number(counters.transactions_last_7_days)) : undefined
                   }
-                  icon={<HourglassBottomRoundedIcon />}
+                  icon={<ArrowLeftRight size={14} />}
                 />
               </div>
-            )}
-            {appMeta.contracts && (
               <div className="col-span-1">
                 <Tile
                   grow
                   text="Daily transactions"
                   value={counters ? formatNumber(Number(counters.transactions_today)) : undefined}
-                  icon={<HourglassTopRoundedIcon />}
+                  icon={<ArrowLeftRight size={14} />}
                 />
               </div>
-            )}
-          </div>
-        </SkPaper>
+            </div>
+          </SkPaper>
+        )}
         <AppScreenshots chainName={chain} appName={app} skaleNetwork={network} />
         {chain !== OFFCHAIN_APP && (
           <SkPaper gray className="mt-2.5 fwmobile">
@@ -274,21 +255,21 @@ export default function App(props: {
               expanded={expanded}
               panel="panel3"
               title={`Runs on SKALE ${isAppChain ? 'Chain' : 'Hub'}`}
-              icon={<HubRoundedIcon />}
+              icon={<Boxes size={17} />}
             >
               <HubTile
                 network={props.mpc.config.skaleNetwork}
                 schainName={chain}
-                isXs={props.isXs}
                 metrics={null}
                 chainsMeta={props.chainsMeta}
               />
             </AccordionSection>
             {appMeta.contracts ? (
-              <AccordionSection
+              <AccordionSection className="mt-5"
                 expandedByDefault={true}
                 title="Smart contracts"
-                icon={<ArticleRoundedIcon />}
+                icon={<FileText size={17}
+                />}
               >
                 <div>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">
@@ -315,7 +296,7 @@ export default function App(props: {
           <AccordionSection
             expandedByDefault
             title="Discover more"
-            icon={<AutoAwesomeRoundedIcon />}
+            icon={<Binoculars size={17} />}
             marg={false}
           >
             <RecommendedApps

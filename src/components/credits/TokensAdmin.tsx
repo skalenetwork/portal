@@ -40,7 +40,6 @@ import { Coins, History, SwatchBook } from 'lucide-react'
 interface CreditTokensAdminProps {
   mpc: MetaportCore
   creditStation: Contract | undefined
-  isXs: boolean
   schains: types.ISChain[]
   chainsMeta: types.ChainsMetadataMap
 }
@@ -48,7 +47,6 @@ interface CreditTokensAdminProps {
 const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
   mpc,
   creditStation,
-  isXs,
   schains,
   chainsMeta
 }) => {
@@ -125,7 +123,6 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
                 tokenMeta={tokensMeta[symbol]}
                 tokenData={tokenData}
                 symbol={symbol}
-                isXs={isXs}
                 setErrorMsg={setErrorMsg}
               />
             ))}
@@ -160,7 +157,6 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
                 <CreditsHistoryTile
                   key={`${payment.schainName}-${payment.id}`}
                   payment={payment}
-                  isXs={isXs}
                   mpc={mpc}
                   chainsMeta={chainsMeta}
                   ledgerContract={ledgerContracts[payment.schainName]}

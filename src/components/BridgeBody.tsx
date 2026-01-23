@@ -128,8 +128,8 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
           />
         </SkPaper>
       </Collapse>
-      <Collapse in={showInput()} className="mt-3.5">
-        <SkPaper gray>
+      <Collapse in={showInput()}>
+        <SkPaper gray className="mt-3.5">
           <AmountInput />
           <AmountErrorMessage />
         </SkPaper>

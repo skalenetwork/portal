@@ -17,23 +17,13 @@
  */
 
 /**
- * @file css.ts
- * @copyright SKALE Labs 2023-Present
+ * @file cn.ts
+ * @copyright SKALE Labs 2025-Present
  */
 
-import { types } from '@/core'
-import styles from '../styles/styles.module.scss'
+import { twMerge } from 'tailwind-merge'
+import { clsx, type ClassValue } from 'clsx'
 
-export { styles }
-
-const sizes: types.Size[] = ['xs', 'sm', 'md', 'lg']
-
-export function inc(currentSize: types.Size): types.Size {
-  const currentIndex = sizes.indexOf(currentSize)
-  return currentIndex < sizes.length - 1 ? sizes[currentIndex + 1] : currentSize
-}
-
-export function dec(currentSize: types.Size): types.Size {
-  const currentIndex = sizes.indexOf(currentSize)
-  return currentIndex > 0 ? sizes[currentIndex - 1] : currentSize
+export function cn(...inputs: ClassValue[]) {
+    return twMerge(clsx(inputs))
 }

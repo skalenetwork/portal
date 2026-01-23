@@ -23,11 +23,11 @@
 
 import React from 'react'
 import Headline from '../Headline'
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
 import { networks } from '@/core'
 import { NETWORKS } from '../../core/constants'
 import GetSFuel from '../GetSFuel'
 import { MetaportCore } from '@skalenetwork/metaport'
+import { CircleUser } from 'lucide-react'
 
 interface ProfileModalHeaderProps {
   mpc: MetaportCore
@@ -36,7 +36,7 @@ interface ProfileModalHeaderProps {
 const ProfileModalHeader: React.FC<ProfileModalHeaderProps> = ({ mpc }) => (
   <div className="profileModalHeader items-center">
     <div className="grow">
-      <Headline text="Wallet Info" icon={<AccountCircleRoundedIcon />} size="small" />
+      <Headline text="Wallet Info" icon={<CircleUser size={17} className="ml-2.5" />} />
     </div>
     <div className="profileModalStatus">
       {networks.hasFeatureInAny(NETWORKS, 'sfuel') && <GetSFuel mpc={mpc} />}

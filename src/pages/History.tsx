@@ -26,11 +26,9 @@ import { Helmet } from 'react-helmet'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
-import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import { History as TransfersHistory, useMetaportStore } from '@skalenetwork/metaport'
 
-import HistoryIcon from '@mui/icons-material/History'
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
+import { ChevronLeft, HistoryIcon, Trash2 } from 'lucide-react'
 
 import { clearTransferHistory as clearTransferHistoryFromStorage } from '../core/transferHistory'
 import { META_TAGS } from '../core/meta'
@@ -55,45 +53,47 @@ export default function History() {
         <meta property="og:title" content={META_TAGS.history.title} />
         <meta property="og:description" content={META_TAGS.history.description} />
       </Helmet>
-      <Stack spacing={0}>
-        <div className="flex">
-          <Breadcrumbs
-            className="bg"
-            sections={[
-              {
-                text: 'Bridge',
-                icon: <ArrowBackIosNewRoundedIcon />,
-                url: '/bridge'
-              },
-              {
-                text: 'History',
-                icon: <HistoryIcon />
-              }
-            ]}
-          />
-          <div className="grow"></div>
-        </div>
-        <div className={transactionsHistory.length !== 0 ? 'mt-2.5' : ''}>
-          <TransfersHistory size="md" />
-        </div>
-        <div>
-          {transfersHistory.length !== 0 ? (
-            <Button
-              onClick={clearTransferHistory}
-              color="error"
-              size="small"
-              className="w-full normal-case text-sm leading-6 tracking-wider font-semibold py-3.5 px-4 min-h-[44px] rounded shadow-none mb-5"
-              startIcon={<DeleteRoundedIcon />}
-            >
-              Clear transfers history
-            </Button>
-          ) : (
-            <div className="text-base text-secondary-foreground mt-5 text-center">
-              No past transfers found
-            </div>
-          )}
-        </div>
-      </Stack>
+      <div className="card-bg rounded-3xl p-0 md:p-8">
+        <Stack spacing={0}>
+          <div className="flex">
+            <Breadcrumbs
+              className="bg"
+              sections={[
+                {
+                  text: 'Bridge',
+                  icon: <ChevronLeft size={14} />,
+                  url: '/bridge'
+                },
+                {
+                  text: 'History',
+                  icon: <HistoryIcon size={14} />
+                }
+              ]}
+            />
+            <div className="grow"></div>
+          </div>
+          <div className={transactionsHistory.length !== 0 ? 'mt-2.5' : ''}>
+            <TransfersHistory size="md" />
+          </div>
+          <div>
+            {transfersHistory.length !== 0 ? (
+              <Button
+                onClick={clearTransferHistory}
+                color="error"
+                size="small"
+                className="w-full normal-case! text-sm leading-6 tracking-wider font-semibold py-3.5 px-4 min-h-[44px] rounded shadow-none mb-5"
+                startIcon={<Trash2 size={14} />}
+              >
+                Clear transfers history
+              </Button>
+            ) : (
+              <div className="text-sm font-semibold text-muted-foreground mt-5 text-center">
+                No past transfers found
+              </div>
+            )}
+          </div>
+        </Stack>
+      </div>
     </Container>
   )
 }

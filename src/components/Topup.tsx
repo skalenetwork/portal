@@ -24,13 +24,11 @@
 import { Link } from 'react-router-dom'
 
 import { constants, units, helper, type types } from '@/core'
-import { type MetaportCore, Tile } from '@skalenetwork/metaport'
+import { type MetaportCore, Tile, TokenIcon } from '@skalenetwork/metaport'
 
 import Button from '@mui/material/Button'
 import { Collapse } from '@mui/material'
-import TollIcon from '@mui/icons-material/Toll'
-import MoreTimeIcon from '@mui/icons-material/MoreTime'
-import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
+import { ClockPlus, ShieldAlert } from 'lucide-react'
 
 import SkStack from './SkStack'
 import MonthSelector from './MonthSelector'
@@ -75,17 +73,17 @@ export default function Topup(props: {
       <SkStack className="mb-2.5">
         <Tile
           text="Top-up period (months)"
-          icon={<MoreTimeIcon />}
+          icon={<ClockPlus size={14} />}
           children={
             <MonthSelector
-              className="mt-2.5"
+              className="text-foreground mt-2"
               max={maxTopupPeriod}
               topupPeriod={props.topupPeriod}
               setTopupPeriod={props.setTopupPeriod}
               setErrorMsg={props.setErrorMsg}
             />
           }
-          grow
+          className="w-full!"
         />
       </SkStack>
       <SkStack>
@@ -98,10 +96,10 @@ export default function Topup(props: {
           }
           text="Top-up amount"
           textRi={helperText}
-          icon={<TollIcon />}
+          icon={<TokenIcon tokenSymbol="skl" size="xs" />}
           grow
         />
-        <Tile
+        <Tile className='text-foreground'
           value={`${units.truncateDecimals(tokenBalanceSkl, 6)} SKL`}
           tooltip={
             props.info.oneSklPrice !== undefined && props.tokenBalance !== undefined
@@ -109,7 +107,7 @@ export default function Topup(props: {
               : ''
           }
           text="SKL balance"
-          icon={<TollIcon />}
+          icon={<TokenIcon tokenSymbol="skl" size="xs" />}
           color={balanceOk ? undefined : 'error'}
         />
       </SkStack>
@@ -118,17 +116,17 @@ export default function Topup(props: {
           <Tile
             value={props.errorMsg}
             text="Error occurred"
-            icon={<ErrorRoundedIcon />}
+            icon={<ShieldAlert size={17} />}
             color="error"
+            className="text-foreground bg-red-100 border-red-200 dark:bg-red-800/80 dark:border-red-600 border-2"
             grow
-            children={
+            childrenRi={
               <Button
                 size="small"
                 onClick={() => {
                   props.setErrorMsg(undefined)
                 }}
-                className="blackP text-xs mt-2.5"
-                style={{ background: 'rgba(0, 0, 0, 0.3)' }}
+                className="roundBtn text-foreground! normal-case! bg-muted-foreground/30! hover:bg-muted-foreground/20!"
               >
                 Close
               </Button>
@@ -136,19 +134,19 @@ export default function Topup(props: {
           />
         </SkStack>
       </Collapse>
-      <div className="mt-5 mb-2.5 ml-1.5 flex">
-        <div className="flex">
+      <div className="mt-5 mb-2.5 ml-1.5">
+        <div className="flex flex-col md:flex-row gap-2.5">
           <Button
             variant="contained"
-            className="btn"
+            className="btn btnMd text-xs w-full! md:w-fit! bg-foreground! text-accent! disabled:bg-muted! disabled:text-muted-foreground!"
             disabled={!balanceOk || props.loading || maxTopupPeriod <= 0}
             onClick={props.topupChain}
           >
             {props.btnText ?? topupBtnText}
           </Button>
           {!balanceOk ? (
-            <Link to="/bridge">
-              <Button variant="contained" className="btn ml-2.5">
+            <Link to="/bridge" className="w-full md:w-auto">
+              <Button variant="contained" className="btn btnMd text-xs w-full! md:w-fit! text-accent! bg-foreground!">
                 Bridge SKL to Europa Hub
               </Button>
             </Link>

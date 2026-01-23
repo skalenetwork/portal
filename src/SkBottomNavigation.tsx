@@ -25,7 +25,7 @@ import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
 import Button from '@mui/material/Button'
-import { Home, ArrowLeftRight, PieChart, BadgeDollarSign, Network } from 'lucide-react'
+import { Home, ArrowLeftRight, PieChart, BadgeDollarSign, Network, LayoutGrid } from 'lucide-react'
 import { networks, types } from '@/core'
 import { NETWORKS } from './core/constants'
 
@@ -38,47 +38,20 @@ export default function SkBottomNavigation() {
     setValue(500)
     if (location.pathname === '/') setValue(0)
     if (location.pathname === '/bridge' || location.pathname.includes('/transfer')) setValue(1)
-    if (location.pathname.includes('/chains') || location.pathname.includes('/admin')) setValue(3)
-    if (location.pathname.includes('/staking')) setValue(4)
+    if (location.pathname.includes('/chains') || location.pathname.includes('/admin')) setValue(2)
+    if (location.pathname.includes('/staking')) setValue(3)
+    if (location.pathname.includes('/ecosystem') || location.pathname.includes('/app/')) setValue(4)
     if (location.pathname === '/credits' || location.pathname === '/credits/admin') setValue(5)
+
   }, [location])
 
   const items = [
-    {
-      label: 'Home',
-      path: '/',
-      index: 0,
-      Icon: Home,
-      featureKey: null as types.NetworkFeature | null
-    },
-    {
-      label: 'Bridge',
-      path: '/bridge',
-      index: 1,
-      Icon: ArrowLeftRight,
-      featureKey: null as types.NetworkFeature | null
-    },
-    {
-      label: 'Chains',
-      path: '/chains',
-      index: 3,
-      Icon: Network,
-      featureKey: 'chains' as types.NetworkFeature
-    },
-    {
-      label: 'Staking',
-      path: '/staking',
-      index: 4,
-      Icon: PieChart,
-      featureKey: 'staking' as types.NetworkFeature
-    },
-    {
-      label: 'Credits',
-      path: '/credits',
-      index: 5,
-      Icon: BadgeDollarSign,
-      featureKey: 'credits' as types.NetworkFeature
-    }
+    { label: 'Home', path: '/', index: 0, Icon: Home, featureKey: null as types.NetworkFeature | null },
+    { label: 'Bridge', path: '/bridge', index: 1, Icon: ArrowLeftRight, featureKey: null as types.NetworkFeature | null },
+    { label: 'Chains', path: '/chains', index: 2, Icon: Network, featureKey: 'chains' as types.NetworkFeature },
+    { label: 'Staking', path: '/staking', index: 3, Icon: PieChart, featureKey: 'staking' as types.NetworkFeature },
+    { label: 'Apps', path: '/ecosystem', index: 4, Icon: LayoutGrid, featureKey: 'ecosystem' as types.NetworkFeature },
+    { label: 'Credits', path: '/credits', index: 5, Icon: BadgeDollarSign, featureKey: 'credits' as types.NetworkFeature }
   ] as const
 
   const visibleItems = items.filter((item) => {

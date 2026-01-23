@@ -40,7 +40,6 @@ export default function Chain(props: {
   metrics: types.IMetrics | null
   mpc: MetaportCore
   chainsMeta: types.ChainsMetadataMap
-  isXs: boolean
 }) {
   const [schainStats, setSchainStats] = useState<types.IStatsData | null>(null)
   const [schainMetrics, setSchainMetrics] = useState<types.IChainMetrics | null>(null)
@@ -70,7 +69,7 @@ export default function Chain(props: {
       <div className="fullscreen-msg">
         <div className="flex">
           <div className="flex items-center mr-5">
-            <CircularProgress className="fullscreen-spin" />
+            <CircularProgress className="fullscreen-spin text-foreground" />
           </div>
           <div className="flex items-center">
             <h3 className="fullscreen-msg-text text-foreground! font-semibold">
@@ -98,7 +97,6 @@ export default function Chain(props: {
         schainStats={schainStats}
         schainMetrics={schainMetrics}
         mpc={props.mpc}
-        isXs={props.isXs}
       />
     </Container>
   )

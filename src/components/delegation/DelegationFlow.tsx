@@ -22,9 +22,9 @@
 
 import { types } from '@/core'
 
-import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 
 import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
+import { ArrowRight } from 'lucide-react'
 
 interface DelegationFlowProps {
   delegation?: types.st.IDelegation
@@ -58,37 +58,37 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation }) => {
   }
 
   return (
-    <div className="flex items-center className">
+    <div className="flex flex-wrap items-center mt-1.5">
       <div>
         <div className="chipXs chip_PROPOSED">
-          <p className="text-xs truncate">PROPOSED</p>
+          <p className="text-xs font-bold truncate">PROPOSED</p>
         </div>
         <p className="text-xs text-secondary-foreground text-center mt-1.5">
           {delegation ? formatBigIntTimestampSeconds(delegation.created) : getCurrentDate()}
         </p>
       </div>
-      <ArrowForwardRoundedIcon className="text-secondary-foreground text-[17px]! mr-2.5 ml-2.5 'delegationFlowIcon'" />
+      <ArrowRight size={17} className="text-secondary-foreground mr-2.5 ml-2.5 mb-5 'delegationFlowIcon'" />
       <div>
         <div className="chipXs chip_ACCEPTED">
-          <p className="text-xs truncate">ACCEPTED</p>
+          <p className="text-xs font-bold truncate">ACCEPTED</p>
         </div>
         <p className="text-xs text-secondary-foreground text-center mt-1.5">
           Until {getFirstDayNextMonth()}
         </p>
       </div>
-      <ArrowForwardRoundedIcon className="text-secondary-foreground text-[17px]! mr-2.5 ml-2.5 'delegationFlowIcon'" />
+      <ArrowRight size={17} className="text-secondary-foreground mr-2.5 ml-2.5 mb-5 'delegationFlowIcon'" />
       <div>
         <div className="chipXs chip_DELEGATED">
-          <p className="text-xs">DELEGATED</p>
+          <p className="text-xs font-bold">DELEGATED</p>
         </div>
         <p className="text-xs text-secondary-foreground text-center mt-1.5">
           From {getFirstDayNextMonth()}
         </p>
       </div>
-      <ArrowForwardRoundedIcon className="text-secondary-foreground text-[17px]! mr-2.5 ml-2.5 'delegationFlowIcon'" />
+      <ArrowRight size={17} className="text-secondary-foreground mr-2.5 ml-2.5 mb-5  'delegationFlowIcon'" />
       <div>
         <div className="chipXs chip_REWARDS">
-          <p className="text-xs truncate">REWARDS GENERATED</p>
+          <p className="text-xs truncate font-bold">REWARDS GENERATED</p>
         </div>
         <p className="text-xs text-secondary-foreground text-center mt-1.5">
           Monthly, starting on {getFirstDayMonthAfterNext()}

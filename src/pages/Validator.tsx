@@ -30,12 +30,6 @@ import { type MetaportCore, SkPaper, contracts } from '@skalenetwork/metaport'
 
 import { Collapse, Skeleton } from '@mui/material'
 
-import CorporateFareRoundedIcon from '@mui/icons-material/CorporateFareRounded'
-import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded'
-import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
-
-import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded'
-
 import {
   StakingActionProps,
   unstakeDelegation,
@@ -57,6 +51,7 @@ import DelegationTotals from '../components/delegation/DelegationTotals'
 import Message from '../components/Message'
 import ErrorTile from '../components/ErrorTile'
 import ChainRewards from '../components/delegation/ChainRewards'
+import { Building2, Eye, Rows3, UserSearch } from 'lucide-react'
 
 export default function Validator(props: {
   mpc: MetaportCore
@@ -65,7 +60,6 @@ export default function Validator(props: {
   customAddress: types.AddressType | undefined
   loadValidator: () => Promise<void>
   validator: types.st.IValidator | null | undefined
-  isXs: boolean
   delegations: types.st.IDelegation[] | null
   getMainnetSigner: () => Promise<Signer>
   chainsMeta: types.ChainsMetadataMap
@@ -159,7 +153,6 @@ export default function Validator(props: {
             validator={props.validator!}
             delegationType={types.st.DelegationType.REGULAR}
             loading={loading}
-            isXs={props.isXs}
             customAddress={props.customAddress}
             unstake={handleUnstake}
             accept={handleAccept}
@@ -196,8 +189,9 @@ export default function Validator(props: {
       {props.customAddress !== undefined ? (
         <Message
           className="mt-5"
-          text={props.isXs ? 'Preview mode, ' : 'Previewing validator page in read-only mode, '}
-          icon={<VisibilityRoundedIcon />}
+          text="Preview mode, "
+          textLong="Previewing validator page in read-only mode, "
+          icon={<Eye />}
           link="/validator"
           linkText="click to exit"
           type="warning"
@@ -206,9 +200,8 @@ export default function Validator(props: {
       <SkPaper gray className="mt-5">
         <Headline
           text="Validator Summary"
-          icon={<CorporateFareRoundedIcon className="text-[17px]!" />}
+          icon={<Building2 size={17} />}
           size="small"
-          className="mb-5"
         />
         <Collapse in={props.address === undefined && props.customAddress === undefined}>
           <ConnectWallet tile className="grow" />
@@ -225,8 +218,8 @@ export default function Validator(props: {
             </div>
           ) : (
             <div>
-              <PeopleRoundedIcon className="text-secondary-foreground styles.chainIconlg w-full mt-5" />
-              <h3 className="font-bold text-secondary-foreground text-center mb-5">
+              <UserSearch className="text-secondary-foreground w-full mt-5" />
+              <h3 className="font-semibold text-secondary-foreground text-center mb-5 mt-2">
                 Validator doesn't exist
               </h3>
             </div>
@@ -241,8 +234,6 @@ export default function Validator(props: {
           validator={props.validator}
           address={props.address}
           customAddress={props.customAddress}
-          className="mt-5"
-          isXs={props.isXs}
           chainsMeta={props.chainsMeta}
         />
       )}
@@ -250,14 +241,14 @@ export default function Validator(props: {
       {props.validator && (
         <SkPaper gray className="mt-5">
           <div>
-            <div className="flex items-center mb-2.5">
+            <div className="flex items-center mb-1.5!">
               <Headline
                 size="small"
                 text={
                   'Delegations ' +
                   (props.delegations === null ? '' : `(${props.delegations.length})`)
                 }
-                icon={<AllInboxRoundedIcon className="text-[17px]!" />}
+                icon={<Rows3 size={17} />}
                 className="grow"
               />
               <SortToggle onChange={setSortBy} className="mr-1.25" />

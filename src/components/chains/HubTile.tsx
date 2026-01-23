@@ -28,20 +28,17 @@ import { Tooltip } from '@mui/material'
 import { SkPaper, useThemeMode } from '@skalenetwork/metaport'
 import { type types, metadata } from '@/core'
 
-import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
+import { ChevronRight, TrendingUp } from 'lucide-react'
 
 import ChainLogo from '../ChainLogo'
 import { formatNumber } from '../../core/timeHelper'
 
 import { MAINNET_CHAIN_LOGOS } from '../../core/constants'
-import { TrendingUp } from 'lucide-react'
 
 export default function HubTile(props: {
   network: types.SkaleNetwork
   metrics: types.IMetrics | null
   schainName: string
-  isXs: boolean
   chainsMeta: types.ChainsMetadataMap
   bg?: boolean
   showStats?: boolean
@@ -76,8 +73,8 @@ export default function HubTile(props: {
         }
       >
         <Tooltip title="Click to see Hub details">
-          <div className="titleSectionBg flex items-center">
-            <div className="flex items-center grow mt-5 mb-5 ml-5">
+          <div className="bg-background! flex items-center rounded-3xl ">
+            <div className="flex items-center grow mt-5 mb-5 ml-5 ">
               <div className="w-[45px] h-[45px] flex items-center">
                 <ChainLogo
                   network={props.network}
@@ -86,15 +83,15 @@ export default function HubTile(props: {
                   className="responsive-logo"
                 />
               </div>
-              <div className={`${!props.isXs ? 'ml-5' : 'ml-2.5'} grow`}>
-                <h4 className="font-bold pOneLine">{alias}</h4>
-                <p className={`text-xs ${props.isXs ? 'mr-2.5' : ''} text-secondary-foreground`}>
+              <div className="md:ml-5 ml-2.5 grow">
+                <h4 className="font-bold text-lg text-foreground">{alias}</h4>
+                <p className="text-xs sm:mr-2.5 text-secondary-foreground">
                   {chainDescription.split('.', 1)[0]}
                 </p>
               </div>
             </div>
-            {props.isXs || !props.showStats ? null : (
-              <div className="chipSm mr-2.5 flex items-center">
+            {props.showStats && (
+              <div className="chipSm mr-2.5 hidden sm:flex items-center">
                 <TrendingUp />
                 <p className="text-xs ml-2.5">
                   {schainMetrics
@@ -104,11 +101,9 @@ export default function HubTile(props: {
                 </p>
               </div>
             )}
-            {!props.isXs && (
-              <div className="mr-5 w-4 h-4">
-                <ArrowForwardIosRoundedIcon className="text-secondary-foreground" />
-              </div>
-            )}
+            <div className="mr-5 w-4 h-4 hidden sm:flex items-center justify-center">
+              <ChevronRight className="text-secondary-foreground" />
+            </div>
           </div>
         </Tooltip>
       </SkPaper>

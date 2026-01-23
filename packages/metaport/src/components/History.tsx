@@ -22,14 +22,13 @@
  */
 
 import { types } from '@/core'
-import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 
 import TokenIcon from './TokenIcon'
 import TransactionData from './TransactionData'
-import SkPaper from './SkPaper'
 import Chain from './Chain'
 
 import { useMetaportStore } from '../store/MetaportStore'
+import { MoveRight } from 'lucide-react'
 export default function History(props: { size?: types.Size }) {
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
   const transfersHistory = useMetaportStore((state) => state.transfersHistory)
@@ -43,14 +42,14 @@ export default function History(props: { size?: types.Size }) {
   return (
     <div>
       {transactionsHistory.length !== 0 ? (
-        <SkPaper gray className="p-0">
+        <div className="bg-muted rounded-3xl!">
           <p
-            className={`p-0 ${size === 'sm' ? 'text-sm' : 'text-base'} font-semibold text-primary ${size === 'sm' ? 'pt-15' : 'pt-25'
-              } ${size === 'sm' ? 'mb-2.5' : 'mb-5'} ml-15`}
+            className={`p-0 ${size === 'sm' ? 'text-sm' : 'text-base'} font-semibold text-foreground ${size === 'xs' ? 'pt-4' : 'pt-6'
+              } ${size === 'sm' ? 'mb-2.5' : 'mb-5'}`}
           >
             Current transfer
           </p>
-          <SkPaper gray>
+          <div className="bg-muted rounded-3xl!">
             {transactionsHistory.map((transactionData: types.mp.TransactionHistory) => (
               <TransactionData
                 key={transactionData.transactionHash}
@@ -58,50 +57,45 @@ export default function History(props: { size?: types.Size }) {
                 config={mpc.config}
               />
             ))}
-          </SkPaper>
-        </SkPaper>
+          </div>
+        </div>
       ) : null}
       <div>
         {transfersHistory
           .slice()
           .reverse()
           .map((transfer: types.mp.TransferHistory, key: number) => (
-            <SkPaper
-              gray
+            <div
               key={key}
-              className={`${size === 'sm' ? 'mt-10 mb-2.5' : 'mt-5 mb-5'} p-0`}
+              className={`bg-card dark:bg-card ${size === 'sm' ? 'mt-5 mb-1.5' : 'mt-2.5 mb-2.5'} pl-2 pr-2 pb-2 rounded-4xl`}
             >
               <div
-                className={`flex items-center flex-wrap ml-15 ${size === 'sm' ? 'pt-15' : 'pt-25'
-                  }`}
+                className={`flex flex-col sm:flex-row sm:items-center sm:justify-between ml-2.5 ${size === 'sm' ? 'pt-2' : 'pt-3'}`}
               >
                 <div
-                  className={`flex items-center ${size === 'sm' ? 'mb-2.5' : 'mb-5'
+                  className={`flex items-center ${size === 'sm' ? 'mb-2 sm:mb-1' : 'mb-2.5 sm:mb-2'
                     }`}
                 >
                   <Chain
                     skaleNetwork={network}
                     chainName={transfer.chainName1}
-                    size={size}
+                    size='xs'
                     decIcon
+                    iconSize='sm'
                   />
-                  <ArrowForwardRoundedIcon
-                    className={`text-primary ${size === 'sm' ? 'ml-1.5 mr-1.5' : 'ml-10 mr-2.5'
-                      } w-4 h-4`}
+                  <MoveRight size={14}
+                    className={`text-foreground ml-2 mr-2 w-3 h-3`}
                   />
                   <Chain
                     skaleNetwork={network}
                     chainName={transfer.chainName2}
-                    size={size}
+                    size='sm'
                     decIcon
+                    iconSize='sm'
                   />
                 </div>
-                <div className="grow"></div>
 
-                <div
-                  className={`flex items-center ${size === 'sm' ? 'mb-2.5' : 'mb-5'
-                    } mr-20`}
-                >
+                <div className="flex items-center mb-3 sm:mb-0 ml-1.5 sm:ml-0 sm:mr-4">
                   <div className="flex items-center">
                     <TokenIcon
                       tokenSymbol={transfer.tokenKeyname}
@@ -109,14 +103,14 @@ export default function History(props: { size?: types.Size }) {
                     />
                   </div>
                   <p
-                    className={`${size === 'sm' ? 'text-sm' : 'text-base'
-                      } font-semibold capitalize text-primary uppercase ml-1.5`}
+                    className={`${size === 'sm' ? 'text-xs' : 'text-sm'
+                      } font-semibold capitalize text-foreground uppercase ml-1.5`}
                   >
                     {transfer.amount} {transfer.tokenKeyname}
                   </p>
                   <p
-                    className={`${size === 'sm' ? 'text-sm' : 'text-base'
-                      } font-semibold capitalize text-primary ml-1.5 grow`}
+                    className={`${size === 'sm' ? 'text-xs' : 'text-sm'
+                      } font-semibold capitalize text-foreground ml-1.5`}
                   >
                     {transfer.address !== undefined
                       ? `• ${transfer.address.substring(0, 6)}...${transfer.address.substring(
@@ -126,16 +120,18 @@ export default function History(props: { size?: types.Size }) {
                   </p>
                 </div>
               </div>
-              <SkPaper gray>
-                {transfer.transactions.map((transactionData: types.mp.TransactionHistory) => (
-                  <TransactionData
-                    key={transactionData.transactionHash}
-                    transactionData={transactionData}
-                    config={mpc.config}
-                  />
-                ))}
-              </SkPaper>
-            </SkPaper>
+              {transfer.transactions.length > 0 && (
+                <div className="bg-muted-foreground/15 dark:bg-muted-foreground/10 card-bg p-4 rounded-3xl">
+                  {transfer.transactions.map((transactionData: types.mp.TransactionHistory) => (
+                    <TransactionData
+                      key={transactionData.transactionHash}
+                      transactionData={transactionData}
+                      config={mpc.config}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
           ))}
       </div>
     </div>

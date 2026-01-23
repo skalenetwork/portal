@@ -21,8 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import TollIcon from '@mui/icons-material/Toll'
-import AvTimerRoundedIcon from '@mui/icons-material/AvTimerRounded'
+import { Calendar, ClockFading, Gem } from 'lucide-react'
 
 import { constants, units, type types, helper } from '@/core'
 import { TokenIcon, Tile } from '@skalenetwork/metaport'
@@ -75,7 +74,7 @@ export default function PricingInfo(props: { info: types.pm.PaymasterInfo }) {
 
   return (
     <div>
-      <SkStack>
+      <SkStack className="mt-2.5">
         <Tile
           value={`${units.truncateDecimals(sklPrice, 6)} USD`}
           text="SKL token price"
@@ -92,7 +91,7 @@ export default function PricingInfo(props: { info: types.pm.PaymasterInfo }) {
           value={`${units.truncateDecimals(chainPriceSkl.toString(), 6)} SKL`}
           tooltip={`${units.truncateDecimals(chainPriceUsd, 6)} USD`}
           text="Chain price SKL (per month)"
-          icon={<TollIcon />}
+          icon={<TokenIcon tokenSymbol="skl" size="xs" />}
           grow
         />
       </SkStack>
@@ -107,11 +106,13 @@ export default function PricingInfo(props: { info: types.pm.PaymasterInfo }) {
           grow
           progressColor={dueDateStatus}
           progress={elapsedPercentage || 0.001}
-          icon={<AvTimerRoundedIcon />}
+          icon={<ClockFading size={14} />}
         />
         <Tile
           value={`${formatTimePeriod(Math.abs(untilDueDateMonths), 'month')} `}
           text={dueDateText}
+          icon={<Calendar size={14} />}
+          className="text-foreground"
           color={dueDateStatus}
           textRi={
             props.info.effectiveTimestamp

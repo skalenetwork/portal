@@ -26,7 +26,7 @@ import { Link } from 'react-router-dom'
 
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
-import { Button, IconButton, Tooltip } from '@mui/material'
+import { IconButton, Tooltip } from '@mui/material'
 
 import { Settings2 } from 'lucide-react'
 
@@ -40,13 +40,12 @@ export default function ChainTabs(props: {
   tabs: any[]
   tab: number
   schainName: string
-  isXs: boolean
 }) {
   return (
     <div className="mt-0 flex items-center">
       <div className="grow">
         <Tabs
-          variant={props.isXs ? 'scrollable' : 'standard'}
+          variant="sm:scrollable standard"
           value={props.tab}
           onChange={props.handleChange}
           scrollButtons="auto"
