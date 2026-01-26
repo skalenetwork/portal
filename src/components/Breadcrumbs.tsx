@@ -24,8 +24,6 @@
 import { ReactElement } from 'react'
 import Button from '@mui/material/Button'
 import { Link } from 'react-router-dom'
-import { cmn, cls } from '@skalenetwork/metaport'
-
 export interface BreadcrumbSection {
   icon: ReactElement
   text: string
@@ -34,23 +32,35 @@ export interface BreadcrumbSection {
 
 export default function Breadcrumbs(props: { sections: BreadcrumbSection[]; className?: string }) {
   return (
-    <div className={cls(cmn.flex, cmn.flexcv, 'titleBadge', props.className)}>
+    <div className={`flex items-center bg-card! p-1 rounded-full ${props.className || ''}`}>
       {props.sections.map((section: BreadcrumbSection, index) => (
-        <div className={cls(cmn.flex, cmn.flexcv)} key={index}>
+        <div className="flex items-center" key={index}>
           {section.url ? (
-            <Link to={section.url} className="undec fullW">
-              <Button className={cmn.pPrim}>
+            <Link to={section.url} className="undec w-full text-foreground">
+              <Button className={`hover:bg-muted-foreground/10! ${index < props.sections.length - 1 ? 'text-foreground!' : 'text-muted-foreground!'}`}>
                 {section.icon}
-                <p className={cls(cmn.p, cmn.p4, cmn.mleft5)}>{section.text}</p>
+                <p
+                  className={`text-xs capitalize! ml-1.5`}
+                >
+                  {section.text}
+                </p>
               </Button>
             </Link>
           ) : (
-            <Button>
+            <Button
+              className={index < props.sections.length - 1 ? 'text-foreground!' : 'text-muted-foreground! capitalize!'}
+            >
               {section.icon}
-              <p className={cls(cmn.p, cmn.p4, cmn.mleft5)}>{section.text}</p>
+              <p
+                className="text-xs ml-1.5"
+              >
+                {section.text}
+              </p>
             </Button>
           )}
-          {index + 1 !== props.sections.length ? <p className={cls(cmn.p, cmn.p4)}>|</p> : null}
+          {index + 1 !== props.sections.length ? (
+            <p className="text-xs text-muted-foreground">|</p>
+          ) : null}
         </div>
       ))}
     </div>

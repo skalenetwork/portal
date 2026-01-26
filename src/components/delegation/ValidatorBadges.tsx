@@ -20,22 +20,17 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
 import Tooltip from '@mui/material/Tooltip'
-import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded'
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
+import { AlertTriangle, BadgeCheck, Landmark } from 'lucide-react'
 import { ESCROW_VALIDATORS } from '../../core/delegation/validators'
 
 export function ValidatorBadge(props: { validator: types.st.IValidator; className?: string }) {
   if (ESCROW_VALIDATORS.includes(props.validator.id)) {
     return (
       <Tooltip title="Escrow validator">
-        <AccountBalanceRoundedIcon
-          className={cls('trustedBadge', cmn.mri5, cmn.pSec, props.className)}
-        />
+        <Landmark size={14} className={`trustedBadge mr-1.5 text-secondary-foreground! ${props.className}`} />
       </Tooltip>
     )
   }
@@ -46,13 +41,13 @@ export function TrustBadge(props: { validator: types.st.IValidator }) {
   if (props.validator.trusted) {
     return (
       <Tooltip title="Trusted validator">
-        <VerifiedRoundedIcon className={cls('trustedBadge', cmn.mleft5)} />
+        <BadgeCheck className="ml-1.5 text-blue-500" size={20} />
       </Tooltip>
     )
   }
   return (
     <Tooltip title="Not verified validator">
-      <WarningRoundedIcon className={cls('untrustedBadge', cmn.mleft5)} />
+      <AlertTriangle className="ml-1.5 text-orange-500" size={20} />
     </Tooltip>
   )
 }

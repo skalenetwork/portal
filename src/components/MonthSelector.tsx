@@ -24,9 +24,7 @@
 import { useState } from 'react'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
-import CancelOutlinedIcon from '@mui/icons-material/CancelOutlined'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
-import { cmn, cls } from '@skalenetwork/metaport'
+import { CircleCheck, CircleX } from 'lucide-react'
 
 import { formatTimePeriod } from '../core/timeHelper'
 
@@ -49,28 +47,28 @@ export default function MonthSelector(props: {
   }
 
   if (props.max <= 0) {
-    return <p className={cls(cmn.p, cmn.p1, cmn.p700, cmn.mtop5)}>No topup periods available</p>
+    return <p className="text-base font-bold mt-1.5">No topup periods available</p>
   }
 
   return (
-    <div className={cls(props.className, cmn.flexcv, cmn.flex)}>
+    <div className={`${props.className} gap-1.5 items-center flex flex-wrap`}>
       {monthRecommendations
         .filter((x) => x <= props.max)
         .map((month: any, i: number) => (
           <Button
             variant={props.topupPeriod === month ? 'contained' : 'text'}
-            className={cls(cmn.mri10, 'roundBtn', ['outlined', props.topupPeriod !== month])}
+            className={`mr-2.5 roundBtn ${props.topupPeriod !== month ? 'bg-muted-foreground/10! hover:bg-muted-foreground/20! text-foreground!' : 'bg-foreground! text-accent!'}`}
             key={i}
             onClick={() => {
               props.setTopupPeriod(month)
             }}
           >
-            <p className={cls(cmn.p, cmn.p2)}>{month}</p>
+            {month}
           </Button>
         ))}
       {openCustom ? (
-        <div className={cls('flexi', cmn.flexcv)}>
-          <div className={cls('monthInputWrap', cmn.flex, cmn.flexcv)}>
+        <div className="flex items-center">
+          <div className="monthInputWrap bg-muted-foreground/10 flex items-center">
             <TextField
               variant="standard"
               type="number"
@@ -85,13 +83,14 @@ export default function MonthSelector(props: {
                 }
                 setTextPeriod(event.target.value)
               }}
-              className={cls(cmn.mri10, 'monthInput')}
+              slotProps={{ htmlInput: { className: 'text-foreground!' } }}
+              className="monthInput"
               placeholder="0"
             />
             <Button
               variant="text"
-              startIcon={<CheckCircleRoundedIcon />}
-              className={cls('roundBtn', 'outlined')}
+              startIcon={<CircleCheck size={17} />}
+              className="roundBtn outlined text-foreground! normal-case! bg-muted-foreground/10! hover:bg-muted-foreground/20!"
               onClick={() => {
                 if (
                   textPeriod === undefined ||
@@ -114,29 +113,29 @@ export default function MonthSelector(props: {
                 props.setErrorMsg(undefined)
               }}
             >
-              <p className={cls(cmn.p, cmn.p2)}>Apply</p>
+              <p className=" text-foreground! ml-1.5">Apply</p>
             </Button>
           </div>
           <Button
-            startIcon={<CancelOutlinedIcon />}
+            startIcon={<CircleX size={17} />}
             variant="text"
-            className={cls('roundBtn', cmn.mleft5)}
+            className="roundBtn ml-1! text-muted-foreground! normal-case! bg-muted-foreground/10! hover:bg-muted-foreground/20!"
             onClick={() => {
               setOpenCustom(false)
             }}
           >
-            <p className={cls(cmn.p, cmn.p2)}>Close</p>
+            <p>Close</p>
           </Button>
         </div>
       ) : (
         <Button
           variant={props.topupPeriod === customPeriod ? 'contained' : 'text'}
-          className={cls(cmn.mri10, 'roundBtn', ['outlined', props.topupPeriod !== customPeriod])}
+          className={`mr-2.5 roundBtn! ${props.topupPeriod !== customPeriod ? 'normal-case! py-2! bg-muted-foreground/10! hover:bg-muted-foreground/20! text-foreground!' : 'bg-foreground! text-accent!'}`}
           onClick={() => {
             setOpenCustom(true)
           }}
         >
-          <p className={cls(cmn.p, cmn.p2)}>{customPeriod ? `${customPeriod} (Edit)` : 'Custom'}</p>
+          {customPeriod ? `${customPeriod} (Edit)` : 'Custom'}
         </Button>
       )}
     </div>

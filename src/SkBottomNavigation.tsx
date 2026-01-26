@@ -24,14 +24,10 @@
 import { useState, useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import Box from '@mui/material/Box'
-import BottomNavigation from '@mui/material/BottomNavigation'
-import BottomNavigationAction from '@mui/material/BottomNavigationAction'
-import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontalCircleOutlined'
-import PieChartOutlineOutlinedIcon from '@mui/icons-material/PieChartOutlineOutlined'
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
-import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
-import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
+import Button from '@mui/material/Button'
+import { Home, ArrowLeftRight, PieChart, BadgeDollarSign, Network, LayoutGrid } from 'lucide-react'
+import { networks, types } from '@/core'
+import { NETWORKS } from './core/constants'
 
 export default function SkBottomNavigation() {
   const [value, setValue] = useState(0)
@@ -42,56 +38,55 @@ export default function SkBottomNavigation() {
     setValue(500)
     if (location.pathname === '/') setValue(0)
     if (location.pathname === '/bridge' || location.pathname.includes('/transfer')) setValue(1)
-    if (location.pathname.includes('/ecosystem') || location.pathname.includes('/apps')) setValue(2)
-    if (location.pathname.includes('/chains') || location.pathname.includes('/admin')) setValue(3)
-    if (location.pathname.includes('/staking')) setValue(4)
+    if (location.pathname.includes('/chains') || location.pathname.includes('/admin')) setValue(2)
+    if (location.pathname.includes('/staking')) setValue(3)
+    if (location.pathname.includes('/ecosystem') || location.pathname.includes('/app/')) setValue(4)
+    if (location.pathname === '/credits' || location.pathname === '/credits/admin') setValue(5)
+
   }, [location])
 
+  const items = [
+    { label: 'Home', path: '/', index: 0, Icon: Home, featureKey: null as types.NetworkFeature | null },
+    { label: 'Bridge', path: '/bridge', index: 1, Icon: ArrowLeftRight, featureKey: null as types.NetworkFeature | null },
+    { label: 'Chains', path: '/chains', index: 2, Icon: Network, featureKey: 'chains' as types.NetworkFeature },
+    { label: 'Staking', path: '/staking', index: 3, Icon: PieChart, featureKey: 'staking' as types.NetworkFeature },
+    { label: 'Apps', path: '/ecosystem', index: 4, Icon: LayoutGrid, featureKey: 'ecosystem' as types.NetworkFeature },
+    { label: 'Credits', path: '/credits', index: 5, Icon: BadgeDollarSign, featureKey: 'credits' as types.NetworkFeature }
+  ] as const
+
+  const visibleItems = items.filter((item) => {
+    if (!item.featureKey) return true
+    return networks.hasFeatureInAny(NETWORKS, item.featureKey)
+  })
+
   return (
-    <Box display={{ sm: 'none', xs: 'block' }} className="br__bottomNav">
-      <BottomNavigation
-        showLabels
-        value={value}
-        onChange={(_, newValue) => {
-          setValue(newValue)
-        }}
-      >
-        <BottomNavigationAction
-          label="Home"
-          icon={<HomeOutlinedIcon />}
-          onClick={() => {
-            navigate('/')
-          }}
-        />
-        <BottomNavigationAction
-          label="Bridge"
-          icon={<SwapHorizontalCircleOutlinedIcon />}
-          onClick={() => {
-            navigate('/bridge')
-          }}
-        />
-        <BottomNavigationAction
-          label="Ecosystem"
-          icon={<PublicOutlinedIcon />}
-          onClick={() => {
-            navigate('/ecosystem')
-          }}
-        />
-        <BottomNavigationAction
-          label="Chains"
-          icon={<LinkRoundedIcon />}
-          onClick={() => {
-            navigate('/chains')
-          }}
-        />
-        <BottomNavigationAction
-          label="Staking"
-          icon={<PieChartOutlineOutlinedIcon />}
-          onClick={() => {
-            navigate('/staking')
-          }}
-        />
-      </BottomNavigation>
-    </Box>
+    <div className="br__bottomNav sm:hidden block">
+      <nav className="bg-card/60! backdrop-blur-xs m-4 mb-1 border! border-foreground/10! rounded-full py-1! px-1!">
+        <ul className="flex items-center justify-between">
+          {visibleItems.map((item) => {
+            const isActive = value === item.index
+            const Icon = item.Icon
+            return (
+              <li key={item.label} className="flex-0 flex grow justify-center">
+                <Button
+                  className={`min-w-0 flex flex-col items-center gap-0 w-full text-[10px]! capitalize! font-medium shadow-none px-4! rounded-full! ${
+                    isActive
+                      ? 'text-foreground! bg-accent-foreground/10!'
+                      : 'text-muted-foreground/80!'
+                  }`}
+                  onClick={() => {
+                    setValue(item.index)
+                    navigate(item.path)
+                  }}
+                >
+                  <Icon className="h-4 w-4" />
+                  <span>{item.label}</span>
+                </Button>
+              </li>
+            )
+          })}
+        </ul>
+      </nav>
+    </div>
   )
 }

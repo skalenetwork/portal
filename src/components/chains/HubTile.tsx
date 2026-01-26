@@ -25,11 +25,10 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Tooltip } from '@mui/material'
 
-import { cmn, cls, SkPaper, styles } from '@skalenetwork/metaport'
+import { SkPaper, useThemeMode } from '@skalenetwork/metaport'
 import { type types, metadata } from '@/core'
 
-import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
+import { ChevronRight, TrendingUp } from 'lucide-react'
 
 import ChainLogo from '../ChainLogo'
 import { formatNumber } from '../../core/timeHelper'
@@ -40,13 +39,12 @@ export default function HubTile(props: {
   network: types.SkaleNetwork
   metrics: types.IMetrics | null
   schainName: string
-  isXs: boolean
   chainsMeta: types.ChainsMetadataMap
   bg?: boolean
   showStats?: boolean
 }) {
   const [schainMetrics, setSchainMetrics] = useState<types.IChainMetrics | null>(null)
-
+  const { mode } = useThemeMode()
   useEffect(() => {
     if (props.metrics !== null && props.metrics.metrics[props.schainName]) {
       setSchainMetrics(props.metrics.metrics[props.schainName])
@@ -56,22 +54,28 @@ export default function HubTile(props: {
   const chainMeta = props.chainsMeta[props.schainName]
 
   const shortAlias = metadata.getChainShortAlias(props.chainsMeta, props.schainName)
-  const alias = metadata.getAlias(props.chainsMeta, props.schainName, undefined, true)
+  const alias = metadata.getAlias(
+    props.network,
+    props.chainsMeta,
+    props.schainName,
+    undefined,
+    true
+  )
   const chainDescription = metadata.getChainDescription(chainMeta)
 
   return (
-    <Link to={'/chains/' + shortAlias} className={cls(cmn.flex, cmn.pPrim, cmn.flexg)}>
+    <Link to={'/chains/' + shortAlias} className="flex text-primary grow">
       <SkPaper
         gray
-        className={cls('titleSectionOut', 'hoverable', 'pointer', cmn.flexg)}
-        background={props.bg ? metadata.chainBg(props.chainsMeta, props.schainName) : ''}
+        className="titleSectionOut hoverable pointer grow"
+        background={
+          props.bg ? metadata.chainBg(props.network, props.chainsMeta, props.schainName, mode) : ''
+        }
       >
         <Tooltip title="Click to see Hub details">
-          <div className={cls('titleSectionBg', cmn.flex, cmn.flexcv)}>
-            <div
-              className={cls(cmn.flex, cmn.flexcv, cmn.flexg, cmn.mtop20, cmn.mbott20, cmn.mleft20)}
-            >
-              <div className={cls(styles.chainIconlg, cmn.flex, cmn.flexcv)}>
+          <div className="bg-background! flex items-center rounded-3xl ">
+            <div className="flex items-center grow mt-5 mb-5 ml-5 ">
+              <div className="w-[45px] h-[45px] flex items-center">
                 <ChainLogo
                   network={props.network}
                   chainName={props.schainName}
@@ -79,27 +83,17 @@ export default function HubTile(props: {
                   className="responsive-logo"
                 />
               </div>
-              <div
-                className={cls([cmn.mleft20, !props.isXs], [cmn.mleft10, props.isXs], cmn.flexg)}
-              >
-                <h4 className={cls(cmn.p, cmn.p700, 'pOneLine')}>{alias}</h4>
-                <p
-                  className={cls(
-                    cmn.p,
-                    [cmn.p4, !props.isXs],
-                    [cmn.p5, props.isXs],
-                    [cmn.mri10, props.isXs],
-                    cmn.pSec
-                  )}
-                >
+              <div className="md:ml-5 ml-2.5 grow">
+                <h4 className="font-bold text-lg text-foreground">{alias}</h4>
+                <p className="text-xs sm:mr-2.5 text-secondary-foreground">
                   {chainDescription.split('.', 1)[0]}
                 </p>
               </div>
             </div>
-            {props.isXs || !props.showStats ? null : (
-              <div className={cls('chipSm', cmn.mri10, cmn.flex, cmn.flexcv)}>
-                <TrendingUpRoundedIcon />
-                <p className={cls(cmn.p, cmn.p5, cmn.mleft10)}>
+            {props.showStats && (
+              <div className="chipSm mr-2.5 hidden sm:flex items-center">
+                <TrendingUp />
+                <p className="text-xs ml-2.5">
                   {schainMetrics
                     ? formatNumber(schainMetrics.chain_stats?.transactions_today)
                     : '...'}
@@ -107,11 +101,9 @@ export default function HubTile(props: {
                 </p>
               </div>
             )}
-            {!props.isXs && (
-              <div className={cls(cmn.mri20, styles.chainIconxs)}>
-                <ArrowForwardIosRoundedIcon className={cls(cmn.pSec)} />
-              </div>
-            )}
+            <div className="mr-5 w-4 h-4 hidden sm:flex items-center justify-center">
+              <ChevronRight className="text-secondary-foreground" />
+            </div>
           </div>
         </Tooltip>
       </SkPaper>

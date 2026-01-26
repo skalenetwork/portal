@@ -22,9 +22,9 @@
  */
 
 import { useState, useEffect } from 'react'
-import { cmn, cls, styles, type MetaportCore, SkPaper, explorer } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper, explorer } from '@skalenetwork/metaport'
 import Button from '@mui/material/Button'
-import Grid from '@mui/material/Grid'
+
 import ExpandCircleDownRoundedIcon from '@mui/icons-material/ExpandCircleDownRounded'
 import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded'
 
@@ -69,32 +69,21 @@ export default function VerifiedContracts(props: {
   }
 
   return (
-    <SkPaper gray className={cls(cmn.mtop20)}>
-      <Grid container spacing={2} className={cls(cmn.full)}>
+    <div className="p-2! pt-0!">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 w-full">
         {contracts.map((contract: any, index: number) => (
-          <Grid key={index} size={{ xs: 12, sm: 6, md: 6, lg: 6 }}>
+          <div key={index} className="col-span-1">
             <LinkSurface
-              className={cls(styles.fullHeight)}
+              className="h-full"
               title={contract.ContractName}
               value={contract.Address}
               url={explorer.addressUrl(props.explorerUrl, contract.Address)}
             />
-          </Grid>
+          </div>
         ))}
-      </Grid>
+      </div>
       {!loading && contracts.length === 0 ? (
-        <p
-          className={cls(
-            cmn.p,
-            cmn.p2,
-            cmn.p700,
-            cmn.pSec,
-            cmn.fullWidth,
-            cmn.mtop20,
-            cmn.mbott20,
-            cmn.pCent
-          )}
-        >
+        <p className="text-base font-bold text-secondary-foreground w-full mt-5 mb-5 text-center">
           No verified contracts
         </p>
       ) : (
@@ -107,7 +96,7 @@ export default function VerifiedContracts(props: {
           }}
           color="primary"
           size="small"
-          className={cls(styles.btnAction, cmn.mtop20)}
+          className="py-5! mt-2! capitalize! text-accent-foreground! w-full"
           startIcon={loading ? <HourglassBottomRoundedIcon /> : <ExpandCircleDownRoundedIcon />}
           disabled={loading}
         >
@@ -116,6 +105,6 @@ export default function VerifiedContracts(props: {
       ) : (
         <div></div>
       )}
-    </SkPaper>
+    </div>
   )
 }

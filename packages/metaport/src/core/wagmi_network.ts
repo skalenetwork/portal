@@ -22,7 +22,7 @@
  */
 
 import { Chain } from 'wagmi/chains'
-import { types, metadata, endpoints } from '@/core'
+import { types, metadata, endpoints, networks } from '@/core'
 
 import { getExplorerUrl } from './explorer'
 import { getChainId } from './chain_id'
@@ -31,17 +31,17 @@ import { CHAINS_META } from './metadata'
 export function constructWagmiChain(network: types.SkaleNetwork, chainName: string): Chain {
   const endpointHttp = endpoints.schain(network, chainName)
   const endpointWs = endpoints.schain(network, chainName, 'ws')
-  const explorerUrl = getExplorerUrl(network, chainName)
   const chainsMeta = CHAINS_META[network]
-  const name = metadata.getAlias(chainsMeta, chainName)
+  const explorerUrl = getExplorerUrl(chainsMeta[chainName], network, chainName)
+  const name = metadata.getAlias(network, chainsMeta, chainName)
   const chainId = getChainId(chainName)
   return {
     id: chainId,
     name: name,
     nativeCurrency: {
       decimals: 18,
-      name: 'sFUEL',
-      symbol: 'sFUEL'
+      name: networks.NATIVE_TOKEN_SYMBOLS[network],
+      symbol: networks.NATIVE_TOKEN_SYMBOLS[network]
     },
     rpcUrls: {
       public: { http: [endpointHttp], webSocket: [endpointWs] },

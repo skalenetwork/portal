@@ -22,11 +22,10 @@
  */
 
 import React from 'react'
-import { IconButton, Tooltip } from '@mui/material'
-import { cls, cmn, explorer } from '@skalenetwork/metaport'
+import { Button } from '@mui/material'
+import { explorer } from '@skalenetwork/metaport'
 import { type types } from '@/core'
-import LanguageIcon from '@mui/icons-material/Language'
-import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
+import { Blocks, Globe } from 'lucide-react'
 
 interface ChainActionsProps {
   chainMeta?: types.ChainMetadata
@@ -41,35 +40,32 @@ const ChainActions: React.FC<ChainActionsProps> = ({
   skaleNetwork,
   className
 }) => {
-  const explorerUrl = explorer.getExplorerUrl(skaleNetwork, schainName)
-  const isMd = false
+  const explorerUrl = explorer.getExplorerUrl(chainMeta, skaleNetwork, schainName)
 
   return (
-    <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop10, className)}>
+    <div className={`flex items-center mt-2.5 ${className}`}>
       {chainMeta && chainMeta.url && (
-        <Tooltip title="Website">
-          <IconButton
-            size="small"
-            href={chainMeta.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={cls([cmn.pPrim, isMd], ['bgBlack', isMd])}
-          >
-            <LanguageIcon className={cls(cmn.pSec)} fontSize="small" />
-          </IconButton>
-        </Tooltip>
-      )}
-      <Tooltip title="Block Explorer">
-        <IconButton
+        <Button
           size="small"
-          href={explorerUrl}
+          href={chainMeta.url}
           target="_blank"
           rel="noopener noreferrer"
-          className={cls([cmn.pPrim, isMd], ['bgBlack', isMd])}
+          startIcon={<Globe size={17} className="text-foreground" />}
+          className="font-sans! shadow-xs! border! border-accent-foreground/5! bg-secondary-foreground/10! py-2! px-3! capitalize! text-foreground! font-semibold! text-xs! mr-2! ease-in-out transition-transform duration-150 active:scale-[0.97] hover:scale-[1.02]"
         >
-          <ViewInArRoundedIcon className={cls(cmn.pSec)} fontSize="small" />
-        </IconButton>
-      </Tooltip>
+          Website
+        </Button>
+      )}
+      <Button
+        size="small"
+        href={explorerUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        startIcon={<Blocks size={17} className="text-foreground" />}
+        className="font-sans! shadow-xs! border! border-accent-foreground/5! bg-secondary-foreground/10! py-2! px-3! capitalize! text-foreground! font-semibold! text-xs! mr-2! ease-in-out transition-transform duration-150 active:scale-[0.97] hover:scale-[1.02]"
+      >
+        Explorer
+      </Button>
     </div>
   )
 }

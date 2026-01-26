@@ -21,16 +21,16 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, TokenIcon, Tile } from '@skalenetwork/metaport'
+import { TokenIcon, Tile, SkPaper } from '@skalenetwork/metaport'
 import { type types, units, constants } from '@/core'
 
 import { Skeleton } from '@mui/material'
-import PercentRoundedIcon from '@mui/icons-material/PercentRounded'
-import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
+import { HandCoins, HardDrive, Wallet } from 'lucide-react'
 
 import ValidatorLogo from './ValidatorLogo'
 import { ValidatorBadge, TrustBadge } from './ValidatorBadges'
 import SkStack from '../SkStack'
+import CopySurface from '../CopySurface'
 
 export default function ValidatorInfo(props: {
   validator: types.st.IValidator | null
@@ -43,41 +43,41 @@ export default function ValidatorInfo(props: {
     units.fromWei(props.validator.minimumDelegationAmount, constants.DEFAULT_ERC20_DECIMALS)
 
   return (
-    <div className={cls(props.className)}>
-      <div className={cls(cmn.flex, cmn.mbott10, 'titleSection')}>
-        <ValidatorLogo validatorId={props.validator?.id} size="xl" />
+    <div className={props.className}>
+      <SkPaper className="flex p-4!">
+        <ValidatorLogo validatorId={props.validator?.id} size="md" />
         {props.validator ? (
-          <div className={cls(cmn.mleft20)}>
-            <div className={cls(cmn.flex, cmn.flexcv)}>
-              <p className={cls(cmn.p, cmn.p1, cmn.p700, cmn.pPrim)}>{props.validator.name}</p>
+          <div className="ml-5">
+            <div className="flex items-center mt-2">
+              <p className="text-xl font-bold text-foreground">{props.validator.name}</p>
               <TrustBadge validator={props.validator} />
-              <ValidatorBadge validator={props.validator} className={cmn.mleft10} />
+              <ValidatorBadge validator={props.validator} />
             </div>
-            <p className={cls(cmn.p, cmn.p4, cmn.p600, cmn.pSec, cmn.mri20, cmn.mtop5)}>
+            <p className="text-sm font-medium text-secondary-foreground mr-5 mt-1.5">
               {description}
             </p>
           </div>
         ) : (
-          <div className={cls(cmn.flexg)}>
+          <div className="grow">
             <Skeleton variant="rectangular" width={200} height={40} />
-            <Skeleton variant="rectangular" width={200} height={20} className={cls(cmn.mtop10)} />
+            <Skeleton variant="rectangular" width={200} height={20} className="mt-2.5" />
           </div>
         )}
-      </div>
-      <SkStack className={cls(cmn.mtop10)}>
+      </SkPaper>
+      <SkStack className="mt-2.5">
         <Tile
           value={props.validator && `${Number(props.validator.feeRate) / 10}% fee`}
           text="Validator fee"
           grow
-          size="md"
-          icon={<PercentRoundedIcon />}
+          icon={<HandCoins size={14} />}
+          size='md'
         />
         <Tile
           value={props.validator && props.validator.id.toString()}
           text="Validator ID"
           grow
-          size="md"
-          icon={<PersonRoundedIcon />}
+          icon={<HardDrive size={14} />}
+          size='md'
         />
         <Tile
           value={props.validator && `${minDelegation} SKL`}
@@ -88,10 +88,10 @@ export default function ValidatorInfo(props: {
           }
           text="Minimum delegation amount"
           grow
-          size="md"
+          size='md'
           icon={<TokenIcon tokenSymbol="skl" size="xs" />}
         />
       </SkStack>
-    </div>
+    </div >
   )
 }

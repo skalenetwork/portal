@@ -22,8 +22,8 @@
  */
 
 import { type types } from '@/core'
-import { cmn, cls, styles, type MetaportCore, SkPaper } from '@skalenetwork/metaport'
-import Grid from '@mui/material/Grid'
+import { type MetaportCore } from '@skalenetwork/metaport'
+
 import CopySurface from '../../CopySurface'
 import { getAddress } from 'ethers'
 
@@ -46,36 +46,50 @@ export default function Tokens(props: {
     return Object.entries(tokens).flatMap(([tokenSymbol, tokenData]: [string, any]) => {
       const wrapperAddress = findWrapperAddress(tokenData)
       return [
-        <Grid key={`${tokenSymbol}`} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
+        <div key={`${tokenSymbol}`} className="col-span-1">
           <CopySurface
-            className={cls(styles.fullHeight)}
+            className="h-full"
             title={`${tokenSymbol.toUpperCase()}`}
             value={getAddress(tokenData.address)}
             tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
           />
-        </Grid>,
+        </div>,
         ...(wrapperAddress
           ? [
-              <Grid key={`w${tokenSymbol}`} size={{ xs: 12, sm: 6, md: 4, lg: 3 }}>
-                <CopySurface
-                  className={cls(styles.fullHeight)}
-                  title={`w${tokenSymbol.toUpperCase()}`}
-                  value={getAddress(wrapperAddress)}
-                  tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
-                />
-              </Grid>
-            ]
+            <div key={`w${tokenSymbol}`} className="col-span-1">
+              <CopySurface
+                className="h-full"
+                title={`w${tokenSymbol.toUpperCase()}`}
+                value={getAddress(wrapperAddress)}
+                tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
+              />
+            </div>
+          ]
           : [])
       ]
     })
   }
 
+  const totalTokensCount = Object.entries({ ...ethToken, ...chainTokens }).reduce(
+    (acc, [, tokenData]: [string, any]) => {
+      const wrapperAddress = findWrapperAddress(tokenData)
+      return acc + 1 + (wrapperAddress ? 1 : 0)
+    },
+    0
+  )
+
   return (
-    <SkPaper gray className={cls(cmn.mtop20)}>
-      <Grid container spacing={2}>
+    <div className="p-2! pt-0!">
+      <div className="flex items-center pb-2">
+        <p className="text-foreground text-lg font-sans font-bold pl-0.5">Tokens</p>
+        <div className="bg-muted! text-foreground! flex items-center py-1 px-2! rounded-lg! ml-2">
+          <p className="text-[8pt]">{totalTokensCount}</p>
+        </div>
+      </div>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
         {renderTokens(ethToken)}
         {renderTokens(chainTokens)}
-      </Grid>
-    </SkPaper>
+      </div>
+    </div>
   )
 }

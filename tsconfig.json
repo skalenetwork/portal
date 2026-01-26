@@ -47,5 +47,9 @@
     {
       "path": "./tsconfig.node.json"
     }
+  ],
+  "exclude": [
+    "**/*.d.ts",
+    "dist"
   ]
 }

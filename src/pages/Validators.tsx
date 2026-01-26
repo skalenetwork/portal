@@ -23,17 +23,18 @@
 
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
+import { type MetaportCore } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
-import { Button } from '@mui/material'
 import Container from '@mui/material/Container'
-import ManageAccountsRoundedIcon from '@mui/icons-material/ManageAccountsRounded'
+import Tooltip from '@mui/material/Tooltip'
+import IconButton from '@mui/material/IconButton'
 
 import Validators from '../components/delegation/Validators'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import { META_TAGS } from '../core/meta'
 import DelegationsNotification from '../components/delegation/DelegationsNotification'
+import { UserCog } from 'lucide-react'
 
 export default function ValidatorsPage(props: {
   mpc: MetaportCore
@@ -50,34 +51,35 @@ export default function ValidatorsPage(props: {
 
   return (
     <Container maxWidth="md">
-      <div className={cls(cmn.flex, cmn.flexcv)}>
-        <div className={cmn.flexg}>
-          <h2 className={cls(cmn.nom)}>Validators</h2>
-          <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
+      <div className="flex items-center">
+        <div className="grow">
+          <h2 className="m-0 text-xl font-bold text-foreground">Validators</h2>
+          <p className="text-xs text-secondary-foreground font-semibold">
             List of validators on SKALE Network
           </p>
         </div>
         <Link to="/validator">
-          <Button
-            size="small"
-            variant="contained"
-            className={cls('btnMd', cmn.mri10)}
-            startIcon={<ManageAccountsRoundedIcon />}
-            endIcon={<DelegationsNotification validatorDelegations={props.validatorDelegations} />}
-          >
-            Validator Operations
-          </Button>
+          <Tooltip title="Validator Operations">
+            <IconButton
+              className="ml-1.5! rounded-full bg-card! text-foreground! hover:bg-muted"
+            >
+              <UserCog className="text-foreground" size={17} />
+              <DelegationsNotification validatorDelegations={props.validatorDelegations} 
+              className="ml-1.5" />
+            </IconButton>
+          </Tooltip>
         </Link>
         <SkPageInfoIcon meta_tag={META_TAGS.validators} />
       </div>
-      <div className={cls(cmn.mtop20)}>
+      <div className="mt-5">
         <Validators
           mpc={props.mpc}
           validators={props.validators}
           validatorId={0}
-          setValidatorId={(): void => {}}
+          setValidatorId={(): void => { }}
           delegationType={types.st.DelegationType.REGULAR}
           size="lg"
+          showButton={true}
         />
       </div>
     </Container>

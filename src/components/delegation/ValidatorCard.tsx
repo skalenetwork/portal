@@ -21,15 +21,16 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { Link } from 'react-router-dom'
-import Grid from '@mui/material/Grid'
-import Tooltip from '@mui/material/Tooltip'
+import { Link, useLocation } from 'react-router-dom'
+import { type types, units, constants } from '@/core'
+import { SkPaper, Tile, TokenIcon } from '@skalenetwork/metaport'
 
-import { type types, constants, units } from '@/core'
-import { cmn, cls, styles, SkPaper } from '@skalenetwork/metaport'
+import { HandCoins, HardDrive, Wallet, Coins } from 'lucide-react'
 
+import CopySurface from '../CopySurface'
 import ValidatorLogo from './ValidatorLogo'
-import { TrustBadge, ValidatorBadge } from './ValidatorBadges'
+import { ValidatorBadge } from './ValidatorBadges'
+import { Button } from '@mui/material'
 
 export default function ValidatorCard(props: {
   validator: types.st.IValidator
@@ -37,114 +38,130 @@ export default function ValidatorCard(props: {
   setValidatorId: any
   delegationType: types.st.DelegationType
   size?: 'md' | 'lg'
+  showButton?: boolean
 }) {
   if (!props.validator.trusted) return
 
   const size = props.size ?? 'md'
-
+  const showButton = props.showButton ?? false
   const description = props.validator.description ? props.validator.description : 'No description'
-  const minDelegation = units.fromWei(
-    props.validator.minimumDelegationAmount,
-    constants.DEFAULT_ERC20_DECIMALS
+  const minDelegation = units.fromWei(props.validator.minimumDelegationAmount, constants.DEFAULT_ERC20_DECIMALS)
+  const location = useLocation()
+  const isStakeValidatorPage = location.pathname === '/staking/new'
+
+  const linkTo = props.validator.acceptNewRequests
+    ? `/staking/new/${props.delegationType}/${props.validator.id}`
+    : '/staking/new'
+
+  const cardContent = (
+    <SkPaper
+      gray={!isStakeValidatorPage}
+      fullHeight
+      className={`sk-app-card ${!props.validator.acceptNewRequests ? 'disabledCard' : ''} ${props.validatorId === props.validator.id ? 'selectedValidator' : ''} ${showButton ? 'cursor-default' : 'cursor-pointer transform transition-all duration-300 ease-in-out hover:scale-101 hover:shadow-md hover:-translate-y-0.5'} ${isStakeValidatorPage ? 'bg-background!' : ''}`}
+    >
+      <div>
+        <div className="flex items-start">
+          <div className="flex items-center flex-shrink-0">
+            <ValidatorLogo validatorId={props.validator.id} size="sm" />
+          </div>
+          <div className="flex flex-col ml-4 flex-1 min-w-0">
+            <div className="flex items-center justify-between min-w-0">
+              <p className="text-foreground font-semibold text-lg truncate flex-1 min-w-0">
+                {props.validator.name}
+              </p>
+              <ValidatorBadge validator={props.validator} />
+            </div>
+            <p className="text-sm text-secondary-foreground font-medium mt-1 line-clamp-2 overflow-hidden text-ellipsis break-words">
+              {description}
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <div className="flex mt-5 gap-2">
+        <Tile
+          size="md"
+          transparent
+          value={`${Number(props.validator.feeRate) / 10}%`}
+          text="Fee Rate"
+          grow
+          icon={<HandCoins size={14} />}
+          className={`${size === 'lg' ? '' : 'bg-card!'}`}
+        />
+        {size === 'md' ? (
+          <Tile
+            size="md"
+            transparent
+            value={props.validator.id.toString()}
+            text="Validator ID"
+            grow
+            icon={<HardDrive size={14} />}
+            className="bg-card!"
+          />
+        ) : (
+          <Tile
+            size="md"
+            transparent
+            value={`${props.validator.linkedNodes}`}
+            text="Nodes"
+            grow
+            icon={<HardDrive size={14} />}
+            className={`${size === 'lg' ? '' : 'bg-card!'}`}
+          />
+        )}
+      </div>
+      <div>
+        {size === 'md' ? (
+          <div className="flex mt-2 gap-2">
+            <Tile
+              size="md"
+              transparent
+              value={`${minDelegation} SKL`}
+              text="Min. Amount"
+              grow
+              icon={<TokenIcon tokenSymbol="skl" size="xs" />}
+              className="bg-card!"
+            />
+          </div>
+        ) : null}
+      </div>
+      <div>
+        {size === 'lg' ? (
+          <div className="mt-3">
+            <CopySurface
+              className="h-full w-full"
+              title="Validator Address"
+              value={props.validator?.validatorAddress}
+              icon={<Wallet size={14} className="text-foreground-600 dark:text-foreground-400" />}
+            />
+          </div>
+        ) : null}
+
+        {showButton && (
+          <div className="mt-2.5">
+            <Link to={linkTo}>
+              <Button
+                size="small"
+                variant="contained"
+                className="btnMd text-xs text-accent! bg-foreground!"
+                startIcon={<Coins size={14} />}
+                fullWidth
+              >
+                Stake SKL
+              </Button>
+            </Link>
+          </div>
+        )}
+      </div>
+    </SkPaper>
   )
 
-  return (
-    <Grid className="fl-centered" size={{ xs: 12, sm: 6, md: 4, lg: size === 'md' ? 3 : 4 }}>
-      <Link
-        to={
-          props.validator.acceptNewRequests
-            ? `/staking/new/${props.delegationType}/${props.validator.id}`
-            : '/staking/new'
-        }
-      >
-        <SkPaper
-          className={cls(
-            'br__tile titleSection validatorCard',
-            [styles.paperGrey, size === 'lg'],
-            ['disabledCard', !props.validator.acceptNewRequests],
-            ['selectedValidator', props.validatorId === props.validator.id]
-          )}
-        >
-          <div className={cls(cmn.flex)} style={{ marginBottom: '-20px' }}>
-            <ValidatorBadge validator={props.validator} />
-            <div className={cls(cmn.flexg)}></div>
-            <TrustBadge validator={props.validator} />
-          </div>
-          <div className={cls(cmn.flex, cmn.mbott10)}>
-            <div className={cls(cmn.flexg)}></div>
-            <ValidatorLogo validatorId={props.validator.id} size="xl" />
-            <div className={cls(cmn.flexg)}></div>
-          </div>
-
-          <div className={cls(cmn.flex)}>
-            <div className={cls(cmn.flexg)}></div>
-            <p
-              className={cls(cmn.p, cmn.p2, cmn.p700, cmn.flexg, cmn.pCent, cmn.pPrim, 'pOneLine')}
-            >
-              {props.validator.name}
-            </p>
-            <div className={cls(cmn.flexg)}></div>
-          </div>
-
-          <div className={cls(cmn.flex)}>
-            <div className={cls(cmn.flexg)}></div>
-            <Tooltip title={description}>
-              <p
-                className={cls(
-                  cmn.p,
-                  cmn.p5,
-                  cmn.p600,
-                  cmn.flexg,
-                  cmn.pSec,
-                  cmn.mtop5,
-                  cmn.pCent,
-                  'pOneLine'
-                )}
-              >
-                {description}
-              </p>
-            </Tooltip>
-            <div className={cls(cmn.flexg)}></div>
-          </div>
-          <div className={cls(cmn.flex, cmn.mtop10)}>
-            <div className={cls('chipFee', cmn.flexg)}>
-              <p className={cls(cmn.p, cmn.p4, cmn.pCent)}>
-                {Number(props.validator.feeRate) / 10}% fee
-              </p>
-            </div>
-            <div className={cls('chipId', cmn.mleft5, cmn.flexg, cmn.pCent)}>
-              <p className={cls(cmn.p, cmn.p4)}>ID: {props.validator.id}</p>
-            </div>
-            {size === 'lg' ? (
-              <div className={cls('chipNodes', cmn.mleft5, cmn.flexg)}>
-                <p className={cls(cmn.p, cmn.p4, cmn.pCent)}>
-                  Nodes: {props.validator.linkedNodes}
-                </p>
-              </div>
-            ) : null}
-          </div>
-          <div>
-            {size !== 'lg' && (
-              <Tooltip title={`Minimum delegation amount: ${minDelegation} SKL`}>
-                <div className={cls('chipNodes', cmn.mtop10)}>
-                  <p className={cls(cmn.p, cmn.p4, cmn.pCent, 'pOneLine')}>
-                    Min: {minDelegation} SKL
-                  </p>
-                </div>
-              </Tooltip>
-            )}
-            {size === 'lg' && (
-              <Tooltip title={props.validator.validatorAddress}>
-                <div className={cls('chipId', cmn.mtop10)}>
-                  <p className={cls(cmn.p, cmn.p4, cmn.pCent, 'pOneLine')}>
-                    Address: {props.validator.validatorAddress}
-                  </p>
-                </div>
-              </Tooltip>
-            )}
-          </div>
-        </SkPaper>
-      </Link>
-    </Grid>
+  return showButton ? (
+    cardContent
+  ) : (
+    <Link to={linkTo}>
+      {cardContent}
+    </Link>
   )
 }

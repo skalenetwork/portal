@@ -27,7 +27,6 @@ import { type types } from '@/core'
 import { categories as categoriesData } from '../../core/ecosystem/categories'
 import Chip from '../Chip'
 import { CategoryIcons } from './CategoryIcons'
-import { cls } from '@skalenetwork/metaport'
 
 interface CategoriesChipsProps {
   categories: string[] | types.CategoriesMap
@@ -86,7 +85,7 @@ const CategoriesChips: React.FC<CategoriesChipsProps> = ({ categories, all, clas
   const remainingChips = chips.length - maxChips
 
   return (
-    <Box className={cls(`chipContainer ${className}`, ['flex-w', all])}>
+    <Box className={`chipContainer ${className} ${all ? 'flex-w' : ''}`}>
       {visibleChips}
       {remainingChips > 0 && !all && <Chip label={`+${remainingChips}`} />}
     </Box>

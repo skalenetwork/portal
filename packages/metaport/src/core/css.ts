@@ -23,17 +23,8 @@
 
 import { types } from '@/core'
 import styles from '../styles/styles.module.scss'
-import cmn from '../styles/cmn.module.scss'
 
-export { styles, cmn }
-
-export function cls(...args: any): string {
-  const filteredArgs = args.map((clsName: any) => {
-    if (typeof clsName === 'string') return clsName
-    if (Array.isArray(clsName) && clsName.length === 2 && clsName[1]) return clsName[0]
-  })
-  return filteredArgs.join(' ')
-}
+export { styles }
 
 const sizes: types.Size[] = ['xs', 'sm', 'md', 'lg']
 

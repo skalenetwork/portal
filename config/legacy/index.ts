@@ -10,8 +10,8 @@ export const METAPORT_CONFIG: types.mp.Config = {
   mainnetEndpoint: 'https://ethereum-hoodi-rpc.publicnode.com',
   chains: [
     'mainnet',
-    'honored-impish-wezen', // europa
-    'young-coarse-celaeno' // nebula
+    'talkative-victorious-rasalgethi', // europa
+    'overcooked-profuse-gienah-cygni' // nebula
   ],
   tokens: {
     eth: {
@@ -24,15 +24,15 @@ export const METAPORT_CONFIG: types.mp.Config = {
     }
   },
   connections: {
-    'honored-impish-wezen': europaConnections,
-    'young-coarse-celaeno': nebulaConnections,
+    'talkative-victorious-rasalgethi': europaConnections,
+    'overcooked-profuse-gienah-cygni': nebulaConnections,
     mainnet: {
       eth: {
         eth: {
           chains: {
-            'honored-impish-wezen': {},
-            'young-coarse-celaeno': {
-              hub: 'honored-impish-wezen'
+            'talkative-victorious-rasalgethi': {},
+            'overcooked-profuse-gienah-cygni': {
+              hub: 'talkative-victorious-rasalgethi'
             }
           }
         }
@@ -41,9 +41,9 @@ export const METAPORT_CONFIG: types.mp.Config = {
         skl: {
           address: '0x912a122fE382F0c531B622ff2A25dDc77bA25DE9',
           chains: {
-            'honored-impish-wezen': {},
-            'young-coarse-celaeno': {
-              hub: 'honored-impish-wezen'
+            'talkative-victorious-rasalgethi': {},
+            'overcooked-profuse-gienah-cygni': {
+              hub: 'talkative-victorious-rasalgethi'
             }
           }
         }

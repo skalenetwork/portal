@@ -21,8 +21,7 @@
  */
 
 import { Button } from '@mui/material'
-import { cls, cmn } from '@skalenetwork/metaport'
-import ExpandCircleDownRoundedIcon from '@mui/icons-material/ExpandCircleDownRounded'
+import { ChevronDown } from 'lucide-react'
 
 interface ShowMoreButtonProps {
   onClick: () => void
@@ -31,18 +30,12 @@ interface ShowMoreButtonProps {
   className?: string
 }
 
-const ShowMoreButton: React.FC<ShowMoreButtonProps> = ({
-  onClick,
-  remainingItems,
-  loading,
-  className
-}) => {
+const ShowMoreButton: React.FC<ShowMoreButtonProps> = ({ onClick, remainingItems, loading }) => {
   return (
     <Button
       onClick={onClick}
-      color="primary"
-      className={cls(cmn.mtop10, cmn.mbott10, className, 'btn')}
-      startIcon={<ExpandCircleDownRoundedIcon />}
+      className="mt-2.5 mb-2.5 text-foreground! btnMd"
+      startIcon={< ChevronDown size={17} />}
       disabled={loading}
     >
       {loading ? 'Loading more delegations' : `Show more delegations (${remainingItems})`}

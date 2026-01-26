@@ -23,19 +23,19 @@
 
 import { useState, useEffect } from 'react'
 import { type types, constants } from '@/core'
-import { cmn, cls, styles, TokenIcon } from '@skalenetwork/metaport'
+import { TokenIcon } from '@skalenetwork/metaport'
 
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Tooltip from '@mui/material/Tooltip'
 import ButtonBase from '@mui/material/ButtonBase'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
-import ContentCopyIcon from '@mui/icons-material/ContentCopy'
+import { CircleCheck, Copy } from 'lucide-react'
 
 export default function CopySurface(props: {
   title: string
   value: string | undefined
   className?: string
   tokenMetadata?: types.mp.TokenMetadata
+  icon?: React.ReactNode
 }) {
   const [copied, setCopied] = useState(false)
 
@@ -59,11 +59,14 @@ export default function CopySurface(props: {
     <div className={props.className}>
       <CopyToClipboard text={props.value} onCopy={handleClick}>
         <Tooltip title={copied ? 'Copied!' : 'Click to copy to clipboard'}>
-          <ButtonBase className="titleSection" style={{ width: '100%', height: '100%' }}>
-            <div style={{ textAlign: 'left', overflow: 'auto' }} className={cmn.flexg}>
-              <div className={cls(cmn.flex)}>
+          <ButtonBase
+            className="bg-background! p-5! rounded-3xl! ease-in-out transition-transform duration-150 active:scale-[0.99]"
+            style={{ width: '100%', height: '100%' }}
+          >
+            <div style={{ textAlign: 'left', overflow: 'auto' }} className="grow">
+              <div className="flex items-center mb-1.5">
                 {props.tokenMetadata ? (
-                  <div className={cls(cmn.mri5)}>
+                  <div className="mr-1.5">
                     <TokenIcon
                       size="xs"
                       tokenSymbol={props.tokenMetadata.symbol}
@@ -71,22 +74,24 @@ export default function CopySurface(props: {
                     />
                   </div>
                 ) : null}
-                <p className={cls(cmn.p, cmn.p4, cmn.pSec, cmn.mbott5)}>
+                {props.icon && <div className="mr-1.5 text-secondary-foreground">{props.icon}</div>}
+                <p className="text-xs text-secondary-foreground truncate">
                   {props.title}
                   {props.tokenMetadata
                     ? ` (${props.tokenMetadata.decimals ?? constants.DEFAULT_ERC20_DECIMALS})`
                     : null}
                 </p>
               </div>
-              <p className={cls(cmn.p, cmn.p2, cmn.p600, 'shortP')}>{props.value}</p>
+              <p className="text-base font-semibold shortP text-foreground">{props.value}</p>
             </div>
             {copied ? (
-              <CheckCircleRoundedIcon
-                color="success"
-                className={cls(cmn.mleft20, styles.chainIconxs)}
-              />
+              <div className="ml-5 shrink-0 p-2 bg-green-600 dark:bg-green-400 rounded-full">
+                <CircleCheck className="text-accent/90" size={17} />
+              </div>
             ) : (
-              <ContentCopyIcon className={cls(cmn.pSec, cmn.mleft20, styles.chainIconxs)} />
+              <div className="ml-5 shrink-0 p-2 bg-muted-foreground/10 rounded-full">
+                <Copy className="text-accent-foreground/90 shrink-0" size={17} />
+              </div>
             )}
           </ButtonBase>
         </Tooltip>

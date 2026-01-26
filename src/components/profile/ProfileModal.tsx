@@ -22,18 +22,22 @@
  */
 
 import React from 'react'
+import Avatar from 'boring-avatars'
 import { Modal, Box, useTheme, useMediaQuery } from '@mui/material'
-import { cls, cmn, SkPaper, useWagmiAccount, Tile } from '@skalenetwork/metaport'
-import { useAuth } from '../../AuthContext'
+import { SkPaper, useWagmiAccount, Tile, useMetaportStore } from '@skalenetwork/metaport'
 import ConnectWallet from '../ConnectWallet'
 import ProfileModalHeader from './ProfileModalHeader'
 import ProfileModalActions from './ProfileModalActions'
-import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
+import { AVATAR_COLORS } from '../../core/constants'
 
-const ProfileModal: React.FC = () => {
+interface ProfileModalProps {
+  isOpen: boolean
+  onClose: () => void
+}
+
+const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
   const { address } = useWagmiAccount()
-  const { isSignedIn, handleSignIn, handleSignOut, isProfileModalOpen, closeProfileModal } =
-    useAuth()
+  const mpc = useMetaportStore((state) => state.mpc)
 
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
@@ -41,29 +45,18 @@ const ProfileModal: React.FC = () => {
   const modalContent = (
     <Box className="profileModal">
       <SkPaper gray>
-        <ProfileModalHeader address={address} isSignedIn={isSignedIn} />
-        {!address ? (
-          <ConnectWallet customText="Connect your wallet to use your profile" />
-        ) : (
-          <div></div>
-        )}
+        <ProfileModalHeader mpc={mpc} />
+        {!address ? <ConnectWallet customText="Connect your wallet to see details" /> : <div></div>}
         {address ? (
           <div>
             <Tile
               text="Wallet Address"
               value={address}
-              icon={<Jazzicon diameter={20} seed={jsNumberForAddress(address)} />}
+              icon={<Avatar variant="marble" name={address} colors={AVATAR_COLORS} size={20} />}
               copy={address}
-              className={cls(cmn.mbott10)}
+              className="mb-2.5"
             />
-            <ProfileModalActions
-              className={cls(cmn.mtop20)}
-              address={address}
-              isSignedIn={isSignedIn}
-              isMobile={isMobile}
-              handleSignIn={handleSignIn}
-              handleSignOut={handleSignOut}
-            />
+            <ProfileModalActions className="mt-5" address={address} isMobile={isMobile} />
           </div>
         ) : (
           <div></div>
@@ -74,8 +67,8 @@ const ProfileModal: React.FC = () => {
 
   return (
     <Modal
-      open={isProfileModalOpen}
-      onClose={closeProfileModal}
+      open={isOpen}
+      onClose={onClose}
       aria-labelledby="profile-modal-title"
       aria-describedby="profile-modal-description"
     >

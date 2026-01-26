@@ -1,10 +1,9 @@
-@use 'variables';
 @use 'styles/components';
 @use 'styles/chip';
 @use 'styles/ProfileModal';
 
 :root {
-  background: black;
+  background: transparent;
 }
 
 body {
@@ -22,7 +21,7 @@ body {
 }
 
 .skLogo {
-  width: 75pt;
+  width: 65pt;
 }
 
 .skMessage {
@@ -30,9 +29,15 @@ body {
 }
 
 .sk-header {
+  .MuiToolbar-root {
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+  }
+
   background-color: rgba(0, 0, 0, 0) !important;
-  -webkit-backdrop-filter: blur(80px) !important;
-  backdrop-filter: blur(80px) !important;
+  margin: 10px;
+  width: calc(100vw - 20px);
+  border-radius: 140px;
 }
 
 .bridge-light .logo {
@@ -41,7 +46,7 @@ body {
 
 .MuiAppBar-positionFixed {
   background-image: none !important;
-  padding: 10pt 0;
+  padding: 0;
 }
 
 
@@ -70,58 +75,6 @@ body {
   font-size: .8rem !important;
   line-height: 1.6 !important;
   font-family: inherit !important;
-}
-
-.fullW {
-  width: 100%;
-}
-
-.fullH {
-  height: 100%;
-}
-
-.mp__btnConnect {
-  position: relative;
-
-  width: 100%;
-  border-radius: 18px !important;
-
-  text-transform: none;
-
-  text-align: center;
-
-  height: 36px;
-
-  font-size: .7rem;
-  line-height: 1.6;
-  font-weight: 600;
-  padding-right: 12px;
-  padding-left: 8px;
-
-  min-height: 0 !important;
-
-  .mp__iconConnect {
-    margin-left: 10px;
-    width: 18pt !important;
-    height: 18pt !important;
-  }
-
-  .MuiPaper-root {
-    width: 100%;
-    padding: 0 10pt;
-    border-radius: 18px !important;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-  }
-
-  .mp__iconGray {
-    width: 12pt;
-  }
-
-  .icon-overlay {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-  }
 }
 
 .MuiDrawer-paper {
@@ -190,7 +143,7 @@ body {
   }
 
   @media screen and (min-height: 670px) and (min-width: 900px) {
-    max-height: calc(75vh - 350px);
+    max-height: calc(75vh - 240px);
   }
 }
 
@@ -201,20 +154,20 @@ body {
   margin-right: 12px !important;
 }
 
-// .br__modalScroll {
-//   ::-webkit-scrollbar {
-//     display: unset !important;
-//   }
-// }
-
 html,
 body {
   overflow-x: hidden;
 }
 
+.app-shell {
+  min-height: 100vh;
+  background-color: var(--background);
+  padding-top: env(safe-area-inset-top);
+}
+
 .br__bottomNav {
   position: fixed;
-  bottom: 0;
+  bottom: env(safe-area-inset-bottom);
   width: 100%;
 }
 
@@ -246,16 +199,16 @@ body {
 }
 
 .border {
-  border: 1px solid variables.$border-color !important;
+  border: 1px solid var(--border) !important;
 }
 
 
 .borderLight {
-  border: 1px solid variables.$border-color-light !important;
+  border: 1px solid var(--border-light) !important;
 }
 
 .radius {
-  border-radius: variables.$sk-border-radius !important;
+  border-radius: var(--radius) !important;
 }
 
 .pageCard {
@@ -304,7 +257,7 @@ body {
 
 
 .AppWrap {
-  padding-top: 91px;
+  padding-top: 80px;
 }
 
 .mp__moreMenu {
@@ -414,6 +367,10 @@ body {
     font-size: 1.2rem;
   }
 
+  @media (max-width: 600px) {
+    bottom: calc(50px + 1rem);
+    right: 1rem;
+  }
 }
 
 .btn {
@@ -423,7 +380,7 @@ body {
   letter-spacing: 0.02857em !important;
   font-weight: 600 !important;
   padding: 0.9em 3.5em !important;
-  border-radius: variables.$sk-border-radius !important;
+  border-radius: var(--radius) !important;
   box-shadow: none !important;
 }
 
@@ -435,7 +392,7 @@ body {
   letter-spacing: 0.02857em !important;
   font-weight: 600 !important;
   padding: 0.5em 1.5em !important;
-  border-radius: variables.$sk-border-radius !important;
+  border-radius: var(--radius) !important;
   box-shadow: none !important;
 }
 
@@ -450,11 +407,11 @@ body {
 .btnMd {
   text-transform: none !important;
   font-size: 0.8025rem !important;
-  line-height: 1.5 !important;
+  line-height: 2.5 !important;
   letter-spacing: 0.02857em !important;
   font-weight: 600 !important;
   padding: 0.6em 2em !important;
-  border-radius: variables.$sk-border-radius !important;
+  border-radius: var(--radius) !important;
   box-shadow: none !important;
 }
 
@@ -475,7 +432,7 @@ body {
   letter-spacing: 0.02857em !important;
   font-weight: 600 !important;
   padding: 0.6em 2em !important;
-  border-radius: variables.$sk-border-radius !important;
+  border-radius: var(--radius) !important;
   box-shadow: none !important;
 }
 
@@ -637,7 +594,6 @@ code {
 
 .monthInputWrap {
   border-radius: 25px;
-  background: rgba(147, 184, 236, 0.16);
   padding-left: 20px;
 }
 
@@ -665,20 +621,32 @@ code {
 }
 
 .titleSection {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+  background: var(--muted);
   border-radius: 25px;
   padding: 20px;
 }
 
+.dark .titleSection {
+  background: var(--background);
+}
+
 .titleSectionBg {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+  background: var(--muted);
   border-radius: 25px;
 }
 
+.dark .titleSectionBg {
+  background: var(--background);
+}
+
 .titleSectionOut {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+  background: var(--muted);
   border-radius: 25px;
   padding: 0;
+}
+
+.dark .titleSectionOut {
+  background: var(--background);
 }
 
 button:focus {
@@ -746,7 +714,7 @@ button:focus {
 }
 
 .divider {
-  border-bottom: 1px variables.$border-color solid;
+  border-bottom: 1px var(--border) solid;
   padding-bottom: 10px;
 }
 
@@ -800,48 +768,65 @@ input[type=number] {
   }
 }
 
-.chipTrending {
-  background: linear-gradient(180deg, #e56d36, #D0602D) !important;
-
-  p {
-    color: black !important
-  }
-}
 
 .chipFeatured {
-
-
-  background: linear-gradient(180deg, #ff7e91, #e63946) !important;
-
-  p {
-    color: black !important
-  }
+  background: linear-gradient(180deg, rgb(253 187 187 / 29%), rgb(255 68 84 / 35%)) !important;
+  color: #ff3971;
+  font-weight: 600;
 }
 
-.chipMostLiked {
-  background: linear-gradient(180deg, #e8a25b, #e58e36) !important;
-
-
-  p {
-    color: black !important
-  }
+.chipTrending {
+  background: linear-gradient(180deg, #ff976736, #ff8e5a70) !important;
+  color: #ef4b00;
+  font-weight: 600;
 }
+
 
 .chipNewApp {
-  background: linear-gradient(180deg, #65a974, #508d5e) !important;
-
-  p {
-    color: black !important
-  }
+  background: linear-gradient(180deg, #bdffcb82, #a1ffb7a6) !important;
+  color: #00ae3a;
+  font-weight: 600;
 }
 
 .chipPreTge {
-  background: linear-gradient(180deg, #EBB84F, #bc923b) !important;
+  background: linear-gradient(180deg, #faf88d82, #e6ff84a6) !important;
+  color: #647300;
+  font-weight: 600;
+}
 
-  p {
-    color: black !important
+
+.chip_CANCELED {
+  color: rgb(0 0 0);
+  background: linear-gradient(rgb(217 217 217), rgb(166 166 166));
+}
+
+.dark {
+  .chipFeatured {
+    background: linear-gradient(180deg, #69101d6f, #5e1117a8) !important;
+    color: #ff5183;
+  }
+
+  .chipTrending {
+    background: linear-gradient(180deg, #57240c98, #3f1a09c2) !important;
+    color: #ff7a3c;
+  }
+
+  .chipNewApp {
+    background: linear-gradient(180deg, #13692582, #14401ea6) !important;
+    color: #5bff92;
+  }
+
+  .chipPreTge {
+    background: linear-gradient(180deg, #58582f82, #414824a6) !important;
+    color: #e8ff52;
+  }
+
+  .chip_CANCELED {
+    color: rgb(219 219 219);
+    background: linear-gradient(rgb(59 59 59), rgb(36 36 36));
   }
 }
+
 
 .chipXs {
   border-radius: 15px;
@@ -890,44 +875,87 @@ input[type=number] {
   background: linear-gradient(#5C9B6A, #477a52);
 }
 
+
+.dark {
+  .chip_DELEGATED {
+    background: linear-gradient(180deg, #0f3d29, #0a2a1c) !important;
+    color: #3cda94 !important;
+  }
+
+  .chip_SELF {
+    background: linear-gradient(180deg, #4e3300, #372400);
+    color: #fcbb81;
+  }
+
+  .chip_COMPLETED {
+    background: linear-gradient(180deg, #063821, #042a19);
+    color: #14cf20;
+  }
+
+  .chip_REJECTED {
+    background: linear-gradient(180deg, #4e0000, #330000);
+    color: #fc8181;
+  }
+
+  .chip_UNDELEGATION_REQUESTED {
+    color: rgb(252 248 129);
+    background: linear-gradient(rgb(78 71 0), rgb(36 39 0));
+  }
+
+  .chip_PROPOSED {
+    color: rgb(57 218 248);
+    background: linear-gradient(rgb(20 66 59), rgb(11 36 33));
+  }
+
+  .chip_ACCEPTED {
+    background: linear-gradient(180deg, #233d0f, #0a1b07);
+    color: #3cda4e;
+  }
+
+  .chip_REWARDS {
+    background: linear-gradient(180deg, #35320c, #2a230a);
+    color: #dac83c;
+  }
+}
+
 .chip_DELEGATED {
-  background: linear-gradient(180deg, #0f3d29, #0a2a1c);
-  color: #3cda94;
+  background: linear-gradient(180deg, #00ff9057, #5dffb8ad) !important;
+  color: #003c22 !important;
+}
+
+.chip_SELF {
+  background: linear-gradient(180deg, #ffd992, #ffb62d);
+  color: #6f3500;
 }
 
 .chip_REWARDS {
-  background: linear-gradient(180deg, #3d390f, #2a230a);
-  color: #dac83c;
+  background: linear-gradient(180deg, #dac83c85, #e5d76d86);
+  color: #4a3605;
 }
 
 .chip_ACCEPTED {
-  background: linear-gradient(180deg, #233d0f, #0a1b07);
-  color: #3cda4e;
+  background: linear-gradient(180deg, #3cda4e7a, #297b1a90);
+  color: #233d0f;
 }
 
 .chip_REJECTED {
-  background: linear-gradient(180deg, #4e0000, #330000);
-  color: #fc8181;
+  background: linear-gradient(180deg, #ff63639d, #ee52527e);
+  color: #4b0a0a;
 }
 
 .chip_COMPLETED {
-  background: linear-gradient(180deg, #4e3300, #372400);
-  color: #fcbb81;
+  background: linear-gradient(180deg, #A3DC9A, #a5f09a);
+  color: #0c491f;
 }
 
 .chip_UNDELEGATION_REQUESTED {
-  color: rgb(252 248 129);
-  background: linear-gradient(rgb(78 71 0), rgb(36 39 0));
-}
-
-.chip_CANCELED {
-  color: rgb(219 219 219);
-  background: linear-gradient(rgb(59 59 59), rgb(36 36 36));
+  color: rgb(78 71 0);
+  background: linear-gradient(rgba(225, 218, 17, 0.493), rgba(223, 235, 92, 0.442));
 }
 
 .chip_PROPOSED {
-  color: rgb(57 218 248);
-  background: linear-gradient(rgb(20 66 59), rgb(11 36 33));
+  color: rgb(9, 79, 83);
+  background: linear-gradient(rgba(57, 219, 248, 0.55), rgba(108, 219, 238, 0.55));
 }
 
 .chip_DELEGATION_UI {
@@ -952,10 +980,7 @@ input[type=number] {
   color: #9681fc;
 }
 
-.chip_SELF {
-  background: linear-gradient(180deg, #4e3300, #372400);
-  color: #fcbb81;
-}
+
 
 .chip_OTHER {
   background: linear-gradient(180deg, #3e1f3f, #2b152b);
@@ -1028,7 +1053,7 @@ input[type=number] {
 
 .markdown {
   hr {
-    border-color: variables.$border-color;
+    border-color: var(--border);
     width: 100%;
     margin-block-start: 2em;
     margin-block-end: 1em;
@@ -1045,11 +1070,28 @@ input[type=number] {
   h2 {
     margin-block-start: 0.7em;
     margin-block-end: 0.7em;
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
   }
 
   h3 {
     margin-block-start: 1em;
     margin-block-end: 0.7em;
+    font-size: 1.25rem;
+    font-weight: 650;
+  }
+
+  h4 {
+    margin-block-start: 0.8em;
+    margin-block-end: 0.5em;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
   }
 
   ul {
@@ -1073,11 +1115,28 @@ input[type=number] {
     color: #fc8180;
   }
 
+  a {
+    color: #165DFB;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   blockquote {
-    background: #2d2d2d;
-    border-radius: 25px;
-    padding: 10px 20px;
-    margin: 0;
+    background: var(--muted);
+    border-radius: 35px;
+    padding: 15px 20px;
+    margin: 10px 0;
+    border-left: 4px solid var(--accent);
+
+    p {
+      margin: 0;
+      font-style: italic;
+      color: var(--muted-foreground);
+    }
   }
 }
 
@@ -1204,24 +1263,30 @@ input[type=number] {
 }
 
 .nestedSection {
-  border-left: 4px variables.$border-color solid;
+  border-left: 4px var(--border) solid;
   padding-left: 20px;
   margin-left: 41px !important;
 }
 
 .nestedSectionXs {
-  border-left: 3px variables.$border-color solid;
+  border-left: 3px var(--border) solid;
   padding-left: 20px;
   margin-left: 20px !important;
 }
 
 .borderVert {
-  border-left: 2px variables.$border-color solid;
+  border-left: 2px var(--border) solid;
 }
 
 .validatorIconDelegation {
   margin-left: -15px;
   margin-top: -15px;
+}
+
+
+.creditHistoryIcon {
+  margin-left: -15px;
+  margin-top: -28px;
 }
 
 
@@ -1239,50 +1304,14 @@ input[type=number] {
   width: 100% !important;
 }
 
+.MuiCircularProgress-root {
+  color: var(--foreground) !important;
+}
+
 
 .amountInput {
   input {
     padding: 0 !important
-  }
-}
-
-
-.warningMsg {
-  background-color: #43391d !important;
-
-  p,
-  svg {
-    color: #f9e09c !important;
-  }
-
-  a,
-  .a {
-    color: #ffc832 !important;
-
-    p,
-    svg {
-      color: #ffc832 !important;
-    }
-  }
-}
-
-
-.errorMsg {
-  background-color: #431d1d !important;
-
-  p,
-  svg {
-    color: #f99c9c !important;
-  }
-
-  a,
-  .a {
-    color: #f99c9c !important;
-
-    p,
-    svg {
-      color: #f99c9c !important;
-    }
   }
 }
 
@@ -1349,10 +1378,6 @@ input[type=number] {
   transform: scale(1.03);
 }
 
-.paddBott60 {
-  padding-bottom: 60px;
-}
-
 .m5 {
   margin: 5px;
 }
@@ -1393,6 +1418,10 @@ input[type=number] {
   padding: 1px;
 }
 
+.dark .customSocialIcon {
+  filter: invert(1) brightness(1.1);
+}
+
 .customSocialIconMd {
   height: 24px;
   width: 24px;
@@ -1423,11 +1452,11 @@ input[type=number] {
 
 
 .bg {
-  background: variables.$sk-bg !important;
+  background: var(--background) !important;
 }
 
 .bgPrim {
-  background: variables.$sk-bg-prim !important;
+  background: var(--sk-bg-prim) !important;
 }
 
 .hidden {
@@ -1456,13 +1485,27 @@ input[type=number] {
 .home-banner {
   width: 100%;
   max-width: 852px;
-  height: 250px;
-  background-image: url(/home-banner.png);
-  background-size: cover;
-  background-position: center;
+  height: 285px;
   border-radius: 25px;
   position: relative;
   margin: 0 auto;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url(/home-banner.png);
+    background-size: cover;
+    background-position: center;
+    filter: invert(1) brightness(1.1);
+    z-index: 0;
+  }
+
+  .home-banner-inner {
+    position: relative;
+    z-index: 1;
+  }
 
 
   @media (max-width: 768px) {
@@ -1477,11 +1520,15 @@ input[type=number] {
   }
 }
 
+.dark .home-banner::before {
+  filter: invert(0) brightness(1);
+}
+
 .home-banner-title {
   font-family: inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif !important;
-  font-weight: 800 !important;
+  font-weight: 700 !important;
   text-align: center;
-  font-size: 55px;
+  font-size: 52px;
 
   @media (max-width: 768px) {
     font-size: 40px !important;
@@ -1525,4 +1572,60 @@ input[type=number] {
 
 body::-webkit-scrollbar {
   display: none;
+}
+
+.iconHomeCard {
+  mix-blend-mode: color-burn;
+  filter: brightness(0.3);
+}
+
+.dark {
+  .iconHomeCard {
+    mix-blend-mode: color-burn;
+    filter: brightness(0.5);
+  }
+
+
+}
+
+.tosMd {
+  h1 {
+    font-size: 2rem !important;
+    font-weight: 700 !important;
+    padding-top: 1rem !important;
+  }
+
+  h2 {
+    font-size: 1.1rem !important;
+    font-weight: 700 !important;
+    padding-top: 1rem !important;
+  }
+
+  h3 {
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    padding-top: 1rem !important;
+  }
+
+  p {
+    font-size: 0.825rem !important;
+    padding-top: 0.6rem !important;
+  }
+
+  ul {
+    margin-top: 0.4rem !important;
+    margin-bottom: 0.4rem !important;
+    padding-left: 1.5rem !important;
+    list-style-type: disc !important;
+  }
+
+  li {
+    font-size: 0.825rem !important;
+    line-height: 1.35 !important;
+    padding-top: 0.1rem !important;
+  }
+
+  a {
+    color: #0095f6;
+  }
 }

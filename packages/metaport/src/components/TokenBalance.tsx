@@ -22,7 +22,8 @@
  */
 
 import { units } from '@/core'
-import { cls, cmn } from '../core/css'
+import { Tooltip } from '@mui/material'
+import MetaportCore from '../core/metaport'
 
 export default function TokenBalance(props: {
   balance: bigint
@@ -31,31 +32,33 @@ export default function TokenBalance(props: {
   truncate?: number
   primary?: boolean
   size?: 'xs' | 'sm' | 'md'
+  mpc?: MetaportCore
 }) {
   if (props.balance === undefined || props.balance === null) return
-  let balance = units.formatBalance(props.balance, props.decimals)
+  let balanceFull = units.formatBalance(props.balance, props.decimals)
+  let balance = balanceFull
   if (props.truncate) {
-    balance = units.truncateDecimals(balance, props.truncate)
+    balance = units.truncateDecimals(balanceFull, props.truncate)
   }
   let size = props.size ?? 'xs'
   return (
-    <div className={cls(cmn.flex, cmn.flexcv)}>
+    <Tooltip arrow title={balanceFull + ' ' + props.symbol}>
       <p
-        className={cls(
-          cmn.pLightGrey,
-          [cmn.p4, size === 'xs'],
-          [cmn.p3, size === 'sm'],
-          [cmn.p2, size === 'md'],
-          [cmn.pSec, !props.primary],
-          [cmn.pPrim, props.primary],
-          cmn.flex,
-          cmn.flexcv,
-          cmn.nom,
-          cmn.mri5
-        )}
+        className={`
+            ${size === 'xs' ? 'text-xs' : ''}
+            ${size === 'sm' ? 'text-xs' : ''}
+            ${size === 'md' ? 'text-base' : ''}
+            ${!props.primary && 'text-muted-foreground!'}
+            ${props.primary && 'text-foreground!'}
+            flex items-center font-semibold
+            bg-muted rounded-2xl p-2 pr-3.5
+          `}
       >
-        {balance} {props.symbol}
+        <div className="mr-1.5"></div>
+        <span className='whitespace-nowrap'>
+          {balance} {props.symbol}
+        </span>
       </p>
-    </div>
+    </Tooltip>
   )
 }

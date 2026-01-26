@@ -22,30 +22,24 @@
  */
 
 import React from 'react'
-import { FiberManualRecord } from '@mui/icons-material'
-import { cls, cmn } from '@skalenetwork/metaport'
 import Headline from '../Headline'
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
+import { networks } from '@/core'
+import { NETWORKS } from '../../core/constants'
+import GetSFuel from '../GetSFuel'
+import { MetaportCore } from '@skalenetwork/metaport'
+import { CircleUser } from 'lucide-react'
 
 interface ProfileModalHeaderProps {
-  address: string | undefined
-  isSignedIn: boolean
+  mpc: MetaportCore
 }
 
-const ProfileModalHeader: React.FC<ProfileModalHeaderProps> = ({ address, isSignedIn }) => (
-  <div className={cls('profileModalHeader', cmn.flexcv)}>
-    <div className={cls(cmn.flexg)}>
-      <Headline text="Profile" icon={<AccountCircleRoundedIcon />} size="small" />
+const ProfileModalHeader: React.FC<ProfileModalHeaderProps> = ({ mpc }) => (
+  <div className="profileModalHeader items-center">
+    <div className="grow">
+      <Headline text="Wallet Info" icon={<CircleUser size={17} className="ml-2.5" />} />
     </div>
     <div className="profileModalStatus">
-      <FiberManualRecord
-        className={cls(cmn.mri5)}
-        fontSize="small"
-        color={address ? (isSignedIn ? 'success' : 'warning') : 'error'}
-      />
-      <p className={cls(cmn.p, cmn.p4, 'pSec', cmn.mri20)}>
-        {address ? (isSignedIn ? 'Signed in' : 'Connected but not signed in') : 'Not connected'}
-      </p>
+      {networks.hasFeatureInAny(NETWORKS, 'sfuel') && <GetSFuel mpc={mpc} />}
     </div>
   </div>
 )

@@ -20,29 +20,34 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import { types } from '..'
+import { constants, types, networks } from '..'
 import { BASE_METADATA_URL, MAINNET_CHAIN_NAME } from '../constants'
+import { MAINNET_ALIASES } from '../networks'
 import { AppMetadata } from '../types'
 
 export function chainBg(
+  network: types.SkaleNetwork,
   chainsMeta: types.ChainsMetadataMap,
   chainName: string,
-  app?: string
+  app?: string,
+  theme?: 'light' | 'dark'
 ): string | undefined {
+  if (chainName === constants.MAINNET_CHAIN_NAME) {
+    return networks.MAINNET_BACKGROUNDS[network]
+  }
   const chainData = chainsMeta[chainName]
-
   if (chainData) {
     const appData = chainData.apps && app ? chainData.apps[app] : null
 
-    return appData?.gradientBackground || chainData.gradientBackground || chainData.background
+    const chainGradientBg = theme === 'light' && chainData.gradientBackgroundLight ? chainData.gradientBackgroundLight : chainData.gradientBackground
+    return appData?.gradientBackground || chainGradientBg || chainData.background
   }
-
   return 'linear-gradient(273.67deg, rgb(47 50 80), rgb(39 43 68))'
 }
 export function getActions(
   chainsMeta: types.ChainsMetadataMap,
   chainName: string,
-): types.ChainAction[] | undefined { 
+): types.ChainAction[] | undefined {
   const chainData = chainsMeta[chainName];
 
   if (chainData && chainData.actions) {
@@ -53,13 +58,14 @@ export function getActions(
 }
 
 export function getAlias(
+  network: types.SkaleNetwork,
   chainsMeta: types.ChainsMetadataMap,
   chainName: string,
   app?: string,
   short?: boolean
 ): string {
   if (chainName === MAINNET_CHAIN_NAME) {
-    return 'Ethereum'
+    return MAINNET_ALIASES[network]
   }
   const chainData = chainsMeta?.[chainName]
   const appData = app ? chainData?.apps?.[app] : null

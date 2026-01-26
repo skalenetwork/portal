@@ -21,20 +21,20 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
-
 import Box from '@mui/material/Box'
 import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'
-import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
-import FiberManualRecordRoundedIcon from '@mui/icons-material/FiberManualRecordRounded'
+import { Rainbow } from 'lucide-react'
 
-import { cls, styles, cmn, RainbowConnectButton } from '@skalenetwork/metaport'
 
-import { useAuth } from '../AuthContext'
+import { RainbowConnectButton } from '@skalenetwork/metaport'
+import { helper } from '@/core'
+import Avatar from 'boring-avatars'
+import { AVATAR_COLORS } from '../core/constants'
 
 export default function AccountMenu(props: any) {
-  const { isSignedIn, openProfileModal } = useAuth()
+  const { openProfileModal } = props
+
   return (
     <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
       {!props.address ? (
@@ -47,13 +47,10 @@ export default function AccountMenu(props: any) {
                     onClick={() => {
                       openConnectModal()
                     }}
-                    className={cls(styles.paperGrey, cmn.pPrim, 'mp__btnConnect', cmn.flex)}
+                    className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! normal-case! rounded-full min-w-0!"
                   >
-                    <LooksRoundedIcon
-                      className={cmn.mri5}
-                      style={{ height: '18px', width: '18px' }}
-                    />
-                    Connect wallet
+                   <Rainbow size={17}  className="mr-1.5" />
+                    Connect <span className="hidden md:inline! ml-1">wallet</span>
                   </Button>
                 )
               }}
@@ -61,33 +58,15 @@ export default function AccountMenu(props: any) {
           </div>
         </Tooltip>
       ) : (
-        <Tooltip arrow title={isSignedIn ? 'Conneced and signed-in' : 'Wallet connect, signed-out'}>
+        <Tooltip arrow title="Click to open wallet details">
           <Button
             onClick={openProfileModal}
-            className={cls('mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex)}
+            className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! normal-case! rounded-full min-w-0!"
           >
-            <div
-              className={cls(cmn.mri5, cmn.flexcv)}
-              style={{ height: '20px', position: 'relative' }}
-            >
-              <Jazzicon diameter={20} seed={jsNumberForAddress(props.address)} />
-              <div className={cls('icon-overlay', cmn.flex, cmn.flexcv)}>
-                {isSignedIn ? (
-                  <FiberManualRecordRoundedIcon
-                    color="success"
-                    className={cls(styles.chainIconxs)}
-                  />
-                ) : (
-                  <FiberManualRecordRoundedIcon
-                    color="warning"
-                    className={cls(styles.chainIconxs)}
-                  />
-                )}
-              </div>
+            <div className="mr-1.5 flex">
+              <Avatar variant="marble" name={props.address} colors={AVATAR_COLORS} size={20} />
             </div>
-            {props.address.substring(0, 5) +
-              '...' +
-              props.address.substring(props.address.length - 3)}
+            {helper.shortAddress(props.address)}
           </Button>
         </Tooltip>
       )}

@@ -21,9 +21,8 @@
  */
 
 import { Button } from '@mui/material'
-import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
-import { cmn, cls, SkPaper, useWagmiAccount, RainbowConnectButton } from '@skalenetwork/metaport'
-import { useAuth } from '../AuthContext'
+import { SkPaper, useWagmiAccount, RainbowConnectButton } from '@skalenetwork/metaport'
+import { Rainbow } from 'lucide-react'
 
 export default function ConnectWallet(props: {
   tile?: boolean
@@ -31,46 +30,32 @@ export default function ConnectWallet(props: {
   customText?: string
 }) {
   const { address } = useWagmiAccount()
-  const { isSignedIn, handleSignIn } = useAuth()
-
-  const handleButtonClick = (openConnectModal: any) => {
-    if (address) {
-      if (!isSignedIn) {
-        handleSignIn()
-      }
-    } else {
-      openConnectModal()
-    }
-  }
-
-  if (isSignedIn) return null
-
   return (
-    <div className={cls(props.className)}>
-      <SkPaper gray={!props.tile} className={cls(['titleSection', props.tile])}>
-        <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, cmn.p3, 'pSec', cmn.pCent)}>
+    <div className={props.className}>
+      <SkPaper gray={!props.tile} className="bg-muted!">
+        <div className="mt-5 mb-5">
+          <p className="text-sm text-muted-foreground font-semibold mb-1 text-center">
             {props.customText ?? 'Connect your wallet to continue'}
           </p>
-          <div className={cls(cmn.flex)}>
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
-            <div className={cls(cmn.flex)}>
+          <div className="flex">
+            <div className="flex grow"></div>
+            <div className="flex">
               <RainbowConnectButton.Custom>
                 {({ openConnectModal }) => {
                   return (
                     <Button
-                      onClick={() => handleButtonClick(openConnectModal)}
+                      onClick={() => openConnectModal()}
                       variant="contained"
-                      className={cls(cmn.pCent, cmn.mtop10, cmn.flex, 'btn')}
+                      className="text-center mt-2.5! flex btn bg-accent-foreground! text-accent!"
                     >
-                      <LooksRoundedIcon className={cls(cmn.mri10)} />
+                      <Rainbow size={17}  className="mr-2.5" />
                       {address ? 'Sign in' : 'Connect Wallet'}
                     </Button>
                   )
                 }}
               </RainbowConnectButton.Custom>
             </div>
-            <div className={cls(cmn.flex, cmn.flexg)}></div>
+            <div className="flex grow"></div>
           </div>
         </div>
       </SkPaper>
