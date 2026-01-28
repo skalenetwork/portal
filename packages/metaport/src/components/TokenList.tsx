@@ -161,7 +161,7 @@ export default function TokenList() {
               className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-muted! rounded-lg`}
               sx={{
                 '& .MuiOutlinedInput-root': { borderRadius: '25px' },
-                '& fieldset': { border: '0px red solid !important' }
+                '& fieldset': { border: 'none' }
               }}
             />
             {filteredTokensCount === 0 && (

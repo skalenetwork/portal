@@ -44,7 +44,7 @@ export default function SkBtn(props: {
       onClick={props.onClick}
       startIcon={props.startIcon}
     >
-      {props.loading ? props.text : props.text}
+      {props.text}
     </Button>
   )
 }

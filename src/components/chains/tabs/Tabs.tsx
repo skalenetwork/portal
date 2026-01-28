@@ -27,6 +27,8 @@ import { Link } from 'react-router-dom'
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
 import { IconButton, Tooltip } from '@mui/material'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import { useTheme } from '@mui/material/styles'
 
 import { Settings2 } from 'lucide-react'
 
@@ -41,11 +43,14 @@ export default function ChainTabs(props: {
   tab: number
   schainName: string
 }) {
+  const theme = useTheme()
+  const isMdUp = useMediaQuery(theme.breakpoints.up('sm'))
+
   return (
     <div className="mt-0 flex items-center">
       <div className="grow">
         <Tabs
-          variant="sm:scrollable standard"
+          variant={isMdUp ? 'scrollable' : 'standard'}
           value={props.tab}
           onChange={props.handleChange}
           scrollButtons="auto"
@@ -59,11 +64,10 @@ export default function ChainTabs(props: {
                 label={tab.label}
                 icon={tab.icon}
                 iconPosition="start"
-                className={`btn btnSm tab fwmobile ${
-                  props.tab === index
+                className={`btn btnSm tab fwmobile ${props.tab === index
                     ? 'text-foreground! bg-foreground/10! shadow-xs!'
                     : 'text-muted-foreground!'
-                }`}
+                  }`}
               />
             ) : null
           )}

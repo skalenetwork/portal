@@ -142,7 +142,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
         <Grid size={{ xs: 12, md: 4 }}>
           <div className="flex items-center">
             <TokenIcon tokenSymbol={symbol} size="lg" iconUrl={tokenMeta?.iconUrl} />
-            <div className="ml-3.5 sm:grow">
+            <div className="ml-3.5 grow sm:grow-0">
               <h4 className="p font-bold pOneLine uppercase text-foreground">{symbol}</h4>
               <p className="p text-xs text-muted-foreground font-semibold">{tokenMeta?.name}</p>
             </div>

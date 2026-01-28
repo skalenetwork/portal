@@ -180,7 +180,7 @@ export default function Delegate(props: {
                   arrow
                 >
                   <TextField
-                    inputProps={{ step: '0.1', lang: 'en-US', className: 'text-foreground! text-2xl p-2! kbg-red-500!' }}
+                    inputProps={{ step: '0.1', lang: 'en-US', className: 'text-foreground! text-2xl p-2!' }}
                     inputRef={(input) => input?.focus()}
                     type="number"
                     variant="standard"

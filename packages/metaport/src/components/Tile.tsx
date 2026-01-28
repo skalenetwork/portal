@@ -29,7 +29,7 @@ import { useTheme } from '@mui/material/styles'
 import { Skeleton, Tooltip } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress'
 import { CircleCheck } from 'lucide-react'
-import { cn } from '../utils/cn'
+import { cn } from '../core/css'
 
 export default function Tile(props: {
   text?: string
@@ -73,8 +73,6 @@ export default function Tile(props: {
     }
   }, [copied])
 
-  const chipClass = ''
-
   const value = (
     <p
       className={cn(
@@ -97,7 +95,6 @@ export default function Tile(props: {
         'bg-background rounded-md p-4',
         `titleSection_${size}`,
         props.grow && 'grow',
-        chipClass,
         props.className
       )}
     >
