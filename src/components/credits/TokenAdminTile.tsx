@@ -164,7 +164,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
             <Tile
               size="md"
               transparent
-              className= "p-0! uppercase md:mr-5 md:ml-5"
+              className="p-0! uppercase md:mr-5 md:ml-5"
               value={units.displayBalance(
                 tokenPriceWei,
                 symbol,
@@ -172,6 +172,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
               )}
               text="1 CREDIT ="
               grow
+              ri={true}
               disabled={tokenPriceWei === 0n}
               icon={<Coins size={17} />}
             />
@@ -203,7 +204,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
           <Headline
             text={`Set CREDIT Price - ${tokenMeta?.name}`}
             icon={<MonetizationOnRoundedIcon className="text-[17px]!" />}
-            className="mb-5"
+            className="mb-2"
             size="small"
           />
           <SkPaper className="p-0!">
@@ -224,9 +225,14 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
                       onChange={handleAmountChange}
                       disabled={!!loading}
                       style={{ width: '100%' }}
+                      sx={{
+                        '& .MuiInputBase-input': {
+                          color: 'var(--foreground)'
+                        }
+                      }}
                     />
                   </div>
-                  <div className="text-xs p font-bold mr-2.5 uppercase">{symbol}</div>
+                  <div className="text-xs p font-bold text-foreground! mr-2.5 uppercase">{symbol}</div>
                 </div>
               }
               icon={<TokenIcon tokenSymbol={symbol} size="xs" />}
@@ -234,7 +240,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
           </SkPaper>
           <Button
             variant="contained"
-            className={`${styles.btnAction} mt-5`}
+            className="btnMd ml-5 w-full mt-4! mb-2! bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
             size="large"
             onClick={updatePrice}
             disabled={loading || price === ''}

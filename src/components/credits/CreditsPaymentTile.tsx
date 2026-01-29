@@ -155,7 +155,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
     <div>
       <div className="mb-2.5 bg-background rounded-3xl p-4">
         <Grid container spacing={0} alignItems="center">
-          <Grid size={{ xs: 12, md: 4 }}>
+          <Grid size={{ xs: 12, md: 4 }} className="flex items-center">
             <div className="flex items-center">
               <Avatar
                 size={50}
@@ -183,7 +183,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
               </div>
             </div>
           </Grid>
-          <Grid size={{ xs: 12, md: 8 }} className="sm:mt-5 flex items-center">
+          <Grid size={{ xs: 12, md: 8 }} className="flex items-center">
             <div
               className={`chipXs ml-5 flex items-center ${isFulfilled ? 'chip_DELEGATED' : 'chip_SELF'} font-semibold`}
             >
@@ -201,6 +201,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
                 value={tokenSymbol.toUpperCase()}
                 text="Token Used"
                 grow
+                ri={true}
                 icon={<TokenIcon tokenSymbol={tokenSymbol} size="xs" />}
               />
               <div className="border-l-2 border-border"></div>
@@ -211,6 +212,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
                 value={`ID: ${payment.id.toString()}`}
                 text="Payment ID"
                 grow
+                ri={true}
                 icon={<IdCard size={17} />}
               />
             </SkStack>
