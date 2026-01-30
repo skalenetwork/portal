@@ -228,7 +228,7 @@ export default function Delegation(props: {
               loading={loading}
               text={loading ? 'Accepting delegation' : 'Accept delegation'}
               color="primary"
-              className="w-full"
+              className=" btnMd w-full"
               onClick={async () => {
                 props.accept && (await props.accept(delegationInfo))
               }}
