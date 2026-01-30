@@ -187,7 +187,7 @@ export default function Delegation(props: {
       <Collapse in={open}>
         <div className="mt-4" onClick={(e) => e.stopPropagation()}>
           {props.isValidatorPage && (
-            <div className="flex flex-col gap-2.5 pb-2.5 sm:flex-row">
+            <div className="flex flex-col gap-3 pb-2 sm:flex-row">
               <Tile
                 className="bg-foreground/5! break-all"
                 value={props.delegation.address}
@@ -240,7 +240,7 @@ export default function Delegation(props: {
               loading={loading}
               text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
               color="error"
-              className="w-full mt-1.5!"
+              className="w-full mt-1.5! btnMd"
               onClick={async () => {
                 props.unstake && (await props.unstake(delegationInfo))
               }}

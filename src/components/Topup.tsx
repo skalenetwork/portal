@@ -118,7 +118,7 @@ export default function Topup(props: {
             text="Error occurred"
             icon={<ShieldAlert size={17} />}
             color="error"
-            className="text-foreground bg-red-100 border-red-200 dark:bg-red-800/80 dark:border-red-600 border-2"
+            className=" mt-5! mb-0! text-foreground bg-red-100 border-red-200 dark:bg-red-800/80 dark:border-red-600 border-2"
             grow
             childrenRi={
               <Button

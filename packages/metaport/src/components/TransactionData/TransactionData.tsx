@@ -97,7 +97,7 @@ export default function TransactionData(props: {
     props.transactionData.transactionHash
   )
   return (
-    <div className="flex items-center mb-2">
+    <div className="flex items-center"> 
       <div>
         <span className= "relative flex items-center justify-center">
           <span className= "w-[30px] h-[30px] rounded-full bg-muted absolute" />
@@ -106,7 +106,7 @@ export default function TransactionData(props: {
           </span>
         </span>
       </div>
-      <div className="ml-5 grow flex">
+      <div className="ml-5 grow flex items-center justify-between">
         <div>
           <p className="text-sm capitalize text-foreground font-medium">
             {actionAliases[props.transactionData.txName]}

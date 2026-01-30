@@ -61,7 +61,7 @@ export default function ValidatorsPage(props: {
         <Link to="/validator">
           <Tooltip title="Validator Operations">
             <IconButton
-              className="ml-1.5! rounded-full bg-card! text-foreground! hover:bg-muted"
+              className="ml-1.5! rounded-full! bg-card! text-foreground! hover:bg-muted"
             >
               <UserCog className="text-foreground" size={17} />
               <DelegationsNotification validatorDelegations={props.validatorDelegations} 

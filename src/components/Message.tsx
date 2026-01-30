@@ -59,7 +59,7 @@ export default function Message(props: {
         )}
       >
         <div className="w-full flex items-center mt-1.5 mb-1.5 ml-2.5 mr-2.5">
-          <div className="flex items-center mr-4">{props.icon}</div>
+          <div className="flex items-center mr-2.5 ">{props.icon}</div>
           {props.text ? (
             <div className="flex items-center mr-1.5">
               <p className={cn('text-sm font-semibold', type !== 'warning' && 'text-primary')}>
@@ -75,7 +75,7 @@ export default function Message(props: {
                   )}
                 >
                   <Link to={props.link}>
-                    <p className="text-sm font-semibold ml-1">{props.linkText}</p>
+                    <p className="text-sm font-semibold">{props.linkText}</p>
                   </Link>
                   <ArrowOutwardRoundedIcon
                     className="flex items-center ml-1"

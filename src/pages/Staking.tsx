@@ -161,10 +161,10 @@ export default function Staking(props: {
         <div className="flex items-center">
           <div className="grow">
             <h2 className="m-0 text-xl font-bold text-foreground">Staking</h2>
-            <p className="text-xs text-secondary-foreground font-semibold">
+            <div className="text-xs text-secondary-foreground font-semibold">
               <span className="sm:hidden">Manage your delegations</span>
-              <span className="hidden sm:inline">Delegate, review delegations and withdraw staking rewards</span>
-            </p>
+              <span className="hidden sm:!inline">Delegate, review delegations and withdraw staking rewards</span>
+            </div>
           </div>
           <div className="mr-2.5">
             {loading !== false || props.customAddress !== undefined ? (
@@ -200,7 +200,7 @@ export default function Staking(props: {
           textLong="Previewing staking page in read-only mode, "
           icon={<Eye />}
           link="/staking"
-          linkText="click to exit"
+          linkText="Click to exit"
           type="warning"
         />
       ) : null}

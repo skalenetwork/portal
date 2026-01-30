@@ -67,7 +67,7 @@ export default function Meson(props: {
                 </p>
               </div>
               <p
-                className="text-xs font-medium text-secondary-foreground sm:text-center"
+                className="text-xs font-medium text-secondary-foreground"
               >
                 Transfer from 45+ chains using Meson.Fi
               </p>

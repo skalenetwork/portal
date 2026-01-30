@@ -193,7 +193,7 @@ export default function Validator(props: {
           textLong="Previewing validator page in read-only mode, "
           icon={<Eye />}
           link="/validator"
-          linkText="click to exit"
+          linkText="Click to exit"
           type="warning"
         />
       ) : null}

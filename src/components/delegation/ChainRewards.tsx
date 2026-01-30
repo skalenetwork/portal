@@ -220,10 +220,11 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
             </Button>
             <div className= "md:border-l-2 border-border">
               <Tile
-                className= "p-0! md:ml-5"
+                className= "p-0! md:ml-5 "
                 size="md"
                 transparent
                 grow
+                ri={true}
                 value={tokenBalance !== undefined && units.displayBalance(tokenBalance, 'SKL')}
                 text="Balance on Europa Hub"
                 icon={<TokenIcon tokenSymbol="skl" size="xs" />}

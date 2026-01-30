@@ -96,7 +96,6 @@ export default function Summary(props: {
                       value={helper.shortAddress(props.accountInfo?.address)}
                       text="Escrow"
                       grow
-                      
                       copy={props.accountInfo?.address}
                       icon={<Copy size={14} />}
                     />
@@ -120,6 +119,7 @@ export default function Summary(props: {
                   }
                   text="Staked Tokens"
                   grow
+                  ri={true}
                   icon={<ArrowUpRight size={14} />}
                 />
                 <div className="border-l-2 border-border"></div>
@@ -143,6 +143,7 @@ export default function Summary(props: {
                       : null
                   }
                   text="Available to stake"
+                  ri={true}
                   icon={<Coins size={14} />}
                 />
               </SkStack>
@@ -182,6 +183,7 @@ export default function Summary(props: {
                   text="Initial Escrow Amount"
                   icon={<Landmark size={14} />}
                   grow
+                  ri={true}
                   size="md"
                   transparent
                   className= "p-0! md:mr-1 md:ml-1"
@@ -208,6 +210,7 @@ export default function Summary(props: {
                 text="Unlocked Tokens"
                 icon={<LockOpen size={14} />}
                 grow
+                ri={true}
                 childrenRi={
                   <div className="items-center flex">
                     <div className="mr-5"></div>

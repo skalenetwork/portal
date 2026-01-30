@@ -59,7 +59,7 @@ export default function AccordionSection(props: {
         }}
         className="w-full flex pl-2.5 rounded-2xl!"
       >
-        <div className="m-2 flex grow items-center">
+        <div className="mt-2.5 mb-2.5 ml-2.5 flex grow items-center">
           {props.icon ? (
             <div className="mr-2.5 items-center flex text-[17px]! font-semibold text-foreground/80 ">
               {props.icon}
