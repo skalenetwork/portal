@@ -43,11 +43,11 @@ export default function GetSFuel({ mpc }: { mpc: MetaportCore }) {
       sx={{ alignItems: 'center', textAlign: 'center', display: { xs: 'none', sm: 'flex' } }}
       className="ml-1.5"
     >
-      <Tooltip arrow title={sFuelOk ? 'sFUEL balance is OK' : 'Click to get sFUEL for all chains'}>
+      <Tooltip arrow placement="bottom" PopperProps={{ sx: { zIndex: 99999 } }} title={sFuelOk ? 'sFUEL balance is OK' : 'Click to get sFUEL for all chains'}>
         <Button
           onClick={sFuelOk ? undefined : mineSFuel}
           disabled={isMining || loading || sFuelOk}
-          className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! normal-case! rounded-full! min-w-0!"
+          className="flex h-9 px-3 items-center text-foreground! bg-muted-foreground/10! text-xs! normal-case! rounded-full! min-w-0!"
           color="success"
         >
           {loading ? (
@@ -58,6 +58,6 @@ export default function GetSFuel({ mpc }: { mpc: MetaportCore }) {
           {btnText()}
         </Button>
       </Tooltip>
-    </Box>
+    </Box >
   )
 }
