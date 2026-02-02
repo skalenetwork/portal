@@ -59,12 +59,12 @@ export const METAPORT_CONFIG: types.mp.Config = {
             'winged-bubbly-grumium': {}
           }
         },
-        // skl: {
-        //   address: '0x91D00CF7bE6F47bf9BFAaA974d80Ea79a4A3bfe7',
-        //   chains: {
-        //     'winged-bubbly-grumium': {}
-        //   }
-        // },
+        skl: {
+          address: '0xb49A02585E2BeB912027D8876DC1cdbE8F97C1A3',
+          chains: {
+            'winged-bubbly-grumium': {}
+          }
+        },
         usdt: {
           address: '0xfde4C96c8593536E31F229EA8f37b2ADa2699bb2',
           chains: {
@@ -121,14 +121,14 @@ export const METAPORT_CONFIG: types.mp.Config = {
             }
           }
         },
-        // skl: {
-        //   address: '0x9710566cb041bd4cda6cb24336bc887221d11a6e',
-        //   chains: {
-        //     mainnet: {
-        //       clone: true
-        //     }
-        //   }
-        // },
+        skl: {
+          address: '0x9710566Cb041bD4cDa6CB24336bc887221d11a6e',
+          chains: {
+            mainnet: {
+              clone: true
+            }
+          }
+        },
         usdc: {
           address: '0x85889c8c714505E0c94b30fcfcF64fE3Ac8FCb20',
           chains: {
