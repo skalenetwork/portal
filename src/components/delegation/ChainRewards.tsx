@@ -216,11 +216,11 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
               }
               onClick={retrieveRewards}
             >
-             Retrieve
+              {loading ? btnText || 'Retrieving' : 'Retrieve'}
             </Button>
-            <div className= "md:border-l-2 border-border">
+            <div className="md:border-l-2 border-border">
               <Tile
-                className= "p-0! md:ml-5 "
+                className="p-0! md:ml-5"
                 size="md"
                 transparent
                 grow
