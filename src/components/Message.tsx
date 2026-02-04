@@ -63,8 +63,14 @@ export default function Message(props: {
           {props.text ? (
             <div className="flex items-center mr-1.5">
               <p className={cn('text-sm font-semibold', type !== 'warning' && 'text-primary')}>
-                <span className="sm:hidden">{props.text}</span>
-                <span className="hidden sm:inline">{props.textLong ?? props.text}</span>
+                {!props.textLong ? (
+                  <span>{props.text}</span>
+                ) : (
+                  <>
+                    <span className="sm:hidden!">{props.text}</span>
+                    <span className="hidden! sm:inline!">{props.textLong}</span>
+                  </>
+                )}
               </p>
               {props.link && props.linkText ? (
                 <div

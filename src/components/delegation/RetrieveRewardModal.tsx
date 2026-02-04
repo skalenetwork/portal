@@ -188,7 +188,7 @@ export default function RetrieveRewardModal(props: {
                   text={props.loading ? 'Retrieving' : 'Retrieve'}
                   disabled={props.disabled || edit}
                   onClick={props.retrieveRewards}
-                  className="mr-1.5! mt-2.5! w-full!"
+                  className="mr-1.5! mt-2.5! w-full! btnMd"
                 />
               </SkPaper>
             </SkPaper>
