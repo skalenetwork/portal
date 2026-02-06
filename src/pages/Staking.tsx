@@ -209,9 +209,8 @@ export default function Staking(props: {
         <Message
           className="mt-5"
           text={`Custom address will be used for rewards withdrawal: ${customRewardAddress}`}
-          icon={<TriangleAlert />}
+          icon={<TriangleAlert size={17} />}
           type="warning"
-          closable={false}
         />
       ) : null}
 

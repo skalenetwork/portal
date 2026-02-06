@@ -23,10 +23,10 @@
 import { useState, useEffect, ChangeEvent } from 'react'
 import { isAddress } from 'ethers'
 import { SkPaper, Tile, useThemeMode, styles } from '@skalenetwork/metaport'
-import { type types, constants } from '@/core'
+import { type types } from '@/core'
 
 import { Collapse, Container, TextField, Box, Button, Modal, InputAdornment } from '@mui/material'
-import { TriangleAlert, User, Wallet } from 'lucide-react'
+import { TriangleAlert, User } from 'lucide-react'
 import Message from '../Message'
 import SkBtn from '../SkBtn'
 
@@ -105,7 +105,6 @@ export default function RetrieveRewardModal(props: {
                   type="warning"
                   icon={<TriangleAlert size={17} />}
                   className="mb-2.5"
-                  closable={false}
                 />
                 <Collapse in={!!errorMsg}>
                   <Message
@@ -113,7 +112,7 @@ export default function RetrieveRewardModal(props: {
                     type="error"
                     icon={<TriangleAlert size={17} />}
                     className="mb-2.5!"
-                    closable={false}
+                    onClose={() => setErrorMsg(undefined)}
                   />
                 </Collapse>
                 {!edit ? (
