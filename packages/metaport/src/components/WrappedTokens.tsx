@@ -172,7 +172,7 @@ export default function WrappedTokens() {
                   variant="contained"
                   color="primary"
                   size="medium"
-                  className="mt-1.5 bg-accent-foreground/50! btnAction w-full! btnMd text-muted-accent!"
+                  className="mt-1.5 bg-accent-foreground/50! btnMd w-full! btnMd text-accent!"
                 >
                   Unwrapping...
                 </Button>
@@ -180,7 +180,7 @@ export default function WrappedTokens() {
                 <Button
                   variant="contained"
                   size="medium"
-                  className="mt-1.5 bg-accent-foreground/50! btnAction w-full! btnMd text-muted-accent!"
+                  className="mt-1.5 bg-foreground! btnMd w-full! btnMd text-accent!"
                   onClick={() =>
                     unwrapAll(address, switchChainAsync, walletClient, filteredTokens)
                   }
