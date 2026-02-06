@@ -97,7 +97,7 @@ export default function Reward(props: {
                   Validator ID: {Number(validator.id)}
                 </p>
               </div>
-              <div className="sm:hidden">{minimizeBtn}</div>
+              <div className="md:hidden">{minimizeBtn}</div>
             </div>
           </div>
           <div className="w-full md:w-2/3 mt-5 sm:mt-0">
@@ -152,7 +152,7 @@ export default function Reward(props: {
                   <>
                     <RetrieveRewardModal
                       address={props.address}
-                     //disabled={retrieveDisabled}
+                      disabled={retrieveDisabled}
                       customRewardAddress={props.customRewardAddress}
                       setCustomRewardAddress={props.setCustomRewardAddress}
                       retrieveRewards={retrieveRewards}
@@ -162,7 +162,7 @@ export default function Reward(props: {
                   </>
                 )}
               </div>
-              <div className="hidden sm:block">{minimizeBtn}</div>
+              <div className="hidden md:block!">{minimizeBtn}</div>
             </div>
           </div>
         </div>
