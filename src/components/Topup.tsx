@@ -126,7 +126,7 @@ export default function Topup(props: {
                 onClick={() => {
                   props.setErrorMsg(undefined)
                 }}
-                className="roundBtn text-foreground! normal-case! bg-muted-foreground/30! hover:bg-muted-foreground/20!"
+                className="btn btnSm text-foreground! bg-transparent! hover:bg-red-800/10! normal-case! ml-2.5"
               >
                 Close
               </Button>
