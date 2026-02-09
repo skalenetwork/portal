@@ -111,13 +111,19 @@ export default function SFuelWarning(props: {}) {
   async function updateStationsData() {
     if (fromChainStation) {
       setFromChainData(await fromChainStation.getData(address))
+    } else {
+      setFromChainData(null)
     }
     if (toChainStation) {
       setToChainData(await toChainStation.getData(address))
       setLoading(false)
+    } else {
+      setToChainData(null)
     }
     if (hubChainStation) {
       setHubChainData(await hubChainStation.getData(address))
+    } else {
+      setHubChainData(null)
     }
     if (refilledFlag) {
       setMining(false)
@@ -145,13 +151,13 @@ export default function SFuelWarning(props: {}) {
         toPowRes = await toChainStation.doPoW(address)
       }
     }
-    // if (hubChainStation) {
-    //   const hubData = await hubChainStation.getData(address)
-    //   if (!hubData.ok) {
-    //     log.info(`Doing PoW on ${hubChainStation.chainName}`)
-    //     hubPowRes = await hubChainStation.doPoW(address)
-    //   }
-    // }
+    if (hubChainStation) {
+      const hubData = await hubChainStation.getData(address)
+      if (!hubData.ok) {
+        log.info(`Doing PoW on ${hubChainStation.chainName}`)
+        hubPowRes = await hubChainStation.doPoW(address)
+      }
+    }
     if (
       (fromPowRes && !fromPowRes.ok) ||
       (toPowRes && !toPowRes.ok) ||
@@ -213,7 +219,7 @@ export default function SFuelWarning(props: {}) {
                   startIcon={<Fuel size={17} />}
                   size="medium"
                   variant="contained"
-                  className="btnMd w-full text-muted! bg-accent-foreground/50! mt-2.5!"
+                  className="tn-action mt-2.5! p-3.5! w-full capitalize! bg-accent-foreground/50!"
                 >
                   Getting sFUEL...
                 </Button>
