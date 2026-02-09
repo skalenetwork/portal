@@ -186,7 +186,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
             style: {
               maxHeight: 'calc(80vh - 100px)',
             },
-            className: "mt-2.5! rounded-3xl! text-foreground! shadow-sm! border-none! ring-0! [&_.MuiList-root]:p-0! [&_.MuiList-root]:bg-card!"
+            className:"mt-17! sm:mt-2.5! rounded-3xl! text-foreground! shadow-sm! border-none! ring-0! [&_.MuiList-root]:p-0! [&_.MuiList-root]:bg-card!"
           }
         }}
       >

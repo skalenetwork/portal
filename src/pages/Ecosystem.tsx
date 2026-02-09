@@ -273,7 +273,7 @@ export default function Ecosystem(props: {
             )}
           </div>
         </Stack>
-        <div className="flex mt-5 mb-5">
+        <div className="flex mt-5 mb-20 md:mb-5">
           <div className="grow"></div>
           <div>
             <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">

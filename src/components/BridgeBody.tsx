@@ -141,10 +141,6 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
         </SkPaper>
       </Collapse>
 
-      {/* <Collapse in={!!address}> // todo: re-enable SFuel warning for networks with sFuel
-        <SFuelWarning />
-      </Collapse> */}
-
       <Collapse in={showCP()}>
         <SkPaper gray className="p-0!">
           <CommunityPool />
@@ -155,6 +151,10 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
 
       <Collapse in={showStepper(address!)} className="mt-3.5">
         <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
+      </Collapse>
+
+        <Collapse in={!!address}>
+        <SFuelWarning />
       </Collapse>
 
       {currentStep === stepsMetadata.length && (
