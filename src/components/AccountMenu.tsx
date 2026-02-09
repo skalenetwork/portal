@@ -49,7 +49,7 @@ export default function AccountMenu(props: any) {
                     }}
                     className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! normal-case! rounded-full min-w-0!"
                   >
-                   <Rainbow size={17}  className="mr-1.5" />
+                   <Rainbow size={16}  className="mr-1.5" />
                     Connect <span className="hidden md:inline! ml-1">wallet</span>
                   </Button>
                 )
