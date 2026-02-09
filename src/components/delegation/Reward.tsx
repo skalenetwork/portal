@@ -152,7 +152,7 @@ export default function Reward(props: {
                   <>
                     <RetrieveRewardModal
                       address={props.address}
-                      disabled={retrieveDisabled}
+                    //  disabled={retrieveDisabled}
                       customRewardAddress={props.customRewardAddress}
                       setCustomRewardAddress={props.setCustomRewardAddress}
                       retrieveRewards={retrieveRewards}

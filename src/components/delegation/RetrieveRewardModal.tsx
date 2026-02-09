@@ -23,9 +23,9 @@
 import { useState, useEffect, ChangeEvent } from 'react'
 import { isAddress } from 'ethers'
 import { SkPaper, Tile, useThemeMode, styles } from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { type types, helper } from '@/core'
 
-import { Collapse, Container, TextField, Box, Button, Modal, InputAdornment } from '@mui/material'
+import { Collapse, Container, TextField, Box, Button, Modal, InputAdornment, useMediaQuery, useTheme } from '@mui/material'
 import { TriangleAlert, User } from 'lucide-react'
 import Message from '../Message'
 import SkBtn from '../SkBtn'
@@ -42,6 +42,8 @@ export default function RetrieveRewardModal(props: {
   disabled: boolean
 }) {
   const { mode } = useThemeMode()
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const [edit, setEdit] = useState(false)
   const [inputAddress, setInputAddress] = useState<string | undefined>(props.customRewardAddress)
   const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined)
@@ -90,7 +92,8 @@ export default function RetrieveRewardModal(props: {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            minWidth: { xs: '100%', md: 'max-content' }
+            width: { xs: '95%', sm: 'auto' },
+            minWidth: { md: 'max-content' }
           }}
           className="grow items-center flex flex-col"
         >
@@ -118,7 +121,8 @@ export default function RetrieveRewardModal(props: {
                 {!edit ? (
                   <Tile
                     text="Receiver address"
-                    value={props.customRewardAddress}
+                    value={isMobile ? helper.shortAddress(props.customRewardAddress as types.AddressType) : props.customRewardAddress}
+                    copy={props.customRewardAddress}
                     icon={<Avatar variant="marble" name={props.customRewardAddress} colors={AVATAR_COLORS} size={20} />}
                     children={
                       <div className="flex justify-end mt-2">
