@@ -24,7 +24,15 @@
 import { helper, types, units } from '@/core'
 import { TokenIcon, Tile } from '@skalenetwork/metaport'
 
-import { ArrowUpRight, CalendarCheck, CircleUser, Coins, Copy, Landmark, LockOpen } from 'lucide-react'
+import {
+  ArrowUpRight,
+  CalendarCheck,
+  CircleUser,
+  Coins,
+  Copy,
+  Landmark,
+  LockOpen
+} from 'lucide-react'
 
 import SkStack from '../SkStack'
 import AccordionSection from '../AccordionSection'
@@ -132,9 +140,9 @@ export default function Summary(props: {
                   tooltip={
                     props.sklPrice && props.accountInfo?.allowedToDelegate !== undefined
                       ? units.displaySklValueUsd(
-                        props.accountInfo.allowedToDelegate,
-                        props.sklPrice
-                      )
+                          props.accountInfo.allowedToDelegate,
+                          props.sklPrice
+                        )
                       : ''
                   }
                   value={

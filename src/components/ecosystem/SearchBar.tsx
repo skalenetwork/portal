@@ -33,11 +33,7 @@ interface SearchBarProps {
   className?: string
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({
-  searchTerm,
-  onSearchChange,
-  className
-}) => {
+const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, onSearchChange, className }) => {
   const { mode } = useThemeMode()
 
   return (

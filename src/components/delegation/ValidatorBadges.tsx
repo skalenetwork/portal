@@ -30,7 +30,10 @@ export function ValidatorBadge(props: { validator: types.st.IValidator; classNam
   if (ESCROW_VALIDATORS.includes(props.validator.id)) {
     return (
       <Tooltip title="Escrow validator">
-        <Landmark size={14} className={`trustedBadge mr-1.5 text-secondary-foreground! ${props.className}`} />
+        <Landmark
+          size={14}
+          className={`trustedBadge mr-1.5 text-secondary-foreground! ${props.className}`}
+        />
       </Tooltip>
     )
   }

@@ -184,11 +184,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
 
   return (
     <SkPaper gray className={`mt-5 ${className || ''}`}>
-      <Headline
-        size="small"
-        text="Chain Rewards"
-        icon={<CircleStar size={17} />}
-      />
+      <Headline size="small" text="Chain Rewards" icon={<CircleStar size={17} />} />
       <Tile
         disabled={rewardAmount === 0n}
         value={rewardAmount !== undefined && units.displayBalance(rewardAmount, 'SKL')}
@@ -236,11 +232,8 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
                 childrenRi={
                   <Tooltip title="Open in block explorer">
                     <a target="_blank" rel="noreferrer" href={tokenUrl ?? ''} className="ml-6!">
-                      <IconButton
-                        disabled={tokenUrl === null}
-                        className="bg-muted-foreground/10!"
-                      >
-                        <Blocks size={17} className='text-foreground' />
+                      <IconButton disabled={tokenUrl === null} className="bg-muted-foreground/10!">
+                        <Blocks size={17} className="text-foreground" />
                       </IconButton>
                     </a>
                   </Tooltip>

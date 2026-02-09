@@ -39,27 +39,27 @@ export default function Admin(props: { mpc: MetaportCore; chainsMeta: types.Chai
 
   return (
     <Container maxWidth="md">
-        <div className="flex">
-          <Breadcrumbs
-            sections={[
-              {
-                text: 'All chains',
-                  icon: <ChevronLeft size={16} className="text-foreground" />,
-                  url: '/chains'
-                },
-                {
-                  text: alias,
-                  icon: <Link2 size={16} />,
-                url: `/chains/${name}`
-              },
-              {
-                text: 'Manage',
-                icon: <ShieldUser size={16} />
-              }
-            ]}
-          />
-        </div>
-        <SkPaper gray className="mt-2.5 chainDetails">
+      <div className="flex">
+        <Breadcrumbs
+          sections={[
+            {
+              text: 'All chains',
+              icon: <ChevronLeft size={16} className="text-foreground" />,
+              url: '/chains'
+            },
+            {
+              text: alias,
+              icon: <Link2 size={16} />,
+              url: `/chains/${name}`
+            },
+            {
+              text: 'Manage',
+              icon: <ShieldUser size={16} />
+            }
+          ]}
+        />
+      </div>
+      <SkPaper gray className="mt-2.5 chainDetails">
         <div className="mt-2.5 ml-1.25">
           <h2 className="m-0 text-xl font-bold text-foreground">Manage {alias}</h2>
           <p className="text-xs text-secondary-foreground font-semibold">

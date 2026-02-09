@@ -42,16 +42,51 @@ export default function SkBottomNavigation() {
     if (location.pathname.includes('/staking')) setValue(3)
     if (location.pathname.includes('/ecosystem') || location.pathname.includes('/app/')) setValue(4)
     if (location.pathname === '/credits' || location.pathname === '/credits/admin') setValue(5)
-
   }, [location])
 
   const items = [
-    { label: 'Home', path: '/', index: 0, Icon: Home, featureKey: null as types.NetworkFeature | null },
-    { label: 'Bridge', path: '/bridge', index: 1, Icon: ArrowLeftRight, featureKey: null as types.NetworkFeature | null },
-    { label: 'Chains', path: '/chains', index: 2, Icon: Network, featureKey: 'chains' as types.NetworkFeature },
-    { label: 'Staking', path: '/staking', index: 3, Icon: PieChart, featureKey: 'staking' as types.NetworkFeature },
-    { label: 'Apps', path: '/ecosystem', index: 4, Icon: LayoutGrid, featureKey: 'ecosystem' as types.NetworkFeature },
-    { label: 'Credits', path: '/credits', index: 5, Icon: BadgeDollarSign, featureKey: 'credits' as types.NetworkFeature }
+    {
+      label: 'Home',
+      path: '/',
+      index: 0,
+      Icon: Home,
+      featureKey: null as types.NetworkFeature | null
+    },
+    {
+      label: 'Bridge',
+      path: '/bridge',
+      index: 1,
+      Icon: ArrowLeftRight,
+      featureKey: null as types.NetworkFeature | null
+    },
+    {
+      label: 'Chains',
+      path: '/chains',
+      index: 2,
+      Icon: Network,
+      featureKey: 'chains' as types.NetworkFeature
+    },
+    {
+      label: 'Staking',
+      path: '/staking',
+      index: 3,
+      Icon: PieChart,
+      featureKey: 'staking' as types.NetworkFeature
+    },
+    {
+      label: 'Apps',
+      path: '/ecosystem',
+      index: 4,
+      Icon: LayoutGrid,
+      featureKey: 'ecosystem' as types.NetworkFeature
+    },
+    {
+      label: 'Credits',
+      path: '/credits',
+      index: 5,
+      Icon: BadgeDollarSign,
+      featureKey: 'credits' as types.NetworkFeature
+    }
   ] as const
 
   const visibleItems = items.filter((item) => {

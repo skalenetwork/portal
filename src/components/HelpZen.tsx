@@ -38,13 +38,13 @@ export default function HelpZen() {
   return (
     <div>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-      <IconButton
-              size="small"
-              className="ml-1.5! h-9 w-9 rounded-full bg-card! text-foreground! hover:bg-muted"
-              onClick={handleClick}
-            >
-            <CircleQuestionMark className="text-foreground h-4 w-4" />
-            </IconButton>
+        <IconButton
+          size="small"
+          className="ml-1.5! h-9 w-9 rounded-full bg-card! text-foreground! hover:bg-muted"
+          onClick={handleClick}
+        >
+          <CircleQuestionMark className="text-foreground h-4 w-4" />
+        </IconButton>
       </Box>
       <Menu
         anchorEl={anchorEl}

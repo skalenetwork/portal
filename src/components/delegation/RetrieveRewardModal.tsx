@@ -25,7 +25,17 @@ import { isAddress } from 'ethers'
 import { SkPaper, Tile, useThemeMode, styles } from '@skalenetwork/metaport'
 import { type types, helper } from '@/core'
 
-import { Collapse, Container, TextField, Box, Button, Modal, InputAdornment, useMediaQuery, useTheme } from '@mui/material'
+import {
+  Collapse,
+  Container,
+  TextField,
+  Box,
+  Button,
+  Modal,
+  InputAdornment,
+  useMediaQuery,
+  useTheme
+} from '@mui/material'
 import { TriangleAlert, User } from 'lucide-react'
 import Message from '../Message'
 import SkBtn from '../SkBtn'
@@ -121,9 +131,20 @@ export default function RetrieveRewardModal(props: {
                 {!edit ? (
                   <Tile
                     text="Receiver address"
-                    value={isMobile ? helper.shortAddress(props.customRewardAddress as types.AddressType) : props.customRewardAddress}
+                    value={
+                      isMobile
+                        ? helper.shortAddress(props.customRewardAddress as types.AddressType)
+                        : props.customRewardAddress
+                    }
                     copy={props.customRewardAddress}
-                    icon={<Avatar variant="marble" name={props.customRewardAddress} colors={AVATAR_COLORS} size={20} />}
+                    icon={
+                      <Avatar
+                        variant="marble"
+                        name={props.customRewardAddress}
+                        colors={AVATAR_COLORS}
+                        size={20}
+                      />
+                    }
                     children={
                       <div className="flex justify-end mt-2">
                         <Button
@@ -151,7 +172,12 @@ export default function RetrieveRewardModal(props: {
                             InputProps={{
                               startAdornment: (
                                 <InputAdornment position="start">
-                                  <Avatar variant="marble" name={inputAddress} colors={AVATAR_COLORS} size={20} />
+                                  <Avatar
+                                    variant="marble"
+                                    name={inputAddress}
+                                    colors={AVATAR_COLORS}
+                                    size={20}
+                                  />
                                 </InputAdornment>
                               )
                             }}
@@ -164,7 +190,11 @@ export default function RetrieveRewardModal(props: {
                         </div>
                         <div>
                           <div>
-                            <Button variant="contained" className="btnSm text-accent! bg-foreground! ml-2.5!" onClick={saveAddress}>
+                            <Button
+                              variant="contained"
+                              className="btnSm text-accent! bg-foreground! ml-2.5!"
+                              onClick={saveAddress}
+                            >
                               Save
                             </Button>
                             <Button

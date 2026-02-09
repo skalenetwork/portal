@@ -149,9 +149,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
           </div>
         </Grid>
         <Grid size={{ xs: 12, md: 2 }} className="flex">
-          <div
-            className={`chipXs ${getChipClass(tokenPriceWei)} mr-5 flex items-center`}
-          >
+          <div className={`chipXs ${getChipClass(tokenPriceWei)} mr-5 flex items-center`}>
             {tokenPriceWei === 0n ? <DoDisturbOnRoundedIcon /> : <CheckCircleRoundedIcon />}
             <p className="p text-xs pOneLine ml-1.5 font-semibold">
               {tokenPriceWei === 0n ? 'DISABLED' : 'ENABLED'}
@@ -232,7 +230,9 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
                       }}
                     />
                   </div>
-                  <div className="text-xs p font-bold text-foreground! mr-2.5 uppercase">{symbol}</div>
+                  <div className="text-xs p font-bold text-foreground! mr-2.5 uppercase">
+                    {symbol}
+                  </div>
                 </div>
               }
               icon={<TokenIcon tokenSymbol={symbol} size="xs" />}

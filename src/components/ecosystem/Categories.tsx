@@ -37,11 +37,7 @@ interface CategoryDisplayProps {
   setCheckedItems: (items: string[]) => void
 }
 
-const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
-  checkedItems,
-  setCheckedItems,
-
-}) => {
+const CategoryDisplay: React.FC<CategoryDisplayProps> = ({ checkedItems, setCheckedItems }) => {
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({})
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [searchTerm, setSearchTerm] = useState('')
@@ -171,7 +167,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
         ref={buttonRef}
         onClick={handleMenuOpen}
         startIcon={<Shapes />}
-        endIcon={<ChevronDown className='text-secondary-foreground' />}
+        endIcon={<ChevronDown className="text-secondary-foreground" />}
         className="btn btnMd tab text-foreground! bg-card! border-border py-3! rounded-full! border shadow-xs! text-xs ease-in-out transition-transform duration-150 active:scale-[0.97] w-full"
         style={{ background: 'transparent' }}
       >
@@ -184,18 +180,15 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
         slotProps={{
           paper: {
             style: {
-              maxHeight: 'calc(80vh - 100px)',
+              maxHeight: 'calc(80vh - 100px)'
             },
-            className:"mt-17! sm:mt-2.5! rounded-3xl! text-foreground! shadow-sm! border-none! ring-0! [&_.MuiList-root]:p-0! [&_.MuiList-root]:bg-card!"
+            className:
+              'mt-17! sm:mt-2.5! rounded-3xl! text-foreground! shadow-sm! border-none! ring-0! [&_.MuiList-root]:p-0! [&_.MuiList-root]:bg-card!'
           }
         }}
       >
         <div className="p-2.5">
-          <SearchBar
-            className="mb-5"
-            searchTerm={searchTerm}
-            onSearchChange={handleSearch}
-          />
+          <SearchBar className="mb-5" searchTerm={searchTerm} onSearchChange={handleSearch} />
           {filteredCategories.map(([shortName, data], index) => (
             <div
               key={shortName}

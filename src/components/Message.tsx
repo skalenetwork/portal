@@ -65,15 +65,22 @@ export default function Message(props: {
         className={cn(
           'skMessage items-center flex',
           props.className,
-          type === 'warning' && 'bg-yellow-50! dark:bg-yellow-300/20! text-yellow-700 dark:text-yellow-200',
-          type === 'error' && 'bg-red-100! dark:bg-red-800/80! border-red-200! dark:border-red-600! border-2! text-red-800 dark:text-red-200'
+          type === 'warning' &&
+            'bg-yellow-50! dark:bg-yellow-300/20! text-yellow-700 dark:text-yellow-200',
+          type === 'error' &&
+            'bg-red-100! dark:bg-red-800/80! border-red-200! dark:border-red-600! border-2! text-red-800 dark:text-red-200'
         )}
       >
         <div className="w-full flex items-center mt-1.5 mb-1.5 ml-2.5 mr-2.5">
           <div className="flex items-center mr-2.5 ">{props.icon}</div>
           {props.text ? (
             <div className="flex items-center mr-1.5">
-              <p className={cn('text-sm font-semibold', (type !== 'warning' && type !== 'error') && 'text-primary')}>
+              <p
+                className={cn(
+                  'text-sm font-semibold',
+                  type !== 'warning' && type !== 'error' && 'text-primary'
+                )}
+              >
                 {!props.textLong ? (
                   <span>{props.text}</span>
                 ) : (
@@ -115,10 +122,7 @@ export default function Message(props: {
                 Close
               </Button>
             ) : (
-              <IconButton
-                onClick={handleClose}
-                className="paperGrey ml-2.5"
-              >
+              <IconButton onClick={handleClose} className="paperGrey ml-2.5">
                 <CloseRoundedIcon
                   className={cn(
                     'flex items-center',

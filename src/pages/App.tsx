@@ -30,9 +30,17 @@ import { explorer, MetaportCore, SkPaper, Tile } from '@skalenetwork/metaport'
 
 import Container from '@mui/material/Container'
 
-import { ArrowLeftRight, Binoculars, Boxes, ChartPie, ChevronLeft, FileText, HandCoins, LayoutGrid } from 'lucide-react'
+import {
+  ArrowLeftRight,
+  Binoculars,
+  Boxes,
+  ChartPie,
+  ChevronLeft,
+  FileText,
+  HandCoins,
+  LayoutGrid
+} from 'lucide-react'
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
-
 
 import { useApps } from '../useApps'
 
@@ -129,7 +137,6 @@ export default function App(props: {
     const gasSpentWei = BigInt(counters.gas_usage_count) * BigInt(props.metrics.gas)
     return formatNumber(Number(units.fromWei(gasSpentWei, constants.DEFAULT_ERC20_DECIMALS)))
   }
-
 
   return (
     <Container maxWidth="md">
@@ -265,11 +272,11 @@ export default function App(props: {
               />
             </AccordionSection>
             {appMeta.contracts ? (
-              <AccordionSection className="mt-5"
+              <AccordionSection
+                className="mt-5"
                 expandedByDefault={true}
                 title="Smart contracts"
-                icon={<FileText size={17}
-                />}
+                icon={<FileText size={17} />}
               >
                 <div>
                   <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 w-full">

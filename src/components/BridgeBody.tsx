@@ -153,7 +153,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
         <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
       </Collapse>
 
-        <Collapse in={!!address}>
+      <Collapse in={!!address}>
         <SFuelWarning />
       </Collapse>
 

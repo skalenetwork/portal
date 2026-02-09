@@ -45,7 +45,10 @@ export default function ValidatorCard(props: {
   const size = props.size ?? 'md'
   const showButton = props.showButton ?? false
   const description = props.validator.description ? props.validator.description : 'No description'
-  const minDelegation = units.fromWei(props.validator.minimumDelegationAmount, constants.DEFAULT_ERC20_DECIMALS)
+  const minDelegation = units.fromWei(
+    props.validator.minimumDelegationAmount,
+    constants.DEFAULT_ERC20_DECIMALS
+  )
   const location = useLocation()
   const isStakeValidatorPage = location.pathname === '/staking/new'
 
@@ -76,7 +79,6 @@ export default function ValidatorCard(props: {
             </p>
           </div>
         </div>
-
       </div>
 
       <div className="flex mt-5 gap-2">
@@ -157,11 +159,5 @@ export default function ValidatorCard(props: {
     </SkPaper>
   )
 
-  return showButton ? (
-    cardContent
-  ) : (
-    <Link to={linkTo}>
-      {cardContent}
-    </Link>
-  )
+  return showButton ? cardContent : <Link to={linkTo}>{cardContent}</Link>
 }

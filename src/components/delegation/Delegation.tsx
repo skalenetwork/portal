@@ -32,10 +32,7 @@ import SkStack from '../SkStack'
 import SkBtn from '../SkBtn'
 import ValidatorLogo from './ValidatorLogo'
 
-import {
-  DelegationState,
-  getDelegationSource,
-} from '../../core/delegation'
+import { DelegationState, getDelegationSource } from '../../core/delegation'
 import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
 import { AVATAR_COLORS } from '../../core/constants'
 import { Coins, ChevronRight, ChevronDown, CircleUser, Globe, Landmark } from 'lucide-react'
@@ -108,9 +105,7 @@ export default function Delegation(props: {
         }}
       >
         <Grid container spacing={0} alignItems="center">
-          <Grid
-            size={{ xs: 12, md: 4 }}
-          >
+          <Grid size={{ xs: 12, md: 4 }}>
             <div className="flex items-center">
               <Avatar
                 size={50}
@@ -129,22 +124,26 @@ export default function Delegation(props: {
                 <h4 className="font-bold pOneLine text-foreground">
                   ID: {Number(props.delegation.id)}
                 </h4>
-                <p className='text-xs text-secondary-foreground font-medium'>
+                <p className="text-xs text-secondary-foreground font-medium">
                   {formatBigIntTimestampSeconds(props.delegation.created)}
                 </p>
               </div>
             </div>
           </Grid>
-          <Grid size={{ xs: "auto", md: 4 }} className="mt-5 md:mt-0 flex items-center md:justify-center">
+          <Grid
+            size={{ xs: 'auto', md: 4 }}
+            className="mt-5 md:mt-0 flex items-center md:justify-center"
+          >
             <div
               className={`chipXs flex items-center justify-center chip_${props.delegation.state.replace(/ /g, '_')} font-semibold`}
             >
-              <p className="p text-xs text-center">
-                {props.delegation.state.replace(/_/g, ' ')}
-              </p>
+              <p className="p text-xs text-center">{props.delegation.state.replace(/_/g, ' ')}</p>
             </div>
           </Grid>
-          <Grid size={{ xs: "grow", md: 4 }} className="mt-5 md:mt-0 flex items-center sm:justify-end ">
+          <Grid
+            size={{ xs: 'grow', md: 4 }}
+            className="mt-5 md:mt-0 flex items-center sm:justify-end "
+          >
             <div className="md:grow"></div>
             <SkStack className="flex w-full sm:w-auto">
               <Tile
@@ -170,15 +169,9 @@ export default function Delegation(props: {
             )}
             {!noActions ? (
               open ? (
-                <ChevronDown
-                  size={17}
-                  className="text-secondary-foreground ml-2.5"
-                />
+                <ChevronDown size={17} className="text-secondary-foreground ml-2.5" />
               ) : (
-                <ChevronRight
-                  size={17}
-                  className="text-secondary-foreground ml-2.5"
-                />
+                <ChevronRight size={17} className="text-secondary-foreground ml-2.5" />
               )
             ) : null}
           </Grid>
@@ -260,6 +253,6 @@ export default function Delegation(props: {
           ) : null}
         </div>
       </Collapse>
-    </div >
+    </div>
   )
 }

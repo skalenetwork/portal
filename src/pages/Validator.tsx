@@ -198,11 +198,7 @@ export default function Validator(props: {
         />
       ) : null}
       <SkPaper gray className="mt-5">
-        <Headline
-          text="Validator Summary"
-          icon={<Building2 size={17} />}
-          size="small"
-        />
+        <Headline text="Validator Summary" icon={<Building2 size={17} />} size="small" />
         <Collapse in={props.address === undefined && props.customAddress === undefined}>
           <ConnectWallet tile className="grow" />
         </Collapse>

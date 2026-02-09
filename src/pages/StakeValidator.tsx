@@ -63,31 +63,31 @@ export default function StakeValidator(props: {
 
   return (
     <Container maxWidth="md">
-        <SkStack>
-          <div className="flex grow">
-            <Breadcrumbs
-              sections={[
-                {
-                  text: 'Staking',
-                  icon: <ChevronLeft size={14} className="text-foreground" />,
-                  url: '/staking'
-                },
-                {
-                  text: 'Choose a validator',
-                  icon: <UserRoundSearch size={14} />
-                }
-              ]}
-            />
-          </div>
-          <div className="flex">
-            <DelegationTypeSelect
-              delegationType={delegationType}
-              handleChange={handleChange}
-              si={props.si}
-            />
-          </div>
-        </SkStack>
-            <SkPaper gray className="mt-2.5 chainDetails">
+      <SkStack>
+        <div className="flex grow">
+          <Breadcrumbs
+            sections={[
+              {
+                text: 'Staking',
+                icon: <ChevronLeft size={14} className="text-foreground" />,
+                url: '/staking'
+              },
+              {
+                text: 'Choose a validator',
+                icon: <UserRoundSearch size={14} />
+              }
+            ]}
+          />
+        </div>
+        <div className="flex">
+          <DelegationTypeSelect
+            delegationType={delegationType}
+            handleChange={handleChange}
+            si={props.si}
+          />
+        </div>
+      </SkStack>
+      <SkPaper gray className="mt-2.5 chainDetails">
         <div className="mt-2.5 ml-1.25 mb-2.5 pb-1.25">
           <h2 className="m-0 text-xl font-bold text-foreground">Stake SKL</h2>
           <p className="text-xs text-secondary-foreground font-semibold">

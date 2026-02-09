@@ -99,7 +99,8 @@ export default function Topup(props: {
           icon={<TokenIcon tokenSymbol="skl" size="xs" />}
           grow
         />
-        <Tile className='text-foreground'
+        <Tile
+          className="text-foreground"
           value={`${units.truncateDecimals(tokenBalanceSkl, 6)} SKL`}
           tooltip={
             props.info.oneSklPrice !== undefined && props.tokenBalance !== undefined
@@ -146,7 +147,10 @@ export default function Topup(props: {
           </Button>
           {!balanceOk ? (
             <Link to="/bridge" className="w-full md:w-auto">
-              <Button variant="contained" className="btn btnMd text-xs w-full! md:w-fit! text-accent! bg-foreground!">
+              <Button
+                variant="contained"
+                className="btn btnMd text-xs w-full! md:w-fit! text-accent! bg-foreground!"
+              >
                 Bridge SKL to Europa Hub
               </Button>
             </Link>

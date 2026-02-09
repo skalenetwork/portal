@@ -209,7 +209,12 @@ export default function SchainDetails(props: {
           </Button>
 
           {chainMeta?.url && (
-            <a target="_blank" rel="noreferrer" href={chainMeta.url} className="undec w-full md:w-auto">
+            <a
+              target="_blank"
+              rel="noreferrer"
+              href={chainMeta.url}
+              className="undec w-full md:w-auto"
+            >
               <Button
                 size="medium"
                 className="w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
@@ -261,11 +266,7 @@ export default function SchainDetails(props: {
           </SkStack>
         </SkPaper>
       )}
-      <ChainTabsSection
-        chainsMeta={props.chainsMeta}
-        mpc={props.mpc}
-        chain={props.chain}
-      />
+      <ChainTabsSection chainsMeta={props.chainsMeta} mpc={props.mpc} chain={props.chain} />
     </div>
   )
 }

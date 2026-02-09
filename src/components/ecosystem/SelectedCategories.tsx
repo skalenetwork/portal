@@ -37,7 +37,6 @@ const SelectedCategories: React.FC<SelectedCategoriesProps> = ({
   setCheckedItems,
   filteredAppsCount
 }) => {
-
   const handleDelete = (itemToDelete: string) => {
     setCheckedItems(checkedItems.filter((item) => item !== itemToDelete))
   }

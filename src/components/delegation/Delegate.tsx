@@ -180,7 +180,11 @@ export default function Delegate(props: {
                   arrow
                 >
                   <TextField
-                    inputProps={{ step: '0.1', lang: 'en-US', className: 'text-foreground! text-2xl p-2!' }}
+                    inputProps={{
+                      step: '0.1',
+                      lang: 'en-US',
+                      className: 'text-foreground! text-2xl p-2!'
+                    }}
                     inputRef={(input) => input?.focus()}
                     type="number"
                     variant="standard"
@@ -233,7 +237,11 @@ export default function Delegate(props: {
       <ErrorTile errorMsg={props.errorMsg} setErrorMsg={props.setErrorMsg} className="mt-2.5" />
 
       {loading ? (
-        <Button disabled variant="contained" className="btnMd bg-muted-foreground! disabled:text-accent/90! mt-2.5! mb-1! w-full!">
+        <Button
+          disabled
+          variant="contained"
+          className="btnMd bg-muted-foreground! disabled:text-accent/90! mt-2.5! mb-1! w-full!"
+        >
           Staking SKL
         </Button>
       ) : (

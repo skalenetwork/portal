@@ -54,11 +54,7 @@ export default function Delegations(props: {
       props.si[types.st.DelegationType.ESCROW2]?.delegations.length === 0)
   return (
     <div>
-      <Headline
-        size="small"
-        text="Delegations"
-        icon={<Inbox />}
-      />
+      <Headline size="small" text="Delegations" icon={<Inbox />} />
       {!loaded ? (
         <div>
           <Skeleton variant="rectangular" height={86} className="mb-2.5" />
