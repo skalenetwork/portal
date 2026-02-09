@@ -104,7 +104,7 @@ export default function Reward(props: {
             <div className="flex items-center">
               <div className="grow-0 sm:grow"></div>
               {!props.open && (
-                <div className="flex">
+                <div className="hidden! md:flex!">
                   <div className="flex flex-col items-end justify-center w-full">
                     <p className="text-xs text-secondary-foreground">Total staked</p>
                     <Tooltip
@@ -152,7 +152,7 @@ export default function Reward(props: {
                   <>
                     <RetrieveRewardModal
                       address={props.address}
-                    //  disabled={retrieveDisabled}
+                      //  disabled={retrieveDisabled}
                       customRewardAddress={props.customRewardAddress}
                       setCustomRewardAddress={props.setCustomRewardAddress}
                       retrieveRewards={retrieveRewards}
