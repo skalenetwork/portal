@@ -5,7 +5,8 @@ import Box from '@mui/material/Box'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import SkIconBtn from './SkIconBth'
-import { CircleQuestionMark, MessageCircle, HelpCircle } from 'lucide-react'
+import { CircleQuestionMark, MessageCircle, HelpCircle, Rainbow } from 'lucide-react'
+import { Button, IconButton } from '@mui/material'
 
 export default function HelpZen() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -37,12 +38,13 @@ export default function HelpZen() {
   return (
     <div>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <SkIconBtn
-          icon={CircleQuestionMark}
-          onClick={handleClick}
-          size="small"
-          tooltipTitle="Get help"
-        />
+      <IconButton
+              size="small"
+              className="ml-1.5! h-9 w-9 rounded-full bg-card! text-foreground! hover:bg-muted"
+              onClick={handleClick}
+            >
+            <CircleQuestionMark className="text-foreground h-4 w-4" />
+            </IconButton>
       </Box>
       <Menu
         anchorEl={anchorEl}

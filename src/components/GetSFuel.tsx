@@ -40,7 +40,7 @@ export default function GetSFuel({ mpc }: { mpc: MetaportCore }) {
 
   return (
     <Box
-      sx={{ alignItems: 'center', textAlign: 'center', display: { xs: 'none', sm: 'flex' } }}
+      sx={{ alignItems: 'center', textAlign: 'center', display: 'flex' }}
       className="ml-1.5"
     >
       <Tooltip arrow placement="bottom" PopperProps={{ sx: { zIndex: 99999 } }} title={sFuelOk ? 'sFUEL balance is OK' : 'Click to get sFUEL for all chains'}>
