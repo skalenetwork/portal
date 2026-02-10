@@ -66,7 +66,7 @@ export default function History(props: { size?: types.Size }) {
           .map((transfer: types.mp.TransferHistory, key: number) => (
             <div
               key={key}
-              className={`bg-card dark:bg-card ${size === 'sm' ? 'mt-5 mb-1.5' : 'mt-2.5 mb-2.5'} pl-2 pr-2 ${transfer.transactions.length > 0 ? 'pb-2' : ''} rounded-4xl`}
+              className={`bg-card dark:bg-card ${size === 'sm' ? 'mt-5 mb-1.5' : 'mt-5 mb-2.5'} pl-2 pr-2 ${transfer.transactions.length > 0 ? 'pb-2' : ''} rounded-4xl`}
             >
               <div
                 className={`flex flex-col sm:flex-row sm:items-center sm:justify-between ml-2.5 ${size === 'sm' ? 'pt-2 pb-2' : 'pt-3 pb-3'}`}
