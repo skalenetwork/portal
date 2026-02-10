@@ -21,10 +21,16 @@
  * @copyright SKALE Labs 2023-Present
  */
 
+import { twMerge } from 'tailwind-merge'
+import { clsx, type ClassValue } from 'clsx'
 import { types } from '@/core'
 import styles from '../styles/styles.module.scss'
 
 export { styles }
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs))
+}
 
 const sizes: types.Size[] = ['xs', 'sm', 'md', 'lg']
 

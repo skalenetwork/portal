@@ -45,7 +45,6 @@ import {
   Volleyball
 } from 'lucide-react'
 
-
 export const CATEGORY_ICON: any = {
   hubs: <Share2 />,
   games: <Gamepad2 />,
@@ -80,10 +79,7 @@ export function isString(value: any): value is string {
   return typeof value === 'string'
 }
 
-export default function CategoryBadge(props: {
-  category: string
-  className?: string
-}) {
+export default function CategoryBadge(props: { category: string; className?: string }) {
   function getCategoryIcon(category: string) {
     return CATEGORY_ICON[category] ?? CATEGORY_ICON.other
   }

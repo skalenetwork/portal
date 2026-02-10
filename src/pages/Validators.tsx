@@ -60,12 +60,12 @@ export default function ValidatorsPage(props: {
         </div>
         <Link to="/validator">
           <Tooltip title="Validator Operations">
-            <IconButton
-              className="ml-1.5! rounded-full bg-card! text-foreground! hover:bg-muted"
-            >
+            <IconButton className="ml-1.5! rounded-full! bg-card! text-foreground! hover:bg-muted">
               <UserCog className="text-foreground" size={17} />
-              <DelegationsNotification validatorDelegations={props.validatorDelegations} 
-              className="ml-1.5" />
+              <DelegationsNotification
+                validatorDelegations={props.validatorDelegations}
+                className="ml-1.5"
+              />
             </IconButton>
           </Tooltip>
         </Link>
@@ -76,7 +76,7 @@ export default function ValidatorsPage(props: {
           mpc={props.mpc}
           validators={props.validators}
           validatorId={0}
-          setValidatorId={(): void => { }}
+          setValidatorId={(): void => {}}
           delegationType={types.st.DelegationType.REGULAR}
           size="lg"
           showButton={true}

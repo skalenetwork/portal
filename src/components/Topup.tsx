@@ -99,7 +99,8 @@ export default function Topup(props: {
           icon={<TokenIcon tokenSymbol="skl" size="xs" />}
           grow
         />
-        <Tile className='text-foreground'
+        <Tile
+          className="text-foreground"
           value={`${units.truncateDecimals(tokenBalanceSkl, 6)} SKL`}
           tooltip={
             props.info.oneSklPrice !== undefined && props.tokenBalance !== undefined
@@ -118,7 +119,7 @@ export default function Topup(props: {
             text="Error occurred"
             icon={<ShieldAlert size={17} />}
             color="error"
-            className="text-foreground bg-red-100 border-red-200 dark:bg-red-800/80 dark:border-red-600 border-2"
+            className=" mt-5! mb-0! text-foreground bg-red-100 border-red-200 dark:bg-red-800/80 dark:border-red-600 border-2"
             grow
             childrenRi={
               <Button
@@ -126,7 +127,7 @@ export default function Topup(props: {
                 onClick={() => {
                   props.setErrorMsg(undefined)
                 }}
-                className="roundBtn text-foreground! normal-case! bg-muted-foreground/30! hover:bg-muted-foreground/20!"
+                className="btn btnSm text-foreground! bg-transparent! hover:bg-red-800/10! normal-case! ml-2.5"
               >
                 Close
               </Button>
@@ -146,7 +147,10 @@ export default function Topup(props: {
           </Button>
           {!balanceOk ? (
             <Link to="/bridge" className="w-full md:w-auto">
-              <Button variant="contained" className="btn btnMd text-xs w-full! md:w-fit! text-accent! bg-foreground!">
+              <Button
+                variant="contained"
+                className="btn btnMd text-xs w-full! md:w-fit! text-accent! bg-foreground!"
+              >
                 Bridge SKL to Europa Hub
               </Button>
             </Link>

@@ -307,7 +307,7 @@ export default function CommunityPool() {
                     variant="text"
                     color="warning"
                     size="small"
-                    className="w-full normal-case text-sm font-semibold py-3.5! px-4! rounded shadow-none mt-1.5 bg-amber-500/10! text-amber-500!"
+                    className="w-full normal-case! text-sm font-semibold py-3.5! px-4! rounded shadow-none mt-2.5! bg-amber-500/10! text-amber-500!"
                     onClick={withdrawCP}
                     disabled={!!loading || !chainName || cpData.balance === 0n}
                   >

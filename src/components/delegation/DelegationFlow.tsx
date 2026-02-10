@@ -22,7 +22,6 @@
 
 import { types } from '@/core'
 
-
 import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
 import { ArrowRight } from 'lucide-react'
 
@@ -67,7 +66,10 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation }) => {
           {delegation ? formatBigIntTimestampSeconds(delegation.created) : getCurrentDate()}
         </p>
       </div>
-      <ArrowRight size={17} className="text-secondary-foreground mr-2.5 ml-2.5 mb-5 'delegationFlowIcon'" />
+      <ArrowRight
+        size={17}
+        className="text-secondary-foreground mr-2.5 ml-2.5 mb-5 'delegationFlowIcon'"
+      />
       <div>
         <div className="chipXs chip_ACCEPTED">
           <p className="text-xs font-bold truncate">ACCEPTED</p>
@@ -76,7 +78,10 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation }) => {
           Until {getFirstDayNextMonth()}
         </p>
       </div>
-      <ArrowRight size={17} className="text-secondary-foreground mr-2.5 ml-2.5 mb-5 'delegationFlowIcon'" />
+      <ArrowRight
+        size={17}
+        className="text-secondary-foreground mr-2.5 ml-2.5 mb-5 'delegationFlowIcon'"
+      />
       <div>
         <div className="chipXs chip_DELEGATED">
           <p className="text-xs font-bold">DELEGATED</p>
@@ -85,7 +90,10 @@ const DelegationFlow: React.FC<DelegationFlowProps> = ({ delegation }) => {
           From {getFirstDayNextMonth()}
         </p>
       </div>
-      <ArrowRight size={17} className="text-secondary-foreground mr-2.5 ml-2.5 mb-5  'delegationFlowIcon'" />
+      <ArrowRight
+        size={17}
+        className="text-secondary-foreground mr-2.5 ml-2.5 mb-5  'delegationFlowIcon'"
+      />
       <div>
         <div className="chipXs chip_REWARDS">
           <p className="text-xs truncate font-bold">REWARDS GENERATED</p>

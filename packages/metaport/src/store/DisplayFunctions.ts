@@ -24,6 +24,7 @@
 import { type types, constants } from '@/core'
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
+import { useSFuelStore } from '../store/SFuelStore'
 
 export type DisplayFunctions = {
   showFrom: () => boolean
@@ -48,17 +49,8 @@ export const useDisplayFunctions = (): DisplayFunctions => {
   const token = useMetaportStore((state) => state.token)
   const errorMessage = useMetaportStore((state) => state.errorMessage)
 
-  // todo: tmp fix: disable sFuel check for stepper display
-
-  // const fromChainData = useSFuelStore((state) => state.fromChainData)
-  // const toChainData = useSFuelStore((state) => state.toChainData)
-  // const hubChainData = useSFuelStore((state) => state.hubChainData)
-
-  // const fromOk = fromChainData && fromChainData.ok
-  // const toOk = toChainData && toChainData.ok
-  // const hubOk = (hubChainData && hubChainData.ok) || !hubChainData
-
-  // const sFuelOk = fromOk && toOk && hubOk      
+  const hubChainData = useSFuelStore((state) => state.hubChainData)
+  const hubOk = (hubChainData && hubChainData.ok) || !hubChainData
 
   const showFrom = (): boolean => {
     return !expandedTo && !expandedTokens && !errorMessage && !expandedCP && !expandedTH
@@ -95,7 +87,7 @@ export const useDisplayFunctions = (): DisplayFunctions => {
       !expandedTokens &&
       !errorMessage &&
       !expandedCP &&
-      // sFuelOk && // todo: tmp fix: disable sFuel check for stepper display
+      hubOk &&
       !expandedWT &&
       !expandedTH &&
       !!address

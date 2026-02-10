@@ -204,7 +204,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                   Transfer details are available in History section
                 </p>
               </div>
-              <div className="flex mt-5">
+              <div className="flex flex-col md:flex-row mt-5">
                 <AddToken
                   token={token}
                   destChainName={chainName2}
@@ -215,7 +215,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                   onClick={startOver}
                   color="primary"
                   size="medium"
-                  className="grow mb-2! md:mb-0! w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+                  className="grow w-full! md:w-fit! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
                   startIcon={<RotateCcw size={17} />}
                 >
                   Start over

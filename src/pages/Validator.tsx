@@ -193,16 +193,12 @@ export default function Validator(props: {
           textLong="Previewing validator page in read-only mode, "
           icon={<Eye />}
           link="/validator"
-          linkText="click to exit"
+          linkText="Click to exit"
           type="warning"
         />
       ) : null}
       <SkPaper gray className="mt-5">
-        <Headline
-          text="Validator Summary"
-          icon={<Building2 size={17} />}
-          size="small"
-        />
+        <Headline text="Validator Summary" icon={<Building2 size={17} />} size="small" />
         <Collapse in={props.address === undefined && props.customAddress === undefined}>
           <ConnectWallet tile className="grow" />
         </Collapse>

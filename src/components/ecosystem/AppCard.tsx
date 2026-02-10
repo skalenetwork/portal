@@ -43,7 +43,7 @@ export default function AppCard(props: {
     <div>
       <div className="flex justify-center items-center">
         <div
-          className="'br__tile borderLight radius'"
+          className="br__tile borderLight radius"
           style={{
             background: metadata.chainBg(
               props.skaleNetwork,
@@ -53,7 +53,7 @@ export default function AppCard(props: {
             )
           }}
         >
-          <Link to={url} className="'br__tileLogo', 'br__tileIns', flex">
+          <Link to={url} className="br__tileLogo br__tileIns flex">
             <div className="flex grow"></div>
             <div className="flex items-center inheritSize">
               <ChainLogo
@@ -68,7 +68,7 @@ export default function AppCard(props: {
           <div className="flex items-center mb-2.5 br__tileBott fullW"></div>
         </div>
         <Link to={url}>
-          <Button size="small" className="'cardBtn'">
+          <Button size="small" className="cardBtn">
             <span
               style={{
                 overflow: 'hidden',

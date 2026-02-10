@@ -59,8 +59,7 @@ export default function MoreMenu() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
-            className="ml-1.5! h-8 w-8 rounded-full bg-card! text-foreground! hover:bg-muted"
-            style={{ width: '34px', height: '34px' }}
+            className="ml-1.5! h-9 w-9 rounded-full bg-card! text-foreground! hover:bg-muted"
           >
             <EllipsisVertical className="text-foreground h-4 w-4" />
           </IconButton>

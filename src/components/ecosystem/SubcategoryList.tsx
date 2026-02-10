@@ -66,7 +66,7 @@ const SubcategoryList: React.FC<SubcategoryListProps> = ({
               />
             }
             label={
-              <span className= "text-xs text-xs00 text-foreground dark:text-white">
+              <span className="text-xs text-xs00 text-foreground dark:text-white">
                 {highlightMatch(subcategory.name, searchTerm)}
               </span>
             }

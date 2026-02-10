@@ -25,6 +25,7 @@ import React from 'react'
 import Avatar from 'boring-avatars'
 import { Modal, Box, useTheme, useMediaQuery } from '@mui/material'
 import { SkPaper, useWagmiAccount, Tile, useMetaportStore } from '@skalenetwork/metaport'
+import { helper } from '@/core'
 import ConnectWallet from '../ConnectWallet'
 import ProfileModalHeader from './ProfileModalHeader'
 import ProfileModalActions from './ProfileModalActions'
@@ -51,7 +52,7 @@ const ProfileModal: React.FC<ProfileModalProps> = ({ isOpen, onClose }) => {
           <div>
             <Tile
               text="Wallet Address"
-              value={address}
+              value={isMobile ? helper.shortAddress(address) : address}
               icon={<Avatar variant="marble" name={address} colors={AVATAR_COLORS} size={20} />}
               copy={address}
               className="mb-2.5"

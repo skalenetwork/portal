@@ -40,8 +40,6 @@ import TokenIcon from './TokenIcon'
 import { CHAINS_META, getTokenName } from '../core/metadata'
 import { BALANCE_UPDATE_INTERVAL_MS } from '../core/constants'
 
-import { styles } from '../core/css'
-
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
 
@@ -174,7 +172,7 @@ export default function WrappedTokens() {
                   variant="contained"
                   color="primary"
                   size="medium"
-                  className={`${styles.btnAction} mt-1.5`}
+                  className="btn-action mt-1.5 p-3.5! w-full capitalize! bg-accent-foreground/50!"
                 >
                   Unwrapping...
                 </Button>
@@ -182,7 +180,7 @@ export default function WrappedTokens() {
                 <Button
                   variant="contained"
                   size="medium"
-                  className={`${styles.btnAction} mt-1.5 bg-foreground! text-accent!`}
+                  className="mt-1.5 bg-foreground! btnMd w-full! btnMd text-accent!"
                   onClick={() =>
                     unwrapAll(address, switchChainAsync, walletClient, filteredTokens)
                   }

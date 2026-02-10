@@ -46,10 +46,7 @@ import SocialButtons from '../components/ecosystem/Socials'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import { cn } from '../core/ecosystem/utils'
 
-import {
-  LayoutGrid,
-  Plus
-} from 'lucide-react'
+import { LayoutGrid, Plus } from 'lucide-react'
 import { SECTION_ICONS } from '../components/HomeComponents'
 
 export default function Ecosystem(props: {
@@ -178,10 +175,7 @@ export default function Ecosystem(props: {
               searchTerm={searchTerm}
               setSearchTerm={handleSetSearchTerm}
             />
-            <CategoryDisplay
-              checkedItems={checkedItems}
-              setCheckedItems={handleSetCheckedItems}
-            />
+            <CategoryDisplay checkedItems={checkedItems} setCheckedItems={handleSetCheckedItems} />
           </SkStack>
           <SelectedCategories
             checkedItems={checkedItems}
@@ -199,37 +193,41 @@ export default function Ecosystem(props: {
               label="All"
               icon={<LayoutGrid size={14} />}
               iconPosition="start"
-              className={`btn btnMd tab fwmobile ${activeTab === 0
-                ? 'text-foreground! bg-gray-100! dark:bg-black!'
-                : 'bg-card/0! text-muted-foreground!'
-                }`}
+              className={`btn btnMd tab fwmobile ${
+                activeTab === 0
+                  ? 'text-foreground! bg-gray-100! dark:bg-black!'
+                  : 'bg-card/0! text-muted-foreground!'
+              }`}
             />
             <Tab
               label="Featured"
               icon={SECTION_ICONS.featured}
               iconPosition="start"
-              className={`btn btnMd tab fwmobile ${activeTab === 1
-                ? 'text-foreground! bg-gray-100! dark:bg-black!'
-                : 'bg-card/0! text-muted-foreground!'
-                }`}
+              className={`btn btnMd tab fwmobile ${
+                activeTab === 1
+                  ? 'text-foreground! bg-gray-100! dark:bg-black!'
+                  : 'bg-card/0! text-muted-foreground!'
+              }`}
             />
             <Tab
               label="New"
               icon={SECTION_ICONS.new}
               iconPosition="start"
-              className={`btn btnMd tab fwmobile ${activeTab === 2
-                ? 'text-foreground! bg-gray-100! dark:bg-black!'
-                : 'bg-card/0! text-muted-foreground!'
-                }`}
+              className={`btn btnMd tab fwmobile ${
+                activeTab === 2
+                  ? 'text-foreground! bg-gray-100! dark:bg-black!'
+                  : 'bg-card/0! text-muted-foreground!'
+              }`}
             />
             <Tab
               label="Trending"
               icon={SECTION_ICONS.trending}
               iconPosition="start"
-              className={`btn btnMd tab fwmobile ${activeTab === 3
-                ? 'text-foreground! bg-gray-100! dark:bg-black! shadow-xs!'
-                : 'bg-card/0! text-muted-foreground!'
-                }`}
+              className={`btn btnMd tab fwmobile ${
+                activeTab === 3
+                  ? 'text-foreground! bg-gray-100! dark:bg-black! shadow-xs!'
+                  : 'bg-card/0! text-muted-foreground!'
+              }`}
             />
           </Tabs>
           <div className={cn('grow', 'fwmobile')}>
@@ -273,7 +271,7 @@ export default function Ecosystem(props: {
             )}
           </div>
         </Stack>
-        <div className="flex mt-5 mb-5">
+        <div className="flex mt-5 mb-20 md:mb-5">
           <div className="grow"></div>
           <div>
             <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">

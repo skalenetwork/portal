@@ -172,7 +172,7 @@ export default function Paymaster(props: {
         text="Error occurred"
         icon={<ShieldAlert size={17} />}
         color="error"
-        className="mt-5 dark:bg-red-800/80 dark:border-red-600 border-2"
+        className="mt-5! dark:bg-red-800/80 dark:border-red-600 border-2"
       />
     )
   if (info.oneSklPrice === 0n)
@@ -182,7 +182,7 @@ export default function Paymaster(props: {
         text="Error occurred"
         icon={<ShieldAlert size={17} />}
         color="error"
-        className="mt-5 dark:bg-red-800/80 dark:border-red-600 border-2"
+        className="mt-5! dark:bg-red-800/80 dark:border-red-600 border-2"
       />
     )
 

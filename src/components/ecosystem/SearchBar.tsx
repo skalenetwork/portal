@@ -33,11 +33,7 @@ interface SearchBarProps {
   className?: string
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({
-  searchTerm,
-  onSearchChange,
-  className
-}) => {
+const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, onSearchChange, className }) => {
   const { mode } = useThemeMode()
 
   return (
@@ -57,7 +53,7 @@ const SearchBar: React.FC<SearchBarProps> = ({
         className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-background! border border-border rounded-full`}
         sx={{
           '& .MuiOutlinedInput-root': { borderRadius: '50px' },
-          '& fieldset': { border: '0px red solid !important' }
+          '& fieldset': { border: 'none' }
         }}
       />
     </div>
