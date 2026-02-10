@@ -53,7 +53,7 @@ export default function History() {
         <meta property="og:title" content={META_TAGS.history.title} />
         <meta property="og:description" content={META_TAGS.history.description} />
       </Helmet>
-      <div className="card-bg rounded-3xl p-0 md:p-8">
+      <div className="mt-2">
         <Stack spacing={0}>
           <div className="flex">
             <Breadcrumbs
