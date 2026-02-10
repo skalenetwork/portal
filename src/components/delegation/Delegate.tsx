@@ -255,7 +255,7 @@ export default function Delegate(props: {
             loading
           }
           variant="contained"
-          className="bg-accent-foreground! disabled:bg-muted-foreground! text-accent! disabled:text-accent/90! btnMd mt-2.5! mb-1! w-full!"
+          className="bg-accent-foreground! disabled:bg-muted-foreground/30! text-accent! disabled:text-accent! btnMd mt-2.5! mb-1! w-full!"
           onClick={stake}
         >
           {getBtnText()}
