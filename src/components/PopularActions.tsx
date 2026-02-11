@@ -22,10 +22,11 @@
  */
 
 import { Link } from 'react-router-dom'
-import Grid from '@mui/material/Grid'
-import StarIcon from '@mui/icons-material/Star'
 
-import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
+import { Star } from 'lucide-react'
+import { useTheme } from '@mui/material/styles'
+
+import { SkPaper } from '@skalenetwork/metaport'
 import { types, metadata } from '@/core'
 
 import Logo from './Logo'
@@ -35,6 +36,7 @@ export default function PopularActions(props: {
   chainsMeta: types.ChainsMetadataMap
   chainName: string
 }) {
+  const theme = useTheme()
   const shortAlias = metadata.getChainShortAlias(props.chainsMeta, props.chainName)
 
   const chainMeta = props.chainsMeta[props.chainName]
@@ -57,55 +59,47 @@ export default function PopularActions(props: {
 
   return (
     <div>
-      <div className={cls(cmn.ptop20, cmn.flex)}></div>
-      <div className={cls(cmn.flex, cmn.flexcv, cmn.mbott10, cmn.p, cmn.p600, cmn.pSec)}>
-        <StarIcon color="primary" className={cls(cmn.mri10)} />
+      <div className="pt-5 flex"></div>
+      <div className="gap-2 flex items-center mb-2.5 font-semibold text-center text-foreground">
+        <Star size={17} />
         Popular Actions
       </div>
-      <div className={cls(cmn.flex, cmn.flexRow, cmn.flexcv)}>
-        <Grid container spacing={2}>
+      <div className="flex flex-row items-center">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {actions.map((action) => (
-            <Grid size={{ xs: 12, md: 6 }}>
+            <div className="col-span-1">
               <Link
                 to={
                   chainMeta.apps?.[action.app].social?.website ||
                   `/ecosystem/${shortAlias}/${action.app}`
                 }
-                className={cls(cmn.flex, cmn.fullWidth)}
+                className="flex w-full"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                <SkPaper gray className={cls(cmn.fullWidth, 'hoverable')} key={action.text}>
-                  <div className={cls(cmn.flex, cmn.flexcv)}>
+                <SkPaper gray className="w-full hoverable" key={action.text}>
+                  <div className="flex items-center py-1 pl-1">
                     <Logo
                       chainsMeta={props.chainsMeta}
                       skaleNetwork={props.skaleNetwork}
                       chainName={props.chainName}
                       appName={action.app}
+                      size="xs"
                     />
                     <div>
-                      <div
-                        className={cls(
-                          cmn.p3,
-                          'shortP',
-                          cmn.p700,
-                          cmn.pPrim,
-                          cmn.mleft10,
-                          cmn.mri10
-                        )}
-                      >
+                      <div className="text-sm shortP font-bold text-foreground ml-2.5 mr-2.5">
                         {action.text}
                       </div>
-                      <div className={cls(cmn.p5, cmn.pSec, cmn.mri10, cmn.mleft10)}>
+                      <div className="text-xs text-secondary-foreground mr-2.5 ml-2.5">
                         {getActionDescription(action)}
                       </div>
                     </div>
                   </div>
                 </SkPaper>
               </Link>
-            </Grid>
+            </div>
           ))}
-        </Grid>
+        </div>
       </div>
     </div>
   )

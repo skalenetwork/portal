@@ -9,21 +9,21 @@ const connections: types.mp.TokenTypeMap = {
           mainnet: {
             clone: true
           },
-          'young-coarse-celaeno': {
-            wrapper: '0xC3E554E49f0Ad593Cbdb7552B98a755f87EB0987'
+          'overcooked-profuse-gienah-cygni': {
+            wrapper: '0x4576157B8fc0Ea0a51E9606f578d3ed221764040'
           }
         }
       }
     },
     erc20: {
       skl: {
-        address: '0xd0A604054e5322344eeA2A77E5d71c1167670d0f',
+        address: '0x423C6ffDe8a83787B48B22Db4d3283386085390b',
         chains: {
           mainnet: {
             clone: true
           },
-          'young-coarse-celaeno': {
-            wrapper: '0xd9271785E81f640CF1C9F6C43BF69607CECd1986'
+          'overcooked-profuse-gienah-cygni': {
+            wrapper: '0xDD62FCbB11D660Ce49782660D22174D491be6E90'
           }
         }
       }

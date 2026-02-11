@@ -159,7 +159,7 @@ export abstract class BaseChain {
       }
       log.info(
         `🔎 ${i}/${iterations} Waiting for ETH balance change - address: ` +
-          `${address}, sleep: ${sleepInterval}ms, initial: ${initial}, current: ${res}`
+        `${address}, sleep: ${sleepInterval}ms, initial: ${initial}, current: ${res}`
       )
       await helper.sleep(sleepInterval)
     }

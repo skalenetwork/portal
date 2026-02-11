@@ -35,21 +35,28 @@ export const MAINNET_EXPLORER_URLS: EndpointsNetworkMap = {
   mainnet: 'https://etherscan.io',
   legacy: 'https://hoodi.etherscan.io',
   regression: 'https://goerli.etherscan.io',
-  testnet: 'https://hoodi.etherscan.io'
+  testnet: 'https://hoodi.etherscan.io',
+  "base-sepolia-testnet": 'https://sepolia.basescan.org/',
+  base: 'https://basescan.org/'
+
 }
 
 export const BASE_EXPLORER_URLS: EndpointsNetworkMap = {
   mainnet: 'explorer.mainnet.skalenodes.com',
   legacy: 'legacy-explorer.skalenodes.com',
   regression: 'regression-explorer.skalenodes.com',
-  testnet: 'explorer.testnet.skalenodes.com'
+  testnet: 'explorer.testnet.skalenodes.com',
+  "base-sepolia-testnet": 'base-sepolia-testnet-explorer.skalenodes.com',
+  base: 'base-explorer.skalenodes.com'
 }
 
 const PROXY_ENDPOINTS: EndpointsNetworkMap = {
   mainnet: 'mainnet.skalenodes.com',
   legacy: 'legacy-proxy.skaleserver.com',
   regression: 'regression-proxy.skalenodes.com',
-  testnet: 'testnet.skalenodes.com'
+  testnet: 'testnet.skalenodes.com',
+  "base-sepolia-testnet": 'base-sepolia-testnet.skalenodes.com',
+  base: 'skale-base.skalenodes.com'
 }
 
 export function getProxyEndpoint(network: types.SkaleNetwork) {

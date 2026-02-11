@@ -31,13 +31,34 @@ export type {
   AppWithChainAndName,
   ChainAction
 } from './ChainsMetadata'
+export type { NetworkFeature, NetworkConfig, NetworksConfig } from './networks'
 export * as st from './staking'
 export * as mp from './metaport'
 export * as pm from './paymaster'
 
 export type AddressType = `0x${string}`
 export type Size = 'xs' | 'sm' | 'md' | 'lg'
-export type SkaleNetwork = 'mainnet' | 'legacy' | 'regression' | 'testnet'
+export type SkaleNetwork = 'mainnet' | 'legacy' | 'regression' | 'testnet' | 'base' | 'base-sepolia-testnet'
+
+export interface ISChainProxy {
+  name: string
+  mainnet_owner: AddressType
+  index_in_owner_list: number
+  part_of_node: number
+  lifetime: number
+  start_date: number
+  start_block: number
+  deposit: number
+  index: number
+  generation: number
+  originator: AddressType
+  schain_hash: string
+  options: {
+    multitransaction_mode: boolean
+    threshold_encryption: boolean
+    allocation_type: number
+  }
+}
 
 export type TSChainArray = [
   string,
@@ -69,10 +90,11 @@ export interface ISChain {
   originator: AddressType
   multitransactionMode: boolean
   thresholdEncryption: boolean
+  allocationType: number
 }
 
 export interface ISChainData {
-  schain: TSChainArray
+  schain: ISChainProxy
   nodes: INodeInfo[]
 }
 

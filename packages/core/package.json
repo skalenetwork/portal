@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "type": "module",
   "scripts": {
-    "build": "tsc && bun build ./src/index.ts --outdir ./dist --target browser",
+    "build": "rm -rf ./dist && tsc && bun build ./src/index.ts --outdir ./dist --target browser",
     "dev": "tsc --watch --preserveWatchOutput",
     "type-check": "tsc --noEmit",
     "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\""

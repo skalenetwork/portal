@@ -22,7 +22,7 @@
  */
 
 import React from 'react'
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
+import { HelpCircle } from 'lucide-react'
 import SkIconBtn from './SkIconBth'
 
 interface SkPageInfoIconProps {
@@ -33,7 +33,7 @@ const SkPageInfoIcon: React.FC<SkPageInfoIconProps> = ({ meta_tag }) => {
   return (
     <SkIconBtn
       primary={false}
-      icon={InfoOutlinedIcon}
+      icon={HelpCircle}
       size="small"
       tooltipTitle={meta_tag.help || meta_tag.description}
     />

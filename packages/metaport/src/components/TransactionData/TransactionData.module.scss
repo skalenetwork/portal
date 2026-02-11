@@ -1,4 +1,4 @@
-@use '../../styles/variables' as *;
+
 
 .transactionDataIcon {
   width: 30px;
@@ -19,7 +19,7 @@
     height: 15px !important;
   }
 
-  background-color: $sk-paper-color !important;
+  background-color: var(--card) !important;
 
   height: 30px;
   width: 30px;

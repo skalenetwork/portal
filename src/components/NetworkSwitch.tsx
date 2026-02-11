@@ -29,11 +29,11 @@ import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'
 
-import SensorsRoundedIcon from '@mui/icons-material/SensorsRounded'
-import ChangeCircleRoundedIcon from '@mui/icons-material/ChangeCircleRounded'
-import { cls, styles, cmn, type MetaportCore } from '@skalenetwork/metaport'
+import { ChevronRight } from 'lucide-react'
+import { type MetaportCore, ChainIcon, mp_metadata } from '@skalenetwork/metaport'
 
 import { PORTAL_URLS } from '../core/constants'
+import { constants } from '@/core'
 
 export default function NetworkSwitch(props: { mpc: MetaportCore }) {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
@@ -49,49 +49,34 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
     <div>
       <Box
         sx={{ alignItems: 'center', textAlign: 'center', display: { xs: 'none', sm: 'flex' } }}
-        className={cls(cmn.mleft5)}
+        className="ml-1.5"
       >
         <Tooltip arrow title="Switch SKALE Network">
           <Button
             onClick={handleClick}
-            className={cls('mp__btnConnect', styles.paperGrey, cmn.pPrim, cmn.flex, cmn.cap)}
+            className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! capitalize! rounded-full min-w-0!"
           >
-            <SensorsRoundedIcon className={cmn.mri5} style={{ height: '18px', width: '18px' }} />
-            {props.mpc.config.skaleNetwork}
+            <ChainIcon
+              skaleNetwork={props.mpc.config.skaleNetwork}
+              chainName={constants.MAINNET_CHAIN_NAME}
+              size="xs"
+              className="mr-2.5"
+              chainsMeta={mp_metadata.CHAINS_META[props.mpc.config.skaleNetwork]}
+            />
+            {props.mpc.config.skaleNetwork.replace(/-/g, ' ')}
           </Button>
         </Tooltip>
       </Box>
       <Menu
-        className="mp__moreMenu"
         anchorEl={anchorEl}
         id="account-menu"
         open={open}
         onClose={handleClose}
         onClick={handleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.32))',
-            mt: 1.5,
-            '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1
-            },
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0
-            }
+        slotProps={{
+          paper: {
+            className:
+              'mt-2.5! rounded-md! text-foreground! shadow-sm! border-none! [&_.MuiList-root]:bg-card! [&_.MuiList-root]:p-1.5!'
           }
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
@@ -100,13 +85,22 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
         {Object.keys(PORTAL_URLS).map((network: string) =>
           props.mpc.config.skaleNetwork !== network ? (
             <a rel="noreferrer" href={PORTAL_URLS[network]} className="undec" key={network}>
-              <MenuItem onClick={handleClose}>
-                <ChangeCircleRoundedIcon className={cmn.mri10} />
-                Switch to{' '}
-                <div className={cls(cmn.cap, cmn.mleft5)}>
-                  {' '}
-                  {network === 'staging' ? 'testnet' : network} Portal
-                </div>
+              <MenuItem
+                onClick={handleClose}
+                className="flex items-center px-2.5! py-2! text-sm! font-sans! font-semibold! text-foreground! hover:bg-muted! rounded-lg!"
+              >
+                <ChainIcon
+                  skaleNetwork={network as any}
+                  chainName={constants.MAINNET_CHAIN_NAME}
+                  size="xs"
+                  className="mr-2.5"
+                  chainsMeta={
+                    mp_metadata.CHAINS_META[network as keyof typeof mp_metadata.CHAINS_META]
+                  }
+                />
+                SKALE <div className="capitalize ml-1.5">{network.replace(/-/g, ' ')} Portal</div>
+                <div className="grow"></div>
+                <ChevronRight className="ml-2.5 h-[17px] w-[17px] text-muted-foreground" />
               </MenuItem>
             </a>
           ) : null

@@ -22,32 +22,55 @@
  */
 
 import { Link } from 'react-router-dom'
-import { cmn, cls, SkPaper, styles } from '@skalenetwork/metaport'
+import { SkPaper } from '@skalenetwork/metaport'
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
+import Avatar from 'boring-avatars'
+import { HOME_CARD_COLORS } from '../core/constants'
 
 export default function PageCard(props: {
   name: string
   icon: any
   description: string
+  bgKey: string
   url?: string
 }) {
-  const isExternal = props.url === 'https://www.sushi.com/skale-europa/swap'
+  const isExternal = props.url?.startsWith('http') ?? false
   return (
     <Link
       to={props.url ?? props.name}
       {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
     >
-      <SkPaper gray className={cls('br__tile')}>
-        <div className={cls(cmn.flex, cmn.flexcv, cmn.m10)}>
-          <div className={cls(cmn.flexg)}>
-            <div className={cls(cmn.flex, cmn.flexg, cmn.flexcv)}>
-              <div className={cls(styles.chainIcons, cmn.mri10, cmn.pPrim)}>{props.icon}</div>
-              <h3 className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p, cmn.p600)}>{props.name}</h3>
+      <SkPaper
+        gray
+        className="ease-in-out transition-transform duration-150 active:scale-[0.97] hover:scale-[1.01]"
+      >
+        <div className="flex items-center m-1">
+          <div className="grow">
+            <div className="flex grow items-center">
+              <div className="relative w-[65px] h-[65px] shrink-0 dark:opacity-90 dark:saturate-90 mr-3">
+                <Avatar
+                  size={65}
+                  name={props.bgKey}
+                  variant="marble"
+                  colors={HOME_CARD_COLORS}
+                  square={true}
+                  className="border border-background! opacity-40 dark:opacity-90 rounded-2xl group-hover:scale-105 transition-all duration-300"
+                />
+                <div className="absolute inset-0 grid place-items-center">
+                  <img
+                    src={props.icon}
+                    className="group-hover:scale-105 transition-all duration-300 h-10 w-10 iconHomeCard"
+                  />
+                </div>
+              </div>
+              <div>
+                <h3 className="capitalize m-0 text-foreground font-semibold">{props.name}</h3>
+                <p className="text-xs text-secondary-foreground mt-0.5">{props.description}</p>
+              </div>
             </div>
-            <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.mtop5)}>{props.description}</p>
           </div>
-          <div className={cls(cmn.mleft10, cmn.mri5, cmn.flex, cmn.flexcv)}>
-            <ArrowForwardRoundedIcon className={cls(cmn.pSec, styles.chainIconxs)} />
+          <div className="ml-2.5 mr-1.5 flex items-center">
+            <ArrowForwardRoundedIcon className="text-secondary-foreground h-4! w-4!" />
           </div>
         </div>
       </SkPaper>

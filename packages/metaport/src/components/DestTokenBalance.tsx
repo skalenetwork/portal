@@ -8,17 +8,18 @@ import { BALANCE_UPDATE_INTERVAL_MS } from '../core/constants'
 export default function DestTokenBalance() {
   const { address } = useAccount()
 
+  const mpc = useMetaportStore((state) => state.mpc)
   const token = useMetaportStore((state) => state.token)
   const destTokenBalance = useMetaportStore((state) => state.destTokenBalance)
   const updateDestTokenBalance = useMetaportStore((state) => state.updateDestTokenBalance)
 
   useEffect(() => {
-    updateDestTokenBalance(address) // Fetch users immediately on component mount
+    updateDestTokenBalance(address)
     const intervalId = setInterval(() => {
       updateDestTokenBalance(address)
     }, BALANCE_UPDATE_INTERVAL_MS)
     return () => {
-      clearInterval(intervalId) // Clear interval on component unmount
+      clearInterval(intervalId)
     }
   }, [updateDestTokenBalance, token, address])
 
@@ -29,6 +30,8 @@ export default function DestTokenBalance() {
       balance={destTokenBalance}
       symbol={token.meta.symbol}
       decimals={token.meta.decimals}
+      truncate={10}
+      mpc={mpc}
     />
   )
 }

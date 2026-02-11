@@ -1,16 +1,16 @@
 import React from 'react'
 import { types } from '@/core'
 
-import { Modal, Container, Grid } from '@mui/material'
+import { Modal, Container } from '@mui/material'
 import Button from '@mui/material/Button'
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
+import { ChevronDown } from 'lucide-react'
 
 import SkPaper from './SkPaper'
-import { cls, cmn, styles } from '../core/css'
 import { CHAINS_META } from '../core/metadata'
 import BridgeChainCard from './BridgeChainCard'
 import ChainIcon from './ChainIcon'
 import Chain from './Chain'
+import { styles } from '../core/css'
 
 export default function ChainsList(props: {
   config: types.mp.Config
@@ -22,6 +22,7 @@ export default function ChainsList(props: {
   disabled?: boolean
   size?: 'sm' | 'md'
   destChains?: string[]
+  balance: React.ReactNode | null
 }) {
   const [open, setOpen] = React.useState(false)
 
@@ -39,38 +40,43 @@ export default function ChainsList(props: {
   }
 
   const size = props.size ?? 'sm'
-
   const modalTitle = props.from ? 'Choose source chain' : 'Choose destination chain'
 
   return (
     <div>
-      <div className={cls(cmn.mleft10, cmn.pbott10, cmn.ptop10)} style={{ marginRight: '10px' }}>
+      <div className="py-2 mx-2">
         <Button
-          className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mri10)}
+          className="flex items-center w-full p-2 hover:bg-muted-foreground/10!"
           onClick={handleOpen}
           disabled={props.disabled}
           endIcon={
-            <KeyboardArrowDownRoundedIcon
-              className={cls(cmn.pPrim, cmn.mleft10)}
-              style={{ marginRight: '12px' }}
-            />
+            <ChevronDown size={17} className="text-secondary-foreground mr-2" />
           }
         >
           {props.chain ? (
-            <div className={cls(cmn.flex, cmn.fullWidth, cmn.flexcv, cmn.mri10)}>
-              <Chain skaleNetwork={props.config.skaleNetwork} chainName={props.chain} size={size} />
-              <div className={cls(cmn.flex, cmn.flexg)}></div>
+            <div className="flex w-full items-center ">
+              <Chain
+                skaleNetwork={props.config.skaleNetwork}
+                chainName={props.chain}
+                size={size}
+                from={props.from}
+                bold
+              />
+              <div className="flex grow"></div>
             </div>
           ) : (
-            <div className={cls(cmn.flex, cmn.flexcv)}>
-              <div className={cls(cmn.flex, cmn.flexc, cmn.mri10)}>
-                <ChainIcon skaleNetwork={props.config.skaleNetwork} chainName={props.chain} />
+            <div className="flex items-center grow mt-5 mb-5 ml-5">
+              <div className="flex items-center justify-center mr-2.5">
+                <ChainIcon skaleNetwork={props.config.skaleNetwork} chainName={props.chain} chainsMeta={CHAINS_META[props.config.skaleNetwork]} />
               </div>
-              <p className={cls(cmn.flex, cmn.p3, cmn.p600, cmn.p, cmn.pPrim, cmn.mri10)}>
-                Transfer {props.from ? 'from' : 'to'}...
+              <p className="flex text-md font-bold text-foreground! mr-2.5">
+                Loading chains...
               </p>
             </div>
           )}
+          <div className='mr-0.5'>
+            {props.balance}
+          </div>
         </Button>
       </div>
 
@@ -79,43 +85,25 @@ export default function ChainsList(props: {
         onClose={handleClose}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
-        className={cls(cmn.darkTheme, styles.metaport, styles.backdropBlur)}
+        className={`${styles.metaport} ${styles.backdropBlur}`}
       >
-        <Container maxWidth="md" className={cls(styles.modalContainer)}>
-          <div className={cls(cmn.flex, cmn.mbott20)}>
-            <div className={cls(cmn.flexg)}></div>
+        <Container maxWidth="md" className={styles.modalContainer}>
+          <div className="flex mb-5">
+            <div className="grow"></div>
             <SkPaper gray>
               <p
-                className={cls(
-                  cmn.p,
-                  cmn.p2,
-                  cmn.p700,
-                  cmn.pPrim,
-                  cmn.mtop5,
-                  cmn.mbott5,
-                  cmn.mleft20,
-                  cmn.mri20,
-                  cmn.flexcv,
-                  cmn.pCent
-                )}
-              >
+                className="text-base text-foreground font-bold mt-1.5 mb-1.5 ml-5 mr-5 flex items-center text-center">
                 {modalTitle}
               </p>
             </SkPaper>
-            <div className={cls(cmn.flexg)}></div>
+            <div className="grow"></div>
           </div>
           <div
-            className={cls(
-              cmn.chainsList,
-              cmn.mbott10,
-              cmn.mri10,
-              cmn.mleft10,
-              styles.bridgeModalScroll
-            )}
+            className={`mb-2.5 mr-2.5 ml-2.5 ${styles.bridgeModalScroll}`}
           >
-            <Grid container spacing={2}>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {schainNames.map((name) => (
-                <Grid size={{ xs: 6, md: 4 }} key={name} className={cls(styles.fullHeight)}>
+                <div key={name} className="col-span-1 h-full">
                   <BridgeChainCard
                     skaleNetwork={props.config.skaleNetwork}
                     chainName={name}
@@ -124,9 +112,9 @@ export default function ChainsList(props: {
                     disabled={name === props.disabledChain}
                     from={props.from}
                   />
-                </Grid>
+                </div>
               ))}
-            </Grid>
+            </div>
           </div>
         </Container>
       </Modal>

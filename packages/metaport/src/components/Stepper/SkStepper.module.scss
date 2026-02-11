@@ -6,6 +6,15 @@
 }
 
 .stepper {
+    :global(.MuiStepIcon-root) {
+        color: #e2e2e2 !important;
+    }
+
+    :global(.MuiStepContent-root) :global(.MuiStepIcon-root.Mui-active),
+    :global(.MuiStepIcon-root.Mui-completed) {
+        color: #e2e2e2 !important;
+        opacity: 1 !important;
+    }
 
     :global span {
         font-weight: 600 !important;
@@ -31,8 +40,8 @@
 
     :global .MuiStepContent-root {
         padding-right: 0;
-        margin-left: 11px;
-        padding-left: 18px;
+        margin-left: 10px;
+        border-left: 2px solid #82828242 !important;
     }
 
     :global(.MuiChip-icon) {
@@ -48,19 +57,20 @@
         margin-top: 1pt;
     }
 
-    :global(.MuiStepLabel-labelContainer) {
-        img {
-            filter: saturate(0) opacity(0.7);
-        }
+
+    :global(.Mui-disabled) {
+        filter: saturate(0) opacity(0.5);
     }
 
     :global(.MuiStepLabel-label.Mui-active) {
-        span, svg {
+
+        span,
+        svg {
             color: inherit;
         }
 
         img {
-            filter:  inherit;
+            filter: inherit;
         }
     }
 }

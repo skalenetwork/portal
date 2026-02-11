@@ -26,12 +26,10 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { type types } from '@/core'
 
 import { useTheme } from '@mui/material/styles'
-import useMediaQuery from '@mui/material/useMediaQuery'
 import { Skeleton, Tooltip } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
-
-import { cmn, cls, styles } from '../core/css'
+import { CircleCheck } from 'lucide-react'
+import { cn } from '../core/css'
 
 export default function Tile(props: {
   text?: string
@@ -45,7 +43,7 @@ export default function Tile(props: {
   progress?: number
   children?: ReactElement | ReactElement[] | false
   childrenRi?: ReactElement | ReactElement[] | null | ''
-  size?: 'lg' | 'md'
+  size?: 'lg' | 'md' | 'xl'
   textColor?: string
   disabled?: boolean | null
   ri?: boolean
@@ -59,7 +57,6 @@ export default function Tile(props: {
   const size = props.size ?? 'lg'
 
   const [copied, setCopied] = useState(false)
-  const isXs = useMediaQuery(theme.breakpoints.down('sm'))
 
   const handleClick = () => {
     setCopied(true)
@@ -78,15 +75,14 @@ export default function Tile(props: {
 
   const value = (
     <p
-      className={cls(
-        cmn.p,
-        [cmn.p1, size === 'lg'],
-        [cmn.p2, size === 'md'],
-        cmn.p700,
-        [cmn.pPrim, !props.color && !props.disabled],
-        ['pSec', props.disabled],
-        ['blackP', props.color],
-        ['pointer', props.copy]
+      className={cn(
+        'font-bold',
+        size === 'xl' && 'text-2xl',
+        size === 'lg' && 'text-xl',
+        size === 'md' && 'text-base',
+        !props.color && !props.disabled && 'text-foreground',
+        props.disabled && 'text-secondary-foreground',
+        props.copy && 'cursor-pointer'
       )}
     >
       {props.value}
@@ -95,57 +91,51 @@ export default function Tile(props: {
 
   return (
     <div
-      className={cls(props.className, styles.fullHefight, 'titleSection', `titleSection_${size}`, [
-        cmn.flexg,
-        props.grow
-      ])}
-      style={{ background: color }}
+      className={cn(
+        'bg-background rounded-md p-4',
+        `titleSection_${size}`,
+        props.grow && 'grow',
+        props.className
+      )}
     >
-      <div className={cls(cmn.flex, [cmn.flexcv, !isXs])}>
-        <div className={cls(cmn.flexg)}>
+      <div className="flex items-center">
+        <div className="grow">
           {props.text ? (
             <div
-              className={cls(
-                cmn.flex,
-                cmn.flexcv,
-                cmn.mbott5,
-                ['pSec', !props.color && !props.textColor],
-                ['blackP', props.color]
+              className={cn(
+                'flex items-center mb-1.5',
+                !props.color && !props.textColor && 'text-secondary-foreground',
+                props.color && 'text-foreground'
               )}
             >
-              {props.ri ? <div className={cls(cmn.flexg)}></div> : null}
+              {props.ri ? <div className="grow"></div> : null}
               {props.icon ? (
                 <div
-                  className={cls(cmn.mri5, cmn.flex, styles.chainIconxs)}
+                  className="mr-1.5 flex text-[17px]!"
                   style={{ color: props.textColor }}
                 >
-                  {copied ? <CheckCircleRoundedIcon color="success" /> : props.icon}
+                  {copied ? <CircleCheck size={20} color={theme.palette.success.main} /> : props.icon}
                 </div>
               ) : null}
               <p
-                className={cls(
-                  cmn.p,
-                  cmn.p4,
-                  cmn.flex,
-                  [cmn.flexg, !props.ri],
-                  [cmn.p600, props.textColor]
+                className={cn(
+                  'flex font-medium text-xs',
+                  !props.ri && 'grow',
+                  props.textColor && 'font-semibold'
                 )}
                 style={{ color: props.textColor }}
               >
                 {props.text}
               </p>
               {props.textRi ? (
-                <p
-                  className={cls(cmn.p, cmn.p4, cmn.flex, cmn.mleft5)}
-                  style={{ color: props.textColor }}
-                >
+                <p className="text-xs flex ml-1.5 font-medium" style={{ color: props.textColor }}>
                   {props.textRi}
                 </p>
               ) : null}
             </div>
           ) : null}
-          <div className={cls(cmn.flex, cmn.flexcv)}>
-            {props.ri ? <div className={cls(cmn.flexg)}></div> : null}
+          <div className="flex items-center">
+            {props.ri ? <div className="grow"></div> : null}
             {props.value && props.copy ? (
               <Tooltip arrow title={copied ? 'Copied' : 'Click to copy'}>
                 <div>
@@ -156,11 +146,11 @@ export default function Tile(props: {
               </Tooltip>
             ) : null}
             {props.value && !props.copy ? (
-                <Tooltip arrow title={props.tooltip}>
-                  {value}
-                </Tooltip>
+              <Tooltip arrow title={props.tooltip}>
+                {value}
+              </Tooltip>
             ) : null}
-            {props.children && <div className={cls(cmn.flexg)}>{props.children}</div>}
+            {props.children && <div className="grow">{props.children}</div>}
             {!props.value && !props.children ? (
               <Skeleton variant="rectangular" width={150} height={33} />
             ) : null}
@@ -170,7 +160,7 @@ export default function Tile(props: {
                 value={props.progress}
                 color={props.progressColor}
                 style={{ height: '20px' }}
-                className={cls(cmn.flexg, cmn.mleft10)}
+                className="grow ml-2.5 dark:opacity-100 opacity-50 dark:brightness-100 brightness-125"
               />
             ) : null}
           </div>

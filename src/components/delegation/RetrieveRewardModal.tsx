@@ -22,19 +22,26 @@
 
 import { useState, useEffect, ChangeEvent } from 'react'
 import { isAddress } from 'ethers'
-import { SkPaper, cls, cmn, styles, Tile } from '@skalenetwork/metaport'
-import { type types, constants } from '@/core'
+import { SkPaper, Tile, useThemeMode, styles } from '@skalenetwork/metaport'
+import { type types, helper } from '@/core'
 
-import { Collapse, Container, TextField, Box, Button, Modal } from '@mui/material'
-import PersonRoundedIcon from '@mui/icons-material/PersonRounded'
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-import ReportProblemRoundedIcon from '@mui/icons-material/ReportProblemRounded'
-
-import Jazzicon from 'react-jazzicon/dist/Jazzicon'
-import { jsNumberForAddress } from 'react-jazzicon'
-
+import {
+  Collapse,
+  Container,
+  TextField,
+  Box,
+  Button,
+  Modal,
+  InputAdornment,
+  useMediaQuery,
+  useTheme
+} from '@mui/material'
+import { TriangleAlert, User } from 'lucide-react'
 import Message from '../Message'
 import SkBtn from '../SkBtn'
+
+import Avatar from 'boring-avatars'
+import { AVATAR_COLORS } from '../../core/constants'
 
 export default function RetrieveRewardModal(props: {
   address: types.AddressType | undefined
@@ -44,6 +51,9 @@ export default function RetrieveRewardModal(props: {
   loading: boolean
   disabled: boolean
 }) {
+  const { mode } = useThemeMode()
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const [edit, setEdit] = useState(false)
   const [inputAddress, setInputAddress] = useState<string | undefined>(props.customRewardAddress)
   const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined)
@@ -72,10 +82,10 @@ export default function RetrieveRewardModal(props: {
   return (
     <div>
       <Button
-        variant="contained"
-        className={cls('btnSm')}
+        size="small"
         onClick={handleOpen}
         disabled={props.disabled}
+        className="btn btnSm text-xs bg-accent-foreground! text-accent! align-center! disabled:bg-muted-foreground/30! disabled:text-muted!"
       >
         Retrieve
       </Button>
@@ -92,79 +102,104 @@ export default function RetrieveRewardModal(props: {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            minWidth: { xs: '100%', md: 'max-content' }
+            width: { xs: '95%', sm: 'auto' },
+            minWidth: { md: 'max-content' }
           }}
-          className={cls(cmn.flexg, cmn.flexcv, cmn.flex, cmn.flexc)}
+          className="grow items-center flex flex-col"
         >
           <Container maxWidth="md">
-            <SkPaper className={cls(cmn.nop)}>
+            <SkPaper className="p-0">
               <SkPaper gray>
-                <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.pCent, cmn.mtop10, cmn.mbott10)}>
+                <p className="text-foreground font-bold text-center mt-2.5 mb-2.5">
                   Confirm reward retrieval
                 </p>
                 <Message
                   text="Double-check the address. Withdrawing to a wallet you don't control will lead to permanent loss of funds."
                   type="warning"
-                  icon={<WarningRoundedIcon />}
-                  className={cls(cmn.mbott10)}
-                  closable={false}
+                  icon={<TriangleAlert size={17} />}
+                  className="mb-2.5"
                 />
                 <Collapse in={!!errorMsg}>
                   <Message
                     text={errorMsg ?? ''}
                     type="error"
-                    icon={<ReportProblemRoundedIcon />}
-                    className={cls(cmn.mbott10)}
-                    closable={false}
+                    icon={<TriangleAlert size={17} />}
+                    className="mb-2.5!"
+                    onClose={() => setErrorMsg(undefined)}
                   />
                 </Collapse>
-                <Tile
-                  text="Receiver address"
-                  className={cls(styles.inputAmount)}
-                  children={
-                    <div className={cls(cmn.flex, cmn.flexcv, cmn.mtop5)}>
-                      <div className={cls(cmn.flexg)}>
-                        <div
-                          className={cls(
-                            cmn.flex,
-                            cmn.flexg,
-                            cmn.flexcv,
-                            'amountInput',
-                            'addressInput'
-                          )}
+                {!edit ? (
+                  <Tile
+                    text="Receiver address"
+                    value={
+                      isMobile
+                        ? helper.shortAddress(props.customRewardAddress as types.AddressType)
+                        : props.customRewardAddress
+                    }
+                    copy={props.customRewardAddress}
+                    icon={
+                      <Avatar
+                        variant="marble"
+                        name={props.customRewardAddress}
+                        colors={AVATAR_COLORS}
+                        size={20}
+                      />
+                    }
+                    children={
+                      <div className="flex justify-end mt-2">
+                        <Button
+                          variant="text"
+                          className="btnSm bg-foreground! text-accent!"
+                          onClick={() => setEdit(!edit)}
                         >
-                          <Jazzicon
-                            diameter={25}
-                            seed={jsNumberForAddress(
-                              (edit ? inputAddress : props.customRewardAddress) || ''
-                            )}
-                          />
-                          <div className={cls(cmn.flexg, cmn.mleft10)}>
-                            <TextField
-                              inputRef={(input) => input?.focus()}
-                              variant="standard"
-                              placeholder={constants.ZERO_ADDRESS}
-                              value={edit ? inputAddress : props.customRewardAddress}
-                              onChange={handleChange}
-                              disabled={!edit}
-                              style={{ width: '100%' }}
-                            />
-                          </div>
-                        </div>
+                          Change
+                        </Button>
                       </div>
-                      <div>
-                        {edit ? (
+                    }
+                  />
+                ) : (
+                  <Tile
+                    text="Receiver address"
+                    className="styles.inputAmount"
+                    children={
+                      <div className="flex items-center">
+                        <div className="grow">
+                          <TextField
+                            fullWidth
+                            placeholder="Enter wallet address"
+                            value={inputAddress}
+                            onChange={handleChange}
+                            InputProps={{
+                              startAdornment: (
+                                <InputAdornment position="start">
+                                  <Avatar
+                                    variant="marble"
+                                    name={inputAddress}
+                                    colors={AVATAR_COLORS}
+                                    size={20}
+                                  />
+                                </InputAdornment>
+                              )
+                            }}
+                            className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-card! border border-border rounded-full shadow-xs`}
+                            sx={{
+                              '& .MuiOutlinedInput-root': { borderRadius: '25px' },
+                              '& fieldset': { border: 'none' }
+                            }}
+                          />
+                        </div>
+                        <div>
                           <div>
                             <Button
                               variant="contained"
-                              className={cls('btnSm')}
+                              className="btnSm text-accent! bg-foreground! ml-2.5!"
                               onClick={saveAddress}
                             >
                               Save
                             </Button>
                             <Button
                               variant="text"
-                              className={cls('btnSm', 'filled', cmn.mleft10)}
+                              className="btnSm text-foreground! font-semibold hover:bg-foreground/10! ml-1.5!"
                               onClick={() => {
                                 setInputAddress(props.address)
                                 props.setCustomRewardAddress(props.address)
@@ -175,28 +210,18 @@ export default function RetrieveRewardModal(props: {
                               Reset
                             </Button>
                           </div>
-                        ) : (
-                          <Button
-                            variant="text"
-                            className={cls('btnSm', 'filled')}
-                            onClick={() => setEdit(!edit)}
-                            disabled={props.disabled}
-                          >
-                            Change
-                          </Button>
-                        )}
+                        </div>
                       </div>
-                    </div>
-                  }
-                  icon={<PersonRoundedIcon />}
-                  grow
-                />
+                    }
+                    icon={<User size={17} />}
+                    grow
+                  />
+                )}
                 <SkBtn
                   text={props.loading ? 'Retrieving' : 'Retrieve'}
                   disabled={props.disabled || edit}
                   onClick={props.retrieveRewards}
-                  className={cls('btn', cmn.mleft10, cmn.mbott10, cmn.mtop20)}
-                  variant="contained"
+                  className="mr-1.5! mt-2.5! w-full! btnMd"
                 />
               </SkPaper>
             </SkPaper>

@@ -22,8 +22,7 @@
  */
 
 import React, { ReactElement } from 'react'
-import { Grid } from '@mui/material'
-import { cls, cmn } from '@skalenetwork/metaport'
+
 import { type types, metadata } from '@/core'
 
 import ChainCard from './ChainCard'
@@ -48,20 +47,20 @@ const ChainsSection: React.FC<ChainsSectionProps> = ({
   icon,
   size = 'md'
 }) => {
-  const gridSize = size === 'lg' ? { xs: 12, md: 6 } : { xs: 12, md: 4 }
+  const gridClasses = size === 'lg' ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1 md:grid-cols-3'
 
   const sortedSchains = [...schains].sort((a, b) => {
-    const aliasA = metadata.getAlias(chainsMeta, a.name).toLowerCase()
-    const aliasB = metadata.getAlias(chainsMeta, b.name).toLowerCase()
+    const aliasA = metadata.getAlias(skaleNetwork, chainsMeta, a.name).toLowerCase()
+    const aliasB = metadata.getAlias(skaleNetwork, chainsMeta, b.name).toLowerCase()
     return aliasA.localeCompare(aliasB)
   })
 
   return (
-    <div className={cls(cmn.mtop20)}>
-      <Headline className={cls(cmn.mbott10, cmn.mtop5)} text={name} icon={icon} />
-      <Grid container spacing={2}>
+    <div className="mt-1">
+      <Headline className="mb-2.5 mt-5" text={name} icon={icon} />
+      <div className={`grid ${gridClasses} gap-4`}>
         {sortedSchains.map((schain) => (
-          <Grid key={schain.name} size={gridSize}>
+          <div key={schain.name} className="col-span-1">
             <ChainCard
               skaleNetwork={skaleNetwork}
               schain={schain}
@@ -72,9 +71,9 @@ const ChainsSection: React.FC<ChainsSectionProps> = ({
                   : null
               }
             />
-          </Grid>
+          </div>
         ))}
-      </Grid>
+      </div>
     </div>
   )
 }

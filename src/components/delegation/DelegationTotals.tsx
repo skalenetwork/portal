@@ -22,17 +22,13 @@
  */
 
 import { useMemo } from 'react'
-import { cls, styles, useUIStore, Tile } from '@skalenetwork/metaport'
+import { useUIStore, Tile } from '@skalenetwork/metaport'
 import { type types, units } from '@/core'
-
-import InboxRoundedIcon from '@mui/icons-material/InboxRounded'
-import TaskAltRoundedIcon from '@mui/icons-material/TaskAltRounded'
-import DonutLargeRoundedIcon from '@mui/icons-material/DonutLargeRounded'
-import LibraryAddCheckRoundedIcon from '@mui/icons-material/LibraryAddCheckRounded'
 
 import { calculateDelegationTotals } from '../../core/delegation/delegations'
 
 import SkStack from '../SkStack'
+import { CheckCheck, CircleCheckBig, Inbox, TrendingUp } from 'lucide-react'
 
 interface DelegationTotalsProps {
   delegations: types.st.IDelegation[] | null
@@ -53,7 +49,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
   const getTileText = (status: string, count?: number) => `${status}${count ? ` (${count})` : ''}`
 
   return (
-    <SkStack className={cls(className)}>
+    <SkStack className={className}>
       <Tile
         value={totals && units.displayBalance(totals.proposed.amount, 'SKL')}
         tooltip={
@@ -62,8 +58,8 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
         text={getTileText('Proposed', totals?.proposed.count)}
         grow
         size="md"
-        textColor={totals?.proposed.count ? theme.primary : undefined}
-        icon={<InboxRoundedIcon className={cls(styles.chainIconxs)} />}
+        textColor={totals?.proposed.count ? 'red' : undefined}
+        icon={<Inbox size={14} />}
       />
       <Tile
         value={totals && units.displayBalance(totals.accepted.amount, 'SKL')}
@@ -73,7 +69,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
         text={getTileText('Accepted', totals?.accepted.count)}
         grow
         size="md"
-        icon={<TaskAltRoundedIcon className={cls(styles.chainIconxs)} />}
+        icon={<CheckCheck size={14} />}
       />
       <Tile
         value={totals && units.displayBalance(totals.delegated.amount, 'SKL')}
@@ -83,7 +79,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
         text={getTileText('Delegated', totals?.delegated.count)}
         grow
         size="md"
-        icon={<DonutLargeRoundedIcon className={cls(styles.chainIconxs)} />}
+        icon={<TrendingUp size={14} />}
       />
       <Tile
         value={totals && units.displayBalance(totals.completed.amount, 'SKL')}
@@ -93,7 +89,7 @@ const DelegationTotals: React.FC<DelegationTotalsProps> = ({
         text={getTileText('Completed', totals?.completed.count)}
         grow
         size="md"
-        icon={<LibraryAddCheckRoundedIcon className={cls(styles.chainIconxs)} />}
+        icon={<CircleCheckBig size={14} />}
       />
     </SkStack>
   )

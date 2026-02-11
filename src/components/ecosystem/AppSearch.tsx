@@ -23,8 +23,8 @@
 import React from 'react'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
-import SearchIcon from '@mui/icons-material/Search'
-import { cmn, cls, styles } from '@skalenetwork/metaport'
+import { useThemeMode, styles } from '@skalenetwork/metaport'
+import { Search } from 'lucide-react'
 
 interface SearchComponentProps {
   searchTerm: string
@@ -37,6 +37,8 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
   setSearchTerm,
   className
 }) => {
+  const { mode } = useThemeMode()
+
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(event.target.value)
   }
@@ -51,11 +53,15 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         InputProps={{
           startAdornment: (
             <InputAdornment position="start">
-              <SearchIcon className={cls(cmn.pPrim, styles.chainIcons)} />
+              <Search size={17} className="text-muted-foreground" />
             </InputAdornment>
           )
         }}
-        className={cls('skInput')}
+        className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-card! border border-border rounded-full shadow-xs`}
+        sx={{
+          '& .MuiOutlinedInput-root': { borderRadius: '25px' },
+          '& fieldset': { border: 'none' }
+        }}
       />
     </div>
   )

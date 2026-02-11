@@ -31,18 +31,23 @@ export async function sendTransaction(
   signer: Signer,
   func: ContractMethod,
   args: any[],
-  name: string
+  name: string,
+  confirmations = 1,
+  value?: bigint
 ): Promise<types.mp.TxResponse> {
   log.info('💡 Sending transaction: ' + name)
   try {
     const tx = await func.populateTransaction(...args)
+    if (value !== undefined) {
+      tx.value = value
+    }
     const response: TransactionResponse = await signer.sendTransaction(tx)
     log.info(
       `⏳ ${name} mining - tx: ${response.hash}, nonce: ${response.nonce}, gasLimit: ${response.gasLimit}`
     )
-    await response.wait()
+    await response.wait(confirmations)
     log.info('✅ ' + name + ' mined - tx: ' + response.hash)
-   return { status: true, err: undefined, response: response }
+    return { status: true, err: undefined, response: response }
   } catch (err) {
     console.error(err)
     const msg = err.message
