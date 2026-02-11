@@ -311,7 +311,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                           <Button
                             color="primary"
                             size="small"
-                            className={`items-center mr-2.5! p-4! py-3! pr-5! rounded-full! uppercase btnLg bg-accent-foreground/30! text-foreground! ease-in-out transition-transform duration-150 active:scale-[0.97] ${symbol !== token ? 'bg-card!' : ''} ${symbol !== token ? 'text-foreground!' : ''}`}
+                            className={`items-center mr-2.5! p-4! py-3! pr-5! rounded-full! uppercase btnLg bg-muted-foreground/30! text-foreground! ease-in-out transition-transform duration-150 active:scale-[0.97] ${symbol !== token ? 'bg-card!' : ''} ${symbol !== token ? 'text-foreground!' : ''}`}
                             variant="contained"
                             onClick={() => setToken(symbol)}
                           >

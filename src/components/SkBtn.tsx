@@ -39,7 +39,7 @@ export default function SkBtn(props: {
     <Button
       color={props.color}
       variant={props.variant}
-      className={`btn btnSm bg-accent-foreground! disabled:bg-muted-foreground! text-accent! disabled:text-accent! w-full! ${props.className ?? ''}`}
+      className={`btn btnSm bg-accent-foreground! disabled:bg-muted-foreground/30! text-accent! disabled:text-muted! w-full! ${props.className ?? ''}`}
       disabled={props.disabled || props.loading}
       onClick={props.onClick}
       startIcon={props.startIcon}
