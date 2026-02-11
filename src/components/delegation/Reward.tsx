@@ -111,7 +111,7 @@ export default function Reward(props: {
                       arrow
                       title={
                         props.sklPrice !== undefined &&
-                          props.delegationsToValidator.staked !== undefined
+                        props.delegationsToValidator.staked !== undefined
                           ? units.displaySklValueUsd(
                             props.delegationsToValidator.staked,
                             props.sklPrice
