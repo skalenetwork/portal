@@ -139,7 +139,7 @@ export default function Topup(props: {
         <div className="flex flex-col md:flex-row gap-2.5">
           <Button
             variant="contained"
-            className="btn btnMd text-xs w-full! md:w-fit! bg-foreground! text-accent! disabled:bg-muted! disabled:text-muted-foreground!"
+            className="bg-accent-foreground! disabled:bg-muted-foreground/30! dark:disabled:bg-muted-foreground/30! text-accent! disabled:text-muted! btn btnMd!"
             disabled={!balanceOk || props.loading || maxTopupPeriod <= 0}
             onClick={props.topupChain}
           >
@@ -149,7 +149,7 @@ export default function Topup(props: {
             <Link to="/bridge" className="w-full md:w-auto">
               <Button
                 variant="contained"
-                className="btn btnMd text-xs w-full! md:w-fit! text-accent! bg-foreground!"
+                className="btn btnMd text-xs w-full text-accent! bg-foreground!"
               >
                 Bridge SKL to Europa Hub
               </Button>

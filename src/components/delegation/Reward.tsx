@@ -111,11 +111,11 @@ export default function Reward(props: {
                       arrow
                       title={
                         props.sklPrice !== undefined &&
-                        props.delegationsToValidator.staked !== undefined
+                          props.delegationsToValidator.staked !== undefined
                           ? units.displaySklValueUsd(
-                              props.delegationsToValidator.staked,
-                              props.sklPrice
-                            )
+                            props.delegationsToValidator.staked,
+                            props.sklPrice
+                          )
                           : ''
                       }
                     >
@@ -133,9 +133,9 @@ export default function Reward(props: {
                     title={
                       props.sklPrice
                         ? units.displaySklValueUsd(
-                            props.delegationsToValidator.rewards,
-                            props.sklPrice
-                          )
+                          props.delegationsToValidator.rewards,
+                          props.sklPrice
+                        )
                         : ''
                     }
                   >
@@ -149,7 +149,7 @@ export default function Reward(props: {
                     disabled
                     size="small"
                     variant="contained"
-                    className="btnSm bg-accent-foreground! disabled:bg-muted-foreground! text-accent! disabled:text-accent!"
+                    className="btnSm bg-accent-foreground! disabled:bg-muted-foreground/30! text-accent! disabled:text-muted!"
                   >
                     Retrieving
                   </Button>
