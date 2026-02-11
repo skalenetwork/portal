@@ -240,7 +240,7 @@ export default function Delegate(props: {
         <Button
           disabled
           variant="contained"
-          className="btnMd bg-muted-foreground! disabled:text-accent/90! mt-2.5! mb-1! w-full!"
+          className="btnMd bg-muted-foreground/30! disabled:text-muted! mt-2.5! mb-1! w-full!"
         >
           Staking SKL
         </Button>

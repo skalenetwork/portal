@@ -106,7 +106,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
           startIcon={<AnimatedLoadingIcon />}
           variant="contained"
           size="medium"
-          className="btn-action p-4! w-full capitalize! bg-accent-foreground/50!"
+          className="btn-action p-4! w-full capitalize! bg-muted-foreground/30!"
         >
           {btnText}
         </Button>
@@ -162,7 +162,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                           startIcon={<AnimatedLoadingIcon />}
                           variant="contained"
                           size="medium"
-                          className="btn-action mt-1.5 p-3.5! w-full capitalize! bg-accent-foreground/50!"
+                          className="btn-action mt-1.5 p-3.5! w-full capitalize! bg-accent-foreground/30!"
                         >
                           {btnText}
                         </Button>
