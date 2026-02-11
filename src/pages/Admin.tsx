@@ -23,12 +23,10 @@
 
 import Container from '@mui/material/Container'
 import { useParams } from 'react-router-dom'
-import { cmn, cls, type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
 import { types, metadata } from '@/core'
 
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
-import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
-import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded'
+import { ChevronLeft, Link2, ShieldUser } from 'lucide-react'
 
 import Paymaster from '../components/Paymaster'
 import Breadcrumbs from '../components/Breadcrumbs'
@@ -37,34 +35,34 @@ export default function Admin(props: { mpc: MetaportCore; chainsMeta: types.Chai
   let { name } = useParams()
   name = name ?? ''
 
-  const alias = metadata.getAlias(props.chainsMeta, name)
+  const alias = metadata.getAlias(props.mpc.config.skaleNetwork, props.chainsMeta, name)
 
   return (
     <Container maxWidth="md">
-      <SkPaper gray className={cls(cmn.mtop10, 'chainDetails')}>
-        <div className={cls(cmn.flex)}>
-          <Breadcrumbs
-            sections={[
-              {
-                text: 'All chains',
-                icon: <ArrowBackIosNewRoundedIcon />,
-                url: '/chains'
-              },
-              {
-                text: alias,
-                icon: <LinkRoundedIcon />,
-                url: `/chains/${name}`
-              },
-              {
-                text: 'Manage',
-                icon: <AdminPanelSettingsRoundedIcon />
-              }
-            ]}
-          />
-        </div>
-        <div className={cls(cmn.mtop10, cmn.mleft5)}>
-          <h2 className={cls(cmn.nom)}>Manage {alias}</h2>
-          <p className={cls(cmn.mtop5, cmn.p, cmn.p3, cmn.pSec, cmn.mbott10, 'pbott5')}>
+      <div className="flex">
+        <Breadcrumbs
+          sections={[
+            {
+              text: 'All chains',
+              icon: <ChevronLeft size={16} className="text-foreground" />,
+              url: '/chains'
+            },
+            {
+              text: alias,
+              icon: <Link2 size={16} />,
+              url: `/chains/${name}`
+            },
+            {
+              text: 'Manage',
+              icon: <ShieldUser size={16} />
+            }
+          ]}
+        />
+      </div>
+      <SkPaper gray className="mt-2.5 chainDetails">
+        <div className="mt-2.5 ml-1.25">
+          <h2 className="m-0 text-xl font-bold text-foreground">Manage {alias}</h2>
+          <p className="text-xs text-secondary-foreground font-semibold">
             {alias} admin area - you can manage the chain here
           </p>
         </div>

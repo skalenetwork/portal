@@ -22,7 +22,7 @@
  */
 
 import React, { useMemo } from 'react'
-import { Grid } from '@mui/material'
+
 import { type types } from '@/core'
 
 import { categories } from '../../core/ecosystem/categories'
@@ -65,13 +65,13 @@ const CategoryCardsGrid: React.FC<CategoryCardsGridProps> = ({ chainsMeta, maxCa
   }, [chainsMeta, maxCategories])
 
   return (
-    <Grid container spacing={2}>
+    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       {topCategories.map(({ name, fullName, projectCount }) => (
-        <Grid size={{ xs: 12, sm: 6, lg: 3 }} key={name}>
+        <div className="col-span-1" key={name}>
           <CategoryCard categoryName={name} fullName={fullName} projectCount={projectCount} />
-        </Grid>
+        </div>
       ))}
-    </Grid>
+    </div>
   )
 }
 

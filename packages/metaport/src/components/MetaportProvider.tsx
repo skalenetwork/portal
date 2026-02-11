@@ -30,8 +30,7 @@ import {
   DisclaimerComponent
 } from '@rainbow-me/rainbowkit'
 import { WagmiProvider, createConfig, http } from 'wagmi'
-import { mainnet, goerli } from 'wagmi/chains'
-import { hoodi } from '../core/eth_chains'
+import { mainnet, goerli, hoodi, base, baseSepolia } from 'wagmi/chains'
 import { GetChainsReturnType } from '@wagmi/core'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { PaletteMode } from '@mui/material'
@@ -56,7 +55,7 @@ import { constructWagmiChain } from '../core/wagmi_network'
 
 import { getWidgetTheme, getMuiZIndex } from '../core/themes'
 
-import { cls, cmn, styles } from '../core/css'
+import { styles } from '../core/css'
 
 import { useUIStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
@@ -99,6 +98,8 @@ export default function MetaportProvider(props: {
       [mainnet.id]: http(),
       [goerli.id]: http(),
       [hoodi.id]: http(),
+      [base.id]: http(),
+      [baseSepolia.id]: http(),
       ...Object.fromEntries(
         skaleChains.map((chain) => [chain.id, http(chain.rpcUrls.default.http[0])])
       )
@@ -112,9 +113,6 @@ export default function MetaportProvider(props: {
   const addTransaction = useMetaportStore((state) => state.addTransaction)
   const setOpen = useUIStore((state) => state.setOpen)
   const metaportTheme = useUIStore((state) => state.theme)
-
-  const themeCls = widgetTheme.mode === 'dark' ? styles.darkTheme : styles.lightTheme
-  const commonThemeCls = widgetTheme.mode === 'dark' ? cmn.darkTheme : cmn.lightTheme
 
   useEffect(() => {
     setOpen(props.config.openOnLoad)
@@ -151,6 +149,8 @@ export default function MetaportProvider(props: {
     }
   }
 
+  const disabledInputColor = 'color-mix(in srgb, var(--color-foreground) 50%, transparent)'
+
   let theme = createTheme({
     zIndex: getMuiZIndex(widgetTheme),
     palette: {
@@ -164,6 +164,18 @@ export default function MetaportProvider(props: {
       secondary: {
         main: widgetTheme.background
       }
+    },
+    components: {
+      MuiInputBase: {
+        styleOverrides: {
+          input: {
+            '&.Mui-disabled': {
+              color: disabledInputColor,
+              WebkitTextFillColor: disabledInputColor
+            }
+          }
+        }
+      }
     }
   })
 
@@ -173,7 +185,7 @@ export default function MetaportProvider(props: {
 
   const Disclaimer: DisclaimerComponent = ({ Text, Link }) => (
     <Text>
-      <h3 className={cls(cmn.nop, cmn.nom)}>SKALE Portal Terms of Use</h3>
+      <h3 className="p-0, m-0">SKALE Portal Terms of Use</h3>
       By connecting your wallet, you agree to the{' '}
       <Link href="https://portal.skale.space/other/terms-of-service">Terms of Service</Link> and
       acknowledge you have read and understand them. These are subject to change.
@@ -194,7 +206,7 @@ export default function MetaportProvider(props: {
         >
           <StyledEngineProvider injectFirst>
             <ThemeProvider theme={theme}>
-              <div className={cls(themeCls, commonThemeCls, styles.metaport)}>{props.children}</div>
+              <div className={styles.metaport}>{props.children}</div>
             </ThemeProvider>
           </StyledEngineProvider>
         </RainbowKitProvider>

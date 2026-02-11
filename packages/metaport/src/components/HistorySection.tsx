@@ -31,7 +31,6 @@ import History from './History'
 
 import { useMetaportStore } from '../store/MetaportStore'
 import { useCollapseStore } from '../store/Store'
-import { cls, styles, cmn } from '../core/css'
 
 export default function TransactionsHistory() {
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
@@ -49,14 +48,14 @@ export default function TransactionsHistory() {
   if (transactionsHistory.length === 0 && transfersHistory.length === 0) return
   return (
     <Collapse in={expandedTH}>
-      <div className={cls(cmn.flex, cmn.mbott10, cmn.mtop10)}>
+      <div className="flex mb-2.5 mt-10">
         <Button
           onClick={() => {
             setExpandedTH(false)
           }}
           color="warning"
           size="medium"
-          className={cls(styles.btnAction)}
+          className="btn-action"
           startIcon={<CloseRoundedIcon />}
         >
           Close history
@@ -65,7 +64,7 @@ export default function TransactionsHistory() {
           onClick={clearTransferHistory}
           color="error"
           size="medium"
-          className={cls(styles.btnAction)}
+          className="btn-action"
           startIcon={<DeleteRoundedIcon />}
         >
           Clear history

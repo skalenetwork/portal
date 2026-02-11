@@ -20,19 +20,13 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import React, { useState, useEffect, useMemo, useRef, useLayoutEffect } from 'react'
+import React, { useState, useEffect, useMemo, useRef } from 'react'
 import { Helmet } from 'react-helmet'
-import { Container, Stack, Box, Tab, Tabs, Button } from '@mui/material'
+import { Container, Stack, Tab, Tabs, Button } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
-import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
-import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded'
-import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
-import StarRoundedIcon from '@mui/icons-material/StarRounded'
-import AppShortcutIcon from '@mui/icons-material/AppShortcut'
-import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded'
 
 import { type types } from '@/core'
-import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
+import { type MetaportCore } from '@skalenetwork/metaport'
 import { META_TAGS } from '../core/meta'
 import { filterAppsByCategory, filterAppsBySearchTerm } from '../core/ecosystem/apps'
 import { useUrlParams } from '../core/ecosystem/urlParamsUtil'
@@ -47,16 +41,18 @@ import SelectedCategories from '../components/ecosystem/SelectedCategories'
 import SkStack from '../components/SkStack'
 import AllApps from '../components/ecosystem/tabs/AllApps'
 import NewApps from '../components/ecosystem/tabs/NewApps'
-import FavoriteApps from '../components/ecosystem/tabs/FavoriteApps'
 import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import SocialButtons from '../components/ecosystem/Socials'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
+import { cn } from '../core/ecosystem/utils'
+
+import { LayoutGrid, Plus } from 'lucide-react'
+import { SECTION_ICONS } from '../components/HomeComponents'
 
 export default function Ecosystem(props: {
   mpc: MetaportCore
   chainsMeta: types.ChainsMetadataMap
   metrics: types.IMetrics | null
-  isXs: boolean
   loadData: () => Promise<void>
 }) {
   const [searchParams] = useSearchParams()
@@ -68,10 +64,7 @@ export default function Ecosystem(props: {
     getSearchTermFromUrl,
     setSearchTermInUrl
   } = useUrlParams()
-  const { allApps, newApps, trendingApps, favoriteApps, isSignedIn, featuredApps } = useApps(
-    props.chainsMeta,
-    props.metrics
-  )
+  const { allApps, newApps, trendingApps, featuredApps } = useApps(props.chainsMeta, props.metrics)
 
   const [checkedItems, setCheckedItems] = useState<string[]>([])
   const [filteredApps, setFilteredApps] = useState<types.AppWithChainAndName[]>([])
@@ -79,37 +72,6 @@ export default function Ecosystem(props: {
   const [activeTab, setActiveTab] = useState(0)
   const [loaded, setLoaded] = useState<boolean>(false)
   const containerRef = useRef<HTMLDivElement | null>(null)
-  const fixedHeaderRef = useRef<HTMLDivElement | null>(null)
-  const [headerHeight, setHeaderHeight] = useState(0)
-
-  useLayoutEffect(() => {
-    const syncPosition = () => {
-      if (!containerRef.current || !fixedHeaderRef.current) return
-      const rect = containerRef.current.getBoundingClientRect()
-      fixedHeaderRef.current.style.width = rect.width + 'px'
-      fixedHeaderRef.current.style.left = rect.left + 'px'
-    }
-    const syncHeight = () => {
-      if (!fixedHeaderRef.current) return
-      const h = fixedHeaderRef.current.offsetHeight
-      setHeaderHeight(h)
-    }
-    const handleResize = () => {
-      syncPosition()
-      syncHeight()
-    }
-    const handleScroll = () => {
-      syncPosition()
-    }
-    syncPosition()
-    syncHeight()
-    window.addEventListener('resize', handleResize)
-    window.addEventListener('scroll', handleScroll)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      window.removeEventListener('scroll', handleScroll)
-    }
-  }, [checkedItems])
 
   useEffect(() => {
     props.loadData()
@@ -128,6 +90,7 @@ export default function Ecosystem(props: {
 
   useEffect(() => {
     const filtered = filterAppsBySearchTerm(
+      props.mpc.config.skaleNetwork,
       filterAppsByCategory(allApps, checkedItems),
       searchTerm,
       props.chainsMeta
@@ -174,26 +137,14 @@ export default function Ecosystem(props: {
             (filteredApp) => filteredApp.chain === app.chain && filteredApp.appName === app.appName
           )
         )
-      ],
-      [
-        4,
-        isSignedIn
-          ? favoriteApps.filter((app) =>
-              filteredApps.some(
-                (filteredApp) =>
-                  filteredApp.chain === app.chain && filteredApp.appName === app.appName
-              )
-            )
-          : []
       ]
     ])
 
     return (tabIndex: number) => filterMap.get(tabIndex) || filteredApps
-  }, [filteredApps, newApps, trendingApps, favoriteApps, featuredApps, isSignedIn])
+  }, [filteredApps, newApps, trendingApps, featuredApps])
 
   const currentFilteredApps = getFilteredAppsByTab(activeTab)
 
-  const isFiltersApplied = Object.keys(checkedItems).length !== 0
   return (
     <>
       <Container maxWidth="md" ref={containerRef}>
@@ -204,92 +155,82 @@ export default function Ecosystem(props: {
           <meta property="og:description" content={META_TAGS.ecosystem.description} />
         </Helmet>
         <Stack spacing={0}>
-          <div
-            ref={fixedHeaderRef}
-            className="sk-header"
-            style={{
-              position: 'fixed',
-              top: '101px',
-              background: 'black',
-              borderRadius: '35px',
-              zIndex: 1000,
-              width: '100%'
-            }}
+          <SkStack>
+            <div className={cn('grow flex flex-col mb-5')}>
+              <h2 className="m-0 text-xl font-bold text-foreground">Ecosystem</h2>
+              <p className="text-xs text-secondary-foreground font-semibold">
+                Explore dApps across the SKALE ecosystem
+              </p>
+            </div>
+            <div className="flex items-center">
+              <SocialButtons social={SKALE_SOCIAL_LINKS} all />
+              <div className="ml-2.5">
+                <SkPageInfoIcon meta_tag={META_TAGS.ecosystem} />
+              </div>
+            </div>
+          </SkStack>
+          <SkStack className="mb-5 flex flex-col gap-2 md:flex-row md:items-center">
+            <SearchComponent
+              className="grow fullW mt-2 mb-2 md:mt-0 md:mb-0"
+              searchTerm={searchTerm}
+              setSearchTerm={handleSetSearchTerm}
+            />
+            <CategoryDisplay checkedItems={checkedItems} setCheckedItems={handleSetCheckedItems} />
+          </SkStack>
+          <SelectedCategories
+            checkedItems={checkedItems}
+            setCheckedItems={handleSetCheckedItems}
+            filteredAppsCount={currentFilteredApps.length}
+          />
+          <Tabs
+            variant="scrollable"
+            scrollButtons="auto"
+            value={activeTab}
+            onChange={handleTabChange}
+            className="skTabs bg-card! rounded-full p-1! mb-5 md:w-fit"
           >
-            <Container maxWidth="md">
-              <SkStack>
-                <div className={cls(cmn.flexg, cmn.mbott20, cmn.mtop10)}>
-                  <h2 className={cls(cmn.nom)}>Ecosystem</h2>
-                  <p className={cls(cmn.nom, cmn.p, cmn.p3, cmn.pSec)}>
-                    Explore dApps across the SKALE ecosystem
-                  </p>
-                </div>
-                <div className={cls(cmn.flex, cmn.flexcv)}>
-                  <SocialButtons social={SKALE_SOCIAL_LINKS} all />
-                  <div className={cls(cmn.mleft10)}>
-                    <SkPageInfoIcon meta_tag={META_TAGS.ecosystem} />
-                  </div>
-                </div>
-              </SkStack>
-              <SkStack className={cls(cmn.mbott20, cmn.flex, cmn.flexcv)}>
-                <SearchComponent
-                  className={cls(cmn.flexg, [cmn.mri10, !props.isXs], ['fullW', props.isXs])}
-                  searchTerm={searchTerm}
-                  setSearchTerm={handleSetSearchTerm}
-                />
-                <CategoryDisplay
-                  checkedItems={checkedItems}
-                  setCheckedItems={handleSetCheckedItems}
-                  isXs={props.isXs}
-                />
-              </SkStack>
-              <SelectedCategories
-                checkedItems={checkedItems}
-                setCheckedItems={handleSetCheckedItems}
-                filteredAppsCount={currentFilteredApps.length}
-              />
-              <Tabs
-                variant={props.isXs ? 'scrollable' : 'standard'}
-                value={activeTab}
-                onChange={handleTabChange}
-                scrollButtons="auto"
-                className={cls(cmn.mbott20, [cmn.mtop20, isFiltersApplied], 'skTabs', 'fwmobile')}
-              >
-                <Tab
-                  label="All"
-                  icon={<GridViewRoundedIcon />}
-                  iconPosition="start"
-                  className={cls('btn', 'btnSm', cmn.mri5, 'tab', 'fwmobile')}
-                />
-                <Tab
-                  label="Featured"
-                  icon={<AppShortcutIcon />}
-                  iconPosition="start"
-                  className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-                />
-                <Tab
-                  label="New"
-                  icon={<StarRoundedIcon />}
-                  iconPosition="start"
-                  className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-                />
-                <Tab
-                  label="Trending"
-                  icon={<TrendingUpRoundedIcon />}
-                  iconPosition="start"
-                  className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-                />
-                <Tab
-                  label="Favorites"
-                  icon={<FavoriteRoundedIcon />}
-                  iconPosition="start"
-                  className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-                />
-              </Tabs>
-            </Container>
-          </div>
-          <div style={{ height: headerHeight }} />
-          <Box sx={{ flexGrow: 1 }} className={cls(cmn.mtop20, 'fwmobile')}>
+            <Tab
+              label="All"
+              icon={<LayoutGrid size={14} />}
+              iconPosition="start"
+              className={`btn btnMd tab fwmobile ${
+                activeTab === 0
+                  ? 'text-foreground! bg-gray-100! dark:bg-black!'
+                  : 'bg-card/0! text-muted-foreground!'
+              }`}
+            />
+            <Tab
+              label="Featured"
+              icon={SECTION_ICONS.featured}
+              iconPosition="start"
+              className={`btn btnMd tab fwmobile ${
+                activeTab === 1
+                  ? 'text-foreground! bg-gray-100! dark:bg-black!'
+                  : 'bg-card/0! text-muted-foreground!'
+              }`}
+            />
+            <Tab
+              label="New"
+              icon={SECTION_ICONS.new}
+              iconPosition="start"
+              className={`btn btnMd tab fwmobile ${
+                activeTab === 2
+                  ? 'text-foreground! bg-gray-100! dark:bg-black!'
+                  : 'bg-card/0! text-muted-foreground!'
+              }`}
+            />
+            <Tab
+              label="Trending"
+              icon={SECTION_ICONS.trending}
+              iconPosition="start"
+              className={`btn btnMd tab fwmobile ${
+                activeTab === 3
+                  ? 'text-foreground! bg-gray-100! dark:bg-black! shadow-xs!'
+                  : 'bg-card/0! text-muted-foreground!'
+              }`}
+            />
+          </Tabs>
+          <div className={cn('grow', 'fwmobile')}>
             {activeTab === 0 && (
               <AllApps
                 apps={currentFilteredApps}
@@ -328,39 +269,25 @@ export default function Ecosystem(props: {
                 featuredApps={featuredApps}
               />
             )}
-            {activeTab === 4 && (
-              <FavoriteApps
-                chainsMeta={props.chainsMeta}
-                skaleNetwork={props.mpc.config.skaleNetwork}
-                newApps={newApps}
-                featuredApps={featuredApps}
-                filteredApps={currentFilteredApps}
-                trendingApps={trendingApps}
-                favoriteApps={favoriteApps}
-                isSignedIn={isSignedIn}
-                error={null}
-              />
-            )}
-          </Box>
+          </div>
         </Stack>
-        <div className={cls(cmn.flex, cmn.mtop20, cmn.mbott20)}>
-          <div className={cls(cmn.flexg)}></div>
+        <div className="flex mt-5 mb-20 md:mb-5">
+          <div className="grow"></div>
           <div>
             <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">
               <Button
                 size="medium"
                 variant="contained"
-                className={cls('btn', cmn.mtop20, cmn.mbott20, cmn.pCent)}
-                startIcon={<AddCircleOutlineRoundedIcon />}
+                className="btn btnMd text-xs text-accent! bg-foreground!"
+                startIcon={<Plus size={17} />}
               >
                 Submit Your Project
               </Button>
             </a>
           </div>
-          <div className={cls(cmn.flexg)}></div>
+          <div className="grow"></div>
         </div>
       </Container>
-
       <ScrollToTopButton />
     </>
   )

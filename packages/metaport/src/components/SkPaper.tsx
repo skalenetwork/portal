@@ -22,9 +22,7 @@
  */
 
 import { ReactElement } from 'react'
-import { cls, cmn, styles } from '../core/css'
-
-import { useUIStore } from '../store/Store'
+import styles from '../styles/styles.module.scss'
 
 export default function SkPaper(props: {
   className?: string
@@ -35,20 +33,11 @@ export default function SkPaper(props: {
   fullHeight?: boolean
   margTop?: boolean
 }) {
-  const metaportTheme = useUIStore((state) => state.theme)
-  const localStyle = {
-    background: props.background ?? metaportTheme.background
-  }
   return (
     <div
-      style={localStyle}
-      className={cls(
-        props.className,
-        styles.paper,
-        [styles.paperGrey, props.gray],
-        [styles.fullHeight, props.fullHeight],
-        [cmn.mtop20, props.margTop]
-      )}
+      style={{ position: 'relative', background: props.background }}
+
+      className={`${props.className || ''} ${styles.paper} ${props.gray ? 'bg-card!' : 'bg-background!'} ${props.fullHeight ? styles.fullHeight : ''} ${props.margTop ? 'mt-5' : ''}`}
     >
       {props.children}
     </div>

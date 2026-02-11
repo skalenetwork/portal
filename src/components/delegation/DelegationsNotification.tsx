@@ -21,7 +21,6 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cls, cmn } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
 import { getProposedDelegationsCount } from '../../core/delegation'
@@ -37,11 +36,11 @@ export default function DelegationsNotification(props: {
     return (
       <Tooltip
         title={`You have ${proposedDelegations} pending delegation${
-          proposedDelegations > 1 && 's'
+          proposedDelegations > 1 ? 's' : ''
         }`}
       >
-        <div className={cls(props.className, 'chipNotification')}>
-          <p className={cls(cmn.p, cmn.p5)}>{proposedDelegations}</p>
+        <div className={`${props.className} chipNotification`}>
+          <p className="text-xs text-foreground!">{proposedDelegations}</p>
         </div>
       </Tooltip>
     )

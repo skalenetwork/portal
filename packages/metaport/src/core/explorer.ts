@@ -31,17 +31,23 @@ function getSChainExplorerUrl(skaleNetwork: string) {
   return endpoints.BASE_EXPLORER_URLS[skaleNetwork]
 }
 
-export function getExplorerUrl(skaleNetwork: types.SkaleNetwork, chainName: string): string {
+export function getExplorerUrl(
+  chainMeta: types.ChainMetadata | undefined,
+  skaleNetwork: types.SkaleNetwork,
+  chainName: string
+): string {
   if (chainName === constants.MAINNET_CHAIN_NAME) return getMainnetExplorerUrl(skaleNetwork)
+  if (chainMeta && chainMeta.explorerUrl) return chainMeta.explorerUrl
   return constants.HTTPS_PREFIX + chainName + '.' + getSChainExplorerUrl(skaleNetwork)
 }
 
 export function getTxUrl(
+  chainMeta: types.ChainMetadata | undefined,
   chainName: string,
   skaleNetwork: types.SkaleNetwork,
   txHash: string
 ): string {
-  const explorerUrl = getExplorerUrl(skaleNetwork, chainName)
+  const explorerUrl = getExplorerUrl(chainMeta, skaleNetwork, chainName)
   return `${explorerUrl}/tx/${txHash}`
 }
 
@@ -50,11 +56,12 @@ export function addressUrl(explorerUrl: string, address: string): string {
 }
 
 export function getExplorerUrlForAddress(
+  chainMeta: types.ChainMetadata | undefined,
   network: types.SkaleNetwork,
   chainName: string,
   address: string
 ): string {
-  return addressUrl(getExplorerUrl(network, chainName), address)
+  return addressUrl(getExplorerUrl(chainMeta, network, chainName), address)
 }
 
 export function getTotalAppCounters(

@@ -25,7 +25,7 @@ import { Logger, type ILogObj } from 'tslog'
 import { Contract } from 'ethers'
 import { dc, type types, units, helper } from '@/core'
 
-import { SFUEL_RESERVE_AMOUNT } from '../constants'
+import { ETH_RESERVE_AMOUNT } from '../constants'
 import { MainnetChain, SChain } from '../contracts'
 
 const log = new Logger<ILogObj>({ name: 'metaport:core:actions:checks' })
@@ -34,7 +34,8 @@ export async function checkEthBalance( // TODO: optimize balance checks
   chain: MainnetChain | SChain,
   address: string,
   amount: string,
-  tokenData: dc.TokenData
+  tokenData: dc.TokenData,
+  skaleNetwork: types.SkaleNetwork
 ): Promise<types.mp.CheckRes> {
   const checkRes: types.mp.CheckRes = { res: false }
   if (!amount || Number(amount) === 0) return checkRes
@@ -55,8 +56,9 @@ export async function checkEthBalance( // TODO: optimize balance checks
     let checkedAmount = Number(amount)
     let msg = `Current balance: ${balanceEther} ${tokenData.meta.symbol}.`
     if (chain instanceof MainnetChain) {
-      checkedAmount += SFUEL_RESERVE_AMOUNT
-      msg += ` ${SFUEL_RESERVE_AMOUNT} ETH will be reserved to cover transfer costs.`
+      const reserveAmount = ETH_RESERVE_AMOUNT[skaleNetwork]
+      checkedAmount += reserveAmount
+      msg += ` ${reserveAmount} ETH will be reserved to cover transfer costs.`
     }
     if (checkedAmount > balanceEther) {
       checkRes.msg = msg

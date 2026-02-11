@@ -21,9 +21,8 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cls, cmn } from '@skalenetwork/metaport'
 import { useLocation, Link } from 'react-router-dom'
-import { types } from '@/core'
+import { networks, types } from '@/core'
 
 import Box from '@mui/material/Box'
 
@@ -36,23 +35,28 @@ import ListItemButton from '@mui/material/ListItemButton'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 
-import SwapHorizontalCircleOutlinedIcon from '@mui/icons-material/SwapHorizontalCircleOutlined'
-import PublicOutlinedIcon from '@mui/icons-material/PublicOutlined'
-import InsertChartOutlinedIcon from '@mui/icons-material/InsertChartOutlined'
-import PieChartOutlineOutlinedIcon from '@mui/icons-material/PieChartOutlineOutlined'
-import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined'
-import GroupOutlinedIcon from '@mui/icons-material/GroupOutlined'
-import AddCardRoundedIcon from '@mui/icons-material/AddCardRounded'
-import LinkRoundedIcon from '@mui/icons-material/LinkRounded'
-import ExploreOutlinedIcon from '@mui/icons-material/ExploreOutlined'
+import {
+  House,
+  ArrowLeftRight,
+  Globe2,
+  BarChart2,
+  PieChart,
+  Users,
+  CreditCard,
+  BadgeDollarSign,
+  Route,
+  Network
+} from 'lucide-react'
 
-import { GET_STARTED_URL } from './core/constants'
+import { GET_STARTED_URL, NETWORKS } from './core/constants'
 import DelegationsNotification from './components/delegation/DelegationsNotification'
 
 const drawerWidth = 220
 
 export default function SkDrawer(props: { validatorDelegations: types.st.IDelegation[] | null }) {
   const location = useLocation()
+  const getItemButtonClass = (isSelected: boolean) =>
+    `w-full ${isSelected ? 'bg-foreground/10! text-foreground!' : 'text-foreground hover:bg-muted-foreground/10!'}`
   return (
     <Box display={{ sm: 'block', xs: 'none' }} m={1}>
       <Drawer
@@ -62,141 +66,182 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: {
             width: drawerWidth,
-            boxSizing: 'border-box'
+            boxSizing: 'border-box',
+            background: 'var(--background)'
           }
         }}
       >
         <Toolbar />
-        <Box sx={{ overflow: 'auto' }} className={cmn.mtop20}>
+        <Box sx={{ overflow: 'auto' }} className="mt-5">
           <List>
             <ListItem>
-              <Link to="/" className="undec fullW">
-                <ListItemButton className={cls(cmn.pPrim)} selected={location.pathname === '/'}>
+              <Link to="/" className="w-full text-foreground!">
+                <ListItemButton
+                  selected={location.pathname === '/'}
+                  className={getItemButtonClass(location.pathname === '/')}
+                >
                   <ListItemIcon>
-                    <HomeOutlinedIcon />
+                    <House className="text-foreground" size={18} />
                   </ListItemIcon>
                   <ListItemText primary="Home" />
                 </ListItemButton>
               </Link>
             </ListItem>
             <ListItem>
-              <a className="undec fullW" target="_blank" href={GET_STARTED_URL} rel="noreferrer">
-                <ListItemButton className={cls(cmn.pPrim)}>
+              <a
+                className="w-full text-foreground!"
+                target="_blank"
+                href={GET_STARTED_URL}
+                rel="noreferrer"
+              >
+                <ListItemButton className={getItemButtonClass(false)}>
                   <ListItemIcon>
-                    <ExploreOutlinedIcon />
+                    <Route className="text-foreground" size={18} />
                   </ListItemIcon>
                   <ListItemText primary="Get Started" />
                 </ListItemButton>
               </a>
             </ListItem>
           </List>
-          <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Transfer</h4>
+          <h4 className="text-secondary-foreground text-xs font-medium mt-2.5 ml-5">Transfer</h4>
           <List>
             <ListItem>
-              <Link to="/bridge" className="undec fullW">
+              <Link to="/bridge" className="w-full text-foreground!">
                 <ListItemButton
-                  className={cls(cmn.pPrim)}
                   selected={
                     location.pathname === '/bridge/history' || location.pathname === '/bridge'
                   }
+                  className={getItemButtonClass(
+                    location.pathname === '/bridge/history' || location.pathname === '/bridge'
+                  )}
                 >
                   <ListItemIcon>
-                    <SwapHorizontalCircleOutlinedIcon />
+                    <ArrowLeftRight className="text-foreground" size={18} />
                   </ListItemIcon>
                   <ListItemText primary="Bridge" />
                 </ListItemButton>
               </Link>
             </ListItem>
-            <ListItem>
-              <Link to="/onramp" className="undec fullW">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={location.pathname === '/onramp'}
-                >
-                  <ListItemIcon>
-                    <AddCardRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="On-Ramp" />
-                </ListItemButton>
-              </Link>
-            </ListItem>
+            {networks.hasFeatureInAny(NETWORKS, 'onramp') && (
+              <ListItem>
+                <Link to="/onramp" className="w-full text-foreground!">
+                  <ListItemButton
+                    selected={location.pathname === '/onramp'}
+                    className={getItemButtonClass(location.pathname === '/onramp')}
+                  >
+                    <ListItemIcon>
+                      <CreditCard className="text-foreground" size={18} />
+                    </ListItemIcon>
+                    <ListItemText primary="On-Ramp" />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            )}
           </List>
-          <h4 className={cls(cmn.pSec, cmn.p, cmn.p4, cmn.mtop10, cmn.mleft20)}>Network</h4>
+          <h4 className="text-secondary-foreground text-xs font-medium mt-2.5 ml-5">Network</h4>
           <List>
-            <ListItem>
-              <Link to="/ecosystem" className="undec fullW">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={location.pathname.includes('/ecosystem')}
-                >
-                  <ListItemIcon>
-                    <PublicOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Ecosystem" />
-                  <div className="chipNew">
-                    <p className={cls(cmn.p, cmn.p5)}>NEW</p>
-                  </div>
-                </ListItemButton>
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/chains" className="undec fullW">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={
-                    location.pathname.includes('/chains') || location.pathname.includes('/admin')
-                  }
-                >
-                  <ListItemIcon>
-                    <LinkRoundedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="SKALE Chains" />
-                </ListItemButton>
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/staking" className="undec fullW">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={location.pathname.includes('/staking')}
-                >
-                  <ListItemIcon>
-                    <PieChartOutlineOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Staking" />
-                </ListItemButton>
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/validators" className="undec fullW">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={location.pathname.includes('/validator')}
-                >
-                  <ListItemIcon>
-                    <GroupOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Validators" />
-                  <DelegationsNotification
-                    validatorDelegations={props.validatorDelegations}
-                    className={cls(cmn.mri5)}
-                  />
-                </ListItemButton>
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link to="/stats" className="undec fullW">
-                <ListItemButton
-                  className={cls(cmn.pPrim)}
-                  selected={location.pathname === '/stats'}
-                >
-                  <ListItemIcon>
-                    <InsertChartOutlinedIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Stats" />
-                </ListItemButton>
-              </Link>
-            </ListItem>
+            {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
+              <ListItem>
+                <Link to="/ecosystem" className="w-full text-foreground!">
+                  <ListItemButton
+                    selected={location.pathname.includes('/ecosystem')}
+                    className={getItemButtonClass(location.pathname.includes('/ecosystem'))}
+                  >
+                    <ListItemIcon>
+                      <Globe2 className="text-foreground" size={18} />
+                    </ListItemIcon>
+                    <ListItemText primary="Ecosystem" />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            )}
+            {networks.hasFeatureInAny(NETWORKS, 'chains') && (
+              <ListItem>
+                <Link to="/chains" className="w-full text-foreground!">
+                  <ListItemButton
+                    selected={
+                      location.pathname.includes('/chains') || location.pathname.includes('/admin/')
+                    }
+                    className={getItemButtonClass(
+                      location.pathname.includes('/chains') || location.pathname.includes('/admin/')
+                    )}
+                  >
+                    <ListItemIcon>
+                      <Network className="text-foreground" size={18} />
+                    </ListItemIcon>
+                    <ListItemText primary="SKALE Chains" />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            )}
+            {networks.hasFeatureInAny(NETWORKS, 'staking') && (
+              <ListItem>
+                <Link to="/staking" className="w-full text-foreground!">
+                  <ListItemButton
+                    selected={location.pathname.includes('/staking')}
+                    className={getItemButtonClass(location.pathname.includes('/staking'))}
+                  >
+                    <ListItemIcon>
+                      <PieChart className="text-foreground" size={18} />
+                    </ListItemIcon>
+                    <ListItemText primary="Staking" />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            )}
+            {networks.hasFeatureInAny(NETWORKS, 'staking') && (
+              <ListItem>
+                <Link to="/validators" className="w-full text-foreground!">
+                  <ListItemButton
+                    selected={location.pathname.includes('/validator')}
+                    className={getItemButtonClass(location.pathname.includes('/validator'))}
+                  >
+                    <ListItemIcon>
+                      <Users className="text-foreground" size={18} />
+                    </ListItemIcon>
+                    <ListItemText primary="Validators" />
+                    <DelegationsNotification
+                      validatorDelegations={props.validatorDelegations}
+                      className="mr-1.5"
+                    />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            )}
+            {networks.hasFeatureInAny(NETWORKS, 'stats') && (
+              <ListItem>
+                <Link to="/stats" className="w-full text-foreground!">
+                  <ListItemButton
+                    selected={location.pathname === '/stats'}
+                    className={getItemButtonClass(location.pathname === '/stats')}
+                  >
+                    <ListItemIcon>
+                      <BarChart2 className="text-foreground" size={18} />
+                    </ListItemIcon>
+                    <ListItemText primary="Stats" />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            )}
+            {networks.hasFeatureInAny(NETWORKS, 'credits') && (
+              <ListItem>
+                <Link to="/credits" className="w-full text-foreground!">
+                  <ListItemButton
+                    selected={
+                      location.pathname === '/credits' || location.pathname === '/credits/admin'
+                    }
+                    className={getItemButtonClass(
+                      location.pathname === '/credits' || location.pathname === '/credits/admin'
+                    )}
+                  >
+                    <ListItemIcon>
+                      <BadgeDollarSign className="text-foreground" size={18} />
+                    </ListItemIcon>
+                    <ListItemText primary="Chain Credits" />
+                  </ListItemButton>
+                </Link>
+              </ListItem>
+            )}
           </List>
         </Box>
       </Drawer>

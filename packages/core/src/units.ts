@@ -55,7 +55,7 @@ export function displayBalance(
   ).toLocaleString(undefined, {
     maximumFractionDigits: DEFAULT_FRACTION_DIGITS
   })
-  return res + (tokenSymbol ? ` ${tokenSymbol}` : '')
+  return res + (tokenSymbol ? ` ${tokenSymbol.toUpperCase()}` : '')
 }
 
 export function displaySklValueUsd(
@@ -69,7 +69,7 @@ export function displaySklValueUsd(
     formatUnits(amountWei * priceWei, totalDecimals),
     DEFAULT_FRACTION_DIGITS_USD
   );
-return Number(usdStr).toLocaleString(undefined, {
+  return Number(usdStr).toLocaleString(undefined, {
     maximumFractionDigits: DEFAULT_FRACTION_DIGITS_USD
   }) + ' USD';
 }

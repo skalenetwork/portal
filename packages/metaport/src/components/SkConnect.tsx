@@ -24,9 +24,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 
 import Button from '@mui/material/Button'
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
-
-import { cls, cmn, styles } from '../core/css'
+import { ChevronDown, Wallet } from 'lucide-react'
 
 import { useMetaportStore } from '../store/MetaportStore'
 
@@ -68,8 +66,9 @@ export default function SkConnect() {
                       variant="contained"
                       color="primary"
                       size="medium"
-                      className={cls(styles.btnAction, cmn.mtop20)}
+                      className="btn-action mt-5 w-full my-4! p-4! bg-accent-foreground! text-accent! capitalize!"
                       onClick={openConnectModal}
+                      startIcon={<Wallet size={17} />}
                     >
                       Connect Wallet
                     </Button>
@@ -82,7 +81,7 @@ export default function SkConnect() {
                     variant="contained"
                     color="error"
                     size="small"
-                    className={cls(styles.btnAction, cmn.mbott5, cmn.fullWidth)}
+                    className="btn-action mb-5 w-full"
                     onClick={openChainModal}
                   >
                     Wrong network
@@ -90,21 +89,21 @@ export default function SkConnect() {
                 )
               }
               return (
-                <div className={cls(cmn.flex)}>
-                  <div className={cls(cmn.flexg, cmn.flex)}></div>
+                <div className="flex">
+                  <div className="grow flex"></div>
                   <div>
                     <Button
                       disabled={transferInProgress}
                       size="small"
-                      className={cls(styles.btnChain, cmn.flex, cmn.flexcv, cmn.pPrim)}
+                      className="btn-chain flex items-center text-primary"
                       onClick={openAccountModal}
                       style={{ color: 'white' }}
                     >
-                      <div className={cls(cmn.mri5, cmn.flex)}>
+                      <div className="mr-1.5 flex">
                         <Jazzicon diameter={16} seed={jsNumberForAddress(account.address)} />
                       </div>
                       {account.displayName}
-                      <ExpandMoreRoundedIcon className={styles.chainIconxs} />
+                      <ChevronDown size={17} className="text-secondary-foreground" />
                     </Button>
                   </div>
                 </div>

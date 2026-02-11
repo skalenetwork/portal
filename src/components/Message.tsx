@@ -21,16 +21,19 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { type ReactElement, useState } from 'react'
+import { type ReactElement, useState, useEffect } from 'react'
 import IconButton from '@mui/material/IconButton'
+import Button from '@mui/material/Button'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import Collapse from '@mui/material/Collapse'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
-import { SkPaper, cls, cmn } from '@skalenetwork/metaport'
+import { SkPaper } from '@skalenetwork/metaport'
 import { Link } from 'react-router-dom'
+import { cn } from '../core/ecosystem/utils'
 
 export default function Message(props: {
   text: string | null
+  textLong?: string
   linkText?: string
   link?: string
   icon: ReactElement
@@ -38,6 +41,7 @@ export default function Message(props: {
   showOnLoad?: boolean | undefined
   type?: 'warning' | 'info' | 'error'
   closable?: boolean
+  onClose?: () => void
   button?: ReactElement | null
   gray?: boolean
 }) {
@@ -45,62 +49,89 @@ export default function Message(props: {
   const [show, setShow] = useState<boolean>(true)
   const closable = props.closable ?? true
   const gray = props.gray ?? true
+
+  useEffect(() => {
+    setShow(true)
+  }, [props.text, props.type])
+
+  const handleClose = () => {
+    setShow(false)
+    props.onClose?.()
+  }
   return (
     <Collapse in={show}>
       <SkPaper
-        gray={gray}
-        className={cls(
+        gray={type === 'info' && gray}
+        className={cn(
+          'skMessage items-center flex',
           props.className,
-          'skMessage',
-          cmn.flexcv,
-          cmn.flex,
-          ['warningMsg', type === 'warning'],
-          ['errorMsg', type === 'error']
+          type === 'warning' &&
+          'bg-yellow-50! dark:bg-yellow-300/20! text-yellow-700 dark:text-yellow-200',
+          type === 'error' &&
+          'bg-red-100! dark:bg-red-800/80! border-red-200! dark:border-red-600! border-2! text-red-800 dark:text-red-200'
         )}
       >
-        <div
-          className={cls(
-            cmn.flex,
-            cmn.fullWidth,
-            cmn.flexcv,
-            cmn.mtop5,
-            cmn.mbott5,
-            cmn.mleft10,
-            cmn.mri10
-          )}
-        >
-          <div className={cls(cmn.flex, cmn.flexc, cmn.mri15)}>{props.icon}</div>
+        <div className="w-full flex items-center py-1.5 px-2.5">
+          <div className="flex items-center mr-2.5 ">{props.icon}</div>
           {props.text ? (
-            <p className={cls(cmn.p, cmn.p3, cmn.p600, [cmn.pPrim, type !== 'warning'], cmn.mri5)}>
-              {props.text}
-            </p>
-          ) : null}
-          {props.link ? (
-            <div className={cls(cmn.flex, cmn.flexcv, cmn.flexg)}>
-              <Link to={props.link}>
-                <p className={cls(cmn.p, cmn.p3, cmn.p600, cmn.mri5)}>{props.linkText}</p>
-              </Link>
-              <ArrowOutwardRoundedIcon
-                className={cls(cmn.flex, cmn.flexcv, 'a')}
-                style={{ height: '14px', width: '14px' }}
-              />
+            <div className="flex items-center mr-1.5 min-w-0">
+              <p
+                className={cn(
+                  'text-sm font-semibold break-all sm:break-normal',
+                  type !== 'warning' && type !== 'error' && 'text-primary'
+                )}
+              >
+                {!props.textLong ? (
+                  <span>{props.text}</span>
+                ) : (
+                  <>
+                    <span className="sm:hidden!">{props.text}</span>
+                    <span className="hidden! sm:inline!">{props.textLong}</span>
+                  </>
+                )}
+              </p>
+              {props.link && props.linkText ? (
+                <div
+                  className={cn(
+                    'flex items-center',
+                    type === 'warning' && 'text-yellow-700 dark:text-yellow-400',
+                    type === 'error' && 'text-red-800! dark:text-red-200!'
+                  )}
+                >
+                  <Link to={props.link}>
+                    <p className="text-sm font-semibold">{props.linkText}</p>
+                  </Link>
+                  <ArrowOutwardRoundedIcon
+                    className="flex items-center ml-1"
+                    style={{ height: '14px', width: '14px' }}
+                  />
+                </div>
+              ) : null}
             </div>
           ) : null}
 
-          <div className={cmn.flexg}></div>
+          <div className="grow"></div>
           {props.button}
           {closable ? (
-            <IconButton
-              onClick={() => {
-                setShow(false)
-              }}
-              className={cls(cmn.paperGrey, cmn.mleft10)}
-            >
-              <CloseRoundedIcon
-                className={cls([cmn.pSec, type !== 'warning'])}
-                style={{ height: '16px', width: '16px' }}
-              />
-            </IconButton>
+            type === 'error' ? (
+              <Button
+                size="small"
+                onClick={handleClose}
+                className="btn btnSm text-foreground! bg-transparent! hover:bg-red-800/10! normal-case! ml-2.5"
+              >
+                Close
+              </Button>
+            ) : (
+              <IconButton onClick={handleClose} className="paperGrey ml-2.5">
+                <CloseRoundedIcon
+                  className={cn(
+                    'flex items-center',
+                    type === 'warning' && 'text-yellow-700 dark:text-yellow-400'
+                  )}
+                  style={{ height: '16px', width: '16px' }}
+                />
+              </IconButton>
+            )
           ) : null}
         </div>
       </SkPaper>

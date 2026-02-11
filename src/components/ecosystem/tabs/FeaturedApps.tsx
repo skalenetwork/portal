@@ -23,14 +23,13 @@
  */
 
 import React, { useMemo } from 'react'
-import { Grid, Box, Button } from '@mui/material'
+import { Box, Button } from '@mui/material'
 import { Link } from 'react-router-dom'
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
-import { cls, cmn, SkPaper, styles } from '@skalenetwork/metaport'
+import { Plus } from 'lucide-react'
+import { SkPaper } from '@skalenetwork/metaport'
 import AppCard from '../AppCardV2'
 import Carousel from '../../Carousel'
 import { type types, metadata } from '@/core'
-import { useLikedApps } from '../../../LikedAppsContext'
 import { isTrending, isNewApp } from '../../../core/ecosystem/utils'
 
 interface FeaturedAppsProps {
@@ -56,8 +55,6 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
   showSeeMoreButton = false,
   chainName
 }) => {
-  const { getMostLikedApps, getAppId, getMostLikedRank } = useLikedApps()
-  const trendingAppIds = useMemo(() => getMostLikedApps(), [getMostLikedApps])
   const filteredFeaturedApps = useMemo(() => {
     const filtered = featuredApps.filter((app) => {
       const chainData = chainsMeta[app.chain]?.apps?.[app.appName]
@@ -68,7 +65,6 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
 
   const renderAppCard = (app: types.AppWithChainAndName) => {
     const isNew = isNewApp({ chain: app.chain, app: app.appName }, newApps)
-    const appId = getAppId(app.chain, app.appName)
 
     return (
       <AppCard
@@ -77,7 +73,6 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
         schainName={app.chain}
         appName={app.appName}
         chainsMeta={chainsMeta}
-        mostLiked={getMostLikedRank(trendingAppIds, appId)}
         trending={isTrending(trendingApps, app.chain, app.appName)}
         isNew={isNew}
         isFeatured={true}
@@ -93,8 +88,8 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
   if (featuredApps.length === 0) {
     return (
       <SkPaper gray className="titleSection">
-        <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.pCent)}>
+        <div className="mt-5 mb-5">
+          <p className="text-base text-secondary-foreground text-center font-semibold">
             🚫 No featured apps match your current filters
           </p>
         </div>
@@ -104,26 +99,26 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
 
   return (
     <>
-      <Grid container spacing={2}>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
         {filteredFeaturedApps.map((app) => (
-          <Grid key={`${app.chain}-${app.appName}`} size={{ xs: 12, sm: 6, md: 4, lg: 4 }}>
-            <Box className={cls('fl-centered dappCard')}>{renderAppCard(app)}</Box>
-          </Grid>
+          <div key={`${app.chain}-${app.appName}`} className="col-span-1">
+            <Box className="flex justify-center items-center h-full">{renderAppCard(app)}</Box>
+          </div>
         ))}
-      </Grid>
+      </div>
       {showSeeMoreButton &&
         chainName !== null &&
         chainName !== undefined &&
         chainName.trim() !== '' && (
-          <Box className={cls(cmn.flex, cmn.flexc, cmn.mtop20)}>
+          <Box className="flex flex-col mt-5 text-center">
             <Link
-              to={`/ecosystem?search=${encodeURIComponent(metadata.getAlias(chainsMeta, chainName))}`}
+              to={`/ecosystem?search=${encodeURIComponent(metadata.getAlias(skaleNetwork, chainsMeta, chainName))}`}
               style={{ textDecoration: 'none' }}
             >
               <Button
                 size="medium"
-                startIcon={<AddCircleRoundedIcon />}
-                className={cls(styles.btnAction, cmn.pleft20, cmn.pri20)}
+                startIcon={<Plus />}
+                className="btn-action pl-20 pr-20 capitalize! text-accent-foreground!"
               >
                 See more
               </Button>

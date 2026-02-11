@@ -23,18 +23,16 @@
 
 import React from 'react'
 import { IconButton, Tooltip } from '@mui/material'
-import { LanguageRounded, TrackChangesRounded, JoinLeftRounded } from '@mui/icons-material'
 import { SocialIcon } from 'react-social-icons/component'
 import 'react-social-icons/discord'
 import 'react-social-icons/github'
 import 'react-social-icons/telegram'
 import 'react-social-icons/x'
-import { cmn, cls } from '@skalenetwork/metaport'
 import { type types } from '@/core'
-import FavoriteIconButton from './FavoriteIconButton'
 import SwellIcon from './SwellIcon'
 import EpicGamesStoreLogo from '../../assets/egs.svg'
-import ForumIcon from '@mui/icons-material/Forum'
+import DuneLogo from '../../assets/dune.svg'
+import { Globe, MessagesSquare, Target } from 'lucide-react'
 
 interface SocialButtonsProps {
   social?: types.AppSocials
@@ -49,11 +47,9 @@ const MAX_SOCIALS_SM = 6
 
 const SocialButtons: React.FC<SocialButtonsProps> = ({
   social,
-  chainName,
-  appName,
-  className,
   all = false,
-  size = 'sm'
+  size = 'sm',
+  className
 }) => {
   const isMd = size === 'md'
 
@@ -61,9 +57,9 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
     {
       key: 'website',
       icon: (
-        <LanguageRounded
-          className={cls([cmn.pPrim, isMd], [cmn.pSec, !isMd])}
-          fontSize={isMd ? 'medium' : 'small'}
+        <Globe
+          className={`${isMd ? 'text-foreground' : 'text-muted-foreground'}`}
+          size={isMd ? 24 : 17}
         />
       ),
       title: 'Website'
@@ -73,7 +69,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
       icon: (
         <img
           src={EpicGamesStoreLogo}
-          className={cls('customSocialIcon', isMd && 'customSocialIconMd')}
+          className={`customSocialIcon ${isMd ? 'customSocialIconMd' : ''}`}
           alt="egs-logo"
         />
       ),
@@ -85,7 +81,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
         <SwellIcon
           size={isMd ? 'medium' : 'small'}
           style={{ padding: '2px' }}
-          className={cls([cmn.pSec, !isMd], [cmn.pPrim, isMd])}
+          className={`${isMd ? 'text-foreground' : 'text-muted-foreground'}`}
         />
       ),
       title: 'Swell'
@@ -93,9 +89,9 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
     {
       key: 'dappradar',
       icon: (
-        <TrackChangesRounded
-          className={cls([cmn.pPrim, isMd], [cmn.pSec, !isMd])}
-          fontSize={isMd ? 'medium' : 'small'}
+        <Target
+          className={`${isMd ? 'text-foreground' : 'text-muted-foreground'}`}
+          size={isMd ? 24 : 17}
         />
       ),
       title: 'dAppRadar'
@@ -107,9 +103,11 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
     {
       key: 'dune',
       icon: (
-        <JoinLeftRounded
-          className={cls([cmn.pPrim, isMd], [cmn.pSec, !isMd])}
-          fontSize={isMd ? 'medium' : 'small'}
+        <img
+          src={DuneLogo}
+          className={`customSocialIcon ${isMd ? 'text-foreground' : 'opacity-60'}`}
+          alt="dune-logo"
+          style={{ width: isMd ? 24 : 17, height: isMd ? 24 : 17 }}
         />
       ),
       title: 'Dune Analytics'
@@ -117,9 +115,9 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
     {
       key: 'forum',
       icon: (
-        <ForumIcon
-          className={cls([cmn.pPrim, isMd], [cmn.pSec, !isMd])}
-          fontSize={isMd ? 'medium' : 'small'}
+        <MessagesSquare
+          className={`${isMd ? 'text-foreground' : 'text-muted-foreground'}`}
+          size={isMd ? 24 : 17}
         />
       ),
       title: 'SKALE Forum'
@@ -129,33 +127,29 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
   const visibleLinks = isMd || all ? socialLinks : socialLinks.slice(0, MAX_SOCIALS_SM)
 
   return (
-    <div className={cls(cmn.flex, cmn.flexcv, className)}>
+    <div className={`flex items-center ${className || ''}`}>
       {social && (
-        <div className={cls(cmn.flex, cmn.flexg)}>
+        <div className="flex items-center grow">
           {visibleLinks.map(({ key, icon, network, title }) => {
             const link = social[key as keyof types.AppSocials]
             if (!link) return null
 
             return (
-              <div className={cls([cmn.mri10, isMd])} key={key}>
+              <div className={isMd ? 'mr-2.5' : 'mr-1.5'} key={key}>
                 <Tooltip key={key} title={title}>
                   <IconButton
                     size={isMd ? 'medium' : 'small'}
                     href={link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={cls(
-                      network ? cmn.nop : undefined,
-                      [cmn.pPrim, isMd],
-                      ['bgBlack', isMd]
-                    )}
+                    className={`flex items-center justify-center ${isMd ? 'min-w-7 min-h-7' : 'min-w-[30px] min-h-[30px]'} ${network ? 'p-0!' : ''} ${isMd ? 'bg-muted!' : ''}`}
                   >
                     {icon || (
                       <SocialIcon
                         network={network}
-                        bgColor={isMd ? 'black' : 'transparent'}
-                        className={cls('socialIcon', isMd && 'socialIconMd')}
-                        fgColor={isMd ? '' : 'rgb(255 255 255 / 65%)'}
+                        bgColor="transparent"
+                        className={`socialIcon ${isMd ? 'socialIconMd' : ''}`}
+                        fgColor={isMd ? 'var(--foreground)' : 'var(--muted-foreground)'}
                       />
                     )}
                   </IconButton>
@@ -165,10 +159,7 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
           })}
         </div>
       )}
-      {!social && <div className={cmn.flexg}></div>}
-      {!isMd && chainName && appName ? (
-        <FavoriteIconButton chainName={chainName} appName={appName} />
-      ) : null}
+      {!social && <div className="grow"></div>}
     </div>
   )
 }

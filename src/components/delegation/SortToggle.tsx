@@ -21,10 +21,10 @@
  */
 
 import { useState } from 'react'
-import { cls, cmn, styles } from '@skalenetwork/metaport'
 import { ToggleButtonGroup, ToggleButton } from '@mui/material'
 import FilterListRoundedIcon from '@mui/icons-material/FilterListRounded'
 import ContrastRoundedIcon from '@mui/icons-material/ContrastRounded'
+import { ArrowDown10, IdCard } from 'lucide-react'
 
 interface SortToggleProps {
   onChange: (sort: 'id' | 'status') => void
@@ -47,19 +47,23 @@ const SortToggle: React.FC<SortToggleProps> = ({ onChange, className }) => {
       exclusive
       onChange={handleChange}
       aria-label="delegation sort"
-      className={className}
+      className={`${className} bg-background! rounded-full! p-1! w-fit`}
       size="small"
     >
-      <ToggleButton value="id" aria-label="sort by id" className={cls(cmn.pPrim, cmn.p, cmn.p4)}>
-        <FilterListRoundedIcon className={cls(cmn.mri5, styles.chainIconxs)} />
+      <ToggleButton
+        value="id"
+        aria-label="sort by id"
+        className={`capitalize! text-xs ${sortBy === 'id' ? 'text-foreground! bg-foreground/10! shadow-xs!' : 'text-muted-foreground!'}`}
+      >
+        <IdCard size={14} className="mr-1.5" />
         Sort by ID
       </ToggleButton>
       <ToggleButton
         value="status"
         aria-label="sort by status"
-        className={cls(cmn.pPrim, cmn.p, cmn.p4)}
+        className={`capitalize! text-xs ${sortBy === 'status' ? 'text-foreground! bg-foreground/10! shadow-xs!' : 'text-muted-foreground!'}`}
       >
-        <ContrastRoundedIcon className={cls(cmn.mri5, styles.chainIconxs)} />
+        <ArrowDown10 size={14} className="mr-1.5" />
         Sort by Status
       </ToggleButton>
     </ToggleButtonGroup>

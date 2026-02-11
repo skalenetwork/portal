@@ -21,11 +21,11 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cls, cmn, Tile } from '@skalenetwork/metaport'
+import { Tile } from '@skalenetwork/metaport'
 
 import Button from '@mui/material/Button'
 import Collapse from '@mui/material/Collapse'
-import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
+import { ShieldAlert } from 'lucide-react'
 
 export default function ErrorTile(props: {
   errorMsg: string | undefined
@@ -35,11 +35,10 @@ export default function ErrorTile(props: {
   return (
     <Collapse in={props.errorMsg !== undefined}>
       <Tile
-        className={props.className}
+        className={`${props.className} mt-5! mb-0! bg-red-100 border-red-200 dark:bg-red-800/80 dark:border-red-600 border-2 items-center!`}
         value={props.errorMsg}
         text="Error occurred"
-        icon={<ErrorRoundedIcon />}
-        color="error"
+        icon={<ShieldAlert size={17} />}
         grow
         childrenRi={
           props.setErrorMsg && (
@@ -49,8 +48,7 @@ export default function ErrorTile(props: {
                 if (props.setErrorMsg === undefined) return
                 props.setErrorMsg(undefined)
               }}
-              className={cls('blackP', cmn.p, cmn.p4, cmn.mtop10)}
-              style={{ background: 'rgba(0, 0, 0, 0.3)' }}
+              className="btn btnSm text-foreground! bg-transparent! hover:bg-red-800/10! normal-case!"
             >
               Close
             </Button>

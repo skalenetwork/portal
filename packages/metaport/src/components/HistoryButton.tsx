@@ -23,13 +23,11 @@
 
 import Button from '@mui/material/Button'
 
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
+import { ChevronDown } from 'lucide-react'
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
 
 import { useMetaportStore } from '../store/MetaportStore'
 import { useCollapseStore } from '../store/Store'
-
-import { cls, styles, cmn } from '../core/css'
 
 export default function TransactionsHistory() {
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
@@ -40,19 +38,19 @@ export default function TransactionsHistory() {
   const totalCount = transactionsHistory.length + transfersHistory.length
   if (totalCount === 0) return
   return (
-    <div className={cls(cmn.flex, cmn.flexcv)}>
+    <div className="flex items-center">
       <Button
         size="small"
-        className={cls(styles.btnChain, cmn.flex, cmn.flexcv, cmn.pPrim)}
+        className={`btn-chain flex items-center text-primary ${expandedTH ? 'rotate-180' : ''}`}
         onClick={() => {
           setExpandedTH(!expandedTH)
         }}
       >
-        <div className={cls(cmn.mri5, cmn.flex)}>
-          <HistoryRoundedIcon className={styles.chainIconxs} />
+        <div className="mr-1.5 flex">
+          <HistoryRoundedIcon className="w-4 h-4" />
         </div>
         History ({totalCount})
-        <ExpandMoreRoundedIcon className={cls(styles.chainIconxs, [cmn.rotate180, expandedTH])} />
+        <ChevronDown size={17} className="text-secondary-foreground" />
       </Button>
     </div>
   )

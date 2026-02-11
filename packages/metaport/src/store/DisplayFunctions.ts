@@ -49,15 +49,8 @@ export const useDisplayFunctions = (): DisplayFunctions => {
   const token = useMetaportStore((state) => state.token)
   const errorMessage = useMetaportStore((state) => state.errorMessage)
 
-  const fromChainData = useSFuelStore((state) => state.fromChainData)
-  const toChainData = useSFuelStore((state) => state.toChainData)
   const hubChainData = useSFuelStore((state) => state.hubChainData)
-
-  const fromOk = fromChainData && fromChainData.ok
-  const toOk = toChainData && toChainData.ok
   const hubOk = (hubChainData && hubChainData.ok) || !hubChainData
-
-  const sFuelOk = fromOk && toOk && hubOk
 
   const showFrom = (): boolean => {
     return !expandedTo && !expandedTokens && !errorMessage && !expandedCP && !expandedTH
@@ -94,7 +87,7 @@ export const useDisplayFunctions = (): DisplayFunctions => {
       !expandedTokens &&
       !errorMessage &&
       !expandedCP &&
-      sFuelOk &&
+      hubOk &&
       !expandedWT &&
       !expandedTH &&
       !!address
@@ -121,7 +114,6 @@ export const useDisplayFunctions = (): DisplayFunctions => {
       !errorMessage &&
       !expandedCP &&
       !expandedTH &&
-      sFuelOk &&
       !!address &&
       !!token
     )

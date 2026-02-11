@@ -22,8 +22,7 @@
  */
 
 import React, { useMemo } from 'react'
-import { Grid, Box } from '@mui/material'
-import { cls } from '@skalenetwork/metaport'
+import { Box } from '@mui/material'
 
 import { type types } from '@/core'
 
@@ -32,14 +31,12 @@ import { findSimilarApps, type SimilarApp } from '../../core/ecosystem/similarAp
 
 import AppCardV2 from './AppCardV2'
 import Carousel from '../Carousel'
-import { useLikedApps } from '../../LikedAppsContext'
 
 interface RecommendedAppsProps {
   skaleNetwork: types.SkaleNetwork
   chainsMeta: types.ChainsMetadataMap
   allApps: types.AppWithChainAndName[]
   currentApp?: types.AppWithChainAndName
-  favoriteApps?: types.AppWithChainAndName[]
   newApps: types.AppWithChainAndName[]
   trendingApps: types.AppWithChainAndName[]
   featuredApps?: types.AppWithChainAndName[]
@@ -53,7 +50,6 @@ const RecommendedApps: React.FC<RecommendedAppsProps> = ({
   chainsMeta,
   allApps,
   currentApp,
-  favoriteApps,
   newApps,
   trendingApps,
   featuredApps = [],
@@ -61,26 +57,24 @@ const RecommendedApps: React.FC<RecommendedAppsProps> = ({
   className,
   gray = false
 }) => {
-  const { getMostLikedApps, getAppId, getMostLikedRank } = useLikedApps()
-  const mostLikedAppIds = useMemo(() => getMostLikedApps(), [getMostLikedApps])
-
   const similarApps = useMemo(() => {
-    return findSimilarApps(currentApp, allApps, favoriteApps)
-  }, [currentApp, allApps, favoriteApps])
+    return findSimilarApps(currentApp, allApps)
+  }, [currentApp, allApps])
 
   if (similarApps.length === 0) return null
 
   const renderAppCard = (app: SimilarApp) => {
-    const appId = getAppId(app.chain, app.appName)
     return (
-      <Box key={`${app.chain}-${app.appName}`} className={cls('fl-centered dappCard')}>
+      <Box
+        key={`${app.chain}-${app.appName}`}
+        className="flex justify-center items-center dappCard"
+      >
         <AppCardV2
           skaleNetwork={skaleNetwork}
           schainName={app.chain}
           appName={app.appName}
           chainsMeta={chainsMeta}
           isNew={isNewApp({ chain: app.chain, app: app.appName }, newApps)}
-          mostLiked={getMostLikedRank(mostLikedAppIds, appId)}
           trending={isTrending(trendingApps, app.chain, app.appName)}
           isFeatured={isFeatured({ chain: app.chain, app: app.appName }, featuredApps)}
           gray={gray}
@@ -92,13 +86,15 @@ const RecommendedApps: React.FC<RecommendedAppsProps> = ({
     return <Carousel className={className}>{similarApps.map(renderAppCard)}</Carousel>
   }
   return (
-    <Grid container spacing={2} className={className}>
+    <div
+      className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4 ${className}`}
+    >
       {similarApps.map((app) => (
-        <Grid key={`${app.chain}-${app.appName}`} size={{ xs: 12, sm: 6, md: 4, lg: 4 }}>
+        <div key={`${app.chain}-${app.appName}`} className="col-span-1">
           {renderAppCard(app)}
-        </Grid>
+        </div>
       ))}
-    </Grid>
+    </div>
   )
 }
 

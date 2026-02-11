@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <title>circle-coin</title>
+              <g fill="none">
+                <path d="M9.5 1C14.1944 1 18 4.80558 18 9.5C18 11.5861 17.2471 13.4955 16 14.9746V17C16 17.8284 15.3284 18.5 14.5 18.5C13.752 18.5 13.1329 17.9524 13.0195 17.2363C11.9468 17.7251 10.7558 18 9.5 18C4.80558 18 1 14.1944 1 9.5C1 4.80558 4.80558 1 9.5 1Z" fill="url(#1752500502775-6427239_circle-coin_existing_0_9d1ern3py)" data-glass="origin" mask="url(#1752500502775-6427239_circle-coin_mask_kcbcrf2l5)"></path>
+                <path d="M9.5 1C14.1944 1 18 4.80558 18 9.5C18 11.5861 17.2471 13.4955 16 14.9746V17C16 17.8284 15.3284 18.5 14.5 18.5C13.752 18.5 13.1329 17.9524 13.0195 17.2363C11.9468 17.7251 10.7558 18 9.5 18C4.80558 18 1 14.1944 1 9.5C1 4.80558 4.80558 1 9.5 1Z" fill="url(#1752500502775-6427239_circle-coin_existing_0_9d1ern3py)" data-glass="clone" filter="url(#1752500502775-6427239_circle-coin_filter_ekh2c2shp)" clip-path="url(#1752500502775-6427239_circle-coin_clipPath_e4v4x5rng)"></path>
+                <path d="M14.5 6C19.1944 6 23 9.80558 23 14.5C23 19.1944 19.1944 23 14.5 23C9.80558 23 6 19.1944 6 14.5C6 9.80558 9.80558 6 14.5 6ZM14.5 11C13.9477 11 13.5 11.4477 13.5 12V17C13.5 17.5523 13.9477 18 14.5 18C15.0523 18 15.5 17.5523 15.5 17V12C15.5 11.4477 15.0523 11 14.5 11Z" fill="url(#1752500502775-6427239_circle-coin_existing_1_eckaewepf)" data-glass="blur"></path>
+                <path d="M14.5 6C19.1944 6 23 9.80558 23 14.5C23 19.1944 19.1944 23 14.5 23C9.80558 23 6 19.1944 6 14.5C6 9.80558 9.80558 6 14.5 6ZM14.5 6.75C10.2198 6.75 6.75 10.2198 6.75 14.5C6.75 18.7802 10.2198 22.25 14.5 22.25C18.7802 22.25 22.25 18.7802 22.25 14.5C22.25 10.2198 18.7802 6.75 14.5 6.75Z" fill="url(#1752500502775-6427239_circle-coin_existing_2_hnwplfgmr)"></path>
+                <defs>
+                  <linearGradient id="1752500502775-6427239_circle-coin_existing_0_9d1ern3py" x1="9.5" y1="1" x2="9.5" y2="18.5" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#575757"></stop>
+                    <stop offset="1" stop-color="#151515"></stop>
+                  </linearGradient>
+                  <linearGradient id="1752500502775-6427239_circle-coin_existing_1_eckaewepf" x1="14.5" y1="6" x2="14.5" y2="23" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#E3E3E5" stop-opacity=".6"></stop>
+                    <stop offset="1" stop-color="#BBBBC0" stop-opacity=".6"></stop>
+                  </linearGradient>
+                  <linearGradient id="1752500502775-6427239_circle-coin_existing_2_hnwplfgmr" x1="14.5" y1="6" x2="14.5" y2="15.845" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#fff"></stop>
+                    <stop offset="1" stop-color="#fff" stop-opacity="0"></stop>
+                  </linearGradient>
+                  <filter id="1752500502775-6427239_circle-coin_filter_ekh2c2shp" x="-100%" y="-100%" width="400%" height="400%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse">
+                    <feGaussianBlur stdDeviation="2" x="0%" y="0%" width="100%" height="100%" in="SourceGraphic" edgeMode="none" result="blur"></feGaussianBlur>
+                  </filter>
+                  <clipPath id="1752500502775-6427239_circle-coin_clipPath_e4v4x5rng">
+                    <path d="M14.5 6C19.1944 6 23 9.80558 23 14.5C23 19.1944 19.1944 23 14.5 23C9.80558 23 6 19.1944 6 14.5C6 9.80558 9.80558 6 14.5 6ZM14.5 11C13.9477 11 13.5 11.4477 13.5 12V17C13.5 17.5523 13.9477 18 14.5 18C15.0523 18 15.5 17.5523 15.5 17V12C15.5 11.4477 15.0523 11 14.5 11Z" fill="url(#1752500502775-6427239_circle-coin_existing_1_eckaewepf)"></path>
+                  </clipPath>
+                  <mask id="1752500502775-6427239_circle-coin_mask_kcbcrf2l5">
+                    <rect width="100%" height="100%" fill="#FFF"></rect>
+                    <path d="M14.5 6C19.1944 6 23 9.80558 23 14.5C23 19.1944 19.1944 23 14.5 23C9.80558 23 6 19.1944 6 14.5C6 9.80558 9.80558 6 14.5 6ZM14.5 11C13.9477 11 13.5 11.4477 13.5 12V17C13.5 17.5523 13.9477 18 14.5 18C15.0523 18 15.5 17.5523 15.5 17V12C15.5 11.4477 15.0523 11 14.5 11Z" fill="#000"></path>
+                  </mask>
+                </defs>
+              </g>
+            </svg>

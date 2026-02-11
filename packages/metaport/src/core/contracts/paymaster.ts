@@ -41,7 +41,7 @@ export function getPaymasterChain(skaleNetwork: types.SkaleNetwork): string {
   return contracts.PAYMASTER_CONTRACTS[skaleNetwork].chain
 }
 
-export function getPaymasterAddress(skaleNetwork: types.SkaleNetwork): string {
+export function getPaymasterAddress(skaleNetwork: types.SkaleNetwork): types.AddressType {
   return contracts.PAYMASTER_CONTRACTS[skaleNetwork].address
 }
 

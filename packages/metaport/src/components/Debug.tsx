@@ -24,7 +24,7 @@
 import { useState, useEffect, useReducer } from 'react'
 import { types } from '@/core'
 
-import Grid from '@mui/material/Grid'
+
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
 import TableCell from '@mui/material/TableCell'
@@ -40,7 +40,6 @@ import ExpandRoundedIcon from '@mui/icons-material/ExpandRounded'
 
 import { useCPStore } from '../store/CommunityPoolStore'
 import { useMetaportStore } from '../store/MetaportStore'
-import { cls, cmn, styles } from '../core/css'
 import { Collapse } from '@mui/material'
 
 const initialState = { queue: [] }
@@ -187,15 +186,15 @@ export default function Debug() {
         }}
         color={expanded ? 'warning' : 'info'}
         size="small"
-        className={cls(styles.btnAction, cmn.mtop20)}
+        className="btn-action mt-5"
         startIcon={expanded ? <CloseRoundedIcon /> : <ExpandRoundedIcon />}
       >
         {expanded ? 'Hide' : 'Show'} debug info
       </Button>
       <Collapse in={expanded}>
-        <div className={cls(cmn.flex, cmn.flexcv, styles.smallTable)}>
-          <Grid container spacing={3}>
-            <Grid size={{ xs: 12, sm: 12 }}>
+        <div className="flex items-center text-xs">
+          <div className="grid grid-cols-1 gap-6 w-full">
+            <div className="col-span-1">
               <TableContainer component={Paper}>
                 <Table aria-label="simple table" size="small">
                   <TableHead>
@@ -227,7 +226,7 @@ export default function Debug() {
                 }}
                 color="error"
                 size="small"
-                className={cls(styles.btnAction)}
+                className="btn-action"
                 startIcon={<DeleteRoundedIcon />}
               >
                 Clear actions history
@@ -269,7 +268,7 @@ export default function Debug() {
                 }}
                 color="error"
                 size="small"
-                className={cls(styles.btnAction)}
+                className="btn-action"
                 startIcon={<DeleteRoundedIcon />}
               >
                 Clear transfer actions history
@@ -312,8 +311,8 @@ export default function Debug() {
                   </TableBody>
                 </Table>
               </TableContainer>
-            </Grid>
-          </Grid>
+            </div>
+          </div>
         </div>
       </Collapse>
     </div>

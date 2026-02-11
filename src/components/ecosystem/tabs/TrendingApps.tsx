@@ -24,12 +24,11 @@
 import React, { useMemo } from 'react'
 import { type types } from '@/core'
 import AppCard from '../AppCardV2'
-import { Box, Grid } from '@mui/material'
-import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
+import { Box } from '@mui/material'
+import { SkPaper } from '@skalenetwork/metaport'
 import Carousel from '../../Carousel'
 import { isNewApp } from '../../../core/ecosystem/utils'
 import { getAppMeta } from '../../../core/ecosystem/apps'
-import { useLikedApps } from '../../../LikedAppsContext'
 
 interface TrendingAppsProps {
   skaleNetwork: types.SkaleNetwork
@@ -52,18 +51,17 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
     () => filteredApps.filter((app) => getAppMeta(chainsMeta, app.chain, app.appName)),
     [filteredApps, chainsMeta]
   )
-  const { getMostLikedApps, getMostLikedRank, getAppId } = useLikedApps()
-
-  const mostLikedAppIds = useMemo(() => getMostLikedApps(), [getMostLikedApps])
 
   const renderAppCard = (app: types.AppWithChainAndName) => {
     const isNew = isNewApp({ chain: app.chain, app: app.appName }, newApps)
     const isFeatured = featuredApps.some(
       (featuredApp) => featuredApp.chain === app.chain && featuredApp.appName === app.appName
     )
-    const appId = getAppId(app.chain, app.appName)
     return (
-      <Box key={`${app.chain}-${app.appName}`} className={cls('fl-centered dappCard')}>
+      <Box
+        key={`${app.chain}-${app.appName}`}
+        className="flex justify-center items-center dappCard"
+      >
         <AppCard
           skaleNetwork={skaleNetwork}
           schainName={app.chain}
@@ -71,7 +69,6 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
           chainsMeta={chainsMeta}
           isNew={isNew}
           trending={true}
-          mostLiked={getMostLikedRank(mostLikedAppIds, appId)}
           isFeatured={isFeatured}
         />
       </Box>
@@ -81,8 +78,8 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
   if (apps.length === 0) {
     return (
       <SkPaper gray className="titleSection">
-        <div className={cls(cmn.mtop20, cmn.mbott20)}>
-          <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.pCent)}>
+        <div className="mt-5 mb-5">
+          <p className="text-base text-secondary-foreground text-center font-semibold">
             🚫 No trending apps match your current filters
           </p>
         </div>
@@ -95,13 +92,13 @@ const TrendingApps: React.FC<TrendingAppsProps> = ({
   }
 
   return (
-    <Grid container spacing={2}>
+    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 gap-4">
       {filteredApps.map((app) => (
-        <Grid key={`${app.chain}-${app.appName}`} size={{ xs: 12, sm: 6, md: 4, lg: 4 }}>
+        <div key={`${app.chain}-${app.appName}`} className="col-span-1">
           {renderAppCard(app)}
-        </Grid>
+        </div>
       ))}
-    </Grid>
+    </div>
   )
 }
 

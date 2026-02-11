@@ -24,7 +24,6 @@
 import { types, metadata } from '@/core'
 import ChainIcon from './ChainIcon'
 
-import { cls, cmn, dec } from '../core/css'
 import { CHAINS_META } from '../core/metadata'
 
 export default function Chain(props: {
@@ -35,39 +34,50 @@ export default function Chain(props: {
   app?: string
   size?: types.Size
   decIcon?: boolean
+  iconSize?: types.Size
   prim?: boolean
+  from?: boolean
 }) {
   const size = props.size ?? 'sm'
   const prim = props.prim ?? true
   const chainsMeta = CHAINS_META[props.skaleNetwork]
   return (
-    <div className={cls(cmn.flex, cmn.flexcv)}>
+    <div className="flex items-center m-1">
       <ChainIcon
         skaleNetwork={props.skaleNetwork}
         chainName={props.chainName}
         app={props.app}
-        size={props.decIcon ? dec(props.size) : props.size}
+        size={props.iconSize ?? 'md'}
+        chainsMeta={chainsMeta}
       />
-      <p
-        className={cls(
-          cmn.p,
-          [cmn.p4, size === 'xs'],
-          [cmn.p3, size === 'sm'],
-          [cmn.p2, size === 'md'],
-          [cmn.p1, size === 'lg'],
-          [cmn.mleft5, size === 'xs'],
-          [cmn.mleft10, size === 'sm'],
-          [cmn.mleft15, size === 'md'],
-          [cmn.mleft20, size === 'lg'],
-          [cmn.p600, !props.bold],
-          [cmn.p700, props.bold],
-          cmn.cap,
-          [cmn.pPrim, prim],
-          [cmn.pSec, !prim]
-        )}
+      <div
+        className={`
+          ${size === 'xs' ? 'ml-1.5' : ''} 
+          ${size === 'sm' ? 'ml-2.5' : ''} 
+          ${size === 'md' ? 'ml-4' : ''} 
+          ${size === 'lg' ? 'ml-5' : ''}
+        `}
       >
-        {metadata.getAlias(chainsMeta, props.chainName, props.app)}
-      </p>
+        {!props.decIcon && (
+          <p className="text-xs text-secondary-foreground capitalize text-left">
+            {props.from ? 'From' : 'To'}
+          </p>
+        )}
+        <p
+          className={`
+            ${size === 'xs' ? 'text-xs' : ''} 
+            ${size === 'sm' ? 'text-sm' : ''} 
+            ${size === 'md' ? 'text-base' : ''} 
+            ${size === 'lg' ? 'text-xl' : ''}
+            ${!props.bold ? 'font-semibold' : 'font-bold'}
+            capitalize
+            ${prim ? 'text-foreground' : 'text-gray-400'}
+          `}
+        >
+          {metadata.getAlias(props.skaleNetwork, chainsMeta, props.chainName, props.app)}
+        </p>
+      </div>
+
     </div>
   )
 }

@@ -27,12 +27,11 @@ import { useWalletClient, useSwitchChain } from 'wagmi'
 import { dc, constants } from '@/core'
 
 import Button from '@mui/material/Button'
-import TollIcon from '@mui/icons-material/Toll'
 
-import { cls, cmn, styles } from '../core/css'
 import MetaportCore, { createTokenData } from '../core/metaport'
 import { enforceNetwork } from '../core/network'
 import { ICONS_BASE_URL } from '../core/constants'
+import { Coins } from 'lucide-react'
 
 export default function AddToken(props: {
   token: dc.TokenData
@@ -110,8 +109,8 @@ export default function AddToken(props: {
       disabled={loading}
       color="primary"
       size="medium"
-      className={cls(styles.btnAction, cmn.mtop10d)}
-      startIcon={<TollIcon />}
+      className="grow mb-2! md:mb-0! w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+      startIcon={<Coins size={17} />}
     >
       {loading ? 'Check wallet' : 'Add token'}
     </Button>

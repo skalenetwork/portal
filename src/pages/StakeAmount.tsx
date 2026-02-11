@@ -24,14 +24,11 @@
 import { useState, useEffect } from 'react'
 import { type Signer } from 'ethers'
 import { useParams } from 'react-router-dom'
-import { cmn, cls, type MetaportCore, SkPaper, styles, contracts } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper, contracts } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
-import PersonSearchRoundedIcon from '@mui/icons-material/PersonSearchRounded'
-import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded'
-import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
+import { ChevronLeft, CircleDollarSign, HandCoins, UserRoundSearch } from 'lucide-react'
 
 import Loader from '../components/Loader'
 
@@ -110,56 +107,50 @@ export default function StakeAmount(props: {
 
   return (
     <Container maxWidth="md">
-      <SkPaper gray className={cls(cmn.mtop10, 'chainDetails')}>
-        <div className={cls(cmn.flex, cmn.flexcv)}>
-          <div className={cls(cmn.flex, cmn.flexg)}>
-            <Breadcrumbs
-              sections={[
-                {
-                  text: 'Staking',
-                  icon: <ArrowBackIosNewRoundedIcon />,
-                  url: '/staking'
-                },
-                {
-                  text: 'Choose a validator',
-                  icon: <PersonSearchRoundedIcon />,
-                  url: '/staking/new'
-                },
-                {
-                  text: 'Stake SKL',
-                  icon: <SavingsRoundedIcon />
-                }
-              ]}
-            />
-          </div>
-          {loaded && available ? (
-            <div className="titleBadge" style={{ padding: '10px 15px' }}>
-              <p className={cls(cmn.p, cmn.p4)}>
-                {getDelegationTypeAlias(delegationType)} delegation
-              </p>
-            </div>
-          ) : null}
+      <div className="flex items-center">
+        <div className="flex grow">
+          <Breadcrumbs
+            sections={[
+              {
+                text: 'Staking',
+                icon: <ChevronLeft size={14} className="text-foreground" />,
+                url: '/staking'
+              },
+              {
+                text: 'Choose a validator',
+                icon: <UserRoundSearch size={14} className="text-foreground" />,
+                url: '/staking/new'
+              },
+              {
+                text: 'Stake SKL',
+                icon: <HandCoins size={14} className="text-secondary-foreground" />
+              }
+            ]}
+          />
         </div>
-        <div className={cls(cmn.mtop10, cmn.mleft5, cmn.mbott10)} style={{ paddingBottom: '5px' }}>
-          <h2 className={cls(cmn.nom)}>Stake SKL</h2>
-          <p className={cls(cmn.p, cmn.p3, cmn.pSec)}>
+        {loaded && available ? (
+          <div className="bg-card! text-foreground! flex items-center bg-card! p-2.5 font-medium rounded-full">
+            <p className="text-xs">{getDelegationTypeAlias(delegationType)} delegation</p>
+          </div>
+        ) : null}
+      </div>
+      <SkPaper gray className="mt-2.5 chainDetails mb-18! sm:mb-0!">
+        <div className="mt-2.5 ml-1.25 mb-2.5 pb-1.25">
+          <h2 className="m-0 text-xl font-bold text-foreground">Stake SKL</h2>
+          <p className="text-xs text-secondary-foreground font-semibold">
             Review validator info and enter delegation amount
           </p>
         </div>
         {currentValidator ? (
-          <ValidatorInfo
-            validator={currentValidator}
-            sklPrice={sklPrice}
-            className={cls(cmn.mtop10)}
-          />
+          <ValidatorInfo validator={currentValidator} sklPrice={sklPrice} className="mt-2.5" />
         ) : (
           <Loader text="Loading validator info" />
         )}
 
         <Headline
           text="Staking details"
-          icon={<MonetizationOnRoundedIcon className={cls(styles.chainIconxs)} />}
-          className={cls(cmn.mtop20, cmn.mbott10)}
+          icon={<CircleDollarSign size={17} />}
+          className="mt-5 mb-2.5"
           size="small"
         />
         {props.address ? (
@@ -177,7 +168,7 @@ export default function StakeAmount(props: {
             sklPrice={sklPrice}
           />
         ) : (
-          <ConnectWallet tile className={cls(cmn.flexg)} />
+          <ConnectWallet tile className="grow" />
         )}
       </SkPaper>
     </Container>
