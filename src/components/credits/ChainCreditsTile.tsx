@@ -395,7 +395,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
           </div>
           <Button
             variant="contained"
-            className="btn mt-4! p-4! w-full capitalize! bg-accent-foreground! disabled:bg-accent-foreground/30! text-accent!"
+            className="btn mt-4! p-4! w-full capitalize! bg-accent-foreground! disabled:bg-muted-foreground/30! text-accent!"
             startIcon={<CoinsIcon size={17} />}
             size="large"
             onClick={buyCredits}
