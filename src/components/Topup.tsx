@@ -139,7 +139,7 @@ export default function Topup(props: {
         <div className="flex flex-col md:flex-row gap-2.5">
           <Button
             variant="contained"
-            className="bg-accent-foreground! disabled:bg-muted-foreground/30! dark:disabled:bg-muted-foreground/30! text-accent! disabled:text-muted! btn btnMd!"
+            className="bg-accent-foreground! disabled:bg-muted-foreground/30! text-accent! disabled:text-muted! btn btnMd!"
             disabled={!balanceOk || props.loading || maxTopupPeriod <= 0}
             onClick={props.topupChain}
           >
