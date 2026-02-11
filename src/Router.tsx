@@ -118,7 +118,7 @@ export default function Router(props: {
     }
   }, [transfersHistory])
 
-    useScrollPosition()
+  useScrollPosition()
 
   async function getMainnetSigner() {
     const { chainId } = await mpc.provider(constants.MAINNET_CHAIN_NAME).getNetwork()

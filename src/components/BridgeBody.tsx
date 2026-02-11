@@ -21,7 +21,8 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { type types, metadata, constants } from '@/core'
+import { type types, metadata, constants, networks } from '@/core'
+import { NETWORKS } from '../core/constants'
 import Collapse from '@mui/material/Collapse'
 import PopularActions from './PopularActions'
 import {
@@ -141,10 +142,6 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
         </SkPaper>
       </Collapse>
 
-      {/* <Collapse in={!!address}> // todo: re-enable SFuel warning for networks with sFuel
-        <SFuelWarning />
-      </Collapse> */}
-
       <Collapse in={showCP()}>
         <SkPaper gray className="p-0!">
           <CommunityPool />
@@ -156,6 +153,12 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
       <Collapse in={showStepper(address!)} className="mt-3.5">
         <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
       </Collapse>
+
+      {networks.hasFeatureInAny(NETWORKS, 'sfuel') && (
+        <Collapse in={!!address}>
+          <SFuelWarning />
+        </Collapse>
+      )}
 
       {currentStep === stepsMetadata.length && (
         <PopularActions

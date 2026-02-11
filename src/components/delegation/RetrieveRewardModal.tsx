@@ -23,10 +23,20 @@
 import { useState, useEffect, ChangeEvent } from 'react'
 import { isAddress } from 'ethers'
 import { SkPaper, Tile, useThemeMode, styles } from '@skalenetwork/metaport'
-import { type types, constants } from '@/core'
+import { type types, helper } from '@/core'
 
-import { Collapse, Container, TextField, Box, Button, Modal, InputAdornment } from '@mui/material'
-import { TriangleAlert, User, Wallet } from 'lucide-react'
+import {
+  Collapse,
+  Container,
+  TextField,
+  Box,
+  Button,
+  Modal,
+  InputAdornment,
+  useMediaQuery,
+  useTheme
+} from '@mui/material'
+import { TriangleAlert, User } from 'lucide-react'
 import Message from '../Message'
 import SkBtn from '../SkBtn'
 
@@ -42,6 +52,8 @@ export default function RetrieveRewardModal(props: {
   disabled: boolean
 }) {
   const { mode } = useThemeMode()
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'))
   const [edit, setEdit] = useState(false)
   const [inputAddress, setInputAddress] = useState<string | undefined>(props.customRewardAddress)
   const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined)
@@ -73,7 +85,7 @@ export default function RetrieveRewardModal(props: {
         size="small"
         onClick={handleOpen}
         disabled={props.disabled}
-        className="btn btnSm text-xs bg-accent-foreground! text-accent! align-center! disabled:bg-muted-foreground!"
+        className="btn btnSm text-xs bg-accent-foreground! text-accent! align-center! disabled:bg-muted-foreground/30! disabled:text-muted!"
       >
         Retrieve
       </Button>
@@ -90,7 +102,8 @@ export default function RetrieveRewardModal(props: {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            minWidth: { xs: '100%', md: 'max-content' }
+            width: { xs: '95%', sm: 'auto' },
+            minWidth: { md: 'max-content' }
           }}
           className="grow items-center flex flex-col"
         >
@@ -105,7 +118,6 @@ export default function RetrieveRewardModal(props: {
                   type="warning"
                   icon={<TriangleAlert size={17} />}
                   className="mb-2.5"
-                  closable={false}
                 />
                 <Collapse in={!!errorMsg}>
                   <Message
@@ -113,14 +125,26 @@ export default function RetrieveRewardModal(props: {
                     type="error"
                     icon={<TriangleAlert size={17} />}
                     className="mb-2.5!"
-                    closable={false}
+                    onClose={() => setErrorMsg(undefined)}
                   />
                 </Collapse>
                 {!edit ? (
                   <Tile
                     text="Receiver address"
-                    value={props.customRewardAddress}
-                    icon={<Avatar variant="marble" name={props.customRewardAddress} colors={AVATAR_COLORS} size={20} />}
+                    value={
+                      isMobile
+                        ? helper.shortAddress(props.customRewardAddress as types.AddressType)
+                        : props.customRewardAddress
+                    }
+                    copy={props.customRewardAddress}
+                    icon={
+                      <Avatar
+                        variant="marble"
+                        name={props.customRewardAddress}
+                        colors={AVATAR_COLORS}
+                        size={20}
+                      />
+                    }
                     children={
                       <div className="flex justify-end mt-2">
                         <Button
@@ -148,20 +172,29 @@ export default function RetrieveRewardModal(props: {
                             InputProps={{
                               startAdornment: (
                                 <InputAdornment position="start">
-                                  <Avatar variant="marble" name={inputAddress} colors={AVATAR_COLORS} size={20} />
+                                  <Avatar
+                                    variant="marble"
+                                    name={inputAddress}
+                                    colors={AVATAR_COLORS}
+                                    size={20}
+                                  />
                                 </InputAdornment>
                               )
                             }}
                             className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-card! border border-border rounded-full shadow-xs`}
                             sx={{
                               '& .MuiOutlinedInput-root': { borderRadius: '25px' },
-                              '& fieldset': { border: '0px red solid !important' }
+                              '& fieldset': { border: 'none' }
                             }}
                           />
                         </div>
                         <div>
                           <div>
-                            <Button variant="contained" className="btnSm text-accent! bg-foreground! ml-2.5!" onClick={saveAddress}>
+                            <Button
+                              variant="contained"
+                              className="btnSm text-accent! bg-foreground! ml-2.5!"
+                              onClick={saveAddress}
+                            >
                               Save
                             </Button>
                             <Button
@@ -188,7 +221,7 @@ export default function RetrieveRewardModal(props: {
                   text={props.loading ? 'Retrieving' : 'Retrieve'}
                   disabled={props.disabled || edit}
                   onClick={props.retrieveRewards}
-                  className="mr-1.5! mt-2.5! w-full!"
+                  className="mr-1.5! mt-2.5! w-full! btnMd"
                 />
               </SkPaper>
             </SkPaper>

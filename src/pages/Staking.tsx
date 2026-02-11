@@ -161,10 +161,12 @@ export default function Staking(props: {
         <div className="flex items-center">
           <div className="grow">
             <h2 className="m-0 text-xl font-bold text-foreground">Staking</h2>
-            <p className="text-xs text-secondary-foreground font-semibold">
+            <div className="text-xs text-secondary-foreground font-semibold">
               <span className="sm:hidden">Manage your delegations</span>
-              <span className="hidden sm:inline">Delegate, review delegations and withdraw staking rewards</span>
-            </p>
+              <span className="hidden sm:!inline">
+                Delegate, review delegations and withdraw staking rewards
+              </span>
+            </div>
           </div>
           <div className="mr-2.5">
             {loading !== false || props.customAddress !== undefined ? (
@@ -200,7 +202,7 @@ export default function Staking(props: {
           textLong="Previewing staking page in read-only mode, "
           icon={<Eye />}
           link="/staking"
-          linkText="click to exit"
+          linkText="Click to exit"
           type="warning"
         />
       ) : null}
@@ -209,9 +211,8 @@ export default function Staking(props: {
         <Message
           className="mt-5"
           text={`Custom address will be used for rewards withdrawal: ${customRewardAddress}`}
-          icon={<TriangleAlert />}
+          icon={<TriangleAlert size={17} />}
           type="warning"
-          closable={false}
         />
       ) : null}
 
@@ -227,10 +228,7 @@ export default function Staking(props: {
           />
         </Collapse>
         <Collapse in={props.address === undefined}>
-          <Headline
-            text="Account info"
-            icon={<CircleUser size={17} />}
-          />
+          <Headline text="Account info" icon={<CircleUser size={17} />} />
           <ConnectWallet tile className="grow mt-2.5" />
         </Collapse>
       </SkPaper>
@@ -280,11 +278,7 @@ export default function Staking(props: {
           />
         </Collapse>
         <Collapse in={props.address === undefined}>
-          <Headline
-            text="Delegations"
-            icon={<Inbox className="text-[17px]!" />}
-            size="small"
-          />
+          <Headline text="Delegations" icon={<Inbox className="text-[17px]!" />} size="small" />
           <div className="mt-5 text-center">
             <ChartPie className="text-secondary-foreground w-full mb-2" />
             <h5 className="text-sm text-muted-foreground font-semibold mb-5 text-center">

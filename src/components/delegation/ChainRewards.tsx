@@ -184,11 +184,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
 
   return (
     <SkPaper gray className={`mt-5 ${className || ''}`}>
-      <Headline
-        size="small"
-        text="Chain Rewards"
-        icon={<CircleStar size={17} />}
-      />
+      <Headline size="small" text="Chain Rewards" icon={<CircleStar size={17} />} />
       <Tile
         disabled={rewardAmount === 0n}
         value={rewardAmount !== undefined && units.displayBalance(rewardAmount, 'SKL')}
@@ -207,7 +203,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
               loading={loading}
               variant="contained"
               size="small"
-              className="btn btnSm text-xs bg-accent-foreground! text-accent! align-center! disabled:bg-muted-foreground!"
+              className="btn btnSm text-xs bg-accent-foreground! text-accent! align-center! disabled:bg-muted-foreground/30! disabled:text-muted!"
               disabled={
                 customAddress !== undefined ||
                 rewardAmount === null ||
@@ -216,14 +212,15 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
               }
               onClick={retrieveRewards}
             >
-             Retrieve
+              {loading ? btnText || 'Retrieving' : 'Retrieve'}
             </Button>
-            <div className= "md:border-l-2 border-border">
+            <div className="md:border-l-2 border-border">
               <Tile
-                className= "p-0! md:ml-5"
+                className="p-0! md:ml-5"
                 size="md"
                 transparent
                 grow
+                ri={true}
                 value={tokenBalance !== undefined && units.displayBalance(tokenBalance, 'SKL')}
                 text="Balance on Europa Hub"
                 icon={<TokenIcon tokenSymbol="skl" size="xs" />}
@@ -235,11 +232,8 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
                 childrenRi={
                   <Tooltip title="Open in block explorer">
                     <a target="_blank" rel="noreferrer" href={tokenUrl ?? ''} className="ml-6!">
-                      <IconButton
-                        disabled={tokenUrl === null}
-                        className="bg-muted-foreground/10!"
-                      >
-                        <Blocks size={17} className='text-foreground' />
+                      <IconButton disabled={tokenUrl === null} className="bg-muted-foreground/10!">
+                        <Blocks size={17} className="text-foreground" />
                       </IconButton>
                     </a>
                   </Tooltip>

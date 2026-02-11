@@ -60,7 +60,7 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-card! border border-border rounded-full shadow-xs`}
         sx={{
           '& .MuiOutlinedInput-root': { borderRadius: '25px' },
-          '& fieldset': { border: '0px red solid !important' }
+          '& fieldset': { border: 'none' }
         }}
       />
     </div>

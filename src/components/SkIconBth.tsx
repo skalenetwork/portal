@@ -74,7 +74,7 @@ const SkIconBtn: React.FC<SkIconBtnProps> = ({
   const button = (
     <IconButton
       onClick={handleClick}
-      className={`sk-icon-btn sk-icon-btn-${size} ml-1.5! h-8 w-8 rounded-full bg-card! text-foreground! hover:bg-muted ${className || ''}`}
+      className={`sk-icon-btn sk-icon-btn-${size} ml-1.5! h-9 w-9 rounded-full bg-card! text-foreground! hover:bg-muted ${className}`}
       size={size}
       {...props}
     >

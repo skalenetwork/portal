@@ -56,15 +56,15 @@ export default function Tokens(props: {
         </div>,
         ...(wrapperAddress
           ? [
-            <div key={`w${tokenSymbol}`} className="col-span-1">
-              <CopySurface
-                className="h-full"
-                title={`w${tokenSymbol.toUpperCase()}`}
-                value={getAddress(wrapperAddress)}
-                tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
-              />
-            </div>
-          ]
+              <div key={`w${tokenSymbol}`} className="col-span-1">
+                <CopySurface
+                  className="h-full"
+                  title={`w${tokenSymbol.toUpperCase()}`}
+                  value={getAddress(wrapperAddress)}
+                  tokenMetadata={props.mpc.config.tokens[tokenSymbol]}
+                />
+              </div>
+            ]
           : [])
       ]
     })

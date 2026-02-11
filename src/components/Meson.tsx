@@ -66,17 +66,15 @@ export default function Meson(props: {
                   Bridge from Other Popular Networks
                 </p>
               </div>
-              <p
-                className="text-xs font-medium text-secondary-foreground sm:text-center"
-              >
+              <p className="text-xs font-medium text-secondary-foreground">
                 Transfer from 45+ chains using Meson.Fi
               </p>
             </div>
-              <div className="md:ml-2.5 md:mr-1.5 flex items-center">
-                <ArrowForwardIosRoundedIcon
-                  className={`text-secondary-foreground text-xs! ${show ? 'rotate-90' : ''}`}
-                />
-              </div>
+            <div className="md:ml-2.5 md:mr-1.5 flex items-center">
+              <ArrowForwardIosRoundedIcon
+                className={`text-secondary-foreground text-xs! ${show ? 'rotate-90' : ''}`}
+              />
+            </div>
           </SkStack>
         </SkPaper>
       </div>

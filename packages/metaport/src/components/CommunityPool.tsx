@@ -286,7 +286,7 @@ export default function CommunityPool() {
             <div>
               <Button
                 variant="contained"
-                className=" w-full mt-5! btnMd normal-case! text-sm font-semibold text-accent! bg-foreground! disabled:bg-muted! disabled:text-muted-foreground! py-3.5 px-4 rounded shadow-none"
+                className=" w-full mt-5! btnMd normal-case! text-sm font-semibold text-accent! bg-foreground! disabled:bg-muted-foreground/30! disabled:text-muted-foreground! py-3.5 px-4 rounded shadow-none"
                 onClick={rechargeCP}
                 disabled={
                   !!loading ||
@@ -307,7 +307,7 @@ export default function CommunityPool() {
                     variant="text"
                     color="warning"
                     size="small"
-                    className="w-full normal-case text-sm font-semibold py-3.5! px-4! rounded shadow-none mt-1.5 bg-amber-500/10! text-amber-500!"
+                    className="w-full normal-case! text-sm font-semibold py-3.5! px-4! rounded shadow-none mt-2.5! bg-amber-500/10! text-amber-500!"
                     onClick={withdrawCP}
                     disabled={!!loading || !chainName || cpData.balance === 0n}
                   >

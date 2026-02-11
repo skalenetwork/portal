@@ -38,12 +38,17 @@ export default function DelegationTypeSelect(props: {
   }
 
   return (
-    <div className="sk-select">
+    <div className="sk-select text-secondary-foreground! ">
       <NativeSelect
-        className="text-xs! titleBadge"
+        className="text-xs! bg-card! py-1! font-semibold! text-secondary-foreground! rounded-lg!"
         defaultValue={30}
         value={props.delegationType}
         onChange={props.handleChange}
+        sx={{
+          '& .MuiSvgIcon-root': {
+            color: 'var(--secondary-foreground)'
+          }
+        }}
       >
         <option value={types.st.DelegationType.REGULAR} className="text-xs!">
           Regular delegation

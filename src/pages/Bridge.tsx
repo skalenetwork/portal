@@ -187,11 +187,11 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
         <div className="mt-6">
           <BridgeBody chainsMeta={props.chainsMeta} />
           {transactionsHistory.length !== 0 ? (
-            <div className="mb-5">
+            <div>
               <p className="text-base text-foreground font-bold mt-5 mb-2.5">
                 Completed transactions
               </p>
-              <SkPaper gray>
+              <SkPaper gray className="space-y-2">
                 {transactionsHistory.map((transactionData: types.mp.TransactionHistory) => (
                   <TransactionData
                     key={transactionData.transactionHash}
@@ -206,7 +206,7 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
       </Stack>
       <Meson
         chainsMeta={props.chainsMeta}
-        className="mt-12"
+        className="mt-5"
         skaleNetwork={mpc.config.skaleNetwork}
       />
     </Container>

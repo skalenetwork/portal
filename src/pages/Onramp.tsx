@@ -156,7 +156,11 @@ export default function Onramp(props: { mpc: MetaportCore }) {
         )}
         {address ? (
           <SkPaper gray className="mt-5">
-            <div id="transakMount" className="transakFrame mt-1.25" style={{ minHeight: 700, height: 700, width: '100%' }}></div>
+            <div
+              id="transakMount"
+              className="transakFrame mt-1.25"
+              style={{ minHeight: 700, height: 700, width: '100%' }}
+            ></div>
             <TokenBalanceTile mpc={props.mpc} chain={chain} />
           </SkPaper>
         ) : (

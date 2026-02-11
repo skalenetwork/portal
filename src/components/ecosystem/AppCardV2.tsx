@@ -64,7 +64,11 @@ export default function AppCard(props: {
   const visibleStatusChips = statusChips.slice(0, maxStatusChips)
 
   return (
-    <SkPaper gray={gray} fullHeight className="sk-app-card w-full transform transition-all duration-300 ease-in-out">
+    <SkPaper
+      gray={gray}
+      fullHeight
+      className="sk-app-card w-full transform transition-all duration-300 ease-in-out"
+    >
       <Link to={url}>
         <div>
           <div className="flex">
@@ -76,7 +80,11 @@ export default function AppCard(props: {
             />
             <div className="flex grow"></div>
             {props.schainName !== OFFCHAIN_APP && (
-              <ChainIcon skaleNetwork={props.skaleNetwork} chainName={props.schainName} chainsMeta={props.chainsMeta} />
+              <ChainIcon
+                skaleNetwork={props.skaleNetwork}
+                chainName={props.schainName}
+                chainsMeta={props.chainsMeta}
+              />
             )}
           </div>
         </div>

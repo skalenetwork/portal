@@ -43,7 +43,7 @@ export default function LinkSurface(props: {
               </div>
               <p className="text-base font-semibold shortP text-foreground">{props.value}</p>
             </div>
-            <ArrowUpRight className="text-secondary-foreground ml-5 text-[17px]!" />
+            <ArrowUpRight className="text-secondary-foreground space-y-2 ml-5 text-[17px]!" />
           </ButtonBase>
         </Tooltip>
       </a>

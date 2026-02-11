@@ -50,7 +50,6 @@ import {
   Puzzle,
   Car,
   Book,
-  Wallpaper,
   Brain,
   Trophy,
   Flag,
@@ -67,7 +66,9 @@ import {
   Mountain,
   BrainCircuit,
   Receipt,
-  ScanBarcode
+  ScanBarcode,
+  PackageOpen,
+  KeyRound,
 } from 'lucide-react'
 import EpicGamesStoreLogo from '../../assets/egs.svg'
 
@@ -75,6 +76,8 @@ export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
   switch (category) {
     case 'ai':
       return <Sparkles />
+    case 'bite':
+      return <KeyRound/>
     case 'dao':
       return <Building2 />
     case 'data-information':
@@ -152,7 +155,7 @@ export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
     case 'rpg':
       return <Book />
     case 'sandbox':
-      return <Wallpaper />
+      return <PackageOpen />
     case 'shooter':
       return <Flame />
     case 'simulation':

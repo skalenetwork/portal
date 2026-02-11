@@ -48,7 +48,7 @@ export default function ConnectWallet(props: {
                       variant="contained"
                       className="text-center mt-2.5! flex btn bg-accent-foreground! text-accent!"
                     >
-                      <Rainbow size={17}  className="mr-2.5" />
+                      <Rainbow size={16} className="mr-2.5" />
                       {address ? 'Sign in' : 'Connect Wallet'}
                     </Button>
                   )

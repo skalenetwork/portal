@@ -248,6 +248,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                 }
                 text="Balance"
                 grow
+                ri={true}
                 icon={<Wallet size={14} />}
               />
               <div className="border-l-2 border-border mr-4"></div>
@@ -310,7 +311,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                           <Button
                             color="primary"
                             size="small"
-                            className={`items-center mr-2.5! p-4! py-3! pr-5! rounded-full! uppercase btnLg bg-accent-foreground/30! text-foreground! ease-in-out transition-transform duration-150 active:scale-[0.97] ${symbol !== token ? 'bg-card!' : ''} ${symbol !== token ? 'text-foreground!' : ''}`}
+                            className={`items-center mr-2.5! p-4! py-3! pr-5! rounded-full! uppercase btnLg bg-muted-foreground/30! text-foreground! ease-in-out transition-transform duration-150 active:scale-[0.97] ${symbol !== token ? 'bg-card!' : ''} ${symbol !== token ? 'text-foreground!' : ''}`}
                             variant="contained"
                             onClick={() => setToken(symbol)}
                           >
@@ -332,12 +333,12 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
           </SkPaper>
           <div className="relative">
             <Grid container spacing={2} alignItems="center">
-              <Grid size={{ xs: 12, md: 6 }}>
+              <Grid size={{ xs: 12, md: 6 }} className="md:items-end">
                 <Tile
                   className="py-5! px-6!"
                   children={
                     <div>
-                      <p className="inline-flex max-w-full items-center justify-start font-medium text-sm text-muted-foreground mb-1.5 overflow-hidden">
+                      <p className="inline-flex max-w-full justify-start font-medium text-sm text-muted-foreground mb-1.5 overflow-hidden">
                         Pay on{' '}
                         <ChainIcon
                           size="xxs"

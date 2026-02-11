@@ -70,14 +70,14 @@ export default function ValidatorInfo(props: {
           text="Validator fee"
           grow
           icon={<HandCoins size={14} />}
-          size='md'
+          size="md"
         />
         <Tile
           value={props.validator && props.validator.id.toString()}
           text="Validator ID"
           grow
           icon={<HardDrive size={14} />}
-          size='md'
+          size="md"
         />
         <Tile
           value={props.validator && `${minDelegation} SKL`}
@@ -88,10 +88,10 @@ export default function ValidatorInfo(props: {
           }
           text="Minimum delegation amount"
           grow
-          size='md'
+          size="md"
           icon={<TokenIcon tokenSymbol="skl" size="xs" />}
         />
       </SkStack>
-    </div >
+    </div>
   )
 }

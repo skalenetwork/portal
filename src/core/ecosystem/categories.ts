@@ -85,7 +85,7 @@ export const categories: Categories = {
   pretge: { name: 'Pre-TGE', subcategories: {} },
   utility: { name: 'Utility', subcategories: {} },
   analytics: { name: 'Analytics', subcategories: {} },
-  validator: { name: 'Validator', subcategories: {} },
+  validator: { name: 'Validator', subcategories: {} }
 }
 
 export const sortCategories = (categories: Categories): Categories => {

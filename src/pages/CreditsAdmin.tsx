@@ -63,6 +63,7 @@ const Credits: React.FC<CreditsProps> = ({ mpc, loadData, schains, chainsMeta })
     initCreditStation()
   }, [])
 
+  console.log('schains in CreditsAdmin:', schains, creditStation)
   if (schains.length === 0 || !creditStation) {
     return (
       <div className="fullscreen-msg">

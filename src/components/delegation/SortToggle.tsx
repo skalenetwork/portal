@@ -50,12 +50,20 @@ const SortToggle: React.FC<SortToggleProps> = ({ onChange, className }) => {
       className={`${className} bg-background! rounded-full! p-1! w-fit`}
       size="small"
     >
-      <ToggleButton value="id" aria-label="sort by id" className={`capitalize! text-xs ${sortBy === 'id' ? 'text-foreground! bg-foreground/10! shadow-xs!' : 'text-muted-foreground!'}`}>
-        <IdCard size={14} className='mr-1.5' />
+      <ToggleButton
+        value="id"
+        aria-label="sort by id"
+        className={`capitalize! text-xs ${sortBy === 'id' ? 'text-foreground! bg-foreground/10! shadow-xs!' : 'text-muted-foreground!'}`}
+      >
+        <IdCard size={14} className="mr-1.5" />
         Sort by ID
       </ToggleButton>
-      <ToggleButton value="status" aria-label="sort by status" className={`capitalize! text-xs ${sortBy === 'status' ? 'text-foreground! bg-foreground/10! shadow-xs!' : 'text-muted-foreground!'}`}>
-        <ArrowDown10 size={14} className='mr-1.5' />
+      <ToggleButton
+        value="status"
+        aria-label="sort by status"
+        className={`capitalize! text-xs ${sortBy === 'status' ? 'text-foreground! bg-foreground/10! shadow-xs!' : 'text-muted-foreground!'}`}
+      >
+        <ArrowDown10 size={14} className="mr-1.5" />
         Sort by Status
       </ToggleButton>
     </ToggleButtonGroup>

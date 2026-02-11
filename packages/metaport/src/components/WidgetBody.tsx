@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useAccount } from 'wagmi'
 import { Collapse } from '@mui/material'
-import { metadata, constants } from '@/core'
+import { metadata, constants, networks } from '@/core'
 
 import { useMetaportStore } from '../store/MetaportStore'
 import { useUIStore } from '../store/Store'
@@ -164,9 +164,11 @@ export function WidgetBody(props) {
         </SkPaper>
       </Collapse>
 
-      <Collapse in={!!address}>
-        <SFuelWarning />
-      </Collapse>
+      {networks.hasFeature(mpc.config.skaleNetwork, 'sfuel') && (
+        <Collapse in={!!address}>
+          <SFuelWarning />
+        </Collapse>
+      )}
       <Collapse in={showStepper(address)}>
         <SkPaper background="transparent">
           <SkStepper skaleNetwork={props.config.skaleNetwork} />
