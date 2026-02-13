@@ -106,7 +106,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
           startIcon={<AnimatedLoadingIcon />}
           variant="contained"
           size="medium"
-          className="btn-action p-4! w-full capitalize! bg-accent-foreground/50!"
+          className="btn-action p-4! w-full capitalize! bg-muted-foreground/30!"
         >
           {btnText}
         </Button>
@@ -162,7 +162,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                           startIcon={<AnimatedLoadingIcon />}
                           variant="contained"
                           size="medium"
-                          className="btn-action mt-1.5 p-3.5! w-full capitalize! bg-accent-foreground/50!"
+                          className="btn-action mt-1.5 p-3.5! w-full capitalize! bg-accent-foreground/30!"
                         >
                           {btnText}
                         </Button>
@@ -215,7 +215,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                   onClick={startOver}
                   color="primary"
                   size="medium"
-                  className="grow w-full! md:w-fit! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+                  className="grow w-full! md:w-fit! capitalize! text-accent! bg-foreground! disabled:bg-muted-foreground/30! disabled:text-muted! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
                   startIcon={<RotateCcw size={17} />}
                 >
                   Start over

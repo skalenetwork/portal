@@ -240,7 +240,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
           </SkPaper>
           <Button
             variant="contained"
-            className="btnMd ml-5 w-full mt-4! mb-2! bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+            className="btnMd ml-5 w-full mt-4! mb-2! bg-accent-foreground! disabled:bg-muted-foreground/30! disabled:text-muted! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
             size="large"
             onClick={updatePrice}
             disabled={loading || price === ''}

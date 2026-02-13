@@ -219,7 +219,7 @@ export default function SFuelWarning(props: {}) {
                   startIcon={<Fuel size={17} />}
                   size="medium"
                   variant="contained"
-                  className="tn-action mt-2.5! p-3.5! w-full capitalize! bg-accent-foreground/50!"
+                  className="btnMd mt-2.5! w-full capitalize! bg-muted-foreground/30!"
                 >
                   Getting sFUEL...
                 </Button>
