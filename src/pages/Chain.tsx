@@ -22,14 +22,16 @@
  */
 
 import { useState, useEffect } from 'react'
-
 import { useParams } from 'react-router-dom'
-import Container from '@mui/material/Container'
-import SchainDetails from '../components/SchainDetails'
-import CircularProgress from '@mui/material/CircularProgress'
 
-import { cmn, cls, type MetaportCore } from '@skalenetwork/metaport'
+import CircularProgress from '@mui/material/CircularProgress'
+import Container from '@mui/material/Container'
+
+import { type MetaportCore } from '@skalenetwork/metaport'
 import { type types, metadata } from '@/core'
+
+import SchainDetails from '../components/SchainDetails'
+import ErrorTile from '../components/ErrorTile'
 
 export default function Chain(props: {
   loadData: () => Promise<void>
@@ -38,7 +40,6 @@ export default function Chain(props: {
   metrics: types.IMetrics | null
   mpc: MetaportCore
   chainsMeta: types.ChainsMetadataMap
-  isXs: boolean
 }) {
   const [schainStats, setSchainStats] = useState<types.IStatsData | null>(null)
   const [schainMetrics, setSchainMetrics] = useState<types.IChainMetrics | null>(null)
@@ -66,12 +67,14 @@ export default function Chain(props: {
   if (props.schains.length === 0) {
     return (
       <div className="fullscreen-msg">
-        <div className={cls(cmn.flex)}>
-          <div className={cls(cmn.flex, cmn.flexcv, cmn.mri20)}>
-            <CircularProgress className="fullscreen-spin" />
+        <div className="flex">
+          <div className="flex items-center mr-5">
+            <CircularProgress className="fullscreen-spin text-foreground" />
           </div>
-          <div className={cls(cmn.flex, cmn.flexcv)}>
-            <h3 className="fullscreen-msg-text">Loading SKALE Chain</h3>
+          <div className="flex items-center">
+            <h3 className="fullscreen-msg-text text-foreground! font-semibold">
+              Loading SKALE Chain
+            </h3>
           </div>
         </div>
       </div>
@@ -79,19 +82,21 @@ export default function Chain(props: {
   }
 
   if (chain === undefined || chain === null) {
-    return <h1>No such chain: {chainName}</h1>
+    return (
+      <Container maxWidth="md">
+        <ErrorTile errorMsg={`No such chain: ${chainName}`} />
+      </Container>
+    )
   }
 
   return (
     <Container maxWidth="md">
       <SchainDetails
-        schainName={chainName}
         chain={chain}
         chainsMeta={props.chainsMeta}
         schainStats={schainStats}
         schainMetrics={schainMetrics}
         mpc={props.mpc}
-        isXs={props.isXs}
       />
     </Container>
   )

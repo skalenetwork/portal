@@ -21,6 +21,8 @@
  * @copyright SKALE Labs 2022-Present
  */
 
+import { type types } from '@/core'
+
 export const M2S_POSTFIX = 'm2s'
 export const S2M_POSTFIX = 's2m'
 export const S2S_POSTFIX = 's2s'
@@ -47,7 +49,7 @@ export const SFUEL_TEXT = {
   },
   gas: {
     warning: 'You need ETH on the destination chain',
-    error: 'You need ETH to perform a transfer'
+    error: 'You need ETH on Mainnet to perform a transfer'
   }
 }
 
@@ -61,6 +63,13 @@ export const _BALANCE_UPDATE_INTERVAL_SECONDS = 10
 export const BALANCE_UPDATE_INTERVAL_MS = _BALANCE_UPDATE_INTERVAL_SECONDS * 1000
 export const COMMUNITY_POOL_DECIMALS = 6
 
-export const SFUEL_RESERVE_AMOUNT = 0.01
+export const ETH_RESERVE_AMOUNT: { [key in types.SkaleNetwork]: number } = {
+  mainnet: 0.0005,
+  legacy: 0.0001,
+  regression: 0.0001,
+  testnet: 0.0001,
+  'base-sepolia-testnet': 0.000005,
+  base: 0.000005
+}
 
 export const SUCCESS_EMOJIS = ['🎉', '👌', '✅', '🙌', '🎊']

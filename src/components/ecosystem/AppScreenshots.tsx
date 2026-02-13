@@ -22,7 +22,7 @@
  */
 
 import React, { useState, useEffect } from 'react'
-import { cls, cmn, SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@skalenetwork/metaport'
 import { constants } from '@/core'
 
 import { Collapse } from '@mui/material'
@@ -30,6 +30,7 @@ import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded'
 
 import ScreenshotCarousel from './ScreenshotCarousel'
 import AccordionSection from '../AccordionSection'
+import { Compass } from 'lucide-react'
 
 interface AppScreenshotsProps {
   chainName: string
@@ -83,11 +84,11 @@ const AppScreenshots: React.FC<AppScreenshotsProps> = ({ chainName, appName, ska
 
   return (
     <Collapse in={!loading && !error}>
-      <SkPaper gray className={cls(cmn.mtop10, 'fwmobile')}>
+      <SkPaper gray className="mt-2.5 fwmobile">
         <AccordionSection
           expandedByDefault
           title="Explore project"
-          icon={<ExploreRoundedIcon />}
+          icon={<Compass size={17} />}
           marg={false}
         >
           <ScreenshotCarousel screenshots={screenshots} appName={appName} />

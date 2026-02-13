@@ -22,7 +22,7 @@
  */
 
 import { Logger, type ILogObj } from 'tslog'
-import { units } from '@/core'
+import { units, helper } from '@/core'
 
 import { Action } from './action'
 import { checkEthBalance } from './checks'
@@ -46,7 +46,7 @@ export class TransferEthM2S extends Action {
       'mainnet:eth:deposit'
     )
 
-    const block = await this.mainnet.provider.getBlock(tx.response.blockNumber)
+    const block = await helper.getBlockWithRetry(this.mainnet.provider, tx.response.blockNumber)
     this.updateState('transferETHDone', tx.response.hash, block.timestamp)
     await this.sChain2.waitETHBalanceChange(this.address, sChainBalanceBefore)
     this.updateState('receivedETH')
@@ -57,7 +57,8 @@ export class TransferEthM2S extends Action {
       this.mainnet,
       this.address,
       this.amount,
-      this.token
+      this.token,
+      this.mpc.config.skaleNetwork
     )
     if (!checkResBalance.res) {
       this.setAmountErrorMessage(checkResBalance.msg)
@@ -86,7 +87,7 @@ export class TransferEthS2M extends Action {
       'mainnet:eth:exitToMain'
     )
 
-    const block = await this.sChain1.provider.getBlock(tx.response.blockNumber)
+    const block = await helper.getBlockWithRetry(this.sChain1.provider, tx.response.blockNumber)
     this.updateState('transferETHDone', tx.response.hash, block.timestamp)
     await this.mainnet.waitLockedETHAmountChange(this.address, lockedETHAmount)
     this.updateState('receivedETH')
@@ -97,7 +98,8 @@ export class TransferEthS2M extends Action {
       this.sChain1,
       this.address,
       this.amount,
-      this.token
+      this.token,
+      this.mpc.config.skaleNetwork
     )
     if (!checkResBalance.res) {
       this.setAmountErrorMessage(checkResBalance.msg)
@@ -129,7 +131,7 @@ export class UnlockEthM extends Action {
       [{ address: this.address }],
       'mainnet:eth:getMyEth'
     )
-    const block = await this.mainnet.provider.getBlock(tx.response.blockNumber)
+    const block = await helper.getBlockWithRetry(this.mainnet.provider, tx.response.blockNumber)
     this.updateState('unlockDone', tx.response.hash, block.timestamp)
   }
 }

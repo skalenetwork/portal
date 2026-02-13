@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+              <title>swap</title>
+              <g fill="none">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.5 1.5C12.366 1.5 15.5 4.63401 15.5 8.5C15.5 12.366 12.366 15.5 8.5 15.5C4.63401 15.5 1.5 12.366 1.5 8.5C1.5 4.63401 4.63401 1.5 8.5 1.5Z" fill="url(#1753173464874-1572285_swap_existing_0_1otkkfops)" data-glass="origin" mask="url(#1753173464874-1572285_swap_mask_wtclzdgrt)"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M8.5 1.5C12.366 1.5 15.5 4.63401 15.5 8.5C15.5 12.366 12.366 15.5 8.5 15.5C4.63401 15.5 1.5 12.366 1.5 8.5C1.5 4.63401 4.63401 1.5 8.5 1.5Z" fill="url(#1753173464874-1572285_swap_existing_0_1otkkfops)" data-glass="clone" filter="url(#1753173464874-1572285_swap_filter_uw6imkje4)" clip-path="url(#1753173464874-1572285_swap_clipPath_wxh4er2t8)"></path>
+                <path d="M19.5574 2.44926C19.9526 1.85025 20.8315 1.85025 21.2267 2.44926L22.8329 4.88353C23.2716 5.54838 22.7948 6.43427 21.9983 6.43427H18.7858C17.9893 6.43427 17.5125 5.54838 17.9512 4.88353L19.5574 2.44926Z" fill="url(#1753173464874-1572285_swap_existing_1_o4tz5hmmm)"></path>
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5 8.5C19.366 8.5 22.5 11.634 22.5 15.5C22.5 19.366 19.366 22.5 15.5 22.5C11.634 22.5 8.5 19.366 8.5 15.5C8.5 11.634 11.634 8.5 15.5 8.5Z" fill="url(#1753173464874-1572285_swap_existing_2_j46yz6w0g)" data-glass="blur"></path>
+                <path d="M15.5 8.5C19.366 8.5 22.5 11.634 22.5 15.5C22.5 19.366 19.366 22.5 15.5 22.5C11.634 22.5 8.5 19.366 8.5 15.5C8.5 11.634 11.634 8.5 15.5 8.5ZM15.5 9.25C12.0482 9.25 9.25 12.0482 9.25 15.5C9.25 18.9518 12.0482 21.75 15.5 21.75C18.9518 21.75 21.75 18.9518 21.75 15.5C21.75 12.0482 18.9518 9.25 15.5 9.25Z" fill="url(#1753173464874-1572285_swap_existing_3_n6lbgc7yp)"></path>
+                <path d="M5.44255 21.5507C5.0473 22.1498 4.16844 22.1498 3.7732 21.5507L2.16699 19.1165C1.7283 18.4516 2.20512 17.5657 3.00167 17.5657H6.21407C7.01062 17.5657 7.48744 18.4516 7.04875 19.1165L5.44255 21.5507Z" fill="url(#1753173464874-1572285_swap_existing_4_w9c1wsn27)"></path>
+                <defs>
+                  <linearGradient id="1753173464874-1572285_swap_existing_0_1otkkfops" x1="8.5" y1="1.5" x2="8.5" y2="15.5" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#575757"></stop>
+                    <stop offset="1" stop-color="#151515"></stop>
+                  </linearGradient>
+                  <linearGradient id="1753173464874-1572285_swap_existing_1_o4tz5hmmm" x1="20.392" y1="2" x2="20.392" y2="6.434" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#575757"></stop>
+                    <stop offset="1" stop-color="#151515"></stop>
+                  </linearGradient>
+                  <linearGradient id="1753173464874-1572285_swap_existing_2_j46yz6w0g" x1="15.5" y1="8.5" x2="15.5" y2="22.5" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#E3E3E5" stop-opacity=".6"></stop>
+                    <stop offset="1" stop-color="#BBBBC0" stop-opacity=".6"></stop>
+                  </linearGradient>
+                  <linearGradient id="1753173464874-1572285_swap_existing_3_n6lbgc7yp" x1="15.5" y1="8.5" x2="15.5" y2="16.608" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#fff"></stop>
+                    <stop offset="1" stop-color="#fff" stop-opacity="0"></stop>
+                  </linearGradient>
+                  <linearGradient id="1753173464874-1572285_swap_existing_4_w9c1wsn27" x1="4.608" y1="17.566" x2="4.608" y2="22" gradientUnits="userSpaceOnUse">
+                    <stop stop-color="#575757"></stop>
+                    <stop offset="1" stop-color="#151515"></stop>
+                  </linearGradient>
+                  <filter id="1753173464874-1572285_swap_filter_uw6imkje4" x="-100%" y="-100%" width="400%" height="400%" filterUnits="objectBoundingBox" primitiveUnits="userSpaceOnUse">
+                    <feGaussianBlur stdDeviation="2" x="0%" y="0%" width="100%" height="100%" in="SourceGraphic" edgeMode="none" result="blur"></feGaussianBlur>
+                  </filter>
+                  <clipPath id="1753173464874-1572285_swap_clipPath_wxh4er2t8">
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5 8.5C19.366 8.5 22.5 11.634 22.5 15.5C22.5 19.366 19.366 22.5 15.5 22.5C11.634 22.5 8.5 19.366 8.5 15.5C8.5 11.634 11.634 8.5 15.5 8.5Z" fill="url(#1753173464874-1572285_swap_existing_2_j46yz6w0g)"></path>
+                  </clipPath>
+                  <mask id="1753173464874-1572285_swap_mask_wtclzdgrt">
+                    <rect width="100%" height="100%" fill="#FFF"></rect>
+                    <path fill-rule="evenodd" clip-rule="evenodd" d="M15.5 8.5C19.366 8.5 22.5 11.634 22.5 15.5C22.5 19.366 19.366 22.5 15.5 22.5C11.634 22.5 8.5 19.366 8.5 15.5C8.5 11.634 11.634 8.5 15.5 8.5Z" fill="#000"></path>
+                  </mask>
+                </defs>
+              </g>
+            </svg>

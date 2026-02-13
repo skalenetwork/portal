@@ -21,10 +21,10 @@
  */
 
 import { useState } from 'react'
-import { cmn, cls, styles, SkPaper, useWagmiAccount } from '@skalenetwork/metaport'
+import { ChainIcon, SkPaper, useWagmiAccount } from '@skalenetwork/metaport'
 import { type types, metadata, constants } from '@/core'
 
-import { Collapse, Grid } from '@mui/material'
+import { Collapse } from '@mui/material'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
 
 import SkStack from './SkStack'
@@ -38,7 +38,6 @@ const SUPPORTED_CHAINS = ['elated-tan-skat', 'honorable-steel-rasalhague', 'gree
 export default function Meson(props: {
   skaleNetwork: types.SkaleNetwork
   chainsMeta: types.ChainsMetadataMap
-  isXs?: boolean
   className?: string
 }) {
   const [show, setShow] = useState<boolean>(false)
@@ -52,75 +51,66 @@ export default function Meson(props: {
 
   if (props.skaleNetwork !== constants.MAINNET_CHAIN_NAME) return
   return (
-    <div className={cls(props.className, 'paddBott60')}>
+    <div className={props.className}>
       <div
         onClick={() => {
           setShow(!show)
         }}
       >
-        <SkPaper gray className={cls('hoverable pointer')}>
-          <SkStack className={cls(cmn.m10, cmn.flexcv)}>
-            <img src={networks} className={cls(cmn.mri10)} style={{ height: '40px' }} />
-            <div className={cls(cmn.flexg)}>
-              <div className={cls(cmn.flex, cmn.flexg, cmn.flexcv)}>
-                <p
-                  className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p)}
-                  style={{ fontSize: '1.05rem', fontWeight: 700 }}
-                >
+        <SkPaper gray className="hoverable cursor-pointer">
+          <SkStack className="p-1 items-center">
+            <img src={networks} className="mr-2.5" style={{ height: '25px' }} />
+            <div className="grow">
+              <div className="flex grow items-center">
+                <p className="font-semibold text-foreground text-sm">
                   Bridge from Other Popular Networks
                 </p>
               </div>
-              <p className={cls(cmn.p, cmn.p4, cmn.pSec, [cmn.pCent, props.isXs])}>
+              <p className="text-xs font-medium text-secondary-foreground">
                 Transfer from 45+ chains using Meson.Fi
               </p>
             </div>
-            {!props.isXs ? (
-              <div className={cls(cmn.mleft10, cmn.mri5, cmn.flex, cmn.flexcv)}>
-                <ArrowForwardIosRoundedIcon
-                  className={cls(cmn.pSec, styles.chainIconxs, 'rotate-90', ['active', show])}
-                />
-              </div>
-            ) : null}
+            <div className="md:ml-2.5 md:mr-1.5 flex items-center">
+              <ArrowForwardIosRoundedIcon
+                className={`text-secondary-foreground text-xs! ${show ? 'rotate-90' : ''}`}
+              />
+            </div>
           </SkStack>
         </SkPaper>
       </div>
-      <Collapse in={show} className={cls(cmn.mtop10)}>
+      <Collapse in={show} className="mt-2.5">
         {!address ? (
-          <ConnectWallet className={cls(cmn.flexg)} />
+          <ConnectWallet className="grow" />
         ) : (
           <div>
-            <p className={cls(cmn.p, cmn.p3, cmn.pSec, cmn.p500, cmn.mbott10)}>
-              Select destination chain
-            </p>
             <div>
-              <Grid container spacing={2} className={cls(cmn.full)}>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full">
                 {SUPPORTED_CHAINS.map((chain: string) => (
-                  <Grid
+                  <div
                     key={chain}
-                    item
-                    md={4}
-                    sm={6}
-                    xs={12}
+                    className="col-span-1"
                     onClick={() => {
                       openMeson(chain)
                     }}
                   >
-                    <SkPaper gray className={cls('hoverable pointer')}>
-                      <div className={cls(cmn.pCent, cmn.mtop10, cmn.mbott10)}>
-                        <ChainLogo
-                          network={props.skaleNetwork}
-                          className={cls(styles.chainIconlg)}
-                          chainName={chain}
-                          logos={MAINNET_CHAIN_LOGOS}
-                        />
-                        <p className={cls(cmn.cap, cmn.nom, cmn.pPrim, cmn.p, cmn.p3, cmn.p700)}>
-                          {metadata.getAlias(props.chainsMeta, chain)}
+                    <SkPaper gray className="hoverable cursor-pointer">
+                      <div className="text-center mt-2.5 mb-2.5">
+                        <div className="flex justify-center">
+                          <ChainIcon
+                            skaleNetwork={props.skaleNetwork}
+                            chainName={chain}
+                            size="lg"
+                            chainsMeta={props.chainsMeta}
+                          />
+                        </div>
+                        <p className="font-semibold text-foreground text-xs mt-4">
+                          to {metadata.getAlias(props.skaleNetwork, props.chainsMeta, chain)}
                         </p>
                       </div>
                     </SkPaper>
-                  </Grid>
+                  </div>
                 ))}
-              </Grid>
+              </div>
             </div>
           </div>
         )}

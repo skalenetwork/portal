@@ -26,21 +26,22 @@ import { dc } from '@/core'
 import { useAccount } from 'wagmi'
 
 import { Button, Modal, TextField, InputAdornment, Container } from '@mui/material'
-import SearchIcon from '@mui/icons-material/Search'
-import KeyboardArrowDownRoundedIcon from '@mui/icons-material/KeyboardArrowDownRounded'
+import { ChevronDown, Search } from 'lucide-react'
 
 import { getAvailableTokensTotal, getDefaultToken } from '../core/tokens/helper'
-import { cls, cmn, styles } from '../core/css'
 import TokenListSection from './TokenListSection'
 import TokenIcon from './TokenIcon'
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
 import { BALANCE_UPDATE_INTERVAL_MS } from '../core/constants'
 import SkPaper from './SkPaper'
+import { styles } from '../core/css'
+import { useThemeMode } from './ThemeProvider'
 
 export default function TokenList() {
   const [open, setOpen] = React.useState(false)
   const [searchQuery, setSearchQuery] = useState('')
+  const { mode } = useThemeMode()
 
   const handleOpen = () => setOpen(true)
   const handleClose = () => {
@@ -106,34 +107,25 @@ export default function TokenList() {
   const filteredTokensCount = Object.keys(filteredTokens).length
 
   return (
-    <div>
-      <div className={cmn.mri10}>
+    <div className='flex items-center'>
+      <div>
         <Button
-          className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.padd10, cmn.mleft10)}
+          className="flex items-center w-full p-3.5! pr-1! ml-2 hover:bg-muted-foreground/10!"
           onClick={handleOpen}
           disabled={transferInProgress}
           endIcon={
-            <KeyboardArrowDownRoundedIcon className={cmn.pPrim} style={{ marginRight: '11px' }} />
+            <ChevronDown className="text-secondary-foreground mr-3" size={17} />
           }
         >
-          <div className={cls(cmn.flex, cmn.flexc, cmn.mri10, [cmn.pDisabled, noTokens])}>
+          <div className={`flex items-center mr-2.5  ${noTokens ? 'opacity-50' : ''}`}>
             <TokenIcon
               key={token?.meta.symbol}
               tokenSymbol={token?.meta.symbol}
               iconUrl={token?.meta.iconUrl}
+              size='sm'
             />
           </div>
-          <p
-            className={cls(
-              cmn.p,
-              cmn.p1,
-              cmn.p700,
-              cmn.pPrim,
-              [cmn.pDisabled, noTokens],
-              cmn.flex,
-              cmn.flexg
-            )}
-          >
+          <p className={`text-lg font-bold text-foreground ${noTokens ? 'opacity-50' : ''} flex grow`}>
             {tokensText}
           </p>
         </Button>
@@ -141,32 +133,19 @@ export default function TokenList() {
       <Modal
         open={open}
         onClose={handleClose}
-        className={cls(cmn.darkTheme, styles.metaport, styles.backdropBlur)}
+        className={styles.metaport + ' ' + styles.backdropBlur}
       >
-        <Container maxWidth="sm" className={cls(styles.modalContainer)}>
-          <div className={cls(cmn.flex, cmn.mbott20)}>
-            <div className={cmn.flexg}></div>
+        <Container maxWidth="sm" className={styles.modalContainer}>
+          <div className="flex mb-5">
+            <div className="grow"></div>
             <SkPaper gray>
-              <p
-                className={cls(
-                  cmn.p,
-                  cmn.p2,
-                  cmn.p700,
-                  cmn.pPrim,
-                  cmn.mtop5,
-                  cmn.mbott5,
-                  cmn.mleft20,
-                  cmn.mri20,
-                  cmn.flexcv,
-                  cmn.pCent
-                )}
-              >
+              <p className="text-sm font-bold text-foreground mt-1.5 mb-1.5 ml-5 mr-5">
                 Select a token
               </p>
             </SkPaper>
-            <div className={cls(cmn.flexg)}></div>
+            <div className="grow"></div>
           </div>
-          <SkPaper gray>
+          <SkPaper gray className='p-4!'>
             <TextField
               fullWidth
               placeholder="Search tokens"
@@ -175,28 +154,19 @@ export default function TokenList() {
               InputProps={{
                 startAdornment: (
                   <InputAdornment position="start">
-                    <SearchIcon className={cls(cmn.pPrim, styles.chainIcons)} />
+                    <Search className="text-muted-foreground w-5! h-5!" />
                   </InputAdornment>
                 )
               }}
-              className={cls(styles.skInput)}
+              className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-muted! rounded-lg`}
               sx={{
                 '& .MuiOutlinedInput-root': { borderRadius: '25px' },
-                '& fieldset': { borderColor: '#353535 !important' }
+                '& fieldset': { border: 'none' }
               }}
             />
             {filteredTokensCount === 0 && (
-              <div
-                className={cls(
-                  cmn.flex,
-                  cmn.flexc,
-                  cmn.flexcv,
-                  cmn.mtop20,
-                  cmn.mbott20,
-                  cmn.padd10
-                )}
-              >
-                <p className={cls(cmn.p, cmn.p2, cmn.pSec, cmn.pCent)}>
+              <div className="flex items-center justify-center mt-5 mb-5 p-2.5">
+                <p className="text-base text-secondary-foreground text-center font-medium">
                   🚫 No tokens match your current filters
                 </p>
               </div>

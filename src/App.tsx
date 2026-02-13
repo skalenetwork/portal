@@ -31,22 +31,16 @@ import { METAPORT_CONFIG } from './data/metaportConfig'
 import { createMuiTheme } from './core/themes'
 
 import { META_TAGS } from './core/meta'
-import { AuthProvider } from './AuthContext'
-import { LikedAppsProvider } from './LikedAppsContext'
 
 METAPORT_CONFIG.mainnetEndpoint = import.meta.env.VITE_MAINNET_ENDPOINT
 METAPORT_CONFIG.projectId = import.meta.env.VITE_WC_PROJECT_ID
 
 const mpTheme = getMetaportTheme(METAPORT_CONFIG.theme)
 const muiTheme = createMuiTheme(mpTheme)
-const isDarkMode = mpTheme.mode === 'dark'
 
 export default function App() {
   return (
-    <div
-      className={'bridge ' + (isDarkMode ? 'bridge-dark' : 'bridge-light')}
-      style={{ background: mpTheme.background }}
-    >
+    <div className="min-h-screen">
       <Helmet>
         <title>{META_TAGS.main.title}</title>
         <meta name="description" content={META_TAGS.main.description} />
@@ -56,11 +50,9 @@ export default function App() {
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={muiTheme}>
           <MetaportProvider config={METAPORT_CONFIG}>
-            <AuthProvider>
-              <LikedAppsProvider>
-                <Portal />
-              </LikedAppsProvider>
-            </AuthProvider>
+            <div className="app-shell">
+              <Portal />
+            </div>
           </MetaportProvider>
         </ThemeProvider>
       </StyledEngineProvider>

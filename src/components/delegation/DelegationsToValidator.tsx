@@ -24,8 +24,7 @@
 import { useState } from 'react'
 import { useState as useReactState } from 'react'
 
-import { cls } from '@skalenetwork/metaport'
-import { Collapse } from '@mui/material'
+import { Collapse, Button } from '@mui/material'
 
 import { types } from '@/core'
 
@@ -33,7 +32,6 @@ import { getValidatorById, DelegationState } from '../../core/delegation'
 
 import Delegation from './Delegation'
 import Reward from './Reward'
-import SkBtn from '../SkBtn'
 
 export default function DelegationsToValidator(props: {
   delegationsToValidator: types.st.IDelegationsToValidator
@@ -43,7 +41,6 @@ export default function DelegationsToValidator(props: {
   loading: types.st.IRewardInfo | types.st.IDelegationInfo | false
   unstake: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
   cancelRequest: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
-  isXs: boolean
   address: types.AddressType | undefined
   customAddress: types.AddressType | undefined
   customRewardAddress: types.AddressType | undefined
@@ -86,45 +83,48 @@ export default function DelegationsToValidator(props: {
         retrieveRewards={props.retrieveRewards}
         loading={props.loading}
         delegationType={props.delegationType}
-        isXs={props.isXs}
         address={props.address}
         customAddress={props.customAddress}
         customRewardAddress={props.customRewardAddress}
         setCustomRewardAddress={props.setCustomRewardAddress}
         unstakeAllBtn={
           hasActiveDelegations ? (
-            <SkBtn
-              text={groupUnstakeLoading ? 'Unstaking all...' : 'Unstake All'}
-              color="error"
-              className="btnSm"
-              loading={groupUnstakeLoading}
+            <Button
+              size="small"
               onClick={handleUnstakeAll}
               disabled={
                 props.loading !== false || groupUnstakeLoading || props.customAddress !== undefined
               }
-            />
+              className="font-sans! bg-destructive/10! py-2! px-3! capitalize! text-destructive! font-semibold! text-xs! ease-in-out transition-transform duration-150 active:scale-[0.97] hover:scale-[1.01] disabled:bg-secondary-foreground/10! disabled:text-foreground! disabled:cursor-not-allowed! disabled:transform-none! disabled:hover:scale-100!"
+            >
+              {groupUnstakeLoading ? 'Unstaking all...' : 'Unstake All'}
+            </Button>
           ) : null
         }
         sklPrice={props.sklPrice}
       />
+      <div className="border-l-2 border-border"></div>
       <Collapse in={open}>
-        <div className={cls('nestedSection', ['nestedSectionXs', props.isXs])}>
-          {props.delegationsToValidator.delegations.map(
-            (delegation: types.st.IDelegation, index: number) => (
-              <Delegation
-                key={index}
-                delegation={delegation}
-                validator={validator}
-                delegationType={props.delegationType}
-                unstake={props.unstake}
-                cancelRequest={props.cancelRequest}
-                loading={props.loading}
-                isXs={props.isXs}
-                customAddress={props.customAddress}
-                sklPrice={props.sklPrice}
-              />
-            )
-          )}
+        <div className="relative">
+          <div className="border-l-2 border-border absolute left-10 top-0 bottom-0"></div>
+          <div className="pl-14 pr-0! sm:pr-5">
+            {props.delegationsToValidator.delegations.map(
+              (delegation: types.st.IDelegation, index: number) => (
+                <Delegation
+                  key={index}
+                  delegation={delegation}
+                  validator={validator}
+                  delegationType={props.delegationType}
+                  unstake={props.unstake}
+                  cancelRequest={props.cancelRequest}
+                  loading={props.loading}
+                  customAddress={props.customAddress}
+                  sklPrice={props.sklPrice}
+                  isValidatorPage={false}
+                />
+              )
+            )}
+          </div>
         </div>
       </Collapse>
     </div>

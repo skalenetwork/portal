@@ -25,13 +25,8 @@ import { type types } from '@/core'
 import { explorer } from '@skalenetwork/metaport'
 import { getRecentApps } from './core/ecosystem/utils'
 import { MAX_APPS_DEFAULT } from './core/constants'
-import { useLikedApps } from './LikedAppsContext'
-import { useAuth } from './AuthContext'
 
 export function useApps(chainsMeta: types.ChainsMetadataMap, metrics: types.IMetrics | null) {
-  const { getMostLikedApps, likedApps, getAppId } = useLikedApps()
-  const { isSignedIn } = useAuth()
-
   const allApps = useMemo<types.AppWithChainAndName[]>(() => {
     const apps = Object.entries(chainsMeta).flatMap(([chainName, chainData]) =>
       Object.entries(chainData.apps || {}).map(([appName, app]) => ({
@@ -53,20 +48,6 @@ export function useApps(chainsMeta: types.ChainsMetadataMap, metrics: types.IMet
     return apps.sort((a, b) => (b.added || 0) - (a.added || 0))
   }, [chainsMeta])
 
-  const mostLikedAppIds = getMostLikedApps()
-  const mostLikedApps = useMemo<types.AppWithChainAndName[]>(() => {
-    const appMap = new Map(allApps.map((app) => [getAppId(app.chain, app.appName), app]))
-    return mostLikedAppIds
-      .map((id) => appMap.get(id))
-      .filter((app): app is types.AppWithChainAndName => app !== undefined)
-  }, [allApps, mostLikedAppIds, getAppId])
-
-  const favoriteApps = useMemo<types.AppWithChainAndName[]>(() => {
-    if (!isSignedIn) return []
-    const apps = allApps.filter((app) => likedApps.includes(getAppId(app.chain, app.appName)))
-    return apps.sort((a, b) => a.alias.localeCompare(b.alias))
-  }, [allApps, likedApps, isSignedIn, getAppId])
-
   const trendingApps = useMemo<types.AppWithChainAndName[]>(() => {
     if (!metrics) return []
 
@@ -87,5 +68,5 @@ export function useApps(chainsMeta: types.ChainsMetadataMap, metrics: types.IMet
       .slice(0, MAX_APPS_DEFAULT)
   }, [allApps, metrics])
 
-  return { allApps, featuredApps, newApps, mostLikedApps, favoriteApps, trendingApps, isSignedIn }
+  return { allApps, featuredApps, newApps, trendingApps }
 }

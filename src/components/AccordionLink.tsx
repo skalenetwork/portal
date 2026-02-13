@@ -24,10 +24,9 @@
 import { type ReactElement } from 'react'
 
 import ButtonBase from '@mui/material/ButtonBase'
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 
-import { cmn, cls, styles } from '@skalenetwork/metaport'
 import { Link } from 'react-router-dom'
+import { CirclePlus } from 'lucide-react'
 
 export default function AccordionLink(props: {
   title: string
@@ -37,16 +36,16 @@ export default function AccordionLink(props: {
 }) {
   return (
     <div className={props.className}>
-      <Link to={props.url} className={cls(cmn.pPrim)}>
-        <ButtonBase className={cls(cmn.fullWidth, cmn.flex, cmn.pleft, cmn.bordRad)}>
-          <div className={cls(cmn.m10, cmn.flex, cmn.flexg, cmn.flexcv)}>
+      <Link to={props.url} className="text-primary">
+        <ButtonBase className="w-full flex pl-2.5 rounded">
+          <div className="m-2.5 flex grow items-center">
             {props.icon ? (
-              <div className={cls(cmn.mri10, cmn.flexcv, cmn.flex, styles.chainIconxs, cmn.pSec)}>
+              <div className="mr-2.5 items-center flex text-[17px]! text-secondary-foreground">
                 {props.icon}
               </div>
             ) : null}
-            <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.flexg)}>{props.title}</p>
-            <AddCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
+            <p className="text-base font-bold grow">{props.title}</p>
+            <CirclePlus className="mr-1.5 text-[17px]! text-secondary-foreground" />
           </div>
         </ButtonBase>
       </Link>

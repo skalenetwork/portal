@@ -52,6 +52,11 @@ export const META_TAGS = {
       'Explore SKALE Hubs, AppChains, connect to SKALE Chains, get block explorer links, endpoints, linked tokens and verified contracts info.',
     help: 'SKALE Chains are custom blockchains within the SKALE Network designed to power specific dAps and use cases.'
   },
+  credits: {
+    title: 'SKALE Portal - Credits',
+    description: 'Manage your SKALE Chain Credits, purchase credits and view credit usage history.',
+    help: 'Chain Credits are used to pay for transaction fees on SKALE Chains. SKL Credits apply ONLY on SKALE chain on Base / SKALE chain on Sepolia Base.'
+  },
   ecosystem: {
     title: 'SKALE Portal - Ecosystem',
     description: 'Explore and interact with dApps on SKALE Network.',

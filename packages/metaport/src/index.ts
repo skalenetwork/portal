@@ -6,9 +6,11 @@ export { useDisplayFunctions, type DisplayFunctions } from './store/DisplayFunct
 
 import * as contracts from './core/contracts'
 import * as explorer from './core/explorer'
+import './styles/theme.css'
 
 import Metaport from './components/Metaport'
 import MetaportProvider from './components/MetaportProvider'
+import { ThemeProvider as MetaportThemeProvider, useThemeMode } from './components/ThemeProvider'
 import MetaportBody from './components/WidgetBody'
 
 import SkConnect from './components/SkConnect'
@@ -35,10 +37,11 @@ import TransactionData from './components/TransactionData'
 import Debug from './components/Debug'
 import AnimatedLoadingIcon from './components/AnimatedLoadingIcon'
 
-import { cls, styles, cmn } from './core/css'
+import { styles } from './core/css'
 import MetaportCore from './core/metaport'
 import { sendTransaction } from './core/transactions'
 import { Station, StationData } from './core/sfuel'
+import * as mp_metadata from './core/metadata'
 
 import { getWidgetTheme as getMetaportTheme } from './core/themes'
 
@@ -62,6 +65,7 @@ import { walletClientToSigner } from './core/ethers'
 export {
   Metaport,
   MetaportProvider,
+  MetaportThemeProvider,
   MetaportBody,
   MetaportCore,
   SkPaper,
@@ -85,9 +89,7 @@ export {
   TransactionData,
   Debug,
   AnimatedLoadingIcon,
-  cls,
   styles,
-  cmn,
   getMetaportTheme,
   useWagmiAccount,
   useWagmiWalletClient,
@@ -104,5 +106,8 @@ export {
   Station,
   type StationData,
   contracts,
-  explorer
+  explorer,
+  mp_metadata
 }
+
+export { useThemeMode }

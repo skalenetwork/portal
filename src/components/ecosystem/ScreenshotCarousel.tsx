@@ -23,10 +23,8 @@
 
 import React, { useState, useEffect, useCallback } from 'react'
 import useEmblaCarousel from 'embla-carousel-react'
-import { Box, IconButton } from '@mui/material'
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
-import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
-import { cls, cmn, styles } from '@skalenetwork/metaport'
+import { Box } from '@mui/material'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
 
 type PropType = {
   screenshots: string[]
@@ -60,7 +58,7 @@ const ScreenshotCarousel: React.FC<PropType> = ({ screenshots, appName }) => {
   }, [emblaApi, onSelect])
 
   return (
-    <Box position="relative" className={cls(cmn.mtop10)}>
+    <Box position="relative" className="mt-2.5">
       <Box className="embla" ref={emblaRef} sx={{ overflow: 'hidden' }}>
         <Box className="embla__container" display="flex" height={400}>
           {screenshots.map((screenshot, index) => (
@@ -91,36 +89,20 @@ const ScreenshotCarousel: React.FC<PropType> = ({ screenshots, appName }) => {
           ))}
         </Box>
       </Box>
-      <IconButton
+      <button
         onClick={scrollPrev}
         disabled={!prevBtnEnabled}
-        className="filled"
-        size="small"
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '15px',
-          transform: 'translateY(-50%)',
-          zIndex: 1
-        }}
+        className="absolute top-1/2 left-4 transform -translate-y-1/2 z-10 p-2 rounded-full bg-background/80 hover:bg-background disabled:opacity-50 disabled:cursor-not-allowed transition-all"
       >
-        <ArrowBackIosNewRoundedIcon className={cls(cmn.pSec, styles.chainIconxs)} />
-      </IconButton>
-      <IconButton
+        <ChevronLeft className="text-foreground" size={17} />
+      </button>
+      <button
         onClick={scrollNext}
         disabled={!nextBtnEnabled}
-        className="filled"
-        size="small"
-        sx={{
-          position: 'absolute',
-          top: '50%',
-          right: '15px',
-          transform: 'translateY(-50%)',
-          zIndex: 1
-        }}
+        className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10 p-2 rounded-full bg-background/80 hover:bg-background disabled:opacity-50 disabled:cursor-not-allowed transition-all"
       >
-        <ArrowForwardIosRoundedIcon className={cls(cmn.pSec, styles.chainIconxs)} />
-      </IconButton>
+        <ChevronRight className="text-foreground" size={17} />
+      </button>
     </Box>
   )
 }

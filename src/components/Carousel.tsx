@@ -27,8 +27,6 @@ import { Box, IconButton, useTheme, useMediaQuery } from '@mui/material'
 import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded'
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded'
 
-import { cmn, cls } from '@skalenetwork/metaport'
-
 interface CarouselProps {
   children: ReactNode[]
   showArrows?: boolean
@@ -61,6 +59,9 @@ const Carousel: React.FC<CarouselProps> = ({ children, showArrows = true, classN
 
   const visibleChildren = children.slice(startIndex, startIndex + itemsToShow)
 
+  const prevDisabled = startIndex === 0
+  const nextDisabled = startIndex >= children.length - itemsToShow
+
   return (
     <Box sx={{ position: 'relative' }} className={className}>
       <Box
@@ -88,22 +89,22 @@ const Carousel: React.FC<CarouselProps> = ({ children, showArrows = true, classN
         ))}
       </Box>
       {showArrows && children.length > itemsToShow && (
-        <Box className={cls(cmn.mtop10, 'skArrows')}>
+        <Box className="mt-2.5 skArrows">
           <IconButton
             onClick={handlePrev}
-            disabled={startIndex === 0}
+            disabled={prevDisabled}
             size="small"
-            className={cls('filled', cmn.mri5)}
+            className="ml-1.5 bg-card! disabled:bg-transparent!"
           >
-            <ArrowBackIosRoundedIcon />
+            <ArrowBackIosRoundedIcon className="text-secondary-foreground!" />
           </IconButton>
           <IconButton
             onClick={handleNext}
-            disabled={startIndex >= children.length - itemsToShow}
+            disabled={nextDisabled}
             size="small"
-            className={cls(cmn.pSec, 'filled', cmn.mleft5)}
+            className="ml-1.5 bg-card! disabled:bg-transparent!"
           >
-            <ArrowForwardIosRoundedIcon />
+            <ArrowForwardIosRoundedIcon className="text-secondary-foreground!" />
           </IconButton>
         </Box>
       )}

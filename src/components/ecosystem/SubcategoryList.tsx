@@ -22,7 +22,7 @@
 
 import React from 'react'
 import { FormControlLabel, Checkbox } from '@mui/material'
-import { cls, cmn } from '@skalenetwork/metaport'
+import { useThemeMode } from '@skalenetwork/metaport'
 import { highlightMatch } from './SearchBar'
 
 interface Subcategory {
@@ -43,31 +43,38 @@ const SubcategoryList: React.FC<SubcategoryListProps> = ({
   checkedItems,
   onCheck,
   searchTerm
-}) => (
-  <div className={cls(cmn.mleft20, cmn.fullWidth, cmn.mtop5)}>
-    {Object.entries(subcategories).map(([shortName, subcategory]) => (
-      <div
-        key={`${category}_${shortName}`}
-        className={cls(cmn.flex, cmn.flexcv, cmn.fullWidth, cmn.mbott5)}
-      >
-        <FormControlLabel
-          control={
-            <Checkbox
-              checked={checkedItems.includes(`${category}_${shortName}`)}
-              onChange={() => {
-                onCheck(category, shortName)
-              }}
-            />
-          }
-          label={
-            <span className={cls(cmn.p, cmn.p3, cmn.p500)}>
-              {highlightMatch(subcategory.name, searchTerm)}
-            </span>
-          }
-        />
-      </div>
-    ))}
-  </div>
-)
+}) => {
+  const { mode } = useThemeMode()
+
+  return (
+    <div className="ml-5 w-full mt-1.5">
+      {Object.entries(subcategories).map(([shortName, subcategory]) => (
+        <div key={`${category}_${shortName}`} className="flex items-center w-full mb-1.5">
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={checkedItems.includes(`${category}_${shortName}`)}
+                onChange={() => {
+                  onCheck(category, shortName)
+                }}
+                sx={{
+                  color: mode === 'dark' ? '#ffffff' : '#000000',
+                  '&.Mui-checked': {
+                    color: mode === 'dark' ? '#ffffff' : '#000000'
+                  }
+                }}
+              />
+            }
+            label={
+              <span className="text-xs text-xs00 text-foreground dark:text-white">
+                {highlightMatch(subcategory.name, searchTerm)}
+              </span>
+            }
+          />
+        </div>
+      ))}
+    </div>
+  )
+}
 
 export default SubcategoryList

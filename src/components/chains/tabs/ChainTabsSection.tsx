@@ -22,31 +22,26 @@
  */
 
 import { useEffect, useState } from 'react'
+import { Bolt, Coins, FileCheck, Heart } from 'lucide-react'
 
-import { cmn, cls, MetaportCore, SkPaper, explorer } from '@skalenetwork/metaport'
+import { MetaportCore, SkPaper, explorer } from '@skalenetwork/metaport'
 import { type types } from '@/core'
-
-import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
-import ConstructionRoundedIcon from '@mui/icons-material/ConstructionRounded'
-import PlaylistAddCheckCircleRoundedIcon from '@mui/icons-material/PlaylistAddCheckCircleRounded'
-import AccountBalanceWalletRoundedIcon from '@mui/icons-material/AccountBalanceWalletRounded'
 
 import ChainTabs from './Tabs'
 import DeveloperInfo from './DeveloperInfo'
 import Tokens from './Tokens'
-import VerifiedContracts from './VerifiedContracts'
-import FeaturedApps from '../../ecosystem/tabs/FeaturedApps'
+// import VerifiedContracts from './VerifiedContracts'
 import { useApps } from '../../../useApps'
 
 const BASE_TABS = [
   {
     label: 'Developer info',
-    icon: <ConstructionRoundedIcon />
-  },
-  {
-    label: 'Contracts',
-    icon: <PlaylistAddCheckCircleRoundedIcon />
+    icon: <Bolt size={17} />
   }
+  // {
+  //   label: 'Contracts',
+  //   icon: <FileCheck size={17} />
+  // }
 ]
 
 interface TabPanelProps {
@@ -75,21 +70,20 @@ function CustomTabPanel(props: TabPanelProps) {
 export default function ChainTabsSection(props: {
   mpc: MetaportCore
   chainsMeta: types.ChainsMetadataMap
-  schainName: string
-  isXs: boolean
+  chain: types.ISChain
 }) {
   const network = props.mpc.config.skaleNetwork
-  const chainMeta = props.chainsMeta[props.schainName]
+  const chainMeta = props.chainsMeta[props.chain.name]
 
   const { featuredApps, newApps, trendingApps } = useApps(props.chainsMeta, null)
 
-  const chainFeaturedApps = featuredApps.filter((app) => app.chain === props.schainName)
+  const chainFeaturedApps = featuredApps.filter((app) => app.chain === props.chain.name)
 
-  const explorerUrl = explorer.getExplorerUrl(network, props.schainName)
+  // const explorerUrl = explorer.getExplorerUrl(chainMeta, network, props.schainName)
 
   const BASE_TABS_CONTENT = [
-    <DeveloperInfo schainName={props.schainName} skaleNetwork={network} />,
-    <VerifiedContracts mpc={props.mpc} schainName={props.schainName} explorerUrl={explorerUrl} />
+    <DeveloperInfo chain={props.chain} skaleNetwork={network} shortAlias={chainMeta?.shortAlias} />
+    // <VerifiedContracts mpc={props.mpc} schainName={props.schainName} explorerUrl={explorerUrl} />
   ]
 
   const [tab, setTab] = useState<number>(0)
@@ -97,38 +91,37 @@ export default function ChainTabsSection(props: {
   const [tabsContent, setTabsContent] = useState<any[]>(BASE_TABS_CONTENT)
 
   useEffect(() => {
-    const tokenConnections = props.mpc.config.connections[props.schainName] ?? {}
+    const tokenConnections = props.mpc.config.connections[props.chain.name] ?? {}
     const chainTokens = tokenConnections.erc20 ?? {}
     const hasTokens = Object.keys(chainTokens).length !== 0
     const currentTabs = [...BASE_TABS]
     const currentTabsContent = [...BASE_TABS_CONTENT]
+
+    // if (
+    //   props.chainsMeta[props.schainName] &&
+    //   props.chainsMeta[props.schainName].apps &&
+    //   chainFeaturedApps.length > 0
+    // ) {
+    //   currentTabs.unshift({ label: 'Featured Apps', icon: <Heart size={17} /> })
+    //   currentTabsContent.unshift(
+    //     <div className="mt-2.5 mb-2.5 ml-1.5 mr-1.5">
+    //       <FeaturedApps
+    //         featuredApps={chainFeaturedApps}
+    //         skaleNetwork={network}
+    //         chainsMeta={props.chainsMeta}
+    //         newApps={newApps}
+    //         trendingApps={trendingApps}
+    //         useCarousel={false}
+    //         gray={false}
+    //         showSeeMoreButton={true}
+    //         chainName={props.schainName}
+    //       />
+    //     </div>
+    //   )
+    // }
     if (hasTokens) {
-      currentTabs.unshift({ label: 'Tokens', icon: <AccountBalanceWalletRoundedIcon /> })
-      currentTabsContent.unshift(<Tokens mpc={props.mpc} schainName={props.schainName} />)
-    }
-    if (
-      props.chainsMeta[props.schainName] &&
-      props.chainsMeta[props.schainName].apps &&
-      chainFeaturedApps.length > 0
-    ) {
-      currentTabs.unshift({ label: 'Featured Apps', icon: <WidgetsRoundedIcon /> })
-      currentTabsContent.unshift(
-        <SkPaper gray className={cls(cmn.mtop20)}>
-          <div className={cls(cmn.mtop10, cmn.mbott10, cmn.mleft5, cmn.mri5)}>
-            <FeaturedApps
-              featuredApps={chainFeaturedApps}
-              skaleNetwork={network}
-              chainsMeta={props.chainsMeta}
-              newApps={newApps}
-              trendingApps={trendingApps}
-              useCarousel={false}
-              gray={false}
-              showSeeMoreButton={true}
-              chainName={props.schainName}
-            />
-          </div>
-        </SkPaper>
-      )
+      currentTabs.push({ label: 'Tokens', icon: <Coins size={17} /> })
+      currentTabsContent.push(<Tokens mpc={props.mpc} schainName={props.chain.name} />)
     }
     setTabs(currentTabs)
     setTabsContent(currentTabsContent)
@@ -139,20 +132,23 @@ export default function ChainTabsSection(props: {
   }
 
   return (
-    <div className={cls(cmn.mtop20)} style={{ paddingBottom: '60px' }}>
-      <ChainTabs
-        chainMeta={chainMeta}
-        handleChange={handleChange}
-        tab={tab}
-        tabs={tabs}
-        schainName={props.schainName}
-        isXs={props.isXs}
-      />
-      {tabsContent.map((content, index) => (
-        <CustomTabPanel key={index} value={tab} index={index}>
-          {content}
-        </CustomTabPanel>
-      ))}
-    </div>
+    <SkPaper gray className="mt-3 p-3! mb-12">
+      <div className="mt-1 mb-4">
+        <ChainTabs
+          chainMeta={chainMeta}
+          handleChange={handleChange}
+          tab={tab}
+          tabs={tabs}
+          schainName={props.chain.name}
+        />
+      </div>
+      <div>
+        {tabsContent.map((content, index) => (
+          <CustomTabPanel key={index} value={tab} index={index}>
+            {content}
+          </CustomTabPanel>
+        ))}
+      </div>
+    </SkPaper>
   )
 }

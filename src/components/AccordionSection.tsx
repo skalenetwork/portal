@@ -25,10 +25,7 @@ import { type ReactElement, useState } from 'react'
 
 import Collapse from '@mui/material/Collapse'
 import ButtonBase from '@mui/material/ButtonBase'
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
-import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
-
-import { cmn, cls, styles } from '@skalenetwork/metaport'
+import { CircleMinus, CirclePlus } from 'lucide-react'
 
 export default function AccordionSection(props: {
   title: string
@@ -42,8 +39,6 @@ export default function AccordionSection(props: {
   expandedByDefault?: boolean
   marg?: boolean
 }) {
-  const marg = props.marg ?? true
-
   const [expandedInternal, setExpandedInternal] = useState<string | false>(
     props.expandedByDefault ? 'panel1' : false
   )
@@ -57,30 +52,30 @@ export default function AccordionSection(props: {
   const panel = props.panel ?? 'panel1'
 
   return (
-    <div className={cls(props.className)}>
+    <div className={props.className}>
       <ButtonBase
         onClick={() => {
           handleChange(panel)
         }}
-        className={cls(cmn.fullWidth, cmn.flex, cmn.pleft, cmn.bordRad)}
+        className="w-full flex pl-2.5 rounded-2xl!"
       >
-        <div className={cls(cmn.m10, cmn.flex, cmn.flexg, cmn.flexcv)}>
+        <div className="mt-2.5 mb-2.5 ml-2.5 flex grow items-center">
           {props.icon ? (
-            <div className={cls(cmn.mri10, cmn.flexcv, cmn.flex, styles.chainIconxs, cmn.pSec)}>
+            <div className="mr-2.5 items-center flex text-[17px]! font-semibold text-foreground/80 ">
               {props.icon}
             </div>
           ) : null}
-          <p className={cls(cmn.p, cmn.p2, cmn.p700, cmn.flexg)}>{props.title}</p>
-          <p className={cls(cmn.p, cmn.p5, cmn.p600, cmn.pSec, cmn.mri20)}>{props.subtitle}</p>
+          <p className="text-sm font-semibold grow text-foreground/80! text-left">{props.title}</p>
+          <p className="text-xs font-semibold text-secondary-foreground mr-5">{props.subtitle}</p>
           {expanded === panel ? (
-            <RemoveCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
+            <CircleMinus size={17} className="mr-1.5 text-secondary-foreground" />
           ) : (
-            <AddCircleRoundedIcon className={cls(cmn.mri5, styles.chainIconxs, cmn.pSec)} />
+            <CirclePlus size={17} className="mr-1.5 text-secondary-foreground" />
           )}
         </div>
       </ButtonBase>
       <Collapse in={expanded === panel}>
-        <div className={cls([cmn.mtop10, marg], [cmn.mbott10, marg])}>{props.children}</div>
+        <div className="mt-1">{props.children}</div>
       </Collapse>
     </div>
   )

@@ -1,8 +1,7 @@
 import { useRef } from 'react'
 
 import IconButton from '@mui/material/IconButton'
-import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded'
-import { cls, cmn, styles } from '../core/css'
+import { ArrowDown } from 'lucide-react'
 
 import { useUIStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
@@ -49,20 +48,17 @@ export default function SwitchDirection() {
   }
 
   return (
-    <div className={cls(styles.sk__btnSwitch, cmn.flex)}>
-      <div className={cls(cmn.flex, cmn.flexg)}></div>
+    <div className="relative flex justify-center">
+      <div className="flex grow"></div>
       <div
-        className={cls(cmn.flex, styles.btnSwitchAnimation)}
+        className="flex justify-center items-center bg-background! p-2.5 -my-5 z-30 rounded-full"
         ref={myElement}
-        style={{
-          background: metaportTheme.background,
-          borderRadius: '50%',
-          zIndex: metaportTheme.zIndex
-        }}
+
       >
         <IconButton
           size="medium"
           color="primary"
+          className='bg-foreground!'
           style={{
             backgroundColor: metaportTheme.primary,
             borderColor: metaportTheme.background,
@@ -71,10 +67,10 @@ export default function SwitchDirection() {
           disabled={loading || transferInProgress}
           onClick={doSwitch}
         >
-          <ArrowDownwardRoundedIcon />
+          <ArrowDown className='text-accent' size={17} />
         </IconButton>
       </div>
-      <div className={cls(cmn.flex, cmn.flexg)}></div>
+      <div className="flex grow"></div>
     </div>
   )
 }

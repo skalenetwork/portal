@@ -25,8 +25,6 @@ import { Contract, id } from 'ethers'
 import { useState, useEffect } from 'react'
 import { type types, metadata, constants, ERC_ABIS, units, helper } from '@/core'
 import {
-  cmn,
-  cls,
   type MetaportCore,
   useWagmiAccount,
   enforceNetwork,
@@ -35,12 +33,10 @@ import {
   useWagmiSwitchNetwork,
   walletClientToSigner,
   sendTransaction,
-  styles,
   contracts
 } from '@skalenetwork/metaport'
 
-import ErrorRoundedIcon from '@mui/icons-material/ErrorRounded'
-import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
+import { CircleDollarSign, ShieldAlert } from 'lucide-react'
 
 import ConnectWallet from './ConnectWallet'
 import PricingInfo from './PricingInfo'
@@ -113,7 +109,7 @@ export default function Paymaster(props: {
       return
     }
     setLoading(true)
-    setBtnText(`Switch network to ${metadata.getAlias(props.chainsMeta, paymasterChain)}`)
+    setBtnText(`Switch network to ${metadata.getAlias(network, props.chainsMeta, paymasterChain)}`)
     setErrorMsg(undefined)
     try {
       const { chainId } = await paymaster.runner.provider.getNetwork()
@@ -174,9 +170,9 @@ export default function Paymaster(props: {
       <Tile
         value="SKALE Chain is not added to Paymaster"
         text="Error occurred"
-        icon={<ErrorRoundedIcon />}
+        icon={<ShieldAlert size={17} />}
         color="error"
-        className={cls(cmn.mtop20)}
+        className="mt-5! dark:bg-red-800/80 dark:border-red-600 border-2"
       />
     )
   if (info.oneSklPrice === 0n)
@@ -184,9 +180,9 @@ export default function Paymaster(props: {
       <Tile
         value="Need to set oneSklPrice on contracts"
         text="Error occurred"
-        icon={<ErrorRoundedIcon />}
+        icon={<ShieldAlert size={17} />}
         color="error"
-        className={cls(cmn.mtop20)}
+        className="mt-5! dark:bg-red-800/80 dark:border-red-600 border-2"
       />
     )
 
@@ -195,12 +191,12 @@ export default function Paymaster(props: {
       <PricingInfo info={info} />
       <Headline
         text="Top-up chain"
-        className={cls(cmn.mtop20, cmn.mbott10)}
-        icon={<MonetizationOnRoundedIcon className={cls(styles.chainIconxs)} />}
+        className="mt-5"
+        icon={<CircleDollarSign size={17} />}
         size="small"
       />
       {!address ? (
-        <ConnectWallet tile className={cls(cmn.flexg)} />
+        <ConnectWallet tile className="grow" />
       ) : (
         <Topup
           mpc={props.mpc}

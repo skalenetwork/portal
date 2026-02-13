@@ -21,14 +21,13 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { cmn, cls, styles } from '@skalenetwork/metaport'
 import Skeleton from '@mui/material/Skeleton'
-import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
-import PieChartRoundedIcon from '@mui/icons-material/PieChartRounded'
+import { ChartPie, Inbox } from 'lucide-react'
 
 import Headline from '../Headline'
 import DelegationsToValidator from './DelegationsToValidator'
 import { types } from '@/core'
+import { styles } from '@skalenetwork/metaport'
 
 export default function Delegations(props: {
   si: types.st.StakingInfoMap
@@ -39,7 +38,6 @@ export default function Delegations(props: {
   errorMsg: string | undefined
   unstake: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
   cancelRequest: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
-  isXs: boolean
   address: types.AddressType | undefined
   customAddress: types.AddressType | undefined
   customRewardAddress: types.AddressType | undefined
@@ -56,24 +54,19 @@ export default function Delegations(props: {
       props.si[types.st.DelegationType.ESCROW2]?.delegations.length === 0)
   return (
     <div>
-      <Headline
-        size="small"
-        text="Delegations"
-        icon={<AllInboxRoundedIcon className={cls(styles.chainIconxs)} />}
-      />
-      <div className={cls(cmn.mtop10)} style={{ paddingBottom: '5px' }}></div>
+      <Headline size="small" text="Delegations" icon={<Inbox />} />
       {!loaded ? (
         <div>
-          <Skeleton variant="rectangular" height={86} className={cls(cmn.mbott10)} />
-          <div className={cls('nestedSection', ['nestedSectionXs', props.isXs])}>
-            <Skeleton variant="rectangular" height={83} className={cls(cmn.mbott10)} />
+          <Skeleton variant="rectangular" height={86} className="mb-2.5" />
+          <div className="pl-14 pr-0! sm:pr-5">
+            <Skeleton variant="rectangular" height={83} className="mb-2.5" />
           </div>
         </div>
       ) : null}
       {loaded && noDelegations ? (
-        <div className={cls(cmn.mtop20)}>
-          <PieChartRoundedIcon className={cls(cmn.pSec, styles.chainIconlg, cmn.fullWidth)} />
-          <h3 className={cls(cmn.p, cmn.p700, cmn.pSec, cmn.pCent, cmn.mtop5, cmn.mbott20)}>
+        <div className="mt-5">
+          <ChartPie className={`text-secondary-foreground w-full mx-auto ${styles.chainIconlg}`} />
+          <h3 className="font-bold text-secondary-foreground text-center mt-1.5 mb-5">
             No tokens staked
           </h3>
         </div>
@@ -90,7 +83,6 @@ export default function Delegations(props: {
                 loading={props.loading}
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
-                isXs={props.isXs}
                 address={props.address}
                 customAddress={props.customAddress}
                 customRewardAddress={props.customRewardAddress}
@@ -110,8 +102,6 @@ export default function Delegations(props: {
                 loading={props.loading}
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
-                isXs={props.isXs}
-                address={props.address}
                 customAddress={props.customAddress}
                 customRewardAddress={props.customRewardAddress}
                 setCustomRewardAddress={props.setCustomRewardAddress}
@@ -130,8 +120,6 @@ export default function Delegations(props: {
                 loading={props.loading}
                 unstake={props.unstake}
                 cancelRequest={props.cancelRequest}
-                isXs={props.isXs}
-                address={props.address}
                 customAddress={props.customAddress}
                 customRewardAddress={props.customRewardAddress}
                 setCustomRewardAddress={props.setCustomRewardAddress}

@@ -26,12 +26,15 @@ import { Link } from 'react-router-dom'
 
 import Tabs from '@mui/material/Tabs'
 import Tab from '@mui/material/Tab'
+import { IconButton, Tooltip } from '@mui/material'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import { useTheme } from '@mui/material/styles'
 
-import { cls, cmn } from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { Settings2 } from 'lucide-react'
 
-import AdminPanelSettingsRoundedIcon from '@mui/icons-material/AdminPanelSettingsRounded'
-import { Button } from '@mui/material'
+import { networks, type types } from '@/core'
+
+import { NETWORKS } from '../../../core/constants'
 
 export default function ChainTabs(props: {
   chainMeta: types.ChainMetadata
@@ -39,38 +42,48 @@ export default function ChainTabs(props: {
   tabs: any[]
   tab: number
   schainName: string
-  isXs: boolean
 }) {
+  const theme = useTheme()
+  const isMdUp = useMediaQuery(theme.breakpoints.up('sm'))
+
   return (
-    <div className={cls(cmn.mtop10, cmn.fullWidth)}>
-      <Tabs
-        variant={props.isXs ? 'scrollable' : 'standard'}
-        value={props.tab}
-        onChange={props.handleChange}
-        scrollButtons="auto"
-        style={{ maxWidth: 'calc(100vw - 32px)', marginLeft: '-5px' }}
-        className="skTabs"
-      >
-        {props.tabs.map((tab, index) =>
-          tab ? (
-            <Tab
-              key={index}
-              label={tab.label}
-              icon={tab.icon}
-              iconPosition="start"
-              className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', 'fwmobile')}
-            />
-          ) : null
-        )}
-        <Link to={`/admin/${props.schainName}`}>
-          <Button
-            startIcon={<AdminPanelSettingsRoundedIcon />}
-            className={cls('btn', 'btnSm', cmn.mri5, cmn.mleft5, 'tab', cmn.pSec, cmn.p500)}
-          >
-            Manage
-          </Button>
-        </Link>
-      </Tabs>
+    <div className="mt-0 flex items-center">
+      <div className="grow">
+        <Tabs
+          variant={isMdUp ? 'scrollable' : 'standard'}
+          value={props.tab}
+          onChange={props.handleChange}
+          scrollButtons="auto"
+          style={{ maxWidth: 'calc(100vw - 32px)' }}
+          className="skTabs bg-background! rounded-full p-1! w-fit"
+        >
+          {props.tabs.map((tab, index) =>
+            tab ? (
+              <Tab
+                key={index}
+                label={tab.label}
+                icon={tab.icon}
+                iconPosition="start"
+                className={`btn btnSm tab fwmobile ${
+                  props.tab === index
+                    ? 'text-foreground! bg-foreground/10! shadow-xs!'
+                    : 'text-muted-foreground!'
+                }`}
+              />
+            ) : null
+          )}
+          <div className="grow"></div>
+        </Tabs>
+      </div>
+      {networks.hasFeatureInAny(NETWORKS, 'paymaster') && (
+        <Tooltip arrow title="Manage Chain">
+          <Link to={`/chains/admin/${props.schainName}`}>
+            <IconButton className="btn btnSm tab h-full! text-foreground! text-xs bg-foreground/5! ease-in-out transition-transform duration-150 active:scale-[0.97] mr-2!">
+              <Settings2 size={17} />
+            </IconButton>
+          </Link>
+        </Tooltip>
+      )}
     </div>
   )
 }

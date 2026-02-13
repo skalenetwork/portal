@@ -22,10 +22,10 @@
  */
 
 import { Box, Button, Tooltip } from '@mui/material'
-import BoltRoundedIcon from '@mui/icons-material/BoltRounded'
 import AutoModeRoundedIcon from '@mui/icons-material/AutoModeRounded'
-import { cls, styles, cmn, type MetaportCore, useWagmiAccount } from '@skalenetwork/metaport'
+import { type MetaportCore, useWagmiAccount } from '@skalenetwork/metaport'
 import { usesFuel } from '../useSFuel'
+import { Zap } from 'lucide-react'
 
 export default function GetSFuel({ mpc }: { mpc: MetaportCore }) {
   const { sFuelOk, isMining, mineSFuel, sFuelCompletionPercentage, loading } = usesFuel(mpc)
@@ -39,24 +39,23 @@ export default function GetSFuel({ mpc }: { mpc: MetaportCore }) {
   }
 
   return (
-    <Box
-      sx={{ alignItems: 'center', textAlign: 'center', display: { xs: 'none', sm: 'flex' } }}
-      className={cls(cmn.mleft5)}
-    >
-      <Tooltip arrow title={sFuelOk ? 'sFUEL balance is OK' : 'Click to get sFUEL for all chains'}>
+    <Box sx={{ alignItems: 'center', textAlign: 'center', display: 'flex' }} className="ml-1.5">
+      <Tooltip
+        arrow
+        placement="bottom"
+        PopperProps={{ sx: { zIndex: 99999 } }}
+        title={sFuelOk ? 'sFUEL balance is OK' : 'Click to get sFUEL for all chains'}
+      >
         <Button
           onClick={sFuelOk ? undefined : mineSFuel}
           disabled={isMining || loading || sFuelOk}
-          className={cls('mp__btnConnect', styles.paperGrey, [cmn.pPrim, !isMining], cmn.flex)}
+          className="flex h-9 px-3 items-center text-foreground! bg-muted-foreground/10! text-xs! normal-case! rounded-full! min-w-0!"
           color="success"
         >
           {loading ? (
-            <AutoModeRoundedIcon className={cls(cmn.mri5, styles.chainIconxs)} />
+            <AutoModeRoundedIcon className="h-5 w-5 pr-1" />
           ) : (
-            <BoltRoundedIcon
-              className={cls(cmn.mri5, styles.chainIconxs)}
-              color={sFuelOk ? 'success' : 'primary'}
-            />
+            <Zap className="text-green-400 h-5 w-5 pr-1" />
           )}
           {btnText()}
         </Button>

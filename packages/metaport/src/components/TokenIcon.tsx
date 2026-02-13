@@ -21,26 +21,32 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import TollRoundedIcon from '@mui/icons-material/TollRounded'
 import { constants } from '@/core'
-import { styles, cmn, cls } from '../core/css'
+import { styles } from '../core/css'
+import { Ban } from 'lucide-react'
 
 export default function TokenIcon(props: {
   tokenSymbol: string | undefined | null
   iconUrl?: string | undefined | null
-  size?: 'xs' | 'sm' | 'md' | 'lg'
+  size?: 'xs' | 'sm' | 'md' | 'lg',
+  className?: string
 }) {
   const size = props.size ?? 'sm'
-  const className = cls(styles[`chainIcon${size}`], cmn.rad50)
+  const className = `${styles[`chainIcon${size}`]} rounded-full ${props.className || ''}`
   if (props.tokenSymbol === undefined || props.tokenSymbol === null) {
-    return <TollRoundedIcon />
+    return <Ban size={17} className="text-muted-foreground!" />
   }
   if (props.iconUrl !== undefined && props.iconUrl !== null) {
-    return <img className={className} src={props.iconUrl} />
+    return (
+      <img
+        className={`object-contain max-w-fit ${className}`}
+        src={props.iconUrl}
+      />
+    )
   }
   return (
     <img
-      className={className}
+      className={`object-contain max-w-fit ${className}`}
       src={`${constants.BASE_TOKEN_ICON_URL}${props.tokenSymbol.toLowerCase()}.svg`}
     />
   )
