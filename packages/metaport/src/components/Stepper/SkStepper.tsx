@@ -215,7 +215,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                   onClick={startOver}
                   color="primary"
                   size="medium"
-                  className="grow w-full! md:w-fit! capitalize! text-accent! bg-foreground! disabled:bg-foreground/30! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+                  className="grow w-full! md:w-fit! capitalize! text-accent! bg-foreground! disabled:bg-muted-foreground/30! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
                   startIcon={<RotateCcw size={17} />}
                 >
                   Start over
