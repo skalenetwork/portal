@@ -24,7 +24,7 @@
 import Box from '@mui/material/Box'
 import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'
-import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
+import { Rainbow } from 'lucide-react'
 
 import { RainbowConnectButton } from '@skalenetwork/metaport'
 import { helper } from '@/core'
@@ -48,10 +48,7 @@ export default function AccountMenu(props: any) {
                     }}
                     className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! normal-case! rounded-full min-w-0!"
                   >
-                    <LooksRoundedIcon
-                      className="mr-1.5"
-                      style={{ height: '18px', width: '18px' }}
-                    />
+                    <Rainbow size={16} className="mr-1.5" />
                     Connect <span className="hidden md:inline! ml-1">wallet</span>
                   </Button>
                 )

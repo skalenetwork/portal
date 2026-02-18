@@ -23,7 +23,7 @@
 
 import Button from '@mui/material/Button'
 
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
+import { ChevronDown } from 'lucide-react'
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
 
 import { useMetaportStore } from '../store/MetaportStore'
@@ -50,7 +50,7 @@ export default function TransactionsHistory() {
           <HistoryRoundedIcon className="w-4 h-4" />
         </div>
         History ({totalCount})
-        <ExpandMoreRoundedIcon className="w-4 h-4" />
+        <ChevronDown size={17} className="text-secondary-foreground" />
       </Button>
     </div>
   )

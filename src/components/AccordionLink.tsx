@@ -24,9 +24,9 @@
 import { type ReactElement } from 'react'
 
 import ButtonBase from '@mui/material/ButtonBase'
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 
 import { Link } from 'react-router-dom'
+import { CirclePlus } from 'lucide-react'
 
 export default function AccordionLink(props: {
   title: string
@@ -45,7 +45,7 @@ export default function AccordionLink(props: {
               </div>
             ) : null}
             <p className="text-base font-bold grow">{props.title}</p>
-            <AddCircleRoundedIcon className="mr-1.5 text-[17px]! text-secondary-foreground" />
+            <CirclePlus className="mr-1.5 text-[17px]! text-secondary-foreground" />
           </div>
         </ButtonBase>
       </Link>

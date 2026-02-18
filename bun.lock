@@ -8,7 +8,7 @@
         "@mui/icons-material": "7.3.2",
         "@mui/material": "7.3.2",
         "@skalenetwork/metaport": "workspace:*",
-        "@skalenetwork/skale-contracts-ethers-v6": "2.0.0-develop.5",
+        "@skalenetwork/skale-contracts-ethers-v6": "2.0.0-develop.6",
         "@tailwindcss/vite": "^4.1.15",
         "@transak/transak-sdk": "^3.1.1",
         "@vercel/analytics": "^1.0.2",
@@ -116,7 +116,7 @@
         "@mui/icons-material": "7.3.2",
         "@mui/material": "7.3.2",
         "@rainbow-me/rainbowkit": "^2.2.9",
-        "@skalenetwork/skale-contracts-ethers-v6": "2.0.0-develop.5",
+        "@skalenetwork/skale-contracts-ethers-v6": "2.0.0-develop.6",
         "@tanstack/react-query": "^5.54.1",
         "@wagmi/core": "^2.22.1",
         "ethers": "^6.15.0",
@@ -536,9 +536,9 @@
 
     "@skalenetwork/metaport": ["@skalenetwork/metaport@workspace:packages/metaport"],
 
-    "@skalenetwork/skale-contracts": ["@skalenetwork/skale-contracts@2.0.0-develop.5", "", { "dependencies": { "@renovatebot/pep440": "^4.1.0", "axios": "^1.4.0", "dotenv": "^16.5.0", "semver": "^7.6.0" } }, "sha512-2GA7Hts/KJK5gpHT2ueNLtwdIzEEU4hawhCLGhMqLjv0rmjnQVZpWkOPJktbiV2USffFMzq/mjoGuo/0odIy2Q=="],
+    "@skalenetwork/skale-contracts": ["@skalenetwork/skale-contracts@2.0.0-develop.6", "", { "dependencies": { "@renovatebot/pep440": "^4.1.0", "axios": "^1.4.0", "dotenv": "^16.5.0", "semver": "^7.6.0" } }, "sha512-+n3TQDgiqK7D7yhRnz3+U7dvd4/8QWsn8hm7CHIMs+I0obs5tDP9eCoCZBNObVDeX1aItrW32VYeTvcJuqIrkA=="],
 
-    "@skalenetwork/skale-contracts-ethers-v6": ["@skalenetwork/skale-contracts-ethers-v6@2.0.0-develop.5", "", { "dependencies": { "@skalenetwork/skale-contracts": "2.0.0-develop.5", "ethers": "^6.13.5" } }, "sha512-sIkKFM4vCrw0+Mn0Han0erAcYzxEEWRuov2Mu+KLrfVHqARVp/bSJbbaWhLONIT7AB3XcchKiqazCsj1yNjX0w=="],
+    "@skalenetwork/skale-contracts-ethers-v6": ["@skalenetwork/skale-contracts-ethers-v6@2.0.0-develop.6", "", { "dependencies": { "@skalenetwork/skale-contracts": "2.0.0-develop.6", "ethers": "^6.13.5" } }, "sha512-x3nB3MVM48AuJtzgxnvuKE7XZB7qYdOvXh5Fooi5tW83u0tPnmLQPCoIGrOpbQKRdwQEYCYo83pnpXc+SInz6g=="],
 
     "@socket.io/component-emitter": ["@socket.io/component-emitter@3.1.2", "", {}, "sha512-9BCxFwvbGg/RsZK9tjXd8s4UcwR0MWeFQ1XEKIQVVvAGJyINdrqKMcTRyLoK8Rse1GjzLV9cwjWV1olXRWEXVA=="],
 

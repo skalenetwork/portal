@@ -94,7 +94,7 @@ const Carousel: React.FC<CarouselProps> = ({ children, showArrows = true, classN
             onClick={handlePrev}
             disabled={prevDisabled}
             size="small"
-            className={`ml-1.5 ${!prevDisabled && 'bg-card!'}`}
+            className="ml-1.5 bg-card! disabled:bg-transparent!"
           >
             <ArrowBackIosRoundedIcon className="text-secondary-foreground!" />
           </IconButton>
@@ -102,7 +102,7 @@ const Carousel: React.FC<CarouselProps> = ({ children, showArrows = true, classN
             onClick={handleNext}
             disabled={nextDisabled}
             size="small"
-            className={`ml-1.5 ${!nextDisabled && 'bg-card!'}`}
+            className="ml-1.5 bg-card! disabled:bg-transparent!"
           >
             <ArrowForwardIosRoundedIcon className="text-secondary-foreground!" />
           </IconButton>

@@ -26,10 +26,10 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { type types } from '@/core'
 
 import { useTheme } from '@mui/material/styles'
-import useMediaQuery from '@mui/material/useMediaQuery'
 import { Skeleton, Tooltip } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
+import { CircleCheck } from 'lucide-react'
+import { cn } from '../core/css'
 
 export default function Tile(props: {
   text?: string
@@ -57,7 +57,6 @@ export default function Tile(props: {
   const size = props.size ?? 'lg'
 
   const [copied, setCopied] = useState(false)
-  const isXs = useMediaQuery(theme.breakpoints.down('sm'))
 
   const handleClick = () => {
     setCopied(true)
@@ -76,16 +75,15 @@ export default function Tile(props: {
 
   const value = (
     <p
-      className={`
-        ${size === 'xl' ? 'text-2xl' : ''}
-        ${size === 'lg' ? 'text-xl' : ''}
-        ${size === 'md' ? 'text-base' : ''}
-        font-bold
-        ${!props.color && !props.disabled ? 'text-foreground' : ''}
-        ${props.disabled ? 'text-secondary-foreground' : ''}
-        ${props.color ? 'text-black' : ''}
-        ${props.copy ? 'cursor-pointer' : ''}
-      `.replace(/\s+/g, ' ').trim()}
+      className={cn(
+        'font-bold',
+        size === 'xl' && 'text-2xl',
+        size === 'lg' && 'text-xl',
+        size === 'md' && 'text-base',
+        !props.color && !props.disabled && 'text-foreground',
+        props.disabled && 'text-secondary-foreground',
+        props.copy && 'cursor-pointer'
+      )}
     >
       {props.value}
     </p>
@@ -93,17 +91,22 @@ export default function Tile(props: {
 
   return (
     <div
-      className={`${props.className || ''} h-full bg-background rounded-md p-4 titleSection_${size} ${props.grow ? 'grow' : ''}`}
+      className={cn(
+        'bg-background rounded-md p-4',
+        `titleSection_${size}`,
+        props.grow && 'grow',
+        props.className
+      )}
     >
-      <div className={`flex ${!isXs ? 'items-center' : ''}`}>
+      <div className="flex items-center">
         <div className="grow">
           {props.text ? (
             <div
-              className={`
-                flex items-center mb-1.5
-                ${!props.color && !props.textColor ? 'text-secondary-foreground' : ''}
-                ${props.color ? 'text-black' : ''}
-              `.replace(/\s+/g, ' ').trim()}
+              className={cn(
+                'flex items-center mb-1.5',
+                !props.color && !props.textColor && 'text-secondary-foreground',
+                props.color && 'text-foreground'
+              )}
             >
               {props.ri ? <div className="grow"></div> : null}
               {props.icon ? (
@@ -111,27 +114,21 @@ export default function Tile(props: {
                   className="mr-1.5 flex text-[17px]!"
                   style={{ color: props.textColor }}
                 >
-                  {copied ? <CheckCircleRoundedIcon color="success" /> : props.icon}
+                  {copied ? <CircleCheck size={20} color={theme.palette.success.main} /> : props.icon}
                 </div>
               ) : null}
               <p
-                className={`
-                  flex font-medium
-                  ${props.size === 'md' ? 'text-xs' : 'text-sm'}
-                  ${!props.ri ? 'grow' : ''}
-                  ${props.textColor ? 'font-semibold' : ''}`}
+                className={cn(
+                  'flex font-medium text-xs',
+                  !props.ri && 'grow',
+                  props.textColor && 'font-semibold'
+                )}
                 style={{ color: props.textColor }}
               >
                 {props.text}
               </p>
               {props.textRi ? (
-                <p
-                  className={`
-                    ${props.size === 'md' ? 'text-xs' : 'text-sm'}
-                    flex ml-1.5 font-medium
-                  `}
-                  style={{ color: props.textColor }}
-                >
+                <p className="text-xs flex ml-1.5 font-medium" style={{ color: props.textColor }}>
                   {props.textRi}
                 </p>
               ) : null}
@@ -163,7 +160,7 @@ export default function Tile(props: {
                 value={props.progress}
                 color={props.progressColor}
                 style={{ height: '20px' }}
-                className="grow ml-2.5"
+                className="grow ml-2.5 dark:opacity-100 opacity-50 dark:brightness-100 brightness-125"
               />
             ) : null}
           </div>

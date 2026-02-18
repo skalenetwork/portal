@@ -21,32 +21,45 @@
  */
 
 import NativeSelect from '@mui/material/NativeSelect'
-import { isDelegationTypeAvailable } from '../../core/delegation/staking'
 import { types } from '@/core'
+import { isDelegationTypeAvailable } from '../../core/delegation/staking'
 
 export default function DelegationTypeSelect(props: {
   delegationType: types.st.DelegationType
   handleChange: (event: any) => void
   si: types.st.StakingInfoMap
 }) {
+  const hasEscrow = isDelegationTypeAvailable(props.si, types.st.DelegationType.ESCROW)
+  const hasGrant = isDelegationTypeAvailable(props.si, types.st.DelegationType.ESCROW2)
+  const hasEscrowOrGrant = hasEscrow || hasGrant
+
+  if (!hasEscrowOrGrant) {
+    return null
+  }
+
   return (
-    <div className="sk-select">
+    <div className="sk-select text-secondary-foreground! ">
       <NativeSelect
-        className=" text-xs, 'titleBadge'"
+        className="text-xs! bg-card! py-1! font-semibold! text-secondary-foreground! rounded-lg!"
         defaultValue={30}
         value={props.delegationType}
         onChange={props.handleChange}
+        sx={{
+          '& .MuiSvgIcon-root': {
+            color: 'var(--secondary-foreground)'
+          }
+        }}
       >
-        <option value={types.st.DelegationType.REGULAR} className=" text-xs">
+        <option value={types.st.DelegationType.REGULAR} className="text-xs!">
           Regular delegation
         </option>
-        {isDelegationTypeAvailable(props.si, types.st.DelegationType.ESCROW) ? (
-          <option value={types.st.DelegationType.ESCROW} className=" text-xs">
+        {hasEscrow ? (
+          <option value={types.st.DelegationType.ESCROW} className="text-xs">
             Escrow delegation
           </option>
         ) : null}
-        {isDelegationTypeAvailable(props.si, types.st.DelegationType.ESCROW2) ? (
-          <option value={types.st.DelegationType.ESCROW2} className=" text-xs">
+        {hasGrant ? (
+          <option value={types.st.DelegationType.ESCROW2} className="text-xs">
             Grant delegation
           </option>
         ) : null}

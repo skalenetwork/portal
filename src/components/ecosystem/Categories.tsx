@@ -20,35 +20,51 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import React, { useState, useMemo, useRef } from 'react'
+import React, { useEffect, useState, useMemo, useRef } from 'react'
 import { filterCategories } from '../../core/ecosystem/utils'
 import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import IconButton from '@mui/material/IconButton'
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
-import ExpandLessIcon from '@mui/icons-material/ExpandLess'
-import FiberManualRecordIcon from '@mui/icons-material/FiberManualRecord'
 import Menu from '@mui/material/Menu'
 import Button from '@mui/material/Button'
-import ManageSearchRoundedIcon from '@mui/icons-material/ManageSearchRounded'
 import { type Category } from '../../core/ecosystem/categories'
 import SearchBar, { highlightMatch } from './SearchBar'
 import SubcategoryList from './SubcategoryList'
+import { TextSearch, ChevronDown, ChevronUp, Circle, Shapes } from 'lucide-react'
 
 interface CategoryDisplayProps {
   checkedItems: string[]
   setCheckedItems: (items: string[]) => void
-  isXs?: boolean
 }
 
-const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
-  checkedItems,
-  setCheckedItems,
-  isXs
-}) => {
+const CategoryDisplay: React.FC<CategoryDisplayProps> = ({ checkedItems, setCheckedItems }) => {
   const [expandedItems, setExpandedItems] = useState<Record<string, boolean>>({})
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [searchTerm, setSearchTerm] = useState('')
+  const prevOverflow = useRef<{ html: string; body: string } | null>(null)
+  const isMenuOpen = Boolean(anchorEl)
+
+  useEffect(() => {
+    if (!isMenuOpen) {
+      return
+    }
+
+    const html = document.documentElement
+    const body = document.body
+
+    prevOverflow.current = { html: html.style.overflow, body: body.style.overflow }
+    html.style.overflow = 'hidden'
+    body.style.overflow = 'hidden'
+
+    return () => {
+      const prev = prevOverflow.current
+      if (!prev) {
+        return
+      }
+      html.style.overflow = prev.html
+      body.style.overflow = prev.body
+    }
+  }, [isMenuOpen])
   const buttonRef = useRef<HTMLButtonElement>(null)
 
   const filteredCategories = useMemo(() => filterCategories(searchTerm), [searchTerm])
@@ -108,16 +124,11 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
     setSearchTerm(event.target.value)
   }
 
-  const handleClearSearch = (): void => {
-    setSearchTerm('')
-    setExpandedItems({})
-  }
-
   const getSelectedSubcategoriesCount = (category: string): number => {
     return checkedItems.filter((item) => item.startsWith(`${category}_`)).length
   }
 
-  const renderSubcategories = (shortName: string, data: Category): JSX.Element | null => {
+  const renderSubcategories = (shortName: string, data: Category): React.JSX.Element | null => {
     const subs = data.subcategories
     if (typeof subs !== 'object' || Array.isArray(subs) || !expandedItems[shortName]) {
       return null
@@ -150,16 +161,17 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
   }
 
   return (
-    <div className={isXs ? 'w-full' : ''}>
+    <div className="w-full sm:w-auto">
       <Button
         variant="text"
         ref={buttonRef}
         onClick={handleMenuOpen}
-        startIcon={<ManageSearchRoundedIcon />}
-        className={`outlined btn text-primary! ${isXs ? 'w-full' : ''}`}
+        startIcon={<Shapes />}
+        endIcon={<ChevronDown className="text-secondary-foreground" />}
+        className="btn btnMd tab text-foreground! bg-card! border-border py-3! rounded-full! border shadow-xs! text-xs ease-in-out transition-transform duration-150 active:scale-[0.97] w-full"
         style={{ background: 'transparent' }}
       >
-        Browse by categories
+        Categories
       </Button>
       <Menu
         anchorEl={anchorEl}
@@ -168,26 +180,15 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
         slotProps={{
           paper: {
             style: {
-              maxHeight: 'calc(80vh - 100px)',
-              width: buttonRef.current?.offsetWidth
+              maxHeight: 'calc(80vh - 100px)'
             },
             className:
-              'mt-2.5! overflow-visible rounded-3xl! bg-white! text-foreground! shadow-sm! border-none! ring-0! [&_.MuiList-root]:bg-white! [&_.MuiList-root]:p-0!'
+              'mt-17! sm:mt-2.5! rounded-3xl! text-foreground! shadow-sm! border-none! ring-0! [&_.MuiList-root]:p-0! [&_.MuiList-root]:bg-card!'
           }
         }}
       >
         <div className="p-2.5">
-          {isXs && (
-            <Button className="btn w-full outlined mb-2.5" onClick={handleMenuClose}>
-              Close
-            </Button>
-          )}
-          <SearchBar
-            className="mb-5"
-            searchTerm={searchTerm}
-            onSearchChange={handleSearch}
-            onClear={handleClearSearch}
-          />
+          <SearchBar className="mb-5" searchTerm={searchTerm} onSearchChange={handleSearch} />
           {filteredCategories.map(([shortName, data], index) => (
             <div
               key={shortName}
@@ -199,23 +200,33 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({
                     <Checkbox
                       checked={checkedItems.includes(shortName)}
                       onChange={() => handleCheck(shortName)}
+                      sx={{
+                        color: 'currentColor',
+                        '&.Mui-checked': {
+                          color: 'currentColor'
+                        }
+                      }}
                     />
                   }
                   label={
-                    <span className="text-sm font-semibold">
+                    <span className="text-sm font-semibold text-foreground">
                       {highlightMatch(data.name, searchTerm)}
                     </span>
                   }
                   className="grow"
                 />
                 {getSelectedSubcategoriesCount(shortName) > 0 && (
-                  <FiberManualRecordIcon color="primary" style={{ fontSize: '8pt' }} />
+                  <Circle fill="currentColor" size={8} className="text-primary" />
                 )}
                 {typeof data.subcategories === 'object' &&
                   !Array.isArray(data.subcategories) &&
                   Object.keys(data.subcategories).length > 0 && (
-                    <IconButton onClick={() => toggleExpand(shortName)} size="small">
-                      {expandedItems[shortName] ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+                    <IconButton
+                      onClick={() => toggleExpand(shortName)}
+                      size="small"
+                      sx={{ color: 'currentColor' }}
+                    >
+                      {expandedItems[shortName] ? <ChevronUp /> : <ChevronDown />}
                     </IconButton>
                   )}
               </div>

@@ -23,7 +23,6 @@
 
 import React from 'react'
 import { IconButton, Tooltip } from '@mui/material'
-import { LanguageRounded, TrackChangesRounded, JoinLeftRounded } from '@mui/icons-material'
 import { SocialIcon } from 'react-social-icons/component'
 import 'react-social-icons/discord'
 import 'react-social-icons/github'
@@ -32,8 +31,8 @@ import 'react-social-icons/x'
 import { type types } from '@/core'
 import SwellIcon from './SwellIcon'
 import EpicGamesStoreLogo from '../../assets/egs.svg'
-import ForumIcon from '@mui/icons-material/Forum'
-import { Globe, MessageCircle, MessagesSquare } from 'lucide-react'
+import DuneLogo from '../../assets/dune.svg'
+import { Globe, MessagesSquare, Target } from 'lucide-react'
 
 interface SocialButtonsProps {
   social?: types.AppSocials
@@ -90,9 +89,9 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
     {
       key: 'dappradar',
       icon: (
-        <TrackChangesRounded
+        <Target
           className={`${isMd ? 'text-foreground' : 'text-muted-foreground'}`}
-          fontSize={isMd ? 'medium' : 'small'}
+          size={isMd ? 24 : 17}
         />
       ),
       title: 'dAppRadar'
@@ -104,9 +103,11 @@ const SocialButtons: React.FC<SocialButtonsProps> = ({
     {
       key: 'dune',
       icon: (
-        <JoinLeftRounded
-          className={`${isMd ? 'text-foreground' : 'text-muted-foreground'}`}
-          fontSize={isMd ? 'medium' : 'small'}
+        <img
+          src={DuneLogo}
+          className={`customSocialIcon ${isMd ? 'text-foreground' : 'opacity-60'}`}
+          alt="dune-logo"
+          style={{ width: isMd ? 24 : 17, height: isMd ? 24 : 17 }}
         />
       ),
       title: 'Dune Analytics'

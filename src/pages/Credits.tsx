@@ -49,13 +49,12 @@ import { History, HistoryIcon, Link2 } from 'lucide-react'
 interface CreditsProps {
   mpc: MetaportCore
   address: types.AddressType | undefined
-  isXs: boolean
   loadData: () => Promise<void>
   schains: types.ISChain[]
   chainsMeta: types.ChainsMetadataMap
 }
 
-const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains, chainsMeta }) => {
+const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chainsMeta }) => {
   const [_, setIntervalId] = useState<NodeJS.Timeout>()
   const [creditStation, setCreditStation] = useState<Contract | undefined>(undefined)
   const [tokenPrices, setTokenPrices] = useState<Record<string, bigint>>({})
@@ -187,7 +186,6 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
                   mpc={mpc}
                   chainsMeta={chainsMeta}
                   schain={schain}
-                  isXs={isXs}
                   creditStation={creditStation}
                   tokenPrices={tokenPrices}
                   tokenBalances={tokenBalances}
@@ -216,7 +214,6 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, isXs, loadData, schains
                 <CreditsPaymentTile
                   key={`${payment.schainName}-${payment.id}`}
                   payment={payment}
-                  isXs={isXs}
                   mpc={mpc}
                   chainsMeta={chainsMeta}
                   ledgerContract={ledgerContracts[payment.schainName]}

@@ -59,8 +59,7 @@ export default function MoreMenu() {
             aria-haspopup="true"
             aria-expanded={open ? 'true' : undefined}
             onClick={handleClick}
-            className="ml-1.5! h-8 w-8 rounded-full bg-card! text-foreground! hover:bg-muted"
-            style={{ width: '34px', height: '34px' }}
+            className="ml-1.5! h-9 w-9 rounded-full bg-card! text-foreground! hover:bg-muted"
           >
             <EllipsisVertical className="text-foreground h-4 w-4" />
           </IconButton>
@@ -75,7 +74,7 @@ export default function MoreMenu() {
         slotProps={{
           paper: {
             className:
-              'mt-2.5! overflow-visible rounded-md! bg-card! text-foreground! shadow-sm! border-none! ring-0! [&_.MuiList-root]:bg-card! [&_.MuiList-root]:p-1.5!'
+              'mt-2.5! rounded-md! text-foreground! shadow-sm! border-none! [&_.MuiList-root]:bg-card! [&_.MuiList-root]:p-1.5!'
           }
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}

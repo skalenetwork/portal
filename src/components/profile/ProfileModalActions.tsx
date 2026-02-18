@@ -25,9 +25,7 @@ import React from 'react'
 import { Button } from '@mui/material'
 import { RainbowConnectButton, useWagmiDisconnect } from '@skalenetwork/metaport'
 import SkStack from '../SkStack'
-import LaunchIcon from '@mui/icons-material/Launch'
-import LooksRoundedIcon from '@mui/icons-material/LooksRounded'
-import PowerOffIcon from '@mui/icons-material/PowerOff'
+import { PowerOff, Rainbow, SquareArrowOutUpRight } from 'lucide-react'
 
 interface ProfileModalActionsProps {
   address: string
@@ -46,7 +44,7 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
     <SkStack className={`${className} profileModalActions`}>
       <Button
         variant="text"
-        startIcon={<LaunchIcon />}
+        startIcon={<SquareArrowOutUpRight size={14} />}
         className="btn btnSm bg-muted! text-foreground!"
         onClick={() => window.open(`https://etherscan.io/address/${address}`, '_blank')}
         fullWidth={isMobile}
@@ -58,7 +56,7 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
         {({ openAccountModal }) => (
           <Button
             variant="text"
-            startIcon={<LooksRoundedIcon />}
+            startIcon={<Rainbow size={14} />}
             className="btn btnSm bg-muted! text-foreground!"
             onClick={openAccountModal}
             fullWidth={isMobile}
@@ -70,7 +68,7 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
 
       <Button
         variant="text"
-        startIcon={<PowerOffIcon />}
+        startIcon={<PowerOff size={14} />}
         className="btn btnSm bg-muted! text-foreground!"
         onClick={() => disconnect()}
         fullWidth={isMobile}

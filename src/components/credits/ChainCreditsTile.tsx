@@ -21,7 +21,6 @@
  */
 
 import {
-  cls,
   type MetaportCore,
   Tile,
   SkPaper,
@@ -43,7 +42,8 @@ import {
   Fuel,
   HandCoins,
   ArrowRight,
-  CoinsIcon
+  CoinsIcon,
+  CirclePlus
 } from 'lucide-react'
 
 import { types, metadata, units, constants, ERC_ABIS } from '@/core'
@@ -51,7 +51,6 @@ import { MAINNET_ALIASES } from '@/core/networks'
 
 import { useState, useEffect } from 'react'
 import { Grid, Button, Dialog } from '@mui/material'
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
 
 import Logo from '../Logo'
 import SkStack from '../SkStack'
@@ -67,7 +66,6 @@ interface ChainCreditsTileProps {
   mpc: MetaportCore
   chainsMeta: types.ChainsMetadataMap
   schain: types.ISChain
-  isXs: boolean
   creditStation: Contract | undefined
   tokenPrices: Record<string, bigint>
   tokenBalances: types.mp.TokenBalancesMap | undefined
@@ -78,7 +76,6 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   mpc,
   chainsMeta,
   schain,
-  isXs,
   creditStation,
   tokenPrices,
   tokenBalances,
@@ -225,7 +222,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                   chainName={schain.name}
                   size="xs"
                 />
-                <div className={cls('ml-2.5', ['grow', isXs])} style={{ minWidth: 0 }}>
+                <div className="ml-2.5 grow" style={{ minWidth: 0 }}>
                   <h4 className="p font-bold pOneLine text-foreground">{chainAlias}</h4>
                   <p className="p text-xs text-secondary-foreground pt-0.5 pOneLine font-medium">
                     Click for chain details
@@ -234,13 +231,13 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
               </div>
             </Link>
           </Grid>
-          <Grid size={{ xs: 12, md: 8 }} className={cls('flex')}>
+          <Grid size={{ xs: 12, md: 8 }} className="flex">
             <div className="md:grow"></div>
             <SkStack className="flex mt-6 md:mt-0">
               <Tile
                 size="lg"
                 transparent
-                className={cls('p-0!', ['mr-5', !isXs], ['ml-5', !isXs])}
+                className="p-0! mr-5! ml-5!"
                 value={
                   chainBalance !== undefined &&
                   units.displayBalance(
@@ -251,16 +248,16 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                 }
                 text="Balance"
                 grow
-                ri={!isXs}
+                ri={true}
                 icon={<Wallet size={14} />}
               />
-              <div className="borderVert mr-4"></div>
+              <div className="border-l-2 border-border mr-4"></div>
               <div className="flex items-center ml-6 md:ml-0">
                 <Button
                   size="small"
                   variant="contained"
-                  startIcon={<AddCircleRoundedIcon />}
-                  className="btnMd ml-5 bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+                  startIcon={<CirclePlus size={14} />}
+                  className="btnMd ml-5 bg-accent-foreground! disabled:bg-muted-foreground/30! disabled:text-muted! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
                   onClick={() => setOpenModal(true)}
                   disabled={creditStation === undefined}
                 >
@@ -314,12 +311,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                           <Button
                             color="primary"
                             size="small"
-                            className={cls(
-                              'items-center mr-2.5! p-4! py-3! pr-5! rounded-full! uppercase btnLg bg-accent-foreground/30! text-foreground!',
-                              'ease-in-out transition-transform duration-150 active:scale-[0.97]',
-                              ['bg-card!', symbol !== token],
-                              ['text-foreground!', symbol !== token]
-                            )}
+                            className={`items-center mr-2.5! p-4! py-3! pr-5! rounded-full! uppercase btnLg bg-muted-foreground/30! text-foreground! ease-in-out transition-transform duration-150 active:scale-[0.97] ${symbol !== token ? 'bg-card!' : ''} ${symbol !== token ? 'text-foreground!' : ''}`}
                             variant="contained"
                             onClick={() => setToken(symbol)}
                           >
@@ -341,12 +333,12 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
           </SkPaper>
           <div className="relative">
             <Grid container spacing={2} alignItems="center">
-              <Grid size={{ xs: 12, md: 6 }}>
+              <Grid size={{ xs: 12, md: 6 }} className="md:items-end">
                 <Tile
                   className="py-5! px-6!"
                   children={
                     <div>
-                      <p className="inline-flex max-w-full items-center justify-start font-medium text-sm text-muted-foreground mb-1.5 overflow-hidden">
+                      <p className="inline-flex max-w-full justify-start font-medium text-sm text-muted-foreground mb-1.5 overflow-hidden">
                         Pay on{' '}
                         <ChainIcon
                           size="xxs"
@@ -403,7 +395,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
           </div>
           <Button
             variant="contained"
-            className="btn mt-4! p-4! w-full capitalize! bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent!"
+            className="btn mt-4! p-4! w-full capitalize! bg-accent-foreground! disabled:bg-muted-foreground/30! disabled:text-muted! text-accent!"
             startIcon={<CoinsIcon size={17} />}
             size="large"
             onClick={buyCredits}

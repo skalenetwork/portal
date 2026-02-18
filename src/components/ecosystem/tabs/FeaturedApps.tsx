@@ -25,7 +25,7 @@
 import React, { useMemo } from 'react'
 import { Box, Button } from '@mui/material'
 import { Link } from 'react-router-dom'
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
+import { Plus } from 'lucide-react'
 import { SkPaper } from '@skalenetwork/metaport'
 import AppCard from '../AppCardV2'
 import Carousel from '../../Carousel'
@@ -89,7 +89,7 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
     return (
       <SkPaper gray className="titleSection">
         <div className="mt-5 mb-5">
-          <p className="text-base text-secondary-foreground text-center">
+          <p className="text-base text-secondary-foreground text-center font-semibold">
             🚫 No featured apps match your current filters
           </p>
         </div>
@@ -117,7 +117,7 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
             >
               <Button
                 size="medium"
-                startIcon={<AddCircleRoundedIcon />}
+                startIcon={<Plus />}
                 className="btn-action pl-20 pr-20 capitalize! text-accent-foreground!"
               >
                 See more

@@ -25,7 +25,7 @@ import { Tile } from '@skalenetwork/metaport'
 
 import Button from '@mui/material/Button'
 import Collapse from '@mui/material/Collapse'
-import { FileExclamationPoint } from 'lucide-react'
+import { ShieldAlert } from 'lucide-react'
 
 export default function ErrorTile(props: {
   errorMsg: string | undefined
@@ -35,10 +35,10 @@ export default function ErrorTile(props: {
   return (
     <Collapse in={props.errorMsg !== undefined}>
       <Tile
-        className={`${props.className} bg-red-100 border-red-200 dark:bg-red-800/80 dark:border-red-600 border-2`}
+        className={`${props.className} mt-5! mb-0! bg-red-100 border-red-200 dark:bg-red-800/80 dark:border-red-600 border-2 items-center!`}
         value={props.errorMsg}
         text="Error occurred"
-        icon={<FileExclamationPoint size={17} />}
+        icon={<ShieldAlert size={17} />}
         grow
         childrenRi={
           props.setErrorMsg && (
@@ -48,8 +48,7 @@ export default function ErrorTile(props: {
                 if (props.setErrorMsg === undefined) return
                 props.setErrorMsg(undefined)
               }}
-              className="'blackP' text-xs mt-2.5"
-              style={{ background: 'rgba(0, 0, 0, 0.3)' }}
+              className="btn btnSm text-foreground! bg-transparent! hover:bg-red-800/10! normal-case!"
             >
               Close
             </Button>

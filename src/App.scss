@@ -205,6 +205,7 @@ body {
 
 .borderLight {
   border: 1px solid var(--border-light) !important;
+  box-sizing: border-box !important;
 }
 
 .radius {
@@ -594,7 +595,6 @@ code {
 
 .monthInputWrap {
   border-radius: 25px;
-  background: rgba(147, 184, 236, 0.16);
   padding-left: 20px;
 }
 
@@ -622,20 +622,32 @@ code {
 }
 
 .titleSection {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+  background: var(--muted);
   border-radius: 25px;
   padding: 20px;
 }
 
+.dark .titleSection {
+  background: var(--background);
+}
+
 .titleSectionBg {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+  background: var(--muted);
   border-radius: 25px;
 }
 
+.dark .titleSectionBg {
+  background: var(--background);
+}
+
 .titleSectionOut {
-  background: linear-gradient(180deg, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4));
+  background: var(--muted);
   border-radius: 25px;
   padding: 0;
+}
+
+.dark .titleSectionOut {
+  background: var(--background);
 }
 
 button:focus {
@@ -875,6 +887,36 @@ input[type=number] {
     background: linear-gradient(180deg, #4e3300, #372400);
     color: #fcbb81;
   }
+
+  .chip_COMPLETED {
+    background: linear-gradient(180deg, #063821, #042a19);
+    color: #14cf20;
+  }
+
+  .chip_REJECTED {
+    background: linear-gradient(180deg, #4e0000, #330000);
+    color: #fc8181;
+  }
+
+  .chip_UNDELEGATION_REQUESTED {
+    color: rgb(252 248 129);
+    background: linear-gradient(rgb(78 71 0), rgb(36 39 0));
+  }
+
+  .chip_PROPOSED {
+    color: rgb(57 218 248);
+    background: linear-gradient(rgb(20 66 59), rgb(11 36 33));
+  }
+
+  .chip_ACCEPTED {
+    background: linear-gradient(180deg, #233d0f, #0a1b07);
+    color: #3cda4e;
+  }
+
+  .chip_REWARDS {
+    background: linear-gradient(180deg, #35320c, #2a230a);
+    color: #dac83c;
+  }
 }
 
 .chip_DELEGATED {
@@ -888,33 +930,33 @@ input[type=number] {
 }
 
 .chip_REWARDS {
-  background: linear-gradient(180deg, #3d390f, #2a230a);
-  color: #dac83c;
+  background: linear-gradient(180deg, #dac83c85, #e5d76d86);
+  color: #4a3605;
 }
 
 .chip_ACCEPTED {
-  background: linear-gradient(180deg, #233d0f, #0a1b07);
-  color: #3cda4e;
+  background: linear-gradient(180deg, #3cda4e7a, #297b1a90);
+  color: #233d0f;
 }
 
 .chip_REJECTED {
-  background: linear-gradient(180deg, #4e0000, #330000);
-  color: #fc8181;
+  background: linear-gradient(180deg, #ff63639d, #ee52527e);
+  color: #4b0a0a;
 }
 
 .chip_COMPLETED {
-  background: linear-gradient(180deg, #4e3300, #372400);
-  color: #fcbb81;
+  background: linear-gradient(180deg, #A3DC9A, #a5f09a);
+  color: #0c491f;
 }
 
 .chip_UNDELEGATION_REQUESTED {
-  color: rgb(252 248 129);
-  background: linear-gradient(rgb(78 71 0), rgb(36 39 0));
+  color: rgb(78 71 0);
+  background: linear-gradient(rgba(225, 218, 17, 0.493), rgba(223, 235, 92, 0.442));
 }
 
 .chip_PROPOSED {
-  color: rgb(57 218 248);
-  background: linear-gradient(rgb(20 66 59), rgb(11 36 33));
+  color: rgb(9, 79, 83);
+  background: linear-gradient(rgba(57, 219, 248, 0.55), rgba(108, 219, 238, 0.55));
 }
 
 .chip_DELEGATION_UI {
@@ -1029,11 +1071,28 @@ input[type=number] {
   h2 {
     margin-block-start: 0.7em;
     margin-block-end: 0.7em;
+    font-size: 1.5rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
   }
 
   h3 {
     margin-block-start: 1em;
     margin-block-end: 0.7em;
+    font-size: 1.25rem;
+    font-weight: 650;
+  }
+
+  h4 {
+    margin-block-start: 0.8em;
+    margin-block-end: 0.5em;
+    font-size: 1.1rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 0.4em;
   }
 
   ul {
@@ -1057,11 +1116,28 @@ input[type=number] {
     color: #fc8180;
   }
 
+  a {
+    color: #165DFB;
+    text-decoration: none;
+    font-weight: 600;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
   blockquote {
-    background: #2d2d2d;
-    border-radius: 25px;
-    padding: 10px 20px;
-    margin: 0;
+    background: var(--muted);
+    border-radius: 35px;
+    padding: 15px 20px;
+    margin: 10px 0;
+    border-left: 4px solid var(--accent);
+
+    p {
+      margin: 0;
+      font-style: italic;
+      color: var(--muted-foreground);
+    }
   }
 }
 
@@ -1229,50 +1305,14 @@ input[type=number] {
   width: 100% !important;
 }
 
+.MuiCircularProgress-root {
+  color: var(--foreground) !important;
+}
+
 
 .amountInput {
   input {
     padding: 0 !important
-  }
-}
-
-
-.warningMsg {
-  background-color: #43391d !important;
-
-  p,
-  svg {
-    color: #f9e09c !important;
-  }
-
-  a,
-  .a {
-    color: #ffc832 !important;
-
-    p,
-    svg {
-      color: #ffc832 !important;
-    }
-  }
-}
-
-
-.errorMsg {
-  background-color: #431d1d !important;
-
-  p,
-  svg {
-    color: #f99c9c !important;
-  }
-
-  a,
-  .a {
-    color: #f99c9c !important;
-
-    p,
-    svg {
-      color: #f99c9c !important;
-    }
   }
 }
 
@@ -1377,6 +1417,10 @@ input[type=number] {
   height: 20px;
   width: 20px;
   padding: 1px;
+}
+
+.dark .customSocialIcon {
+  filter: invert(1) brightness(1.1);
 }
 
 .customSocialIconMd {

@@ -52,8 +52,7 @@ export default function ScrollToTopButton() {
       aria-label="scroll to top"
       onClick={scrollToTop}
       size="small"
-      className="fixed bottom-6 right-6 z-50"
-      color="secondary"
+      className="bg-foreground/5! text-foreground! fixed! bottom-[4.5rem]! md:bottom-6! right-6! z-50!"
     >
       <KeyboardArrowUpIcon />
     </Fab>

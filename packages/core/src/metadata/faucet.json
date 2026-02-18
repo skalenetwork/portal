@@ -26,12 +26,12 @@
     }
   },
   "legacy": {
-    "young-coarse-celaeno": {
-      "address": "0xbf49aaFA1Cb7EF2933a1BBA70e84393f61B01244",
+    "overcooked-profuse-gienah-cygni": {
+      "address": "0x7f772D57BfC903605F3925e92F18De4BdA70A7ED",
       "func": "0x0c11dedd"
     },
-    "honored-impish-wezen": {
-      "address": "0xabD19274cE3F0A9834b155831d4aAC2d1360681a",
+    "talkative-victorious-rasalgethi": {
+      "address": "0x53c6122426aCa77B06DB7Aee69C0c6381029D32D",
       "func": "0x0c11dedd"
     }
   },

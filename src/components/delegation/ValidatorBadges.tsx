@@ -23,16 +23,17 @@
 import { types } from '@/core'
 
 import Tooltip from '@mui/material/Tooltip'
-import VerifiedRoundedIcon from '@mui/icons-material/VerifiedRounded'
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
-import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
+import { AlertTriangle, BadgeCheck, Landmark } from 'lucide-react'
 import { ESCROW_VALIDATORS } from '../../core/delegation/validators'
 
 export function ValidatorBadge(props: { validator: types.st.IValidator; className?: string }) {
   if (ESCROW_VALIDATORS.includes(props.validator.id)) {
     return (
       <Tooltip title="Escrow validator">
-        <AccountBalanceRoundedIcon className="'trustedBadge' mr-1.5 text-secondary-foreground props.className" />
+        <Landmark
+          size={14}
+          className={`trustedBadge mr-1.5 text-secondary-foreground! ${props.className}`}
+        />
       </Tooltip>
     )
   }
@@ -43,13 +44,13 @@ export function TrustBadge(props: { validator: types.st.IValidator }) {
   if (props.validator.trusted) {
     return (
       <Tooltip title="Trusted validator">
-        <VerifiedRoundedIcon className="'trustedBadge', ml-1.5" />
+        <BadgeCheck className="ml-1.5 text-blue-500" size={20} />
       </Tooltip>
     )
   }
   return (
     <Tooltip title="Not verified validator">
-      <WarningRoundedIcon className="'untrustedBadge', ml-1.5" />
+      <AlertTriangle className="ml-1.5 text-orange-500" size={20} />
     </Tooltip>
   )
 }

@@ -24,10 +24,9 @@ import { ConnectButton } from '@rainbow-me/rainbowkit'
 import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
 
 import Button from '@mui/material/Button'
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded'
+import { ChevronDown, Wallet } from 'lucide-react'
 
 import { useMetaportStore } from '../store/MetaportStore'
-import { Wallet } from 'lucide-react'
 
 export default function SkConnect() {
   const transferInProgress = useMetaportStore((state) => state.transferInProgress)
@@ -104,7 +103,7 @@ export default function SkConnect() {
                         <Jazzicon diameter={16} seed={jsNumberForAddress(account.address)} />
                       </div>
                       {account.displayName}
-                      <ExpandMoreRoundedIcon className="w-4 h-4" />
+                      <ChevronDown size={17} className="text-secondary-foreground" />
                     </Button>
                   </div>
                 </div>
