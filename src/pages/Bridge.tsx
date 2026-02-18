@@ -49,7 +49,7 @@ function getEmptyTokenParams(): TokenParams {
   return { keyname: null, type: null }
 }
 
-export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsMetadataMap }) {
+export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
   const [searchParams, setSearchParams] = useSearchParams()
   const [tokenParams, setTokenParams] = useState<TokenParams>(getEmptyTokenParams())
 
@@ -187,11 +187,11 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
         <div className="mt-6">
           <BridgeBody chainsMeta={props.chainsMeta} />
           {transactionsHistory.length !== 0 ? (
-            <div className="mb-5">
+            <div>
               <p className="text-base text-foreground font-bold mt-5 mb-2.5">
                 Completed transactions
               </p>
-              <SkPaper gray>
+              <SkPaper gray className="space-y-2">
                 {transactionsHistory.map((transactionData: types.mp.TransactionHistory) => (
                   <TransactionData
                     key={transactionData.transactionHash}
@@ -206,9 +206,8 @@ export default function Bridge(props: { isXs: boolean; chainsMeta: types.ChainsM
       </Stack>
       <Meson
         chainsMeta={props.chainsMeta}
-        className="mt-12"
+        className="mt-5"
         skaleNetwork={mpc.config.skaleNetwork}
-        isXs={props.isXs}
       />
     </Container>
   )

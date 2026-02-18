@@ -31,7 +31,6 @@ import ChainTabs from './Tabs'
 import DeveloperInfo from './DeveloperInfo'
 import Tokens from './Tokens'
 // import VerifiedContracts from './VerifiedContracts'
-import FeaturedApps from '../../ecosystem/tabs/FeaturedApps'
 import { useApps } from '../../../useApps'
 
 const BASE_TABS = [
@@ -72,7 +71,6 @@ export default function ChainTabsSection(props: {
   mpc: MetaportCore
   chainsMeta: types.ChainsMetadataMap
   chain: types.ISChain
-  isXs: boolean
 }) {
   const network = props.mpc.config.skaleNetwork
   const chainMeta = props.chainsMeta[props.chain.name]
@@ -142,7 +140,6 @@ export default function ChainTabsSection(props: {
           tab={tab}
           tabs={tabs}
           schainName={props.chain.name}
-          isXs={props.isXs}
         />
       </div>
       <div>

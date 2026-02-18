@@ -36,11 +36,11 @@ export default function DelegationsNotification(props: {
     return (
       <Tooltip
         title={`You have ${proposedDelegations} pending delegation${
-          proposedDelegations > 1 && 's'
+          proposedDelegations > 1 ? 's' : ''
         }`}
       >
-        <div className="props.className, 'chipNotification'">
-          <p className=" text-xs">{proposedDelegations}</p>
+        <div className={`${props.className} chipNotification`}>
+          <p className="text-xs text-foreground!">{proposedDelegations}</p>
         </div>
       </Tooltip>
     )

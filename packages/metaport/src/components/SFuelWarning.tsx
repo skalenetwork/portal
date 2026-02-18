@@ -30,12 +30,11 @@ import { useAccount } from 'wagmi'
 import Button from '@mui/material/Button'
 import { Collapse } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress'
-import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
+import { Fuel } from 'lucide-react'
 
 import { BALANCE_UPDATE_INTERVAL_MS, SFUEL_TEXT } from '../core/constants'
 import { Station } from '../core/sfuel'
 import { isFaucetAvailable } from '../core/faucet'
-import { styles } from '../core/css'
 
 import { useMetaportStore } from '../store/MetaportStore'
 import { useSFuelStore } from '../store/SFuelStore'
@@ -112,13 +111,19 @@ export default function SFuelWarning(props: {}) {
   async function updateStationsData() {
     if (fromChainStation) {
       setFromChainData(await fromChainStation.getData(address))
+    } else {
+      setFromChainData(null)
     }
     if (toChainStation) {
       setToChainData(await toChainStation.getData(address))
       setLoading(false)
+    } else {
+      setToChainData(null)
     }
     if (hubChainStation) {
       setHubChainData(await hubChainStation.getData(address))
+    } else {
+      setHubChainData(null)
     }
     if (refilledFlag) {
       setMining(false)
@@ -200,29 +205,30 @@ export default function SFuelWarning(props: {}) {
             ⛽ {getSFuelText()}
           </p>
           {!sFuelBtn || noEth ? (
-            <p
-              className="flex text-sm text-foreground grow ml-2.5 mt-2.5 font-semibold"
-            >
-              ❗️ Faucet is not available for one of the selected chains
-            </p>
+            // <p
+            //   className="flex text-sm text-foreground grow ml-2.5 mt-2.5 font-semibold"
+            // >
+            //   ❗️ Faucet is not available for one of the selected chains
+            // </p>
+            <div />
           ) : (
             <div>
               {mining ? (
                 <Button
                   disabled
-                  startIcon={<ArrowOutwardRoundedIcon />}
-                  size="small"
+                  startIcon={<Fuel size={17} />}
+                  size="medium"
                   variant="contained"
-                  className={`${styles.btnAction} mt-2.5`}
+                  className="btnMd mt-2.5! w-full capitalize! bg-muted-foreground/30!"
                 >
                   Getting sFUEL...
                 </Button>
               ) : (
                 <Button
                   variant="contained"
-                  color="primary"
+                  startIcon={<Fuel size={17} />}
                   size="medium"
-                  className={`${styles.btnAction} mt-2.5`}
+                  className="btnMd w-full text-accent! bg-accent-foreground! mt-2.5!"
                   onClick={doPoW}
                 >
                   Get sFUEL

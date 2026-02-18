@@ -33,12 +33,7 @@ import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 
-import VisibilityRoundedIcon from '@mui/icons-material/VisibilityRounded'
-import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded'
-import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
-import QueueRoundedIcon from '@mui/icons-material/QueueRounded'
-import PieChartRoundedIcon from '@mui/icons-material/PieChartRounded'
-import WarningRoundedIcon from '@mui/icons-material/WarningRounded'
+import { ChartPie, CircleUser, Coins, Eye, Inbox, TriangleAlert } from 'lucide-react'
 
 import Delegations from '../components/delegation/Delegations'
 
@@ -72,7 +67,6 @@ export default function Staking(props: {
   address: types.AddressType | undefined
   customAddress: types.AddressType | undefined
   getMainnetSigner: () => Promise<Signer>
-  isXs: boolean
 }) {
   const [loading, setLoading] = useState<LoadingState>(false)
   const [errorMsg, setErrorMsg] = useState<string | undefined>()
@@ -167,18 +161,19 @@ export default function Staking(props: {
         <div className="flex items-center">
           <div className="grow">
             <h2 className="m-0 text-xl font-bold text-foreground">Staking</h2>
-            <p className="text-xs text-secondary-foreground font-semibold">
-              {props.isXs
-                ? 'Manage your delegations'
-                : 'Delegate, review delegations and withdraw staking rewards'}
-            </p>
+            <div className="text-xs text-secondary-foreground font-semibold">
+              <span className="sm:hidden">Manage your delegations</span>
+              <span className="hidden sm:!inline">
+                Delegate, review delegations and withdraw staking rewards
+              </span>
+            </div>
           </div>
           <div className="mr-2.5">
             {loading !== false || props.customAddress !== undefined ? (
               <Button
                 variant="contained"
-                className="btnMd"
-                startIcon={<QueueRoundedIcon />}
+                className="btn btnSm py-3! text-xs text-accent! bg-foreground!"
+                startIcon={<Coins size={14} />}
                 disabled={loading !== false || props.customAddress !== undefined}
               >
                 Stake SKL
@@ -187,8 +182,8 @@ export default function Staking(props: {
               <Link to="/staking/new">
                 <Button
                   variant="contained"
-                  className="btnMd"
-                  startIcon={<QueueRoundedIcon />}
+                  className="btn btnSm py-3! text-xs text-accent! bg-foreground!"
+                  startIcon={<Coins size={14} />}
                   disabled={loading || props.customAddress !== undefined}
                 >
                   Stake SKL
@@ -203,10 +198,11 @@ export default function Staking(props: {
       {props.customAddress !== undefined ? (
         <Message
           className="mt-5"
-          text={props.isXs ? 'Preview mode, ' : 'Previewing staking page in read-only mode, '}
-          icon={<VisibilityRoundedIcon />}
+          text="Preview mode, "
+          textLong="Previewing staking page in read-only mode, "
+          icon={<Eye />}
           link="/staking"
-          linkText="click to exit"
+          linkText="Click to exit"
           type="warning"
         />
       ) : null}
@@ -215,9 +211,8 @@ export default function Staking(props: {
         <Message
           className="mt-5"
           text={`Custom address will be used for rewards withdrawal: ${customRewardAddress}`}
-          icon={<WarningRoundedIcon />}
+          icon={<TriangleAlert size={17} />}
           type="warning"
-          closable={false}
         />
       ) : null}
 
@@ -229,16 +224,11 @@ export default function Staking(props: {
             accountInfo={props.si[0]?.info}
             loading={loading}
             retrieveUnlocked={handleRetrieveUnlocked}
-            isXs={props.isXs}
             customAddress={props.customAddress}
           />
         </Collapse>
         <Collapse in={props.address === undefined}>
-          <Headline
-            text="Account info"
-            icon={<AccountCircleRoundedIcon className="text-[17px]!" />}
-            size="small"
-          />
+          <Headline text="Account info" icon={<CircleUser size={17} />} />
           <ConnectWallet tile className="grow mt-2.5" />
         </Collapse>
       </SkPaper>
@@ -250,7 +240,6 @@ export default function Staking(props: {
             accountInfo={props.si[1]?.info}
             loading={loading}
             retrieveUnlocked={handleRetrieveUnlocked}
-            isXs={props.isXs}
             customAddress={props.customAddress}
           />
         </SkPaper>
@@ -263,13 +252,12 @@ export default function Staking(props: {
             accountInfo={props.si[2]?.info}
             loading={loading}
             retrieveUnlocked={handleRetrieveUnlocked}
-            isXs={props.isXs}
             customAddress={props.customAddress}
           />
         </SkPaper>
       </Collapse>
 
-      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-5" />
+      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-2.5" />
 
       <SkPaper gray className="mt-5">
         <Collapse in={props.address !== undefined}>
@@ -282,7 +270,6 @@ export default function Staking(props: {
             errorMsg={errorMsg}
             unstake={handleUnstake}
             cancelRequest={handleCancelRequest}
-            isXs={props.isXs}
             address={props.address}
             customAddress={props.customAddress}
             customRewardAddress={customRewardAddress}
@@ -291,14 +278,10 @@ export default function Staking(props: {
           />
         </Collapse>
         <Collapse in={props.address === undefined}>
-          <Headline
-            text="Delegations"
-            icon={<AllInboxRoundedIcon className="text-[17px]!" />}
-            size="small"
-          />
-          <div className="mt-5">
-            <PieChartRoundedIcon className="text-secondary-foreground styles.chainIconmd w-full" />
-            <h5 className="font-semibold text-secondary-foreground text-center mt-1.5 mb-5">
+          <Headline text="Delegations" icon={<Inbox className="text-[17px]!" />} size="small" />
+          <div className="mt-5 text-center">
+            <ChartPie className="text-secondary-foreground w-full mb-2" />
+            <h5 className="text-sm text-muted-foreground font-semibold mb-5 text-center">
               Connect your wallet to view delegations
             </h5>
           </div>

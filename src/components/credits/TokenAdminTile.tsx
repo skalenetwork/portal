@@ -21,7 +21,6 @@
  */
 
 import {
-  cls,
   styles,
   type MetaportCore,
   Tile,
@@ -36,8 +35,6 @@ import {
 } from '@skalenetwork/metaport'
 import { types, units, constants } from '@/core'
 
-import PaidRoundedIcon from '@mui/icons-material/PaidRounded'
-import PriceChangeRoundedIcon from '@mui/icons-material/PriceChangeRounded'
 import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import DoDisturbOnRoundedIcon from '@mui/icons-material/DoDisturbOnRounded'
@@ -57,7 +54,6 @@ interface TokenAdminTileProps {
   tokenMeta: types.mp.TokenMetadata | undefined
   tokenData: types.mp.Token
   symbol: string
-  isXs: boolean
   setErrorMsg: (msg: string) => void
 }
 
@@ -69,7 +65,6 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
   tokenMeta,
   tokenData,
   symbol,
-  isXs,
   setErrorMsg
 }) => {
   const [openModal, setOpenModal] = useState<boolean>(false)
@@ -147,16 +142,14 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
         <Grid size={{ xs: 12, md: 4 }}>
           <div className="flex items-center">
             <TokenIcon tokenSymbol={symbol} size="lg" iconUrl={tokenMeta?.iconUrl} />
-            <div className={cls('ml-3.5', ['grow', isXs])}>
+            <div className="ml-3.5 grow sm:grow-0">
               <h4 className="p font-bold pOneLine uppercase text-foreground">{symbol}</h4>
               <p className="p text-xs text-muted-foreground font-semibold">{tokenMeta?.name}</p>
             </div>
           </div>
         </Grid>
         <Grid size={{ xs: 12, md: 2 }} className="flex">
-          <div
-            className={cls('chipXs', getChipClass(tokenPriceWei), 'mr-5', 'flex', 'items-center')}
-          >
+          <div className={`chipXs ${getChipClass(tokenPriceWei)} mr-5 flex items-center`}>
             {tokenPriceWei === 0n ? <DoDisturbOnRoundedIcon /> : <CheckCircleRoundedIcon />}
             <p className="p text-xs pOneLine ml-1.5 font-semibold">
               {tokenPriceWei === 0n ? 'DISABLED' : 'ENABLED'}
@@ -169,7 +162,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
             <Tile
               size="md"
               transparent
-              className={cls('p-0!', 'uppercase', ['mr-5', !isXs], ['ml-5', !isXs])}
+              className="p-0! uppercase md:mr-5 md:ml-5"
               value={units.displayBalance(
                 tokenPriceWei,
                 symbol,
@@ -177,8 +170,8 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
               )}
               text="1 CREDIT ="
               grow
+              ri={true}
               disabled={tokenPriceWei === 0n}
-              ri={!isXs}
               icon={<Coins size={17} />}
             />
             <Button
@@ -209,14 +202,14 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
           <Headline
             text={`Set CREDIT Price - ${tokenMeta?.name}`}
             icon={<MonetizationOnRoundedIcon className="text-[17px]!" />}
-            className="mb-5"
+            className="mb-2"
             size="small"
           />
           <SkPaper className="p-0!">
             <Tile
               grow
               text="Enter the new price"
-              className={cls(styles.inputAmount)}
+              className={styles.inputAmount}
               children={
                 <div className="flex items-center amountInput">
                   <div className="grow">
@@ -230,9 +223,16 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
                       onChange={handleAmountChange}
                       disabled={!!loading}
                       style={{ width: '100%' }}
+                      sx={{
+                        '& .MuiInputBase-input': {
+                          color: 'var(--foreground)'
+                        }
+                      }}
                     />
                   </div>
-                  <div className="text-xs p font-bold mr-2.5 uppercase">{symbol}</div>
+                  <div className="text-xs p font-bold text-foreground! mr-2.5 uppercase">
+                    {symbol}
+                  </div>
                 </div>
               }
               icon={<TokenIcon tokenSymbol={symbol} size="xs" />}
@@ -240,7 +240,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
           </SkPaper>
           <Button
             variant="contained"
-            className={cls(styles.btnAction, 'mt-5')}
+            className="btnMd ml-5 w-full mt-4! mb-2! bg-accent-foreground! disabled:bg-muted-foreground/30! disabled:text-muted! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
             size="large"
             onClick={updatePrice}
             disabled={loading || price === ''}

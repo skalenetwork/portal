@@ -25,8 +25,6 @@ import { type ReactElement, useState } from 'react'
 
 import Collapse from '@mui/material/Collapse'
 import ButtonBase from '@mui/material/ButtonBase'
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
-import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
 import { CircleMinus, CirclePlus } from 'lucide-react'
 
 export default function AccordionSection(props: {
@@ -61,13 +59,13 @@ export default function AccordionSection(props: {
         }}
         className="w-full flex pl-2.5 rounded-2xl!"
       >
-        <div className="m-2 flex grow items-center">
+        <div className="mt-2.5 mb-2.5 ml-2.5 flex grow items-center">
           {props.icon ? (
             <div className="mr-2.5 items-center flex text-[17px]! font-semibold text-foreground/80 ">
               {props.icon}
             </div>
           ) : null}
-          <p className="text-sm font-semibold grow text-foreground/80 text-left">{props.title}</p>
+          <p className="text-sm font-semibold grow text-foreground/80! text-left">{props.title}</p>
           <p className="text-xs font-semibold text-secondary-foreground mr-5">{props.subtitle}</p>
           {expanded === panel ? (
             <CircleMinus size={17} className="mr-1.5 text-secondary-foreground" />

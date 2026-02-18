@@ -29,7 +29,6 @@ import HistoryToggleOffRoundedIcon from '@mui/icons-material/HistoryToggleOffRou
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
 import {
-  cls,
   type MetaportCore,
   Tile,
   ChainIcon,
@@ -57,7 +56,6 @@ interface CreditsPaymentTileProps {
   mpc: MetaportCore
   payment: cs.Payment
   chainsMeta: types.ChainsMetadataMap
-  isXs: boolean
   ledgerContract: Contract | undefined
   creditStation: Contract | undefined
   isAdmin?: boolean
@@ -68,7 +66,6 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
   mpc,
   payment,
   chainsMeta,
-  isXs,
   ledgerContract,
   creditStation,
   isAdmin = false,
@@ -158,8 +155,8 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
     <div>
       <div className="mb-2.5 bg-background rounded-3xl p-4">
         <Grid container spacing={0} alignItems="center">
-          <Grid size={{ xs: 12, md: 4 }}>
-            <div className={cls('flex', 'items-center')}>
+          <Grid size={{ xs: 12, md: 4 }} className="flex items-center">
+            <div className="flex items-center">
               <Avatar
                 size={50}
                 variant="marble"
@@ -172,13 +169,13 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
                 size="xs"
                 className="creditHistoryIcon"
               />
-              <div className={cls('ml-2.5', ['grow', isXs])}>
+              <div className="ml-2.5 grow">
                 <h4 className="font-bold pOneLine text-foreground">
                   {txTimestamp && !isAdmin
                     ? timeUtils.timestampToDate(txTimestamp, true)
                     : helper.shortAddress(payment.from)}
                 </h4>
-                <p className={cls('p', 'text-xs', 'text-secondary-foreground font-medium')}>
+                <p className="p text-xs text-secondary-foreground font-medium">
                   {isAdmin && txTimestamp
                     ? timeUtils.timestampToDate(txTimestamp, true)
                     : chainAlias}
@@ -186,49 +183,39 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
               </div>
             </div>
           </Grid>
-          <Grid size={{ xs: 12, md: 8 }} className={cls(['mt-5', isXs], 'flex', 'items-center')}>
+          <Grid size={{ xs: 12, md: 8 }} className="flex items-center">
             <div
-              className={cls(
-                'chipXs',
-                'ml-5',
-                'flex',
-                'items-center',
-                ['chip_DELEGATED', isFulfilled],
-                ['chip_SELF', !isFulfilled],
-                'font-semibold'
-              )}
+              className={`chipXs ml-5 flex items-center ${isFulfilled ? 'chip_DELEGATED' : 'chip_SELF'} font-semibold`}
             >
               {isFulfilled ? <CheckCircleRoundedIcon /> : <HistoryToggleOffRoundedIcon />}
-              <p className={cls('p', 'text-xs', 'pOneLine', 'ml-1.5')}>
-                {isFulfilled ? 'COMPLETED' : 'PENDING'}
-              </p>
+              <p className="p text-xs pOneLine ml-1.5">{isFulfilled ? 'COMPLETED' : 'PENDING'}</p>
             </div>
-            <div className={cls('grow')}></div>
-            <SkStack className={cls('flex')}>
+            <div className="grow"></div>
+            <SkStack className="flex">
               <Tile
                 size="md"
                 transparent
-                className={cls('p-0!', ['mr-5', !isXs], ['ml-5', !isXs])}
+                className="p-0! mr-5 md:ml-5"
                 value={tokenSymbol.toUpperCase()}
                 text="Token Used"
                 grow
-                ri={!isXs}
+                ri={true}
                 icon={<TokenIcon tokenSymbol={tokenSymbol} size="xs" />}
               />
-              <div className="borderVert"></div>
+              <div className="border-l-2 border-border"></div>
               <Tile
                 size="md"
                 transparent
-                className={cls('p-0!', ['mr-5', !isXs], ['ml-5', !isXs])}
+                className="p-0! mr-5 ml-5"
                 value={`ID: ${payment.id.toString()}`}
                 text="Payment ID"
                 grow
-                ri={!isXs}
+                ri={true}
                 icon={<IdCard size={17} />}
               />
             </SkStack>
             {isAdmin && (
-              <div className={cls('flex', 'items-center')}>
+              <div className="flex items-center">
                 <Button
                   size="small"
                   startIcon={isFulfilled ? <BadgeCheck size={17} /> : <HandCoins size={17} />}

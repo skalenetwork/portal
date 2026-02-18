@@ -40,7 +40,7 @@ export default function Stats() {
         <meta property="og:description" content={META_TAGS.stats.description} />
       </Helmet>
       <Stack spacing={0}>
-        <div className="flex items-center">
+        <div className="flex items-center mb-5">
           <div className="grow" style={{ zIndex: '2' }}>
             <h2 className="m-0 text-xl font-bold text-foreground">Stats</h2>
             <p className="text-xs text-secondary-foreground font-semibold">
@@ -55,7 +55,8 @@ export default function Stats() {
             height: 'calc(100vh - 170px)',
             border: 'none',
             margin: '-15px -15px',
-            zIndex: '1'
+            zIndex: '1',
+            borderRadius: '15px'
           }}
           src={DASHBOARD_URL}
         ></iframe>

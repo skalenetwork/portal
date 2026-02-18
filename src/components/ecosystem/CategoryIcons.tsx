@@ -23,152 +23,160 @@
 
 import React from 'react'
 import {
-  AccountBalanceOutlined,
-  StorageOutlined,
-  ShowChartOutlined,
-  TheaterComedyOutlined,
-  ExploreOutlined,
-  SportsEsportsOutlined,
-  HubOutlined,
-  MemoryOutlined,
-  FilterFramesOutlined,
-  VisibilityOutlined,
-  MoreHorizOutlined,
-  HandshakeOutlined,
-  SecurityOutlined,
-  PeopleOutlined,
-  BuildOutlined,
-  AccountBalanceWalletOutlined,
-  CasinoOutlined,
-  StyleOutlined,
-  BeachAccessOutlined,
-  TvOutlined,
-  SportsHandballOutlined,
-  VrpanoOutlined,
-  ComputerOutlined,
-  GamesOutlined,
-  ExtensionOutlined,
-  DirectionsCarOutlined,
-  AutoStoriesOutlined,
-  WallpaperOutlined,
-  PsychologyOutlined,
-  SportsBaseballOutlined,
-  PrecisionManufacturingOutlined,
-  AutoAwesomeOutlined,
-  HikingRounded,
-  FlagRounded,
-  FlareRounded,
-  CandlestickChartRounded,
-  JoinRightRounded,
-  PhoneIphoneOutlined,
-  DiamondOutlined,
-  SailingOutlined,
-  SellOutlined,
-  HomeRepairServiceOutlined,
-  DonutLargeRounded,
-  PeopleAltRounded
-} from '@mui/icons-material'
+  Building2,
+  Database,
+  TrendingUp,
+  Palette,
+  Globe,
+  Gamepad2,
+  Network,
+  Waypoints,
+  Image,
+  Eye,
+  MoreHorizontal,
+  Handshake,
+  Shield,
+  Users,
+  Wrench,
+  Wallet,
+  Dice6,
+  Paintbrush,
+  Waves,
+  Tv,
+  Sword,
+  Headset,
+  Monitor,
+  Zap,
+  Puzzle,
+  Car,
+  Book,
+  Brain,
+  Trophy,
+  Flag,
+  Flame,
+  LayoutTemplate,
+  Phone,
+  Diamond,
+  Sailboat,
+  ShoppingCart,
+  Settings,
+  PieChart,
+  UserCheck,
+  Sparkles,
+  Mountain,
+  BrainCircuit,
+  Receipt,
+  ScanBarcode,
+  PackageOpen,
+  KeyRound,
+} from 'lucide-react'
 import EpicGamesStoreLogo from '../../assets/egs.svg'
 
 export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
   switch (category) {
     case 'ai':
-      return <AutoAwesomeOutlined />
+      return <Sparkles />
+    case 'bite':
+      return <KeyRound/>
     case 'dao':
-      return <AccountBalanceOutlined />
+      return <Building2 />
     case 'data-information':
-      return <StorageOutlined />
+      return <Database />
     case 'defi':
-      return <ShowChartOutlined />
+      return <TrendingUp />
+    case 'RWA':
+      return <Receipt />
+    case 'consumer':
+      return <ScanBarcode />
     case 'digital-collectibles':
-      return <DiamondOutlined />
+      return <Diamond />
     case 'entertainment':
-      return <TheaterComedyOutlined />
+      return <Palette />
     case 'explorer':
-      return <ExploreOutlined />
+      return <Globe />
     case 'gaming':
-      return <SportsEsportsOutlined />
+      return <Gamepad2 />
     case 'hub':
-      return <HubOutlined />
+      return <Network />
     case 'infrastructure':
-      return <MemoryOutlined />
+      return <BrainCircuit />
     case 'nfts':
-      return <FilterFramesOutlined />
+      return <Image />
     case 'oracle':
-      return <VisibilityOutlined />
+      return <Eye />
     case 'partner':
-      return <HandshakeOutlined />
+      return <Handshake />
     case 'security':
-      return <SecurityOutlined />
+      return <Shield />
     case 'social':
-      return <PeopleOutlined />
+      return <Users />
     case 'tools':
-      return <BuildOutlined />
+      return <Wrench />
     case 'wallet':
-      return <AccountBalanceWalletOutlined />
+      return <Wallet />
     case 'web3':
-      return <JoinRightRounded />
+      return <LayoutTemplate />
     case 'pretge':
-      return <SellOutlined />
+      return <ShoppingCart />
     case 'utility':
-      return <HomeRepairServiceOutlined />
+      return <Settings />
     case 'analytics':
-      return <DonutLargeRounded />
+      return <PieChart />
     case 'validator':
-      return <PeopleAltRounded />
+      return <UserCheck />
 
     // Gaming subcategories
     case 'action-adventure':
-      return <SailingOutlined />
+      return <Sailboat />
     case 'battle-royale':
-      return <CasinoOutlined />
+      return <Dice6 />
     case 'cards_deck-building':
-      return <StyleOutlined />
+      return <Paintbrush />
     case 'casual':
-      return <BeachAccessOutlined />
+      return <Waves />
     case 'console':
-      return <TvOutlined />
+      return <Tv />
     case 'fighting':
-      return <SportsHandballOutlined />
+      return <Sword />
     case 'metaverse':
-      return <VrpanoOutlined />
+      return <Headset />
     case 'mobile':
-      return <PhoneIphoneOutlined />
+      return <Phone />
     case 'mmorpg':
-      return <HikingRounded />
+      return <Mountain />
     case 'pc':
-      return <ComputerOutlined />
+      return <Monitor />
     case 'platformer':
-      return <GamesOutlined />
+      return <Zap />
     case 'puzzle':
-      return <ExtensionOutlined />
+      return <Puzzle />
     case 'racing':
-      return <DirectionsCarOutlined />
+      return <Car />
     case 'rpg':
-      return <AutoStoriesOutlined />
+      return <Book />
     case 'sandbox':
-      return <WallpaperOutlined />
+      return <PackageOpen />
     case 'shooter':
-      return <FlareRounded />
+      return <Flame />
     case 'simulation':
-      return <PsychologyOutlined />
+      return <Brain />
     case 'sports':
-      return <SportsBaseballOutlined />
+      return <Trophy />
     case 'strategy':
-      return <FlagRounded />
+      return <Flag />
     case 'epic-games-store':
       return <img src={EpicGamesStoreLogo} className="w-[17px] h-[17px]" alt="egs-logo" />
 
     // DeFi subcategories
     case 'custody':
-      return <SecurityOutlined />
+      return <Shield />
     case 'dex':
-      return <CandlestickChartRounded />
+      return <Waypoints />
     case 'yield':
-      return <PrecisionManufacturingOutlined />
+      return <Settings />
 
     // Default case
     default:
-      return <MoreHorizOutlined />
+      return <MoreHorizontal />
   }
 }

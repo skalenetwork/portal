@@ -67,7 +67,7 @@ export default function Header(props: {
           <Tooltip title={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
             <IconButton
               size="small"
-              className="ml-1.5! h-8 w-8 rounded-full bg-card! text-foreground! hover:bg-muted"
+              className="ml-1.5! h-9 w-9 rounded-full bg-card! text-foreground! hover:bg-muted"
               onClick={toggleMode}
             >
               {mode === 'dark' ? (

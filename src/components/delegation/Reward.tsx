@@ -23,13 +23,12 @@
 import { types, units } from '@/core'
 
 import { Tooltip, Button } from '@mui/material'
-import AddCircleRoundedIcon from '@mui/icons-material/AddCircleRounded'
-import RemoveCircleRoundedIcon from '@mui/icons-material/RemoveCircleRounded'
 
 import ValidatorLogo from './ValidatorLogo'
 
 import { getValidatorById } from '../../core/delegation'
 import RetrieveRewardModal from './RetrieveRewardModal'
+import { CircleMinus, CirclePlus } from 'lucide-react'
 
 export default function Reward(props: {
   validators: types.st.IValidator[]
@@ -39,7 +38,6 @@ export default function Reward(props: {
   retrieveRewards: (rewardInfo: types.st.IRewardInfo) => Promise<void>
   loading: types.st.IRewardInfo | types.st.IDelegationInfo | false
   delegationType: types.st.DelegationType
-  isXs: boolean
   address: types.AddressType | undefined
   customAddress: types.AddressType | undefined
   customRewardAddress: types.AddressType | undefined
@@ -66,9 +64,9 @@ export default function Reward(props: {
       }}
     >
       {props.open ? (
-        <RemoveCircleRoundedIcon className="mr-1.5 w-4 h-4 text-secondary-foreground" />
+        <CircleMinus size={17} className="mr-1.5 text-secondary-foreground align-center" />
       ) : (
-        <AddCircleRoundedIcon className="mr-1.5 w-4 h-4 text-secondary-foreground" />
+        <CirclePlus size={17} className="mr-1.5 text-secondary-foreground align-center" />
       )}
     </div>
   )
@@ -92,22 +90,22 @@ export default function Reward(props: {
         <div className="flex flex-col md:flex-row items-center gap-0">
           <div className="w-full md:w-1/3">
             <div className="flex items-center">
-              <ValidatorLogo validatorId={validator.id} size="lg" />
-              <div className={`ml-2.5 ${props.isXs ? 'grow' : ''}`}>
-                <h4 className="font-bold truncate">{validator.name}</h4>
+              <ValidatorLogo validatorId={validator.id} size="xxs" />
+              <div className="ml-2.5 grow sm:grow-0">
+                <h4 className="font-bold truncate text-foreground">{validator.name}</h4>
                 <p className="text-xs text-secondary-foreground">
                   Validator ID: {Number(validator.id)}
                 </p>
               </div>
-              {props.isXs ? minimizeBtn : null}
+              <div className="md:hidden">{minimizeBtn}</div>
             </div>
           </div>
-          <div className={`w-full md:w-2/3 ${props.isXs ? 'mt-5' : ''}`}>
+          <div className="w-full md:w-2/3 mt-5 sm:mt-0">
             <div className="flex items-center">
-              <div className={!props.isXs ? 'grow' : ''}></div>
-              {!props.isXs && !props.open ? (
-                <div className="flex">
-                  <div>
+              <div className="grow-0 sm:grow"></div>
+              {!props.open && (
+                <div className="hidden! md:flex!">
+                  <div className="flex flex-col items-end justify-center w-full">
                     <p className="text-xs text-secondary-foreground">Total staked</p>
                     <Tooltip
                       arrow
@@ -121,31 +119,38 @@ export default function Reward(props: {
                           : ''
                       }
                     >
-                      <h3 className="font-bold">{totalStakedAmount}</h3>
+                      <h3 className="font-bold text-foreground">{totalStakedAmount}</h3>
                     </Tooltip>
                   </div>
-                  <div className="borderVert ml-2.5"></div>
+                  <div className="border-l-2 border-border ml-2.5"></div>
                 </div>
-              ) : null}
-              <div className={`${props.isXs ? 'grow mr-5' : 'ml-2.5'}`}>
-                <p className="text-xs text-secondary-foreground">Rewards available</p>
-                <Tooltip
-                  arrow
-                  title={
-                    props.sklPrice
-                      ? units.displaySklValueUsd(
-                          props.delegationsToValidator.rewards,
-                          props.sklPrice
-                        )
-                      : ''
-                  }
-                >
-                  <h3 className="font-bold">{rewardsAmount}</h3>
-                </Tooltip>
+              )}
+              <div className="grow mr-5 sm:grow-0 sm:ml-2.5 sm:mr-5">
+                <div className="flex flex-col items-start sm:items-end justify-center w-full">
+                  <p className="text-xs text-secondary-foreground">Rewards available</p>
+                  <Tooltip
+                    arrow
+                    title={
+                      props.sklPrice
+                        ? units.displaySklValueUsd(
+                            props.delegationsToValidator.rewards,
+                            props.sklPrice
+                          )
+                        : ''
+                    }
+                  >
+                    <h3 className="font-bold text-foreground">{rewardsAmount}</h3>
+                  </Tooltip>
+                </div>
               </div>
               <div className="flex items-center">
                 {loading ? (
-                  <Button disabled size="small" variant="contained" className="btnSm btnSmLoading">
+                  <Button
+                    disabled
+                    size="small"
+                    variant="contained"
+                    className="btnSm bg-accent-foreground! disabled:bg-muted-foreground/30! text-accent! disabled:text-muted!"
+                  >
                     Retrieving
                   </Button>
                 ) : (
@@ -162,7 +167,7 @@ export default function Reward(props: {
                   </>
                 )}
               </div>
-              {!props.isXs ? minimizeBtn : null}
+              <div className="hidden md:block!">{minimizeBtn}</div>
             </div>
           </div>
         </div>

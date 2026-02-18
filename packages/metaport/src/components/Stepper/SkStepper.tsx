@@ -106,7 +106,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
           startIcon={<AnimatedLoadingIcon />}
           variant="contained"
           size="medium"
-          className="btn-action p-4! w-full capitalize! bg-accent-foreground/50!"
+          className="btn-action p-4! w-full capitalize! bg-muted-foreground/30!"
         >
           {btnText}
         </Button>
@@ -162,7 +162,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                           startIcon={<AnimatedLoadingIcon />}
                           variant="contained"
                           size="medium"
-                          className="btn-action mt-1.5 p-3.5! w-full capitalize! bg-accent-foreground/50!"
+                          className="btn-action mt-1.5 p-3.5! w-full capitalize! bg-accent-foreground/30!"
                         >
                           {btnText}
                         </Button>
@@ -194,7 +194,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
             <div>
               <div className="block">
                 <p
-                  className="text-base font-semibold text-primary grow text-center mt-5"
+                  className="text-base font-semibold text-foreground grow text-center mt-5"
                 >
                   {emoji} Transfer completed
                 </p>
@@ -204,7 +204,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                   Transfer details are available in History section
                 </p>
               </div>
-              <div className="flex mt-5">
+              <div className="flex flex-col md:flex-row mt-5">
                 <AddToken
                   token={token}
                   destChainName={chainName2}
@@ -215,7 +215,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                   onClick={startOver}
                   color="primary"
                   size="medium"
-                  className="grow mb-2! md:mb-0! w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+                  className="grow w-full! md:w-fit! capitalize! text-accent! bg-foreground! disabled:bg-muted-foreground/30! disabled:text-muted! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
                   startIcon={<RotateCcw size={17} />}
                 >
                   Start over

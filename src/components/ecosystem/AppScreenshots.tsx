@@ -84,7 +84,7 @@ const AppScreenshots: React.FC<AppScreenshotsProps> = ({ chainName, appName, ska
 
   return (
     <Collapse in={!loading && !error}>
-      <SkPaper gray className="mt-2.5, 'fwmobile'">
+      <SkPaper gray className="mt-2.5 fwmobile">
         <AccordionSection
           expandedByDefault
           title="Explore project"

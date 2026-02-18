@@ -38,13 +38,10 @@ import {
 } from '@skalenetwork/metaport'
 import { type types, constants, units, ERC_ABIS } from '@/core'
 
-import { Button, Tooltip } from '@mui/material'
-import StarsRoundedIcon from '@mui/icons-material/StarsRounded'
-import EventAvailableRoundedIcon from '@mui/icons-material/EventAvailableRounded'
-import ViewInArRoundedIcon from '@mui/icons-material/ViewInArRounded'
+import { Button, IconButton, Tooltip } from '@mui/material'
+import { Blocks, CalendarArrowDown, CircleStar } from 'lucide-react'
 
 import Headline from '../Headline'
-import SkBtn from '../SkBtn'
 import ErrorTile from '../ErrorTile'
 import SkStack from '../SkStack'
 
@@ -54,7 +51,6 @@ interface ChainRewardsProps {
   address?: types.AddressType
   customAddress?: types.AddressType
   className?: string
-  isXs?: boolean
   chainsMeta: types.ChainsMetadataMap
 }
 
@@ -64,7 +60,6 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   address,
   customAddress,
   className,
-  isXs,
   chainsMeta
 }) => {
   const [rewardAmount, setRewardAmount] = useState<bigint | undefined>(undefined)
@@ -189,17 +184,13 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
 
   return (
     <SkPaper gray className={`mt-5 ${className || ''}`}>
-      <Headline
-        size="small"
-        text="Chain Rewards"
-        icon={<StarsRoundedIcon className="w-4 h-4" />}
-        className="mb-5"
-      />
+      <Headline size="small" text="Chain Rewards" icon={<CircleStar size={17} />} />
       <Tile
         disabled={rewardAmount === 0n}
         value={rewardAmount !== undefined && units.displayBalance(rewardAmount, 'SKL')}
         text="Rewards on Europa Hub"
-        icon={<EventAvailableRoundedIcon />}
+        icon={<CalendarArrowDown size={14} />}
+        size="lg"
         grow
         tooltip={
           sklPrice !== undefined && rewardAmount !== undefined
@@ -208,12 +199,11 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
         }
         childrenRi={
           <SkStack className="flex items-center">
-            <SkBtn
+            <Button
               loading={loading}
-              text={btnText ?? 'Retrieve'}
               variant="contained"
-              size="sm"
-              className={`${!isXs ? 'ml-5' : ''} mr-5 items-center`}
+              size="small"
+              className="btn btnSm text-xs bg-accent-foreground! text-accent! align-center! disabled:bg-muted-foreground/30! disabled:text-muted!"
               disabled={
                 customAddress !== undefined ||
                 rewardAmount === null ||
@@ -221,15 +211,17 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
                 loading
               }
               onClick={retrieveRewards}
-            />
-            <div className={!isXs ? 'borderVert' : ''}>
+            >
+              {loading ? btnText || 'Retrieving' : 'Retrieve'}
+            </Button>
+            <div className="md:border-l-2 border-border">
               <Tile
-                className={`p-0 ${!isXs ? 'ml-5' : ''}`}
+                className="p-0! md:ml-5"
                 size="md"
                 transparent
                 grow
+                ri={true}
                 value={tokenBalance !== undefined && units.displayBalance(tokenBalance, 'SKL')}
-                ri={!isXs}
                 text="Balance on Europa Hub"
                 icon={<TokenIcon tokenSymbol="skl" size="xs" />}
                 tooltip={
@@ -239,14 +231,10 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
                 }
                 childrenRi={
                   <Tooltip title="Open in block explorer">
-                    <a target="_blank" rel="noreferrer" href={tokenUrl ?? ''} className="undec">
-                      <Button
-                        disabled={tokenUrl === null}
-                        variant="text"
-                        className="roundBtn ml-1.5"
-                      >
-                        <ViewInArRoundedIcon className="w-4 h-4" />
-                      </Button>
+                    <a target="_blank" rel="noreferrer" href={tokenUrl ?? ''} className="ml-6!">
+                      <IconButton disabled={tokenUrl === null} className="bg-muted-foreground/10!">
+                        <Blocks size={17} className="text-foreground" />
+                      </IconButton>
                     </a>
                   </Tooltip>
                 }

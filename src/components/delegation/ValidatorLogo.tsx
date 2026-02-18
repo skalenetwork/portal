@@ -23,7 +23,7 @@
 
 import Jazzicon from 'react-jazzicon'
 import { VALIDATOR_LOGOS } from '../../core/constants'
-import { cls, styles } from '@skalenetwork/metaport'
+import { styles } from '@skalenetwork/metaport'
 
 function hashCode(str: string) {
   let hash = 0
@@ -45,7 +45,7 @@ function getPseudoRandomNumber(
   return randomInt
 }
 
-type SizeType = 'xs' | 'sm' | 'md' | 'lg' | 'xl'
+type SizeType = 'xxxs' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
 export type SizeMap = {
   [key in SizeType]: number
@@ -60,24 +60,33 @@ export default function ValidatorLogo(props: {
 
   const iconPath = `v${props.validatorId}`
   const iconModule = (VALIDATOR_LOGOS as any)[iconPath]
-  const size = props.size ?? 'md'
-  const sizes: SizeMap = { xs: 17, sm: 26, md: 35, lg: 45, xl: 70 }
+  const size = props.size ?? 'xxs'
+  const sizes: SizeMap = { xxxs: 30, xxs: 45, xs: 60, sm: 80, md: 120, lg: 150, xl: 200 }
+  const borderRadius: SizeMap = { xxxs: 5, xxs: 10, xs: 15, sm: 18, md: 25, lg: 30, xl: 35 }
+
   if (iconModule) {
     return (
       <img
-        style={{ borderRadius: '50%', width: sizes[size], height: sizes[size] }}
-        className={cls(
-          props.className,
-          'border',
-          ['validatorIcon', !props.size],
-          styles[`chainIcon${size}`]
-        )}
+        style={{
+          borderRadius: `${borderRadius[size]}px`,
+          width: sizes[size],
+          height: sizes[size]
+        }}
+        className={`${props.className || ''} ${!props.size ? 'validatorIcon' : ''} ${styles[`chainIcon${size}`]}`}
         src={iconModule.default ?? iconModule}
       />
     )
   }
   return (
-    <div className="styles[`chainIcon${size}`], ['validatorIcon', !props.size], props.className">
+    <div
+      style={{
+        width: sizes[size],
+        height: sizes[size],
+        display: 'flex',
+        overflow: 'hidden'
+      }}
+      className={`${styles[`chainIcon${size}`]} ${!props.size ? 'validatorIcon' : ''} ${props.className || ''}`}
+    >
       <Jazzicon diameter={sizes[size]} seed={getPseudoRandomNumber(iconPath)} />
     </div>
   )

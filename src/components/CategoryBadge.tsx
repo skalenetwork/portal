@@ -21,70 +21,65 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import VideogameAssetRoundedIcon from '@mui/icons-material/VideogameAssetRounded'
-import HubRoundedIcon from '@mui/icons-material/HubRounded'
-import GridViewRoundedIcon from '@mui/icons-material/GridViewRounded'
-import ExploreRoundedIcon from '@mui/icons-material/ExploreRounded'
-import PaidRoundedIcon from '@mui/icons-material/PaidRounded'
-import ColorLensRoundedIcon from '@mui/icons-material/ColorLensRounded'
-import ExtensionRoundedIcon from '@mui/icons-material/ExtensionRounded'
-import PeopleRoundedIcon from '@mui/icons-material/PeopleRounded'
-import AccountTreeRoundedIcon from '@mui/icons-material/AccountTreeRounded'
-import WidgetsRoundedIcon from '@mui/icons-material/WidgetsRounded'
-import SwapCallsRoundedIcon from '@mui/icons-material/SwapCallsRounded'
-import SurroundSoundRoundedIcon from '@mui/icons-material/SurroundSoundRounded'
-import AllInboxRoundedIcon from '@mui/icons-material/AllInboxRounded'
-import StoreRoundedIcon from '@mui/icons-material/StoreRounded'
-import GroupRoundedIcon from '@mui/icons-material/GroupRounded'
-import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded'
-import AccountBalanceRoundedIcon from '@mui/icons-material/AccountBalanceRounded'
-import MenuBookRoundedIcon from '@mui/icons-material/MenuBookRounded'
-import SportsBasketballRoundedIcon from '@mui/icons-material/SportsBasketballRounded'
-import AgricultureRoundedIcon from '@mui/icons-material/AgricultureRounded'
-import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded'
-import PhotoCameraRoundedIcon from '@mui/icons-material/PhotoCameraRounded'
-
-import Chip from './Chip'
+import {
+  Gamepad2,
+  Share2,
+  Compass,
+  Landmark,
+  Palette,
+  Puzzle,
+  Users,
+  Network,
+  LayoutGrid,
+  Shuffle,
+  Waves,
+  Inbox,
+  Store,
+  Users2,
+  Globe,
+  BookOpen,
+  Wheat,
+  Sparkles,
+  Camera,
+  Grid2x2,
+  Volleyball
+} from 'lucide-react'
 
 export const CATEGORY_ICON: any = {
-  hubs: <HubRoundedIcon />,
-  games: <VideogameAssetRoundedIcon />,
-  Games: <VideogameAssetRoundedIcon />,
-  apps: <ExploreRoundedIcon />,
-  other: <GridViewRoundedIcon />,
-  Hub: <HubRoundedIcon />,
-  Game: <VideogameAssetRoundedIcon />,
-  DeFi: <PaidRoundedIcon />,
-  NFT: <ColorLensRoundedIcon />,
-  dApp: <ExtensionRoundedIcon />,
-  Community: <PeopleRoundedIcon />,
-  Data: <AccountTreeRoundedIcon />,
-  appChains: <WidgetsRoundedIcon />,
-  AppChain: <WidgetsRoundedIcon />,
-  Exchanges: <SwapCallsRoundedIcon />,
-  Staking: <SurroundSoundRoundedIcon />,
-  Yield: <AllInboxRoundedIcon />,
-  Pools: <AllInboxRoundedIcon />,
-  Marketplaces: <StoreRoundedIcon />,
-  Social: <GroupRoundedIcon />,
-  Metaverse: <LanguageRoundedIcon />,
-  Governance: <AccountBalanceRoundedIcon />,
-  Knowledge: <MenuBookRoundedIcon />,
-  Sports: <SportsBasketballRoundedIcon />,
-  Farming: <AgricultureRoundedIcon />,
-  AI: <AutoAwesomeRoundedIcon />,
-  Photos: <PhotoCameraRoundedIcon />
+  hubs: <Share2 />,
+  games: <Gamepad2 />,
+  Games: <Gamepad2 />,
+  apps: <Compass />,
+  other: <Grid2x2 />,
+  Hub: <Share2 />,
+  Game: <Gamepad2 />,
+  DeFi: <Landmark />,
+  NFT: <Palette />,
+  dApp: <Puzzle />,
+  Community: <Users />,
+  Data: <Network />,
+  appChains: <LayoutGrid />,
+  AppChain: <LayoutGrid />,
+  Exchanges: <Shuffle />,
+  Staking: <Waves />,
+  Yield: <Inbox />,
+  Pools: <Inbox />,
+  Marketplaces: <Store />,
+  Social: <Users2 />,
+  Metaverse: <Globe />,
+  Governance: <Landmark />,
+  Knowledge: <BookOpen />,
+  Sports: <Volleyball />,
+  Farming: <Wheat />,
+  AI: <Sparkles />,
+  Photos: <Camera />
 }
 
 export function isString(value: any): value is string {
   return typeof value === 'string'
 }
 
-export default function CategoryBadge(props: {
-  category: string
-  isXs: boolean
-  className?: string
-}) {
+export default function CategoryBadge(props: { category: string; className?: string }) {
   function getCategoryIcon(category: string) {
     return CATEGORY_ICON[category] ?? CATEGORY_ICON.other
   }

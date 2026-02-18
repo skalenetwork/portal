@@ -37,10 +37,7 @@ import { type types, constants, units } from '@/core'
 
 import Button from '@mui/material/Button'
 import { TextField, Tooltip } from '@mui/material'
-import AccessTimeRoundedIcon from '@mui/icons-material/AccessTimeRounded'
-import TransitEnterexitRoundedIcon from '@mui/icons-material/TransitEnterexitRounded'
-import EventRepeatRoundedIcon from '@mui/icons-material/EventRepeatRounded'
-import AccountTreeRoundedIcon from '@mui/icons-material/AccountTreeRounded'
+import { ArrowDown, CalendarSync, Clock, Share2 } from 'lucide-react'
 
 import SkStack from '../SkStack'
 import ErrorTile from '../ErrorTile'
@@ -144,27 +141,25 @@ export default function Delegate(props: {
       <SkStack>
         <Tile
           grow
-          className="mb-2.5"
+          className="md:mb-2.5"
           value="2 months"
           text="Delegation period"
-          icon={<AccessTimeRoundedIcon />}
+          icon={<Clock size={14} />}
           color={true ? undefined : 'error'}
-          size="md"
         />
         <Tile
-          size="md"
           grow
           className="mb-2.5"
           value="Auto-renewed"
           text="Renewal"
-          icon={<EventRepeatRoundedIcon />}
+          icon={<CalendarSync size={14} />}
         />
       </SkStack>
 
       <Tile
         text="Delegation flow"
         className="mb-2.5"
-        icon={<AccountTreeRoundedIcon />}
+        icon={<Share2 size={14} />}
         grow
         children={<DelegationFlow className="mt-2.5" />}
       />
@@ -185,7 +180,11 @@ export default function Delegate(props: {
                   arrow
                 >
                   <TextField
-                    inputProps={{ step: '0.1', lang: 'en-US' }}
+                    inputProps={{
+                      step: '0.1',
+                      lang: 'en-US',
+                      className: 'text-foreground! text-2xl p-2!'
+                    }}
                     inputRef={(input) => input?.focus()}
                     type="number"
                     variant="standard"
@@ -197,16 +196,16 @@ export default function Delegate(props: {
                   />
                 </Tooltip>
               </div>
-
-              <div className="text-base font-bold mr-2.5">SKL</div>
+              <div className="text-foreground text-[28px] font-bold mr-2.5">SKL</div>
             </div>
           }
-          icon={<TransitEnterexitRoundedIcon style={{ rotate: '315deg' }} />}
+          icon={<ArrowDown size={17} />}
           grow
         />
         <Tile
           disabled={info.allowedToDelegate === 0n}
           value={units.displayBalance(info.allowedToDelegate!, 'SKL')}
+          className="h-auto! sm:flex! items-center! align-middle!"
           tooltip={
             props.sklPrice !== undefined && info.allowedToDelegate !== undefined
               ? units.displaySklValueUsd(info.allowedToDelegate, props.sklPrice)
@@ -218,7 +217,7 @@ export default function Delegate(props: {
           childrenRi={
             <div className="items-center flex">
               <Button
-                className="'btnSm' 'outlined' ml-5 items-center"
+                className="btnSm outlined ml-5! items-center text-secondary-foreground! hover:bg-muted-foreground/30!"
                 disabled={info.allowedToDelegate === 0n || loading}
                 onClick={() => {
                   if (!info.allowedToDelegate) return
@@ -238,7 +237,11 @@ export default function Delegate(props: {
       <ErrorTile errorMsg={props.errorMsg} setErrorMsg={props.setErrorMsg} className="mt-2.5" />
 
       {loading ? (
-        <Button disabled size="small" variant="contained" className="'btn' ml-2.5 mb-2.5 mt-5">
+        <Button
+          disabled
+          variant="contained"
+          className="btnMd bg-muted-foreground/30! disabled:text-muted! mt-2.5! mb-1! w-full!"
+        >
           Staking SKL
         </Button>
       ) : (
@@ -252,7 +255,7 @@ export default function Delegate(props: {
             loading
           }
           variant="contained"
-          className="'btn' ml-2.5 mb-2.5 mt-5"
+          className="bg-accent-foreground! disabled:bg-muted-foreground/30! text-accent! disabled:text-muted! btnMd mt-2.5! mb-1! w-full!"
           onClick={stake}
         >
           {getBtnText()}

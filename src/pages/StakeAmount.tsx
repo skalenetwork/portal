@@ -28,10 +28,7 @@ import { type MetaportCore, SkPaper, contracts } from '@skalenetwork/metaport'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
-import ArrowBackIosNewRoundedIcon from '@mui/icons-material/ArrowBackIosNewRounded'
-import PersonSearchRoundedIcon from '@mui/icons-material/PersonSearchRounded'
-import SavingsRoundedIcon from '@mui/icons-material/SavingsRounded'
-import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
+import { ChevronLeft, CircleDollarSign, HandCoins, UserRoundSearch } from 'lucide-react'
 
 import Loader from '../components/Loader'
 
@@ -110,35 +107,35 @@ export default function StakeAmount(props: {
 
   return (
     <Container maxWidth="md">
-      <SkPaper gray className="mt-2.5 chainDetails">
-        <div className="flex items-center">
-          <div className="flex grow">
-            <Breadcrumbs
-              sections={[
-                {
-                  text: 'Staking',
-                  icon: <ArrowBackIosNewRoundedIcon />,
-                  url: '/staking'
-                },
-                {
-                  text: 'Choose a validator',
-                  icon: <PersonSearchRoundedIcon />,
-                  url: '/staking/new'
-                },
-                {
-                  text: 'Stake SKL',
-                  icon: <SavingsRoundedIcon />
-                }
-              ]}
-            />
-          </div>
-          {loaded && available ? (
-            <div className="titleBadge" style={{ padding: '10px 15px' }}>
-              <p className="text-xs">{getDelegationTypeAlias(delegationType)} delegation</p>
-            </div>
-          ) : null}
+      <div className="flex items-center">
+        <div className="flex grow">
+          <Breadcrumbs
+            sections={[
+              {
+                text: 'Staking',
+                icon: <ChevronLeft size={14} className="text-foreground" />,
+                url: '/staking'
+              },
+              {
+                text: 'Choose a validator',
+                icon: <UserRoundSearch size={14} className="text-foreground" />,
+                url: '/staking/new'
+              },
+              {
+                text: 'Stake SKL',
+                icon: <HandCoins size={14} className="text-secondary-foreground" />
+              }
+            ]}
+          />
         </div>
-        <div className="mt-2.5 ml-1.25 mb-2.5" style={{ paddingBottom: '5px' }}>
+        {loaded && available ? (
+          <div className="bg-card! text-foreground! flex items-center bg-card! p-2.5 font-medium rounded-full">
+            <p className="text-xs">{getDelegationTypeAlias(delegationType)} delegation</p>
+          </div>
+        ) : null}
+      </div>
+      <SkPaper gray className="mt-2.5 chainDetails mb-18! sm:mb-0!">
+        <div className="mt-2.5 ml-1.25 mb-2.5 pb-1.25">
           <h2 className="m-0 text-xl font-bold text-foreground">Stake SKL</h2>
           <p className="text-xs text-secondary-foreground font-semibold">
             Review validator info and enter delegation amount
@@ -152,7 +149,7 @@ export default function StakeAmount(props: {
 
         <Headline
           text="Staking details"
-          icon={<MonetizationOnRoundedIcon className="text-[17px]!" />}
+          icon={<CircleDollarSign size={17} />}
           className="mt-5 mb-2.5"
           size="small"
         />

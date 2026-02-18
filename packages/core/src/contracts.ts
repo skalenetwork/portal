@@ -105,8 +105,8 @@ export const PAYMASTER_CONTRACTS = {
     address: '0x9E444978d11E7e753017ce3329B01663D5D78240'
   },
   legacy: {
-    chain: 'honored-impish-wezen',
-    address: '0xd9FA9a9A68D7A5C518Ad1FE5A75ed892Cd1765db'
+    chain: 'talkative-victorious-rasalgethi',
+    address: '0x57d9d64121dCC66Cda45813357A8276400b83dd1'
   },
   regression: {
     chain: '',
