@@ -48,7 +48,7 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
   return (
     <div>
       <Box
-        sx={{ alignItems: 'center', textAlign: 'center', display: { xs: 'none', sm: 'flex' } }}
+        sx={{ alignItems: 'center', textAlign: 'center', display: 'flex' }}
         className="ml-1.5"
       >
         <Tooltip arrow title="Switch SKALE Network">
@@ -60,10 +60,12 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
               skaleNetwork={props.mpc.config.skaleNetwork}
               chainName={constants.MAINNET_CHAIN_NAME}
               size="xs"
-              className="mr-2.5"
+              className="sm:mr-2.5"
               chainsMeta={mp_metadata.CHAINS_META[props.mpc.config.skaleNetwork]}
             />
-            {props.mpc.config.skaleNetwork.replace(/-/g, ' ')}
+            <span className="max-md:hidden">
+              {props.mpc.config.skaleNetwork.replace(/-/g, ' ')}
+            </span>
           </Button>
         </Tooltip>
       </Box>
