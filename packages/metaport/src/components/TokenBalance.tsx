@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { units } from '@/core'
+import { helper, units } from '@/core'
 import { Tooltip } from '@mui/material'
 import MetaportCore from '../core/metaport'
 
@@ -56,7 +56,7 @@ export default function TokenBalance(props: {
       >
         <div className="mr-1.5"></div>
         <span className='whitespace-nowrap'>
-          {balance} {props.symbol}
+          {helper.shortBalance(props.balance, props.decimals)} {props.symbol}
         </span>
       </p>
     </Tooltip>
