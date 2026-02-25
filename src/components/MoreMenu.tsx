@@ -27,8 +27,6 @@ import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
-import useMediaQuery from '@mui/material/useMediaQuery'
-import { useTheme } from '@mui/material/styles'
 
 import { Link } from 'react-router-dom'
 
@@ -45,8 +43,6 @@ import {
 } from 'lucide-react'
 
 export default function MoreMenu() {
-  const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
   const handleClick = (event: MouseEvent<HTMLElement>) => {
@@ -86,7 +82,7 @@ export default function MoreMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        {isMobile && (
+        <div className="md:hidden">
           <MenuItem
             onClick={() => {
               handleClose()
@@ -97,8 +93,8 @@ export default function MoreMenu() {
             <MessageCircle className="mr-2.5 h-[17px] w-[17px] text-muted-foreground" />
             Open support chat
           </MenuItem>
-        )}
-        {isMobile && (
+        </div>
+        <div className="md:hidden">
           <Link to="/other/faq" className="undec">
             <MenuItem
               onClick={handleClose}
@@ -108,7 +104,7 @@ export default function MoreMenu() {
               Bridge FAQ
             </MenuItem>
           </Link>
-        )}
+        </div>
         <Link to="/other/terms-of-service" className="undec">
           <MenuItem
             onClick={handleClose}
