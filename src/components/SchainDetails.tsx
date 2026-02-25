@@ -51,6 +51,7 @@ import {
   TrendingUp,
   Users
 } from 'lucide-react'
+import GetSFuel from './GetSFuel'
 
 export default function SchainDetails(props: {
   chainsMeta: types.ChainsMetadataMap
@@ -207,6 +208,8 @@ export default function SchainDetails(props: {
           >
             {connectBtnText()}
           </Button>
+          
+          <GetSFuel mpc={props.mpc} chainName={props.chain.name} />
 
           {chainMeta?.url && (
             <a
