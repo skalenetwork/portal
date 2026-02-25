@@ -37,7 +37,9 @@ import {
   ListOrdered,
   BookOpen,
   MessagesSquare,
-  ExternalLink
+  ExternalLink,
+  MessageCircle,
+  HelpCircle
 } from 'lucide-react'
 
 export default function MoreMenu() {
@@ -80,6 +82,29 @@ export default function MoreMenu() {
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
+        <div className="md:hidden">
+          <MenuItem
+            onClick={() => {
+              handleClose()
+              window.zE('messenger', 'open')
+            }}
+            className="flex items-center px-2.5! py-2! text-sm! font-sans! font-semibold! text-foreground! hover:bg-muted! rounded-lg!"
+          >
+            <MessageCircle className="mr-2.5 h-[17px] w-[17px] text-muted-foreground" />
+            Open support chat
+          </MenuItem>
+        </div>
+        <div className="md:hidden">
+          <Link to="/other/faq" className="undec">
+            <MenuItem
+              onClick={handleClose}
+              className="flex items-center px-2.5! py-2! text-sm! font-sans! font-semibold! text-foreground! hover:bg-muted! rounded-lg!"
+            >
+              <HelpCircle className="mr-2.5 h-[17px] w-[17px] text-muted-foreground" />
+              Bridge FAQ
+            </MenuItem>
+          </Link>
+        </div>
         <Link to="/other/terms-of-service" className="undec">
           <MenuItem
             onClick={handleClose}
