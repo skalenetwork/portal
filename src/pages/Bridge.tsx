@@ -24,9 +24,14 @@
 import { Helmet } from 'react-helmet'
 import { useEffect, useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import HistoryIcon from '@mui/icons-material/History'
 
-import { useMetaportStore, SkPaper, TransactionData, useWagmiAccount } from '@skalenetwork/metaport'
+import {
+  TransactionData,
+  SkPaper,
+  useMetaportStore,
+  History as TransfersHistory,
+  useWagmiAccount
+} from '@skalenetwork/metaport'
 import { type types, dc, networks } from '@/core'
 
 import Container from '@mui/material/Container'
@@ -38,7 +43,7 @@ import { META_TAGS } from '../core/meta'
 import Meson from '../components/Meson'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import { NETWORKS } from '../core/constants'
-import SkIconBtn from '../components/SkIconBth'
+import { Button } from '@mui/material'
 
 interface TokenParams {
   keyname: string | null
@@ -68,6 +73,7 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
     tokens,
     setToken,
     transactionsHistory,
+    transfersHistory,
     addressChanged
   } = useMetaportStore((state) => state)
 
@@ -177,9 +183,6 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
             )}
           </div>
           <div>
-            <Link to="/bridge/history">
-              <SkIconBtn primary icon={HistoryIcon} size="small" tooltipTitle="Bridge History" />
-            </Link>
             <SkPageInfoIcon meta_tag={META_TAGS.bridge} />
           </div>
         </div>
@@ -202,6 +205,22 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
               </SkPaper>
             </div>
           ) : null}
+          {address && (
+            <>
+              <TransfersHistory size="sm" limit={2} />
+              {(transactionsHistory.length > 0 || transfersHistory.length > 0) && (
+                <div className="flex justify-center mt-2.5">
+                 <Button                   
+                   component={Link}
+                   to="/bridge/history"
+                   className="btnMd w-full! items-center text-secondary-foreground! outlined hover:bg-muted-foreground/30!"                 >
+                   View all history
+                 </Button>
+                </div>
+              )}
+        
+            </>
+          )}
         </div>
       </Stack>
       <Meson
