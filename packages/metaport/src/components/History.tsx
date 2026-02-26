@@ -29,7 +29,7 @@ import Chain from './Chain'
 
 import { useMetaportStore } from '../store/MetaportStore'
 import { MoveRight } from 'lucide-react'
-export default function History(props: { size?: types.Size }) {
+export default function History(props: { size?: types.Size; limit?: number }) {
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
   const transfersHistory = useMetaportStore((state) => state.transfersHistory)
 
@@ -39,6 +39,10 @@ export default function History(props: { size?: types.Size }) {
   const network = mpc.config.skaleNetwork
 
   if (transactionsHistory.length === 0 && transfersHistory.length === 0) return
+
+  const reversedTransfers = transfersHistory.slice().reverse()
+  const displayedTransfers = props.limit ? reversedTransfers.slice(0, props.limit) : reversedTransfers
+
   return (
     <div>
       {transactionsHistory.length !== 0 ? (
@@ -60,9 +64,7 @@ export default function History(props: { size?: types.Size }) {
         </div>
       ) : null}
       <div>
-        {transfersHistory
-          .slice()
-          .reverse()
+        {displayedTransfers
           .map((transfer: types.mp.TransferHistory, key: number) => (
             <div
               key={key}
@@ -80,25 +82,25 @@ export default function History(props: { size?: types.Size }) {
                     chainName={transfer.chainName1}
                     size='xs'
                     decIcon
-                    iconSize='sm'
+                    iconSize={size === 'sm' ? 'xs' : 'sm'}
                   />
-                  <MoveRight size={14}
-                    className={`text-foreground ml-2 mr-2 w-3 h-3`}
+                  <MoveRight size={size === 'sm' ? 12 : 14}
+                    className={`text-foreground ${size === 'sm' ? 'ml-1.5 mr-1.5 w-2.5 h-2.5' : 'ml-2 mr-2 w-3 h-3'}`}
                   />
                   <Chain
                     skaleNetwork={network}
                     chainName={transfer.chainName2}
-                    size='sm'
+                    size='xs'
                     decIcon
-                    iconSize='sm'
+                    iconSize={size === 'sm' ? 'xs' : 'sm'}
                   />
                 </div>
 
-                <div className="flex items-center ml-1.5 sm:mr-4">
+                <div className={`flex items-center ${size === 'sm' ? 'mr-2' : 'ml-1.5 sm:mr-4'}`}>
                   <div className="flex items-center">
                     <TokenIcon
                       tokenSymbol={transfer.tokenKeyname}
-                      size={size == 'sm' ? 'xs' : 'sm'}
+                      size='xs'
                     />
                   </div>
                   <p
