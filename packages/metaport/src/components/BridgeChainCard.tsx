@@ -58,7 +58,6 @@ export default function BridgeChainCard(props: ChainCardProps) {
   )
   const firstSentence = extractFirstSentence(chainDescription)
 
-  const disabledText = props.from ? 'Destination chain' : 'Source chain'
 
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
@@ -68,8 +67,7 @@ export default function BridgeChainCard(props: ChainCardProps) {
   return (
     <div onClick={disabled ? undefined : onClick} style={{ height: 287 }}>
       <SkPaper
-        gray={disabled}
-        className={`${'flex items-center justify-center mt-5'} ${!disabled ? 'cursor-pointer' : ''} ${disabled ? styles.disabledCard : ''} ${styles.fullHeight}`}
+        className={`${'flex items-center justify-center mt-5'} ${styles.fullHeight}`}
         background={backgroundColor}
       >
         <div
@@ -102,27 +100,10 @@ export default function BridgeChainCard(props: ChainCardProps) {
               />
             </div>
           </div>
-
           <p className="text-foreground font-semibold text-xl text-center">
             {metadata.getAlias(skaleNetwork, chainsMeta, chainName, undefined, true)}
           </p>
-
-          {disabled && (
-            <div className="flex items-center mt-2.5 mb-5">
-              <div className="grow"></div>
-              <SkPaper gray className="p-0">
-                <p className="text-xs font-semibold text-gray-400 mt-1.5 mb-1.5 ml-2.5 mr-2.5 truncate">
-                  {disabledText}
-                </p>
-              </SkPaper>
-              <div className="grow"></div>
-            </div>
-          )}
-          {!disabled && (
-            <p className="text-foreground/70 font-medium p-2 text-xs text-center">
-              {firstSentence}
-            </p>
-          )}
+          <p className="text-foreground/70 font-medium p-2 text-xs text-center">{firstSentence}</p>
         </div>
       </SkPaper>
     </div>

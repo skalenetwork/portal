@@ -34,6 +34,7 @@ export function WidgetBody(props) {
   const chainName2 = useMetaportStore((state) => state.chainName2)
   const setChainName1 = useMetaportStore((state) => state.setChainName1)
   const setChainName2 = useMetaportStore((state) => state.setChainName2)
+  const swapChains = useMetaportStore((state) => state.swapChains)
 
   const mpc = useMetaportStore((state) => state.mpc)
   const tokens = useMetaportStore((state) => state.tokens)
@@ -106,6 +107,7 @@ export function WidgetBody(props) {
                 disabledChain={chainName2}
                 disabled={transferInProgress}
                 from={true}
+                onSwap={swapChains}
                 balance={
                   token ? (
                     <TokenBalance
@@ -142,6 +144,7 @@ export function WidgetBody(props) {
               setChain={setChainName2}
               disabledChain={chainName1}
               disabled={transferInProgress}
+              onSwap={swapChains}
               balance={<DestTokenBalance />}
             />
           </SkPaper>
