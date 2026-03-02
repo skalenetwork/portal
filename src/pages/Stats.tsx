@@ -25,14 +25,12 @@ import { Helmet } from 'react-helmet'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
-import { useThemeMode } from '@skalenetwork/metaport'
 
 import { DASHBOARD_URL } from '../core/constants'
 import { META_TAGS } from '../core/meta'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 
 export default function Stats() {
-  const { mode } = useThemeMode()
 
   return (
     <Container maxWidth="lg">
@@ -59,9 +57,9 @@ export default function Stats() {
             border: 'none',
             margin: '-15px -15px',
             zIndex: '1',
-            borderRadius: '15px',
-            filter: mode === 'light' ? 'invert(100%)' : 'none'
+            borderRadius: '15px'
           }}
+          className='invert-100 dark:invert-0'
           src={DASHBOARD_URL}
         ></iframe>
       </Stack>
