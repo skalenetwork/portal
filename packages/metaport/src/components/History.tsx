@@ -25,10 +25,27 @@ import { types } from '@/core'
 
 import TokenIcon from './TokenIcon'
 import TransactionData from './TransactionData'
-import Chain from './Chain'
+import ChainIcon from './ChainIcon'
+import { timeAgo } from '../core/time'
+import { getExplorerUrlForAddress, shortenAddress } from '../core/explorer'
+import { Blocks, CircleAlert } from 'lucide-react'
+import Avatar from 'boring-avatars'
+import { metadata } from '@/core'
+import IconButton from '@mui/material/IconButton'
 
 import { useMetaportStore } from '../store/MetaportStore'
-import { MoveRight } from 'lucide-react'
+import { CHAINS_META } from '../core/metadata'
+
+function isUnfinished(transfer: types.mp.TransferHistory): boolean {
+  return transfer.address === undefined || transfer.transactions.length === 0
+}
+
+function transferTimestamp(transfer: types.mp.TransferHistory): string {
+  if (isUnfinished(transfer)) return 'Unfinished'
+  const last = transfer.transactions[transfer.transactions.length - 1]
+  return timeAgo(last.timestamp)
+}
+
 export default function History(props: { size?: types.Size }) {
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
   const transfersHistory = useMetaportStore((state) => state.transfersHistory)
@@ -38,17 +55,15 @@ export default function History(props: { size?: types.Size }) {
   const size = props.size ?? 'sm'
   const network = mpc.config.skaleNetwork
 
+  const chainsMeta = CHAINS_META[network]
+
   if (transactionsHistory.length === 0 && transfersHistory.length === 0) return
   return (
     <div>
-      {transactionsHistory.length !== 0 ? (
-        <div className={`bg-card dark:bg-card ${size === 'sm' ? 'mt-5 mb-1.5' : 'mt-2.5 mb-2.5'} pt-2 pl-2 pr-2 pb-2 rounded-4xl`}>
-          <div className={`ml-2.5 ${size === 'sm' ? 'pt-2 pb-2' : 'pt-3 pb-3'}`}>
-            <p className={`${size === 'sm' ? 'text-sm' : 'text-base'} font-semibold text-foreground`}>
-              Current transfer
-            </p>
-          </div>
-          <div className="bg-muted-foreground/15 dark:bg-muted-foreground/10 card-bg p-4 rounded-3xl space-y-2">
+      {transactionsHistory.length !== 0 && (
+        <div className="mb-2.5 bg-card! rounded-3xl p-4">
+          <p className="text-sm font-semibold text-foreground mb-3">Current transfer</p>
+          <div className="bg-muted-foreground/15 dark:bg-muted-foreground/10 p-4 rounded-2xl space-y-2">
             {transactionsHistory.map((transactionData: types.mp.TransactionHistory) => (
               <TransactionData
                 key={transactionData.transactionHash}
@@ -58,69 +73,94 @@ export default function History(props: { size?: types.Size }) {
             ))}
           </div>
         </div>
-      ) : null}
-      <div>
-        {transfersHistory
-          .slice()
-          .reverse()
-          .map((transfer: types.mp.TransferHistory, key: number) => (
-            <div
-              key={key}
-              className={`bg-card dark:bg-card ${size === 'sm' ? 'mt-5 mb-1.5' : 'mt-5 mb-2.5'} pl-2 pr-2 ${transfer.transactions.length > 0 ? 'pb-2' : ''} rounded-4xl`}
-            >
-              <div
-                className={`flex flex-col sm:flex-row sm:items-center sm:justify-between ml-2.5 ${size === 'sm' ? 'pt-2 pb-2' : 'pt-3 pb-3'}`}
-              >
-                <div
-                  className={`flex items-center ${size === 'sm' ? 'mb-2 sm:mb-0' : 'mb-2.5 sm:mb-0'
-                    }`}
-                >
-                  <Chain
-                    skaleNetwork={network}
-                    chainName={transfer.chainName1}
-                    size='xs'
-                    decIcon
-                    iconSize='sm'
-                  />
-                  <MoveRight size={14}
-                    className={`text-foreground ml-2 mr-2 w-3 h-3`}
-                  />
-                  <Chain
-                    skaleNetwork={network}
-                    chainName={transfer.chainName2}
-                    size='sm'
-                    decIcon
-                    iconSize='sm'
-                  />
-                </div>
-
-                <div className="flex items-center ml-1.5 sm:mr-4">
-                  <div className="flex items-center">
-                    <TokenIcon
-                      tokenSymbol={transfer.tokenKeyname}
-                      size={size == 'sm' ? 'xs' : 'sm'}
-                    />
-                  </div>
+      )}
+      {transfersHistory
+        .slice()
+        .reverse()
+        .map((transfer: types.mp.TransferHistory, key: number) => {
+          const unfinished = isUnfinished(transfer)
+          return (
+            <div key={key} className="mb-2.5 bg-card rounded-4xl p-2">
+              <div className="flex items-center p-2 px-3">
+                <TokenIcon tokenSymbol={transfer.tokenKeyname} size="lg" />
+                <div className="ml-3 min-w-0 flex-1">
                   <p
-                    className={`${size === 'sm' ? 'text-xs' : 'text-sm'
-                      } font-semibold capitalize text-foreground uppercase ml-1.5`}
+                    className={`${size === 'sm' ? 'text-base' : 'text-lg'} font-bold text-foreground uppercase`}
                   >
                     {transfer.amount} {transfer.tokenKeyname}
                   </p>
                   <p
-                    className={`${size === 'sm' ? 'text-xs' : 'text-sm'
-                      } font-semibold capitalize text-foreground ml-1.5`}
+                    className={`text-xs -mt-0.5 flex items-center gap-1 font-semibold ${unfinished ? 'text-destructive' : 'text-secondary-foreground'}`}
                   >
-                    {transfer.address !== undefined
-                      ? `• ${transfer.address.substring(0, 6)}...${transfer.address.substring(
-                        transfer.address.length - 4
-                      )}`
-                      : '• UNFINISHED'}
+                    {unfinished && <CircleAlert size={12} />}
+                    {transferTimestamp(transfer)}
                   </p>
                 </div>
+                <div className="mx-4 w-px self-stretch bg-border" />
+                <div className="shrink-0 space-y-1">
+                  <ChainRow
+                    chainName={transfer.chainName1}
+                    network={network}
+                    chainsMeta={chainsMeta}
+                  />
+                  <ChainRow
+                    chainName={transfer.chainName2}
+                    network={network}
+                    chainsMeta={chainsMeta}
+                  />
+                </div>
               </div>
+              {transfer.address && (
+                <div className="bg-muted-foreground/10 px-4 py-3 rounded-3xl mt-2 flex items-center">
+                  <Avatar
+                    variant="marble"
+                    name={transfer.address}
+                    size={30}
+                    colors={[
+                      '#efeecc',
+                      '#fe8b05',
+                      '#fe0557',
+                      '#400403',
+                      '#0aabba',
+                      '#c8b6ff',
+                      '#90E0EF',
+                      '#F786AA',
+                      '#256EFF',
+                      '#31E981',
+                      '#ffbf81'
+                    ]}
+                  />
+                  <div className="ml-5 grow">
+                    <p className="text-xs text-secondary-foreground">Sender</p>
+                    <p className="text-sm font-medium text-foreground">
+                      {shortenAddress(transfer.address)}
+                    </p>
+                  </div>
+                  <IconButton
+                    href={getExplorerUrlForAddress(
+                      chainsMeta[transfer.chainName2],
+                      network,
+                      transfer.chainName2,
+                      transfer.address
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    size="small"
+                    className="ml-2.5 ease-in-out transition-transform duration-150 active:scale-[0.97]"
+                    sx={{
+                      backgroundColor: 'var(--card)',
+                      width: 30,
+                      height: 30,
+                      '& svg': { width: 15, height: 15 },
+                      '&:hover': { backgroundColor: 'var(--card)' }
+                    }}
+                  >
+                    <Blocks className="text-foreground" />
+                  </IconButton>
+                </div>
+              )}
               {transfer.transactions.length > 0 && (
-                <div className="bg-muted-foreground/15 dark:bg-muted-foreground/10 card-bg p-4 rounded-3xl space-y-2">
+                <div className="bg-muted-foreground/10 p-4 rounded-3xl space-y-2 mt-1">
                   {transfer.transactions.map((transactionData: types.mp.TransactionHistory) => (
                     <TransactionData
                       key={transactionData.transactionHash}
@@ -131,8 +171,28 @@ export default function History(props: { size?: types.Size }) {
                 </div>
               )}
             </div>
-          ))}
-      </div>
+          )
+        })}
+    </div>
+  )
+}
+
+function ChainRow(props: {
+  chainName: string
+  network: types.SkaleNetwork
+  chainsMeta: types.ChainsMetadataMap
+}) {
+  return (
+    <div className="flex items-center gap-1.5">
+      <ChainIcon
+        skaleNetwork={props.network}
+        chainName={props.chainName}
+        size="xs"
+        chainsMeta={props.chainsMeta}
+      />
+      <span className="text-xs font-semibold text-foreground capitalize">
+        {metadata.getAlias(props.network, props.chainsMeta, props.chainName)}
+      </span>
     </div>
   )
 }

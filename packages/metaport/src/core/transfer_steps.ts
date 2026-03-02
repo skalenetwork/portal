@@ -41,6 +41,11 @@ export function getStepsMetadata(
 
   log.info(`Setting toChain: ${toChain}`)
 
+  if (to === constants.MAINNET_CHAIN_NAME) {
+    const exitChain = token.connections[to].hub ?? token.chain
+    steps.push(new dc.RechargeStepMetadata(exitChain, to))
+  }
+
   if (token.connections[toChain].wrapper) {
     steps.push(new dc.WrapStepMetadata(token.chain, to))
   }

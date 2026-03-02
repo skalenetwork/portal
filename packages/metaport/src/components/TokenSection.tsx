@@ -64,9 +64,7 @@ export default function TokenSection({ text, icon, tokens, onTokenClick }: Token
                       tokenData.address.substring(tokenData.address.length - 3)}
                   </p>
                 ) : (
-                  <p className="text-xs text-secondary-foreground flex ml-2.5">
-                    Ethereum
-                  </p>
+                  <p className="text-xs text-secondary-foreground flex ml-2.5">Ethereum</p>
                 )}
               </div>
               <div className="mr-2.5">

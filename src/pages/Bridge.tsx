@@ -23,8 +23,7 @@
 
 import { Helmet } from 'react-helmet'
 import { useEffect, useState } from 'react'
-import { Link, useSearchParams } from 'react-router-dom'
-import HistoryIcon from '@mui/icons-material/History'
+import { useSearchParams } from 'react-router-dom'
 
 import { useMetaportStore, SkPaper, TransactionData, useWagmiAccount } from '@skalenetwork/metaport'
 import { type types, dc, networks } from '@/core'
@@ -36,9 +35,8 @@ import BridgeBody from '../components/BridgeBody'
 
 import { META_TAGS } from '../core/meta'
 import Meson from '../components/Meson'
-import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import { NETWORKS } from '../core/constants'
-import SkIconBtn from '../components/SkIconBth'
+import BridgeMenu from '../components/BridgeMenu'
 
 interface TokenParams {
   keyname: string | null
@@ -177,10 +175,7 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
             )}
           </div>
           <div>
-            <Link to="/bridge/history">
-              <SkIconBtn primary icon={HistoryIcon} size="small" tooltipTitle="Bridge History" />
-            </Link>
-            <SkPageInfoIcon meta_tag={META_TAGS.bridge} />
+            <BridgeMenu />
           </div>
         </div>
 

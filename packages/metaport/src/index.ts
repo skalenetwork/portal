@@ -3,6 +3,7 @@ export { type MetaportState } from './store/MetaportState'
 export { useUIStore, useCollapseStore, type UIState, type CollapseState } from './store/Store'
 export { useSFuelStore, type SFuelState } from './store/SFuelStore'
 export { useDisplayFunctions, type DisplayFunctions } from './store/DisplayFunctions'
+export { useBridgeBalanceStore } from './store/BridgeBalanceStore'
 
 import * as contracts from './core/contracts'
 import * as explorer from './core/explorer'
@@ -30,6 +31,7 @@ import AmountErrorMessage from './components/AmountErrorMessage'
 import DestTokenBalance from './components/DestTokenBalance'
 import ErrorMessage from './components/ErrorMessage'
 import CommunityPool from './components/CommunityPool'
+import BridgeBalanceCard from './components/BridgeBalanceCard'
 import SFuelWarning from './components/SFuelWarning'
 import WrappedTokens from './components/WrappedTokens'
 import History from './components/History'
@@ -40,6 +42,7 @@ import AnimatedLoadingIcon from './components/AnimatedLoadingIcon'
 import { styles } from './core/css'
 import MetaportCore from './core/metaport'
 import { sendTransaction } from './core/transactions'
+import { getBridgeBalanceChains } from './core/bridge_balance'
 import { Station, StationData } from './core/sfuel'
 import * as mp_metadata from './core/metadata'
 
@@ -83,7 +86,9 @@ export {
   DestTokenBalance,
   ErrorMessage,
   CommunityPool,
+  BridgeBalanceCard,
   SFuelWarning,
+  getBridgeBalanceChains,
   WrappedTokens,
   History,
   TransactionData,

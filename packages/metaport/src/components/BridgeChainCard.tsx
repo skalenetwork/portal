@@ -49,7 +49,13 @@ export default function BridgeChainCard(props: ChainCardProps) {
   const chainDescription = getChainDescription(skaleNetwork, chainsMeta, chainName)
   const { mode } = useThemeMode()
 
-  const backgroundColor = getChainCardBackgroundColor(skaleNetwork, disabled, chainsMeta, chainName, mode)
+  const backgroundColor = getChainCardBackgroundColor(
+    skaleNetwork,
+    disabled,
+    chainsMeta,
+    chainName,
+    mode
+  )
   const firstSentence = extractFirstSentence(chainDescription)
 
   const disabledText = props.from ? 'Destination chain' : 'Source chain'
@@ -70,16 +76,30 @@ export default function BridgeChainCard(props: ChainCardProps) {
           style={{
             position: 'absolute',
             inset: 0,
-            background: mode === 'dark' ? 'linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 90%)' : 'linear-gradient(to bottom, transparent 0%, rgba(225, 225, 225, 0.7) 90%)',
+            background:
+              mode === 'dark'
+                ? 'linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 90%)'
+                : 'linear-gradient(to bottom, transparent 0%, rgba(225, 225, 225, 0.7) 90%)',
             borderRadius: 'inherit',
             pointerEvents: 'none'
           }}
         />
-        <div className={`mb-2.5 mt-0 w-full ${styles.fullHeight}`} style={{ position: 'relative', zIndex: 1 }}>
+        <div
+          className={`mb-2.5 mt-0 w-full ${styles.fullHeight}`}
+          style={{ position: 'relative', zIndex: 1 }}
+        >
           <div className="rounded-3xl">
             <div className="flex items-center mt-3"></div>
-            <div className={`rounded-3xl flex items-center justify-center mt-0 ${styles.fullHeight}`}>
-              <ChainIcon skaleNetwork={skaleNetwork} chainName={chainName} size={iconSize} chainsMeta={chainsMeta} bg={false} />
+            <div
+              className={`rounded-3xl flex items-center justify-center mt-0 ${styles.fullHeight}`}
+            >
+              <ChainIcon
+                skaleNetwork={skaleNetwork}
+                chainName={chainName}
+                size={iconSize}
+                chainsMeta={chainsMeta}
+                bg={false}
+              />
             </div>
           </div>
 
@@ -91,16 +111,18 @@ export default function BridgeChainCard(props: ChainCardProps) {
             <div className="flex items-center mt-2.5 mb-5">
               <div className="grow"></div>
               <SkPaper gray className="p-0">
-                <p
-                  className="text-xs font-semibold text-gray-400 mt-1.5 mb-1.5 ml-2.5 mr-2.5 truncate"
-                >
+                <p className="text-xs font-semibold text-gray-400 mt-1.5 mb-1.5 ml-2.5 mr-2.5 truncate">
                   {disabledText}
                 </p>
               </SkPaper>
               <div className="grow"></div>
             </div>
           )}
-          {!disabled && <p className="text-foreground/70 font-medium p-2 text-xs text-center">{firstSentence}</p>}
+          {!disabled && (
+            <p className="text-foreground/70 font-medium p-2 text-xs text-center">
+              {firstSentence}
+            </p>
+          )}
         </div>
       </SkPaper>
     </div>

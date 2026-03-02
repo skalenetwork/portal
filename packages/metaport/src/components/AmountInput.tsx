@@ -41,6 +41,7 @@ export default function AmountInput() {
   const { address } = useAccount()
   const transferInProgress = useMetaportStore((state) => state.transferInProgress)
   const currentStep = useMetaportStore((state) => state.currentStep)
+  const stepsMetadata = useMetaportStore((state) => state.stepsMetadata)
   const setAmount = useMetaportStore((state) => state.setAmount)
   const amount = useMetaportStore((state) => state.amount)
   const expandedTokens = useCollapseStore((state) => state.expandedTokens)
@@ -79,33 +80,37 @@ export default function AmountInput() {
     setAmount(balanceEther, address)
   }
 
+  const hasRechargeStep =
+    stepsMetadata.length > 0 && stepsMetadata[0].type === dc.ActionType.recharge
+  const firstActionStep = hasRechargeStep ? 1 : 0
+  const amountLocked = transferInProgress || currentStep > firstActionStep
+
   return (
-    <div className={`flex ${styles.inputAmount} ${mode == 'light' && styles.inputAmountLight} items-center`}>
-      {
-        expandedTokens ? null : (
-          <div className="flex grow items-center">
-            <TextField
-              className='text-foreground! disabled:text-foreground/50!'
-              type="number"
-              variant="standard"
-              placeholder="0.00"
-              value={amount}
-              onChange={handleChange}
-              disabled={transferInProgress || currentStep !== 0
-              }
-              style={{ width: '100%' }
-              }
-            />
-            < Button
-              size="small"
-              disabled={transferInProgress || currentStep !== 0 || maxAmount === 0n}
-              className="bg-secondary-foreground/10! flex items-center text-[10px]! py-1! px-3! min-w-0! text-foreground! mr-2!"
-              onClick={setMaxAmount}
-            >
-              MAX
-            </Button>
-          </div>
-        )}
+    <div
+      className={`flex ${styles.inputAmount} ${mode == 'light' && styles.inputAmountLight} items-center`}
+    >
+      {expandedTokens ? null : (
+        <div className="flex grow items-center">
+          <TextField
+            className="text-foreground! disabled:text-foreground/50!"
+            type="number"
+            variant="standard"
+            placeholder="0.00"
+            value={amount}
+            onChange={handleChange}
+            disabled={amountLocked}
+            style={{ width: '100%' }}
+          />
+          <Button
+            size="small"
+            disabled={amountLocked || maxAmount === 0n}
+            className="bg-secondary-foreground/10! flex items-center text-[10px]! py-1! px-3! min-w-0! text-foreground! mr-2!"
+            onClick={setMaxAmount}
+          >
+            MAX
+          </Button>
+        </div>
+      )}
       <TokenList />
     </div>
   )

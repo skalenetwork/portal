@@ -85,7 +85,7 @@ export default function RetrieveRewardModal(props: {
         size="small"
         onClick={handleOpen}
         disabled={props.disabled}
-        className="btn btnSm text-xs bg-accent-foreground! text-accent! align-center! disabled:bg-muted-foreground/30! disabled:text-muted!"
+        className="btn btnSm text-xs bg-accent-foreground! text-accent! align-center! disabled:bg-accent-foreground/50!"
       >
         Retrieve
       </Button>
@@ -149,7 +149,7 @@ export default function RetrieveRewardModal(props: {
                       <div className="flex justify-end mt-2">
                         <Button
                           variant="text"
-                          className="btnSm bg-foreground! text-accent!"
+                          className="btnSm bg-accent-foreground! text-accent!"
                           onClick={() => setEdit(!edit)}
                         >
                           Change
@@ -192,7 +192,7 @@ export default function RetrieveRewardModal(props: {
                           <div>
                             <Button
                               variant="contained"
-                              className="btnSm text-accent! bg-foreground! ml-2.5!"
+                              className="btnSm text-accent! bg-accent-foreground! ml-2.5!"
                               onClick={saveAddress}
                             >
                               Save

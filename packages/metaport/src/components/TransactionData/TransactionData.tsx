@@ -26,8 +26,7 @@ import { types } from '@/core'
 
 import IconButton from '@mui/material/IconButton'
 
-import { ArrowUpRight, Check, ExternalLink, LockOpen, SendToBack } from 'lucide-react'
-
+import { ArrowUpRight, Blocks, Check, LockOpen, SendToBack } from 'lucide-react'
 
 import { getTxUrl } from '../../core/explorer'
 
@@ -40,6 +39,51 @@ type ActionStateIconMap = {
 
 type ActionStateAliasMap = {
   [key in types.mp.ActionState]: string | null
+}
+
+type ActionColorMap = {
+  [key in types.mp.ActionState]: { bg: string; text: string }
+}
+
+const actionColors: ActionColorMap = {
+  approveDone: {
+    bg: 'bg-emerald-100 dark:bg-emerald-400/15',
+    text: 'text-emerald-500 dark:text-emerald-400'
+  },
+  approveWrapDone: {
+    bg: 'bg-emerald-100 dark:bg-emerald-400/15',
+    text: 'text-emerald-500 dark:text-emerald-400'
+  },
+  transferDone: { bg: 'bg-sky-100 dark:bg-blue-400/15', text: 'text-sky-500 dark:text-blue-400' },
+  transferETHDone: {
+    bg: 'bg-sky-100 dark:bg-blue-400/15',
+    text: 'text-sky-500 dark:text-blue-400'
+  },
+  wrapDone: {
+    bg: 'bg-violet-100 dark:bg-violet-400/15',
+    text: 'text-violet-500 dark:text-violet-400'
+  },
+  unwrapDone: {
+    bg: 'bg-fuchsia-100 dark:bg-violet-400/15',
+    text: 'text-fuchsia-500 dark:text-violet-400'
+  },
+  unlockDone: {
+    bg: 'bg-amber-100 dark:bg-amber-400/15',
+    text: 'text-amber-500 dark:text-amber-400'
+  },
+  rechargeDone: { bg: 'bg-teal-100 dark:bg-teal-400/15', text: 'text-teal-500 dark:text-teal-400' },
+  receivedETH: { bg: 'bg-muted', text: 'text-foreground' },
+  init: { bg: 'bg-muted', text: 'text-foreground' },
+  approve: { bg: 'bg-muted', text: 'text-foreground' },
+  transfer: { bg: 'bg-muted', text: 'text-foreground' },
+  received: { bg: 'bg-muted', text: 'text-foreground' },
+  transferETH: { bg: 'bg-muted', text: 'text-foreground' },
+  approveWrap: { bg: 'bg-muted', text: 'text-foreground' },
+  wrap: { bg: 'bg-muted', text: 'text-foreground' },
+  unwrap: { bg: 'bg-muted', text: 'text-foreground' },
+  switch: { bg: 'bg-muted', text: 'text-foreground' },
+  unlock: { bg: 'bg-muted', text: 'text-foreground' },
+  recharge: { bg: 'bg-muted', text: 'text-foreground' }
 }
 
 const actionIcons: ActionStateIconMap = {
@@ -60,7 +104,9 @@ const actionIcons: ActionStateIconMap = {
   wrap: null,
   unwrap: null,
   switch: null,
-  unlock: null
+  unlock: null,
+  recharge: null,
+  rechargeDone: <Check size={14} />
 }
 
 const actionAliases: ActionStateAliasMap = {
@@ -81,7 +127,9 @@ const actionAliases: ActionStateAliasMap = {
   wrap: null,
   unwrap: null,
   switch: null,
-  unlock: null
+  unlock: null,
+  recharge: null,
+  rechargeDone: 'Bridge balance topped up'
 }
 
 export default function TransactionData(props: {
@@ -96,12 +144,15 @@ export default function TransactionData(props: {
     props.config.skaleNetwork,
     props.transactionData.transactionHash
   )
+  const colors = actionColors[props.transactionData.txName]
   return (
-    <div className="flex items-center"> 
+    <div className="flex items-center">
       <div>
-        <span className= "relative flex items-center justify-center">
-          <span className= "w-[30px] h-[30px] rounded-full bg-muted absolute" />
-          <span className= "flex items-center justify-center text-foreground w-[30px] h-[30px] z-10">
+        <span className="relative flex items-center justify-center">
+          <span className={`w-[30px] h-[30px] rounded-full ${colors.bg} absolute`} />
+          <span
+            className={`flex items-center justify-center ${colors.text} w-[30px] h-[30px] z-10`}
+          >
             {actionIcons[props.transactionData.txName]}
           </span>
         </span>
@@ -124,7 +175,7 @@ export default function TransactionData(props: {
           rel="noopener noreferrer"
           className={`ml-2.5 ${localStyles.sk__openExplorerBtn}`}
         >
-          <ExternalLink className="text-foreground" />
+          <Blocks className="text-foreground" />
         </IconButton>
       </div>
     </div>

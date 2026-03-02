@@ -55,6 +55,10 @@ export function addressUrl(explorerUrl: string, address: string): string {
   return `${explorerUrl}/address/${address}`
 }
 
+export function shortenAddress(address: string): string {
+  return `${address.slice(0, 6)}...${address.slice(-4)}`
+}
+
 export function getExplorerUrlForAddress(
   chainMeta: types.ChainMetadata | undefined,
   network: types.SkaleNetwork,

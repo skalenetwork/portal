@@ -17,28 +17,25 @@
  */
 
 /**
- * @file ActionState.ts
- * @copyright SKALE Labs 2023-Present
+ * @file bridge_balance.ts
+ * @copyright SKALE Labs 2025-Present
  */
 
-export type ActionState =
-  | 'init'
-  | 'approve'
-  | 'approveDone'
-  | 'transfer'
-  | 'transferDone'
-  | 'received'
-  | 'transferETH'
-  | 'transferETHDone'
-  | 'receivedETH'
-  | 'approveWrap'
-  | 'approveWrapDone'
-  | 'wrap'
-  | 'wrapDone'
-  | 'unwrap'
-  | 'unwrapDone'
-  | 'switch'
-  | 'unlock'
-  | 'unlockDone'
-  | 'recharge'
-  | 'rechargeDone'
+import { constants, type types } from '@/core'
+
+export function getBridgeBalanceChains(config: types.mp.Config): string[] {
+  const mainnetConnections = config.connections[constants.MAINNET_CHAIN_NAME]
+  if (!mainnetConnections) return []
+  const directChains = new Set<string>()
+  for (const tokenType of Object.values(mainnetConnections)) {
+    for (const token of Object.values(tokenType)) {
+      if (!token.chains) continue
+      for (const [chainName, chainConfig] of Object.entries(token.chains)) {
+        if (!chainConfig.hub) {
+          directChains.add(chainName)
+        }
+      }
+    }
+  }
+  return Array.from(directChains)
+}

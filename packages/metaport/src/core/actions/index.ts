@@ -33,6 +33,7 @@ import {
   TransferERC20M2S,
   TransferERC20S2M
 } from './erc20'
+import { RechargeExitGas } from './recharge'
 
 import { ActionConstructor } from './action'
 import { S2S_POSTFIX, M2S_POSTFIX, S2M_POSTFIX } from '../constants'
@@ -70,5 +71,7 @@ export const ACTIONS: { [actionType in dc.ActionType]: ActionConstructor } = {
 
   erc20_m2s: TransferERC20M2S,
   erc20_s2m: TransferERC20S2M,
-  erc20_s2s: TransferERC20S2S
+  erc20_s2s: TransferERC20S2S,
+
+  recharge: RechargeExitGas
 }

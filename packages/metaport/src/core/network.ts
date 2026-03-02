@@ -35,12 +35,12 @@ const log = new Logger<ILogObj>({ name: 'metaport:core:network' })
 
 export const MAINNET_CHAINS = [mainnet, hoodi, holesky, base, baseSepolia]
 export const NETWORK_MAINNET_CHAINS: { [network in types.SkaleNetwork]: Chain } = {
-  'mainnet': mainnet,
-  'testnet': hoodi,
-  'regression': hoodi,
-  'legacy': hoodi,
-  'base': base,
-  'base-sepolia-testnet': baseSepolia,
+  mainnet: mainnet,
+  testnet: hoodi,
+  regression: hoodi,
+  legacy: hoodi,
+  base: base,
+  'base-sepolia-testnet': baseSepolia
 }
 
 export function isMainnetChainId(

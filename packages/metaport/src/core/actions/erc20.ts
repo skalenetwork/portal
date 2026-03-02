@@ -62,7 +62,10 @@ export class TransferERC20S2S extends Action {
         erc20SAddress,
         amountWei
       )
-      const txBlock = await helper.getBlockWithRetry(sChain.provider, approveTx.response.blockNumber)
+      const txBlock = await helper.getBlockWithRetry(
+        sChain.provider,
+        approveTx.response.blockNumber
+      )
       this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
       log.info('ApproveERC20S:execute - tx completed: %O', approveTx)
     }
@@ -143,7 +146,10 @@ export class WrapERC20S extends Action {
         this.token.wrapper(this.chainName2) as types.AddressType,
         amountWei
       )
-      const txBlock = await helper.getBlockWithRetry(this.sChain1.provider, approveTx.response.blockNumber)
+      const txBlock = await helper.getBlockWithRetry(
+        this.sChain1.provider,
+        approveTx.response.blockNumber
+      )
       this.updateState('approveWrapDone', approveTx.response.hash, txBlock.timestamp)
     }
     this.updateState('wrap')
@@ -193,7 +199,7 @@ export class UnWrapERC20 extends Action {
     this.updateState('unwrapDone', tx.response.hash, block.timestamp)
   }
 
-  async preAction() { }
+  async preAction() {}
 }
 
 export class UnWrapERC20S extends Action {
@@ -259,7 +265,10 @@ export class TransferERC20M2S extends Action {
         amountWei
       )
 
-      const txBlock = await helper.getBlockWithRetry(mainnet.provider, approveTx.response.blockNumber)
+      const txBlock = await helper.getBlockWithRetry(
+        mainnet.provider,
+        approveTx.response.blockNumber
+      )
       this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
     }
     this.updateState('transfer')
@@ -321,7 +330,10 @@ export class TransferERC20S2M extends Action {
         erc20SAddress,
         amountWei
       )
-      const txBlock = await helper.getBlockWithRetry(sChain.provider, approveTx.response.blockNumber)
+      const txBlock = await helper.getBlockWithRetry(
+        sChain.provider,
+        approveTx.response.blockNumber
+      )
       this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
       log.info('ApproveERC20S:execute - tx completed: %O', approveTx)
     }

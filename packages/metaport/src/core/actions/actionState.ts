@@ -45,5 +45,7 @@ export const LOADING_BUTTON_TEXT: LoadingButtonTextMap = {
   unwrapDone: 'Tokens unwrapped',
   switch: 'Waiting for network switch',
   unlock: 'Unlocking ETH',
-  unlockDone: 'ETH unlocked'
+  unlockDone: 'ETH unlocked',
+  recharge: 'Topping up bridge balance',
+  rechargeDone: 'Bridge balance topped up'
 }

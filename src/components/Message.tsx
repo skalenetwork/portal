@@ -66,9 +66,9 @@ export default function Message(props: {
           'skMessage items-center flex',
           props.className,
           type === 'warning' &&
-          'bg-yellow-50! dark:bg-yellow-300/20! text-yellow-700 dark:text-yellow-200',
+            'bg-yellow-50! dark:bg-yellow-300/20! text-yellow-700 dark:text-yellow-200',
           type === 'error' &&
-          'bg-red-100! dark:bg-red-800/80! border-red-200! dark:border-red-600! border-2! text-red-800 dark:text-red-200'
+            'bg-red-100! dark:bg-red-800/80! border-red-200! dark:border-red-600! border-2! text-red-800 dark:text-red-200'
         )}
       >
         <div className="w-full flex items-center py-1.5 px-2.5">
