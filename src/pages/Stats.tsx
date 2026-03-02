@@ -58,6 +58,7 @@ export default function Stats() {
             zIndex: '1',
             borderRadius: '15px'
           }}
+          className='invert-100 dark:invert-0'
           src={DASHBOARD_URL}
         ></iframe>
       </Stack>
