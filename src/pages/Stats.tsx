@@ -31,7 +31,6 @@ import { META_TAGS } from '../core/meta'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 
 export default function Stats() {
-
   return (
     <Container maxWidth="lg">
       <Helmet>
