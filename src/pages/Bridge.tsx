@@ -173,6 +173,11 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
                 Zero Gas Fees between SKALE Chains
               </p>
             )}
+            {!networks.hasFeatureInAny(NETWORKS, 'sfuel') && (
+              <p className="text-xs text-secondary-foreground font-semibold">
+                Fast transfers via native SKALE Bridge.
+              </p>
+            )}
           </div>
           <div>
             <BridgeMenu />

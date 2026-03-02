@@ -32,6 +32,7 @@ import { walletClientToSigner } from './ethers'
 import { enforceNetwork } from './network'
 import {
   RECHARGE_MULTIPLIER,
+  MINIMUM_RECHARGE_AMOUNT,
   COMMUNITY_POOL_WITHDRAW_GAS_LIMIT,
   COMMUNITY_POOL_ESTIMATE_GAS_LIMIT,
   DEFAULT_ERROR_MSG,
@@ -87,7 +88,11 @@ export async function getCommunityPoolData(
   })
   const rraEther = units.fromWei(rraWei as string, constants.DEFAULT_ERC20_DECIMALS)
 
+  const isActive = activeM && activeS
   let recommendedAmount = helper.roundUp(parseFloat(rraEther as string) * RECHARGE_MULTIPLIER)
+  if (!isActive && recommendedAmount < MINIMUM_RECHARGE_AMOUNT) {
+    recommendedAmount = MINIMUM_RECHARGE_AMOUNT
+  }
 
   log.info('Bridge balance estimation', {
     chainName1,
@@ -101,12 +106,12 @@ export async function getCommunityPoolData(
     accountBalanceWei: accountBalanceWei.toString(),
     activeM,
     activeS,
-    exitGasOk: activeM && activeS && rraWei === 0n
+    exitGasOk: isActive && rraWei === 0n
   })
 
   const communityPoolData = {
-    exitGasOk: activeM && activeS && rraWei === 0n,
-    isActive: activeM && activeS,
+    exitGasOk: isActive && rraWei === 0n,
+    isActive,
     balance: balanceWei,
     accountBalance: accountBalanceWei,
     recommendedRechargeAmount: recommendedAmount,
