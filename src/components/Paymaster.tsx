@@ -43,6 +43,7 @@ import PricingInfo from './PricingInfo'
 import Topup from './Topup'
 import Loader from './Loader'
 import Headline from './Headline'
+import notify from '../core/notify'
 
 const DEFAULT_TOPUP_PERIOD = 3
 const APPROVE_MULTIPLIER = 2n
@@ -132,7 +133,9 @@ export default function Paymaster(props: {
           'paymaster:approve'
         )
         if (!approveRes.status) {
-          setErrorMsg(approveRes.err?.name)
+          const errMsg = approveRes.err?.name || 'Approval failed'
+          setErrorMsg(errMsg)
+          notify.permanentError(errMsg)
           return
         }
         setBtnText('Sending transaction...')
@@ -144,13 +147,18 @@ export default function Paymaster(props: {
         'paymaster:'
       )
       if (!res.status) {
-        setErrorMsg(res.err?.name)
+        const errMsg = res.err?.name || 'Top-up transaction failed'
+        setErrorMsg(errMsg)
+        notify.permanentError(errMsg)
         return
       }
+      notify.temporarySuccess('Chain top-up completed')
       await loadPaymasterInfo()
     } catch (e: any) {
       console.error(e)
-      setErrorMsg(e.toString())
+      const errMsg = e.toString()
+      setErrorMsg(errMsg)
+      notify.permanentError(errMsg)
     } finally {
       setLoading(false)
       setBtnText(undefined)

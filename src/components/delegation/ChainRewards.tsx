@@ -44,6 +44,7 @@ import { Blocks, CalendarArrowDown, CircleStar } from 'lucide-react'
 import Headline from '../Headline'
 import ErrorTile from '../ErrorTile'
 import SkStack from '../SkStack'
+import notify from '../../core/notify'
 
 interface ChainRewardsProps {
   mpc: MetaportCore
@@ -169,13 +170,18 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
 
       const res = await sendTransaction(signer, paymaster.claim, [address], 'paymaster:claim')
       if (!res.status) {
-        setErrorMsg(res.err?.name)
+        const errMsg = res.err?.name || 'Retrieve rewards failed'
+        setErrorMsg(errMsg)
+        notify.permanentError(errMsg)
         return
       }
+      notify.temporarySuccess('Staking rewards retrieved')
       await loadData()
     } catch (e: any) {
       console.error(e)
-      setErrorMsg(e.toString())
+      const errMsg = e.toString()
+      setErrorMsg(errMsg)
+      notify.permanentError(errMsg)
     } finally {
       setLoading(false)
       setBtnText(undefined)

@@ -26,6 +26,7 @@ import { Logger, type ILogObj } from 'tslog'
 import { useWagmiAccount, type MetaportCore, Station } from '@skalenetwork/metaport'
 import { DEFAULT_MIN_SFUEL_WEI, SFUEL_CHECK_INTERVAL } from './core/constants'
 import { types } from '@/core'
+import notify from './core/notify'
 
 const log = new Logger<ILogObj>({ name: 'useSFuel' })
 
@@ -122,8 +123,10 @@ export function usesFuel(mpc: MetaportCore) {
 
     if (errorOccurred) {
       log.error('sFuel mining encountered errors on one or more chains')
+      notify.permanentError('sFUEL mining failed on some chains')
     } else {
       log.info('sFuel mining completed successfully on all required chains')
+      notify.temporarySuccess('sFUEL recharged on all chains')
     }
 
     setState((prev) => ({

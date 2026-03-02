@@ -34,11 +34,8 @@ import {
 } from '@skalenetwork/metaport'
 import { constants } from '@/core'
 import Button from '@mui/material/Button'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
-import DoDisturbOnRoundedIcon from '@mui/icons-material/DoDisturbOnRounded'
-import ToggleOnRoundedIcon from '@mui/icons-material/ToggleOnRounded'
-import ToggleOffRoundedIcon from '@mui/icons-material/ToggleOffRounded'
 import { Badge, BadgeCheck, ToggleLeft, ToggleRight } from 'lucide-react'
+import notify from '../../core/notify'
 
 interface CreditStationStatusTileProps {
   mpc: MetaportCore
@@ -100,9 +97,11 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
 
       await sendTransaction(signer, method, [], `creditStation:${action}`)
 
+      notify.temporarySuccess(`Credit station ${action}d`)
       await loadPausedStatus()
     } catch (error) {
       setErrorMsg('Transaction failed')
+      notify.permanentError('Transaction failed')
     } finally {
       setLoading(false)
     }

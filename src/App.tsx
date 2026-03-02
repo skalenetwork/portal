@@ -24,6 +24,7 @@
 import { Helmet } from 'react-helmet'
 import { MetaportProvider, getMetaportTheme } from '@skalenetwork/metaport'
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
+import { Toaster } from 'sonner'
 
 import Portal from './Portal'
 
@@ -53,6 +54,7 @@ export default function App() {
             <div className="app-shell">
               <Portal />
             </div>
+            <Toaster position="bottom-right" richColors closeButton className="rounded-full!" />
           </MetaportProvider>
         </ThemeProvider>
       </StyledEngineProvider>

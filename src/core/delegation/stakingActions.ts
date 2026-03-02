@@ -24,6 +24,7 @@
 import { type Signer } from 'ethers'
 import { sendTransaction, contracts } from '@skalenetwork/metaport'
 import { type types } from '@/core'
+import notify from '../notify'
 
 export type LoadingState = types.st.IRewardInfo | types.st.IDelegationInfo | false
 export type SetLoadingFn = (state: LoadingState) => void
@@ -72,14 +73,19 @@ async function processTx({
       `${txName}:${delegationType}`
     )
     if (!res.status) {
-      props.setErrorMsg(res.err?.name)
+      const errMsg = res.err?.name || 'Transaction failed'
+      props.setErrorMsg(errMsg)
+      notify.permanentError(errMsg)
     } else {
       props.setErrorMsg(undefined)
+      notify.temporarySuccess(`${txName} completed`)
       await props.postAction()
     }
   } catch (err: any) {
     console.error(err)
-    props.setErrorMsg(err.message || 'Transaction failed')
+    const errMsg = err.message || 'Transaction failed'
+    props.setErrorMsg(errMsg)
+    notify.permanentError(errMsg)
   } finally {
     props.setLoading(false)
   }

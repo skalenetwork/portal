@@ -45,6 +45,7 @@ import SkStack from '../SkStack'
 import { useState } from 'react'
 import Headline from '../Headline'
 import { Bolt, Coins } from 'lucide-react'
+import notify from '../../core/notify'
 
 interface TokenAdminTileProps {
   mpc: MetaportCore
@@ -115,6 +116,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
       'creditStation:setPrice'
     )
 
+    notify.temporarySuccess(`Price updated for ${symbol.toUpperCase()}`)
     await loadTokenPrices()
     setLoading(false)
     setOpenModal(false)

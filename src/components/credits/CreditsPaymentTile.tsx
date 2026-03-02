@@ -43,6 +43,7 @@ import {
 import { types, metadata, constants, timeUtils, helper, units } from '@/core'
 
 import SkStack from '../SkStack'
+import notify from '../../core/notify'
 
 import * as cs from '../../core/credit-station'
 import {
@@ -96,7 +97,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
         if (!provider) return
         const block = await provider.getBlock(payment.blockNumber)
         if (block) setTxTimestamp(block.timestamp)
-      } catch (error) {}
+      } catch (error) { }
     }
     fetchTimestamp()
   }, [creditStation, payment])
@@ -106,7 +107,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
     const checkFulfillment = async () => {
       try {
         setIsFulfilled(await ledgerContract.isFulfilled(payment.id))
-      } catch (error) {}
+      } catch (error) { }
     }
     checkFulfillment()
     const interval = setInterval(checkFulfillment, 10000)
@@ -141,11 +142,16 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
         units.toWei(DEFAULT_CREDITS_AMOUNT.toString(), constants.DEFAULT_ERC20_DECIMALS)
       )
       if (!res.status) {
-        setErrorMsg?.(res.err?.name)
+        const errMsg = res.err?.name || 'Fulfill payment failed'
+        setErrorMsg?.(errMsg)
+        notify.permanentError(errMsg)
         return
       }
+      notify.temporarySuccess('Payment fulfilled')
     } catch (e: any) {
-      setErrorMsg?.(e.toString())
+      const errMsg = e.toString()
+      setErrorMsg?.(errMsg)
+      notify.permanentError(errMsg)
     } finally {
       setLoading(false)
     }
