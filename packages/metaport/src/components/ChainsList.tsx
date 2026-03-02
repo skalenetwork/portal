@@ -23,6 +23,7 @@ export default function ChainsList(props: {
   size?: 'sm' | 'md'
   destChains?: string[]
   balance: React.ReactNode | null
+  onSwap?: () => void
 }) {
   const [open, setOpen] = React.useState(false)
 
@@ -36,6 +37,10 @@ export default function ChainsList(props: {
 
   function handle(schainName: string) {
     handleClose()
+    if (schainName === props.disabledChain) {
+      props.onSwap?.()
+      return
+    }
     props.setChain(schainName)
   }
 
@@ -109,7 +114,7 @@ export default function ChainsList(props: {
                     chainName={name}
                     chainsMeta={CHAINS_META[props.config.skaleNetwork]}
                     onClick={() => handle(name)}
-                    disabled={name === props.disabledChain}
+                    disabled={name === props.disabledChain && !props.onSwap}
                     from={props.from}
                   />
                 </div>

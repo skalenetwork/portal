@@ -260,6 +260,11 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
     set(result)
   },
 
+  swapChains: async () => {
+    const result = await get().mpc.chainChanged(get().chainName2, get().chainName1, get().token)
+    set(result)
+  },
+
   addressChanged: () => {
     if (get().currentStep !== 0) {
       get().setTransfersHistory([

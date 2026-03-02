@@ -57,6 +57,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
   const chainName2 = useMetaportStore((state) => state.chainName2)
   const setChainName1 = useMetaportStore((state) => state.setChainName1)
   const setChainName2 = useMetaportStore((state) => state.setChainName2)
+  const swapChains = useMetaportStore((state) => state.swapChains)
 
   const mpc = useMetaportStore((state) => state.mpc)
   const tokenBalances = useMetaportStore((state) => state.tokenBalances)
@@ -95,6 +96,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
             disabled={transferInProgress}
             from={true}
             size="md"
+            onSwap={swapChains}
             balance={
               token ? (
                 <TokenBalance
@@ -125,6 +127,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
             disabledChain={chainName1}
             disabled={transferInProgress}
             size="md"
+            onSwap={swapChains}
             balance={<DestTokenBalance />}
           />
         </SkPaper>

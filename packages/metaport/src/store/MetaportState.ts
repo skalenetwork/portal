@@ -73,6 +73,7 @@ export interface MetaportState {
 
   setChainName1: (name: string, customToken?: dc.TokenData) => void
   setChainName2: (name: string, customToken?: dc.TokenData) => void
+  swapChains: () => Promise<void>
 
   addressChanged: () => void
 
