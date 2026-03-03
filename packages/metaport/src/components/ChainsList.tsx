@@ -54,9 +54,7 @@ export default function ChainsList(props: {
           className="flex items-center w-full p-2 hover:bg-muted-foreground/10!"
           onClick={handleOpen}
           disabled={props.disabled}
-          endIcon={
-            <ChevronDown size={17} className="text-secondary-foreground mr-2" />
-          }
+          endIcon={<ChevronDown size={17} className="text-secondary-foreground mr-2" />}
         >
           {props.chain ? (
             <div className="flex w-full items-center ">
@@ -72,16 +70,16 @@ export default function ChainsList(props: {
           ) : (
             <div className="flex items-center grow mt-5 mb-5 ml-5">
               <div className="flex items-center justify-center mr-2.5">
-                <ChainIcon skaleNetwork={props.config.skaleNetwork} chainName={props.chain} chainsMeta={CHAINS_META[props.config.skaleNetwork]} />
+                <ChainIcon
+                  skaleNetwork={props.config.skaleNetwork}
+                  chainName={props.chain}
+                  chainsMeta={CHAINS_META[props.config.skaleNetwork]}
+                />
               </div>
-              <p className="flex text-md font-bold text-foreground! mr-2.5">
-                Loading chains...
-              </p>
+              <p className="flex text-md font-bold text-foreground! mr-2.5">Loading chains...</p>
             </div>
           )}
-          <div className='mr-0.5'>
-            {props.balance}
-          </div>
+          <div className="mr-0.5">{props.balance}</div>
         </Button>
       </div>
 
@@ -96,16 +94,13 @@ export default function ChainsList(props: {
           <div className="flex mb-5">
             <div className="grow"></div>
             <SkPaper gray>
-              <p
-                className="text-base text-foreground font-bold mt-1.5 mb-1.5 ml-5 mr-5 flex items-center text-center">
+              <p className="text-base text-foreground font-bold mt-1.5 mb-1.5 ml-5 mr-5 flex items-center text-center">
                 {modalTitle}
               </p>
             </SkPaper>
             <div className="grow"></div>
           </div>
-          <div
-            className={`mb-2.5 mr-2.5 ml-2.5 ${styles.bridgeModalScroll}`}
-          >
+          <div className={`mb-2.5 mr-2.5 ml-2.5 ${styles.bridgeModalScroll}`}>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {schainNames.map((name) => (
                 <div key={name} className="col-span-1 h-full">

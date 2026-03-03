@@ -75,6 +75,7 @@
       "version": "4.2.0",
       "dependencies": {
         "@/core": "workspace:*",
+        "boring-avatars": "^2.0.4",
         "lucide-react": "^0.554.0",
         "react-jazzicon": "^1.0.4",
         "tslog": "^4.9.3",

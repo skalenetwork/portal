@@ -42,6 +42,10 @@ export const META_TAGS = {
     description:
       'SKALE Bridge transfers history - detailed overview of past transactions and links to block explorers.'
   },
+  bridgeBalance: {
+    title: 'SKALE Portal - Bridge Balance',
+    description: 'Manage your ETH bridge balance used for gas fees on Ethereum Mainnet transfers.'
+  },
   portfolio: {
     title: 'SKALE Portal - Portfolio',
     description: 'Assets overview across all SKALE Chains.'

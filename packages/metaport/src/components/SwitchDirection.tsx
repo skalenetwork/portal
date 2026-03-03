@@ -53,12 +53,11 @@ export default function SwitchDirection() {
       <div
         className="flex justify-center items-center bg-background! p-2.5 -my-5 z-30 rounded-full"
         ref={myElement}
-
       >
         <IconButton
           size="medium"
           color="primary"
-          className='bg-foreground!'
+          className="bg-foreground!"
           style={{
             backgroundColor: metaportTheme.primary,
             borderColor: metaportTheme.background,
@@ -67,7 +66,7 @@ export default function SwitchDirection() {
           disabled={loading || transferInProgress}
           onClick={doSwitch}
         >
-          <ArrowDown className='text-accent' size={17} />
+          <ArrowDown className="text-accent" size={17} />
         </IconButton>
       </div>
       <div className="flex grow"></div>

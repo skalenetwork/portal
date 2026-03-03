@@ -200,11 +200,18 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
       })
       try {
         const stepMetadata = get().stepsMetadata[get().currentStep]
-        const ActionClass: ActionConstructor = ACTIONS[stepMetadata.type]
+
+        let checkStep = stepMetadata
+        if (stepMetadata.type === dc.ActionType.recharge) {
+          const nextStep = get().stepsMetadata[get().currentStep + 1]
+          if (nextStep) checkStep = nextStep
+        }
+
+        const ActionClass: ActionConstructor = ACTIONS[checkStep.type]
         const action = await (ActionClass.create as any)(
           get().mpc,
-          stepMetadata.from,
-          stepMetadata.to,
+          checkStep.from,
+          checkStep.to,
           address,
           amount,
           get().tokenId,
@@ -266,7 +273,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
   },
 
   addressChanged: () => {
-    if (get().currentStep !== 0) {
+    if (get().transferInProgress) {
       get().setTransfersHistory([
         ...get().transfersHistory,
         {

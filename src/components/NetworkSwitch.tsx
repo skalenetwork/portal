@@ -47,10 +47,7 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
 
   return (
     <div>
-      <Box
-        sx={{ alignItems: 'center', textAlign: 'center', display: 'flex' }}
-        className="ml-1.5"
-      >
+      <Box sx={{ alignItems: 'center', textAlign: 'center', display: 'flex' }} className="ml-1.5">
         <Tooltip arrow title="Switch SKALE Network">
           <Button
             onClick={handleClick}

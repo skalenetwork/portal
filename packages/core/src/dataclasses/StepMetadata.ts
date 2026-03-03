@@ -35,7 +35,8 @@ export enum ActionType {
   eth_m2s = 'eth_m2s',
   eth_s2m = 'eth_s2m',
   eth_s2s = 'eth_s2s',
-  eth_unlock = 'eth_unlock'
+  eth_unlock = 'eth_unlock',
+  recharge = 'recharge'
 }
 
 export function getActionType(
@@ -67,7 +68,7 @@ export abstract class StepMetadata {
     public type: ActionType,
     public from: string,
     public to: string
-  ) {}
+  ) { }
 }
 
 export class TransferStepMetadata extends StepMetadata {
@@ -120,5 +121,20 @@ export class UnlockStepMetadata extends StepMetadata {
     public to: string
   ) {
     super(ActionType.eth_unlock, from, to)
+  }
+}
+
+export class RechargeStepMetadata extends StepMetadata {
+  headline: string = 'Top up bridge balance on'
+  text: string = 'Gas deposit required to cover the cost of delivering your transfer.'
+  btnText: string = 'Top up'
+  btnLoadingText: string = 'Topping up bridge balance'
+  onSource: boolean = false
+
+  constructor(
+    public from: string,
+    public to: string
+  ) {
+    super(ActionType.recharge, from, to)
   }
 }

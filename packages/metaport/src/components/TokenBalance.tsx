@@ -55,7 +55,7 @@ export default function TokenBalance(props: {
           `}
       >
         <div className="mr-1.5"></div>
-        <span className='whitespace-nowrap'>
+        <span className="whitespace-nowrap">
           {balance} {props.symbol}
         </span>
       </p>
