@@ -41,26 +41,29 @@ import { useBridgeBalanceStore } from '../store/BridgeBalanceStore'
 import { useMetaportStore } from '../store/MetaportStore'
 import SkPaper from './SkPaper'
 import ChainIcon from './ChainIcon'
-import TokenIcon from './TokenIcon'
 import Tile from './Tile'
 import {
-  ArrowDown,
   ChevronDown,
+  ChevronsDown,
   ChevronUp,
   CircleCheck,
   Coins,
-  ThumbsUp,
   TriangleAlert,
   Wallet
 } from 'lucide-react'
 import { useThemeMode } from './ThemeProvider'
+import TokenIcon from './TokenIcon'
 
 function formatBalance(value: bigint | null | undefined): string {
   if (value === undefined || value === null) return ''
   return `${units.truncateDecimals(units.formatBalance(value, constants.DEFAULT_ERC20_DECIMALS), COMMUNITY_POOL_DECIMALS)} ETH`
 }
 
-export default function BridgeBalanceCard(props: { chainName: string; showHeader?: boolean }) {
+export default function BridgeBalanceCard(props: {
+  chainName: string
+  showHeader?: boolean
+  defaultExpanded?: boolean
+}) {
   const { address, chainId } = useAccount()
   const { data: walletClient } = useWalletClient({ chainId })
   const { switchChainAsync } = useSwitchChain()
@@ -75,7 +78,9 @@ export default function BridgeBalanceCard(props: { chainName: string; showHeader
 
   const { mode } = useThemeMode()
 
-  const [expanded, setExpanded] = React.useState(!props.showHeader)
+  const [expanded, setExpanded] = React.useState(
+    props.defaultExpanded ?? !props.showHeader
+  )
 
   const skaleNetwork = mpc.config.skaleNetwork
   const chainsMeta = CHAINS_META[skaleNetwork]
@@ -110,10 +115,11 @@ export default function BridgeBalanceCard(props: { chainName: string; showHeader
   function getRechargeBtnText() {
     if (loading === 'recharge') return 'Topping up...'
     if (loading === 'activate') return 'Activating...'
-    if (Number(amount) > Number(accountBalanceEther)) return 'Insufficient ETH balance'
+    if (Number(amount) > Number(accountBalanceEther))
+      return `Low balance: ${units.truncateDecimals(accountBalanceEther!, COMMUNITY_POOL_DECIMALS)} ETH`
     if (amount === '' || amount === '0' || !amount) return 'Enter an amount'
     if (Number(amount) < MINIMUM_RECHARGE_AMOUNT) return `Min ${MINIMUM_RECHARGE_AMOUNT}`
-    return 'Top up'
+    return `Top up ${amount} ETH`
   }
 
   function getWithdrawBtnText() {
@@ -163,14 +169,7 @@ export default function BridgeBalanceCard(props: { chainName: string; showHeader
   const skeleton = (
     <div className="animate-pulse">
       <div className="h-12 rounded-xl bg-secondary-foreground/10 mb-4" />
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
-        <div className="h-20 rounded-lg bg-secondary-foreground/10" />
-        <div className="h-20 rounded-lg bg-secondary-foreground/10" />
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 mt-4">
-        <div className="h-20 rounded-lg bg-secondary-foreground/10" />
-        <div className="h-20 rounded-lg bg-secondary-foreground/10" />
-      </div>
+      <div className="h-20 rounded-lg bg-secondary-foreground/10" />
       <div className="flex gap-2.5 mt-4">
         <div className="grow h-12 rounded-full bg-secondary-foreground/10" />
         <div className="w-32 h-12 rounded-full bg-secondary-foreground/10" />
@@ -181,7 +180,7 @@ export default function BridgeBalanceCard(props: { chainName: string; showHeader
   const content = isLoaded ? (
     <div>
       <div
-        className={`flex items-center gap-3 mb-4 py-3.5 px-4 rounded-xl ${cpData.exitGasOk ? 'bg-emerald-500/10' : 'bg-amber-500/10'}`}
+        className={`flex items-center gap-3 mb-2.5 py-3.5 px-4 rounded-xl ${cpData.exitGasOk ? 'bg-emerald-500/10' : 'bg-amber-500/10'}`}
       >
         <div
           className={`flex items-center justify-center rounded-full p-1.5 ${cpData.exitGasOk ? 'bg-emerald-500/15' : 'bg-amber-500/15'}`}
@@ -198,35 +197,33 @@ export default function BridgeBalanceCard(props: { chainName: string; showHeader
           {cpData.exitGasOk ? 'Bridge balance OK' : 'Top up bridge balance'}
         </p>
       </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5">
-        <div className="col-span-1">
-          <Tile
-            text="ETH Balance"
-            className={styles.inputAmount}
-            icon={<TokenIcon tokenSymbol="eth" size="xs" />}
-            grow
-            size="md"
-            value={formatBalance(cpData.accountBalance)}
-          />
-        </div>
-        <div className="col-span-1">
-          <Tile
-            grow
-            text="Bridge Balance"
-            size="md"
-            value={formatBalance(cpData.balance)}
-            icon={<Wallet size={14} />}
-          />
-        </div>
-      </div>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-2.5 mt-4">
-        <div className="col-span-1">
-          <Tile
-            grow
-            text="Enter amount"
-            className={`${styles.inputAmount} ${mode === 'light' && styles.inputAmountLight}`}
-            children={
-              <div className="flex items-center amountInput [&_input]:!text-xl">
+      <Tile
+        grow
+        text="Bridge Balance"
+        size="lg"
+        value={formatBalance(cpData.balance)}
+        icon={<Wallet size={14} />}
+        childrenRi={(cpData.balance !== 0n || loading === 'withdraw') && (
+          <Button
+            variant="contained"
+            size="small"
+            className="normal-case! text-sm font-semibold py-2.5! px-4! rounded shadow-none bg-amber-500/10! text-amber-600! dark:text-amber-400! disabled:bg-secondary-foreground/5! disabled:text-muted-foreground! flex! items-center! gap-2!"
+            onClick={withdrawCP}
+            startIcon={<ChevronsDown size={16} />}
+            disabled={!!loading || cpData.balance === 0n}
+          >
+            {getWithdrawBtnText()}
+          </Button>
+        )}
+      />
+      <Tile
+        grow
+        text="Top up amount"
+        className={`mt-2.5 ${styles.inputAmount} ${mode === 'light' && styles.inputAmountLight}`}
+        children={
+          <div className='flex items-center mt-1 -m-2'>
+            <div className='bg-card/80 p-2 rounded-lg pl-4 grow'>
+              <div className="flex items-center amountInput [&_input]:text-2xl!">
                 <div className="grow">
                   <TextField
                     inputProps={{ step: '0.1', lang: 'en-US' }}
@@ -239,41 +236,16 @@ export default function BridgeBalanceCard(props: { chainName: string; showHeader
                     style={{ width: '100%' }}
                   />
                 </div>
-                <div className="text-lg font-bold text-foreground mr-2.5">ETH</div>
+
               </div>
-            }
-            icon={<ArrowDown size={14} />}
-          />
-        </div>
-        <div className="col-span-1">
-          <Tile
-            disabled={!!loading}
-            value={
-              cpData.recommendedRechargeAmount !== undefined
-                ? String(cpData.recommendedRechargeAmount)
-                : ''
-            }
-            text="Recommended"
-            icon={<ThumbsUp size={14} />}
-            grow
-            className="h-full!"
-            childrenRi={
-              <div className="flex items-center">
-                <Button
-                  className="bg-secondary-foreground/10! flex items-center! text-[10px]! py-1! px-3! min-w-0! text-foreground! mr-2!"
-                  onClick={() => {
-                    if (!cpData.recommendedRechargeAmount) return
-                    setAmount(props.chainName, String(cpData.recommendedRechargeAmount))
-                  }}
-                >
-                  Add
-                </Button>
-              </div>
-            }
-          />
-        </div>
-      </div>
-      <div className="flex gap-2.5 mt-4">
+            </div>
+            <TokenIcon tokenSymbol='eth' className='ml-2.5' />
+            <div className="text-xl font-bold text-foreground ml-1.5 mr-2.5">ETH</div>
+          </div>
+        }
+        icon={<Coins size={14} />}
+      />
+      <div className="flex gap-2.5 mt-2.5">
         <Button
           variant="contained"
           className="grow btnMd normal-case! text-sm font-semibold text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50! py-3.5 px-4 rounded shadow-none flex! items-center! gap-2!"
@@ -291,17 +263,6 @@ export default function BridgeBalanceCard(props: { chainName: string; showHeader
         >
           {getRechargeBtnText()}
         </Button>
-        {(cpData.balance !== 0n || loading === 'withdraw') && (
-          <Button
-            variant="contained"
-            size="small"
-            className="normal-case! text-sm font-semibold py-3.5! px-4! rounded shadow-none bg-secondary-foreground/10! text-foreground! disabled:bg-secondary-foreground/5! disabled:text-muted-foreground! flex! items-center! gap-2!"
-            onClick={withdrawCP}
-            disabled={!!loading || cpData.balance === 0n}
-          >
-            {getWithdrawBtnText()}
-          </Button>
-        )}
       </div>
     </div>
   ) : (
@@ -321,22 +282,37 @@ export default function BridgeBalanceCard(props: { chainName: string; showHeader
           <ChainIcon skaleNetwork={skaleNetwork} chainName={props.chainName} size="sm" />
           <div>
             <p className="text-sm font-semibold text-foreground m-0">{alias}</p>
-            <p className="text-xs text-muted-foreground m-0 mt-0.5">
+            <p className="text-xs text-muted-foreground font-bold m-0 mt-0.5">
               {isLoaded ? formatBalance(cpData.balance) : 'Loading...'}
             </p>
           </div>
         </div>
         <div className="flex items-center gap-2">
-          {isLoaded ? (
-            cpData.exitGasOk ? (
-              <CircleCheck size={16} className="text-emerald-500" />
+          {!expanded &&
+            (isLoaded ? (
+              cpData.exitGasOk ? (
+                <div className="flex items-center gap-1.5 rounded-full py-1 px-2.5 bg-emerald-500/10">
+                  <CircleCheck size={13} className="text-emerald-500" />
+                  <span className="text-[11px] font-semibold text-emerald-600 dark:text-emerald-400">
+                    OK
+                  </span>
+                </div>
+              ) : (
+                <div className="flex items-center gap-1.5 rounded-full py-1 px-2.5 bg-amber-500/10">
+                  <TriangleAlert size={13} className="text-amber-500" />
+                  <span className="text-[11px] font-semibold text-amber-600 dark:text-amber-400">
+                    Top up
+                  </span>
+                </div>
+              )
             ) : (
-              <TriangleAlert size={16} className="text-amber-500" />
-            )
+              <div className="w-4 h-4 rounded-full bg-secondary-foreground/20 animate-pulse" />
+            ))}
+          {expanded ? (
+            <ChevronUp size={17} className="text-secondary-foreground" />
           ) : (
-            <div className="w-4 h-4 rounded-full bg-secondary-foreground/20 animate-pulse" />
+            <ChevronDown size={17} className="text-secondary-foreground" />
           )}
-          {expanded ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
         </div>
       </button>
       {expanded && <div className="pt-2">{content}</div>}

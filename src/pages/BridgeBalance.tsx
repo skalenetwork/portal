@@ -79,8 +79,13 @@ export default function BridgeBalance() {
             </SkPaper>
           ) : (
             <div className="mt-6">
-              {chainNames.map((chainName) => (
-                <BridgeBalanceCard key={chainName} chainName={chainName} showHeader />
+              {chainNames.map((chainName, index) => (
+                <BridgeBalanceCard
+                  key={chainName}
+                  chainName={chainName}
+                  showHeader
+                  defaultExpanded={index === 0}
+                />
               ))}
             </div>
           )

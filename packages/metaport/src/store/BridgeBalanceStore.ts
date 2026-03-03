@@ -105,16 +105,24 @@ export const useBridgeBalanceStore = create<BridgeBalanceState>()((set, get) => 
       sChain
     )
 
-    set((state) => ({
-      accountBalance: cpData.accountBalance ?? state.accountBalance,
-      chains: {
-        ...state.chains,
-        [chainName]: {
-          ...state.chains[chainName],
-          cpData
+    set((state) => {
+      const current = state.chains[chainName]
+      const amount =
+        !current?.amount && cpData.recommendedRechargeAmount
+          ? String(cpData.recommendedRechargeAmount)
+          : current?.amount ?? ''
+      return {
+        accountBalance: cpData.accountBalance ?? state.accountBalance,
+        chains: {
+          ...state.chains,
+          [chainName]: {
+            ...current,
+            cpData,
+            amount
+          }
         }
       }
-    }))
+    })
   },
 
   updateAllChains: async (address: string, chainNames: string[], mpc: MetaportCore) => {
