@@ -23,20 +23,21 @@
 
 import { Helmet } from 'react-helmet'
 import { useEffect, useState } from 'react'
-import { useSearchParams } from 'react-router-dom'
+import { useSearchParams, Link } from 'react-router-dom'
 
-import { useMetaportStore, SkPaper, TransactionData, useWagmiAccount } from '@skalenetwork/metaport'
+import { useMetaportStore, SkPaper, TransactionData, useWagmiAccount, History } from '@skalenetwork/metaport'
 import { type types, dc, networks } from '@/core'
 
-import Container from '@mui/material/Container'
-import Stack from '@mui/material/Stack'
+import { Container, Stack, Button } from '@mui/material'
 
 import BridgeBody from '../components/BridgeBody'
+import Headline from '../components/Headline'
 
 import { META_TAGS } from '../core/meta'
 import Meson from '../components/Meson'
 import { NETWORKS } from '../core/constants'
 import BridgeMenu from '../components/BridgeMenu'
+import { HistoryIcon } from 'lucide-react'
 
 interface TokenParams {
   keyname: string | null
@@ -66,6 +67,7 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
     tokens,
     setToken,
     transactionsHistory,
+    transfersHistory,
     addressChanged
   } = useMetaportStore((state) => state)
 
@@ -186,6 +188,27 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
 
         <div className="mt-6">
           <BridgeBody chainsMeta={props.chainsMeta} />
+          {address && transfersHistory && transfersHistory.length > 0 && (
+            <div className="max-md:hidden mt-5">
+              <div className="flex items-center mb-2.5 mt-5 pt-5">
+                <Headline
+                  text="Past Transfers"
+                  icon={<HistoryIcon size={17} />}
+                  size="small"
+                />
+                <Link to="/bridge/history">
+                  <Button className="btn btnSm bg text-foreground! bg-card!">See all</Button>
+                </Link>
+              </div>
+              <History
+                limit={2}
+                summaryOnly
+                hideCurrent
+                className="gap-2.5"
+                itemClassName="mb-0!"
+              />
+            </div>
+          )}
           {transactionsHistory.length !== 0 ? (
             <div>
               <p className="text-base text-foreground font-bold mt-5 mb-2.5">
@@ -206,7 +229,7 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
       </Stack>
       <Meson
         chainsMeta={props.chainsMeta}
-        className="mt-5"
+        className="mt-5 max-md:mt-10"
         skaleNetwork={mpc.config.skaleNetwork}
       />
     </Container>
