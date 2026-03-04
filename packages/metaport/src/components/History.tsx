@@ -33,7 +33,6 @@ import Avatar from 'boring-avatars'
 import { metadata } from '@/core'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
-import useMediaQuery from '@mui/material/useMediaQuery'
 
 import { useMetaportStore } from '../store/MetaportStore'
 import { CHAINS_META } from '../core/metadata'
@@ -67,7 +66,6 @@ export default function History(props: {
 
   const mpc = useMetaportStore((state) => state.mpc)
 
-  const isMobile = useMediaQuery('(max-width: 767px)')
   const summaryOnly = props.summaryOnly ?? props.size === 'sm'
   const size = props.size ?? 'sm'
   const network = mpc.config.skaleNetwork
@@ -77,7 +75,7 @@ export default function History(props: {
   if (transactionsHistory.length === 0 && transfersHistory.length === 0) return
   return (
     <div
-      className={`${props.className ?? ''} ${size === 'sm' ? (isMobile ? 'flex flex-col gap-2' : 'grid grid-cols-2 gap-2') : ''}`}
+      className={`${props.className ?? ''} ${size === 'sm' ? 'flex flex-col gap-2 md:grid md:grid-cols-2' : ''}`}
     >
       {transactionsHistory.length !== 0 && !props.hideCurrent && (
         <div className="mb-2.5 bg-card! rounded-3xl p-4">
@@ -114,7 +112,14 @@ export default function History(props: {
                     <p
                       className={`${size === 'sm' ? 'text-sm' : 'text-lg'} font-bold text-foreground uppercase`}
                     >
-                      {size === 'sm' && !isMobile ? shortenValue(transfer.amount) : transfer.amount}{' '}
+                      {size === 'sm' ? (
+                        <>
+                          <span className="max-md:hidden">{shortenValue(transfer.amount)}</span>
+                          <span className="md:hidden">{transfer.amount}</span>
+                        </>
+                      ) : (
+                        transfer.amount
+                      )}{' '}
                       {transfer.tokenKeyname}
                     </p>
                   </Tooltip>
@@ -131,13 +136,13 @@ export default function History(props: {
                     chainName={transfer.chainName1}
                     network={network}
                     chainsMeta={chainsMeta}
-                    short={size === 'sm' && !isMobile}
+                    responsive={size === 'sm'}
                   />
                   <ChainRow
                     chainName={transfer.chainName2}
                     network={network}
                     chainsMeta={chainsMeta}
-                    short={size === 'sm' && !isMobile}
+                    responsive={size === 'sm'}
                   />
                 </div>
               </div>
@@ -213,6 +218,7 @@ function ChainRow(props: {
   network: types.SkaleNetwork
   chainsMeta: types.ChainsMetadataMap
   short?: boolean
+  responsive?: boolean
 }) {
   return (
     <div className="flex items-center gap-1.5">
@@ -222,9 +228,20 @@ function ChainRow(props: {
         size="xs"
         chainsMeta={props.chainsMeta}
       />
-      <span className="text-xs font-semibold text-foreground capitalize">
-        {metadata.getAlias(props.network, props.chainsMeta, props.chainName, undefined, props.short)}
-      </span>
+      {props.responsive ? (
+        <>
+          <span className="text-xs font-semibold text-foreground capitalize max-md:hidden">
+            {metadata.getAlias(props.network, props.chainsMeta, props.chainName, undefined, true)}
+          </span>
+          <span className="text-xs font-semibold text-foreground capitalize md:hidden">
+            {metadata.getAlias(props.network, props.chainsMeta, props.chainName, undefined, false)}
+          </span>
+        </>
+      ) : (
+        <span className="text-xs font-semibold text-foreground capitalize">
+          {metadata.getAlias(props.network, props.chainsMeta, props.chainName, undefined, props.short)}
+        </span>
+      )}
     </div>
   )
 }
