@@ -29,18 +29,13 @@ export default function TokenBalance(props: {
   balance: bigint
   symbol: string
   decimals?: number
-  truncate?: number
   primary?: boolean
   size?: 'xs' | 'sm' | 'md'
   mpc?: MetaportCore
 }) {
   if (props.balance === undefined || props.balance === null) return
-  let balanceFull = units.formatBalance(props.balance, props.decimals)
-  let balance = balanceFull
-  if (props.truncate) {
-    balance = units.truncateDecimals(balanceFull, props.truncate)
-  }
-  let size = props.size ?? 'xs'
+  const balanceFull = units.formatBalance(props.balance, props.decimals)
+  const size = props.size ?? 'xs'
   return (
     <Tooltip arrow title={balanceFull + ' ' + props.symbol}>
       <p
