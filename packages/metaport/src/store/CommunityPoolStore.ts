@@ -78,7 +78,7 @@ export const useCPStore = create<CommunityPoolState>()((set, get) => ({
 
     set({
       chainName: chainName1,
-      cpData: cpData,
+      cpData: cpData
     })
   }
 }))

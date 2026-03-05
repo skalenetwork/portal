@@ -51,6 +51,7 @@ import {
   TrendingUp,
   Users
 } from 'lucide-react'
+import GetSFuel from './GetSFuel'
 
 export default function SchainDetails(props: {
   chainsMeta: types.ChainsMetadataMap
@@ -187,7 +188,7 @@ export default function SchainDetails(props: {
           <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec w-full md:w-auto">
             <Button
               size="medium"
-              className="w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-muted-foreground/30! disabled:text-muted! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+              className="w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
               startIcon={<Blocks size={17} />}
             >
               Block Explorer
@@ -201,12 +202,14 @@ export default function SchainDetails(props: {
                 <CirclePlus size={17} />
               )
             }
-            className="w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-muted-foreground/30! disabled:text-muted! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+            className="w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
             onClick={addNetwork}
             disabled={loading}
           >
             {connectBtnText()}
           </Button>
+          
+          <GetSFuel mpc={props.mpc} chainName={props.chain.name} />
 
           {chainMeta?.url && (
             <a
@@ -217,7 +220,7 @@ export default function SchainDetails(props: {
             >
               <Button
                 size="medium"
-                className="w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-muted-foreground/30! disabled:text-muted! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+                className="w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
                 startIcon={<ExternalLink size={17} className="textd-green-600" />}
               >
                 Open Website

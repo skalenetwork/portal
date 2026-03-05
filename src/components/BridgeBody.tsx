@@ -39,15 +39,13 @@ import {
   TokenBalance,
   DestTokenBalance,
   ErrorMessage,
-  CommunityPool,
   SFuelWarning,
   WrappedTokens,
   useDisplayFunctions
 } from '@skalenetwork/metaport'
 
 export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap }) {
-  const { showFrom, showTo, showInput, showSwitch, showCP, showWT, showStepper } =
-    useDisplayFunctions()
+  const { showFrom, showTo, showInput, showSwitch, showWT, showStepper } = useDisplayFunctions()
 
   const destChains = useMetaportStore((state) => state.destChains)
 
@@ -57,6 +55,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
   const chainName2 = useMetaportStore((state) => state.chainName2)
   const setChainName1 = useMetaportStore((state) => state.setChainName1)
   const setChainName2 = useMetaportStore((state) => state.setChainName2)
+  const swapChains = useMetaportStore((state) => state.swapChains)
 
   const mpc = useMetaportStore((state) => state.mpc)
   const tokenBalances = useMetaportStore((state) => state.tokenBalances)
@@ -95,6 +94,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
             disabled={transferInProgress}
             from={true}
             size="md"
+            onSwap={swapChains}
             balance={
               token ? (
                 <TokenBalance
@@ -125,6 +125,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
             disabledChain={chainName1}
             disabled={transferInProgress}
             size="md"
+            onSwap={swapChains}
             balance={<DestTokenBalance />}
           />
         </SkPaper>
@@ -139,12 +140,6 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
       <Collapse in={showWT(address!)}>
         <SkPaper gray className="p-0!">
           <WrappedTokens />
-        </SkPaper>
-      </Collapse>
-
-      <Collapse in={showCP()}>
-        <SkPaper gray className="p-0!">
-          <CommunityPool />
         </SkPaper>
       </Collapse>
 

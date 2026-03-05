@@ -87,7 +87,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                 </ListItemButton>
               </Link>
             </ListItem>
-            <ListItem>
+            {/* <ListItem>
               <a
                 className="w-full text-foreground!"
                 target="_blank"
@@ -101,19 +101,15 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                   <ListItemText primary="Get Started" />
                 </ListItemButton>
               </a>
-            </ListItem>
+            </ListItem> */}
           </List>
           <h4 className="text-secondary-foreground text-xs font-medium mt-2.5 ml-5">Transfer</h4>
           <List>
             <ListItem>
               <Link to="/bridge" className="w-full text-foreground!">
                 <ListItemButton
-                  selected={
-                    location.pathname === '/bridge/history' || location.pathname === '/bridge'
-                  }
-                  className={getItemButtonClass(
-                    location.pathname === '/bridge/history' || location.pathname === '/bridge'
-                  )}
+                  selected={location.pathname.startsWith('/bridge')}
+                  className={getItemButtonClass(location.pathname.startsWith('/bridge'))}
                 >
                   <ListItemIcon>
                     <ArrowLeftRight className="text-foreground" size={18} />

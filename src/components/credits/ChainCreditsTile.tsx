@@ -257,7 +257,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                   size="small"
                   variant="contained"
                   startIcon={<CirclePlus size={14} />}
-                  className="btnMd ml-5 bg-accent-foreground! disabled:bg-muted-foreground/30! disabled:text-muted! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+                  className="btnMd ml-5 bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
                   onClick={() => setOpenModal(true)}
                   disabled={creditStation === undefined}
                 >
@@ -311,7 +311,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                           <Button
                             color="primary"
                             size="small"
-                            className={`items-center mr-2.5! p-4! py-3! pr-5! rounded-full! uppercase btnLg bg-muted-foreground/30! text-foreground! ease-in-out transition-transform duration-150 active:scale-[0.97] ${symbol !== token ? 'bg-card!' : ''} ${symbol !== token ? 'text-foreground!' : ''}`}
+                            className={`items-center mr-2.5! p-4! py-3! pr-5! rounded-full! uppercase btnLg bg-muted-foreground/50! text-foreground! ease-in-out transition-transform duration-150 active:scale-[0.97] ${symbol !== token ? 'bg-card!' : ''} ${symbol !== token ? 'text-foreground!' : ''}`}
                             variant="contained"
                             onClick={() => setToken(symbol)}
                           >
@@ -395,7 +395,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
           </div>
           <Button
             variant="contained"
-            className="btn mt-4! p-4! w-full capitalize! bg-accent-foreground! disabled:bg-muted-foreground/30! disabled:text-muted! text-accent!"
+            className="btn mt-4! p-4! w-full capitalize! bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent!"
             startIcon={<CoinsIcon size={17} />}
             size="large"
             onClick={buyCredits}

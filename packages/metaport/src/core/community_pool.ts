@@ -88,14 +88,30 @@ export async function getCommunityPoolData(
   })
   const rraEther = units.fromWei(rraWei as string, constants.DEFAULT_ERC20_DECIMALS)
 
+  const isActive = activeM && activeS
   let recommendedAmount = helper.roundUp(parseFloat(rraEther as string) * RECHARGE_MULTIPLIER)
-  if (recommendedAmount < MINIMUM_RECHARGE_AMOUNT && recommendedAmount !== 0) {
+  if (!isActive && recommendedAmount < MINIMUM_RECHARGE_AMOUNT) {
     recommendedAmount = MINIMUM_RECHARGE_AMOUNT
   }
 
+  log.info('Bridge balance estimation', {
+    chainName1,
+    address,
+    gasPrice: feeData.gasPrice?.toString(),
+    rraWei: rraWei.toString(),
+    rraEther,
+    multiplier: RECHARGE_MULTIPLIER,
+    recommendedAmount,
+    balanceWei: balanceWei.toString(),
+    accountBalanceWei: accountBalanceWei.toString(),
+    activeM,
+    activeS,
+    exitGasOk: isActive && rraWei === 0n
+  })
+
   const communityPoolData = {
-    exitGasOk: activeM && activeS && rraWei === 0n,
-    isActive: activeM && activeS,
+    exitGasOk: isActive && rraWei === 0n,
+    isActive,
     balance: balanceWei,
     accountBalance: accountBalanceWei,
     recommendedRechargeAmount: recommendedAmount,
@@ -117,7 +133,7 @@ export async function withdraw(
 ) {
   setLoading('withdraw')
   try {
-    log.info(`Withdrawing from community pool: ${chainName}, amount: ${amount}`)
+    log.info(`Withdrawing from bridge balance: ${chainName}, amount: ${amount}`)
     const { chainId } = await mpc.provider(constants.MAINNET_CHAIN_NAME).provider.getNetwork()
     await enforceNetwork(
       chainId,
@@ -158,7 +174,7 @@ export async function recharge(
 ) {
   setLoading('recharge')
   try {
-    log.info(`Recharging community pool: ${chainName}, amount: ${amount}`)
+    log.info(`Topping up bridge balance: ${chainName}, amount: ${amount}`)
 
     const sChain = await mpc.schain(chainName)
     const communityLocker = await sChain.communityLocker()

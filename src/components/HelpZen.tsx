@@ -36,7 +36,7 @@ export default function HelpZen() {
   }, [])
 
   return (
-    <div>
+    <div className="hidden! md:block!">
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         <IconButton
           size="small"

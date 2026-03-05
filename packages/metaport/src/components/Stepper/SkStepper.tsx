@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useWalletClient, useSwitchChain, useAccount } from 'wagmi'
 import { useAddRecentTransaction } from '@rainbow-me/rainbowkit'
-import { type types, metadata, helper, constants, dc } from '@/core'
+import { type types, metadata, helper, dc } from '@/core'
 
 import Box from '@mui/material/Box'
 import Stepper from '@mui/material/Stepper'
@@ -22,9 +22,7 @@ import { useMetaportStore } from '../../store/MetaportStore'
 import { useCPStore } from '../../store/CommunityPoolStore'
 import { SUCCESS_EMOJIS } from '../../core/constants'
 import { CHAINS_META } from '../../core/metadata'
-import { RotateCcw, Send, SendToBack } from 'lucide-react'
-
-//
+import { RotateCcw, Send, SendToBack, Coins } from 'lucide-react'
 
 export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
   const actionIconMap: Record<dc.ActionType, any> = {
@@ -37,7 +35,8 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
     eth_unlock: <Send size={17} />,
     wrap: <SendToBack size={17} />,
     unwrap: <SendToBack size={17} />,
-    unwrap_stuck: <SendToBack size={17} />
+    unwrap_stuck: <SendToBack size={17} />,
+    recharge: <Coins size={17} />
   }
 
   const { address, chainId } = useAccount()
@@ -60,10 +59,14 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
   const chainName2 = useMetaportStore((state) => state.chainName2)
   const ima2 = useMetaportStore((state) => state.ima2)
 
+  const chainName1 = useMetaportStore((state) => state.chainName1)
+
   const amount = useMetaportStore((state) => state.amount)
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
 
   const cpData = useCPStore((state) => state.cpData)
+  const updateCPData = useCPStore((state) => state.updateCPData)
+  const setCurrentStep = useMetaportStore((state) => state.setCurrentStep)
 
   const [emoji, setEmoji] = useState<string>()
   useEffect(() => {
@@ -85,57 +88,83 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
     }
   }, [transactionsHistory])
 
+  const isRechargeStep = stepsMetadata[currentStep]?.type === dc.ActionType.recharge
+  const hasRechargeStep =
+    stepsMetadata.length > 0 && stepsMetadata[0].type === dc.ActionType.recharge
+
+  useEffect(() => {
+    if (!hasRechargeStep || !address) return
+    const exitChain = stepsMetadata[0].from
+    updateCPData(address, exitChain, chainName2, mpc)
+  }, [hasRechargeStep, chainName1, chainName2, address])
+
+  useEffect(() => {
+    if (cpData.exitGasOk && currentStep === 0 && hasRechargeStep) {
+      setCurrentStep(1)
+    }
+  }, [cpData.exitGasOk, currentStep, hasRechargeStep])
+
   if (stepsMetadata.length === 0) return <div></div>
 
-  const exisGasOk = cpData.exitGasOk || chainName2 !== constants.MAINNET_CHAIN_NAME
-  const actionDisabled =
-    amountErrorMessage ||
-    loading ||
-    amount == '' ||
-    Number(amount) === 0 ||
-    (!exisGasOk && currentStep === 0)
+  const actionDisabled = isRechargeStep
+    ? loading ||
+      cpData.exitGasOk === null ||
+      !cpData.recommendedRechargeAmount ||
+      amountErrorMessage ||
+      amount == '' ||
+      Number(amount) === 0
+    : amountErrorMessage || loading || amount == '' || Number(amount) === 0
 
   const chainsMeta = CHAINS_META[props.skaleNetwork]
 
   if (stepsMetadata && stepsMetadata.length === 1 && currentStep !== stepsMetadata.length) {
     let step = stepsMetadata[0]
-    return (<div>
-      {loading ? (
-        <Button
-          disabled
-          startIcon={<AnimatedLoadingIcon />}
-          variant="contained"
-          size="medium"
-          className="btn-action p-4! w-full capitalize! bg-muted-foreground/30!"
-        >
-          {btnText}
-        </Button>
-      ) : (
-        <Button
-          startIcon={actionIconMap[step.type]}
-          variant="contained"
-          size="medium"
-          className={`
-            btn-action w-full normal-case! text-accent! p-4!
-            ${actionDisabled ? 'bg-muted-foreground/30! dark:bg-muted-foreground/10! text-muted! pointer-events-none' : 'bg-accent-foreground!'}
+    return (
+      <div>
+        {loading ? (
+          <Button
+            disabled
+            startIcon={<AnimatedLoadingIcon />}
+            variant="contained"
+            size="medium"
+            className="btn-action p-4! w-full capitalize! bg-accent-foreground/50!"
+          >
+            {btnText}
+          </Button>
+        ) : (
+          <Button
+            startIcon={actionIconMap[step.type]}
+            variant="contained"
+            size="medium"
+            className={`
+            btn-action w-full normal-case! p-4!
+
+
+
+            bg-accent-foreground! text-accent! disabled:bg-accent-foreground/50!
+            
             ease-in-out transition-transform duration-150 active:scale-[0.97]`}
-          onClick={() => execute(address, switchChainAsync, walletClient)}
-          disabled={!!actionDisabled}
-        >
-          {Number(amount) === 0 ? 'Enter an amount' : step.btnText}
-        </Button>
-      )}
-    </div>)
+            onClick={() => execute(address, switchChainAsync, walletClient)}
+            disabled={!!actionDisabled}
+          >
+            {Number(amount) === 0 ? 'Enter an amount' : step.btnText}
+          </Button>
+        )}
+      </div>
+    )
   }
 
   return (
     <Collapse in={stepsMetadata && stepsMetadata.length !== 0}>
       <Box>
         <Collapse in={currentStep !== stepsMetadata.length}>
-          <Stepper className={localStyles.stepper} activeStep={currentStep} orientation="vertical" >
+          <Stepper className={localStyles.stepper} activeStep={currentStep} orientation="vertical">
             {stepsMetadata.map((step, i) => (
-              <Step key={i} >
-                <StepLabel className={localStyles.labelStep}>
+              <Step key={i}>
+                <StepLabel
+                  className={localStyles.labelStep}
+                  style={i !== currentStep ? { filter: 'opacity(0.5) saturate(0)' } : undefined}
+                >
                   <div className="flex items-center ml-1">
                     <div className="flex items-center">
                       <h4 className="m-0 flex text-foreground">{step.headline}</h4>
@@ -148,13 +177,23 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                         />
                       </div>
                       <h4 className="m-0 flex text-foreground">
-                        {metadata.getAlias(props.skaleNetwork, chainsMeta, step.onSource ? step.from : step.to)}
+                        {metadata.getAlias(
+                          props.skaleNetwork,
+                          chainsMeta,
+                          step.onSource ? step.from : step.to
+                        )}
                       </h4>
                     </div>
                   </div>
                 </StepLabel>
                 <StepContent className="">
-                  <Box className='my-2!'>
+                  <Box className="my-2!">
+                    {step.type === dc.ActionType.recharge && (
+                      <p className="text-xs font-medium text-muted-foreground -mt-2 mb-2 ml-1">
+                        ETH deposit to cover gas for delivering your transfer on destination
+                        network.
+                      </p>
+                    )}
                     <div className="mt-2.5">
                       {loading ? (
                         <Button
@@ -162,7 +201,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                           startIcon={<AnimatedLoadingIcon />}
                           variant="contained"
                           size="medium"
-                          className="btn-action mt-1.5 p-3.5! w-full capitalize! bg-accent-foreground/30!"
+                          className="btn-action mt-1.5 p-3.5! w-full capitalize! bg-accent-foreground/50!"
                         >
                           {btnText}
                         </Button>
@@ -173,12 +212,18 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                           size="medium"
                           className={`
                             btn-action mt-1.5 w-full capitalize! text-accent! p-3.5!
-                            ${actionDisabled ? 'bg-muted-foreground/30! text-muted! pointer-events-none' : 'bg-accent-foreground!'}
+                            bg-accent-foreground! disabled:bg-accent-foreground/50!
                             ease-in-out transition-transform duration-150 active:scale-[0.97]`}
                           onClick={() => execute(address, switchChainAsync, walletClient)}
                           disabled={!!actionDisabled}
                         >
-                          {step.btnText}
+                          {step.type === dc.ActionType.recharge
+                            ? amount === '' || Number(amount) === 0
+                              ? 'Enter an amount'
+                              : cpData.recommendedRechargeAmount
+                                ? `Top up ${cpData.recommendedRechargeAmount} ETH`
+                                : step.btnText
+                            : step.btnText}
                         </Button>
                       )}
                     </div>
@@ -189,42 +234,36 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
           </Stepper>
         </Collapse>
 
-        {
-          currentStep === stepsMetadata.length && (
-            <div>
-              <div className="block">
-                <p
-                  className="text-base font-semibold text-foreground grow text-center mt-5"
-                >
-                  {emoji} Transfer completed
-                </p>
-                <p
-                  className="text-sm font-semibold text-secondary-foreground grow text-center mt-1.5"
-                >
-                  Transfer details are available in History section
-                </p>
-              </div>
-              <div className="flex flex-col md:flex-row mt-5">
-                <AddToken
-                  token={token}
-                  destChainName={chainName2}
-                  mpc={mpc}
-                  provider={ima2.provider}
-                />
-                <Button
-                  onClick={startOver}
-                  color="primary"
-                  size="medium"
-                  className="grow w-full! md:w-fit! capitalize! text-accent! bg-foreground! disabled:bg-muted-foreground/30! disabled:text-muted! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
-                  startIcon={<RotateCcw size={17} />}
-                >
-                  Start over
-                </Button>
-              </div>
-            </div >
-          )
-        }
-      </Box >
-    </Collapse >
+        {currentStep === stepsMetadata.length && (
+          <div>
+            <div className="block">
+              <p className="text-base font-semibold text-foreground grow text-center mt-5">
+                {emoji} Transfer completed
+              </p>
+              <p className="text-sm font-semibold text-secondary-foreground grow text-center mt-1.5">
+                Transfer details are available in History section
+              </p>
+            </div>
+            <div className="flex flex-col md:flex-row mt-5">
+              <AddToken
+                token={token}
+                destChainName={chainName2}
+                mpc={mpc}
+                provider={ima2.provider}
+              />
+              <Button
+                onClick={startOver}
+                color="primary"
+                size="medium"
+                className="grow w-full! md:w-fit! capitalize! text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+                startIcon={<RotateCcw size={17} />}
+              >
+                Start over
+              </Button>
+            </div>
+          </div>
+        )}
+      </Box>
+    </Collapse>
   )
 }
