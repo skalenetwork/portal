@@ -47,5 +47,10 @@ export const LOADING_BUTTON_TEXT: LoadingButtonTextMap = {
   unlock: 'Unlocking ETH',
   unlockDone: 'ETH unlocked',
   recharge: 'Topping up bridge balance',
-  rechargeDone: 'Bridge balance topped up'
+  rechargeDone: 'Bridge balance topped up',
+  trailsQuoting: 'Requesting quote…',
+  trailsCommitting: 'Committing intent…',
+  trailsDeposit: 'Sending deposit…',
+  trailsExecuting: 'Executing intent…',
+  trailsWaiting: 'Waiting for delivery…'
 }

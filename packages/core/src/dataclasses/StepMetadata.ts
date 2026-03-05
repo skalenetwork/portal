@@ -36,7 +36,9 @@ export enum ActionType {
   eth_s2m = 'eth_s2m',
   eth_s2s = 'eth_s2s',
   eth_unlock = 'eth_unlock',
-  recharge = 'recharge'
+  recharge = 'recharge',
+  trails_ext2m = 'trails_ext2m',
+  trails_ext2s = 'trails_ext2s'
 }
 
 export function getActionType(
@@ -136,5 +138,21 @@ export class RechargeStepMetadata extends StepMetadata {
     public to: string
   ) {
     super(ActionType.recharge, from, to)
+  }
+}
+
+export class TrailsTransferStepMetadata extends StepMetadata {
+  headline: string = 'Transfer via Trails to'
+  text: string = 'Cross-chain transfer routed via Trails intent protocol.'
+  btnText: string = 'Transfer'
+  btnLoadingText: string = 'Transferring via Trails'
+  onSource: boolean = false
+
+  constructor(
+    type: ActionType,
+    public from: string,
+    public to: string
+  ) {
+    super(type, from, to)
   }
 }

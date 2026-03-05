@@ -24,7 +24,17 @@
 import { Logger, type ILogObj } from 'tslog'
 import { dc, type types, constants } from '@/core'
 
+import { isExtChain } from './network'
+
 const log = new Logger<ILogObj>({ name: 'metaport:core:transfer_steps' })
+
+function isTrailsBridge(
+  config: types.mp.Config,
+  token: dc.TokenData,
+  to: string
+): boolean {
+  return token.connections[to]?.bridge === 'trails'
+}
 
 export function getStepsMetadata(
   config: types.mp.Config,
@@ -33,6 +43,23 @@ export function getStepsMetadata(
 ): dc.StepMetadata[] {
   const steps: dc.StepMetadata[] = []
   if (token === undefined || token === null || to === null || to === '') return steps
+
+  if (isTrailsBridge(config, token, to)) {
+    const isExtSource = isExtChain(token.chain)
+    const isExtDest = isExtChain(to)
+
+    if (isExtSource && !isExtDest) {
+      const isDestSChain = to !== constants.MAINNET_CHAIN_NAME
+      const actionType = isDestSChain ? dc.ActionType.trails_ext2s : dc.ActionType.trails_ext2m
+      steps.push(new dc.TrailsTransferStepMetadata(actionType, token.chain, to))
+      log.info('Trails transfer steps:', steps)
+      return steps
+    }
+
+    if (!isExtSource && isExtDest) {
+      log.info('Trails S2Ext not yet implemented, falling back to standard steps')
+    }
+  }
 
   const toChain = token.connections[to].hub ?? to
   const hubTokenOptions = config.connections[toChain][token.type][token.keyname].chains[token.chain]

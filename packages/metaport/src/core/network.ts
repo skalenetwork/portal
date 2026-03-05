@@ -26,12 +26,45 @@ import { type types, constants, endpoints, helper } from '@/core'
 
 import { WalletClient } from 'viem'
 import { type UseSwitchChainReturnType } from 'wagmi'
-import { mainnet, hoodi, holesky, base, baseSepolia, Chain } from 'wagmi/chains'
+import {
+  mainnet,
+  hoodi,
+  holesky,
+  base,
+  baseSepolia,
+  arbitrum,
+  polygon,
+  optimism,
+  Chain
+} from 'wagmi/chains'
 
 import { constructWagmiChain } from './wagmi_network'
 import { TimeoutException } from './exceptions'
 
 const log = new Logger<ILogObj>({ name: 'metaport:core:network' })
+
+export const EXT_PREFIX = 'ext-'
+
+export const EXT_CHAINS: Record<string, Chain> = {
+  arbitrum,
+  polygon,
+  'op-mainnet': optimism
+}
+
+export function isExtChain(chainName: string): boolean {
+  return chainName.startsWith(EXT_PREFIX)
+}
+
+export function getExtChainName(chainName: string): string {
+  return chainName.slice(EXT_PREFIX.length)
+}
+
+export function getExtChain(chainName: string): Chain {
+  const name = getExtChainName(chainName)
+  const chain = EXT_CHAINS[name]
+  if (!chain) throw new Error(`Unknown ext chain: ${chainName}`)
+  return chain
+}
 
 export const MAINNET_CHAINS = [mainnet, hoodi, holesky, base, baseSepolia]
 export const NETWORK_MAINNET_CHAINS: { [network in types.SkaleNetwork]: Chain } = {
@@ -55,6 +88,10 @@ export function mainnetProvider(mainnetEndpoint: string): Provider {
 }
 
 export function sChainProvider(network: types.SkaleNetwork, chainName: string): Provider {
+  if (isExtChain(chainName)) {
+    const chain = getExtChain(chainName)
+    return new JsonRpcProvider(chain.rpcUrls.default.http[0])
+  }
   const endpoint = endpoints.get(null, network, chainName)
   return new JsonRpcProvider(endpoint)
 }
@@ -102,7 +139,9 @@ export async function enforceNetwork(
   )
   log.info(`Switching network to ${chainId}...`)
   try {
-    if (isMainnetChainId(chainId, skaleNetwork)) {
+    if (isExtChain(chainName)) {
+      await walletClient.addChain({ chain: getExtChain(chainName) })
+    } else if (isMainnetChainId(chainId, skaleNetwork)) {
       await walletClient.addChain({ chain: NETWORK_MAINNET_CHAINS[skaleNetwork] })
     } else {
       await walletClient.addChain({ chain: constructWagmiChain(skaleNetwork, chainName) })

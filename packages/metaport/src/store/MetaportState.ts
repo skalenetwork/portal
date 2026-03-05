@@ -28,6 +28,7 @@ import { dc, types } from '@/core'
 
 import MetaportCore from '../core/metaport'
 import { MainnetChain, SChain } from '../core/contracts'
+import { type QuoteIntentResponse } from '../core/trails'
 
 export interface MetaportState {
   ima1: MainnetChain | SChain
@@ -60,7 +61,7 @@ export interface MetaportState {
     tokens: types.mp.TokenDataMap
   ) => void
 
-  check: (amount: string, address: `0x${string}`) => void
+  check: (amount: string, address: `0x${string}`, options?: { silent?: boolean }) => void
 
   currentStep: number
   setCurrentStep: (currentStep: number) => void
@@ -125,6 +126,11 @@ export interface MetaportState {
 
   transfersHistory: types.mp.TransferHistory[]
   setTransfersHistory: (transfersHistory: types.mp.TransferHistory[]) => void
+
+  trailsQuote: QuoteIntentResponse | null
+  trailsQuoteError: string | null
+  trailsIntentId: string | null
+  trailsTrackerReady: boolean
 
   errorMessageClosedFallback: () => void
   startOver: () => void

@@ -20,7 +20,7 @@ import AddToken from '../AddToken'
 
 import { useMetaportStore } from '../../store/MetaportStore'
 import { useCPStore } from '../../store/CommunityPoolStore'
-import { SUCCESS_EMOJIS } from '../../core/constants'
+import { BALANCE_UPDATE_INTERVAL_MS, SUCCESS_EMOJIS } from '../../core/constants'
 import { CHAINS_META } from '../../core/metadata'
 import { RotateCcw, Send, SendToBack, Coins } from 'lucide-react'
 
@@ -36,7 +36,9 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
     wrap: <SendToBack size={17} />,
     unwrap: <SendToBack size={17} />,
     unwrap_stuck: <SendToBack size={17} />,
-    recharge: <Coins size={17} />
+    recharge: <Coins size={17} />,
+    trails_ext2m: <Send size={17} />,
+    trails_ext2s: <Send size={17} />
   }
 
   const { address, chainId } = useAccount()
@@ -49,7 +51,9 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
   const currentStep = useMetaportStore((state) => state.currentStep)
   const amountErrorMessage = useMetaportStore((state) => state.amountErrorMessage)
   const loading = useMetaportStore((state) => state.loading)
+  const trailsQuoteError = useMetaportStore((state) => state.trailsQuoteError)
   const btnText = useMetaportStore((state) => state.btnText)
+  const check = useMetaportStore((state) => state.check)
 
   const execute = useMetaportStore((state) => state.execute)
   const startOver = useMetaportStore((state) => state.startOver)
@@ -60,6 +64,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
   const ima2 = useMetaportStore((state) => state.ima2)
 
   const chainName1 = useMetaportStore((state) => state.chainName1)
+  const transferInProgress = useMetaportStore((state) => state.transferInProgress)
 
   const amount = useMetaportStore((state) => state.amount)
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
@@ -91,6 +96,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
   const isRechargeStep = stepsMetadata[currentStep]?.type === dc.ActionType.recharge
   const hasRechargeStep =
     stepsMetadata.length > 0 && stepsMetadata[0].type === dc.ActionType.recharge
+  const firstActionStep = hasRechargeStep ? 1 : 0
 
   useEffect(() => {
     if (!hasRechargeStep || !address) return
@@ -104,16 +110,45 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
     }
   }, [cpData.exitGasOk, currentStep, hasRechargeStep])
 
+  useEffect(() => {
+    if (!address) return
+    if (transferInProgress) return
+    if (loading) return
+    if (currentStep !== firstActionStep) return
+
+    const numericAmount = Number(amount)
+    if (!Number.isFinite(numericAmount) || numericAmount <= 0) return
+
+    const refresh = () => {
+      check(amount, address, { silent: true })
+    }
+
+    const intervalId = setInterval(refresh, BALANCE_UPDATE_INTERVAL_MS)
+    return () => clearInterval(intervalId)
+  }, [
+    address,
+    transferInProgress,
+    loading,
+    currentStep,
+    firstActionStep,
+    amount,
+    token?.keyname,
+    chainName1,
+    chainName2,
+    hasRechargeStep,
+    check
+  ])
+
   if (stepsMetadata.length === 0) return <div></div>
 
   const actionDisabled = isRechargeStep
     ? loading ||
-      cpData.exitGasOk === null ||
-      !cpData.recommendedRechargeAmount ||
-      amountErrorMessage ||
-      amount == '' ||
-      Number(amount) === 0
-    : amountErrorMessage || loading || amount == '' || Number(amount) === 0
+    cpData.exitGasOk === null ||
+    !cpData.recommendedRechargeAmount ||
+    amountErrorMessage ||
+    amount == '' ||
+    Number(amount) === 0
+    : amountErrorMessage || trailsQuoteError || loading || amount == '' || Number(amount) === 0
 
   const chainsMeta = CHAINS_META[props.skaleNetwork]
 

@@ -34,8 +34,10 @@ import { DEFAULT_ERROR_MSG, TRANSFER_ERROR_MSG } from '../core/constants'
 import { ACTIONS } from '../core/actions'
 import { MainnetChain, SChain } from '../core/contracts'
 import { ActionConstructor } from '../core/actions/action'
+import { isTrailsAction } from '../core/actions/trails'
 
 const log = new Logger<ILogObj>({ name: 'metaport:core:state' })
+let checkRequestId = 0
 
 export const useMetaportStore = create<MetaportState>()((set, get) => ({
   ima1: null,
@@ -44,6 +46,11 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
   setIma2: (ima: MainnetChain | SChain) => set(() => ({ ima2: ima })),
 
   _imaCache: {},
+
+  trailsQuote: null,
+  trailsQuoteError: null,
+  trailsIntentId: null,
+  trailsTrackerReady: false,
 
   mpc: null,
   setMpc: (mpc: MetaportCore) => set(() => ({ mpc: mpc })),
@@ -59,7 +66,11 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
     set((state) => {
       state.check(amount, address)
       return {
-        amount: amount
+        amount: amount,
+        trailsQuote: null,
+        trailsQuoteError: null,
+        trailsIntentId: null,
+        trailsTrackerReady: false
       }
     }),
 
@@ -124,6 +135,10 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           switchChain,
           walletClient
         )
+        if (isTrailsAction(action)) {
+          action.trailsQuote = get().trailsQuote
+          action.setTrailsIntentId = (id: string) => set({ trailsIntentId: id })
+        }
         await action.execute()
       } catch (err) {
         console.error(err)
@@ -188,16 +203,18 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
       tokenId: null,
       currentStep: 0,
       transferInProgress: false,
-      destTokenBalance: null
+      destTokenBalance: null,
+      trailsQuote: null,
+      trailsQuoteError: null,
+      trailsIntentId: null,
+      trailsTrackerReady: false
     })
   },
 
-  check: async (amount: string, address: types.AddressType) => {
+  check: async (amount: string, address: types.AddressType, options?: { silent?: boolean }) => {
+    const silent = options?.silent ?? false
+    const requestId = ++checkRequestId
     if (get().stepsMetadata[get().currentStep] && address) {
-      set({
-        loading: true,
-        btnText: 'Checking balance...'
-      })
       try {
         const stepMetadata = get().stepsMetadata[get().currentStep]
 
@@ -205,6 +222,17 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
         if (stepMetadata.type === dc.ActionType.recharge) {
           const nextStep = get().stepsMetadata[get().currentStep + 1]
           if (nextStep) checkStep = nextStep
+        }
+
+        const trailsCheck =
+          checkStep.type === dc.ActionType.trails_ext2m ||
+          checkStep.type === dc.ActionType.trails_ext2s
+
+        if (!silent) {
+          set({
+            loading: true,
+            btnText: trailsCheck ? 'Getting quote...' : 'Checking balance...'
+          })
         }
 
         const ActionClass: ActionConstructor = ACTIONS[checkStep.type]
@@ -222,22 +250,37 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           null
         )
         await action.preAction()
+        if (requestId !== checkRequestId) {
+          return
+        }
+
+        if (isTrailsAction(action)) {
+          set({ trailsQuote: action.trailsQuote, trailsQuoteError: action.trailsQuoteError })
+        } else {
+          set({ trailsQuote: null, trailsQuoteError: null })
+        }
       } catch (err) {
         console.error(err)
-        const msg = err.code && err.fault ? `${err.code} - ${err.fault}` : 'Something went wrong'
-        set({
-          errorMessage: new dc.TransactionErrorMessage(
-            err.message,
-            get().errorMessageClosedFallback,
-            msg,
-            false
-          )
-        })
+        if (!silent && requestId === checkRequestId) {
+          const msg = err.code && err.fault ? `${err.code} - ${err.fault}` : 'Something went wrong'
+          set({
+            errorMessage: new dc.TransactionErrorMessage(
+              err.message,
+              get().errorMessageClosedFallback,
+              msg,
+              false
+            )
+          })
+        }
       } finally {
-        set({ loading: false })
+        if (!silent && requestId === checkRequestId) {
+          set({ loading: false })
+        }
       }
     }
-    set({ loading: false })
+    if (!silent && requestId === checkRequestId) {
+      set({ loading: false })
+    }
   },
 
   currentStep: 0,
@@ -259,17 +302,17 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
 
   setChainName1: async (name: string, customToken?: dc.TokenData) => {
     const result = await get().mpc.chainChanged(name, get().chainName2, customToken ?? get().token)
-    set(result)
+    set({ ...result, trailsQuote: null, trailsQuoteError: null, trailsIntentId: null, trailsTrackerReady: false })
   },
 
   setChainName2: async (name: string, customToken?: dc.TokenData) => {
     const result = await get().mpc.chainChanged(get().chainName1, name, customToken ?? get().token)
-    set(result)
+    set({ ...result, trailsQuote: null, trailsQuoteError: null, trailsIntentId: null, trailsTrackerReady: false })
   },
 
   swapChains: async () => {
     const result = await get().mpc.chainChanged(get().chainName2, get().chainName1, get().token)
-    set(result)
+    set({ ...result, trailsQuote: null, trailsQuoteError: null, trailsIntentId: null, trailsTrackerReady: false })
   },
 
   addressChanged: () => {
@@ -300,7 +343,13 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
   token: null,
 
   setToken: async (token: dc.TokenData | null) => {
-    set(get().mpc.tokenChanged(get().chainName1, get().ima2, token, get().chainName2))
+    set({
+      ...get().mpc.tokenChanged(get().chainName1, get().ima2, token, get().chainName2),
+      trailsQuote: null,
+      trailsQuoteError: null,
+      trailsIntentId: null,
+      trailsTrackerReady: false
+    })
   },
 
   wrappedTokens: getEmptyTokenDataMap(),

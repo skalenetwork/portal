@@ -75,6 +75,7 @@
       "version": "4.2.0",
       "dependencies": {
         "@/core": "workspace:*",
+        "@0xtrails/api": "^0.12.1",
         "boring-avatars": "^2.0.4",
         "lucide-react": "^0.554.0",
         "react-jazzicon": "^1.0.4",
@@ -138,6 +139,8 @@
   },
   "packages": {
     "@/core": ["@/core@workspace:packages/core"],
+
+    "@0xtrails/api": ["@0xtrails/api@0.12.1", "", {}, "sha512-E9rC3eyKkSxzbZBT0mX9V6e0rX7CBIPepd0XKh55418vg0vxiGH+sRgBFzKRzM5AJ/BelK0IriTBs0rpo+zG4w=="],
 
     "@adraffy/ens-normalize": ["@adraffy/ens-normalize@1.10.1", "", {}, "sha512-96Z2IP3mYmF1Xg2cDm8f1gWGf/HUVedQ3FMifV4kG/PQ4yEP51xDtRAEfhVNt5f/uzpNkZHwWQuUcu6D6K+Ekw=="],
 
