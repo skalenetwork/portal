@@ -11,7 +11,9 @@ export const METAPORT_CONFIG: types.mp.Config = {
     'mainnet',
     'winged-bubbly-grumium', // SKALE Base Mainnet
     'ext-arbitrum',
-    'ext-op-mainnet'
+    'ext-op-mainnet',
+    'ext-avalanche',
+    'ext-bsc'
   ],
   tokens: {
     eth: {
@@ -46,23 +48,35 @@ export const METAPORT_CONFIG: types.mp.Config = {
   },
 
   connections: {
-    'ext-arbitrum': {
-      eth: {
-        eth: {
+    'ext-bsc': {
+      erc20: {
+        usdc: {
+          address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d', // 18 decimals on bsc - todo: handle
           chains: {
-            'mainnet': {
+            'winged-bubbly-grumium': {
               bridge: 'trails'
             }
           }
         }
-      },
+      }
+    },
+    'ext-avalanche': {
+      erc20: {
+        usdc: {
+          address: '0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        }
+      }
+    },
+    'ext-arbitrum': {
       erc20: {
         usdc: {
           address: '0xaf88d065e77c8cC2239327C5EDb3A432268e5831',
           chains: {
-            mainnet: {
-              bridge: 'trails'
-            },
             'winged-bubbly-grumium': {
               bridge: 'trails'
             }
@@ -71,22 +85,10 @@ export const METAPORT_CONFIG: types.mp.Config = {
       }
     },
     'ext-op-mainnet': {
-      eth: {
-        eth: {
-          chains: {
-            'mainnet': {
-              bridge: 'trails'
-            }
-          }
-        }
-      },
       erc20: {
         usdc: {
           address: '0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85',
           chains: {
-            mainnet: {
-              bridge: 'trails'
-            },
             'winged-bubbly-grumium': {
               bridge: 'trails'
             }
@@ -99,9 +101,6 @@ export const METAPORT_CONFIG: types.mp.Config = {
         eth: {
           chains: {
             'winged-bubbly-grumium': {},
-            'ext-arbitrum': {
-              bridge: 'trails'
-            }
           }
         }
       },
@@ -110,9 +109,6 @@ export const METAPORT_CONFIG: types.mp.Config = {
           address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
           chains: {
             'winged-bubbly-grumium': {},
-            'ext-arbitrum': {
-              bridge: 'trails'
-            }
           }
         },
         skl: {
@@ -195,6 +191,12 @@ export const METAPORT_CONFIG: types.mp.Config = {
               bridge: 'trails'
             },
             'ext-op-mainnet': {
+              bridge: 'trails'
+            },
+            'ext-bsc': {
+              bridge: 'trails'
+            },
+            'ext-avalanche': {
               bridge: 'trails'
             }
           }

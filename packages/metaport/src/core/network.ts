@@ -35,6 +35,8 @@ import {
   arbitrum,
   polygon,
   optimism,
+  avalanche,
+  bsc,
   Chain
 } from 'wagmi/chains'
 
@@ -48,7 +50,9 @@ export const EXT_PREFIX = 'ext-'
 export const EXT_CHAINS: Record<string, Chain> = {
   arbitrum,
   polygon,
-  'op-mainnet': optimism
+  'op-mainnet': optimism,
+  avalanche,
+  bsc
 }
 
 export function isExtChain(chainName: string): boolean {
