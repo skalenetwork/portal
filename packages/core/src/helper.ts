@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import { getAddress, keccak256, toUtf8Bytes } from 'ethers'
+import { formatUnits, getAddress, keccak256, toUtf8Bytes } from 'ethers'
 import { types } from '.'
 import * as constants from './constants'
 
@@ -52,6 +52,14 @@ export function minBigInt(a: bigint, b: bigint): bigint {
 export function shortAddress(address: types.AddressType | undefined): string {
   if (!address) return ''
   return `${address.slice(0, 4)}...${address.slice(-2)}`
+}
+
+export function shortBalance(balance: bigint | undefined, decimals?: number): string {
+  if (balance === undefined) return ''
+  if (balance === 0n) return '0'
+  const formatted = formatUnits(balance, decimals ?? 18)
+  if (formatted.length <= 8) return formatted
+  return `${formatted.slice(0, 5)}...${formatted.slice(-3)}`
 }
 
 export function getRandom(list: Array<any>) {
