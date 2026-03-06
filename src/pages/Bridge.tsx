@@ -206,7 +206,7 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
       </Stack>
       <Meson
         chainsMeta={props.chainsMeta}
-        className="mt-5"
+        className="mt-3.5"
         skaleNetwork={mpc.config.skaleNetwork}
       />
     </Container>
