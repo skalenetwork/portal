@@ -330,7 +330,7 @@ export default function TrailsIntentTracker() {
     const chainsMeta = CHAINS_META[skaleNetwork]
     const destAlias = metadata.getAlias(skaleNetwork, chainsMeta, chainName2)
     steps.push({
-      label: `Deliver to ${destAlias}`,
+      label: `Deliver - ${destAlias}`,
       chainId: 0,
       status: imaStatus,
       chainName: chainName2,

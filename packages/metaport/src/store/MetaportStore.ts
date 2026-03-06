@@ -174,17 +174,20 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
       const isTransferFinished = get().currentStep + 1 === get().stepsMetadata.length
 
       if (isTransferFinished) {
-        get().setTransfersHistory([
-          ...get().transfersHistory,
-          {
-            transactions: get().transactionsHistory,
-            chainName1: get().chainName1,
-            chainName2: get().chainName2,
-            amount: get().amount,
-            tokenKeyname: get().token.keyname,
-            address: address
-          }
-        ])
+        const entry: types.mp.TransferHistory = {
+          transactions: get().transactionsHistory,
+          chainName1: get().chainName1,
+          chainName2: get().chainName2,
+          amount: get().amount,
+          tokenKeyname: get().token.keyname,
+          address: address
+        }
+        const intentId = get().trailsIntentId
+        if (intentId) {
+          entry.trailsIntentId = intentId
+          entry.trailsStatus = 'succeeded'
+        }
+        get().setTransfersHistory([...get().transfersHistory, entry])
       }
 
       set({
