@@ -110,7 +110,6 @@ export default function ChainsList(props: {
                     chainsMeta={CHAINS_META[props.config.skaleNetwork]}
                     onClick={() => handle(name)}
                     disabled={name === props.disabledChain}
-                    disabled={false}
                     from={props.from}
                   />
                 </div>
