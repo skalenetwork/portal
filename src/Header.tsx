@@ -64,7 +64,7 @@ export default function Header(props: {
         <div className="flex backdrop-blur-xs p-3 rounded-xl bg-background/50">
           <AccountMenu address={props.address} openProfileModal={props.openProfileModal} />
           <NetworkSwitch mpc={props.mpc} />
-          <Tooltip title={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
+          <Tooltip arrow title={mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}>
             <IconButton
               size="small"
               className="ml-1.5! h-9 w-9 rounded-full bg-card! text-foreground! hover:bg-muted"
