@@ -43,6 +43,7 @@ import SkStack from '../SkStack'
 import ErrorTile from '../ErrorTile'
 import Loader from '../Loader'
 import DelegationFlow from './DelegationFlow'
+import notify from '../../core/notify'
 
 const log = new Logger<ILogObj>({ name: 'portal:pages:Delegate' })
 
@@ -114,13 +115,18 @@ export default function Delegate(props: {
       )
       setLoading(false)
       if (!res.status) {
-        props.setErrorMsg(res.err?.name)
+        const errMsg = res.err?.name || 'Staking transaction failed'
+        props.setErrorMsg(errMsg)
+        notify.permanentError(errMsg)
       } else {
+        notify.temporarySuccess('SKL staked successfully')
         navigate('/staking')
       }
     } catch (err: any) {
       console.error(err)
-      props.setErrorMsg(err.message ? err.message : constants.DEFAULT_ERROR_MSG)
+      const errMsg = err.message ? err.message : constants.DEFAULT_ERROR_MSG
+      props.setErrorMsg(errMsg)
+      notify.permanentError(errMsg)
       setLoading(false)
     }
   }

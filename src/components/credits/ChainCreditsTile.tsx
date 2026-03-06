@@ -56,6 +56,7 @@ import Logo from '../Logo'
 import SkStack from '../SkStack'
 import { Contract } from 'ethers'
 import { Link } from 'react-router-dom'
+import notify from '../../core/notify'
 import {
   CREDITS_CONFIRMATION_BLOCKS,
   DEFAULT_CREDITS_AMOUNT,
@@ -150,6 +151,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
     if (!creditStation || !token) return
     if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
       setErrorMsg('Something is wrong with your wallet, try again')
+      notify.permanentError('Something is wrong with your wallet, try again')
       setOpenModal(false)
       return
     }
@@ -161,6 +163,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
       if (!tokenAddress) return
 
       const { chainId } = await creditStation.runner.provider.getNetwork()
+      notify.temporaryInfo('Switching network...')
       await enforceNetwork(
         chainId,
         walletClient,
@@ -185,7 +188,9 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
         CREDITS_CONFIRMATION_BLOCKS
       )
       if (!approveRes.status) {
-        setErrorMsg(approveRes.err?.name)
+        const errMsg = approveRes.err?.name || 'Approval failed'
+        setErrorMsg(errMsg)
+        notify.permanentError(errMsg)
         return
       }
 
@@ -197,12 +202,17 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
         CREDITS_CONFIRMATION_BLOCKS
       )
       if (!res.status) {
-        setErrorMsg(res.err?.name)
+        const errMsg = res.err?.name || 'Buy credits failed'
+        setErrorMsg(errMsg)
+        notify.permanentError(errMsg)
         return
       }
+      notify.temporarySuccess(`Credits purchased for ${chainAlias}`)
     } catch (e: any) {
       console.error(e)
-      setErrorMsg(e.toString())
+      const errMsg = e.toString()
+      setErrorMsg(errMsg)
+      notify.permanentError(errMsg)
     } finally {
       setLoading(false)
       setOpenModal(false)

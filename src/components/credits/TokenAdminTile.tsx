@@ -45,6 +45,7 @@ import SkStack from '../SkStack'
 import { useState } from 'react'
 import Headline from '../Headline'
 import { Bolt, Coins } from 'lucide-react'
+import notify from '../../core/notify'
 
 interface TokenAdminTileProps {
   mpc: MetaportCore
@@ -64,8 +65,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
   creditStation,
   tokenMeta,
   tokenData,
-  symbol,
-  setErrorMsg
+  symbol
 }) => {
   const [openModal, setOpenModal] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
@@ -88,7 +88,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
   async function updatePrice() {
     if (!creditStation || price === '') return
     if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
-      setErrorMsg('Something is wrong with your wallet, try again')
+      notify.permanentError('Something is wrong with your wallet, try again')
       setOpenModal(false)
       return
     }
@@ -97,6 +97,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
     const priceWei = units.toWei(price.toString(), decimals)
 
     const { chainId } = await creditStation.runner.provider.getNetwork()
+    notify.temporaryInfo('Switching network...')
     await enforceNetwork(
       chainId,
       walletClient,
@@ -108,16 +109,26 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
     const signer = walletClientToSigner(walletClient)
     creditStation.connect(signer)
 
-    await sendTransaction(
-      signer,
-      creditStation.setPrice,
-      [tokenData.address, priceWei],
-      'creditStation:setPrice'
-    )
-
-    await loadTokenPrices()
-    setLoading(false)
-    setOpenModal(false)
+    try {
+      const res = await sendTransaction(
+        signer,
+        creditStation.setPrice,
+        [tokenData.address, priceWei],
+        'creditStation:setPrice'
+      )
+      if (!res.status) {
+        const errMsg = res.err?.name || 'Transaction failed'
+        notify.permanentError(errMsg)
+        return
+      }
+      notify.temporarySuccess(`Price updated for ${symbol.toUpperCase()}`)
+      await loadTokenPrices()
+    } catch (e: any) {
+      notify.permanentError(e.toString())
+    } finally {
+      setLoading(false)
+      setOpenModal(false)
+    }
   }
 
   function getTokenPriceWei(): bigint {

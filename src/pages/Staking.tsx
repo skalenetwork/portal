@@ -117,6 +117,7 @@ export default function Staking(props: {
 
   async function handleRetrieveRewards(rewardInfo: types.st.IRewardInfo) {
     if (!isAddress(customRewardAddress)) {
+      notify.permanentError('Invalid address')
       setErrorMsg('Invalid address')
       setLoading(false)
       return
@@ -257,7 +258,7 @@ export default function Staking(props: {
         </SkPaper>
       </Collapse>
 
-      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-2.5" />
+      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-5" />
 
       <SkPaper gray className="mt-5">
         <Collapse in={props.address !== undefined}>

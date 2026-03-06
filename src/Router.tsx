@@ -40,6 +40,7 @@ import {
 } from '@skalenetwork/metaport'
 
 import { type types, metadata, constants } from '@/core'
+import notify from './core/notify'
 
 import Bridge from './pages/Bridge'
 import Faq from './pages/Faq'
@@ -72,6 +73,7 @@ import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHisto
 import { BRIDGE_PAGES, STAKING_PAGES } from './core/constants'
 import { getValidators } from './core/delegation/validators'
 import { getStakingInfoMap } from './core/delegation/staking'
+import useBridgeNotifications from './hooks/useBridgeNotifications'
 
 export default function Router(props: {
   loadData: () => Promise<void>
@@ -120,9 +122,11 @@ export default function Router(props: {
   }, [transfersHistory])
 
   useScrollPosition()
+  useBridgeNotifications(!termsAccepted && isToSPage(BRIDGE_PAGES))
 
   async function getMainnetSigner() {
     const { chainId } = await mpc.provider(constants.MAINNET_CHAIN_NAME).getNetwork()
+    notify.temporaryInfo('Switching network...')
     await enforceNetwork(
       chainId,
       walletClient!,
