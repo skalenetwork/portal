@@ -59,7 +59,7 @@ export default function PopularActions(props: {
 
   return (
     <div>
-      <div className="pt-5 flex"></div>
+      <div className="mt-3.5 flex"></div>
       <div className="gap-2 flex items-center mb-2.5 font-semibold text-center text-foreground">
         <Star size={17} />
         Popular Actions

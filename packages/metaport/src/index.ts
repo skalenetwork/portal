@@ -38,6 +38,8 @@ import History from './components/History'
 import TransactionData from './components/TransactionData'
 import Debug from './components/Debug'
 import AnimatedLoadingIcon from './components/AnimatedLoadingIcon'
+import TrailsQuoteCard from './components/TrailsQuoteCard'
+import TrailsIntentTracker from './components/TrailsIntentTracker'
 
 import { styles } from './core/css'
 import MetaportCore from './core/metaport'
@@ -112,7 +114,9 @@ export {
   type StationData,
   contracts,
   explorer,
-  mp_metadata
+  mp_metadata,
+  TrailsQuoteCard,
+  TrailsIntentTracker
 }
 
 export { useThemeMode }

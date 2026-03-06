@@ -90,18 +90,16 @@ export default function ChainsList(props: {
         aria-describedby="modal-modal-description"
         className={`${styles.metaport} ${styles.backdropBlur}`}
       >
-        <Container maxWidth="md" className={styles.modalContainer}>
-          <div className="flex mb-5">
-            <div className="grow"></div>
+        <Container maxWidth="md" className={styles.modalContainer} onClick={handleClose}>
+          <div className="flex items-center justify-center mb-10">
             <SkPaper gray>
-              <p className="text-base text-foreground font-bold mt-1.5 mb-1.5 ml-5 mr-5 flex items-center text-center">
+              <p className="text-sm text-foreground font-semibold my-0.5 mx-3 flex items-center text-center">
                 {modalTitle}
               </p>
             </SkPaper>
-            <div className="grow"></div>
           </div>
-          <div className={`mb-2.5 mr-2.5 ml-2.5 ${styles.bridgeModalScroll}`}>
-            <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          <div className={`mb-2.5 mr-2.5 ml-2.5 ${styles.bridgeModalScroll}`} onClick={(e) => e.stopPropagation()}>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 overflow-hidden p-1">
               {schainNames.map((name) => (
                 <div key={name} className="col-span-1 h-full">
                   <BridgeChainCard

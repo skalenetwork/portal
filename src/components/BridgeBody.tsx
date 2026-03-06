@@ -41,7 +41,9 @@ import {
   ErrorMessage,
   SFuelWarning,
   WrappedTokens,
-  useDisplayFunctions
+  useDisplayFunctions,
+  TrailsQuoteCard,
+  TrailsIntentTracker
 } from '@skalenetwork/metaport'
 
 export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap }) {
@@ -77,6 +79,10 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
 
   const stepsMetadata = useMetaportStore((state) => state.stepsMetadata)
   const currentStep = useMetaportStore((state) => state.currentStep)
+  const trailsQuote = useMetaportStore((state) => state.trailsQuote)
+  const trailsQuoteError = useMetaportStore((state) => state.trailsQuoteError)
+  const trailsIntentId = useMetaportStore((state) => state.trailsIntentId)
+  const trailsTrackerReady = useMetaportStore((state) => state.trailsTrackerReady)
 
   return (
     <div>
@@ -142,6 +148,16 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
           <WrappedTokens />
         </SkPaper>
       </Collapse>
+
+      {(trailsQuote || trailsQuoteError) && !trailsTrackerReady && (
+        <TrailsQuoteCard
+          quote={trailsQuote}
+          error={trailsQuoteError}
+          tokenSymbol={token?.meta.symbol}
+        />
+      )}
+
+      <TrailsIntentTracker />
 
       {!address ? <SkConnect /> : null}
 
