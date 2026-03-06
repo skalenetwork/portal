@@ -319,7 +319,6 @@ export default function TrailsIntentTracker() {
 
   const steps = receipt ? buildSteps(receipt) : []
   const intentStatus = receipt?.status
-  const failed = intentStatus ? isIntentFailed(intentStatus) : false
   const trailsSucceeded = intentStatus === IntentStatus.SUCCEEDED
 
   const isExt2S = stepsMetadata.some((s) => s.type === dc.ActionType.trails_ext2s)
@@ -338,8 +337,6 @@ export default function TrailsIntentTracker() {
       displayName: destAlias
     })
   }
-
-  const succeeded = isExt2S ? trailsSucceeded && trailsImaCompleted : trailsSucceeded
 
   return (
     <SkPaper gray className="mt-3 p-5.5!">

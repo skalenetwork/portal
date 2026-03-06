@@ -28,7 +28,6 @@ import { dc, constants } from '@/core'
 
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import Tooltip from '@mui/material/Tooltip'
 
 import MetaportCore, { createTokenData } from '../core/metaport'
 import { enforceNetwork } from '../core/network'

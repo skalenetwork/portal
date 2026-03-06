@@ -11,7 +11,6 @@ import StepContent from '@mui/material/StepContent'
 import Button from '@mui/material/Button'
 import Collapse from '@mui/material/Collapse'
 import IconButton from '@mui/material/IconButton'
-import Tooltip from '@mui/material/Tooltip'
 
 import AnimatedLoadingIcon from '../AnimatedLoadingIcon'
 import SkPaper from '../SkPaper'
