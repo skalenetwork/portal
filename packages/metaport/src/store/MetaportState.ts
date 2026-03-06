@@ -131,6 +131,7 @@ export interface MetaportState {
   trailsQuoteError: string | null
   trailsIntentId: string | null
   trailsTrackerReady: boolean
+  trailsImaCompleted: boolean
 
   errorMessageClosedFallback: () => void
   startOver: () => void

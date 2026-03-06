@@ -51,6 +51,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
   trailsQuoteError: null,
   trailsIntentId: null,
   trailsTrackerReady: false,
+  trailsImaCompleted: false,
 
   mpc: null,
   setMpc: (mpc: MetaportCore) => set(() => ({ mpc: mpc })),
@@ -70,7 +71,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
         trailsQuote: null,
         trailsQuoteError: null,
         trailsIntentId: null,
-        trailsTrackerReady: false
+        trailsTrackerReady: false,
+        trailsImaCompleted: false
       }
     }),
 
@@ -138,6 +140,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
         if (isTrailsAction(action)) {
           action.trailsQuote = get().trailsQuote
           action.setTrailsIntentId = (id: string) => set({ trailsIntentId: id })
+          action.setTrailsImaCompleted = () => set({ trailsImaCompleted: true })
         }
         await action.execute()
       } catch (err) {
@@ -207,7 +210,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
       trailsQuote: null,
       trailsQuoteError: null,
       trailsIntentId: null,
-      trailsTrackerReady: false
+      trailsTrackerReady: false,
+      trailsImaCompleted: false
     })
   },
 
@@ -302,17 +306,17 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
 
   setChainName1: async (name: string, customToken?: dc.TokenData) => {
     const result = await get().mpc.chainChanged(name, get().chainName2, customToken ?? get().token)
-    set({ ...result, trailsQuote: null, trailsQuoteError: null, trailsIntentId: null, trailsTrackerReady: false })
+    set({ ...result, trailsQuote: null, trailsQuoteError: null, trailsIntentId: null, trailsTrackerReady: false, trailsImaCompleted: false })
   },
 
   setChainName2: async (name: string, customToken?: dc.TokenData) => {
     const result = await get().mpc.chainChanged(get().chainName1, name, customToken ?? get().token)
-    set({ ...result, trailsQuote: null, trailsQuoteError: null, trailsIntentId: null, trailsTrackerReady: false })
+    set({ ...result, trailsQuote: null, trailsQuoteError: null, trailsIntentId: null, trailsTrackerReady: false, trailsImaCompleted: false })
   },
 
   swapChains: async () => {
     const result = await get().mpc.chainChanged(get().chainName2, get().chainName1, get().token)
-    set({ ...result, trailsQuote: null, trailsQuoteError: null, trailsIntentId: null, trailsTrackerReady: false })
+    set({ ...result, trailsQuote: null, trailsQuoteError: null, trailsIntentId: null, trailsTrackerReady: false, trailsImaCompleted: false })
   },
 
   addressChanged: () => {
@@ -348,7 +352,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
       trailsQuote: null,
       trailsQuoteError: null,
       trailsIntentId: null,
-      trailsTrackerReady: false
+      trailsTrackerReady: false,
+      trailsImaCompleted: false
     })
   },
 

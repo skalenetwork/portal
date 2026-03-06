@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useWalletClient, useSwitchChain, useAccount } from 'wagmi'
 import { useAddRecentTransaction } from '@rainbow-me/rainbowkit'
-import { type types, metadata, helper, dc } from '@/core'
+import { type types, metadata, dc } from '@/core'
 
 import Box from '@mui/material/Box'
 import Stepper from '@mui/material/Stepper'
@@ -10,8 +10,11 @@ import StepLabel from '@mui/material/StepLabel'
 import StepContent from '@mui/material/StepContent'
 import Button from '@mui/material/Button'
 import Collapse from '@mui/material/Collapse'
+import IconButton from '@mui/material/IconButton'
+import Tooltip from '@mui/material/Tooltip'
 
 import AnimatedLoadingIcon from '../AnimatedLoadingIcon'
+import SkPaper from '../SkPaper'
 
 import localStyles from './SkStepper.module.scss'
 
@@ -20,9 +23,9 @@ import AddToken from '../AddToken'
 
 import { useMetaportStore } from '../../store/MetaportStore'
 import { useCPStore } from '../../store/CommunityPoolStore'
-import { BALANCE_UPDATE_INTERVAL_MS, SUCCESS_EMOJIS } from '../../core/constants'
+import { BALANCE_UPDATE_INTERVAL_MS } from '../../core/constants'
 import { CHAINS_META } from '../../core/metadata'
-import { RotateCcw, Send, SendToBack, Coins } from 'lucide-react'
+import { Check, RotateCcw, Send, SendToBack, Coins } from 'lucide-react'
 
 export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
   const actionIconMap: Record<dc.ActionType, any> = {
@@ -72,11 +75,6 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
   const cpData = useCPStore((state) => state.cpData)
   const updateCPData = useCPStore((state) => state.updateCPData)
   const setCurrentStep = useMetaportStore((state) => state.setCurrentStep)
-
-  const [emoji, setEmoji] = useState<string>()
-  useEffect(() => {
-    setEmoji(helper.getRandom(SUCCESS_EMOJIS))
-  }, [])
 
   useEffect(() => {
     try {
@@ -270,33 +268,44 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
         </Collapse>
 
         {currentStep === stepsMetadata.length && (
-          <div>
-            <div className="block">
-              <p className="text-base font-semibold text-foreground grow text-center mt-5">
-                {emoji} Transfer completed
-              </p>
-              <p className="text-sm font-semibold text-secondary-foreground grow text-center mt-1.5">
-                Transfer details are available in History section
-              </p>
+          <SkPaper gray className="p-6!">
+            <div className="flex items-center">
+              <span className="flex items-center justify-center w-[30px] h-[30px] rounded-full bg-emerald-100 dark:bg-emerald-400/15 shrink-0">
+                <Check size={14} className="text-emerald-500 dark:text-emerald-400" />
+              </span>
+              <span className="ml-3 grow">
+                <div>
+                  <p className="text-sm capitalize text-foreground font-medium m-0">Completed</p>
+                  <p className="text-xs text-secondary-foreground m-0">Tokens received</p>
+                </div>
+              </span>
+              <div className="flex items-center gap-2">
+                <AddToken
+                  token={token}
+                  destChainName={chainName2}
+                  mpc={mpc}
+                  provider={ima2.provider}
+                  iconOnly
+                />
+                <span>
+                  <IconButton
+                    onClick={startOver}
+                    className="md:hidden! text-accent! bg-accent-foreground! p-2!"
+                  >
+                    <RotateCcw size={20} />
+                  </IconButton>
+                  <Button
+                    onClick={startOver}
+                    size="small"
+                    startIcon={<RotateCcw size={15} />}
+                    className="hidden! md:inline-flex! capitalize! text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50! text-xs! px-3.5! py-2.5!"
+                  >
+                    Start over
+                  </Button>
+                </span>
+              </div>
             </div>
-            <div className="flex flex-col md:flex-row mt-5">
-              <AddToken
-                token={token}
-                destChainName={chainName2}
-                mpc={mpc}
-                provider={ima2.provider}
-              />
-              <Button
-                onClick={startOver}
-                color="primary"
-                size="medium"
-                className="grow w-full! md:w-fit! capitalize! text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
-                startIcon={<RotateCcw size={17} />}
-              >
-                Start over
-              </Button>
-            </div>
-          </div>
+          </SkPaper>
         )}
       </Box>
     </Collapse>

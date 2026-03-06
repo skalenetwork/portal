@@ -65,6 +65,7 @@ export class TransferTrailsExt2M extends Action {
   trailsQuote: QuoteIntentResponse | null = null
   trailsQuoteError: string | null = null
   setTrailsIntentId: ((id: string) => void) | null = null
+  setTrailsImaCompleted: (() => void) | null = null
 
   async execute() {
     this.updateState('init')
@@ -148,6 +149,7 @@ export class TransferTrailsExt2S extends Action {
   trailsQuote: QuoteIntentResponse | null = null
   trailsQuoteError: string | null = null
   setTrailsIntentId: ((id: string) => void) | null = null
+  setTrailsImaCompleted: (() => void) | null = null
 
   async execute() {
     this.updateState('init')
@@ -185,6 +187,7 @@ export class TransferTrailsExt2S extends Action {
     await waitReceipt(intentId)
 
     await this.sChain2.waitERC20BalanceChange(this.destToken, this.address, balanceOnDestination)
+    this.setTrailsImaCompleted?.()
 
     this.updateState('received')
     log.info('TransferTrailsExt2S:execute - intent fulfilled, tokens received on SKALE chain')

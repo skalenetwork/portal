@@ -38,7 +38,9 @@ import SkPaper from './SkPaper'
 import ChainIcon from './ChainIcon'
 import trailsLogo from '../assets/trails_logo.svg'
 import { getIntentReceipt, type IntentReceipt } from '../core/trails'
+import { CHAINS_META } from '../core/metadata'
 import { useMetaportStore } from '../store/MetaportStore'
+import { dc, metadata } from '@/core'
 import localStyles from './TransactionData/TransactionData.module.scss'
 
 const POLL_INTERVAL_MS = 3000
@@ -88,6 +90,8 @@ interface TxStep {
   chainId: number
   status: TransactionStatus
   txnHash?: string
+  chainName?: string
+  displayName?: string
 }
 
 function isTerminal(status: IntentStatus): boolean {
@@ -141,7 +145,7 @@ function statusLabel(status: TransactionStatus): string {
     case TransactionStatus.SENT:
       return 'Sent'
     case TransactionStatus.MINING:
-      return 'Mining'
+      return 'In progress'
     case TransactionStatus.SUCCEEDED:
       return 'Confirmed'
     case TransactionStatus.FAILED:
@@ -194,6 +198,8 @@ function StepIcon({ status }: { status: TransactionStatus }) {
 
 function TxStepRow({ step, skaleNetwork }: { step: TxStep; skaleNetwork: string }) {
   const url = step.txnHash ? txUrl(step.chainId, step.txnHash) : null
+  const resolvedChainName = step.chainName ?? chainInternalName(step.chainId)
+  const resolvedDisplayName = step.displayName ?? CHAIN_DISPLAY_NAME[step.chainId] ?? `Chain ${step.chainId}`
   return (
     <div className="flex items-center py-2">
       <div>
@@ -208,11 +214,11 @@ function TxStepRow({ step, skaleNetwork }: { step: TxStep; skaleNetwork: string 
       <div className="flex items-center gap-2">
         <ChainIcon
           skaleNetwork={skaleNetwork as any}
-          chainName={chainInternalName(step.chainId)}
+          chainName={resolvedChainName}
           size="xs"
         />
         <span className="text-xs text-secondary-foreground">
-          {CHAIN_DISPLAY_NAME[step.chainId] ?? `Chain ${step.chainId}`}
+          {resolvedDisplayName}
         </span>
         {url && (
           <IconButton
@@ -243,7 +249,7 @@ function buildSteps(receipt: IntentReceipt): TxStep[] {
   const origin = receipt.originTransaction
   if (origin) {
     steps.push({
-      label: 'Swap & Bridge',
+      label: 'Bridge',
       chainId: origin.chainId,
       status: origin.status,
       txnHash: origin.txnHash
@@ -265,16 +271,17 @@ export default function TrailsIntentTracker() {
   const intentId = useMetaportStore((state) => state.trailsIntentId)
   const mpc = useMetaportStore((state) => state.mpc)
   const skaleNetwork = mpc?.config?.skaleNetwork ?? 'mainnet'
+  const stepsMetadata = useMetaportStore((state) => state.stepsMetadata)
+  const chainName2 = useMetaportStore((state) => state.chainName2)
+  const trailsImaCompleted = useMetaportStore((state) => state.trailsImaCompleted)
 
   const [receipt, setReceipt] = useState<IntentReceipt | null>(null)
-  const [error, setError] = useState<string | null>(null)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const setTrackerReady = (ready: boolean) => useMetaportStore.setState({ trailsTrackerReady: ready })
 
   useEffect(() => {
     if (!intentId) {
       setReceipt(null)
-      setError(null)
       setTrackerReady(false)
       return
     }
@@ -286,7 +293,6 @@ export default function TrailsIntentTracker() {
         const r = await getIntentReceipt(intentId)
         if (cancelled) return
         setReceipt(r)
-        setError(null)
         setTrackerReady(true)
         if (isTerminal(r.status)) {
           if (intervalRef.current) clearInterval(intervalRef.current)
@@ -294,9 +300,8 @@ export default function TrailsIntentTracker() {
             useMetaportStore.setState({ transferInProgress: false, loading: false })
           }
         }
-      } catch (err) {
+      } catch {
         if (cancelled) return
-        setError(err instanceof Error ? err.message : String(err))
       }
     }
 
@@ -310,12 +315,31 @@ export default function TrailsIntentTracker() {
   }, [intentId])
 
   if (!intentId) return null
-  if (error && !receipt) return null
+  if (!receipt) return null
 
   const steps = receipt ? buildSteps(receipt) : []
   const intentStatus = receipt?.status
   const failed = intentStatus ? isIntentFailed(intentStatus) : false
-  const succeeded = intentStatus === IntentStatus.SUCCEEDED
+  const trailsSucceeded = intentStatus === IntentStatus.SUCCEEDED
+
+  const isExt2S = stepsMetadata.some((s) => s.type === dc.ActionType.trails_ext2s)
+
+  if (isExt2S && trailsSucceeded) {
+    const imaStatus = trailsImaCompleted
+      ? TransactionStatus.SUCCEEDED
+      : TransactionStatus.MINING
+    const chainsMeta = CHAINS_META[skaleNetwork]
+    const destAlias = metadata.getAlias(skaleNetwork, chainsMeta, chainName2)
+    steps.push({
+      label: `Deliver to ${destAlias}`,
+      chainId: 0,
+      status: imaStatus,
+      chainName: chainName2,
+      displayName: destAlias
+    })
+  }
+
+  const succeeded = isExt2S ? trailsSucceeded && trailsImaCompleted : trailsSucceeded
 
   return (
     <SkPaper gray className="mt-3 p-5.5!">
@@ -332,24 +356,15 @@ export default function TrailsIntentTracker() {
             <img src={trailsLogo} alt="Trails" className="h-5 rounded-sm" />
           </a>
         </div>
-        {succeeded && (
-          <span className="inline-flex items-center gap-1 text-xs font-medium text-emerald-500 bg-emerald-500/10 rounded-full px-2.5 py-0.5">
-            <Check size={12} />
-            Completed
-          </span>
-        )}
-        {failed && (
-          <span className="inline-flex items-center gap-1 text-xs font-medium text-red-500 bg-red-500/10 rounded-full px-2.5 py-0.5">
-            <AlertTriangle size={12} />
-            Failed
-          </span>
-        )}
-        {!succeeded && !failed && (
-          <span className="inline-flex items-center gap-1 text-xs font-medium text-blue-500 bg-blue-500/10 rounded-full px-2.5 py-0.5">
-            <Loader2 size={12} className="animate-spin" />
-            In progress
-          </span>
-        )}
+        <a
+          href={`https://app.trails.build/intent/${intentId}`}
+          target="_blank"
+          rel="noreferrer noopener"
+          className="inline-flex items-center gap-1 text-xs font-medium text-secondary-foreground hover:text-foreground bg-muted rounded-full px-2.5 py-0.5 transition-colors"
+        >
+          View on Trails
+          <ExternalLink size={11} />
+        </a>
       </div>
 
       {steps.length === 0 && (
@@ -360,22 +375,13 @@ export default function TrailsIntentTracker() {
       )}
 
       {steps.length > 0 && (
-        <div>
+        <div className="-mb-2">
           {steps.map((step, i) => (
             <TxStepRow key={i} step={step} skaleNetwork={skaleNetwork} />
           ))}
         </div>
       )}
 
-      <a
-        href={`https://app.trails.build/intent/${intentId}`}
-        target="_blank"
-        rel="noreferrer noopener"
-        className="flex items-center justify-center gap-1.5 mt-3 pt-3 text-xs text-secondary-foreground hover:text-foreground transition-colors"
-      >
-        View on Trails
-        <ExternalLink size={11} />
-      </a>
     </SkPaper>
   )
 }

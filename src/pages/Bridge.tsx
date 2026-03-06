@@ -157,7 +157,7 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
   }, [tokenParams, tokens])
 
   return (
-    <Container maxWidth="sm" className="mt-2">
+    <Container maxWidth="sm">
       <Helmet>
         <title>{META_TAGS.bridge.title}</title>
         <meta name="description" content={META_TAGS.bridge.description} />
@@ -184,7 +184,7 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
           </div>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-3.5">
           <BridgeBody chainsMeta={props.chainsMeta} />
           {transactionsHistory.length !== 0 ? (
             <div>
