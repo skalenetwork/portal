@@ -24,7 +24,7 @@
 import { Helmet } from 'react-helmet'
 import { MetaportProvider, getMetaportTheme, useThemeMode } from '@skalenetwork/metaport'
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
-import { Toaster } from 'sonner'
+import { Toaster, type ToasterProps } from 'sonner'
 
 import Portal from './Portal'
 
@@ -39,9 +39,12 @@ METAPORT_CONFIG.projectId = import.meta.env.VITE_WC_PROJECT_ID
 const mpTheme = getMetaportTheme(METAPORT_CONFIG.theme)
 const muiTheme = createMuiTheme(mpTheme)
 
-export default function App() {
+function ThemedToaster(props: Omit<ToasterProps, 'theme'>) {
   const { mode } = useThemeMode()
+  return <Toaster theme={mode} {...props} />
+}
 
+export default function App() {
   return (
     <div className="min-h-screen">
       <Helmet>
@@ -59,10 +62,9 @@ export default function App() {
           </MetaportProvider>
         </ThemeProvider>
       </StyledEngineProvider>
-      <Toaster
+      <ThemedToaster
         position="bottom-right"
         richColors
-        theme={mode}
         closeButton
         toastOptions={{ style: { borderRadius: '20px' } }}
       />
