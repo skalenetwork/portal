@@ -151,6 +151,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
     if (!creditStation || !token) return
     if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
       setErrorMsg('Something is wrong with your wallet, try again')
+      notify.permanentError('Something is wrong with your wallet, try again')
       setOpenModal(false)
       return
     }
@@ -162,6 +163,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
       if (!tokenAddress) return
 
       const { chainId } = await creditStation.runner.provider.getNetwork()
+      notify.temporaryInfo('Switching network...')
       await enforceNetwork(
         chainId,
         walletClient,

@@ -70,7 +70,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
     tokens: types.mp.TokenDataMap
   ) => {
     log.info('Running unwrapAll')
-    set({ loading: true })
+    set({ loading: true, errorMessage: undefined })
     try {
       for (const key of Object.keys(tokens)) {
         const stepMetadata = get().stepsMetadata[get().currentStep]
@@ -106,7 +106,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
     if (get().stepsMetadata[get().currentStep]) {
       set({
         loading: true,
-        transferInProgress: true
+        transferInProgress: true,
+        errorMessage: undefined
       })
       try {
         const stepMetadata = get().stepsMetadata[get().currentStep]
@@ -196,7 +197,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
     if (get().stepsMetadata[get().currentStep] && address) {
       set({
         loading: true,
-        btnText: 'Checking balance...'
+        btnText: 'Checking balance...',
+        errorMessage: undefined
       })
       try {
         const stepMetadata = get().stepsMetadata[get().currentStep]

@@ -56,6 +56,8 @@ async function processTx({
 }) {
   if (!props.sc || !props.address) return
 
+  props.setErrorMsg(undefined)
+  const toastId = notify.loading(`Processing ${txName}...`)
   try {
     const signer = await props.getMainnetSigner()
     const contract = await contracts.initActionContract(
@@ -75,17 +77,16 @@ async function processTx({
     if (!res.status) {
       const errMsg = res.err?.name || 'Transaction failed'
       props.setErrorMsg(errMsg)
-      notify.permanentError(errMsg)
+      notify.permanentError(errMsg, toastId)
     } else {
-      props.setErrorMsg(undefined)
-      notify.temporarySuccess(`${txName} completed`)
+      notify.temporarySuccess(`${txName} completed`, toastId)
       await props.postAction()
     }
   } catch (err: any) {
     console.error(err)
     const errMsg = err.message || 'Transaction failed'
     props.setErrorMsg(errMsg)
-    notify.permanentError(errMsg)
+    notify.permanentError(errMsg, toastId)
   } finally {
     props.setLoading(false)
   }

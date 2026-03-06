@@ -38,6 +38,7 @@ import {
 import { Button } from '@mui/material'
 
 import { watchAsset } from '../core/watchAsset'
+import notify from '../core/notify'
 
 export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: string }) {
   const [loading, setLoading] = useState<boolean>(false)
@@ -78,6 +79,7 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
     setLoading(true)
     try {
       const { chainId } = await props.mpc.provider(props.chain).getNetwork()
+      notify.temporaryInfo('Switching network...')
       await enforceNetwork(
         chainId,
         walletClient!,

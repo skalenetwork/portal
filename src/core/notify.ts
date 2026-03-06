@@ -25,32 +25,45 @@ import { toast } from 'sonner'
 
 const DEFAULT_DURATION = 5000
 
-function temporarySuccess(message: string) {
-    toast.success(message, { duration: DEFAULT_DURATION })
+function temporarySuccess(message: string, toastId?: string | number) {
+    toast.success(message, { duration: DEFAULT_DURATION, id: toastId })
 }
 
-function temporaryInfo(message: string) {
-    toast.info(message, { duration: DEFAULT_DURATION })
+function temporaryInfo(message: string, toastId?: string | number) {
+    toast.info(message, { duration: DEFAULT_DURATION, id: toastId })
 }
 
-function permanentError(message: string) {
-    toast.error(message, { duration: Infinity })
+function permanentError(message: string, toastId?: string | number) {
+    toast.error(message, { duration: Infinity, id: toastId })
 }
 
-function loading(message: string): string | number {
-    return toast.loading(message)
+function temporaryError(message: string, toastId?: string | number) {
+    toast.error(message, { duration: DEFAULT_DURATION, id: toastId })
+}
+
+function loading(message: string, options?: any): string | number {
+    return toast.loading(message, options)
 }
 
 function dismiss(toastId: string | number) {
     toast.dismiss(toastId)
 }
 
+function dismissAll() {
+    toast.dismiss()
+}
+
 const notify = {
     temporarySuccess,
     temporaryInfo,
     permanentError,
+    temporaryError,
     loading,
-    dismiss
+    dismiss,
+    dismissAll,
+    temporary_success: temporarySuccess,
+    temporary_info: temporaryInfo,
+    permanent_error: permanentError
 }
 
 export default notify

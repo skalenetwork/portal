@@ -22,7 +22,7 @@
  */
 
 import { Helmet } from 'react-helmet'
-import { MetaportProvider, getMetaportTheme } from '@skalenetwork/metaport'
+import { MetaportProvider, getMetaportTheme, useThemeMode } from '@skalenetwork/metaport'
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
 import { Toaster } from 'sonner'
 
@@ -40,6 +40,8 @@ const mpTheme = getMetaportTheme(METAPORT_CONFIG.theme)
 const muiTheme = createMuiTheme(mpTheme)
 
 export default function App() {
+  const { mode } = useThemeMode()
+
   return (
     <div className="min-h-screen">
       <Helmet>
@@ -54,10 +56,16 @@ export default function App() {
             <div className="app-shell">
               <Portal />
             </div>
-            <Toaster position="bottom-right" richColors closeButton className="rounded-full!" />
           </MetaportProvider>
         </ThemeProvider>
       </StyledEngineProvider>
+      <Toaster
+        position="bottom-right"
+        richColors
+        theme={mode}
+        closeButton
+        toastOptions={{ style: { borderRadius: '20px' } }}
+      />
     </div>
   )
 }

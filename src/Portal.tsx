@@ -33,7 +33,6 @@ import SkDrawer from './SkDrawer'
 import Router from './Router'
 import SkBottomNavigation from './SkBottomNavigation'
 import ProfileModal from './components/profile/ProfileModal'
-import useBridgeNotifications from './hooks/useBridgeNotifications'
 
 import { formatSChains } from './core/chain'
 import { STATS_API } from './core/constants'
@@ -59,7 +58,6 @@ export default function Portal() {
   const statsApi = STATS_API[mpc.config.skaleNetwork]
 
   const { address } = useWagmiAccount()
-  useBridgeNotifications()
   if (!mpc) return <div></div>
 
   const openProfileModal = () => setIsProfileModalOpen(true)

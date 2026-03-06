@@ -74,6 +74,7 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
     if (!creditStation) return
     if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
       setErrorMsg('Something is wrong with your wallet, try again')
+      notify.permanentError('Something is wrong with your wallet, try again')
       return
     }
 
@@ -81,6 +82,7 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
 
     try {
       const { chainId } = await creditStation.runner.provider.getNetwork()
+      notify.temporaryInfo('Switching network...')
       await enforceNetwork(
         chainId,
         walletClient,
@@ -95,7 +97,13 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
       const method = isPaused ? creditStation.unpause : creditStation.pause
       const action = isPaused ? 'unpause' : 'pause'
 
-      await sendTransaction(signer, method, [], `creditStation:${action}`)
+      const res = await sendTransaction(signer, method, [], `creditStation:${action}`)
+      if (!res.status) {
+        const errMsg = res.err?.name || 'Transaction failed'
+        setErrorMsg(errMsg)
+        notify.permanentError(errMsg)
+        return
+      }
 
       notify.temporarySuccess(`Credit station ${action}d`)
       await loadPausedStatus()

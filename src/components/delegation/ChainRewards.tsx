@@ -144,27 +144,33 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
       !address
     ) {
       setErrorMsg('Something is wrong with your wallet, try again')
+      notify.permanentError('Something is wrong with your wallet, try again')
       return
     }
     setLoading(true)
     setBtnText('Switching network')
     setErrorMsg(undefined)
+    const toastId = notify.loading('Retrieving rewards...')
     try {
       const sFuelBalance = await paymaster.runner.provider.getBalance(address)
       if (sFuelBalance === 0n) {
         setBtnText('Mining sFUEL')
+        notify.loading('Mining sFUEL...', { id: toastId })
         const station = new Station(paymasterChain, mpc)
         const powResult = await station.doPoW(address)
         if (!powResult.ok) {
           setErrorMsg('Failed to mine sFUEL')
+          notify.permanentError('Failed to mine sFUEL', toastId)
           return
         }
       }
 
       const { chainId } = await paymaster.runner.provider.getNetwork()
 
+      notify.temporaryInfo('Switching network...')
       await enforceNetwork(chainId, walletClient, switchChainAsync, network, paymasterChain)
       setBtnText('Sending transaction')
+      notify.loading('Sending transaction...', { id: toastId })
       const signer = walletClientToSigner(walletClient)
       paymaster.connect(signer)
 
@@ -172,16 +178,16 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
       if (!res.status) {
         const errMsg = res.err?.name || 'Retrieve rewards failed'
         setErrorMsg(errMsg)
-        notify.permanentError(errMsg)
+        notify.permanentError(errMsg, toastId)
         return
       }
-      notify.temporarySuccess('Staking rewards retrieved')
+      notify.temporarySuccess('Staking rewards retrieved', toastId)
       await loadData()
     } catch (e: any) {
       console.error(e)
       const errMsg = e.toString()
       setErrorMsg(errMsg)
-      notify.permanentError(errMsg)
+      notify.permanentError(errMsg, toastId)
     } finally {
       setLoading(false)
       setBtnText(undefined)
@@ -249,7 +255,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
           </SkStack>
         }
       />
-      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-2.5" />
+      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} />
     </SkPaper>
   )
 }

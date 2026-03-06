@@ -92,6 +92,7 @@ export function usesFuel(mpc: MetaportCore) {
   const mineSFuel = useCallback(async () => {
     if (!address) return
     setState((prev) => ({ ...prev, isMining: true }))
+    const toastId = notify.loading('Recharging sFUEL...')
     let errorOccurred = false
     let chainsWithEnoughSFuel = 0
 
@@ -101,6 +102,7 @@ export function usesFuel(mpc: MetaportCore) {
         const { balance } = await station.getData(address)
         if (balance < DEFAULT_MIN_SFUEL_WEI) {
           log.info(`Mining sFuel on chain ${chain}`)
+          notify.loading(`Mining sFUEL on ${chain}...`, { id: toastId })
           const powResult = await station.doPoW(address)
           if (!powResult.ok) {
             log.error(`Failed to mine sFuel on chain ${chain}: ${powResult.message}`)
@@ -123,10 +125,10 @@ export function usesFuel(mpc: MetaportCore) {
 
     if (errorOccurred) {
       log.error('sFuel mining encountered errors on one or more chains')
-      notify.permanentError('sFUEL mining failed on some chains')
+      notify.permanentError('sFUEL mining failed on some chains', toastId)
     } else {
       log.info('sFuel mining completed successfully on all required chains')
-      notify.temporarySuccess('sFUEL recharged on all chains')
+      notify.temporarySuccess('sFUEL recharged on all chains', toastId)
     }
 
     setState((prev) => ({
