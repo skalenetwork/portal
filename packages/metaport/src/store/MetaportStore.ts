@@ -233,12 +233,17 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
 
         const trailsCheck =
           checkStep.type === dc.ActionType.trails_ext2m ||
-          checkStep.type === dc.ActionType.trails_ext2s
+          checkStep.type === dc.ActionType.trails_ext2s ||
+          checkStep.type === dc.ActionType.trails_m2ext
+
+        const trailsM2ExtStep = get().stepsMetadata.find(
+          (s) => s.type === dc.ActionType.trails_m2ext
+        )
 
         if (!silent) {
           set({
             loading: true,
-            btnText: trailsCheck ? 'Getting quote...' : 'Checking balance...'
+            btnText: trailsCheck || trailsM2ExtStep ? 'Getting quote...' : 'Checking balance...'
           })
         }
 
@@ -263,6 +268,29 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
 
         if (isTrailsAction(action)) {
           set({ trailsQuote: action.trailsQuote, trailsQuoteError: action.trailsQuoteError })
+        } else if (trailsM2ExtStep) {
+          const TrailsClass: ActionConstructor = ACTIONS[trailsM2ExtStep.type]
+          const trailsAction = await (TrailsClass.create as any)(
+            get().mpc,
+            trailsM2ExtStep.from,
+            trailsM2ExtStep.to,
+            address,
+            amount,
+            get().tokenId,
+            get().token,
+            () => { },
+            get().setBtnText,
+            null,
+            null
+          )
+          await trailsAction.preAction()
+          if (requestId !== checkRequestId) return
+          if (isTrailsAction(trailsAction)) {
+            set({
+              trailsQuote: trailsAction.trailsQuote,
+              trailsQuoteError: trailsAction.trailsQuoteError
+            })
+          }
         } else {
           set({ trailsQuote: null, trailsQuoteError: null })
         }

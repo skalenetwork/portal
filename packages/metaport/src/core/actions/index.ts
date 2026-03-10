@@ -34,7 +34,7 @@ import {
   TransferERC20S2M
 } from './erc20'
 import { RechargeExitGas } from './recharge'
-import { TransferTrailsExt2M, TransferTrailsExt2S } from './trails'
+import { TransferTrailsExt2M, TransferTrailsExt2S, TransferTrailsM2Ext } from './trails'
 
 import { ActionConstructor } from './action'
 import { S2S_POSTFIX, M2S_POSTFIX, S2M_POSTFIX } from '../constants'
@@ -77,5 +77,6 @@ export const ACTIONS: { [actionType in dc.ActionType]: ActionConstructor } = {
   recharge: RechargeExitGas,
 
   trails_ext2m: TransferTrailsExt2M,
-  trails_ext2s: TransferTrailsExt2S
+  trails_ext2s: TransferTrailsExt2S,
+  trails_m2ext: TransferTrailsM2Ext
 }

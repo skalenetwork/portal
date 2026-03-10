@@ -38,7 +38,8 @@ export enum ActionType {
   eth_unlock = 'eth_unlock',
   recharge = 'recharge',
   trails_ext2m = 'trails_ext2m',
-  trails_ext2s = 'trails_ext2s'
+  trails_ext2s = 'trails_ext2s',
+  trails_m2ext = 'trails_m2ext'
 }
 
 export function getActionType(

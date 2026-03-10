@@ -29,6 +29,7 @@ import {
   TrailsApi,
   RouteProvider,
   IntentStatus,
+  TransactionStatus,
   type QuoteIntentRequest,
   type QuoteIntentResponse,
   type WaitIntentReceiptResponse,
@@ -206,12 +207,16 @@ const FAILED_STATUSES = new Set([
 export async function waitReceipt(
   intentId: string
 ): Promise<WaitIntentReceiptResponse> {
-  const response = await getTrailsApi().waitIntentReceipt({ intentId })
-  const status = response.intentReceipt.status
-  if (FAILED_STATUSES.has(status)) {
-    throw new Error(`Intent ${status.toLowerCase()}: the cross-chain transfer could not be completed`)
+  let lastReceiptStates: Array<TransactionStatus> | undefined
+  while (true) {
+    const response = await getTrailsApi().waitIntentReceipt({ intentId, lastReceiptStates })
+    const status = response.intentReceipt.status
+    if (FAILED_STATUSES.has(status)) {
+      throw new Error(`Intent ${status.toLowerCase()}: the cross-chain transfer could not be completed`)
+    }
+    if (response.done) return response
+    lastReceiptStates = response.receiptStates
   }
-  return response
 }
 
 export async function getIntentReceipt(

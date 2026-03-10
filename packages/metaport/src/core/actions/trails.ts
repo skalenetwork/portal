@@ -40,8 +40,14 @@ import {
 
 const log = new Logger<ILogObj>({ name: 'metaport:core:actions:trails' })
 
-export function isTrailsAction(action: Action): action is TransferTrailsExt2M | TransferTrailsExt2S {
-  return action instanceof TransferTrailsExt2M || action instanceof TransferTrailsExt2S
+export function isTrailsAction(
+  action: Action
+): action is TransferTrailsExt2M | TransferTrailsExt2S | TransferTrailsM2Ext {
+  return (
+    action instanceof TransferTrailsExt2M ||
+    action instanceof TransferTrailsExt2S ||
+    action instanceof TransferTrailsM2Ext
+  )
 }
 
 function resolveChainId(chainName: string, skaleNetwork: types.SkaleNetwork): number {
@@ -246,6 +252,93 @@ export class TransferTrailsExt2S extends Action {
       this.trailsQuoteError = null
     } catch (err) {
       log.error('TransferTrailsExt2S:preAction - quote failed', err)
+      this.trailsQuote = null
+      this.trailsQuoteError = err instanceof Error ? err.message : String(err)
+    }
+  }
+}
+
+export class TransferTrailsM2Ext extends Action {
+  trailsQuote: QuoteIntentResponse | null = null
+  trailsQuoteError: string | null = null
+  setTrailsIntentId: ((id: string) => void) | null = null
+  setTrailsImaCompleted: (() => void) | null = null
+
+  protected async initialize(): Promise<void> {
+    this.mainnet = await this.mpc.mainnet()
+    this.sourceToken = this.mpc.tokenContract(
+      'mainnet',
+      this.token.keyname,
+      this.token.type,
+      this.mainnet.provider
+    )
+  }
+
+  async execute() {
+    this.updateState('trailsQuoting')
+    await this.preAction()
+
+    const quote = this.trailsQuote
+    if (!quote) throw new Error(this.trailsQuoteError ?? 'Failed to get Trails quote')
+
+    this.updateState('trailsCommitting')
+    const intentId = await commitIntent(quote)
+    this.setTrailsIntentId?.(intentId)
+
+    const depositTx = quote.intent.depositTransaction
+
+    this.updateState('switch')
+    const signer = await this.signer(this.mainnet.provider, 'mainnet')
+
+    this.updateState('trailsDeposit')
+    const tx = await signer.sendTransaction({
+      to: depositTx.to,
+      data: depositTx.data,
+      value: depositTx.value
+    })
+    await tx.wait()
+
+    this.updateState('trailsExecuting')
+    await executeIntent(intentId, tx.hash)
+
+    this.updateState('trailsWaiting')
+    await waitReceipt(intentId)
+
+    this.updateState('received')
+    log.info('TransferTrailsM2Ext:execute - intent fulfilled')
+  }
+
+  async preAction() {
+    this.setAmountErrorMessage(null)
+
+    if (!this.amount || Number(this.amount) === 0) {
+      this.trailsQuote = null
+      return
+    }
+
+    const originChainId = NETWORK_MAINNET_CHAINS[this.mpc.config.skaleNetwork].id
+    const destinationChainId = getExtChain(this.chainName2).id
+    const amountWei = units.toWei(this.amount, this.token.meta.decimals)
+    const destTokenAddress = resolveDestTokenAddress(
+      this.mpc.config,
+      this.chainName2,
+      this.token.keyname,
+      this.token.type
+    )
+    const mainnetTokenAddress = this.mpc.config.connections['mainnet'][this.token.type][this.token.keyname].address
+
+    try {
+      this.trailsQuote = await quoteIntent({
+        ownerAddress: this.address,
+        originChainId,
+        originTokenAddress: mainnetTokenAddress,
+        originTokenAmount: amountWei,
+        destinationChainId,
+        destinationTokenAddress: destTokenAddress
+      })
+      this.trailsQuoteError = null
+    } catch (err) {
+      log.error('TransferTrailsM2Ext:preAction - quote failed', err)
       this.trailsQuote = null
       this.trailsQuoteError = err instanceof Error ? err.message : String(err)
     }

@@ -57,7 +57,24 @@ export function getStepsMetadata(
     }
 
     if (!isExtSource && isExtDest) {
-      log.info('Trails S2Ext not yet implemented, falling back to standard steps')
+      const sChainName = token.chain
+      steps.push(new dc.RechargeStepMetadata(sChainName, constants.MAINNET_CHAIN_NAME))
+      steps.push(
+        new dc.TransferStepMetadata(
+          dc.ActionType.erc20_s2m,
+          sChainName,
+          constants.MAINNET_CHAIN_NAME
+        )
+      )
+      steps.push(
+        new dc.TrailsTransferStepMetadata(
+          dc.ActionType.trails_m2ext,
+          constants.MAINNET_CHAIN_NAME,
+          to
+        )
+      )
+      log.info('Trails S2Ext transfer steps:', steps)
+      return steps
     }
   }
 

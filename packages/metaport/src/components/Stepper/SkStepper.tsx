@@ -40,7 +40,8 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
     unwrap_stuck: <SendToBack size={17} />,
     recharge: <Coins size={17} />,
     trails_ext2m: <Send size={17} />,
-    trails_ext2s: <Send size={17} />
+    trails_ext2s: <Send size={17} />,
+    trails_m2ext: <Send size={17} />
   }
 
   const { address, chainId } = useAccount()
