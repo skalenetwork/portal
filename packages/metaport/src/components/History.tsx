@@ -28,7 +28,7 @@ import TransactionData from './TransactionData'
 import ChainIcon from './ChainIcon'
 import { timeAgo } from '../core/time'
 import { getExplorerUrlForAddress, shortenAddress } from '../core/explorer'
-import { Blocks, CircleAlert, Route, ExternalLink, Check, XCircle } from 'lucide-react'
+import { Blocks, CircleAlert, Route, ExternalLink, Check, XCircle, Clock } from 'lucide-react'
 import Avatar from 'boring-avatars'
 import { metadata } from '@/core'
 import IconButton from '@mui/material/IconButton'
@@ -106,7 +106,7 @@ export default function History(props: { size?: types.Size }) {
                     className={`text-xs -mt-0.5 flex items-center gap-1 font-semibold ${unfinished || isTrailsFailed(transfer) ? 'text-destructive' : 'text-secondary-foreground'}`}
                   >
                     {unfinished && <CircleAlert size={12} />}
-                    {isTrailsTransfer(transfer) && !isTrailsFailed(transfer) && <Check size={12} />}
+                    {isTrailsTransfer(transfer) && !isTrailsFailed(transfer) && (transfer.transactions.length > 0 ? <Clock size={12} /> : <Check size={12} />)}
                     {isTrailsFailed(transfer) && <XCircle size={12} />}
                     {transferTimestamp(transfer)}
                   </p>
@@ -186,8 +186,8 @@ export default function History(props: { size?: types.Size }) {
                 </div>
               )}
               {isTrailsTransfer(transfer) && (
-                <div className="bg-muted-foreground/10 px-4 py-3 rounded-3xl mt-1 flex items-center justify-between">
-                  <div className="flex items-center gap-1.5">
+                <div className="bg-muted-foreground/10 px-6 py-4 rounded-3xl mt-1 flex items-center justify-between">
+                  <div className="flex items-center gap-3.5">
                     <Route size={13} className="text-secondary-foreground" />
                     <span className="text-xs text-secondary-foreground font-medium">Routed via</span>
                     <img src={trailsLogo} alt="Trails" className="h-4 rounded-sm" />
