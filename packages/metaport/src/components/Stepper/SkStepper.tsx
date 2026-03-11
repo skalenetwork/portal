@@ -22,6 +22,7 @@ import AddToken from '../AddToken'
 
 import { useMetaportStore } from '../../store/MetaportStore'
 import { useCPStore } from '../../store/CommunityPoolStore'
+import { getEmptyCommunityPoolData } from '../../core/community_pool'
 import { BALANCE_UPDATE_INTERVAL_MS } from '../../core/constants'
 import { CHAINS_META } from '../../core/metadata'
 import { Check, RotateCcw, Send, SendToBack, Coins } from 'lucide-react'
@@ -73,6 +74,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
 
   const cpData = useCPStore((state) => state.cpData)
+  const setCpData = useCPStore((state) => state.setCpData)
   const updateCPData = useCPStore((state) => state.updateCPData)
   const setCurrentStep = useMetaportStore((state) => state.setCurrentStep)
 
@@ -98,15 +100,22 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
 
   useEffect(() => {
     if (!hasRechargeStep || !address) return
+    setCpData(getEmptyCommunityPoolData())
     const exitChain = stepsMetadata[0].from
-    updateCPData(address, exitChain, chainName2, mpc)
+    const rechargeTarget = stepsMetadata[0].to
+    updateCPData(address, exitChain, rechargeTarget, mpc)
   }, [hasRechargeStep, chainName1, chainName2, address])
 
   useEffect(() => {
-    if (cpData.exitGasOk && currentStep === 0 && hasRechargeStep) {
+    if (!hasRechargeStep) return
+    if (transferInProgress) return
+    if (cpData.exitGasOk === true && currentStep === 0) {
       setCurrentStep(1)
     }
-  }, [cpData.exitGasOk, currentStep, hasRechargeStep])
+    if (cpData.exitGasOk === false && currentStep === 1) {
+      setCurrentStep(0)
+    }
+  }, [cpData.exitGasOk, currentStep, hasRechargeStep, transferInProgress])
 
   useEffect(() => {
     if (!address) return
