@@ -190,12 +190,10 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
           <BridgeBody chainsMeta={props.chainsMeta} />
           {address && transfersHistory && transfersHistory.length > 0 && (
             <div className="max-md:hidden mt-5">
-              <div className="flex items-center mb-2.5 mt-5 pt-5">
-                <Headline
-                  text="Past Transfers"
-                  icon={<HistoryIcon size={17} />}
-                  size="small"
-                />
+              <div className="flex items-center mb-2.5 mt-5 pt-5 justify-between">
+                <p className="text-base text-foreground font-bold m-0">
+                  Past Transfers
+                </p>
                 <Link to="/bridge/history">
                   <Button className="btn btnSm bg text-foreground! bg-card!">See all</Button>
                 </Link>
