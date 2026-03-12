@@ -28,7 +28,7 @@ import { useAccount, useWalletClient, useSwitchChain } from 'wagmi'
 import TextField from '@mui/material/TextField'
 import Button from '@mui/material/Button'
 
-import { withdraw, recharge } from '../core/community_pool'
+import { withdraw, recharge } from '../core/actions/bridge_balance'
 import {
   BALANCE_UPDATE_INTERVAL_MS,
   COMMUNITY_POOL_DECIMALS,

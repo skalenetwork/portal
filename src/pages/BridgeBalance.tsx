@@ -53,7 +53,7 @@ export default function BridgeBalance() {
   }, [chainNames])
 
   return (
-    <Container maxWidth="sm" >
+    <Container maxWidth="sm">
       <Helmet>
         <title>{META_TAGS.bridgeBalance.title}</title>
         <meta name="description" content={META_TAGS.bridgeBalance.description} />

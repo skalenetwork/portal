@@ -20,7 +20,7 @@
 }
 
 .backdropBlur {
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(5px);
 }
 
 .popper {
@@ -525,6 +525,16 @@ button {
 .bridgeModalScroll {
     max-height: calc(100vh - 200px);
     overflow: auto;
+}
+
+.chainsModalScroll {
+    max-height: calc(100vh - 70px);
+    overflow: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 .filled {

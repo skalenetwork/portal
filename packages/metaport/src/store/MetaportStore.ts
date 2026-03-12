@@ -35,6 +35,7 @@ import { ACTIONS } from '../core/actions'
 import { MainnetChain, SChain } from '../core/contracts'
 import { ActionConstructor } from '../core/actions/action'
 import { isTrailsAction } from '../core/actions/trails'
+import { getEmptyCommunityPoolData, getCommunityPoolData } from '../core/community_pool'
 
 const log = new Logger<ILogObj>({ name: 'metaport:core:state' })
 let checkRequestId = 0
@@ -46,6 +47,30 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
   setIma2: (ima: MainnetChain | SChain) => set(() => ({ ima2: ima })),
 
   _imaCache: {},
+
+  cpData: getEmptyCommunityPoolData(),
+  setCpData: (cpData: types.mp.CommunityPoolData) => set({ cpData }),
+  _cpMainnet: null as MainnetChain | null,
+  _cpSChain: null as SChain | null,
+  _cpChainName: null as string | null,
+  updateCPData: async (address: string, chainName1: string, chainName2: string) => {
+    if (!chainName1 || !chainName2 || chainName1 === constants.MAINNET_CHAIN_NAME) return
+    const mpc = get().mpc
+    if (!get()._cpMainnet) {
+      set({ _cpMainnet: await mpc.mainnet() })
+    }
+    if (!get()._cpSChain || get()._cpChainName !== chainName1) {
+      set({ _cpSChain: await mpc.schain(chainName1), _cpChainName: chainName1 })
+    }
+    const cpData = await getCommunityPoolData(
+      address,
+      chainName1,
+      chainName2,
+      get()._cpMainnet,
+      get()._cpSChain
+    )
+    set({ cpData })
+  },
 
   trailsQuote: null,
   trailsQuoteError: null,
@@ -116,13 +141,13 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
 
   execute: async (address: `0x${string}`, switchChain: any, walletClient: WalletClient) => {
     log.info('Running execute')
-    if (get().stepsMetadata[get().currentStep]) {
-      set({
-        loading: true,
-        transferInProgress: true
-      })
+    if (!get().stepsMetadata[get().currentStep]) return
+
+    set({ loading: true, transferInProgress: true })
+
+    while (get().stepsMetadata[get().currentStep]) {
+      const stepMetadata = get().stepsMetadata[get().currentStep]
       try {
-        const stepMetadata = get().stepsMetadata[get().currentStep]
         const ActionClass: ActionConstructor = ACTIONS[stepMetadata.type]
         const action = await (ActionClass.create as any)(
           get().mpc,
@@ -159,6 +184,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           headline = err.shortMessage
         }
         set({
+          loading: false,
           errorMessage: new dc.TransactionErrorMessage(
             msg,
             get().errorMessageClosedFallback,
@@ -167,12 +193,11 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           )
         })
         return
-      } finally {
-        set({ loading: false })
       }
 
-      const isTransferFinished = get().currentStep + 1 === get().stepsMetadata.length
+      set({ currentStep: get().currentStep + 1 })
 
+      const isTransferFinished = get().currentStep === get().stepsMetadata.length
       if (isTransferFinished) {
         const entry: types.mp.TransferHistory = {
           transactions: get().transactionsHistory,
@@ -188,12 +213,16 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           entry.trailsStatus = 'succeeded'
         }
         get().setTransfersHistory([...get().transfersHistory, entry])
+        set({ loading: false, transferInProgress: false })
+        return
       }
 
-      set({
-        transferInProgress: !isTransferFinished,
-        currentStep: get().currentStep + 1
-      })
+      if (stepMetadata.type !== dc.ActionType.recharge) {
+        set({ loading: false })
+        return
+      }
+
+      log.info('Auto-advancing past recharge step')
     }
   },
 
@@ -227,7 +256,13 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
 
         let checkStep = stepMetadata
         if (stepMetadata.type === dc.ActionType.recharge) {
-          const nextStep = get().stepsMetadata[get().currentStep + 1]
+          await get().updateCPData(address, stepMetadata.from, stepMetadata.to)
+          if (requestId !== checkRequestId) return
+          if (get().cpData.exitGasOk) {
+            log.info('Bridge balance OK, skipping recharge step')
+            set({ currentStep: get().currentStep + 1 })
+          }
+          const nextStep = get().stepsMetadata[get().currentStep]
           if (nextStep) checkStep = nextStep
         }
 

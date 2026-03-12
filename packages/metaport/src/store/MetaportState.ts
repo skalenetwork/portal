@@ -133,6 +133,13 @@ export interface MetaportState {
   trailsTrackerReady: boolean
   trailsImaCompleted: boolean
 
+  cpData: types.mp.CommunityPoolData
+  setCpData: (cpData: types.mp.CommunityPoolData) => void
+  updateCPData: (address: string, chainName1: string, chainName2: string) => void
+  _cpMainnet: MainnetChain | null
+  _cpSChain: SChain | null
+  _cpChainName: string | null
+
   errorMessageClosedFallback: () => void
   startOver: () => void
 }

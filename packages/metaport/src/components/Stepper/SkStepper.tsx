@@ -21,8 +21,6 @@ import ChainIcon from '../ChainIcon'
 import AddToken from '../AddToken'
 
 import { useMetaportStore } from '../../store/MetaportStore'
-import { useCPStore } from '../../store/CommunityPoolStore'
-import { getEmptyCommunityPoolData } from '../../core/community_pool'
 import { BALANCE_UPDATE_INTERVAL_MS } from '../../core/constants'
 import { CHAINS_META } from '../../core/metadata'
 import { Check, RotateCcw, Send, SendToBack, Coins } from 'lucide-react'
@@ -73,11 +71,6 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
   const amount = useMetaportStore((state) => state.amount)
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
 
-  const cpData = useCPStore((state) => state.cpData)
-  const setCpData = useCPStore((state) => state.setCpData)
-  const updateCPData = useCPStore((state) => state.updateCPData)
-  const setCurrentStep = useMetaportStore((state) => state.setCurrentStep)
-
   useEffect(() => {
     try {
       const latestTx = transactionsHistory[transactionsHistory.length - 1]
@@ -93,35 +86,10 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
     }
   }, [transactionsHistory])
 
-  const isRechargeStep = stepsMetadata[currentStep]?.type === dc.ActionType.recharge
-  const hasRechargeStep =
-    stepsMetadata.length > 0 && stepsMetadata[0].type === dc.ActionType.recharge
-  const firstActionStep = hasRechargeStep ? 1 : 0
-
-  useEffect(() => {
-    if (!hasRechargeStep || !address) return
-    setCpData(getEmptyCommunityPoolData())
-    const exitChain = stepsMetadata[0].from
-    const rechargeTarget = stepsMetadata[0].to
-    updateCPData(address, exitChain, rechargeTarget, mpc)
-  }, [hasRechargeStep, chainName1, chainName2, address])
-
-  useEffect(() => {
-    if (!hasRechargeStep) return
-    if (transferInProgress) return
-    if (cpData.exitGasOk === true && currentStep === 0) {
-      setCurrentStep(1)
-    }
-    if (cpData.exitGasOk === false && currentStep === 1) {
-      setCurrentStep(0)
-    }
-  }, [cpData.exitGasOk, currentStep, hasRechargeStep, transferInProgress])
-
   useEffect(() => {
     if (!address) return
     if (transferInProgress) return
     if (loading) return
-    if (currentStep !== firstActionStep) return
 
     const numericAmount = Number(amount)
     if (!Number.isFinite(numericAmount) || numericAmount <= 0) return
@@ -137,25 +105,17 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
     transferInProgress,
     loading,
     currentStep,
-    firstActionStep,
     amount,
     token?.keyname,
     chainName1,
     chainName2,
-    hasRechargeStep,
     check
   ])
 
   if (stepsMetadata.length === 0) return <div></div>
 
-  const actionDisabled = isRechargeStep
-    ? loading ||
-    cpData.exitGasOk === null ||
-    !cpData.recommendedRechargeAmount ||
-    amountErrorMessage ||
-    amount == '' ||
-    Number(amount) === 0
-    : amountErrorMessage || trailsQuoteError || loading || amount == '' || Number(amount) === 0
+  const actionDisabled =
+    amountErrorMessage || trailsQuoteError || loading || amount == '' || Number(amount) === 0
 
   const chainsMeta = CHAINS_META[props.skaleNetwork]
 
@@ -259,12 +219,8 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                           onClick={() => execute(address, switchChainAsync, walletClient)}
                           disabled={!!actionDisabled}
                         >
-                          {step.type === dc.ActionType.recharge
-                            ? amount === '' || Number(amount) === 0
-                              ? 'Enter an amount'
-                              : cpData.recommendedRechargeAmount
-                                ? `Top up ${cpData.recommendedRechargeAmount} ETH`
-                                : step.btnText
+                          {amount === '' || Number(amount) === 0
+                            ? 'Enter an amount'
                             : step.btnText}
                         </Button>
                       )}

@@ -37,6 +37,8 @@ import {
   optimism,
   avalanche,
   bsc,
+  monad,
+  gnosis,
   Chain
 } from 'wagmi/chains'
 
@@ -47,12 +49,18 @@ const log = new Logger<ILogObj>({ name: 'metaport:core:network' })
 
 export const EXT_PREFIX = 'ext-'
 
+const EXT_CHAIN_RPC_OVERRIDES: Record<string, string> = {
+  polygon: 'https://polygon-bor-rpc.publicnode.com'
+}
+
 export const EXT_CHAINS: Record<string, Chain> = {
   arbitrum,
   polygon,
   'op-mainnet': optimism,
   avalanche,
-  bsc
+  bsc,
+  monad,
+  gnosis
 }
 
 export function isExtChain(chainName: string): boolean {
@@ -93,6 +101,9 @@ export function mainnetProvider(mainnetEndpoint: string): Provider {
 
 export function sChainProvider(network: types.SkaleNetwork, chainName: string): Provider {
   if (isExtChain(chainName)) {
+    const name = getExtChainName(chainName)
+    const rpcOverride = EXT_CHAIN_RPC_OVERRIDES[name]
+    if (rpcOverride) return new JsonRpcProvider(rpcOverride)
     const chain = getExtChain(chainName)
     return new JsonRpcProvider(chain.rpcUrls.default.http[0])
   }

@@ -72,6 +72,18 @@ export class TransferEthS2M extends Action {
   async execute() {
     log.info('TransferEthS2M: started')
     this.updateState('init')
+
+    const communityLocker = await this.sChain1.communityLocker()
+    const isActive = await communityLocker.activeUsers(this.address)
+    log.info('TransferEthS2M: bridge balance check', {
+      address: this.address,
+      chainName: this.chainName1,
+      isActive
+    })
+    if (!isActive) {
+      throw new Error('Wallet is not active on the SKALE chain. Please top up your bridge balance.')
+    }
+
     const amountWei = units.toWei(this.amount, this.token.meta.decimals)
     const sChain = await this.connectedSChain(this.sChain1.provider)
 
