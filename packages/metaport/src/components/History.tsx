@@ -73,9 +73,15 @@ export default function History(props: {
   const chainsMeta = CHAINS_META[network]
 
   if (transactionsHistory.length === 0 && transfersHistory.length === 0) return
+
+  const visibleCount =
+    (transactionsHistory.length !== 0 && !props.hideCurrent ? 1 : 0) +
+    Math.min(props.limit ?? transfersHistory.length, transfersHistory.length)
+  const gridCols = visibleCount === 1 ? 'md:grid-cols-1' : 'md:grid-cols-2'
+
   return (
     <div
-      className={`${props.className ?? ''} ${size === 'sm' ? 'flex flex-col gap-2 md:grid md:grid-cols-2' : ''}`}
+      className={`${props.className ?? ''} ${size === 'sm' ? `flex flex-col gap-2 md:grid ${gridCols}` : ''}`}
     >
       {transactionsHistory.length !== 0 && !props.hideCurrent && (
         <div className="mb-2.5 bg-card! rounded-3xl p-4">
