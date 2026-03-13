@@ -235,10 +235,10 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
         {currentStep === stepsMetadata.length && (
           <SkPaper gray className="p-6!">
             <div className="flex items-center">
-              <span className="flex items-center justify-center w-[30px] h-[30px] rounded-full bg-emerald-100 dark:bg-emerald-400/15 shrink-0">
+              <span className="flex items-center justify-center w-[35px] h-[35px] rounded-full bg-emerald-100 dark:bg-emerald-400/15 shrink-0">
                 <Check size={14} className="text-emerald-500 dark:text-emerald-400" />
               </span>
-              <span className="ml-3 grow">
+              <span className="ml-3.5 grow">
                 <div>
                   <p className="text-sm capitalize text-foreground font-medium m-0">Completed</p>
                   <p className="text-xs text-secondary-foreground m-0">Tokens received</p>

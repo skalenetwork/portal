@@ -87,8 +87,8 @@ function StepIcon({ status }: { status: TransactionStatus }) {
   else if (isTxActive(status)) icon = <Loader2 size={14} className="animate-spin" />
   return (
     <span className="relative flex items-center justify-center">
-      <span className={`w-[30px] h-[30px] rounded-full ${colors.bg} absolute`} />
-      <span className={`flex items-center justify-center ${colors.text} w-[30px] h-[30px] z-10`}>
+      <span className={`w-[35px] h-[35px] rounded-full ${colors.bg} absolute`} />
+      <span className={`flex items-center justify-center ${colors.text} w-[35px] h-[35px] z-10`}>
         {icon}
       </span>
     </span>
@@ -107,7 +107,7 @@ function TxStepRow({ step, skaleNetwork }: { step: TxStep; skaleNetwork: types.S
       <div>
         <StepIcon status={step.status} />
       </div>
-      <div className="ml-5 grow flex items-center justify-between">
+      <div className="ml-3.5 grow flex items-center justify-between">
         <div>
           <p className="text-sm capitalize text-foreground font-medium m-0">{step.label}</p>
           <p className="text-xs text-secondary-foreground m-0">{txStatusLabel(step.status)}</p>
