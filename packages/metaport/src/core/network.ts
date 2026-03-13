@@ -49,8 +49,15 @@ const log = new Logger<ILogObj>({ name: 'metaport:core:network' })
 
 export const EXT_PREFIX = 'ext-'
 
-const EXT_CHAIN_RPC_OVERRIDES: Record<string, string> = {
+export const EXT_CHAIN_RPC_OVERRIDES: Record<string, string> = {
   polygon: 'https://polygon-bor-rpc.publicnode.com'
+}
+
+export function extChainRpcUrl(chainName: string): string {
+  const name = getExtChainName(chainName)
+  const override = EXT_CHAIN_RPC_OVERRIDES[name]
+  if (override) return override
+  return EXT_CHAINS[name].rpcUrls.default.http[0]
 }
 
 export const EXT_CHAINS: Record<string, Chain> = {
@@ -95,17 +102,24 @@ export function isMainnetChainId(
   return Number(chainId) === NETWORK_MAINNET_CHAINS[skaleNetwork].id
 }
 
+const _chainIdToName: Record<number, string> = (() => {
+  const map: Record<number, string> = {}
+  for (const chain of MAINNET_CHAINS) map[chain.id] = constants.MAINNET_CHAIN_NAME
+  for (const [key, chain] of Object.entries(EXT_CHAINS)) map[chain.id] = `${EXT_PREFIX}${key}`
+  return map
+})()
+
+export function chainIdToName(chainId: number): string {
+  return _chainIdToName[chainId] ?? constants.MAINNET_CHAIN_NAME
+}
+
 export function mainnetProvider(mainnetEndpoint: string): Provider {
   return new JsonRpcProvider(mainnetEndpoint)
 }
 
 export function sChainProvider(network: types.SkaleNetwork, chainName: string): Provider {
   if (isExtChain(chainName)) {
-    const name = getExtChainName(chainName)
-    const rpcOverride = EXT_CHAIN_RPC_OVERRIDES[name]
-    if (rpcOverride) return new JsonRpcProvider(rpcOverride)
-    const chain = getExtChain(chainName)
-    return new JsonRpcProvider(chain.rpcUrls.default.http[0])
+    return new JsonRpcProvider(extChainRpcUrl(chainName))
   }
   const endpoint = endpoints.get(null, network, chainName)
   return new JsonRpcProvider(endpoint)

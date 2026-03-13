@@ -225,3 +225,92 @@ export async function getIntentReceipt(
   const response = await getTrailsApi().getIntentReceipt({ intentId })
   return response.intentReceipt
 }
+
+export interface TxStep {
+  label: string
+  chainId: number
+  status: TransactionStatus
+  txnHash?: string
+  chainName?: string
+}
+
+export function isIntentTerminal(status: IntentStatus): boolean {
+  return (
+    status === IntentStatus.SUCCEEDED ||
+    status === IntentStatus.FAILED ||
+    status === IntentStatus.ABORTED ||
+    status === IntentStatus.REFUNDED
+  )
+}
+
+export function isIntentFailed(status: IntentStatus): boolean {
+  return (
+    status === IntentStatus.FAILED ||
+    status === IntentStatus.ABORTED ||
+    status === IntentStatus.REFUNDED
+  )
+}
+
+export function isTxActive(status: TransactionStatus): boolean {
+  return (
+    status === TransactionStatus.PENDING ||
+    status === TransactionStatus.RELAYING ||
+    status === TransactionStatus.SENT ||
+    status === TransactionStatus.MINING
+  )
+}
+
+export function isTxDone(status: TransactionStatus): boolean {
+  return status === TransactionStatus.SUCCEEDED
+}
+
+export function isTxFailed(status: TransactionStatus): boolean {
+  return (
+    status === TransactionStatus.FAILED ||
+    status === TransactionStatus.ABORTED ||
+    status === TransactionStatus.REVERTED ||
+    status === TransactionStatus.ERRORED
+  )
+}
+
+export function txStatusLabel(status: TransactionStatus): string {
+  switch (status) {
+    case TransactionStatus.UNKNOWN:
+    case TransactionStatus.ON_HOLD:
+      return 'Waiting'
+    case TransactionStatus.PENDING:
+      return 'Pending'
+    case TransactionStatus.RELAYING:
+      return 'Relaying'
+    case TransactionStatus.SENT:
+      return 'Sent'
+    case TransactionStatus.MINING:
+      return 'In progress'
+    case TransactionStatus.SUCCEEDED:
+      return 'Confirmed'
+    case TransactionStatus.FAILED:
+    case TransactionStatus.ABORTED:
+    case TransactionStatus.REVERTED:
+    case TransactionStatus.ERRORED:
+      return 'Failed'
+    default:
+      return 'Unknown'
+  }
+}
+
+export function buildReceiptSteps(receipt: IntentReceipt): TxStep[] {
+  const steps: TxStep[] = []
+  if (receipt.depositTransaction) {
+    const t = receipt.depositTransaction
+    steps.push({ label: 'Deposit', chainId: t.chainId, status: t.status, txnHash: t.txnHash })
+  }
+  if (receipt.originTransaction) {
+    const t = receipt.originTransaction
+    steps.push({ label: 'Bridge', chainId: t.chainId, status: t.status, txnHash: t.txnHash })
+  }
+  if (receipt.destinationTransaction) {
+    const t = receipt.destinationTransaction
+    steps.push({ label: 'Execute', chainId: t.chainId, status: t.status, txnHash: t.txnHash })
+  }
+  return steps
+}

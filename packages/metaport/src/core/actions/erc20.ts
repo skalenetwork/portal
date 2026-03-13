@@ -199,7 +199,7 @@ export class UnWrapERC20 extends Action {
     this.updateState('unwrapDone', tx.response.hash, block.timestamp)
   }
 
-  async preAction() {}
+  async preAction() { }
 }
 
 export class UnWrapERC20S extends Action {
