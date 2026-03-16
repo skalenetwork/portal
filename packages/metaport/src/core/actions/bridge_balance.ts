@@ -17,7 +17,7 @@
  */
 
 /**
- * @file recharge.ts
+ * @file bridge_balance.ts
  * @copyright SKALE Labs 2025-Present
  */
 
@@ -40,9 +40,9 @@ import MetaportCore from '../metaport'
 import { walletClientToSigner } from '../ethers'
 import { enforceNetwork } from '../network'
 
-const log = new Logger<ILogObj>({ name: 'metaport:core:actions:recharge' })
+const log = new Logger<ILogObj>({ name: 'metaport:core:actions:bridge_balance' })
 
-export class RechargeExitGas extends Action {
+export class RechargeBridgeBalance extends Action {
   async execute() {
     this.updateState('init')
 
@@ -121,7 +121,7 @@ export async function withdraw(
 ) {
   setLoading('withdraw')
   try {
-    log.info(`Withdrawing from bridge balance: ${chainName}, amount: ${amount}`)
+    log.info('Withdrawing from bridge balance', { chainName, amount: amount.toString(), address })
     const { chainId } = await mpc.provider(constants.MAINNET_CHAIN_NAME).provider.getNetwork()
     await enforceNetwork(
       chainId,
@@ -161,7 +161,7 @@ export async function recharge(
 ) {
   setLoading('recharge')
   try {
-    log.info(`Topping up bridge balance: ${chainName}, amount: ${amount}`)
+    log.info('Topping up bridge balance', { chainName, amount, address })
 
     const sChain = await mpc.schain(chainName)
     const communityLocker = await sChain.communityLocker()

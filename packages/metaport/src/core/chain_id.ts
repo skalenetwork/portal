@@ -23,6 +23,8 @@
 
 import { ethers } from 'ethers'
 
+import { isExtChain, getExtChain } from './network'
+
 export function remove0x(s: any) {
   if (!s.startsWith('0x')) return s
   return s.slice(2)
@@ -38,5 +40,6 @@ function calcChainId(chainName: string): number {
 }
 
 export function getChainId(chainName: string): number {
+  if (isExtChain(chainName)) return getExtChain(chainName).id
   return calcChainId(chainName)
 }

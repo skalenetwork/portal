@@ -55,13 +55,14 @@ export const SFUEL_TEXT = {
 
 // community pool
 
-export const RECHARGE_MULTIPLIER = 2
+export const RECHARGE_MULTIPLIER = 3
 export const MINIMUM_RECHARGE_AMOUNT = 0.0001
 export const COMMUNITY_POOL_ESTIMATE_GAS_LIMIT = 1000000n
 export const COMMUNITY_POOL_WITHDRAW_GAS_LIMIT = 150000n
 export const _BALANCE_UPDATE_INTERVAL_SECONDS = 10
 export const BALANCE_UPDATE_INTERVAL_MS = _BALANCE_UPDATE_INTERVAL_SECONDS * 1000
 export const COMMUNITY_POOL_DECIMALS = 6
+export const MAX_ACTIVATION_RETRIES = 10
 
 export const ETH_RESERVE_AMOUNT: { [key in types.SkaleNetwork]: number } = {
   mainnet: 0.0005,

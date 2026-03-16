@@ -45,7 +45,7 @@ export default function History() {
   }
 
   return (
-    <Container maxWidth="sm" className="mt-2">
+    <Container maxWidth="sm">
       <Helmet>
         <title>{META_TAGS.history.title}</title>
         <meta name="description" content={META_TAGS.history.description} />
@@ -64,7 +64,7 @@ export default function History() {
             <BridgeMenu currentPage="history" />
           </div>
         </div>
-        <div className="mt-6">
+        <div className="mt-3.5">
           <TransfersHistory size="md" />
           {transfersHistory.length !== 0 ? (
             <Button

@@ -53,7 +53,7 @@ export default function BridgeBalance() {
   }, [chainNames])
 
   return (
-    <Container maxWidth="sm" className="mt-2">
+    <Container maxWidth="sm">
       <Helmet>
         <title>{META_TAGS.bridgeBalance.title}</title>
         <meta name="description" content={META_TAGS.bridgeBalance.description} />
@@ -74,11 +74,11 @@ export default function BridgeBalance() {
         </div>
         {address ? (
           singleChain ? (
-            <SkPaper gray className="mt-6">
+            <SkPaper gray className="mt-3.5">
               <BridgeBalanceCard chainName={chainNames[0]} />
             </SkPaper>
           ) : (
-            <div className="mt-6">
+            <div className="mt-3.5">
               {chainNames.map((chainName, index) => (
                 <BridgeBalanceCard
                   key={chainName}
@@ -90,7 +90,7 @@ export default function BridgeBalance() {
             </div>
           )
         ) : (
-          <SkPaper gray className="mt-6">
+          <SkPaper gray className="mt-3.5">
             <ConnectWallet />
           </SkPaper>
         )}
