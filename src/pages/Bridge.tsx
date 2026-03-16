@@ -37,7 +37,7 @@ import { META_TAGS } from '../core/meta'
 import Meson from '../components/Meson'
 import { NETWORKS } from '../core/constants'
 import BridgeMenu from '../components/BridgeMenu'
-import { HistoryIcon } from 'lucide-react'
+import { CircleCheckBig, HistoryIcon } from 'lucide-react'
 
 interface TokenParams {
   keyname: string | null
@@ -190,10 +190,12 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
           <BridgeBody chainsMeta={props.chainsMeta} />
           {address && transfersHistory && transfersHistory.length > 0 && (
             <div className="max-md:hidden mt-5">
-              <div className="flex items-center mb-2.5 mt-5 pt-5 justify-between">
-                <p className="text-base text-foreground font-bold m-0">
-                  Past Transfers
-                </p>
+              <div className="flex items-center mb-2.5 mt-5 pt-5">
+                <Headline
+                  text="Past Transfers"
+                  icon={<HistoryIcon size={17} />}
+                  size="small"
+                />
                 <Link to="/bridge/history">
                   <Button className="btn btnSm bg text-foreground! bg-card!">See all</Button>
                 </Link>
@@ -208,10 +210,14 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
             </div>
           )}
           {transactionsHistory.length !== 0 ? (
-            <div>
-              <p className="text-base text-foreground font-bold mt-5 mb-2.5">
-                Completed transactions
-              </p>
+           <div>  
+            <div className="flex items-center mb-2.5 mt-5 pt-5">
+                <Headline
+                  text="Completed Transactions"
+                  icon={<CircleCheckBig size={17} />}
+                  size="small"
+                />
+                </div>
               <SkPaper gray className="space-y-2">
                 {transactionsHistory.map((transactionData: types.mp.TransactionHistory) => (
                   <TransactionData
