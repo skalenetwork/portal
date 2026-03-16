@@ -26,6 +26,7 @@ import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import { MoonStar, SunMedium } from 'lucide-react'
+import { toast } from 'sonner'
 
 import logo from './assets/skale_lg.svg'
 
@@ -65,8 +66,9 @@ export default function Header(props: {
               size="small"
               className="ml-1.5! h-9 w-9 rounded-full bg-card! text-foreground! hover:bg-muted"
               onClick={() => {
-              toggleMode()
-              notify.temporarySuccess(mode === 'dark' ? 'Switched to light mode' : 'Switched to dark mode')
+                const nextMode = mode === 'dark' ? 'light' : 'dark'
+                toggleMode()
+                toast.success(`Switched to ${nextMode} mode`)
               }}
             >
               {mode === 'dark' ? (
