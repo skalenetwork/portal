@@ -29,10 +29,22 @@ import notify from '../core/notify'
 export default function useBridgeNotifications() {
     const transfersHistory = useMetaportStore((state) => state.transfersHistory)
     const errorMessage = useMetaportStore((state) => state.errorMessage) as dc.ErrorMessage | null
+    const ready = useRef(false)
     const prevTransfersCount = useRef(transfersHistory.length)
     const prevErrorRef = useRef(errorMessage)
 
     useEffect(() => {
+        const timer = setTimeout(() => {
+            ready.current = true
+        }, 0)
+        return () => clearTimeout(timer)
+    }, [])
+
+    useEffect(() => {
+        if (!ready.current) {
+            prevTransfersCount.current = transfersHistory.length
+            return
+        }
         if (transfersHistory.length > prevTransfersCount.current) {
             const latest = transfersHistory[transfersHistory.length - 1]
             const symbol = latest.tokenKeyname?.toUpperCase() ?? 'tokens'
