@@ -154,12 +154,11 @@ export default function MesonSwapTracker() {
     const poll = async () => {
       try {
         const resp = await checkSwapStatus(mesonSwapId)
-        const s = resp.result.status
-        setStatus(s)
-        if (isSwapTerminal(s)) {
+        setStatus(resp.status)
+        if (isSwapTerminal(resp.status)) {
           if (intervalRef.current) clearInterval(intervalRef.current)
-          if (isSwapFailed(s)) {
-            setError(`Swap ${s.toLowerCase()}`)
+          if (isSwapFailed(resp.status)) {
+            setError(`Swap ${resp.status.toLowerCase()}`)
           }
         }
       } catch {

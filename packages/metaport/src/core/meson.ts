@@ -127,16 +127,35 @@ export type MesonSwapStatus =
   | 'EXPIRED'
   | 'UNLOCKED'
 
-export interface MesonSwapStatusResponse {
+interface MesonSwapRawResponse {
   result: {
-    swapId: string
-    encoded: string
-    from: { chain: string; token: string; amount: string; address: string }
-    to: { chain: string; token: string; amount: string; address: string }
-    created: number
-    fee: { totalFee: string; serviceFee: string; lpFee: string }
-    status: MesonSwapStatus
+    BONDED?: string
+    EXECUTED?: string
+    RELEASED?: string
+    CANCELLED?: boolean
+    UNLOCKED?: string
+    swap: {
+      id: string
+      encoded: string
+      from: { amount: string; network: string; token: string }
+      to: { amount: string; network: string; token: string }
+    }
   }
+}
+
+export interface MesonSwapStatusResult {
+  swapId: string
+  status: MesonSwapStatus
+}
+
+function deriveSwapStatus(raw: MesonSwapRawResponse): MesonSwapStatus {
+  const r = raw.result
+  if (r.RELEASED) return 'RELEASED'
+  if (r.UNLOCKED) return 'UNLOCKED'
+  if (r.CANCELLED) return 'CANCELLED'
+  if (r.EXECUTED) return 'EXECUTING'
+  if (r.BONDED) return 'BONDED'
+  return 'PENDING'
 }
 
 export interface MesonQuote {
@@ -225,9 +244,10 @@ export async function submitSwap(
 export async function checkSwapStatus(
   swapId: string,
   testnet = false
-): Promise<MesonSwapStatusResponse> {
+): Promise<MesonSwapStatusResult> {
   const url = `${getRelayerUrl(testnet)}/api/v1/swap/${swapId}`
-  return mesonFetch<MesonSwapStatusResponse>(url, { method: 'GET' })
+  const raw = await mesonFetch<MesonSwapRawResponse>(url, { method: 'GET' })
+  return { swapId: raw.result.swap.id, status: deriveSwapStatus(raw) }
 }
 
 const TERMINAL_STATUSES = new Set<MesonSwapStatus>(['RELEASED', 'CANCELLED', 'EXPIRED', 'UNLOCKED'])
@@ -278,15 +298,14 @@ export async function waitForSwap(
   swapId: string,
   testnet = false,
   onStatusUpdate?: (status: MesonSwapStatus) => void
-): Promise<MesonSwapStatusResponse> {
+): Promise<MesonSwapStatusResult> {
   const start = Date.now()
   while (Date.now() - start < POLL_TIMEOUT_MS) {
     const resp = await checkSwapStatus(swapId, testnet)
-    const status = resp.result.status
-    onStatusUpdate?.(status)
-    if (isSwapTerminal(status)) {
-      if (isSwapFailed(status)) {
-        throw new Error(`Meson swap ${status.toLowerCase()}: the cross-chain transfer could not be completed`)
+    onStatusUpdate?.(resp.status)
+    if (isSwapTerminal(resp.status)) {
+      if (isSwapFailed(resp.status)) {
+        throw new Error(`Meson swap ${resp.status.toLowerCase()}: the cross-chain transfer could not be completed`)
       }
       return resp
     }

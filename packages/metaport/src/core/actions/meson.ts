@@ -264,7 +264,13 @@ async function approveMesonIfNeeded(
   const allowance: bigint = await sourceToken.allowance(owner, spender)
   if (allowance >= BigInt(amountWei)) return
   const connected = sourceToken.connect(signer) as Contract
-  const tx = await connected.approve(spender, amountWei)
+  const feeData = await signer.provider!.getFeeData()
+  const overrides: Record<string, bigint> = {}
+  if (feeData.maxFeePerGas) {
+    overrides.maxFeePerGas = (feeData.maxFeePerGas * 150n) / 100n
+    overrides.maxPriorityFeePerGas = feeData.maxPriorityFeePerGas ?? feeData.maxFeePerGas / 10n
+  }
+  const tx = await connected.approve(spender, amountWei, overrides)
   await tx.wait()
   log.info('approveMesonIfNeeded: approval confirmed', tx.hash)
 }
