@@ -35,6 +35,7 @@ import {
 } from './erc20'
 import { RechargeBridgeBalance } from './bridge_balance'
 import { TransferTrailsExt2M, TransferTrailsExt2S, TransferTrailsM2Ext } from './trails'
+import { TransferMesonExt2S, TransferMesonS2Ext } from './meson'
 
 import { ActionConstructor } from './action'
 import { S2S_POSTFIX, M2S_POSTFIX, S2M_POSTFIX } from '../constants'
@@ -78,5 +79,8 @@ export const ACTIONS: { [actionType in dc.ActionType]: ActionConstructor } = {
 
   trails_ext2m: TransferTrailsExt2M,
   trails_ext2s: TransferTrailsExt2S,
-  trails_m2ext: TransferTrailsM2Ext
+  trails_m2ext: TransferTrailsM2Ext,
+
+  meson_ext2s: TransferMesonExt2S,
+  meson_s2ext: TransferMesonS2Ext
 }

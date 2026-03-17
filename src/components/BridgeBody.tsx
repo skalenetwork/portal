@@ -44,6 +44,8 @@ import {
   useDisplayFunctions,
   TrailsQuoteCard,
   TrailsIntentTracker,
+  MesonQuoteCard,
+  MesonSwapTracker,
   NoTokenPairs,
   getAvailableTokensTotal
 } from '@skalenetwork/metaport'
@@ -86,6 +88,15 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
   const trailsQuoteError = useMetaportStore((state) => state.trailsQuoteError)
   const trailsIntentId = useMetaportStore((state) => state.trailsIntentId)
   const trailsTrackerReady = useMetaportStore((state) => state.trailsTrackerReady)
+
+  const mesonQuote = useMetaportStore((state) => state.mesonQuote)
+  const mesonQuoteError = useMetaportStore((state) => state.mesonQuoteError)
+  const mesonTrackerReady = useMetaportStore((state) => state.mesonTrackerReady)
+  const amount = useMetaportStore((state) => state.amount)
+
+  const isMesonRoute = stepsMetadata.some(
+    (s) => s.type === 'meson_ext2s' || s.type === 'meson_s2ext'
+  )
 
   return (
     <div>
@@ -164,7 +175,17 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
         />
       )}
 
+      {(mesonQuote || mesonQuoteError) && !mesonTrackerReady && (
+        <MesonQuoteCard
+          quote={mesonQuote}
+          error={mesonQuoteError}
+          tokenSymbol={token?.meta.symbol}
+          amount={amount}
+        />
+      )}
+
       <TrailsIntentTracker />
+      <MesonSwapTracker />
 
       {!address ? <SkConnect /> : null}
 
@@ -172,7 +193,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
         <SkStepper skaleNetwork={mpc.config.skaleNetwork} />
       </Collapse>
 
-      {networks.hasFeatureInAny(NETWORKS, 'sfuel') && (
+      {networks.hasFeatureInAny(NETWORKS, 'sfuel') && !isMesonRoute && (
         <Collapse in={!!address}>
           <SFuelWarning />
         </Collapse>

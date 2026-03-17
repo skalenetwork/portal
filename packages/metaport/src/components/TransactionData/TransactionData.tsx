@@ -88,7 +88,12 @@ const actionColors: ActionColorMap = {
   trailsCommitting: { bg: 'bg-muted', text: 'text-foreground' },
   trailsDeposit: { bg: 'bg-muted', text: 'text-foreground' },
   trailsExecuting: { bg: 'bg-muted', text: 'text-foreground' },
-  trailsWaiting: { bg: 'bg-muted', text: 'text-foreground' }
+  trailsWaiting: { bg: 'bg-muted', text: 'text-foreground' },
+  mesonQuoting: { bg: 'bg-muted', text: 'text-foreground' },
+  mesonApproving: { bg: 'bg-muted', text: 'text-foreground' },
+  mesonSigning: { bg: 'bg-muted', text: 'text-foreground' },
+  mesonSubmitting: { bg: 'bg-muted', text: 'text-foreground' },
+  mesonWaiting: { bg: 'bg-muted', text: 'text-foreground' }
 }
 
 const actionIcons: ActionStateIconMap = {
@@ -116,7 +121,12 @@ const actionIcons: ActionStateIconMap = {
   trailsCommitting: null,
   trailsDeposit: null,
   trailsExecuting: null,
-  trailsWaiting: null
+  trailsWaiting: null,
+  mesonQuoting: null,
+  mesonApproving: null,
+  mesonSigning: null,
+  mesonSubmitting: null,
+  mesonWaiting: null
 }
 
 const actionAliases: ActionStateAliasMap = {
@@ -144,7 +154,12 @@ const actionAliases: ActionStateAliasMap = {
   trailsCommitting: null,
   trailsDeposit: null,
   trailsExecuting: null,
-  trailsWaiting: null
+  trailsWaiting: null,
+  mesonQuoting: null,
+  mesonApproving: null,
+  mesonSigning: null,
+  mesonSubmitting: null,
+  mesonWaiting: null
 }
 
 export default function TransactionData(props: {

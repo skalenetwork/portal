@@ -31,6 +31,7 @@ export interface TransactionHistory {
 }
 
 export type TrailsTransferStatus = 'succeeded' | 'failed' | 'refunded'
+export type MesonTransferStatus = 'succeeded' | 'failed' | 'expired'
 
 export interface TransferHistory {
   transactions: TransactionHistory[]
@@ -41,4 +42,6 @@ export interface TransferHistory {
   amount: string
   trailsIntentId?: string
   trailsStatus?: TrailsTransferStatus
+  mesonSwapId?: string
+  mesonStatus?: MesonTransferStatus
 }

@@ -34,7 +34,6 @@ import Stack from '@mui/material/Stack'
 import BridgeBody from '../components/BridgeBody'
 
 import { META_TAGS } from '../core/meta'
-import Meson from '../components/Meson'
 import { NETWORKS } from '../core/constants'
 import BridgeMenu from '../components/BridgeMenu'
 
@@ -204,11 +203,6 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
           ) : null}
         </div>
       </Stack>
-      <Meson
-        chainsMeta={props.chainsMeta}
-        className="mt-3.5"
-        skaleNetwork={mpc.config.skaleNetwork}
-      />
     </Container>
   )
 }

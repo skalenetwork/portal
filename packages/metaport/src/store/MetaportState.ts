@@ -29,6 +29,7 @@ import { dc, types } from '@/core'
 import MetaportCore from '../core/metaport'
 import { MainnetChain, SChain } from '../core/contracts'
 import { type QuoteIntentResponse } from '../core/trails'
+import { type MesonQuote, type MesonSwapStatus } from '../core/meson'
 
 export interface MetaportState {
   ima1: MainnetChain | SChain
@@ -132,6 +133,12 @@ export interface MetaportState {
   trailsIntentId: string | null
   trailsTrackerReady: boolean
   trailsImaCompleted: boolean
+
+  mesonQuote: MesonQuote | null
+  mesonQuoteError: string | null
+  mesonSwapId: string | null
+  mesonTrackerReady: boolean
+  mesonSwapStatus: MesonSwapStatus | null
 
   cpData: types.mp.CommunityPoolData
   setCpData: (cpData: types.mp.CommunityPoolData) => void

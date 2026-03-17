@@ -52,5 +52,10 @@ export const LOADING_BUTTON_TEXT: LoadingButtonTextMap = {
   trailsCommitting: 'Committing intent…',
   trailsDeposit: 'Sending deposit…',
   trailsExecuting: 'Executing intent…',
-  trailsWaiting: 'Waiting for delivery…'
+  trailsWaiting: 'Waiting for delivery…',
+  mesonQuoting: 'Getting quote…',
+  mesonApproving: 'Approving token…',
+  mesonSigning: 'Sign to authorize swap…',
+  mesonSubmitting: 'Submitting swap…',
+  mesonWaiting: 'Waiting for delivery…'
 }

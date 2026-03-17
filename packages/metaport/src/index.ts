@@ -40,6 +40,8 @@ import Debug from './components/Debug'
 import AnimatedLoadingIcon from './components/AnimatedLoadingIcon'
 import TrailsQuoteCard from './components/TrailsQuoteCard'
 import TrailsIntentTracker from './components/TrailsIntentTracker'
+import MesonQuoteCard from './components/MesonQuoteCard'
+import MesonSwapTracker from './components/MesonSwapTracker'
 import NoTokenPairs from './components/NoTokenPairs'
 
 import { styles } from './core/css'
@@ -120,7 +122,9 @@ export {
   explorer,
   mp_metadata,
   TrailsQuoteCard,
-  TrailsIntentTracker
+  TrailsIntentTracker,
+  MesonQuoteCard,
+  MesonSwapTracker
 }
 
 export { useThemeMode }
