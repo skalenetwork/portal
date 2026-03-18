@@ -24,7 +24,7 @@
 import { Logger, type ILogObj } from 'tslog'
 import { WalletClient } from 'viem'
 import { create } from 'zustand'
-import { dc, types, constants } from '@/core'
+import { dc, types, constants, units } from '@/core'
 
 import { MetaportState } from './MetaportState'
 
@@ -261,6 +261,14 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           if (get().cpData.exitGasOk) {
             log.info('Bridge balance OK, skipping recharge step')
             set({ currentStep: get().currentStep + 1 })
+          } else if (get().cpData.recommendedRechargeAmount) {
+            const rechargeWei = units.toWei(String(get().cpData.recommendedRechargeAmount), constants.DEFAULT_ERC20_DECIMALS)
+            if (get().cpData.accountBalance != null && get().cpData.accountBalance < rechargeWei) {
+              stepMetadata.btnText = 'Insufficient ETH for top up'
+            } else {
+              stepMetadata.btnText = `Top up ${get().cpData.recommendedRechargeAmount} ETH`
+            }
+            set({ stepsMetadata: [...get().stepsMetadata] })
           }
           const nextStep = get().stepsMetadata[get().currentStep]
           if (nextStep) checkStep = nextStep

@@ -47,6 +47,14 @@ export function getEmptyCommunityPoolData(): types.mp.CommunityPoolData {
   }
 }
 
+export function calculateRechargeAmount(rraEther: string): number {
+  let amount = helper.roundUp(parseFloat(rraEther) * RECHARGE_MULTIPLIER)
+  if (amount < MINIMUM_RECHARGE_AMOUNT) {
+    amount = MINIMUM_RECHARGE_AMOUNT
+  }
+  return amount
+}
+
 export async function getCommunityPoolData(
   address: string,
   chainName1: string,
@@ -81,10 +89,7 @@ export async function getCommunityPoolData(
   const rraEther = units.fromWei(rraWei as string, constants.DEFAULT_ERC20_DECIMALS)
 
   const isActive = activeM && activeS
-  let recommendedAmount = helper.roundUp(parseFloat(rraEther as string) * RECHARGE_MULTIPLIER)
-  if (!isActive && recommendedAmount < MINIMUM_RECHARGE_AMOUNT) {
-    recommendedAmount = MINIMUM_RECHARGE_AMOUNT
-  }
+  const recommendedAmount = calculateRechargeAmount(rraEther as string)
 
   log.info('Bridge balance estimation', {
     chainName1,

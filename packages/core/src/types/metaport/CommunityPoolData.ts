@@ -22,10 +22,10 @@
  */
 
 export interface CommunityPoolData {
-  exitGasOk: boolean
-  isActive: boolean
-  balance: bigint
-  accountBalance: bigint
-  recommendedRechargeAmount: number
-  originalRecommendedRechargeAmount: bigint
+  exitGasOk: boolean | null
+  isActive: boolean | null
+  balance: bigint | null
+  accountBalance: bigint | null
+  recommendedRechargeAmount: number | null
+  originalRecommendedRechargeAmount: bigint | null
 }
