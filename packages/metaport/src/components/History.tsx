@@ -33,6 +33,7 @@ import Avatar from 'boring-avatars'
 import { metadata } from '@/core'
 import IconButton from '@mui/material/IconButton'
 import trailsLogo from '../assets/trails_logo.svg'
+import Tooltip from '@mui/material/Tooltip'
 
 import { useMetaportStore } from '../store/MetaportStore'
 import { CHAINS_META } from '../core/metadata'
