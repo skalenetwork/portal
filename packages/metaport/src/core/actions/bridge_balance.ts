@@ -23,14 +23,14 @@
 
 import { Logger, type ILogObj } from 'tslog'
 import { ethers } from 'ethers'
-import { dc, units, constants, helper } from '@/core'
+import { dc, units, constants } from '@/core'
 
 import { WalletClient } from 'viem'
 import { type UseSwitchChainReturnType } from 'wagmi'
 
 import { Action } from './action'
 import { sendTransaction } from '../transactions'
-import { getCommunityPoolData, waitForActivation } from '../community_pool'
+import { calculateRechargeAmount, getCommunityPoolData, waitForActivation } from '../community_pool'
 import {
   COMMUNITY_POOL_ESTIMATE_GAS_LIMIT,
   COMMUNITY_POOL_WITHDRAW_GAS_LIMIT,
@@ -73,10 +73,7 @@ export class RechargeBridgeBalance extends Action {
     })
 
     const rraEther = units.fromWei(rraWei as string, constants.DEFAULT_ERC20_DECIMALS)
-    let rechargeAmount = helper.roundUp(parseFloat(rraEther as string) * 1.1)
-    if (rechargeAmount < 0.001) {
-      rechargeAmount = 0.001
-    }
+    const rechargeAmount = calculateRechargeAmount(rraEther as string)
 
     log.info('Recharge details', {
       chainName: this.chainName1,
