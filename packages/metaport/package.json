@@ -65,6 +65,7 @@
   },
   "dependencies": {
     "@/core": "workspace:*",
+    "@0xtrails/api": "^0.12.1",
     "boring-avatars": "^2.0.4",
     "lucide-react": "^0.554.0",
     "react-jazzicon": "^1.0.4",

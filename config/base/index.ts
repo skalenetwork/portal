@@ -9,7 +9,14 @@ export const METAPORT_CONFIG: types.mp.Config = {
 
   chains: [
     'mainnet',
-    'winged-bubbly-grumium' // SKALE Base Mainnet
+    'winged-bubbly-grumium', // SKALE Base Mainnet
+    'ext-arbitrum',
+    'ext-op-mainnet',
+    'ext-avalanche',
+    'ext-bsc',
+    'ext-polygon',
+    'ext-monad',
+    'ext-gnosis',
   ],
   tokens: {
     eth: {
@@ -44,11 +51,95 @@ export const METAPORT_CONFIG: types.mp.Config = {
   },
 
   connections: {
+    'ext-bsc': {
+      erc20: {
+        usdc: {
+          address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d', // 18 decimals on bsc - todo: handle
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        }
+      }
+    },
+    'ext-avalanche': {
+      erc20: {
+        usdc: {
+          address: '0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        }
+      }
+    },
+    'ext-polygon': {
+      erc20: {
+        usdc: {
+          address: '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        }
+      }
+    },
+    'ext-monad': {
+      erc20: {
+        usdc: {
+          address: '0x754704Bc059F8C67012fEd69BC8A327a5aafb603',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        }
+      }
+    },
+    'ext-gnosis': {
+      erc20: {
+        usdc: {
+          address: '0xddafbb505ad214d7b80b1f830fccc89b60fb7a83',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        }
+      }
+    },
+    'ext-arbitrum': {
+      erc20: {
+        usdc: {
+          address: '0xaf88d065e77c8cC2239327C5EDb3A432268e5831',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        }
+      }
+    },
+    'ext-op-mainnet': {
+      erc20: {
+        usdc: {
+          address: '0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        }
+      }
+    },
     mainnet: {
       eth: {
         eth: {
           chains: {
-            'winged-bubbly-grumium': {}
+            'winged-bubbly-grumium': {},
           }
         }
       },
@@ -56,7 +147,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
         usdc: {
           address: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
           chains: {
-            'winged-bubbly-grumium': {}
+            'winged-bubbly-grumium': {},
           }
         },
         skl: {
@@ -134,6 +225,27 @@ export const METAPORT_CONFIG: types.mp.Config = {
           chains: {
             mainnet: {
               clone: true
+            },
+            'ext-arbitrum': {
+              bridge: 'trails'
+            },
+            'ext-op-mainnet': {
+              bridge: 'trails'
+            },
+            'ext-bsc': {
+              bridge: 'trails'
+            },
+            'ext-avalanche': {
+              bridge: 'trails'
+            },
+            'ext-polygon': {
+              bridge: 'trails'
+            },
+            'ext-monad': {
+              bridge: 'trails'
+            },
+            'ext-gnosis': {
+              bridge: 'trails'
             }
           }
         }

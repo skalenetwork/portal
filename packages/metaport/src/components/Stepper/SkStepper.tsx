@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useWalletClient, useSwitchChain, useAccount } from 'wagmi'
 import { useAddRecentTransaction } from '@rainbow-me/rainbowkit'
-import { type types, metadata, helper, dc } from '@/core'
+import { type types, metadata, dc, units, constants } from '@/core'
 
 import Box from '@mui/material/Box'
 import Stepper from '@mui/material/Stepper'
@@ -10,8 +10,10 @@ import StepLabel from '@mui/material/StepLabel'
 import StepContent from '@mui/material/StepContent'
 import Button from '@mui/material/Button'
 import Collapse from '@mui/material/Collapse'
+import IconButton from '@mui/material/IconButton'
 
 import AnimatedLoadingIcon from '../AnimatedLoadingIcon'
+import SkPaper from '../SkPaper'
 
 import localStyles from './SkStepper.module.scss'
 
@@ -19,10 +21,9 @@ import ChainIcon from '../ChainIcon'
 import AddToken from '../AddToken'
 
 import { useMetaportStore } from '../../store/MetaportStore'
-import { useCPStore } from '../../store/CommunityPoolStore'
-import { SUCCESS_EMOJIS } from '../../core/constants'
+import { BALANCE_UPDATE_INTERVAL_MS } from '../../core/constants'
 import { CHAINS_META } from '../../core/metadata'
-import { RotateCcw, Send, SendToBack, Coins } from 'lucide-react'
+import { Check, RotateCcw, Send, SendToBack, Coins } from 'lucide-react'
 
 export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
   const actionIconMap: Record<dc.ActionType, any> = {
@@ -36,7 +37,10 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
     wrap: <SendToBack size={17} />,
     unwrap: <SendToBack size={17} />,
     unwrap_stuck: <SendToBack size={17} />,
-    recharge: <Coins size={17} />
+    recharge: <Coins size={17} />,
+    trails_ext2m: <Send size={17} />,
+    trails_ext2s: <Send size={17} />,
+    trails_m2ext: <Send size={17} />
   }
 
   const { address, chainId } = useAccount()
@@ -49,7 +53,9 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
   const currentStep = useMetaportStore((state) => state.currentStep)
   const amountErrorMessage = useMetaportStore((state) => state.amountErrorMessage)
   const loading = useMetaportStore((state) => state.loading)
+  const trailsQuoteError = useMetaportStore((state) => state.trailsQuoteError)
   const btnText = useMetaportStore((state) => state.btnText)
+  const check = useMetaportStore((state) => state.check)
 
   const execute = useMetaportStore((state) => state.execute)
   const startOver = useMetaportStore((state) => state.startOver)
@@ -60,18 +66,11 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
   const ima2 = useMetaportStore((state) => state.ima2)
 
   const chainName1 = useMetaportStore((state) => state.chainName1)
+  const transferInProgress = useMetaportStore((state) => state.transferInProgress)
 
   const amount = useMetaportStore((state) => state.amount)
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
-
-  const cpData = useCPStore((state) => state.cpData)
-  const updateCPData = useCPStore((state) => state.updateCPData)
-  const setCurrentStep = useMetaportStore((state) => state.setCurrentStep)
-
-  const [emoji, setEmoji] = useState<string>()
-  useEffect(() => {
-    setEmoji(helper.getRandom(SUCCESS_EMOJIS))
-  }, [])
+  const cpData = useMetaportStore((state) => state.cpData)
 
   useEffect(() => {
     try {
@@ -88,32 +87,50 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
     }
   }, [transactionsHistory])
 
-  const isRechargeStep = stepsMetadata[currentStep]?.type === dc.ActionType.recharge
-  const hasRechargeStep =
-    stepsMetadata.length > 0 && stepsMetadata[0].type === dc.ActionType.recharge
-
   useEffect(() => {
-    if (!hasRechargeStep || !address) return
-    const exitChain = stepsMetadata[0].from
-    updateCPData(address, exitChain, chainName2, mpc)
-  }, [hasRechargeStep, chainName1, chainName2, address])
+    if (!address) return
+    if (transferInProgress) return
+    if (loading) return
 
-  useEffect(() => {
-    if (cpData.exitGasOk && currentStep === 0 && hasRechargeStep) {
-      setCurrentStep(1)
+    const numericAmount = Number(amount)
+    if (!Number.isFinite(numericAmount) || numericAmount <= 0) return
+
+    const refresh = () => {
+      check(amount, address, { silent: true })
     }
-  }, [cpData.exitGasOk, currentStep, hasRechargeStep])
+
+    const intervalId = setInterval(refresh, BALANCE_UPDATE_INTERVAL_MS)
+    return () => clearInterval(intervalId)
+  }, [
+    address,
+    transferInProgress,
+    loading,
+    currentStep,
+    amount,
+    token?.keyname,
+    chainName1,
+    chainName2,
+    check
+  ])
 
   if (stepsMetadata.length === 0) return <div></div>
 
-  const actionDisabled = isRechargeStep
-    ? loading ||
-      cpData.exitGasOk === null ||
-      !cpData.recommendedRechargeAmount ||
-      amountErrorMessage ||
-      amount == '' ||
-      Number(amount) === 0
-    : amountErrorMessage || loading || amount == '' || Number(amount) === 0
+  const currentStepMeta = stepsMetadata[currentStep]
+  const rechargeNotReady =
+    currentStepMeta?.type === dc.ActionType.recharge && cpData.recommendedRechargeAmount == null
+  const rechargeInsufficientBalance =
+    currentStepMeta?.type === dc.ActionType.recharge &&
+    cpData.recommendedRechargeAmount != null &&
+    cpData.accountBalance != null &&
+    cpData.accountBalance < units.toWei(String(cpData.recommendedRechargeAmount), constants.DEFAULT_ERC20_DECIMALS)
+
+  const actionDisabled =
+    amountErrorMessage || trailsQuoteError || loading || amount == '' || Number(amount) === 0 || rechargeNotReady || rechargeInsufficientBalance
+
+  function stepBtnText(step: dc.StepMetadata): string {
+    if (step.type === dc.ActionType.recharge && cpData.recommendedRechargeAmount == null) return 'Loading...'
+    return step.btnText
+  }
 
   const chainsMeta = CHAINS_META[props.skaleNetwork]
 
@@ -147,7 +164,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
             onClick={() => execute(address, switchChainAsync, walletClient)}
             disabled={!!actionDisabled}
           >
-            {Number(amount) === 0 ? 'Enter an amount' : step.btnText}
+            {Number(amount) === 0 ? 'Enter an amount' : stepBtnText(step)}
           </Button>
         )}
       </div>
@@ -217,13 +234,9 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                           onClick={() => execute(address, switchChainAsync, walletClient)}
                           disabled={!!actionDisabled}
                         >
-                          {step.type === dc.ActionType.recharge
-                            ? amount === '' || Number(amount) === 0
-                              ? 'Enter an amount'
-                              : cpData.recommendedRechargeAmount
-                                ? `Top up ${cpData.recommendedRechargeAmount} ETH`
-                                : step.btnText
-                            : step.btnText}
+                          {amount === '' || Number(amount) === 0
+                            ? 'Enter an amount'
+                            : stepBtnText(step)}
                         </Button>
                       )}
                     </div>
@@ -235,33 +248,44 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
         </Collapse>
 
         {currentStep === stepsMetadata.length && (
-          <div>
-            <div className="block">
-              <p className="text-base font-semibold text-foreground grow text-center mt-5">
-                {emoji} Transfer completed
-              </p>
-              <p className="text-sm font-semibold text-secondary-foreground grow text-center mt-1.5">
-                Transfer details are available in History section
-              </p>
+          <SkPaper gray className="p-6!">
+            <div className="flex items-center">
+              <span className="flex items-center justify-center w-[35px] h-[35px] rounded-full bg-emerald-100 dark:bg-emerald-400/15 shrink-0">
+                <Check size={14} className="text-emerald-500 dark:text-emerald-400" />
+              </span>
+              <span className="ml-3.5 grow">
+                <div>
+                  <p className="text-sm capitalize text-foreground font-medium m-0">Completed</p>
+                  <p className="text-xs text-secondary-foreground m-0">Tokens received</p>
+                </div>
+              </span>
+              <div className="flex items-center gap-2">
+                <AddToken
+                  token={token}
+                  destChainName={chainName2}
+                  mpc={mpc}
+                  provider={ima2.provider}
+                  iconOnly
+                />
+                <span>
+                  <IconButton
+                    onClick={startOver}
+                    className="md:hidden! text-accent! bg-accent-foreground! p-2!"
+                  >
+                    <RotateCcw size={20} />
+                  </IconButton>
+                  <Button
+                    onClick={startOver}
+                    size="small"
+                    startIcon={<RotateCcw size={15} />}
+                    className="hidden! md:inline-flex! capitalize! text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50! text-xs! px-3.5! py-2.5!"
+                  >
+                    Start over
+                  </Button>
+                </span>
+              </div>
             </div>
-            <div className="flex flex-col md:flex-row mt-5">
-              <AddToken
-                token={token}
-                destChainName={chainName2}
-                mpc={mpc}
-                provider={ima2.provider}
-              />
-              <Button
-                onClick={startOver}
-                color="primary"
-                size="medium"
-                className="grow w-full! md:w-fit! capitalize! text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
-                startIcon={<RotateCcw size={17} />}
-              >
-                Start over
-              </Button>
-            </div>
-          </div>
+          </SkPaper>
         )}
       </Box>
     </Collapse>

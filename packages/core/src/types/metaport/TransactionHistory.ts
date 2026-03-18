@@ -30,6 +30,8 @@ export interface TransactionHistory {
   txName: string
 }
 
+export type TrailsTransferStatus = 'succeeded' | 'failed' | 'refunded'
+
 export interface TransferHistory {
   transactions: TransactionHistory[]
   tokenKeyname: string
@@ -37,4 +39,6 @@ export interface TransferHistory {
   chainName1: string
   chainName2: string
   amount: string
+  trailsIntentId?: string
+  trailsStatus?: TrailsTransferStatus
 }

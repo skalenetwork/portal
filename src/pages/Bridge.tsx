@@ -159,7 +159,7 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
   }, [tokenParams, tokens])
 
   return (
-    <Container maxWidth="sm" className="mt-2">
+    <Container maxWidth="sm">
       <Helmet>
         <title>{META_TAGS.bridge.title}</title>
         <meta name="description" content={META_TAGS.bridge.description} />
@@ -186,7 +186,7 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
           </div>
         </div>
 
-        <div className="mt-6">
+        <div className="mt-3.5">
           <BridgeBody chainsMeta={props.chainsMeta} />
           {address && transfersHistory && transfersHistory.length > 0 && (
             <div className="max-md:hidden mt-5">
@@ -233,7 +233,7 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
       </Stack>
       <Meson
         chainsMeta={props.chainsMeta}
-        className="mt-5 max-md:mt-10"
+        className="mt-3.5"
         skaleNetwork={mpc.config.skaleNetwork}
       />
     </Container>

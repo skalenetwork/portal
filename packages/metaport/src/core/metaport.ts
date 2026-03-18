@@ -27,7 +27,7 @@ import { types, dc, ERC_ABIS, contracts, constants, endpoints } from '@/core'
 
 import { getEmptyTokenDataMap } from './tokens/helper'
 import { getStepsMetadata } from '../core/transfer_steps'
-import { mainnetProvider, sChainProvider } from './network'
+import { isExtChain, mainnetProvider, sChainProvider } from './network'
 import { MetaportState } from '../store/MetaportState'
 
 import { MainnetChain, SChain } from './contracts'
@@ -172,6 +172,7 @@ export default class MetaportCore {
     const balances: types.mp.TokenBalancesMap = {}
     const tokenKeynames = Object.keys(tokenContracts)
     for (const tokenKeyname of tokenKeynames) {
+      if (!tokenContracts[tokenKeyname]) continue
       balances[tokenKeyname] = await tokenContracts[tokenKeyname].balanceOf(address)
     }
     return balances
@@ -283,12 +284,15 @@ export default class MetaportCore {
       return this.#imaCache[chainName] as SChain
     }
     let provider = externalProvider ?? sChainProvider(this.#config.skaleNetwork, chainName)
-    const instance = await this.getInstance(
-      provider,
-      contracts.SchainProject.SCHAIN_IMA,
-      contracts.PREDEPLOYED_ALIAS
-    )
-    const schain = new SChain(provider, instance, signer)
+    let instance: Instance | null = null
+    if (!isExtChain(chainName)) {
+      instance = await this.getInstance(
+        provider,
+        contracts.SchainProject.SCHAIN_IMA,
+        contracts.PREDEPLOYED_ALIAS
+      )
+    }
+    const schain = new SChain(provider, instance as Instance, signer)
     if (externalProvider === undefined && signer === undefined) {
       log.debug(`caching ima for ${chainName}`)
       this.#imaCache[chainName] = schain
@@ -346,6 +350,8 @@ export default class MetaportCore {
       return { chainName1, chainName2 }
     }
 
+    const isExt1 = isExtChain(chainName1)
+
     const ima1 = await this.ima(chainName1)
     const ima2 = await this.ima(chainName2)
     const tokens = this.tokens(chainName1, chainName2)
@@ -364,7 +370,7 @@ export default class MetaportCore {
       dc.CustomAbiTokenType.erc20wrap
     )
 
-    if (tokens.eth?.eth && chainName1 !== constants.MAINNET_CHAIN_NAME) {
+    if (tokens.eth?.eth && chainName1 !== constants.MAINNET_CHAIN_NAME && !isExt1) {
       tokenContracts.eth = this.tokenContract(chainName1, 'eth', dc.TokenType.eth, ima1.provider)
 
       const destChainName = findFirstWrapperChainName(tokens.eth.eth)

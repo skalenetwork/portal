@@ -208,7 +208,7 @@ export default function SchainDetails(props: {
           >
             {connectBtnText()}
           </Button>
-          
+
           <GetSFuel mpc={props.mpc} chainName={props.chain.name} />
 
           {chainMeta?.url && (

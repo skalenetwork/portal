@@ -83,7 +83,12 @@ const actionColors: ActionColorMap = {
   unwrap: { bg: 'bg-muted', text: 'text-foreground' },
   switch: { bg: 'bg-muted', text: 'text-foreground' },
   unlock: { bg: 'bg-muted', text: 'text-foreground' },
-  recharge: { bg: 'bg-muted', text: 'text-foreground' }
+  recharge: { bg: 'bg-muted', text: 'text-foreground' },
+  trailsQuoting: { bg: 'bg-muted', text: 'text-foreground' },
+  trailsCommitting: { bg: 'bg-muted', text: 'text-foreground' },
+  trailsDeposit: { bg: 'bg-muted', text: 'text-foreground' },
+  trailsExecuting: { bg: 'bg-muted', text: 'text-foreground' },
+  trailsWaiting: { bg: 'bg-muted', text: 'text-foreground' }
 }
 
 const actionIcons: ActionStateIconMap = {
@@ -106,7 +111,12 @@ const actionIcons: ActionStateIconMap = {
   switch: null,
   unlock: null,
   recharge: null,
-  rechargeDone: <Check size={14} />
+  rechargeDone: <Check size={14} />,
+  trailsQuoting: null,
+  trailsCommitting: null,
+  trailsDeposit: null,
+  trailsExecuting: null,
+  trailsWaiting: null
 }
 
 const actionAliases: ActionStateAliasMap = {
@@ -129,7 +139,12 @@ const actionAliases: ActionStateAliasMap = {
   switch: null,
   unlock: null,
   recharge: null,
-  rechargeDone: 'Bridge balance topped up'
+  rechargeDone: 'Bridge balance topped up',
+  trailsQuoting: null,
+  trailsCommitting: null,
+  trailsDeposit: null,
+  trailsExecuting: null,
+  trailsWaiting: null
 }
 
 export default function TransactionData(props: {
@@ -149,15 +164,15 @@ export default function TransactionData(props: {
     <div className="flex items-center">
       <div>
         <span className="relative flex items-center justify-center">
-          <span className={`w-[30px] h-[30px] rounded-full ${colors.bg} absolute`} />
+          <span className={`w-[35px] h-[35px] rounded-full ${colors.bg} absolute`} />
           <span
-            className={`flex items-center justify-center ${colors.text} w-[30px] h-[30px] z-10`}
+            className={`flex items-center justify-center ${colors.text} w-[35px] h-[35px] z-10`}
           >
             {actionIcons[props.transactionData.txName]}
           </span>
         </span>
       </div>
-      <div className="ml-5 grow flex items-center justify-between">
+      <div className="ml-3.5 grow flex items-center justify-between">
         <div>
           <p className="text-sm capitalize text-foreground font-medium">
             {actionAliases[props.transactionData.txName]}

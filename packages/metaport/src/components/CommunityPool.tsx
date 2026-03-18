@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import React, { useEffect, useMemo } from 'react'
+import React, { useEffect, useMemo, useState } from 'react'
 import { constants, units } from '@/core'
 
 import { useAccount, useWalletClient, useSwitchChain } from 'wagmi'
@@ -32,7 +32,7 @@ import Button from '@mui/material/Button'
 import CheckCircleIcon from '@mui/icons-material/CheckCircle'
 import ErrorIcon from '@mui/icons-material/Error'
 
-import { withdraw, recharge } from '../core/community_pool'
+import { withdraw, recharge } from '../core/actions/bridge_balance'
 import {
   BALANCE_UPDATE_INTERVAL_MS,
   COMMUNITY_POOL_DECIMALS,
@@ -41,7 +41,6 @@ import {
 
 import { styles } from '../core/css'
 
-import { useCPStore } from '../store/CommunityPoolStore'
 import { useMetaportStore } from '../store/MetaportStore'
 import TokenIcon from './TokenIcon'
 import Tile from './Tile'
@@ -58,12 +57,11 @@ export default function CommunityPool() {
   const { data: walletClient } = useWalletClient({ chainId })
   const { switchChainAsync } = useSwitchChain()
 
-  const cpData = useCPStore((state) => state.cpData)
-  const loading = useCPStore((state) => state.loading)
-  const setLoading = useCPStore((state) => state.setLoading)
-  const amount = useCPStore((state) => state.amount)
-  const setAmount = useCPStore((state) => state.setAmount)
-  const updateCPData = useCPStore((state) => state.updateCPData)
+  const [loading, setLoading] = useState<string | false>(false)
+  const [amount, setAmount] = useState('')
+
+  const cpData = useMetaportStore((state) => state.cpData)
+  const updateCPData = useMetaportStore((state) => state.updateCPData)
 
   const chainName1 = useMetaportStore((state) => state.chainName1)
   const chainName2 = useMetaportStore((state) => state.chainName2)
@@ -96,13 +94,13 @@ export default function CommunityPool() {
   }
 
   useEffect(() => {
-    updateCPData(address, chainName, targetChain, mpc)
+    updateCPData(address, chainName, targetChain)
   }, [])
 
   useEffect(() => {
-    updateCPData(address, chainName, targetChain, mpc)
+    updateCPData(address, chainName, targetChain)
     const intervalId = setInterval(() => {
-      updateCPData(address, chainName, targetChain, mpc)
+      updateCPData(address, chainName, targetChain)
     }, BALANCE_UPDATE_INTERVAL_MS)
 
     return () => {

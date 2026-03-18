@@ -26,12 +26,64 @@ import { type types, constants, endpoints, helper } from '@/core'
 
 import { WalletClient } from 'viem'
 import { type UseSwitchChainReturnType } from 'wagmi'
-import { mainnet, hoodi, holesky, base, baseSepolia, Chain } from 'wagmi/chains'
+import {
+  mainnet,
+  hoodi,
+  holesky,
+  base,
+  baseSepolia,
+  arbitrum,
+  polygon,
+  optimism,
+  avalanche,
+  bsc,
+  monad,
+  gnosis,
+  Chain
+} from 'wagmi/chains'
 
 import { constructWagmiChain } from './wagmi_network'
 import { TimeoutException } from './exceptions'
 
 const log = new Logger<ILogObj>({ name: 'metaport:core:network' })
+
+export const EXT_PREFIX = 'ext-'
+
+export const EXT_CHAIN_RPC_OVERRIDES: Record<string, string> = {
+  polygon: 'https://polygon-bor-rpc.publicnode.com'
+}
+
+export function extChainRpcUrl(chainName: string): string {
+  const name = getExtChainName(chainName)
+  const override = EXT_CHAIN_RPC_OVERRIDES[name]
+  if (override) return override
+  return EXT_CHAINS[name].rpcUrls.default.http[0]
+}
+
+export const EXT_CHAINS: Record<string, Chain> = {
+  arbitrum,
+  polygon,
+  'op-mainnet': optimism,
+  avalanche,
+  bsc,
+  monad,
+  gnosis
+}
+
+export function isExtChain(chainName: string): boolean {
+  return chainName.startsWith(EXT_PREFIX)
+}
+
+export function getExtChainName(chainName: string): string {
+  return chainName.slice(EXT_PREFIX.length)
+}
+
+export function getExtChain(chainName: string): Chain {
+  const name = getExtChainName(chainName)
+  const chain = EXT_CHAINS[name]
+  if (!chain) throw new Error(`Unknown ext chain: ${chainName}`)
+  return chain
+}
 
 export const MAINNET_CHAINS = [mainnet, hoodi, holesky, base, baseSepolia]
 export const NETWORK_MAINNET_CHAINS: { [network in types.SkaleNetwork]: Chain } = {
@@ -50,11 +102,25 @@ export function isMainnetChainId(
   return Number(chainId) === NETWORK_MAINNET_CHAINS[skaleNetwork].id
 }
 
+const _chainIdToName: Record<number, string> = (() => {
+  const map: Record<number, string> = {}
+  for (const chain of MAINNET_CHAINS) map[chain.id] = constants.MAINNET_CHAIN_NAME
+  for (const [key, chain] of Object.entries(EXT_CHAINS)) map[chain.id] = `${EXT_PREFIX}${key}`
+  return map
+})()
+
+export function chainIdToName(chainId: number): string {
+  return _chainIdToName[chainId] ?? constants.MAINNET_CHAIN_NAME
+}
+
 export function mainnetProvider(mainnetEndpoint: string): Provider {
   return new JsonRpcProvider(mainnetEndpoint)
 }
 
 export function sChainProvider(network: types.SkaleNetwork, chainName: string): Provider {
+  if (isExtChain(chainName)) {
+    return new JsonRpcProvider(extChainRpcUrl(chainName))
+  }
   const endpoint = endpoints.get(null, network, chainName)
   return new JsonRpcProvider(endpoint)
 }
@@ -102,7 +168,9 @@ export async function enforceNetwork(
   )
   log.info(`Switching network to ${chainId}...`)
   try {
-    if (isMainnetChainId(chainId, skaleNetwork)) {
+    if (isExtChain(chainName)) {
+      await walletClient.addChain({ chain: getExtChain(chainName) })
+    } else if (isMainnetChainId(chainId, skaleNetwork)) {
       await walletClient.addChain({ chain: NETWORK_MAINNET_CHAINS[skaleNetwork] })
     } else {
       await walletClient.addChain({ chain: constructWagmiChain(skaleNetwork, chainName) })

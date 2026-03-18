@@ -30,7 +30,7 @@ export function chainBg(
   chainsMeta: types.ChainsMetadataMap,
   chainName: string,
   app?: string,
-  theme?: 'light' | 'dark'
+  theme?: 'light' | 'dark',
 ): string | undefined {
   if (chainName === constants.MAINNET_CHAIN_NAME) {
     return networks.MAINNET_BACKGROUNDS[network]

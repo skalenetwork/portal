@@ -2,7 +2,11 @@
   "compilerOptions": {
     "target": "ESNext",
     "useDefineForClassFields": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
     "allowJs": false,
     "skipLibCheck": true,
     "esModuleInterop": false,
@@ -10,14 +14,23 @@
     "strict": false,
     "forceConsistentCasingInFileNames": true,
     "module": "ESNext",
-    "moduleResolution": "Node",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
     "noUnusedLocals": true,
     "jsx": "react-jsx",
-    "typeRoots": ["./src/vite-env.d.ts", "./src/types", "./node_modules/@types"],
+    "typeRoots": [
+      "./src/vite-env.d.ts",
+      "./src/types",
+      "./node_modules/@types"
+    ],
   },
-  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
-  "exclude": ["./src/**/*.stories.*"]
+  "include": [
+    "./src/**/*.ts",
+    "./src/**/*.tsx"
+  ],
+  "exclude": [
+    "./src/**/*.stories.*"
+  ]
 }
