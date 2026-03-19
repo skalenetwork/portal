@@ -21,8 +21,8 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import { Contract } from 'ethers'
-import { MetaportCore } from '@skalenetwork/metaport'
+import { Contract, type JsonRpcSigner } from 'ethers'
+import { MetaportCore, walletClientToSigner, enforceNetwork } from '@skalenetwork/metaport'
 import { skaleContracts } from '@skalenetwork/skale-contracts-ethers-v6'
 import { type types, contracts, helper } from '@/core'
 import { MAINNET_CHAIN_NAME } from '@/core/constants'
@@ -35,6 +35,40 @@ export interface Payment {
   to: `0x${string}`
   tokenAddress: `0x${string}`
   blockNumber: number
+}
+
+export async function ensureGasBalance(signer: JsonRpcSigner): Promise<void> {
+  const balance = await signer.provider.getBalance(signer.address)
+  if (balance === 0n) {
+    throw new Error('Insufficient ETH balance to pay for gas fees')
+  }
+}
+
+export async function prepareSignerForWrite(
+  contract: Contract,
+  walletClient: Parameters<typeof walletClientToSigner>[0],
+  switchChainAsync: Parameters<typeof enforceNetwork>[2],
+  network: types.SkaleNetwork,
+  chainName: string
+): Promise<JsonRpcSigner> {
+  if (!contract.runner?.provider || !walletClient || !switchChainAsync) {
+    throw new Error('Something is wrong with your wallet, try again')
+  }
+  const { chainId } = await contract.runner.provider.getNetwork()
+  await enforceNetwork(chainId, walletClient, switchChainAsync, network, chainName)
+  const signer = walletClientToSigner(walletClient)
+  await ensureGasBalance(signer)
+  return signer
+}
+
+export async function initAllLedgerContracts(
+  mpc: MetaportCore,
+  schains: types.ISChain[]
+): Promise<Record<string, Contract>> {
+  const results = await Promise.all(
+    schains.map(async (schain) => [schain.name, await getLedgerContract(mpc, schain.name)])
+  )
+  return Object.fromEntries(results.filter(([_, contract]) => contract !== undefined))
 }
 
 function getCreditStationAddress(network: types.SkaleNetwork): types.AddressType | undefined {
