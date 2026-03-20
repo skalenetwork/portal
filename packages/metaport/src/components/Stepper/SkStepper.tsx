@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { useWalletClient, useSwitchChain, useAccount } from 'wagmi'
 import { useAddRecentTransaction } from '@rainbow-me/rainbowkit'
-import { type types, metadata, dc } from '@/core'
+import { type types, metadata, dc, units, constants } from '@/core'
 
 import Box from '@mui/material/Box'
 import Stepper from '@mui/material/Stepper'
@@ -73,6 +73,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
 
   const amount = useMetaportStore((state) => state.amount)
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
+  const cpData = useMetaportStore((state) => state.cpData)
 
   useEffect(() => {
     try {
@@ -117,8 +118,22 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
 
   if (stepsMetadata.length === 0) return <div></div>
 
+  const currentStepMeta = stepsMetadata[currentStep]
+  const rechargeNotReady =
+    currentStepMeta?.type === dc.ActionType.recharge && cpData.recommendedRechargeAmount == null
+  const rechargeInsufficientBalance =
+    currentStepMeta?.type === dc.ActionType.recharge &&
+    cpData.recommendedRechargeAmount != null &&
+    cpData.accountBalance != null &&
+    cpData.accountBalance < units.toWei(String(cpData.recommendedRechargeAmount), constants.DEFAULT_ERC20_DECIMALS)
+
   const actionDisabled =
-    amountErrorMessage || trailsQuoteError || mesonQuoteError || loading || amount == '' || Number(amount) === 0
+    amountErrorMessage || trailsQuoteError || mesonQuoteError || loading || amount == '' || Number(amount) === 0 || rechargeNotReady || rechargeInsufficientBalance
+
+  function stepBtnText(step: dc.StepMetadata): string {
+    if (step.type === dc.ActionType.recharge && cpData.recommendedRechargeAmount == null) return 'Loading...'
+    return step.btnText
+  }
 
   const chainsMeta = CHAINS_META[props.skaleNetwork]
 
@@ -152,7 +167,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
             onClick={() => execute(address, switchChainAsync, walletClient)}
             disabled={!!actionDisabled}
           >
-            {Number(amount) === 0 ? 'Enter an amount' : step.btnText}
+            {Number(amount) === 0 ? 'Enter an amount' : stepBtnText(step)}
           </Button>
         )}
       </div>
@@ -224,7 +239,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                         >
                           {amount === '' || Number(amount) === 0
                             ? 'Enter an amount'
-                            : step.btnText}
+                            : stepBtnText(step)}
                         </Button>
                       )}
                     </div>

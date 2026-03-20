@@ -55,7 +55,7 @@ export const SFUEL_TEXT = {
 
 // community pool
 
-export const RECHARGE_MULTIPLIER = 3
+export const RECHARGE_MULTIPLIER = 2
 export const MINIMUM_RECHARGE_AMOUNT = 0.0001
 export const COMMUNITY_POOL_ESTIMATE_GAS_LIMIT = 1000000n
 export const COMMUNITY_POOL_WITHDRAW_GAS_LIMIT = 150000n
