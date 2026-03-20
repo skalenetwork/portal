@@ -33,6 +33,7 @@ import Avatar from 'boring-avatars'
 import { metadata } from '@/core'
 import IconButton from '@mui/material/IconButton'
 import trailsLogo from '../assets/trails_logo.svg'
+import Tooltip from '@mui/material/Tooltip'
 
 import { useMetaportStore } from '../store/MetaportStore'
 import { CHAINS_META } from '../core/metadata'
@@ -59,21 +60,43 @@ function transferTimestamp(transfer: types.mp.TransferHistory): string {
   return timeAgo(last.timestamp)
 }
 
-export default function History(props: { size?: types.Size }) {
+function shortenValue(value: string | number, length: number = 8): string {
+  const str = String(value)
+  if (str.length <= length) return str
+  return `${str.slice(0, 4)}...${str.slice(-2)}`
+}
+
+export default function History(props: {
+  size?: types.Size
+  limit?: number
+  summaryOnly?: boolean
+  hideCurrent?: boolean
+  className?: string
+  itemClassName?: string
+}) {
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
   const transfersHistory = useMetaportStore((state) => state.transfersHistory)
 
   const mpc = useMetaportStore((state) => state.mpc)
 
+  const summaryOnly = props.summaryOnly ?? props.size === 'sm'
   const size = props.size ?? 'sm'
   const network = mpc.config.skaleNetwork
 
   const chainsMeta = CHAINS_META[network]
 
   if (transactionsHistory.length === 0 && transfersHistory.length === 0) return
+
+  const visibleCount =
+    (transactionsHistory.length !== 0 && !props.hideCurrent ? 1 : 0) +
+    Math.min(props.limit ?? transfersHistory.length, transfersHistory.length)
+  const gridCols = visibleCount === 1 ? 'md:grid-cols-1' : 'md:grid-cols-2'
+
   return (
-    <div>
-      {transactionsHistory.length !== 0 && (
+    <div
+      className={`${props.className ?? ''} ${size === 'sm' ? `flex flex-col gap-2 md:grid ${gridCols}` : ''}`}
+    >
+      {transactionsHistory.length !== 0 && !props.hideCurrent && (
         <div className="mb-2.5 bg-card! rounded-3xl p-4">
           <p className="text-sm font-semibold text-foreground mb-3">Current transfer</p>
           <div className="bg-muted-foreground/15 dark:bg-muted-foreground/10 p-4 rounded-2xl space-y-2">
@@ -90,18 +113,35 @@ export default function History(props: { size?: types.Size }) {
       {transfersHistory
         .slice()
         .reverse()
+        .slice(0, props.limit ?? transfersHistory.length)
         .map((transfer: types.mp.TransferHistory, key: number) => {
           const unfinished = isUnfinished(transfer)
           return (
-            <div key={key} className="mb-2.5 bg-card rounded-4xl p-2">
+            <div
+              key={key}
+              className={`${props.itemClassName ?? (size === 'sm' ? 'xs' : 'mb-2.5')} bg-card rounded-4xl p-2`}
+            >
               <div className="flex items-center p-2 px-3">
-                <TokenIcon tokenSymbol={transfer.tokenKeyname} size="lg" />
-                <div className="ml-3 min-w-0 flex-1">
-                  <p
-                    className={`${size === 'sm' ? 'text-base' : 'text-lg'} font-bold text-foreground uppercase`}
-                  >
-                    {transfer.amount} {transfer.tokenKeyname}
-                  </p>
+                <TokenIcon
+                  tokenSymbol={transfer.tokenKeyname}
+                  size={size === 'sm' ? 'sm' : 'lg'}
+                />
+                <div className={`${size === 'sm' ? 'ml-2.5' : 'ml-3'} min-w-0 flex-1`}>
+                  <Tooltip title={`${transfer.amount} ${transfer.tokenKeyname}`} arrow>
+                    <p
+                      className={`${size === 'sm' ? 'text-sm' : 'text-lg'} font-bold text-foreground uppercase`}
+                    >
+                      {size === 'sm' ? (
+                        <>
+                          <span className="max-md:hidden">{shortenValue(transfer.amount)}</span>
+                          <span className="md:hidden">{transfer.amount}</span>
+                        </>
+                      ) : (
+                        transfer.amount
+                      )}{' '}
+                      {transfer.tokenKeyname}
+                    </p>
+                  </Tooltip>
                   <p
                     className={`text-xs -mt-0.5 flex items-center gap-1 font-semibold ${unfinished || isTrailsFailed(transfer) ? 'text-destructive' : 'text-secondary-foreground'}`}
                   >
@@ -111,21 +151,23 @@ export default function History(props: { size?: types.Size }) {
                     {transferTimestamp(transfer)}
                   </p>
                 </div>
-                <div className="mx-4 w-px self-stretch bg-border" />
-                <div className="shrink-0 space-y-1">
+                <div className={`${size === 'sm' ? 'mx-2' : 'mx-4'} w-px self-stretch bg-border`} />
+                <div className="shrink-0 space-y-0.5">
                   <ChainRow
                     chainName={transfer.chainName1}
                     network={network}
                     chainsMeta={chainsMeta}
+                    responsive={size === 'sm'}
                   />
                   <ChainRow
                     chainName={transfer.chainName2}
                     network={network}
                     chainsMeta={chainsMeta}
+                    responsive={size === 'sm'}
                   />
                 </div>
               </div>
-              {transfer.address && (
+              {!summaryOnly && transfer.address && (
                 <div className="bg-muted-foreground/10 px-4 py-3 rounded-3xl mt-2 flex items-center">
                   <Avatar
                     variant="marble"
@@ -174,7 +216,7 @@ export default function History(props: { size?: types.Size }) {
                   </IconButton>
                 </div>
               )}
-              {transfer.transactions.length > 0 && (
+              {!summaryOnly && transfer.transactions.length > 0 && (
                 <div className="bg-muted-foreground/10 p-4 rounded-3xl space-y-2 mt-1">
                   {transfer.transactions.map((transactionData: types.mp.TransactionHistory) => (
                     <TransactionData
@@ -214,6 +256,8 @@ function ChainRow(props: {
   chainName: string
   network: types.SkaleNetwork
   chainsMeta: types.ChainsMetadataMap
+  short?: boolean
+  responsive?: boolean
 }) {
   return (
     <div className="flex items-center gap-1.5">
@@ -223,9 +267,20 @@ function ChainRow(props: {
         size="xs"
         chainsMeta={props.chainsMeta}
       />
-      <span className="text-xs font-semibold text-foreground capitalize">
-        {metadata.getAlias(props.network, props.chainsMeta, props.chainName)}
-      </span>
+      {props.responsive ? (
+        <>
+          <span className="text-xs font-semibold text-foreground capitalize max-md:hidden">
+            {metadata.getAlias(props.network, props.chainsMeta, props.chainName, undefined, true)}
+          </span>
+          <span className="text-xs font-semibold text-foreground capitalize md:hidden">
+            {metadata.getAlias(props.network, props.chainsMeta, props.chainName, undefined, false)}
+          </span>
+        </>
+      ) : (
+        <span className="text-xs font-semibold text-foreground capitalize">
+          {metadata.getAlias(props.network, props.chainsMeta, props.chainName, undefined, props.short)}
+        </span>
+      )}
     </div>
   )
 }
