@@ -34,7 +34,7 @@ import AccordionSection from '../AccordionSection'
 import ErrorTile from '../ErrorTile'
 import CreditsHistoryTile from './CreditsPaymentTile'
 import CreditStationStatusTile from './CreditStationStatusTile'
-import { getTokenPrices, getLedgerContract } from '../../core/credit-station'
+import { getTokenPrices } from '../../core/credit-station'
 import { Coins, History, SwatchBook } from 'lucide-react'
 
 interface CreditTokensAdminProps {
@@ -67,12 +67,7 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
 
   async function initLedgerContracts() {
     if (!schains.length) return
-    const results = await Promise.all(
-      schains.map(async (schain) => [schain.name, await getLedgerContract(mpc, schain.name)])
-    )
-    setLedgerContracts(
-      Object.fromEntries(results.filter(([_, contract]) => contract !== undefined))
-    )
+    setLedgerContracts(await cs.initAllLedgerContracts(mpc, schains))
   }
 
   async function loadAllPayments() {

@@ -26,14 +26,13 @@ import {
   Tile,
   TokenIcon,
   SkPaper,
-  enforceNetwork,
   useWagmiAccount,
   useWagmiWalletClient,
   useWagmiSwitchNetwork,
-  sendTransaction,
-  walletClientToSigner
+  sendTransaction
 } from '@skalenetwork/metaport'
 import { types, units, constants } from '@/core'
+import { prepareSignerForWrite } from '../../core/credit-station'
 
 import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
@@ -87,37 +86,38 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
 
   async function updatePrice() {
     if (!creditStation || price === '') return
-    if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
-      setErrorMsg('Something is wrong with your wallet, try again')
-      setOpenModal(false)
-      return
-    }
     setLoading(true)
-    const decimals = tokenMeta?.decimals || constants.DEFAULT_ERC20_DECIMALS
-    const priceWei = units.toWei(price.toString(), decimals)
 
-    const { chainId } = await creditStation.runner.provider.getNetwork()
-    await enforceNetwork(
-      chainId,
-      walletClient,
-      switchChainAsync,
-      network,
-      constants.MAINNET_CHAIN_NAME
-    )
+    try {
+      const decimals = tokenMeta?.decimals || constants.DEFAULT_ERC20_DECIMALS
+      const priceWei = units.toWei(price.toString(), decimals)
 
-    const signer = walletClientToSigner(walletClient)
-    creditStation.connect(signer)
+      const signer = await prepareSignerForWrite(
+        creditStation,
+        walletClient,
+        switchChainAsync,
+        network,
+        constants.MAINNET_CHAIN_NAME
+      )
 
-    await sendTransaction(
-      signer,
-      creditStation.setPrice,
-      [tokenData.address, priceWei],
-      'creditStation:setPrice'
-    )
+      const res = await sendTransaction(
+        signer,
+        creditStation.setPrice,
+        [tokenData.address, priceWei],
+        'creditStation:setPrice'
+      )
+      if (!res.status) {
+        setErrorMsg(res.err?.name || 'Transaction failed')
+        return
+      }
 
-    await loadTokenPrices()
-    setLoading(false)
-    setOpenModal(false)
+      await loadTokenPrices()
+    } catch (e: any) {
+      setErrorMsg(e.message || e.toString())
+    } finally {
+      setLoading(false)
+      setOpenModal(false)
+    }
   }
 
   function getTokenPriceWei(): bigint {
