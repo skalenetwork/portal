@@ -24,12 +24,5 @@
 import { type TransactionResponse } from 'ethers'
 
 export interface TxResponse {
-  status: boolean
-  err: TxResponseError | undefined
-  response: TransactionResponse | undefined
-}
-
-export interface TxResponseError {
-  name: string
-  msg: string
+  response: TransactionResponse
 }

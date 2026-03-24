@@ -35,10 +35,8 @@ import {
   TokenIcon,
   useWagmiAccount,
   sendTransaction,
-  walletClientToSigner,
   useWagmiWalletClient,
-  useWagmiSwitchNetwork,
-  enforceNetwork
+  useWagmiSwitchNetwork
 } from '@skalenetwork/metaport'
 import { types, metadata, constants, timeUtils, helper, units } from '@/core'
 
@@ -115,23 +113,18 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
   }, [ledgerContract, payment.id])
 
   async function fulfillPayment() {
-    if (!ledgerContract || !walletClient || !switchChainAsync) {
-      setErrorMsg?.('Something is wrong with your wallet, try again')
-      return
-    }
-    if (!ledgerContract.runner?.provider) {
-      setErrorMsg?.('Ledger contract provider not available')
-      return
-    }
+    if (!ledgerContract) return
     setLoading(true)
     setErrorMsg?.(undefined)
 
     try {
-      const { chainId } = await ledgerContract.runner.provider.getNetwork()
-      await enforceNetwork(chainId, walletClient, switchChainAsync, network, payment.schainName)
-
-      const signer = walletClientToSigner(walletClient)
-      ledgerContract.connect(signer)
+      const signer = await cs.prepareSignerForWrite(
+        ledgerContract,
+        walletClient,
+        switchChainAsync,
+        network,
+        payment.schainName
+      )
 
       const res = await sendTransaction(
         signer,

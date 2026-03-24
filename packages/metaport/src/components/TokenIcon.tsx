@@ -28,7 +28,7 @@ import { Ban } from 'lucide-react'
 export default function TokenIcon(props: {
   tokenSymbol: string | undefined | null
   iconUrl?: string | undefined | null
-  size?: 'xs' | 'sm' | 'md' | 'lg',
+  size?: 'xs' | 'sm' | 'md' | 'lg'
   className?: string
 }) {
   const size = props.size ?? 'sm'
@@ -37,12 +37,7 @@ export default function TokenIcon(props: {
     return <Ban size={17} className="text-muted-foreground!" />
   }
   if (props.iconUrl !== undefined && props.iconUrl !== null) {
-    return (
-      <img
-        className={`object-contain max-w-fit ${className}`}
-        src={props.iconUrl}
-      />
-    )
+    return <img className={`object-contain max-w-fit ${className}`} src={props.iconUrl} />
   }
   return (
     <img

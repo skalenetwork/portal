@@ -26,14 +26,13 @@ import {
   Tile,
   TokenIcon,
   SkPaper,
-  enforceNetwork,
   useWagmiAccount,
   useWagmiWalletClient,
   useWagmiSwitchNetwork,
-  sendTransaction,
-  walletClientToSigner
+  sendTransaction
 } from '@skalenetwork/metaport'
 import { types, units, constants } from '@/core'
+import { prepareSignerForWrite } from '../../core/credit-station'
 
 import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
@@ -93,21 +92,18 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
       return
     }
     setLoading(true)
+
     const decimals = tokenMeta?.decimals || constants.DEFAULT_ERC20_DECIMALS
     const priceWei = units.toWei(price.toString(), decimals)
 
-    const { chainId } = await creditStation.runner.provider.getNetwork()
     notify.temporaryInfo('Switching network...')
-    await enforceNetwork(
-      chainId,
+    const signer = await prepareSignerForWrite(
+      creditStation,
       walletClient,
       switchChainAsync,
       network,
       constants.MAINNET_CHAIN_NAME
     )
-
-    const signer = walletClientToSigner(walletClient)
-    creditStation.connect(signer)
 
     try {
       const res = await sendTransaction(
@@ -251,7 +247,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
           </SkPaper>
           <Button
             variant="contained"
-            className="btnMd ml-5 w-full mt-4! mb-2! bg-accent-foreground! disabled:bg-muted-foreground/30! disabled:text-muted! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+            className="btnMd ml-5 w-full mt-4! mb-2! bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
             size="large"
             onClick={updatePrice}
             disabled={loading || price === ''}

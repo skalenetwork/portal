@@ -3,6 +3,7 @@ export { type MetaportState } from './store/MetaportState'
 export { useUIStore, useCollapseStore, type UIState, type CollapseState } from './store/Store'
 export { useSFuelStore, type SFuelState } from './store/SFuelStore'
 export { useDisplayFunctions, type DisplayFunctions } from './store/DisplayFunctions'
+export { useBridgeBalanceStore } from './store/BridgeBalanceStore'
 
 import * as contracts from './core/contracts'
 import * as explorer from './core/explorer'
@@ -30,16 +31,22 @@ import AmountErrorMessage from './components/AmountErrorMessage'
 import DestTokenBalance from './components/DestTokenBalance'
 import ErrorMessage from './components/ErrorMessage'
 import CommunityPool from './components/CommunityPool'
+import BridgeBalanceCard from './components/BridgeBalanceCard'
 import SFuelWarning from './components/SFuelWarning'
 import WrappedTokens from './components/WrappedTokens'
 import History from './components/History'
 import TransactionData from './components/TransactionData'
 import Debug from './components/Debug'
 import AnimatedLoadingIcon from './components/AnimatedLoadingIcon'
+import TrailsQuoteCard from './components/TrailsQuoteCard'
+import TrailsIntentTracker from './components/TrailsIntentTracker'
+import NoTokenPairs from './components/NoTokenPairs'
 
 import { styles } from './core/css'
 import MetaportCore from './core/metaport'
+import { getAvailableTokensTotal } from './core/tokens/helper'
 import { sendTransaction } from './core/transactions'
+import { getBridgeBalanceChains } from './core/bridge_balance'
 import { Station, StationData } from './core/sfuel'
 import * as mp_metadata from './core/metadata'
 
@@ -83,12 +90,16 @@ export {
   DestTokenBalance,
   ErrorMessage,
   CommunityPool,
+  BridgeBalanceCard,
   SFuelWarning,
+  getBridgeBalanceChains,
   WrappedTokens,
   History,
   TransactionData,
   Debug,
   AnimatedLoadingIcon,
+  NoTokenPairs,
+  getAvailableTokensTotal,
   styles,
   getMetaportTheme,
   useWagmiAccount,
@@ -107,7 +118,9 @@ export {
   type StationData,
   contracts,
   explorer,
-  mp_metadata
+  mp_metadata,
+  TrailsQuoteCard,
+  TrailsIntentTracker
 }
 
 export { useThemeMode }

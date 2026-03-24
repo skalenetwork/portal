@@ -223,7 +223,7 @@ export default function Delegate(props: {
           childrenRi={
             <div className="items-center flex">
               <Button
-                className="btnSm outlined ml-5! items-center text-secondary-foreground! hover:bg-muted-foreground/30!"
+                className="btnSm outlined ml-5! items-center text-secondary-foreground! hover:bg-muted-foreground/50!"
                 disabled={info.allowedToDelegate === 0n || loading}
                 onClick={() => {
                   if (!info.allowedToDelegate) return
@@ -246,7 +246,7 @@ export default function Delegate(props: {
         <Button
           disabled
           variant="contained"
-          className="btnMd bg-muted-foreground/30! disabled:text-muted! mt-2.5! mb-1! w-full!"
+          className="btnMd bg-accent-foreground/50! mt-2.5! mb-1! w-full!"
         >
           Staking SKL
         </Button>
@@ -261,7 +261,7 @@ export default function Delegate(props: {
             loading
           }
           variant="contained"
-          className="bg-accent-foreground! disabled:bg-muted-foreground/30! text-accent! disabled:text-muted! btnMd mt-2.5! mb-1! w-full!"
+          className="bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent! btnMd mt-2.5! mb-1! w-full!"
           onClick={stake}
         >
           {getBtnText()}

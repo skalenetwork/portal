@@ -27,17 +27,19 @@ import { useWalletClient, useSwitchChain } from 'wagmi'
 import { dc, constants } from '@/core'
 
 import Button from '@mui/material/Button'
+import IconButton from '@mui/material/IconButton'
 
 import MetaportCore, { createTokenData } from '../core/metaport'
 import { enforceNetwork } from '../core/network'
 import { ICONS_BASE_URL } from '../core/constants'
-import { Coins } from 'lucide-react'
+import { BadgePlus, Coins } from 'lucide-react'
 
 export default function AddToken(props: {
   token: dc.TokenData
   destChainName: string
   mpc: MetaportCore
   provider: Provider
+  iconOnly?: boolean
 }) {
   const [loading, setLoading] = useState<boolean>(false)
 
@@ -103,13 +105,36 @@ export default function AddToken(props: {
   if (props.destChainName === constants.MAINNET_CHAIN_NAME && props.token.type === dc.TokenType.eth)
     return
 
+  if (props.iconOnly) {
+    return (
+      <span>
+        <IconButton
+          onClick={addToken}
+          disabled={loading}
+          className="md:hidden! text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50! p-2!"
+        >
+          <BadgePlus size={20} />
+        </IconButton>
+        <Button
+          onClick={addToken}
+          disabled={loading}
+          size="small"
+          startIcon={<BadgePlus size={15} />}
+          className="hidden! md:inline-flex! capitalize! text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50! text-xs! px-3.5! py-2.5!"
+        >
+          {loading ? 'Check wallet' : 'Add token'}
+        </Button>
+      </span>
+    )
+  }
+
   return (
     <Button
       onClick={addToken}
       disabled={loading}
       color="primary"
       size="medium"
-      className="grow mb-2! md:mb-0! w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-muted-foreground/30! disabled:text-muted! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+      className="grow mb-2! md:mb-0! w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
       startIcon={<Coins size={17} />}
     >
       {loading ? 'Check wallet' : 'Add token'}

@@ -215,7 +215,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
               loading={loading}
               variant="contained"
               size="small"
-              className="btn btnSm text-xs bg-accent-foreground! text-accent! align-center! disabled:bg-muted-foreground/30! disabled:text-muted!"
+              className="btn btnSm text-xs bg-accent-foreground! text-accent! align-center! disabled:bg-accent-foreground/50!"
               disabled={
                 customAddress !== undefined ||
                 rewardAmount === null ||

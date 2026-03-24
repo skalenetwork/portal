@@ -25,14 +25,13 @@ import { Contract } from 'ethers'
 import {
   type MetaportCore,
   Tile,
-  enforceNetwork,
   useWagmiAccount,
   useWagmiWalletClient,
   useWagmiSwitchNetwork,
-  sendTransaction,
-  walletClientToSigner
+  sendTransaction
 } from '@skalenetwork/metaport'
 import { constants } from '@/core'
+import { prepareSignerForWrite } from '../../core/credit-station'
 import Button from '@mui/material/Button'
 import { Badge, BadgeCheck, ToggleLeft, ToggleRight } from 'lucide-react'
 import notify from '../../core/notify'
@@ -77,22 +76,17 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
       notify.permanentError('Something is wrong with your wallet, try again')
       return
     }
-
     setLoading(true)
 
+    notify.temporaryInfo('Switching network...')
     try {
-      const { chainId } = await creditStation.runner.provider.getNetwork()
-      notify.temporaryInfo('Switching network...')
-      await enforceNetwork(
-        chainId,
+      const signer = await prepareSignerForWrite(
+        creditStation,
         walletClient,
         switchChainAsync,
         network,
         constants.MAINNET_CHAIN_NAME
       )
-
-      const signer = walletClientToSigner(walletClient)
-      creditStation.connect(signer)
 
       const method = isPaused ? creditStation.unpause : creditStation.pause
       const action = isPaused ? 'unpause' : 'pause'
