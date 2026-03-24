@@ -54,12 +54,16 @@ export function shortAddress(address: types.AddressType | undefined): string {
   return `${address.slice(0, 4)}...${address.slice(-2)}`
 }
 
+export function shortAmount(value: string): string {
+  const [integerPart, decimalPart] = value.split('.')
+  if (!decimalPart || decimalPart.length <= 5) return value
+  return `${integerPart}.${decimalPart.slice(0, 2)}...${decimalPart.slice(-3)}`
+}
+
 export function shortBalance(balance: bigint | undefined, decimals?: number): string {
   if (balance === undefined) return ''
   if (balance === 0n) return '0'
-  const formatted = formatUnits(balance, decimals ?? 18)
-  if (formatted.length <= 8) return formatted
-  return `${formatted.slice(0, 5)}...${formatted.slice(-3)}`
+  return shortAmount(formatUnits(balance, decimals ?? 18))
 }
 
 export function getRandom(list: Array<any>) {

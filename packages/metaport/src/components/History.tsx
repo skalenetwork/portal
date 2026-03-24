@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { types } from '@/core'
+import { types, helper } from '@/core'
 
 import TokenIcon from './TokenIcon'
 import TransactionData from './TransactionData'
@@ -87,7 +87,7 @@ export default function History(props: { size?: types.Size }) {
                   <p
                     className={`${size === 'sm' ? 'text-base' : 'text-lg'} font-bold text-foreground uppercase`}
                   >
-                    {transfer.amount} {transfer.tokenKeyname}
+                    {helper.shortAmount(transfer.amount)} {transfer.tokenKeyname}
                   </p>
                   <p
                     className={`text-xs -mt-0.5 flex items-center gap-1 font-semibold ${unfinished ? 'text-destructive' : 'text-secondary-foreground'}`}
