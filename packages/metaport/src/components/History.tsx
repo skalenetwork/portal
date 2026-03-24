@@ -145,7 +145,6 @@ export default function History(props: {
                   <p
                     className={`${size === 'sm' ? 'text-base' : 'text-lg'} font-bold text-foreground uppercase`}
                   >
-                    {helper.shortAmount(transfer.amount)} {transfer.tokenKeyname}
                   </p>
                   <p
                     className={`text-xs -mt-0.5 flex items-center gap-1 font-semibold ${unfinished || isTrailsFailed(transfer) ? 'text-destructive' : 'text-secondary-foreground'}`}
@@ -264,6 +263,11 @@ function ChainRow(props: {
   short?: boolean
   responsive?: boolean
 }) {
+  const alias = (short?: boolean) => {
+    const name = metadata.getAlias(props.network, props.chainsMeta, props.chainName, undefined, short)
+    return props.responsive ? name.replace(' Mainnet', '') : name
+  }
+
   return (
     <div className="flex items-center gap-1.5">
       <ChainIcon
@@ -275,15 +279,15 @@ function ChainRow(props: {
       {props.responsive ? (
         <>
           <span className="text-xs font-semibold text-foreground capitalize max-md:hidden">
-            {metadata.getAlias(props.network, props.chainsMeta, props.chainName, undefined, true)}
+            {alias(true)}
           </span>
           <span className="text-xs font-semibold text-foreground capitalize md:hidden">
-            {metadata.getAlias(props.network, props.chainsMeta, props.chainName, undefined, false)}
+            {alias(false)}
           </span>
         </>
       ) : (
         <span className="text-xs font-semibold text-foreground capitalize">
-          {metadata.getAlias(props.network, props.chainsMeta, props.chainName, undefined, props.short)}
+          {alias(props.short)}
         </span>
       )}
     </div>
