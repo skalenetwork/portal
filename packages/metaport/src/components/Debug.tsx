@@ -37,7 +37,6 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
 import ExpandRoundedIcon from '@mui/icons-material/ExpandRounded'
 
-import { useCPStore } from '../store/CommunityPoolStore'
 import { useMetaportStore } from '../store/MetaportStore'
 import { Collapse } from '@mui/material'
 
@@ -113,7 +112,7 @@ export default function Debug() {
   const tokenContracts = useMetaportStore((state) => state.tokenContracts)
   const tokens = useMetaportStore((state) => state.tokens)
 
-  const cpData = useCPStore((state) => state.cpData)
+  const cpData = useMetaportStore((state) => state.cpData)
 
   const getRows = () => [
     { name: 'chainName1', value: chainName1 },

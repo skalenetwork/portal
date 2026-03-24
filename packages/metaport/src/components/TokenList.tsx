@@ -135,16 +135,15 @@ export default function TokenList() {
         onClose={handleClose}
         className={styles.metaport + ' ' + styles.backdropBlur}
       >
-        <Container maxWidth="sm" className={styles.modalContainer}>
-          <div className="flex mb-5">
-            <div className="grow"></div>
+        <Container maxWidth="sm" className={styles.modalContainer} onClick={handleClose}>
+          <div className="flex items-center justify-center mb-5">
             <SkPaper gray>
-              <p className="text-sm font-bold text-foreground mt-1.5 mb-1.5 ml-5 mr-5">
+              <p className="text-sm text-foreground font-semibold my-0.5 mx-3 flex items-center text-center">
                 Select a token
               </p>
             </SkPaper>
-            <div className="grow"></div>
           </div>
+          <div onClick={(e) => e.stopPropagation()}>
           <SkPaper gray className="p-4!">
             <TextField
               fullWidth
@@ -181,6 +180,7 @@ export default function TokenList() {
               searchQuery={searchQuery}
             />
           </SkPaper>
+          </div>
         </Container>
       </Modal>
     </div>

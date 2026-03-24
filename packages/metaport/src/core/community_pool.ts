@@ -22,25 +22,17 @@
  */
 
 import { Logger, type ILogObj } from 'tslog'
-import { ethers } from 'ethers'
-import { dc, type types, units, constants, helper } from '@/core'
+import { ethers, type Contract } from 'ethers'
+import { type types, units, constants, helper } from '@/core'
 
-import { WalletClient } from 'viem'
-import { type UseSwitchChainReturnType } from 'wagmi'
-
-import { walletClientToSigner } from './ethers'
-import { enforceNetwork } from './network'
 import {
   RECHARGE_MULTIPLIER,
   MINIMUM_RECHARGE_AMOUNT,
-  COMMUNITY_POOL_WITHDRAW_GAS_LIMIT,
   COMMUNITY_POOL_ESTIMATE_GAS_LIMIT,
-  DEFAULT_ERROR_MSG,
-  BALANCE_UPDATE_INTERVAL_MS
+  BALANCE_UPDATE_INTERVAL_MS,
+  MAX_ACTIVATION_RETRIES
 } from './constants'
-import MetaportCore from './metaport'
 import { MainnetChain, SChain } from './contracts'
-import { sendTransaction } from './transactions'
 
 const log = new Logger<ILogObj>({ name: 'metaport:core:community_pool' })
 
@@ -53,6 +45,14 @@ export function getEmptyCommunityPoolData(): types.mp.CommunityPoolData {
     recommendedRechargeAmount: null,
     originalRecommendedRechargeAmount: null
   }
+}
+
+export function calculateRechargeAmount(rraEther: string): number {
+  let amount = helper.roundUp(parseFloat(rraEther) * RECHARGE_MULTIPLIER)
+  if (amount < MINIMUM_RECHARGE_AMOUNT) {
+    amount = MINIMUM_RECHARGE_AMOUNT
+  }
+  return amount
 }
 
 export async function getCommunityPoolData(
@@ -89,10 +89,7 @@ export async function getCommunityPoolData(
   const rraEther = units.fromWei(rraWei as string, constants.DEFAULT_ERC20_DECIMALS)
 
   const isActive = activeM && activeS
-  let recommendedAmount = helper.roundUp(parseFloat(rraEther as string) * RECHARGE_MULTIPLIER)
-  if (!isActive && recommendedAmount < MINIMUM_RECHARGE_AMOUNT) {
-    recommendedAmount = MINIMUM_RECHARGE_AMOUNT
-  }
+  const recommendedAmount = calculateRechargeAmount(rraEther as string)
 
   log.info('Bridge balance estimation', {
     chainName1,
@@ -109,7 +106,7 @@ export async function getCommunityPoolData(
     exitGasOk: isActive && rraWei === 0n
   })
 
-  const communityPoolData = {
+  return {
     exitGasOk: isActive && rraWei === 0n,
     isActive,
     balance: balanceWei,
@@ -117,109 +114,20 @@ export async function getCommunityPoolData(
     recommendedRechargeAmount: recommendedAmount,
     originalRecommendedRechargeAmount: rraWei
   }
-  return communityPoolData
 }
 
-export async function withdraw(
-  mpc: MetaportCore,
-  walletClient: WalletClient,
-  chainName: string,
-  amount: bigint,
-  address: `0x${string}`,
-  switchChain: UseSwitchChainReturnType['switchChainAsync'],
-  setLoading: (loading: string | false) => void,
-  setErrorMessage: (errorMessage: dc.ErrorMessage) => void,
-  errorMessageClosedFallback: () => void
-) {
-  setLoading('withdraw')
-  try {
-    log.info(`Withdrawing from bridge balance: ${chainName}, amount: ${amount}`)
-    const { chainId } = await mpc.provider(constants.MAINNET_CHAIN_NAME).provider.getNetwork()
-    await enforceNetwork(
-      chainId,
-      walletClient,
-      switchChain,
-      mpc.config.skaleNetwork,
-      constants.MAINNET_CHAIN_NAME
-    )
-    const signer = walletClientToSigner(walletClient)
-    const connectedMainnet = await mpc.mainnet(signer.provider)
-    const communityPool = await connectedMainnet.communityPool()
-
-    await sendTransaction(
-      signer,
-      communityPool.withdrawFunds,
-      [chainName, amount, { address: address, gasLimit: COMMUNITY_POOL_WITHDRAW_GAS_LIMIT }],
-      'mainnet:communityPool:withdrawFunds'
-    )
-
-    setLoading(false)
-  } catch (err) {
-    console.error(err)
-    const msg = err.message ? err.message : DEFAULT_ERROR_MSG
-    setErrorMessage(new dc.TransactionErrorMessage(msg, errorMessageClosedFallback))
+export async function waitForActivation(
+  communityPool: Contract,
+  communityLocker: Contract,
+  address: string,
+  chainHash: string
+): Promise<void> {
+  for (let i = 0; i < MAX_ACTIVATION_RETRIES; i++) {
+    log.info('Waiting for account activation...')
+    const activeM = await communityPool.activeUsers(address, chainHash)
+    const activeS = await communityLocker.activeUsers(address)
+    if (activeS && activeM) return
+    await helper.sleep(BALANCE_UPDATE_INTERVAL_MS)
   }
-}
-
-export async function recharge(
-  mpc: MetaportCore,
-  walletClient: WalletClient,
-  chainName: string,
-  amount: string,
-  address: `0x${string}`,
-  switchChain: UseSwitchChainReturnType['switchChainAsync'],
-  setLoading: (loading: string | false) => void,
-  setErrorMessage: (errorMessage: dc.ErrorMessage) => void,
-  errorMessageClosedFallback: () => void
-) {
-  setLoading('recharge')
-  try {
-    log.info(`Topping up bridge balance: ${chainName}, amount: ${amount}`)
-
-    const sChain = await mpc.schain(chainName)
-    const communityLocker = await sChain.communityLocker()
-
-    const { chainId } = await mpc.provider(constants.MAINNET_CHAIN_NAME).provider.getNetwork()
-    await enforceNetwork(
-      chainId,
-      walletClient,
-      switchChain,
-      mpc.config.skaleNetwork,
-      constants.MAINNET_CHAIN_NAME
-    )
-    const signer = walletClientToSigner(walletClient)
-    const connectedMainnet = await mpc.mainnet(signer.provider)
-    const communityPool = await connectedMainnet.communityPool()
-
-    sendTransaction(
-      signer,
-      communityPool.rechargeUserWallet,
-      [
-        chainName,
-        address,
-        { address: address, value: units.toWei(amount, constants.DEFAULT_ERC20_DECIMALS) }
-      ],
-      'mainnet:communityPool:rechargeUserWallet'
-    )
-
-    setLoading('activate')
-    let active = false
-    const chainHash = ethers.id(chainName)
-    let counter = 0
-    while (!active) {
-      log.info('Waiting for account activation...')
-      let activeM = await communityPool.activeUsers(address, chainHash)
-      let activeS = await communityLocker.activeUsers(address)
-      active = activeS && activeM
-      await helper.sleep(BALANCE_UPDATE_INTERVAL_MS)
-      counter++
-      if (counter >= 10) break
-    }
-  } catch (err) {
-    console.error(err)
-    const msg = err.message ? err.message : DEFAULT_ERROR_MSG
-    setErrorMessage(new dc.TransactionErrorMessage(msg, errorMessageClosedFallback))
-  } finally {
-    setLoading(false)
-  }
+  throw new Error('Account activation timed out. Please try again.')
 }

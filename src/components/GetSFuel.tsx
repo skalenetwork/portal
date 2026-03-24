@@ -24,7 +24,12 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { Box, Button, Tooltip } from '@mui/material'
 import AutoModeRoundedIcon from '@mui/icons-material/AutoModeRounded'
-import { type MetaportCore, Station, useWagmiAccount, useConnectModal } from '@skalenetwork/metaport'
+import {
+  type MetaportCore,
+  Station,
+  useWagmiAccount,
+  useConnectModal
+} from '@skalenetwork/metaport'
 import { type types } from '@/core'
 import { usesFuel } from '../useSFuel'
 import { Zap } from 'lucide-react'
@@ -40,21 +45,24 @@ function SingleChainSFuel({ chainName, mpc }: { chainName: string; mpc: Metaport
 
   const faucetAvailable = new Station(chainName, mpc).isFaucetAvailable()
 
-  const doMine = useCallback(async (addr: types.AddressType) => {
-    const station = new Station(chainName, mpc)
-    setMining(true)
-    try {
-      const { ok: mined } = await station.doPoW(addr)
-      if (!mined) return
-      await new Promise((r) => setTimeout(r, 3000))
-      setLoading(true)
-      const { ok } = await station.getData(addr)
-      setSFuelOk(ok ?? false)
-    } finally {
-      setLoading(false)
-      setMining(false)
-    }
-  }, [chainName, mpc])
+  const doMine = useCallback(
+    async (addr: types.AddressType) => {
+      const station = new Station(chainName, mpc)
+      setMining(true)
+      try {
+        const { ok: mined } = await station.doPoW(addr)
+        if (!mined) return
+        await new Promise((r) => setTimeout(r, 3000))
+        setLoading(true)
+        const { ok } = await station.getData(addr)
+        setSFuelOk(ok ?? false)
+      } finally {
+        setLoading(false)
+        setMining(false)
+      }
+    },
+    [chainName, mpc]
+  )
 
   const checkBalance = useCallback(async () => {
     if (!address) return

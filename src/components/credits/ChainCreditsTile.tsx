@@ -27,10 +27,8 @@ import {
   TokenIcon,
   useWagmiAccount,
   sendTransaction,
-  walletClientToSigner,
   useWagmiWalletClient,
   useWagmiSwitchNetwork,
-  enforceNetwork,
   ChainIcon
 } from '@skalenetwork/metaport'
 
@@ -61,6 +59,7 @@ import {
   DEFAULT_CREDITS_AMOUNT,
   CREDITS_USAGE_EXAMPLE_PER_CREDIT
 } from '../../core/constants'
+import { prepareSignerForWrite } from '../../core/credit-station'
 
 interface ChainCreditsTileProps {
   mpc: MetaportCore
@@ -148,11 +147,6 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
 
   async function buyCredits() {
     if (!creditStation || !token) return
-    if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
-      setErrorMsg('Something is wrong with your wallet, try again')
-      setOpenModal(false)
-      return
-    }
     setLoading(true)
     setErrorMsg(undefined)
 
@@ -160,17 +154,13 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
       const tokenAddress = tokens[token].address
       if (!tokenAddress) return
 
-      const { chainId } = await creditStation.runner.provider.getNetwork()
-      await enforceNetwork(
-        chainId,
+      const signer = await prepareSignerForWrite(
+        creditStation,
         walletClient,
         switchChainAsync,
         network,
         constants.MAINNET_CHAIN_NAME
       )
-
-      const signer = walletClientToSigner(walletClient)
-      creditStation.connect(signer)
 
       const amountWei = getAmountToPayWei()
 

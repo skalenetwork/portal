@@ -30,6 +30,7 @@ import { useTheme } from '@mui/material/styles'
 import {
   getChainDescription,
   getChainCardBackgroundColor,
+  getContrastTextColor,
   extractFirstSentence
 } from '../utils/helper'
 import { styles } from '../core/css'
@@ -57,7 +58,7 @@ export default function BridgeChainCard(props: ChainCardProps) {
     mode
   )
   const firstSentence = extractFirstSentence(chainDescription)
-
+  const descriptionColor = getContrastTextColor(backgroundColor)
 
   const theme = useTheme()
   const isSmallScreen = useMediaQuery(theme.breakpoints.down('sm'))
@@ -65,23 +66,15 @@ export default function BridgeChainCard(props: ChainCardProps) {
   const iconSize = isSmallScreen ? 'lg' : 'xl'
 
   return (
-    <div onClick={disabled ? undefined : onClick} style={{ height: 287 }}>
+    <div
+      onClick={disabled ? undefined : onClick}
+      className={disabled ? '' : 'cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]'}
+      style={{ height: 297 }}
+    >
       <SkPaper
-        className={`${'flex items-center justify-center mt-5'} ${styles.fullHeight}`}
+        className={`${'flex items-center justify-center'} ${styles.fullHeight}`}
         background={backgroundColor}
       >
-        <div
-          style={{
-            position: 'absolute',
-            inset: 0,
-            background:
-              mode === 'dark'
-                ? 'linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.7) 90%)'
-                : 'linear-gradient(to bottom, transparent 0%, rgba(225, 225, 225, 0.7) 90%)',
-            borderRadius: 'inherit',
-            pointerEvents: 'none'
-          }}
-        />
         <div
           className={`mb-2.5 mt-0 w-full ${styles.fullHeight}`}
           style={{ position: 'relative', zIndex: 1 }}
@@ -100,10 +93,10 @@ export default function BridgeChainCard(props: ChainCardProps) {
               />
             </div>
           </div>
-          <p className="text-foreground font-semibold text-xl text-center">
-            {metadata.getAlias(skaleNetwork, chainsMeta, chainName, undefined, true)}
+          <p className="text-foreground font-semibold text-xl text-center" style={{ color: descriptionColor }}>
+            {metadata.getAlias(skaleNetwork, chainsMeta, chainName, undefined)}
           </p>
-          <p className="text-foreground/70 font-medium p-2 text-xs text-center">{firstSentence}</p>
+          <p className="font-medium p-2 text-xs text-center opacity-70!" style={{ color: descriptionColor }}>{firstSentence}</p>
         </div>
       </SkPaper>
     </div>

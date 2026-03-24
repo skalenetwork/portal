@@ -42,3 +42,8 @@ export type ActionState =
   | 'unlockDone'
   | 'recharge'
   | 'rechargeDone'
+  | 'trailsQuoting'
+  | 'trailsCommitting'
+  | 'trailsDeposit'
+  | 'trailsExecuting'
+  | 'trailsWaiting'

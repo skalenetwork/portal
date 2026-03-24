@@ -30,6 +30,7 @@ import { SkPaper } from '@skalenetwork/metaport'
 import { types, metadata } from '@/core'
 
 import Logo from './Logo'
+import Headline from './Headline'
 
 export default function PopularActions(props: {
   skaleNetwork: types.SkaleNetwork
@@ -59,11 +60,13 @@ export default function PopularActions(props: {
 
   return (
     <div>
-      <div className="pt-5 flex"></div>
-      <div className="gap-2 flex items-center mb-2.5 font-semibold text-center text-foreground">
-        <Star size={17} />
-        Popular Actions
-      </div>
+      <div className="flex items-center mb-2.5 mt-5 pt-5">
+          <Headline
+            text= "Popular Actions"
+            icon={<Star size={17} />}
+            size="small"
+          />
+          </div>
       <div className="flex flex-row items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {actions.map((action) => (

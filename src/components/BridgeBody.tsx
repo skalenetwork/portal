@@ -41,7 +41,11 @@ import {
   ErrorMessage,
   SFuelWarning,
   WrappedTokens,
-  useDisplayFunctions
+  useDisplayFunctions,
+  TrailsQuoteCard,
+  TrailsIntentTracker,
+  NoTokenPairs,
+  getAvailableTokensTotal
 } from '@skalenetwork/metaport'
 
 export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap }) {
@@ -50,6 +54,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
   const destChains = useMetaportStore((state) => state.destChains)
 
   const token = useMetaportStore((state) => state.token)
+  const tokens = useMetaportStore((state) => state.tokens)
 
   const chainName1 = useMetaportStore((state) => state.chainName1)
   const chainName2 = useMetaportStore((state) => state.chainName2)
@@ -77,6 +82,10 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
 
   const stepsMetadata = useMetaportStore((state) => state.stepsMetadata)
   const currentStep = useMetaportStore((state) => state.currentStep)
+  const trailsQuote = useMetaportStore((state) => state.trailsQuote)
+  const trailsQuoteError = useMetaportStore((state) => state.trailsQuoteError)
+  const trailsIntentId = useMetaportStore((state) => state.trailsIntentId)
+  const trailsTrackerReady = useMetaportStore((state) => state.trailsTrackerReady)
 
   return (
     <div>
@@ -130,11 +139,15 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
           />
         </SkPaper>
       </Collapse>
-      <Collapse in={showInput()}>
+      <Collapse in={showInput() && getAvailableTokensTotal(tokens) > 0}>
         <SkPaper gray className="mt-3.5">
           <AmountInput />
           <AmountErrorMessage />
         </SkPaper>
+      </Collapse>
+
+      <Collapse in={showInput() && getAvailableTokensTotal(tokens) === 0}>
+        <NoTokenPairs />
       </Collapse>
 
       <Collapse in={showWT(address!)}>
@@ -142,6 +155,16 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
           <WrappedTokens />
         </SkPaper>
       </Collapse>
+
+      {(trailsQuote || trailsQuoteError) && !trailsTrackerReady && (
+        <TrailsQuoteCard
+          quote={trailsQuote}
+          error={trailsQuoteError}
+          tokenSymbol={token?.meta.symbol}
+        />
+      )}
+
+      <TrailsIntentTracker />
 
       {!address ? <SkConnect /> : null}
 

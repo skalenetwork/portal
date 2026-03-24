@@ -199,7 +199,7 @@ export class UnWrapERC20 extends Action {
     this.updateState('unwrapDone', tx.response.hash, block.timestamp)
   }
 
-  async preAction() {}
+  async preAction() { }
 }
 
 export class UnWrapERC20S extends Action {
@@ -307,7 +307,17 @@ export class TransferERC20M2S extends Action {
 export class TransferERC20S2M extends Action {
   async execute() {
     this.updateState('init')
-    // check approve + approve
+
+    const communityLocker = await this.sChain1.communityLocker()
+    const isActive = await communityLocker.activeUsers(this.address)
+    log.info('TransferERC20S2M: bridge balance check', {
+      address: this.address,
+      chainName: this.chainName1,
+      isActive
+    })
+    if (!isActive) {
+      throw new Error('Wallet is not active on the SKALE chain. Please top up your bridge balance.')
+    }
 
     const erc20S = await this.sChain1.erc20()
     const erc20SAddress = (await erc20S.getAddress()) as types.AddressType

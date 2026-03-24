@@ -50,3 +50,22 @@ export function getChainCardBackgroundColor(
 ): string {
   return disabled ? '#a1a1a133' : metadata.chainBg(network, chainsMeta, chainName, undefined, theme)
 }
+
+function parseRgb(css: string): [number, number, number] | null {
+  const hexMatch = css.match(/#([0-9a-f]{3,8})\b/i)
+  if (hexMatch) {
+    let hex = hexMatch[1]
+    if (hex.length === 3) hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2]
+    return [parseInt(hex.slice(0, 2), 16), parseInt(hex.slice(2, 4), 16), parseInt(hex.slice(4, 6), 16)]
+  }
+  const rgbMatch = css.match(/rgb\(?\s*(\d+)[\s,]+(\d+)[\s,]+(\d+)/)
+  if (rgbMatch) return [+rgbMatch[1], +rgbMatch[2], +rgbMatch[3]]
+  return null
+}
+
+export function getContrastTextColor(background: string): string {
+  const rgb = parseRgb(background)
+  if (!rgb) return 'rgba(255,255,255,0.7)'
+  const luminance = (0.299 * rgb[0] + 0.587 * rgb[1] + 0.114 * rgb[2]) / 255
+  return luminance > 0.5 ? 'rgba(0,0,0,0.85)' : 'rgba(255,255,255,0.9)'
+}
