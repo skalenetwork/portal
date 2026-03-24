@@ -183,6 +183,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
         if (err.shortMessage) {
           headline = err.shortMessage
         }
+        headline = headline.charAt(0).toUpperCase() + headline.slice(1)
         set({
           loading: false,
           errorMessage: new dc.TransactionErrorMessage(
