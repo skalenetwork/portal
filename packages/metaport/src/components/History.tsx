@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { types, helper } from '@/core'
+import { types } from '@/core'
 
 import TokenIcon from './TokenIcon'
 import TransactionData from './TransactionData'
