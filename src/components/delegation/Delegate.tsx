@@ -119,7 +119,7 @@ export default function Delegate(props: {
         props.setErrorMsg(errMsg)
         notify.permanentError(errMsg)
       } else {
-        notify.temporarySuccess('SKL staked successfully')
+        notify.temporarySuccess(`${amount} SKL staked successfully`)
         navigate('/staking')
       }
     } catch (err: any) {
