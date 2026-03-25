@@ -91,14 +91,7 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
       const method = isPaused ? creditStation.unpause : creditStation.pause
       const action = isPaused ? 'unpause' : 'pause'
 
-      const res = await sendTransaction(signer, method, [], `creditStation:${action}`)
-      if (!res.status) {
-        const errMsg = res.err?.name || 'Transaction failed'
-        setErrorMsg(errMsg)
-        notify.permanentError(errMsg)
-        return
-      }
-
+      await sendTransaction(signer, method, [], `creditStation:${action}`)
       notify.temporarySuccess(`Credit station ${action}d`)
       await loadPausedStatus()
     } catch (error) {

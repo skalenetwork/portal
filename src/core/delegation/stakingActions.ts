@@ -59,6 +59,7 @@ async function processTx({
   props.setErrorMsg(undefined)
   const toastId = notify.loading(`Processing ${txName}...`)
   try {
+
     const signer = await props.getMainnetSigner()
     const contract = await contracts.initActionContract(
       signer,
@@ -68,22 +69,15 @@ async function processTx({
       contractType
     )
 
-    const res = await sendTransaction(
+    await sendTransaction(
       signer,
       contract[txName],
       txArgs,
       `${txName}:${delegationType}`
     )
-    if (!res.status) {
-      const errMsg = res.err?.name || 'Transaction failed'
-      props.setErrorMsg(errMsg)
-      notify.permanentError(errMsg, toastId)
-    } else {
-      notify.temporarySuccess(`${txName} completed`, toastId)
-      await props.postAction()
-    }
+    notify.temporarySuccess(`${txName} completed`, toastId)
+    await props.postAction()
   } catch (err: any) {
-    console.error(err)
     const errMsg = err.message || 'Transaction failed'
     props.setErrorMsg(errMsg)
     notify.permanentError(errMsg, toastId)

@@ -128,36 +128,23 @@ export default function Paymaster(props: {
       const totalPriceWei = getTotalPriceWei()
       if (allowance <= totalPriceWei) {
         setBtnText('Waiting for approval...')
-        const approveRes = await sendTransaction(
+        await sendTransaction(
           signer,
           connectedToken.approve,
           [paymasterAddress, totalPriceWei * APPROVE_MULTIPLIER],
           'paymaster:approve'
         )
-        if (!approveRes.status) {
-          const errMsg = approveRes.err?.name || 'Approval failed'
-          setErrorMsg(errMsg)
-          notify.permanentError(errMsg)
-          return
-        }
         setBtnText('Sending transaction...')
       }
-      const res = await sendTransaction(
+      await sendTransaction(
         signer,
         paymaster.pay,
         [id(props.name), topupPeriod],
         'paymaster:'
       )
-      if (!res.status) {
-        const errMsg = res.err?.name || 'Top-up transaction failed'
-        setErrorMsg(errMsg)
-        notify.permanentError(errMsg)
-        return
-      }
       notify.temporarySuccess('Chain top-up completed')
       await loadPaymasterInfo()
     } catch (e: any) {
-      console.error(e)
       const errMsg = e.toString()
       setErrorMsg(errMsg)
       notify.permanentError(errMsg)

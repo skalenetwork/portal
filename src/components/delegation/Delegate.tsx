@@ -102,7 +102,7 @@ export default function Delegate(props: {
         props.mpc.config.skaleNetwork,
         'delegation'
       )
-      const res = await sendTransaction(
+      await sendTransaction(
         signer,
         delegationContract.delegate,
         [
@@ -114,16 +114,10 @@ export default function Delegate(props: {
         'delegation:delegate'
       )
       setLoading(false)
-      if (!res.status) {
-        const errMsg = res.err?.name || 'Staking transaction failed'
-        props.setErrorMsg(errMsg)
-        notify.permanentError(errMsg)
-      } else {
-        notify.temporarySuccess('SKL staked successfully')
-        navigate('/staking')
-      }
+      notify.temporarySuccess('SKL staked successfully')
+      navigate('/staking')
     } catch (err: any) {
-      console.error(err)
+      log.error(err)
       const errMsg = err.message ? err.message : constants.DEFAULT_ERROR_MSG
       props.setErrorMsg(errMsg)
       notify.permanentError(errMsg)

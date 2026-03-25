@@ -175,36 +175,23 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
       const connectedToken = new Contract(tokenAddress, ERC_ABIS.erc20.abi, signer)
       const creditStationAddress = await creditStation.getAddress()
 
-      const approveRes = await sendTransaction(
+      await sendTransaction(
         signer,
         connectedToken.approve,
         [creditStationAddress, amountWei],
         'creditStation:approve',
         CREDITS_CONFIRMATION_BLOCKS
       )
-      if (!approveRes.status) {
-        const errMsg = approveRes.err?.name || 'Approval failed'
-        setErrorMsg(errMsg)
-        notify.permanentError(errMsg)
-        return
-      }
 
-      const res = await sendTransaction(
+      await sendTransaction(
         signer,
         creditStation.buy,
         [schain.name, address, tokens[token].address],
         'creditStation:buy',
         CREDITS_CONFIRMATION_BLOCKS
       )
-      if (!res.status) {
-        const errMsg = res.err?.name || 'Buy credits failed'
-        setErrorMsg(errMsg)
-        notify.permanentError(errMsg)
-        return
-      }
       notify.temporarySuccess(`Credits purchased for ${chainAlias}`)
     } catch (e: any) {
-      console.error(e)
       const errMsg = e.toString()
       setErrorMsg(errMsg)
       notify.permanentError(errMsg)

@@ -96,27 +96,21 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
     const decimals = tokenMeta?.decimals || constants.DEFAULT_ERC20_DECIMALS
     const priceWei = units.toWei(price.toString(), decimals)
 
-    notify.temporaryInfo('Switching network...')
-    const signer = await prepareSignerForWrite(
-      creditStation,
-      walletClient,
-      switchChainAsync,
-      network,
-      constants.MAINNET_CHAIN_NAME
-    )
-
     try {
-      const res = await sendTransaction(
+      notify.temporaryInfo('Switching network...')
+      const signer = await prepareSignerForWrite(
+        creditStation,
+        walletClient,
+        switchChainAsync,
+        network,
+        constants.MAINNET_CHAIN_NAME
+      )
+      await sendTransaction(
         signer,
         creditStation.setPrice,
         [tokenData.address, priceWei],
         'creditStation:setPrice'
       )
-      if (!res.status) {
-        const errMsg = res.err?.name || 'Transaction failed'
-        notify.permanentError(errMsg)
-        return
-      }
       notify.temporarySuccess(`Price updated for ${symbol.toUpperCase()}`)
       await loadTokenPrices()
     } catch (e: any) {

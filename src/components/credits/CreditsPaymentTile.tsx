@@ -126,7 +126,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
         payment.schainName
       )
 
-      const res = await sendTransaction(
+      await sendTransaction(
         signer,
         ledgerContract.fulfill,
         [payment.id, payment.to],
@@ -134,12 +134,6 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
         CREDITS_CONFIRMATION_BLOCKS,
         units.toWei(DEFAULT_CREDITS_AMOUNT.toString(), constants.DEFAULT_ERC20_DECIMALS)
       )
-      if (!res.status) {
-        const errMsg = res.err?.name || 'Fulfill payment failed'
-        setErrorMsg?.(errMsg)
-        notify.permanentError(errMsg)
-        return
-      }
       notify.temporarySuccess('Payment fulfilled')
     } catch (e: any) {
       const errMsg = e.toString()

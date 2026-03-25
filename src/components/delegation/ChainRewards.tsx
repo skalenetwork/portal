@@ -174,17 +174,10 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
       const signer = walletClientToSigner(walletClient)
       paymaster.connect(signer)
 
-      const res = await sendTransaction(signer, paymaster.claim, [address], 'paymaster:claim')
-      if (!res.status) {
-        const errMsg = res.err?.name || 'Retrieve rewards failed'
-        setErrorMsg(errMsg)
-        notify.permanentError(errMsg, toastId)
-        return
-      }
+      await sendTransaction(signer, paymaster.claim, [address], 'paymaster:claim')
       notify.temporarySuccess('Staking rewards retrieved', toastId)
       await loadData()
     } catch (e: any) {
-      console.error(e)
       const errMsg = e.toString()
       setErrorMsg(errMsg)
       notify.permanentError(errMsg, toastId)
