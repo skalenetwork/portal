@@ -65,7 +65,8 @@ export function getAlias(
   short?: boolean
 ): string {
   if (chainName === MAINNET_CHAIN_NAME) {
-    return MAINNET_ALIASES[network]
+    const alias = MAINNET_ALIASES[network]
+    return short ? alias.split(' ')[0] : alias
   }
   const chainData = chainsMeta?.[chainName]
   const appData = app ? chainData?.apps?.[app] : null
