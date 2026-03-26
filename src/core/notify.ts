@@ -45,22 +45,12 @@ function loading(message: string, options?: any): string | number {
     return toast.loading(message, options)
 }
 
-function dismiss(toastId: string | number) {
-    toast.dismiss(toastId)
-}
-
-function dismissAll() {
-    toast.dismiss()
-}
-
 const notify = {
     temporarySuccess,
     temporaryInfo,
     permanentError,
     temporaryError,
     loading,
-    dismiss,
-    dismissAll,
     temporary_success: temporarySuccess,
     temporary_info: temporaryInfo,
     permanent_error: permanentError

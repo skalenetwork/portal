@@ -210,6 +210,7 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
                   chainsMeta={chainsMeta}
                   ledgerContract={ledgerContracts[payment.schainName]}
                   creditStation={creditStation}
+                  setErrorMsg={setErrorMsg}
                 />
               ))}
             </Collapse>

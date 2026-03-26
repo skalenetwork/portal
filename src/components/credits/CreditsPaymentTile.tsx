@@ -58,7 +58,7 @@ interface CreditsPaymentTileProps {
   ledgerContract: Contract | undefined
   creditStation: Contract | undefined
   isAdmin?: boolean
-  setErrorMsg?: (msg: string | undefined) => void
+  setErrorMsg: (msg: string | undefined) => void
 }
 
 const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
@@ -115,7 +115,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
   async function fulfillPayment() {
     if (!ledgerContract) return
     setLoading(true)
-    setErrorMsg?.(undefined)
+    setErrorMsg(undefined)
 
     try {
       const signer = await cs.prepareSignerForWrite(
@@ -137,7 +137,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
       notify.temporarySuccess('Payment fulfilled')
     } catch (e: any) {
       const errMsg = e.toString()
-      setErrorMsg?.(errMsg)
+      setErrorMsg(errMsg)
       notify.permanentError(errMsg)
     } finally {
       setLoading(false)

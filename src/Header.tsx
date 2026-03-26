@@ -26,12 +26,12 @@ import Toolbar from '@mui/material/Toolbar'
 import IconButton from '@mui/material/IconButton'
 import Tooltip from '@mui/material/Tooltip'
 import { MoonStar, SunMedium } from 'lucide-react'
-import { toast } from 'sonner'
 
 import logo from './assets/skale_lg.svg'
 
 import { type MetaportCore } from '@skalenetwork/metaport'
 
+import notify from './core/notify'
 import HelpZen from './components/HelpZen'
 import MoreMenu from './components/MoreMenu'
 import AccountMenu from './components/AccountMenu'
@@ -68,7 +68,7 @@ export default function Header(props: {
               onClick={() => {
                 const nextMode = mode === 'dark' ? 'light' : 'dark'
                 toggleMode()
-                toast.success(`Switched to ${nextMode} mode`)
+                notify.temporarySuccess(`Switched to ${nextMode} mode`)
               }}
             >
               {mode === 'dark' ? (

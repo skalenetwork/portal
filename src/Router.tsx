@@ -122,7 +122,7 @@ export default function Router(props: {
   }, [transfersHistory])
 
   useScrollPosition()
-  useBridgeNotifications(!termsAccepted && isToSPage(BRIDGE_PAGES))
+  useBridgeNotifications()
 
   async function getMainnetSigner() {
     const { chainId } = await mpc.provider(constants.MAINNET_CHAIN_NAME).getNetwork()

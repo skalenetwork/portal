@@ -73,13 +73,14 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
     setBalance(await props.mpc.tokenBalance(tokenContract, address))
   }
 
+  notify.temporaryInfo('Switching network...')
+
   async function addToken() {
     if (!tokenContract) return
 
     setLoading(true)
     try {
       const { chainId } = await props.mpc.provider(props.chain).getNetwork()
-      notify.temporaryInfo('Switching network...')
       await enforceNetwork(
         chainId,
         walletClient!,
