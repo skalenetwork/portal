@@ -73,7 +73,6 @@ import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHisto
 import { BRIDGE_PAGES, STAKING_PAGES } from './core/constants'
 import { getValidators } from './core/delegation/validators'
 import { getStakingInfoMap } from './core/delegation/staking'
-import useBridgeNotifications from './hooks/useBridgeNotifications'
 
 export default function Router(props: {
   loadData: () => Promise<void>
@@ -122,7 +121,6 @@ export default function Router(props: {
   }, [transfersHistory])
 
   useScrollPosition()
-  useBridgeNotifications()
 
   async function getMainnetSigner() {
     const { chainId } = await mpc.provider(constants.MAINNET_CHAIN_NAME).getNetwork()
