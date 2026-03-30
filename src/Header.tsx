@@ -31,7 +31,7 @@ import logo from './assets/skale_lg.svg'
 
 import { type MetaportCore } from '@skalenetwork/metaport'
 
-import notify from './core/notify'
+import { notify } from '@/core'
 import HelpZen from './components/HelpZen'
 import MoreMenu from './components/MoreMenu'
 import AccountMenu from './components/AccountMenu'

@@ -43,7 +43,7 @@ import SkStack from '../SkStack'
 import ErrorTile from '../ErrorTile'
 import Loader from '../Loader'
 import DelegationFlow from './DelegationFlow'
-import notify from '../../core/notify'
+import { notify } from '@/core'
 
 const log = new Logger<ILogObj>({ name: 'portal:pages:Delegate' })
 

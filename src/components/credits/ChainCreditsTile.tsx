@@ -44,7 +44,7 @@ import {
   CirclePlus
 } from 'lucide-react'
 
-import { types, metadata, units, constants, ERC_ABIS } from '@/core'
+import { types, metadata, units, constants, ERC_ABIS, notify } from '@/core'
 import { MAINNET_ALIASES } from '@/core/networks'
 
 import { useState, useEffect } from 'react'
@@ -54,7 +54,6 @@ import Logo from '../Logo'
 import SkStack from '../SkStack'
 import { Contract } from 'ethers'
 import { Link } from 'react-router-dom'
-import notify from '../../core/notify'
 import {
   CREDITS_CONFIRMATION_BLOCKS,
   DEFAULT_CREDITS_AMOUNT,

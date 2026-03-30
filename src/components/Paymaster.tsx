@@ -23,7 +23,7 @@
 
 import { Contract, id } from 'ethers'
 import { useState, useEffect } from 'react'
-import { type types, metadata, constants, ERC_ABIS, units, helper } from '@/core'
+import { type types, metadata, constants, ERC_ABIS, units, helper, notify } from '@/core'
 import {
   type MetaportCore,
   useWagmiAccount,
@@ -43,7 +43,6 @@ import PricingInfo from './PricingInfo'
 import Topup from './Topup'
 import Loader from './Loader'
 import Headline from './Headline'
-import notify from '../core/notify'
 
 const DEFAULT_TOPUP_PERIOD = 3
 const APPROVE_MULTIPLIER = 2n

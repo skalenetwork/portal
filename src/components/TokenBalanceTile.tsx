@@ -24,7 +24,7 @@
 import { Contract } from 'ethers'
 import { useState, useEffect } from 'react'
 
-import { dc, constants, units } from '@/core'
+import { dc, constants, units, notify } from '@/core'
 import {
   TokenIcon,
   useWagmiAccount,
@@ -38,7 +38,6 @@ import {
 import { Button } from '@mui/material'
 
 import { watchAsset } from '../core/watchAsset'
-import notify from '../core/notify'
 
 export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: string }) {
   const [loading, setLoading] = useState<boolean>(false)

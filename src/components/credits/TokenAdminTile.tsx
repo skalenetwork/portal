@@ -31,7 +31,7 @@ import {
   useWagmiSwitchNetwork,
   sendTransaction
 } from '@skalenetwork/metaport'
-import { types, units, constants } from '@/core'
+import { types, units, constants, notify } from '@/core'
 import { prepareSignerForWrite } from '../../core/credit-station'
 
 import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
@@ -44,7 +44,6 @@ import SkStack from '../SkStack'
 import { useState } from 'react'
 import Headline from '../Headline'
 import { Bolt, Coins } from 'lucide-react'
-import notify from '../../core/notify'
 
 interface TokenAdminTileProps {
   mpc: MetaportCore

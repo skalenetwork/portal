@@ -36,7 +36,7 @@ import {
   explorer,
   contracts
 } from '@skalenetwork/metaport'
-import { type types, constants, units, ERC_ABIS } from '@/core'
+import { type types, constants, units, ERC_ABIS, notify } from '@/core'
 
 import { Button, IconButton, Tooltip } from '@mui/material'
 import { Blocks, CalendarArrowDown, CircleStar } from 'lucide-react'
@@ -44,7 +44,6 @@ import { Blocks, CalendarArrowDown, CircleStar } from 'lucide-react'
 import Headline from '../Headline'
 import ErrorTile from '../ErrorTile'
 import SkStack from '../SkStack'
-import notify from '../../core/notify'
 
 interface ChainRewardsProps {
   mpc: MetaportCore

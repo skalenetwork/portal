@@ -30,11 +30,10 @@ import {
   useWagmiSwitchNetwork,
   sendTransaction
 } from '@skalenetwork/metaport'
-import { constants } from '@/core'
+import { constants, notify } from '@/core'
 import { prepareSignerForWrite } from '../../core/credit-station'
 import Button from '@mui/material/Button'
 import { Badge, BadgeCheck, ToggleLeft, ToggleRight } from 'lucide-react'
-import notify from '../../core/notify'
 
 interface CreditStationStatusTileProps {
   mpc: MetaportCore

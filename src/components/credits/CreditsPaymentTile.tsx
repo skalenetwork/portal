@@ -38,10 +38,9 @@ import {
   useWagmiWalletClient,
   useWagmiSwitchNetwork
 } from '@skalenetwork/metaport'
-import { types, metadata, constants, timeUtils, helper, units } from '@/core'
+import { types, metadata, constants, timeUtils, helper, units, notify } from '@/core'
 
 import SkStack from '../SkStack'
-import notify from '../../core/notify'
 
 import * as cs from '../../core/credit-station'
 import {

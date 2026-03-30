@@ -39,8 +39,7 @@ import {
   enforceNetwork
 } from '@skalenetwork/metaport'
 
-import { type types, metadata, constants } from '@/core'
-import notify from './core/notify'
+import { type types, metadata, constants, notify } from '@/core'
 
 import Bridge from './pages/Bridge'
 import Faq from './pages/Faq'

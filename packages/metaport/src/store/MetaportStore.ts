@@ -127,6 +127,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
         )
         await action.execute()
       }
+      notify.temporarySuccess('Tokens unwrapped successfully')
     } catch (err) {
       console.error(err)
       const msg = err.message ? err.message : DEFAULT_ERROR_MSG

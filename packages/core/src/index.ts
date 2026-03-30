@@ -30,8 +30,8 @@ import * as endpoints from './endpoints'
 import * as helper from './helper'
 import * as timeUtils from './timeUtils'
 import * as networks from './networks'
-import notify from './notify'
 
+import notify from './notify'
 import { ERC_ABIS } from './abi'
 import { FAUCET_DATA } from './metadata'
 
