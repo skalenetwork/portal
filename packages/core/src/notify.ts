@@ -25,64 +25,35 @@ import { toast } from 'sonner'
 
 const DEFAULT_DURATION = 5000
 
-type ToastId = string | number
-
-type NotifyOptions = {
-  id?: ToastId
-  duration?: number
+function temporarySuccess(message: string, toastId?: string | number) {
+    toast.success(message, { duration: DEFAULT_DURATION, id: toastId })
 }
 
-function success(message: string, options?: NotifyOptions) {
-  toast.success(message, {
-    duration: options?.duration ?? DEFAULT_DURATION,
-    id: options?.id
-  })
+function temporaryInfo(message: string, toastId?: string | number) {
+    toast.info(message, { duration: DEFAULT_DURATION, id: toastId })
 }
 
-function info(message: string, options?: NotifyOptions) {
-  toast.info(message, {
-    duration: options?.duration ?? DEFAULT_DURATION,
-    id: options?.id
-  })
+function permanentError(message: string, toastId?: string | number) {
+    toast.error(message, { duration: Infinity, id: toastId })
 }
 
-function error(message: string, options?: NotifyOptions) {
-  toast.error(message, {
-    duration: options?.duration ?? DEFAULT_DURATION,
-    id: options?.id
-  })
+function temporaryError(message: string, toastId?: string | number) {
+    toast.error(message, { duration: DEFAULT_DURATION, id: toastId })
 }
 
-function permanentError(message: string, toastId?: ToastId) {
-  toast.error(message, {
-    duration: Infinity,
-    id: toastId
-  })
-}
-
-function loading(message: string, options?: any): ToastId {
-  return toast.loading(message, options)
-}
-
-function dismiss(toastId?: ToastId) {
-  toast.dismiss(toastId)
+function loading(message: string, options?: any): string | number {
+    return toast.loading(message, options)
 }
 
 const notify = {
-  success,
-  info,
-  error,
-  permanentError,
-  loading,
-  dismiss,
-
-  temporarySuccess: (message: string, toastId?: ToastId) => success(message, { id: toastId }),
-  temporaryInfo: (message: string, toastId?: ToastId) => info(message, { id: toastId }),
-  temporaryError: (message: string, toastId?: ToastId) => error(message, { id: toastId }),
-
-  temporary_success: (message: string, toastId?: ToastId) => success(message, { id: toastId }),
-  temporary_info: (message: string, toastId?: ToastId) => info(message, { id: toastId }),
-  permanent_error: permanentError
+    temporarySuccess,
+    temporaryInfo,
+    permanentError,
+    temporaryError,
+    loading,
+    temporary_success: temporarySuccess,
+    temporary_info: temporaryInfo,
+    permanent_error: permanentError
 }
 
 export default notify
