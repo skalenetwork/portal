@@ -50,10 +50,7 @@ const notify = {
     temporaryInfo,
     permanentError,
     temporaryError,
-    loading,
-    temporary_success: temporarySuccess,
-    temporary_info: temporaryInfo,
-    permanent_error: permanentError
+    loading
 }
 
 export default notify
