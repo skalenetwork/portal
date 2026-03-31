@@ -109,6 +109,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
   ) => {
     log.info('Running unwrapAll')
     set({ loading: true, errorMessage: undefined })
+    notify.temporaryInfo('Unwrapping all tokens...')
     try {
       for (const key of Object.keys(tokens)) {
         const stepMetadata = get().stepsMetadata[get().currentStep]
@@ -125,6 +126,14 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           switchChain,
           walletClient
         )
+        if (action.signer) {
+          const originalSigner = action.signer.bind(action)
+          action.signer = (...args: any[]) => originalSigner(...args, true)
+        }
+        if (action._getConnectedChain) {
+          const originalGetConnectedChain = action._getConnectedChain.bind(action)
+          action._getConnectedChain = (...args: any[]) => originalGetConnectedChain(...args, true)
+        }
         await action.execute()
       }
       notify.temporarySuccess('Tokens unwrapped successfully')
@@ -185,7 +194,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           headline = err.shortMessage
         }
         headline = headline.charAt(0).toUpperCase() + headline.slice(1)
-        
+
         notify.permanentError(headline)
 
         set({
@@ -218,7 +227,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           entry.trailsStatus = 'succeeded'
         }
         get().setTransfersHistory([...get().transfersHistory, entry])
-        
+
         const symbol = entry.tokenKeyname?.toUpperCase() ?? 'tokens'
         notify.temporarySuccess(`${entry.amount} ${symbol} transferred`)
 
@@ -354,9 +363,9 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
         console.error(err)
         if (!silent && requestId === checkRequestId) {
           const msg = err.code && err.fault ? `${err.code} - ${err.fault}` : 'Something went wrong'
-          
+
           notify.permanentError(msg)
-          
+
           set({
             errorMessage: new dc.TransactionErrorMessage(
               err.message,

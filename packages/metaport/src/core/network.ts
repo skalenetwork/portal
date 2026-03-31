@@ -160,14 +160,17 @@ export async function enforceNetwork(
   walletClient: WalletClient,
   switchChain: UseSwitchChainReturnType['switchChainAsync'],
   skaleNetwork: types.SkaleNetwork,
-  chainName: string
+  chainName: string,
+  suppressNotification?: boolean
 ): Promise<bigint> {
   const currentChainId = await walletClient.getChainId()
   log.info(
     `Current chainId: ${currentChainId}, required chainId: ${chainId}, required network: ${chainName} `
   )
   log.info(`Switching network to ${chainId}...`)
-  notify.temporaryInfo('Switching network...')
+  if (!suppressNotification) {
+    notify.temporaryInfo('Switching network...')
+  }
   try {
     if (isExtChain(chainName)) {
       await walletClient.addChain({ chain: getExtChain(chainName) })

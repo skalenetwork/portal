@@ -262,7 +262,7 @@ export abstract class Action {
     )) as SChain
   }
 
-  async signer(provider: Provider, chainName?: string): Promise<Signer> {
+  async signer(provider: Provider, chainName?: string, suppressNotification?: boolean): Promise<Signer> {
     this.updateState('switch')
     const { chainId } = await provider.getNetwork()
     await enforceNetwork(
@@ -270,7 +270,8 @@ export abstract class Action {
       this.walletClient,
       this._switchChain,
       this.mpc.config.skaleNetwork,
-      chainName ?? this.chainName1
+      chainName ?? this.chainName1,
+      suppressNotification
     )
     return walletClientToSigner(this.walletClient)
   }
@@ -279,7 +280,8 @@ export abstract class Action {
     provider: Provider,
     customAbiTokenType?: dc.CustomAbiTokenType,
     destChainName?: string,
-    chainName?: string
+    chainName?: string,
+    suppressNotification?: boolean
   ): Promise<MainnetChain | SChain> {
     this.updateState('switch')
     const { chainId } = await provider.getNetwork()
@@ -288,7 +290,8 @@ export abstract class Action {
       this.walletClient,
       this._switchChain,
       this.mpc.config.skaleNetwork,
-      chainName ?? this.chainName1
+      chainName ?? this.chainName1,
+      suppressNotification
     )
     const signer = walletClientToSigner(this.walletClient)
 
