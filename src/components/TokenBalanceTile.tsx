@@ -72,8 +72,6 @@ export default function TokenBalanceTile(props: { mpc: MetaportCore; chain: stri
     setBalance(await props.mpc.tokenBalance(tokenContract, address))
   }
 
-  notify.temporaryInfo('Switching network...')
-
   async function addToken() {
     if (!tokenContract) return
 
