@@ -66,12 +66,7 @@ async function processTx({
       contractType
     )
 
-    await sendTransaction(
-      signer,
-      contract[txName],
-      txArgs,
-      `${txName}:${delegationType}`
-    )
+    await sendTransaction(signer, contract[txName], txArgs, `${txName}:${delegationType}`)
     notify.temporarySuccess(`${txName} completed`, toastId)
     await props.postAction()
   } catch (err: any) {

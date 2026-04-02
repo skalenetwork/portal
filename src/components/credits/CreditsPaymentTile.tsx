@@ -94,7 +94,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
         if (!provider) return
         const block = await provider.getBlock(payment.blockNumber)
         if (block) setTxTimestamp(block.timestamp)
-      } catch (error) { }
+      } catch (error) {}
     }
     fetchTimestamp()
   }, [creditStation, payment])
@@ -104,7 +104,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
     const checkFulfillment = async () => {
       try {
         setIsFulfilled(await ledgerContract.isFulfilled(payment.id))
-      } catch (error) { }
+      } catch (error) {}
     }
     checkFulfillment()
     const interval = setInterval(checkFulfillment, 10000)

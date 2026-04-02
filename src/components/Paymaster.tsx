@@ -135,12 +135,7 @@ export default function Paymaster(props: {
         )
         setBtnText('Sending transaction...')
       }
-      await sendTransaction(
-        signer,
-        paymaster.pay,
-        [id(props.name), topupPeriod],
-        'paymaster:'
-      )
+      await sendTransaction(signer, paymaster.pay, [id(props.name), topupPeriod], 'paymaster:')
       notify.temporarySuccess('Chain top-up completed')
       await loadPaymasterInfo()
     } catch (e: any) {
