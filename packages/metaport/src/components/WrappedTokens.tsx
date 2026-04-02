@@ -168,7 +168,7 @@ export default function WrappedTokens() {
                 variant="contained"
                 color="primary"
                 size="medium"
-                className="btnMd mt-1.5 w-full capitalize! bg-accent-foreground/50!"
+                className="btnMd mt-1.5 w-full capitalize! bg-accent-foreground/15! text-foreground/70!"
               >
                 Unwrapping...
               </Button>
