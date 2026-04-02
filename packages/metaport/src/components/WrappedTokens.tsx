@@ -176,7 +176,7 @@ export default function WrappedTokens() {
               <Button
                 variant="contained"
                 size="medium"
-                className="mt-1.5 bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15!! btnMd w-full! text-accent!"
+                className="mt-1.5 bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! btnMd w-full! text-accent!"
                 onClick={() => unwrapAll(address, switchChainAsync, walletClient, filteredTokens)}
               >
                 Unwrap all

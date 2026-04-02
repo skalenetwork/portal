@@ -247,7 +247,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                   size="small"
                   variant="contained"
                   startIcon={<CirclePlus size={14} />}
-                  className="btnMd ml-5 bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15!! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+                  className="btnMd ml-5 bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
                   onClick={() => setOpenModal(true)}
                   disabled={creditStation === undefined}
                 >
@@ -385,7 +385,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
           </div>
           <Button
             variant="contained"
-            className="btn mt-4! p-4! w-full capitalize! bg-accent-foreground!disabled:bg-accent-foreground/15!! text-accent!"
+            className="btn mt-4! p-4! w-full capitalize! bg-accent-foreground!disabled:bg-accent-foreground/15! text-accent!"
             startIcon={<CoinsIcon size={17} />}
             size="large"
             onClick={buyCredits}

@@ -251,7 +251,7 @@ export default function CommunityPool() {
         </div>
         <Button
           variant="contained"
-          className="w-full mt-4! btnMd normal-case! text-sm font-semibold text-accent! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15!! py-3.5 px-4 rounded shadow-none"
+          className="w-full mt-4! btnMd normal-case! text-sm font-semibold text-accent! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! py-3.5 px-4 rounded shadow-none"
           onClick={rechargeCP}
           disabled={
             !!loading ||
