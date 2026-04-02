@@ -22,7 +22,7 @@
 
 import { Logger, type ILogObj } from 'tslog'
 import { JsonRpcProvider, Provider } from 'ethers'
-import { type types, constants, endpoints, helper } from '@/core'
+import { type types, constants, endpoints, helper, notify } from '@/core'
 
 import { WalletClient } from 'viem'
 import { type UseSwitchChainReturnType } from 'wagmi'
@@ -166,7 +166,9 @@ export async function enforceNetwork(
   log.info(
     `Current chainId: ${currentChainId}, required chainId: ${chainId}, required network: ${chainName} `
   )
+  if (BigInt(currentChainId) === chainId) return chainId
   log.info(`Switching network to ${chainId}...`)
+  notify.temporaryInfo('Switching network...')
   try {
     if (isExtChain(chainName)) {
       await walletClient.addChain({ chain: getExtChain(chainName) })

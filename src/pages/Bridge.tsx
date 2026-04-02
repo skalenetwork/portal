@@ -25,7 +25,13 @@ import { Helmet } from 'react-helmet'
 import { useEffect, useState } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
 
-import { useMetaportStore, SkPaper, TransactionData, useWagmiAccount, History } from '@skalenetwork/metaport'
+import {
+  useMetaportStore,
+  SkPaper,
+  TransactionData,
+  useWagmiAccount,
+  History
+} from '@skalenetwork/metaport'
 import { type types, dc, networks } from '@/core'
 
 import { Container, Stack, Button } from '@mui/material'
@@ -191,11 +197,7 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
           {address && transfersHistory && transfersHistory.length > 0 && (
             <div className="max-md:hidden mt-5">
               <div className="flex items-center mb-2.5 mt-5 pt-5">
-                <Headline
-                  text="Past Transfers"
-                  icon={<HistoryIcon size={17} />}
-                  size="small"
-                />
+                <Headline text="Past Transfers" icon={<HistoryIcon size={17} />} size="small" />
                 <Link to="/bridge/history">
                   <Button className="btn btnSm bg text-foreground! bg-card!">See all</Button>
                 </Link>
@@ -210,14 +212,14 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
             </div>
           )}
           {transactionsHistory.length !== 0 ? (
-           <div>  
-            <div className="flex items-center mb-2.5 mt-5 pt-5">
+            <div>
+              <div className="flex items-center mb-2.5 mt-5 pt-5">
                 <Headline
                   text="Completed Transactions"
                   icon={<CircleCheckBig size={17} />}
                   size="small"
                 />
-                </div>
+              </div>
               <SkPaper gray className="space-y-2">
                 {transactionsHistory.map((transactionData: types.mp.TransactionHistory) => (
                   <TransactionData

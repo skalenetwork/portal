@@ -30,7 +30,7 @@ import {
   useWagmiAccount,
   useConnectModal
 } from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { type types, notify } from '@/core'
 import { usesFuel } from '../useSFuel'
 import { Zap } from 'lucide-react'
 
@@ -49,13 +49,22 @@ function SingleChainSFuel({ chainName, mpc }: { chainName: string; mpc: Metaport
     async (addr: types.AddressType) => {
       const station = new Station(chainName, mpc)
       setMining(true)
+      const toastId = notify.loading('Getting sFUEL...')
       try {
         const { ok: mined } = await station.doPoW(addr)
-        if (!mined) return
+        if (!mined) {
+          notify.permanentError('Failed to get sFUEL', toastId)
+          return
+        }
         await new Promise((r) => setTimeout(r, 3000))
         setLoading(true)
         const { ok } = await station.getData(addr)
         setSFuelOk(ok ?? false)
+        if (ok) {
+          notify.temporarySuccess('sFUEL received', toastId)
+        } else {
+          notify.permanentError('Failed to get sFUEL', toastId)
+        }
       } finally {
         setLoading(false)
         setMining(false)

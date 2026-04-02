@@ -61,12 +61,8 @@ export default function PopularActions(props: {
   return (
     <div>
       <div className="flex items-center mb-2.5 mt-5 pt-5">
-          <Headline
-            text= "Popular Actions"
-            icon={<Star size={17} />}
-            size="small"
-          />
-          </div>
+        <Headline text="Popular Actions" icon={<Star size={17} />} size="small" />
+      </div>
       <div className="flex flex-row items-center">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {actions.map((action) => (
