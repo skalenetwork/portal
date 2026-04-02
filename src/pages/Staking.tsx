@@ -173,7 +173,7 @@ export default function Staking(props: {
             {loading !== false || props.customAddress !== undefined ? (
               <Button
                 variant="contained"
-                className="btn btnSm py-3! text-xs text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50!"
+                className="btn btnSm py-3! text-xs text-accent! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15!!"
                 startIcon={<Coins size={14} />}
                 disabled={loading !== false || props.customAddress !== undefined}
               >
@@ -183,7 +183,7 @@ export default function Staking(props: {
               <Link to="/staking/new">
                 <Button
                   variant="contained"
-                  className="btn btnSm py-3! text-xs text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50!"
+                  className="btn btnSm py-3! text-xs text-accent! bg-accent-foreground!disabled:text-foreground/70! disabled:bg-accent-foreground/15!!"
                   startIcon={<Coins size={14} />}
                   disabled={loading || props.customAddress !== undefined}
                 >

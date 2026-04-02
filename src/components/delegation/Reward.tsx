@@ -149,7 +149,7 @@ export default function Reward(props: {
                     disabled
                     size="small"
                     variant="contained"
-                    className="btnSm bg-accent-foreground! disabled:bg-accent-foreground/50! text-accent!"
+                    className="btnSm bg-accent-foreground!disabled:text-foreground/70! disabled:bg-accent-foreground/15!! text-accent!"
                   >
                     Retrieving
                   </Button>

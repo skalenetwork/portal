@@ -85,7 +85,7 @@ export default function RetrieveRewardModal(props: {
         size="small"
         onClick={handleOpen}
         disabled={props.disabled}
-        className="btn btnSm text-xs bg-accent-foreground! text-accent! align-center! disabled:bg-accent-foreground/50!"
+        className="btn btnSm text-xs bg-accent-foreground! text-accent! align-center! disabled:text-foreground/70! disabled:bg-accent-foreground/15!!"
       >
         Retrieve
       </Button>
