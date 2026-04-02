@@ -166,7 +166,6 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
 
       const { chainId } = await paymaster.runner.provider.getNetwork()
 
-      notify.temporaryInfo('Switching network...')
       await enforceNetwork(chainId, walletClient, switchChainAsync, network, paymasterChain)
       setBtnText('Sending transaction')
       notify.loading('Sending transaction...', { id: toastId })

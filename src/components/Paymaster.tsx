@@ -116,7 +116,6 @@ export default function Paymaster(props: {
       const { chainId } = await paymaster.runner.provider.getNetwork()
       const paymasterAddress = contracts.paymaster.getPaymasterAddress(network)
 
-      notify.temporaryInfo('Switching network...')
       await enforceNetwork(chainId, walletClient, switchChainAsync, network, paymasterChain)
       setBtnText('Sending transaction...')
       const signer = walletClientToSigner(walletClient)

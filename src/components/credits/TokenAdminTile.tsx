@@ -96,7 +96,6 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
     const priceWei = units.toWei(price.toString(), decimals)
 
     try {
-      notify.temporaryInfo('Switching network...')
       const signer = await prepareSignerForWrite(
         creditStation,
         walletClient,

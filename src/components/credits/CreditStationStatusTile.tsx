@@ -77,7 +77,6 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
     }
     setLoading(true)
 
-    notify.temporaryInfo('Switching network...')
     try {
       const signer = await prepareSignerForWrite(
         creditStation,
