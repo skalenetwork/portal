@@ -24,7 +24,8 @@ export const METAPORT_CONFIG: types.mp.Config = {
     'affectionate-immediate-pollux', // cryptoblades
     // 'wan-red-ain', // human protocol
     // 'adorable-quaint-bellatrix', // streammyscreen
-    'parallel-stormy-spica' // titan hub
+    'parallel-stormy-spica', // titan hub
+    'ext-arbitrum'
   ],
   tokens: {
     eth: {
@@ -149,6 +150,35 @@ export const METAPORT_CONFIG: types.mp.Config = {
     }
   },
   connections: {
+    'ext-arbitrum': {
+      erc20: {
+        usdc: {
+          address: '0xaf88d065e77c8cC2239327C5EDb3A432268e5831',
+          chains: {
+            'elated-tan-skat': {
+              bridge: 'meson'
+            },
+            'honorable-steel-rasalhague': {
+              bridge: 'meson'
+            },
+            'green-giddy-denebola': {
+              bridge: 'meson'
+            }
+          }
+        },
+        usdt: {
+          address: '0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9',
+          chains: {
+            'elated-tan-skat': {
+              bridge: 'meson'
+            },
+            'honorable-steel-rasalhague': {
+              bridge: 'meson'
+            }
+          }
+        }
+      }
+    },
     mainnet: mainnetConnections,
     'elated-tan-skat': europaConnections,
     'honorable-steel-rasalhague': calypsoConnections,

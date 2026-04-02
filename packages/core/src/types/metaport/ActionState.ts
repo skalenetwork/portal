@@ -47,3 +47,8 @@ export type ActionState =
   | 'trailsDeposit'
   | 'trailsExecuting'
   | 'trailsWaiting'
+  | 'mesonQuoting'
+  | 'mesonApproving'
+  | 'mesonSigning'
+  | 'mesonSubmitting'
+  | 'mesonWaiting'

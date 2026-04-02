@@ -40,7 +40,9 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
     recharge: <Coins size={17} />,
     trails_ext2m: <Send size={17} />,
     trails_ext2s: <Send size={17} />,
-    trails_m2ext: <Send size={17} />
+    trails_m2ext: <Send size={17} />,
+    meson_ext2s: <Send size={17} />,
+    meson_s2ext: <Send size={17} />
   }
 
   const { address, chainId } = useAccount()
@@ -54,6 +56,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
   const amountErrorMessage = useMetaportStore((state) => state.amountErrorMessage)
   const loading = useMetaportStore((state) => state.loading)
   const trailsQuoteError = useMetaportStore((state) => state.trailsQuoteError)
+  const mesonQuoteError = useMetaportStore((state) => state.mesonQuoteError)
   const btnText = useMetaportStore((state) => state.btnText)
   const check = useMetaportStore((state) => state.check)
 
@@ -125,7 +128,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
     cpData.accountBalance < units.toWei(String(cpData.recommendedRechargeAmount), constants.DEFAULT_ERC20_DECIMALS)
 
   const actionDisabled =
-    amountErrorMessage || trailsQuoteError || loading || amount == '' || Number(amount) === 0 || rechargeNotReady || rechargeInsufficientBalance
+    amountErrorMessage || trailsQuoteError || mesonQuoteError || loading || amount == '' || Number(amount) === 0 || rechargeNotReady || rechargeInsufficientBalance
 
   function stepBtnText(step: dc.StepMetadata): string {
     if (step.type === dc.ActionType.recharge && cpData.recommendedRechargeAmount == null) return 'Loading...'

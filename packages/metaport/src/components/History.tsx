@@ -33,6 +33,8 @@ import Avatar from 'boring-avatars'
 import { metadata } from '@/core'
 import IconButton from '@mui/material/IconButton'
 import trailsLogo from '../assets/trails_logo.svg'
+import mesonLogo from '../assets/meson_logo.png'
+import { explorerUrl as mesonExplorerUrl } from '../core/meson'
 import Tooltip from '@mui/material/Tooltip'
 
 import { useMetaportStore } from '../store/MetaportStore'
@@ -42,8 +44,13 @@ function isTrailsTransfer(transfer: types.mp.TransferHistory): boolean {
   return !!transfer.trailsIntentId
 }
 
+function isMesonTransfer(transfer: types.mp.TransferHistory): boolean {
+  return !!transfer.mesonSwapId
+}
+
 function isUnfinished(transfer: types.mp.TransferHistory): boolean {
   if (isTrailsTransfer(transfer)) return false
+  if (isMesonTransfer(transfer)) return false
   return transfer.address === undefined || transfer.transactions.length === 0
 }
 
@@ -51,10 +58,17 @@ function isTrailsFailed(transfer: types.mp.TransferHistory): boolean {
   return isTrailsTransfer(transfer) && transfer.trailsStatus !== 'succeeded'
 }
 
+function isMesonFailed(transfer: types.mp.TransferHistory): boolean {
+  return isMesonTransfer(transfer) && transfer.mesonStatus !== 'succeeded'
+}
+
 function transferTimestamp(transfer: types.mp.TransferHistory): string {
   if (isUnfinished(transfer)) return 'Unfinished'
   if (isTrailsTransfer(transfer) && transfer.transactions.length === 0) {
     return isTrailsFailed(transfer) ? 'Failed' : 'Completed'
+  }
+  if (isMesonTransfer(transfer) && transfer.transactions.length === 0) {
+    return isMesonFailed(transfer) ? 'Failed' : 'Completed'
   }
   const last = transfer.transactions[transfer.transactions.length - 1]
   return timeAgo(last.timestamp)
@@ -143,11 +157,13 @@ export default function History(props: {
                     </p>
                   </Tooltip>
                   <p
-                    className={`text-xs -mt-0.5 flex items-center gap-1 font-semibold ${unfinished || isTrailsFailed(transfer) ? 'text-destructive' : 'text-secondary-foreground'}`}
+                    className={`text-xs -mt-0.5 flex items-center gap-1 font-semibold ${unfinished || isTrailsFailed(transfer) || isMesonFailed(transfer) ? 'text-destructive' : 'text-secondary-foreground'}`}
                   >
                     {unfinished && <CircleAlert size={12} />}
                     {isTrailsTransfer(transfer) && !isTrailsFailed(transfer) && (transfer.transactions.length > 0 ? <Clock size={12} /> : <Check size={12} />)}
                     {isTrailsFailed(transfer) && <XCircle size={12} />}
+                    {isMesonTransfer(transfer) && !isMesonFailed(transfer) && (transfer.transactions.length > 0 ? <Clock size={12} /> : <Check size={12} />)}
+                    {isMesonFailed(transfer) && <XCircle size={12} />}
                     {transferTimestamp(transfer)}
                   </p>
                 </div>
@@ -241,6 +257,24 @@ export default function History(props: {
                     className="inline-flex items-center gap-1 text-xs font-medium text-secondary-foreground hover:text-foreground transition-colors"
                   >
                     View on Trails
+                    <ExternalLink size={11} />
+                  </a>
+                </div>
+              )}
+              {isMesonTransfer(transfer) && (
+                <div className="bg-muted-foreground/10 px-6 py-4 rounded-3xl mt-1 flex items-center justify-between">
+                  <div className="flex items-center gap-3.5">
+                    <Route size={13} className="text-secondary-foreground" />
+                    <span className="text-xs text-secondary-foreground font-medium">Routed via</span>
+                    <img src={mesonLogo} alt="Meson" className="h-4 rounded-sm" />
+                  </div>
+                  <a
+                    href={mesonExplorerUrl(transfer.mesonSwapId!)}
+                    target="_blank"
+                    rel="noreferrer noopener"
+                    className="inline-flex items-center gap-1 text-xs font-medium text-secondary-foreground hover:text-foreground transition-colors"
+                  >
+                    View on Meson
                     <ExternalLink size={11} />
                   </a>
                 </div>

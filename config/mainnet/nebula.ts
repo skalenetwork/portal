@@ -77,6 +77,9 @@ const connections: types.mp.TokenTypeMap = {
                 'parallel-stormy-spica': {
                     clone: true,
                     hub: 'elated-tan-skat'
+                },
+                'ext-arbitrum': {
+                    bridge: 'meson'
                 }
             }
         },

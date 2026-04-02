@@ -39,7 +39,9 @@ export enum ActionType {
   recharge = 'recharge',
   trails_ext2m = 'trails_ext2m',
   trails_ext2s = 'trails_ext2s',
-  trails_m2ext = 'trails_m2ext'
+  trails_m2ext = 'trails_m2ext',
+  meson_ext2s = 'meson_ext2s',
+  meson_s2ext = 'meson_s2ext'
 }
 
 export function getActionType(
@@ -147,6 +149,22 @@ export class TrailsTransferStepMetadata extends StepMetadata {
   text: string = 'Cross-chain transfer routed via Trails intent protocol.'
   btnText: string = 'Transfer'
   btnLoadingText: string = 'Transferring via Trails'
+  onSource: boolean = false
+
+  constructor(
+    type: ActionType,
+    public from: string,
+    public to: string
+  ) {
+    super(type, from, to)
+  }
+}
+
+export class MesonTransferStepMetadata extends StepMetadata {
+  headline: string = 'Transfer via Meson to'
+  text: string = 'Cross-chain swap routed via Meson protocol.'
+  btnText: string = 'Transfer'
+  btnLoadingText: string = 'Transferring via Meson'
   onSource: boolean = false
 
   constructor(

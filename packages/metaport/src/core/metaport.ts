@@ -22,12 +22,12 @@
  */
 
 import { Logger, type ILogObj } from 'tslog'
-import { Provider, JsonRpcProvider, Contract, Signer } from 'ethers'
+import { Provider, Contract, Signer } from 'ethers'
 import { types, dc, ERC_ABIS, contracts, constants, endpoints } from '@/core'
 
 import { getEmptyTokenDataMap } from './tokens/helper'
 import { getStepsMetadata } from '../core/transfer_steps'
-import { isExtChain, mainnetProvider, sChainProvider } from './network'
+import { isExtChain, extChainRpcUrl, mainnetProvider, sChainProvider } from './network'
 import { MetaportState } from '../store/MetaportState'
 
 import { MainnetChain, SChain } from './contracts'
@@ -236,6 +236,7 @@ export default class MetaportCore {
   }
 
   endpoint(chainName: string): string {
+    if (isExtChain(chainName)) return extChainRpcUrl(chainName)
     return endpoints.get(this.#config.mainnetEndpoint, this.#config.skaleNetwork, chainName)
   }
 
@@ -301,7 +302,10 @@ export default class MetaportCore {
   }
 
   provider(chainName: string): Provider {
-    return new JsonRpcProvider(this.endpoint(chainName))
+    if (chainName === constants.MAINNET_CHAIN_NAME) {
+      return mainnetProvider(this.#config.mainnetEndpoint)
+    }
+    return sChainProvider(this.#config.skaleNetwork, chainName)
   }
 
   tokenChanged(

@@ -49,6 +49,9 @@ const connections: types.mp.TokenTypeMap = {
                 },
                 'parallel-stormy-spica': {
                     wrapper: '0x1c566a47e1baC535Ca616373146e3BE024F88Aa4'
+                },
+                'ext-arbitrum': {
+                    bridge: 'meson'
                 }
             }
         },
@@ -63,6 +66,9 @@ const connections: types.mp.TokenTypeMap = {
                 },
                 'green-giddy-denebola': {
                     wrapper: '0x42dDeBDa2195FaEDAEC1cf24c19B42da1c881feB'
+                },
+                'ext-arbitrum': {
+                    bridge: 'meson'
                 }
             }
         },

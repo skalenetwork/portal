@@ -36,6 +36,14 @@ function isTrailsBridge(
   return token.connections[to]?.bridge === 'trails'
 }
 
+function isMesonBridge(
+  config: types.mp.Config,
+  token: dc.TokenData,
+  to: string
+): boolean {
+  return token.connections[to]?.bridge === 'meson'
+}
+
 export function getStepsMetadata(
   config: types.mp.Config,
   token: dc.TokenData,
@@ -43,6 +51,23 @@ export function getStepsMetadata(
 ): dc.StepMetadata[] {
   const steps: dc.StepMetadata[] = []
   if (token === undefined || token === null || to === null || to === '') return steps
+
+  if (isMesonBridge(config, token, to)) {
+    const isExtSource = isExtChain(token.chain)
+    const isExtDest = isExtChain(to)
+
+    if (isExtSource && !isExtDest) {
+      steps.push(new dc.MesonTransferStepMetadata(dc.ActionType.meson_ext2s, token.chain, to))
+      log.info('Meson ext2s transfer steps:', steps)
+      return steps
+    }
+
+    if (!isExtSource && isExtDest) {
+      steps.push(new dc.MesonTransferStepMetadata(dc.ActionType.meson_s2ext, token.chain, to))
+      log.info('Meson s2ext transfer steps:', steps)
+      return steps
+    }
+  }
 
   if (isTrailsBridge(config, token, to)) {
     const isExtSource = isExtChain(token.chain)
