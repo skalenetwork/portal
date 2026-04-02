@@ -43,7 +43,6 @@ function ThemedToaster(props: Omit<ToasterProps, 'theme'>) {
   const { mode } = useThemeMode()
   return <Toaster theme={mode} {...props} />
 }
-
 export default function App() {
   return (
     <div className="min-h-screen">

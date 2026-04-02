@@ -57,7 +57,6 @@ async function processTx({
   props.setErrorMsg(undefined)
   const toastId = notify.loading(`Processing ${txName}...`)
   try {
-
     const signer = await props.getMainnetSigner()
     const contract = await contracts.initActionContract(
       signer,
