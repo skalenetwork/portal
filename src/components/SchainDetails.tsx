@@ -25,7 +25,7 @@ import { useState } from 'react'
 import { Helmet } from 'react-helmet'
 
 import { type MetaportCore, SkPaper, explorer, Tile } from '@skalenetwork/metaport'
-import { type types, metadata, constants, endpoints, networks } from '@/core'
+import { type types, metadata, constants, endpoints, networks, notify } from '@/core'
 
 import Button from '@mui/material/Button'
 
@@ -94,6 +94,7 @@ export default function SchainDetails(props: {
         params: [networkParams]
       })
       setAdded(true)
+      notify.temporarySuccess(`Connected to ${networkParams.chainName}`)
     } catch (e) {
       console.error(e)
     } finally {

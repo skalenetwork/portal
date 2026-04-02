@@ -72,7 +72,6 @@ export default function TokenSection({ text, icon, tokens, onTokenClick }: Token
                   balance={balance}
                   symbol={tokenData?.meta.symbol}
                   decimals={tokenData?.meta.decimals}
-                  truncate={10}
                   size="sm"
                   primary
                 />

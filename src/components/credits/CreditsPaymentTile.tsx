@@ -38,7 +38,7 @@ import {
   useWagmiWalletClient,
   useWagmiSwitchNetwork
 } from '@skalenetwork/metaport'
-import { types, metadata, constants, timeUtils, helper, units } from '@/core'
+import { types, metadata, constants, timeUtils, helper, units, notify } from '@/core'
 
 import SkStack from '../SkStack'
 
@@ -57,7 +57,7 @@ interface CreditsPaymentTileProps {
   ledgerContract: Contract | undefined
   creditStation: Contract | undefined
   isAdmin?: boolean
-  setErrorMsg?: (msg: string | undefined) => void
+  setErrorMsg: (msg: string | undefined) => void
 }
 
 const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
@@ -94,7 +94,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
         if (!provider) return
         const block = await provider.getBlock(payment.blockNumber)
         if (block) setTxTimestamp(block.timestamp)
-      } catch (error) { }
+      } catch (error) {}
     }
     fetchTimestamp()
   }, [creditStation, payment])
@@ -104,7 +104,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
     const checkFulfillment = async () => {
       try {
         setIsFulfilled(await ledgerContract.isFulfilled(payment.id))
-      } catch (error) { }
+      } catch (error) {}
     }
     checkFulfillment()
     const interval = setInterval(checkFulfillment, 10000)
@@ -114,7 +114,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
   async function fulfillPayment() {
     if (!ledgerContract) return
     setLoading(true)
-    setErrorMsg?.(undefined)
+    setErrorMsg(undefined)
 
     try {
       const signer = await cs.prepareSignerForWrite(
@@ -125,7 +125,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
         payment.schainName
       )
 
-      const res = await sendTransaction(
+      await sendTransaction(
         signer,
         ledgerContract.fulfill,
         [payment.id, payment.to],
@@ -133,12 +133,11 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
         CREDITS_CONFIRMATION_BLOCKS,
         units.toWei(DEFAULT_CREDITS_AMOUNT.toString(), constants.DEFAULT_ERC20_DECIMALS)
       )
-      if (!res.status) {
-        setErrorMsg?.(res.err?.name)
-        return
-      }
+      notify.temporarySuccess('Payment fulfilled')
     } catch (e: any) {
-      setErrorMsg?.(e.toString())
+      const errMsg = e.toString()
+      setErrorMsg(errMsg)
+      notify.permanentError(errMsg)
     } finally {
       setLoading(false)
     }

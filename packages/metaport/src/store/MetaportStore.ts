@@ -24,7 +24,7 @@
 import { Logger, type ILogObj } from 'tslog'
 import { WalletClient } from 'viem'
 import { create } from 'zustand'
-import { dc, types, constants, units } from '@/core'
+import { dc, types, constants, units, notify } from '@/core'
 
 import { MetaportState } from './MetaportState'
 
@@ -120,7 +120,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
     tokens: types.mp.TokenDataMap
   ) => {
     log.info('Running unwrapAll')
-    set({ loading: true })
+    set({ loading: true, errorMessage: undefined })
+    notify.temporaryInfo('Unwrapping all tokens...')
     try {
       for (const key of Object.keys(tokens)) {
         const stepMetadata = get().stepsMetadata[get().currentStep]
@@ -139,12 +140,13 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
         )
         await action.execute()
       }
+      notify.temporarySuccess('Tokens unwrapped successfully')
     } catch (err) {
       console.error(err)
       const msg = err.message ? err.message : DEFAULT_ERROR_MSG
-      set({
-        errorMessage: new dc.TransactionErrorMessage(msg, get().errorMessageClosedFallback)
-      })
+      const errorMessage = new dc.TransactionErrorMessage(msg, get().errorMessageClosedFallback)
+      notify.permanentError(errorMessage.headline || errorMessage.text || 'Bridge transfer failed')
+      set({ errorMessage })
       return
     } finally {
       set({ loading: false })
@@ -153,13 +155,13 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
 
   execute: async (address: `0x${string}`, switchChain: any, walletClient: WalletClient) => {
     log.info('Running execute')
-    if (!get().stepsMetadata[get().currentStep]) return
-
-    set({ loading: true, transferInProgress: true })
-
-    while (get().stepsMetadata[get().currentStep]) {
-      const stepMetadata = get().stepsMetadata[get().currentStep]
+    if (get().stepsMetadata[get().currentStep]) {
+      set({
+        loading: true,
+        transferInProgress: true
+      })
       try {
+        const stepMetadata = get().stepsMetadata[get().currentStep]
         const ActionClass: ActionConstructor = ACTIONS[stepMetadata.type]
         const action = await (ActionClass.create as any)(
           get().mpc,
@@ -200,6 +202,10 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
         if (err.shortMessage) {
           headline = err.shortMessage
         }
+        headline = headline.charAt(0).toUpperCase() + headline.slice(1)
+
+        notify.permanentError(headline)
+
         set({
           loading: false,
           errorMessage: new dc.TransactionErrorMessage(
@@ -235,10 +241,14 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           entry.mesonStatus = 'succeeded'
         }
         get().setTransfersHistory([...get().transfersHistory, entry])
+
+        const symbol = entry.tokenKeyname?.toUpperCase() ?? 'tokens'
+        notify.temporarySuccess(`${entry.amount} ${symbol} transferred`)
+
         set({ loading: false, transferInProgress: false })
         return
       }
-
+      const stepMetadata = get().stepsMetadata[get().currentStep]
       if (stepMetadata.type !== dc.ActionType.recharge) {
         set({ loading: false })
         return
@@ -278,6 +288,10 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
     const silent = options?.silent ?? false
     const requestId = ++checkRequestId
     if (get().stepsMetadata[get().currentStep] && address) {
+      set({
+        loading: true,
+        btnText: 'Checking balance...'
+      })
       try {
         const stepMetadata = get().stepsMetadata[get().currentStep]
 
@@ -378,6 +392,9 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
         console.error(err)
         if (!silent && requestId === checkRequestId) {
           const msg = err.code && err.fault ? `${err.code} - ${err.fault}` : 'Something went wrong'
+
+          notify.permanentError(msg)
+
           set({
             errorMessage: new dc.TransactionErrorMessage(
               err.message,

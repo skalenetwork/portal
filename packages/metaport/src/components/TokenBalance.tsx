@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { units } from '@/core'
+import { helper, units } from '@/core'
 import { Tooltip } from '@mui/material'
 import MetaportCore from '../core/metaport'
 
@@ -29,18 +29,13 @@ export default function TokenBalance(props: {
   balance: bigint
   symbol: string
   decimals?: number
-  truncate?: number
   primary?: boolean
   size?: 'xs' | 'sm' | 'md'
   mpc?: MetaportCore
 }) {
   if (props.balance === undefined || props.balance === null) return
-  let balanceFull = units.formatBalance(props.balance, props.decimals)
-  let balance = balanceFull
-  if (props.truncate) {
-    balance = units.truncateDecimals(balanceFull, props.truncate)
-  }
-  let size = props.size ?? 'xs'
+  const balanceFull = units.formatBalance(props.balance, props.decimals)
+  const size = props.size ?? 'xs'
   return (
     <Tooltip arrow title={balanceFull + ' ' + props.symbol}>
       <p
@@ -55,8 +50,8 @@ export default function TokenBalance(props: {
           `}
       >
         <div className="mr-1.5"></div>
-        <span className="whitespace-nowrap">
-          {balance} {props.symbol}
+        <span className='whitespace-nowrap'>
+          {helper.shortBalance(props.balance, props.decimals)} {props.symbol}
         </span>
       </p>
     </Tooltip>

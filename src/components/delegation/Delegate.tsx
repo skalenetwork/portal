@@ -43,6 +43,7 @@ import SkStack from '../SkStack'
 import ErrorTile from '../ErrorTile'
 import Loader from '../Loader'
 import DelegationFlow from './DelegationFlow'
+import { notify } from '@/core'
 
 const log = new Logger<ILogObj>({ name: 'portal:pages:Delegate' })
 
@@ -101,7 +102,7 @@ export default function Delegate(props: {
         props.mpc.config.skaleNetwork,
         'delegation'
       )
-      const res = await sendTransaction(
+      await sendTransaction(
         signer,
         delegationContract.delegate,
         [
@@ -113,14 +114,13 @@ export default function Delegate(props: {
         'delegation:delegate'
       )
       setLoading(false)
-      if (!res.status) {
-        props.setErrorMsg(res.err?.name)
-      } else {
-        navigate('/staking')
-      }
+      notify.temporarySuccess(`${amount} SKL staked successfully`)
+      navigate('/staking')
     } catch (err: any) {
-      console.error(err)
-      props.setErrorMsg(err.message ? err.message : constants.DEFAULT_ERROR_MSG)
+      log.error(err)
+      const errMsg = err.message ? err.message : constants.DEFAULT_ERROR_MSG
+      props.setErrorMsg(errMsg)
+      notify.permanentError(errMsg)
       setLoading(false)
     }
   }

@@ -36,7 +36,7 @@ import {
   explorer,
   contracts
 } from '@skalenetwork/metaport'
-import { type types, constants, units, ERC_ABIS } from '@/core'
+import { type types, constants, units, ERC_ABIS, notify } from '@/core'
 
 import { Button, IconButton, Tooltip } from '@mui/material'
 import { Blocks, CalendarArrowDown, CircleStar } from 'lucide-react'
@@ -143,19 +143,23 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
       !address
     ) {
       setErrorMsg('Something is wrong with your wallet, try again')
+      notify.permanentError('Something is wrong with your wallet, try again')
       return
     }
     setLoading(true)
     setBtnText('Switching network')
     setErrorMsg(undefined)
+    const toastId = notify.loading('Retrieving rewards...')
     try {
       const sFuelBalance = await paymaster.runner.provider.getBalance(address)
       if (sFuelBalance === 0n) {
         setBtnText('Mining sFUEL')
+        notify.loading('Mining sFUEL...', { id: toastId })
         const station = new Station(paymasterChain, mpc)
         const powResult = await station.doPoW(address)
         if (!powResult.ok) {
           setErrorMsg('Failed to mine sFUEL')
+          notify.permanentError('Failed to mine sFUEL', toastId)
           return
         }
       }
@@ -164,18 +168,17 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
 
       await enforceNetwork(chainId, walletClient, switchChainAsync, network, paymasterChain)
       setBtnText('Sending transaction')
+      notify.loading('Sending transaction...', { id: toastId })
       const signer = walletClientToSigner(walletClient)
       paymaster.connect(signer)
 
-      const res = await sendTransaction(signer, paymaster.claim, [address], 'paymaster:claim')
-      if (!res.status) {
-        setErrorMsg(res.err?.name)
-        return
-      }
+      await sendTransaction(signer, paymaster.claim, [address], 'paymaster:claim')
+      notify.temporarySuccess('Staking rewards retrieved', toastId)
       await loadData()
     } catch (e: any) {
-      console.error(e)
-      setErrorMsg(e.toString())
+      const errMsg = e.toString()
+      setErrorMsg(errMsg)
+      notify.permanentError(errMsg, toastId)
     } finally {
       setLoading(false)
       setBtnText(undefined)
@@ -243,7 +246,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
           </SkStack>
         }
       />
-      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-2.5" />
+      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} />
     </SkPaper>
   )
 }
