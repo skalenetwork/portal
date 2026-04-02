@@ -160,7 +160,6 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
       const tokenAddress = tokens[token].address
       if (!tokenAddress) return
 
-      notify.temporaryInfo('Switching network...')
       const signer = await prepareSignerForWrite(
         creditStation,
         walletClient,

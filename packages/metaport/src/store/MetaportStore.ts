@@ -126,14 +126,6 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           switchChain,
           walletClient
         )
-        if (action.signer) {
-          const originalSigner = action.signer.bind(action)
-          action.signer = (...args: any[]) => originalSigner(...args, true)
-        }
-        if (action._getConnectedChain) {
-          const originalGetConnectedChain = action._getConnectedChain.bind(action)
-          action._getConnectedChain = (...args: any[]) => originalGetConnectedChain(...args, true)
-        }
         await action.execute()
       }
       notify.temporarySuccess('Tokens unwrapped successfully')

@@ -39,7 +39,7 @@ import {
   enforceNetwork
 } from '@skalenetwork/metaport'
 
-import { type types, metadata, constants, notify } from '@/core'
+import { type types, metadata, constants } from '@/core'
 
 import Bridge from './pages/Bridge'
 import Faq from './pages/Faq'
@@ -123,7 +123,6 @@ export default function Router(props: {
 
   async function getMainnetSigner() {
     const { chainId } = await mpc.provider(constants.MAINNET_CHAIN_NAME).getNetwork()
-    notify.temporaryInfo('Switching network...')
     await enforceNetwork(
       chainId,
       walletClient!,

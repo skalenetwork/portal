@@ -24,7 +24,7 @@
 import { Contract } from 'ethers'
 import { useState, useEffect } from 'react'
 
-import { dc, constants, units, notify } from '@/core'
+import { dc, constants, units } from '@/core'
 import {
   TokenIcon,
   useWagmiAccount,
