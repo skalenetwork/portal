@@ -60,7 +60,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
           }
         },
         skl: {
-          address: '0xb49A02585E2BeB912027D8876DC1cdbE8F97C1A3',
+          address: '0xb9cAA63e09c646C1ec79aCB2158d173e64a5FEd3',
           chains: {
             'winged-bubbly-grumium': {}
           }
@@ -122,7 +122,7 @@ export const METAPORT_CONFIG: types.mp.Config = {
           }
         },
         skl: {
-          address: '0x9710566Cb041bD4cDa6CB24336bc887221d11a6e',
+          address: '0x409e1eF20aDc37dD394f42ea68D562D955acb77D',
           chains: {
             mainnet: {
               clone: true
