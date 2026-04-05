@@ -20,7 +20,6 @@ import { types } from ".."
 
 export type NetworkFeature =
     | 'bridge'
-    | 'onramp'
     | 'ecosystem'
     | 'chains'
     | 'staking'

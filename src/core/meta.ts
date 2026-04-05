@@ -84,10 +84,5 @@ export const META_TAGS = {
     title: 'SKALE Portal - Validator',
     description: 'Delegations and chain rewards management',
     help: 'Manage your validator and delegations, review your delegations and chain rewards.'
-  },
-  onramp: {
-    title: 'SKALE Portal - Onramp',
-    description: 'Purchase crypto directly on SKALE Europa Hub using the Transak onramp.',
-    help: 'Use your preferred fiat currency to get USDC directly on the SKALE Europa Hub.'
   }
 }

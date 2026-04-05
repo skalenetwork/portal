@@ -58,7 +58,6 @@ import StakeValidator from './pages/StakeValidator'
 import StakeAmount from './pages/StakeAmount'
 import Validators from './pages/Validators'
 import Validator from './pages/Validator'
-import Onramp from './pages/Onramp'
 import TermsModal from './components/TermsModal'
 import Changelog from './pages/Changelog'
 import Credits from './pages/Credits'
@@ -272,7 +271,7 @@ export default function Router(props: {
             }
           />
         </Route>
-        <Route path="onramp" element={<Onramp mpc={mpc} />} />
+        <Route path="onramp" element={<Navigate to="/bridge" replace />} />
         <Route
           path="credits"
           element={

@@ -42,7 +42,6 @@ import {
   BarChart2,
   PieChart,
   Users,
-  CreditCard,
   BadgeDollarSign,
   Route,
   Network
@@ -118,21 +117,6 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                 </ListItemButton>
               </Link>
             </ListItem>
-            {networks.hasFeatureInAny(NETWORKS, 'onramp') && (
-              <ListItem>
-                <Link to="/onramp" className="w-full text-foreground!">
-                  <ListItemButton
-                    selected={location.pathname === '/onramp'}
-                    className={getItemButtonClass(location.pathname === '/onramp')}
-                  >
-                    <ListItemIcon>
-                      <CreditCard className="text-foreground" size={18} />
-                    </ListItemIcon>
-                    <ListItemText primary="On-Ramp" />
-                  </ListItemButton>
-                </Link>
-              </ListItem>
-            )}
           </List>
           <h4 className="text-secondary-foreground text-xs font-medium mt-2.5 ml-5">Network</h4>
           <List>
