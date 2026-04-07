@@ -54,9 +54,6 @@ export const AVG_MONTH_LENGTH = 30.436875
 const _BALANCE_UPDATE_INTERVAL_SECONDS = 25
 export const BALANCE_UPDATE_INTERVAL_MS = _BALANCE_UPDATE_INTERVAL_SECONDS * 1000
 
-export const TRANSAK_STAGING_ENV = import.meta.env.VITE_TRANSAK_STAGING_ENV === 'true'
-export const TRANSAK_API_KEY = import.meta.env.VITE_TRANSAK_API_KEY
-export const DISABLE_TRANSAK = import.meta.env.VITE_DISABLE_TRANSAK === 'true'
 
 export const STATS_API: { [key in types.SkaleNetwork]: string | null } = {
   mainnet: 'https://stats.explorer.mainnet.skalenodes.com/v2/stats/',
