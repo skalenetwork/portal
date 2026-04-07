@@ -147,7 +147,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
             startIcon={<AnimatedLoadingIcon />}
             variant="contained"
             size="medium"
-            className="btn-action p-4! w-full capitalize! bg-accent-foreground/50!"
+            className="btn-action p-4! w-full capitalize! bg-accent-foreground/15! text-foreground/70!"
           >
             {btnText}
           </Button>
@@ -161,7 +161,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
 
 
 
-            bg-accent-foreground! text-accent! disabled:bg-accent-foreground/50!
+            bg-accent-foreground! text-accent! disabled:text-foreground/70! disabled:bg-accent-foreground/15!
             
             ease-in-out transition-transform duration-150 active:scale-[0.97]`}
             onClick={() => execute(address, switchChainAsync, walletClient)}
@@ -221,7 +221,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                           startIcon={<AnimatedLoadingIcon />}
                           variant="contained"
                           size="medium"
-                          className="btn-action mt-1.5 p-3.5! w-full capitalize! bg-accent-foreground/50!"
+                          className="btn-action mt-1.5 p-3.5! w-full capitalize! bg-accent-foreground/15! text-foreground/70!"
                         >
                           {btnText}
                         </Button>
@@ -232,7 +232,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                           size="medium"
                           className={`
                             btn-action mt-1.5 w-full capitalize! text-accent! p-3.5!
-                            bg-accent-foreground! disabled:bg-accent-foreground/50!
+                            bg-accent-foreground! disabled:bg-accent-foreground/15! disabled:text-foreground/70!
                             ease-in-out transition-transform duration-150 active:scale-[0.97]`}
                           onClick={() => execute(address, switchChainAsync, walletClient)}
                           disabled={!!actionDisabled}
@@ -281,7 +281,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                     onClick={startOver}
                     size="small"
                     startIcon={<RotateCcw size={15} />}
-                    className="hidden! md:inline-flex! capitalize! text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50! text-xs! px-3.5! py-2.5!"
+                    className="hidden! md:inline-flex! capitalize! text-accent! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-xs! px-3.5! py-2.5!"
                   >
                     Start over
                   </Button>

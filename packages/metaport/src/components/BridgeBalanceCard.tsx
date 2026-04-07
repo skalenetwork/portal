@@ -248,7 +248,7 @@ export default function BridgeBalanceCard(props: {
       <div className="flex gap-2.5 mt-2.5">
         <Button
           variant="contained"
-          className="grow btnMd normal-case! text-sm font-semibold text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50! py-3.5 px-4 rounded shadow-none flex! items-center! gap-2!"
+          className="grow btnMd normal-case! text-sm font-semibold text-accent! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! py-3.5 px-4 rounded shadow-none flex! items-center! gap-2!"
           onClick={rechargeCP}
           disabled={
             !!loading ||

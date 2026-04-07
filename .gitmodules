@@ -1,7 +1,6 @@
 [submodule "skale-network"]
 	path = skale-network
 	url = https://github.com/skalenetwork/skale-network.git
-	branch = add-external-networks
 [submodule "helper-scripts"]
 	path = helper-scripts
 	url = https://github.com/skalenetwork/helper-scripts.git

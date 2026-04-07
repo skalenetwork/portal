@@ -111,7 +111,7 @@ export default function AddToken(props: {
         <IconButton
           onClick={addToken}
           disabled={loading}
-          className="md:hidden! text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50! p-2!"
+          className="md:hidden! text-accent! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! p-2!"
         >
           <BadgePlus size={20} />
         </IconButton>
@@ -120,7 +120,7 @@ export default function AddToken(props: {
           disabled={loading}
           size="small"
           startIcon={<BadgePlus size={15} />}
-          className="hidden! md:inline-flex! capitalize! text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50! text-xs! px-3.5! py-2.5!"
+          className="hidden! md:inline-flex! capitalize! text-accent! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-xs! px-3.5! py-2.5!"
         >
           {loading ? 'Check wallet' : 'Add token'}
         </Button>
@@ -134,7 +134,7 @@ export default function AddToken(props: {
       disabled={loading}
       color="primary"
       size="medium"
-      className="grow mb-2! md:mb-0! w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-accent-foreground! disabled:bg-accent-foreground/50! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+      className="grow mb-2! md:mb-0! w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
       startIcon={<Coins size={17} />}
     >
       {loading ? 'Check wallet' : 'Add token'}
