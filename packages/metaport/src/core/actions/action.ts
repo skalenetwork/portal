@@ -145,7 +145,7 @@ export abstract class Action {
     return instance
   }
 
-  private async initialize(): Promise<void> {
+  protected async initialize(): Promise<void> {
     if (helper.isMainnet(this.chainName1)) {
       this.mainnet = await this.mpc.mainnet()
     } else {

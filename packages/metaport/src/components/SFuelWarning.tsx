@@ -40,7 +40,6 @@ import { useMetaportStore } from '../store/MetaportStore'
 import { useSFuelStore } from '../store/SFuelStore'
 import SkPaper from './SkPaper'
 
-
 const log = new Logger<ILogObj>({ name: 'metaport:components:SFuel' })
 
 export default function SFuelWarning(props: {}) {
@@ -219,7 +218,7 @@ export default function SFuelWarning(props: {}) {
                   startIcon={<Fuel size={17} />}
                   size="medium"
                   variant="contained"
-                  className="btnMd mt-2.5! w-full capitalize! bg-muted-foreground/30!"
+                  className="btnMd mt-2.5! w-full capitalize! bg-accent-foreground/15! text-foreground/70!"
                 >
                   Getting sFUEL...
                 </Button>

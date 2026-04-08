@@ -27,18 +27,18 @@ import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRound
 import HourglassFullRoundedIcon from '@mui/icons-material/HourglassFullRounded'
 
 export default function AnimatedLoadingIcon(props: { interval?: number }) {
-    const interval = props.interval ?? 1000
-    const icons = [
-        HourglassEmptyRoundedIcon,
-        HourglassTopRoundedIcon,
-        HourglassBottomRoundedIcon,
-        HourglassFullRoundedIcon
-    ]
-    const [idx, setIdx] = useState(0)
-    useEffect(() => {
-        const id = setInterval(() => setIdx(i => (i + 1) % icons.length), interval)
-        return () => clearInterval(id)
-    }, [interval])
-    const Icon = icons[idx]
-    return <Icon />
+  const interval = props.interval ?? 1000
+  const icons = [
+    HourglassEmptyRoundedIcon,
+    HourglassTopRoundedIcon,
+    HourglassBottomRoundedIcon,
+    HourglassFullRoundedIcon
+  ]
+  const [idx, setIdx] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => setIdx((i) => (i + 1) % icons.length), interval)
+    return () => clearInterval(id)
+  }, [interval])
+  const Icon = icons[idx]
+  return <Icon />
 }

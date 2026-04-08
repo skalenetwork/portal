@@ -30,7 +30,7 @@ import {
   useWagmiSwitchNetwork,
   sendTransaction
 } from '@skalenetwork/metaport'
-import { constants } from '@/core'
+import { constants, notify } from '@/core'
 import { prepareSignerForWrite } from '../../core/credit-station'
 import Button from '@mui/material/Button'
 import { Badge, BadgeCheck, ToggleLeft, ToggleRight } from 'lucide-react'
@@ -70,6 +70,11 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
 
   async function togglePause() {
     if (!creditStation) return
+    if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
+      setErrorMsg('Something is wrong with your wallet, try again')
+      notify.permanentError('Something is wrong with your wallet, try again')
+      return
+    }
     setLoading(true)
 
     try {
@@ -85,10 +90,11 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
       const action = isPaused ? 'unpause' : 'pause'
 
       await sendTransaction(signer, method, [], `creditStation:${action}`)
-
+      notify.temporarySuccess(`Credit station ${action}d`)
       await loadPausedStatus()
     } catch (error) {
       setErrorMsg('Transaction failed')
+      notify.permanentError('Transaction failed')
     } finally {
       setLoading(false)
     }

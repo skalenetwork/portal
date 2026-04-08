@@ -278,7 +278,7 @@ export default function Ecosystem(props: {
               <Button
                 size="medium"
                 variant="contained"
-                className="btn btnMd text-xs text-accent! bg-foreground!"
+                className="btn btnMd text-xs text-accent! bg-accent-foreground!"
                 startIcon={<Plus size={17} />}
               >
                 Submit Your Project
