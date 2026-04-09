@@ -66,7 +66,7 @@ export default function MetaportProvider(props: {
   className?: string
   children?: ReactElement | ReactElement[]
 }) {
-  const skaleChains = props.config.chains.map((chain) =>
+  const appChains = props.config.chains.map((chain) =>
     constructWagmiChain(props.config.skaleNetwork, chain)
   )
 
@@ -90,7 +90,7 @@ export default function MetaportProvider(props: {
     }
   )
 
-  const chains: GetChainsReturnType = [mainnet, goerli, hoodi, ...skaleChains]
+  const chains: GetChainsReturnType = [mainnet, goerli, hoodi, ...appChains]
   const wagmiConfig = createConfig({
     chains,
     connectors,
@@ -101,7 +101,7 @@ export default function MetaportProvider(props: {
       [base.id]: http(),
       [baseSepolia.id]: http(),
       ...Object.fromEntries(
-        skaleChains.map((chain) => [chain.id, http(chain.rpcUrls.default.http[0])])
+        appChains.map((chain) => [chain.id, http(chain.rpcUrls.default.http[0])])
       )
     }
   })

@@ -9,7 +9,7 @@ export default function ChainIcon(props: {
   skaleNetwork: types.SkaleNetwork
   chainName: string
   bg?: boolean
-  chainsMeta?: types.ChainsMetadataMap,
+  chainsMeta?: types.ChainsMetadataMap
   className?: string
   app?: string
   size?: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
@@ -26,10 +26,33 @@ export default function ChainIcon(props: {
   if (iconPath !== undefined) {
     return (
       <div
-        className={'logo-wrapper ' + styles.chainIconBg + ' ' + [styles[`chainIconBg${size}`], bg].join(' ') + ' ' + props.className}
-        style={bg ? { background: metadata.chainBg(props.skaleNetwork, chainsMeta, props.chainName, props.app, mode) } : undefined}
+        className={
+          'logo-wrapper ' +
+          styles.chainIconBg +
+          ' ' +
+          [styles[`chainIconBg${size}`], bg].join(' ') +
+          ' ' +
+          props.className
+        }
+        style={
+          bg
+            ? {
+                background: metadata.chainBg(
+                  props.skaleNetwork,
+                  chainsMeta,
+                  props.chainName,
+                  props.app,
+                  mode
+                )
+              }
+            : undefined
+        }
       >
-        <img className={className} src={iconPath.default ?? iconPath} /></div>)
+        <img className={className} src={iconPath.default ?? iconPath} />
+      </div>
+    )
   }
-  return <OfflineBoltRoundedIcon className={styles.defaultChainIcon + ' text-foreground ' + className} />
+  return (
+    <OfflineBoltRoundedIcon className={styles.defaultChainIcon + ' text-foreground ' + className} />
+  )
 }

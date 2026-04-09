@@ -52,9 +52,9 @@ export default function Chain(props: {
       />
       <div
         className={`
-          ${size === 'xs' ? 'ml-1.5' : ''} 
-          ${size === 'sm' ? 'ml-2.5' : ''} 
-          ${size === 'md' ? 'ml-4' : ''} 
+          ${size === 'xs' ? 'ml-1.5' : ''}
+          ${size === 'sm' ? 'ml-2.5' : ''}
+          ${size === 'md' ? 'ml-4' : ''}
           ${size === 'lg' ? 'ml-5' : ''}
         `}
       >
@@ -65,9 +65,9 @@ export default function Chain(props: {
         )}
         <p
           className={`
-            ${size === 'xs' ? 'text-xs' : ''} 
-            ${size === 'sm' ? 'text-sm' : ''} 
-            ${size === 'md' ? 'text-base' : ''} 
+            ${size === 'xs' ? 'text-xs' : ''}
+            ${size === 'sm' ? 'text-sm' : ''}
+            ${size === 'md' ? 'text-base' : ''}
             ${size === 'lg' ? 'text-xl' : ''}
             ${!props.bold ? 'font-semibold' : 'font-bold'}
             capitalize
@@ -77,7 +77,6 @@ export default function Chain(props: {
           {metadata.getAlias(props.skaleNetwork, chainsMeta, props.chainName, props.app)}
         </p>
       </div>
-
     </div>
   )
 }

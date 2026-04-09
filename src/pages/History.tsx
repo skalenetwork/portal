@@ -23,21 +23,20 @@
 
 import { Helmet } from 'react-helmet'
 
-import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
-import { History as TransfersHistory, useMetaportStore } from '@skalenetwork/metaport'
+import Stack from '@mui/material/Stack'
+import { History as TransfersHistory, SkPaper, useMetaportStore } from '@skalenetwork/metaport'
 
-import { ChevronLeft, HistoryIcon, Trash2 } from 'lucide-react'
+import { ArrowLeftRight, Trash2 } from 'lucide-react'
 
 import { clearTransferHistory as clearTransferHistoryFromStorage } from '../core/transferHistory'
 import { META_TAGS } from '../core/meta'
-import Breadcrumbs from '../components/Breadcrumbs'
+import BridgeMenu from '../components/BridgeMenu'
 
 export default function History() {
   const mpc = useMetaportStore((state) => state.mpc)
   const transfersHistory = useMetaportStore((state) => state.transfersHistory)
-  const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
   const clearTransactionsHistory = useMetaportStore((state) => state.clearTransactionsHistory)
 
   function clearTransferHistory() {
@@ -46,54 +45,50 @@ export default function History() {
   }
 
   return (
-    <Container maxWidth="md">
+    <Container maxWidth="sm">
       <Helmet>
         <title>{META_TAGS.history.title}</title>
         <meta name="description" content={META_TAGS.history.description} />
         <meta property="og:title" content={META_TAGS.history.title} />
         <meta property="og:description" content={META_TAGS.history.description} />
       </Helmet>
-      <div className="mt-2">
-        <Stack spacing={0}>
-          <div className="flex">
-            <Breadcrumbs
-              className="bg"
-              sections={[
-                {
-                  text: 'Bridge',
-                  icon: <ChevronLeft size={14} />,
-                  url: '/bridge'
-                },
-                {
-                  text: 'History',
-                  icon: <HistoryIcon size={14} />
-                }
-              ]}
-            />
-            <div className="grow"></div>
-          </div>
-          <div className={transactionsHistory.length !== 0 ? 'mt-2.5' : ''}>
-            <TransfersHistory size="md" />
+      <Stack spacing={0}>
+        <div className="flex items-center">
+          <div className="grow">
+            <h2 className="m-0 text-xl font-bold text-foreground">Bridge History</h2>
+            <p className="text-xs text-secondary-foreground font-semibold">
+              View and manage your past bridge transfers.
+            </p>
           </div>
           <div>
-            {transfersHistory.length !== 0 ? (
-              <Button
-                onClick={clearTransferHistory}
-                color="error"
-                size="small"
-                className="w-full normal-case! text-sm leading-6 tracking-wider font-semibold py-3.5 px-4 min-h-[44px] rounded shadow-none mb-5"
-                startIcon={<Trash2 size={14} />}
-              >
-                Clear transfers history
-              </Button>
-            ) : (
-              <div className="text-sm font-semibold text-muted-foreground mt-5 text-center">
-                No past transfers found
-              </div>
-            )}
+            <BridgeMenu currentPage="history" />
           </div>
-        </Stack>
-      </div>
+        </div>
+        <div className="mt-3.5">
+          <TransfersHistory size="md" />
+          {transfersHistory.length !== 0 ? (
+            <Button
+              onClick={clearTransferHistory}
+              color="error"
+              size="small"
+              className="w-full normal-case! text-sm leading-6 tracking-wider font-semibold py-3.5 px-4 min-h-[44px] rounded shadow-none mt-2.5"
+              startIcon={<Trash2 size={14} />}
+            >
+              Clear transfers history
+            </Button>
+          ) : (
+            <div className="flex flex-col items-center justify-center py-12 bg-card rounded-4xl">
+              <div className="w-14 h-14 rounded-full bg-muted flex items-center justify-center mb-4">
+                <ArrowLeftRight size={24} className="text-muted-foreground" />
+              </div>
+              <p className="text-sm font-semibold text-muted-foreground">No past transfers found</p>
+              <p className="text-xs text-muted-foreground/70 mt-1 font-medium">
+                Your bridge transfers will appear here
+              </p>
+            </div>
+          )}
+        </div>
+      </Stack>
     </Container>
   )
 }

@@ -44,6 +44,7 @@ import ChainsIcon from '../icons/chains.svg'
 import MoneyIcon from '../icons/money.svg'
 import QuestionIcon from '../icons/question.svg'
 import ArrowsIcon from '../icons/arrows.svg'
+import BaseIcon from '../icons/base.svg'
 
 import { types } from '@/core'
 
@@ -68,6 +69,7 @@ interface ExploreCard {
   url?: string
   buttonText?: string
   buttonIcon?: JSX.Element
+  isNew?: boolean
 }
 
 export const EXPLORE_CARDS: ExploreCard[] = [
@@ -91,14 +93,6 @@ export const EXPLORE_CARDS: ExploreCard[] = [
     bgKey: 'stake_1234'
   },
   {
-    name: "Explore SKALE's DeFi",
-    description: 'The SKALE DeFi ecosystem is rapidly expanding on Europa. Check it out!',
-    url: '/ecosystem?categories=defi',
-    icon: ChartIcon,
-    feature: 'ecosystem',
-    bgKey: 'defi_123456'
-  },
-  {
     name: 'Swap on SKALE',
     description: 'Swap your favorite tokens on SKALE with zero gas fees using SushiSwap.',
     url: 'https://www.sushi.com/skale-europa/swap',
@@ -113,6 +107,16 @@ export const EXPLORE_CARDS: ExploreCard[] = [
     icon: ChainsIcon,
     feature: 'chains',
     bgKey: 'chains_12345'
+  },
+  {
+    name: 'Use SKALE on Base',
+    description:
+      'SKALE on Base brings the speed and scalability of the SKALE to the Base ecosystem.',
+    url: 'https://base.skalenodes.com/',
+    icon: BaseIcon,
+    feature: 'sfuel',
+    bgKey: 'base_12',
+    isNew: true
   },
   {
     name: 'Get Chain Access',

@@ -68,7 +68,7 @@ import {
   Receipt,
   ScanBarcode,
   PackageOpen,
-  KeyRound,
+  KeyRound
 } from 'lucide-react'
 import EpicGamesStoreLogo from '../../assets/egs.svg'
 
@@ -77,7 +77,7 @@ export const CategoryIcons: React.FC<{ category: string }> = ({ category }) => {
     case 'ai':
       return <Sparkles />
     case 'bite':
-      return <KeyRound/>
+      return <KeyRound />
     case 'dao':
       return <Building2 />
     case 'data-information':

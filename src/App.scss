@@ -1326,16 +1326,6 @@ input[type=number] {
   padding-bottom: 20px;
 }
 
-.transakFrame {
-  iframe {
-    border-radius: 25px;
-  }
-
-  height: calc(100vh - 340px);
-  border: none;
-  z-index: 1;
-}
-
 .tab {
   svg {
     width: 17px;
