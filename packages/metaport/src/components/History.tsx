@@ -130,8 +130,9 @@ export default function History(props: {
         .slice(0, props.limit ?? transfersHistory.length)
         .map((transfer: types.mp.TransferHistory, key: number) => {
           const unfinished = isUnfinished(transfer)
+          const hasProvider = isTrailsTransfer(transfer) || isMesonTransfer(transfer)
           const failed = isTrailsFailed(transfer) || isMesonFailed(transfer)
-          const pending = (isTrailsTransfer(transfer) || isMesonTransfer(transfer)) && !failed && transfer.transactions.length > 0
+          const pending = hasProvider && !failed && transfer.transactions.length > 0
           
           let statusColorClass = 'text-secondary-foreground'
           let statusBgClass = ''
@@ -151,8 +152,6 @@ export default function History(props: {
    
             StatusIcon = Check
           }
-
-          const hasProvider = isTrailsTransfer(transfer) || isMesonTransfer(transfer)
 
           return (
             <div
