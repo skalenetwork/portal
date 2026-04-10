@@ -28,7 +28,7 @@ import TransactionData from './TransactionData'
 import ChainIcon from './ChainIcon'
 import { timeAgo } from '../core/time'
 import { getExplorerUrlForAddress, shortenAddress } from '../core/explorer'
-import { Blocks, CircleAlert, Route, ExternalLink, Check, XCircle, Clock } from 'lucide-react'
+import { Blocks, CircleAlert, Check, XCircle, Clock, ArrowRight } from 'lucide-react'
 import Avatar from 'boring-avatars'
 import { metadata } from '@/core'
 import IconButton from '@mui/material/IconButton'
@@ -130,59 +130,161 @@ export default function History(props: {
         .slice(0, props.limit ?? transfersHistory.length)
         .map((transfer: types.mp.TransferHistory, key: number) => {
           const unfinished = isUnfinished(transfer)
+          const failed = isTrailsFailed(transfer) || isMesonFailed(transfer)
+          const pending = (isTrailsTransfer(transfer) || isMesonTransfer(transfer)) && !failed && transfer.transactions.length > 0
+          
+          let statusColorClass = 'text-secondary-foreground'
+          let statusBgClass = ''
+          let StatusIcon = null
+
+          if (unfinished || failed) {
+            statusColorClass = 'text-destructive'
+            statusBgClass = 'bg-destructive/10 dark:bg-destructive/20'
+            StatusIcon = unfinished ? CircleAlert : XCircle
+          } else if (pending) {
+            statusColorClass = 'text-amber-500 dark:text-amber-400'
+            statusBgClass = 'bg-amber-500/10 dark:bg-amber-500/20'
+            StatusIcon = Clock
+          } else {
+            statusColorClass = 'text-emerald-500 dark:text-emerald-400'
+            statusBgClass = 'bg-emerald-100 dark:bg-emerald-400/15'
+   
+            StatusIcon = Check
+          }
+
+          const hasProvider = isTrailsTransfer(transfer) || isMesonTransfer(transfer)
+
           return (
             <div
               key={key}
-              className={`${props.itemClassName ?? (size === 'sm' ? 'xs' : 'mb-2.5')} bg-card rounded-4xl p-2`}
+              className={`${props.itemClassName ?? (size === 'sm' ? 'xs' : 'mb-2.5')} bg-card ${hasProvider ? 'rounded-3xl' : 'rounded-full'} p-2`}
             >
-              <div className="flex items-center p-2 px-3">
-                <TokenIcon
-                  tokenSymbol={transfer.tokenKeyname}
-                  size={size === 'sm' ? 'sm' : 'lg'}
-                />
-                <div className={`${size === 'sm' ? 'ml-2.5' : 'ml-3'} min-w-0 flex-1`}>
-                  <Tooltip title={`${transfer.amount} ${transfer.tokenKeyname}`} arrow>
-                    <p
-                      className={`${size === 'sm' ? 'text-sm' : 'text-lg'} font-bold text-foreground uppercase`}
-                    >
-                      {size === 'sm' ? (
-                        <>
-                          <span className="max-md:hidden">{shortenValue(transfer.amount)}</span>
-                          <span className="md:hidden">{transfer.amount}</span>
-                        </>
-                      ) : (
-                        transfer.amount
-                      )}{' '}
-                      {transfer.tokenKeyname}
-                    </p>
-                  </Tooltip>
-                  <p
-                    className={`text-xs -mt-0.5 flex items-center gap-1 font-semibold ${unfinished || isTrailsFailed(transfer) || isMesonFailed(transfer) ? 'text-destructive' : 'text-secondary-foreground'}`}
-                  >
-                    {unfinished && <CircleAlert size={12} />}
-                    {isTrailsTransfer(transfer) && !isTrailsFailed(transfer) && (transfer.transactions.length > 0 ? <Clock size={12} /> : <Check size={12} />)}
-                    {isTrailsFailed(transfer) && <XCircle size={12} />}
-                    {isMesonTransfer(transfer) && !isMesonFailed(transfer) && (transfer.transactions.length > 0 ? <Clock size={12} /> : <Check size={12} />)}
-                    {isMesonFailed(transfer) && <XCircle size={12} />}
-                    {transferTimestamp(transfer)}
-                  </p>
+              {hasProvider ? (
+                <>
+                  <div className="flex items-center justify-between p-2">
+                    <div className="flex items-center gap-3 min-w-0">
+                      <TokenIcon
+                        tokenSymbol={transfer.tokenKeyname}
+                        size={size === 'sm' ? 'sm' : 'lg'}
+                      />
+                      <div className="min-w-0 flex-1">
+                        <Tooltip title={`${transfer.amount} ${transfer.tokenKeyname}`} arrow>
+                          <p
+                            className={`${size === 'sm' ? 'text-base' : 'text-lg'} font-bold text-foreground uppercase m-0 leading-tight`}
+                          >
+                            {size === 'sm' ? (
+                              <>
+                                <span className="max-md:hidden">{shortenValue(transfer.amount)}</span>
+                                <span className="md:hidden">{transfer.amount}</span>
+                              </>
+                            ) : (
+                              transfer.amount
+                            )}{' '}
+                            {transfer.tokenKeyname}
+                          </p>
+                        </Tooltip>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className={`w-[26px] h-[26px] rounded-full flex items-center justify-center ${statusBgClass} ${statusColorClass}`}>
+                        <StatusIcon size={14} />
+                      </div>
+                    </div>
+                  </div>
+                  <div className={`${size === 'sm' ? 'mx-2' : 'mx-4'} w-px self-stretch bg-border`} />
+                    
+                  <div className="p-2 flex items-center justify-between">
+                    <div className="flex items-center gap-1.5">
+                      <ChainRow
+                        chainName={transfer.chainName1}
+                        network={network}
+                        chainsMeta={chainsMeta}
+                        responsive={size === 'sm'}
+                      />
+                      <div>
+                        <div className="flex justify-center items-center text-muted-foreground">
+                          <ArrowRight size={14}/>
+                        </div>
+                      </div>
+                      <ChainRow
+                        chainName={transfer.chainName2}
+                        network={network}
+                        chainsMeta={chainsMeta}
+                        responsive={size === 'sm'}
+                      />
+                    </div>
+                    
+                    <div className="flex items-center gap-2">
+                      {isTrailsTransfer(transfer) && (
+                        <a
+                          href={`https://app.trails.build/intent/${transfer.trailsIntentId}`}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          className="flex items-center hover:opacity-80 transition-opacity"
+                        >
+                          <img src={trailsLogo} alt="Trails" className="h-3 rounded-sm" />
+                        </a>
+                      )}
+                      {isMesonTransfer(transfer) && (
+                        <a
+                          href={mesonExplorerUrl(transfer.mesonSwapId!)}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          className="flex items-center hover:opacity-80 transition-opacity"
+                        >
+                          <img src={mesonLogo} alt="Meson" className="h-3 rounded-sm" />
+                        </a>
+                      )}
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <div className="flex items-center justify-between p-2 pl-3 xs:pl-2">
+                  <div className="flex items-center gap-3.5 min-w-0 pr-2">
+                    <TokenIcon
+                      tokenSymbol={transfer.tokenKeyname}
+                      size={size === 'sm' ? 'sm' : 'lg'}
+                    />
+                    <div className="flex flex-col min-w-0 gap-0.5">
+                      <Tooltip title={`${transfer.amount} ${transfer.tokenKeyname}`} arrow>
+                        <p
+                          className={`${size === 'sm' ? 'text-base' : 'text-lg'} font-bold text-foreground uppercase m-0 leading-tight truncate`}
+                        >
+                          {size === 'sm' ? (
+                            <>
+                              <span className="max-md:hidden">{shortenValue(transfer.amount)}</span>
+                              <span className="md:hidden">{transfer.amount}</span>
+                            </>
+                          ) : (
+                            transfer.amount
+                          )}{' '}
+                          {transfer.tokenKeyname}
+                        </p>
+                      </Tooltip>
+                      <p className="text-sm font-semibold text-muted-foreground m-0 leading-tight">
+                        {transferTimestamp(transfer)}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-3.5 pr-2 pl-1 border-l border-border shrink-0">
+                    <div className="flex flex-col gap-1.5 min-w-[70px]">
+                      <ChainRow
+                        chainName={transfer.chainName1}
+                        network={network}
+                        chainsMeta={chainsMeta}
+                        responsive={size === 'sm'}
+                      />
+                      <ChainRow
+                        chainName={transfer.chainName2}
+                        network={network}
+                        chainsMeta={chainsMeta}
+                        responsive={size === 'sm'}
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className={`${size === 'sm' ? 'mx-2' : 'mx-4'} w-px self-stretch bg-border`} />
-                <div className="shrink-0 space-y-0.5">
-                  <ChainRow
-                    chainName={transfer.chainName1}
-                    network={network}
-                    chainsMeta={chainsMeta}
-                    responsive={size === 'sm'}
-                  />
-                  <ChainRow
-                    chainName={transfer.chainName2}
-                    network={network}
-                    chainsMeta={chainsMeta}
-                    responsive={size === 'sm'}
-                  />
-                </div>
-              </div>
+              )}
               {!summaryOnly && transfer.address && (
                 <div className="bg-muted-foreground/10 px-4 py-3 rounded-3xl mt-2 flex items-center">
                   <Avatar
@@ -243,42 +345,6 @@ export default function History(props: {
                   ))}
                 </div>
               )}
-              {isTrailsTransfer(transfer) && (
-                <div className="bg-muted-foreground/10 px-6 py-4 rounded-3xl mt-1 flex items-center justify-between">
-                  <div className="flex items-center gap-3.5">
-                    <Route size={13} className="text-secondary-foreground" />
-                    <span className="text-xs text-secondary-foreground font-medium">Routed via</span>
-                    <img src={trailsLogo} alt="Trails" className="h-4 rounded-sm" />
-                  </div>
-                  <a
-                    href={`https://app.trails.build/intent/${transfer.trailsIntentId}`}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="inline-flex items-center gap-1 text-xs font-medium text-secondary-foreground hover:text-foreground transition-colors"
-                  >
-                    View on Trails
-                    <ExternalLink size={11} />
-                  </a>
-                </div>
-              )}
-              {isMesonTransfer(transfer) && (
-                <div className="bg-muted-foreground/10 px-6 py-4 rounded-3xl mt-1 flex items-center justify-between">
-                  <div className="flex items-center gap-3.5">
-                    <Route size={13} className="text-secondary-foreground" />
-                    <span className="text-xs text-secondary-foreground font-medium">Routed via</span>
-                    <img src={mesonLogo} alt="Meson" className="h-4 rounded-sm" />
-                  </div>
-                  <a
-                    href={mesonExplorerUrl(transfer.mesonSwapId!)}
-                    target="_blank"
-                    rel="noreferrer noopener"
-                    className="inline-flex items-center gap-1 text-xs font-medium text-secondary-foreground hover:text-foreground transition-colors"
-                  >
-                    View on Meson
-                    <ExternalLink size={11} />
-                  </a>
-                </div>
-              )}
             </div>
           )
         })}
@@ -298,20 +364,20 @@ function ChainRow(props: {
       <ChainIcon
         skaleNetwork={props.network}
         chainName={props.chainName}
-        size="xs"
+        size="xxs"
         chainsMeta={props.chainsMeta}
       />
       {props.responsive ? (
         <>
-          <span className="text-xs font-semibold text-foreground capitalize max-md:hidden">
+          <span className="text-xs font-semibold text-muted-foreground capitalize max-md:hidden">
             {metadata.getAlias(props.network, props.chainsMeta, props.chainName, undefined, true)}
           </span>
-          <span className="text-xs font-semibold text-foreground capitalize md:hidden">
+          <span className="text-xs font-semibold text-muted-foreground capitalize md:hidden">
             {metadata.getAlias(props.network, props.chainsMeta, props.chainName, undefined, false)}
           </span>
         </>
       ) : (
-        <span className="text-xs font-semibold text-foreground capitalize">
+        <span className="text-xs font-semibold text-muted-foreground capitalize">
           {metadata.getAlias(props.network, props.chainsMeta, props.chainName, undefined, props.short)}
         </span>
       )}
