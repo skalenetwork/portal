@@ -133,7 +133,13 @@ export default function History(props: {
           const hasProvider = isTrailsTransfer(transfer) || isMesonTransfer(transfer)
           const failed = isTrailsFailed(transfer) || isMesonFailed(transfer)
           const pending = hasProvider && !failed && transfer.transactions.length > 0
-          
+          const statusLabel = unfinished
+            ? 'Unfinished'
+            : failed
+              ? 'Failed'
+              : pending
+                ? 'Pending'
+                : 'Completed'
           let statusColorClass = 'text-secondary-foreground'
           let statusBgClass = ''
           let StatusIcon = null
@@ -149,105 +155,25 @@ export default function History(props: {
           } else {
             statusColorClass = 'text-emerald-500 dark:text-emerald-400'
             statusBgClass = 'bg-emerald-100 dark:bg-emerald-400/15'
-   
             StatusIcon = Check
           }
 
           return (
             <div
               key={key}
-              className={`${props.itemClassName ?? (size === 'sm' ? 'xs' : 'mb-2.5')} bg-card ${'rounded-3xl'} p-2`}
+              className={`${props.itemClassName ?? (size === 'sm' ? '' : 'mb-2.5')} bg-card rounded-3xl p-2`}
             >
-              {hasProvider ? (
-                <>
-                  <div className="flex items-center justify-between p-2">
-                    <div className="flex items-center gap-3 min-w-0">
-                      <TokenIcon
-                        tokenSymbol={transfer.tokenKeyname}
-                        size={size === 'sm' ? 'sm' : 'lg'}
-                      />
-                      <div className="min-w-0 flex-1">
-                        <Tooltip title={`${transfer.amount} ${transfer.tokenKeyname}`} arrow>
-                          <p
-                            className={`${size === 'sm' ? 'text-base' : 'text-lg'} font-bold text-foreground uppercase m-0 leading-tight`}
-                          >
-                            {size === 'sm' ? (
-                              <>
-                                <span className="max-md:hidden">{shortenValue(transfer.amount)}</span>
-                                <span className="md:hidden">{transfer.amount}</span>
-                              </>
-                            ) : (
-                              transfer.amount
-                            )}{' '}
-                            {transfer.tokenKeyname}
-                          </p>
-                        </Tooltip>
-                      </div>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <div className={`w-[26px] h-[26px] rounded-full flex items-center justify-center ${statusBgClass} ${statusColorClass}`}>
-                        <StatusIcon size={14} />
-                      </div>
-                    </div>
-                  </div>
-                  <div className={`${size === 'sm' ? 'mx-2' : 'mx-4'} w-px self-stretch bg-border`} />
-                    
-                  <div className="p-2 flex items-center justify-between">
-                    <div className="flex items-center gap-1.5">
-                      <ChainRow
-                        chainName={transfer.chainName1}
-                        network={network}
-                        chainsMeta={chainsMeta}
-                        responsive={size === 'sm'}
-                      />
-                      <div>
-                        <div className="flex justify-center items-center text-muted-foreground">
-                          <ArrowRight size={14}/>
-                        </div>
-                      </div>
-                      <ChainRow
-                        chainName={transfer.chainName2}
-                        network={network}
-                        chainsMeta={chainsMeta}
-                        responsive={size === 'sm'}
-                      />
-                    </div>
-                    
-                    <div className="flex items-center gap-2">
-                      {isTrailsTransfer(transfer) && (
-                        <a
-                          href={`https://app.trails.build/intent/${transfer.trailsIntentId}`}
-                          target="_blank"
-                          rel="noreferrer noopener"
-                          className="flex items-center hover:opacity-80 transition-opacity"
-                        >
-                          <img src={trailsLogo} alt="Trails" className="h-3 rounded-sm" />
-                        </a>
-                      )}
-                      {isMesonTransfer(transfer) && (
-                        <a
-                          href={mesonExplorerUrl(transfer.mesonSwapId!)}
-                          target="_blank"
-                          rel="noreferrer noopener"
-                          className="flex items-center hover:opacity-80 transition-opacity"
-                        >
-                          <img src={mesonLogo} alt="Meson" className="h-3 rounded-sm" />
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                </>
-              ) : (
-                <div className="flex items-center justify-between p-2 pl-3 xs:pl-2">
-                  <div className="flex items-center gap-3.5 min-w-0 pr-2">
+              <>
+                <div className="flex items-center justify-between p-2">
+                  <div className="flex items-center gap-3 min-w-0">
                     <TokenIcon
                       tokenSymbol={transfer.tokenKeyname}
                       size={size === 'sm' ? 'sm' : 'lg'}
                     />
-                    <div className="flex flex-col min-w-0 gap-0.5">
+                    <div className="flex flex-col min-w-0 flex-1 gap-0.5">
                       <Tooltip title={`${transfer.amount} ${transfer.tokenKeyname}`} arrow>
                         <p
-                          className={`${size === 'sm' ? 'text-base' : 'text-lg'} font-bold text-foreground uppercase m-0 leading-tight truncate`}
+                          className={`${size === 'sm' ? 'text-base' : 'text-lg'} font-bold text-foreground uppercase m-0 leading-tight`}
                         >
                           {size === 'sm' ? (
                             <>
@@ -260,30 +186,71 @@ export default function History(props: {
                           {transfer.tokenKeyname}
                         </p>
                       </Tooltip>
-                      <p className="text-sm font-semibold text-muted-foreground m-0 leading-tight">
-                        {transferTimestamp(transfer)}
-                      </p>
+                      {!hasProvider && (
+                        <p className="text-sm font-semibold text-muted-foreground m-0">
+                          {transferTimestamp(transfer)}
+                        </p>
+                      )}
                     </div>
                   </div>
-
-                  <div className="flex items-center gap-3.5 pr-2 pl-1 border-l border-border shrink-0">
-                    <div className="flex flex-col gap-1.5 min-w-[70px]">
-                      <ChainRow
-                        chainName={transfer.chainName1}
-                        network={network}
-                        chainsMeta={chainsMeta}
-                        responsive={size === 'sm'}
-                      />
-                      <ChainRow
-                        chainName={transfer.chainName2}
-                        network={network}
-                        chainsMeta={chainsMeta}
-                        responsive={size === 'sm'}
-                      />
+                  {size === 'sm' ? (
+                    <div className={`w-[26px] h-[26px] rounded-full flex items-center justify-center ${statusBgClass} ${statusColorClass}`}>
+                      <StatusIcon size={14} />
                     </div>
+                  ) : (
+                    <div className={`flex items-center gap-2 rounded-full px-3 py-2.5 ${statusBgClass} ${statusColorClass}`}>
+                      <StatusIcon size={17} />
+                      <span className="text-xs font-semibold capitalize">{statusLabel}</span>
+                    </div>
+                  )}
+                </div>
+                <div className={`${size === 'sm' ? 'mx-2' : 'mx-4'} w-px self-stretch bg-border`} />
+                <div className="p-2 flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
+                    <ChainRow
+                      chainName={transfer.chainName1}
+                      network={network}
+                      chainsMeta={chainsMeta}
+                      responsive={size === 'sm'}
+                      iconSize={size === 'sm' ? 'xxs' : 'xs'}
+                    />
+                    <div>
+                      <div className="flex justify-center items-center text-muted-foreground">
+                        <ArrowRight size={14} />
+                      </div>
+                    </div>
+                    <ChainRow
+                      chainName={transfer.chainName2}
+                      network={network}
+                      chainsMeta={chainsMeta}
+                      responsive={size === 'sm'}
+                      iconSize={size === 'sm' ? 'xxs' : 'xs'}
+                    />
+                  </div>
+                  <div className="flex items-center gap-2">
+                    {isTrailsTransfer(transfer) && (
+                      <a
+                        href={`https://app.trails.build/intent/${transfer.trailsIntentId}`}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="flex items-center hover:opacity-80 transition-opacity"
+                      >
+                        <img src={trailsLogo} alt="Trails" className="h-3 rounded-sm" />
+                      </a>
+                    )}
+                    {isMesonTransfer(transfer) && (
+                      <a
+                        href={mesonExplorerUrl(transfer.mesonSwapId!)}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="flex items-center hover:opacity-80 transition-opacity"
+                      >
+                        <img src={mesonLogo} alt="Meson" className="h-3 rounded-sm" />
+                      </a>
+                    )}
                   </div>
                 </div>
-              )}
+              </>
               {!summaryOnly && transfer.address && (
                 <div className="bg-muted-foreground/10 px-4 py-3 rounded-3xl mt-2 flex items-center">
                   <Avatar
@@ -357,13 +324,14 @@ function ChainRow(props: {
   chainsMeta: types.ChainsMetadataMap
   short?: boolean
   responsive?: boolean
+  iconSize?: 'xxs' | 'xs' | 'sm'
 }) {
   return (
     <div className="flex items-center gap-1.5">
       <ChainIcon
         skaleNetwork={props.network}
         chainName={props.chainName}
-        size="xxs"
+        size={props.iconSize ?? 'xxs'}
         chainsMeta={props.chainsMeta}
       />
       {props.responsive ? (
