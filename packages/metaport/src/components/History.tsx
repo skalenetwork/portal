@@ -156,7 +156,7 @@ export default function History(props: {
           return (
             <div
               key={key}
-              className={`${props.itemClassName ?? (size === 'sm' ? 'xs' : 'mb-2.5')} bg-card ${hasProvider ? 'rounded-3xl' : 'rounded-full'} p-2`}
+              className={`${props.itemClassName ?? (size === 'sm' ? 'xs' : 'mb-2.5')} bg-card ${'rounded-3xl'} p-2`}
             >
               {hasProvider ? (
                 <>
