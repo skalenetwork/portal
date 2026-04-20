@@ -143,15 +143,13 @@ export default function History(props: {
                 <div className={`${size === 'sm' ? 'ml-2.5' : 'ml-3'} min-w-0 flex-1`}>
                   <Tooltip title={`${transfer.amount} ${transfer.tokenKeyname}`} arrow>
                     <p
-                      className={`${size === 'sm' ? 'text-sm' : 'text-lg'} font-bold text-foreground uppercase`}
+                      className={`${size === 'sm' ? 'text-sm' : 'text-lg'} font-bold text-foreground uppercase truncate`}
                     >
-                      {size === 'sm' ? (
+                      {size === 'sm' ? shortenValue(transfer.amount) : (
                         <>
-                          <span className="max-md:hidden">{shortenValue(transfer.amount)}</span>
-                          <span className="md:hidden">{transfer.amount}</span>
+                          <span className="max-md:hidden">{transfer.amount}</span>
+                          <span className="md:hidden">{shortenValue(transfer.amount)}</span>
                         </>
-                      ) : (
-                        transfer.amount
                       )}{' '}
                       {transfer.tokenKeyname}
                     </p>
