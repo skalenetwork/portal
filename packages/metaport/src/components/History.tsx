@@ -111,8 +111,8 @@ export default function History(props: {
       className={`${props.className ?? ''} ${size === 'sm' ? `flex flex-col gap-2 md:grid ${gridCols}` : ''}`}
     >
       {transactionsHistory.length !== 0 && !props.hideCurrent && (
-        <div className="mb-2.5 bg-card! rounded-3xl p-4">
-          <p className="text-sm font-semibold text-foreground mb-3">Current transfer</p>
+        <div className="mb-2.5 bg-card! rounded-3xl p-2">
+          <p className="text-sm font-semibold text-foreground p-2">Current transfer</p>
           <div className="bg-muted-foreground/15 dark:bg-muted-foreground/10 p-4 rounded-2xl space-y-2">
             {transactionsHistory.map((transactionData: types.mp.TransactionHistory) => (
               <TransactionData
