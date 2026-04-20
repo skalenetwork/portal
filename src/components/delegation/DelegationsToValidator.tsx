@@ -95,7 +95,7 @@ export default function DelegationsToValidator(props: {
               disabled={
                 props.loading !== false || groupUnstakeLoading || props.customAddress !== undefined
               }
-              className="font-sans! bg-destructive/10! py-2! px-3! capitalize! text-destructive! font-semibold! text-xs! ease-in-out transition-transform duration-150 active:scale-[0.97] hover:scale-[1.01] disabled:bg-secondary-foreground/10! disabled:text-foreground! disabled:cursor-not-allowed! disabled:transform-none! disabled:hover:scale-100!"
+              className="font-sans! bg-accent-foreground! py-2! px-3! capitalize! text-destructive! font-semibold! text-xs! ease-in-out transition-transform duration-150 active:scale-[0.97] hover:scale-[1.01] disabled:bg-accent-foreground/15! disabled:text-foreground/70! disabled:cursor-not-allowed! disabled:transform-none! disabled:hover:scale-100!"
             >
               {groupUnstakeLoading ? 'Unstaking all...' : 'Unstake All'}
             </Button>
