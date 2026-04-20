@@ -207,7 +207,7 @@ export default function BridgeBalanceCard(props: {
           <Button
             variant="contained"
             size="small"
-            className="normal-case! text-sm font-semibold py-2.5! px-4! rounded shadow-none bg-amber-500/10! text-amber-600! dark:text-amber-400! disabled:bg-secondary-foreground/5! disabled:text-muted-foreground! flex! items-center! gap-2!"
+            className="normal-case! text-sm font-semibold py-2.5! px-4! rounded shadow-none bg-amber-500/10! text-amber-600! disabled:text-muted-foreground! disabled:bg-secondary-foreground/5! flex! items-center! gap-2!"
             onClick={withdrawCP}
             startIcon={<ChevronsDown size={16} />}
             disabled={!!loading || cpData.balance === 0n}
