@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { types, constants } from '@/core'
+import { types } from '@/core'
 
 import TokenIcon from './TokenIcon'
 import TransactionData from './TransactionData'
@@ -146,7 +146,7 @@ export default function History(props: {
                       className={`${size === 'sm' ? 'text-sm' : 'text-lg'} font-bold text-foreground uppercase truncate`}
                     >
                       {(() => {
-                        const display = Number(transfer.amount).toLocaleString(undefined, { maximumFractionDigits: constants.DEFAULT_FRACTION_DIGITS })
+                        const display = transfer.amount.includes('.') ? transfer.amount : Number(transfer.amount).toLocaleString()
                         return size === 'sm' ? shortenValue(display) : (
                           <>
                             <span className="max-md:hidden">{display}</span>

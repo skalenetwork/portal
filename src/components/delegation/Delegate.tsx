@@ -114,7 +114,7 @@ export default function Delegate(props: {
         'delegation:delegate'
       )
       setLoading(false)
-      notify.temporarySuccess(`${Number(amount).toLocaleString(undefined, { maximumFractionDigits: constants.DEFAULT_FRACTION_DIGITS })} SKL staked successfully`)
+      notify.temporarySuccess(`${amount.includes('.') ? amount : Number(amount).toLocaleString()} SKL staked successfully`)
       navigate('/staking')
     } catch (err: any) {
       log.error(err)

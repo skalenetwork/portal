@@ -243,7 +243,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
         get().setTransfersHistory([...get().transfersHistory, entry])
 
         const symbol = entry.tokenKeyname?.toUpperCase() ?? 'tokens'
-        const displayAmount = Number(entry.amount).toLocaleString(undefined, { maximumFractionDigits: constants.DEFAULT_FRACTION_DIGITS })
+        const displayAmount = entry.amount.includes('.') ? entry.amount : Number(entry.amount).toLocaleString()
         notify.temporarySuccess(`${displayAmount} ${symbol} transferred`)
 
         set({ loading: false, transferInProgress: false })
