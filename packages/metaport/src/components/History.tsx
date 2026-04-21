@@ -111,8 +111,8 @@ export default function History(props: {
       className={`${props.className ?? ''} ${size === 'sm' ? `flex flex-col gap-2 md:grid ${gridCols}` : ''}`}
     >
       {transactionsHistory.length !== 0 && !props.hideCurrent && (
-        <div className="mb-2.5 bg-card! rounded-3xl p-4">
-          <p className="text-sm font-semibold text-foreground mb-3">Current transfer</p>
+        <div className="mb-2.5 bg-card! rounded-3xl p-2">
+          <p className="text-sm font-semibold text-foreground p-2">Current transfer</p>
           <div className="bg-muted-foreground/15 dark:bg-muted-foreground/10 p-4 rounded-2xl space-y-2">
             {transactionsHistory.map((transactionData: types.mp.TransactionHistory) => (
               <TransactionData
@@ -141,18 +141,19 @@ export default function History(props: {
                   size={size === 'sm' ? 'sm' : 'lg'}
                 />
                 <div className={`${size === 'sm' ? 'ml-2.5' : 'ml-3'} min-w-0 flex-1`}>
-                  <Tooltip title={`${transfer.amount} ${transfer.tokenKeyname}`} arrow>
+                  <Tooltip title={`${transfer.amount} ${transfer.tokenKeyname?.toUpperCase()}`} arrow>
                     <p
-                      className={`${size === 'sm' ? 'text-sm' : 'text-lg'} font-bold text-foreground uppercase`}
+                      className={`${size === 'sm' ? 'text-sm' : 'text-lg'} font-bold text-foreground uppercase truncate`}
                     >
-                      {size === 'sm' ? (
-                        <>
-                          <span className="max-md:hidden">{shortenValue(transfer.amount)}</span>
-                          <span className="md:hidden">{transfer.amount}</span>
-                        </>
-                      ) : (
-                        transfer.amount
-                      )}{' '}
+                      {(() => {
+                        const display = transfer.amount.includes('.') ? transfer.amount : Number(transfer.amount).toLocaleString()
+                        return size === 'sm' ? shortenValue(display) : (
+                          <>
+                            <span className="max-md:hidden">{display}</span>
+                            <span className="md:hidden">{shortenValue(display)}</span>
+                          </>
+                        )
+                      })()}{' '}
                       {transfer.tokenKeyname}
                     </p>
                   </Tooltip>
