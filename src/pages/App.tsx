@@ -114,7 +114,8 @@ export default function App(props: {
 
   useEffect(() => {
     props.loadData()
-  }, [])
+    setCounters(null)
+  }, [chain, app])
 
   useEffect(() => {
     if (
