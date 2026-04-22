@@ -37,7 +37,7 @@ export default function TokenBalance(props: {
   const balanceFull = units.formatBalance(props.balance, props.decimals)
   const size = props.size ?? 'xs'
   return (
-    <Tooltip arrow title={balanceFull + ' ' + props.symbol}>
+    <Tooltip arrow title={balanceFull + ' ' + props.symbol} PopperProps={{ sx: { zIndex: 99999 } }}>
       <p
         className={`
             ${size === 'xs' ? 'text-xs' : ''}
