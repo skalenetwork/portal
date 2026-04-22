@@ -141,7 +141,7 @@ export default function History(props: {
                   size={size === 'sm' ? 'sm' : 'lg'}
                 />
                 <div className={`${size === 'sm' ? 'ml-2.5' : 'ml-3'} min-w-0 flex-1`}>
-                  <Tooltip title={`${transfer.amount} ${transfer.tokenKeyname?.toUpperCase()}`} arrow>
+                  <Tooltip title={`${transfer.amount.includes('.') ? transfer.amount : Number(transfer.amount).toLocaleString()} ${transfer.tokenKeyname?.toUpperCase()}`} arrow>
                     <p
                       className={`${size === 'sm' ? 'text-sm' : 'text-lg'} font-bold text-foreground uppercase truncate`}
                     >
