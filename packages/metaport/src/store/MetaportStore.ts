@@ -289,10 +289,12 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
     const silent = options?.silent ?? false
     const requestId = ++checkRequestId
     if (get().stepsMetadata[get().currentStep] && address) {
-      set({
-        loading: true,
-        btnText: 'Checking balance...'
-      })
+      if (!silent) {
+        set({
+          loading: true,
+          btnText: 'Checking balance...'
+        })
+      }
       try {
         const stepMetadata = get().stepsMetadata[get().currentStep]
 
