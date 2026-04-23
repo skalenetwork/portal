@@ -38,16 +38,12 @@ import {
   useWagmiWalletClient,
   useWagmiSwitchNetwork
 } from '@skalenetwork/metaport'
-import { types, metadata, constants, timeUtils, helper, units, notify } from '@/core'
+import { types, metadata, timeUtils, helper, notify } from '@/core'
 
 import SkStack from '../SkStack'
 
 import * as cs from '../../core/credit-station'
-import {
-  CREDITS_CONFIRMATION_BLOCKS,
-  AVATAR_COLORS,
-  DEFAULT_CREDITS_AMOUNT
-} from '../../core/constants'
+import { CREDITS_CONFIRMATION_BLOCKS, AVATAR_COLORS } from '../../core/constants'
 import { BadgeCheck, HandCoins, IdCard } from 'lucide-react'
 
 interface CreditsPaymentTileProps {
@@ -94,7 +90,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
         if (!provider) return
         const block = await provider.getBlock(payment.blockNumber)
         if (block) setTxTimestamp(block.timestamp)
-      } catch (error) {}
+      } catch (error) { }
     }
     fetchTimestamp()
   }, [creditStation, payment])
@@ -104,7 +100,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
     const checkFulfillment = async () => {
       try {
         setIsFulfilled(await ledgerContract.isFulfilled(payment.id))
-      } catch (error) {}
+      } catch (error) { }
     }
     checkFulfillment()
     const interval = setInterval(checkFulfillment, 10000)
@@ -131,7 +127,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
         [payment.id, payment.to],
         'ledger:fulfill',
         CREDITS_CONFIRMATION_BLOCKS,
-        units.toWei(DEFAULT_CREDITS_AMOUNT.toString(), constants.DEFAULT_ERC20_DECIMALS)
+        payment.value
       )
       notify.temporarySuccess('Payment fulfilled')
     } catch (e: any) {

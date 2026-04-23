@@ -24,7 +24,6 @@ import {
   type MetaportCore,
   Tile,
   SkPaper,
-  TokenIcon,
   useWagmiAccount,
   sendTransaction,
   useWagmiWalletClient,
@@ -33,19 +32,14 @@ import {
 } from '@skalenetwork/metaport'
 
 import {
-  Coins,
   Wallet,
-  ArrowRightLeft,
-  Shuffle,
   Fuel,
   HandCoins,
-  ArrowRight,
   CoinsIcon,
   CirclePlus
 } from 'lucide-react'
 
 import { types, metadata, units, constants, ERC_ABIS, notify } from '@/core'
-import { MAINNET_ALIASES } from '@/core/networks'
 
 import { useState, useEffect } from 'react'
 import { Grid, Button, Dialog } from '@mui/material'
@@ -57,9 +51,12 @@ import { Link } from 'react-router-dom'
 import {
   CREDITS_CONFIRMATION_BLOCKS,
   DEFAULT_CREDITS_AMOUNT,
+  RECOMMENDED_CREDITS_AMOUNTS,
   CREDITS_USAGE_EXAMPLE_PER_CREDIT
 } from '../../core/constants'
 import { prepareSignerForWrite } from '../../core/credit-station'
+import CreditsAmountSelector from './CreditsAmountSelector'
+import TokenSelector from './TokenSelector'
 
 interface ChainCreditsTileProps {
   mpc: MetaportCore
@@ -83,6 +80,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   const [openModal, setOpenModal] = useState(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [token, setToken] = useState<string | undefined>(undefined)
+  const [amount, setAmount] = useState<bigint>(DEFAULT_CREDITS_AMOUNT)
   const [chainBalance, setChainBalance] = useState<bigint | undefined>(undefined)
 
   const { address, chainId } = useWagmiAccount()
@@ -111,38 +109,35 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   }, [mpc, schain.name, address])
 
   useEffect(() => {
+    if (token !== undefined) return
     if (!tokens || !tokenPrices) return
-    const match = Object.entries(tokens).find(([, tokenData]) => {
-      if (!tokenData.address) return false
-      return tokenPrices[tokenData.address] !== undefined
-    })
+    const match = Object.entries(tokens).find(
+      ([, tokenData]) => tokenData.address && tokenPrices[tokenData.address] !== undefined
+    )
     if (!match) return
-    const [symbol] = match
-    setToken((prev) => (prev === symbol ? prev : symbol))
-  }, [tokenPrices])
+    setToken(match[0])
+  }, [tokens, tokenPrices, token])
 
-  function getAmountToPayWei(): bigint {
+  function getPricePerCreditWei(): bigint {
     if (!token || !tokenPrices || !tokens[token].address) return 0n
     const tokenAddress = tokens[token].address
     if (!tokenAddress) return 0n
-    const pricePerCredit = tokenPrices[tokenAddress]
-    if (!pricePerCredit) return 0n
-    return pricePerCredit
+    return tokenPrices[tokenAddress] ?? 0n
+  }
+
+  function getAmountToPayWei(): bigint {
+    return getPricePerCreditWei() * amount
   }
 
   function getBtnText(): string {
     if (!token) return 'Select a token'
     if (tokenBalances?.[token] === undefined) return 'Loading...'
     if (loading) return 'Processing...'
-    if (tokenBalances[token] < getAmountToPayWei()) {
-      const displayBalance = units.displayBalance(
-        tokenBalances?.[token] || 0n,
-        token,
-        tokensMeta[token].decimals
-      )
-      return 'Insufficient Token Balance: ' + displayBalance
-    }
-    return `Buy ${DEFAULT_CREDITS_AMOUNT} Credits`
+    if (amount <= 0n) return 'Enter credits amount'
+    if (tokenBalances[token] < getAmountToPayWei()) return 'Insufficient funds'
+    const totalWei = getAmountToPayWei()
+    const total = token ? units.displayBalance(totalWei, token, tokensMeta[token].decimals) : ''
+    return `Buy ${amount} ${amount === 1n ? 'Credit' : 'Credits'}${total ? ` · ${total}` : ''}`
   }
 
   async function buyCredits() {
@@ -184,7 +179,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
       await sendTransaction(
         signer,
         creditStation.buy,
-        [schain.name, address, tokens[token].address],
+        [schain.name, address, tokens[token].address, amountWei],
         'creditStation:buy',
         CREDITS_CONFIRMATION_BLOCKS
       )
@@ -260,7 +255,10 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
       </div>
       <Dialog
         open={openModal}
-        onClose={() => setOpenModal(false)}
+        onClose={() => {
+          setOpenModal(false)
+          setAmount(DEFAULT_CREDITS_AMOUNT)
+        }}
         maxWidth={false}
         fullWidth
         BackdropProps={{
@@ -273,175 +271,74 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
             background: 'transparent',
             boxShadow: 'none',
             margin: { xs: '8px', sm: '24px', md: '24px' },
-            width: { xs: 'calc(100% - 16px)', sm: 'auto' },
-            maxWidth: { xs: 'calc(100% - 16px)', sm: 'calc(100% - 64px)' },
+            width: { xs: 'calc(100% - 16px)', sm: '100%' },
+            maxWidth: { xs: 'calc(100% - 16px)', sm: '820px' },
             maxHeight: { xs: 'calc(100% - 16px)', sm: 'calc(100% - 64px)' }
           }
         }}
       >
-        <SkPaper gray className="p-3! md:p-4!">
-          <div className="grow pb-2.5 pl-1">
-            <h2 className="m-0 text-2xl font-bold text-foreground ">Buy Credits</h2>
-          </div>
-          <SkPaper className="p-0!">
-            <Tile
-              size="lg"
-              transparent
-              text={`Select the token to pay with on ${MAINNET_ALIASES[network]}`}
-              className="py-5! px-6! mb-4"
-              grow
-              icon={<Coins size={17} />}
-              children={
-                <div className="flex mt-2">
-                  {Object.entries(tokens).map(
-                    ([symbol, tokenData]) =>
-                      tokenData.address &&
-                      tokenPrices[tokenData.address] && (
-                        <div key={symbol}>
-                          <Button
-                            color="primary"
-                            size="small"
-                            className={`items-center mr-2.5! p-4! py-3! pr-5! rounded-full! uppercase btnLg bg-muted-foreground/50! text-foreground! ease-in-out transition-transform duration-150 active:scale-[0.97] ${symbol !== token ? 'bg-card!' : ''} ${symbol !== token ? 'text-foreground!' : ''}`}
-                            variant="contained"
-                            onClick={() => setToken(symbol)}
-                          >
-                            <div className="flex items-center">
-                              <TokenIcon
-                                tokenSymbol={symbol}
-                                iconUrl={tokensMeta[symbol]?.iconUrl}
-                                size="sm"
-                              />
-                              <span className="p ml-2.5 uppercase">{symbol}</span>
-                            </div>
-                          </Button>
-                        </div>
-                      )
-                  )}
-                </div>
-              }
-            />
-          </SkPaper>
-          <div className="relative">
-            <Grid container spacing={2} alignItems="center">
-              <Grid size={{ xs: 12, md: 6 }} className="md:items-end">
-                <Tile
-                  className="py-5! px-6!"
-                  children={
-                    <div>
-                      <p className="inline-flex max-w-full justify-start font-medium text-sm text-muted-foreground mb-1.5 overflow-hidden">
-                        Pay on{' '}
-                        <ChainIcon
-                          size="xxs"
-                          chainName={constants.MAINNET_CHAIN_NAME}
-                          skaleNetwork={network}
-                          className="mx-1.5"
-                        />{' '}
-                        {MAINNET_ALIASES[network]}
-                      </p>
-                      <p className="text-foreground font-bold text-3xl grow">
-                        {token &&
-                          units.displayBalance(
-                            getAmountToPayWei(),
-                            token,
-                            tokensMeta[token].decimals
-                          )}
-                      </p>
-                    </div>
-                  }
-                />
-              </Grid>
-              <Grid size={{ xs: 12, md: 6 }} className="md:items-end md:text-right">
-                <Tile
-                  className="py-5! px-6!"
-                  children={
-                    <div>
-                      <p className="inline-flex max-w-full items-center justify-end font-medium text-sm text-muted-foreground mb-1.5 overflow-hidden">
-                        <span className="shrink-0 flex items-center">
-                          Receive on{' '}
-                          <ChainIcon
-                            size="xxs"
-                            chainName={schain.name}
-                            skaleNetwork={network}
-                            className="mx-1.5"
-                          />
-                        </span>
-                        <span className="overflow-hidden text-ellipsis whitespace-nowrap">
-                          {chainAlias}
-                        </span>
-                      </p>
-                      <p className="text-foreground font-bold text-3xl">
-                        {DEFAULT_CREDITS_AMOUNT} CREDITS
-                      </p>
-                    </div>
-                  }
-                />
-              </Grid>
-            </Grid>
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none">
-              <div className="flex items-center justify-center bg-accent-foreground rounded-full p-2 pointer-events-auto border-10 border-card dark:border-0 rotate-90! md:rotate-0!">
-                <ArrowRight size={17} className="text-accent!" />
+        <SkPaper gray className="p-4! md:p-6!">
+          <div className="flex items-center gap-3 pb-6 px-1">
+            <div className="grow min-w-0">
+              <h2 className="m-0 text-xl font-bold text-foreground leading-tight">Buy Credits</h2>
+              <div className="mt-1.5 flex items-center gap-1.5">
+                <ChainIcon size="xxs" chainName={schain.name} skaleNetwork={network} />
+                <span className="text-[11px] font-semibold text-muted-foreground truncate">
+                  {chainAlias}
+                </span>
               </div>
             </div>
+            <div className="flex items-center gap-2 shrink-0">
+              <span className="text-[11px] font-semibold text-muted-foreground">Paying with</span>
+              <TokenSelector
+                tokens={tokens}
+                tokensMeta={tokensMeta}
+                tokenPrices={tokenPrices}
+                tokenBalances={tokenBalances}
+                selected={token}
+                onSelect={setToken}
+              />
+            </div>
           </div>
+          <CreditsAmountSelector
+            recommended={RECOMMENDED_CREDITS_AMOUNTS}
+            amount={amount}
+            setAmount={setAmount}
+            pricePerCreditWei={getPricePerCreditWei()}
+            tokenSymbol={token}
+            tokenDecimals={(token ? tokensMeta[token]?.decimals : undefined) ?? 18}
+          />
           <Button
             variant="contained"
-            className="btn mt-4! p-4! w-full capitalize! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-accent!"
+            className="btn mt-6! py-5! px-4! w-full capitalize! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-accent!"
             startIcon={<CoinsIcon size={17} />}
             size="large"
             onClick={buyCredits}
             disabled={
               token === undefined ||
               loading ||
+              amount <= 0n ||
               tokenBalances?.[token] === undefined ||
               tokenBalances[token] < getAmountToPayWei()
             }
           >
             {getBtnText()}
           </Button>
-          <p className="text-foreground font-medium text-sm flex items-center mb-2.5 mt-4 ml-1">
-            {DEFAULT_CREDITS_AMOUNT} CREDITS is enough for thousands of transactions depending on
-            type:
+          <p className="text-muted-foreground text-sm font-medium mt-5 px-2 text-center leading-relaxed">
+            Enough for an estimated{' '}
+            <Fuel size={14} className="inline align-[-2px] mr-1" />
+            {Number(amount * CREDITS_USAGE_EXAMPLE_PER_CREDIT.gasUnits).toLocaleString()}
+            {' '}gas units and{' '}
+            <HandCoins size={14} className="inline align-[-2px] mr-1" />
+            {Number(amount * CREDITS_USAGE_EXAMPLE_PER_CREDIT.x402).toLocaleString()}
+            {' '}agent payments
           </p>
-          <div className="p-1 px-4">
-            <p className="text-foreground font-medium text-sm flex items-center mb-2.5">
-              <ArrowRightLeft size={17} className="mr-2.5 text-muted-foreground/80" />
-              {Number(
-                DEFAULT_CREDITS_AMOUNT * CREDITS_USAGE_EXAMPLE_PER_CREDIT.transfers
-              ).toLocaleString()}{' '}
-              Credit transfers
-            </p>
-            <p className="text-foreground font-medium text-sm flex items-center mb-2.5">
-              <HandCoins size={17} className="mr-2.5 text-muted-foreground/80" />
-              {Number(
-                DEFAULT_CREDITS_AMOUNT * CREDITS_USAGE_EXAMPLE_PER_CREDIT.x402
-              ).toLocaleString()}{' '}
-              x402 transfers
-            </p>
-            <p className="text-foreground font-medium text-sm flex items-center mb-2.5">
-              <Shuffle size={17} className="mr-2.5 text-muted-foreground/80" />
-              {Number(
-                DEFAULT_CREDITS_AMOUNT * CREDITS_USAGE_EXAMPLE_PER_CREDIT.ammSwaps
-              ).toLocaleString()}{' '}
-              AMM swaps
-            </p>
-            <p className="text-foreground font-medium text-sm flex items-center mb-2.5">
-              <Fuel size={17} className="mr-2.5 text-muted-foreground/80" />
-              {Number(
-                DEFAULT_CREDITS_AMOUNT * CREDITS_USAGE_EXAMPLE_PER_CREDIT.gasUnits
-              ).toLocaleString()}{' '}
-              Gas units
-            </p>
-          </div>
-          <div className="px-2 py-1">
-            <p className="text-muted-foreground/80 text-xs font-medium pb-2">
-              These are estimated transaction amounts which can change at any time based on chain
-              consumption.
-            </p>
-            <p className="text-muted-foreground/80 text-xs font-medium">
-              All purchases are converted to SKL on the backend for distribution per governance
-              agreements.
-            </p>
-          </div>
+          <p className="text-muted-foreground/80 text-[10px] font-medium mt-5 px-2 text-center">
+            Estimates may change based on chain consumption.
+            <br />
+            All purchases are converted to SKL on the backend for distribution per governance
+            agreements.
+          </p>
         </SkPaper>
       </Dialog>
     </div>

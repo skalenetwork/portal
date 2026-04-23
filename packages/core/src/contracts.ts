@@ -72,12 +72,12 @@ export const CONTRACTS: ContractsConfig = {
   "base-sepolia-testnet": {
     'skale-manager': 'production',
     'mainnet-ima': 'production',
-    'credit-station': '0x9197c60e10ef0e4D44EfB54455A6D24782d8A93f'
+    'credit-station': '0xBec4232A114a6408C99444F4a34430B79870BB75'
   },
   base: {
     'skale-manager': 'production',
     'mainnet-ima': 'production',
-    'credit-station': '0x0bdEDee74B847094B512700D172CEdd06Cb70F3F'
+    'credit-station': '0x207CB589b010788D100f1A454Cc9Eb7b146eaF31'
   },
 }
 

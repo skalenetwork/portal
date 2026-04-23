@@ -35,6 +35,7 @@ export interface Payment {
   to: `0x${string}`
   tokenAddress: `0x${string}`
   blockNumber: number
+  value: bigint
 }
 
 export async function ensureGasBalance(signer: JsonRpcSigner): Promise<void> {
@@ -177,6 +178,7 @@ function toPayment(id: bigint, data: any, schains: types.ISChain[]): Payment {
     from: data[1],
     to: data[2],
     blockNumber: Number(data[3]),
-    tokenAddress: data[4]
+    tokenAddress: data[4],
+    value: BigInt(data[5] ?? 0n)
   }
 }
