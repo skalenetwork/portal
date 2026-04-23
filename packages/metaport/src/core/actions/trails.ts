@@ -34,6 +34,7 @@ import {
   waitReceipt,
   encodeDepositERC20Direct,
   wrapWithTrailsRouter,
+  getTrailsRouterAddress,
   TRAILS_ROUTER_PLACEHOLDER_AMOUNT,
   type QuoteIntentResponse
 } from '../trails'
@@ -235,7 +236,13 @@ export class TransferTrailsExt2S extends Action {
       this.address
     )
 
-    const wrapped = wrapWithTrailsRouter(mainnetTokenAddress, depositBoxAddress, rawCallData)
+    const routerAddress = await getTrailsRouterAddress()
+    const wrapped = wrapWithTrailsRouter(
+      mainnetTokenAddress,
+      depositBoxAddress,
+      rawCallData,
+      routerAddress
+    )
 
     try {
       this.trailsQuote = await quoteIntent({
