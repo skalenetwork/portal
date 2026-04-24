@@ -77,7 +77,7 @@ export default function History() {
               Clear transfers history
             </Button>
           ) : (
-            <div className="flex flex-col items-center justify-center py-12 bg-card rounded-4xl">
+            <div className="flex flex-col items-center justify-center py-12 bg-card rounded-3xl">
               <div className="w-14 h-14 rounded-full bg-muted flex items-center justify-center mb-4">
                 <ArrowLeftRight size={24} className="text-muted-foreground" />
               </div>

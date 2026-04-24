@@ -174,7 +174,7 @@ export default function TransactionData(props: {
     props.config.skaleNetwork,
     props.transactionData.transactionHash
   )
-  const colors = actionColors[props.transactionData.txName]
+  const colors = actionColors[props.transactionData.txName] ?? { bg: 'bg-muted', text: 'text-foreground' }
   return (
     <div className="flex items-center">
       <div>
