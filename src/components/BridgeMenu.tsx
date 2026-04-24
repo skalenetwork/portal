@@ -86,13 +86,13 @@ export default function BridgeMenu({ currentPage = 'bridge' }: { currentPage?: B
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
       >
-        <Link to="/bridge/history" className="undec">
+        <Link to="/bridge/history" className="undec mb-1 block">
           <MenuItem
             onClick={handleClose}
-            className={`flex items-center px-2.5! py-2! text-sm! font-sans! font-semibold! hover:bg-muted! rounded-lg! ${currentPage === 'history' ? 'text-primary! bg-primary/5!' : 'text-foreground!'}`}
+            className={`flex items-center px-2.5! py-2! text-sm! font-sans! font-semibold! rounded-lg! ${currentPage === 'history' ? 'bg-foreground/10! text-foreground!' : 'text-foreground! hover:bg-muted-foreground/10!'}`}
           >
             <History
-              className={`mr-2.5 h-[17px] w-[17px] ${currentPage === 'history' ? 'text-primary' : 'text-muted-foreground'}`}
+              className={`mr-2.5 h-[17px] w-[17px] ${currentPage === 'history' ? 'text-foreground' : 'text-muted-foreground'}`}
             />
             History
           </MenuItem>
@@ -100,10 +100,10 @@ export default function BridgeMenu({ currentPage = 'bridge' }: { currentPage?: B
         <Link to="/bridge/balance" className="undec">
           <MenuItem
             onClick={handleClose}
-            className={`flex items-center px-2.5! py-2! text-sm! font-sans! font-semibold! hover:bg-muted! rounded-lg! ${currentPage === 'balance' ? 'text-primary! bg-primary/5!' : 'text-foreground!'}`}
+            className={`flex items-center px-2.5! py-2! text-sm! font-sans! font-semibold! rounded-lg! ${currentPage === 'balance' ? 'bg-foreground/10! text-foreground!' : 'text-foreground! hover:bg-muted-foreground/10!'}`}
           >
             <Wallet
-              className={`mr-2.5 h-[17px] w-[17px] ${currentPage === 'balance' ? 'text-primary' : 'text-muted-foreground'}`}
+              className={`mr-2.5 h-[17px] w-[17px] ${currentPage === 'balance' ? 'text-foreground' : 'text-muted-foreground'}`}
             />
             Bridge Balance
           </MenuItem>

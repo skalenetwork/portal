@@ -184,7 +184,6 @@ export default function MesonSwapTracker() {
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-1">
           <Route size={13} className="text-secondary-foreground" />
-          <span className="text-xs text-secondary-foreground font-medium">Routed via</span>
           <a
             href="https://meson.fi/"
             target="_blank"

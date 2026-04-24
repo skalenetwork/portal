@@ -23,7 +23,7 @@
 
 import { Logger, type ILogObj } from 'tslog'
 import { ethers } from 'ethers'
-import { dc, units, constants } from '@/core'
+import { dc, units, constants, notify } from '@/core'
 
 import { WalletClient } from 'viem'
 import { type UseSwitchChainReturnType } from 'wagmi'
@@ -117,6 +117,7 @@ export async function withdraw(
   errorMessageClosedFallback: () => void
 ) {
   setLoading('withdraw')
+  const toastId = notify.loading('Withdrawing bridge balance...')
   try {
     log.info('Withdrawing from bridge balance', { chainName, amount: amount.toString(), address })
     const { chainId } = await mpc.provider(constants.MAINNET_CHAIN_NAME).provider.getNetwork()
@@ -138,9 +139,11 @@ export async function withdraw(
       'mainnet:communityPool:withdrawFunds'
     )
 
+    notify.temporarySuccess('Bridge balance withdrawn', toastId)
     setLoading(false)
   } catch (err) {
     const msg = err.message ? err.message : DEFAULT_ERROR_MSG
+    notify.permanentError(msg, toastId)
     setErrorMessage(new dc.TransactionErrorMessage(msg, errorMessageClosedFallback))
   }
 }
@@ -157,6 +160,7 @@ export async function recharge(
   errorMessageClosedFallback: () => void
 ) {
   setLoading('recharge')
+  const toastId = notify.loading('Topping up bridge balance...')
   try {
     log.info('Topping up bridge balance', { chainName, amount, address })
 
@@ -187,10 +191,13 @@ export async function recharge(
     )
 
     setLoading('activate')
+    notify.loading('Activating bridge balance...', { id: toastId })
     const chainHash = ethers.id(chainName)
     await waitForActivation(communityPool, communityLocker, address, chainHash)
+    notify.temporarySuccess('Bridge balance topped up', toastId)
   } catch (err) {
     const msg = err.message ? err.message : DEFAULT_ERROR_MSG
+    notify.permanentError(msg, toastId)
     setErrorMessage(new dc.TransactionErrorMessage(msg, errorMessageClosedFallback))
   } finally {
     setLoading(false)

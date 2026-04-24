@@ -24,7 +24,7 @@
 import { useState } from 'react'
 import { Provider } from 'ethers'
 import { useWalletClient, useSwitchChain } from 'wagmi'
-import { dc, constants } from '@/core'
+import { dc, constants, notify } from '@/core'
 
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
@@ -54,8 +54,7 @@ export default function AddToken(props: {
     try {
       const response = await fetch(url, { method: 'HEAD' })
       return response.ok
-    } catch (error) {
-      console.error('Error retrieving users:', error)
+    } catch {
       return false
     }
   }
@@ -91,12 +90,12 @@ export default function AddToken(props: {
         }
       })
       if (wasAdded) {
-        console.log('Token added')
+        notify.temporarySuccess('Token added to wallet')
       } else {
-        console.log('Something went wrong')
+        notify.permanentError('Token was not added')
       }
     } catch (error) {
-      console.log(error)
+      notify.permanentError('Failed to add token')
     } finally {
       setLoading(false)
     }

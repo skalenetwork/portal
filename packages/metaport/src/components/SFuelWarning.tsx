@@ -24,7 +24,7 @@
 import { useEffect, useState } from 'react'
 import { Logger, type ILogObj } from 'tslog'
 
-import { constants } from '@/core'
+import { constants, notify } from '@/core'
 import { useAccount } from 'wagmi'
 
 import Button from '@mui/material/Button'
@@ -136,6 +136,7 @@ export default function SFuelWarning(props: {}) {
     let hubPowRes
 
     setMining(true)
+    const toastId = notify.loading('Getting sFUEL...')
     if (fromChainStation) {
       const fromData = await fromChainStation.getData(address)
       if (!fromData.ok) {
@@ -157,15 +158,18 @@ export default function SFuelWarning(props: {}) {
         hubPowRes = await hubChainStation.doPoW(address)
       }
     }
-    if (
+    const failed =
       (fromPowRes && !fromPowRes.ok) ||
       (toPowRes && !toPowRes.ok) ||
       (hubPowRes && !hubPowRes.ok)
-    ) {
+    if (failed) {
       log.info('PoW failed!')
       if (fromPowRes) log.info(chainName1, fromPowRes.message)
       if (toPowRes) log.info(chainName2, toPowRes.message)
       if (hubPowRes) log.info(hubChain, hubPowRes.message)
+      notify.permanentError('Failed to get sFUEL', toastId)
+    } else {
+      notify.temporarySuccess('sFUEL received', toastId)
     }
     setRefilledFlag(true)
   }
