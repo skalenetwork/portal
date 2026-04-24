@@ -91,34 +91,27 @@ export default function TokenListSection(props: {
               tokenSymbol={props.tokens[key]?.meta.symbol}
               iconUrl={props.tokens[key]?.meta.iconUrl}
             />
-            <span className=" text-foreground ml-2.5">
-              {props.tokens[key]?.meta.symbol}
-            </span>
+            <span className=" text-foreground ml-2.5">{props.tokens[key]?.meta.symbol}</span>
           </div>
         </Button>
-      ))
-      }
-      {
-        nonZeroBalanceTokens.length > 0 && (
-          <TokenSection
-            text="Your Tokens"
-            icon={<HandCoins size={14} />}
-            tokens={nonZeroBalanceTokens}
-            onTokenClick={handle}
-          />
-        )
-      }
+      ))}
+      {nonZeroBalanceTokens.length > 0 && (
+        <TokenSection
+          text="Your Tokens"
+          icon={<HandCoins size={14} />}
+          tokens={nonZeroBalanceTokens}
+          onTokenClick={handle}
+        />
+      )}
 
-      {
-        zeroBalanceTokens.length > 0 && (
-          <TokenSection
-            text="Tokens"
-            icon={<LocalMallIcon className="text-[17px]!" />}
-            tokens={zeroBalanceTokens}
-            onTokenClick={handle}
-          />
-        )
-      }
-    </div >
+      {zeroBalanceTokens.length > 0 && (
+        <TokenSection
+          text="Tokens"
+          icon={<LocalMallIcon className="text-[17px]!" />}
+          tokens={zeroBalanceTokens}
+          onTokenClick={handle}
+        />
+      )}
+    </div>
   )
 }

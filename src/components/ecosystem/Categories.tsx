@@ -187,7 +187,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({ checkedItems, setChec
           }
         }}
       >
-        <div className="p-2.5">
+        <div className="p-2.5 pb-20 sm:pb-2.5">
           <SearchBar className="mb-5" searchTerm={searchTerm} onSearchChange={handleSearch} />
           {filteredCategories.map(([shortName, data], index) => (
             <div

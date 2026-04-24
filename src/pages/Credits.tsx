@@ -55,7 +55,6 @@ interface CreditsProps {
 }
 
 const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chainsMeta }) => {
-  const [_, setIntervalId] = useState<NodeJS.Timeout>()
   const [creditStation, setCreditStation] = useState<Contract | undefined>(undefined)
   const [tokenPrices, setTokenPrices] = useState<Record<string, bigint>>({})
   const [tokenBalances, setTokenBalances] = useState<types.mp.TokenBalancesMap>()
@@ -97,18 +96,12 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
   }
 
   async function initLedgerContracts() {
-    const results = await Promise.all(
-      schains.map(async (schain) => [schain.name, await cs.getLedgerContract(mpc, schain.name)])
-    )
-    setLedgerContracts(
-      Object.fromEntries(results.filter(([_, contract]) => contract !== undefined))
-    )
+    setLedgerContracts(await cs.initAllLedgerContracts(mpc, schains))
   }
 
   useEffect(() => {
     loadData()
     initTokenContracts()
-    loadCreditStationData()
     initCreditStation()
   }, [])
 
@@ -121,17 +114,16 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
   }, [schains])
 
   useEffect(() => {
-    if (creditStation) {
-      const intervalId = setInterval(loadCreditStationData, 10000)
-      setIntervalId(intervalId)
-    }
     loadCreditStationData()
+    if (!creditStation) return
+    const intervalId = setInterval(loadCreditStationData, 10000)
+    return () => clearInterval(intervalId)
   }, [creditStation])
 
   useEffect(() => {
     if (creditStation && address && schains.length > 0) {
-      loadPayments(false)
-      const interval = setInterval(() => loadPayments(true), 30000)
+      loadPayments()
+      const interval = setInterval(loadPayments, 30000)
       return () => clearInterval(interval)
     }
   }, [creditStation, address])
@@ -218,6 +210,7 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
                   chainsMeta={chainsMeta}
                   ledgerContract={ledgerContracts[payment.schainName]}
                   creditStation={creditStation}
+                  setErrorMsg={setErrorMsg}
                 />
               ))}
             </Collapse>

@@ -25,30 +25,95 @@ import { types } from '@/core'
 
 import TokenIcon from './TokenIcon'
 import TransactionData from './TransactionData'
-import Chain from './Chain'
+import ChainIcon from './ChainIcon'
+import { timeAgo } from '../core/time'
+import { getExplorerUrlForAddress, shortenAddress } from '../core/explorer'
+import { Blocks, CircleAlert, Check, XCircle, Clock, ArrowRight } from 'lucide-react'
+import Avatar from 'boring-avatars'
+import { metadata } from '@/core'
+import IconButton from '@mui/material/IconButton'
+import trailsLogo from '../assets/trails_logo.svg'
+import mesonLogo from '../assets/meson_logo.png'
+import { explorerUrl as mesonExplorerUrl } from '../core/meson'
+import Tooltip from '@mui/material/Tooltip'
 
 import { useMetaportStore } from '../store/MetaportStore'
-import { MoveRight } from 'lucide-react'
-export default function History(props: { size?: types.Size }) {
+import { CHAINS_META } from '../core/metadata'
+
+function isTrailsTransfer(transfer: types.mp.TransferHistory): boolean {
+  return !!transfer.trailsIntentId
+}
+
+function isMesonTransfer(transfer: types.mp.TransferHistory): boolean {
+  return !!transfer.mesonSwapId
+}
+
+function isUnfinished(transfer: types.mp.TransferHistory): boolean {
+  if (isTrailsTransfer(transfer)) return false
+  if (isMesonTransfer(transfer)) return false
+  return transfer.address === undefined || transfer.transactions.length === 0
+}
+
+function isTrailsFailed(transfer: types.mp.TransferHistory): boolean {
+  return isTrailsTransfer(transfer) && transfer.trailsStatus !== 'succeeded'
+}
+
+function isMesonFailed(transfer: types.mp.TransferHistory): boolean {
+  return isMesonTransfer(transfer) && transfer.mesonStatus !== 'succeeded'
+}
+
+function transferTimestamp(transfer: types.mp.TransferHistory): string {
+  if (isUnfinished(transfer)) return 'Unfinished'
+  if (transfer.transactions.length > 0) {
+    const last = transfer.transactions[transfer.transactions.length - 1]
+    return timeAgo(last.timestamp)
+  }
+  if (transfer.timestamp) return timeAgo(transfer.timestamp)
+  if (isTrailsTransfer(transfer)) return isTrailsFailed(transfer) ? 'Failed' : 'Completed'
+  if (isMesonTransfer(transfer)) return isMesonFailed(transfer) ? 'Failed' : 'Completed'
+  return ''
+}
+
+function shortenValue(value: string | number, length: number = 8): string {
+  const str = String(value)
+  if (str.length <= length) return str
+  return `${str.slice(0, 4)}...${str.slice(-2)}`
+}
+
+export default function History(props: {
+  size?: types.Size
+  limit?: number
+  summaryOnly?: boolean
+  hideCurrent?: boolean
+  className?: string
+  itemClassName?: string
+}) {
   const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
   const transfersHistory = useMetaportStore((state) => state.transfersHistory)
 
   const mpc = useMetaportStore((state) => state.mpc)
 
+  const summaryOnly = props.summaryOnly ?? props.size === 'sm'
   const size = props.size ?? 'sm'
   const network = mpc.config.skaleNetwork
 
+  const chainsMeta = CHAINS_META[network]
+
   if (transactionsHistory.length === 0 && transfersHistory.length === 0) return
+
+  const visibleCount =
+    (transactionsHistory.length !== 0 && !props.hideCurrent ? 1 : 0) +
+    Math.min(props.limit ?? transfersHistory.length, transfersHistory.length)
+  const gridCols = visibleCount === 1 ? 'md:grid-cols-1' : 'md:grid-cols-2'
+
   return (
-    <div>
-      {transactionsHistory.length !== 0 ? (
-        <div className={`bg-card dark:bg-card ${size === 'sm' ? 'mt-5 mb-1.5' : 'mt-2.5 mb-2.5'} pt-2 pl-2 pr-2 pb-2 rounded-4xl`}>
-          <div className={`ml-2.5 ${size === 'sm' ? 'pt-2 pb-2' : 'pt-3 pb-3'}`}>
-            <p className={`${size === 'sm' ? 'text-sm' : 'text-base'} font-semibold text-foreground`}>
-              Current transfer
-            </p>
-          </div>
-          <div className="bg-muted-foreground/15 dark:bg-muted-foreground/10 card-bg p-4 rounded-3xl space-y-2">
+    <div
+      className={`${props.className ?? ''} ${size === 'sm' ? `flex flex-col gap-2 md:grid ${gridCols}` : ''}`}
+    >
+      {transactionsHistory.length !== 0 && !props.hideCurrent && (
+        <div className="mb-2.5 bg-card! rounded-3xl p-2">
+          <p className="text-sm font-semibold text-foreground p-2">Current transfer</p>
+          <div className="bg-muted-foreground/15 dark:bg-muted-foreground/10 p-4 rounded-2xl space-y-2">
             {transactionsHistory.map((transactionData: types.mp.TransactionHistory) => (
               <TransactionData
                 key={transactionData.transactionHash}
@@ -58,69 +123,184 @@ export default function History(props: { size?: types.Size }) {
             ))}
           </div>
         </div>
-      ) : null}
-      <div>
-        {transfersHistory
-          .slice()
-          .reverse()
-          .map((transfer: types.mp.TransferHistory, key: number) => (
+      )}
+      {transfersHistory
+        .slice()
+        .reverse()
+        .slice(0, props.limit ?? transfersHistory.length)
+        .map((transfer: types.mp.TransferHistory, key: number) => {
+          const unfinished = isUnfinished(transfer)
+          const hasProvider = isTrailsTransfer(transfer) || isMesonTransfer(transfer)
+          const failed = isTrailsFailed(transfer) || isMesonFailed(transfer)
+          const pending = hasProvider && !failed && transfer.transactions.length > 0
+          const statusLabel = unfinished
+            ? 'Unfinished'
+            : failed
+              ? 'Failed'
+              : pending
+                ? 'Pending'
+                : 'Completed'
+          let statusColorClass = 'text-secondary-foreground'
+          let statusBgClass = ''
+          let StatusIcon = null
+
+          if (unfinished || failed) {
+            statusColorClass = 'text-destructive'
+            statusBgClass = 'bg-destructive/10 dark:bg-destructive/20'
+            StatusIcon = unfinished ? CircleAlert : XCircle
+          } else if (pending) {
+            statusColorClass = 'text-amber-500 dark:text-amber-400'
+            statusBgClass = 'bg-amber-500/10 dark:bg-amber-500/20'
+            StatusIcon = Clock
+          } else {
+            statusColorClass = 'text-emerald-500 dark:text-emerald-400'
+            statusBgClass = 'bg-emerald-100 dark:bg-emerald-400/15'
+            StatusIcon = Check
+          }
+
+          return (
             <div
               key={key}
-              className={`bg-card dark:bg-card ${size === 'sm' ? 'mt-5 mb-1.5' : 'mt-5 mb-2.5'} pl-2 pr-2 ${transfer.transactions.length > 0 ? 'pb-2' : ''} rounded-4xl`}
+              className={`${props.itemClassName ?? (size === 'sm' ? '' : 'mb-2.5')} bg-card rounded-3xl p-2`}
             >
-              <div
-                className={`flex flex-col sm:flex-row sm:items-center sm:justify-between ml-2.5 ${size === 'sm' ? 'pt-2 pb-2' : 'pt-3 pb-3'}`}
-              >
-                <div
-                  className={`flex items-center ${size === 'sm' ? 'mb-2 sm:mb-0' : 'mb-2.5 sm:mb-0'
-                    }`}
-                >
-                  <Chain
-                    skaleNetwork={network}
-                    chainName={transfer.chainName1}
-                    size='xs'
-                    decIcon
-                    iconSize='sm'
-                  />
-                  <MoveRight size={14}
-                    className={`text-foreground ml-2 mr-2 w-3 h-3`}
-                  />
-                  <Chain
-                    skaleNetwork={network}
-                    chainName={transfer.chainName2}
-                    size='sm'
-                    decIcon
-                    iconSize='sm'
-                  />
-                </div>
-
-                <div className="flex items-center ml-1.5 sm:mr-4">
-                  <div className="flex items-center">
+              <>
+                <div className="flex items-center justify-between p-2">
+                  <div className="flex items-center gap-3 min-w-0">
                     <TokenIcon
                       tokenSymbol={transfer.tokenKeyname}
-                      size={size == 'sm' ? 'xs' : 'sm'}
+                      size={size === 'sm' ? 'sm' : 'lg'}
+                    />
+                    <div className="flex flex-col min-w-0 flex-1 gap-0.5">
+                    <Tooltip title={`${transfer.amount.includes('.') ? transfer.amount : Number(transfer.amount).toLocaleString()} ${transfer.tokenKeyname?.toUpperCase()}`} arrow>
+                        <p
+                          className={`${size === 'sm' ? 'text-base' : 'text-lg'} font-bold text-foreground uppercase truncate m-0 leading-tight`}
+                        >
+                          {(() => {
+                        const display = transfer.amount.includes('.') ? transfer.amount : Number(transfer.amount).toLocaleString()
+                        return size === 'sm' ? shortenValue(display) : (
+                              <>
+                                <span className="max-md:hidden">{display}</span>
+                                <span className="md:hidden">{shortenValue(display)}</span>
+                              </>
+                                )
+                          })()}{' '}
+                          {transfer.tokenKeyname}
+                        </p>
+                      </Tooltip>
+                      <p className={`${size === 'sm' ? 'text-xs' : 'text-sm'} font-semibold text-muted-foreground m-0`}>
+                        {transferTimestamp(transfer)}
+                      </p>
+                    </div>
+                  </div>
+                  {size === 'sm' ? (
+                    <div className={`w-[26px] h-[26px] rounded-full flex items-center justify-center ${statusBgClass} ${statusColorClass}`}>
+                      <StatusIcon size={14} />
+                    </div>
+                  ) : (
+                    <div className={`flex items-center gap-2 rounded-full px-3 py-2.5 ${statusBgClass} ${statusColorClass}`}>
+                      <StatusIcon size={17} />
+                      <span className="text-xs font-semibold capitalize">{statusLabel}</span>
+                    </div>
+                  )}
+                </div>
+                <div className={`${size === 'sm' ? 'mx-2' : 'mx-4'} w-px self-stretch bg-border`} />
+                <div className="p-2 flex items-center justify-between">
+                  <div className="flex items-center gap-1.5">
+                    <ChainRow
+                      chainName={transfer.chainName1}
+                      network={network}
+                      chainsMeta={chainsMeta}
+                      responsive={size === 'sm'}
+                      iconSize={size === 'sm' ? 'xxs' : 'xs'}
+                    />
+                    <div>
+                      <div className="flex justify-center items-center text-muted-foreground">
+                        <ArrowRight size={14} />
+                      </div>
+                    </div>
+                    <ChainRow
+                      chainName={transfer.chainName2}
+                      network={network}
+                      chainsMeta={chainsMeta}
+                      responsive={size === 'sm'}
+                      iconSize={size === 'sm' ? 'xxs' : 'xs'}
                     />
                   </div>
-                  <p
-                    className={`${size === 'sm' ? 'text-xs' : 'text-sm'
-                      } font-semibold capitalize text-foreground uppercase ml-1.5`}
-                  >
-                    {transfer.amount} {transfer.tokenKeyname}
-                  </p>
-                  <p
-                    className={`${size === 'sm' ? 'text-xs' : 'text-sm'
-                      } font-semibold capitalize text-foreground ml-1.5`}
-                  >
-                    {transfer.address !== undefined
-                      ? `• ${transfer.address.substring(0, 6)}...${transfer.address.substring(
-                        transfer.address.length - 4
-                      )}`
-                      : '• UNFINISHED'}
-                  </p>
+                  <div className="flex items-center gap-2">
+                    {isTrailsTransfer(transfer) && (
+                      <a
+                        href={`https://app.trails.build/intent/${transfer.trailsIntentId}`}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="flex items-center hover:opacity-80 transition-opacity"
+                      >
+                        <img src={trailsLogo} alt="Trails" className="h-3 rounded-sm" />
+                      </a>
+                    )}
+                    {isMesonTransfer(transfer) && (
+                      <a
+                        href={mesonExplorerUrl(transfer.mesonSwapId!)}
+                        target="_blank"
+                        rel="noreferrer noopener"
+                        className="flex items-center hover:opacity-80 transition-opacity"
+                      >
+                        <img src={mesonLogo} alt="Meson" className="h-3 rounded-sm" />
+                      </a>
+                    )}
+                  </div>
                 </div>
-              </div>
-              {transfer.transactions.length > 0 && (
-                <div className="bg-muted-foreground/15 dark:bg-muted-foreground/10 card-bg p-4 rounded-3xl space-y-2">
+              </>
+              {!summaryOnly && transfer.address && (
+                <div className="bg-muted-foreground/10 px-4 py-3 rounded-3xl mt-2 flex items-center">
+                  <Avatar
+                    variant="marble"
+                    name={transfer.address}
+                    size={30}
+                    colors={[
+                      '#efeecc',
+                      '#fe8b05',
+                      '#fe0557',
+                      '#400403',
+                      '#0aabba',
+                      '#c8b6ff',
+                      '#90E0EF',
+                      '#F786AA',
+                      '#256EFF',
+                      '#31E981',
+                      '#ffbf81'
+                    ]}
+                  />
+                  <div className="ml-5 grow">
+                    <p className="text-xs text-secondary-foreground">Sender</p>
+                    <p className="text-sm font-medium text-foreground">
+                      {shortenAddress(transfer.address)}
+                    </p>
+                  </div>
+                  <IconButton
+                    href={getExplorerUrlForAddress(
+                      chainsMeta[transfer.chainName2],
+                      network,
+                      transfer.chainName2,
+                      transfer.address
+                    )}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    size="small"
+                    className="ml-2.5 ease-in-out transition-transform duration-150 active:scale-[0.97]"
+                    sx={{
+                      backgroundColor: 'var(--card)',
+                      width: 30,
+                      height: 30,
+                      '& svg': { width: 15, height: 15 },
+                      '&:hover': { backgroundColor: 'var(--card)' }
+                    }}
+                  >
+                    <Blocks className="text-foreground" />
+                  </IconButton>
+                </div>
+              )}
+              {!summaryOnly && transfer.transactions.length > 0 && (
+                <div className="bg-muted-foreground/10 p-4 rounded-3xl space-y-2 mt-1">
                   {transfer.transactions.map((transactionData: types.mp.TransactionHistory) => (
                     <TransactionData
                       key={transactionData.transactionHash}
@@ -131,8 +311,42 @@ export default function History(props: { size?: types.Size }) {
                 </div>
               )}
             </div>
-          ))}
-      </div>
+          )
+        })}
+    </div>
+  )
+}
+
+function ChainRow(props: {
+  chainName: string
+  network: types.SkaleNetwork
+  chainsMeta: types.ChainsMetadataMap
+  short?: boolean
+  responsive?: boolean
+  iconSize?: 'xxs' | 'xs' | 'sm'
+}) {
+  return (
+    <div className="flex items-center gap-1.5">
+      <ChainIcon
+        skaleNetwork={props.network}
+        chainName={props.chainName}
+        size={props.iconSize ?? 'xxs'}
+        chainsMeta={props.chainsMeta}
+      />
+      {props.responsive ? (
+        <>
+          <span className="text-xs font-semibold text-muted-foreground capitalize max-md:hidden">
+            {metadata.getAlias(props.network, props.chainsMeta, props.chainName, undefined, true)}
+          </span>
+          <span className="text-xs font-semibold text-muted-foreground capitalize md:hidden">
+            {metadata.getAlias(props.network, props.chainsMeta, props.chainName, undefined, false)}
+          </span>
+        </>
+      ) : (
+        <span className="text-xs font-semibold text-muted-foreground capitalize">
+          {metadata.getAlias(props.network, props.chainsMeta, props.chainName, undefined, props.short)}
+        </span>
+      )}
     </div>
   )
 }

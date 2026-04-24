@@ -117,6 +117,7 @@ export default function Staking(props: {
 
   async function handleRetrieveRewards(rewardInfo: types.st.IRewardInfo) {
     if (!isAddress(customRewardAddress)) {
+      notify.permanentError('Invalid address')
       setErrorMsg('Invalid address')
       setLoading(false)
       return
@@ -172,7 +173,7 @@ export default function Staking(props: {
             {loading !== false || props.customAddress !== undefined ? (
               <Button
                 variant="contained"
-                className="btn btnSm py-3! text-xs text-accent! bg-foreground!"
+                className="btn btnSm py-3! text-xs text-accent! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15!"
                 startIcon={<Coins size={14} />}
                 disabled={loading !== false || props.customAddress !== undefined}
               >
@@ -182,7 +183,7 @@ export default function Staking(props: {
               <Link to="/staking/new">
                 <Button
                   variant="contained"
-                  className="btn btnSm py-3! text-xs text-accent! bg-foreground!"
+                  className="btn btnSm py-3! text-xs text-accent! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15!"
                   startIcon={<Coins size={14} />}
                   disabled={loading || props.customAddress !== undefined}
                 >
@@ -257,7 +258,7 @@ export default function Staking(props: {
         </SkPaper>
       </Collapse>
 
-      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-2.5" />
+      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-5" />
 
       <SkPaper gray className="mt-5">
         <Collapse in={props.address !== undefined}>

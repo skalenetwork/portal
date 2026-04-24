@@ -23,7 +23,7 @@
 
 import { Contract, id } from 'ethers'
 import { useState, useEffect } from 'react'
-import { type types, metadata, constants, ERC_ABIS, units, helper } from '@/core'
+import { type types, metadata, constants, ERC_ABIS, units, helper, notify } from '@/core'
 import {
   type MetaportCore,
   useWagmiAccount,
@@ -106,6 +106,7 @@ export default function Paymaster(props: {
     if (!paymaster) return
     if (!paymaster.runner?.provider || !walletClient || !switchChainAsync) {
       setErrorMsg('Something is wrong with your wallet, try again')
+      notify.permanentError('Something is wrong with your wallet, try again')
       return
     }
     setLoading(true)
@@ -125,32 +126,21 @@ export default function Paymaster(props: {
       const totalPriceWei = getTotalPriceWei()
       if (allowance <= totalPriceWei) {
         setBtnText('Waiting for approval...')
-        const approveRes = await sendTransaction(
+        await sendTransaction(
           signer,
           connectedToken.approve,
           [paymasterAddress, totalPriceWei * APPROVE_MULTIPLIER],
           'paymaster:approve'
         )
-        if (!approveRes.status) {
-          setErrorMsg(approveRes.err?.name)
-          return
-        }
         setBtnText('Sending transaction...')
       }
-      const res = await sendTransaction(
-        signer,
-        paymaster.pay,
-        [id(props.name), topupPeriod],
-        'paymaster:'
-      )
-      if (!res.status) {
-        setErrorMsg(res.err?.name)
-        return
-      }
+      await sendTransaction(signer, paymaster.pay, [id(props.name), topupPeriod], 'paymaster:')
+      notify.temporarySuccess('Chain top-up completed')
       await loadPaymasterInfo()
     } catch (e: any) {
-      console.error(e)
-      setErrorMsg(e.toString())
+      const errMsg = e.toString()
+      setErrorMsg(errMsg)
+      notify.permanentError(errMsg)
     } finally {
       setLoading(false)
       setBtnText(undefined)

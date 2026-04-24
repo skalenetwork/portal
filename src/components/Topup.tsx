@@ -27,12 +27,12 @@ import { constants, units, helper, type types } from '@/core'
 import { type MetaportCore, Tile, TokenIcon } from '@skalenetwork/metaport'
 
 import Button from '@mui/material/Button'
-import { Collapse } from '@mui/material'
-import { ClockPlus, ShieldAlert } from 'lucide-react'
+import { ClockPlus } from 'lucide-react'
 
 import SkStack from './SkStack'
 import MonthSelector from './MonthSelector'
 import Loader from './Loader'
+import ErrorTile from './ErrorTile'
 import { formatTimePeriod, monthsBetweenNowAndTimestamp } from '../core/timeHelper'
 
 export default function Topup(props: {
@@ -112,34 +112,12 @@ export default function Topup(props: {
           color={balanceOk ? undefined : 'error'}
         />
       </SkStack>
-      <Collapse in={props.errorMsg !== undefined}>
-        <SkStack className="mt-2.5">
-          <Tile
-            value={props.errorMsg}
-            text="Error occurred"
-            icon={<ShieldAlert size={17} />}
-            color="error"
-            className=" mt-5! mb-0! text-foreground bg-red-100 border-red-200 dark:bg-red-800/80 dark:border-red-600 border-2"
-            grow
-            childrenRi={
-              <Button
-                size="small"
-                onClick={() => {
-                  props.setErrorMsg(undefined)
-                }}
-                className="btn btnSm text-foreground! bg-transparent! hover:bg-red-800/10! normal-case! ml-2.5"
-              >
-                Close
-              </Button>
-            }
-          />
-        </SkStack>
-      </Collapse>
+      <ErrorTile errorMsg={props.errorMsg} setErrorMsg={props.setErrorMsg} />
       <div className="mt-5 mb-2.5 ml-1.5">
         <div className="flex flex-col md:flex-row gap-2.5">
           <Button
             variant="contained"
-            className="bg-accent-foreground! disabled:bg-muted-foreground/30! text-accent! disabled:text-muted! btn btnMd!"
+            className="bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-accent! btn btnMd!"
             disabled={!balanceOk || props.loading || maxTopupPeriod <= 0}
             onClick={props.topupChain}
           >
@@ -149,7 +127,7 @@ export default function Topup(props: {
             <Link to="/bridge" className="w-full md:w-auto">
               <Button
                 variant="contained"
-                className="btn btnMd text-xs w-full text-accent! bg-foreground!"
+                className="btn btnMd text-xs w-full text-accent! bg-accent-foreground!"
               >
                 Bridge SKL to Europa Hub
               </Button>

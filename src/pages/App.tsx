@@ -114,7 +114,8 @@ export default function App(props: {
 
   useEffect(() => {
     props.loadData()
-  }, [])
+    setCounters(null)
+  }, [chain, app])
 
   useEffect(() => {
     if (
@@ -299,7 +300,7 @@ export default function App(props: {
           </SkPaper>
         )}
 
-        <SkPaper gray className="mt-2.5 mb-20 md:mb-0 fwmobile">
+        <SkPaper gray className="mt-2.5 md:mb-0 fwmobile">
           <AccordionSection
             expandedByDefault
             title="Discover more"

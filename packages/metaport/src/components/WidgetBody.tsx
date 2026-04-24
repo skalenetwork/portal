@@ -15,7 +15,6 @@ import AmountErrorMessage from './AmountErrorMessage'
 import SwitchDirection from './SwitchDirection'
 import TokenBalance from './TokenBalance'
 import DestTokenBalance from './DestTokenBalance'
-import CommunityPool from './CommunityPool'
 import SFuelWarning from './SFuelWarning'
 import SkConnect from './SkConnect'
 import WrappedTokens from './WrappedTokens'
@@ -25,7 +24,7 @@ import HistoryButton from './HistoryButton'
 import { CHAINS_META } from '../core/metadata'
 
 export function WidgetBody(props) {
-  const { showFrom, showTo, showInput, showSwitch, showStepper, showCP, showWT, showTH } =
+  const { showFrom, showTo, showInput, showSwitch, showStepper, showWT, showTH } =
     useDisplayFunctions()
 
   const destChains = useMetaportStore((state) => state.destChains)
@@ -35,6 +34,7 @@ export function WidgetBody(props) {
   const chainName2 = useMetaportStore((state) => state.chainName2)
   const setChainName1 = useMetaportStore((state) => state.setChainName1)
   const setChainName2 = useMetaportStore((state) => state.setChainName2)
+  const swapChains = useMetaportStore((state) => state.swapChains)
 
   const mpc = useMetaportStore((state) => state.mpc)
   const tokens = useMetaportStore((state) => state.tokens)
@@ -76,8 +76,12 @@ export function WidgetBody(props) {
   }, [tokens])
 
   const chainsMeta = CHAINS_META[mpc.config.skaleNetwork]
-  const sourceBg = theme.vibrant ? metadata.chainBg(mpc.config.skaleNetwork, chainsMeta, chainName1) : constants.GRAY_BG
-  const destBg = theme.vibrant ? metadata.chainBg(mpc.config.skaleNetwork, chainsMeta, chainName2) : constants.GRAY_BG
+  const sourceBg = theme.vibrant
+    ? metadata.chainBg(mpc.config.skaleNetwork, chainsMeta, chainName1)
+    : constants.GRAY_BG
+  const destBg = theme.vibrant
+    ? metadata.chainBg(mpc.config.skaleNetwork, chainsMeta, chainName2)
+    : constants.GRAY_BG
   const overlayBg = theme.vibrant ? 'rgb(0 0 0 / 40%)' : 'transparent'
 
   return (
@@ -103,6 +107,7 @@ export function WidgetBody(props) {
                 disabledChain={chainName2}
                 disabled={transferInProgress}
                 from={true}
+                onSwap={swapChains}
                 balance={
                   token ? (
                     <TokenBalance
@@ -139,18 +144,13 @@ export function WidgetBody(props) {
               setChain={setChainName2}
               disabledChain={chainName1}
               disabled={transferInProgress}
+              onSwap={swapChains}
               balance={<DestTokenBalance />}
             />
           </SkPaper>
         </SkPaper>
       </Collapse>
       <AmountErrorMessage />
-
-      <Collapse in={showCP()}>
-        <SkPaper gray className="p-0">
-          <CommunityPool />
-        </SkPaper>
-      </Collapse>
 
       <Collapse in={showWT(address)}>
         <SkPaper gray className="p-0">

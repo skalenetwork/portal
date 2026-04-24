@@ -23,7 +23,7 @@
 
 import { type TransactionResponse, type ContractMethod, type Signer } from 'ethers'
 import { Logger, type ILogObj } from 'tslog'
-import { types, constants } from '@/core'
+import { types } from '@/core'
 
 const log = new Logger<ILogObj>({ name: 'metaport:core:transactions' })
 
@@ -36,46 +36,15 @@ export async function sendTransaction(
   value?: bigint
 ): Promise<types.mp.TxResponse> {
   log.info('💡 Sending transaction: ' + name)
-  try {
-    const tx = await func.populateTransaction(...args)
-    if (value !== undefined) {
-      tx.value = value
-    }
-    const response: TransactionResponse = await signer.sendTransaction(tx)
-    log.info(
-      `⏳ ${name} mining - tx: ${response.hash}, nonce: ${response.nonce}, gasLimit: ${response.gasLimit}`
-    )
-    await response.wait(confirmations)
-    log.info('✅ ' + name + ' mined - tx: ' + response.hash)
-    return { status: true, err: undefined, response: response }
-  } catch (err) {
-    console.error(err)
-    const msg = err.message
-    let name
-    if (err.code && err.code === 'ACTION_REJECTED') {
-      name = 'Transaction signing was rejected'
-    } else {
-      name = constants.TRANSACTION_ERROR_MSG
-    }
-    const revertMsg = parseErrorMessage(err.message)
-    if (revertMsg) name = revertMsg
-    if (err.info && err.info.error && err.info.error.data && err.info.error.data.message) {
-      name = err.info.error.data.message
-    }
-    if (err.shortMessage) {
-      name = err.shortMessage
-    }
-    return { status: false, err: { name, msg }, response: undefined }
+  const tx = await func.populateTransaction(...args)
+  if (value !== undefined) {
+    tx.value = value
   }
-}
-
-function parseErrorMessage(input: string | undefined): string | null {
-  if (!input) return null
-  const startDelimiter = 'execution reverted: "'
-  const endDelimiter = '"'
-  const startIndex = input.indexOf(startDelimiter)
-  if (startIndex === -1) return null
-  const endIndex = input.indexOf(endDelimiter, startIndex + startDelimiter.length)
-  if (endIndex === -1) return null
-  return input.substring(startIndex + startDelimiter.length, endIndex)
+  const response: TransactionResponse = await signer.sendTransaction(tx)
+  log.info(
+    `⏳ ${name} mining - tx: ${response.hash}, nonce: ${response.nonce}, gasLimit: ${response.gasLimit}`
+  )
+  await response.wait(confirmations)
+  log.info('✅ ' + name + ' mined - tx: ' + response.hash)
+  return { response }
 }

@@ -23,6 +23,8 @@
 
 import { type types, endpoints, constants } from '@/core'
 
+import { isExtChain, getExtChain } from './network'
+
 function getMainnetExplorerUrl(skaleNetwork: string) {
   return endpoints.MAINNET_EXPLORER_URLS[skaleNetwork]
 }
@@ -36,6 +38,10 @@ export function getExplorerUrl(
   skaleNetwork: types.SkaleNetwork,
   chainName: string
 ): string {
+  if (isExtChain(chainName)) {
+    const chain = getExtChain(chainName)
+    return chain.blockExplorers?.default.url ?? ''
+  }
   if (chainName === constants.MAINNET_CHAIN_NAME) return getMainnetExplorerUrl(skaleNetwork)
   if (chainMeta && chainMeta.explorerUrl) return chainMeta.explorerUrl
   return constants.HTTPS_PREFIX + chainName + '.' + getSChainExplorerUrl(skaleNetwork)
@@ -53,6 +59,10 @@ export function getTxUrl(
 
 export function addressUrl(explorerUrl: string, address: string): string {
   return `${explorerUrl}/address/${address}`
+}
+
+export function shortenAddress(address: string): string {
+  return `${address.slice(0, 6)}...${address.slice(-4)}`
 }
 
 export function getExplorerUrlForAddress(
