@@ -41,8 +41,6 @@ export type { QuoteIntentResponse, WaitIntentReceiptResponse, IntentReceipt }
 export const TRAILS_ROUTER_PLACEHOLDER_AMOUNT =
   0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefn
 
-const TRAILS_ROUTER_ADDRESS = '0xF8A739B9F24E297a98b7aba7A9cdFDBD457F6fF8'
-
 const log = new Logger<ILogObj>({ name: 'metaport:core:trails' })
 
 const DEPOSIT_ERC20_DIRECT_ABI = [
@@ -87,7 +85,8 @@ function getAmountOffset(calldata: string, placeholder: bigint): number {
 export function wrapWithTrailsRouter(
   token: string,
   target: string,
-  calldata: string
+  calldata: string,
+  routerAddress: string
 ): { callData: `0x${string}`; toAddress: string } {
   const amountOffset = getAmountOffset(calldata, TRAILS_ROUTER_PLACEHOLDER_AMOUNT)
   if (amountOffset === -1) {
@@ -111,7 +110,7 @@ export function wrapWithTrailsRouter(
 
   return {
     callData: encoded,
-    toAddress: TRAILS_ROUTER_ADDRESS
+    toAddress: routerAddress
   }
 }
 
@@ -122,6 +121,17 @@ function getTrailsApi(): TrailsApi {
     trailsApi = new TrailsApi(import.meta.env.VITE_TRAILS_API_KEY)
   }
   return trailsApi
+}
+
+let trailsRouterAddressCache: string | null = null
+
+export async function getTrailsRouterAddress(): Promise<string> {
+  if (trailsRouterAddressCache) return trailsRouterAddressCache
+  const response = await getTrailsApi().getTrailsContracts()
+  const address = response.TrailsContracts.trailsRouterAddress
+  if (!address) throw new Error('Trails router address missing from getTrailsContracts response')
+  trailsRouterAddressCache = address
+  return address
 }
 
 export function encodeDepositERC20Direct(
@@ -161,7 +171,7 @@ export async function quoteIntent(params: TrailsQuoteParams): Promise<QuoteInten
     tradeType: TradeType.EXACT_INPUT,
     options: {
       slippageTolerance: 0.005,
-      bridgeProvider: RouteProvider.RELAY
+      bridgeProvider: RouteProvider.AUTO
     }
   }
   if (params.destinationToAddress) {

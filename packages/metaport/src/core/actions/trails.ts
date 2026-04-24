@@ -22,11 +22,13 @@
  */
 
 import { Logger, type ILogObj } from 'tslog'
+import type { Hash, Hex } from 'viem'
+import type { Provider } from 'ethers'
 import { type types, units } from '@/core'
 
 import { Action } from './action'
 import { checkERC20Balance } from './checks'
-import { getExtChain, isExtChain, NETWORK_MAINNET_CHAINS } from '../network'
+import { enforceNetwork, getExtChain, isExtChain, NETWORK_MAINNET_CHAINS } from '../network'
 import {
   quoteIntent,
   commitIntent,
@@ -34,6 +36,7 @@ import {
   waitReceipt,
   encodeDepositERC20Direct,
   wrapWithTrailsRouter,
+  getTrailsRouterAddress,
   TRAILS_ROUTER_PLACEHOLDER_AMOUNT,
   type QuoteIntentResponse
 } from '../trails'
@@ -67,6 +70,31 @@ function resolveDestTokenAddress(
   return config.connections[destChainName][tokenType][tokenKeyname].address
 }
 
+async function sendTrailsDeposit(
+  action: Action,
+  provider: Provider,
+  chainName: string,
+  depositTx: { to: string; data: string; value: bigint }
+): Promise<Hash> {
+  action.updateState('switch')
+  const { chainId } = await provider.getNetwork()
+  await enforceNetwork(
+    chainId,
+    action.walletClient,
+    action._switchChain,
+    action.mpc.config.skaleNetwork,
+    chainName
+  )
+  action.updateState('trailsDeposit')
+  return action.walletClient.sendTransaction({
+    account: action.walletClient.account!,
+    chain: null,
+    to: depositTx.to as Hex,
+    data: depositTx.data as Hex,
+    value: depositTx.value
+  } as unknown as Parameters<typeof action.walletClient.sendTransaction>[0])
+}
+
 export class TransferTrailsExt2M extends Action {
   trailsQuote: QuoteIntentResponse | null = null
   trailsQuoteError: string | null = null
@@ -85,22 +113,11 @@ export class TransferTrailsExt2M extends Action {
 
     const depositTx = quote.intent.depositTransaction
 
-    this.updateState('switch')
-    const signer = await this.signer(
-      this.sChain1!.provider,
-      this.chainName1
-    )
-
-    this.updateState('trailsDeposit')
-    const tx = await signer.sendTransaction({
-      to: depositTx.to,
-      data: depositTx.data,
-      value: depositTx.value
-    })
-    await tx.wait()
+    const txHash = await sendTrailsDeposit(this, this.sChain1!.provider, this.chainName1, depositTx)
+    await this.sChain1!.provider.waitForTransaction(txHash, 1)
 
     this.updateState('trailsExecuting')
-    await executeIntent(intentId, tx.hash)
+    await executeIntent(intentId, txHash)
 
     this.updateState('trailsWaiting')
     await waitReceipt(intentId)
@@ -169,25 +186,13 @@ export class TransferTrailsExt2S extends Action {
 
     const depositTx = quote.intent.depositTransaction
 
-    this.updateState('switch')
-    const signer = await this.signer(
-      this.sChain1!.provider,
-      this.chainName1
-    )
-
-    this.updateState('trailsDeposit')
-
     const balanceOnDestination = await this.sChain2.getERC20Balance(this.destToken, this.address)
 
-    const tx = await signer.sendTransaction({
-      to: depositTx.to,
-      data: depositTx.data,
-      value: depositTx.value
-    })
-    await tx.wait()
+    const txHash = await sendTrailsDeposit(this, this.sChain1!.provider, this.chainName1, depositTx)
+    await this.sChain1!.provider.waitForTransaction(txHash, 1)
 
     this.updateState('trailsExecuting')
-    await executeIntent(intentId, tx.hash)
+    await executeIntent(intentId, txHash)
 
     this.updateState('trailsWaiting')
     await waitReceipt(intentId)
@@ -235,7 +240,13 @@ export class TransferTrailsExt2S extends Action {
       this.address
     )
 
-    const wrapped = wrapWithTrailsRouter(mainnetTokenAddress, depositBoxAddress, rawCallData)
+    const routerAddress = await getTrailsRouterAddress()
+    const wrapped = wrapWithTrailsRouter(
+      mainnetTokenAddress,
+      depositBoxAddress,
+      rawCallData,
+      routerAddress
+    )
 
     try {
       this.trailsQuote = await quoteIntent({
@@ -287,19 +298,11 @@ export class TransferTrailsM2Ext extends Action {
 
     const depositTx = quote.intent.depositTransaction
 
-    this.updateState('switch')
-    const signer = await this.signer(this.mainnet.provider, 'mainnet')
-
-    this.updateState('trailsDeposit')
-    const tx = await signer.sendTransaction({
-      to: depositTx.to,
-      data: depositTx.data,
-      value: depositTx.value
-    })
-    await tx.wait()
+    const txHash = await sendTrailsDeposit(this, this.mainnet.provider, 'mainnet', depositTx)
+    await this.mainnet.provider.waitForTransaction(txHash, 1)
 
     this.updateState('trailsExecuting')
-    await executeIntent(intentId, tx.hash)
+    await executeIntent(intentId, txHash)
 
     this.updateState('trailsWaiting')
     await waitReceipt(intentId)
