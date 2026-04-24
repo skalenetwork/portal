@@ -64,14 +64,14 @@ function isMesonFailed(transfer: types.mp.TransferHistory): boolean {
 
 function transferTimestamp(transfer: types.mp.TransferHistory): string {
   if (isUnfinished(transfer)) return 'Unfinished'
-  if (isTrailsTransfer(transfer) && transfer.transactions.length === 0) {
-    return isTrailsFailed(transfer) ? 'Failed' : 'Completed'
+  if (transfer.transactions.length > 0) {
+    const last = transfer.transactions[transfer.transactions.length - 1]
+    return timeAgo(last.timestamp)
   }
-  if (isMesonTransfer(transfer) && transfer.transactions.length === 0) {
-    return isMesonFailed(transfer) ? 'Failed' : 'Completed'
-  }
-  const last = transfer.transactions[transfer.transactions.length - 1]
-  return timeAgo(last.timestamp)
+  if (transfer.timestamp) return timeAgo(transfer.timestamp)
+  if (isTrailsTransfer(transfer)) return isTrailsFailed(transfer) ? 'Failed' : 'Completed'
+  if (isMesonTransfer(transfer)) return isMesonFailed(transfer) ? 'Failed' : 'Completed'
+  return ''
 }
 
 function shortenValue(value: string | number, length: number = 8): string {
@@ -187,11 +187,9 @@ export default function History(props: {
                           {transfer.tokenKeyname}
                         </p>
                       </Tooltip>
-                      {!hasProvider && (
-                        <p className="text-sm font-semibold text-muted-foreground m-0">
-                          {transferTimestamp(transfer)}
-                        </p>
-                      )}
+                      <p className={`${size === 'sm' ? 'text-xs' : 'text-sm'} font-semibold text-muted-foreground m-0`}>
+                        {transferTimestamp(transfer)}
+                      </p>
                     </div>
                   </div>
                   {size === 'sm' ? (

@@ -228,7 +228,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           chainName2: get().chainName2,
           amount: get().amount,
           tokenKeyname: get().token.keyname,
-          address: address
+          address: address,
+          timestamp: Math.floor(Date.now() / 1000)
         }
         const intentId = get().trailsIntentId
         if (intentId) {
