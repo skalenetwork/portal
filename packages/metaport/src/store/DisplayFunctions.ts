@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { type types, constants } from '@/core'
+import { type types } from '@/core'
 import { useCollapseStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
 import { useSFuelStore } from '../store/SFuelStore'
@@ -32,7 +32,6 @@ export type DisplayFunctions = {
   showSwitch: () => boolean
   showInput: () => boolean
   showStepper: (address: types.AddressType) => boolean
-  showCP: () => boolean
   showWT: (address: types.AddressType) => boolean
   showTH: (address: types.AddressType) => boolean
 }
@@ -41,11 +40,9 @@ export const useDisplayFunctions = (): DisplayFunctions => {
   const expandedFrom = useCollapseStore((state) => state.expandedFrom)
   const expandedTo = useCollapseStore((state) => state.expandedTo)
   const expandedTokens = useCollapseStore((state) => state.expandedTokens)
-  const expandedCP = useCollapseStore((state) => state.expandedCP)
   const expandedTH = useCollapseStore((state) => state.expandedTH)
   const expandedWT = useCollapseStore((state) => state.expandedWT)
 
-  const chainName2 = useMetaportStore((state) => state.chainName2)
   const token = useMetaportStore((state) => state.token)
   const errorMessage = useMetaportStore((state) => state.errorMessage)
 
@@ -53,30 +50,20 @@ export const useDisplayFunctions = (): DisplayFunctions => {
   const hubOk = (hubChainData && hubChainData.ok) || !hubChainData
 
   const showFrom = (): boolean => {
-    return !expandedTo && !expandedTokens && !errorMessage && !expandedCP && !expandedTH
+    return !expandedTo && !expandedTokens && !errorMessage && !expandedTH
   }
 
   const showTo = (): boolean => {
-    return (
-      !expandedFrom && !expandedTokens && !errorMessage && !expandedCP && !expandedWT && !expandedTH
-    )
+    return !expandedFrom && !expandedTokens && !errorMessage && !expandedWT && !expandedTH
   }
 
   const showInput = (): boolean => {
-    return (
-      !expandedFrom && !expandedTo && !errorMessage && !expandedCP && !expandedWT && !expandedTH
-    )
+    return !expandedFrom && !expandedTo && !errorMessage && !expandedWT && !expandedTH
   }
 
   const showSwitch = (): boolean => {
     return (
-      !expandedFrom &&
-      !expandedTo &&
-      !expandedTokens &&
-      !errorMessage &&
-      !expandedCP &&
-      !expandedWT &&
-      !expandedTH
+      !expandedFrom && !expandedTo && !expandedTokens && !errorMessage && !expandedWT && !expandedTH
     )
   }
 
@@ -86,23 +73,10 @@ export const useDisplayFunctions = (): DisplayFunctions => {
       !expandedTo &&
       !expandedTokens &&
       !errorMessage &&
-      !expandedCP &&
       hubOk &&
       !expandedWT &&
       !expandedTH &&
       !!address
-    )
-  }
-
-  const showCP = (): boolean => {
-    return (
-      !expandedFrom &&
-      !expandedTo &&
-      !expandedTokens &&
-      !expandedTH &&
-      chainName2 === constants.MAINNET_CHAIN_NAME &&
-      !expandedWT &&
-      !!token
     )
   }
 
@@ -112,7 +86,6 @@ export const useDisplayFunctions = (): DisplayFunctions => {
       !expandedTo &&
       !expandedTokens &&
       !errorMessage &&
-      !expandedCP &&
       !expandedTH &&
       !!address &&
       !!token
@@ -121,13 +94,7 @@ export const useDisplayFunctions = (): DisplayFunctions => {
 
   const showTH = (address: types.AddressType): boolean => {
     return (
-      !expandedFrom &&
-      !expandedTo &&
-      !expandedTokens &&
-      !errorMessage &&
-      !expandedCP &&
-      !expandedWT &&
-      !!address
+      !expandedFrom && !expandedTo && !expandedTokens && !errorMessage && !expandedWT && !!address
     )
   }
 
@@ -137,7 +104,6 @@ export const useDisplayFunctions = (): DisplayFunctions => {
     showInput,
     showSwitch,
     showStepper,
-    showCP,
     showWT,
     showTH
   }

@@ -62,7 +62,10 @@ export class TransferERC20S2S extends Action {
         erc20SAddress,
         amountWei
       )
-      const txBlock = await helper.getBlockWithRetry(sChain.provider, approveTx.response.blockNumber)
+      const txBlock = await helper.getBlockWithRetry(
+        sChain.provider,
+        approveTx.response.blockNumber
+      )
       this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
       log.info('ApproveERC20S:execute - tx completed: %O', approveTx)
     }
@@ -143,7 +146,10 @@ export class WrapERC20S extends Action {
         this.token.wrapper(this.chainName2) as types.AddressType,
         amountWei
       )
-      const txBlock = await helper.getBlockWithRetry(this.sChain1.provider, approveTx.response.blockNumber)
+      const txBlock = await helper.getBlockWithRetry(
+        this.sChain1.provider,
+        approveTx.response.blockNumber
+      )
       this.updateState('approveWrapDone', approveTx.response.hash, txBlock.timestamp)
     }
     this.updateState('wrap')
@@ -259,7 +265,10 @@ export class TransferERC20M2S extends Action {
         amountWei
       )
 
-      const txBlock = await helper.getBlockWithRetry(mainnet.provider, approveTx.response.blockNumber)
+      const txBlock = await helper.getBlockWithRetry(
+        mainnet.provider,
+        approveTx.response.blockNumber
+      )
       this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
     }
     this.updateState('transfer')
@@ -298,7 +307,17 @@ export class TransferERC20M2S extends Action {
 export class TransferERC20S2M extends Action {
   async execute() {
     this.updateState('init')
-    // check approve + approve
+
+    const communityLocker = await this.sChain1.communityLocker()
+    const isActive = await communityLocker.activeUsers(this.address)
+    log.info('TransferERC20S2M: bridge balance check', {
+      address: this.address,
+      chainName: this.chainName1,
+      isActive
+    })
+    if (!isActive) {
+      throw new Error('Wallet is not active on the SKALE chain. Please top up your bridge balance.')
+    }
 
     const erc20S = await this.sChain1.erc20()
     const erc20SAddress = (await erc20S.getAddress()) as types.AddressType
@@ -321,7 +340,10 @@ export class TransferERC20S2M extends Action {
         erc20SAddress,
         amountWei
       )
-      const txBlock = await helper.getBlockWithRetry(sChain.provider, approveTx.response.blockNumber)
+      const txBlock = await helper.getBlockWithRetry(
+        sChain.provider,
+        approveTx.response.blockNumber
+      )
       this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
       log.info('ApproveERC20S:execute - tx completed: %O', approveTx)
     }

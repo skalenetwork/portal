@@ -58,11 +58,11 @@ import StakeValidator from './pages/StakeValidator'
 import StakeAmount from './pages/StakeAmount'
 import Validators from './pages/Validators'
 import Validator from './pages/Validator'
-import Onramp from './pages/Onramp'
 import TermsModal from './components/TermsModal'
 import Changelog from './pages/Changelog'
 import Credits from './pages/Credits'
 import CreditsAdmin from './pages/CreditsAdmin'
+import BridgeBalance from './pages/BridgeBalance'
 
 import MetricsWarning from './components/MetricsWarning'
 import ScrollToTop from './components/ScrollToTop'
@@ -213,6 +213,7 @@ export default function Router(props: {
         <Route path="bridge" element={<Bridge chainsMeta={chainsMeta} />} />
         <Route path="bridge">
           <Route path="history" element={<History />} />
+          <Route path="balance" element={<BridgeBalance />} />
         </Route>
         <Route path="portfolio" element={<Portfolio mpc={mpc} />} />
         <Route
@@ -270,7 +271,7 @@ export default function Router(props: {
             }
           />
         </Route>
-        <Route path="onramp" element={<Onramp mpc={mpc} />} />
+        <Route path="onramp" element={<Navigate to="/bridge" replace />} />
         <Route
           path="credits"
           element={

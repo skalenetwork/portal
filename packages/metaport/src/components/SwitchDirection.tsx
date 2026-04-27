@@ -1,7 +1,7 @@
-import { useRef } from 'react'
+import { useRef, useState } from 'react'
 
 import IconButton from '@mui/material/IconButton'
-import { ArrowDown } from 'lucide-react'
+import { ArrowDown, ArrowDownUp } from 'lucide-react'
 
 import { useUIStore } from '../store/Store'
 import { useMetaportStore } from '../store/MetaportStore'
@@ -26,6 +26,7 @@ export default function SwitchDirection() {
   const startOver = useMetaportStore((state) => state.startOver)
   const loading = useMetaportStore((state) => state.loading)
   const transferInProgress = useMetaportStore((state) => state.transferInProgress)
+  const [hovered, setHovered] = useState(false)
 
   async function doSwitch() {
     const element = myElement.current
@@ -53,12 +54,11 @@ export default function SwitchDirection() {
       <div
         className="flex justify-center items-center bg-background! p-2.5 -my-5 z-30 rounded-full"
         ref={myElement}
-
       >
         <IconButton
           size="medium"
           color="primary"
-          className='bg-foreground!'
+          className="bg-foreground!"
           style={{
             backgroundColor: metaportTheme.primary,
             borderColor: metaportTheme.background,
@@ -66,8 +66,14 @@ export default function SwitchDirection() {
           }}
           disabled={loading || transferInProgress}
           onClick={doSwitch}
+          onMouseEnter={() => setHovered(true)}
+          onMouseLeave={() => setHovered(false)}
         >
-          <ArrowDown className='text-accent' size={17} />
+          {hovered ? (
+            <ArrowDownUp className="text-accent" size={17} />
+          ) : (
+            <ArrowDown className="text-accent" size={17} />
+          )}
         </IconButton>
       </div>
       <div className="flex grow"></div>

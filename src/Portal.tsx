@@ -141,7 +141,7 @@ export default function Portal() {
       <CssBaseline />
       <Header address={address} mpc={mpc} openProfileModal={openProfileModal} />
       <SkDrawer validatorDelegations={validatorDelegations} />
-      <div className="w-full" id="appContentScroll">
+      <div className="w-full pb-20 sm:pb-0" id="appContentScroll">
         <Router
           loadData={loadData}
           schains={schains}

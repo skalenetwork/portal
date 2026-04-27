@@ -42,6 +42,10 @@ export const META_TAGS = {
     description:
       'SKALE Bridge transfers history - detailed overview of past transactions and links to block explorers.'
   },
+  bridgeBalance: {
+    title: 'SKALE Portal - Bridge Balance',
+    description: 'Manage your ETH bridge balance used for gas fees on Ethereum Mainnet transfers.'
+  },
   portfolio: {
     title: 'SKALE Portal - Portfolio',
     description: 'Assets overview across all SKALE Chains.'
@@ -80,10 +84,5 @@ export const META_TAGS = {
     title: 'SKALE Portal - Validator',
     description: 'Delegations and chain rewards management',
     help: 'Manage your validator and delegations, review your delegations and chain rewards.'
-  },
-  onramp: {
-    title: 'SKALE Portal - Onramp',
-    description: 'Purchase crypto directly on SKALE Europa Hub using the Transak onramp.',
-    help: 'Use your preferred fiat currency to get USDC directly on the SKALE Europa Hub.'
   }
 }

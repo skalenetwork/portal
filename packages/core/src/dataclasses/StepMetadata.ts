@@ -35,7 +35,13 @@ export enum ActionType {
   eth_m2s = 'eth_m2s',
   eth_s2m = 'eth_s2m',
   eth_s2s = 'eth_s2s',
-  eth_unlock = 'eth_unlock'
+  eth_unlock = 'eth_unlock',
+  recharge = 'recharge',
+  trails_ext2m = 'trails_ext2m',
+  trails_ext2s = 'trails_ext2s',
+  trails_m2ext = 'trails_m2ext',
+  meson_ext2s = 'meson_ext2s',
+  meson_s2ext = 'meson_s2ext'
 }
 
 export function getActionType(
@@ -67,7 +73,7 @@ export abstract class StepMetadata {
     public type: ActionType,
     public from: string,
     public to: string
-  ) {}
+  ) { }
 }
 
 export class TransferStepMetadata extends StepMetadata {
@@ -120,5 +126,52 @@ export class UnlockStepMetadata extends StepMetadata {
     public to: string
   ) {
     super(ActionType.eth_unlock, from, to)
+  }
+}
+
+export class RechargeStepMetadata extends StepMetadata {
+  headline: string = 'Top up bridge balance on'
+  text: string = 'Gas deposit required to cover the cost of delivering your transfer.'
+  btnText: string = 'Top up'
+  btnLoadingText: string = 'Topping up bridge balance'
+  onSource: boolean = false
+
+  constructor(
+    public from: string,
+    public to: string
+  ) {
+    super(ActionType.recharge, from, to)
+  }
+}
+
+export class TrailsTransferStepMetadata extends StepMetadata {
+  headline: string = 'Transfer via Trails to'
+  text: string = 'Cross-chain transfer routed via Trails intent protocol.'
+  btnText: string = 'Transfer'
+  btnLoadingText: string = 'Transferring via Trails'
+  onSource: boolean = false
+
+  constructor(
+    type: ActionType,
+    public from: string,
+    public to: string
+  ) {
+    super(type, from, to)
+  }
+}
+
+export class MesonTransferStepMetadata extends StepMetadata {
+  headline: string = 'Transfer via Meson to'
+  text: string = 'Cross-chain swap routed via Meson protocol.'
+  btnText: string = 'Transfer'
+  btnLoadingText: string = 'Transferring via Meson'
+  onSource: boolean = false
+
+  constructor(
+    type: ActionType,
+    public from: string,
+    public to: string
+  ) {
+    super(type, from, to)
   }
 }

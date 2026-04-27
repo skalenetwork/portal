@@ -24,7 +24,25 @@
 import { Logger, type ILogObj } from 'tslog'
 import { dc, type types, constants } from '@/core'
 
+import { isExtChain } from './network'
+
 const log = new Logger<ILogObj>({ name: 'metaport:core:transfer_steps' })
+
+function isTrailsBridge(
+  config: types.mp.Config,
+  token: dc.TokenData,
+  to: string
+): boolean {
+  return token.connections[to]?.bridge === 'trails'
+}
+
+function isMesonBridge(
+  config: types.mp.Config,
+  token: dc.TokenData,
+  to: string
+): boolean {
+  return token.connections[to]?.bridge === 'meson'
+}
 
 export function getStepsMetadata(
   config: types.mp.Config,
@@ -34,12 +52,68 @@ export function getStepsMetadata(
   const steps: dc.StepMetadata[] = []
   if (token === undefined || token === null || to === null || to === '') return steps
 
+  if (isMesonBridge(config, token, to)) {
+    const isExtSource = isExtChain(token.chain)
+    const isExtDest = isExtChain(to)
+
+    if (isExtSource && !isExtDest) {
+      steps.push(new dc.MesonTransferStepMetadata(dc.ActionType.meson_ext2s, token.chain, to))
+      log.info('Meson ext2s transfer steps:', steps)
+      return steps
+    }
+
+    if (!isExtSource && isExtDest) {
+      steps.push(new dc.MesonTransferStepMetadata(dc.ActionType.meson_s2ext, token.chain, to))
+      log.info('Meson s2ext transfer steps:', steps)
+      return steps
+    }
+  }
+
+  if (isTrailsBridge(config, token, to)) {
+    const isExtSource = isExtChain(token.chain)
+    const isExtDest = isExtChain(to)
+
+    if (isExtSource && !isExtDest) {
+      const isDestSChain = to !== constants.MAINNET_CHAIN_NAME
+      const actionType = isDestSChain ? dc.ActionType.trails_ext2s : dc.ActionType.trails_ext2m
+      steps.push(new dc.TrailsTransferStepMetadata(actionType, token.chain, to))
+      log.info('Trails transfer steps:', steps)
+      return steps
+    }
+
+    if (!isExtSource && isExtDest) {
+      const sChainName = token.chain
+      steps.push(new dc.RechargeStepMetadata(sChainName, constants.MAINNET_CHAIN_NAME))
+      steps.push(
+        new dc.TransferStepMetadata(
+          dc.ActionType.erc20_s2m,
+          sChainName,
+          constants.MAINNET_CHAIN_NAME
+        )
+      )
+      steps.push(
+        new dc.TrailsTransferStepMetadata(
+          dc.ActionType.trails_m2ext,
+          constants.MAINNET_CHAIN_NAME,
+          to
+        )
+      )
+      log.info('Trails S2Ext transfer steps:', steps)
+      return steps
+    }
+  }
+
   const toChain = token.connections[to].hub ?? to
   const hubTokenOptions = config.connections[toChain][token.type][token.keyname].chains[token.chain]
   const destTokenOptions = config.connections[to][token.type][token.keyname].chains[token.chain]
   const isCloneToClone = token.isClone(to) && destTokenOptions.clone
 
   log.info(`Setting toChain: ${toChain}`)
+
+  if (to === constants.MAINNET_CHAIN_NAME) {
+    const exitChain = token.connections[to].hub ?? token.chain
+    steps.push(new dc.RechargeStepMetadata(exitChain, to))
+  }
 
   if (token.connections[toChain].wrapper) {
     steps.push(new dc.WrapStepMetadata(token.chain, to))

@@ -33,6 +33,7 @@ export default function PageCard(props: {
   description: string
   bgKey: string
   url?: string
+  isNew?: boolean
 }) {
   const isExternal = props.url?.startsWith('http') ?? false
   return (
@@ -64,7 +65,14 @@ export default function PageCard(props: {
                 </div>
               </div>
               <div>
-                <h3 className="capitalize m-0 text-foreground font-semibold">{props.name}</h3>
+                <div className="flex items-center gap-2">
+                  <h3 className="capitalize m-0 text-foreground font-semibold">{props.name}</h3>
+                  {props.isNew && (
+                    <span className="ml-0.5 px-1.5 py-0.5 text-[10px] font-bold rounded-full bg-red-600 text-white align-middle">
+                      NEW
+                    </span>
+                  )}
+                </div>
                 <p className="text-xs text-secondary-foreground mt-0.5">{props.description}</p>
               </div>
             </div>

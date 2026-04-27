@@ -107,25 +107,25 @@ export default function TokenList() {
   const filteredTokensCount = Object.keys(filteredTokens).length
 
   return (
-    <div className='flex items-center'>
+    <div className="flex items-center">
       <div>
         <Button
           className="flex items-center w-full p-3.5! pr-1! ml-2 hover:bg-muted-foreground/10!"
           onClick={handleOpen}
           disabled={transferInProgress}
-          endIcon={
-            <ChevronDown className="text-secondary-foreground mr-3" size={17} />
-          }
+          endIcon={<ChevronDown className="text-secondary-foreground mr-3" size={17} />}
         >
           <div className={`flex items-center mr-2.5  ${noTokens ? 'opacity-50' : ''}`}>
             <TokenIcon
               key={token?.meta.symbol}
               tokenSymbol={token?.meta.symbol}
               iconUrl={token?.meta.iconUrl}
-              size='sm'
+              size="sm"
             />
           </div>
-          <p className={`text-lg font-bold text-foreground ${noTokens ? 'opacity-50' : ''} flex grow`}>
+          <p
+            className={`text-lg font-bold text-foreground ${noTokens ? 'opacity-50' : ''} flex grow`}
+          >
             {tokensText}
           </p>
         </Button>
@@ -135,17 +135,16 @@ export default function TokenList() {
         onClose={handleClose}
         className={styles.metaport + ' ' + styles.backdropBlur}
       >
-        <Container maxWidth="sm" className={styles.modalContainer}>
-          <div className="flex mb-5">
-            <div className="grow"></div>
+        <Container maxWidth="sm" className={styles.modalContainer} onClick={handleClose}>
+          <div className="flex items-center justify-center mb-5">
             <SkPaper gray>
-              <p className="text-sm font-bold text-foreground mt-1.5 mb-1.5 ml-5 mr-5">
+              <p className="text-sm text-foreground font-semibold my-0.5 mx-3 flex items-center text-center">
                 Select a token
               </p>
             </SkPaper>
-            <div className="grow"></div>
           </div>
-          <SkPaper gray className='p-4!'>
+          <div onClick={(e) => e.stopPropagation()}>
+          <SkPaper gray className="p-4!">
             <TextField
               fullWidth
               placeholder="Search tokens"
@@ -181,6 +180,7 @@ export default function TokenList() {
               searchQuery={searchQuery}
             />
           </SkPaper>
+          </div>
         </Container>
       </Modal>
     </div>

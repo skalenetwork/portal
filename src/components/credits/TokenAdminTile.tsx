@@ -31,7 +31,7 @@ import {
   useWagmiSwitchNetwork,
   sendTransaction
 } from '@skalenetwork/metaport'
-import { types, units, constants } from '@/core'
+import { types, units, constants, notify } from '@/core'
 import { prepareSignerForWrite } from '../../core/credit-station'
 
 import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
@@ -63,8 +63,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
   creditStation,
   tokenMeta,
   tokenData,
-  symbol,
-  setErrorMsg
+  symbol
 }) => {
   const [openModal, setOpenModal] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
@@ -86,12 +85,17 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
 
   async function updatePrice() {
     if (!creditStation || price === '') return
+    if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
+      notify.permanentError('Something is wrong with your wallet, try again')
+      setOpenModal(false)
+      return
+    }
     setLoading(true)
 
-    try {
-      const decimals = tokenMeta?.decimals || constants.DEFAULT_ERC20_DECIMALS
-      const priceWei = units.toWei(price.toString(), decimals)
+    const decimals = tokenMeta?.decimals || constants.DEFAULT_ERC20_DECIMALS
+    const priceWei = units.toWei(price.toString(), decimals)
 
+    try {
       const signer = await prepareSignerForWrite(
         creditStation,
         walletClient,
@@ -99,21 +103,16 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
         network,
         constants.MAINNET_CHAIN_NAME
       )
-
-      const res = await sendTransaction(
+      await sendTransaction(
         signer,
         creditStation.setPrice,
         [tokenData.address, priceWei],
         'creditStation:setPrice'
       )
-      if (!res.status) {
-        setErrorMsg(res.err?.name || 'Transaction failed')
-        return
-      }
-
+      notify.temporarySuccess(`Price updated for ${symbol.toUpperCase()}`)
       await loadTokenPrices()
     } catch (e: any) {
-      setErrorMsg(e.message || e.toString())
+      notify.permanentError(e.toString())
     } finally {
       setLoading(false)
       setOpenModal(false)
@@ -240,7 +239,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
           </SkPaper>
           <Button
             variant="contained"
-            className="btnMd ml-5 w-full mt-4! mb-2! bg-accent-foreground! disabled:bg-muted-foreground/30! disabled:text-muted! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+            className="btnMd ml-5 w-full mt-4! mb-2! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
             size="large"
             onClick={updatePrice}
             disabled={loading || price === ''}

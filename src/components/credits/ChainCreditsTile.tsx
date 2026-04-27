@@ -44,7 +44,7 @@ import {
   CirclePlus
 } from 'lucide-react'
 
-import { types, metadata, units, constants, ERC_ABIS } from '@/core'
+import { types, metadata, units, constants, ERC_ABIS, notify } from '@/core'
 import { MAINNET_ALIASES } from '@/core/networks'
 
 import { useState, useEffect } from 'react'
@@ -147,6 +147,12 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
 
   async function buyCredits() {
     if (!creditStation || !token) return
+    if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
+      setErrorMsg('Something is wrong with your wallet, try again')
+      notify.permanentError('Something is wrong with your wallet, try again')
+      setOpenModal(false)
+      return
+    }
     setLoading(true)
     setErrorMsg(undefined)
 
@@ -167,32 +173,26 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
       const connectedToken = new Contract(tokenAddress, ERC_ABIS.erc20.abi, signer)
       const creditStationAddress = await creditStation.getAddress()
 
-      const approveRes = await sendTransaction(
+      await sendTransaction(
         signer,
         connectedToken.approve,
         [creditStationAddress, amountWei],
         'creditStation:approve',
         CREDITS_CONFIRMATION_BLOCKS
       )
-      if (!approveRes.status) {
-        setErrorMsg(approveRes.err?.name)
-        return
-      }
 
-      const res = await sendTransaction(
+      await sendTransaction(
         signer,
         creditStation.buy,
         [schain.name, address, tokens[token].address],
         'creditStation:buy',
         CREDITS_CONFIRMATION_BLOCKS
       )
-      if (!res.status) {
-        setErrorMsg(res.err?.name)
-        return
-      }
+      notify.temporarySuccess(`Credits purchased for ${chainAlias}`)
     } catch (e: any) {
-      console.error(e)
-      setErrorMsg(e.toString())
+      const errMsg = e.toString()
+      setErrorMsg(errMsg)
+      notify.permanentError(errMsg)
     } finally {
       setLoading(false)
       setOpenModal(false)
@@ -247,7 +247,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                   size="small"
                   variant="contained"
                   startIcon={<CirclePlus size={14} />}
-                  className="btnMd ml-5 bg-accent-foreground! disabled:bg-muted-foreground/30! disabled:text-muted! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+                  className="btnMd ml-5 bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
                   onClick={() => setOpenModal(true)}
                   disabled={creditStation === undefined}
                 >
@@ -301,7 +301,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                           <Button
                             color="primary"
                             size="small"
-                            className={`items-center mr-2.5! p-4! py-3! pr-5! rounded-full! uppercase btnLg bg-muted-foreground/30! text-foreground! ease-in-out transition-transform duration-150 active:scale-[0.97] ${symbol !== token ? 'bg-card!' : ''} ${symbol !== token ? 'text-foreground!' : ''}`}
+                            className={`items-center mr-2.5! p-4! py-3! pr-5! rounded-full! uppercase btnLg bg-muted-foreground/50! text-foreground! ease-in-out transition-transform duration-150 active:scale-[0.97] ${symbol !== token ? 'bg-card!' : ''} ${symbol !== token ? 'text-foreground!' : ''}`}
                             variant="contained"
                             onClick={() => setToken(symbol)}
                           >
@@ -385,7 +385,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
           </div>
           <Button
             variant="contained"
-            className="btn mt-4! p-4! w-full capitalize! bg-accent-foreground! disabled:bg-muted-foreground/30! disabled:text-muted! text-accent!"
+            className="btn mt-4! p-4! w-full capitalize! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-accent!"
             startIcon={<CoinsIcon size={17} />}
             size="large"
             onClick={buyCredits}
