@@ -27,7 +27,7 @@ import { Link } from 'react-router-dom'
 import { type Signer, isAddress } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
 import { SkPaper, contracts, type MetaportCore } from '@skalenetwork/metaport'
-import { types } from '@/core'
+import { types, notify } from '@/core'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
@@ -50,7 +50,6 @@ import {
 } from '../core/delegation/stakingActions'
 
 import { BALANCE_UPDATE_INTERVAL_MS } from '../core/constants'
-import ErrorTile from '../components/ErrorTile'
 import ConnectWallet from '../components/ConnectWallet'
 import Headline from '../components/Headline'
 import Message from '../components/Message'
@@ -69,7 +68,6 @@ export default function Staking(props: {
   getMainnetSigner: () => Promise<Signer>
 }) {
   const [loading, setLoading] = useState<LoadingState>(false)
-  const [errorMsg, setErrorMsg] = useState<string | undefined>()
   const [customRewardAddress, setCustomRewardAddress] = useState<types.AddressType | undefined>(
     props.address
   )
@@ -97,7 +95,6 @@ export default function Staking(props: {
       skaleNetwork: props.mpc.config.skaleNetwork,
       getMainnetSigner: props.getMainnetSigner,
       setLoading,
-      setErrorMsg,
       postAction: props.loadStakingInfo
     }),
     [
@@ -118,7 +115,6 @@ export default function Staking(props: {
   async function handleRetrieveRewards(rewardInfo: types.st.IRewardInfo) {
     if (!isAddress(customRewardAddress)) {
       notify.permanentError('Invalid address')
-      setErrorMsg('Invalid address')
       setLoading(false)
       return
     }
@@ -258,8 +254,6 @@ export default function Staking(props: {
         </SkPaper>
       </Collapse>
 
-      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-5" />
-
       <SkPaper gray className="mt-5">
         <Collapse in={props.address !== undefined}>
           <Delegations
@@ -267,8 +261,6 @@ export default function Staking(props: {
             si={props.si}
             retrieveRewards={handleRetrieveRewards}
             loading={loading}
-            setErrorMsg={setErrorMsg}
-            errorMsg={errorMsg}
             unstake={handleUnstake}
             cancelRequest={handleCancelRequest}
             address={props.address}

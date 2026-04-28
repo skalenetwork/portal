@@ -26,7 +26,6 @@ import { sendTransaction, contracts } from '@skalenetwork/metaport'
 import { type types, notify } from '@/core'
 export type LoadingState = types.st.IRewardInfo | types.st.IDelegationInfo | false
 export type SetLoadingFn = (state: LoadingState) => void
-export type SetErrorFn = (msg: string | undefined) => void
 export type PostActionFn = () => Promise<void>
 
 export interface StakingActionProps {
@@ -35,7 +34,6 @@ export interface StakingActionProps {
   skaleNetwork: types.SkaleNetwork
   getMainnetSigner: () => Promise<Signer>
   setLoading: SetLoadingFn
-  setErrorMsg: SetErrorFn
   postAction: PostActionFn
 }
 
@@ -54,7 +52,6 @@ async function processTx({
 }) {
   if (!props.sc || !props.address) return
 
-  props.setErrorMsg(undefined)
   const toastId = notify.loading(`Processing ${txName}...`)
   try {
     const signer = await props.getMainnetSigner()
@@ -71,7 +68,6 @@ async function processTx({
     await props.postAction()
   } catch (err: any) {
     const errMsg = err.message || 'Transaction failed'
-    props.setErrorMsg(errMsg)
     notify.permanentError(errMsg, toastId)
   } finally {
     props.setLoading(false)

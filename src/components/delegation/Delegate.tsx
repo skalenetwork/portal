@@ -21,7 +21,7 @@
  */
 
 import { Logger, type ILogObj } from 'tslog'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { type Signer } from 'ethers'
 
@@ -40,7 +40,6 @@ import { TextField, Tooltip } from '@mui/material'
 import { ArrowDown, CalendarSync, Clock, Share2 } from 'lucide-react'
 
 import SkStack from '../SkStack'
-import ErrorTile from '../ErrorTile'
 import Loader from '../Loader'
 import DelegationFlow from './DelegationFlow'
 import { notify } from '@/core'
@@ -56,8 +55,6 @@ export default function Delegate(props: {
   delegationType: types.st.DelegationType
   loaded: boolean
   delegationTypeAvailable: boolean
-  errorMsg: string | undefined
-  setErrorMsg: (msg: string | undefined) => void
   className?: string
   sklPrice: bigint
 }) {
@@ -67,11 +64,17 @@ export default function Delegate(props: {
 
   const navigate = useNavigate()
 
+  useEffect(() => {
+    if (props.loaded && !props.delegationTypeAvailable && props.address) {
+      notify.permanentError('Delegation type is not available')
+    }
+  }, [props.loaded, props.delegationTypeAvailable, props.address])
+
   if (!props.loaded || !props.validator) {
     return <Loader text="Loading staking info" />
   }
   if (props.loaded && !props.delegationTypeAvailable && props.address) {
-    return <ErrorTile errorMsg="Delegation type is not available" />
+    return null
   }
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -86,7 +89,7 @@ export default function Delegate(props: {
   async function stake() {
     setLoading(true)
     if (props.validator === undefined) {
-      props.setErrorMsg('Validator not found')
+      notify.permanentError('Validator not found')
       setLoading(false)
       return
     }
@@ -119,7 +122,6 @@ export default function Delegate(props: {
     } catch (err: any) {
       log.error(err)
       const errMsg = err.message ? err.message : constants.DEFAULT_ERROR_MSG
-      props.setErrorMsg(errMsg)
       notify.permanentError(errMsg)
       setLoading(false)
     }
@@ -233,8 +235,6 @@ export default function Delegate(props: {
           }
         />
       </SkStack>
-
-      <ErrorTile errorMsg={props.errorMsg} setErrorMsg={props.setErrorMsg} className="mt-2.5" />
 
       {loading ? (
         <Button

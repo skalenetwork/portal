@@ -49,7 +49,6 @@ import SortToggle from '../components/delegation/SortToggle'
 import ShowMoreButton from '../components/delegation/ShowMoreButton'
 import DelegationTotals from '../components/delegation/DelegationTotals'
 import Message from '../components/Message'
-import ErrorTile from '../components/ErrorTile'
 import ChainRewards from '../components/delegation/ChainRewards'
 import { Building2, Eye, Rows3, UserSearch } from 'lucide-react'
 
@@ -68,7 +67,6 @@ export default function Validator(props: {
   const [visibleItems, setVisibleItems] = useState(ITEMS_PER_PAGE)
 
   const [loading, setLoading] = useState<LoadingState>(false)
-  const [errorMsg, setErrorMsg] = useState<string | undefined>()
 
   const getStakingActionProps = useCallback(
     (): StakingActionProps => ({
@@ -77,7 +75,6 @@ export default function Validator(props: {
       skaleNetwork: props.mpc.config.skaleNetwork,
       getMainnetSigner: props.getMainnetSigner,
       setLoading,
-      setErrorMsg,
       postAction: props.loadValidator
     }),
     [
@@ -233,7 +230,6 @@ export default function Validator(props: {
           chainsMeta={props.chainsMeta}
         />
       )}
-      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} className="mt-5" />
       {props.validator && (
         <SkPaper gray className="mt-5">
           <div>

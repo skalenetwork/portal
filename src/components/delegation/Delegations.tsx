@@ -34,8 +34,6 @@ export default function Delegations(props: {
   validators: types.st.IValidator[]
   retrieveRewards: (rewardInfo: types.st.IRewardInfo) => Promise<void>
   loading: types.st.IRewardInfo | types.st.IDelegationInfo | false
-  setErrorMsg: (errorMsg: string | undefined) => void
-  errorMsg: string | undefined
   unstake: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
   cancelRequest: (delegationInfo: types.st.IDelegationInfo) => Promise<void>
   address: types.AddressType | undefined

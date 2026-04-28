@@ -35,7 +35,6 @@ export default function MonthSelector(props: {
   max: number
   topupPeriod: number
   setTopupPeriod: any
-  setErrorMsg: (errorMsg: string | undefined) => void
   className?: string
 }) {
   const [monthRecommendations, setMonthRecommendations] = useState<number[]>(MONTH_RECOMMENDATIONS)
@@ -100,12 +99,10 @@ export default function MonthSelector(props: {
                   Number(textPeriod) <= 0
                 ) {
                   notify.temporaryError('Incorrect top-up period')
-                  props.setErrorMsg('Incorrect top-up period')
                   return
                 }
                 if (props.max < Number(textPeriod)) {
                   notify.temporaryError(`Max topup amount: ${formatTimePeriod(props.max, 'month')}`)
-                  props.setErrorMsg(`Max topup amount: ${formatTimePeriod(props.max, 'month')}`)
                   return
                 }
                 setOpenCustom(false)
@@ -113,7 +110,6 @@ export default function MonthSelector(props: {
                   setCustomPeriod(Number(textPeriod))
                 }
                 props.setTopupPeriod(Number(textPeriod))
-                props.setErrorMsg(undefined)
               }}
             >
               <p className=" text-foreground! ml-1.5">Apply</p>

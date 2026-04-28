@@ -53,7 +53,6 @@ interface TokenAdminTileProps {
   tokenMeta: types.mp.TokenMetadata | undefined
   tokenData: types.mp.Token
   symbol: string
-  setErrorMsg: (msg: string) => void
 }
 
 const TokenAdminTile: React.FC<TokenAdminTileProps> = ({

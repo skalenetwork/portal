@@ -57,7 +57,6 @@ export default function Paymaster(props: {
   const paymasterChain = contracts.paymaster.getPaymasterChain(network)
 
   const [btnText, setBtnText] = useState<string | undefined>()
-  const [errorMsg, setErrorMsg] = useState<string | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
   const [inited, setInited] = useState<boolean>(false)
 
@@ -105,13 +104,11 @@ export default function Paymaster(props: {
   async function topupChain() {
     if (!paymaster) return
     if (!paymaster.runner?.provider || !walletClient || !switchChainAsync) {
-      setErrorMsg('Something is wrong with your wallet, try again')
       notify.permanentError('Something is wrong with your wallet, try again')
       return
     }
     setLoading(true)
     setBtnText(`Switch network to ${metadata.getAlias(network, props.chainsMeta, paymasterChain)}`)
-    setErrorMsg(undefined)
     try {
       const { chainId } = await paymaster.runner.provider.getNetwork()
       const paymasterAddress = contracts.paymaster.getPaymasterAddress(network)
@@ -139,7 +136,6 @@ export default function Paymaster(props: {
       await loadPaymasterInfo()
     } catch (e: any) {
       const errMsg = e.toString()
-      setErrorMsg(errMsg)
       notify.permanentError(errMsg)
     } finally {
       setLoading(false)
@@ -198,8 +194,6 @@ export default function Paymaster(props: {
           topupChain={topupChain}
           btnText={btnText}
           loading={loading}
-          errorMsg={errorMsg}
-          setErrorMsg={setErrorMsg}
         />
       )}
     </div>

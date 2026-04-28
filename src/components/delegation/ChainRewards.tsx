@@ -42,7 +42,6 @@ import { Button, IconButton, Tooltip } from '@mui/material'
 import { Blocks, CalendarArrowDown, CircleStar } from 'lucide-react'
 
 import Headline from '../Headline'
-import ErrorTile from '../ErrorTile'
 import SkStack from '../SkStack'
 
 interface ChainRewardsProps {
@@ -69,7 +68,6 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   const [sklPrice, setSklPrice] = useState<bigint | undefined>(undefined)
 
   const [btnText, setBtnText] = useState<string | undefined>()
-  const [errorMsg, setErrorMsg] = useState<string | undefined>()
   const [loading, setLoading] = useState<boolean>(false)
   const [paymaster, setPaymaster] = useState<Contract | undefined>()
 
@@ -142,13 +140,11 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
       !switchChainAsync ||
       !address
     ) {
-      setErrorMsg('Something is wrong with your wallet, try again')
       notify.permanentError('Something is wrong with your wallet, try again')
       return
     }
     setLoading(true)
     setBtnText('Switching network')
-    setErrorMsg(undefined)
     const toastId = notify.loading('Retrieving rewards...')
     try {
       const sFuelBalance = await paymaster.runner.provider.getBalance(address)
@@ -158,7 +154,6 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
         const station = new Station(paymasterChain, mpc)
         const powResult = await station.doPoW(address)
         if (!powResult.ok) {
-          setErrorMsg('Failed to mine sFUEL')
           notify.permanentError('Failed to mine sFUEL', toastId)
           return
         }
@@ -177,7 +172,6 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
       await loadData()
     } catch (e: any) {
       const errMsg = e.toString()
-      setErrorMsg(errMsg)
       notify.permanentError(errMsg, toastId)
     } finally {
       setLoading(false)
@@ -246,7 +240,6 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
           </SkStack>
         }
       />
-      <ErrorTile errorMsg={errorMsg} setErrorMsg={setErrorMsg} />
     </SkPaper>
   )
 }

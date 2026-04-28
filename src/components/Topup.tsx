@@ -32,7 +32,6 @@ import { ClockPlus } from 'lucide-react'
 import SkStack from './SkStack'
 import MonthSelector from './MonthSelector'
 import Loader from './Loader'
-import ErrorTile from './ErrorTile'
 import { formatTimePeriod, monthsBetweenNowAndTimestamp } from '../core/timeHelper'
 
 export default function Topup(props: {
@@ -44,8 +43,6 @@ export default function Topup(props: {
   tokenBalance: bigint | undefined
   topupChain: () => Promise<void>
   btnText: string | undefined
-  errorMsg: string | undefined
-  setErrorMsg: (errorMsg: string | undefined) => void
   loading: boolean
 }) {
   if (props.tokenBalance === undefined) return <Loader text="Loading balance info" />
@@ -80,7 +77,6 @@ export default function Topup(props: {
               max={maxTopupPeriod}
               topupPeriod={props.topupPeriod}
               setTopupPeriod={props.setTopupPeriod}
-              setErrorMsg={props.setErrorMsg}
             />
           }
           className="w-full!"
@@ -112,7 +108,6 @@ export default function Topup(props: {
           color={balanceOk ? undefined : 'error'}
         />
       </SkStack>
-      <ErrorTile errorMsg={props.errorMsg} setErrorMsg={props.setErrorMsg} />
       <div className="mt-5 mb-2.5 ml-1.5">
         <div className="flex flex-col md:flex-row gap-2.5">
           <Button

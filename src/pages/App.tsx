@@ -24,7 +24,7 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Helmet } from 'react-helmet'
 import { useParams } from 'react-router-dom'
-import { type types, metadata, units, constants } from '@/core'
+import { type types, metadata, units, constants, notify } from '@/core'
 
 import { explorer, MetaportCore, SkPaper, Tile } from '@skalenetwork/metaport'
 
@@ -51,7 +51,6 @@ import { getRecentApps, isNewApp, isTrending, isFeatured } from '../core/ecosyst
 
 import SocialButtons from '../components/ecosystem/Socials'
 import CategoriesChips from '../components/ecosystem/CategoriesChips'
-import ErrorTile from '../components/ErrorTile'
 import { ChipNew, ChipPreTge, ChipTrending, ChipFeatured } from '../components/Chip'
 import AppScreenshots from '../components/ecosystem/AppScreenshots'
 import RecommendedApps from '../components/ecosystem/RecommendedApps'
@@ -83,22 +82,18 @@ export default function App(props: {
 
   chain = metadata.findChainName(props.chainsMeta, chain ?? '')
   const chainMeta = props.chainsMeta[chain]
-  if (!chainMeta)
-    return (
-      <Container maxWidth="md">
-        <ErrorTile errorMsg={`No such chain: ${chain}`} />
-      </Container>
-    )
+  if (!chainMeta) {
+    notify.permanentError(`No such chain: ${chain}`)
+    return null
+  }
 
   const appAlias = metadata.getAlias(network, props.chainsMeta, chain, app)
   const appMeta = chainMeta.apps?.[app]
 
-  if (!appMeta)
-    return (
-      <Container maxWidth="md">
-        <ErrorTile errorMsg={`No such app: ${app}`} />
-      </Container>
-    )
+  if (!appMeta) {
+    notify.permanentError(`No such app: ${app}`)
+    return null
+  }
 
   const appDescription = appMeta.description ?? 'No description'
 
