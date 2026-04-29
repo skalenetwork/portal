@@ -202,6 +202,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
         if (err.shortMessage) {
           headline = err.shortMessage
         }
+        headline = headline.split(/[.\n(]/)[0].trim()
         headline = headline.charAt(0).toUpperCase() + headline.slice(1)
 
         notify.permanentError(headline)
