@@ -66,6 +66,7 @@ interface ChainCreditsTileProps {
   tokenPrices: Record<string, bigint>
   tokenBalances: types.mp.TokenBalancesMap | undefined
   setErrorMsg: (msg: string | undefined) => void
+  onPurchase?: () => void
 }
 
 const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
@@ -75,7 +76,8 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   creditStation,
   tokenPrices,
   tokenBalances,
-  setErrorMsg
+  setErrorMsg,
+  onPurchase
 }) => {
   const [openModal, setOpenModal] = useState(false)
   const [loading, setLoading] = useState<boolean>(false)
@@ -179,11 +181,14 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
       await sendTransaction(
         signer,
         creditStation.buy,
-        [schain.name, address, tokens[token].address, amountWei],
+        [schain.name, address, tokens[token].address, amount],
         'creditStation:buy',
         CREDITS_CONFIRMATION_BLOCKS
       )
-      notify.temporarySuccess(`Credits purchased for ${chainAlias}`)
+      notify.temporarySuccess(
+        `Purchased ${amount} ${amount === 1n ? 'Credit' : 'Credits'} for ${chainAlias}`
+      )
+      onPurchase?.()
     } catch (e: any) {
       const errMsg = e.toString()
       setErrorMsg(errMsg)

@@ -148,18 +148,20 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
               </div>
             )}
             {!isLoading &&
-              allPayments.map((payment: cs.Payment) => (
-                <CreditsHistoryTile
-                  key={`${payment.schainName}-${payment.id}`}
-                  payment={payment}
-                  mpc={mpc}
-                  chainsMeta={chainsMeta}
-                  ledgerContract={ledgerContracts[payment.schainName]}
-                  creditStation={creditStation}
-                  isAdmin={true}
-                  setErrorMsg={setErrorMsg}
-                />
-              ))}
+              [...allPayments]
+                .sort((a, b) => Number(b.id - a.id))
+                .map((payment: cs.Payment) => (
+                  <CreditsHistoryTile
+                    key={`${payment.schainName}-${payment.id}`}
+                    payment={payment}
+                    mpc={mpc}
+                    chainsMeta={chainsMeta}
+                    ledgerContract={ledgerContracts[payment.schainName]}
+                    creditStation={creditStation}
+                    isAdmin={true}
+                    setErrorMsg={setErrorMsg}
+                  />
+                ))}
           </div>
         </AccordionSection>
       </SkPaper>

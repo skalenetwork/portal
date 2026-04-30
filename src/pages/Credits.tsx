@@ -182,6 +182,7 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
                   tokenPrices={tokenPrices}
                   tokenBalances={tokenBalances}
                   setErrorMsg={setErrorMsg}
+                  onPurchase={loadPayments}
                 />
               ))}
             </Collapse>
@@ -202,17 +203,19 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
             marg={false}
           >
             <Collapse in={payments.length !== 0 && address !== undefined} className="-mb-2">
-              {[...payments].reverse().map((payment: cs.Payment) => (
-                <CreditsPaymentTile
-                  key={`${payment.schainName}-${payment.id}`}
-                  payment={payment}
-                  mpc={mpc}
-                  chainsMeta={chainsMeta}
-                  ledgerContract={ledgerContracts[payment.schainName]}
-                  creditStation={creditStation}
-                  setErrorMsg={setErrorMsg}
-                />
-              ))}
+              {[...payments]
+                .sort((a, b) => Number(b.id - a.id))
+                .map((payment: cs.Payment) => (
+                  <CreditsPaymentTile
+                    key={`${payment.schainName}-${payment.id}`}
+                    payment={payment}
+                    mpc={mpc}
+                    chainsMeta={chainsMeta}
+                    ledgerContract={ledgerContracts[payment.schainName]}
+                    creditStation={creditStation}
+                    setErrorMsg={setErrorMsg}
+                  />
+                ))}
             </Collapse>
             <Collapse in={payments.length === 0 && address !== undefined}>
               <div className="mt-5">

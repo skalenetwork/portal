@@ -24,7 +24,7 @@ import { useState, useEffect } from 'react'
 import Avatar from 'boring-avatars'
 import { Contract } from 'ethers'
 
-import { Grid, Button } from '@mui/material'
+import { Grid, Button, Tooltip } from '@mui/material'
 import HistoryToggleOffRoundedIcon from '@mui/icons-material/HistoryToggleOffRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
@@ -33,18 +33,19 @@ import {
   Tile,
   ChainIcon,
   TokenIcon,
+  explorer,
   useWagmiAccount,
   sendTransaction,
   useWagmiWalletClient,
   useWagmiSwitchNetwork
 } from '@skalenetwork/metaport'
-import { types, metadata, timeUtils, helper, notify } from '@/core'
+import { types, timeUtils, helper, notify, constants as coreConstants } from '@/core'
 
 import SkStack from '../SkStack'
 
 import * as cs from '../../core/credit-station'
 import { CREDITS_CONFIRMATION_BLOCKS, AVATAR_COLORS } from '../../core/constants'
-import { BadgeCheck, HandCoins, IdCard } from 'lucide-react'
+import { BadgeCheck, ExternalLink, HandCoins, IdCard } from 'lucide-react'
 
 interface CreditsPaymentTileProps {
   mpc: MetaportCore
@@ -66,13 +67,15 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
   setErrorMsg
 }) => {
   const network = mpc.config.skaleNetwork
-  const chainAlias = metadata.getAlias(network, chainsMeta, payment.schainName)
 
   const tokens = mpc.config.connections.mainnet?.erc20 || {}
   const tokenSymbol =
     Object.keys(tokens).find(
       (symbol) => tokens[symbol].address?.toLowerCase() === payment.tokenAddress.toLowerCase()
     ) || 'unknown'
+
+  const credits = payment.value
+  const creditsLabel = `${credits} ${credits === 1n ? 'Credit' : 'Credits'}`
 
   const [isFulfilled, setIsFulfilled] = useState<boolean>(false)
   const [txTimestamp, setTxTimestamp] = useState<number | undefined>(undefined)
@@ -158,16 +161,41 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
                 className="creditHistoryIcon"
               />
               <div className="ml-2.5 grow">
-                <h4 className="font-bold pOneLine text-foreground">
-                  {txTimestamp && !isAdmin
-                    ? timeUtils.timestampToDate(txTimestamp, true)
-                    : helper.shortAddress(payment.from)}
+                <h4 className="font-bold pOneLine text-foreground text-xl leading-tight">
+                  {creditsLabel}
                 </h4>
-                <p className="p text-xs text-secondary-foreground font-medium">
-                  {isAdmin && txTimestamp
-                    ? timeUtils.timestampToDate(txTimestamp, true)
-                    : chainAlias}
-                </p>
+                <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                  {txTimestamp && (
+                    <Tooltip title={timeUtils.timestampToFull(txTimestamp)} arrow placement="top">
+                      <p className="p text-xs text-muted-foreground font-medium cursor-default">
+                        {timeUtils.timestampToRelative(txTimestamp)}
+                      </p>
+                    </Tooltip>
+                  )}
+                  {isAdmin && (
+                    <>
+                      {txTimestamp && (
+                        <span className="text-muted-foreground/50 text-xs">·</span>
+                      )}
+                      <Tooltip title={payment.from} arrow placement="top">
+                        <a
+                          href={explorer.getExplorerUrlForAddress(
+                            undefined,
+                            network,
+                            coreConstants.MAINNET_CHAIN_NAME,
+                            payment.from
+                          )}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="p text-xs text-muted-foreground hover:text-foreground font-medium inline-flex items-center gap-1"
+                        >
+                          {helper.shortAddress(payment.from)}
+                          <ExternalLink size={11} />
+                        </a>
+                      </Tooltip>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           </Grid>
