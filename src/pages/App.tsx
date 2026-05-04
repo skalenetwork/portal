@@ -83,7 +83,7 @@ export default function App(props: {
   chain = metadata.findChainName(props.chainsMeta, chain ?? '')
   const chainMeta = props.chainsMeta[chain]
   if (!chainMeta) {
-    notify.permanentError(`No such chain: ${chain}`)
+    notify.permanentError(`No such chain: ${chain}`, undefined, false)
     return null
   }
 
@@ -91,7 +91,7 @@ export default function App(props: {
   const appMeta = chainMeta.apps?.[app]
 
   if (!appMeta) {
-    notify.permanentError(`No such app: ${app}`)
+    notify.permanentError(`No such app: ${app}`, undefined, false)
     return null
   }
 

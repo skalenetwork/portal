@@ -114,7 +114,7 @@ export default function Staking(props: {
 
   async function handleRetrieveRewards(rewardInfo: types.st.IRewardInfo) {
     if (!isAddress(customRewardAddress)) {
-      notify.permanentError('Invalid address')
+      notify.permanentError('Invalid address', undefined, false)
       setLoading(false)
       return
     }

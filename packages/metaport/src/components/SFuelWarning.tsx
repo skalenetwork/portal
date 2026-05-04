@@ -167,7 +167,7 @@ export default function SFuelWarning(props: {}) {
       if (fromPowRes) log.info(chainName1, fromPowRes.message)
       if (toPowRes) log.info(chainName2, toPowRes.message)
       if (hubPowRes) log.info(hubChain, hubPowRes.message)
-      notify.permanentError('Failed to get sFUEL', toastId)
+      notify.permanentError('Failed to get sFUEL', toastId, false)
     } else {
       notify.temporarySuccess('sFUEL received', toastId)
     }

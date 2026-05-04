@@ -101,7 +101,7 @@ export default function StakeAmount(props: {
   }
 
   useEffect(() => {
-    if (validatorId === -1) notify.permanentError('Validator ID is not found')
+    if (validatorId === -1) notify.permanentError('Validator ID is not found', undefined, false)
   }, [validatorId])
 
   if (validatorId === -1) {

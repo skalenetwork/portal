@@ -143,7 +143,7 @@ export async function withdraw(
     setLoading(false)
   } catch (err) {
     const msg = err.message ? err.message : DEFAULT_ERROR_MSG
-    notify.permanentError(msg, toastId)
+    notify.permanentError(msg, toastId, false)
     setErrorMessage(new dc.TransactionErrorMessage(msg, errorMessageClosedFallback))
   }
 }
@@ -197,7 +197,7 @@ export async function recharge(
     notify.temporarySuccess('Bridge balance topped up', toastId)
   } catch (err) {
     const msg = err.message ? err.message : DEFAULT_ERROR_MSG
-    notify.permanentError(msg, toastId)
+    notify.permanentError(msg, toastId, false)
     setErrorMessage(new dc.TransactionErrorMessage(msg, errorMessageClosedFallback))
   } finally {
     setLoading(false)

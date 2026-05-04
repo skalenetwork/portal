@@ -69,7 +69,7 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
   async function togglePause() {
     if (!creditStation) return
     if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
-      notify.permanentError('Something is wrong with your wallet, try again')
+      notify.permanentError('Something is wrong with your wallet, try again', undefined, false)
       return
     }
     setLoading(true)
@@ -90,7 +90,7 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
       notify.temporarySuccess(`Credit station ${action}d`)
       await loadPausedStatus()
     } catch (error) {
-      notify.permanentError('Transaction failed')
+      notify.permanentError('Transaction failed', undefined, false)
     } finally {
       setLoading(false)
     }

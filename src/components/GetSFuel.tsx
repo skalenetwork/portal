@@ -53,7 +53,7 @@ function SingleChainSFuel({ chainName, mpc }: { chainName: string; mpc: Metaport
       try {
         const { ok: mined } = await station.doPoW(addr)
         if (!mined) {
-          notify.permanentError('Failed to get sFUEL', toastId)
+          notify.permanentError('Failed to get sFUEL', toastId, false)
           return
         }
         await new Promise((r) => setTimeout(r, 3000))
@@ -63,7 +63,7 @@ function SingleChainSFuel({ chainName, mpc }: { chainName: string; mpc: Metaport
         if (ok) {
           notify.temporarySuccess('sFUEL received', toastId)
         } else {
-          notify.permanentError('Failed to get sFUEL', toastId)
+          notify.permanentError('Failed to get sFUEL', toastId, false)
         }
       } finally {
         setLoading(false)

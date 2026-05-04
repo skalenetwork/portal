@@ -146,7 +146,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   async function buyCredits() {
     if (!creditStation || !token) return
     if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
-      notify.permanentError('Something is wrong with your wallet, try again')
+      notify.permanentError('Something is wrong with your wallet, try again', undefined, false)
       setOpenModal(false)
       return
     }

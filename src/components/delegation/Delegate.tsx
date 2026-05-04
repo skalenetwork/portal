@@ -66,7 +66,7 @@ export default function Delegate(props: {
 
   useEffect(() => {
     if (props.loaded && !props.delegationTypeAvailable && props.address) {
-      notify.permanentError('Delegation type is not available')
+      notify.permanentError('Delegation type is not available', undefined, false)
     }
   }, [props.loaded, props.delegationTypeAvailable, props.address])
 
@@ -89,7 +89,7 @@ export default function Delegate(props: {
   async function stake() {
     setLoading(true)
     if (props.validator === undefined) {
-      notify.permanentError('Validator not found')
+      notify.permanentError('Validator not found', undefined, false)
       setLoading(false)
       return
     }

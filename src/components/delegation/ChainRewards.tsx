@@ -140,7 +140,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
       !switchChainAsync ||
       !address
     ) {
-      notify.permanentError('Something is wrong with your wallet, try again')
+      notify.permanentError('Something is wrong with your wallet, try again', undefined, false)
       return
     }
     setLoading(true)
@@ -154,7 +154,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
         const station = new Station(paymasterChain, mpc)
         const powResult = await station.doPoW(address)
         if (!powResult.ok) {
-          notify.permanentError('Failed to mine sFUEL', toastId)
+          notify.permanentError('Failed to mine sFUEL', toastId, false)
           return
         }
       }

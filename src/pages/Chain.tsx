@@ -65,7 +65,7 @@ export default function Chain(props: {
 
   useEffect(() => {
     if (props.schains.length > 0 && (chain === undefined || chain === null)) {
-      notify.permanentError(`No such chain: ${chainName}`)
+      notify.permanentError(`No such chain: ${chainName}`, undefined, false)
     }
   }, [chainName, props.schains])
 

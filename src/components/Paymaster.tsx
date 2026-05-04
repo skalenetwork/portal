@@ -104,7 +104,7 @@ export default function Paymaster(props: {
   async function topupChain() {
     if (!paymaster) return
     if (!paymaster.runner?.provider || !walletClient || !switchChainAsync) {
-      notify.permanentError('Something is wrong with your wallet, try again')
+      notify.permanentError('Something is wrong with your wallet, try again', undefined, false)
       return
     }
     setLoading(true)
