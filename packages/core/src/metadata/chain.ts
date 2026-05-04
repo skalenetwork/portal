@@ -30,7 +30,7 @@ export function chainBg(
   chainsMeta: types.ChainsMetadataMap,
   chainName: string,
   app?: string,
-  theme?: 'light' | 'dark'
+  theme?: 'light' | 'dark',
 ): string | undefined {
   if (chainName === constants.MAINNET_CHAIN_NAME) {
     return networks.MAINNET_BACKGROUNDS[network]
@@ -65,7 +65,8 @@ export function getAlias(
   short?: boolean
 ): string {
   if (chainName === MAINNET_CHAIN_NAME) {
-    return MAINNET_ALIASES[network]
+    const alias = MAINNET_ALIASES[network]
+    return short ? alias.split(' ')[0] : alias
   }
   const chainData = chainsMeta?.[chainName]
   const appData = app ? chainData?.apps?.[app] : null

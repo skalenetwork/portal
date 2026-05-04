@@ -27,8 +27,14 @@ import { types, metadata, endpoints, networks } from '@/core'
 import { getExplorerUrl } from './explorer'
 import { getChainId } from './chain_id'
 import { CHAINS_META } from './metadata'
+import { isExtChain, getExtChain, extChainRpcUrl } from './network'
 
 export function constructWagmiChain(network: types.SkaleNetwork, chainName: string): Chain {
+  if (isExtChain(chainName)) {
+    const chain = getExtChain(chainName)
+    const rpcUrl = extChainRpcUrl(chainName)
+    return { ...chain, rpcUrls: { default: { http: [rpcUrl] } } } as Chain
+  }
   const endpointHttp = endpoints.schain(network, chainName)
   const endpointWs = endpoints.schain(network, chainName, 'ws')
   const chainsMeta = CHAINS_META[network]

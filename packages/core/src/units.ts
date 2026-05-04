@@ -36,7 +36,8 @@ export function formatBalance(balance: bigint, decimals?: number): string {
   return formatUnits(balance, tokenDecimals)
 }
 
-export function truncateDecimals(input: string, numDecimals: number): string {
+export function truncateDecimals(input: string | null | undefined, numDecimals: number): string {
+  if (!input) return ''
   const delimiter = input.includes(',') ? ',' : '.'
   const [integerPart, decimalPart = ''] = input.split(delimiter)
   return `${integerPart}${delimiter}${decimalPart.slice(0, numDecimals)}`

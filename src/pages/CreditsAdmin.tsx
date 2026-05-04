@@ -49,7 +49,6 @@ interface CreditsProps {
 }
 
 const Credits: React.FC<CreditsProps> = ({ mpc, loadData, schains, chainsMeta }) => {
-  const [_, setIntervalId] = useState<NodeJS.Timeout>()
   const [creditStation, setCreditStation] = useState<Contract | undefined>(undefined)
 
   async function initCreditStation() {
@@ -58,12 +57,11 @@ const Credits: React.FC<CreditsProps> = ({ mpc, loadData, schains, chainsMeta })
 
   useEffect(() => {
     loadData()
-    const intervalId = setInterval(loadData, 100000)
-    setIntervalId(intervalId)
     initCreditStation()
+    const intervalId = setInterval(loadData, 100000)
+    return () => clearInterval(intervalId)
   }, [])
 
-  console.log('schains in CreditsAdmin:', schains, creditStation)
   if (schains.length === 0 || !creditStation) {
     return (
       <div className="fullscreen-msg">

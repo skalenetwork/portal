@@ -129,7 +129,7 @@ export default function TermsModal(props: {
           }}
           variant="contained"
           disabled={!scrolled}
-          className={`w-full mt-3! md:mt-4! mb-12! md:mb-0! capitalize! text-[13px]! md:text-sm! font-semibold! py-3.5! md:py-4! ${scrolled ? 'bg-accent-foreground!' : 'bg-muted-foreground/30!'} ${scrolled ? 'text-accent!' : 'text-muted!'} text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]`}
+          className="w-full mt-3! md:mt-4! mb-12! md:mb-0! capitalize! text-[13px]! md:text-sm! font-semibold! py-3.5! md:py-4! bg-accent-foreground! text-accent!  disabled:text-foreground/70!  disabled:bg-accent-foreground/15! ease-in-out transition-transform duration-150 active:scale-[0.97]"
           size="large"
         >
           {getAgreeButtonText()}

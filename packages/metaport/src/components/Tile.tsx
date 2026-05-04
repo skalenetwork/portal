@@ -110,11 +110,12 @@ export default function Tile(props: {
             >
               {props.ri ? <div className="grow"></div> : null}
               {props.icon ? (
-                <div
-                  className="mr-1.5 flex text-[17px]!"
-                  style={{ color: props.textColor }}
-                >
-                  {copied ? <CircleCheck size={20} color={theme.palette.success.main} /> : props.icon}
+                <div className="mr-1.5 flex text-[17px]!" style={{ color: props.textColor }}>
+                  {copied ? (
+                    <CircleCheck size={20} color={theme.palette.success.main} />
+                  ) : (
+                    props.icon
+                  )}
                 </div>
               ) : null}
               <p

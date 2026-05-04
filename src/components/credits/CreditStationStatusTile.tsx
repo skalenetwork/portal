@@ -25,19 +25,14 @@ import { Contract } from 'ethers'
 import {
   type MetaportCore,
   Tile,
-  enforceNetwork,
   useWagmiAccount,
   useWagmiWalletClient,
   useWagmiSwitchNetwork,
-  sendTransaction,
-  walletClientToSigner
+  sendTransaction
 } from '@skalenetwork/metaport'
-import { constants } from '@/core'
+import { constants, notify } from '@/core'
+import { prepareSignerForWrite } from '../../core/credit-station'
 import Button from '@mui/material/Button'
-import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
-import DoDisturbOnRoundedIcon from '@mui/icons-material/DoDisturbOnRounded'
-import ToggleOnRoundedIcon from '@mui/icons-material/ToggleOnRounded'
-import ToggleOffRoundedIcon from '@mui/icons-material/ToggleOffRounded'
 import { Badge, BadgeCheck, ToggleLeft, ToggleRight } from 'lucide-react'
 
 interface CreditStationStatusTileProps {
@@ -77,32 +72,29 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
     if (!creditStation) return
     if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
       setErrorMsg('Something is wrong with your wallet, try again')
+      notify.permanentError('Something is wrong with your wallet, try again')
       return
     }
-
     setLoading(true)
 
     try {
-      const { chainId } = await creditStation.runner.provider.getNetwork()
-      await enforceNetwork(
-        chainId,
+      const signer = await prepareSignerForWrite(
+        creditStation,
         walletClient,
         switchChainAsync,
         network,
         constants.MAINNET_CHAIN_NAME
       )
 
-      const signer = walletClientToSigner(walletClient)
-      creditStation.connect(signer)
-
       const method = isPaused ? creditStation.unpause : creditStation.pause
       const action = isPaused ? 'unpause' : 'pause'
 
       await sendTransaction(signer, method, [], `creditStation:${action}`)
-
+      notify.temporarySuccess(`Credit station ${action}d`)
       await loadPausedStatus()
     } catch (error) {
       setErrorMsg('Transaction failed')
+      notify.permanentError('Transaction failed')
     } finally {
       setLoading(false)
     }

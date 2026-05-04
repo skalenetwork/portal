@@ -35,12 +35,10 @@ import {
   TokenIcon,
   useWagmiAccount,
   sendTransaction,
-  walletClientToSigner,
   useWagmiWalletClient,
-  useWagmiSwitchNetwork,
-  enforceNetwork
+  useWagmiSwitchNetwork
 } from '@skalenetwork/metaport'
-import { types, metadata, constants, timeUtils, helper, units } from '@/core'
+import { types, metadata, constants, timeUtils, helper, units, notify } from '@/core'
 
 import SkStack from '../SkStack'
 
@@ -59,7 +57,7 @@ interface CreditsPaymentTileProps {
   ledgerContract: Contract | undefined
   creditStation: Contract | undefined
   isAdmin?: boolean
-  setErrorMsg?: (msg: string | undefined) => void
+  setErrorMsg: (msg: string | undefined) => void
 }
 
 const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
@@ -114,25 +112,20 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
   }, [ledgerContract, payment.id])
 
   async function fulfillPayment() {
-    if (!ledgerContract || !walletClient || !switchChainAsync) {
-      setErrorMsg?.('Something is wrong with your wallet, try again')
-      return
-    }
-    if (!ledgerContract.runner?.provider) {
-      setErrorMsg?.('Ledger contract provider not available')
-      return
-    }
+    if (!ledgerContract) return
     setLoading(true)
-    setErrorMsg?.(undefined)
+    setErrorMsg(undefined)
 
     try {
-      const { chainId } = await ledgerContract.runner.provider.getNetwork()
-      await enforceNetwork(chainId, walletClient, switchChainAsync, network, payment.schainName)
+      const signer = await cs.prepareSignerForWrite(
+        ledgerContract,
+        walletClient,
+        switchChainAsync,
+        network,
+        payment.schainName
+      )
 
-      const signer = walletClientToSigner(walletClient)
-      ledgerContract.connect(signer)
-
-      const res = await sendTransaction(
+      await sendTransaction(
         signer,
         ledgerContract.fulfill,
         [payment.id, payment.to],
@@ -140,12 +133,11 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
         CREDITS_CONFIRMATION_BLOCKS,
         units.toWei(DEFAULT_CREDITS_AMOUNT.toString(), constants.DEFAULT_ERC20_DECIMALS)
       )
-      if (!res.status) {
-        setErrorMsg?.(res.err?.name)
-        return
-      }
+      notify.temporarySuccess('Payment fulfilled')
     } catch (e: any) {
-      setErrorMsg?.(e.toString())
+      const errMsg = e.toString()
+      setErrorMsg(errMsg)
+      notify.permanentError(errMsg)
     } finally {
       setLoading(false)
     }

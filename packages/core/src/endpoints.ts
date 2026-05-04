@@ -52,7 +52,7 @@ export const BASE_EXPLORER_URLS: EndpointsNetworkMap = {
 
 const PROXY_ENDPOINTS: EndpointsNetworkMap = {
   mainnet: 'mainnet.skalenodes.com',
-  legacy: 'legacy-proxy.skaleserver.com',
+  legacy: 'legacy-proxy.skalenodes.com',
   regression: 'regression-proxy.skalenodes.com',
   testnet: 'testnet.skalenodes.com',
   "base-sepolia-testnet": 'base-sepolia-testnet.skalenodes.com',

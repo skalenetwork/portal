@@ -37,6 +37,7 @@ export interface ConnectedChain {
   wrapper?: AddressType
   wrapsSFuel?: boolean
   clone?: boolean
+  bridge?: string
 }
 
 export interface ConnectedChainMap {

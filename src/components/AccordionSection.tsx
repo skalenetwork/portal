@@ -68,9 +68,9 @@ export default function AccordionSection(props: {
           <p className="text-sm font-semibold grow text-foreground/80! text-left">{props.title}</p>
           <p className="text-xs font-semibold text-secondary-foreground mr-5">{props.subtitle}</p>
           {expanded === panel ? (
-            <CircleMinus size={17} className="mr-1.5 text-secondary-foreground" />
+            <CircleMinus size={17} className="shrink-0 mr-1.5 text-secondary-foreground" />
           ) : (
-            <CirclePlus size={17} className="mr-1.5 text-secondary-foreground" />
+            <CirclePlus size={17} className="shrink-0 mr-1.5 text-secondary-foreground" />
           )}
         </div>
       </ButtonBase>

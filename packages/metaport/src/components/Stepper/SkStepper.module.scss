@@ -12,7 +12,7 @@
 
     :global(.MuiStepContent-root) :global(.MuiStepIcon-root.Mui-active),
     :global(.MuiStepIcon-root.Mui-completed) {
-        color: #e2e2e2 !important;
+        color: #929292 !important;
         opacity: 1 !important;
     }
 
@@ -55,11 +55,6 @@
 
     :global(.MuiStepLabel-iconContainer) {
         margin-top: 1pt;
-    }
-
-
-    :global(.Mui-disabled) {
-        filter: saturate(0) opacity(0.5);
     }
 
     :global(.MuiStepLabel-label.Mui-active) {
