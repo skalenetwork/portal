@@ -43,7 +43,6 @@ import ConnectWallet from '../components/ConnectWallet'
 import ChainCreditsTile from '../components/credits/ChainCreditsTile'
 import CreditsPaymentTile from '../components/credits/CreditsPaymentTile'
 import { getCreditStation, getTokenPrices } from '../core/credit-station'
-import ErrorTile from '../components/ErrorTile'
 import { History, HistoryIcon, Link2 } from 'lucide-react'
 
 interface CreditsProps {
@@ -60,7 +59,6 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
   const [tokenBalances, setTokenBalances] = useState<types.mp.TokenBalancesMap>()
   const [tokenContracts, setTokenContracts] = useState<types.mp.TokenContractsMap>({})
   const [ledgerContracts, setLedgerContracts] = useState<{ [schainName: string]: Contract }>({})
-  const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined)
   const [payments, setPayments] = useState<cs.Payment[]>([])
 
   async function loadPayments() {
@@ -163,7 +161,6 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
           </div>
           <SkPageInfoIcon meta_tag={META_TAGS.credits} />
         </div>
-        <ErrorTile errorMsg={errorMsg} className="mb-2.5" />
         <SkPaper gray className="mt-5">
           <AccordionSection
             expandedByDefault={true}
@@ -181,7 +178,6 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
                   creditStation={creditStation}
                   tokenPrices={tokenPrices}
                   tokenBalances={tokenBalances}
-                  setErrorMsg={setErrorMsg}
                 />
               ))}
             </Collapse>
@@ -210,7 +206,6 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
                   chainsMeta={chainsMeta}
                   ledgerContract={ledgerContracts[payment.schainName]}
                   creditStation={creditStation}
-                  setErrorMsg={setErrorMsg}
                 />
               ))}
             </Collapse>

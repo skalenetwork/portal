@@ -33,8 +33,12 @@ function temporaryInfo(message: string, toastId?: string | number) {
     toast.info(message, { duration: DEFAULT_DURATION, id: toastId, className: "text-sky-500! dark:text-blue-400! bg-sky-100! dark:bg-blue-400/15! backdrop-blur-md!" })
 }
 
-function permanentError(message: string, toastId?: string | number) {
-    toast.error(message, { duration: Infinity, id: toastId, className: "text-red-500! dark:text-red-400! bg-red-100! dark:bg-red-400/15! backdrop-blur-md!" })
+const ERROR_DESCRIPTION = 'Check browser\'s developer console'
+
+function permanentError(message: string, toastId?: string | number, showDescription = true) {
+    const trimmed = message.split(/[.\n(]/)[0].trim().slice(0, 80) || message.slice(0, 80)
+    const short = trimmed.charAt(0).toUpperCase() + trimmed.slice(1)
+    toast.error(short, { duration: Infinity, id: toastId, description: showDescription ? ERROR_DESCRIPTION : undefined, className: "text-red-500! dark:text-red-400! bg-red-100! dark:bg-red-400/15! backdrop-blur-md!" })
 }
 
 function temporaryError(message: string, toastId?: string | number) {

@@ -124,7 +124,7 @@ export function usesFuel(mpc: MetaportCore) {
 
     if (errorOccurred) {
       log.error('sFuel mining encountered errors on one or more chains')
-      notify.permanentError('sFUEL mining failed on some chains', toastId)
+      notify.permanentError('sFUEL mining failed on some chains', toastId, false)
     } else {
       log.info('sFuel mining completed successfully on all required chains')
       notify.temporarySuccess('sFUEL recharged on all chains', toastId)

@@ -57,7 +57,6 @@ interface CreditsPaymentTileProps {
   ledgerContract: Contract | undefined
   creditStation: Contract | undefined
   isAdmin?: boolean
-  setErrorMsg: (msg: string | undefined) => void
 }
 
 const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
@@ -66,8 +65,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
   chainsMeta,
   ledgerContract,
   creditStation,
-  isAdmin = false,
-  setErrorMsg
+  isAdmin = false
 }) => {
   const network = mpc.config.skaleNetwork
   const chainAlias = metadata.getAlias(network, chainsMeta, payment.schainName)
@@ -94,7 +92,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
         if (!provider) return
         const block = await provider.getBlock(payment.blockNumber)
         if (block) setTxTimestamp(block.timestamp)
-      } catch (error) {}
+      } catch (error) { }
     }
     fetchTimestamp()
   }, [creditStation, payment])
@@ -104,7 +102,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
     const checkFulfillment = async () => {
       try {
         setIsFulfilled(await ledgerContract.isFulfilled(payment.id))
-      } catch (error) {}
+      } catch (error) { }
     }
     checkFulfillment()
     const interval = setInterval(checkFulfillment, 10000)
@@ -114,7 +112,6 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
   async function fulfillPayment() {
     if (!ledgerContract) return
     setLoading(true)
-    setErrorMsg(undefined)
 
     try {
       const signer = await cs.prepareSignerForWrite(
@@ -136,7 +133,6 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
       notify.temporarySuccess('Payment fulfilled')
     } catch (e: any) {
       const errMsg = e.toString()
-      setErrorMsg(errMsg)
       notify.permanentError(errMsg)
     } finally {
       setLoading(false)

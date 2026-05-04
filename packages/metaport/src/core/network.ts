@@ -182,13 +182,14 @@ export async function enforceNetwork(
   }
   try {
     // tmp fix for coinbase wallet
-    _networkSwitch(chainId, currentChainId, switchChain)
+    await _networkSwitch(chainId, currentChainId, switchChain)
   } catch (e) {
+    if (e.code === 'ACTION_REJECTED' || e.code === 4001) throw e
     log.info('Failed to switch network, retrying...')
     await helper.sleep(constants.DEFAULT_SLEEP)
-    _networkSwitch(chainId, currentChainId, switchChain)
+    await _networkSwitch(chainId, currentChainId, switchChain)
   }
-  await waitForNetworkChange(walletClient, currentChainId, chainId)
+  await waitForNetworkChange(walletClient, currentChainId, chainId, 2000, 15)
   await helper.sleep(constants.DEFAULT_SLEEP)
   log.info(`Network switched to ${chainId}`)
   return chainId

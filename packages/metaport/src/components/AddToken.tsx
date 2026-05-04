@@ -92,10 +92,10 @@ export default function AddToken(props: {
       if (wasAdded) {
         notify.temporarySuccess('Token added to wallet')
       } else {
-        notify.permanentError('Token was not added')
+        notify.permanentError('Token was not added', undefined, false)
       }
     } catch (error) {
-      notify.permanentError('Failed to add token')
+      notify.permanentError('Failed to add token', undefined, false)
     } finally {
       setLoading(false)
     }

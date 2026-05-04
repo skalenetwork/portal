@@ -95,8 +95,12 @@ export default function SchainDetails(props: {
       })
       setAdded(true)
       notify.temporarySuccess(`Connected to ${networkParams.chainName}`)
-    } catch (e) {
-      console.error(e)
+    } catch (e: any) {
+      if (e?.code === 4001) {
+        notify.permanentError('Connect to chain cancelled', undefined, false)
+      } else {
+        notify.permanentError('Failed to connect chain', undefined, false)
+      }
     } finally {
       setLoading(false)
     }

@@ -68,7 +68,6 @@ interface ChainCreditsTileProps {
   creditStation: Contract | undefined
   tokenPrices: Record<string, bigint>
   tokenBalances: types.mp.TokenBalancesMap | undefined
-  setErrorMsg: (msg: string | undefined) => void
 }
 
 const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
@@ -77,8 +76,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   schain,
   creditStation,
   tokenPrices,
-  tokenBalances,
-  setErrorMsg
+  tokenBalances
 }) => {
   const [openModal, setOpenModal] = useState(false)
   const [loading, setLoading] = useState<boolean>(false)
@@ -148,13 +146,11 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   async function buyCredits() {
     if (!creditStation || !token) return
     if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
-      setErrorMsg('Something is wrong with your wallet, try again')
-      notify.permanentError('Something is wrong with your wallet, try again')
+      notify.permanentError('Something is wrong with your wallet, try again', undefined, false)
       setOpenModal(false)
       return
     }
     setLoading(true)
-    setErrorMsg(undefined)
 
     try {
       const tokenAddress = tokens[token].address
@@ -191,7 +187,6 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
       notify.temporarySuccess(`Credits purchased for ${chainAlias}`)
     } catch (e: any) {
       const errMsg = e.toString()
-      setErrorMsg(errMsg)
       notify.permanentError(errMsg)
     } finally {
       setLoading(false)

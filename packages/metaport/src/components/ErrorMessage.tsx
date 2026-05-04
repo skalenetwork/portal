@@ -43,6 +43,7 @@ import {
 } from 'lucide-react'
 
 import { DEFAULT_ERROR_MSG } from '../core/constants'
+import { extractFirstSentence } from '../utils/helper'
 
 const ERROR_ICONS = {
   'link-off': <Link2Off />,
@@ -70,7 +71,7 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
         style={{ wordBreak: 'break-word' }}
         className="text-base text-orange-600 font-semibold grow text-center mt-2.5"
       >
-        {props.errorMessage.headline ?? DEFAULT_ERROR_MSG}
+        {extractFirstSentence(props.errorMessage.headline ?? DEFAULT_ERROR_MSG)}
       </p>
       <p className="text-xs text-secondary-foreground font-medium grow text-center mb-2.5">
         Logs are available in your browser's developer console
@@ -133,7 +134,7 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
               style={{ wordBreak: 'break-all' }}
               className="text-xs text-muted-foreground grow text-center ml-2.5 mr-2.5 mb-5"
             >
-              {props.errorMessage.text}
+              {extractFirstSentence(props.errorMessage.text)}
             </code>
           </div>
         </AccordionDetails>

@@ -38,13 +38,11 @@ import { Badge, BadgeCheck, ToggleLeft, ToggleRight } from 'lucide-react'
 interface CreditStationStatusTileProps {
   mpc: MetaportCore
   creditStation: Contract | undefined
-  setErrorMsg: (msg: string) => void
 }
 
 const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
   mpc,
-  creditStation,
-  setErrorMsg
+  creditStation
 }) => {
   const [isPaused, setIsPaused] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
@@ -71,8 +69,7 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
   async function togglePause() {
     if (!creditStation) return
     if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
-      setErrorMsg('Something is wrong with your wallet, try again')
-      notify.permanentError('Something is wrong with your wallet, try again')
+      notify.permanentError('Something is wrong with your wallet, try again', undefined, false)
       return
     }
     setLoading(true)
@@ -93,8 +90,7 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
       notify.temporarySuccess(`Credit station ${action}d`)
       await loadPausedStatus()
     } catch (error) {
-      setErrorMsg('Transaction failed')
-      notify.permanentError('Transaction failed')
+      notify.permanentError('Transaction failed', undefined, false)
     } finally {
       setLoading(false)
     }

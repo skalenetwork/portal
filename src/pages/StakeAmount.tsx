@@ -26,6 +26,7 @@ import { type Signer } from 'ethers'
 import { useParams } from 'react-router-dom'
 import { type MetaportCore, SkPaper, contracts } from '@skalenetwork/metaport'
 import { types } from '@/core'
+import { notify } from '@/core'
 
 import Container from '@mui/material/Container'
 import { ChevronLeft, CircleDollarSign, HandCoins, UserRoundSearch } from 'lucide-react'
@@ -37,7 +38,6 @@ import Delegate from '../components/delegation/Delegate'
 import Breadcrumbs from '../components/Breadcrumbs'
 import ConnectWallet from '../components/ConnectWallet'
 
-import ErrorTile from '../components/ErrorTile'
 import Headline from '../components/Headline'
 import { isDelegationTypeAvailable, isLoaded } from '../core/delegation/staking'
 import { getDelegationTypeAlias } from '../core/delegation'
@@ -59,7 +59,6 @@ export default function StakeAmount(props: {
   const [currentValidator, setCurrentValidator] = useState<types.st.IValidator | undefined>(
     undefined
   )
-  const [errorMsg, setErrorMsg] = useState<string | undefined>()
 
   const loaded = isLoaded(props.si)
   const available = isDelegationTypeAvailable(props.si, delegationType)
@@ -101,8 +100,12 @@ export default function StakeAmount(props: {
     }
   }
 
+  useEffect(() => {
+    if (validatorId === -1) notify.permanentError('Validator ID is not found', undefined, false)
+  }, [validatorId])
+
   if (validatorId === -1) {
-    return <ErrorTile errorMsg="Validator ID is not found" setErrorMsg={setErrorMsg} />
+    return null
   }
 
   return (
@@ -160,8 +163,6 @@ export default function StakeAmount(props: {
             address={props.address}
             si={props.si}
             delegationType={delegationType}
-            errorMsg={errorMsg}
-            setErrorMsg={setErrorMsg}
             loaded={loaded}
             delegationTypeAvailable={available}
             getMainnetSigner={props.getMainnetSigner}

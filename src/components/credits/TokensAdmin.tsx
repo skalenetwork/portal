@@ -31,7 +31,6 @@ import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
 
 import TokenAdminTile from './TokenAdminTile'
 import AccordionSection from '../AccordionSection'
-import ErrorTile from '../ErrorTile'
 import CreditsHistoryTile from './CreditsPaymentTile'
 import CreditStationStatusTile from './CreditStationStatusTile'
 import { getTokenPrices } from '../../core/credit-station'
@@ -53,7 +52,6 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
   const tokens = mpc.config.connections.mainnet?.erc20
   const tokensMeta = mpc.config.tokens
 
-  const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined)
   const [tokenPrices, setTokenPrices] = useState<Record<string, bigint>>({})
   const [allPayments, setAllPayments] = useState<cs.Payment[]>([])
   const [ledgerContracts, setLedgerContracts] = useState<{ [schainName: string]: Contract }>({})
@@ -85,7 +83,6 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
 
   return (
     <div>
-      <ErrorTile errorMsg={errorMsg} className="mb-2.5" />
       <SkPaper gray className="mt-5">
         <AccordionSection
           expandedByDefault={true}
@@ -96,7 +93,6 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
           <CreditStationStatusTile
             mpc={mpc}
             creditStation={creditStation}
-            setErrorMsg={setErrorMsg}
           />
         </AccordionSection>
       </SkPaper>
@@ -118,7 +114,6 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
                 tokenMeta={tokensMeta[symbol]}
                 tokenData={tokenData}
                 symbol={symbol}
-                setErrorMsg={setErrorMsg}
               />
             ))}
           </div>
@@ -157,7 +152,6 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
                   ledgerContract={ledgerContracts[payment.schainName]}
                   creditStation={creditStation}
                   isAdmin={true}
-                  setErrorMsg={setErrorMsg}
                 />
               ))}
           </div>

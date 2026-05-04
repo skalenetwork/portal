@@ -37,6 +37,7 @@ import { ActionConstructor } from '../core/actions/action'
 import { isTrailsAction } from '../core/actions/trails'
 import { isMesonAction } from '../core/actions/meson'
 import { getEmptyCommunityPoolData, getCommunityPoolData } from '../core/community_pool'
+import { TimeoutException } from '../core/exceptions'
 
 const log = new Logger<ILogObj>({ name: 'metaport:core:state' })
 let checkRequestId = 0
@@ -191,7 +192,9 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
         console.error(err)
         const msg = err.message
         let headline
-        if (err.code && err.code === 'ACTION_REJECTED') {
+        if (err instanceof TimeoutException) {
+          headline = 'Network switch timed out'
+        } else if (err.code && err.code === 'ACTION_REJECTED') {
           headline = 'Transaction signing was rejected'
         } else {
           headline = TRANSFER_ERROR_MSG
@@ -202,6 +205,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
         if (err.shortMessage) {
           headline = err.shortMessage
         }
+        headline = headline.split(/[.\n(]/)[0].trim()
         headline = headline.charAt(0).toUpperCase() + headline.slice(1)
 
         notify.permanentError(headline)

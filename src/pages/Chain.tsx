@@ -28,10 +28,9 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Container from '@mui/material/Container'
 
 import { type MetaportCore } from '@skalenetwork/metaport'
-import { type types, metadata } from '@/core'
+import { type types, metadata, notify } from '@/core'
 
 import SchainDetails from '../components/SchainDetails'
-import ErrorTile from '../components/ErrorTile'
 
 export default function Chain(props: {
   loadData: () => Promise<void>
@@ -64,6 +63,12 @@ export default function Chain(props: {
     }
   }, [props.metrics])
 
+  useEffect(() => {
+    if (props.schains.length > 0 && (chain === undefined || chain === null)) {
+      notify.permanentError(`No such chain: ${chainName}`, undefined, false)
+    }
+  }, [chainName, props.schains])
+
   if (props.schains.length === 0) {
     return (
       <div className="fullscreen-msg">
@@ -82,11 +87,7 @@ export default function Chain(props: {
   }
 
   if (chain === undefined || chain === null) {
-    return (
-      <Container maxWidth="md">
-        <ErrorTile errorMsg={`No such chain: ${chainName}`} />
-      </Container>
-    )
+    return null
   }
 
   return (
