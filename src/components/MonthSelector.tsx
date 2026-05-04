@@ -98,11 +98,11 @@ export default function MonthSelector(props: {
                   !Number.isInteger(Number(textPeriod)) ||
                   Number(textPeriod) <= 0
                 ) {
-                  notify.temporaryError('Incorrect top-up period')
+                  notify.permanentError('Incorrect top-up period', undefined, false)
                   return
                 }
                 if (props.max < Number(textPeriod)) {
-                  notify.temporaryError(`Max topup amount: ${formatTimePeriod(props.max, 'month')}`)
+                  notify.permanentError(`Max topup amount: ${formatTimePeriod(props.max, 'month')}`, undefined, false)
                   return
                 }
                 setOpenCustom(false)
