@@ -193,41 +193,37 @@ export default function Ecosystem(props: {
               label="All"
               icon={<LayoutGrid size={14} />}
               iconPosition="start"
-              className={`btn btnMd tab fwmobile ${
-                activeTab === 0
+              className={`btn btnMd tab fwmobile ${activeTab === 0
                   ? 'text-foreground! bg-gray-100! dark:bg-black!'
                   : 'bg-card/0! text-muted-foreground!'
-              }`}
+                }`}
             />
             <Tab
               label="Featured"
               icon={SECTION_ICONS.featured}
               iconPosition="start"
-              className={`btn btnMd tab fwmobile ${
-                activeTab === 1
+              className={`btn btnMd tab fwmobile ${activeTab === 1
                   ? 'text-foreground! bg-gray-100! dark:bg-black!'
                   : 'bg-card/0! text-muted-foreground!'
-              }`}
+                }`}
             />
             <Tab
               label="New"
               icon={SECTION_ICONS.new}
               iconPosition="start"
-              className={`btn btnMd tab fwmobile ${
-                activeTab === 2
+              className={`btn btnMd tab fwmobile ${activeTab === 2
                   ? 'text-foreground! bg-gray-100! dark:bg-black!'
                   : 'bg-card/0! text-muted-foreground!'
-              }`}
+                }`}
             />
             <Tab
               label="Trending"
               icon={SECTION_ICONS.trending}
               iconPosition="start"
-              className={`btn btnMd tab fwmobile ${
-                activeTab === 3
+              className={`btn btnMd tab fwmobile ${activeTab === 3
                   ? 'text-foreground! bg-gray-100! dark:bg-black! shadow-xs!'
                   : 'bg-card/0! text-muted-foreground!'
-              }`}
+                }`}
             />
           </Tabs>
           <div className={cn('grow', 'fwmobile')}>
@@ -271,14 +267,14 @@ export default function Ecosystem(props: {
             )}
           </div>
         </Stack>
-        <div className="flex mt-5 mb-20 md:mb-5">
+        <div className="flex mt-5 md:mb-5">
           <div className="grow"></div>
           <div>
             <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">
               <Button
                 size="medium"
                 variant="contained"
-                className="btn btnMd text-xs text-accent! bg-foreground!"
+                className="btn btnMd text-xs text-accent! bg-accent-foreground!"
                 startIcon={<Plus size={17} />}
               >
                 Submit Your Project

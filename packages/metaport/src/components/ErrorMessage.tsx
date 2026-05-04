@@ -28,7 +28,19 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import Button from '@mui/material/Button'
 
-import { Ban, ChevronDown, CircleParkingOff, CircleQuestionMark, CopySlash, Frown, Hourglass, Link2Off, RotateCcw, Siren, TimerReset } from 'lucide-react'
+import {
+  Ban,
+  ChevronDown,
+  CircleParkingOff,
+  CircleQuestionMark,
+  CopySlash,
+  Frown,
+  Hourglass,
+  Link2Off,
+  RotateCcw,
+  Siren,
+  TimerReset
+} from 'lucide-react'
 
 import { DEFAULT_ERROR_MSG } from '../core/constants'
 
@@ -75,7 +87,7 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
           </div>
           <div className="flex w-full items-center text-foreground mt-5 mb-2.5 ml-2.5">
             <div className="flex items-center text-foreground justify-center mr-2.5">
-              <RotateCcw size={17}  />
+              <RotateCcw size={17} />
             </div>
             <p className="text-sm text-foreground font-semibold mr-2.5">
               If a transfer is interrupted, you can continue from where you stopped.
@@ -102,13 +114,13 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary
           className="py-2.5 px-2.5"
-          expandIcon={<ChevronDown className='text-secondary-foreground'/>}
+          expandIcon={<ChevronDown className="text-secondary-foreground" />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
           <div className="flex w-full items-center">
             <div className="flex items-center justify-center mr-2.5">
-              <CopySlash size={17} className='text-secondary-foreground' />
+              <CopySlash size={17} className="text-secondary-foreground" />
             </div>
             <p className="text-sm text-secondary-foreground font-semibold capitalize mr-2.5">
               {expanded === 'panel1' ? 'Hide' : 'Show'} error details

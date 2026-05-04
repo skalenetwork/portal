@@ -23,8 +23,7 @@
 
 import { type Signer } from 'ethers'
 import { sendTransaction, contracts } from '@skalenetwork/metaport'
-import { type types } from '@/core'
-
+import { type types, notify } from '@/core'
 export type LoadingState = types.st.IRewardInfo | types.st.IDelegationInfo | false
 export type SetLoadingFn = (state: LoadingState) => void
 export type SetErrorFn = (msg: string | undefined) => void
@@ -55,6 +54,8 @@ async function processTx({
 }) {
   if (!props.sc || !props.address) return
 
+  props.setErrorMsg(undefined)
+  const toastId = notify.loading(`Processing ${txName}...`)
   try {
     const signer = await props.getMainnetSigner()
     const contract = await contracts.initActionContract(
@@ -65,21 +66,13 @@ async function processTx({
       contractType
     )
 
-    const res = await sendTransaction(
-      signer,
-      contract[txName],
-      txArgs,
-      `${txName}:${delegationType}`
-    )
-    if (!res.status) {
-      props.setErrorMsg(res.err?.name)
-    } else {
-      props.setErrorMsg(undefined)
-      await props.postAction()
-    }
+    await sendTransaction(signer, contract[txName], txArgs, `${txName}:${delegationType}`)
+    notify.temporarySuccess(`${txName} completed`, toastId)
+    await props.postAction()
   } catch (err: any) {
-    console.error(err)
-    props.setErrorMsg(err.message || 'Transaction failed')
+    const errMsg = err.message || 'Transaction failed'
+    props.setErrorMsg(errMsg)
+    notify.permanentError(errMsg, toastId)
   } finally {
     props.setLoading(false)
   }

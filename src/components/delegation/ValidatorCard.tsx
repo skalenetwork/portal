@@ -146,7 +146,7 @@ export default function ValidatorCard(props: {
               <Button
                 size="small"
                 variant="contained"
-                className="btnMd text-xs text-accent! bg-foreground!"
+                className="btnMd text-xs text-accent! bg-accent-foreground!"
                 startIcon={<Coins size={14} />}
                 fullWidth
               >

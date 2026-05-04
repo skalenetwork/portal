@@ -27,6 +27,7 @@ import TextField from '@mui/material/TextField'
 import { CircleCheck, CircleX } from 'lucide-react'
 
 import { formatTimePeriod } from '../core/timeHelper'
+import { notify } from '@/core'
 
 const MONTH_RECOMMENDATIONS = [1, 2, 3, 6, 12, 18, 24]
 
@@ -98,10 +99,12 @@ export default function MonthSelector(props: {
                   !Number.isInteger(Number(textPeriod)) ||
                   Number(textPeriod) <= 0
                 ) {
+                  notify.temporaryError('Incorrect top-up period')
                   props.setErrorMsg('Incorrect top-up period')
                   return
                 }
                 if (props.max < Number(textPeriod)) {
+                  notify.temporaryError(`Max topup amount: ${formatTimePeriod(props.max, 'month')}`)
                   props.setErrorMsg(`Max topup amount: ${formatTimePeriod(props.max, 'month')}`)
                   return
                 }

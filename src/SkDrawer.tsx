@@ -42,7 +42,6 @@ import {
   BarChart2,
   PieChart,
   Users,
-  CreditCard,
   BadgeDollarSign,
   Route,
   Network
@@ -87,7 +86,7 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                 </ListItemButton>
               </Link>
             </ListItem>
-            <ListItem>
+            {/* <ListItem>
               <a
                 className="w-full text-foreground!"
                 target="_blank"
@@ -101,19 +100,15 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                   <ListItemText primary="Get Started" />
                 </ListItemButton>
               </a>
-            </ListItem>
+            </ListItem> */}
           </List>
           <h4 className="text-secondary-foreground text-xs font-medium mt-2.5 ml-5">Transfer</h4>
           <List>
             <ListItem>
               <Link to="/bridge" className="w-full text-foreground!">
                 <ListItemButton
-                  selected={
-                    location.pathname === '/bridge/history' || location.pathname === '/bridge'
-                  }
-                  className={getItemButtonClass(
-                    location.pathname === '/bridge/history' || location.pathname === '/bridge'
-                  )}
+                  selected={location.pathname.startsWith('/bridge')}
+                  className={getItemButtonClass(location.pathname.startsWith('/bridge'))}
                 >
                   <ListItemIcon>
                     <ArrowLeftRight className="text-foreground" size={18} />
@@ -122,21 +117,6 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
                 </ListItemButton>
               </Link>
             </ListItem>
-            {networks.hasFeatureInAny(NETWORKS, 'onramp') && (
-              <ListItem>
-                <Link to="/onramp" className="w-full text-foreground!">
-                  <ListItemButton
-                    selected={location.pathname === '/onramp'}
-                    className={getItemButtonClass(location.pathname === '/onramp')}
-                  >
-                    <ListItemIcon>
-                      <CreditCard className="text-foreground" size={18} />
-                    </ListItemIcon>
-                    <ListItemText primary="On-Ramp" />
-                  </ListItemButton>
-                </Link>
-              </ListItem>
-            )}
           </List>
           <h4 className="text-secondary-foreground text-xs font-medium mt-2.5 ml-5">Network</h4>
           <List>

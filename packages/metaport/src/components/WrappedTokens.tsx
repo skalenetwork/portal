@@ -33,7 +33,6 @@ import ErrorIcon from '@mui/icons-material/Error'
 import AnimatedLoadingIcon from './AnimatedLoadingIcon'
 import { ChevronDown } from 'lucide-react'
 
-
 import TokenBalance from './TokenBalance'
 import TokenIcon from './TokenIcon'
 
@@ -116,7 +115,7 @@ export default function WrappedTokens() {
       >
         <AccordionSummary
           className={`py-2! px-6! `}
-          expandIcon={<ChevronDown size={17} className='text-secondary-foreground!' />}
+          expandIcon={<ChevronDown size={17} className="text-secondary-foreground!" />}
           aria-controls="panel1a-content"
           id="panel1a-header"
         >
@@ -130,65 +129,60 @@ export default function WrappedTokens() {
           </div>
         </AccordionSummary>
         <AccordionDetails>
-            <p className="flex text-sm text-foreground font-semibold grow pl-5">
-              ❗ You have wrapped tokens on {chainAlias}. Unwrap them before proceeding with your
-              transfer.
-            </p>
-            <div className="mt-5">
-              {Object.keys(filteredTokens).map((key, _) => (
-                <div
-                  key={key}
-                  className="flex items-center w-full mt-2.5 mb-2.5 pl-5"
-                >
-                  <div className="flex items-center">
-                    <TokenIcon
-                      tokenSymbol={filteredTokens[key]?.meta.symbol}
-                      iconUrl={filteredTokens[key]?.meta.iconUrl}
-                    />
-                  </div>
-                  <p className="text-sm font-semibold text-foreground flex grow mr-2.5 ml-2.5">
-                    Wrapped {getTokenName(filteredTokens[key])}
-                  </p>
-                  <div className="mr-2.5 pr-5">
-                    <TokenBalance
-                      balance={
-                        wrappedTokenBalances
-                          ? wrappedTokenBalances[filteredTokens[key]?.keyname]
-                          : null
-                      }
-                      symbol={`w${filteredTokens[key]?.meta.symbol}`}
-                      decimals={filteredTokens[key]?.meta.decimals}
-                    />
-                  </div>
+          <p className="flex text-sm text-foreground font-semibold grow pl-5">
+            ❗ You have wrapped tokens on {chainAlias}. Unwrap them before proceeding with your
+            transfer.
+          </p>
+          <div className="mt-5">
+            {Object.keys(filteredTokens).map((key, _) => (
+              <div key={key} className="flex items-center w-full mt-2.5 mb-2.5 pl-5">
+                <div className="flex items-center">
+                  <TokenIcon
+                    tokenSymbol={filteredTokens[key]?.meta.symbol}
+                    iconUrl={filteredTokens[key]?.meta.iconUrl}
+                  />
                 </div>
-              ))}
-            </div>
+                <p className="text-sm font-semibold text-foreground flex grow mr-2.5 ml-2.5">
+                  Wrapped {getTokenName(filteredTokens[key])}
+                </p>
+                <div className="mr-2.5 pr-5">
+                  <TokenBalance
+                    balance={
+                      wrappedTokenBalances
+                        ? wrappedTokenBalances[filteredTokens[key]?.keyname]
+                        : null
+                    }
+                    symbol={`w${filteredTokens[key]?.meta.symbol}`}
+                    decimals={filteredTokens[key]?.meta.decimals}
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
 
-            <div className="mt-5 mb-5 pl-5 pr-5">
-              {loading ? (
-                <Button
-                  disabled
-                  startIcon={<AnimatedLoadingIcon />}
-                  variant="contained"
-                  color="primary"
-                  size="medium"
-                  className="btnMd mt-1.5  w-full capitalize! bg-muted-foreground/30!"
-                >
-                  Unwrapping...
-                </Button>
-              ) : (
-                <Button
-                  variant="contained"
-                  size="medium"
-                  className="mt-1.5 bg-foreground! btnMd w-full! btnMd text-accent!"
-                  onClick={() =>
-                    unwrapAll(address, switchChainAsync, walletClient, filteredTokens)
-                  }
-                >
-                  Unwrap all
-                </Button>
-              )}
-            </div>
+          <div className="mt-5 mb-5 pl-5 pr-5">
+            {loading ? (
+              <Button
+                disabled
+                startIcon={<AnimatedLoadingIcon />}
+                variant="contained"
+                color="primary"
+                size="medium"
+                className="btnMd mt-1.5 w-full capitalize! bg-accent-foreground/15! text-foreground/70!"
+              >
+                Unwrapping...
+              </Button>
+            ) : (
+              <Button
+                variant="contained"
+                size="medium"
+                className="mt-1.5 bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! btnMd w-full! text-accent!"
+                onClick={() => unwrapAll(address, switchChainAsync, walletClient, filteredTokens)}
+              >
+                Unwrap all
+              </Button>
+            )}
+          </div>
         </AccordionDetails>
       </Accordion>
     </div>

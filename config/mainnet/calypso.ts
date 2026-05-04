@@ -45,6 +45,9 @@ const connections: types.mp.TokenTypeMap = {
                 'green-giddy-denebola': {
                     clone: true,
                     hub: 'elated-tan-skat'
+                },
+                'ext-arbitrum': {
+                    bridge: 'meson'
                 }
             }
         },
@@ -77,6 +80,9 @@ const connections: types.mp.TokenTypeMap = {
                 'parallel-stormy-spica': {
                     clone: true,
                     hub: 'elated-tan-skat'
+                },
+                'ext-arbitrum': {
+                    bridge: 'meson'
                 }
             }
         },
