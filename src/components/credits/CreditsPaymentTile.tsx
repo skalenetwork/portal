@@ -16,11 +16,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 /**
- * @file CreditsHistoryList.tsx
+ * @file CreditsPaymentTile.tsx
  * @copyright SKALE Labs 2025-Present
  */
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Avatar from 'boring-avatars'
 import { Contract } from 'ethers'
 
@@ -39,7 +39,7 @@ import {
   useWagmiWalletClient,
   useWagmiSwitchNetwork
 } from '@skalenetwork/metaport'
-import { types, timeUtils, helper, notify, constants as coreConstants } from '@/core'
+import { types, contracts as coreContracts, timeUtils, helper, metadata, notify } from '@/core'
 
 import SkStack from '../SkStack'
 
@@ -53,6 +53,7 @@ interface CreditsPaymentTileProps {
   chainsMeta: types.ChainsMetadataMap
   ledgerContract: Contract | undefined
   creditStation: Contract | undefined
+  source: coreContracts.CreditStationSource | undefined
   isAdmin?: boolean
   setErrorMsg: (msg: string | undefined) => void
 }
@@ -63,16 +64,28 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
   chainsMeta,
   ledgerContract,
   creditStation,
+  source,
   isAdmin = false,
   setErrorMsg
 }) => {
   const network = mpc.config.skaleNetwork
 
-  const tokens = mpc.config.connections.mainnet?.erc20 || {}
+  const sourceTokens = useMemo<Record<string, types.mp.Token>>(() => {
+    if (!source) return {}
+    return mpc.config.connections[source.chainName]?.erc20 ?? {}
+  }, [mpc, source])
+
+  const sourceAlias = source
+    ? metadata.getAlias(network, chainsMeta, source.chainName, undefined, true) ||
+    source.displayName
+    : ''
+
   const tokenSymbol =
-    Object.keys(tokens).find(
-      (symbol) => tokens[symbol].address?.toLowerCase() === payment.tokenAddress.toLowerCase()
+    Object.keys(sourceTokens).find(
+      (symbol) => sourceTokens[symbol].address?.toLowerCase() === payment.tokenAddress.toLowerCase()
     ) || 'unknown'
+
+  const displayPaymentId = cs.getLedgerPaymentId(payment.id)
 
   const credits = payment.value
   const creditsLabel = `${credits} ${credits === 1n ? 'Credit' : 'Credits'}`
@@ -172,17 +185,30 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
                       </p>
                     </Tooltip>
                   )}
+                  {source && (
+                    <>
+                      {txTimestamp && <span className="text-muted-foreground/50 text-xs">·</span>}
+                      <Tooltip title={`Paid on ${sourceAlias}`} arrow placement="top">
+                        <span className="inline-flex items-center gap-1 text-xs text-muted-foreground font-medium cursor-default">
+                          <ChainIcon
+                            skaleNetwork={network}
+                            chainName={source.chainName}
+                            size="xxs"
+                          />
+                          <span className="truncate max-w-[120px]">{sourceAlias}</span>
+                        </span>
+                      </Tooltip>
+                    </>
+                  )}
                   {isAdmin && (
                     <>
-                      {txTimestamp && (
-                        <span className="text-muted-foreground/50 text-xs">·</span>
-                      )}
+                      <span className="text-muted-foreground/50 text-xs">·</span>
                       <Tooltip title={payment.from} arrow placement="top">
                         <a
                           href={explorer.getExplorerUrlForAddress(
                             undefined,
                             network,
-                            coreConstants.MAINNET_CHAIN_NAME,
+                            source?.chainName ?? payment.schainName,
                             payment.from
                           )}
                           target="_blank"
@@ -223,7 +249,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
                 size="md"
                 transparent
                 className="p-0! mr-5 ml-5"
-                value={`ID: ${payment.id.toString()}`}
+                value={`ID: ${displayPaymentId.toString()}`}
                 text="Payment ID"
                 grow
                 ri={true}

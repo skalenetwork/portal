@@ -25,10 +25,10 @@ import { Contract, type JsonRpcSigner } from 'ethers'
 import { MetaportCore, walletClientToSigner, enforceNetwork } from '@skalenetwork/metaport'
 import { skaleContracts } from '@skalenetwork/skale-contracts-ethers-v6'
 import { type types, contracts, helper } from '@/core'
-import { MAINNET_CHAIN_NAME } from '@/core/constants'
 
 export interface Payment {
   id: bigint
+  sourceId: string
   schainHash: string
   schainName: string
   from: `0x${string}`
@@ -36,6 +36,18 @@ export interface Payment {
   tokenAddress: `0x${string}`
   blockNumber: number
   value: bigint
+}
+
+const PAYMENT_ID_PAYLOAD_MASK = (1n << 192n) - 1n
+
+export function getLedgerPaymentId(id: bigint): bigint {
+  return id & PAYMENT_ID_PAYLOAD_MASK
+}
+
+export function getCreditStationSources(
+  network: types.SkaleNetwork
+): contracts.CreditStationSource[] {
+  return contracts.CREDIT_STATION_SOURCES[network] ?? []
 }
 
 export async function ensureGasBalance(signer: JsonRpcSigner): Promise<void> {
@@ -72,10 +84,6 @@ export async function initAllLedgerContracts(
   return Object.fromEntries(results.filter(([_, contract]) => contract !== undefined))
 }
 
-function getCreditStationAddress(network: types.SkaleNetwork): types.AddressType | undefined {
-  return contracts.CONTRACTS[network][contracts.PortalProject.CREDIT_STATION]
-}
-
 function getLedgerContractAddress(
   network: types.SkaleNetwork,
   schainName: string
@@ -83,14 +91,42 @@ function getLedgerContractAddress(
   return contracts.CREDIT_STATION_LEDGER_CONTRACTS[network][schainName]
 }
 
-export async function getCreditStation(mpc: MetaportCore): Promise<Contract | undefined> {
-  const address = getCreditStationAddress(mpc.config.skaleNetwork)
-  if (!address) return undefined
-  const provider = mpc.provider(MAINNET_CHAIN_NAME)
+const ZERO_ADDRESS = '0x0000000000000000000000000000000000000000'
+
+function isValidAddress(address: string | undefined): boolean {
+  return address !== undefined && address !== ZERO_ADDRESS
+}
+
+export async function getCreditStationForSource(
+  mpc: MetaportCore,
+  source: contracts.CreditStationSource
+): Promise<Contract | undefined> {
+  if (!isValidAddress(source.contractAddress)) return undefined
+  const provider = mpc.provider(source.chainName)
   const network = await skaleContracts.getNetworkByProvider(provider)
-  const project = await network.getProject('mainnet-credit-station')
-  const instance = await project.getInstance(address)
+  const project = await network.getProject(source.skaleContractsProject as any)
+  const instance = await project.getInstance(source.contractAddress)
   return (await instance.getContract('CreditStation')) as Contract
+}
+
+export async function initAllCreditStations(
+  mpc: MetaportCore,
+  sources: contracts.CreditStationSource[]
+): Promise<Record<string, Contract>> {
+  const entries = await Promise.all(
+    sources.map(async (source) => {
+      try {
+        const contract = await getCreditStationForSource(mpc, source)
+        return [source.id, contract] as const
+      } catch (error) {
+        console.error(`Failed to init credit station for source ${source.id}:`, error)
+        return [source.id, undefined] as const
+      }
+    })
+  )
+  return Object.fromEntries(
+    entries.filter(([, contract]) => contract !== undefined) as [string, Contract][]
+  )
 }
 
 export async function getLedgerContract(
@@ -123,9 +159,22 @@ export async function getTokenPrices(
   return priceMap
 }
 
+export async function getTokenPricesBySource(
+  creditStations: Record<string, Contract>
+): Promise<Record<string, Record<string, bigint>>> {
+  const entries = await Promise.all(
+    Object.entries(creditStations).map(async ([sourceId, contract]) => {
+      const prices = (await getTokenPrices(contract)) ?? {}
+      return [sourceId, prices] as const
+    })
+  )
+  return Object.fromEntries(entries)
+}
+
 async function getPayments(
   paymentIds: bigint[],
   creditStation: Contract,
+  sourceId: string,
   schains: types.ISChain[]
 ): Promise<Payment[]> {
   const allIds = Array.from(paymentIds)
@@ -137,7 +186,7 @@ async function getPayments(
     const chunkPayments = await Promise.all(
       chunk.map(async (paymentId) => {
         const rawPayment = await creditStation.getPaymentInfo(paymentId)
-        return toPayment(paymentId, rawPayment, schains)
+        return toPayment(paymentId, sourceId, rawPayment, schains)
       })
     )
     results.push(...chunkPayments)
@@ -147,17 +196,19 @@ async function getPayments(
 
 export async function getPaymentsByAddress(
   creditStation: Contract | undefined,
+  sourceId: string,
   address: string,
   schains: types.ISChain[]
 ): Promise<Payment[]> {
   if (!creditStation) return []
   const numberOfPayments = await creditStation.getNumberOfPayments(address)
   const paymentIds = await creditStation.getPaymentIds(address, 0, numberOfPayments)
-  return await getPayments(paymentIds, creditStation, schains)
+  return await getPayments(paymentIds, creditStation, sourceId, schains)
 }
 
 export async function getAllPayments(
   creditStation: Contract | undefined,
+  sourceId: string,
   schains: types.ISChain[]
 ): Promise<Payment[]> {
   if (!creditStation) return []
@@ -165,14 +216,52 @@ export async function getAllPayments(
   return getPayments(
     Array.from({ length: Number(lastPaymentId) }, (_, i) => BigInt(i + 1)),
     creditStation,
+    sourceId,
     schains
   )
 }
 
-function toPayment(id: bigint, data: any, schains: types.ISChain[]): Payment {
+export async function getPaymentsAcrossSourcesByAddress(
+  creditStations: Record<string, Contract>,
+  address: string,
+  schains: types.ISChain[]
+): Promise<Payment[]> {
+  const results = await Promise.all(
+    Object.entries(creditStations).map(([sourceId, contract]) =>
+      getPaymentsByAddress(contract, sourceId, address, schains).catch((error) => {
+        console.error(`Failed to fetch payments for source ${sourceId}:`, error)
+        return [] as Payment[]
+      })
+    )
+  )
+  return results.flat()
+}
+
+export async function getAllPaymentsAcrossSources(
+  creditStations: Record<string, Contract>,
+  schains: types.ISChain[]
+): Promise<Payment[]> {
+  const results = await Promise.all(
+    Object.entries(creditStations).map(([sourceId, contract]) =>
+      getAllPayments(contract, sourceId, schains).catch((error) => {
+        console.error(`Failed to fetch payments for source ${sourceId}:`, error)
+        return [] as Payment[]
+      })
+    )
+  )
+  return results.flat()
+}
+
+function toPayment(
+  id: bigint,
+  sourceId: string,
+  data: any,
+  schains: types.ISChain[]
+): Payment {
   const schainName = schains.find((s) => helper.schainNameToHash(s.name) === data[0])?.name || ''
   return {
     id,
+    sourceId,
     schainHash: data[0],
     schainName: schainName,
     from: data[1],

@@ -31,17 +31,11 @@ import {
   ChainIcon
 } from '@skalenetwork/metaport'
 
-import {
-  Wallet,
-  Fuel,
-  HandCoins,
-  CoinsIcon,
-  CirclePlus
-} from 'lucide-react'
+import { Wallet, Fuel, HandCoins, CoinsIcon, CirclePlus, ExternalLink, ArrowLeftRight } from 'lucide-react'
 
-import { types, metadata, units, constants, ERC_ABIS, notify } from '@/core'
+import { types, contracts, metadata, units, ERC_ABIS, notify, constants } from '@/core'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { Grid, Button, Dialog } from '@mui/material'
 
 import Logo from '../Logo'
@@ -57,14 +51,16 @@ import {
 import { prepareSignerForWrite } from '../../core/credit-station'
 import CreditsAmountSelector from './CreditsAmountSelector'
 import TokenSelector from './TokenSelector'
+import SourceSelector from './SourceSelector'
 
 interface ChainCreditsTileProps {
   mpc: MetaportCore
   chainsMeta: types.ChainsMetadataMap
   schain: types.ISChain
-  creditStation: Contract | undefined
-  tokenPrices: Record<string, bigint>
-  tokenBalances: types.mp.TokenBalancesMap | undefined
+  sources: contracts.CreditStationSource[]
+  creditStationBySource: Record<string, Contract>
+  tokenPricesBySource: Record<string, Record<string, bigint>>
+  tokenBalancesBySource: Record<string, types.mp.TokenBalancesMap | undefined>
   setErrorMsg: (msg: string | undefined) => void
   onPurchase?: () => void
 }
@@ -73,9 +69,10 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   mpc,
   chainsMeta,
   schain,
-  creditStation,
-  tokenPrices,
-  tokenBalances,
+  sources,
+  creditStationBySource,
+  tokenPricesBySource,
+  tokenBalancesBySource,
   setErrorMsg,
   onPurchase
 }) => {
@@ -84,6 +81,9 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   const [token, setToken] = useState<string | undefined>(undefined)
   const [amount, setAmount] = useState<bigint>(DEFAULT_CREDITS_AMOUNT)
   const [chainBalance, setChainBalance] = useState<bigint | undefined>(undefined)
+  const [selectedSourceId, setSelectedSourceId] = useState<string | undefined>(
+    sources[0]?.id
+  )
 
   const { address, chainId } = useWagmiAccount()
   const { data: walletClient } = useWagmiWalletClient({ chainId })
@@ -92,8 +92,25 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   const network = mpc.config.skaleNetwork
   const chainAlias = metadata.getAlias(network, chainsMeta, schain.name)
   const shortAlias = metadata.getChainShortAlias(chainsMeta, schain.name)
-  const tokens = mpc.config.connections.mainnet?.erc20
   const tokensMeta = mpc.config.tokens
+
+  useEffect(() => {
+    if (!selectedSourceId && sources[0]) setSelectedSourceId(sources[0].id)
+  }, [sources, selectedSourceId])
+
+  const selectedSource = useMemo(
+    () => sources.find((s) => s.id === selectedSourceId),
+    [sources, selectedSourceId]
+  )
+
+  const sourceTokens = useMemo<Record<string, types.mp.Token>>(() => {
+    if (!selectedSource) return {}
+    return mpc.config.connections[selectedSource.chainName]?.erc20 ?? {}
+  }, [mpc, selectedSource])
+
+  const tokenPrices = selectedSourceId ? (tokenPricesBySource[selectedSourceId] ?? {}) : {}
+  const tokenBalances = selectedSourceId ? tokenBalancesBySource[selectedSourceId] : undefined
+  const creditStation = selectedSourceId ? creditStationBySource[selectedSourceId] : undefined
 
   useEffect(() => {
     async function loadChainBalance() {
@@ -111,18 +128,21 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   }, [mpc, schain.name, address])
 
   useEffect(() => {
-    if (token !== undefined) return
-    if (!tokens || !tokenPrices) return
+    const tokens = sourceTokens
+    const currentAddress = token ? tokens[token]?.address : undefined
+    const currentValid =
+      currentAddress !== undefined && tokenPrices[currentAddress] !== undefined
+    if (currentValid) return
+
     const match = Object.entries(tokens).find(
       ([, tokenData]) => tokenData.address && tokenPrices[tokenData.address] !== undefined
     )
-    if (!match) return
-    setToken(match[0])
-  }, [tokens, tokenPrices, token])
+    setToken(match ? match[0] : undefined)
+  }, [sourceTokens, tokenPrices, token])
 
   function getPricePerCreditWei(): bigint {
-    if (!token || !tokenPrices || !tokens[token].address) return 0n
-    const tokenAddress = tokens[token].address
+    if (!token || !sourceTokens[token]?.address) return 0n
+    const tokenAddress = sourceTokens[token].address
     if (!tokenAddress) return 0n
     return tokenPrices[tokenAddress] ?? 0n
   }
@@ -131,19 +151,42 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
     return getPricePerCreditWei() * amount
   }
 
+  const selectedSourceAlias = selectedSource
+    ? metadata.getAlias(network, chainsMeta, selectedSource.chainName, undefined, true) ||
+      selectedSource.displayName
+    : ''
+
   function getBtnText(): string {
+    if (!selectedSource) return 'Select a source'
     if (!token) return 'Select a token'
     if (tokenBalances?.[token] === undefined) return 'Loading...'
     if (loading) return 'Processing...'
     if (amount <= 0n) return 'Enter credits amount'
-    if (tokenBalances[token] < getAmountToPayWei()) return 'Insufficient funds'
+    if (tokenBalances[token] < getAmountToPayWei()) return `Insufficient ${token.toUpperCase()}`
     const totalWei = getAmountToPayWei()
     const total = token ? units.displayBalance(totalWei, token, tokensMeta[token].decimals) : ''
     return `Buy ${amount} ${amount === 1n ? 'Credit' : 'Credits'}${total ? ` · ${total}` : ''}`
   }
 
+  function getMoreTokensAction(): { label: string; href: string; external: boolean } | undefined {
+    if (!selectedSource || !token) return undefined
+    const tokenSymbol = token.toUpperCase()
+    if (selectedSource.chainName === constants.MAINNET_CHAIN_NAME) {
+      return {
+        label: `Get ${tokenSymbol} on ${selectedSourceAlias}`,
+        href: `https://www.coinbase.com/buy/${token.toLowerCase()}`,
+        external: true
+      }
+    }
+    return {
+      label: `Bridge ${tokenSymbol} to ${selectedSourceAlias}`,
+      href: '/bridge',
+      external: false
+    }
+  }
+
   async function buyCredits() {
-    if (!creditStation || !token) return
+    if (!creditStation || !token || !selectedSource) return
     if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
       setErrorMsg('Something is wrong with your wallet, try again')
       notify.permanentError('Something is wrong with your wallet, try again')
@@ -154,7 +197,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
     setErrorMsg(undefined)
 
     try {
-      const tokenAddress = tokens[token].address
+      const tokenAddress = sourceTokens[token]?.address
       if (!tokenAddress) return
 
       const signer = await prepareSignerForWrite(
@@ -162,7 +205,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
         walletClient,
         switchChainAsync,
         network,
-        constants.MAINNET_CHAIN_NAME
+        selectedSource.chainName
       )
 
       const amountWei = getAmountToPayWei()
@@ -181,7 +224,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
       await sendTransaction(
         signer,
         creditStation.buy,
-        [schain.name, address, tokens[token].address, amount],
+        [schain.name, address, tokenAddress, amount],
         'creditStation:buy',
         CREDITS_CONFIRMATION_BLOCKS
       )
@@ -249,7 +292,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
                   startIcon={<CirclePlus size={14} />}
                   className="btnMd ml-5 bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
                   onClick={() => setOpenModal(true)}
-                  disabled={creditStation === undefined}
+                  disabled={sources.length === 0}
                 >
                   Buy Credits
                 </Button>
@@ -283,26 +326,43 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
         }}
       >
         <SkPaper gray className="p-4! md:p-6!">
-          <div className="flex items-center gap-3 pb-6 px-1">
-            <div className="grow min-w-0">
+          <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-x-8 gap-y-6 pb-8 px-1">
+            <div className="min-w-0 lg:shrink-0">
               <h2 className="m-0 text-xl font-bold text-foreground leading-tight">Buy Credits</h2>
-              <div className="mt-1.5 flex items-center gap-1.5">
+              <div className="mt-2 flex items-center gap-1.5">
                 <ChainIcon size="xxs" chainName={schain.name} skaleNetwork={network} />
                 <span className="text-[11px] font-semibold text-muted-foreground truncate">
                   {chainAlias}
                 </span>
               </div>
             </div>
-            <div className="flex items-center gap-2 shrink-0">
-              <span className="text-[11px] font-semibold text-muted-foreground">Paying with</span>
-              <TokenSelector
-                tokens={tokens}
-                tokensMeta={tokensMeta}
-                tokenPrices={tokenPrices}
-                tokenBalances={tokenBalances}
-                selected={token}
-                onSelect={setToken}
-              />
+            <div className="flex flex-col sm:flex-row sm:flex-wrap sm:items-center gap-x-6 gap-y-4">
+              <div className="flex flex-col gap-1 min-w-0">
+                <span className="text-[11px] font-semibold text-muted-foreground px-1">
+                  Paying on
+                </span>
+                <SourceSelector
+                  sources={sources}
+                  selectedId={selectedSourceId}
+                  onSelect={setSelectedSourceId}
+                  skaleNetwork={network}
+                  chainsMeta={chainsMeta}
+                  disabled={loading}
+                />
+              </div>
+              <div className="flex flex-col gap-1 min-w-0">
+                <span className="text-[11px] font-semibold text-muted-foreground px-1">
+                  Paying with
+                </span>
+                <TokenSelector
+                  tokens={sourceTokens}
+                  tokensMeta={tokensMeta}
+                  tokenPrices={tokenPrices}
+                  tokenBalances={tokenBalances}
+                  selected={token}
+                  onSelect={setToken}
+                />
+              </div>
             </div>
           </div>
           <CreditsAmountSelector
@@ -313,30 +373,83 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
             tokenSymbol={token}
             tokenDecimals={(token ? tokensMeta[token]?.decimals : undefined) ?? 18}
           />
-          <Button
-            variant="contained"
-            className="btn mt-6! py-5! px-4! w-full capitalize! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-accent!"
-            startIcon={<CoinsIcon size={17} />}
-            size="large"
-            onClick={buyCredits}
-            disabled={
-              token === undefined ||
-              loading ||
-              amount <= 0n ||
-              tokenBalances?.[token] === undefined ||
-              tokenBalances[token] < getAmountToPayWei()
+          {(() => {
+            const insufficient =
+              token !== undefined &&
+              tokenBalances?.[token] !== undefined &&
+              tokenBalances[token] < getAmountToPayWei() &&
+              amount > 0n
+            const action = insufficient ? getMoreTokensAction() : undefined
+            const baseBtnClasses =
+              'btn py-5! px-5! capitalize! ease-in-out transition-transform duration-150 active:scale-[0.99]'
+            const primaryBtnClasses =
+              'bg-accent-foreground! text-accent! disabled:bg-secondary-foreground/10! disabled:text-foreground!'
+            const buyBtn = (
+              <Button
+                variant="contained"
+                className={`${baseBtnClasses} ${primaryBtnClasses} ${action ? 'flex-1 min-w-0' : 'w-full'}`}
+                startIcon={<CoinsIcon size={17} />}
+                size="large"
+                onClick={buyCredits}
+                disabled={
+                  !selectedSource ||
+                  !creditStation ||
+                  token === undefined ||
+                  loading ||
+                  amount <= 0n ||
+                  tokenBalances?.[token] === undefined ||
+                  tokenBalances[token] < getAmountToPayWei()
+                }
+              >
+                {getBtnText()}
+              </Button>
+            )
+            if (!action) {
+              return <div className="mt-6">{buyBtn}</div>
             }
-          >
-            {getBtnText()}
-          </Button>
+            const actionIcon = action.external ? (
+              <ExternalLink size={17} />
+            ) : (
+              <ArrowLeftRight size={17} />
+            )
+            const actionClassName = `${baseBtnClasses} ${primaryBtnClasses} shrink-0`
+            const getBtn = action.external ? (
+              <Button
+                variant="contained"
+                className={actionClassName}
+                size="large"
+                href={action.href}
+                target="_blank"
+                rel="noreferrer"
+                endIcon={actionIcon}
+              >
+                {action.label}
+              </Button>
+            ) : (
+              <Button
+                component={Link}
+                to={action.href}
+                variant="contained"
+                className={actionClassName}
+                size="large"
+                onClick={() => setOpenModal(false)}
+                endIcon={actionIcon}
+              >
+                {action.label}
+              </Button>
+            )
+            return (
+              <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                {buyBtn}
+                {getBtn}
+              </div>
+            )
+          })()}
           <p className="text-muted-foreground text-sm font-medium mt-5 px-2 text-center leading-relaxed">
-            Enough for an estimated{' '}
-            <Fuel size={14} className="inline align-[-2px] mr-1" />
-            {Number(amount * CREDITS_USAGE_EXAMPLE_PER_CREDIT.gasUnits).toLocaleString()}
-            {' '}gas units and{' '}
-            <HandCoins size={14} className="inline align-[-2px] mr-1" />
-            {Number(amount * CREDITS_USAGE_EXAMPLE_PER_CREDIT.x402).toLocaleString()}
-            {' '}agent payments
+            Enough for an estimated <Fuel size={14} className="inline align-[-2px] mr-1" />
+            {Number(amount * CREDITS_USAGE_EXAMPLE_PER_CREDIT.gasUnits).toLocaleString()} gas units
+            and <HandCoins size={14} className="inline align-[-2px] mr-1" />
+            {Number(amount * CREDITS_USAGE_EXAMPLE_PER_CREDIT.x402).toLocaleString()} agent payments
           </p>
           <p className="text-muted-foreground/80 text-[10px] font-medium mt-5 px-2 text-center">
             Estimates may change based on chain consumption.

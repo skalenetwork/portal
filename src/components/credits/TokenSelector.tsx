@@ -78,11 +78,10 @@ export default function TokenSelector({
           <ButtonBase
             key={symbol}
             onClick={() => onSelect(symbol)}
-            className={`rounded-full! px-3.5! py-2! transition-all! ease-in-out! duration-150! active:scale-[0.97]! ${
-              isSelected
+            className={`rounded-full! min-w-[124px]! px-3.5! py-1.5! transition-all! ease-in-out! duration-150! active:scale-[0.97]! ${isSelected
                 ? 'bg-accent-foreground! text-accent!'
                 : 'hover:bg-muted-foreground/10! text-foreground!'
-            }`}
+              }`}
           >
             <div className="flex items-center gap-2">
               <TokenIcon
@@ -92,16 +91,14 @@ export default function TokenSelector({
               />
               <div className="flex flex-col items-start leading-tight">
                 <span
-                  className={`font-bold uppercase text-sm ${
-                    isSelected ? 'text-accent' : 'text-foreground'
-                  }`}
+                  className={`font-bold uppercase text-sm ${isSelected ? 'text-accent' : 'text-foreground'
+                    }`}
                 >
                   {symbol}
                 </span>
                 <span
-                  className={`text-[10px] font-semibold ${
-                    isSelected ? 'text-accent/70' : 'text-muted-foreground'
-                  }`}
+                  className={`text-[10px] font-semibold ${isSelected ? 'text-accent/70' : 'text-muted-foreground'
+                    }`}
                 >
                   {balance}
                 </span>

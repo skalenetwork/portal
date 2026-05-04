@@ -98,11 +98,6 @@ function AmountCard({ selected, onClick, title, subtitle, tokenSymbol, popular }
         >
           {title}
         </p>
-        <p
-          className={`mt-1 text-[11px] font-semibold ${selected ? 'text-accent/70' : 'text-muted-foreground'}`}
-        >
-          CREDITS
-        </p>
       </div>
       <div className="w-full mt-3 flex items-center justify-center gap-1.5 min-w-0">
         {tokenSymbol && <TokenIcon tokenSymbol={tokenSymbol} size="xs" />}
@@ -165,8 +160,8 @@ export default function CreditsAmountSelector({
         )
       })}
       {editingCustom ? (
-        <div className="creditsPlanCard min-w-0 rounded-2xl border-2 border-transparent bg-background p-3 flex flex-col items-stretch gap-2">
-          <div className="monthInputWrap bg-muted-foreground/10 flex items-center justify-center w-full overflow-hidden px-3! py-2.5!">
+        <div className="creditsPlanCard min-w-0 rounded-2xl border-2 border-transparent bg-background p-2 flex flex-col items-stretch gap-2">
+          <div className="monthInputWrap bg-muted-foreground/10 flex items-center justify-center w-full overflow-hidden px-1.5! py-1!">
             <TextField
               autoFocus
               variant="standard"
