@@ -31,7 +31,7 @@ import {
   useWagmiSwitchNetwork,
   sendTransaction
 } from '@skalenetwork/metaport'
-import { types, units, constants, notify } from '@/core'
+import { types, units, constants, notify, contracts as coreContracts } from '@/core'
 import { prepareSignerForWrite } from '../../core/credit-station'
 
 import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
@@ -50,6 +50,7 @@ interface TokenAdminTileProps {
   tokenPrices: Record<string, bigint>
   loadTokenPrices: () => Promise<void>
   creditStation: Contract | undefined
+  source: coreContracts.CreditStationSource
   tokenMeta: types.mp.TokenMetadata | undefined
   tokenData: types.mp.Token
   symbol: string
@@ -61,6 +62,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
   tokenPrices,
   loadTokenPrices,
   creditStation,
+  source,
   tokenMeta,
   tokenData,
   symbol
@@ -101,7 +103,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
         walletClient,
         switchChainAsync,
         network,
-        constants.MAINNET_CHAIN_NAME
+        source.chainName
       )
       await sendTransaction(
         signer,
