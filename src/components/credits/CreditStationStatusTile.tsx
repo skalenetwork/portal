@@ -30,7 +30,7 @@ import {
   useWagmiSwitchNetwork,
   sendTransaction
 } from '@skalenetwork/metaport'
-import { constants, notify } from '@/core'
+import { contracts as coreContracts, notify } from '@/core'
 import { prepareSignerForWrite } from '../../core/credit-station'
 import Button from '@mui/material/Button'
 import { Badge, BadgeCheck, ToggleLeft, ToggleRight } from 'lucide-react'
@@ -38,12 +38,14 @@ import { Badge, BadgeCheck, ToggleLeft, ToggleRight } from 'lucide-react'
 interface CreditStationStatusTileProps {
   mpc: MetaportCore
   creditStation: Contract | undefined
+  source: coreContracts.CreditStationSource
   setErrorMsg: (msg: string) => void
 }
 
 const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
   mpc,
   creditStation,
+  source,
   setErrorMsg
 }) => {
   const [isPaused, setIsPaused] = useState<boolean>(false)
@@ -83,7 +85,7 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
         walletClient,
         switchChainAsync,
         network,
-        constants.MAINNET_CHAIN_NAME
+        source.chainName
       )
 
       const method = isPaused ? creditStation.unpause : creditStation.pause

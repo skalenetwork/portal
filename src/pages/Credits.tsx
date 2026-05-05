@@ -23,12 +23,12 @@
 
 import { Helmet } from 'react-helmet'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 import { Contract } from 'ethers'
 
 import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
-import { constants, dc, type types } from '@/core'
+import { contracts as coreContracts, dc, type types } from '@/core'
 import * as cs from '../core/credit-station'
 
 import Container from '@mui/material/Container'
@@ -42,7 +42,6 @@ import AccordionSection from '../components/AccordionSection'
 import ConnectWallet from '../components/ConnectWallet'
 import ChainCreditsTile from '../components/credits/ChainCreditsTile'
 import CreditsPaymentTile from '../components/credits/CreditsPaymentTile'
-import { getCreditStation, getTokenPrices } from '../core/credit-station'
 import ErrorTile from '../components/ErrorTile'
 import { History, HistoryIcon, Link2 } from 'lucide-react'
 
@@ -55,44 +54,83 @@ interface CreditsProps {
 }
 
 const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chainsMeta }) => {
-  const [creditStation, setCreditStation] = useState<Contract | undefined>(undefined)
-  const [tokenPrices, setTokenPrices] = useState<Record<string, bigint>>({})
-  const [tokenBalances, setTokenBalances] = useState<types.mp.TokenBalancesMap>()
-  const [tokenContracts, setTokenContracts] = useState<types.mp.TokenContractsMap>({})
+  const [creditStationBySource, setCreditStationBySource] = useState<Record<string, Contract>>({})
+  const [tokenPricesBySource, setTokenPricesBySource] = useState<
+    Record<string, Record<string, bigint>>
+  >({})
+  const [tokenBalancesBySource, setTokenBalancesBySource] = useState<
+    Record<string, types.mp.TokenBalancesMap | undefined>
+  >({})
+  const [tokenContractsBySource, setTokenContractsBySource] = useState<
+    Record<string, types.mp.TokenContractsMap>
+  >({})
   const [ledgerContracts, setLedgerContracts] = useState<{ [schainName: string]: Contract }>({})
   const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined)
   const [payments, setPayments] = useState<cs.Payment[]>([])
 
+  const sources = useMemo(
+    () => cs.getCreditStationSources(mpc.config.skaleNetwork),
+    [mpc]
+  )
+
+  const sourceById = useMemo<Record<string, coreContracts.CreditStationSource>>(
+    () => Object.fromEntries(sources.map((s) => [s.id, s])),
+    [sources]
+  )
+
   async function loadPayments() {
-    if (!creditStation || !address || schains.length === 0) return
-    setPayments(await cs.getPaymentsByAddress(creditStation, address, schains))
+    if (Object.keys(creditStationBySource).length === 0 || !address || schains.length === 0) return
+    setPayments(
+      await cs.getPaymentsAcrossSourcesByAddress(creditStationBySource, address, schains)
+    )
   }
 
-  async function initCreditStation() {
-    setCreditStation(await getCreditStation(mpc))
+  async function initCreditStations() {
+    setCreditStationBySource(await cs.initAllCreditStations(mpc, sources))
   }
 
-  async function loadCreditStationData() {
-    setTokenPrices((await getTokenPrices(creditStation)) || {})
-    if (address) {
-      setTokenBalances(await mpc.tokenBalances(tokenContracts, address))
-    }
+  async function loadTokenPrices() {
+    if (Object.keys(creditStationBySource).length === 0) return
+    setTokenPricesBySource(await cs.getTokenPricesBySource(creditStationBySource))
+  }
+
+  async function loadTokenBalances() {
+    if (!address) return
+    const entries = await Promise.all(
+      sources.map(async (source) => {
+        const contracts = tokenContractsBySource[source.id]
+        if (!contracts) return [source.id, undefined] as const
+        try {
+          const balances = await mpc.tokenBalances(contracts, address)
+          return [source.id, balances] as const
+        } catch (error) {
+          console.error(`Failed to load balances for ${source.id}:`, error)
+          return [source.id, undefined] as const
+        }
+      })
+    )
+    setTokenBalancesBySource(Object.fromEntries(entries))
   }
 
   async function initTokenContracts() {
-    const tokens = mpc.config.connections.mainnet?.erc20
-    const contracts: Record<string, Contract> = {}
-    const provider = mpc.provider(constants.MAINNET_CHAIN_NAME)
-    for (const [symbol, _] of Object.entries(tokens)) {
-      const ct = mpc.tokenContract(
-        constants.MAINNET_CHAIN_NAME,
-        symbol,
-        dc.TokenType.erc20,
-        provider
-      )
-      if (ct) contracts[symbol] = ct
+    const result: Record<string, types.mp.TokenContractsMap> = {}
+    for (const source of sources) {
+      const tokens = mpc.config.connections[source.chainName]?.erc20 ?? {}
+      const contracts: types.mp.TokenContractsMap = {}
+      let provider
+      try {
+        provider = mpc.provider(source.chainName)
+      } catch (error) {
+        console.error(`Failed to get provider for ${source.chainName}:`, error)
+        continue
+      }
+      for (const symbol of Object.keys(tokens)) {
+        const ct = mpc.tokenContract(source.chainName, symbol, dc.TokenType.erc20, provider)
+        if (ct) contracts[symbol] = ct
+      }
+      result[source.id] = contracts
     }
-    setTokenContracts(contracts)
+    setTokenContractsBySource(result)
   }
 
   async function initLedgerContracts() {
@@ -102,31 +140,35 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
   useEffect(() => {
     loadData()
     initTokenContracts()
-    initCreditStation()
+    initCreditStations()
   }, [])
 
   useEffect(() => {
-    loadCreditStationData()
-  }, [address, tokenContracts])
+    loadTokenBalances()
+  }, [address, tokenContractsBySource])
 
   useEffect(() => {
     initLedgerContracts()
   }, [schains])
 
   useEffect(() => {
-    loadCreditStationData()
-    if (!creditStation) return
-    const intervalId = setInterval(loadCreditStationData, 10000)
+    loadTokenPrices()
+    loadTokenBalances()
+    if (Object.keys(creditStationBySource).length === 0) return
+    const intervalId = setInterval(() => {
+      loadTokenPrices()
+      loadTokenBalances()
+    }, 10000)
     return () => clearInterval(intervalId)
-  }, [creditStation])
+  }, [creditStationBySource])
 
   useEffect(() => {
-    if (creditStation && address && schains.length > 0) {
+    if (Object.keys(creditStationBySource).length > 0 && address && schains.length > 0) {
       loadPayments()
       const interval = setInterval(loadPayments, 30000)
       return () => clearInterval(interval)
     }
-  }, [creditStation, address])
+  }, [creditStationBySource, address, schains])
 
   if (schains.length === 0) {
     return (
@@ -144,6 +186,11 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
       </div>
     )
   }
+
+  const sortedPayments = [...payments].sort((a, b) => {
+    if (b.blockNumber !== a.blockNumber) return b.blockNumber - a.blockNumber
+    return Number(b.id - a.id)
+  })
 
   return (
     <Container maxWidth="md" className="mb-5">
@@ -178,10 +225,12 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
                   mpc={mpc}
                   chainsMeta={chainsMeta}
                   schain={schain}
-                  creditStation={creditStation}
-                  tokenPrices={tokenPrices}
-                  tokenBalances={tokenBalances}
+                  sources={sources}
+                  creditStationBySource={creditStationBySource}
+                  tokenPricesBySource={tokenPricesBySource}
+                  tokenBalancesBySource={tokenBalancesBySource}
                   setErrorMsg={setErrorMsg}
+                  onPurchase={loadPayments}
                 />
               ))}
             </Collapse>
@@ -201,20 +250,21 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
             icon={<History size={17} />}
             marg={false}
           >
-            <Collapse in={payments.length !== 0 && address !== undefined} className="-mb-2">
-              {[...payments].reverse().map((payment: cs.Payment) => (
+            <Collapse in={sortedPayments.length !== 0 && address !== undefined} className="-mb-2">
+              {sortedPayments.map((payment: cs.Payment) => (
                 <CreditsPaymentTile
-                  key={`${payment.schainName}-${payment.id}`}
+                  key={`${payment.sourceId}-${payment.schainName}-${payment.id}`}
                   payment={payment}
                   mpc={mpc}
                   chainsMeta={chainsMeta}
                   ledgerContract={ledgerContracts[payment.schainName]}
-                  creditStation={creditStation}
+                  creditStation={creditStationBySource[payment.sourceId]}
+                  source={sourceById[payment.sourceId]}
                   setErrorMsg={setErrorMsg}
                 />
               ))}
             </Collapse>
-            <Collapse in={payments.length === 0 && address !== undefined}>
+            <Collapse in={sortedPayments.length === 0 && address !== undefined}>
               <div className="mt-5">
                 <div className="flex items-center justify-center mb-4">
                   <HistoryIcon size={27} className="text-muted-foreground" />

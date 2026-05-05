@@ -16,77 +16,61 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 /**
- * @file CreditTokensAdmin.tsx
+ * @file TokensAdmin.tsx
  * @copyright SKALE Labs 2025-Present
  */
 
 import { Contract } from 'ethers'
 import { useEffect, useState } from 'react'
 
-import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
-import { types } from '@/core'
-import * as cs from '../../core/credit-station'
-
-import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
+import { type MetaportCore, SkPaper, ChainIcon } from '@skalenetwork/metaport'
+import { contracts as coreContracts, metadata, types } from '@/core'
 
 import TokenAdminTile from './TokenAdminTile'
 import AccordionSection from '../AccordionSection'
-import ErrorTile from '../ErrorTile'
-import CreditsHistoryTile from './CreditsPaymentTile'
 import CreditStationStatusTile from './CreditStationStatusTile'
 import { getTokenPrices } from '../../core/credit-station'
-import { Coins, History, SwatchBook } from 'lucide-react'
+import { Coins, SwatchBook } from 'lucide-react'
 
-interface CreditTokensAdminProps {
+interface TokensAdminProps {
   mpc: MetaportCore
+  source: coreContracts.CreditStationSource
   creditStation: Contract | undefined
-  schains: types.ISChain[]
   chainsMeta: types.ChainsMetadataMap
+  setErrorMsg: (msg: string | undefined) => void
 }
 
-const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
+const TokensAdmin: React.FC<TokensAdminProps> = ({
   mpc,
+  source,
   creditStation,
-  schains,
-  chainsMeta
+  chainsMeta,
+  setErrorMsg
 }) => {
-  const tokens = mpc.config.connections.mainnet?.erc20
+  const tokens = mpc.config.connections[source.chainName]?.erc20 ?? {}
   const tokensMeta = mpc.config.tokens
+  const network = mpc.config.skaleNetwork
+  const sourceAlias =
+    metadata.getAlias(network, chainsMeta, source.chainName) || source.displayName
 
-  const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined)
   const [tokenPrices, setTokenPrices] = useState<Record<string, bigint>>({})
-  const [allPayments, setAllPayments] = useState<cs.Payment[]>([])
-  const [ledgerContracts, setLedgerContracts] = useState<{ [schainName: string]: Contract }>({})
-  const [isLoading, setIsLoading] = useState<boolean>(false)
 
   useEffect(() => {
     loadTokenPrices()
-    loadAllPayments()
-    initLedgerContracts()
   }, [creditStation])
-
-  async function initLedgerContracts() {
-    if (!schains.length) return
-    setLedgerContracts(await cs.initAllLedgerContracts(mpc, schains))
-  }
-
-  async function loadAllPayments() {
-    setIsLoading(true)
-    setAllPayments(await cs.getAllPayments(creditStation, schains))
-    setIsLoading(false)
-  }
 
   async function loadTokenPrices() {
     const res = await getTokenPrices(creditStation)
     setTokenPrices(res || {})
   }
 
-  if (!tokens) return <div>No tokens available</div>
-
   return (
     <div>
-      <ErrorTile errorMsg={errorMsg} className="mb-2.5" />
-      <SkPaper gray className="mt-5">
+      <div className="flex items-center gap-2 mt-7 mb-2 px-1 pt-1">
+        <ChainIcon chainName={source.chainName} skaleNetwork={network} size="xs" />
+        <h3 className="m-0 text-xl font-bold text-foreground">{sourceAlias}</h3>
+      </div>
+      <SkPaper gray className="mt-2.5">
         <AccordionSection
           expandedByDefault={true}
           title="Manage Credit Station"
@@ -96,7 +80,8 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
           <CreditStationStatusTile
             mpc={mpc}
             creditStation={creditStation}
-            setErrorMsg={setErrorMsg}
+            source={source}
+            setErrorMsg={(msg) => setErrorMsg(msg ?? undefined)}
           />
         </AccordionSection>
       </SkPaper>
@@ -108,58 +93,27 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
           marg={false}
         >
           <div className="mt-2.5">
-            {Object.entries(tokens).map(([symbol, tokenData]) => (
+            {Object.keys(tokens).length === 0 && (
+              <div className="text-center mt-5 mb-5">
+                <p className="p text-sm text-secondary-foreground font-semibold">
+                  No tokens configured for this source
+                </p>
+              </div>
+            )}
+            {Object.entries(tokens).map(([symbol, tokenData]: [string, types.mp.Token]) => (
               <TokenAdminTile
                 key={symbol}
                 mpc={mpc}
                 tokenPrices={tokenPrices}
                 loadTokenPrices={loadTokenPrices}
                 creditStation={creditStation}
+                source={source}
                 tokenMeta={tokensMeta[symbol]}
                 tokenData={tokenData}
                 symbol={symbol}
-                setErrorMsg={setErrorMsg}
+                setErrorMsg={(msg) => setErrorMsg(msg ?? undefined)}
               />
             ))}
-          </div>
-        </AccordionSection>
-      </SkPaper>
-      <SkPaper gray className="mt-5">
-        <AccordionSection
-          expandedByDefault={true}
-          title="Purchases History"
-          icon={<History size={17} />}
-          marg={false}
-        >
-          <div className="mt-2.5">
-            {isLoading && (
-              <div className="text-center mt-5 mb-5">
-                <p className="p text-sm text-secondary-foreground font-semibold">
-                  Loading purchases history...
-                </p>
-              </div>
-            )}
-            {!isLoading && allPayments.length === 0 && (
-              <div className="mt-5">
-                <HistoryRoundedIcon className="text-secondary w-full" />
-                <h5 className="p font-semibold text-secondary text-center mt-1.5 mb-5">
-                  No purchases found
-                </h5>
-              </div>
-            )}
-            {!isLoading &&
-              allPayments.map((payment: cs.Payment) => (
-                <CreditsHistoryTile
-                  key={`${payment.schainName}-${payment.id}`}
-                  payment={payment}
-                  mpc={mpc}
-                  chainsMeta={chainsMeta}
-                  ledgerContract={ledgerContracts[payment.schainName]}
-                  creditStation={creditStation}
-                  isAdmin={true}
-                  setErrorMsg={setErrorMsg}
-                />
-              ))}
           </div>
         </AccordionSection>
       </SkPaper>
@@ -167,4 +121,4 @@ const CreditTokensAdmin: React.FC<CreditTokensAdminProps> = ({
   )
 }
 
-export default CreditTokensAdmin
+export default TokensAdmin
