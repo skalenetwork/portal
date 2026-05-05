@@ -16,15 +16,15 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 /**
- * @file CreditsHistoryList.tsx
+ * @file CreditsPaymentTile.tsx
  * @copyright SKALE Labs 2025-Present
  */
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import Avatar from 'boring-avatars'
 import { Contract } from 'ethers'
 
-import { Grid, Button } from '@mui/material'
+import { Grid, Button, Tooltip } from '@mui/material'
 import HistoryToggleOffRoundedIcon from '@mui/icons-material/HistoryToggleOffRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
@@ -33,22 +33,19 @@ import {
   Tile,
   ChainIcon,
   TokenIcon,
+  explorer,
   useWagmiAccount,
   sendTransaction,
   useWagmiWalletClient,
   useWagmiSwitchNetwork
 } from '@skalenetwork/metaport'
-import { types, metadata, constants, timeUtils, helper, units, notify } from '@/core'
+import { types, contracts as coreContracts, timeUtils, helper, metadata, notify } from '@/core'
 
 import SkStack from '../SkStack'
 
 import * as cs from '../../core/credit-station'
-import {
-  CREDITS_CONFIRMATION_BLOCKS,
-  AVATAR_COLORS,
-  DEFAULT_CREDITS_AMOUNT
-} from '../../core/constants'
-import { BadgeCheck, HandCoins, IdCard } from 'lucide-react'
+import { CREDITS_CONFIRMATION_BLOCKS, AVATAR_COLORS } from '../../core/constants'
+import { BadgeCheck, ExternalLink, HandCoins, IdCard } from 'lucide-react'
 
 interface CreditsPaymentTileProps {
   mpc: MetaportCore
@@ -56,6 +53,7 @@ interface CreditsPaymentTileProps {
   chainsMeta: types.ChainsMetadataMap
   ledgerContract: Contract | undefined
   creditStation: Contract | undefined
+  source: coreContracts.CreditStationSource | undefined
   isAdmin?: boolean
   setErrorMsg: (msg: string | undefined) => void
 }
@@ -66,17 +64,31 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
   chainsMeta,
   ledgerContract,
   creditStation,
+  source,
   isAdmin = false,
   setErrorMsg
 }) => {
   const network = mpc.config.skaleNetwork
-  const chainAlias = metadata.getAlias(network, chainsMeta, payment.schainName)
 
-  const tokens = mpc.config.connections.mainnet?.erc20 || {}
+  const sourceTokens = useMemo<Record<string, types.mp.Token>>(() => {
+    if (!source) return {}
+    return mpc.config.connections[source.chainName]?.erc20 ?? {}
+  }, [mpc, source])
+
+  const sourceAlias = source
+    ? metadata.getAlias(network, chainsMeta, source.chainName, undefined, true) ||
+    source.displayName
+    : ''
+
   const tokenSymbol =
-    Object.keys(tokens).find(
-      (symbol) => tokens[symbol].address?.toLowerCase() === payment.tokenAddress.toLowerCase()
+    Object.keys(sourceTokens).find(
+      (symbol) => sourceTokens[symbol].address?.toLowerCase() === payment.tokenAddress.toLowerCase()
     ) || 'unknown'
+
+  const displayPaymentId = cs.getLedgerPaymentId(payment.id)
+
+  const credits = payment.value
+  const creditsLabel = `${credits} ${credits === 1n ? 'Credit' : 'Credits'}`
 
   const [isFulfilled, setIsFulfilled] = useState<boolean>(false)
   const [txTimestamp, setTxTimestamp] = useState<number | undefined>(undefined)
@@ -94,7 +106,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
         if (!provider) return
         const block = await provider.getBlock(payment.blockNumber)
         if (block) setTxTimestamp(block.timestamp)
-      } catch (error) {}
+      } catch (error) { }
     }
     fetchTimestamp()
   }, [creditStation, payment])
@@ -104,7 +116,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
     const checkFulfillment = async () => {
       try {
         setIsFulfilled(await ledgerContract.isFulfilled(payment.id))
-      } catch (error) {}
+      } catch (error) { }
     }
     checkFulfillment()
     const interval = setInterval(checkFulfillment, 10000)
@@ -131,7 +143,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
         [payment.id, payment.to],
         'ledger:fulfill',
         CREDITS_CONFIRMATION_BLOCKS,
-        units.toWei(DEFAULT_CREDITS_AMOUNT.toString(), constants.DEFAULT_ERC20_DECIMALS)
+        payment.value
       )
       notify.temporarySuccess('Payment fulfilled')
     } catch (e: any) {
@@ -162,16 +174,54 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
                 className="creditHistoryIcon"
               />
               <div className="ml-2.5 grow">
-                <h4 className="font-bold pOneLine text-foreground">
-                  {txTimestamp && !isAdmin
-                    ? timeUtils.timestampToDate(txTimestamp, true)
-                    : helper.shortAddress(payment.from)}
+                <h4 className="font-bold pOneLine text-foreground text-xl leading-tight">
+                  {creditsLabel}
                 </h4>
-                <p className="p text-xs text-secondary-foreground font-medium">
-                  {isAdmin && txTimestamp
-                    ? timeUtils.timestampToDate(txTimestamp, true)
-                    : chainAlias}
-                </p>
+                <div className="flex items-center gap-2 mt-0.5 flex-wrap">
+                  {txTimestamp && (
+                    <Tooltip title={timeUtils.timestampToFull(txTimestamp)} arrow placement="top">
+                      <p className="p text-xs text-muted-foreground font-medium cursor-default">
+                        {timeUtils.timestampToRelative(txTimestamp)}
+                      </p>
+                    </Tooltip>
+                  )}
+                  {source && (
+                    <>
+                      {txTimestamp && <span className="text-muted-foreground/50 text-xs">·</span>}
+                      <Tooltip title={`Paid on ${sourceAlias}`} arrow placement="top">
+                        <span className="inline-flex items-center gap-1 text-xs text-muted-foreground font-medium cursor-default">
+                          <ChainIcon
+                            skaleNetwork={network}
+                            chainName={source.chainName}
+                            size="xxs"
+                          />
+                          <span className="truncate max-w-[120px]">{sourceAlias}</span>
+                        </span>
+                      </Tooltip>
+                    </>
+                  )}
+                  {isAdmin && (
+                    <>
+                      <span className="text-muted-foreground/50 text-xs">·</span>
+                      <Tooltip title={payment.from} arrow placement="top">
+                        <a
+                          href={explorer.getExplorerUrlForAddress(
+                            undefined,
+                            network,
+                            source?.chainName ?? payment.schainName,
+                            payment.from
+                          )}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="p text-xs text-muted-foreground hover:text-foreground font-medium inline-flex items-center gap-1"
+                        >
+                          {helper.shortAddress(payment.from)}
+                          <ExternalLink size={11} />
+                        </a>
+                      </Tooltip>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           </Grid>
@@ -199,7 +249,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
                 size="md"
                 transparent
                 className="p-0! mr-5 ml-5"
-                value={`ID: ${payment.id.toString()}`}
+                value={`ID: ${displayPaymentId.toString()}`}
                 text="Payment ID"
                 grow
                 ri={true}
