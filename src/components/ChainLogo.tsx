@@ -63,8 +63,9 @@ export default function ChainLogo(props: {
   const [url, setUrl] = useState<any | null>(props.logos[baseLocalPath])
 
   useEffect(() => {
+    setUrl(props.logos[baseLocalPath] ?? null)
     loadLogo()
-  }, [])
+  }, [props.chainName, props.app])
 
   async function checkUrl(url: string): Promise<boolean> {
     try {

@@ -40,6 +40,7 @@ export interface TransferHistory {
   chainName1: string
   chainName2: string
   amount: string
+  timestamp?: number
   trailsIntentId?: string
   trailsStatus?: TrailsTransferStatus
   mesonSwapId?: string

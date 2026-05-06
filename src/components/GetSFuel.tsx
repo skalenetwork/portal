@@ -127,7 +127,7 @@ function SingleChainSFuel({ chainName, mpc }: { chainName: string; mpc: Metaport
           <Zap size={17} />
         )
       }
-      className="w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-foreground! disabled:bg-muted-foreground/30! disabled:text-muted! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+      className="w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
       onClick={handleClick}
       disabled={mining || loading}
     >

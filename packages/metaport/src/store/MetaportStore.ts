@@ -228,7 +228,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
           chainName2: get().chainName2,
           amount: get().amount,
           tokenKeyname: get().token.keyname,
-          address: address
+          address: address,
+          timestamp: Math.floor(Date.now() / 1000)
         }
         const intentId = get().trailsIntentId
         if (intentId) {
@@ -243,7 +244,8 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
         get().setTransfersHistory([...get().transfersHistory, entry])
 
         const symbol = entry.tokenKeyname?.toUpperCase() ?? 'tokens'
-        notify.temporarySuccess(`${entry.amount} ${symbol} transferred`)
+        const displayAmount = entry.amount.includes('.') ? entry.amount : Number(entry.amount).toLocaleString()
+        notify.temporarySuccess(`${displayAmount} ${symbol} transferred`)
 
         set({ loading: false, transferInProgress: false })
         return
@@ -288,10 +290,12 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
     const silent = options?.silent ?? false
     const requestId = ++checkRequestId
     if (get().stepsMetadata[get().currentStep] && address) {
-      set({
-        loading: true,
-        btnText: 'Checking balance...'
-      })
+      if (!silent) {
+        set({
+          loading: true,
+          btnText: 'Checking balance...'
+        })
+      }
       try {
         const stepMetadata = get().stepsMetadata[get().currentStep]
 
