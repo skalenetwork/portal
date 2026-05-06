@@ -72,6 +72,30 @@ export const METAPORT_CONFIG: types.mp.Config = {
               bridge: 'trails'
             }
           }
+        },
+        usdt: {
+          address: '0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        wbtc: {
+          address: '0x50b7545627a5162F82A992c33b87aDc75187B218',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        weth: {
+          address: '0x49D5c2BdFfac6CE2BFdB6640F4F80f226bc10bAB',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
         }
       }
     },
@@ -79,6 +103,30 @@ export const METAPORT_CONFIG: types.mp.Config = {
       erc20: {
         usdc: {
           address: '0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        usdt: {
+          address: '0xc2132D05D31c914a87C6611C10748AEb04B58e8F',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        wbtc: {
+          address: '0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        weth: {
+          address: '0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619',
           chains: {
             'winged-bubbly-grumium': {
               bridge: 'trails'
@@ -108,6 +156,30 @@ export const METAPORT_CONFIG: types.mp.Config = {
               bridge: 'trails'
             }
           }
+        },
+        usdt: {
+          address: '0x4ECaBa5870353805a9F068101A40E0f32ed605C6',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        wbtc: {
+          address: '0x8e5bBbb09Ed1ebdE8674Cda39A0c169401db4252',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        weth: {
+          address: '0x6A023CCd1ff6F2045C3309768eAd9E68F978f6e1',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
         }
       }
     },
@@ -120,6 +192,30 @@ export const METAPORT_CONFIG: types.mp.Config = {
               bridge: 'trails'
             }
           }
+        },
+        usdt: {
+          address: '0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        wbtc: {
+          address: '0x2f2a2543B76A4166549F7aaB2e75Bef0aefC5B0f',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        weth: {
+          address: '0x82aF49447D8a07e3bd95BD0d56f35241523fBab1',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
         }
       }
     },
@@ -127,6 +223,30 @@ export const METAPORT_CONFIG: types.mp.Config = {
       erc20: {
         usdc: {
           address: '0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        usdt: {
+          address: '0x94b008aA00579c1307B0EF2c499aD98a8ce58e58',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        wbtc: {
+          address: '0x68f180fcCe6836688e9084f035309E29Bf0A2095',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        weth: {
+          address: '0x4200000000000000000000000000000000000006',
           chains: {
             'winged-bubbly-grumium': {
               bridge: 'trails'
@@ -193,6 +313,21 @@ export const METAPORT_CONFIG: types.mp.Config = {
           chains: {
             mainnet: {
               clone: true
+            },
+            'ext-arbitrum': {
+               bridge: 'trails'
+              },
+            'ext-op-mainnet': {
+              bridge: 'trails'
+            },
+            'ext-avalanche': {
+              bridge: 'trails'
+            },
+            'ext-polygon': {
+              bridge: 'trails'
+            },
+            'ext-gnosis': {
+              bridge: 'trails'
             }
           }
         },
@@ -201,6 +336,21 @@ export const METAPORT_CONFIG: types.mp.Config = {
           chains: {
             mainnet: {
               clone: true
+            },
+            'ext-arbitrum': {
+              bridge: 'trails'
+            },
+            'ext-op-mainnet': {
+              bridge: 'trails'
+            },
+            'ext-avalanche': {
+              bridge: 'trails'
+            },
+            'ext-polygon': {
+              bridge: 'trails'
+            },
+            'ext-gnosis': {
+              bridge: 'trails'
             }
           }
         },
@@ -209,6 +359,21 @@ export const METAPORT_CONFIG: types.mp.Config = {
           chains: {
             mainnet: {
               clone: true
+            },
+            'ext-arbitrum': {
+              bridge: 'trails'
+            },
+            'ext-op-mainnet': {
+              bridge: 'trails'
+            },
+            'ext-avalanche': {
+              bridge: 'trails'
+            },
+            'ext-polygon': {
+              bridge: 'trails'
+            },
+            'ext-gnosis': {
+              bridge: 'trails'
             }
           }
         },
