@@ -188,7 +188,7 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
   }
 
   const sortedPayments = [...payments].sort((a, b) => {
-    if (b.blockNumber !== a.blockNumber) return b.blockNumber - a.blockNumber
+    if (b.timestamp !== a.timestamp) return b.timestamp - a.timestamp
     return Number(b.id - a.id)
   })
 
@@ -258,7 +258,6 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
                   mpc={mpc}
                   chainsMeta={chainsMeta}
                   ledgerContract={ledgerContracts[payment.schainName]}
-                  creditStation={creditStationBySource[payment.sourceId]}
                   source={sourceById[payment.sourceId]}
                   setErrorMsg={setErrorMsg}
                 />

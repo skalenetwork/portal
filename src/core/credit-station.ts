@@ -35,6 +35,7 @@ export interface Payment {
   to: `0x${string}`
   tokenAddress: `0x${string}`
   blockNumber: number
+  timestamp: number
   value: bigint
 }
 
@@ -183,12 +184,41 @@ async function getPayments(
 
   for (let i = 0; i < allIds.length; i += chunkSize) {
     const chunk = allIds.slice(i, i + chunkSize)
-    const chunkPayments = await Promise.all(
+    const chunkPaymentData = await Promise.all(
       chunk.map(async (paymentId) => {
         const rawPayment = await creditStation.getPaymentInfo(paymentId)
-        return toPayment(paymentId, sourceId, rawPayment, schains)
+        return [paymentId, rawPayment] as const
       })
     )
+
+    const blockNumbers = Array.from(
+      new Set(chunkPaymentData.map(([, data]) => Number(data[3])))
+    )
+
+    const timestampsByBlock = new Map<number, number>()
+    const provider = creditStation.runner?.provider
+    if (provider) {
+      const blocks = await Promise.all(
+        blockNumbers.map(async (blockNumber) => {
+          const block = await provider.getBlock(blockNumber)
+          return [blockNumber, block?.timestamp ?? 0] as const
+        })
+      )
+      for (const [blockNumber, timestamp] of blocks) {
+        timestampsByBlock.set(blockNumber, timestamp)
+      }
+    }
+
+    const chunkPayments = chunkPaymentData.map(([paymentId, rawPayment]) =>
+      toPayment(
+        paymentId,
+        sourceId,
+        rawPayment,
+        schains,
+        timestampsByBlock.get(Number(rawPayment[3])) ?? 0
+      )
+    )
+
     results.push(...chunkPayments)
   }
   return results
@@ -256,7 +286,8 @@ function toPayment(
   id: bigint,
   sourceId: string,
   data: any,
-  schains: types.ISChain[]
+  schains: types.ISChain[],
+  timestamp: number
 ): Payment {
   const schainName = schains.find((s) => helper.schainNameToHash(s.name) === data[0])?.name || ''
   return {
@@ -267,6 +298,7 @@ function toPayment(
     from: data[1],
     to: data[2],
     blockNumber: Number(data[3]),
+    timestamp,
     tokenAddress: data[4],
     value: BigInt(data[5] ?? 0n)
   }

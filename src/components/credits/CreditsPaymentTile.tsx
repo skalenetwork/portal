@@ -52,7 +52,6 @@ interface CreditsPaymentTileProps {
   payment: cs.Payment
   chainsMeta: types.ChainsMetadataMap
   ledgerContract: Contract | undefined
-  creditStation: Contract | undefined
   source: coreContracts.CreditStationSource | undefined
   isAdmin?: boolean
   setErrorMsg: (msg: string | undefined) => void
@@ -63,7 +62,6 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
   payment,
   chainsMeta,
   ledgerContract,
-  creditStation,
   source,
   isAdmin = false,
   setErrorMsg
@@ -89,27 +87,14 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
 
   const credits = payment.value
   const creditsLabel = `${credits} ${credits === 1n ? 'Credit' : 'Credits'}`
+  const txTimestamp = payment.timestamp
 
   const [isFulfilled, setIsFulfilled] = useState<boolean>(false)
-  const [txTimestamp, setTxTimestamp] = useState<number | undefined>(undefined)
   const [loading, setLoading] = useState<boolean>(false)
 
   const { chainId } = useWagmiAccount()
   const { data: walletClient } = useWagmiWalletClient({ chainId })
   const { switchChainAsync } = useWagmiSwitchNetwork()
-
-  useEffect(() => {
-    if (!creditStation || !payment) return
-    const fetchTimestamp = async () => {
-      try {
-        const provider = creditStation.runner?.provider
-        if (!provider) return
-        const block = await provider.getBlock(payment.blockNumber)
-        if (block) setTxTimestamp(block.timestamp)
-      } catch (error) { }
-    }
-    fetchTimestamp()
-  }, [creditStation, payment])
 
   useEffect(() => {
     if (!ledgerContract) return
