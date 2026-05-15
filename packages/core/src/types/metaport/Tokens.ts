@@ -29,6 +29,7 @@ export interface EthToken {
 
 export interface Token {
   address?: AddressType
+  decimals?: number
   chains: ConnectedChainMap
 }
 

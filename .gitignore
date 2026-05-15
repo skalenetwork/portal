@@ -48,3 +48,5 @@ tools/*
 
 
 packages/**/dist
+
+docs/*

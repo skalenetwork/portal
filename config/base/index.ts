@@ -10,13 +10,15 @@ export const METAPORT_CONFIG: types.mp.Config = {
   chains: [
     'mainnet',
     'winged-bubbly-grumium', // SKALE Base Mainnet
+    'ext-mainnet',
     'ext-arbitrum',
+    'ext-arbitrum-nova',
     'ext-op-mainnet',
     'ext-avalanche',
     'ext-bsc',
     'ext-polygon',
     'ext-monad',
-    'ext-gnosis',
+    'ext-gnosis'
   ],
   tokens: {
     eth: {
@@ -54,7 +56,33 @@ export const METAPORT_CONFIG: types.mp.Config = {
     'ext-bsc': {
       erc20: {
         usdc: {
-          address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d', // 18 decimals on bsc - todo: handle
+          address: '0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d',
+          decimals: 18,
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        usdt: {
+          address: '0x55d398326f99059fF775485246999027B3197955',
+          decimals: 18,
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        weth: {
+          address: '0x2170Ed0880ac9A755fd29B2688956BD959F933F8',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        wbtc: {
+          address: '0x0555E30da8f98308EdB960aa94C0Db47230d2B9c',
           chains: {
             'winged-bubbly-grumium': {
               bridge: 'trails'
@@ -139,6 +167,14 @@ export const METAPORT_CONFIG: types.mp.Config = {
       erc20: {
         usdc: {
           address: '0x754704Bc059F8C67012fEd69BC8A327a5aafb603',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        wbtc: {
+          address: '0x0555E30da8f98308EdB960aa94C0Db47230d2B9c',
           chains: {
             'winged-bubbly-grumium': {
               bridge: 'trails'
@@ -255,6 +291,62 @@ export const METAPORT_CONFIG: types.mp.Config = {
         }
       }
     },
+    'ext-mainnet': {
+      erc20: {
+        usdc: {
+          address: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        usdt: {
+          address: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        weth: {
+          address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        wbtc: {
+          address: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        }
+      }
+    },
+    'ext-arbitrum-nova': {
+      erc20: {
+        usdc: {
+          address: '0x750ba8b76187092B0D1E87E28daaf484d1b5273b',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        },
+        weth: {
+          address: '0x722E8BdD2ce80A4422E880164f2079488e115365',
+          chains: {
+            'winged-bubbly-grumium': {
+              bridge: 'trails'
+            }
+          }
+        }
+      }
+    },
     mainnet: {
       eth: {
         eth: {
@@ -314,10 +406,16 @@ export const METAPORT_CONFIG: types.mp.Config = {
             mainnet: {
               clone: true
             },
+            'ext-mainnet': {
+              bridge: 'trails'
+            },
             'ext-arbitrum': {
-               bridge: 'trails'
-              },
+              bridge: 'trails'
+            },
             'ext-op-mainnet': {
+              bridge: 'trails'
+            },
+            'ext-bsc': {
               bridge: 'trails'
             },
             'ext-avalanche': {
@@ -337,16 +435,25 @@ export const METAPORT_CONFIG: types.mp.Config = {
             mainnet: {
               clone: true
             },
+            'ext-mainnet': {
+              bridge: 'trails'
+            },
             'ext-arbitrum': {
               bridge: 'trails'
             },
             'ext-op-mainnet': {
               bridge: 'trails'
             },
+            'ext-bsc': {
+              bridge: 'trails'
+            },
             'ext-avalanche': {
               bridge: 'trails'
             },
             'ext-polygon': {
+              bridge: 'trails'
+            },
+            'ext-monad': {
               bridge: 'trails'
             },
             'ext-gnosis': {
@@ -360,10 +467,19 @@ export const METAPORT_CONFIG: types.mp.Config = {
             mainnet: {
               clone: true
             },
+            'ext-mainnet': {
+              bridge: 'trails'
+            },
             'ext-arbitrum': {
               bridge: 'trails'
             },
+            'ext-arbitrum-nova': {
+              bridge: 'trails'
+            },
             'ext-op-mainnet': {
+              bridge: 'trails'
+            },
+            'ext-bsc': {
               bridge: 'trails'
             },
             'ext-avalanche': {
@@ -391,7 +507,13 @@ export const METAPORT_CONFIG: types.mp.Config = {
             mainnet: {
               clone: true
             },
+            'ext-mainnet': {
+              bridge: 'trails'
+            },
             'ext-arbitrum': {
+              bridge: 'trails'
+            },
+            'ext-arbitrum-nova': {
               bridge: 'trails'
             },
             'ext-op-mainnet': {
