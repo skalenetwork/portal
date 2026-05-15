@@ -48,7 +48,8 @@ export const createTokenData = (
     tokenKeyname,
     config.tokens[tokenKeyname],
     configToken.chains,
-    chainName
+    chainName,
+    configToken.decimals
   )
 }
 

@@ -37,6 +37,7 @@ import {
   encodeDepositERC20Direct,
   wrapWithTrailsRouter,
   getTrailsRouterAddress,
+  extractTrailsErrorMessage,
   TRAILS_ROUTER_PLACEHOLDER_AMOUNT,
   type QuoteIntentResponse
 } from '../trails'
@@ -163,7 +164,7 @@ export class TransferTrailsExt2M extends Action {
     } catch (err) {
       log.error('TransferTrailsExt2M:preAction - quote failed', err)
       this.trailsQuote = null
-      this.trailsQuoteError = err instanceof Error ? err.message : String(err)
+      this.trailsQuoteError = extractTrailsErrorMessage(err)
     }
   }
 }
@@ -264,7 +265,7 @@ export class TransferTrailsExt2S extends Action {
     } catch (err) {
       log.error('TransferTrailsExt2S:preAction - quote failed', err)
       this.trailsQuote = null
-      this.trailsQuoteError = err instanceof Error ? err.message : String(err)
+      this.trailsQuoteError = extractTrailsErrorMessage(err)
     }
   }
 }
@@ -343,7 +344,7 @@ export class TransferTrailsM2Ext extends Action {
     } catch (err) {
       log.error('TransferTrailsM2Ext:preAction - quote failed', err)
       this.trailsQuote = null
-      this.trailsQuoteError = err instanceof Error ? err.message : String(err)
+      this.trailsQuoteError = extractTrailsErrorMessage(err)
     }
   }
 }

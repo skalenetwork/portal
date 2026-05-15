@@ -97,7 +97,7 @@ function StepIcon({ status }: { status: TransactionStatus }) {
 
 function TxStepRow({ step, skaleNetwork }: { step: TxStep; skaleNetwork: types.SkaleNetwork }) {
   const chainsMeta = CHAINS_META[skaleNetwork]
-  const chainName = step.chainName ?? chainIdToName(step.chainId)
+  const chainName = step.chainName ?? chainIdToName(step.chainId, skaleNetwork)
   const displayName = metadata.getAlias(skaleNetwork, chainsMeta, chainName)
   const url = step.txnHash
     ? getTxUrl(chainsMeta[chainName], chainName, skaleNetwork, step.txnHash)
