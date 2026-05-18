@@ -123,6 +123,33 @@ function getTrailsApi(): TrailsApi {
   return trailsApi
 }
 
+export function extractTrailsErrorMessage(err: unknown): string {
+  if (!(err instanceof Error)) return String(err)
+  let current: unknown = err
+  let last = err.message
+  // Walk the cause chain — webrpc wraps the useful detail in err.cause
+  for (let i = 0; i < 5 && current instanceof Error; i++) {
+    last = current.message || last
+    current = (current as Error).cause
+  }
+  if (typeof current === 'string') return current
+  return last
+}
+
+export function humanizeTrailsError(raw: string | null | undefined): string {
+  if (!raw) return 'Unable to get a quote from Trails.'
+  if (/no routes found/i.test(raw)) {
+    return "Trails doesn't have a route for this token pair right now. Try a different chain or token."
+  }
+  if (/insufficient origin amount/i.test(raw)) {
+    return 'The amount is too small to cover gas + bridge fees. Try a larger amount.'
+  }
+  if (/rate limit|429/i.test(raw)) {
+    return 'Trails is rate-limiting requests. Wait a moment and try again.'
+  }
+  return 'Unable to get a quote from Trails. Try a larger amount or a different route.'
+}
+
 let trailsRouterAddressCache: string | null = null
 
 export async function getTrailsRouterAddress(): Promise<string> {

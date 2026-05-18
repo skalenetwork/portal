@@ -40,11 +40,14 @@ export class TokenData {
     tokenKeyname: string,
     metadata: TokenMetadata,
     connections: ConnectedChainMap,
-    chain: string
+    chain: string,
+    decimalsOverride?: number
   ) {
     this.address = address
-    this.meta = metadata
-    this.meta.decimals = this.meta.decimals ? this.meta.decimals : DEFAULT_ERC20_DECIMALS
+    this.meta = {
+      ...metadata,
+      decimals: decimalsOverride ?? metadata.decimals ?? DEFAULT_ERC20_DECIMALS
+    }
     this.connections = connections
     this.type = type
     this.keyname = tokenKeyname
