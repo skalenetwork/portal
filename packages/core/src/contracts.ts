@@ -115,14 +115,14 @@ export const CREDIT_STATION_SOURCES: {
     {
       id: 'base-sepolia',
       chainName: constants.MAINNET_CHAIN_NAME,
-      contractAddress: '0xBec4232A114a6408C99444F4a34430B79870BB75',
+      contractAddress: '0x50734666aa289903B64D97448AB2f370Af370365',
       skaleContractsProject: 'mainnet-credit-station',
       displayName: 'Base Sepolia'
     },
     {
       id: 'jubilant-horrible-ancha',
       chainName: 'jubilant-horrible-ancha',
-      contractAddress: '0xE5194a579BafBB4E437E076D1CFcd378b5Bf6660',
+      contractAddress: '0x6469347AB1460be87520339FAffB6C0f436DcC39',
       skaleContractsProject: 'mainnet-credit-station',
       displayName: 'SKALE on Base'
     }
@@ -139,7 +139,7 @@ export const CREDIT_STATION_LEDGER_CONTRACTS: {
     'winged-bubbly-grumium': '0x3EB873B8c6efcF495A9Ae3F10450A50e1316362b'
   },
   'base-sepolia-testnet': {
-    'jubilant-horrible-ancha': '0x32Bfa8B5C6a450e9EF7d7Fc99fcCC349E7671FFb'
+    'jubilant-horrible-ancha': '0xCb6B88441ED66F3AC78267a872774b63a96031eF'
   }
 }
 
