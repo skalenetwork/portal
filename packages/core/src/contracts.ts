@@ -139,7 +139,7 @@ export const CREDIT_STATION_LEDGER_CONTRACTS: {
     'winged-bubbly-grumium': '0x3EB873B8c6efcF495A9Ae3F10450A50e1316362b'
   },
   'base-sepolia-testnet': {
-    'jubilant-horrible-ancha': '0xCb6B88441ED66F3AC78267a872774b63a96031eF'
+    'jubilant-horrible-ancha': '0x32Bfa8B5C6a450e9EF7d7Fc99fcCC349E7671FFb'
   }
 }
 
