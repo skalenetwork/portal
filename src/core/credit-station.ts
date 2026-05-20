@@ -35,6 +35,7 @@ export interface Payment {
   to: `0x${string}`
   tokenAddress: `0x${string}`
   blockNumber: number
+  timestamp: number
   value: bigint
 }
 
@@ -191,7 +192,32 @@ async function getPayments(
     )
     results.push(...chunkPayments)
   }
+  await fillTimestamps(results, creditStation)
   return results
+}
+
+async function fillTimestamps(payments: Payment[], creditStation: Contract): Promise<void> {
+  const provider = creditStation.runner?.provider
+  if (!provider) return
+  const uniqueBlocks = Array.from(new Set(payments.map((p) => p.blockNumber)))
+  const timestamps = new Map<number, number>()
+  const chunkSize = 10
+  for (let i = 0; i < uniqueBlocks.length; i += chunkSize) {
+    const chunk = uniqueBlocks.slice(i, i + chunkSize)
+    await Promise.all(
+      chunk.map(async (blockNumber) => {
+        try {
+          const block = await provider.getBlock(blockNumber)
+          if (block) timestamps.set(blockNumber, block.timestamp)
+        } catch (error) {
+          console.error(`Failed to fetch block ${blockNumber}:`, error)
+        }
+      })
+    )
+  }
+  for (const payment of payments) {
+    payment.timestamp = timestamps.get(payment.blockNumber) ?? 0
+  }
 }
 
 export async function getPaymentsByAddress(
@@ -267,6 +293,7 @@ function toPayment(
     from: data[1],
     to: data[2],
     blockNumber: Number(data[3]),
+    timestamp: 0,
     tokenAddress: data[4],
     value: BigInt(data[5] ?? 0n)
   }
