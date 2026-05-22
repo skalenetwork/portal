@@ -126,7 +126,7 @@ const CreditsAdmin: React.FC<CreditsAdminProps> = ({
   }
 
   const sortedPayments = [...allPayments].sort((a, b) => {
-    if (b.timestamp !== a.timestamp) return b.timestamp - a.timestamp
+    if (b.blockNumber !== a.blockNumber) return b.blockNumber - a.blockNumber
     return Number(b.id - a.id)
   })
 
