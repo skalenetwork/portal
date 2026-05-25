@@ -99,14 +99,14 @@ export const CREDIT_STATION_SOURCES: {
     {
       id: 'base',
       chainName: constants.MAINNET_CHAIN_NAME,
-      contractAddress: '0x207CB589b010788D100f1A454Cc9Eb7b146eaF31',
+      contractAddress: '0x00a9837253a374f4CEAbd38E5627d1533B983764',
       skaleContractsProject: 'mainnet-credit-station',
       displayName: 'Base'
     },
     {
       id: 'winged-bubbly-grumium',
       chainName: 'winged-bubbly-grumium',
-      contractAddress: '0x0000000000000000000000000000000000000000',
+      contractAddress: '0x258e0c0d2d55386236D324260893AD0176465BE3',
       skaleContractsProject: 'mainnet-credit-station',
       displayName: 'SKALE on Base'
     }
