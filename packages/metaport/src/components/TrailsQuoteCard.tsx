@@ -29,7 +29,7 @@ import SkPaper from './SkPaper'
 import TokenIcon from './TokenIcon'
 import trailsLogo from '../assets/trails_logo.svg'
 import { useMetaportStore } from '../store/MetaportStore'
-import { type QuoteIntentResponse } from '../core/trails'
+import { humanizeTrailsError, type QuoteIntentResponse } from '../core/trails'
 
 function formatAmount(amount: bigint, decimals: number): string {
   const divisor = 10n ** BigInt(decimals)
@@ -70,10 +70,6 @@ export default function TrailsQuoteCard(props: {
               <img src={trailsLogo} alt="Trails" className="h-5 rounded-sm" />
             </a>
           </div>
-          <div className="inline-flex items-center gap-1.5 rounded-full border-amber-500/20 bg-amber-500/10 px-2.5 py-0.5 text-amber-600 dark:text-amber-400">
-            <AlertTriangle size={12} />
-            <span className="text-xs font-medium ">Unable to get a quote from Trails</span>
-          </div>
         </div>
 
         <div className="flex items-baseline justify-between pt-2">
@@ -97,6 +93,11 @@ export default function TrailsQuoteCard(props: {
               <p className="text-xl font-bold text-foreground m-0">N/A</p>
             </div>
           </div>
+        </div>
+
+        <div className="mt-3 flex w-full items-center gap-2 rounded-full bg-red-500/10 px-3 py-2 text-red-600 dark:text-red-400">
+          <AlertTriangle size={16} className="shrink-0" />
+          <span className="text-xs font-medium leading-tight">{humanizeTrailsError(props.error)}</span>
         </div>
       </SkPaper>
     )

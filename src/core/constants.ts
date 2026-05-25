@@ -104,6 +104,7 @@ export type PathConfigsType = typeof PATH_CONFIGS
 export const NETWORKS = networks.parse(import.meta.env.VITE_NETWORKS)
 
 export const CREDITS_CONFIRMATION_BLOCKS = 2
+export const RECOMMENDED_CREDITS_AMOUNTS: readonly bigint[] = [10n, 40n, 100n]
 export const DEFAULT_CREDITS_AMOUNT = 40n
 export const CREDITS_USAGE_EXAMPLE_PER_CREDIT = {
   transfers: 1000n,

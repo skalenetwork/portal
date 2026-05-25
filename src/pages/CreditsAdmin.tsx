@@ -17,30 +17,34 @@
  */
 
 /**
- * @file Credits.tsx
+ * @file CreditsAdmin.tsx
  * @copyright SKALE Labs 2025-Present
  */
 
 import { Helmet } from 'react-helmet'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 
 import { Contract } from 'ethers'
 
-import { type MetaportCore } from '@skalenetwork/metaport'
-import { type types } from '@/core'
+import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { contracts as coreContracts, type types } from '@/core'
+import * as cs from '../core/credit-station'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
+import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
+import { History } from 'lucide-react'
 
 import { META_TAGS } from '../core/meta'
-import { getCreditStation } from '../core/credit-station'
-
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
-import CreditTokensAdmin from '../components/credits/TokensAdmin'
+import AccordionSection from '../components/AccordionSection'
+import ErrorTile from '../components/ErrorTile'
+import TokensAdmin from '../components/credits/TokensAdmin'
+import CreditsPaymentTile from '../components/credits/CreditsPaymentTile'
 
-interface CreditsProps {
+interface CreditsAdminProps {
   mpc: MetaportCore
   address: types.AddressType | undefined
   loadData: () => Promise<void>
@@ -48,21 +52,63 @@ interface CreditsProps {
   chainsMeta: types.ChainsMetadataMap
 }
 
-const Credits: React.FC<CreditsProps> = ({ mpc, loadData, schains, chainsMeta }) => {
-  const [creditStation, setCreditStation] = useState<Contract | undefined>(undefined)
+const CreditsAdmin: React.FC<CreditsAdminProps> = ({
+  mpc,
+  loadData,
+  schains,
+  chainsMeta
+}) => {
+  const [creditStationBySource, setCreditStationBySource] = useState<Record<string, Contract>>({})
+  const [ledgerContracts, setLedgerContracts] = useState<{ [schainName: string]: Contract }>({})
+  const [allPayments, setAllPayments] = useState<cs.Payment[]>([])
+  const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined)
+  const [isLoadingPayments, setIsLoadingPayments] = useState<boolean>(false)
 
-  async function initCreditStation() {
-    setCreditStation(await getCreditStation(mpc))
+  const sources = useMemo(
+    () => cs.getCreditStationSources(mpc.config.skaleNetwork),
+    [mpc]
+  )
+
+  const sourceById = useMemo<Record<string, coreContracts.CreditStationSource>>(
+    () => Object.fromEntries(sources.map((s) => [s.id, s])),
+    [sources]
+  )
+
+  async function initCreditStations() {
+    setCreditStationBySource(await cs.initAllCreditStations(mpc, sources))
+  }
+
+  async function initLedgerContracts() {
+    if (!schains.length) return
+    setLedgerContracts(await cs.initAllLedgerContracts(mpc, schains))
+  }
+
+  async function loadAllPayments() {
+    if (Object.keys(creditStationBySource).length === 0) return
+    setIsLoadingPayments(true)
+    try {
+      setAllPayments(await cs.getAllPaymentsAcrossSources(creditStationBySource, schains))
+    } finally {
+      setIsLoadingPayments(false)
+    }
   }
 
   useEffect(() => {
     loadData()
-    initCreditStation()
+    initCreditStations()
     const intervalId = setInterval(loadData, 100000)
     return () => clearInterval(intervalId)
   }, [])
 
-  if (schains.length === 0 || !creditStation) {
+  useEffect(() => {
+    initLedgerContracts()
+  }, [schains])
+
+  useEffect(() => {
+    loadAllPayments()
+  }, [creditStationBySource, schains])
+
+  if (schains.length === 0 || sources.length === 0) {
     return (
       <div className="fullscreen-msg">
         <div className="flex">
@@ -78,6 +124,11 @@ const Credits: React.FC<CreditsProps> = ({ mpc, loadData, schains, chainsMeta })
       </div>
     )
   }
+
+  const sortedPayments = [...allPayments].sort((a, b) => {
+    if (b.blockNumber !== a.blockNumber) return b.blockNumber - a.blockNumber
+    return Number(b.id - a.id)
+  })
 
   return (
     <Container maxWidth="md" className="mb-5">
@@ -97,15 +148,60 @@ const Credits: React.FC<CreditsProps> = ({ mpc, loadData, schains, chainsMeta })
           </div>
           <SkPageInfoIcon meta_tag={META_TAGS.credits} />
         </div>
-        <CreditTokensAdmin
-          mpc={mpc}
-          creditStation={creditStation}
-          schains={schains}
-          chainsMeta={chainsMeta}
-        />
+        <ErrorTile errorMsg={errorMsg} className="mb-2.5 mt-2.5" />
+        {sources.map((source) => (
+          <TokensAdmin
+            key={source.id}
+            mpc={mpc}
+            source={source}
+            creditStation={creditStationBySource[source.id]}
+            chainsMeta={chainsMeta}
+            setErrorMsg={setErrorMsg}
+          />
+        ))}
+        <SkPaper gray className="mt-5">
+          <AccordionSection
+            expandedByDefault={true}
+            title="Purchases History"
+            icon={<History size={17} />}
+            marg={false}
+          >
+            <div className="mt-2.5">
+              {isLoadingPayments && (
+                <div className="text-center mt-5 mb-5">
+                  <p className="p text-sm text-secondary-foreground font-semibold">
+                    Loading purchases history...
+                  </p>
+                </div>
+              )}
+              {!isLoadingPayments && sortedPayments.length === 0 && (
+                <div className="mt-5">
+                  <HistoryRoundedIcon className="text-secondary w-full" />
+                  <h5 className="p font-semibold text-secondary text-center mt-1.5 mb-5">
+                    No purchases found
+                  </h5>
+                </div>
+              )}
+              {!isLoadingPayments &&
+                sortedPayments.map((payment: cs.Payment) => (
+                  <CreditsPaymentTile
+                    key={`${payment.sourceId}-${payment.schainName}-${payment.id}`}
+                    payment={payment}
+                    mpc={mpc}
+                    chainsMeta={chainsMeta}
+                    ledgerContract={ledgerContracts[payment.schainName]}
+                    creditStation={creditStationBySource[payment.sourceId]}
+                    source={sourceById[payment.sourceId]}
+                    isAdmin={true}
+                    setErrorMsg={setErrorMsg}
+                  />
+                ))}
+            </div>
+          </AccordionSection>
+        </SkPaper>
       </Stack>
     </Container>
   )
 }
 
-export default Credits
+export default CreditsAdmin
