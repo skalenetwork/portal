@@ -31,8 +31,8 @@ import {
   useWagmiSwitchNetwork,
   sendTransaction
 } from '@skalenetwork/metaport'
-import { types, units, constants, notify, contracts as coreContracts } from '@/core'
-import { prepareSignerForWrite } from '../../core/credit-station'
+import { units, helper, notify, contracts as coreContracts } from '@/core'
+import { prepareSignerForWrite, type CreditToken } from '../../core/credit-station'
 
 import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
@@ -47,25 +47,18 @@ import { Bolt, Coins } from 'lucide-react'
 
 interface TokenAdminTileProps {
   mpc: MetaportCore
-  tokenPrices: Record<string, bigint>
-  loadTokenPrices: () => Promise<void>
+  reloadTokens: () => Promise<void>
   creditStation: Contract | undefined
   source: coreContracts.CreditStationSource
-  tokenMeta: types.mp.TokenMetadata | undefined
-  tokenData: types.mp.Token
-  symbol: string
-  setErrorMsg: (msg: string) => void
+  token: CreditToken
 }
 
 const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
   mpc,
-  tokenPrices,
-  loadTokenPrices,
+  reloadTokens,
   creditStation,
   source,
-  tokenMeta,
-  tokenData,
-  symbol
+  token
 }) => {
   const [openModal, setOpenModal] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
@@ -94,8 +87,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
     }
     setLoading(true)
 
-    const decimals = tokenMeta?.decimals || constants.DEFAULT_ERC20_DECIMALS
-    const priceWei = units.toWei(price.toString(), decimals)
+    const priceWei = units.toWei(price.toString(), token.decimals)
 
     try {
       const signer = await prepareSignerForWrite(
@@ -108,24 +100,17 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
       await sendTransaction(
         signer,
         creditStation.setPrice,
-        [tokenData.address, priceWei],
+        [token.address, priceWei],
         'creditStation:setPrice'
       )
-      notify.temporarySuccess(`Price updated for ${symbol.toUpperCase()}`)
-      await loadTokenPrices()
+      notify.temporarySuccess(`Price updated for ${token.symbol.toUpperCase()}`)
+      await reloadTokens()
     } catch (e: any) {
       notify.permanentError(e.toString())
     } finally {
       setLoading(false)
       setOpenModal(false)
     }
-  }
-
-  function getTokenPriceWei(): bigint {
-    if (tokenData.address === undefined) return 0n
-    const priceWei = tokenPrices[tokenData.address]
-    if (priceWei === undefined) return 0n
-    return priceWei
   }
 
   function getChipClass(tokenPriceWei: bigint): string {
@@ -135,17 +120,20 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
     return 'chip_DELEGATED'
   }
 
-  const tokenPriceWei = getTokenPriceWei()
+  const tokenPriceWei = token.priceWei
+  const shortAddr = helper.shortAddress(token.address)
 
   return (
     <div className="mb-2.5 bg-background rounded-3xl p-4">
       <Grid container spacing={0} alignItems="center">
         <Grid size={{ xs: 12, md: 4 }}>
           <div className="flex items-center">
-            <TokenIcon tokenSymbol={symbol} size="lg" iconUrl={tokenMeta?.iconUrl} />
+            <TokenIcon tokenSymbol={token.symbol.toLowerCase()} size="lg" iconUrl={token.iconUrl} />
             <div className="ml-3.5 grow sm:grow-0">
-              <h4 className="p font-bold pOneLine uppercase text-foreground">{symbol}</h4>
-              <p className="p text-xs text-muted-foreground font-semibold">{tokenMeta?.name}</p>
+              <h4 className="p font-bold pOneLine uppercase text-foreground">{token.symbol}</h4>
+              <p className="p text-xs text-muted-foreground font-semibold">
+                {token.name ? `${token.name} · ${shortAddr}` : shortAddr}
+              </p>
             </div>
           </div>
         </Grid>
@@ -164,11 +152,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
               size="md"
               transparent
               className="p-0! uppercase md:mr-5 md:ml-5"
-              value={units.displayBalance(
-                tokenPriceWei,
-                symbol,
-                tokenMeta?.decimals || constants.DEFAULT_ERC20_DECIMALS
-              )}
+              value={units.displayBalance(tokenPriceWei, token.symbol, token.decimals)}
               text="1 CREDIT ="
               grow
               ri={true}
@@ -201,7 +185,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
       >
         <SkPaper gray>
           <Headline
-            text={`Set CREDIT Price - ${tokenMeta?.name}`}
+            text={`Set CREDIT Price - ${token.name ?? token.symbol.toUpperCase()}`}
             icon={<MonetizationOnRoundedIcon className="text-[17px]!" />}
             className="mb-2"
             size="small"
@@ -232,11 +216,17 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
                     />
                   </div>
                   <div className="text-xs p font-bold text-foreground! mr-2.5 uppercase">
-                    {symbol}
+                    {token.symbol}
                   </div>
                 </div>
               }
-              icon={<TokenIcon tokenSymbol={symbol} size="xs" />}
+              icon={
+                <TokenIcon
+                  tokenSymbol={token.symbol.toLowerCase()}
+                  size="xs"
+                  iconUrl={token.iconUrl}
+                />
+              }
             />
           </SkPaper>
           <Button
