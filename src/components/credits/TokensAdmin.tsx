@@ -29,7 +29,7 @@ import { contracts as coreContracts, metadata, types } from '@/core'
 import TokenAdminTile from './TokenAdminTile'
 import AccordionSection from '../AccordionSection'
 import CreditStationStatusTile from './CreditStationStatusTile'
-import { getTokenPrices } from '../../core/credit-station'
+import { getCreditTokens, type CreditToken } from '../../core/credit-station'
 import { Coins, SwatchBook } from 'lucide-react'
 
 interface TokensAdminProps {
@@ -47,21 +47,18 @@ const TokensAdmin: React.FC<TokensAdminProps> = ({
   chainsMeta,
   setErrorMsg
 }) => {
-  const tokens = mpc.config.connections[source.chainName]?.erc20 ?? {}
-  const tokensMeta = mpc.config.tokens
   const network = mpc.config.skaleNetwork
   const sourceAlias =
     metadata.getAlias(network, chainsMeta, source.chainName) || source.displayName
 
-  const [tokenPrices, setTokenPrices] = useState<Record<string, bigint>>({})
+  const [creditTokens, setCreditTokens] = useState<CreditToken[] | undefined>(undefined)
 
   useEffect(() => {
-    loadTokenPrices()
+    loadTokens()
   }, [creditStation])
 
-  async function loadTokenPrices() {
-    const res = await getTokenPrices(creditStation)
-    setTokenPrices(res || {})
+  async function loadTokens() {
+    setCreditTokens(await getCreditTokens(mpc, source.chainName, creditStation))
   }
 
   return (
@@ -93,25 +90,21 @@ const TokensAdmin: React.FC<TokensAdminProps> = ({
           marg={false}
         >
           <div className="mt-2.5">
-            {Object.keys(tokens).length === 0 && (
+            {creditTokens !== undefined && creditTokens.length === 0 && (
               <div className="text-center mt-5 mb-5">
                 <p className="p text-sm text-secondary-foreground font-semibold">
-                  No tokens configured for this source
+                  No tokens available for this source
                 </p>
               </div>
             )}
-            {Object.entries(tokens).map(([symbol, tokenData]: [string, types.mp.Token]) => (
+            {(creditTokens ?? []).map((token) => (
               <TokenAdminTile
-                key={symbol}
+                key={token.address}
                 mpc={mpc}
-                tokenPrices={tokenPrices}
-                loadTokenPrices={loadTokenPrices}
+                reloadTokens={loadTokens}
                 creditStation={creditStation}
                 source={source}
-                tokenMeta={tokensMeta[symbol]}
-                tokenData={tokenData}
-                symbol={symbol}
-                setErrorMsg={(msg) => setErrorMsg(msg ?? undefined)}
+                token={token}
               />
             ))}
           </div>

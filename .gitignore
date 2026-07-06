@@ -50,3 +50,4 @@ tools/*
 packages/**/dist
 
 docs/*
+.claude/launch.json
