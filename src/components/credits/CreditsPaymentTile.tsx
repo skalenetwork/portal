@@ -80,10 +80,22 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
     source.displayName
     : ''
 
-  const tokenSymbol =
-    Object.keys(sourceTokens).find(
-      (symbol) => sourceTokens[symbol].address?.toLowerCase() === payment.tokenAddress.toLowerCase()
-    ) || 'unknown'
+  const configTokenSymbol = Object.keys(sourceTokens).find(
+    (symbol) => sourceTokens[symbol].address?.toLowerCase() === payment.tokenAddress.toLowerCase()
+  )
+  const [onchainTokenSymbol, setOnchainTokenSymbol] = useState<string | undefined>(undefined)
+  const tokenSymbol = configTokenSymbol ?? onchainTokenSymbol ?? 'unknown'
+
+  useEffect(() => {
+    if (configTokenSymbol || !source) return
+    let cancelled = false
+    void cs.getTokenSymbol(mpc, source.chainName, payment.tokenAddress).then((symbol) => {
+      if (!cancelled && symbol) setOnchainTokenSymbol(symbol)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [configTokenSymbol, source, payment.tokenAddress])
 
   const paymentIdPrefix = source?.displayName?.trim().charAt(0).toUpperCase() ?? ''
   const displayPaymentId = `${paymentIdPrefix ? `${paymentIdPrefix}-` : ''}${cs.getLedgerPaymentId(payment.id).toString()}`
