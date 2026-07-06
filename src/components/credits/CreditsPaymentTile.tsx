@@ -80,36 +80,37 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
     source.displayName
     : ''
 
-  const tokenSymbol =
-    Object.keys(sourceTokens).find(
-      (symbol) => sourceTokens[symbol].address?.toLowerCase() === payment.tokenAddress.toLowerCase()
-    ) || 'unknown'
+  const configTokenSymbol = Object.keys(sourceTokens).find(
+    (symbol) => sourceTokens[symbol].address?.toLowerCase() === payment.tokenAddress.toLowerCase()
+  )
+  const [onchainTokenSymbol, setOnchainTokenSymbol] = useState<string | undefined>(undefined)
+  const tokenSymbol = configTokenSymbol ?? onchainTokenSymbol ?? 'unknown'
 
-  const displayPaymentId = cs.getLedgerPaymentId(payment.id)
+  useEffect(() => {
+    if (configTokenSymbol || !source) return
+    let cancelled = false
+    void cs.getTokenSymbol(mpc, source.chainName, payment.tokenAddress).then((symbol) => {
+      if (!cancelled && symbol) setOnchainTokenSymbol(symbol)
+    })
+    return () => {
+      cancelled = true
+    }
+  }, [configTokenSymbol, source, payment.tokenAddress])
+
+  const paymentIdPrefix = source?.displayName?.trim().charAt(0).toUpperCase() ?? ''
+  const displayPaymentId = `${paymentIdPrefix ? `${paymentIdPrefix}-` : ''}${cs.getLedgerPaymentId(payment.id).toString()}`
 
   const credits = payment.value
   const creditsLabel = `${credits} ${credits === 1n ? 'Credit' : 'Credits'}`
 
   const [isFulfilled, setIsFulfilled] = useState<boolean>(false)
-  const [txTimestamp, setTxTimestamp] = useState<number | undefined>(undefined)
   const [loading, setLoading] = useState<boolean>(false)
 
   const { chainId } = useWagmiAccount()
   const { data: walletClient } = useWagmiWalletClient({ chainId })
   const { switchChainAsync } = useWagmiSwitchNetwork()
 
-  useEffect(() => {
-    if (!creditStation || !payment) return
-    const fetchTimestamp = async () => {
-      try {
-        const provider = creditStation.runner?.provider
-        if (!provider) return
-        const block = await provider.getBlock(payment.blockNumber)
-        if (block) setTxTimestamp(block.timestamp)
-      } catch (error) { }
-    }
-    fetchTimestamp()
-  }, [creditStation, payment])
+  const txTimestamp = payment.timestamp || undefined
 
   useEffect(() => {
     if (!ledgerContract) return
@@ -249,7 +250,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
                 size="md"
                 transparent
                 className="p-0! mr-5 ml-5"
-                value={`ID: ${displayPaymentId.toString()}`}
+                value={displayPaymentId}
                 text="Payment ID"
                 grow
                 ri={true}
