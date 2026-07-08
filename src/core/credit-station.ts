@@ -24,7 +24,7 @@
 import { Contract, type JsonRpcSigner } from 'ethers'
 import { MetaportCore, walletClientToSigner, enforceNetwork } from '@skalenetwork/metaport'
 import { skaleContracts } from '@skalenetwork/skale-contracts-ethers-v6'
-import { type types, contracts, helper } from '@/core'
+import { type types, constants, contracts, helper } from '@/core'
 
 export interface Payment {
   id: bigint
@@ -142,6 +142,57 @@ export async function getLedgerContract(
   return (await instance.getContract('Ledger')) as Contract
 }
 
+export interface TokenInfo {
+  symbol?: string
+  name?: string
+  decimals?: number
+}
+
+const ERC20_METADATA_ABI = [
+  'function symbol() view returns (string)',
+  'function name() view returns (string)',
+  'function decimals() view returns (uint8)'
+]
+const tokenInfoCache: Record<string, Promise<TokenInfo>> = {}
+
+export async function getTokenInfo(
+  mpc: MetaportCore,
+  chainName: string,
+  tokenAddress: string
+): Promise<TokenInfo> {
+  const cacheKey = `${chainName}:${tokenAddress.toLowerCase()}`
+  if (!(cacheKey in tokenInfoCache)) {
+    tokenInfoCache[cacheKey] = (async () => {
+      const token = new Contract(tokenAddress, ERC20_METADATA_ABI, mpc.provider(chainName))
+      const [symbol, name, decimals] = await Promise.allSettled([
+        token.symbol(),
+        token.name(),
+        token.decimals()
+      ])
+      if (symbol.status === 'rejected') {
+        console.error(
+          `Failed to get metadata for token ${tokenAddress} on ${chainName}:`,
+          symbol.reason
+        )
+      }
+      return {
+        symbol: symbol.status === 'fulfilled' ? symbol.value : undefined,
+        name: name.status === 'fulfilled' ? name.value : undefined,
+        decimals: decimals.status === 'fulfilled' ? Number(decimals.value) : undefined
+      }
+    })()
+  }
+  return tokenInfoCache[cacheKey]
+}
+
+export async function getTokenSymbol(
+  mpc: MetaportCore,
+  chainName: string,
+  tokenAddress: string
+): Promise<string | undefined> {
+  return (await getTokenInfo(mpc, chainName, tokenAddress)).symbol
+}
+
 export async function getTokenPrices(
   creditStation: Contract | undefined
 ): Promise<Record<string, bigint> | undefined> {
@@ -158,6 +209,80 @@ export async function getTokenPrices(
     {} as Record<string, bigint>
   )
   return priceMap
+}
+
+export interface CreditToken {
+  address: types.AddressType
+  symbol: string
+  name?: string
+  decimals: number
+  iconUrl?: string
+  priceWei: bigint
+}
+
+/**
+ * Tokens shown in the credit station admin panel. The station contract is the
+ * source of truth: every token from getSupportedTokens() is listed first, with
+ * metadata taken from the bridge config when the address matches and resolved
+ * on-chain otherwise. Bridge-config tokens the station doesn't accept yet are
+ * appended as a catalog — setPrice is also the mechanism that adds a token.
+ */
+export async function getCreditTokens(
+  mpc: MetaportCore,
+  chainName: string,
+  creditStation: Contract | undefined
+): Promise<CreditToken[]> {
+  const tokenPrices = (await getTokenPrices(creditStation)) ?? {}
+  const configTokens = mpc.config.connections[chainName]?.erc20 ?? {}
+  const tokensMeta = mpc.config.tokens
+
+  const findConfigEntry = (address: string) =>
+    Object.entries(configTokens).find(
+      ([, data]) => data.address?.toLowerCase() === address.toLowerCase()
+    )
+
+  const accepted = await Promise.all(
+    Object.entries(tokenPrices).map(async ([address, priceWei]): Promise<CreditToken> => {
+      const entry = findConfigEntry(address)
+      if (entry) {
+        const [symbol, data] = entry
+        const meta = tokensMeta[symbol]
+        return {
+          address: address as types.AddressType,
+          symbol,
+          name: meta?.name,
+          decimals: data.decimals ?? meta?.decimals ?? constants.DEFAULT_ERC20_DECIMALS,
+          iconUrl: meta?.iconUrl,
+          priceWei
+        }
+      }
+      const info = await getTokenInfo(mpc, chainName, address)
+      return {
+        address: address as types.AddressType,
+        symbol: info.symbol ?? helper.shortAddress(address as types.AddressType),
+        name: info.name,
+        decimals: info.decimals ?? constants.DEFAULT_ERC20_DECIMALS,
+        priceWei
+      }
+    })
+  )
+
+  const acceptedAddresses = new Set(Object.keys(tokenPrices).map((a) => a.toLowerCase()))
+  const catalog = Object.entries(configTokens)
+    .filter(([, data]) => data.address && !acceptedAddresses.has(data.address.toLowerCase()))
+    .map(([symbol, data]): CreditToken => {
+      const meta = tokensMeta[symbol]
+      return {
+        address: data.address as types.AddressType,
+        symbol,
+        name: meta?.name,
+        decimals: data.decimals ?? meta?.decimals ?? constants.DEFAULT_ERC20_DECIMALS,
+        iconUrl: meta?.iconUrl,
+        priceWei: 0n
+      }
+    })
+
+  return [...accepted, ...catalog]
 }
 
 export async function getTokenPricesBySource(
@@ -232,19 +357,50 @@ export async function getPaymentsByAddress(
   return await getPayments(paymentIds, creditStation, sourceId, schains)
 }
 
+async function getPaymentIfExists(
+  creditStation: Contract,
+  paymentId: bigint,
+  sourceId: string,
+  schains: types.ISChain[]
+): Promise<Payment | null> {
+  try {
+    const rawPayment = await creditStation.getPaymentInfo(paymentId)
+    return toPayment(paymentId, sourceId, rawPayment, schains)
+  } catch (error: any) {
+    // PaymentIdDoesNotExist — ids below the deployment offset
+    if (error?.code === 'CALL_EXCEPTION') return null
+    throw error
+  }
+}
+
 export async function getAllPayments(
   creditStation: Contract | undefined,
   sourceId: string,
   schains: types.ISChain[]
 ): Promise<Payment[]> {
   if (!creditStation) return []
-  const lastPaymentId = await creditStation.getLastPaymentId()
-  return getPayments(
-    Array.from({ length: Number(lastPaymentId) }, (_, i) => BigInt(i + 1)),
-    creditStation,
-    sourceId,
-    schains
-  )
+  // Payment ids are composite: source prefix in the upper bits, sequential counter
+  // in the lower bits. The counter may be seeded with an offset on redeployment,
+  // so scan down from the newest id and stop once a whole chunk is missing.
+  const lastPaymentId: bigint = await creditStation.getLastPaymentId()
+  const lastSeq = getLedgerPaymentId(lastPaymentId)
+  const idPrefix = lastPaymentId - lastSeq
+
+  const payments: Payment[] = []
+  const chunkSize = 10n
+  for (let high = lastSeq; high > 0n; high -= chunkSize) {
+    const low = high > chunkSize ? high - chunkSize : 0n
+    const chunk: bigint[] = []
+    for (let seq = high; seq > low; seq--) chunk.push(idPrefix + seq)
+    const chunkPayments = await Promise.all(
+      chunk.map((paymentId) => getPaymentIfExists(creditStation, paymentId, sourceId, schains))
+    )
+    const existing = chunkPayments.filter((p): p is Payment => p !== null)
+    payments.push(...existing)
+    if (existing.length === 0) break
+  }
+  await fillTimestamps(payments, creditStation)
+  return payments
 }
 
 export async function getPaymentsAcrossSourcesByAddress(
