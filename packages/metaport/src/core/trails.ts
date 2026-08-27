@@ -287,7 +287,7 @@ export async function executeIntent(
   })
 }
 
-const FAILED_STATUSES = new Set([
+const FAILED_STATUSES = new Set<IntentStatus>([
   IntentStatus.FAILED,
   IntentStatus.ABORTED,
   IntentStatus.REFUNDED
