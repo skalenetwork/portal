@@ -65,6 +65,7 @@
   },
   "dependencies": {
     "@/core": "workspace:*",
+    "@0xsequence/wallet-primitives": "^3.0.11",
     "@0xtrails/api": "^0.12.1",
     "boring-avatars": "^2.0.4",
     "lucide-react": "^0.554.0",
