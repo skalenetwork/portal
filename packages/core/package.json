@@ -13,7 +13,7 @@
   },
   "author": "SKALE Labs",
   "devDependencies": {
-    "typescript": "^4.9.5"
+    "typescript": "^5.9.3"
   },
   "peerDependencies": {
     "ethers": "^6.x.x"

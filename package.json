@@ -18,7 +18,8 @@
     "build": "bun run build:mainnet",
     "lint": "oxlint",
     "preview": "vite preview",
-    "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\""
+    "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\"",
+    "type-check": "tsc --noEmit -p tsconfig.json && tsc --noEmit -p packages/core && tsc --noEmit -p packages/metaport"
   },
   "dependencies": {
     "@/core": "workspace:*",
