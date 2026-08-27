@@ -30,7 +30,4 @@
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": [
-    "./src/**/*.stories.*"
-  ]
 }
