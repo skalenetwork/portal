@@ -62,10 +62,6 @@ const app = async (): Promise<UserConfigExport> => {
       reportCompressedSize: true,
       chunkSizeWarningLimit: 1000
     },
-    test: {
-      globals: true,
-      environment: 'jsdom',
-    },
   })
 }
 
