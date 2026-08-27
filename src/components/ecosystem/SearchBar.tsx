@@ -43,21 +43,23 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, onSearchChange, class
         placeholder="Search categories"
         value={searchTerm}
         onChange={onSearchChange}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Search className="text-muted-foreground w-4! h-4!" />
-            </InputAdornment>
-          )
-        }}
         className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-background! border border-border rounded-full`}
         sx={{
           '& .MuiOutlinedInput-root': { borderRadius: '50px' },
           '& fieldset': { border: 'none' }
         }}
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search className="text-muted-foreground w-4! h-4!" />
+              </InputAdornment>
+            )
+          }
+        }}
       />
     </div>
-  )
+  );
 }
 
 export const highlightMatch = (text: string, searchTerm: string): React.ReactNode => {

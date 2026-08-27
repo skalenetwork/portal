@@ -58,22 +58,28 @@ const ScreenshotCarousel: React.FC<PropType> = ({ screenshots, appName }) => {
   }, [emblaApi, onSelect])
 
   return (
-    <Box position="relative" className="mt-2.5">
+    <Box className="mt-2.5" sx={{
+      position: "relative"
+    }}>
       <Box className="embla" ref={emblaRef} sx={{ overflow: 'hidden' }}>
-        <Box className="embla__container" display="flex" height={400}>
+        <Box
+          className="embla__container"
+          sx={{
+            display: "flex",
+            height: 400
+          }}>
           {screenshots.map((screenshot, index) => (
             <Box
               key={index}
               className="embla__slide"
-              flex="0 0 auto"
-              marginRight="10px"
-              height="100%"
               sx={{
+                flex: "0 0 auto",
+                marginRight: "10px",
+                height: "100%",
                 display: 'flex',
                 alignItems: 'center',
                 justifyContent: 'center'
-              }}
-            >
+              }}>
               <img
                 src={screenshot}
                 alt={`${appName} screenshot ${index + 1}`}
@@ -104,7 +110,7 @@ const ScreenshotCarousel: React.FC<PropType> = ({ screenshots, appName }) => {
         <ChevronRight className="text-foreground" size={17} />
       </button>
     </Box>
-  )
+  );
 }
 
 export default ScreenshotCarousel

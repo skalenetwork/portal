@@ -72,7 +72,6 @@ export default function ChainTabs(props: {
               />
             ) : null
           )}
-          <div className="grow"></div>
         </Tabs>
       </div>
       {networks.hasFeatureInAny(NETWORKS, 'paymaster') && (

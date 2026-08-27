@@ -8,6 +8,7 @@ import mdx from "@mdx-js/rollup"
 export default defineConfig({
   plugins: [tailwindcss(), react(), mdx()],
   resolve: {
+    dedupe: ['@mui/material', '@mui/icons-material', 'react', 'react-dom'],
     alias: {
       '@skalenetwork/metaport': path.resolve(__dirname, 'packages/metaport/src'),
       ...(process.env.NODE_ENV !== 'production' ? {

@@ -154,8 +154,10 @@ export default function GetSFuel({ mpc, chainName }: { mpc: MetaportCore; chainN
       <Tooltip
         arrow
         placement="bottom"
-        PopperProps={{ sx: { zIndex: 99999 } }}
         title={sFuelOk ? 'sFUEL balance is OK' : 'Click to get sFUEL for all chains'}
+        slotProps={{
+          popper: { sx: { zIndex: 99999 } }
+        }}
       >
         <Button
           onClick={sFuelOk ? undefined : mineSFuel}
@@ -172,5 +174,5 @@ export default function GetSFuel({ mpc, chainName }: { mpc: MetaportCore; chainN
         </Button>
       </Tooltip>
     </Box>
-  )
+  );
 }

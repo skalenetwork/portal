@@ -227,5 +227,5 @@ export default function CreditsAmountSelector({
         />
       )}
     </div>
-  )
+  );
 }

@@ -106,5 +106,5 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
         )}
       </Menu>
     </div>
-  )
+  );
 }

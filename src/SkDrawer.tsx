@@ -57,7 +57,11 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
   const getItemButtonClass = (isSelected: boolean) =>
     `w-full ${isSelected ? 'bg-foreground/10! text-foreground!' : 'text-foreground hover:bg-muted-foreground/10!'}`
   return (
-    <Box display={{ sm: 'block', xs: 'none' }} m={1}>
+    <Box
+      sx={{
+        display: { sm: 'block', xs: 'none' },
+        m: 1
+      }}>
       <Drawer
         variant="permanent"
         sx={{
@@ -226,5 +230,5 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
         </Box>
       </Drawer>
     </Box>
-  )
+  );
 }

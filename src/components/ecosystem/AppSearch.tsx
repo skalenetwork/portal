@@ -50,21 +50,23 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         placeholder="Search projects"
         value={searchTerm}
         onChange={handleSearchChange}
-        InputProps={{
-          startAdornment: (
-            <InputAdornment position="start">
-              <Search size={17} className="text-muted-foreground" />
-            </InputAdornment>
-          )
-        }}
         className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-card! border border-border rounded-full shadow-xs`}
         sx={{
           '& .MuiOutlinedInput-root': { borderRadius: '25px' },
           '& fieldset': { border: 'none' }
         }}
+        slotProps={{
+          input: {
+            startAdornment: (
+              <InputAdornment position="start">
+                <Search size={17} className="text-muted-foreground" />
+              </InputAdornment>
+            )
+          }
+        }}
       />
     </div>
-  )
+  );
 }
 
 export default SearchComponent

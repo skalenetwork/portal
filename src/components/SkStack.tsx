@@ -29,10 +29,12 @@ export default function SkStack(props: { className?: string; children?: any }) {
       spacing={1}
       direction={{ xs: 'column', md: 'row' }}
       useFlexGap
-      flexWrap="wrap"
       className={props.className}
+      sx={{
+        flexWrap: "wrap"
+      }}
     >
       {props.children}
     </Stack>
-  )
+  );
 }

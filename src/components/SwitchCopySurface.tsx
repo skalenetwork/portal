@@ -103,7 +103,7 @@ export default function CopySurface(props: {
       <div className="flex items-center mb-1.5">
         <p className="text-xs text-secondary-foreground grow">{props.title}</p>
         <p className="text-xs text-secondary-foreground mr-1.5">Decimal / Hex</p>
-        <AntSwitch inputProps={{ 'aria-label': 'ant design' }} />
+        <AntSwitch slotProps={{ input: { 'aria-label': 'ant design' } }} />
       </div>
       <CopyToClipboard text={props.value} onCopy={handleClick}>
         <Tooltip title={copied ? 'Copied!' : 'Click to copy to clipboard'}>
