@@ -21,8 +21,6 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { Helmet } from 'react-helmet'
-
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
@@ -46,12 +44,12 @@ export default function History() {
 
   return (
     <Container maxWidth="sm">
-      <Helmet>
+      <>
         <title>{META_TAGS.history.title}</title>
         <meta name="description" content={META_TAGS.history.description} />
         <meta property="og:title" content={META_TAGS.history.title} />
         <meta property="og:description" content={META_TAGS.history.description} />
-      </Helmet>
+      </>
       <Stack spacing={0}>
         <div className="flex items-center">
           <div className="grow">

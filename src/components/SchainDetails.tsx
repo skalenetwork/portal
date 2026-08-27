@@ -22,8 +22,6 @@
  */
 
 import { useState } from 'react'
-import { Helmet } from 'react-helmet'
-
 import { type MetaportCore, SkPaper, explorer, Tile } from '@skalenetwork/metaport'
 import { type types, metadata, constants, endpoints, networks, notify } from '@/core'
 
@@ -151,12 +149,12 @@ export default function SchainDetails(props: {
         />
         <div className="grow"></div>
       </div>
-      <Helmet>
-        <title>SKALE Portal - {chainAlias}</title>
+      <>
+        <title>{`SKALE Portal - ${chainAlias}`}</title>
         <meta name="description" content={chainDescription} />
         <meta property="og:title" content={`SKALE Portal - ${chainAlias}`} />
         <meta property="og:description" content={chainDescription} />
-      </Helmet>
+      </>
       <SkPaper gray className="mt-2.5 p-4!">
         <div className="responsive-app-header flex items-center">
           <Logo

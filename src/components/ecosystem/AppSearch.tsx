@@ -66,7 +66,7 @@ const SearchComponent: React.FC<SearchComponentProps> = ({
         }}
       />
     </div>
-  );
+  )
 }
 
 export default SearchComponent

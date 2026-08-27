@@ -59,7 +59,7 @@ const SearchBar: React.FC<SearchBarProps> = ({ searchTerm, onSearchChange, class
         }}
       />
     </div>
-  );
+  )
 }
 
 export const highlightMatch = (text: string, searchTerm: string): React.ReactNode => {

@@ -7,11 +7,6 @@ import { name } from './package.json'
 
 const app = async (): Promise<UserConfigExport> => {
   return defineConfig({
-    css: {
-      postcss: {
-        plugins: [],
-      },
-    },
     plugins: [
       react(),
       dts({
@@ -26,7 +21,6 @@ const app = async (): Promise<UserConfigExport> => {
         fileName: (format) => `${name}.${format}.js`,
       },
       rollupOptions: {
-        maxParallelFileOps: 1,
         external: (id) =>
           /^(react(\/jsx-runtime)?|react-dom)(\/|$)/.test(id) ||
           /^@mui\/material(\/|$)/.test(id) ||
@@ -59,7 +53,6 @@ const app = async (): Promise<UserConfigExport> => {
           }
         }
       },
-      reportCompressedSize: true,
       chunkSizeWarningLimit: 1000
     },
   })

@@ -21,8 +21,6 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import { Helmet } from 'react-helmet'
-
 import { useState, useEffect, useMemo } from 'react'
 
 import { Contract } from 'ethers'
@@ -194,12 +192,12 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
 
   return (
     <Container maxWidth="md" className="mb-5">
-      <Helmet>
+      <>
         <title>{META_TAGS.credits.title}</title>
         <meta name="description" content={META_TAGS.credits.description} />
         <meta property="og:title" content={META_TAGS.credits.title} />
         <meta property="og:description" content={META_TAGS.credits.description} />
-      </Helmet>
+      </>
       <Stack spacing={0}>
         <div className="flex items-center">
           <div className="grow">

@@ -287,5 +287,5 @@ export default function CommunityPool() {
         </p>
       ) : null}
     </div>
-  );
+  )
 }

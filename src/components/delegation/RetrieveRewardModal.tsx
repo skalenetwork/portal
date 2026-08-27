@@ -231,5 +231,5 @@ export default function RetrieveRewardModal(props: {
         </Box>
       </Modal>
     </div>
-  );
+  )
 }

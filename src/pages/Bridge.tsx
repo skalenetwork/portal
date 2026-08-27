@@ -21,7 +21,6 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { Helmet } from 'react-helmet'
 import { useEffect, useState } from 'react'
 import { useSearchParams, Link } from 'react-router-dom'
 
@@ -165,12 +164,12 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
 
   return (
     <Container maxWidth="sm">
-      <Helmet>
+      <>
         <title>{META_TAGS.bridge.title}</title>
         <meta name="description" content={META_TAGS.bridge.description} />
         <meta property="og:title" content={META_TAGS.bridge.title} />
         <meta property="og:description" content={META_TAGS.bridge.description} />
-      </Helmet>
+      </>
       <Stack spacing={0}>
         <div className="flex items-center">
           <div className="grow">

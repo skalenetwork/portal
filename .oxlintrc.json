@@ -7,12 +7,20 @@
     "packages/metaport/src/meta/**",
     "src/data/metaportConfig*/**",
     "src/assets/validators/index.ts",
-    "src/metadata.json",
     "skale-network/**",
     "helper-scripts/**"
   ],
-  "plugins": ["typescript", "unicorn", "oxc", "react", "import"],
-  "categories": { "correctness": "error", "suspicious": "warn" },
+  "plugins": [
+    "typescript",
+    "unicorn",
+    "oxc",
+    "react",
+    "import"
+  ],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
   "rules": {
     "react/react-in-jsx-scope": "off",
     "no-underscore-dangle": "off",
@@ -24,5 +32,9 @@
     "react-hooks/exhaustive-deps": "warn",
     "no-unused-vars": "warn"
   },
-  "env": { "builtin": true, "browser": true, "es2024": true }
+  "env": {
+    "builtin": true,
+    "browser": true,
+    "es2024": true
+  }
 }

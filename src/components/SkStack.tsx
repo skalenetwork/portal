@@ -31,10 +31,10 @@ export default function SkStack(props: { className?: string; children?: any }) {
       useFlexGap
       className={props.className}
       sx={{
-        flexWrap: "wrap"
+        flexWrap: 'wrap'
       }}
     >
       {props.children}
     </Stack>
-  );
+  )
 }

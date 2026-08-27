@@ -174,5 +174,5 @@ export default function GetSFuel({ mpc, chainName }: { mpc: MetaportCore; chainN
         </Button>
       </Tooltip>
     </Box>
-  );
+  )
 }

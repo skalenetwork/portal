@@ -125,9 +125,13 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
 
   return (
     <div className="mb-2.5 bg-background rounded-3xl p-4">
-      <Grid container spacing={0} sx={{
-        alignItems: "center"
-      }}>
+      <Grid
+        container
+        spacing={0}
+        sx={{
+          alignItems: 'center'
+        }}
+      >
         <Grid size={{ xs: 12, md: 4 }}>
           <div className="flex items-center">
             <TokenIcon tokenSymbol={token.symbol.toLowerCase()} size="lg" iconUrl={token.iconUrl} />
@@ -247,7 +251,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
         </SkPaper>
       </Dialog>
     </div>
-  );
+  )
 }
 
 export default TokenAdminTile

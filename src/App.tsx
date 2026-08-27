@@ -21,7 +21,6 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { Helmet } from 'react-helmet'
 import { MetaportProvider, getMetaportTheme, useThemeMode } from '@skalenetwork/metaport'
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
 import { Toaster, type ToasterProps } from 'sonner'
@@ -31,7 +30,6 @@ import Portal from './Portal'
 import { METAPORT_CONFIG } from './data/metaportConfig'
 import { createMuiTheme } from './core/themes'
 
-import { META_TAGS } from './core/meta'
 
 METAPORT_CONFIG.mainnetEndpoint = import.meta.env.VITE_MAINNET_ENDPOINT
 METAPORT_CONFIG.projectId = import.meta.env.VITE_WC_PROJECT_ID
@@ -46,12 +44,6 @@ function ThemedToaster(props: Omit<ToasterProps, 'theme'>) {
 export default function App() {
   return (
     <div className="min-h-screen">
-      <Helmet>
-        <title>{META_TAGS.main.title}</title>
-        <meta name="description" content={META_TAGS.main.description} />
-        <meta property="og:title" content={META_TAGS.main.title} />
-        <meta property="og:description" content={META_TAGS.main.description} />
-      </Helmet>
       <StyledEngineProvider injectFirst>
         <ThemeProvider theme={muiTheme}>
           <MetaportProvider config={METAPORT_CONFIG}>
