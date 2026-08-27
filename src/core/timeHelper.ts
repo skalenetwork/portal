@@ -20,7 +20,7 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import { AVG_MONTH_LENGTH } from './constants'
+const AVG_MONTH_LENGTH = 30.436875
 
 export function formatBigIntTimestampSeconds(timestamp: bigint): string {
   const date = new Date(Number(timestamp * 1000n))
