@@ -102,22 +102,28 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
               </a>
             </ListItem> */}
           </List>
-          <h4 className="text-secondary-foreground text-xs font-medium mt-2.5 ml-5">Transfer</h4>
-          <List>
-            <ListItem>
-              <Link to="/bridge" className="w-full text-foreground!">
-                <ListItemButton
-                  selected={location.pathname.startsWith('/bridge')}
-                  className={getItemButtonClass(location.pathname.startsWith('/bridge'))}
-                >
-                  <ListItemIcon>
-                    <ArrowLeftRight className="text-foreground" size={18} />
-                  </ListItemIcon>
-                  <ListItemText primary="Bridge" />
-                </ListItemButton>
-              </Link>
-            </ListItem>
-          </List>
+          {networks.hasFeatureInAny(NETWORKS, 'bridge') && (
+            <>
+              <h4 className="text-secondary-foreground text-xs font-medium mt-2.5 ml-5">
+                Transfer
+              </h4>
+              <List>
+                <ListItem>
+                  <Link to="/bridge" className="w-full text-foreground!">
+                    <ListItemButton
+                      selected={location.pathname.startsWith('/bridge')}
+                      className={getItemButtonClass(location.pathname.startsWith('/bridge'))}
+                    >
+                      <ListItemIcon>
+                        <ArrowLeftRight className="text-foreground" size={18} />
+                      </ListItemIcon>
+                      <ListItemText primary="Bridge" />
+                    </ListItemButton>
+                  </Link>
+                </ListItem>
+              </List>
+            </>
+          )}
           <h4 className="text-secondary-foreground text-xs font-medium mt-2.5 ml-5">Network</h4>
           <List>
             {networks.hasFeatureInAny(NETWORKS, 'ecosystem') && (
