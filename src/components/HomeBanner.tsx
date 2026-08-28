@@ -23,37 +23,11 @@
 
 import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
-import { Badge, Sparkles } from 'lucide-react'
 import Avatar from 'boring-avatars'
 import { HOME_CARD_COLORS } from '../core/constants'
 
-import MoneyIcon from '../icons/arrows.svg'
 import { networks, types } from '@/core'
 import { EXPLORE_CARDS } from './HomeComponents'
-
-function HomeBanner1() {
-  return (
-    <div className="home-banner mt-2.5 mb-4! flex flex-col items-center">
-      <div className="home-banner-inner flex h-full flex-col items-center justify-start gap-2 px-4 pt-10 text-center sm:gap-2 sm:px-5 sm:pt-12 md:pt-16">
-        <h1 className="font-bold text-foreground m-0!">Bridge to SKALE</h1>
-        <p className="text-sm text-secondary-foreground font-medium m-0!">
-          Blazingly fast transfers, free between SKALE Chains
-        </p>
-        <Link to="/bridge">
-          <Button
-            size="medium"
-            variant="contained"
-            color="primary"
-            className="btn mt-3! w-full px-10! bg-accent-foreground! text-accent! text-sm! ease-in-out transition-transform duration-150 active:scale-[0.97]"
-            startIcon={<Sparkles size={18} />}
-          >
-            Bridge Now
-          </Button>
-        </Link>
-      </div>
-    </div>
-  )
-}
 
 export default function HomeBanner(props: { skaleNetwork: types.SkaleNetwork }) {
   const keyFeature = networks.KEY_FEATURES[props.skaleNetwork]
