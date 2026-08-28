@@ -57,7 +57,7 @@ export default function SkBottomNavigation() {
       path: '/bridge',
       index: 1,
       Icon: ArrowLeftRight,
-      featureKey: null as types.NetworkFeature | null
+      featureKey: 'bridge' as types.NetworkFeature
     },
     {
       label: 'Chains',

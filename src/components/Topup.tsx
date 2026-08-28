@@ -23,7 +23,7 @@
 
 import { Link } from 'react-router-dom'
 
-import { constants, units, helper, type types } from '@/core'
+import { constants, networks, units, helper, type types } from '@/core'
 import { type MetaportCore, Tile, TokenIcon } from '@skalenetwork/metaport'
 
 import Button from '@mui/material/Button'
@@ -34,6 +34,7 @@ import MonthSelector from './MonthSelector'
 import Loader from './Loader'
 import ErrorTile from './ErrorTile'
 import { formatTimePeriod, monthsBetweenNowAndTimestamp } from '../core/timeHelper'
+import { NETWORKS } from '../core/constants'
 
 export default function Topup(props: {
   mpc: MetaportCore
@@ -123,7 +124,7 @@ export default function Topup(props: {
           >
             {props.btnText ?? topupBtnText}
           </Button>
-          {!balanceOk ? (
+          {!balanceOk && networks.hasFeatureInAny(NETWORKS, 'bridge') ? (
             <Link to="/bridge" className="w-full md:w-auto">
               <Button
                 variant="contained"
