@@ -33,6 +33,7 @@ import {
   base,
   baseSepolia,
   arbitrum,
+  arbitrumNova,
   polygon,
   optimism,
   avalanche,
@@ -50,7 +51,8 @@ const log = new Logger<ILogObj>({ name: 'metaport:core:network' })
 export const EXT_PREFIX = 'ext-'
 
 export const EXT_CHAIN_RPC_OVERRIDES: Record<string, string> = {
-  polygon: 'https://polygon-bor-rpc.publicnode.com'
+  polygon: 'https://polygon-bor-rpc.publicnode.com',
+  mainnet: 'https://ethereum-rpc.publicnode.com'
 }
 
 export function extChainRpcUrl(chainName: string): string {
@@ -62,12 +64,14 @@ export function extChainRpcUrl(chainName: string): string {
 
 export const EXT_CHAINS: Record<string, Chain> = {
   arbitrum,
+  'arbitrum-nova': arbitrumNova,
   polygon,
   'op-mainnet': optimism,
   avalanche,
   bsc,
   monad,
-  gnosis
+  gnosis,
+  mainnet
 }
 
 export function isExtChain(chainName: string): boolean {
@@ -102,15 +106,17 @@ export function isMainnetChainId(
   return Number(chainId) === NETWORK_MAINNET_CHAINS[skaleNetwork].id
 }
 
-const _chainIdToName: Record<number, string> = (() => {
+const _chainIdToExtName: Record<number, string> = (() => {
   const map: Record<number, string> = {}
-  for (const chain of MAINNET_CHAINS) map[chain.id] = constants.MAINNET_CHAIN_NAME
   for (const [key, chain] of Object.entries(EXT_CHAINS)) map[chain.id] = `${EXT_PREFIX}${key}`
   return map
 })()
 
-export function chainIdToName(chainId: number): string {
-  return _chainIdToName[chainId] ?? constants.MAINNET_CHAIN_NAME
+export function chainIdToName(chainId: number, skaleNetwork: types.SkaleNetwork): string {
+  if (NETWORK_MAINNET_CHAINS[skaleNetwork].id === chainId) {
+    return constants.MAINNET_CHAIN_NAME
+  }
+  return _chainIdToExtName[chainId] ?? constants.MAINNET_CHAIN_NAME
 }
 
 export function mainnetProvider(mainnetEndpoint: string): Provider {

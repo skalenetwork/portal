@@ -33,8 +33,7 @@ export enum SchainProject {
 }
 
 export enum PortalProject {
-  GRANTS = 'skale-grants',
-  CREDIT_STATION = 'credit-station'
+  GRANTS = 'skale-grants'
 }
 
 export type ISkaleContractsProject = Project | SchainProject
@@ -42,6 +41,16 @@ export type IPortalProject = Project | PortalProject
 
 export type ContractAddresses = {
   [project in IPortalProject]?: types.AddressType | string
+}
+
+export type CreditStationProject = string
+
+export interface CreditStationSource {
+  id: string
+  chainName: string
+  contractAddress: types.AddressType
+  skaleContractsProject: CreditStationProject
+  displayName: string
 }
 
 export type ContractsConfig = {
@@ -71,14 +80,53 @@ export const CONTRACTS: ContractsConfig = {
   },
   "base-sepolia-testnet": {
     'skale-manager': 'production',
-    'mainnet-ima': 'production',
-    'credit-station': '0x9197c60e10ef0e4D44EfB54455A6D24782d8A93f'
+    'mainnet-ima': 'production'
   },
   base: {
     'skale-manager': 'production',
-    'mainnet-ima': 'production',
-    'credit-station': '0x0bdEDee74B847094B512700D172CEdd06Cb70F3F'
+    'mainnet-ima': 'production'
   },
+}
+
+export const CREDIT_STATION_SOURCES: {
+  [network in types.SkaleNetwork]: CreditStationSource[]
+} = {
+  mainnet: [],
+  legacy: [],
+  regression: [],
+  testnet: [],
+  base: [
+    {
+      id: 'base',
+      chainName: constants.MAINNET_CHAIN_NAME,
+      contractAddress: '0x00a9837253a374f4CEAbd38E5627d1533B983764',
+      skaleContractsProject: 'mainnet-credit-station',
+      displayName: 'Base'
+    },
+    {
+      id: 'winged-bubbly-grumium',
+      chainName: 'winged-bubbly-grumium',
+      contractAddress: '0x258e0c0d2d55386236D324260893AD0176465BE3',
+      skaleContractsProject: 'mainnet-credit-station',
+      displayName: 'SKALE on Base'
+    }
+  ],
+  'base-sepolia-testnet': [
+    {
+      id: 'base-sepolia',
+      chainName: constants.MAINNET_CHAIN_NAME,
+      contractAddress: '0x50734666aa289903B64D97448AB2f370Af370365',
+      skaleContractsProject: 'mainnet-credit-station',
+      displayName: 'Base Sepolia'
+    },
+    {
+      id: 'jubilant-horrible-ancha',
+      chainName: 'jubilant-horrible-ancha',
+      contractAddress: '0x6469347AB1460be87520339FAffB6C0f436DcC39',
+      skaleContractsProject: 'mainnet-credit-station',
+      displayName: 'SKALE on Base'
+    }
+  ]
 }
 
 export const CREDIT_STATION_LEDGER_CONTRACTS: {
@@ -91,7 +139,7 @@ export const CREDIT_STATION_LEDGER_CONTRACTS: {
     'winged-bubbly-grumium': '0x3EB873B8c6efcF495A9Ae3F10450A50e1316362b'
   },
   'base-sepolia-testnet': {
-    'jubilant-horrible-ancha': '0x5EE1DA726C7F3C261184517f50dADDDcCC3148b8'
+    'jubilant-horrible-ancha': '0x32Bfa8B5C6a450e9EF7d7Fc99fcCC349E7671FFb'
   }
 }
 

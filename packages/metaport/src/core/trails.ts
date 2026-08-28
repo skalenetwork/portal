@@ -23,7 +23,9 @@
 
 import { Logger, type ILogObj } from 'tslog'
 import { Interface } from 'ethers'
-import { encodeFunctionData } from 'viem'
+import { encodeFunctionData, erc20Abi } from 'viem'
+import { Payload } from '@0xsequence/wallet-primitives'
+import { Bytes } from 'ox'
 import {
   TradeType,
   TrailsApi,
@@ -38,8 +40,8 @@ import {
 
 export type { QuoteIntentResponse, WaitIntentReceiptResponse, IntentReceipt }
 
-export const TRAILS_ROUTER_PLACEHOLDER_AMOUNT =
-  0xdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefdeadbeefn
+export const TRAILS_HYDRATE_PLACEHOLDER_AMOUNT =
+  114316045351081986197366228715807272115562181347258027827511447451103061843027n
 
 const log = new Logger<ILogObj>({ name: 'metaport:core:trails' })
 
@@ -59,59 +61,99 @@ const DEPOSIT_ERC20_DIRECT_ABI = [
 
 const depositBoxIface = new Interface(DEPOSIT_ERC20_DIRECT_ABI)
 
-const TRAILS_ROUTER_ABI = [
+const HYDRATE_EXECUTE_AND_SWEEP_ABI = [
   {
     type: 'function',
-    name: 'injectAndCall',
-    stateMutability: 'nonpayable',
+    name: 'hydrateExecuteAndSweep',
+    stateMutability: 'payable',
     inputs: [
-      { name: 'token', type: 'address' },
-      { name: 'target', type: 'address' },
-      { name: 'callData', type: 'bytes' },
-      { name: 'amountOffset', type: 'uint256' },
-      { name: 'placeholder', type: 'bytes32' }
+      { name: 'packedPayload', type: 'bytes' },
+      { name: 'hydratePayload', type: 'bytes' },
+      { name: 'sweepTarget', type: 'address' },
+      { name: 'tokensToSweep', type: 'address[]' },
+      { name: 'sweepNative', type: 'bool' }
     ],
     outputs: []
   }
 ] as const
 
-function getAmountOffset(calldata: string, placeholder: bigint): number {
-  const hex = placeholder.toString(16).padStart(64, '0')
-  const offset = calldata.toLowerCase().indexOf(hex.toLowerCase())
-  if (offset === -1) return -1
-  return (offset - 2) / 2
+const HYDRATE_CMD_ERC20_BALANCE_SELF = 0x30
+const APPROVE_AMOUNT_OFFSET = 36
+
+type Hex = `0x${string}`
+
+function placeholderOffset(calldata: string): number {
+  const sentinel = TRAILS_HYDRATE_PLACEHOLDER_AMOUNT.toString(16).padStart(64, '0')
+  const hex = calldata.toLowerCase()
+  for (let offset = 4; offset * 2 + 66 <= hex.length; offset += 32) {
+    if (hex.slice(2 + offset * 2, 66 + offset * 2) === sentinel) return offset
+  }
+  return -1
 }
 
-export function wrapWithTrailsRouter(
+function hydrateSection(callIndex: number, token: string, offset: number): Bytes.Bytes {
+  return Bytes.concat(
+    Bytes.fromNumber(callIndex, { size: 1 }),
+    Bytes.fromNumber(HYDRATE_CMD_ERC20_BALANCE_SELF, { size: 1 }),
+    Bytes.fromNumber(offset, { size: 2 }),
+    Bytes.fromHex(token.toLowerCase() as Hex),
+    Bytes.fromNumber(0, { size: 1 })
+  )
+}
+
+const packedCall = (to: string, data: string) => ({
+  to: to as Hex,
+  data: data as Hex,
+  value: 0n,
+  gasLimit: 0n,
+  delegateCall: false,
+  onlyFallback: false,
+  behaviorOnError: 'revert' as const
+})
+
+export function wrapWithTrailsHydrate(
   token: string,
   target: string,
   calldata: string,
-  routerAddress: string
-): { callData: `0x${string}`; toAddress: string } {
-  const amountOffset = getAmountOffset(calldata, TRAILS_ROUTER_PLACEHOLDER_AMOUNT)
-  if (amountOffset === -1) {
-    throw new Error('Placeholder amount not found in calldata')
-  }
+  sweepTarget: string,
+  utilsAddress: string
+): { callData: Hex; toAddress: string } {
+  const offset = placeholderOffset(calldata)
+  if (offset === -1) throw new Error('Placeholder amount not found in calldata')
 
-  const placeholderBytes32 =
-    `0x${TRAILS_ROUTER_PLACEHOLDER_AMOUNT.toString(16).padStart(64, '0')}` as `0x${string}`
+  const at = 2 + offset * 2
+  const hydrated = `${calldata.slice(0, at)}${'0'.repeat(64)}${calldata.slice(at + 64)}`
+  const approve = encodeFunctionData({
+    abi: erc20Abi,
+    functionName: 'approve',
+    args: [target as Hex, 0n]
+  })
 
-  const encoded = encodeFunctionData({
-    abi: TRAILS_ROUTER_ABI,
-    functionName: 'injectAndCall',
+  const callData = encodeFunctionData({
+    abi: HYDRATE_EXECUTE_AND_SWEEP_ABI,
+    functionName: 'hydrateExecuteAndSweep',
     args: [
-      token as `0x${string}`,
-      target as `0x${string}`,
-      calldata as `0x${string}`,
-      BigInt(amountOffset),
-      placeholderBytes32
+      Bytes.toHex(
+        Payload.encode({
+          type: 'call',
+          space: 0n,
+          nonce: 0n,
+          calls: [packedCall(token, approve), packedCall(target, hydrated)]
+        })
+      ),
+      Bytes.toHex(
+        Bytes.concat(
+          hydrateSection(0, token, APPROVE_AMOUNT_OFFSET),
+          hydrateSection(1, token, offset)
+        )
+      ),
+      sweepTarget as Hex,
+      [token as Hex],
+      false
     ]
   })
 
-  return {
-    callData: encoded,
-    toAddress: routerAddress
-  }
+  return { callData, toAddress: utilsAddress }
 }
 
 let trailsApi: TrailsApi | null = null
@@ -123,15 +165,52 @@ function getTrailsApi(): TrailsApi {
   return trailsApi
 }
 
-let trailsRouterAddressCache: string | null = null
+export function extractTrailsErrorMessage(err: unknown): string {
+  if (!(err instanceof Error)) return String(err)
+  let current: unknown = err
+  let last = err.message
+  // Walk the cause chain — webrpc wraps the useful detail in err.cause
+  for (let i = 0; i < 5 && current instanceof Error; i++) {
+    last = current.message || last
+    current = (current as Error).cause
+  }
+  if (typeof current === 'string') return current
+  return last
+}
 
-export async function getTrailsRouterAddress(): Promise<string> {
-  if (trailsRouterAddressCache) return trailsRouterAddressCache
-  const response = await getTrailsApi().getTrailsContracts()
-  const address = response.TrailsContracts.trailsRouterAddress
-  if (!address) throw new Error('Trails router address missing from getTrailsContracts response')
-  trailsRouterAddressCache = address
-  return address
+export function humanizeTrailsError(raw: string | null | undefined): string {
+  if (!raw) return 'Unable to get a quote from Trails.'
+  if (/no routes found/i.test(raw)) {
+    return "Trails doesn't have a route for this token pair right now. Try a different chain or token."
+  }
+  if (/insufficient origin amount/i.test(raw)) {
+    return 'The amount is too small to cover gas + bridge fees. Try a larger amount.'
+  }
+  if (/rate limit|429/i.test(raw)) {
+    return 'Trails is rate-limiting requests. Wait a moment and try again.'
+  }
+  return 'Unable to get a quote from Trails. Try a larger amount or a different route.'
+}
+
+const TRAILS_UTILS_FALLBACK = '0x000000004f702C8398e158108937814d074cD74b'
+
+let trailsUtilsAddressCache: string | null = null
+
+export async function getTrailsUtilsAddress(): Promise<string> {
+  if (trailsUtilsAddressCache) return trailsUtilsAddressCache
+  try {
+    const response = await getTrailsApi().getTrailsContracts()
+    const address = response.TrailsContracts.trailsUtilsAddress
+    if (address) {
+      trailsUtilsAddressCache = address
+      return address
+    }
+    log.warn('getTrailsContracts returned no utils address, using pinned address')
+  } catch (err) {
+    log.warn('getTrailsContracts failed, using pinned utils address', err)
+  }
+  trailsUtilsAddressCache = TRAILS_UTILS_FALLBACK
+  return TRAILS_UTILS_FALLBACK
 }
 
 export function encodeDepositERC20Direct(
@@ -208,7 +287,7 @@ export async function executeIntent(
   })
 }
 
-const FAILED_STATUSES = new Set([
+const FAILED_STATUSES = new Set<IntentStatus>([
   IntentStatus.FAILED,
   IntentStatus.ABORTED,
   IntentStatus.REFUNDED

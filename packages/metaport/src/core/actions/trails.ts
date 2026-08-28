@@ -35,9 +35,10 @@ import {
   executeIntent,
   waitReceipt,
   encodeDepositERC20Direct,
-  wrapWithTrailsRouter,
-  getTrailsRouterAddress,
-  TRAILS_ROUTER_PLACEHOLDER_AMOUNT,
+  wrapWithTrailsHydrate,
+  getTrailsUtilsAddress,
+  extractTrailsErrorMessage,
+  TRAILS_HYDRATE_PLACEHOLDER_AMOUNT,
   type QuoteIntentResponse
 } from '../trails'
 
@@ -163,7 +164,7 @@ export class TransferTrailsExt2M extends Action {
     } catch (err) {
       log.error('TransferTrailsExt2M:preAction - quote failed', err)
       this.trailsQuote = null
-      this.trailsQuoteError = err instanceof Error ? err.message : String(err)
+      this.trailsQuoteError = extractTrailsErrorMessage(err)
     }
   }
 }
@@ -236,19 +237,19 @@ export class TransferTrailsExt2S extends Action {
     const rawCallData = encodeDepositERC20Direct(
       this.chainName2,
       mainnetTokenAddress,
-      TRAILS_ROUTER_PLACEHOLDER_AMOUNT,
+      TRAILS_HYDRATE_PLACEHOLDER_AMOUNT,
       this.address
     )
 
-    const routerAddress = await getTrailsRouterAddress()
-    const wrapped = wrapWithTrailsRouter(
-      mainnetTokenAddress,
-      depositBoxAddress,
-      rawCallData,
-      routerAddress
-    )
-
     try {
+      const utilsAddress = await getTrailsUtilsAddress()
+      const wrapped = wrapWithTrailsHydrate(
+        mainnetTokenAddress,
+        depositBoxAddress,
+        rawCallData,
+        this.address,
+        utilsAddress
+      )
       this.trailsQuote = await quoteIntent({
         ownerAddress: this.address,
         originChainId,
@@ -264,7 +265,7 @@ export class TransferTrailsExt2S extends Action {
     } catch (err) {
       log.error('TransferTrailsExt2S:preAction - quote failed', err)
       this.trailsQuote = null
-      this.trailsQuoteError = err instanceof Error ? err.message : String(err)
+      this.trailsQuoteError = extractTrailsErrorMessage(err)
     }
   }
 }
@@ -343,7 +344,7 @@ export class TransferTrailsM2Ext extends Action {
     } catch (err) {
       log.error('TransferTrailsM2Ext:preAction - quote failed', err)
       this.trailsQuote = null
-      this.trailsQuoteError = err instanceof Error ? err.message : String(err)
+      this.trailsQuoteError = extractTrailsErrorMessage(err)
     }
   }
 }
