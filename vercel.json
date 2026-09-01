@@ -1,6 +1,6 @@
 {
   "buildCommand": "bun run build",
-  "installCommand": "bun install --frozen-lockfile",
+  "installCommand": "bunx bun@1.4.0 install --frozen-lockfile",
   "headers": [
     {
       "source": "/(.*)",

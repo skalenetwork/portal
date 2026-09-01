@@ -11,8 +11,6 @@ jobs:
         with:
           submodules: recursive
       - uses: oven-sh/setup-bun@v2
-        with:
-          bun-version: 1.4.0
       - uses: actions/setup-node@v4
         with:
           node-version: 22
