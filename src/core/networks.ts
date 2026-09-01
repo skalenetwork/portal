@@ -26,7 +26,7 @@ import { NetworksConfig } from './types';
 
 export const networks: NetworksConfig = {
     mainnet: {
-        features: ['ecosystem', 'chains', 'staking', 'stats', 'paymaster', 'sfuel', 'swap', 'metrics']
+        features: ['bridge', 'ecosystem', 'chains', 'staking', 'stats', 'paymaster', 'sfuel', 'swap', 'metrics']
     },
     legacy: {
         features: ['bridge', 'ecosystem', 'chains', 'staking', 'stats', 'paymaster', 'sfuel', 'metrics']
