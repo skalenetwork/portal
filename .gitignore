@@ -31,9 +31,7 @@ src/assets/validators/index.ts
 src/metadata.json
 src/metrics.json
 
-packages/*/node_modules
-packages/metaport/storybook-static
-packages/metaport/src/meta/*
+src/bridge/meta/
 
 src/metadata/chainsData.json
 src/metadata/faucet.json
@@ -41,13 +39,6 @@ src/metadata/faucet.json
 
 public/sitemap.xml
 public/robots.txt
-
-packages/*/node_modules
-packages/*/dist
-tools/*
-
-
-packages/**/dist
 
 docs/*
 .claude/launch.json

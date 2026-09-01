@@ -22,7 +22,7 @@
  */
 
 import { type Signer } from 'ethers'
-import { sendTransaction, contracts } from '@skalenetwork/metaport'
+import { sendTransaction, contracts } from '@/bridge'
 import { type types, notify } from '@/core'
 export type LoadingState = types.st.IRewardInfo | types.st.IDelegationInfo | false
 export type SetLoadingFn = (state: LoadingState) => void

@@ -22,7 +22,7 @@
  */
 
 import { helper, types, units } from '@/core'
-import { TokenIcon, Tile } from '@skalenetwork/metaport'
+import { TokenIcon, Tile } from '@/bridge'
 
 import {
   ArrowUpRight,

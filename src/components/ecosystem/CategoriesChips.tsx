@@ -24,7 +24,7 @@
 import React, { useMemo } from 'react'
 import { Box } from '@mui/material'
 import { type types } from '@/core'
-import { categories as categoriesData } from '../../core/ecosystem/categories'
+import { categories as categoriesData } from '@/lib/ecosystem/categories'
 import Chip from '../Chip'
 import { CategoryIcons } from './CategoryIcons'
 

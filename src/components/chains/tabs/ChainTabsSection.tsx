@@ -24,7 +24,7 @@
 import { useEffect, useState } from 'react'
 import { Bolt, Coins, FileCheck, Heart } from 'lucide-react'
 
-import { MetaportCore, SkPaper, explorer } from '@skalenetwork/metaport'
+import { MetaportCore, SkPaper, explorer } from '@/bridge'
 import { type types } from '@/core'
 
 import ChainTabs from './Tabs'

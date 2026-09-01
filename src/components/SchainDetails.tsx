@@ -22,7 +22,7 @@
  */
 
 import { useState } from 'react'
-import { type MetaportCore, SkPaper, explorer, Tile } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper, explorer, Tile } from '@/bridge'
 import { type types, metadata, constants, endpoints, networks, notify } from '@/core'
 
 import Button from '@mui/material/Button'
@@ -34,8 +34,8 @@ import SkStack from './SkStack'
 import Breadcrumbs from './Breadcrumbs'
 import CollapsibleDescription from './CollapsibleDescription'
 import Logo from './Logo'
-import { getRpcUrl, getChainId } from '../core/chain'
-import { formatNumber } from '../core/timeHelper'
+import { getRpcUrl, getChainId } from '@/lib/chain'
+import { formatNumber } from '@/lib/timeHelper'
 import ChainTabsSection from './chains/tabs/ChainTabsSection'
 import CategoriesChips from './ecosystem/CategoriesChips'
 import {

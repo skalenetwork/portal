@@ -22,7 +22,7 @@
  */
 
 import { Contract, type JsonRpcSigner } from 'ethers'
-import { MetaportCore, walletClientToSigner, enforceNetwork } from '@skalenetwork/metaport'
+import { MetaportCore, walletClientToSigner, enforceNetwork } from '@/bridge'
 import { skaleContracts } from '@skalenetwork/skale-contracts-ethers-v6'
 import { type types, constants, contracts, helper } from '@/core'
 

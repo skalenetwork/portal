@@ -24,7 +24,7 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Container, Stack, Button } from '@mui/material'
-import { SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@/bridge'
 import { networks, type types } from '@/core'
 
 import { useApps } from '../useApps'
@@ -36,7 +36,7 @@ import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import FeaturedApps from '../components/ecosystem/tabs/FeaturedApps'
 import HomeBanner from '../components/HomeBanner'
 
-import { NETWORKS, SKALE_SOCIAL_LINKS } from '../core/constants'
+import { NETWORKS, SKALE_SOCIAL_LINKS } from '@/lib/constants'
 import { SECTION_ICONS, EXPLORE_CARDS } from '../components/HomeComponents'
 import SocialButtons from '../components/ecosystem/Socials'
 

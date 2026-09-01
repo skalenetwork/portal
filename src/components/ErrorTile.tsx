@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { Tile } from '@skalenetwork/metaport'
+import { Tile } from '@/bridge'
 
 import Button from '@mui/material/Button'
 import Collapse from '@mui/material/Collapse'

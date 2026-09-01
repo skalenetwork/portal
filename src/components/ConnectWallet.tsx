@@ -21,7 +21,7 @@
  */
 
 import { Button } from '@mui/material'
-import { SkPaper, useWagmiAccount, RainbowConnectButton } from '@skalenetwork/metaport'
+import { SkPaper, useWagmiAccount, RainbowConnectButton } from '@/bridge'
 import { Rainbow } from 'lucide-react'
 
 export default function ConnectWallet(props: {

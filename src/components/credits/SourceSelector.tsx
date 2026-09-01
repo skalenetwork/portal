@@ -22,7 +22,7 @@
  */
 
 import { ButtonBase } from '@mui/material'
-import { ChainIcon } from '@skalenetwork/metaport'
+import { ChainIcon } from '@/bridge'
 import { contracts, metadata, type types } from '@/core'
 
 interface SourceSelectorProps {

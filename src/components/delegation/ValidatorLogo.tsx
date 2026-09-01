@@ -22,8 +22,8 @@
  */
 
 import Jazzicon from 'react-jazzicon'
-import { VALIDATOR_LOGOS } from '../../core/constants'
-import { styles } from '@skalenetwork/metaport'
+import { VALIDATOR_LOGOS } from '@/lib/constants'
+import { styles } from '@/bridge'
 
 function hashCode(str: string) {
   let hash = 0

@@ -22,7 +22,7 @@
 
 import { useState, useEffect, ChangeEvent } from 'react'
 import { isAddress } from 'ethers'
-import { SkPaper, Tile, useThemeMode, styles } from '@skalenetwork/metaport'
+import { SkPaper, Tile, useThemeMode, styles } from '@/bridge'
 import { type types, helper } from '@/core'
 
 import {
@@ -41,7 +41,7 @@ import Message from '../Message'
 import SkBtn from '../SkBtn'
 
 import Avatar from 'boring-avatars'
-import { AVATAR_COLORS } from '../../core/constants'
+import { AVATAR_COLORS } from '@/lib/constants'
 
 export default function RetrieveRewardModal(props: {
   address: types.AddressType | undefined

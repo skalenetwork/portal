@@ -30,9 +30,9 @@ import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'
 
 import { ChevronRight } from 'lucide-react'
-import { type MetaportCore, ChainIcon, mp_metadata } from '@skalenetwork/metaport'
+import { type MetaportCore, ChainIcon, mp_metadata } from '@/bridge'
 
-import { PORTAL_URLS } from '../core/constants'
+import { PORTAL_URLS } from '@/lib/constants'
 import { constants } from '@/core'
 
 export default function NetworkSwitch(props: { mpc: MetaportCore }) {

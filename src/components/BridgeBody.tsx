@@ -22,7 +22,7 @@
  */
 
 import { type types, metadata, constants, networks } from '@/core'
-import { NETWORKS } from '../core/constants'
+import { NETWORKS } from '@/lib/constants'
 import Collapse from '@mui/material/Collapse'
 import PopularActions from './PopularActions'
 import {
@@ -48,7 +48,7 @@ import {
   MesonSwapTracker,
   NoTokenPairs,
   getAvailableTokensTotal
-} from '@skalenetwork/metaport'
+} from '@/bridge'
 
 export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap }) {
   const { showFrom, showTo, showInput, showSwitch, showWT, showStepper } = useDisplayFunctions()

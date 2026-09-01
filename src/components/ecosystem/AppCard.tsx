@@ -26,8 +26,8 @@ import { type types, metadata } from '@/core'
 
 import Button from '@mui/material/Button'
 import ChainLogo from '../ChainLogo'
-import { MAINNET_CHAIN_LOGOS } from '../../core/constants'
-import { formatNumber } from '../../core/timeHelper'
+import { MAINNET_CHAIN_LOGOS } from '@/lib/constants'
+import { formatNumber } from '@/lib/timeHelper'
 
 export default function AppCard(props: {
   skaleNetwork: types.SkaleNetwork

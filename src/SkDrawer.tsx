@@ -47,7 +47,7 @@ import {
   Network
 } from 'lucide-react'
 
-import { GET_STARTED_URL, NETWORKS } from './core/constants'
+import { GET_STARTED_URL, NETWORKS } from '@/lib/constants'
 import DelegationsNotification from './components/delegation/DelegationsNotification'
 
 const drawerWidth = 220

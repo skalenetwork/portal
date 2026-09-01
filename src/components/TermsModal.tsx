@@ -32,9 +32,9 @@ import Box from '@mui/material/Box'
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded'
 import LockRoundedIcon from '@mui/icons-material/LockRounded'
 import GradingRoundedIcon from '@mui/icons-material/GradingRounded'
-import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper } from '@/bridge'
 
-import { PORTAL_URLS } from '../core/constants'
+import { PORTAL_URLS } from '@/lib/constants'
 import TermsOfService from '../data/terms-of-service.mdx'
 import { Handshake, Key, Lock } from 'lucide-react'
 

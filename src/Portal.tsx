@@ -26,7 +26,7 @@ import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
 
 import { type types, endpoints, networks } from '@/core'
-import { useMetaportStore, useWagmiAccount, Debug, contracts } from '@skalenetwork/metaport'
+import { useMetaportStore, useWagmiAccount, Debug, contracts } from '@/bridge'
 
 import Header from './Header'
 import SkDrawer from './SkDrawer'
@@ -34,10 +34,10 @@ import Router from './Router'
 import SkBottomNavigation from './SkBottomNavigation'
 import ProfileModal from './components/profile/ProfileModal'
 
-import { formatSChains } from './core/chain'
-import { STATS_API } from './core/constants'
-import { getValidatorDelegations } from './core/delegation/staking'
-import { getValidator } from './core/delegation'
+import { formatSChains } from '@/lib/chain'
+import { STATS_API } from '@/lib/constants'
+import { getValidatorDelegations } from '@/lib/delegation/staking'
+import { getValidator } from '@/lib/delegation'
 
 export default function Portal() {
   const mpc = useMetaportStore((state) => state.mpc)

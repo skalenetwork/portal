@@ -29,7 +29,7 @@ import {
   useWagmiWalletClient,
   useWagmiSwitchNetwork,
   ChainIcon
-} from '@skalenetwork/metaport'
+} from '@/bridge'
 
 import { Wallet, Fuel, HandCoins, CoinsIcon, CirclePlus, ExternalLink, ArrowLeftRight } from 'lucide-react'
 
@@ -47,8 +47,8 @@ import {
   DEFAULT_CREDITS_AMOUNT,
   RECOMMENDED_CREDITS_AMOUNTS,
   CREDITS_USAGE_EXAMPLE_PER_CREDIT
-} from '../../core/constants'
-import { prepareSignerForWrite } from '../../core/credit-station'
+} from '@/lib/constants'
+import { prepareSignerForWrite } from '@/lib/credit-station'
 import CreditsAmountSelector from './CreditsAmountSelector'
 import TokenSelector from './TokenSelector'
 import SourceSelector from './SourceSelector'

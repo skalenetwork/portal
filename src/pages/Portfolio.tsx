@@ -27,7 +27,7 @@ import { type types, dc, units } from '@/core'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 
-import { type MetaportCore, TokenIcon, SkPaper, useWagmiAccount } from '@skalenetwork/metaport'
+import { type MetaportCore, TokenIcon, SkPaper, useWagmiAccount } from '@/bridge'
 
 import TokenSurface from '../components/TokenSurface'
 import ConnectWallet from '../components/ConnectWallet'

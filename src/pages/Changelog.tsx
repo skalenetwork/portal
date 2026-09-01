@@ -1,7 +1,7 @@
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import Changelog from '../data/changelog.mdx'
-import { SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@/bridge'
 
 export default function ChangelogPage() {
   return (

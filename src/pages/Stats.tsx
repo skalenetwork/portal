@@ -24,8 +24,8 @@
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 
-import { DASHBOARD_URL } from '../core/constants'
-import { META_TAGS } from '../core/meta'
+import { DASHBOARD_URL } from '@/lib/constants'
+import { META_TAGS } from '@/lib/meta'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 
 export default function Stats() {

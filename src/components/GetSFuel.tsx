@@ -29,7 +29,7 @@ import {
   Station,
   useWagmiAccount,
   useConnectModal
-} from '@skalenetwork/metaport'
+} from '@/bridge'
 import { type types, notify } from '@/core'
 import { usesFuel } from '../useSFuel'
 import { Zap } from 'lucide-react'

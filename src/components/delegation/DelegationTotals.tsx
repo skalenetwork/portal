@@ -22,10 +22,10 @@
  */
 
 import { useMemo } from 'react'
-import { useUIStore, Tile } from '@skalenetwork/metaport'
+import { useUIStore, Tile } from '@/bridge'
 import { type types, units } from '@/core'
 
-import { calculateDelegationTotals } from '../../core/delegation/delegations'
+import { calculateDelegationTotals } from '@/lib/delegation/delegations'
 
 import SkStack from '../SkStack'
 import { CheckCheck, CircleCheckBig, Inbox, TrendingUp } from 'lucide-react'

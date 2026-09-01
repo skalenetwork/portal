@@ -24,7 +24,7 @@
 import React from 'react'
 import { Box } from '@mui/material'
 import { X } from 'lucide-react'
-import { categories } from '../../core/ecosystem/categories'
+import { categories } from '@/lib/ecosystem/categories'
 
 interface SelectedCategoriesProps {
   checkedItems: string[]

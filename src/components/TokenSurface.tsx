@@ -22,7 +22,7 @@
  */
 
 import { useState, useEffect } from 'react'
-import { TokenIcon, ChainIcon } from '@skalenetwork/metaport'
+import { TokenIcon, ChainIcon } from '@/bridge'
 import { type types, constants } from '@/core'
 
 import { CopyToClipboard } from 'react-copy-to-clipboard'

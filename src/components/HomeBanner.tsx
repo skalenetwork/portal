@@ -24,7 +24,7 @@
 import { Button } from '@mui/material'
 import { Link } from 'react-router-dom'
 import Avatar from 'boring-avatars'
-import { HOME_CARD_COLORS } from '../core/constants'
+import { HOME_CARD_COLORS } from '@/lib/constants'
 
 import { networks, types } from '@/core'
 import { EXPLORE_CARDS } from './HomeComponents'

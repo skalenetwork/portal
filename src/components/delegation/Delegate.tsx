@@ -32,7 +32,7 @@ import {
   contracts,
   Tile,
   styles
-} from '@skalenetwork/metaport'
+} from '@/bridge'
 import { type types, constants, units } from '@/core'
 
 import Button from '@mui/material/Button'

@@ -24,7 +24,7 @@
 import { useState } from 'react'
 import { Button, ButtonBase, TextField } from '@mui/material'
 import { CircleCheck, CircleX, Pencil } from 'lucide-react'
-import { TokenIcon } from '@skalenetwork/metaport'
+import { TokenIcon } from '@/bridge'
 import { units, notify } from '@/core'
 
 interface CreditsAmountSelectorProps {

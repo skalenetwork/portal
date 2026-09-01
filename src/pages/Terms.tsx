@@ -2,7 +2,7 @@ import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 
 import TermsOfService from '../data/terms-of-service.mdx'
-import { SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@/bridge'
 
 export default function Terms() {
   return (

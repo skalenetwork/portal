@@ -32,9 +32,9 @@ import {
   useMetaportStore,
   useBridgeBalanceStore,
   getBridgeBalanceChains
-} from '@skalenetwork/metaport'
+} from '@/bridge'
 
-import { META_TAGS } from '../core/meta'
+import { META_TAGS } from '@/lib/meta'
 import BridgeMenu from '../components/BridgeMenu'
 import ConnectWallet from '../components/ConnectWallet'
 

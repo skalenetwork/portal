@@ -24,7 +24,7 @@
 import { Link } from 'react-router-dom'
 import { type Signer, isAddress } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
-import { SkPaper, contracts, type MetaportCore } from '@skalenetwork/metaport'
+import { SkPaper, contracts, type MetaportCore } from '@/bridge'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
@@ -45,14 +45,14 @@ import {
   retrieveUnlockedTokens,
   type LoadingState,
   StakingActionProps
-} from '../core/delegation/stakingActions'
+} from '@/lib/delegation/stakingActions'
 
-import { BALANCE_UPDATE_INTERVAL_MS } from '../core/constants'
+import { BALANCE_UPDATE_INTERVAL_MS } from '@/lib/constants'
 import ErrorTile from '../components/ErrorTile'
 import ConnectWallet from '../components/ConnectWallet'
 import Headline from '../components/Headline'
 import Message from '../components/Message'
-import { META_TAGS } from '../core/meta'
+import { META_TAGS } from '@/lib/meta'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 
 export default function Staking(props: {

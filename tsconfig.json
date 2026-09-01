@@ -8,15 +8,14 @@
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
+    "esModuleInterop": true,
     "noEmit": true,
     "jsx": "react-jsx",
-    "strict": true,    "noFallthroughCasesInSwitch": true,
+    "strict": true,
+    "noFallthroughCasesInSwitch": true,
     "skipLibCheck": true,
-    "paths": {
-      "@/core": ["./packages/core/dist"],
-      "@skalenetwork/metaport": ["./packages/metaport/dist"]
-    }
+    "paths": { "@/*": ["./src/*"] }
   },
   "include": ["src"],
-  "exclude": ["dist", "node_modules"]
+  "exclude": ["node_modules"]
 }

@@ -23,7 +23,7 @@
 import { useState } from 'react'
 import Avatar from 'boring-avatars'
 import { types, units, timeUtils } from '@/core'
-import { Tile } from '@skalenetwork/metaport'
+import { Tile } from '@/bridge'
 
 import { Grid, Collapse, Tooltip, Grow } from '@mui/material'
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
@@ -32,9 +32,9 @@ import SkStack from '../SkStack'
 import SkBtn from '../SkBtn'
 import ValidatorLogo from './ValidatorLogo'
 
-import { DelegationState, getDelegationSource } from '../../core/delegation'
-import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
-import { AVATAR_COLORS } from '../../core/constants'
+import { DelegationState, getDelegationSource } from '@/lib/delegation'
+import { formatBigIntTimestampSeconds } from '@/lib/timeHelper'
+import { AVATAR_COLORS } from '@/lib/constants'
 import { Coins, ChevronRight, ChevronDown, CircleUser, Globe, Landmark } from 'lucide-react'
 
 export default function Delegation(props: {

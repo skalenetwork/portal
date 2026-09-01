@@ -38,13 +38,13 @@ import {
   sendTransaction,
   useWagmiWalletClient,
   useWagmiSwitchNetwork
-} from '@skalenetwork/metaport'
+} from '@/bridge'
 import { types, contracts as coreContracts, timeUtils, helper, metadata, notify } from '@/core'
 
 import SkStack from '../SkStack'
 
-import * as cs from '../../core/credit-station'
-import { CREDITS_CONFIRMATION_BLOCKS, AVATAR_COLORS } from '../../core/constants'
+import * as cs from '@/lib/credit-station'
+import { CREDITS_CONFIRMATION_BLOCKS, AVATAR_COLORS } from '@/lib/constants'
 import { BadgeCheck, ExternalLink, HandCoins, IdCard } from 'lucide-react'
 
 interface CreditsPaymentTileProps {

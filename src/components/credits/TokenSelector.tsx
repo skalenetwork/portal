@@ -23,7 +23,7 @@
 
 import { useMemo } from 'react'
 import { ButtonBase } from '@mui/material'
-import { TokenIcon } from '@skalenetwork/metaport'
+import { TokenIcon } from '@/bridge'
 import { types, units } from '@/core'
 
 interface TokenSelectorProps {

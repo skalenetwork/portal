@@ -30,7 +30,7 @@ import {
   TransactionData,
   useWagmiAccount,
   History
-} from '@skalenetwork/metaport'
+} from '@/bridge'
 import { type types, dc, networks } from '@/core'
 
 import { Container, Stack, Button } from '@mui/material'
@@ -38,8 +38,8 @@ import { Container, Stack, Button } from '@mui/material'
 import BridgeBody from '../components/BridgeBody'
 import Headline from '../components/Headline'
 
-import { META_TAGS } from '../core/meta'
-import { NETWORKS } from '../core/constants'
+import { META_TAGS } from '@/lib/meta'
+import { NETWORKS } from '@/lib/constants'
 import BridgeMenu from '../components/BridgeMenu'
 import { CircleCheckBig, HistoryIcon } from 'lucide-react'
 

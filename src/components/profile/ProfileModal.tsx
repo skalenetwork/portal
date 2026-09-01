@@ -24,12 +24,12 @@
 import React from 'react'
 import Avatar from 'boring-avatars'
 import { Modal, Box, useTheme, useMediaQuery } from '@mui/material'
-import { SkPaper, useWagmiAccount, Tile, useMetaportStore } from '@skalenetwork/metaport'
+import { SkPaper, useWagmiAccount, Tile, useMetaportStore } from '@/bridge'
 import { helper } from '@/core'
 import ConnectWallet from '../ConnectWallet'
 import ProfileModalHeader from './ProfileModalHeader'
 import ProfileModalActions from './ProfileModalActions'
-import { AVATAR_COLORS } from '../../core/constants'
+import { AVATAR_COLORS } from '@/lib/constants'
 
 interface ProfileModalProps {
   isOpen: boolean

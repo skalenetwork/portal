@@ -24,7 +24,7 @@
 import { Link } from 'react-router-dom'
 
 import { constants, networks, units, helper, type types } from '@/core'
-import { type MetaportCore, Tile, TokenIcon } from '@skalenetwork/metaport'
+import { type MetaportCore, Tile, TokenIcon } from '@/bridge'
 
 import Button from '@mui/material/Button'
 import { ClockPlus } from 'lucide-react'
@@ -33,8 +33,8 @@ import SkStack from './SkStack'
 import MonthSelector from './MonthSelector'
 import Loader from './Loader'
 import ErrorTile from './ErrorTile'
-import { formatTimePeriod, monthsBetweenNowAndTimestamp } from '../core/timeHelper'
-import { NETWORKS } from '../core/constants'
+import { formatTimePeriod, monthsBetweenNowAndTimestamp } from '@/lib/timeHelper'
+import { NETWORKS } from '@/lib/constants'
 
 export default function Topup(props: {
   mpc: MetaportCore

@@ -22,7 +22,7 @@
  */
 
 import { useState, useEffect } from 'react'
-import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper } from '@/bridge'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'

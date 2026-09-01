@@ -23,13 +23,13 @@
 import { Contract } from 'ethers'
 import { useEffect, useState } from 'react'
 
-import { type MetaportCore, SkPaper, ChainIcon } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper, ChainIcon } from '@/bridge'
 import { contracts as coreContracts, metadata, types } from '@/core'
 
 import TokenAdminTile from './TokenAdminTile'
 import AccordionSection from '../AccordionSection'
 import CreditStationStatusTile from './CreditStationStatusTile'
-import { getCreditTokens, type CreditToken } from '../../core/credit-station'
+import { getCreditTokens, type CreditToken } from '@/lib/credit-station'
 import { Coins, SwatchBook } from 'lucide-react'
 
 interface TokensAdminProps {

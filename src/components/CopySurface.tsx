@@ -23,7 +23,7 @@
 
 import { useState, useEffect } from 'react'
 import { type types, constants } from '@/core'
-import { TokenIcon } from '@skalenetwork/metaport'
+import { TokenIcon } from '@/bridge'
 
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Tooltip from '@mui/material/Tooltip'

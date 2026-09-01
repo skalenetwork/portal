@@ -23,7 +23,7 @@
 
 import { Link, useLocation } from 'react-router-dom'
 import { type types, units, constants } from '@/core'
-import { SkPaper, Tile, TokenIcon } from '@skalenetwork/metaport'
+import { SkPaper, Tile, TokenIcon } from '@/bridge'
 
 import { HandCoins, HardDrive, Wallet, Coins } from 'lucide-react'
 

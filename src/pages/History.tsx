@@ -24,12 +24,12 @@
 import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
-import { History as TransfersHistory, SkPaper, useMetaportStore } from '@skalenetwork/metaport'
+import { History as TransfersHistory, SkPaper, useMetaportStore } from '@/bridge'
 
 import { ArrowLeftRight, Trash2 } from 'lucide-react'
 
-import { clearTransferHistory as clearTransferHistoryFromStorage } from '../core/transferHistory'
-import { META_TAGS } from '../core/meta'
+import { clearTransferHistory as clearTransferHistoryFromStorage } from '@/lib/transferHistory'
+import { META_TAGS } from '@/lib/meta'
 import BridgeMenu from '../components/BridgeMenu'
 
 export default function History() {

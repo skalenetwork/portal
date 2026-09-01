@@ -26,10 +26,10 @@ import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'
 import { Rainbow } from 'lucide-react'
 
-import { RainbowConnectButton } from '@skalenetwork/metaport'
+import { RainbowConnectButton } from '@/bridge'
 import { helper } from '@/core'
 import Avatar from 'boring-avatars'
-import { AVATAR_COLORS } from '../core/constants'
+import { AVATAR_COLORS } from '@/lib/constants'
 
 export default function AccountMenu(props: any) {
   const { openProfileModal } = props

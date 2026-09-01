@@ -34,7 +34,7 @@ import {
   walletClientToSigner,
   sendTransaction,
   contracts
-} from '@skalenetwork/metaport'
+} from '@/bridge'
 
 import { CircleDollarSign, ShieldAlert } from 'lucide-react'
 

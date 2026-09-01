@@ -22,7 +22,7 @@
  */
 
 import { useState, useEffect } from 'react'
-import { type MetaportCore, SkPaper, explorer } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper, explorer } from '@/bridge'
 import Button from '@mui/material/Button'
 
 import ExpandCircleDownRoundedIcon from '@mui/icons-material/ExpandCircleDownRounded'

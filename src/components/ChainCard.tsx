@@ -27,7 +27,7 @@ import { type types, metadata } from '@/core'
 import Button from '@mui/material/Button'
 
 import Logo from './Logo'
-import { useThemeMode } from '@skalenetwork/metaport'
+import { useThemeMode } from '@/bridge'
 
 export default function ChainCard(props: {
   skaleNetwork: types.SkaleNetwork

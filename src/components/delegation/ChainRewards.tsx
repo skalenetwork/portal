@@ -35,7 +35,7 @@ import {
   Station,
   explorer,
   contracts
-} from '@skalenetwork/metaport'
+} from '@/bridge'
 import { type types, constants, units, ERC_ABIS, notify } from '@/core'
 
 import { Button, IconButton, Tooltip } from '@mui/material'

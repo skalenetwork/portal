@@ -25,7 +25,7 @@ import React from 'react'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
 import { Search } from 'lucide-react'
-import { useThemeMode, styles } from '@skalenetwork/metaport'
+import { useThemeMode, styles } from '@/bridge'
 
 interface SearchBarProps {
   searchTerm: string

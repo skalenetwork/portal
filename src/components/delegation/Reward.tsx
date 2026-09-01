@@ -26,7 +26,7 @@ import { Tooltip, Button } from '@mui/material'
 
 import ValidatorLogo from './ValidatorLogo'
 
-import { getValidatorById } from '../../core/delegation'
+import { getValidatorById } from '@/lib/delegation'
 import RetrieveRewardModal from './RetrieveRewardModal'
 import { CircleMinus, CirclePlus } from 'lucide-react'
 

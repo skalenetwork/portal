@@ -23,7 +23,7 @@
 
 import React from 'react'
 import { Button } from '@mui/material'
-import { RainbowConnectButton, useWagmiDisconnect } from '@skalenetwork/metaport'
+import { RainbowConnectButton, useWagmiDisconnect } from '@/bridge'
 import SkStack from '../SkStack'
 import { PowerOff, Rainbow, SquareArrowOutUpRight } from 'lucide-react'
 

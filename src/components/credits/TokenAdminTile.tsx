@@ -30,9 +30,9 @@ import {
   useWagmiWalletClient,
   useWagmiSwitchNetwork,
   sendTransaction
-} from '@skalenetwork/metaport'
+} from '@/bridge'
 import { units, helper, notify, contracts as coreContracts } from '@/core'
-import { prepareSignerForWrite, type CreditToken } from '../../core/credit-station'
+import { prepareSignerForWrite, type CreditToken } from '@/lib/credit-station'
 
 import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'

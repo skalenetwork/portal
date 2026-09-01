@@ -29,9 +29,9 @@ import {
   useWagmiWalletClient,
   useWagmiSwitchNetwork,
   sendTransaction
-} from '@skalenetwork/metaport'
+} from '@/bridge'
 import { contracts as coreContracts, notify } from '@/core'
-import { prepareSignerForWrite } from '../../core/credit-station'
+import { prepareSignerForWrite } from '@/lib/credit-station'
 import Button from '@mui/material/Button'
 import { Badge, BadgeCheck, ToggleLeft, ToggleRight } from 'lucide-react'
 

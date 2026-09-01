@@ -36,7 +36,7 @@ import {
   useWagmiSwitchNetwork,
   walletClientToSigner,
   enforceNetwork
-} from '@skalenetwork/metaport'
+} from '@/bridge'
 
 import { type types, metadata, constants, networks } from '@/core'
 
@@ -66,10 +66,10 @@ import BridgeBalance from './pages/BridgeBalance'
 import MetricsWarning from './components/MetricsWarning'
 import ScrollToTop from './components/ScrollToTop'
 import useScrollPosition from './useScrollPosition'
-import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
-import { BRIDGE_PAGES, NETWORKS, STAKING_PAGES } from './core/constants'
-import { getValidators } from './core/delegation/validators'
-import { getStakingInfoMap } from './core/delegation/staking'
+import { getHistoryFromStorage, setHistoryToStorage } from '@/lib/transferHistory'
+import { BRIDGE_PAGES, NETWORKS, STAKING_PAGES } from '@/lib/constants'
+import { getValidators } from '@/lib/delegation/validators'
+import { getStakingInfoMap } from '@/lib/delegation/staking'
 
 export default function Router(props: {
   loadData: () => Promise<void>

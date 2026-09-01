@@ -23,7 +23,7 @@
 
 import React from 'react'
 import { Button } from '@mui/material'
-import { explorer } from '@skalenetwork/metaport'
+import { explorer } from '@/bridge'
 import { type types } from '@/core'
 import { Blocks, Globe } from 'lucide-react'
 

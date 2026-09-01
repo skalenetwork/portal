@@ -25,16 +25,16 @@ import { useState, useEffect, useMemo } from 'react'
 
 import { Contract } from 'ethers'
 
-import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper } from '@/bridge'
 import { contracts as coreContracts, dc, type types } from '@/core'
-import * as cs from '../core/credit-station'
+import * as cs from '@/lib/credit-station'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
 import { Collapse } from '@mui/material'
 
-import { META_TAGS } from '../core/meta'
+import { META_TAGS } from '@/lib/meta'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import AccordionSection from '../components/AccordionSection'
 import ConnectWallet from '../components/ConnectWallet'

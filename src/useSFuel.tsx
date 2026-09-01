@@ -23,8 +23,8 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { Logger, type ILogObj } from 'tslog'
-import { useWagmiAccount, type MetaportCore, Station } from '@skalenetwork/metaport'
-import { DEFAULT_MIN_SFUEL_WEI, SFUEL_CHECK_INTERVAL } from './core/constants'
+import { useWagmiAccount, type MetaportCore, Station } from '@/bridge'
+import { DEFAULT_MIN_SFUEL_WEI, SFUEL_CHECK_INTERVAL } from '@/lib/constants'
 import { types, notify } from '@/core'
 
 const log = new Logger<ILogObj>({ name: 'useSFuel' })
