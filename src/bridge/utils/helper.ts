@@ -56,7 +56,11 @@ function parseRgb(css: string): [number, number, number] | null {
   if (hexMatch) {
     let hex = hexMatch[1]
     if (hex.length === 3) hex = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2]
-    return [parseInt(hex.slice(0, 2), 16), parseInt(hex.slice(2, 4), 16), parseInt(hex.slice(4, 6), 16)]
+    return [
+      parseInt(hex.slice(0, 2), 16),
+      parseInt(hex.slice(2, 4), 16),
+      parseInt(hex.slice(4, 6), 16)
+    ]
   }
   const rgbMatch = css.match(/rgb\(?\s*(\d+)[\s,]+(\d+)[\s,]+(\d+)/)
   if (rgbMatch) return [+rgbMatch[1], +rgbMatch[2], +rgbMatch[3]]

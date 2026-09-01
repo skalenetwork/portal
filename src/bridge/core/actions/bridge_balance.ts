@@ -120,9 +120,7 @@ export async function withdraw(
   const toastId = notify.loading('Withdrawing bridge balance...')
   try {
     log.info('Withdrawing from bridge balance', { chainName, amount: amount.toString(), address })
-    const { chainId } = await mpc.provider(constants.MAINNET_CHAIN_NAME).provider.getNetwork()
     await enforceNetwork(
-      chainId,
       walletClient,
       switchChain,
       mpc.config.skaleNetwork,
@@ -167,9 +165,7 @@ export async function recharge(
     const sChain = await mpc.schain(chainName)
     const communityLocker = await sChain.communityLocker()
 
-    const { chainId } = await mpc.provider(constants.MAINNET_CHAIN_NAME).provider.getNetwork()
     await enforceNetwork(
-      chainId,
       walletClient,
       switchChain,
       mpc.config.skaleNetwork,

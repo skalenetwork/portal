@@ -98,11 +98,7 @@ function buildSteps(status: MesonSwapStatus | null, error: string | null): SwapS
       : status && !terminal
         ? 'active'
         : 'pending'
-  const deliverState: StepState = succeeded
-    ? 'done'
-    : failed
-      ? 'failed'
-      : 'pending'
+  const deliverState: StepState = succeeded ? 'done' : failed ? 'failed' : 'pending'
 
   return [
     {
@@ -113,7 +109,7 @@ function buildSteps(status: MesonSwapStatus | null, error: string | null): SwapS
     {
       label: 'Processing',
       subtitle: failed
-        ? error ?? `Swap ${status?.toLowerCase()}`
+        ? (error ?? `Swap ${status?.toLowerCase()}`)
         : succeeded
           ? 'Done'
           : status
@@ -123,7 +119,11 @@ function buildSteps(status: MesonSwapStatus | null, error: string | null): SwapS
     },
     {
       label: succeeded ? 'Completed' : failed ? 'Failed' : 'Delivering',
-      subtitle: succeeded ? 'Funds delivered' : failed ? 'Transfer could not be completed' : 'Waiting',
+      subtitle: succeeded
+        ? 'Funds delivered'
+        : failed
+          ? 'Transfer could not be completed'
+          : 'Waiting',
       state: deliverState
     }
   ]

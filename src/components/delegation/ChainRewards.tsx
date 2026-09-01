@@ -22,11 +22,10 @@
 
 import { useEffect, useState } from 'react'
 import { Contract } from 'ethers'
+import { useSwitchChain, useWalletClient } from 'wagmi'
 import {
   type MetaportCore,
   enforceNetwork,
-  useWagmiWalletClient,
-  useWagmiSwitchNetwork,
   TokenIcon,
   Tile,
   walletClientToSigner,
@@ -76,8 +75,8 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   const network = mpc.config.skaleNetwork
   const paymasterChain = contracts.paymaster.getPaymasterChain(network)
 
-  const { data: walletClient } = useWagmiWalletClient()
-  const { switchChainAsync } = useWagmiSwitchNetwork()
+  const { data: walletClient } = useWalletClient()
+  const { switchChainAsync } = useSwitchChain()
 
   const addr = customAddress ?? address
 
@@ -164,9 +163,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
         }
       }
 
-      const { chainId } = await paymaster.runner.provider.getNetwork()
-
-      await enforceNetwork(chainId, walletClient, switchChainAsync, network, paymasterChain)
+      await enforceNetwork(walletClient, switchChainAsync, network, paymasterChain)
       setBtnText('Sending transaction')
       notify.loading('Sending transaction...', { id: toastId })
       const signer = walletClientToSigner(walletClient)

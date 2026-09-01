@@ -24,19 +24,14 @@
 import { useState, useEffect, useCallback, useRef } from 'react'
 import { Box, Button, Tooltip } from '@mui/material'
 import AutoModeRoundedIcon from '@mui/icons-material/AutoModeRounded'
-import {
-  type MetaportCore,
-  Station,
-  useWagmiAccount,
-  useConnectModal
-} from '@/bridge'
+import { useAccount } from 'wagmi'
+import { type MetaportCore, Station, openWallet } from '@/bridge'
 import { type types, notify } from '@/core'
 import { usesFuel } from '../useSFuel'
 import { Zap } from 'lucide-react'
 
 function SingleChainSFuel({ chainName, mpc }: { chainName: string; mpc: MetaportCore }) {
-  const { address } = useWagmiAccount()
-  const { openConnectModal } = useConnectModal()
+  const { address } = useAccount()
 
   const [sFuelOk, setSFuelOk] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -102,7 +97,7 @@ function SingleChainSFuel({ chainName, mpc }: { chainName: string; mpc: Metaport
   async function handleClick() {
     if (!address) {
       pendingMine.current = true
-      openConnectModal?.()
+      openWallet()
       return
     }
     if (sFuelOk) return
@@ -140,7 +135,7 @@ export default function GetSFuel({ mpc, chainName }: { mpc: MetaportCore; chainN
   if (chainName) return <SingleChainSFuel chainName={chainName} mpc={mpc} />
 
   const { sFuelOk, isMining, mineSFuel, sFuelCompletionPercentage, loading } = usesFuel(mpc)
-  const { address } = useWagmiAccount()
+  const { address } = useAccount()
   if (!address) return null
 
   function btnText() {

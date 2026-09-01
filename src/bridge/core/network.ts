@@ -20,12 +20,11 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { Logger, type ILogObj } from 'tslog'
 import { JsonRpcProvider, Provider } from 'ethers'
-import { type types, constants, endpoints, helper, notify } from '@/core'
+import { type types, constants, endpoints, notify } from '@/core'
 
 import { WalletClient } from 'viem'
-import { type UseSwitchChainReturnType } from 'wagmi'
+import { type Connector, type UseSwitchChainReturnType } from 'wagmi'
 import {
   mainnet,
   hoodi,
@@ -44,9 +43,6 @@ import {
 } from 'wagmi/chains'
 
 import { constructWagmiChain } from './wagmi_network'
-import { TimeoutException } from './exceptions'
-
-const log = new Logger<ILogObj>({ name: 'metaport:core:network' })
 
 export const EXT_PREFIX = 'ext-'
 
@@ -131,71 +127,58 @@ export function sChainProvider(network: types.SkaleNetwork, chainName: string): 
   return new JsonRpcProvider(endpoint)
 }
 
-async function waitForNetworkChange(
-  walletClient: WalletClient,
-  initialChainId: number | bigint,
-  requiredChainId: number | bigint,
-  sleepInterval: number = constants.DEFAULT_SLEEP,
-  iterations: number = constants.DEFAULT_ITERATIONS
-): Promise<void> {
-  const logData = `${initialChainId} -> ${requiredChainId}, sleep ${sleepInterval}ms`
-  for (let i = 1; i <= iterations; i++) {
-    const chainId = await walletClient.getChainId()
-    if (BigInt(chainId) === BigInt(requiredChainId)) {
-      return
-    }
-    log.info(`🔎 ${i}/${iterations} Waiting for network change - ${logData}`)
-    await helper.sleep(sleepInterval)
-  }
-  throw new TimeoutException('waitForNetworkChange timeout - ' + logData)
+export function targetChain(skaleNetwork: types.SkaleNetwork, chainName: string): Chain {
+  if (isExtChain(chainName)) return getExtChain(chainName)
+  if (chainName === constants.MAINNET_CHAIN_NAME) return NETWORK_MAINNET_CHAINS[skaleNetwork]
+  return constructWagmiChain(skaleNetwork, chainName)
 }
 
-async function _networkSwitch(
-  chainId: number | bigint,
-  currentChainId: number | bigint,
-  switchChain: UseSwitchChainReturnType['switchChainAsync']
-): Promise<void> {
-  const chain = await switchChain({ chainId: Number(chainId) })
-  if (!chain) {
-    throw new Error(`Failed to switch from ${currentChainId} to ${chainId} `)
+type WalletConnectProvider = {
+  session?: { namespaces?: Record<string, { chains?: string[]; methods: string[] }> }
+}
+
+const UNSUPPORTED_METHOD_CODES = [4200, -32601]
+
+export function isUnsupportedChainMethod(error: unknown): boolean {
+  for (let e = error; e; e = (e as { cause?: unknown }).cause) {
+    if (UNSUPPORTED_METHOD_CODES.includes((e as { code?: number }).code as number)) return true
   }
+  return false
+}
+
+export async function walletCanUseChain(
+  connector: Connector | undefined,
+  chainId: number
+): Promise<boolean> {
+  const provider = (await connector
+    ?.getProvider()
+    .catch(() => null)) as WalletConnectProvider | null
+  const eip155 = provider?.session?.namespaces?.eip155
+  if (!eip155) return true
+  return (
+    eip155.chains?.includes(`eip155:${chainId}`) === true ||
+    eip155.methods.includes('wallet_addEthereumChain')
+  )
 }
 
 export async function enforceNetwork(
-  chainId: bigint,
   walletClient: WalletClient,
   switchChain: UseSwitchChainReturnType['switchChainAsync'],
   skaleNetwork: types.SkaleNetwork,
   chainName: string
-): Promise<bigint> {
-  const currentChainId = await walletClient.getChainId()
-  log.info(
-    `Current chainId: ${currentChainId}, required chainId: ${chainId}, required network: ${chainName} `
-  )
-  if (BigInt(currentChainId) === chainId) return chainId
-  log.info(`Switching network to ${chainId}...`)
+): Promise<number> {
+  const { id } = targetChain(skaleNetwork, chainName)
+  if ((await walletClient.getChainId()) === id) return id
   notify.temporaryInfo('Switching network...')
   try {
-    if (isExtChain(chainName)) {
-      await walletClient.addChain({ chain: getExtChain(chainName) })
-    } else if (isMainnetChainId(chainId, skaleNetwork)) {
-      await walletClient.addChain({ chain: NETWORK_MAINNET_CHAINS[skaleNetwork] })
-    } else {
-      await walletClient.addChain({ chain: constructWagmiChain(skaleNetwork, chainName) })
+    await switchChain({ chainId: id })
+  } catch (error) {
+    if (isUnsupportedChainMethod(error)) {
+      throw new Error(
+        `Your wallet cannot add ${chainName}. Use a wallet that supports custom networks.`
+      )
     }
-  } catch {
-    log.info('Failed to add chain or chain already added')
+    throw error
   }
-  try {
-    // tmp fix for coinbase wallet
-    _networkSwitch(chainId, currentChainId, switchChain)
-  } catch (e) {
-    log.info('Failed to switch network, retrying...')
-    await helper.sleep(constants.DEFAULT_SLEEP)
-    _networkSwitch(chainId, currentChainId, switchChain)
-  }
-  await waitForNetworkChange(walletClient, currentChainId, chainId)
-  await helper.sleep(constants.DEFAULT_SLEEP)
-  log.info(`Network switched to ${chainId}`)
-  return chainId
+  return id
 }

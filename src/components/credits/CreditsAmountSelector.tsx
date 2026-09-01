@@ -77,17 +77,17 @@ function AmountCard({ selected, onClick, title, subtitle, tokenSymbol, popular }
   return (
     <ButtonBase
       onClick={onClick}
-      className={`creditsPlanCard relative! min-w-0! rounded-2xl! border-2! p-4! pt-5! flex-col! items-stretch! text-left! transition-all! ease-in-out! duration-150! active:scale-[0.97]! ${selected
-        ? 'bg-accent-foreground! text-accent! border-accent-foreground!'
-        : 'bg-background! text-foreground! border-transparent! hover:bg-muted-foreground/10!'
-        }`}
+      className={`creditsPlanCard relative! min-w-0! rounded-2xl! border-2! p-4! pt-5! flex-col! items-stretch! text-left! transition-all! ease-in-out! duration-150! active:scale-[0.97]! ${
+        selected
+          ? 'bg-accent-foreground! text-accent! border-accent-foreground!'
+          : 'bg-background! text-foreground! border-transparent! hover:bg-muted-foreground/10!'
+      }`}
     >
       {popular && (
         <span
-          className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-2.5 py-0.5 rounded-full text-[10px] font-semibold whitespace-nowrap shadow-sm ${selected
-            ? 'bg-accent text-accent-foreground'
-            : 'bg-accent-foreground text-accent'
-            }`}
+          className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 px-2.5 py-0.5 rounded-full text-[10px] font-semibold whitespace-nowrap shadow-sm ${
+            selected ? 'bg-accent text-accent-foreground' : 'bg-accent-foreground text-accent'
+          }`}
         >
           Most popular
         </span>
@@ -227,5 +227,5 @@ export default function CreditsAmountSelector({
         />
       )}
     </div>
-  );
+  )
 }

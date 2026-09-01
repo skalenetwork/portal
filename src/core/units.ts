@@ -21,7 +21,11 @@
  */
 
 import { formatUnits, parseUnits, BigNumberish } from 'ethers'
-import { DEFAULT_ERC20_DECIMALS, DEFAULT_FRACTION_DIGITS, DEFAULT_FRACTION_DIGITS_USD } from './constants'
+import {
+  DEFAULT_ERC20_DECIMALS,
+  DEFAULT_FRACTION_DIGITS,
+  DEFAULT_FRACTION_DIGITS_USD
+} from './constants'
 
 export function toWei(value: string, decimals: number): bigint {
   return parseUnits(value, decimals)
@@ -65,12 +69,14 @@ export function displaySklValueUsd(
   tokenDecimals: number = DEFAULT_ERC20_DECIMALS,
   priceDecimals: number = DEFAULT_ERC20_DECIMALS
 ): string {
-  const totalDecimals = tokenDecimals + priceDecimals;
+  const totalDecimals = tokenDecimals + priceDecimals
   const usdStr = truncateDecimals(
     formatUnits(amountWei * priceWei, totalDecimals),
     DEFAULT_FRACTION_DIGITS_USD
-  );
-  return Number(usdStr).toLocaleString(undefined, {
-    maximumFractionDigits: DEFAULT_FRACTION_DIGITS_USD
-  }) + ' USD';
+  )
+  return (
+    Number(usdStr).toLocaleString(undefined, {
+      maximumFractionDigits: DEFAULT_FRACTION_DIGITS_USD
+    }) + ' USD'
+  )
 }

@@ -262,15 +262,16 @@ export async function quoteIntent(params: TrailsQuoteParams): Promise<QuoteInten
   if (params.destinationCallValue !== undefined) {
     req.destinationCallValue = params.destinationCallValue
   }
-  log.info('quoteIntent request', JSON.stringify(req, (_, v) => typeof v === 'bigint' ? v.toString() : v, 2))
+  log.info(
+    'quoteIntent request',
+    JSON.stringify(req, (_, v) => (typeof v === 'bigint' ? v.toString() : v), 2)
+  )
   const response = await getTrailsApi().quoteIntent(req as unknown as QuoteIntentRequest)
   log.info('quoteIntent response intent id:', response.intent?.salt?.toString())
   return response
 }
 
-export async function commitIntent(
-  quoteResponse: QuoteIntentResponse
-): Promise<string> {
+export async function commitIntent(quoteResponse: QuoteIntentResponse): Promise<string> {
   const response = await getTrailsApi().commitIntent({
     intent: quoteResponse.intent
   })
@@ -293,24 +294,22 @@ const FAILED_STATUSES = new Set<IntentStatus>([
   IntentStatus.REFUNDED
 ])
 
-export async function waitReceipt(
-  intentId: string
-): Promise<WaitIntentReceiptResponse> {
+export async function waitReceipt(intentId: string): Promise<WaitIntentReceiptResponse> {
   let lastReceiptStates: Array<TransactionStatus> | undefined
   while (true) {
     const response = await getTrailsApi().waitIntentReceipt({ intentId, lastReceiptStates })
     const status = response.intentReceipt.status
     if (FAILED_STATUSES.has(status)) {
-      throw new Error(`Intent ${status.toLowerCase()}: the cross-chain transfer could not be completed`)
+      throw new Error(
+        `Intent ${status.toLowerCase()}: the cross-chain transfer could not be completed`
+      )
     }
     if (response.done) return response
     lastReceiptStates = response.receiptStates
   }
 }
 
-export async function getIntentReceipt(
-  intentId: string
-): Promise<IntentReceipt> {
+export async function getIntentReceipt(intentId: string): Promise<IntentReceipt> {
   const response = await getTrailsApi().getIntentReceipt({ intentId })
   return response.intentReceipt
 }

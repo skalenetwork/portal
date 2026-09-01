@@ -61,7 +61,8 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
       sx={{
         display: { sm: 'block', xs: 'none' },
         m: 1
-      }}>
+      }}
+    >
       <Drawer
         variant="permanent"
         sx={{
@@ -236,5 +237,5 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
         </Box>
       </Drawer>
     </Box>
-  );
+  )
 }

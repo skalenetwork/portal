@@ -52,23 +52,10 @@ import { getBridgeBalanceChains } from './core/bridge_balance'
 import { Station, StationData } from './core/sfuel'
 import * as mp_metadata from './core/metadata'
 
-import { getWidgetTheme as getMetaportTheme } from './core/themes'
+import { getWidgetTheme as getMetaportTheme, getMuiZIndex } from './core/themes'
 
-import {
-  useAccount as useWagmiAccount,
-  useWalletClient as useWagmiWalletClient,
-  useSwitchChain as useWagmiSwitchNetwork,
-  useSignMessage as useWagmiSignMessage,
-  useDisconnect as useWagmiDisconnect
-} from 'wagmi'
-import {
-  ConnectButton as RainbowConnectButton,
-  useConnectModal,
-  useAccountModal,
-  useChainModal
-} from '@rainbow-me/rainbowkit'
-
-import { enforceNetwork } from './core/network'
+import { enforceNetwork, walletCanUseChain, targetChain } from './core/network'
+import { openWallet } from './core/appkit'
 import { walletClientToSigner } from './core/ethers'
 
 export {
@@ -104,18 +91,13 @@ export {
   getAvailableTokensTotal,
   styles,
   getMetaportTheme,
-  useWagmiAccount,
-  useWagmiWalletClient,
-  useWagmiSwitchNetwork,
-  useWagmiSignMessage,
-  useWagmiDisconnect,
+  getMuiZIndex,
   walletClientToSigner,
   sendTransaction,
   enforceNetwork,
-  RainbowConnectButton,
-  useConnectModal,
-  useAccountModal,
-  useChainModal,
+  openWallet,
+  walletCanUseChain,
+  targetChain,
   Station,
   type StationData,
   contracts,

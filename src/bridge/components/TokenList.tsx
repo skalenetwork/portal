@@ -144,47 +144,47 @@ export default function TokenList() {
             </SkPaper>
           </div>
           <div onClick={(e) => e.stopPropagation()}>
-          <SkPaper gray className="p-4!">
-            <TextField
-              fullWidth
-              placeholder="Search tokens"
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-muted! rounded-lg`}
-              sx={{
-                '& .MuiOutlinedInput-root': { borderRadius: '25px' },
-                '& fieldset': { border: 'none' }
-              }}
-              slotProps={{
-                input: {
-                  startAdornment: (
-                    <InputAdornment position="start">
-                      <Search className="text-muted-foreground w-5! h-5!" />
-                    </InputAdornment>
-                  )
-                }
-              }}
-            />
-            {filteredTokensCount === 0 && (
-              <div className="flex items-center justify-center mt-5 mb-5 p-2.5">
-                <p className="text-base text-secondary-foreground text-center font-medium">
-                  🚫 No tokens match your current filters
-                </p>
-              </div>
-            )}
-            <TokenListSection
-              tokens={filteredTokens}
-              type={dc.TokenType.erc20}
-              setToken={setToken}
-              setExpanded={setExpandedTokens}
-              tokenBalances={tokenBalances}
-              onCloseModal={handleClose}
-              searchQuery={searchQuery}
-            />
-          </SkPaper>
+            <SkPaper gray className="p-4!">
+              <TextField
+                fullWidth
+                placeholder="Search tokens"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-muted! rounded-lg`}
+                sx={{
+                  '& .MuiOutlinedInput-root': { borderRadius: '25px' },
+                  '& fieldset': { border: 'none' }
+                }}
+                slotProps={{
+                  input: {
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Search className="text-muted-foreground w-5! h-5!" />
+                      </InputAdornment>
+                    )
+                  }
+                }}
+              />
+              {filteredTokensCount === 0 && (
+                <div className="flex items-center justify-center mt-5 mb-5 p-2.5">
+                  <p className="text-base text-secondary-foreground text-center font-medium">
+                    🚫 No tokens match your current filters
+                  </p>
+                </div>
+              )}
+              <TokenListSection
+                tokens={filteredTokens}
+                type={dc.TokenType.erc20}
+                setToken={setToken}
+                setExpanded={setExpandedTokens}
+                tokenBalances={tokenBalances}
+                onCloseModal={handleClose}
+                searchQuery={searchQuery}
+              />
+            </SkPaper>
           </div>
         </Container>
       </Modal>
     </div>
-  );
+  )
 }

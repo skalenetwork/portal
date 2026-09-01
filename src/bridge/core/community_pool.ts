@@ -122,12 +122,13 @@ export async function waitForActivation(
   address: string,
   chainHash: string
 ): Promise<void> {
-  for (let i = 0; i < MAX_ACTIVATION_RETRIES; i++) {
-    log.info('Waiting for account activation...')
-    const activeM = await communityPool.activeUsers(address, chainHash)
-    const activeS = await communityLocker.activeUsers(address)
-    if (activeS && activeM) return
-    await helper.sleep(BALANCE_UPDATE_INTERVAL_MS)
-  }
-  throw new Error('Account activation timed out. Please try again.')
+  const active = await helper.pollUntil(
+    async () =>
+      (await communityPool.activeUsers(address, chainHash)) &&
+      (await communityLocker.activeUsers(address)),
+    (isActive) => !!isActive,
+    MAX_ACTIVATION_RETRIES * BALANCE_UPDATE_INTERVAL_MS,
+    BALANCE_UPDATE_INTERVAL_MS
+  )
+  if (!active) throw new Error('Account activation timed out. Please try again.')
 }

@@ -264,9 +264,7 @@ export abstract class Action {
 
   async signer(provider: Provider, chainName?: string): Promise<Signer> {
     this.updateState('switch')
-    const { chainId } = await provider.getNetwork()
     await enforceNetwork(
-      chainId,
       this.walletClient,
       this._switchChain,
       this.mpc.config.skaleNetwork,
@@ -282,9 +280,7 @@ export abstract class Action {
     chainName?: string
   ): Promise<MainnetChain | SChain> {
     this.updateState('switch')
-    const { chainId } = await provider.getNetwork()
     const updChainId = await enforceNetwork(
-      chainId,
       this.walletClient,
       this._switchChain,
       this.mpc.config.skaleNetwork,

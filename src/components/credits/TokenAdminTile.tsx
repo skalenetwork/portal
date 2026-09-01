@@ -20,17 +20,8 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import {
-  styles,
-  type MetaportCore,
-  Tile,
-  TokenIcon,
-  SkPaper,
-  useWagmiAccount,
-  useWagmiWalletClient,
-  useWagmiSwitchNetwork,
-  sendTransaction
-} from '@/bridge'
+import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
+import { styles, type MetaportCore, Tile, TokenIcon, SkPaper, sendTransaction } from '@/bridge'
 import { units, helper, notify, contracts as coreContracts } from '@/core'
 import { prepareSignerForWrite, type CreditToken } from '@/lib/credit-station'
 
@@ -66,9 +57,9 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
 
   const network = mpc.config.skaleNetwork
 
-  const { chainId } = useWagmiAccount()
-  const { data: walletClient } = useWagmiWalletClient({ chainId })
-  const { switchChainAsync } = useWagmiSwitchNetwork()
+  const { chainId } = useAccount()
+  const { data: walletClient } = useWalletClient({ chainId })
+  const { switchChainAsync } = useSwitchChain()
 
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (parseFloat(event.target.value) < 0) {

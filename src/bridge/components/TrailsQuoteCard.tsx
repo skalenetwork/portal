@@ -23,7 +23,15 @@
 
 import { useState } from 'react'
 import Collapse from '@mui/material/Collapse'
-import { AlertTriangle, ArrowDownRight, ArrowUpRight, ChevronDown, Clock, Coins, Route } from 'lucide-react'
+import {
+  AlertTriangle,
+  ArrowDownRight,
+  ArrowUpRight,
+  ChevronDown,
+  Clock,
+  Coins,
+  Route
+} from 'lucide-react'
 
 import SkPaper from './SkPaper'
 import TokenIcon from './TokenIcon'
@@ -66,7 +74,12 @@ export default function TrailsQuoteCard(props: {
           <div className="flex items-center gap-1">
             <Route size={13} className="text-secondary-foreground" />
             <span className="text-xs text-secondary-foreground font-medium">Routed via</span>
-            <a href="https://trails.build/" target="_blank" rel="noreferrer noopener" className="flex items-center">
+            <a
+              href="https://trails.build/"
+              target="_blank"
+              rel="noreferrer noopener"
+              className="flex items-center"
+            >
               <img src={trailsLogo} alt="Trails" className="h-5 rounded-sm" />
             </a>
           </div>
@@ -80,7 +93,9 @@ export default function TrailsQuoteCard(props: {
             </p>
             <div className="flex items-center gap-1.5 mt-0.5">
               <TokenIcon tokenSymbol={tokenSymbol} size="xs" />
-              <p className="text-xl font-bold text-foreground m-0">{sendAmount} {tokenSymbol}</p>
+              <p className="text-xl font-bold text-foreground m-0">
+                {sendAmount} {tokenSymbol}
+              </p>
             </div>
           </div>
           <div className="text-right">
@@ -97,7 +112,9 @@ export default function TrailsQuoteCard(props: {
 
         <div className="mt-3 flex w-full items-center gap-2 rounded-full bg-red-500/10 px-3 py-2 text-red-600 dark:text-red-400">
           <AlertTriangle size={16} className="shrink-0" />
-          <span className="text-xs font-medium leading-tight">{humanizeTrailsError(props.error)}</span>
+          <span className="text-xs font-medium leading-tight">
+            {humanizeTrailsError(props.error)}
+          </span>
         </div>
       </SkPaper>
     )
@@ -115,9 +132,7 @@ export default function TrailsQuoteCard(props: {
   const outputAmount = formatAmount(quote.toAmountMin, destDecimals)
   const inputAmount = formatAmount(quote.fromAmount, originDecimals)
 
-  const estimatedTime = quote.estimatedDuration
-    ? formatDuration(quote.estimatedDuration)
-    : null
+  const estimatedTime = quote.estimatedDuration ? formatDuration(quote.estimatedDuration) : null
 
   const totalFeeUsd = formatUsd(fees.totalFeeUsd)
   const gasFeeUsd = formatUsd(fees.gasFeeUsd)
@@ -133,7 +148,12 @@ export default function TrailsQuoteCard(props: {
         <div className="flex items-center gap-1">
           <Route size={13} className="text-secondary-foreground" />
           <span className="text-xs text-secondary-foreground font-medium">Routed via</span>
-          <a href="https://trails.build/" target="_blank" rel="noreferrer noopener" className="flex items-center">
+          <a
+            href="https://trails.build/"
+            target="_blank"
+            rel="noreferrer noopener"
+            className="flex items-center"
+          >
             <img src={trailsLogo} alt="Trails" className="h-5 rounded-sm" />
           </a>
         </div>
@@ -153,7 +173,9 @@ export default function TrailsQuoteCard(props: {
           </p>
           <div className="flex items-center gap-1.5 mt-0.5">
             <TokenIcon tokenSymbol={tokenSymbol} size="xs" />
-            <p className="text-xl font-bold text-foreground m-0">{inputAmount} {tokenSymbol}</p>
+            <p className="text-xl font-bold text-foreground m-0">
+              {inputAmount} {tokenSymbol}
+            </p>
           </div>
         </div>
         <div className="text-right">
@@ -163,7 +185,9 @@ export default function TrailsQuoteCard(props: {
           </p>
           <div className="flex items-center justify-end gap-1.5 mt-0.5">
             <TokenIcon tokenSymbol={tokenSymbol} size="xs" />
-            <p className="text-xl font-bold text-foreground m-0">{outputAmount} {tokenSymbol}</p>
+            <p className="text-xl font-bold text-foreground m-0">
+              {outputAmount} {tokenSymbol}
+            </p>
           </div>
         </div>
       </div>

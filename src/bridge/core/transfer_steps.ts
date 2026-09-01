@@ -28,19 +28,11 @@ import { isExtChain } from './network'
 
 const log = new Logger<ILogObj>({ name: 'metaport:core:transfer_steps' })
 
-function isTrailsBridge(
-  config: types.mp.Config,
-  token: dc.TokenData,
-  to: string
-): boolean {
+function isTrailsBridge(config: types.mp.Config, token: dc.TokenData, to: string): boolean {
   return token.connections[to]?.bridge === 'trails'
 }
 
-function isMesonBridge(
-  config: types.mp.Config,
-  token: dc.TokenData,
-  to: string
-): boolean {
+function isMesonBridge(config: types.mp.Config, token: dc.TokenData, to: string): boolean {
   return token.connections[to]?.bridge === 'meson'
 }
 

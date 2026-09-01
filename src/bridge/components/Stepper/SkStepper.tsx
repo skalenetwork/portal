@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { useWalletClient, useSwitchChain, useAccount } from 'wagmi'
-import { useAddRecentTransaction } from '@rainbow-me/rainbowkit'
 import { type types, metadata, dc, units, constants } from '@/core'
 
 import Box from '@mui/material/Box'
@@ -47,7 +46,6 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
 
   const { address, chainId } = useAccount()
   const { switchChainAsync } = useSwitchChain()
-  const addRecentTransaction = useAddRecentTransaction()
 
   const { data: walletClient } = useWalletClient({ chainId })
 
@@ -72,23 +70,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
   const transferInProgress = useMetaportStore((state) => state.transferInProgress)
 
   const amount = useMetaportStore((state) => state.amount)
-  const transactionsHistory = useMetaportStore((state) => state.transactionsHistory)
   const cpData = useMetaportStore((state) => state.cpData)
-
-  useEffect(() => {
-    try {
-      const latestTx = transactionsHistory[transactionsHistory.length - 1]
-      if (latestTx) {
-        addRecentTransaction({
-          hash: latestTx.transactionHash,
-          description: latestTx.txName,
-          confirmations: 1
-        })
-      }
-    } catch {
-      console.error('Failed to add tx to rainbowkit')
-    }
-  }, [transactionsHistory])
 
   useEffect(() => {
     if (!address) return
@@ -125,13 +107,22 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
     currentStepMeta?.type === dc.ActionType.recharge &&
     cpData.recommendedRechargeAmount != null &&
     cpData.accountBalance != null &&
-    cpData.accountBalance < units.toWei(String(cpData.recommendedRechargeAmount), constants.DEFAULT_ERC20_DECIMALS)
+    cpData.accountBalance <
+      units.toWei(String(cpData.recommendedRechargeAmount), constants.DEFAULT_ERC20_DECIMALS)
 
   const actionDisabled =
-    amountErrorMessage || trailsQuoteError || mesonQuoteError || loading || amount == '' || Number(amount) === 0 || rechargeNotReady || rechargeInsufficientBalance
+    amountErrorMessage ||
+    trailsQuoteError ||
+    mesonQuoteError ||
+    loading ||
+    amount == '' ||
+    Number(amount) === 0 ||
+    rechargeNotReady ||
+    rechargeInsufficientBalance
 
   function stepBtnText(step: dc.StepMetadata): string {
-    if (step.type === dc.ActionType.recharge && cpData.recommendedRechargeAmount == null) return 'Loading...'
+    if (step.type === dc.ActionType.recharge && cpData.recommendedRechargeAmount == null)
+      return 'Loading...'
     return step.btnText
   }
 
@@ -158,8 +149,6 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
             size="medium"
             className={`
             btn-action w-full normal-case! p-4!
-
-
 
             bg-accent-foreground! text-accent! disabled:text-foreground/70! disabled:bg-accent-foreground/15!
             

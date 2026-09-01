@@ -78,9 +78,7 @@ async function sendTrailsDeposit(
   depositTx: { to: string; data: string; value: bigint }
 ): Promise<Hash> {
   action.updateState('switch')
-  const { chainId } = await provider.getNetwork()
   await enforceNetwork(
-    chainId,
     action.walletClient,
     action._switchChain,
     action.mpc.config.skaleNetwork,
@@ -329,7 +327,8 @@ export class TransferTrailsM2Ext extends Action {
       this.token.keyname,
       this.token.type
     )
-    const mainnetTokenAddress = this.mpc.config.connections['mainnet'][this.token.type][this.token.keyname].address
+    const mainnetTokenAddress =
+      this.mpc.config.connections['mainnet'][this.token.type][this.token.keyname].address
 
     try {
       this.trailsQuote = await quoteIntent({

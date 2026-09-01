@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-NETWORK_NAME="${NETWORK_NAME:-mainnet}"
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 ROOT="$DIR/.."
+
+if [ -z "${NETWORK_NAME:-}" ] && [ -f "$ROOT/.env" ]; then
+  NETWORK_NAME="$(grep -E '^NETWORK_NAME=' "$ROOT/.env" | tail -1 | cut -d= -f2- | tr -d '"'"'"' ')"
+fi
+NETWORK_NAME="${NETWORK_NAME:-mainnet}"
 METADATA="$ROOT/skale-network/metadata"
 
 echo "Preparing metadata for $NETWORK_NAME..."

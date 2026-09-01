@@ -48,8 +48,7 @@ const TokensAdmin: React.FC<TokensAdminProps> = ({
   setErrorMsg
 }) => {
   const network = mpc.config.skaleNetwork
-  const sourceAlias =
-    metadata.getAlias(network, chainsMeta, source.chainName) || source.displayName
+  const sourceAlias = metadata.getAlias(network, chainsMeta, source.chainName) || source.displayName
 
   const [creditTokens, setCreditTokens] = useState<CreditToken[] | undefined>(undefined)
 

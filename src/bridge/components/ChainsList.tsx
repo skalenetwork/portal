@@ -98,7 +98,10 @@ export default function ChainsList(props: {
               </p>
             </SkPaper>
           </div>
-          <div className={`mb-2.5 mr-2.5 ml-2.5 pb-10 pt-8 ${styles.chainsModalScroll}`} onClick={(e) => e.stopPropagation()}>
+          <div
+            className={`mb-2.5 mr-2.5 ml-2.5 pb-10 pt-8 ${styles.chainsModalScroll}`}
+            onClick={(e) => e.stopPropagation()}
+          >
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4 overflow-hidden p-1">
               {schainNames.map((name) => (
                 <div key={name} className="col-span-1 h-full">

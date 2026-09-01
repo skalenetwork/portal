@@ -22,85 +22,97 @@
  */
 
 import { type types } from '.'
-import { NetworksConfig } from './types';
+import { NetworksConfig } from './types'
 
 export const networks: NetworksConfig = {
-    mainnet: {
-        features: ['bridge', 'ecosystem', 'chains', 'staking', 'stats', 'paymaster', 'sfuel', 'swap', 'metrics']
-    },
-    legacy: {
-        features: ['bridge', 'ecosystem', 'chains', 'staking', 'stats', 'paymaster', 'sfuel', 'metrics']
-    },
-    regression: {
-        features: []
-    },
-    testnet: {
-        features: ['bridge', 'chains', 'sfuel', 'metrics']
-    },
-    base: {
-        features: ['bridge', 'chains', 'credits']
-    },
-    'base-sepolia-testnet': {
-        features: ['bridge', 'chains', 'credits']
-    }
+  mainnet: {
+    features: [
+      'bridge',
+      'ecosystem',
+      'chains',
+      'staking',
+      'stats',
+      'paymaster',
+      'sfuel',
+      'swap',
+      'metrics'
+    ]
+  },
+  legacy: {
+    features: ['bridge', 'ecosystem', 'chains', 'staking', 'stats', 'paymaster', 'sfuel', 'metrics']
+  },
+  regression: {
+    features: []
+  },
+  testnet: {
+    features: ['bridge', 'chains', 'sfuel', 'metrics']
+  },
+  base: {
+    features: ['bridge', 'chains', 'credits']
+  },
+  'base-sepolia-testnet': {
+    features: ['bridge', 'chains', 'credits']
+  }
 }
 
-
 export const MAINNET_ALIASES: { [key in types.SkaleNetwork]: string } = {
-    mainnet: 'Ethereum Mainnet',
-    legacy: 'Hoodi Testnet',
-    regression: 'Hoodi Testnet',
-    testnet: 'Hoodi Testnet',
-    base: 'Base',
-    'base-sepolia-testnet': 'Base Sepolia Testnet',
+  mainnet: 'Ethereum Mainnet',
+  legacy: 'Hoodi Testnet',
+  regression: 'Hoodi Testnet',
+  testnet: 'Hoodi Testnet',
+  base: 'Base',
+  'base-sepolia-testnet': 'Base Sepolia Testnet'
 }
 
 export const MAINNET_DESCRIPTIONS: { [key in types.SkaleNetwork]: string } = {
-    mainnet: 'Ethereum is a global, decentralized platform for money and new kinds of applications.',
-    legacy: 'Legacy SKALE network for testing and development with full feature support.',
-    regression: 'Internal SKALE network used for regression testing and quality assurance.',
-    testnet: 'SKALE testnet environment for experimenting with bridge functionality and sFUEL.',
-    base: 'Base is an Ethereum L2 providing a secure, low-cost environment for decentralized applications.',
-    'base-sepolia-testnet': 'Base Sepolia testnet for safe development and testing of Base applications.',
+  mainnet: 'Ethereum is a global, decentralized platform for money and new kinds of applications.',
+  legacy: 'Legacy SKALE network for testing and development with full feature support.',
+  regression: 'Internal SKALE network used for regression testing and quality assurance.',
+  testnet: 'SKALE testnet environment for experimenting with bridge functionality and sFUEL.',
+  base: 'Base is an Ethereum L2 providing a secure, low-cost environment for decentralized applications.',
+  'base-sepolia-testnet':
+    'Base Sepolia testnet for safe development and testing of Base applications.'
 }
 
 export const MAINNET_BACKGROUNDS: { [key in types.SkaleNetwork]: string } = {
-    mainnet: 'linear-gradient(273.67deg, #FFF3EF, #D8C4FF)',
-    legacy: 'linear-gradient(273.67deg, #D6FFFC, #B8CFFF)',
-    regression: 'linear-gradient(273.67deg, #D6FFFC, #B8CFFF)',
-    testnet: 'linear-gradient(273.67deg, #FFDADA, #D6FFDE)',
-    base: 'linear-gradient(#0000FF, #0000D8)',
-    'base-sepolia-testnet': 'linear-gradient(#008a47, #006936)',
+  mainnet: 'linear-gradient(273.67deg, #FFF3EF, #D8C4FF)',
+  legacy: 'linear-gradient(273.67deg, #D6FFFC, #B8CFFF)',
+  regression: 'linear-gradient(273.67deg, #D6FFFC, #B8CFFF)',
+  testnet: 'linear-gradient(273.67deg, #FFDADA, #D6FFDE)',
+  base: 'linear-gradient(#0000FF, #0000D8)',
+  'base-sepolia-testnet': 'linear-gradient(#008a47, #006936)'
 }
 
 export const NATIVE_TOKEN_SYMBOLS: { [key in types.SkaleNetwork]: string } = {
-    mainnet: 'sFUEL',
-    legacy: 'sFUEL',
-    regression: 'sFUEL',
-    testnet: 'sFUEL',
-    base: 'CREDIT',
-    'base-sepolia-testnet': 'CREDIT',
+  mainnet: 'sFUEL',
+  legacy: 'sFUEL',
+  regression: 'sFUEL',
+  testnet: 'sFUEL',
+  base: 'CREDIT',
+  'base-sepolia-testnet': 'CREDIT'
 }
 
 export const KEY_FEATURES: { [key in types.SkaleNetwork]: types.NetworkFeature } = {
-    mainnet: 'staking',
-    legacy: 'bridge',
-    regression: 'bridge',
-    testnet: 'bridge',
-    base: 'credits',
-    'base-sepolia-testnet': 'credits',
+  mainnet: 'staking',
+  legacy: 'bridge',
+  regression: 'bridge',
+  testnet: 'bridge',
+  base: 'credits',
+  'base-sepolia-testnet': 'credits'
 }
 
 export function parse(networksEnv: string | undefined): types.SkaleNetwork[] {
-    if (!networksEnv) throw new Error('VITE_NETWORKS environment variable is not defined');
-    return networksEnv.split(',').map((network) => network.trim() as types.SkaleNetwork);
+  if (!networksEnv) throw new Error('VITE_NETWORKS environment variable is not defined')
+  return networksEnv.split(',').map((network) => network.trim() as types.SkaleNetwork)
 }
 
 export function hasFeature(network: types.SkaleNetwork, feature: types.NetworkFeature): boolean {
-    return networks[network]?.features.includes(feature) ?? false;
+  return networks[network]?.features.includes(feature) ?? false
 }
 
-export function hasFeatureInAny(networkNames: types.SkaleNetwork[], feature: types.NetworkFeature): boolean {
-    return networkNames.some((network) => hasFeature(network, feature));
+export function hasFeatureInAny(
+  networkNames: types.SkaleNetwork[],
+  feature: types.NetworkFeature
+): boolean {
+  return networkNames.some((network) => hasFeature(network, feature))
 }
-

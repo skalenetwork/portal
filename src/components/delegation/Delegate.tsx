@@ -25,14 +25,7 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { type Signer } from 'ethers'
 
-import {
-  TokenIcon,
-  type MetaportCore,
-  sendTransaction,
-  contracts,
-  Tile,
-  styles
-} from '@/bridge'
+import { TokenIcon, type MetaportCore, sendTransaction, contracts, Tile, styles } from '@/bridge'
 import { type types, constants, units } from '@/core'
 
 import Button from '@mui/material/Button'
@@ -114,7 +107,9 @@ export default function Delegate(props: {
         'delegation:delegate'
       )
       setLoading(false)
-      notify.temporarySuccess(`${amount.includes('.') ? amount : Number(amount).toLocaleString()} SKL staked successfully`)
+      notify.temporarySuccess(
+        `${amount.includes('.') ? amount : Number(amount).toLocaleString()} SKL staked successfully`
+      )
       navigate('/staking')
     } catch (err: any) {
       log.error(err)
@@ -264,5 +259,5 @@ export default function Delegate(props: {
         </Button>
       )}
     </div>
-  );
+  )
 }

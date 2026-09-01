@@ -25,6 +25,7 @@ import { type types, metadata, constants, networks } from '@/core'
 import { NETWORKS } from '@/lib/constants'
 import Collapse from '@mui/material/Collapse'
 import PopularActions from './PopularActions'
+import { useAccount } from 'wagmi'
 import {
   SkPaper,
   AmountInput,
@@ -34,7 +35,6 @@ import {
   SkConnect,
   useMetaportStore,
   useUIStore,
-  useWagmiAccount,
   AmountErrorMessage,
   TokenBalance,
   DestTokenBalance,
@@ -73,7 +73,7 @@ export default function BridgeBody(props: { chainsMeta: types.ChainsMetadataMap 
 
   const theme = useUIStore((state) => state.theme)
 
-  const { address } = useWagmiAccount()
+  const { address } = useAccount()
 
   const sourceBg = theme.vibrant
     ? metadata.chainBg(mpc.config.skaleNetwork, props.chainsMeta, chainName1)

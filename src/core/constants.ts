@@ -54,6 +54,7 @@ export const BASE_TOKEN_ICON_URL =
   'https://raw.githubusercontent.com/skalenetwork/skale-network/refs/heads/master/assets/token-icons/'
 
 export const DEFAULT_SLEEP = 5000
+export const MIN_POLL_DELAY = 250
 export const DEFAULT_ITERATIONS = 200
 
 export const HTTPS_PREFIX = 'https://'

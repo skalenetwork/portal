@@ -22,14 +22,8 @@
 
 import { useState, useEffect } from 'react'
 import { Contract } from 'ethers'
-import {
-  type MetaportCore,
-  Tile,
-  useWagmiAccount,
-  useWagmiWalletClient,
-  useWagmiSwitchNetwork,
-  sendTransaction
-} from '@/bridge'
+import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
+import { type MetaportCore, Tile, sendTransaction } from '@/bridge'
 import { contracts as coreContracts, notify } from '@/core'
 import { prepareSignerForWrite } from '@/lib/credit-station'
 import Button from '@mui/material/Button'
@@ -52,9 +46,9 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
   const [loading, setLoading] = useState<boolean>(false)
 
   const network = mpc.config.skaleNetwork
-  const { chainId } = useWagmiAccount()
-  const { data: walletClient } = useWagmiWalletClient({ chainId })
-  const { switchChainAsync } = useWagmiSwitchNetwork()
+  const { chainId } = useAccount()
+  const { data: walletClient } = useWalletClient({ chainId })
+  const { switchChainAsync } = useSwitchChain()
 
   useEffect(() => {
     loadPausedStatus()

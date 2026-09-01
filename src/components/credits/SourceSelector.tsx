@@ -62,16 +62,16 @@ export default function SourceSelector({
             key={source.id}
             disabled={disabled}
             onClick={() => onSelect(source.id)}
-            className={`rounded-full! min-w-[124px]! px-3.5! py-2.5! transition-all! ease-in-out! duration-150! active:scale-[0.97]! ${isSelected
+            className={`rounded-full! min-w-[124px]! px-3.5! py-2.5! transition-all! ease-in-out! duration-150! active:scale-[0.97]! ${
+              isSelected
                 ? 'bg-accent-foreground! text-accent!'
                 : 'hover:bg-muted-foreground/10! text-foreground!'
-              }`}
+            }`}
           >
             <div className="flex items-center gap-2">
               <ChainIcon chainName={source.chainName} skaleNetwork={skaleNetwork} size="xs" />
               <span
-                className={`font-bold text-sm ${isSelected ? 'text-accent' : 'text-foreground'
-                  }`}
+                className={`font-bold text-sm ${isSelected ? 'text-accent' : 'text-foreground'}`}
               >
                 {alias}
               </span>

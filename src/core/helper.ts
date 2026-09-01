@@ -103,18 +103,37 @@ type BlockProvider<TBlock extends { timestamp: number }> = {
   getBlock: (blockNumber: number) => Promise<TBlock | null>
 }
 
+export async function pollUntil<T>(
+  probe: () => Promise<T>,
+  done: (value: T) => boolean,
+  timeoutMs: number,
+  maxDelay: number = constants.DEFAULT_SLEEP,
+  minDelay: number = constants.MIN_POLL_DELAY
+): Promise<T | undefined> {
+  const deadline = Date.now() + timeoutMs
+  let delay = minDelay
+  do {
+    const value = await probe().catch(() => undefined)
+    if (value !== undefined && done(value)) return value
+    await sleep(delay)
+    delay = Math.min(delay * 2, maxDelay)
+  } while (Date.now() < deadline)
+  return undefined
+}
+
 export async function getBlockWithRetry<TBlock extends { timestamp: number }>(
   provider: BlockProvider<TBlock>,
   blockNumber: number,
-  sleepInterval = 500,
-  iterations = 10
+  timeoutMs = 5000
 ): Promise<TBlock> {
-  for (let i = 0; i < iterations; i++) {
-    const block = await provider.getBlock(blockNumber)
-    if (block) return block
-    await sleep(sleepInterval)
-  }
-  throw new Error(`Failed to load block: ${blockNumber}`)
+  const block = await pollUntil(
+    () => provider.getBlock(blockNumber),
+    (b): b is TBlock => !!b,
+    timeoutMs,
+    500
+  )
+  if (!block) throw new Error(`Failed to load block: ${blockNumber}`)
+  return block
 }
 
 export function schainNameToHash(schainName: string): string {

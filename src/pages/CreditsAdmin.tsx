@@ -50,22 +50,14 @@ interface CreditsAdminProps {
   chainsMeta: types.ChainsMetadataMap
 }
 
-const CreditsAdmin: React.FC<CreditsAdminProps> = ({
-  mpc,
-  loadData,
-  schains,
-  chainsMeta
-}) => {
+const CreditsAdmin: React.FC<CreditsAdminProps> = ({ mpc, loadData, schains, chainsMeta }) => {
   const [creditStationBySource, setCreditStationBySource] = useState<Record<string, Contract>>({})
   const [ledgerContracts, setLedgerContracts] = useState<{ [schainName: string]: Contract }>({})
   const [allPayments, setAllPayments] = useState<cs.Payment[]>([])
   const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined)
   const [isLoadingPayments, setIsLoadingPayments] = useState<boolean>(false)
 
-  const sources = useMemo(
-    () => cs.getCreditStationSources(mpc.config.skaleNetwork),
-    [mpc]
-  )
+  const sources = useMemo(() => cs.getCreditStationSources(mpc.config.skaleNetwork), [mpc])
 
   const sourceById = useMemo<Record<string, coreContracts.CreditStationSource>>(
     () => Object.fromEntries(sources.map((s) => [s.id, s])),

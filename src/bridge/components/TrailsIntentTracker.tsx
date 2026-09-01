@@ -22,15 +22,7 @@
  */
 
 import { useEffect, useState, useRef } from 'react'
-import {
-  Check,
-  Loader2,
-  CircleDot,
-  AlertTriangle,
-  Blocks,
-  Route,
-  ExternalLink
-} from 'lucide-react'
+import { Check, Loader2, CircleDot, AlertTriangle, Blocks, Route, ExternalLink } from 'lucide-react'
 import { TransactionStatus, IntentStatus } from '@0xtrails/api'
 import IconButton from '@mui/material/IconButton'
 
@@ -114,14 +106,8 @@ function TxStepRow({ step, skaleNetwork }: { step: TxStep; skaleNetwork: types.S
         </div>
       </div>
       <div className="flex items-center gap-2">
-        <ChainIcon
-          skaleNetwork={skaleNetwork}
-          chainName={chainName}
-          size="xs"
-        />
-        <span className="text-xs text-secondary-foreground">
-          {displayName}
-        </span>
+        <ChainIcon skaleNetwork={skaleNetwork} chainName={chainName} size="xs" />
+        <span className="text-xs text-secondary-foreground">{displayName}</span>
         {url && (
           <IconButton
             href={url}
@@ -147,7 +133,8 @@ export default function TrailsIntentTracker() {
 
   const [receipt, setReceipt] = useState<Awaited<ReturnType<typeof getIntentReceipt>> | null>(null)
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
-  const setTrackerReady = (ready: boolean) => useMetaportStore.setState({ trailsTrackerReady: ready })
+  const setTrackerReady = (ready: boolean) =>
+    useMetaportStore.setState({ trailsTrackerReady: ready })
 
   useEffect(() => {
     if (!intentId) {
@@ -241,7 +228,6 @@ export default function TrailsIntentTracker() {
           ))}
         </div>
       )}
-
     </SkPaper>
   )
 }

@@ -68,7 +68,11 @@ export default function BridgeChainCard(props: ChainCardProps) {
   return (
     <div
       onClick={disabled ? undefined : onClick}
-      className={disabled ? '' : 'cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]'}
+      className={
+        disabled
+          ? ''
+          : 'cursor-pointer transition-transform duration-200 hover:scale-[1.02] active:scale-[0.98]'
+      }
       style={{ height: 297 }}
     >
       <SkPaper
@@ -93,10 +97,18 @@ export default function BridgeChainCard(props: ChainCardProps) {
               />
             </div>
           </div>
-          <p className="text-foreground font-semibold text-xl text-center" style={{ color: descriptionColor }}>
+          <p
+            className="text-foreground font-semibold text-xl text-center"
+            style={{ color: descriptionColor }}
+          >
             {metadata.getAlias(skaleNetwork, chainsMeta, chainName, undefined)}
           </p>
-          <p className="font-medium p-2 text-xs text-center opacity-70!" style={{ color: descriptionColor }}>{firstSentence}</p>
+          <p
+            className="font-medium p-2 text-xs text-center opacity-70!"
+            style={{ color: descriptionColor }}
+          >
+            {firstSentence}
+          </p>
         </div>
       </SkPaper>
     </div>

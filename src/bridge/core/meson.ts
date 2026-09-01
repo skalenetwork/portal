@@ -119,13 +119,7 @@ export interface MesonSubmitResponse {
 }
 
 export type MesonSwapStatus =
-  | 'PENDING'
-  | 'BONDED'
-  | 'EXECUTING'
-  | 'RELEASED'
-  | 'CANCELLED'
-  | 'EXPIRED'
-  | 'UNLOCKED'
+  'PENDING' | 'BONDED' | 'EXECUTING' | 'RELEASED' | 'CANCELLED' | 'EXPIRED' | 'UNLOCKED'
 
 interface MesonSwapRawResponse {
   result: {
@@ -305,7 +299,9 @@ export async function waitForSwap(
     onStatusUpdate?.(resp.status)
     if (isSwapTerminal(resp.status)) {
       if (isSwapFailed(resp.status)) {
-        throw new Error(`Meson swap ${resp.status.toLowerCase()}: the cross-chain transfer could not be completed`)
+        throw new Error(
+          `Meson swap ${resp.status.toLowerCase()}: the cross-chain transfer could not be completed`
+        )
       }
       return resp
     }

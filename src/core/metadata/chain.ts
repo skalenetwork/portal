@@ -30,7 +30,7 @@ export function chainBg(
   chainsMeta: types.ChainsMetadataMap,
   chainName: string,
   app?: string,
-  theme?: 'light' | 'dark',
+  theme?: 'light' | 'dark'
 ): string | undefined {
   if (chainName === constants.MAINNET_CHAIN_NAME) {
     return networks.MAINNET_BACKGROUNDS[network]
@@ -39,22 +39,25 @@ export function chainBg(
   if (chainData) {
     const appData = chainData.apps && app ? chainData.apps[app] : null
 
-    const chainGradientBg = theme === 'light' && chainData.gradientBackgroundLight ? chainData.gradientBackgroundLight : chainData.gradientBackground
+    const chainGradientBg =
+      theme === 'light' && chainData.gradientBackgroundLight
+        ? chainData.gradientBackgroundLight
+        : chainData.gradientBackground
     return appData?.gradientBackground || chainGradientBg || chainData.background
   }
   return 'linear-gradient(273.67deg, rgb(47 50 80), rgb(39 43 68))'
 }
 export function getActions(
   chainsMeta: types.ChainsMetadataMap,
-  chainName: string,
+  chainName: string
 ): types.ChainAction[] | undefined {
-  const chainData = chainsMeta[chainName];
+  const chainData = chainsMeta[chainName]
 
   if (chainData && chainData.actions) {
-    return chainData.actions;
+    return chainData.actions
   }
 
-  return undefined;
+  return undefined
 }
 
 export function getAlias(

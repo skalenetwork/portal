@@ -38,9 +38,7 @@ import {
 
 const log = new Logger<ILogObj>({ name: 'metaport:core:actions:meson' })
 
-export function isMesonAction(
-  action: Action
-): action is TransferMesonExt2S | TransferMesonS2Ext {
+export function isMesonAction(action: Action): action is TransferMesonExt2S | TransferMesonS2Ext {
   return action instanceof TransferMesonExt2S || action instanceof TransferMesonS2Ext
 }
 

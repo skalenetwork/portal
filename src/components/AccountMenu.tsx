@@ -22,11 +22,11 @@
  */
 
 import Box from '@mui/material/Box'
+import { openWallet } from '@/bridge'
 import Tooltip from '@mui/material/Tooltip'
 import Button from '@mui/material/Button'
-import { Rainbow } from 'lucide-react'
+import { Wallet } from 'lucide-react'
 
-import { RainbowConnectButton } from '@/bridge'
 import { helper } from '@/core'
 import Avatar from 'boring-avatars'
 import { AVATAR_COLORS } from '@/ui'
@@ -39,21 +39,13 @@ export default function AccountMenu(props: any) {
       {!props.address ? (
         <Tooltip arrow title="Click to connect wallet">
           <div>
-            <RainbowConnectButton.Custom>
-              {({ openConnectModal }) => {
-                return (
-                  <Button
-                    onClick={() => {
-                      openConnectModal()
-                    }}
-                    className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! normal-case! rounded-full min-w-0!"
-                  >
-                    <Rainbow size={16} className="mr-1.5" />
-                    Connect <span className="hidden md:inline! ml-1">wallet</span>
-                  </Button>
-                )
-              }}
-            </RainbowConnectButton.Custom>
+            <Button
+              onClick={() => openWallet()}
+              className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! normal-case! rounded-full min-w-0!"
+            >
+              <Wallet size={16} className="mr-1.5" />
+              Connect <span className="hidden md:inline! ml-1">wallet</span>
+            </Button>
           </div>
         </Tooltip>
       ) : (

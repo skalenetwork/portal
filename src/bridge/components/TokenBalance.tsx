@@ -37,9 +37,13 @@ export default function TokenBalance(props: {
   const balanceFull = units.formatBalance(props.balance, props.decimals)
   const size = props.size ?? 'xs'
   return (
-    <Tooltip arrow title={balanceFull + ' ' + props.symbol} slotProps={{
-      popper: { sx: { zIndex: 99999 } }
-    }}>
+    <Tooltip
+      arrow
+      title={balanceFull + ' ' + props.symbol}
+      slotProps={{
+        popper: { sx: { zIndex: 99999 } }
+      }}
+    >
       <p
         className={`
             ${size === 'xs' ? 'text-xs' : ''}
@@ -52,10 +56,10 @@ export default function TokenBalance(props: {
           `}
       >
         <div className="mr-1.5"></div>
-        <span className='whitespace-nowrap'>
+        <span className="whitespace-nowrap">
           {helper.shortBalance(props.balance, props.decimals)} {props.symbol}
         </span>
       </p>
     </Tooltip>
-  );
+  )
 }

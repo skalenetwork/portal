@@ -167,7 +167,9 @@ export default function MesonQuoteCard(props: {
           <span className="text-xs text-secondary-foreground font-medium">Fee</span>
         </div>
         <div className="flex grow" />
-        <span className="text-xs text-foreground font-medium mr-2">{totalFee} {tokenSymbol}</span>
+        <span className="text-xs text-foreground font-medium mr-2">
+          {totalFee} {tokenSymbol}
+        </span>
         <ChevronDown
           size={17}
           className={`text-secondary-foreground transition-transform ${detailsOpen ? 'rotate-180' : ''}`}
@@ -178,11 +180,15 @@ export default function MesonQuoteCard(props: {
         <div className="pt-4 space-y-1.5">
           <div className="flex justify-between text-xs font-medium">
             <span className="text-muted-foreground">Service fee</span>
-            <span className="text-foreground">{serviceFee} {tokenSymbol}</span>
+            <span className="text-foreground">
+              {serviceFee} {tokenSymbol}
+            </span>
           </div>
           <div className="flex justify-between text-xs font-medium">
             <span className="text-muted-foreground">Liquidity fee</span>
-            <span className="text-foreground">{lpFee} {tokenSymbol}</span>
+            <span className="text-foreground">
+              {lpFee} {tokenSymbol}
+            </span>
           </div>
         </div>
       </Collapse>

@@ -159,9 +159,7 @@ export default function SFuelWarning(props: {}) {
       }
     }
     const failed =
-      (fromPowRes && !fromPowRes.ok) ||
-      (toPowRes && !toPowRes.ok) ||
-      (hubPowRes && !hubPowRes.ok)
+      (fromPowRes && !fromPowRes.ok) || (toPowRes && !toPowRes.ok) || (hubPowRes && !hubPowRes.ok)
     if (failed) {
       log.info('PoW failed!')
       if (fromPowRes) log.info(chainName1, fromPowRes.message)

@@ -28,17 +28,8 @@ import { Grid, Button, Tooltip } from '@mui/material'
 import HistoryToggleOffRoundedIcon from '@mui/icons-material/HistoryToggleOffRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
-import {
-  type MetaportCore,
-  Tile,
-  ChainIcon,
-  TokenIcon,
-  explorer,
-  useWagmiAccount,
-  sendTransaction,
-  useWagmiWalletClient,
-  useWagmiSwitchNetwork
-} from '@/bridge'
+import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
+import { type MetaportCore, Tile, ChainIcon, TokenIcon, explorer, sendTransaction } from '@/bridge'
 import { types, contracts as coreContracts, timeUtils, helper, metadata, notify } from '@/core'
 
 import SkStack from '../SkStack'
@@ -107,9 +98,9 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
   const [isFulfilled, setIsFulfilled] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
-  const { chainId } = useWagmiAccount()
-  const { data: walletClient } = useWagmiWalletClient({ chainId })
-  const { switchChainAsync } = useWagmiSwitchNetwork()
+  const { chainId } = useAccount()
+  const { data: walletClient } = useWalletClient({ chainId })
+  const { switchChainAsync } = useSwitchChain()
 
   const txTimestamp = payment.timestamp || undefined
 

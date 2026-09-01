@@ -68,10 +68,8 @@ export default function AddToken(props: {
       props.mpc.config
     )
     const iconUrl = getIconUrl(props.token)
-    const { chainId } = await props.provider.getNetwork()
     try {
       await enforceNetwork(
-        chainId,
         walletClient,
         switchChainAsync,
         props.mpc.config.skaleNetwork,

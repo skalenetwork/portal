@@ -24,13 +24,11 @@
 import { Contract, id } from 'ethers'
 import { useState, useEffect } from 'react'
 import { type types, metadata, constants, ERC_ABIS, units, helper, notify } from '@/core'
+import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
 import {
   type MetaportCore,
-  useWagmiAccount,
   enforceNetwork,
-  useWagmiWalletClient,
   Tile,
-  useWagmiSwitchNetwork,
   walletClientToSigner,
   sendTransaction,
   contracts
@@ -52,7 +50,7 @@ export default function Paymaster(props: {
   name: string
   chainsMeta: types.ChainsMetadataMap
 }) {
-  const { address } = useWagmiAccount()
+  const { address } = useAccount()
   const network = props.mpc.config.skaleNetwork
   const paymasterChain = contracts.paymaster.getPaymasterChain(network)
 
@@ -69,8 +67,8 @@ export default function Paymaster(props: {
     contracts.paymaster.DEFAULT_PAYMASTER_INFO
   )
 
-  const { data: walletClient } = useWagmiWalletClient()
-  const { switchChainAsync } = useWagmiSwitchNetwork()
+  const { data: walletClient } = useWalletClient()
+  const { switchChainAsync } = useSwitchChain()
 
   useEffect(() => {
     initPaymaster()
@@ -113,10 +111,9 @@ export default function Paymaster(props: {
     setBtnText(`Switch network to ${metadata.getAlias(network, props.chainsMeta, paymasterChain)}`)
     setErrorMsg(undefined)
     try {
-      const { chainId } = await paymaster.runner.provider.getNetwork()
       const paymasterAddress = contracts.paymaster.getPaymasterAddress(network)
 
-      await enforceNetwork(chainId, walletClient, switchChainAsync, network, paymasterChain)
+      await enforceNetwork(walletClient, switchChainAsync, network, paymasterChain)
       setBtnText('Sending transaction...')
       const signer = walletClientToSigner(walletClient)
       paymaster.connect(signer)

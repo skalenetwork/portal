@@ -24,7 +24,8 @@
 import { useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-const ARROW = 'absolute top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-background/80 hover:bg-background disabled:opacity-50 disabled:cursor-not-allowed transition-all'
+const ARROW =
+  'absolute top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-background/80 hover:bg-background disabled:opacity-50 disabled:cursor-not-allowed transition-all'
 
 export default function ScreenshotCarousel({
   screenshots,

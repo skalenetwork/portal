@@ -171,33 +171,46 @@ export default function History(props: {
                       size={size === 'sm' ? 'sm' : 'lg'}
                     />
                     <div className="flex flex-col min-w-0 flex-1 gap-0.5">
-                    <Tooltip title={`${transfer.amount.includes('.') ? transfer.amount : Number(transfer.amount).toLocaleString()} ${transfer.tokenKeyname?.toUpperCase()}`} arrow>
+                      <Tooltip
+                        title={`${transfer.amount.includes('.') ? transfer.amount : Number(transfer.amount).toLocaleString()} ${transfer.tokenKeyname?.toUpperCase()}`}
+                        arrow
+                      >
                         <p
                           className={`${size === 'sm' ? 'text-base' : 'text-lg'} font-bold text-foreground uppercase truncate m-0 leading-tight`}
                         >
                           {(() => {
-                        const display = transfer.amount.includes('.') ? transfer.amount : Number(transfer.amount).toLocaleString()
-                        return size === 'sm' ? shortenValue(display) : (
+                            const display = transfer.amount.includes('.')
+                              ? transfer.amount
+                              : Number(transfer.amount).toLocaleString()
+                            return size === 'sm' ? (
+                              shortenValue(display)
+                            ) : (
                               <>
                                 <span className="max-md:hidden">{display}</span>
                                 <span className="md:hidden">{shortenValue(display)}</span>
                               </>
-                                )
+                            )
                           })()}{' '}
                           {transfer.tokenKeyname}
                         </p>
                       </Tooltip>
-                      <p className={`${size === 'sm' ? 'text-xs' : 'text-sm'} font-semibold text-muted-foreground m-0`}>
+                      <p
+                        className={`${size === 'sm' ? 'text-xs' : 'text-sm'} font-semibold text-muted-foreground m-0`}
+                      >
                         {transferTimestamp(transfer)}
                       </p>
                     </div>
                   </div>
                   {size === 'sm' ? (
-                    <div className={`w-[26px] h-[26px] rounded-full flex items-center justify-center ${statusBgClass} ${statusColorClass}`}>
+                    <div
+                      className={`w-[26px] h-[26px] rounded-full flex items-center justify-center ${statusBgClass} ${statusColorClass}`}
+                    >
                       <StatusIcon size={14} />
                     </div>
                   ) : (
-                    <div className={`flex items-center gap-2 rounded-full px-3 py-2.5 ${statusBgClass} ${statusColorClass}`}>
+                    <div
+                      className={`flex items-center gap-2 rounded-full px-3 py-2.5 ${statusBgClass} ${statusColorClass}`}
+                    >
                       <StatusIcon size={17} />
                       <span className="text-xs font-semibold capitalize">{statusLabel}</span>
                     </div>
@@ -344,7 +357,13 @@ function ChainRow(props: {
         </>
       ) : (
         <span className="text-xs font-semibold text-muted-foreground capitalize">
-          {metadata.getAlias(props.network, props.chainsMeta, props.chainName, undefined, props.short)}
+          {metadata.getAlias(
+            props.network,
+            props.chainsMeta,
+            props.chainName,
+            undefined,
+            props.short
+          )}
         </span>
       )}
     </div>

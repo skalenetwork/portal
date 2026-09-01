@@ -67,6 +67,10 @@ export function getWidgetTheme(theme: types.mp.Theme | null | undefined): types.
   return theme
 }
 
+export function getOverlayZIndex(theme: types.mp.Theme): number {
+  return theme.zIndex + (MUI_ELEMENTS.length + 1) * INDEX_STEP
+}
+
 export function getMuiZIndex(theme: types.mp.Theme): object {
   return MUI_ELEMENTS.reduce((x, y, i) => ((x[y] = theme.zIndex + (i + 1) * INDEX_STEP), x), {})
 }

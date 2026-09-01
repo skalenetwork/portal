@@ -20,104 +20,63 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { useAccount } from 'wagmi'
 import Avatar from 'boring-avatars'
-import { AVATAR_COLORS } from '@/ui'
-
 import Button from '@mui/material/Button'
 import { ChevronDown, Wallet } from 'lucide-react'
 
+import { helper } from '@/core'
+import { AVATAR_COLORS } from '@/ui'
 import { useMetaportStore } from '../store/MetaportStore'
+import { openWallet } from '../core/appkit'
 
 export default function SkConnect() {
   const transferInProgress = useMetaportStore((state) => state.transferInProgress)
+  const { address, chain } = useAccount()
+
+  if (!address)
+    return (
+      <Button
+        variant="contained"
+        color="primary"
+        size="medium"
+        className="btn-action mt-5 w-full my-4! p-4! bg-accent-foreground! text-accent! capitalize!"
+        onClick={() => openWallet()}
+        startIcon={<Wallet size={17} />}
+      >
+        Connect Wallet
+      </Button>
+    )
+
+  if (!chain)
+    return (
+      <Button
+        variant="contained"
+        color="error"
+        size="small"
+        className="btn-action mb-5 w-full"
+        onClick={() => openWallet('Networks')}
+      >
+        Wrong network
+      </Button>
+    )
+
   return (
-    <ConnectButton.Custom>
-      {({
-        account,
-        chain,
-        openAccountModal,
-        openChainModal,
-        openConnectModal,
-        authenticationStatus,
-        mounted
-      }) => {
-        const ready = mounted && authenticationStatus !== 'loading'
-        const connected =
-          ready &&
-          account &&
-          chain &&
-          (!authenticationStatus || authenticationStatus === 'authenticated')
-        return (
-          <div
-            {...(!ready && {
-              'aria-hidden': true,
-              style: {
-                opacity: 0,
-                pointerEvents: 'none',
-                userSelect: 'none'
-              }
-            })}
-          >
-            {(() => {
-              if (!connected) {
-                return (
-                  <div>
-                    <Button
-                      variant="contained"
-                      color="primary"
-                      size="medium"
-                      className="btn-action mt-5 w-full my-4! p-4! bg-accent-foreground! text-accent! capitalize!"
-                      onClick={openConnectModal}
-                      startIcon={<Wallet size={17} />}
-                    >
-                      Connect Wallet
-                    </Button>
-                  </div>
-                )
-              }
-              if (chain.unsupported) {
-                return (
-                  <Button
-                    variant="contained"
-                    color="error"
-                    size="small"
-                    className="btn-action mb-5 w-full"
-                    onClick={openChainModal}
-                  >
-                    Wrong network
-                  </Button>
-                )
-              }
-              return (
-                <div className="flex">
-                  <div className="grow flex"></div>
-                  <div>
-                    <Button
-                      disabled={transferInProgress}
-                      size="small"
-                      className="btn-chain flex items-center text-primary"
-                      onClick={openAccountModal}
-                      style={{ color: 'white' }}
-                    >
-                      <div className="mr-1.5 flex">
-                        <Avatar
-                          variant="marble"
-                          name={account.address}
-                          colors={AVATAR_COLORS}
-                          size={16}
-                        />
-                      </div>
-                      {account.displayName}
-                      <ChevronDown size={17} className="text-secondary-foreground" />
-                    </Button>
-                  </div>
-                </div>
-              )
-            })()}
-          </div>
-        )
-      }}
-    </ConnectButton.Custom>
+    <div className="flex">
+      <div className="grow flex"></div>
+      <Button
+        disabled={transferInProgress}
+        size="small"
+        className="btn-chain flex items-center text-primary"
+        onClick={() => openWallet('Account')}
+        style={{ color: 'white' }}
+      >
+        <div className="mr-1.5 flex">
+          <Avatar variant="marble" name={address} colors={AVATAR_COLORS} size={16} />
+        </div>
+        {helper.shortAddress(address)}
+        <ChevronDown size={17} className="text-secondary-foreground" />
+      </Button>
+    </div>
   )
 }

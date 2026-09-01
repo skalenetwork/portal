@@ -16,22 +16,22 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-import { types } from ".."
+import { types } from '..'
 
 export type NetworkFeature =
-    | 'bridge'
-    | 'ecosystem'
-    | 'chains'
-    | 'staking'
-    | 'stats'
-    | 'metrics'
-    | 'paymaster'
-    | 'sfuel'
-    | 'credits'
-    | 'swap'
+  | 'bridge'
+  | 'ecosystem'
+  | 'chains'
+  | 'staking'
+  | 'stats'
+  | 'metrics'
+  | 'paymaster'
+  | 'sfuel'
+  | 'credits'
+  | 'swap'
 
 export interface NetworkConfig {
-    features: NetworkFeature[]
+  features: NetworkFeature[]
 }
 
 export type NetworksConfig = Record<types.SkaleNetwork, NetworkConfig>

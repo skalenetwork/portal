@@ -244,7 +244,9 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
         get().setTransfersHistory([...get().transfersHistory, entry])
 
         const symbol = entry.tokenKeyname?.toUpperCase() ?? 'tokens'
-        const displayAmount = entry.amount.includes('.') ? entry.amount : Number(entry.amount).toLocaleString()
+        const displayAmount = entry.amount.includes('.')
+          ? entry.amount
+          : Number(entry.amount).toLocaleString()
         notify.temporarySuccess(`${displayAmount} ${symbol} transferred`)
 
         set({ loading: false, transferInProgress: false })
@@ -307,7 +309,10 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
             log.info('Bridge balance OK, skipping recharge step')
             set({ currentStep: get().currentStep + 1 })
           } else if (get().cpData.recommendedRechargeAmount) {
-            const rechargeWei = units.toWei(String(get().cpData.recommendedRechargeAmount), constants.DEFAULT_ERC20_DECIMALS)
+            const rechargeWei = units.toWei(
+              String(get().cpData.recommendedRechargeAmount),
+              constants.DEFAULT_ERC20_DECIMALS
+            )
             if (get().cpData.accountBalance != null && get().cpData.accountBalance < rechargeWei) {
               stepMetadata.btnText = 'Insufficient ETH for top up'
             } else {
@@ -335,7 +340,10 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
         if (!silent) {
           set({
             loading: true,
-            btnText: trailsCheck || trailsM2ExtStep || mesonCheck ? 'Getting quote...' : 'Checking balance...'
+            btnText:
+              trailsCheck || trailsM2ExtStep || mesonCheck
+                ? 'Getting quote...'
+                : 'Checking balance...'
           })
         }
 
@@ -370,7 +378,7 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
             amount,
             get().tokenId,
             get().token,
-            () => { },
+            () => {},
             get().setBtnText,
             null,
             null
@@ -438,17 +446,53 @@ export const useMetaportStore = create<MetaportState>()((set, get) => ({
 
   setChainName1: async (name: string, customToken?: dc.TokenData) => {
     const result = await get().mpc.chainChanged(name, get().chainName2, customToken ?? get().token)
-    set({ ...result, trailsQuote: null, trailsQuoteError: null, trailsIntentId: null, trailsTrackerReady: false, trailsImaCompleted: false, mesonQuote: null, mesonQuoteError: null, mesonSwapId: null, mesonTrackerReady: false, mesonSwapStatus: null })
+    set({
+      ...result,
+      trailsQuote: null,
+      trailsQuoteError: null,
+      trailsIntentId: null,
+      trailsTrackerReady: false,
+      trailsImaCompleted: false,
+      mesonQuote: null,
+      mesonQuoteError: null,
+      mesonSwapId: null,
+      mesonTrackerReady: false,
+      mesonSwapStatus: null
+    })
   },
 
   setChainName2: async (name: string, customToken?: dc.TokenData) => {
     const result = await get().mpc.chainChanged(get().chainName1, name, customToken ?? get().token)
-    set({ ...result, trailsQuote: null, trailsQuoteError: null, trailsIntentId: null, trailsTrackerReady: false, trailsImaCompleted: false, mesonQuote: null, mesonQuoteError: null, mesonSwapId: null, mesonTrackerReady: false, mesonSwapStatus: null })
+    set({
+      ...result,
+      trailsQuote: null,
+      trailsQuoteError: null,
+      trailsIntentId: null,
+      trailsTrackerReady: false,
+      trailsImaCompleted: false,
+      mesonQuote: null,
+      mesonQuoteError: null,
+      mesonSwapId: null,
+      mesonTrackerReady: false,
+      mesonSwapStatus: null
+    })
   },
 
   swapChains: async () => {
     const result = await get().mpc.chainChanged(get().chainName2, get().chainName1, get().token)
-    set({ ...result, trailsQuote: null, trailsQuoteError: null, trailsIntentId: null, trailsTrackerReady: false, trailsImaCompleted: false, mesonQuote: null, mesonQuoteError: null, mesonSwapId: null, mesonTrackerReady: false, mesonSwapStatus: null })
+    set({
+      ...result,
+      trailsQuote: null,
+      trailsQuoteError: null,
+      trailsIntentId: null,
+      trailsTrackerReady: false,
+      trailsImaCompleted: false,
+      mesonQuote: null,
+      mesonQuoteError: null,
+      mesonSwapId: null,
+      mesonTrackerReady: false,
+      mesonSwapStatus: null
+    })
   },
 
   addressChanged: () => {

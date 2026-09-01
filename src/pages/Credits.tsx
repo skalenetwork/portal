@@ -66,10 +66,7 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
   const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined)
   const [payments, setPayments] = useState<cs.Payment[]>([])
 
-  const sources = useMemo(
-    () => cs.getCreditStationSources(mpc.config.skaleNetwork),
-    [mpc]
-  )
+  const sources = useMemo(() => cs.getCreditStationSources(mpc.config.skaleNetwork), [mpc])
 
   const sourceById = useMemo<Record<string, coreContracts.CreditStationSource>>(
     () => Object.fromEntries(sources.map((s) => [s.id, s])),
@@ -78,9 +75,7 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
 
   async function loadPayments() {
     if (Object.keys(creditStationBySource).length === 0 || !address || schains.length === 0) return
-    setPayments(
-      await cs.getPaymentsAcrossSourcesByAddress(creditStationBySource, address, schains)
-    )
+    setPayments(await cs.getPaymentsAcrossSourcesByAddress(creditStationBySource, address, schains))
   }
 
   async function initCreditStations() {

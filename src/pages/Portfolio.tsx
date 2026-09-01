@@ -27,13 +27,14 @@ import { type types, dc, units } from '@/core'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 
-import { type MetaportCore, TokenIcon, SkPaper, useWagmiAccount } from '@/bridge'
+import { useAccount } from 'wagmi'
+import { type MetaportCore, TokenIcon, SkPaper } from '@/bridge'
 
 import TokenSurface from '../components/TokenSurface'
 import ConnectWallet from '../components/ConnectWallet'
 
 export default function Portfolio(props: { mpc: MetaportCore }) {
-  const { address } = useWagmiAccount()
+  const { address } = useAccount()
 
   const [balances, setTokenBalances] = useState<types.mp.TokenBalancesMap[]>([])
 

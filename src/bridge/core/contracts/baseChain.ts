@@ -21,14 +21,11 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import { Logger, type ILogObj } from 'tslog'
 import { type Provider, type Contract, type BigNumberish, type Signer } from 'ethers'
 import { Instance } from '@skalenetwork/skale-contracts-ethers-v6'
 import { constants, dc, type types, helper } from '@/core'
 import { TimeoutException } from '../exceptions'
 import { sendTransaction } from '../transactions'
-
-const log = new Logger<ILogObj>({ name: 'metaport:core:contracts:baseChain' })
 
 export type ContractsStringMap = Record<string, Contract>
 
@@ -152,18 +149,13 @@ export abstract class BaseChain {
     sleepInterval: number = constants.DEFAULT_SLEEP,
     iterations: number = constants.DEFAULT_ITERATIONS
   ): Promise<void> {
-    for (let i = 1; i <= iterations; i++) {
-      const res = await this.ethBalance(address)
-      if (initial !== res) {
-        return
-      }
-      log.info(
-        `🔎 ${i}/${iterations} Waiting for ETH balance change - address: ` +
-          `${address}, sleep: ${sleepInterval}ms, initial: ${initial}, current: ${res}`
-      )
-      await helper.sleep(sleepInterval)
-    }
-    throw new TimeoutException('waitETHBalanceChange timeout')
+    const changed = await helper.pollUntil(
+      () => this.ethBalance(address),
+      (balance) => balance !== initial,
+      sleepInterval * iterations,
+      sleepInterval
+    )
+    if (changed === undefined) throw new TimeoutException('waitETHBalanceChange timeout')
   }
 
   async waitForChange(
@@ -176,20 +168,18 @@ export abstract class BaseChain {
     iterations: number = constants.DEFAULT_ITERATIONS
   ): Promise<void> {
     const logData = 'token: ' + (await tokenContract.getAddress()) + ', address: ' + (address ?? '')
-    for (let i = 1; i <= iterations; i++) {
-      let res
-      if (tokenId === undefined) res = await getFunc(tokenContract, address)
-      if (address === undefined) res = await getFunc(tokenContract, tokenId)
-      if (tokenId !== undefined && address !== undefined) {
-        res = await getFunc(tokenContract, address, tokenId)
-      }
-      if (initial !== res) {
-        return
-      }
-      log.info(`🔎 ${i}/${iterations} Waiting for change - ${logData}, sleep ${sleepInterval}ms`)
-      await helper.sleep(sleepInterval)
+    const probe = () => {
+      if (tokenId === undefined) return getFunc(tokenContract, address)
+      if (address === undefined) return getFunc(tokenContract, tokenId)
+      return getFunc(tokenContract, address, tokenId)
     }
-    throw new TimeoutException('waitForTokenClone timeout - ' + logData)
+    const changed = await helper.pollUntil(
+      probe,
+      (res) => res !== initial,
+      sleepInterval * iterations,
+      sleepInterval
+    )
+    if (changed === undefined) throw new TimeoutException('waitForTokenClone timeout - ' + logData)
   }
 
   async waitERC20BalanceChange(

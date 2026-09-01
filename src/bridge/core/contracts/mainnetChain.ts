@@ -21,11 +21,8 @@
  */
 
 import { Contract } from 'ethers'
-import { Logger, type ILogObj } from 'tslog'
 import { constants, helper } from '@/core'
 import { BaseChain } from './baseChain'
-
-const log = new Logger<ILogObj>({ name: 'metaport:core:contracts:MainnetChain' })
 
 export default class MainnetChain extends BaseChain {
   async ethBalance(address: string): Promise<bigint> {
@@ -43,24 +40,12 @@ export default class MainnetChain extends BaseChain {
     sleepInterval: number = constants.DEFAULT_SLEEP,
     iterations: number = constants.DEFAULT_ITERATIONS
   ): Promise<void> {
-    for (let i = 1; i <= iterations; i++) {
-      const res = await this.lockedETHAmount(address)
-      if (initial !== res) {
-        break
-      }
-      log.info(
-        '🔎 ' +
-          i.toString() +
-          '/' +
-          iterations.toString() +
-          ' Waiting for locked ETH change - address: ' +
-          address +
-          ', sleep ' +
-          sleepInterval.toString() +
-          'ms'
-      )
-      await helper.sleep(sleepInterval)
-    }
+    await helper.pollUntil(
+      () => this.lockedETHAmount(address),
+      (amount) => amount !== initial,
+      sleepInterval * iterations,
+      sleepInterval
+    )
   }
 
   async eth(): Promise<Contract> {

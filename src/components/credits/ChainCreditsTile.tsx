@@ -20,18 +20,18 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import {
-  type MetaportCore,
-  Tile,
-  SkPaper,
-  useWagmiAccount,
-  sendTransaction,
-  useWagmiWalletClient,
-  useWagmiSwitchNetwork,
-  ChainIcon
-} from '@/bridge'
+import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
+import { type MetaportCore, Tile, SkPaper, sendTransaction, ChainIcon } from '@/bridge'
 
-import { Wallet, Fuel, HandCoins, CoinsIcon, CirclePlus, ExternalLink, ArrowLeftRight } from 'lucide-react'
+import {
+  Wallet,
+  Fuel,
+  HandCoins,
+  CoinsIcon,
+  CirclePlus,
+  ExternalLink,
+  ArrowLeftRight
+} from 'lucide-react'
 
 import { types, contracts, metadata, units, ERC_ABIS, notify, constants } from '@/core'
 
@@ -81,13 +81,11 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   const [token, setToken] = useState<string | undefined>(undefined)
   const [amount, setAmount] = useState<bigint>(DEFAULT_CREDITS_AMOUNT)
   const [chainBalance, setChainBalance] = useState<bigint | undefined>(undefined)
-  const [selectedSourceId, setSelectedSourceId] = useState<string | undefined>(
-    sources[0]?.id
-  )
+  const [selectedSourceId, setSelectedSourceId] = useState<string | undefined>(sources[0]?.id)
 
-  const { address, chainId } = useWagmiAccount()
-  const { data: walletClient } = useWagmiWalletClient({ chainId })
-  const { switchChainAsync } = useWagmiSwitchNetwork()
+  const { address, chainId } = useAccount()
+  const { data: walletClient } = useWalletClient({ chainId })
+  const { switchChainAsync } = useSwitchChain()
 
   const network = mpc.config.skaleNetwork
   const chainAlias = metadata.getAlias(network, chainsMeta, schain.name)
@@ -130,8 +128,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   useEffect(() => {
     const tokens = sourceTokens
     const currentAddress = token ? tokens[token]?.address : undefined
-    const currentValid =
-      currentAddress !== undefined && tokenPrices[currentAddress] !== undefined
+    const currentValid = currentAddress !== undefined && tokenPrices[currentAddress] !== undefined
     if (currentValid) return
 
     const match = Object.entries(tokens).find(
@@ -245,9 +242,13 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   return (
     <div>
       <div className="mb-2.5 bg-background rounded-3xl p-5">
-        <Grid container spacing={0} sx={{
-          alignItems: "center"
-        }}>
+        <Grid
+          container
+          spacing={0}
+          sx={{
+            alignItems: 'center'
+          }}
+        >
           <Grid size={{ xs: 12, md: 4 }}>
             <Link to={'/chains/' + shortAlias}>
               <div className="flex items-center">
@@ -328,7 +329,8 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
               maxHeight: { xs: 'calc(100% - 16px)', sm: 'calc(100% - 64px)' }
             }
           }
-        }}>
+        }}
+      >
         <SkPaper gray className="p-4! md:p-6!">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-x-8 gap-y-6 pb-8 px-1">
             <div className="min-w-0 lg:shrink-0">
@@ -464,7 +466,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
         </SkPaper>
       </Dialog>
     </div>
-  );
+  )
 }
 
 export default ChainCreditsTile

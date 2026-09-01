@@ -78,9 +78,7 @@ export default function BridgeBalanceCard(props: {
 
   const { mode } = useThemeMode()
 
-  const [expanded, setExpanded] = React.useState(
-    props.defaultExpanded ?? !props.showHeader
-  )
+  const [expanded, setExpanded] = React.useState(props.defaultExpanded ?? !props.showHeader)
 
   const skaleNetwork = mpc.config.skaleNetwork
   const chainsMeta = CHAINS_META[skaleNetwork]
@@ -203,26 +201,28 @@ export default function BridgeBalanceCard(props: {
         size="lg"
         value={formatBalance(cpData.balance)}
         icon={<Wallet size={14} />}
-        childrenRi={(cpData.balance !== 0n || loading === 'withdraw') && (
-          <Button
-            variant="contained"
-            size="small"
-            className="normal-case! text-sm font-semibold py-2.5! px-4! rounded shadow-none bg-amber-500/10! text-amber-600! disabled:text-muted-foreground! disabled:bg-secondary-foreground/5! flex! items-center! gap-2!"
-            onClick={withdrawCP}
-            startIcon={<ChevronsDown size={16} />}
-            disabled={!!loading || cpData.balance === 0n}
-          >
-            {getWithdrawBtnText()}
-          </Button>
-        )}
+        childrenRi={
+          (cpData.balance !== 0n || loading === 'withdraw') && (
+            <Button
+              variant="contained"
+              size="small"
+              className="normal-case! text-sm font-semibold py-2.5! px-4! rounded shadow-none bg-amber-500/10! text-amber-600! disabled:text-muted-foreground! disabled:bg-secondary-foreground/5! flex! items-center! gap-2!"
+              onClick={withdrawCP}
+              startIcon={<ChevronsDown size={16} />}
+              disabled={!!loading || cpData.balance === 0n}
+            >
+              {getWithdrawBtnText()}
+            </Button>
+          )
+        }
       />
       <Tile
         grow
         text="Top up amount"
         className={`mt-2.5 ${styles.inputAmount} ${mode === 'light' && styles.inputAmountLight}`}
         children={
-          <div className='flex items-center mt-1 -m-2'>
-            <div className='bg-card/80 p-2 rounded-lg pl-4 grow'>
+          <div className="flex items-center mt-1 -m-2">
+            <div className="bg-card/80 p-2 rounded-lg pl-4 grow">
               <div className="flex items-center amountInput [&_input]:text-2xl!">
                 <div className="grow">
                   <TextField
@@ -238,10 +238,9 @@ export default function BridgeBalanceCard(props: {
                     }}
                   />
                 </div>
-
               </div>
             </div>
-            <TokenIcon tokenSymbol='eth' className='ml-2.5' />
+            <TokenIcon tokenSymbol="eth" className="ml-2.5" />
             <div className="text-xl font-bold text-foreground ml-1.5 mr-2.5">ETH</div>
           </div>
         }

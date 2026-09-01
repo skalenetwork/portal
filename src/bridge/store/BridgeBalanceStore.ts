@@ -110,7 +110,7 @@ export const useBridgeBalanceStore = create<BridgeBalanceState>()((set, get) => 
       const amount =
         !current?.amount && cpData.recommendedRechargeAmount
           ? String(cpData.recommendedRechargeAmount)
-          : current?.amount ?? ''
+          : (current?.amount ?? '')
       return {
         accountBalance: cpData.accountBalance ?? state.accountBalance,
         chains: {

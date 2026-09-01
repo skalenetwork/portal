@@ -22,10 +22,11 @@
  */
 
 import React from 'react'
+import { openWallet } from '@/bridge'
 import { Button } from '@mui/material'
-import { RainbowConnectButton, useWagmiDisconnect } from '@/bridge'
+import { useDisconnect } from 'wagmi'
 import SkStack from '../SkStack'
-import { PowerOff, Rainbow, SquareArrowOutUpRight } from 'lucide-react'
+import { PowerOff, Wallet, SquareArrowOutUpRight } from 'lucide-react'
 
 interface ProfileModalActionsProps {
   address: string
@@ -38,7 +39,7 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
   isMobile,
   className
 }) => {
-  const { disconnect } = useWagmiDisconnect()
+  const { disconnect } = useDisconnect()
 
   return (
     <SkStack className={`${className} profileModalActions`}>
@@ -52,19 +53,15 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
         View on Etherscan
       </Button>
 
-      <RainbowConnectButton.Custom>
-        {({ openAccountModal }) => (
-          <Button
-            variant="text"
-            startIcon={<Rainbow size={14} />}
-            className="btn btnSm bg-muted! text-foreground!"
-            onClick={openAccountModal}
-            fullWidth={isMobile}
-          >
-            Manage Wallet
-          </Button>
-        )}
-      </RainbowConnectButton.Custom>
+      <Button
+        variant="text"
+        startIcon={<Wallet size={14} />}
+        className="btn btnSm bg-muted! text-foreground!"
+        onClick={() => openWallet('Account')}
+        fullWidth={isMobile}
+      >
+        Manage Wallet
+      </Button>
 
       <Button
         variant="text"

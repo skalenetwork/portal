@@ -25,7 +25,7 @@ import { types, constants } from '.'
 export enum Project {
   MANAGER = 'skale-manager',
   ALLOCATOR = 'skale-allocator',
-  MAINNET_IMA = 'mainnet-ima',
+  MAINNET_IMA = 'mainnet-ima'
 }
 
 export enum SchainProject {
@@ -78,14 +78,14 @@ export const CONTRACTS: ContractsConfig = {
     'skale-allocator': '0xDC2F6568608C8dABe101914489A25b07567C96bC',
     'skale-grants': '0xCEabf2b0c4F9d75A49a7B1E3e3c3179cDe949C9F'
   },
-  "base-sepolia-testnet": {
+  'base-sepolia-testnet': {
     'skale-manager': 'production',
     'mainnet-ima': 'production'
   },
   base: {
     'skale-manager': 'production',
     'mainnet-ima': 'production'
-  },
+  }
 }
 
 export const CREDIT_STATION_SOURCES: {
@@ -130,7 +130,8 @@ export const CREDIT_STATION_SOURCES: {
 }
 
 export const CREDIT_STATION_LEDGER_CONTRACTS: {
-  [key in types.SkaleNetwork]: { [key: string]: types.AddressType } } = {
+  [key in types.SkaleNetwork]: { [key: string]: types.AddressType }
+} = {
   mainnet: {},
   legacy: {},
   regression: {},

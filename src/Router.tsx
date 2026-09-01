@@ -28,12 +28,10 @@ import { useLocation, Routes, Route, Navigate, useSearchParams } from 'react-rou
 
 import { CircularProgress } from '@mui/material'
 
+import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
 import {
   useMetaportStore,
   type MetaportState,
-  useWagmiAccount,
-  useWagmiWalletClient,
-  useWagmiSwitchNetwork,
   walletClientToSigner,
   enforceNetwork
 } from '@/bridge'
@@ -100,9 +98,9 @@ export default function Router(props: {
   const setTransfersHistory = useMetaportStore((state) => state.setTransfersHistory)
   const [searchParams, _] = useSearchParams()
 
-  const { address } = useWagmiAccount()
-  const { data: walletClient } = useWagmiWalletClient()
-  const { switchChainAsync } = useWagmiSwitchNetwork()
+  const { address } = useAccount()
+  const { data: walletClient } = useWalletClient()
+  const { switchChainAsync } = useSwitchChain()
 
   useEffect(() => {
     setTransfersHistory(getHistoryFromStorage(mpc.config.skaleNetwork))
@@ -122,9 +120,7 @@ export default function Router(props: {
   useScrollPosition()
 
   async function getMainnetSigner() {
-    const { chainId } = await mpc.provider(constants.MAINNET_CHAIN_NAME).getNetwork()
     await enforceNetwork(
-      chainId,
       walletClient!,
       switchChainAsync!,
       mpc.config.skaleNetwork,

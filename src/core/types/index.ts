@@ -38,7 +38,8 @@ export * as pm from './paymaster'
 
 export type AddressType = `0x${string}`
 export type Size = 'xs' | 'sm' | 'md' | 'lg'
-export type SkaleNetwork = 'mainnet' | 'legacy' | 'regression' | 'testnet' | 'base' | 'base-sepolia-testnet'
+export type SkaleNetwork =
+  'mainnet' | 'legacy' | 'regression' | 'testnet' | 'base' | 'base-sepolia-testnet'
 
 export interface ISChainProxy {
   name: string

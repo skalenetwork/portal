@@ -26,7 +26,8 @@ import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
 
 import { type types, endpoints, networks } from '@/core'
-import { useMetaportStore, useWagmiAccount, Debug, contracts } from '@/bridge'
+import { useAccount } from 'wagmi'
+import { useMetaportStore, Debug, contracts } from '@/bridge'
 
 import Header from './Header'
 import SkDrawer from './SkDrawer'
@@ -57,7 +58,7 @@ export default function Portal() {
   const endpoint = endpoints.getProxyEndpoint(mpc.config.skaleNetwork)
   const statsApi = STATS_API[mpc.config.skaleNetwork]
 
-  const { address } = useWagmiAccount()
+  const { address } = useAccount()
   if (!mpc) return <div></div>
 
   const openProfileModal = () => setIsProfileModalOpen(true)

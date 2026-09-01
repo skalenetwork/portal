@@ -23,7 +23,8 @@
 
 import { useState, useEffect, useCallback, useMemo } from 'react'
 import { Logger, type ILogObj } from 'tslog'
-import { useWagmiAccount, type MetaportCore, Station } from '@/bridge'
+import { useAccount } from 'wagmi'
+import { type MetaportCore, Station } from '@/bridge'
 import { DEFAULT_MIN_SFUEL_WEI, SFUEL_CHECK_INTERVAL } from '@/lib/constants'
 import { types, notify } from '@/core'
 
@@ -41,7 +42,7 @@ interface SFuelState {
 }
 
 export function usesFuel(mpc: MetaportCore) {
-  const { address } = useWagmiAccount()
+  const { address } = useAccount()
   const [state, setState] = useState<SFuelState>({
     sFuelOk: true,
     isMining: false,

@@ -61,15 +61,14 @@ export async function ensureGasBalance(signer: JsonRpcSigner): Promise<void> {
 export async function prepareSignerForWrite(
   contract: Contract,
   walletClient: Parameters<typeof walletClientToSigner>[0],
-  switchChainAsync: Parameters<typeof enforceNetwork>[2],
+  switchChainAsync: Parameters<typeof enforceNetwork>[1],
   network: types.SkaleNetwork,
   chainName: string
 ): Promise<JsonRpcSigner> {
   if (!contract.runner?.provider || !walletClient || !switchChainAsync) {
     throw new Error('Something is wrong with your wallet, try again')
   }
-  const { chainId } = await contract.runner.provider.getNetwork()
-  await enforceNetwork(chainId, walletClient, switchChainAsync, network, chainName)
+  await enforceNetwork(walletClient, switchChainAsync, network, chainName)
   const signer = walletClientToSigner(walletClient)
   await ensureGasBalance(signer)
   return signer
@@ -434,12 +433,7 @@ export async function getAllPaymentsAcrossSources(
   return results.flat()
 }
 
-function toPayment(
-  id: bigint,
-  sourceId: string,
-  data: any,
-  schains: types.ISChain[]
-): Payment {
+function toPayment(id: bigint, sourceId: string, data: any, schains: types.ISChain[]): Payment {
   const schainName = schains.find((s) => helper.schainNameToHash(s.name) === data[0])?.name || ''
   return {
     id,
