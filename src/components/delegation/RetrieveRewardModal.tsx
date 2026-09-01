@@ -41,7 +41,7 @@ import Message from '../Message'
 import SkBtn from '../SkBtn'
 
 import Avatar from 'boring-avatars'
-import { AVATAR_COLORS } from '@/lib/constants'
+import { AVATAR_COLORS } from '@/ui'
 
 export default function RetrieveRewardModal(props: {
   address: types.AddressType | undefined

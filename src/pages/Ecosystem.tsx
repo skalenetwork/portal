@@ -43,7 +43,7 @@ import NewApps from '../components/ecosystem/tabs/NewApps'
 import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import SocialButtons from '../components/ecosystem/Socials'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
-import { cn } from '@/lib/ecosystem/utils'
+import { cn } from '@/ui'
 
 import { LayoutGrid, Plus } from 'lucide-react'
 import { SECTION_ICONS } from '../components/HomeComponents'
@@ -192,37 +192,41 @@ export default function Ecosystem(props: {
               label="All"
               icon={<LayoutGrid size={14} />}
               iconPosition="start"
-              className={`btn btnMd tab fwmobile ${activeTab === 0
+              className={`btn btnMd tab fwmobile ${
+                activeTab === 0
                   ? 'text-foreground! bg-gray-100! dark:bg-black!'
                   : 'bg-card/0! text-muted-foreground!'
-                }`}
+              }`}
             />
             <Tab
               label="Featured"
               icon={SECTION_ICONS.featured}
               iconPosition="start"
-              className={`btn btnMd tab fwmobile ${activeTab === 1
+              className={`btn btnMd tab fwmobile ${
+                activeTab === 1
                   ? 'text-foreground! bg-gray-100! dark:bg-black!'
                   : 'bg-card/0! text-muted-foreground!'
-                }`}
+              }`}
             />
             <Tab
               label="New"
               icon={SECTION_ICONS.new}
               iconPosition="start"
-              className={`btn btnMd tab fwmobile ${activeTab === 2
+              className={`btn btnMd tab fwmobile ${
+                activeTab === 2
                   ? 'text-foreground! bg-gray-100! dark:bg-black!'
                   : 'bg-card/0! text-muted-foreground!'
-                }`}
+              }`}
             />
             <Tab
               label="Trending"
               icon={SECTION_ICONS.trending}
               iconPosition="start"
-              className={`btn btnMd tab fwmobile ${activeTab === 3
+              className={`btn btnMd tab fwmobile ${
+                activeTab === 3
                   ? 'text-foreground! bg-gray-100! dark:bg-black! shadow-xs!'
                   : 'bg-card/0! text-muted-foreground!'
-                }`}
+              }`}
             />
           </Tabs>
           <div className={cn('grow', 'fwmobile')}>

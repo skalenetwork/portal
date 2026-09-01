@@ -21,11 +21,10 @@
  * @copyright SKALE Labs 2021-Present
  */
 
-import { useState, useEffect } from 'react'
 import { type types, constants } from '@/core'
+import { useCopy } from '@/ui'
 import { TokenIcon } from '@/bridge'
 
-import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Tooltip from '@mui/material/Tooltip'
 import ButtonBase from '@mui/material/ButtonBase'
 import { CircleCheck, Copy } from 'lucide-react'
@@ -37,65 +36,49 @@ export default function CopySurface(props: {
   tokenMetadata?: types.mp.TokenMetadata
   icon?: React.ReactNode
 }) {
-  const [copied, setCopied] = useState(false)
-
-  const handleClick = () => {
-    setCopied(true)
-  }
-
-  useEffect(() => {
-    if (copied) {
-      const timer = setTimeout(() => {
-        setCopied(false)
-      }, 1000)
-      return () => {
-        clearTimeout(timer)
-      }
-    }
-  }, [copied])
+  const [copied, copy] = useCopy()
 
   if (!props.value) return
   return (
     <div className={props.className}>
-      <CopyToClipboard text={props.value} onCopy={handleClick}>
-        <Tooltip title={copied ? 'Copied!' : 'Click to copy to clipboard'}>
-          <ButtonBase
-            className="bg-background! p-5! rounded-3xl! ease-in-out transition-transform duration-150 active:scale-[0.99]"
-            style={{ width: '100%', height: '100%' }}
-          >
-            <div style={{ textAlign: 'left', overflow: 'auto' }} className="grow">
-              <div className="flex items-center mb-1.5">
-                {props.tokenMetadata ? (
-                  <div className="mr-1.5">
-                    <TokenIcon
-                      size="xs"
-                      tokenSymbol={props.tokenMetadata.symbol}
-                      iconUrl={props.tokenMetadata.iconUrl}
-                    />
-                  </div>
-                ) : null}
-                {props.icon && <div className="mr-1.5 text-secondary-foreground">{props.icon}</div>}
-                <p className="text-xs text-secondary-foreground truncate">
-                  {props.title}
-                  {props.tokenMetadata
-                    ? ` (${props.tokenMetadata.decimals ?? constants.DEFAULT_ERC20_DECIMALS})`
-                    : null}
-                </p>
-              </div>
-              <p className="text-base font-semibold shortP text-foreground">{props.value}</p>
+      <Tooltip title={copied ? 'Copied!' : 'Click to copy to clipboard'}>
+        <ButtonBase
+          onClick={() => copy(props.value!)}
+          className="bg-background! p-5! rounded-3xl! ease-in-out transition-transform duration-150 active:scale-[0.99]"
+          style={{ width: '100%', height: '100%' }}
+        >
+          <div style={{ textAlign: 'left', overflow: 'auto' }} className="grow">
+            <div className="flex items-center mb-1.5">
+              {props.tokenMetadata ? (
+                <div className="mr-1.5">
+                  <TokenIcon
+                    size="xs"
+                    tokenSymbol={props.tokenMetadata.symbol}
+                    iconUrl={props.tokenMetadata.iconUrl}
+                  />
+                </div>
+              ) : null}
+              {props.icon && <div className="mr-1.5 text-secondary-foreground">{props.icon}</div>}
+              <p className="text-xs text-secondary-foreground truncate">
+                {props.title}
+                {props.tokenMetadata
+                  ? ` (${props.tokenMetadata.decimals ?? constants.DEFAULT_ERC20_DECIMALS})`
+                  : null}
+              </p>
             </div>
-            {copied ? (
-              <div className="ml-5 shrink-0 p-2 bg-green-600 dark:bg-green-400 rounded-full">
-                <CircleCheck className="text-accent/90" size={17} />
-              </div>
-            ) : (
-              <div className="ml-5 shrink-0 p-2 bg-muted-foreground/10 rounded-full">
-                <Copy className="text-accent-foreground/90 shrink-0" size={17} />
-              </div>
-            )}
-          </ButtonBase>
-        </Tooltip>
-      </CopyToClipboard>
+            <p className="text-base font-semibold shortP text-foreground">{props.value}</p>
+          </div>
+          {copied ? (
+            <div className="ml-5 shrink-0 p-2 bg-green-600 dark:bg-green-400 rounded-full">
+              <CircleCheck className="text-accent/90" size={17} />
+            </div>
+          ) : (
+            <div className="ml-5 shrink-0 p-2 bg-muted-foreground/10 rounded-full">
+              <Copy className="text-accent-foreground/90 shrink-0" size={17} />
+            </div>
+          )}
+        </ButtonBase>
+      </Tooltip>
     </div>
   )
 }

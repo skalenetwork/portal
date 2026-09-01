@@ -44,7 +44,8 @@ import { types, contracts as coreContracts, timeUtils, helper, metadata, notify 
 import SkStack from '../SkStack'
 
 import * as cs from '@/lib/credit-station'
-import { CREDITS_CONFIRMATION_BLOCKS, AVATAR_COLORS } from '@/lib/constants'
+import { CREDITS_CONFIRMATION_BLOCKS } from '@/lib/constants'
+import { AVATAR_COLORS } from '@/ui'
 import { BadgeCheck, ExternalLink, HandCoins, IdCard } from 'lucide-react'
 
 interface CreditsPaymentTileProps {
@@ -77,7 +78,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
 
   const sourceAlias = source
     ? metadata.getAlias(network, chainsMeta, source.chainName, undefined, true) ||
-    source.displayName
+      source.displayName
     : ''
 
   const configTokenSymbol = Object.keys(sourceTokens).find(
@@ -117,7 +118,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
     const checkFulfillment = async () => {
       try {
         setIsFulfilled(await ledgerContract.isFulfilled(payment.id))
-      } catch (error) { }
+      } catch (error) {}
     }
     checkFulfillment()
     const interval = setInterval(checkFulfillment, 10000)
@@ -159,9 +160,13 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
   return (
     <div>
       <div className="mb-2.5 bg-background rounded-3xl p-4">
-        <Grid container spacing={0} sx={{
-          alignItems: "center"
-        }}>
+        <Grid
+          container
+          spacing={0}
+          sx={{
+            alignItems: 'center'
+          }}
+        >
           <Grid size={{ xs: 12, md: 4 }} className="flex items-center">
             <div className="flex items-center">
               <Avatar
@@ -276,7 +281,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
         </Grid>
       </div>
     </div>
-  );
+  )
 }
 
 export default CreditsPaymentTile

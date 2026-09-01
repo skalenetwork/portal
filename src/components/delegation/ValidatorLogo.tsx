@@ -21,29 +21,10 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import Jazzicon from 'react-jazzicon'
+import Avatar from 'boring-avatars'
+import { AVATAR_COLORS } from '@/ui'
 import { VALIDATOR_LOGOS } from '@/lib/constants'
 import { styles } from '@/bridge'
-
-function hashCode(str: string) {
-  let hash = 0
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash)
-  }
-  return hash
-}
-
-function getPseudoRandomNumber(
-  seed: string,
-  min: number = 1000000000,
-  max: number = 100000000000000
-): number {
-  const seedValue = hashCode(seed)
-  const range = max - min
-  const rng = Math.sin(seedValue) * 10000
-  const randomInt = min + Math.floor((rng - Math.floor(rng)) * range)
-  return randomInt
-}
 
 type SizeType = 'xxxs' | 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl'
 
@@ -87,7 +68,7 @@ export default function ValidatorLogo(props: {
       }}
       className={`${styles[`chainIcon${size}`]} ${!props.size ? 'validatorIcon' : ''} ${props.className || ''}`}
     >
-      <Jazzicon diameter={sizes[size]} seed={getPseudoRandomNumber(iconPath)} />
+      <Avatar variant="marble" name={iconPath} colors={AVATAR_COLORS} size={sizes[size]} />
     </div>
   )
 }

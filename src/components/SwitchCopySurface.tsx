@@ -21,10 +21,9 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { useState, useEffect } from 'react'
 import { types } from '@/core'
+import { useCopy } from '@/ui'
 
-import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Tooltip from '@mui/material/Tooltip'
 import ButtonBase from '@mui/material/ButtonBase'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
@@ -39,22 +38,7 @@ export default function CopySurface(props: {
   className?: string
   tokenMetadata?: types.mp.TokenMetadata
 }) {
-  const [copied, setCopied] = useState(false)
-
-  const handleClick = () => {
-    setCopied(true)
-  }
-
-  useEffect(() => {
-    if (copied) {
-      const timer = setTimeout(() => {
-        setCopied(false)
-      }, 1000)
-      return () => {
-        clearTimeout(timer)
-      }
-    }
-  }, [copied])
+  const [copied, copy] = useCopy()
 
   const AntSwitch = styled(Switch)(({ theme }) => ({
     width: 28,
@@ -105,20 +89,18 @@ export default function CopySurface(props: {
         <p className="text-xs text-secondary-foreground mr-1.5">Decimal / Hex</p>
         <AntSwitch slotProps={{ input: { 'aria-label': 'ant design' } }} />
       </div>
-      <CopyToClipboard text={props.value} onCopy={handleClick}>
-        <Tooltip title={copied ? 'Copied!' : 'Click to copy to clipboard'}>
-          <ButtonBase style={{ width: '100%' }}>
-            <div style={{ textAlign: 'left', overflow: 'auto' }} className="grow">
-              <p className="text-base font-semibold shortP">{props.value}</p>
-            </div>
-            {copied ? (
-              <CheckCircleRoundedIcon color="success" className="ml-5 text-[17px]!" />
-            ) : (
-              <ContentCopyIcon className="text-secondary-foreground ml-5 text-[17px]!" />
-            )}
-          </ButtonBase>
-        </Tooltip>
-      </CopyToClipboard>
+      <Tooltip title={copied ? 'Copied!' : 'Click to copy to clipboard'}>
+        <ButtonBase style={{ width: '100%' }} onClick={() => copy(props.value!)}>
+          <div style={{ textAlign: 'left', overflow: 'auto' }} className="grow">
+            <p className="text-base font-semibold shortP">{props.value}</p>
+          </div>
+          {copied ? (
+            <CheckCircleRoundedIcon color="success" className="ml-5 text-[17px]!" />
+          ) : (
+            <ContentCopyIcon className="text-secondary-foreground ml-5 text-[17px]!" />
+          )}
+        </ButtonBase>
+      </Tooltip>
     </div>
   )
 }

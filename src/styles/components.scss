@@ -97,7 +97,6 @@
 
 }
 
-
 .outlined {
     border-radius: var(--radius);
     border: 1px var(--border) solid;
@@ -106,12 +105,6 @@
 .filled {
     background: var(--background);
 }
-
-.borderLeft {
-    border-left: 1px var(--border) solid;
-}
-
-
 
 .secondary {
     background-color: var(--secondary) !important;

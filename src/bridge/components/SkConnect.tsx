@@ -21,7 +21,8 @@
  */
 
 import { ConnectButton } from '@rainbow-me/rainbowkit'
-import Jazzicon, { jsNumberForAddress } from 'react-jazzicon'
+import Avatar from 'boring-avatars'
+import { AVATAR_COLORS } from '@/ui'
 
 import Button from '@mui/material/Button'
 import { ChevronDown, Wallet } from 'lucide-react'
@@ -100,7 +101,12 @@ export default function SkConnect() {
                       style={{ color: 'white' }}
                     >
                       <div className="mr-1.5 flex">
-                        <Jazzicon diameter={16} seed={jsNumberForAddress(account.address)} />
+                        <Avatar
+                          variant="marble"
+                          name={account.address}
+                          colors={AVATAR_COLORS}
+                          size={16}
+                        />
                       </div>
                       {account.displayName}
                       <ChevronDown size={17} className="text-secondary-foreground" />

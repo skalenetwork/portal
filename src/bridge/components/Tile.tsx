@@ -21,15 +21,15 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { useState, useEffect, type ReactElement } from 'react'
-import { CopyToClipboard } from 'react-copy-to-clipboard'
+import { type ReactElement } from 'react'
 import { type types } from '@/core'
+import { useCopy } from '@/ui'
 
 import { useTheme } from '@mui/material/styles'
 import { Skeleton, Tooltip } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress'
 import { CircleCheck } from 'lucide-react'
-import { cn } from '../core/css'
+import { cn } from '@/ui'
 
 export default function Tile(props: {
   text?: string
@@ -55,23 +55,7 @@ export default function Tile(props: {
   let color = props.color ? theme.palette[props.color].main : 'rgba(0, 0, 0, 0.6)'
   color = props.transparent ? 'transparent' : color
   const size = props.size ?? 'lg'
-
-  const [copied, setCopied] = useState(false)
-
-  const handleClick = () => {
-    setCopied(true)
-  }
-
-  useEffect(() => {
-    if (copied) {
-      const timer = setTimeout(() => {
-        setCopied(false)
-      }, 1000)
-      return () => {
-        clearTimeout(timer)
-      }
-    }
-  }, [copied])
+  const [copied, copy] = useCopy()
 
   const value = (
     <p
@@ -139,11 +123,7 @@ export default function Tile(props: {
             {props.ri ? <div className="grow"></div> : null}
             {props.value && props.copy ? (
               <Tooltip arrow title={copied ? 'Copied' : 'Click to copy'}>
-                <div>
-                  <CopyToClipboard text={props.copy ?? ''} onCopy={handleClick}>
-                    {value}
-                  </CopyToClipboard>
-                </div>
+                <div onClick={() => copy(props.copy ?? '')}>{value}</div>
               </Tooltip>
             ) : null}
             {props.value && !props.copy ? (

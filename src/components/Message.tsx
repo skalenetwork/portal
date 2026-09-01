@@ -29,7 +29,7 @@ import Collapse from '@mui/material/Collapse'
 import ArrowOutwardRoundedIcon from '@mui/icons-material/ArrowOutwardRounded'
 import { SkPaper } from '@/bridge'
 import { Link } from 'react-router-dom'
-import { cn } from '@/lib/ecosystem/utils'
+import { cn } from '@/ui'
 
 export default function Message(props: {
   text: string | null

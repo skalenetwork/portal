@@ -21,11 +21,10 @@
  * @copyright SKALE Labs 2021-Present
  */
 
-import { useState, useEffect } from 'react'
 import { TokenIcon, ChainIcon } from '@/bridge'
 import { type types, constants } from '@/core'
+import { useCopy } from '@/ui'
 
-import { CopyToClipboard } from 'react-copy-to-clipboard'
 import Tooltip from '@mui/material/Tooltip'
 import ButtonBase from '@mui/material/ButtonBase'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
@@ -39,67 +38,54 @@ export default function TokenSurface(props: {
   chainName?: string
   skaleNetwork?: types.SkaleNetwork
 }) {
-  const [copied, setCopied] = useState(false)
-
-  const handleClick = () => {
-    setCopied(true)
-  }
-
-  useEffect(() => {
-    if (copied) {
-      const timer = setTimeout(() => {
-        setCopied(false)
-      }, 1000)
-      return () => {
-        clearTimeout(timer)
-      }
-    }
-  }, [copied])
+  const [copied, copy] = useCopy()
 
   if (!props.value) return
   return (
     <div className={props.className}>
-      <CopyToClipboard text={props.value} onCopy={handleClick}>
-        <Tooltip title={copied ? 'Copied!' : 'Click to copy to clipboard'}>
-          <ButtonBase className="titleSection" style={{ width: '100%' }}>
-            <div style={{ textAlign: 'left', overflow: 'auto' }} className="grow">
-              <div className="flex">
-                {props.tokenMetadata ? (
-                  <div className="mr-1.5">
-                    <TokenIcon
-                      size="xs"
-                      tokenSymbol={props.tokenMetadata.symbol}
-                      iconUrl={props.tokenMetadata.iconUrl}
-                    />
-                  </div>
-                ) : null}
+      <Tooltip title={copied ? 'Copied!' : 'Click to copy to clipboard'}>
+        <ButtonBase
+          className="titleSection"
+          style={{ width: '100%' }}
+          onClick={() => copy(props.value!)}
+        >
+          <div style={{ textAlign: 'left', overflow: 'auto' }} className="grow">
+            <div className="flex">
+              {props.tokenMetadata ? (
+                <div className="mr-1.5">
+                  <TokenIcon
+                    size="xs"
+                    tokenSymbol={props.tokenMetadata.symbol}
+                    iconUrl={props.tokenMetadata.iconUrl}
+                  />
+                </div>
+              ) : null}
 
-                {props.chainName && props.skaleNetwork ? (
-                  <div className="mr-1.5">
-                    <ChainIcon
-                      size="xs"
-                      skaleNetwork={props.skaleNetwork}
-                      chainName={props.chainName}
-                    />
-                  </div>
-                ) : null}
-                <p className="text-xs text-secondary-foreground mb-1.5 shortP">
-                  {props.title}
-                  {props.tokenMetadata
-                    ? ` (${props.tokenMetadata.decimals ?? constants.DEFAULT_ERC20_DECIMALS})`
-                    : null}
-                </p>
-              </div>
-              <p className="text-base font-semibold shortP">{props.value}</p>
+              {props.chainName && props.skaleNetwork ? (
+                <div className="mr-1.5">
+                  <ChainIcon
+                    size="xs"
+                    skaleNetwork={props.skaleNetwork}
+                    chainName={props.chainName}
+                  />
+                </div>
+              ) : null}
+              <p className="text-xs text-secondary-foreground mb-1.5 shortP">
+                {props.title}
+                {props.tokenMetadata
+                  ? ` (${props.tokenMetadata.decimals ?? constants.DEFAULT_ERC20_DECIMALS})`
+                  : null}
+              </p>
             </div>
-            {copied ? (
-              <CheckCircleRoundedIcon color="success" className="ml-5 text-[17px]!" />
-            ) : (
-              <UnfoldMoreRoundedIcon className="text-secondary-foreground ml-5 text-[17px]!" />
-            )}
-          </ButtonBase>
-        </Tooltip>
-      </CopyToClipboard>
+            <p className="text-base font-semibold shortP">{props.value}</p>
+          </div>
+          {copied ? (
+            <CheckCircleRoundedIcon color="success" className="ml-5 text-[17px]!" />
+          ) : (
+            <UnfoldMoreRoundedIcon className="text-secondary-foreground ml-5 text-[17px]!" />
+          )}
+        </ButtonBase>
+      </Tooltip>
     </div>
   )
 }

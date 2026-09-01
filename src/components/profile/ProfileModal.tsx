@@ -29,7 +29,7 @@ import { helper } from '@/core'
 import ConnectWallet from '../ConnectWallet'
 import ProfileModalHeader from './ProfileModalHeader'
 import ProfileModalActions from './ProfileModalActions'
-import { AVATAR_COLORS } from '@/lib/constants'
+import { AVATAR_COLORS } from '@/ui'
 
 interface ProfileModalProps {
   isOpen: boolean

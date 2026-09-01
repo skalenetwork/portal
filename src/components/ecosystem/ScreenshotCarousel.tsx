@@ -21,101 +21,55 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import React, { useState, useEffect, useCallback } from 'react'
-import useEmblaCarousel from 'embla-carousel-react'
-import { Box } from '@mui/material'
+import { useRef, useState } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 
-type PropType = {
+const ARROW = 'absolute top-1/2 -translate-y-1/2 z-10 p-2 rounded-full bg-background/80 hover:bg-background disabled:opacity-50 disabled:cursor-not-allowed transition-all'
+
+export default function ScreenshotCarousel({
+  screenshots,
+  appName
+}: {
   screenshots: string[]
   appName: string
-}
+}) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [atStart, setAtStart] = useState(true)
+  const [atEnd, setAtEnd] = useState(true)
 
-const ScreenshotCarousel: React.FC<PropType> = ({ screenshots, appName }) => {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    align: 'start',
-    loop: false,
-    dragFree: true
-  })
+  const sync = () => {
+    const el = ref.current
+    if (!el) return
+    setAtStart(el.scrollLeft <= 0)
+    setAtEnd(el.scrollLeft + el.clientWidth >= el.scrollWidth - 1)
+  }
 
-  const [prevBtnEnabled, setPrevBtnEnabled] = useState(false)
-  const [nextBtnEnabled, setNextBtnEnabled] = useState(false)
-
-  const scrollPrev = useCallback(() => emblaApi && emblaApi.scrollPrev(), [emblaApi])
-  const scrollNext = useCallback(() => emblaApi && emblaApi.scrollNext(), [emblaApi])
-
-  const onSelect = useCallback(() => {
-    if (!emblaApi) return
-    setPrevBtnEnabled(emblaApi.canScrollPrev())
-    setNextBtnEnabled(emblaApi.canScrollNext())
-  }, [emblaApi])
-
-  useEffect(() => {
-    if (!emblaApi) return
-    onSelect()
-    emblaApi.on('select', onSelect)
-    emblaApi.on('reInit', onSelect)
-  }, [emblaApi, onSelect])
+  const scroll = (direction: number) =>
+    ref.current?.scrollBy({ left: direction * ref.current.clientWidth * 0.8, behavior: 'smooth' })
 
   return (
-    <Box
-      className="mt-2.5"
-      sx={{
-        position: 'relative'
-      }}
-    >
-      <Box className="embla" ref={emblaRef} sx={{ overflow: 'hidden' }}>
-        <Box
-          className="embla__container"
-          sx={{
-            display: 'flex',
-            height: 400
-          }}
-        >
-          {screenshots.map((screenshot, index) => (
-            <Box
-              key={index}
-              className="embla__slide"
-              sx={{
-                flex: '0 0 auto',
-                marginRight: '10px',
-                height: '100%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <img
-                src={screenshot}
-                alt={`${appName} screenshot ${index + 1}`}
-                style={{
-                  height: '100%',
-                  width: 'auto',
-                  maxWidth: 'none',
-                  objectFit: 'cover',
-                  borderRadius: '25px'
-                }}
-              />
-            </Box>
-          ))}
-        </Box>
-      </Box>
-      <button
-        onClick={scrollPrev}
-        disabled={!prevBtnEnabled}
-        className="absolute top-1/2 left-4 transform -translate-y-1/2 z-10 p-2 rounded-full bg-background/80 hover:bg-background disabled:opacity-50 disabled:cursor-not-allowed transition-all"
+    <div className="relative mt-2.5">
+      <div
+        ref={ref}
+        onScroll={sync}
+        className="flex gap-2.5 h-100 overflow-x-auto snap-x [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
+        {screenshots.map((screenshot, index) => (
+          <img
+            key={index}
+            src={screenshot}
+            alt={`${appName} screenshot ${index + 1}`}
+            onLoad={sync}
+            className="h-full w-auto max-w-none object-cover rounded-[25px] snap-start"
+          />
+        ))}
+      </div>
+      <button onClick={() => scroll(-1)} disabled={atStart} className={`${ARROW} left-4`}>
         <ChevronLeft className="text-foreground" size={17} />
       </button>
-      <button
-        onClick={scrollNext}
-        disabled={!nextBtnEnabled}
-        className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10 p-2 rounded-full bg-background/80 hover:bg-background disabled:opacity-50 disabled:cursor-not-allowed transition-all"
-      >
+      <button onClick={() => scroll(1)} disabled={atEnd} className={`${ARROW} right-4`}>
         <ChevronRight className="text-foreground" size={17} />
       </button>
-    </Box>
+    </div>
   )
 }
-
-export default ScreenshotCarousel

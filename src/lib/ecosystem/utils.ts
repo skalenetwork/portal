@@ -22,13 +22,7 @@
  */
 
 import { type types } from '@/core'
-import { twMerge } from 'tailwind-merge'
-import { clsx, type ClassValue } from 'clsx'
 import { categories, sortCategories } from './categories'
-
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
-}
 
 export interface ExpandedItems {
   [key: string]: boolean

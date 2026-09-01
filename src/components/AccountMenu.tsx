@@ -29,7 +29,7 @@ import { Rainbow } from 'lucide-react'
 import { RainbowConnectButton } from '@/bridge'
 import { helper } from '@/core'
 import Avatar from 'boring-avatars'
-import { AVATAR_COLORS } from '@/lib/constants'
+import { AVATAR_COLORS } from '@/ui'
 
 export default function AccountMenu(props: any) {
   const { openProfileModal } = props

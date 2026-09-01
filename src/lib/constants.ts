@@ -52,7 +52,6 @@ export { FAQ, MAINNET_CHAIN_LOGOS, VALIDATOR_LOGOS }
 const _BALANCE_UPDATE_INTERVAL_SECONDS = 25
 export const BALANCE_UPDATE_INTERVAL_MS = _BALANCE_UPDATE_INTERVAL_SECONDS * 1000
 
-
 export const STATS_API: { [key in types.SkaleNetwork]: string | null } = {
   mainnet: 'https://stats.explorer.mainnet.skalenodes.com/v2/stats/',
   testnet: null,
@@ -110,20 +109,6 @@ export const CREDITS_USAGE_EXAMPLE_PER_CREDIT = {
   ammSwaps: 125n,
   gasUnits: 21000000n
 } as const
-
-export const AVATAR_COLORS = [
-  '#efeecc',
-  '#fe8b05',
-  '#fe0557',
-  '#400403',
-  '#0aabba',
-  '#c8b6ff',
-  '#90E0EF',
-  '#F786AA',
-  '#256EFF',
-  '#31E981',
-  '#ffbf81'
-]
 
 export const HOME_CARD_COLORS = [
   '#ff699b',

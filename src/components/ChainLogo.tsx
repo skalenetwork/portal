@@ -23,27 +23,8 @@
 
 import { useEffect, useState } from 'react'
 import { metadata, type types } from '@/core'
-import Jazzicon from 'react-jazzicon'
-
-function hashCode(str: string) {
-  let hash = 0
-  for (let i = 0; i < str.length; i++) {
-    hash = str.charCodeAt(i) + ((hash << 5) - hash)
-  }
-  return hash
-}
-
-function getPseudoRandomNumber(
-  seed: string,
-  min: number = 1000000000,
-  max: number = 100000000000000
-): number {
-  const seedValue = hashCode(seed)
-  const range = max - min
-  const rng = Math.sin(seedValue) * 10000
-  const randomInt = min + Math.floor((rng - Math.floor(rng)) * range)
-  return randomInt
-}
+import Avatar from 'boring-avatars'
+import { AVATAR_COLORS } from '@/ui'
 
 export default function ChainLogo(props: {
   network: types.SkaleNetwork
@@ -96,13 +77,11 @@ export default function ChainLogo(props: {
   }
   return (
     <div className="br__tileDefaultLogo">
-      <Jazzicon
-        diameter={55}
-        svgStyles={{
-          width: '100%',
-          height: '100%'
-        }}
-        seed={getPseudoRandomNumber(props.chainName + props.app)}
+      <Avatar
+        variant="marble"
+        name={props.chainName + props.app}
+        colors={AVATAR_COLORS}
+        size="100%"
       />
     </div>
   )

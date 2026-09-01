@@ -34,7 +34,7 @@ import ValidatorLogo from './ValidatorLogo'
 
 import { DelegationState, getDelegationSource } from '@/lib/delegation'
 import { formatBigIntTimestampSeconds } from '@/lib/timeHelper'
-import { AVATAR_COLORS } from '@/lib/constants'
+import { AVATAR_COLORS } from '@/ui'
 import { Coins, ChevronRight, ChevronDown, CircleUser, Globe, Landmark } from 'lucide-react'
 
 export default function Delegation(props: {
