@@ -21,8 +21,6 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { Helmet } from 'react-helmet'
-
 import { useState, useEffect } from 'react'
 
 import { type MetaportCore } from '@skalenetwork/metaport'
@@ -85,12 +83,12 @@ export default function Chains(props: {
 
   return (
     <Container maxWidth="md" className="mb-5">
-      <Helmet>
+      <>
         <title>{META_TAGS.chains.title}</title>
         <meta name="description" content={META_TAGS.chains.description} />
         <meta property="og:title" content={META_TAGS.chains.title} />
         <meta property="og:description" content={META_TAGS.chains.description} />
-      </Helmet>
+      </>
       <Stack spacing={0}>
         <div className="flex items-center">
           <div className="grow">

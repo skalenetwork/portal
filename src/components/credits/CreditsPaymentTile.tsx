@@ -159,7 +159,9 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
   return (
     <div>
       <div className="mb-2.5 bg-background rounded-3xl p-4">
-        <Grid container spacing={0} alignItems="center">
+        <Grid container spacing={0} sx={{
+          alignItems: "center"
+        }}>
           <Grid size={{ xs: 12, md: 4 }} className="flex items-center">
             <div className="flex items-center">
               <Avatar
@@ -274,7 +276,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
         </Grid>
       </div>
     </div>
-  )
+  );
 }
 
 export default CreditsPaymentTile

@@ -1,0 +1,40 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "ignorePatterns": [
+    "dist/**",
+    "packages/*/dist/**",
+    "src/meta/**",
+    "packages/metaport/src/meta/**",
+    "src/data/metaportConfig*/**",
+    "src/assets/validators/index.ts",
+    "skale-network/**",
+    "helper-scripts/**"
+  ],
+  "plugins": [
+    "typescript",
+    "unicorn",
+    "oxc",
+    "react",
+    "import"
+  ],
+  "categories": {
+    "correctness": "error",
+    "suspicious": "warn"
+  },
+  "rules": {
+    "react/react-in-jsx-scope": "off",
+    "no-underscore-dangle": "off",
+    "import/no-unassigned-import": "off",
+    "unicorn/consistent-function-scoping": "off",
+    "unicorn/no-array-sort": "off",
+    "no-console": "warn",
+    "react/exhaustive-effect-dependencies": "warn",
+    "react/exhaustive-deps": "warn",
+    "no-unused-vars": "warn"
+  },
+  "env": {
+    "builtin": true,
+    "browser": true,
+    "es2024": true
+  }
+}

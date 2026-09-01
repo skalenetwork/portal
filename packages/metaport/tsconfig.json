@@ -9,7 +9,7 @@
     ],
     "allowJs": false,
     "skipLibCheck": true,
-    "esModuleInterop": false,
+    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": false,
     "forceConsistentCasingInFileNames": true,
@@ -30,7 +30,4 @@
     "./src/**/*.ts",
     "./src/**/*.tsx"
   ],
-  "exclude": [
-    "./src/**/*.stories.*"
-  ]
 }

@@ -150,17 +150,19 @@ export default function TokenList() {
               placeholder="Search tokens"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              InputProps={{
-                startAdornment: (
-                  <InputAdornment position="start">
-                    <Search className="text-muted-foreground w-5! h-5!" />
-                  </InputAdornment>
-                )
-              }}
               className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-muted! rounded-lg`}
               sx={{
                 '& .MuiOutlinedInput-root': { borderRadius: '25px' },
                 '& fieldset': { border: 'none' }
+              }}
+              slotProps={{
+                input: {
+                  startAdornment: (
+                    <InputAdornment position="start">
+                      <Search className="text-muted-foreground w-5! h-5!" />
+                    </InputAdornment>
+                  )
+                }
               }}
             />
             {filteredTokensCount === 0 && (
@@ -184,5 +186,5 @@ export default function TokenList() {
         </Container>
       </Modal>
     </div>
-  )
+  );
 }

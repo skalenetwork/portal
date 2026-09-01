@@ -180,11 +180,6 @@ export default function Delegate(props: {
                   arrow
                 >
                   <TextField
-                    inputProps={{
-                      step: '0.1',
-                      lang: 'en-US',
-                      className: 'text-foreground! text-2xl p-2!'
-                    }}
                     inputRef={(input) => input?.focus()}
                     type="number"
                     variant="standard"
@@ -193,6 +188,13 @@ export default function Delegate(props: {
                     onChange={handleChange}
                     disabled={loading}
                     style={{ width: '100%' }}
+                    slotProps={{
+                      htmlInput: {
+                        step: '0.1',
+                        lang: 'en-US',
+                        className: 'text-foreground! text-2xl p-2!'
+                      }
+                    }}
                   />
                 </Tooltip>
               </div>
@@ -262,5 +264,5 @@ export default function Delegate(props: {
         </Button>
       )}
     </div>
-  )
+  );
 }

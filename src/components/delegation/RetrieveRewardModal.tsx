@@ -169,22 +169,24 @@ export default function RetrieveRewardModal(props: {
                             placeholder="Enter wallet address"
                             value={inputAddress}
                             onChange={handleChange}
-                            InputProps={{
-                              startAdornment: (
-                                <InputAdornment position="start">
-                                  <Avatar
-                                    variant="marble"
-                                    name={inputAddress}
-                                    colors={AVATAR_COLORS}
-                                    size={20}
-                                  />
-                                </InputAdornment>
-                              )
-                            }}
                             className={`${styles.skInput} ${mode === 'light' && styles.skInputLight} bg-card! border border-border rounded-full shadow-xs`}
                             sx={{
                               '& .MuiOutlinedInput-root': { borderRadius: '25px' },
                               '& fieldset': { border: 'none' }
+                            }}
+                            slotProps={{
+                              input: {
+                                startAdornment: (
+                                  <InputAdornment position="start">
+                                    <Avatar
+                                      variant="marble"
+                                      name={inputAddress}
+                                      colors={AVATAR_COLORS}
+                                      size={20}
+                                    />
+                                  </InputAdornment>
+                                )
+                              }
                             }}
                           />
                         </div>

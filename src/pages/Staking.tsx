@@ -21,8 +21,6 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { Helmet } from 'react-helmet'
-
 import { Link } from 'react-router-dom'
 import { type Signer, isAddress } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
@@ -152,12 +150,12 @@ export default function Staking(props: {
 
   return (
     <Container maxWidth="md">
-      <Helmet>
+      <>
         <title>{META_TAGS.staking.title}</title>
         <meta name="description" content={META_TAGS.staking.description} />
         <meta property="og:title" content={META_TAGS.staking.title} />
         <meta property="og:description" content={META_TAGS.staking.description} />
-      </Helmet>
+      </>
       <Stack spacing={0}>
         <div className="flex items-center">
           <div className="grow">

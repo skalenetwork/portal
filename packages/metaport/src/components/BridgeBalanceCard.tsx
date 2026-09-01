@@ -226,7 +226,6 @@ export default function BridgeBalanceCard(props: {
               <div className="flex items-center amountInput [&_input]:text-2xl!">
                 <div className="grow">
                   <TextField
-                    inputProps={{ step: '0.1', lang: 'en-US' }}
                     type="number"
                     variant="standard"
                     placeholder="0.00"
@@ -234,6 +233,9 @@ export default function BridgeBalanceCard(props: {
                     onChange={handleAmountChange}
                     disabled={!!loading}
                     style={{ width: '100%' }}
+                    slotProps={{
+                      htmlInput: { step: '0.1', lang: 'en-US' }
+                    }}
                   />
                 </div>
 

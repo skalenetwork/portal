@@ -245,7 +245,9 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   return (
     <div>
       <div className="mb-2.5 bg-background rounded-3xl p-5">
-        <Grid container spacing={0} alignItems="center">
+        <Grid container spacing={0} sx={{
+          alignItems: "center"
+        }}>
           <Grid size={{ xs: 12, md: 4 }}>
             <Link to={'/chains/' + shortAlias}>
               <div className="flex items-center">
@@ -309,22 +311,24 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
         }}
         maxWidth={false}
         fullWidth
-        BackdropProps={{
-          sx: {
-            backdropFilter: 'blur(4px)'
+        slotProps={{
+          backdrop: {
+            sx: {
+              backdropFilter: 'blur(4px)'
+            }
+          },
+
+          paper: {
+            sx: {
+              background: 'transparent',
+              boxShadow: 'none',
+              margin: { xs: '8px', sm: '24px', md: '24px' },
+              width: { xs: 'calc(100% - 16px)', sm: '100%' },
+              maxWidth: { xs: 'calc(100% - 16px)', sm: '820px' },
+              maxHeight: { xs: 'calc(100% - 16px)', sm: 'calc(100% - 64px)' }
+            }
           }
-        }}
-        PaperProps={{
-          sx: {
-            background: 'transparent',
-            boxShadow: 'none',
-            margin: { xs: '8px', sm: '24px', md: '24px' },
-            width: { xs: 'calc(100% - 16px)', sm: '100%' },
-            maxWidth: { xs: 'calc(100% - 16px)', sm: '820px' },
-            maxHeight: { xs: 'calc(100% - 16px)', sm: 'calc(100% - 64px)' }
-          }
-        }}
-      >
+        }}>
         <SkPaper gray className="p-4! md:p-6!">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-x-8 gap-y-6 pb-8 px-1">
             <div className="min-w-0 lg:shrink-0">
@@ -460,7 +464,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
         </SkPaper>
       </Dialog>
     </div>
-  )
+  );
 }
 
 export default ChainCreditsTile

@@ -125,7 +125,13 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
 
   return (
     <div className="mb-2.5 bg-background rounded-3xl p-4">
-      <Grid container spacing={0} alignItems="center">
+      <Grid
+        container
+        spacing={0}
+        sx={{
+          alignItems: 'center'
+        }}
+      >
         <Grid size={{ xs: 12, md: 4 }}>
           <div className="flex items-center">
             <TokenIcon tokenSymbol={token.symbol.toLowerCase()} size="lg" iconUrl={token.iconUrl} />
@@ -176,10 +182,12 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
         onClose={() => setOpenModal(false)}
         maxWidth="sm"
         fullWidth
-        PaperProps={{
-          sx: {
-            background: 'transparent',
-            boxShadow: 'none'
+        slotProps={{
+          paper: {
+            sx: {
+              background: 'transparent',
+              boxShadow: 'none'
+            }
           }
         }}
       >
@@ -199,7 +207,6 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
                 <div className="flex items-center amountInput">
                   <div className="grow">
                     <TextField
-                      inputProps={{ step: '0.1', lang: 'en-US' }}
                       inputRef={(input) => input?.focus()}
                       type="number"
                       variant="standard"
@@ -212,6 +219,9 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
                         '& .MuiInputBase-input': {
                           color: 'var(--foreground)'
                         }
+                      }}
+                      slotProps={{
+                        htmlInput: { step: '0.1', lang: 'en-US' }
                       }}
                     />
                   </div>

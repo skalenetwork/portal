@@ -205,7 +205,6 @@ export default function CommunityPool() {
                 <div className="flex items-center amountInput">
                   <div className="grow">
                     <TextField
-                      inputProps={{ step: '0.1', lang: 'en-US' }}
                       type="number"
                       variant="standard"
                       placeholder="0.00"
@@ -213,6 +212,9 @@ export default function CommunityPool() {
                       onChange={handleAmountChange}
                       disabled={!!loading}
                       style={{ width: '100%' }}
+                      slotProps={{
+                        htmlInput: { step: '0.1', lang: 'en-US' }
+                      }}
                     />
                   </div>
                   <div className="text-2xl font-bold text-foreground mr-2.5">ETH</div>

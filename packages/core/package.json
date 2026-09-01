@@ -13,8 +13,7 @@
   },
   "author": "SKALE Labs",
   "devDependencies": {
-    "typescript": "^4.9.5",
-    "@types/minimatch": "5.1.2"
+    "typescript": "7.0.2"
   },
   "peerDependencies": {
     "ethers": "^6.x.x"

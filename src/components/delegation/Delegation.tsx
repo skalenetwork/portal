@@ -104,7 +104,13 @@ export default function Delegation(props: {
           setOpen(!open)
         }}
       >
-        <Grid container spacing={0} alignItems="center">
+        <Grid
+          container
+          spacing={0}
+          sx={{
+            alignItems: 'center'
+          }}
+        >
           <Grid size={{ xs: 12, md: 4 }}>
             <div className="flex items-center">
               <Avatar

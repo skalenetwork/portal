@@ -24,7 +24,6 @@ import './App.scss'
 
 import { useState, useEffect } from 'react'
 
-import { Helmet } from 'react-helmet'
 import { useLocation, Routes, Route, Navigate, useSearchParams } from 'react-router-dom'
 
 import { CircularProgress } from '@mui/material'
@@ -194,9 +193,7 @@ export default function Router(props: {
 
   return (
     <div className="mb-0 sm:mb-[55px]">
-      <Helmet>
-        <meta property="og:url" content={currentUrl} />
-      </Helmet>
+      <meta property="og:url" content={currentUrl} />
       <MetricsWarning metrics={props.metrics} />
       <ScrollToTop />
       <Routes>

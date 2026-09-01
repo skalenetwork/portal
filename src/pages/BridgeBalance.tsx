@@ -22,8 +22,6 @@
  */
 
 import { useMemo, useEffect } from 'react'
-import { Helmet } from 'react-helmet'
-
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 
@@ -54,12 +52,12 @@ export default function BridgeBalance() {
 
   return (
     <Container maxWidth="sm">
-      <Helmet>
+      <>
         <title>{META_TAGS.bridgeBalance.title}</title>
         <meta name="description" content={META_TAGS.bridgeBalance.description} />
         <meta property="og:title" content={META_TAGS.bridgeBalance.title} />
         <meta property="og:description" content={META_TAGS.bridgeBalance.description} />
-      </Helmet>
+      </>
       <Stack spacing={0}>
         <div className="flex items-center">
           <div className="grow">

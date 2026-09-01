@@ -21,7 +21,6 @@
  */
 
 import React, { useState, useEffect, useMemo, useRef } from 'react'
-import { Helmet } from 'react-helmet'
 import { Container, Stack, Tab, Tabs, Button } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
@@ -148,12 +147,12 @@ export default function Ecosystem(props: {
   return (
     <>
       <Container maxWidth="md" ref={containerRef}>
-        <Helmet>
+        <>
           <title>{META_TAGS.ecosystem.title}</title>
           <meta name="description" content={META_TAGS.ecosystem.description} />
           <meta property="og:title" content={META_TAGS.ecosystem.title} />
           <meta property="og:description" content={META_TAGS.ecosystem.description} />
-        </Helmet>
+        </>
         <Stack spacing={0}>
           <SkStack>
             <div className={cn('grow flex flex-col mb-5')}>

@@ -22,7 +22,6 @@
  */
 
 import { useEffect, useMemo, useState } from 'react'
-import { Helmet } from 'react-helmet'
 import { useParams } from 'react-router-dom'
 import { type types, metadata, units, constants } from '@/core'
 
@@ -142,12 +141,12 @@ export default function App(props: {
   return (
     <Container maxWidth="md">
       <div className="'chainDetails' mb-5">
-        <Helmet>
-          <title>SKALE Portal - {appAlias}</title>
+        <>
+          <title>{`SKALE Portal - ${appAlias}`}</title>
           <meta name="description" content={appDescription} />
           <meta property="og:title" content={`SKALE Portal - ${appAlias}`} />
           <meta property="og:description" content={appDescription} />
-        </Helmet>
+        </>
 
         <div className="flex">
           <Breadcrumbs
