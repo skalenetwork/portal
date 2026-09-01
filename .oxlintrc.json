@@ -29,7 +29,7 @@
     "unicorn/no-array-sort": "off",
     "no-console": "warn",
     "react/exhaustive-effect-dependencies": "warn",
-    "react-hooks/exhaustive-deps": "warn",
+    "react/exhaustive-deps": "warn",
     "no-unused-vars": "warn"
   },
   "env": {
