@@ -90,7 +90,9 @@ export const EXPLORE_CARDS: ExploreCard[] = [
     url: '/staking',
     icon: CoinIcon,
     feature: 'staking',
-    bgKey: 'stake_1234'
+    bgKey: 'stake_1234',
+    buttonText: 'Stake Now',
+    buttonIcon: <PieChart size={17} />
   },
   {
     name: 'Swap on SKALE',

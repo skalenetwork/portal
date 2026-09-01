@@ -38,7 +38,7 @@ import {
   enforceNetwork
 } from '@skalenetwork/metaport'
 
-import { type types, metadata, constants } from '@/core'
+import { type types, metadata, constants, networks } from '@/core'
 
 import Bridge from './pages/Bridge'
 import Faq from './pages/Faq'
@@ -67,7 +67,7 @@ import MetricsWarning from './components/MetricsWarning'
 import ScrollToTop from './components/ScrollToTop'
 import useScrollPosition from './useScrollPosition'
 import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
-import { BRIDGE_PAGES, STAKING_PAGES } from './core/constants'
+import { BRIDGE_PAGES, NETWORKS, STAKING_PAGES } from './core/constants'
 import { getValidators } from './core/delegation/validators'
 import { getStakingInfoMap } from './core/delegation/staking'
 
@@ -84,6 +84,7 @@ export default function Router(props: {
   loadValidator: () => Promise<void>
 }) {
   const location = useLocation()
+  const bridgeEnabled = networks.hasFeatureInAny(NETWORKS, 'bridge')
   const currentUrl = `${window.location.origin}${location.pathname}${location.search}`
 
   const [chainsMeta, setChainsMeta] = useState<types.ChainsMetadataMap | null>(null)
@@ -152,7 +153,7 @@ export default function Router(props: {
     )
   }
 
-  if (!termsAccepted && isToSPage(BRIDGE_PAGES)) {
+  if (bridgeEnabled && !termsAccepted && isToSPage(BRIDGE_PAGES)) {
     return (
       <TermsModal
         mpc={mpc}
@@ -207,11 +208,15 @@ export default function Router(props: {
             />
           }
         />
-        <Route path="bridge" element={<Bridge chainsMeta={chainsMeta} />} />
-        <Route path="bridge">
-          <Route path="history" element={<History />} />
-          <Route path="balance" element={<BridgeBalance />} />
-        </Route>
+        {bridgeEnabled ? (
+          <Route path="bridge">
+            <Route index element={<Bridge chainsMeta={chainsMeta} />} />
+            <Route path="history" element={<History />} />
+            <Route path="balance" element={<BridgeBalance />} />
+          </Route>
+        ) : (
+          <Route path="bridge/*" element={<Navigate to="/" replace />} />
+        )}
         <Route path="portfolio" element={<Portfolio mpc={mpc} />} />
         <Route
           path="chains"
@@ -268,7 +273,7 @@ export default function Router(props: {
             }
           />
         </Route>
-        <Route path="onramp" element={<Navigate to="/bridge" replace />} />
+        <Route path="onramp" element={<Navigate to={bridgeEnabled ? '/bridge' : '/'} replace />} />
         <Route
           path="credits"
           element={
