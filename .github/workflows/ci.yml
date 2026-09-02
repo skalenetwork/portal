@@ -17,6 +17,7 @@ jobs:
       - run: bun install --frozen-lockfile
       - run: bun run lint
         continue-on-error: true
+      - run: bun run check:styles
       - run: bun run build
       - run: bun run type-check
         continue-on-error: true

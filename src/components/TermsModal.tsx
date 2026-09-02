@@ -115,7 +115,7 @@ export default function TermsModal(props: {
                 <div
                   id="terms"
                   style={{ paddingRight: '10px' }}
-                  className="text-foreground text-[13px] md:text-sm tosMd"
+                  className="text-foreground prose prose-sm dark:prose-invert max-w-none prose-headings:font-semibold"
                 >
                   <TermsOfService />
                 </div>

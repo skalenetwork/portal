@@ -16,6 +16,7 @@
     "build:qa": "NETWORK_NAME=legacy bun run meta && vite build",
     "preview": "vite preview",
     "lint": "oxlint",
+    "check:styles": "bun scripts/check-styles.ts",
     "type-check": "tsc --noEmit",
     "test": "bun test",
     "prettier": "prettier --write \"src/**/*.{ts,tsx,js,mdx}\""
@@ -52,6 +53,7 @@
   },
   "devDependencies": {
     "@mdx-js/rollup": "^3.1.1",
+    "@tailwindcss/typography": "^0.5.20",
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.5",
     "@vitejs/plugin-react": "^6.1.0",
