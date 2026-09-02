@@ -44,8 +44,8 @@ export default function TokenSection({ text, icon, tokens, onTokenClick }: Token
         .sort((a, b) => a.key.localeCompare(b.key))
         .map(({ key, tokenData, balance }) => (
           <Button
+            size="none"
             variant="ghost"
-            size="sm"
             key={key}
             className="w-full pl-2.5 pt-1.5 pb-1.5 capitalize! hover:bg-muted-foreground/10!"
             onClick={() => onTokenClick(tokenData)}

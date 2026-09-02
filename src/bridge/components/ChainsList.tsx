@@ -51,6 +51,7 @@ export default function ChainsList(props: {
     <div>
       <div className="py-2 mx-2">
         <Button
+          size="none"
           variant="ghost"
           className="flex items-center w-full p-2 hover:bg-muted-foreground/10!"
           onClick={handleOpen}

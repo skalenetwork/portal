@@ -25,7 +25,7 @@ import { Button as MuiButton, type ButtonProps } from '@mui/material'
 import { cn } from '.'
 
 const BASE =
-  'normal-case! font-semibold! tracking-[0.02857em]! rounded-lg! shadow-none! disabled:text-foreground/70! transition-all! duration-150! ease-in-out active:scale-97 disabled:active:scale-100'
+  'normal-case! font-semibold! tracking-[0.02857em]! shadow-none! disabled:text-foreground/70! transition-all! duration-150! ease-in-out active:scale-97 disabled:active:scale-100'
 
 const VARIANTS = {
   default: 'bg-primary! text-primary-foreground! hover:bg-primary/90! disabled:bg-primary/15!',
@@ -36,10 +36,11 @@ const VARIANTS = {
 } as const
 
 const SIZES = {
-  sm: 'text-[0.7025rem]! leading-[1.5]! px-[1.5em]! py-[0.5em]!',
-  md: 'text-[0.8025rem]! leading-[2.5]! px-[2em]! py-[0.6em]!',
-  lg: 'text-[0.8025rem]! leading-[1.6]! px-[3.5em]! py-[0.9em]!',
-  icon: 'min-w-0! p-2!'
+  sm: 'rounded-lg! text-[0.7025rem]! leading-[1.5]! px-[1.5em]! py-[0.5em]!',
+  md: 'rounded-lg! text-[0.8025rem]! leading-[2.5]! px-[2em]! py-[0.6em]!',
+  lg: 'rounded-lg! text-[0.8025rem]! leading-[1.6]! px-[3.5em]! py-[0.9em]!',
+  icon: 'rounded-full! min-w-0! p-2!',
+  none: ''
 } as const
 
 export type ButtonVariant = keyof typeof VARIANTS

@@ -40,6 +40,7 @@ export default function AccountMenu(props: any) {
         <Tooltip arrow title="Click to connect wallet">
           <div>
             <Button
+              size="none"
               variant="secondary"
               onClick={() => openWallet()}
               className="flex h-9 px-3 items-center bg-card! text-xs! normal-case! rounded-full min-w-0!"
@@ -52,6 +53,7 @@ export default function AccountMenu(props: any) {
       ) : (
         <Tooltip arrow title="Click to open wallet details">
           <Button
+            size="none"
             variant="secondary"
             onClick={openProfileModal}
             className="flex h-9 px-3 items-center bg-card! text-xs! normal-case! rounded-full min-w-0!"

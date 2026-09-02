@@ -157,6 +157,7 @@ export default function GetSFuel({ mpc, chainName }: { mpc: MetaportCore; chainN
         }}
       >
         <Button
+          size="none"
           variant="secondary"
           onClick={sFuelOk ? undefined : mineSFuel}
           disabled={isMining || loading || sFuelOk}

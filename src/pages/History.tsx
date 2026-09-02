@@ -66,7 +66,7 @@ export default function History() {
           <TransfersHistory size="md" />
           {transfersHistory.length !== 0 ? (
             <Button
-              size="sm"
+              size="none"
               onClick={clearTransferHistory}
               className="w-full normal-case! text-sm leading-6 tracking-wider font-semibold py-3.5 px-4 min-h-[44px] rounded mt-2.5"
               startIcon={<Trash2 size={14} />}

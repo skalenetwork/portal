@@ -117,8 +117,8 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
               style={{ textDecoration: 'none' }}
             >
               <Button
+                size="none"
                 variant="ghost"
-                size="md"
                 startIcon={<Plus />}
                 className="btn-action pl-20 pr-20 capitalize! text-accent-foreground!"
               >
