@@ -22,6 +22,7 @@
  */
 
 import { Link, useLocation } from 'react-router-dom'
+import Button from '@/ui/Button'
 import { type types, units, constants } from '@/core'
 import { SkPaper, Tile, TokenIcon } from '@/bridge'
 
@@ -30,7 +31,6 @@ import { HandCoins, HardDrive, Wallet, Coins } from 'lucide-react'
 import CopySurface from '../CopySurface'
 import ValidatorLogo from './ValidatorLogo'
 import { ValidatorBadge } from './ValidatorBadges'
-import { Button } from '@mui/material'
 
 export default function ValidatorCard(props: {
   validator: types.st.IValidator
@@ -143,13 +143,7 @@ export default function ValidatorCard(props: {
         {showButton && (
           <div className="mt-2.5">
             <Link to={linkTo}>
-              <Button
-                size="small"
-                variant="contained"
-                className="btnMd text-xs text-accent! bg-accent-foreground!"
-                startIcon={<Coins size={14} />}
-                fullWidth
-              >
+              <Button size="md" className="text-xs" startIcon={<Coins size={14} />} fullWidth>
                 Stake SKL
               </Button>
             </Link>

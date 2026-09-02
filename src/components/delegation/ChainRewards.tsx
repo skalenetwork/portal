@@ -21,6 +21,7 @@
  */
 
 import { useEffect, useState } from 'react'
+import Button from '@/ui/Button'
 import { Contract } from 'ethers'
 import { useSwitchChain, useWalletClient } from 'wagmi'
 import {
@@ -37,7 +38,7 @@ import {
 } from '@/bridge'
 import { type types, constants, units, ERC_ABIS, notify } from '@/core'
 
-import { Button, IconButton, Tooltip } from '@mui/material'
+import { IconButton, Tooltip } from '@mui/material'
 import { Blocks, CalendarArrowDown, CircleStar } from 'lucide-react'
 
 import Headline from '../Headline'
@@ -200,10 +201,9 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
         childrenRi={
           <SkStack className="flex items-center">
             <Button
+              size="sm"
               loading={loading}
-              variant="contained"
-              size="small"
-              className="btn btnSm text-xs bg-accent-foreground! text-accent! align-center! disabled:text-foreground/70! disabled:bg-accent-foreground/15!"
+              className="text-xs align-center!"
               disabled={
                 customAddress !== undefined ||
                 rewardAmount === null ||

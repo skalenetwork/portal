@@ -21,7 +21,8 @@
  */
 
 import React, { useState, useEffect, useMemo, useRef } from 'react'
-import { Container, Stack, Tab, Tabs, Button } from '@mui/material'
+import Button from '@/ui/Button'
+import { Container, Stack, Tab, Tabs } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
 import { type types } from '@/core'
@@ -274,12 +275,7 @@ export default function Ecosystem(props: {
           <div className="grow"></div>
           <div>
             <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">
-              <Button
-                size="medium"
-                variant="contained"
-                className="btn btnMd text-xs text-accent! bg-accent-foreground!"
-                startIcon={<Plus size={17} />}
-              >
+              <Button size="md" className="text-xs" startIcon={<Plus size={17} />}>
                 Submit Your Project
               </Button>
             </a>

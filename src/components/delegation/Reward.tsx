@@ -21,8 +21,9 @@
  */
 
 import { types, units } from '@/core'
+import Button from '@/ui/Button'
 
-import { Tooltip, Button } from '@mui/material'
+import { Tooltip } from '@mui/material'
 
 import ValidatorLogo from './ValidatorLogo'
 
@@ -111,11 +112,11 @@ export default function Reward(props: {
                       arrow
                       title={
                         props.sklPrice !== undefined &&
-                          props.delegationsToValidator.staked !== undefined
+                        props.delegationsToValidator.staked !== undefined
                           ? units.displaySklValueUsd(
-                            props.delegationsToValidator.staked,
-                            props.sklPrice
-                          )
+                              props.delegationsToValidator.staked,
+                              props.sklPrice
+                            )
                           : ''
                       }
                     >
@@ -133,9 +134,9 @@ export default function Reward(props: {
                     title={
                       props.sklPrice
                         ? units.displaySklValueUsd(
-                          props.delegationsToValidator.rewards,
-                          props.sklPrice
-                        )
+                            props.delegationsToValidator.rewards,
+                            props.sklPrice
+                          )
                         : ''
                     }
                   >
@@ -145,12 +146,7 @@ export default function Reward(props: {
               </div>
               <div className="flex items-center">
                 {loading ? (
-                  <Button
-                    disabled
-                    size="small"
-                    variant="contained"
-                    className="btnSm bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-accent!"
-                  >
+                  <Button size="sm" disabled>
                     Retrieving
                   </Button>
                 ) : (
