@@ -21,12 +21,12 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { type MetaportCore } from '@skalenetwork/metaport'
+import { type MetaportCore } from '@/bridge'
 import { types } from '@/core'
 
 import Loader from '../Loader'
 import ValidatorCard from './ValidatorCard'
-import { ESCROW_VALIDATORS, filterValidators } from '../../core/delegation/validators'
+import { ESCROW_VALIDATORS, filterValidators } from '@/lib/delegation/validators'
 
 export default function Validators(props: {
   mpc: MetaportCore

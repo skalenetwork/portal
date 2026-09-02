@@ -22,54 +22,53 @@
 
 import './App.scss'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, lazy, Suspense } from 'react'
 
 import { useLocation, Routes, Route, Navigate, useSearchParams } from 'react-router-dom'
 
 import { CircularProgress } from '@mui/material'
 
+import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
 import {
   useMetaportStore,
   type MetaportState,
-  useWagmiAccount,
-  useWagmiWalletClient,
-  useWagmiSwitchNetwork,
   walletClientToSigner,
   enforceNetwork
-} from '@skalenetwork/metaport'
+} from '@/bridge'
 
 import { type types, metadata, constants, networks } from '@/core'
 
-import Bridge from './pages/Bridge'
-import Faq from './pages/Faq'
-import Terms from './pages/Terms'
-import Chains from './pages/Chains'
-import Chain from './pages/Chain'
-import Stats from './pages/Stats'
-import Ecosystem from './pages/Ecosystem'
-import App from './pages/App'
-import History from './pages/History'
-import Portfolio from './pages/Portfolio'
-import Admin from './pages/Admin'
-import Start from './pages/Home'
-import Staking from './pages/Staking'
-import StakeValidator from './pages/StakeValidator'
-import StakeAmount from './pages/StakeAmount'
-import Validators from './pages/Validators'
-import Validator from './pages/Validator'
 import TermsModal from './components/TermsModal'
-import Changelog from './pages/Changelog'
-import Credits from './pages/Credits'
-import CreditsAdmin from './pages/CreditsAdmin'
-import BridgeBalance from './pages/BridgeBalance'
+
+const Bridge = lazy(() => import('./pages/Bridge'))
+const Faq = lazy(() => import('./pages/Faq'))
+const Terms = lazy(() => import('./pages/Terms'))
+const Chains = lazy(() => import('./pages/Chains'))
+const Chain = lazy(() => import('./pages/Chain'))
+const Stats = lazy(() => import('./pages/Stats'))
+const Ecosystem = lazy(() => import('./pages/Ecosystem'))
+const App = lazy(() => import('./pages/App'))
+const History = lazy(() => import('./pages/History'))
+const Portfolio = lazy(() => import('./pages/Portfolio'))
+const Admin = lazy(() => import('./pages/Admin'))
+const Start = lazy(() => import('./pages/Home'))
+const Staking = lazy(() => import('./pages/Staking'))
+const StakeValidator = lazy(() => import('./pages/StakeValidator'))
+const StakeAmount = lazy(() => import('./pages/StakeAmount'))
+const Validators = lazy(() => import('./pages/Validators'))
+const Validator = lazy(() => import('./pages/Validator'))
+const Changelog = lazy(() => import('./pages/Changelog'))
+const Credits = lazy(() => import('./pages/Credits'))
+const CreditsAdmin = lazy(() => import('./pages/CreditsAdmin'))
+const BridgeBalance = lazy(() => import('./pages/BridgeBalance'))
 
 import MetricsWarning from './components/MetricsWarning'
 import ScrollToTop from './components/ScrollToTop'
 import useScrollPosition from './useScrollPosition'
-import { getHistoryFromStorage, setHistoryToStorage } from './core/transferHistory'
-import { BRIDGE_PAGES, NETWORKS, STAKING_PAGES } from './core/constants'
-import { getValidators } from './core/delegation/validators'
-import { getStakingInfoMap } from './core/delegation/staking'
+import { getHistoryFromStorage, setHistoryToStorage } from '@/lib/transferHistory'
+import { BRIDGE_PAGES, NETWORKS, STAKING_PAGES } from '@/lib/constants'
+import { getValidators } from '@/lib/delegation/validators'
+import { getStakingInfoMap } from '@/lib/delegation/staking'
 
 export default function Router(props: {
   loadData: () => Promise<void>
@@ -99,9 +98,9 @@ export default function Router(props: {
   const setTransfersHistory = useMetaportStore((state) => state.setTransfersHistory)
   const [searchParams, _] = useSearchParams()
 
-  const { address } = useWagmiAccount()
-  const { data: walletClient } = useWagmiWalletClient()
-  const { switchChainAsync } = useWagmiSwitchNetwork()
+  const { address } = useAccount()
+  const { data: walletClient } = useWalletClient()
+  const { switchChainAsync } = useSwitchChain()
 
   useEffect(() => {
     setTransfersHistory(getHistoryFromStorage(mpc.config.skaleNetwork))
@@ -121,9 +120,7 @@ export default function Router(props: {
   useScrollPosition()
 
   async function getMainnetSigner() {
-    const { chainId } = await mpc.provider(constants.MAINNET_CHAIN_NAME).getNetwork()
     await enforceNetwork(
-      chainId,
       walletClient!,
       switchChainAsync!,
       mpc.config.skaleNetwork,
@@ -196,193 +193,206 @@ export default function Router(props: {
       <meta property="og:url" content={currentUrl} />
       <MetricsWarning metrics={props.metrics} />
       <ScrollToTop />
-      <Routes>
-        <Route
-          index
-          element={
-            <Start
-              skaleNetwork={mpc.config.skaleNetwork}
-              chainsMeta={chainsMeta}
-              metrics={props.metrics}
-              loadData={props.loadData}
-            />
-          }
-        />
-        {bridgeEnabled ? (
-          <Route path="bridge">
-            <Route index element={<Bridge chainsMeta={chainsMeta} />} />
-            <Route path="history" element={<History />} />
-            <Route path="balance" element={<BridgeBalance />} />
-          </Route>
-        ) : (
-          <Route path="bridge/*" element={<Navigate to="/" replace />} />
-        )}
-        <Route path="portfolio" element={<Portfolio mpc={mpc} />} />
-        <Route
-          path="chains"
-          element={
-            <Chains
-              chainsMeta={chainsMeta}
-              loadData={props.loadData}
-              schains={props.schains}
-              metrics={props.metrics}
-              mpc={mpc}
-            />
-          }
-        />
-        <Route path="chains">
+      <Suspense
+        fallback={
+          <div className="fullscreen-msg">
+            <div className="flex items-center justify-center">
+              <CircularProgress className="fullscreen-spin text-foreground" />
+            </div>
+          </div>
+        }
+      >
+        <Routes>
           <Route
-            path=":name"
+            index
             element={
-              <Chain
+              <Start
+                skaleNetwork={mpc.config.skaleNetwork}
+                chainsMeta={chainsMeta}
+                metrics={props.metrics}
+                loadData={props.loadData}
+              />
+            }
+          />
+          {bridgeEnabled ? (
+            <Route path="bridge">
+              <Route index element={<Bridge chainsMeta={chainsMeta} />} />
+              <Route path="history" element={<History />} />
+              <Route path="balance" element={<BridgeBalance />} />
+            </Route>
+          ) : (
+            <Route path="bridge/*" element={<Navigate to="/" replace />} />
+          )}
+          <Route path="portfolio" element={<Portfolio mpc={mpc} />} />
+          <Route
+            path="chains"
+            element={
+              <Chains
+                chainsMeta={chainsMeta}
                 loadData={props.loadData}
                 schains={props.schains}
-                stats={props.stats}
                 metrics={props.metrics}
                 mpc={mpc}
-                chainsMeta={chainsMeta}
               />
             }
           />
-        </Route>
-        <Route
-          path="/epicgames"
-          element={<Navigate to="/ecosystem?categories=gaming_epic-games-store" replace />}
-        />
-        <Route
-          path="ecosystem"
-          element={
-            <Ecosystem
-              mpc={mpc}
-              chainsMeta={chainsMeta}
-              metrics={props.metrics}
-              loadData={props.loadData}
+          <Route path="chains">
+            <Route
+              path=":name"
+              element={
+                <Chain
+                  loadData={props.loadData}
+                  schains={props.schains}
+                  stats={props.stats}
+                  metrics={props.metrics}
+                  mpc={mpc}
+                  chainsMeta={chainsMeta}
+                />
+              }
             />
-          }
-        />
-        <Route path="ecosystem">
+          </Route>
           <Route
-            path=":chain/:app"
+            path="/epicgames"
+            element={<Navigate to="/ecosystem?categories=gaming_epic-games-store" replace />}
+          />
+          <Route
+            path="ecosystem"
             element={
-              <App
-                chainsMeta={chainsMeta}
+              <Ecosystem
                 mpc={mpc}
+                chainsMeta={chainsMeta}
                 metrics={props.metrics}
                 loadData={props.loadData}
               />
             }
           />
-        </Route>
-        <Route path="onramp" element={<Navigate to={bridgeEnabled ? '/bridge' : '/'} replace />} />
-        <Route
-          path="credits"
-          element={
-            <Credits
-              mpc={mpc}
-              address={address}
-              loadData={props.loadData}
-              schains={props.schains}
-              chainsMeta={chainsMeta}
+          <Route path="ecosystem">
+            <Route
+              path=":chain/:app"
+              element={
+                <App
+                  chainsMeta={chainsMeta}
+                  mpc={mpc}
+                  metrics={props.metrics}
+                  loadData={props.loadData}
+                />
+              }
             />
-          }
-        />
-        <Route
-          path="credits/admin"
-          element={
-            <CreditsAdmin
-              mpc={mpc}
-              address={address}
-              loadData={props.loadData}
-              schains={props.schains}
-              chainsMeta={chainsMeta}
-            />
-          }
-        />
-        <Route path="stats" element={<Stats />} />
-        <Route path="other">
-          <Route path="faq" element={<Faq />} />
-          <Route path="terms-of-service" element={<Terms />} />
-          <Route path="changelog" element={<Changelog />} />
-        </Route>
-        <Route path="chains/admin">
-          <Route path=":name" element={<Admin chainsMeta={chainsMeta} mpc={mpc} />} />
-        </Route>
-
-        <Route
-          path="staking"
-          element={
-            <Staking
-              mpc={mpc}
-              validators={validators}
-              loadValidators={loadValidators}
-              loadStakingInfo={loadStakingInfo}
-              sc={props.sc}
-              si={si}
-              address={props.customAddress ?? address}
-              customAddress={props.customAddress}
-              getMainnetSigner={getMainnetSigner}
-            />
-          }
-        />
-        <Route
-          path="validators"
-          element={
-            <Validators
-              mpc={mpc}
-              validators={validators}
-              loadValidators={loadValidators}
-              sc={props.sc}
-              validatorDelegations={props.validatorDelegations}
-            />
-          }
-        />
-        <Route
-          path="validator"
-          element={
-            <Validator
-              mpc={mpc}
-              address={address}
-              customAddress={props.customAddress}
-              loadValidator={props.loadValidator}
-              sc={props.sc}
-              validator={props.validator}
-              delegations={props.validatorDelegations}
-              getMainnetSigner={getMainnetSigner}
-              chainsMeta={chainsMeta}
-            />
-          }
-        />
-        <Route path="staking">
+          </Route>
           <Route
-            path="new/:delType/:id"
+            path="onramp"
+            element={<Navigate to={bridgeEnabled ? '/bridge' : '/'} replace />}
+          />
+          <Route
+            path="credits"
             element={
-              <StakeAmount
+              <Credits
+                mpc={mpc}
+                address={address}
+                loadData={props.loadData}
+                schains={props.schains}
+                chainsMeta={chainsMeta}
+              />
+            }
+          />
+          <Route
+            path="credits/admin"
+            element={
+              <CreditsAdmin
+                mpc={mpc}
+                address={address}
+                loadData={props.loadData}
+                schains={props.schains}
+                chainsMeta={chainsMeta}
+              />
+            }
+          />
+          <Route path="stats" element={<Stats />} />
+          <Route path="other">
+            <Route path="faq" element={<Faq />} />
+            <Route path="terms-of-service" element={<Terms />} />
+            <Route path="changelog" element={<Changelog />} />
+          </Route>
+          <Route path="chains/admin">
+            <Route path=":name" element={<Admin chainsMeta={chainsMeta} mpc={mpc} />} />
+          </Route>
+
+          <Route
+            path="staking"
+            element={
+              <Staking
                 mpc={mpc}
                 validators={validators}
                 loadValidators={loadValidators}
                 loadStakingInfo={loadStakingInfo}
                 sc={props.sc}
                 si={si}
-                address={address}
+                address={props.customAddress ?? address}
+                customAddress={props.customAddress}
                 getMainnetSigner={getMainnetSigner}
               />
             }
           />
           <Route
-            path="new"
+            path="validators"
             element={
-              <StakeValidator
+              <Validators
                 mpc={mpc}
                 validators={validators}
                 loadValidators={loadValidators}
-                loadStakingInfo={loadStakingInfo}
                 sc={props.sc}
-                si={si}
+                validatorDelegations={props.validatorDelegations}
               />
             }
           />
-        </Route>
-      </Routes>
+          <Route
+            path="validator"
+            element={
+              <Validator
+                mpc={mpc}
+                address={address}
+                customAddress={props.customAddress}
+                loadValidator={props.loadValidator}
+                sc={props.sc}
+                validator={props.validator}
+                delegations={props.validatorDelegations}
+                getMainnetSigner={getMainnetSigner}
+                chainsMeta={chainsMeta}
+              />
+            }
+          />
+          <Route path="staking">
+            <Route
+              path="new/:delType/:id"
+              element={
+                <StakeAmount
+                  mpc={mpc}
+                  validators={validators}
+                  loadValidators={loadValidators}
+                  loadStakingInfo={loadStakingInfo}
+                  sc={props.sc}
+                  si={si}
+                  address={address}
+                  getMainnetSigner={getMainnetSigner}
+                />
+              }
+            />
+            <Route
+              path="new"
+              element={
+                <StakeValidator
+                  mpc={mpc}
+                  validators={validators}
+                  loadValidators={loadValidators}
+                  loadStakingInfo={loadStakingInfo}
+                  sc={props.sc}
+                  si={si}
+                />
+              }
+            />
+          </Route>
+        </Routes>
+      </Suspense>
     </div>
   )
 }

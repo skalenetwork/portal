@@ -24,9 +24,9 @@
 import React from 'react'
 import Headline from '../Headline'
 import { networks } from '@/core'
-import { NETWORKS } from '../../core/constants'
+import { NETWORKS } from '@/lib/constants'
 import GetSFuel from '../GetSFuel'
-import { MetaportCore } from '@skalenetwork/metaport'
+import { MetaportCore } from '@/bridge'
 import { CircleUser } from 'lucide-react'
 
 interface ProfileModalHeaderProps {

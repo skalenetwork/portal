@@ -47,7 +47,7 @@ import {
   Network
 } from 'lucide-react'
 
-import { GET_STARTED_URL, NETWORKS } from './core/constants'
+import { GET_STARTED_URL, NETWORKS } from '@/lib/constants'
 import DelegationsNotification from './components/delegation/DelegationsNotification'
 
 const drawerWidth = 220
@@ -61,7 +61,8 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
       sx={{
         display: { sm: 'block', xs: 'none' },
         m: 1
-      }}>
+      }}
+    >
       <Drawer
         variant="permanent"
         sx={{
@@ -236,5 +237,5 @@ export default function SkDrawer(props: { validatorDelegations: types.st.IDelega
         </Box>
       </Drawer>
     </Box>
-  );
+  )
 }

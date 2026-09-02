@@ -25,10 +25,10 @@ import React, { useMemo } from 'react'
 import { type types } from '@/core'
 import AppCard from '../AppCardV2'
 import { Box } from '@mui/material'
-import { SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@/bridge'
 import Carousel from '../../Carousel'
-import { isNewApp } from '../../../core/ecosystem/utils'
-import { getAppMeta } from '../../../core/ecosystem/apps'
+import { isNewApp } from '@/lib/ecosystem/utils'
+import { getAppMeta } from '@/lib/ecosystem/apps'
 
 interface TrendingAppsProps {
   skaleNetwork: types.SkaleNetwork

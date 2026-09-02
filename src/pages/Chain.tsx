@@ -27,7 +27,7 @@ import { useParams } from 'react-router-dom'
 import CircularProgress from '@mui/material/CircularProgress'
 import Container from '@mui/material/Container'
 
-import { type MetaportCore } from '@skalenetwork/metaport'
+import { type MetaportCore } from '@/bridge'
 import { type types, metadata } from '@/core'
 
 import SchainDetails from '../components/SchainDetails'

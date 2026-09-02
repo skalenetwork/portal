@@ -25,7 +25,7 @@ import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 
 import FaqAccordion from '../components/FaqAccordion'
-import { META_TAGS } from '../core/meta'
+import { META_TAGS } from '@/lib/meta'
 
 export default function Faq() {
   return (

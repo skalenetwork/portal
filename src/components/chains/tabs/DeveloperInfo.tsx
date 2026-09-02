@@ -33,7 +33,7 @@ import {
   getChainIdInt,
   getAllocationTypeName,
   hasFilestorage
-} from '../../../core/chain'
+} from '@/lib/chain'
 import {
   BadgeInfo,
   FastForward,

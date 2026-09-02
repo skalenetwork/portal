@@ -2,9 +2,8 @@
   "$schema": "./node_modules/oxlint/configuration_schema.json",
   "ignorePatterns": [
     "dist/**",
-    "packages/*/dist/**",
     "src/meta/**",
-    "packages/metaport/src/meta/**",
+    "src/bridge/meta/**",
     "src/data/metaportConfig*/**",
     "src/assets/validators/index.ts",
     "skale-network/**",

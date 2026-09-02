@@ -22,21 +22,17 @@
  */
 
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { Box, Button, Tooltip } from '@mui/material'
+import Button from '@/ui/Button'
+import { Box, Tooltip } from '@mui/material'
 import AutoModeRoundedIcon from '@mui/icons-material/AutoModeRounded'
-import {
-  type MetaportCore,
-  Station,
-  useWagmiAccount,
-  useConnectModal
-} from '@skalenetwork/metaport'
+import { useAccount } from 'wagmi'
+import { type MetaportCore, Station, openWallet } from '@/bridge'
 import { type types, notify } from '@/core'
 import { usesFuel } from '../useSFuel'
 import { Zap } from 'lucide-react'
 
 function SingleChainSFuel({ chainName, mpc }: { chainName: string; mpc: MetaportCore }) {
-  const { address } = useWagmiAccount()
-  const { openConnectModal } = useConnectModal()
+  const { address } = useAccount()
 
   const [sFuelOk, setSFuelOk] = useState(false)
   const [loading, setLoading] = useState(true)
@@ -102,7 +98,7 @@ function SingleChainSFuel({ chainName, mpc }: { chainName: string; mpc: Metaport
   async function handleClick() {
     if (!address) {
       pendingMine.current = true
-      openConnectModal?.()
+      openWallet()
       return
     }
     if (sFuelOk) return
@@ -120,6 +116,7 @@ function SingleChainSFuel({ chainName, mpc }: { chainName: string; mpc: Metaport
 
   return (
     <Button
+      variant="ghost"
       startIcon={
         sFuelOk && address ? (
           <Zap size={17} className="text-green-300 dark:text-green-600" />
@@ -140,7 +137,7 @@ export default function GetSFuel({ mpc, chainName }: { mpc: MetaportCore; chainN
   if (chainName) return <SingleChainSFuel chainName={chainName} mpc={mpc} />
 
   const { sFuelOk, isMining, mineSFuel, sFuelCompletionPercentage, loading } = usesFuel(mpc)
-  const { address } = useWagmiAccount()
+  const { address } = useAccount()
   if (!address) return null
 
   function btnText() {
@@ -160,10 +157,11 @@ export default function GetSFuel({ mpc, chainName }: { mpc: MetaportCore; chainN
         }}
       >
         <Button
+          size="none"
+          variant="secondary"
           onClick={sFuelOk ? undefined : mineSFuel}
           disabled={isMining || loading || sFuelOk}
-          className="flex h-9 px-3 items-center text-foreground! bg-muted-foreground/10! text-xs! normal-case! rounded-full! min-w-0!"
-          color="success"
+          className="flex h-9 px-3 items-center bg-muted-foreground/10! text-xs! normal-case! rounded-full! min-w-0!"
         >
           {loading ? (
             <AutoModeRoundedIcon className="h-5 w-5 pr-1" />

@@ -22,11 +22,11 @@
  */
 
 import { useState, useEffect } from 'react'
-import { type MetaportCore, SkPaper, explorer } from '@skalenetwork/metaport'
-import Button from '@mui/material/Button'
+import Button from '@/ui/Button'
+import { type MetaportCore, SkPaper, explorer } from '@/bridge'
 
+import LoadingIcon from '@/ui/LoadingIcon'
 import ExpandCircleDownRoundedIcon from '@mui/icons-material/ExpandCircleDownRounded'
-import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded'
 
 import LinkSurface from '../../LinkSurface'
 
@@ -91,13 +91,13 @@ export default function VerifiedContracts(props: {
       )}
       {!allLoaded ? (
         <Button
+          variant="ghost"
+          size="sm"
           onClick={() => {
             setPage((prevPage) => prevPage + 1)
           }}
-          color="primary"
-          size="small"
           className="py-5! mt-2! capitalize! text-accent-foreground! w-full"
-          startIcon={loading ? <HourglassBottomRoundedIcon /> : <ExpandCircleDownRoundedIcon />}
+          startIcon={loading ? <LoadingIcon size={17} /> : <ExpandCircleDownRoundedIcon />}
           disabled={loading}
         >
           {loading ? 'Loading contracts' : 'Load more contracts'}

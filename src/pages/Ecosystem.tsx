@@ -21,15 +21,16 @@
  */
 
 import React, { useState, useEffect, useMemo, useRef } from 'react'
-import { Container, Stack, Tab, Tabs, Button } from '@mui/material'
+import Button from '@/ui/Button'
+import { Container, Stack, Tab, Tabs } from '@mui/material'
 import { useSearchParams } from 'react-router-dom'
 
 import { type types } from '@/core'
-import { type MetaportCore } from '@skalenetwork/metaport'
-import { META_TAGS } from '../core/meta'
-import { filterAppsByCategory, filterAppsBySearchTerm } from '../core/ecosystem/apps'
-import { useUrlParams } from '../core/ecosystem/urlParamsUtil'
-import { SKALE_SOCIAL_LINKS, SUBMIT_PROJECT_URL } from '../core/constants'
+import { type MetaportCore } from '@/bridge'
+import { META_TAGS } from '@/lib/meta'
+import { filterAppsByCategory, filterAppsBySearchTerm } from '@/lib/ecosystem/apps'
+import { useUrlParams } from '@/lib/ecosystem/urlParamsUtil'
+import { SKALE_SOCIAL_LINKS, SUBMIT_PROJECT_URL } from '@/lib/constants'
 import { useApps } from '../useApps'
 import FeaturedApps from '../components/ecosystem/tabs/FeaturedApps'
 import ScrollToTopButton from '../components/ScrollToTopButton'
@@ -43,7 +44,7 @@ import NewApps from '../components/ecosystem/tabs/NewApps'
 import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import SocialButtons from '../components/ecosystem/Socials'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
-import { cn } from '../core/ecosystem/utils'
+import { cn } from '@/ui'
 
 import { LayoutGrid, Plus } from 'lucide-react'
 import { SECTION_ICONS } from '../components/HomeComponents'
@@ -192,37 +193,41 @@ export default function Ecosystem(props: {
               label="All"
               icon={<LayoutGrid size={14} />}
               iconPosition="start"
-              className={`btn btnMd tab fwmobile ${activeTab === 0
+              className={`btn btnMd tab fwmobile ${
+                activeTab === 0
                   ? 'text-foreground! bg-gray-100! dark:bg-black!'
                   : 'bg-card/0! text-muted-foreground!'
-                }`}
+              }`}
             />
             <Tab
               label="Featured"
               icon={SECTION_ICONS.featured}
               iconPosition="start"
-              className={`btn btnMd tab fwmobile ${activeTab === 1
+              className={`btn btnMd tab fwmobile ${
+                activeTab === 1
                   ? 'text-foreground! bg-gray-100! dark:bg-black!'
                   : 'bg-card/0! text-muted-foreground!'
-                }`}
+              }`}
             />
             <Tab
               label="New"
               icon={SECTION_ICONS.new}
               iconPosition="start"
-              className={`btn btnMd tab fwmobile ${activeTab === 2
+              className={`btn btnMd tab fwmobile ${
+                activeTab === 2
                   ? 'text-foreground! bg-gray-100! dark:bg-black!'
                   : 'bg-card/0! text-muted-foreground!'
-                }`}
+              }`}
             />
             <Tab
               label="Trending"
               icon={SECTION_ICONS.trending}
               iconPosition="start"
-              className={`btn btnMd tab fwmobile ${activeTab === 3
+              className={`btn btnMd tab fwmobile ${
+                activeTab === 3
                   ? 'text-foreground! bg-gray-100! dark:bg-black! shadow-xs!'
                   : 'bg-card/0! text-muted-foreground!'
-                }`}
+              }`}
             />
           </Tabs>
           <div className={cn('grow', 'fwmobile')}>
@@ -270,12 +275,7 @@ export default function Ecosystem(props: {
           <div className="grow"></div>
           <div>
             <a target="_blank" rel="noreferrer" href={SUBMIT_PROJECT_URL} className="undec">
-              <Button
-                size="medium"
-                variant="contained"
-                className="btn btnMd text-xs text-accent! bg-accent-foreground!"
-                startIcon={<Plus size={17} />}
-              >
+              <Button size="md" className="text-xs" startIcon={<Plus size={17} />}>
                 Submit Your Project
               </Button>
             </a>

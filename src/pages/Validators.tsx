@@ -23,7 +23,7 @@
 
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { type MetaportCore } from '@skalenetwork/metaport'
+import { type MetaportCore } from '@/bridge'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
@@ -32,7 +32,7 @@ import IconButton from '@mui/material/IconButton'
 
 import Validators from '../components/delegation/Validators'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
-import { META_TAGS } from '../core/meta'
+import { META_TAGS } from '@/lib/meta'
 import DelegationsNotification from '../components/delegation/DelegationsNotification'
 import { UserCog } from 'lucide-react'
 

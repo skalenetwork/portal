@@ -5,7 +5,6 @@ export const METAPORT_CONFIG: types.mp.Config = {
   mainnetEndpoint: 'https://mainnet.base.org/',
   openOnLoad: true,
   openButton: true,
-  debug: false,
 
   chains: [
     'mainnet',

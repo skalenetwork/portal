@@ -27,7 +27,7 @@ import { ChartPie, Inbox } from 'lucide-react'
 import Headline from '../Headline'
 import DelegationsToValidator from './DelegationsToValidator'
 import { types } from '@/core'
-import { styles } from '@skalenetwork/metaport'
+import { styles } from '@/bridge'
 
 export default function Delegations(props: {
   si: types.st.StakingInfoMap

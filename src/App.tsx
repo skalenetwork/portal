@@ -21,15 +21,14 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { MetaportProvider, getMetaportTheme, useThemeMode } from '@skalenetwork/metaport'
+import { MetaportProvider, getMetaportTheme, useThemeMode } from '@/bridge'
 import { StyledEngineProvider, ThemeProvider } from '@mui/material/styles'
 import { Toaster, type ToasterProps } from 'sonner'
 
 import Portal from './Portal'
 
 import { METAPORT_CONFIG } from './data/metaportConfig'
-import { createMuiTheme } from './core/themes'
-
+import { createMuiTheme } from '@/lib/themes'
 
 METAPORT_CONFIG.mainnetEndpoint = import.meta.env.VITE_MAINNET_ENDPOINT
 METAPORT_CONFIG.projectId = import.meta.env.VITE_WC_PROJECT_ID
