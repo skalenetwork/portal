@@ -22,11 +22,11 @@
  */
 
 import React from 'react'
+import Button from '@/ui/Button'
 import { useAccount } from 'wagmi'
 import { dc, units } from '@/core'
 
 import TextField from '@mui/material/TextField'
-import { Button } from '@mui/material'
 
 import { ETH_RESERVE_AMOUNT } from '../core/constants'
 
@@ -102,9 +102,10 @@ export default function AmountInput() {
             style={{ width: '100%' }}
           />
           <Button
-            size="small"
+            variant="secondary"
+            size="sm"
             disabled={amountLocked || maxAmount === 0n}
-            className="bg-secondary-foreground/10! flex items-center text-[10px]! py-1! px-3! min-w-0! text-foreground! mr-2!"
+            className="bg-secondary-foreground/10! flex items-center text-[10px]! py-1! px-3! min-w-0! mr-2!"
             onClick={setMaxAmount}
           >
             MAX

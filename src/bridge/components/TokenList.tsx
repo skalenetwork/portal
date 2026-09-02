@@ -21,11 +21,12 @@
  */
 
 import { useEffect, useState } from 'react'
+import Button from '@/ui/Button'
 import React from 'react'
 import { dc } from '@/core'
 import { useAccount } from 'wagmi'
 
-import { Button, Modal, TextField, InputAdornment, Container } from '@mui/material'
+import { Modal, TextField, InputAdornment, Container } from '@mui/material'
 import { ChevronDown, Search } from 'lucide-react'
 
 import { getAvailableTokensTotal, getDefaultToken } from '../core/tokens/helper'
@@ -110,6 +111,7 @@ export default function TokenList() {
     <div className="flex items-center">
       <div>
         <Button
+          variant="ghost"
           className="flex items-center w-full p-3.5! pr-1! ml-2 hover:bg-muted-foreground/10!"
           onClick={handleOpen}
           disabled={transferInProgress}

@@ -22,9 +22,9 @@
  */
 
 import Box from '@mui/material/Box'
+import Button from '@/ui/Button'
 import { openWallet } from '@/bridge'
 import Tooltip from '@mui/material/Tooltip'
-import Button from '@mui/material/Button'
 import { Wallet } from 'lucide-react'
 
 import { helper } from '@/core'
@@ -40,8 +40,9 @@ export default function AccountMenu(props: any) {
         <Tooltip arrow title="Click to connect wallet">
           <div>
             <Button
+              variant="secondary"
               onClick={() => openWallet()}
-              className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! normal-case! rounded-full min-w-0!"
+              className="flex h-9 px-3 items-center bg-card! text-xs! normal-case! rounded-full min-w-0!"
             >
               <Wallet size={16} className="mr-1.5" />
               Connect <span className="hidden md:inline! ml-1">wallet</span>
@@ -51,8 +52,9 @@ export default function AccountMenu(props: any) {
       ) : (
         <Tooltip arrow title="Click to open wallet details">
           <Button
+            variant="secondary"
             onClick={openProfileModal}
-            className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! normal-case! rounded-full min-w-0!"
+            className="flex h-9 px-3 items-center bg-card! text-xs! normal-case! rounded-full min-w-0!"
           >
             <div className="mr-1.5 flex">
               <Avatar variant="marble" name={props.address} colors={AVATAR_COLORS} size={20} />

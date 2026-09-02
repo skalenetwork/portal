@@ -22,7 +22,8 @@
  */
 
 import { useState, useEffect, useCallback, useRef } from 'react'
-import { Box, Button, Tooltip } from '@mui/material'
+import Button from '@/ui/Button'
+import { Box, Tooltip } from '@mui/material'
 import AutoModeRoundedIcon from '@mui/icons-material/AutoModeRounded'
 import { useAccount } from 'wagmi'
 import { type MetaportCore, Station, openWallet } from '@/bridge'
@@ -115,6 +116,7 @@ function SingleChainSFuel({ chainName, mpc }: { chainName: string; mpc: Metaport
 
   return (
     <Button
+      variant="ghost"
       startIcon={
         sFuelOk && address ? (
           <Zap size={17} className="text-green-300 dark:text-green-600" />
@@ -155,10 +157,10 @@ export default function GetSFuel({ mpc, chainName }: { mpc: MetaportCore; chainN
         }}
       >
         <Button
+          variant="secondary"
           onClick={sFuelOk ? undefined : mineSFuel}
           disabled={isMining || loading || sFuelOk}
-          className="flex h-9 px-3 items-center text-foreground! bg-muted-foreground/10! text-xs! normal-case! rounded-full! min-w-0!"
-          color="success"
+          className="flex h-9 px-3 items-center bg-muted-foreground/10! text-xs! normal-case! rounded-full! min-w-0!"
         >
           {loading ? (
             <AutoModeRoundedIcon className="h-5 w-5 pr-1" />

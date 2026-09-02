@@ -22,12 +22,12 @@
  */
 
 import { useEffect, useState } from 'react'
+import Button from '@/ui/Button'
 import { Logger, type ILogObj } from 'tslog'
 
 import { constants, notify } from '@/core'
 import { useAccount } from 'wagmi'
 
-import Button from '@mui/material/Button'
 import { Collapse } from '@mui/material'
 import LinearProgress from '@mui/material/LinearProgress'
 import { Fuel } from 'lucide-react'
@@ -216,20 +216,19 @@ export default function SFuelWarning(props: {}) {
             <div>
               {mining ? (
                 <Button
+                  variant="ghost"
+                  size="md"
                   disabled
                   startIcon={<Fuel size={17} />}
-                  size="medium"
-                  variant="contained"
-                  className="btnMd mt-2.5! w-full capitalize! bg-accent-foreground/15! text-foreground/70!"
+                  className="mt-2.5! w-full capitalize! bg-accent-foreground/15! text-foreground/70!"
                 >
                   Getting sFUEL...
                 </Button>
               ) : (
                 <Button
-                  variant="contained"
+                  size="md"
                   startIcon={<Fuel size={17} />}
-                  size="medium"
-                  className="btnMd w-full text-accent! bg-accent-foreground! mt-2.5!"
+                  className="w-full mt-2.5!"
                   onClick={doPoW}
                 >
                   Get sFUEL

@@ -53,6 +53,9 @@ export default function Button({
 }: Omit<ButtonProps, 'variant' | 'size' | 'color'> & {
   variant?: ButtonVariant
   size?: ButtonSize
+  href?: string
+  target?: string
+  rel?: string
 }) {
   return (
     <MuiButton

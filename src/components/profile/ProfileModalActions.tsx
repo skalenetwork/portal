@@ -22,8 +22,8 @@
  */
 
 import React from 'react'
+import Button from '@/ui/Button'
 import { openWallet } from '@/bridge'
-import { Button } from '@mui/material'
 import { useDisconnect } from 'wagmi'
 import SkStack from '../SkStack'
 import { PowerOff, Wallet, SquareArrowOutUpRight } from 'lucide-react'
@@ -44,9 +44,10 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
   return (
     <SkStack className={`${className} profileModalActions`}>
       <Button
-        variant="text"
+        variant="secondary"
+        size="sm"
         startIcon={<SquareArrowOutUpRight size={14} />}
-        className="btn btnSm bg-muted! text-foreground!"
+
         onClick={() => window.open(`https://etherscan.io/address/${address}`, '_blank')}
         fullWidth={isMobile}
       >
@@ -54,9 +55,10 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
       </Button>
 
       <Button
-        variant="text"
+        variant="secondary"
+        size="sm"
         startIcon={<Wallet size={14} />}
-        className="btn btnSm bg-muted! text-foreground!"
+
         onClick={() => openWallet('Account')}
         fullWidth={isMobile}
       >
@@ -64,9 +66,10 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
       </Button>
 
       <Button
-        variant="text"
+        variant="secondary"
+        size="sm"
         startIcon={<PowerOff size={14} />}
-        className="btn btnSm bg-muted! text-foreground!"
+
         onClick={() => disconnect()}
         fullWidth={isMobile}
       >

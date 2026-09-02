@@ -20,7 +20,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import Button from './ui/Button'
+import Button from '@/ui/Button'
 import { useAccount } from 'wagmi'
 import { SkPaper, openWallet } from '@/bridge'
 import { Wallet } from 'lucide-react'

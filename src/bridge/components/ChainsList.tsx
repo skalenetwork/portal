@@ -1,8 +1,8 @@
 import React from 'react'
+import Button from '@/ui/Button'
 import { types } from '@/core'
 
 import { Modal, Container } from '@mui/material'
-import Button from '@mui/material/Button'
 import { ChevronDown } from 'lucide-react'
 
 import SkPaper from './SkPaper'
@@ -51,6 +51,7 @@ export default function ChainsList(props: {
     <div>
       <div className="py-2 mx-2">
         <Button
+          variant="ghost"
           className="flex items-center w-full p-2 hover:bg-muted-foreground/10!"
           onClick={handleOpen}
           disabled={props.disabled}

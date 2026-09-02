@@ -22,13 +22,13 @@
  */
 
 import React, { useEffect, useState } from 'react'
+import Button from '@/ui/Button'
 import { useAccount, useWalletClient, useSwitchChain } from 'wagmi'
 import { types, metadata } from '@/core'
 
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
-import Button from '@mui/material/Button'
 import ErrorIcon from '@mui/icons-material/Error'
 import AnimatedLoadingIcon from './AnimatedLoadingIcon'
 import { ChevronDown } from 'lucide-react'
@@ -163,20 +163,18 @@ export default function WrappedTokens() {
           <div className="mt-5 mb-5 pl-5 pr-5">
             {loading ? (
               <Button
+                variant="ghost"
+                size="md"
                 disabled
                 startIcon={<AnimatedLoadingIcon />}
-                variant="contained"
-                color="primary"
-                size="medium"
-                className="btnMd mt-1.5 w-full capitalize! bg-accent-foreground/15! text-foreground/70!"
+                className="mt-1.5 w-full capitalize! bg-accent-foreground/15! text-foreground/70!"
               >
                 Unwrapping...
               </Button>
             ) : (
               <Button
-                variant="contained"
-                size="medium"
-                className="mt-1.5 bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! btnMd w-full! text-accent!"
+                size="md"
+                className="mt-1.5 w-full!"
                 onClick={() => unwrapAll(address, switchChainAsync, walletClient, filteredTokens)}
               >
                 Unwrap all

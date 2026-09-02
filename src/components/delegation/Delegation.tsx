@@ -226,8 +226,7 @@ export default function Delegation(props: {
             <SkBtn
               loading={loading}
               text={loading ? 'Accepting delegation' : 'Accept delegation'}
-              color="primary"
-              className=" btnMd w-full"
+              className="w-full"
               onClick={async () => {
                 props.accept && (await props.accept(delegationInfo))
               }}
@@ -238,8 +237,7 @@ export default function Delegation(props: {
             <SkBtn
               loading={loading}
               text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
-              color="error"
-              className="w-full mt-1.5! btnMd"
+              className="w-full mt-1.5!"
               onClick={async () => {
                 props.unstake && (await props.unstake(delegationInfo))
               }}
@@ -250,7 +248,7 @@ export default function Delegation(props: {
             <SkBtn
               loading={loading}
               text={loading ? 'Canceling staking request' : 'Cancel staking request'}
-              className="btnMd w-full! text-accent! bg-accent-foreground!"
+              className="w-full! text-accent! bg-accent-foreground!"
               onClick={async () => {
                 props.cancelRequest && (await props.cancelRequest(delegationInfo))
               }}

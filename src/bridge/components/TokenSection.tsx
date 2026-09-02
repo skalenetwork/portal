@@ -21,8 +21,8 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import Button from '@mui/material/Button'
 import TokenBalance from './TokenBalance'
+import Button from '@/ui/Button'
 import TokenIcon from './TokenIcon'
 import { getTokenName } from '../core/metadata'
 
@@ -44,8 +44,9 @@ export default function TokenSection({ text, icon, tokens, onTokenClick }: Token
         .sort((a, b) => a.key.localeCompare(b.key))
         .map(({ key, tokenData, balance }) => (
           <Button
+            variant="ghost"
+            size="sm"
             key={key}
-            size="small"
             className="w-full pl-2.5 pt-1.5 pb-1.5 capitalize! hover:bg-muted-foreground/10!"
             onClick={() => onTokenClick(tokenData)}
           >

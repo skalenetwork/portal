@@ -22,8 +22,8 @@
  */
 
 import { Tile } from '@/bridge'
+import Button from '@/ui/Button'
 
-import Button from '@mui/material/Button'
 import Collapse from '@mui/material/Collapse'
 import { ShieldAlert } from 'lucide-react'
 
@@ -43,12 +43,13 @@ export default function ErrorTile(props: {
         childrenRi={
           props.setErrorMsg && (
             <Button
-              size="small"
+              variant="ghost"
+              size="sm"
               onClick={() => {
                 if (props.setErrorMsg === undefined) return
                 props.setErrorMsg(undefined)
               }}
-              className="btn btnSm text-foreground! bg-transparent! hover:bg-red-800/10! normal-case! whitespace-nowrap!"
+              className="hover:bg-red-800/10! normal-case! whitespace-nowrap!"
             >
               Close
             </Button>

@@ -22,11 +22,11 @@
  */
 
 import { useState } from 'react'
+import Button from '@/ui/Button'
 import { Provider } from 'ethers'
 import { useWalletClient, useSwitchChain } from 'wagmi'
 import { dc, constants, notify } from '@/core'
 
-import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 
 import MetaportCore, { createTokenData } from '../core/metaport'
@@ -113,11 +113,11 @@ export default function AddToken(props: {
           <BadgePlus size={20} />
         </IconButton>
         <Button
+          size="sm"
           onClick={addToken}
           disabled={loading}
-          size="small"
           startIcon={<BadgePlus size={15} />}
-          className="hidden! md:inline-flex! capitalize! text-accent! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-xs! px-3.5! py-2.5!"
+          className="hidden! md:inline-flex! capitalize! text-xs! px-3.5! py-2.5!"
         >
           {loading ? 'Check wallet' : 'Add token'}
         </Button>
@@ -127,11 +127,10 @@ export default function AddToken(props: {
 
   return (
     <Button
+      size="md"
       onClick={addToken}
       disabled={loading}
-      color="primary"
-      size="medium"
-      className="grow mb-2! md:mb-0! w-full! md:w-fit! md:mr-3! capitalize! text-accent! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+      className="grow mb-2! md:mb-0! w-full! md:w-fit! md:mr-3! capitalize! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
       startIcon={<Coins size={17} />}
     >
       {loading ? 'Check wallet' : 'Add token'}

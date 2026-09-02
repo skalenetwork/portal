@@ -22,8 +22,8 @@
  */
 
 import { useState, useEffect } from 'react'
+import Button from '@/ui/Button'
 import { type MetaportCore, SkPaper, explorer } from '@/bridge'
-import Button from '@mui/material/Button'
 
 import ExpandCircleDownRoundedIcon from '@mui/icons-material/ExpandCircleDownRounded'
 import HourglassBottomRoundedIcon from '@mui/icons-material/HourglassBottomRounded'
@@ -91,11 +91,11 @@ export default function VerifiedContracts(props: {
       )}
       {!allLoaded ? (
         <Button
+          variant="ghost"
+          size="sm"
           onClick={() => {
             setPage((prevPage) => prevPage + 1)
           }}
-          color="primary"
-          size="small"
           className="py-5! mt-2! capitalize! text-accent-foreground! w-full"
           startIcon={loading ? <HourglassBottomRoundedIcon /> : <ExpandCircleDownRoundedIcon />}
           disabled={loading}

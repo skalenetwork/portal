@@ -23,13 +23,11 @@
 import { types } from '@/core'
 
 import WidgetUI from '../WidgetUI'
-import Debug from '../Debug'
 import MetaportProvider from '../MetaportProvider'
 
 export default function Metaport(props: { config: types.mp.Config }) {
   return (
     <MetaportProvider config={props.config}>
-      <Debug />
       <WidgetUI config={props.config} />
     </MetaportProvider>
   )

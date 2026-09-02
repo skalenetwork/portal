@@ -33,7 +33,6 @@ import SFuelWarning from './components/SFuelWarning'
 import WrappedTokens from './components/WrappedTokens'
 import History from './components/History'
 import TransactionData from './components/TransactionData'
-import Debug from './components/Debug'
 import TrailsQuoteCard from './components/TrailsQuoteCard'
 import TrailsIntentTracker from './components/TrailsIntentTracker'
 import MesonQuoteCard from './components/MesonQuoteCard'
@@ -78,7 +77,6 @@ export {
   WrappedTokens,
   History,
   TransactionData,
-  Debug,
   NoTokenPairs,
   getAvailableTokensTotal,
   styles,

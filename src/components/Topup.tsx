@@ -22,11 +22,11 @@
  */
 
 import { Link } from 'react-router-dom'
+import Button from '@/ui/Button'
 
 import { constants, networks, units, helper, type types } from '@/core'
 import { type MetaportCore, Tile, TokenIcon } from '@/bridge'
 
-import Button from '@mui/material/Button'
 import { ClockPlus } from 'lucide-react'
 
 import SkStack from './SkStack'
@@ -117,8 +117,7 @@ export default function Topup(props: {
       <div className="mt-5 mb-2.5 ml-1.5">
         <div className="flex flex-col md:flex-row gap-2.5">
           <Button
-            variant="contained"
-            className="bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-accent! btn btnMd!"
+            size="md"
             disabled={!balanceOk || props.loading || maxTopupPeriod <= 0}
             onClick={props.topupChain}
           >
@@ -126,10 +125,7 @@ export default function Topup(props: {
           </Button>
           {!balanceOk && networks.hasFeatureInAny(NETWORKS, 'bridge') ? (
             <Link to="/bridge" className="w-full md:w-auto">
-              <Button
-                variant="contained"
-                className="btn btnMd text-xs w-full text-accent! bg-accent-foreground!"
-              >
+              <Button size="md" className="text-xs w-full">
                 Bridge SKL to Europa Hub
               </Button>
             </Link>

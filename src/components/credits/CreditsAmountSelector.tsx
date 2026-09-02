@@ -22,7 +22,8 @@
  */
 
 import { useState } from 'react'
-import { Button, ButtonBase, TextField } from '@mui/material'
+import Button from '@/ui/Button'
+import { ButtonBase, TextField } from '@mui/material'
 import { CircleCheck, CircleX, Pencil } from 'lucide-react'
 import { TokenIcon } from '@/bridge'
 import { units, notify } from '@/core'
@@ -187,15 +188,16 @@ export default function CreditsAmountSelector({
           </div>
           <div className="flex gap-1">
             <Button
-              size="small"
+              size="sm"
               startIcon={<CircleCheck size={14} />}
-              className="grow rounded-full! bg-accent-foreground! text-accent! normal-case! text-xs! py-2!"
+              className="grow rounded-full! normal-case! text-xs! py-2!"
               onClick={applyCustom}
             >
               Apply
             </Button>
             <Button
-              size="small"
+              variant="secondary"
+              size="sm"
               className="rounded-full! bg-muted-foreground/10! text-muted-foreground! normal-case! min-w-0! px-2! py-2!"
               onClick={() => setEditingCustom(false)}
             >

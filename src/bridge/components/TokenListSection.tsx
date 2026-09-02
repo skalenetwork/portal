@@ -22,7 +22,7 @@
  */
 
 import LocalMallIcon from '@mui/icons-material/LocalMall'
-import Button from '@mui/material/Button'
+import Button from '@/ui/Button'
 
 import { dc, types, constants } from '@/core'
 import { getTokenName } from '../core/metadata'
@@ -81,8 +81,9 @@ export default function TokenListSection(props: {
     <div className={`${styles.bridgeModalScroll} mt-2`}>
       {popularTokens.map((key) => (
         <Button
-          size="small"
-          className="mt-3! items-center bg-muted! mr-1! p-2! pr-3! hover:bg-muted-foreground/10!"
+          variant="secondary"
+          size="sm"
+          className="mt-3! items-center mr-1! p-2! pr-3! hover:bg-muted-foreground/10!"
           key={key}
           onClick={() => handle(props.tokens[key])}
         >

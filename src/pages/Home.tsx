@@ -22,8 +22,9 @@
  */
 
 import { useEffect } from 'react'
+import Button from '@/ui/Button'
 import { Link } from 'react-router-dom'
-import { Container, Stack, Button } from '@mui/material'
+import { Container, Stack } from '@mui/material'
 import { SkPaper } from '@/bridge'
 import { networks, type types } from '@/core'
 
@@ -167,7 +168,9 @@ function AppSection({ title, icon, linkTo, component }: AppSectionProps) {
       <div className="flex items-center mb-2.5 mt-5 pt-5">
         <Headline text={title} icon={icon} />
         <Link to={linkTo}>
-          <Button className="btn btnSm bg text-foreground! bg-card!">See all</Button>
+          <Button variant="secondary" size="sm" className="bg-card!">
+            See all
+          </Button>
         </Link>
       </div>
       {component}

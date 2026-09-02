@@ -22,6 +22,7 @@
  */
 
 import { Link } from 'react-router-dom'
+import Button from '@/ui/Button'
 import { type Signer, isAddress } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
 import { SkPaper, contracts, type MetaportCore } from '@/bridge'
@@ -29,7 +30,6 @@ import { types } from '@/core'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
-import Button from '@mui/material/Button'
 
 import { ChartPie, CircleUser, Coins, Eye, Inbox, TriangleAlert } from 'lucide-react'
 
@@ -170,8 +170,8 @@ export default function Staking(props: {
           <div className="mr-2.5">
             {loading !== false || props.customAddress !== undefined ? (
               <Button
-                variant="contained"
-                className="btn btnSm py-3! text-xs text-accent! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15!"
+                size="sm"
+                className="py-3! text-xs"
                 startIcon={<Coins size={14} />}
                 disabled={loading !== false || props.customAddress !== undefined}
               >
@@ -180,8 +180,8 @@ export default function Staking(props: {
             ) : (
               <Link to="/staking/new">
                 <Button
-                  variant="contained"
-                  className="btn btnSm py-3! text-xs text-accent! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15!"
+                  size="sm"
+                  className="py-3! text-xs"
                   startIcon={<Coins size={14} />}
                   disabled={loading || props.customAddress !== undefined}
                 >

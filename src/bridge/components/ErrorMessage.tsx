@@ -21,12 +21,12 @@
  */
 
 import { useState } from 'react'
+import Button from '@/ui/Button'
 import { dc } from '@/core'
 
 import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
-import Button from '@mui/material/Button'
 
 import {
   Ban,
@@ -140,12 +140,12 @@ export default function Error(props: { errorMessage: dc.ErrorMessage }) {
       </Accordion>
       {props.errorMessage.fallback ? (
         <Button
+          variant="ghost"
+          size="lg"
           onClick={() => {
             props.errorMessage.fallback()
           }}
-          variant="contained"
           className={`w-full mt-3! md:mt-4! mb-12! md:mb-0! capitalize! text-[13px]! md:text-sm! font-semibold! py-3.5! md:py-4! bg-accent-foreground! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]`}
-          size="large"
         >
           {props.errorMessage.btnText}
         </Button>

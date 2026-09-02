@@ -21,6 +21,7 @@
  */
 
 import { useState, useEffect, ChangeEvent } from 'react'
+import Button from '@/ui/Button'
 import { isAddress } from 'ethers'
 import { SkPaper, Tile, useThemeMode, styles } from '@/bridge'
 import { type types, helper } from '@/core'
@@ -30,7 +31,6 @@ import {
   Container,
   TextField,
   Box,
-  Button,
   Modal,
   InputAdornment,
   useMediaQuery,
@@ -82,10 +82,10 @@ export default function RetrieveRewardModal(props: {
   return (
     <div>
       <Button
-        size="small"
+        size="sm"
         onClick={handleOpen}
         disabled={props.disabled}
-        className="btn btnSm text-xs bg-accent-foreground! text-accent! align-center! disabled:text-foreground/70! disabled:bg-accent-foreground/15!"
+        className="text-xs align-center!"
       >
         Retrieve
       </Button>
@@ -148,8 +148,8 @@ export default function RetrieveRewardModal(props: {
                     children={
                       <div className="flex justify-end mt-2">
                         <Button
-                          variant="text"
-                          className="btnSm bg-accent-foreground! text-accent!"
+                          size="sm"
+
                           onClick={() => setEdit(!edit)}
                         >
                           Change
@@ -192,16 +192,13 @@ export default function RetrieveRewardModal(props: {
                         </div>
                         <div>
                           <div>
-                            <Button
-                              variant="contained"
-                              className="btnSm text-accent! bg-accent-foreground! ml-2.5!"
-                              onClick={saveAddress}
-                            >
+                            <Button size="sm" className="ml-2.5!" onClick={saveAddress}>
                               Save
                             </Button>
                             <Button
-                              variant="text"
-                              className="btnSm text-foreground! font-semibold hover:bg-foreground/10! ml-1.5!"
+                              variant="ghost"
+                              size="sm"
+                              className="font-semibold hover:bg-foreground/10! ml-1.5!"
                               onClick={() => {
                                 setInputAddress(props.address)
                                 props.setCustomRewardAddress(props.address)
@@ -223,7 +220,7 @@ export default function RetrieveRewardModal(props: {
                   text={props.loading ? 'Retrieving' : 'Retrieve'}
                   disabled={props.disabled || edit}
                   onClick={props.retrieveRewards}
-                  className="mr-1.5! mt-2.5! w-full! btnMd"
+                  className="mr-1.5! mt-2.5! w-full!"
                 />
               </SkPaper>
             </SkPaper>

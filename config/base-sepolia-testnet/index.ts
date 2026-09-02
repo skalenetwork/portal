@@ -5,7 +5,6 @@ export const METAPORT_CONFIG: types.mp.Config = {
   mainnetEndpoint: 'https://base-sepolia-rpc.publicnode.com/',
   openOnLoad: true,
   openButton: true,
-  debug: false,
 
   chains: [
     'mainnet',

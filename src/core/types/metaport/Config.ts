@@ -28,7 +28,6 @@ export interface Config {
   openOnLoad?: boolean
   openButton?: boolean
   autoLookup?: boolean
-  debug?: boolean
 
   skaleNetwork: SkaleNetwork
   mainnetEndpoint?: string

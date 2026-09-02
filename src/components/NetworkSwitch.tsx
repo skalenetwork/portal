@@ -22,12 +22,12 @@
  */
 
 import { useState } from 'react'
+import Button from '@/ui/Button'
 
 import Box from '@mui/material/Box'
 import Menu from '@mui/material/Menu'
 import MenuItem from '@mui/material/MenuItem'
 import Tooltip from '@mui/material/Tooltip'
-import Button from '@mui/material/Button'
 
 import { ChevronRight } from 'lucide-react'
 import { type MetaportCore, ChainIcon, mp_metadata } from '@/bridge'
@@ -50,8 +50,9 @@ export default function NetworkSwitch(props: { mpc: MetaportCore }) {
       <Box sx={{ alignItems: 'center', textAlign: 'center', display: 'flex' }} className="ml-1.5">
         <Tooltip arrow title="Switch SKALE Network">
           <Button
+            variant="secondary"
             onClick={handleClick}
-            className="flex h-9 px-3 items-center text-foreground! bg-card! text-xs! capitalize! rounded-full min-w-0!"
+            className="flex h-9 px-3 items-center bg-card! text-xs! capitalize! rounded-full min-w-0!"
           >
             <ChainIcon
               skaleNetwork={props.mpc.config.skaleNetwork}

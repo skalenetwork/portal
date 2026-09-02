@@ -27,7 +27,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 
 import { type types, endpoints, networks } from '@/core'
 import { useAccount } from 'wagmi'
-import { useMetaportStore, Debug, contracts } from '@/bridge'
+import { useMetaportStore, contracts } from '@/bridge'
 
 import Header from './Header'
 import SkDrawer from './SkDrawer'
@@ -156,9 +156,6 @@ export default function Portal() {
           loadValidator={loadValidator}
         />
         <ProfileModal isOpen={isProfileModalOpen} onClose={closeProfileModal} />
-        <div className="mt-5 w-full">
-          <Debug />
-        </div>
       </div>
       <SkBottomNavigation />
     </Box>

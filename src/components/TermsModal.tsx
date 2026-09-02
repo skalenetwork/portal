@@ -22,9 +22,9 @@
  */
 
 import { useState, type Dispatch, type SetStateAction } from 'react'
+import Button from '@/ui/Button'
 
 import Container from '@mui/material/Container'
-import Button from '@mui/material/Button'
 import Link from '@mui/material/Link'
 
 import Box from '@mui/material/Box'
@@ -124,13 +124,12 @@ export default function TermsModal(props: {
           </SkPaper>
         </div>
         <Button
+          size="lg"
           onClick={() => {
             props.setTermsAccepted(true)
           }}
-          variant="contained"
           disabled={!scrolled}
-          className="w-full mt-3! md:mt-4! mb-12! md:mb-0! capitalize! text-[13px]! md:text-sm! font-semibold! py-3.5! md:py-4! bg-accent-foreground! text-accent!  disabled:text-foreground/70!  disabled:bg-accent-foreground/15! ease-in-out transition-transform duration-150 active:scale-[0.97]"
-          size="large"
+          className="w-full mt-3! md:mt-4! mb-12! md:mb-0! capitalize! text-[13px]! md:text-sm! font-semibold! py-3.5! md:py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
         >
           {getAgreeButtonText()}
         </Button>

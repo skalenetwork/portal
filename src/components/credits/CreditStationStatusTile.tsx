@@ -21,12 +21,12 @@
  */
 
 import { useState, useEffect } from 'react'
+import Button from '@/ui/Button'
 import { Contract } from 'ethers'
 import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
 import { type MetaportCore, Tile, sendTransaction } from '@/bridge'
 import { contracts as coreContracts, notify } from '@/core'
 import { prepareSignerForWrite } from '@/lib/credit-station'
-import Button from '@mui/material/Button'
 import { Badge, BadgeCheck, ToggleLeft, ToggleRight } from 'lucide-react'
 
 interface CreditStationStatusTileProps {
@@ -112,9 +112,10 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
         }
         childrenRi={
           <Button
-            size="medium"
+            variant="secondary"
+            size="md"
             startIcon={isPaused ? <ToggleRight size={17} /> : <ToggleLeft size={17} />}
-            className="btnMd bg-secondary-foreground/10! text-foreground! ml-2.5"
+            className="bg-secondary-foreground/10! ml-2.5"
             onClick={togglePause}
             disabled={loading || !creditStation}
           >

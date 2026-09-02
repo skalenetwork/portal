@@ -21,12 +21,12 @@
  */
 
 import React, { useEffect, useState, useMemo, useRef } from 'react'
+import Button from '@/ui/Button'
 import { filterCategories } from '@/lib/ecosystem/utils'
 import Checkbox from '@mui/material/Checkbox'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import IconButton from '@mui/material/IconButton'
 import Menu from '@mui/material/Menu'
-import Button from '@mui/material/Button'
 import { type Category } from '@/lib/ecosystem/categories'
 import SearchBar, { highlightMatch } from './SearchBar'
 import SubcategoryList from './SubcategoryList'
@@ -163,7 +163,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({ checkedItems, setChec
   return (
     <div className="w-full sm:w-auto">
       <Button
-        variant="text"
+        variant="ghost"
         ref={buttonRef}
         onClick={handleMenuOpen}
         startIcon={<Shapes />}

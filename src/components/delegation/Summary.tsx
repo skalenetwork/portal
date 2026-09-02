@@ -225,7 +225,6 @@ export default function Summary(props: {
                         <SkBtn
                           loading={loading}
                           text={loading ? 'Retrieving' : 'Retrieve'}
-                          variant="contained"
                           size="sm"
                           className="md:ml-5 items-center"
                           disabled={

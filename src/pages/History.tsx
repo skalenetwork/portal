@@ -21,8 +21,8 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import Button from '@mui/material/Button'
 import Container from '@mui/material/Container'
+import Button from '@/ui/Button'
 import Stack from '@mui/material/Stack'
 import { History as TransfersHistory, SkPaper, useMetaportStore } from '@/bridge'
 
@@ -66,10 +66,9 @@ export default function History() {
           <TransfersHistory size="md" />
           {transfersHistory.length !== 0 ? (
             <Button
+              size="sm"
               onClick={clearTransferHistory}
-              color="error"
-              size="small"
-              className="w-full normal-case! text-sm leading-6 tracking-wider font-semibold py-3.5 px-4 min-h-[44px] rounded shadow-none mt-2.5"
+              className="w-full normal-case! text-sm leading-6 tracking-wider font-semibold py-3.5 px-4 min-h-[44px] rounded mt-2.5"
               startIcon={<Trash2 size={14} />}
             >
               Clear transfers history

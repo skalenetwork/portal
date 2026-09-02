@@ -22,7 +22,7 @@
  */
 
 import { Collapse } from '@mui/material'
-import Button from '@mui/material/Button'
+import Button from '@/ui/Button'
 
 import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded'
@@ -50,20 +50,20 @@ export default function TransactionsHistory() {
     <Collapse in={expandedTH}>
       <div className="flex mb-2.5 mt-10">
         <Button
+          variant="ghost"
+          size="md"
           onClick={() => {
             setExpandedTH(false)
           }}
-          color="warning"
-          size="medium"
           className="btn-action"
           startIcon={<CloseRoundedIcon />}
         >
           Close history
         </Button>
         <Button
+          variant="ghost"
+          size="md"
           onClick={clearTransferHistory}
-          color="error"
-          size="medium"
           className="btn-action"
           startIcon={<DeleteRoundedIcon />}
         >

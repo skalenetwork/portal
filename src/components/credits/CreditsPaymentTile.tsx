@@ -21,10 +21,11 @@
  */
 
 import { useState, useEffect, useMemo } from 'react'
+import Button from '@/ui/Button'
 import Avatar from 'boring-avatars'
 import { Contract } from 'ethers'
 
-import { Grid, Button, Tooltip } from '@mui/material'
+import { Grid, Tooltip } from '@mui/material'
 import HistoryToggleOffRoundedIcon from '@mui/icons-material/HistoryToggleOffRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
@@ -258,9 +259,10 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
             {isAdmin && (
               <div className="flex items-center">
                 <Button
-                  size="small"
+                  variant="secondary"
+                  size="md"
                   startIcon={isFulfilled ? <BadgeCheck size={17} /> : <HandCoins size={17} />}
-                  className="btnMd bg-secondary-foreground/10! text-foreground! disabled:opacity-50! ml-2.5"
+                  className="bg-secondary-foreground/10! disabled:opacity-50! ml-2.5"
                   onClick={fulfillPayment}
                   disabled={isFulfilled || loading || !ledgerContract}
                 >

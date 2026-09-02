@@ -22,6 +22,7 @@
  */
 
 import { useEffect, useState } from 'react'
+import Button from '@/ui/Button'
 import { useSearchParams, Link } from 'react-router-dom'
 
 import { useAccount } from 'wagmi'
@@ -35,7 +36,7 @@ import {
 } from '@/bridge'
 import { type types, dc, networks, metadata } from '@/core'
 
-import { Container, Stack, Button } from '@mui/material'
+import { Container, Stack } from '@mui/material'
 
 import BridgeBody from '../components/BridgeBody'
 import Headline from '../components/Headline'
@@ -228,7 +229,9 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
               <div className="flex items-center mb-2.5 mt-5 pt-5">
                 <Headline text="Past Transfers" icon={<HistoryIcon size={17} />} size="small" />
                 <Link to="/bridge/history">
-                  <Button className="btn btnSm bg text-foreground! bg-card!">See all</Button>
+                  <Button variant="secondary" size="sm" className="bg-card!">
+                    See all
+                  </Button>
                 </Link>
               </div>
               <History
