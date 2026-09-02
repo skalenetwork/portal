@@ -23,11 +23,10 @@
 
 import { useState } from 'react'
 import { notify } from '@/core'
-import { twMerge } from 'tailwind-merge'
-import { clsx, type ClassValue } from 'clsx'
+import { twMerge, type ClassNameValue } from 'tailwind-merge'
 
-export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+export function cn(...inputs: ClassNameValue[]) {
+  return twMerge(inputs)
 }
 
 export function useCopy(timeout = 1000): [boolean, (value: string) => void] {
