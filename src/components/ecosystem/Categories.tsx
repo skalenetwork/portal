@@ -216,7 +216,7 @@ const CategoryDisplay: React.FC<CategoryDisplayProps> = ({ checkedItems, setChec
                   className="grow"
                 />
                 {getSelectedSubcategoriesCount(shortName) > 0 && (
-                  <Circle fill="currentColor" size={8} className="text-primary" />
+                  <Circle fill="currentColor" size={8} className="text-brand" />
                 )}
                 {typeof data.subcategories === 'object' &&
                   !Array.isArray(data.subcategories) &&

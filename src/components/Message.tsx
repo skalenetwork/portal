@@ -78,7 +78,7 @@ export default function Message(props: {
               <p
                 className={cn(
                   'text-sm font-semibold break-all sm:break-normal',
-                  type !== 'warning' && type !== 'error' && 'text-primary'
+                  type !== 'warning' && type !== 'error' && 'text-brand'
                 )}
               >
                 {!props.textLong ? (

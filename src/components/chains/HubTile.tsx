@@ -64,7 +64,7 @@ export default function HubTile(props: {
   const chainDescription = metadata.getChainDescription(chainMeta)
 
   return (
-    <Link to={'/chains/' + shortAlias} className="flex text-primary grow">
+    <Link to={'/chains/' + shortAlias} className="flex text-brand grow">
       <SkPaper
         gray
         className="titleSectionOut hoverable pointer grow"

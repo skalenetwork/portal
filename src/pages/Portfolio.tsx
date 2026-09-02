@@ -107,7 +107,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                     iconUrl={props.mpc.config.tokens[token].iconUrl}
                   />
                   <div className="ml-2.5 grow">
-                    <p className="text-primary text-base font-bold">
+                    <p className="text-brand text-base font-bold">
                       {props.mpc.config.tokens[token].symbol}
                     </p>
                     <p className="text-secondary-foreground text-sm font-semibold">
@@ -115,7 +115,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                     </p>
                   </div>
                   <div className="mr-1.25">
-                    <p className="text-primary text-base font-bold pr-1.5">
+                    <p className="text-brand text-base font-bold pr-1.5">
                       {units.fromWei(getTotalBalance(token).toString(), getTokenDecimals(token))}{' '}
                       {props.mpc.config.tokens[token].symbol}
                     </p>

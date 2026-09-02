@@ -67,7 +67,7 @@ export default function SkConnect() {
       <Button
         disabled={transferInProgress}
         size="small"
-        className="btn-chain flex items-center text-primary"
+        className="btn-chain flex items-center text-brand"
         onClick={() => openWallet('Account')}
         style={{ color: 'white' }}
       >

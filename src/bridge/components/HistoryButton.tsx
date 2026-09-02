@@ -41,7 +41,7 @@ export default function TransactionsHistory() {
     <div className="flex items-center">
       <Button
         size="small"
-        className={`btn-chain flex items-center text-primary ${expandedTH ? 'rotate-180' : ''}`}
+        className={`btn-chain flex items-center text-brand ${expandedTH ? 'rotate-180' : ''}`}
         onClick={() => {
           setExpandedTH(!expandedTH)
         }}

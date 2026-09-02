@@ -20,7 +20,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { Button } from '@mui/material'
+import Button from './ui/Button'
 import { useAccount } from 'wagmi'
 import { SkPaper, openWallet } from '@/bridge'
 import { Wallet } from 'lucide-react'
@@ -47,8 +47,8 @@ export default function ConnectWallet(props: {
                   props.onConnect?.()
                   openWallet()
                 }}
-                variant="contained"
-                className="text-center mt-2.5! flex btn bg-accent-foreground! text-accent!"
+                size="lg"
+                className="text-center mt-2.5! flex"
               >
                 <Wallet size={16} className="mr-2.5" />
                 {address ? 'Sign in' : 'Connect Wallet'}
