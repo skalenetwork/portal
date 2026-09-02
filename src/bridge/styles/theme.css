@@ -13,6 +13,24 @@ body.light {
   color-scheme: light;
 }
 
+@theme {
+  --animate-hourglass: hourglass 1.6s ease-in-out infinite;
+}
+
+@keyframes hourglass {
+  0%,
+  40% {
+    transform: rotate(0deg);
+  }
+  50%,
+  90% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 @theme inline {
   --radius-sm: 8px;
   --radius-md: 14px;

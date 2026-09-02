@@ -25,7 +25,7 @@ import { Button as MuiButton, type ButtonProps } from '@mui/material'
 import { cn } from '.'
 
 const BASE =
-  'normal-case! font-semibold! tracking-[0.02857em]! rounded-lg! shadow-none! disabled:text-foreground/70!'
+  'normal-case! font-semibold! tracking-[0.02857em]! rounded-lg! shadow-none! disabled:text-foreground/70! transition-all! duration-150! ease-in-out active:scale-97 disabled:active:scale-100'
 
 const VARIANTS = {
   default: 'bg-primary! text-primary-foreground! hover:bg-primary/90! disabled:bg-primary/15!',

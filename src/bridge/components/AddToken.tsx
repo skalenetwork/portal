@@ -130,7 +130,7 @@ export default function AddToken(props: {
       size="md"
       onClick={addToken}
       disabled={loading}
-      className="grow mb-2! md:mb-0! w-full! md:w-fit! md:mr-3! capitalize! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+      className="grow mb-2! md:mb-0! w-full! md:w-fit! md:mr-3! capitalize! text-xs! px-6! py-4!"
       startIcon={<Coins size={17} />}
     >
       {loading ? 'Check wallet' : 'Add token'}

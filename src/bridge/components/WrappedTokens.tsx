@@ -30,7 +30,7 @@ import Accordion from '@mui/material/Accordion'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import ErrorIcon from '@mui/icons-material/Error'
-import AnimatedLoadingIcon from './AnimatedLoadingIcon'
+import LoadingIcon from '@/ui/LoadingIcon'
 import { ChevronDown } from 'lucide-react'
 
 import TokenBalance from './TokenBalance'
@@ -166,7 +166,7 @@ export default function WrappedTokens() {
                 variant="ghost"
                 size="md"
                 disabled
-                startIcon={<AnimatedLoadingIcon />}
+                startIcon={<LoadingIcon />}
                 className="mt-1.5 w-full capitalize! bg-accent-foreground/15! text-foreground/70!"
               >
                 Unwrapping...

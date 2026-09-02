@@ -11,7 +11,7 @@ import Button from '@mui/material/Button'
 import Collapse from '@mui/material/Collapse'
 import IconButton from '@mui/material/IconButton'
 
-import AnimatedLoadingIcon from '../AnimatedLoadingIcon'
+import LoadingIcon from '@/ui/LoadingIcon'
 import SkPaper from '../SkPaper'
 
 import localStyles from './SkStepper.module.scss'
@@ -135,7 +135,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
         {loading ? (
           <Button
             disabled
-            startIcon={<AnimatedLoadingIcon />}
+            startIcon={<LoadingIcon />}
             variant="contained"
             size="medium"
             className="btn-action p-4! w-full capitalize! bg-accent-foreground/15! text-foreground/70!"
@@ -207,7 +207,7 @@ export default function SkStepper(props: { skaleNetwork: types.SkaleNetwork }) {
                       {loading ? (
                         <Button
                           disabled
-                          startIcon={<AnimatedLoadingIcon />}
+                          startIcon={<LoadingIcon />}
                           variant="contained"
                           size="medium"
                           className="btn-action mt-1.5 p-3.5! w-full capitalize! bg-accent-foreground/15! text-foreground/70!"

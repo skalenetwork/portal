@@ -186,7 +186,7 @@ export default function SchainDetails(props: {
           <a target="_blank" rel="noreferrer" href={explorerUrl} className="undec w-full md:w-auto">
             <Button
               size="md"
-              className="w-full! md:w-fit! md:mr-3! capitalize! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+              className="w-full! md:w-fit! md:mr-3! capitalize! text-xs! px-6! py-4!"
               startIcon={<Blocks size={17} />}
             >
               Block Explorer
@@ -218,7 +218,7 @@ export default function SchainDetails(props: {
             >
               <Button
                 size="md"
-                className="w-full! md:w-fit! md:mr-3! capitalize! text-xs! px-6! py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+                className="w-full! md:w-fit! md:mr-3! capitalize! text-xs! px-6! py-4!"
                 startIcon={<ExternalLink size={17} className="textd-green-600" />}
               >
                 Open Website

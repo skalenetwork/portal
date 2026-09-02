@@ -30,7 +30,6 @@ import Portal from './Portal'
 import { METAPORT_CONFIG } from './data/metaportConfig'
 import { createMuiTheme } from '@/lib/themes'
 
-
 METAPORT_CONFIG.mainnetEndpoint = import.meta.env.VITE_MAINNET_ENDPOINT
 METAPORT_CONFIG.projectId = import.meta.env.VITE_WC_PROJECT_ID
 

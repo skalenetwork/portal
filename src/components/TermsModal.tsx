@@ -129,7 +129,7 @@ export default function TermsModal(props: {
             props.setTermsAccepted(true)
           }}
           disabled={!scrolled}
-          className="w-full mt-3! md:mt-4! mb-12! md:mb-0! capitalize! text-[13px]! md:text-sm! font-semibold! py-3.5! md:py-4! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+          className="w-full mt-3! md:mt-4! mb-12! md:mb-0! capitalize! text-[13px]! md:text-sm! font-semibold! py-3.5! md:py-4!"
         >
           {getAgreeButtonText()}
         </Button>

@@ -234,7 +234,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
           </SkPaper>
           <Button
             size="md"
-            className="ml-5 w-full mt-4! mb-2! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+            className="ml-5 w-full mt-4! mb-2!"
             onClick={updatePrice}
             disabled={loading || price === ''}
           >
