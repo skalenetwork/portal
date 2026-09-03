@@ -26,7 +26,7 @@ import { Contract } from 'ethers'
 import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
 import { type MetaportCore, Tile, sendTransaction } from '@/bridge'
 import { contracts as coreContracts, notify } from '@/core'
-import { prepareSignerForWrite } from '@/lib/credit-station'
+import { prepareWalletForWrite } from '@/lib/credit-station'
 import { Badge, BadgeCheck, ToggleLeft, ToggleRight } from 'lucide-react'
 
 interface CreditStationStatusTileProps {
@@ -74,7 +74,7 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
     setLoading(true)
 
     try {
-      const signer = await prepareSignerForWrite(
+      const wallet = await prepareWalletForWrite(
         creditStation,
         walletClient,
         switchChainAsync,
@@ -85,7 +85,7 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
       const method = isPaused ? creditStation.unpause : creditStation.pause
       const action = isPaused ? 'unpause' : 'pause'
 
-      await sendTransaction(signer, method, [], `creditStation:${action}`)
+      await sendTransaction(wallet, method, [], `creditStation:${action}`)
       notify.temporarySuccess(`Credit station ${action}d`)
       await loadPausedStatus()
     } catch (error) {

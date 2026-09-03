@@ -22,7 +22,7 @@
  */
 
 import { Logger, type ILogObj } from 'tslog'
-import { Contract, ContractRunner, Signer } from 'ethers'
+import { Contract, ContractRunner, type Provider } from 'ethers'
 import { skaleContracts } from '@skalenetwork/skale-contracts-ethers-v6'
 import { dc, ERC_ABIS, types, contracts } from '@/core'
 
@@ -74,14 +74,14 @@ export async function initContracts(mpc: MetaportCore): Promise<types.st.ISkaleC
 }
 
 export async function initActionContract(
-  signer: Signer,
+  provider: Provider,
   delegationType: types.st.DelegationType,
   beneficiary: types.AddressType,
   skaleNetwork: types.SkaleNetwork,
   contractType: types.st.ContractType
 ): Promise<Contract> {
   log.info('initActionContract:', skaleNetwork, beneficiary, contractType, delegationType)
-  const network = await skaleContracts.getNetworkByProvider(signer.provider!)
+  const network = await skaleContracts.getNetworkByProvider(provider)
   let contract: Contract
   if (delegationType === types.st.DelegationType.REGULAR) {
     contract = await getManagerContract(
@@ -92,11 +92,7 @@ export async function initActionContract(
   } else {
     contract = await getEscrowContract(network, skaleNetwork, delegationType, beneficiary)
   }
-  return connectedContract(contract, signer)
-}
-
-function connectedContract(contract: Contract, signer: Signer): Contract {
-  return contract.connect(signer) as Contract
+  return contract
 }
 
 async function getEscrowContract(

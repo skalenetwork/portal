@@ -22,8 +22,7 @@
  */
 
 import { Logger, type ILogObj } from 'tslog'
-import { Contract } from 'ethers'
-import { dc, type types, units, helper } from '@/core'
+import { dc, type types, units } from '@/core'
 
 import { findFirstWrapperChainName } from '../metaport'
 
@@ -52,7 +51,7 @@ export class TransferERC20S2S extends Action {
     )
     const amountWei = units.toWei(this.amount, this.token.meta.decimals)
 
-    const erc20SConnected = (await sChain.erc20()).connect(this.sChain1.signer) as Contract
+    const erc20SConnected = await sChain.erc20()
     if (!checkResAllowance.res) {
       this.updateState('approve')
 
@@ -62,11 +61,7 @@ export class TransferERC20S2S extends Action {
         erc20SAddress,
         amountWei
       )
-      const txBlock = await helper.getBlockWithRetry(
-        sChain.provider,
-        approveTx.response.blockNumber
-      )
-      this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
+      this.updateState('approveDone', approveTx.hash, approveTx.timestamp)
       log.info('ApproveERC20S:execute - tx completed: %O', approveTx)
     }
 
@@ -87,13 +82,12 @@ export class TransferERC20S2S extends Action {
     }
 
     const tx = await sendTransaction(
-      sChain.signer,
+      sChain.walletClient,
       erc20SConnected.transferToSchainERC20,
       [this.chainName2, this.originAddress, amountWei, { address: this.address }],
       `${this.chainName1}:erc20:transferToSchainERC20`
     )
-    const block = await helper.getBlockWithRetry(sChain.provider, tx.response.blockNumber)
-    this.updateState('transferDone', tx.response.hash, block.timestamp)
+    this.updateState('transferDone', tx.hash, tx.timestamp)
     if (isDestinationSFuel) {
       await this.sChain2.waitETHBalanceChange(this.address, balanceOnDestination)
     } else {
@@ -146,11 +140,7 @@ export class WrapERC20S extends Action {
         this.token.wrapper(this.chainName2) as types.AddressType,
         amountWei
       )
-      const txBlock = await helper.getBlockWithRetry(
-        this.sChain1.provider,
-        approveTx.response.blockNumber
-      )
-      this.updateState('approveWrapDone', approveTx.response.hash, txBlock.timestamp)
+      this.updateState('approveWrapDone', approveTx.hash, approveTx.timestamp)
     }
     this.updateState('wrap')
 
@@ -161,8 +151,7 @@ export class WrapERC20S extends Action {
       amountWei
     )
 
-    const block = await helper.getBlockWithRetry(this.sChain1.provider, tx.response.blockNumber)
-    this.updateState('wrapDone', tx.response.hash, block.timestamp)
+    this.updateState('wrapDone', tx.hash, tx.timestamp)
   }
 
   async preAction() {
@@ -195,8 +184,7 @@ export class UnWrapERC20 extends Action {
     sChain.addToken(this.token.type, this.token.keyname, tokenContract)
     const amountWei = await tokenContract.balanceOf(this.address)
     const tx = await sChain.unwrap(this.token.type, this.token.keyname, this.address, amountWei)
-    const block = await helper.getBlockWithRetry(sChain.provider, tx.response.blockNumber)
-    this.updateState('unwrapDone', tx.response.hash, block.timestamp)
+    this.updateState('unwrapDone', tx.hash, tx.timestamp)
   }
 
   async preAction() { }
@@ -216,8 +204,7 @@ export class UnWrapERC20S extends Action {
     const tx = await sChain.unwrap(this.token.type, this.token.keyname, this.address, amountWei)
 
     log.info('UnWrapERC20S:execute - tx completed %O', tx)
-    const block = await helper.getBlockWithRetry(sChain.provider, tx.response.blockNumber)
-    this.updateState('unwrapDone', tx.response.hash, block.timestamp)
+    this.updateState('unwrapDone', tx.hash, tx.timestamp)
   }
 
   async preAction() {
@@ -265,24 +252,19 @@ export class TransferERC20M2S extends Action {
         amountWei
       )
 
-      const txBlock = await helper.getBlockWithRetry(
-        mainnet.provider,
-        approveTx.response.blockNumber
-      )
-      this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
+      this.updateState('approveDone', approveTx.hash, approveTx.timestamp)
     }
     this.updateState('transfer')
     const balanceOnDestination = await this.sChain2.getERC20Balance(this.destToken, this.address)
 
     const tx = await sendTransaction(
-      mainnet.signer,
+      mainnet.walletClient,
       erc20MConnected.depositERC20,
       [this.chainName2, this.token.address, amountWei, { address: this.address }],
       `${this.chainName1}:erc20:depositERC20`
     )
 
-    const block = await helper.getBlockWithRetry(mainnet.provider, tx.response.blockNumber)
-    this.updateState('transferDone', tx.response.hash, block.timestamp)
+    this.updateState('transferDone', tx.hash, tx.timestamp)
     log.info('TransferERC20M2S:execute - tx completed %O', tx)
     await this.sChain2.waitERC20BalanceChange(this.destToken, this.address, balanceOnDestination)
     this.updateState('received')
@@ -340,25 +322,20 @@ export class TransferERC20S2M extends Action {
         erc20SAddress,
         amountWei
       )
-      const txBlock = await helper.getBlockWithRetry(
-        sChain.provider,
-        approveTx.response.blockNumber
-      )
-      this.updateState('approveDone', approveTx.response.hash, txBlock.timestamp)
+      this.updateState('approveDone', approveTx.hash, approveTx.timestamp)
       log.info('ApproveERC20S:execute - tx completed: %O', approveTx)
     }
     this.updateState('transfer')
     const balanceOnDestination = await this.mainnet.getERC20Balance(this.destToken, this.address)
 
     const tx = await sendTransaction(
-      sChain.signer,
+      sChain.walletClient,
       erc20SConnected.exitToMainERC20,
       [this.originAddress, amountWei, { address: this.address }],
       `${this.chainName1}:erc20:exitToMainERC20`
     )
 
-    const block = await helper.getBlockWithRetry(sChain.provider, tx.response.blockNumber)
-    this.updateState('transferDone', tx.response.hash, block.timestamp)
+    this.updateState('transferDone', tx.hash, tx.timestamp)
     log.info('TransferERC20S2M:execute - tx completed %O', tx)
     await this.mainnet.waitERC20BalanceChange(this.destToken, this.address, balanceOnDestination)
     this.updateState('received')

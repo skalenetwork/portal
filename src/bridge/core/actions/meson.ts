@@ -23,9 +23,11 @@
 
 import { Logger, type ILogObj } from 'tslog'
 import { type types, units } from '@/core'
-import { type Contract, type Signer } from 'ethers'
+import { type Contract } from 'ethers'
+import { publicActions, type WalletClient } from 'viem'
 
 import { Action } from './action'
+import { confirmTransaction, sendRawTransaction } from '../transactions'
 import { checkERC20Balance } from './checks'
 import {
   getMesonQuote,
@@ -60,7 +62,7 @@ export class TransferMesonExt2S extends Action {
 
     const testnet = isTestnet(this.mpc.config.skaleNetwork)
 
-    const signer = await this.signer(this.sChain1!.provider, this.chainName1)
+    const walletClient = await this.connectedWallet(this.chainName1)
 
     this.updateState('mesonQuoting')
     const encodeResp = await encodeSwap(
@@ -77,7 +79,7 @@ export class TransferMesonExt2S extends Action {
       this.updateState('mesonApproving')
       await approveMesonIfNeeded(
         this.sourceToken,
-        signer,
+        walletClient,
         tx.to,
         quote.amount,
         this.token.meta.decimals
@@ -159,7 +161,7 @@ export class TransferMesonS2Ext extends Action {
 
     const testnet = isTestnet(this.mpc.config.skaleNetwork)
 
-    const signer = await this.signer(this.sChain1!.provider, this.chainName1)
+    const walletClient = await this.connectedWallet(this.chainName1)
 
     this.updateState('mesonQuoting')
     const encodeResp = await encodeSwap(
@@ -176,7 +178,7 @@ export class TransferMesonS2Ext extends Action {
       this.updateState('mesonApproving')
       await approveMesonIfNeeded(
         this.sourceToken,
-        signer,
+        walletClient,
         tx.to,
         quote.amount,
         this.token.meta.decimals
@@ -252,23 +254,28 @@ function utf8ToHex(utf8Str: string): string {
 
 async function approveMesonIfNeeded(
   sourceToken: Contract,
-  signer: Signer,
+  walletClient: WalletClient,
   spender: string,
   amount: string,
   decimals: number
 ): Promise<void> {
-  const owner = await signer.getAddress()
+  const owner = walletClient.account!.address
   const amountWei = units.toWei(amount, decimals)
   const allowance: bigint = await sourceToken.allowance(owner, spender)
-  if (allowance >= BigInt(amountWei)) return
-  const connected = sourceToken.connect(signer) as Contract
-  const feeData = await signer.provider!.getFeeData()
-  const overrides: Record<string, bigint> = {}
-  if (feeData.maxFeePerGas) {
-    overrides.maxFeePerGas = (feeData.maxFeePerGas * 150n) / 100n
-    overrides.maxPriorityFeePerGas = feeData.maxPriorityFeePerGas ?? feeData.maxFeePerGas / 10n
-  }
-  const tx = await connected.approve(spender, amountWei, overrides)
-  await tx.wait()
-  log.info('approveMesonIfNeeded: approval confirmed', tx.hash)
+  if (allowance >= amountWei) return
+  const client = walletClient.extend(publicActions)
+  const fees = await client.estimateFeesPerGas()
+  const { to, data } = await sourceToken.approve.populateTransaction(spender, amountWei)
+  const hash = await sendRawTransaction(
+    walletClient,
+    { to: to!, data: data! },
+    fees.maxFeePerGas
+      ? {
+          maxFeePerGas: (fees.maxFeePerGas * 150n) / 100n,
+          maxPriorityFeePerGas: fees.maxPriorityFeePerGas ?? fees.maxFeePerGas / 10n
+        }
+      : undefined
+  )
+  await confirmTransaction(walletClient, hash, 'meson:approve')
+  log.info('approveMesonIfNeeded: approval confirmed', hash)
 }

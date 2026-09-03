@@ -21,8 +21,8 @@
  * @copyright SKALE Labs 2024-Present
  */
 
+import { type WalletClient } from 'viem'
 import { useState, useEffect } from 'react'
-import { type Signer } from 'ethers'
 import { useParams } from 'react-router-dom'
 import { type MetaportCore, SkPaper, contracts } from '@/bridge'
 import { types } from '@/core'
@@ -50,7 +50,7 @@ export default function StakeAmount(props: {
   sc: types.st.ISkaleContractsMap | null
   si: types.st.StakingInfoMap
   address: types.AddressType | undefined
-  getMainnetSigner: () => Promise<Signer>
+  getMainnetWalletClient: () => Promise<WalletClient>
 }) {
   const { id, delType } = useParams()
   const validatorId = Number(id) ?? -1
@@ -164,7 +164,7 @@ export default function StakeAmount(props: {
             setErrorMsg={setErrorMsg}
             loaded={loaded}
             delegationTypeAvailable={available}
-            getMainnetSigner={props.getMainnetSigner}
+            getMainnetWalletClient={props.getMainnetWalletClient}
             sklPrice={sklPrice}
           />
         ) : (

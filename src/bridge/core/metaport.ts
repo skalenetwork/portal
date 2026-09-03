@@ -22,7 +22,8 @@
  */
 
 import { Logger, type ILogObj } from 'tslog'
-import { Provider, Contract, Signer } from 'ethers'
+import { Provider, Contract } from 'ethers'
+import { type WalletClient } from 'viem'
 import { types, dc, ERC_ABIS, contracts, constants, endpoints } from '@/core'
 
 import { getEmptyTokenDataMap } from './tokens/helper'
@@ -256,10 +257,10 @@ export default class MetaportCore {
     return await projectInstance.getInstance(aliasOrAddress)
   }
 
-  async mainnet(externalProvider?: Provider, signer?: Signer): Promise<MainnetChain> {
+  async mainnet(externalProvider?: Provider, walletClient?: WalletClient): Promise<MainnetChain> {
     if (
       externalProvider === undefined &&
-      signer === undefined &&
+      walletClient === undefined &&
       this.#imaCache[constants.MAINNET_CHAIN_NAME]
     ) {
       log.debug('returning cached mainnet ima')
@@ -271,17 +272,21 @@ export default class MetaportCore {
       contracts.Project.MAINNET_IMA
     )
     const instance = await this.getInstance(provider, contracts.Project.MAINNET_IMA, aliasOrAddress)
-    const mainnet = new MainnetChain(provider, instance, signer)
-    if (externalProvider === undefined && signer === undefined) {
+    const mainnet = new MainnetChain(provider, instance, walletClient)
+    if (externalProvider === undefined && walletClient === undefined) {
       log.debug('caching mainnet ima')
       this.#imaCache[constants.MAINNET_CHAIN_NAME] = mainnet
     }
     return mainnet
   }
 
-  async schain(chainName: string, externalProvider?: Provider, signer?: Signer): Promise<SChain> {
+  async schain(
+    chainName: string,
+    externalProvider?: Provider,
+    walletClient?: WalletClient
+  ): Promise<SChain> {
     if (chainName === constants.MAINNET_CHAIN_NAME) throw new Error('Invalid chain name')
-    if (externalProvider === undefined && signer === undefined && this.#imaCache[chainName]) {
+    if (externalProvider === undefined && walletClient === undefined && this.#imaCache[chainName]) {
       log.debug(`returning cached ima for ${chainName}`)
       return this.#imaCache[chainName] as SChain
     }
@@ -294,8 +299,8 @@ export default class MetaportCore {
         contracts.PREDEPLOYED_ALIAS
       )
     }
-    const schain = new SChain(provider, instance as Instance, signer)
-    if (externalProvider === undefined && signer === undefined) {
+    const schain = new SChain(provider, instance as Instance, walletClient)
+    if (externalProvider === undefined && walletClient === undefined) {
       log.debug(`caching ima for ${chainName}`)
       this.#imaCache[chainName] = schain
     }

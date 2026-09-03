@@ -24,7 +24,7 @@ import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
 import Button from '@/ui/Button'
 import { styles, type MetaportCore, Tile, TokenIcon, SkPaper, sendTransaction } from '@/bridge'
 import { units, helper, notify, contracts as coreContracts } from '@/core'
-import { prepareSignerForWrite, type CreditToken } from '@/lib/credit-station'
+import { prepareWalletForWrite, type CreditToken } from '@/lib/credit-station'
 
 import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
@@ -82,7 +82,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
     const priceWei = units.toWei(price.toString(), token.decimals)
 
     try {
-      const signer = await prepareSignerForWrite(
+      const wallet = await prepareWalletForWrite(
         creditStation,
         walletClient,
         switchChainAsync,
@@ -90,7 +90,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
         source.chainName
       )
       await sendTransaction(
-        signer,
+        wallet,
         creditStation.setPrice,
         [token.address, priceWei],
         'creditStation:setPrice'

@@ -22,11 +22,12 @@
  */
 
 import { Logger, type ILogObj } from 'tslog'
-import type { Hash, Hex } from 'viem'
+import type { Hash } from 'viem'
 import type { Provider } from 'ethers'
 import { type types, units } from '@/core'
 
 import { Action } from './action'
+import { sendRawTransaction } from '../transactions'
 import { checkERC20Balance } from './checks'
 import { enforceNetwork, getExtChain, isExtChain, NETWORK_MAINNET_CHAINS } from '../network'
 import {
@@ -85,13 +86,7 @@ async function sendTrailsDeposit(
     chainName
   )
   action.updateState('trailsDeposit')
-  return action.walletClient.sendTransaction({
-    account: action.walletClient.account!,
-    chain: null,
-    to: depositTx.to as Hex,
-    data: depositTx.data as Hex,
-    value: depositTx.value
-  } as unknown as Parameters<typeof action.walletClient.sendTransaction>[0])
+  return await sendRawTransaction(action.walletClient, depositTx)
 }
 
 export class TransferTrailsExt2M extends Action {

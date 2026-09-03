@@ -29,7 +29,6 @@ import {
   type MetaportCore,
   enforceNetwork,
   Tile,
-  walletClientToSigner,
   sendTransaction,
   contracts
 } from '@/bridge'
@@ -115,23 +114,25 @@ export default function Paymaster(props: {
 
       await enforceNetwork(walletClient, switchChainAsync, network, paymasterChain)
       setBtnText('Sending transaction...')
-      const signer = walletClientToSigner(walletClient)
-      paymaster.connect(signer)
-      const connectedToken = new Contract(info.skaleToken, ERC_ABIS.erc20.abi, signer)
+      const connectedToken = new Contract(
+        info.skaleToken,
+        ERC_ABIS.erc20.abi,
+        props.mpc.provider(paymasterChain)
+      )
 
       const allowance = await connectedToken.allowance(address, paymasterAddress)
       const totalPriceWei = getTotalPriceWei()
       if (allowance <= totalPriceWei) {
         setBtnText('Waiting for approval...')
         await sendTransaction(
-          signer,
+          walletClient,
           connectedToken.approve,
           [paymasterAddress, totalPriceWei * APPROVE_MULTIPLIER],
           'paymaster:approve'
         )
         setBtnText('Sending transaction...')
       }
-      await sendTransaction(signer, paymaster.pay, [id(props.name), topupPeriod], 'paymaster:')
+      await sendTransaction(walletClient, paymaster.pay, [id(props.name), topupPeriod], 'paymaster:')
       notify.temporarySuccess('Chain top-up completed')
       await loadPaymasterInfo()
     } catch (e: any) {

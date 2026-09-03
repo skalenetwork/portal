@@ -32,7 +32,6 @@ import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
 import {
   useMetaportStore,
   type MetaportState,
-  walletClientToSigner,
   enforceNetwork
 } from '@/bridge'
 
@@ -119,14 +118,14 @@ export default function Router(props: {
 
   useScrollPosition()
 
-  async function getMainnetSigner() {
+  async function getMainnetWalletClient() {
     await enforceNetwork(
       walletClient!,
       switchChainAsync!,
       mpc.config.skaleNetwork,
       constants.MAINNET_CHAIN_NAME
     )
-    return walletClientToSigner(walletClient!)
+    return walletClient!
   }
 
   async function loadMetadata() {
@@ -329,7 +328,7 @@ export default function Router(props: {
                 si={si}
                 address={props.customAddress ?? address}
                 customAddress={props.customAddress}
-                getMainnetSigner={getMainnetSigner}
+                getMainnetWalletClient={getMainnetWalletClient}
               />
             }
           />
@@ -356,7 +355,7 @@ export default function Router(props: {
                 sc={props.sc}
                 validator={props.validator}
                 delegations={props.validatorDelegations}
-                getMainnetSigner={getMainnetSigner}
+                getMainnetWalletClient={getMainnetWalletClient}
                 chainsMeta={chainsMeta}
               />
             }
@@ -373,7 +372,7 @@ export default function Router(props: {
                   sc={props.sc}
                   si={si}
                   address={address}
-                  getMainnetSigner={getMainnetSigner}
+                  getMainnetWalletClient={getMainnetWalletClient}
                 />
               }
             />

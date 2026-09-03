@@ -22,7 +22,7 @@
  */
 
 import { Logger, type ILogObj } from 'tslog'
-import { units, helper } from '@/core'
+import { units } from '@/core'
 
 import { Action } from './action'
 import { checkEthBalance } from './checks'
@@ -40,14 +40,13 @@ export class TransferEthM2S extends Action {
     this.updateState('transferETH')
 
     const tx = await sendTransaction(
-      mainnet.signer,
+      mainnet.walletClient,
       ethM.deposit,
       [this.chainName2, { address: this.address, value: amountWei }],
       'mainnet:eth:deposit'
     )
 
-    const block = await helper.getBlockWithRetry(this.mainnet.provider, tx.response.blockNumber)
-    this.updateState('transferETHDone', tx.response.hash, block.timestamp)
+    this.updateState('transferETHDone', tx.hash, tx.timestamp)
     await this.sChain2.waitETHBalanceChange(this.address, sChainBalanceBefore)
     this.updateState('receivedETH')
   }
@@ -93,14 +92,13 @@ export class TransferEthS2M extends Action {
     this.updateState('transferETH')
 
     const tx = await sendTransaction(
-      sChain.signer,
+      sChain.walletClient,
       ethS.exitToMain,
       [amountWei, { address: this.address }],
       'mainnet:eth:exitToMain'
     )
 
-    const block = await helper.getBlockWithRetry(this.sChain1.provider, tx.response.blockNumber)
-    this.updateState('transferETHDone', tx.response.hash, block.timestamp)
+    this.updateState('transferETHDone', tx.hash, tx.timestamp)
     await this.mainnet.waitLockedETHAmountChange(this.address, lockedETHAmount)
     this.updateState('receivedETH')
   }
@@ -138,12 +136,11 @@ export class UnlockEthM extends Action {
     this.updateState('unlock')
 
     const tx = await sendTransaction(
-      mainnet.signer,
+      mainnet.walletClient,
       ethM.getMyEth,
       [{ address: this.address }],
       'mainnet:eth:getMyEth'
     )
-    const block = await helper.getBlockWithRetry(this.mainnet.provider, tx.response.blockNumber)
-    this.updateState('unlockDone', tx.response.hash, block.timestamp)
+    this.updateState('unlockDone', tx.hash, tx.timestamp)
   }
 }

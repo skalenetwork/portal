@@ -21,9 +21,10 @@
  * @copyright SKALE Labs 2024-Present
  */
 
+import { type WalletClient } from 'viem'
 import { Link } from 'react-router-dom'
 import Button from '@/ui/Button'
-import { type Signer, isAddress } from 'ethers'
+import { isAddress } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
 import { SkPaper, contracts, type MetaportCore } from '@/bridge'
 import { types } from '@/core'
@@ -64,7 +65,7 @@ export default function Staking(props: {
   si: types.st.StakingInfoMap
   address: types.AddressType | undefined
   customAddress: types.AddressType | undefined
-  getMainnetSigner: () => Promise<Signer>
+  getMainnetWalletClient: () => Promise<WalletClient>
 }) {
   const [loading, setLoading] = useState<LoadingState>(false)
   const [errorMsg, setErrorMsg] = useState<string | undefined>()
@@ -92,8 +93,8 @@ export default function Staking(props: {
     (): StakingActionProps => ({
       sc: props.sc,
       address: props.address,
-      skaleNetwork: props.mpc.config.skaleNetwork,
-      getMainnetSigner: props.getMainnetSigner,
+      mpc: props.mpc,
+      getMainnetWalletClient: props.getMainnetWalletClient,
       setLoading,
       setErrorMsg,
       postAction: props.loadStakingInfo
@@ -101,8 +102,8 @@ export default function Staking(props: {
     [
       props.sc,
       props.address,
-      props.mpc.config.skaleNetwork,
-      props.getMainnetSigner,
+      props.mpc,
+      props.getMainnetWalletClient,
       props.loadStakingInfo
     ]
   )

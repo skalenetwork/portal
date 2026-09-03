@@ -21,9 +21,10 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { type Signer } from 'ethers'
+import { type WalletClient } from 'viem'
+import { MetaportCore } from '@/bridge'
 import { sendTransaction, contracts } from '@/bridge'
-import { type types, notify } from '@/core'
+import { type types, notify, constants } from '@/core'
 export type LoadingState = types.st.IRewardInfo | types.st.IDelegationInfo | false
 export type SetLoadingFn = (state: LoadingState) => void
 export type SetErrorFn = (msg: string | undefined) => void
@@ -32,8 +33,8 @@ export type PostActionFn = () => Promise<void>
 export interface StakingActionProps {
   sc: types.st.ISkaleContractsMap | null
   address: types.AddressType | undefined
-  skaleNetwork: types.SkaleNetwork
-  getMainnetSigner: () => Promise<Signer>
+  mpc: MetaportCore
+  getMainnetWalletClient: () => Promise<WalletClient>
   setLoading: SetLoadingFn
   setErrorMsg: SetErrorFn
   postAction: PostActionFn
@@ -57,16 +58,16 @@ async function processTx({
   props.setErrorMsg(undefined)
   const toastId = notify.loading(`Processing ${txName}...`)
   try {
-    const signer = await props.getMainnetSigner()
+    const walletClient = await props.getMainnetWalletClient()
     const contract = await contracts.initActionContract(
-      signer,
+      props.mpc.provider(constants.MAINNET_CHAIN_NAME),
       delegationType,
       props.address,
-      props.skaleNetwork,
+      props.mpc.config.skaleNetwork,
       contractType
     )
 
-    await sendTransaction(signer, contract[txName], txArgs, `${txName}:${delegationType}`)
+    await sendTransaction(walletClient, contract[txName], txArgs, `${txName}:${delegationType}`)
     notify.temporarySuccess(`${txName} completed`, toastId)
     await props.postAction()
   } catch (err: any) {

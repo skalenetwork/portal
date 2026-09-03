@@ -24,14 +24,13 @@
 import { Logger, type ILogObj } from 'tslog'
 import { UseSwitchChainReturnType } from 'wagmi'
 import { WalletClient } from 'viem'
-import { Contract, Provider, type Signer } from 'ethers'
+import { Contract, Provider } from 'ethers'
 import { dc, type types, units, helper } from '@/core'
 
 import MetaportCore, { createTokenData } from '../metaport'
 import { externalEvents } from '../events'
 import { LOADING_BUTTON_TEXT } from './actionState'
 import { isMainnetChainId, enforceNetwork } from '../network'
-import { walletClientToSigner } from '../ethers'
 import { MainnetChain, SChain } from '../contracts'
 
 const log = new Logger<ILogObj>({ name: 'metaport:core:actions' })
@@ -262,7 +261,7 @@ export abstract class Action {
     )) as SChain
   }
 
-  async signer(provider: Provider, chainName?: string): Promise<Signer> {
+  async connectedWallet(chainName?: string): Promise<WalletClient> {
     this.updateState('switch')
     await enforceNetwork(
       this.walletClient,
@@ -270,7 +269,7 @@ export abstract class Action {
       this.mpc.config.skaleNetwork,
       chainName ?? this.chainName1
     )
-    return walletClientToSigner(this.walletClient)
+    return this.walletClient
   }
 
   async _getConnectedChain(
@@ -286,13 +285,11 @@ export abstract class Action {
       this.mpc.config.skaleNetwork,
       chainName ?? this.chainName1
     )
-    const signer = walletClientToSigner(this.walletClient)
-
     let chain: MainnetChain | SChain
     if (isMainnetChainId(updChainId, this.mpc.config.skaleNetwork)) {
-      chain = await this.mpc.mainnet(signer.provider, signer)
+      chain = await this.mpc.mainnet(undefined, this.walletClient)
     } else {
-      chain = await this.mpc.schain(chainName ?? this.chainName1, signer.provider, signer)
+      chain = await this.mpc.schain(chainName ?? this.chainName1, undefined, this.walletClient)
     }
 
     const tokenContract = this.mpc.tokenContract(

@@ -21,7 +21,8 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import { type Provider, type Contract, type BigNumberish, type Signer } from 'ethers'
+import { type Provider, type Contract, type BigNumberish } from 'ethers'
+import { type WalletClient } from 'viem'
 import { Instance } from '@skalenetwork/skale-contracts-ethers-v6'
 import { constants, dc, type types, helper } from '@/core'
 import { TimeoutException } from '../exceptions'
@@ -37,13 +38,13 @@ export abstract class BaseChain {
   provider: Provider
   instance: Instance
   tokens: TokenContractsMap
-  signer: Signer
+  walletClient: WalletClient
   _contractsCache: Map<string, Contract>
 
-  constructor(provider: Provider, instance: Instance, signer?: Signer) {
+  constructor(provider: Provider, instance: Instance, walletClient?: WalletClient) {
     this.provider = provider
     this.instance = instance
-    this.signer = signer
+    this.walletClient = walletClient
     this._contractsCache = new Map()
     this.tokens = {
       eth: {},
@@ -66,7 +67,7 @@ export abstract class BaseChain {
   ): Promise<types.mp.TxResponse> {
     const tokenContract = this.tokens[tokenType][tokenName]
     return await sendTransaction(
-      this.signer,
+      this.walletClient,
       tokenContract.approve,
       [address, amount],
       'tokenContract.approve'
@@ -81,7 +82,7 @@ export abstract class BaseChain {
   ): Promise<types.mp.TxResponse> {
     const tokenContract = this.tokens[tokenType][tokenName]
     return await sendTransaction(
-      this.signer,
+      this.walletClient,
       tokenContract.depositFor,
       [address, amount],
       'tokenContract.depositFor'
@@ -96,7 +97,7 @@ export abstract class BaseChain {
   ): Promise<types.mp.TxResponse> {
     const tokenContract = this.tokens[tokenType][tokenName]
     return await sendTransaction(
-      this.signer,
+      this.walletClient,
       tokenContract.withdrawTo,
       [address, amount],
       'tokenContract.withdrawTo'

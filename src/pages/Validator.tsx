@@ -21,8 +21,8 @@
  * @copyright SKALE Labs 2024-Present
  */
 
+import { type WalletClient } from 'viem'
 import { useCallback, useEffect, useMemo, useState } from 'react'
-import { type Signer } from 'ethers'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
@@ -61,7 +61,7 @@ export default function Validator(props: {
   loadValidator: () => Promise<void>
   validator: types.st.IValidator | null | undefined
   delegations: types.st.IDelegation[] | null
-  getMainnetSigner: () => Promise<Signer>
+  getMainnetWalletClient: () => Promise<WalletClient>
   chainsMeta: types.ChainsMetadataMap
 }) {
   const [sortBy, setSortBy] = useState<SortType>('id')
@@ -74,8 +74,8 @@ export default function Validator(props: {
     (): StakingActionProps => ({
       sc: props.sc,
       address: props.address,
-      skaleNetwork: props.mpc.config.skaleNetwork,
-      getMainnetSigner: props.getMainnetSigner,
+      mpc: props.mpc,
+      getMainnetWalletClient: props.getMainnetWalletClient,
       setLoading,
       setErrorMsg,
       postAction: props.loadValidator
@@ -83,8 +83,8 @@ export default function Validator(props: {
     [
       props.sc,
       props.address,
-      props.mpc.config.skaleNetwork,
-      props.getMainnetSigner,
+      props.mpc,
+      props.getMainnetWalletClient,
       props.loadValidator
     ]
   )

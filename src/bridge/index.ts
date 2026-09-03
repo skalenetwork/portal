@@ -51,7 +51,6 @@ import { getWidgetTheme as getMetaportTheme, getMuiZIndex } from './core/themes'
 
 import { enforceNetwork, walletCanUseChain, targetChain } from './core/network'
 import { openWallet } from './core/appkit'
-import { walletClientToSigner } from './core/ethers'
 
 export {
   Metaport,
@@ -82,7 +81,6 @@ export {
   styles,
   getMetaportTheme,
   getMuiZIndex,
-  walletClientToSigner,
   sendTransaction,
   enforceNetwork,
   openWallet,

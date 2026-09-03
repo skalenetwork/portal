@@ -29,7 +29,6 @@ import {
   enforceNetwork,
   TokenIcon,
   Tile,
-  walletClientToSigner,
   sendTransaction,
   SkPaper,
   Station,
@@ -167,10 +166,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
       await enforceNetwork(walletClient, switchChainAsync, network, paymasterChain)
       setBtnText('Sending transaction')
       notify.loading('Sending transaction...', { id: toastId })
-      const signer = walletClientToSigner(walletClient)
-      paymaster.connect(signer)
-
-      await sendTransaction(signer, paymaster.claim, [address], 'paymaster:claim')
+      await sendTransaction(walletClient, paymaster.claim, [address], 'paymaster:claim')
       notify.temporarySuccess('Staking rewards retrieved', toastId)
       await loadData()
     } catch (e: any) {

@@ -21,8 +21,10 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { type TransactionResponse } from 'ethers'
+import { type Hash } from 'viem'
 
 export interface TxResponse {
-  response: TransactionResponse
+  hash: Hash
+  blockNumber: bigint
+  timestamp: number
 }

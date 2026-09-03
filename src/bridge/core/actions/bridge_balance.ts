@@ -37,7 +37,6 @@ import {
   DEFAULT_ERROR_MSG
 } from '../constants'
 import MetaportCore from '../metaport'
-import { walletClientToSigner } from '../ethers'
 import { enforceNetwork } from '../network'
 
 const log = new Logger<ILogObj>({ name: 'metaport:core:actions:bridge_balance' })
@@ -87,7 +86,7 @@ export class RechargeBridgeBalance extends Action {
     this.updateState('recharge')
 
     await sendTransaction(
-      mainnet.signer,
+      mainnet.walletClient,
       communityPool.rechargeUserWallet,
       [
         this.chainName1,
@@ -126,12 +125,11 @@ export async function withdraw(
       mpc.config.skaleNetwork,
       constants.MAINNET_CHAIN_NAME
     )
-    const signer = walletClientToSigner(walletClient)
-    const connectedMainnet = await mpc.mainnet(signer.provider)
+    const connectedMainnet = await mpc.mainnet(undefined, walletClient)
     const communityPool = await connectedMainnet.communityPool()
 
     await sendTransaction(
-      signer,
+      walletClient,
       communityPool.withdrawFunds,
       [chainName, amount, { address: address, gasLimit: COMMUNITY_POOL_WITHDRAW_GAS_LIMIT }],
       'mainnet:communityPool:withdrawFunds'
@@ -171,12 +169,11 @@ export async function recharge(
       mpc.config.skaleNetwork,
       constants.MAINNET_CHAIN_NAME
     )
-    const signer = walletClientToSigner(walletClient)
-    const connectedMainnet = await mpc.mainnet(signer.provider)
+    const connectedMainnet = await mpc.mainnet(undefined, walletClient)
     const communityPool = await connectedMainnet.communityPool()
 
     await sendTransaction(
-      signer,
+      walletClient,
       communityPool.rechargeUserWallet,
       [
         chainName,

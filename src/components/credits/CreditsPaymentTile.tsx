@@ -123,7 +123,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
     setErrorMsg(undefined)
 
     try {
-      const signer = await cs.prepareSignerForWrite(
+      const wallet = await cs.prepareWalletForWrite(
         ledgerContract,
         walletClient,
         switchChainAsync,
@@ -132,7 +132,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
       )
 
       await sendTransaction(
-        signer,
+        wallet,
         ledgerContract.fulfill,
         [payment.id, payment.to],
         'ledger:fulfill',

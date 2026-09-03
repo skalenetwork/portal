@@ -99,10 +99,6 @@ export function divideBigInts(a: bigint, b: bigint): number {
   return Number((a * 10000n) / b) / 10000
 }
 
-type BlockProvider<TBlock extends { timestamp: number }> = {
-  getBlock: (blockNumber: number) => Promise<TBlock | null>
-}
-
 export async function pollUntil<T>(
   probe: () => Promise<T>,
   done: (value: T) => boolean,
@@ -119,21 +115,6 @@ export async function pollUntil<T>(
     delay = Math.min(delay * 2, maxDelay)
   } while (Date.now() < deadline)
   return undefined
-}
-
-export async function getBlockWithRetry<TBlock extends { timestamp: number }>(
-  provider: BlockProvider<TBlock>,
-  blockNumber: number,
-  timeoutMs = 5000
-): Promise<TBlock> {
-  const block = await pollUntil(
-    () => provider.getBlock(blockNumber),
-    (b): b is TBlock => !!b,
-    timeoutMs,
-    500
-  )
-  if (!block) throw new Error(`Failed to load block: ${blockNumber}`)
-  return block
 }
 
 export function schainNameToHash(schainName: string): string {

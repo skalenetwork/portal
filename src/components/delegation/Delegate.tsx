@@ -20,11 +20,11 @@
  * @copyright SKALE Labs 2024-Present
  */
 
+import { type WalletClient } from 'viem'
 import { Logger, type ILogObj } from 'tslog'
 import Button from '@/ui/Button'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { type Signer } from 'ethers'
 
 import { TokenIcon, type MetaportCore, sendTransaction, contracts, Tile, styles } from '@/bridge'
 import { type types, constants, units } from '@/core'
@@ -44,7 +44,7 @@ export default function Delegate(props: {
   mpc: MetaportCore
   validator: types.st.IValidator | undefined
   si: types.st.StakingInfoMap
-  getMainnetSigner: () => Promise<Signer>
+  getMainnetWalletClient: () => Promise<WalletClient>
   address: types.AddressType
   delegationType: types.st.DelegationType
   loaded: boolean
@@ -87,16 +87,16 @@ export default function Delegate(props: {
       log.info(
         `Delegating SKL: ${amountWei} to ${props.validator?.id} - type ${props.delegationType}`
       )
-      const signer = await props.getMainnetSigner()
+      const walletClient = await props.getMainnetWalletClient()
       const delegationContract = await contracts.initActionContract(
-        signer,
+        props.mpc.provider(constants.MAINNET_CHAIN_NAME),
         props.delegationType,
         props.address,
         props.mpc.config.skaleNetwork,
         'delegation'
       )
       await sendTransaction(
-        signer,
+        walletClient,
         delegationContract.delegate,
         [
           props.validator.id,

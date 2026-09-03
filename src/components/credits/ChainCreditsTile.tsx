@@ -48,7 +48,7 @@ import {
   RECOMMENDED_CREDITS_AMOUNTS,
   CREDITS_USAGE_EXAMPLE_PER_CREDIT
 } from '@/lib/constants'
-import { prepareSignerForWrite } from '@/lib/credit-station'
+import { prepareWalletForWrite } from '@/lib/credit-station'
 import CreditsAmountSelector from './CreditsAmountSelector'
 import TokenSelector from './TokenSelector'
 import SourceSelector from './SourceSelector'
@@ -197,7 +197,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
       const tokenAddress = sourceTokens[token]?.address
       if (!tokenAddress) return
 
-      const signer = await prepareSignerForWrite(
+      const wallet = await prepareWalletForWrite(
         creditStation,
         walletClient,
         switchChainAsync,
@@ -207,11 +207,15 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
 
       const amountWei = getAmountToPayWei()
 
-      const connectedToken = new Contract(tokenAddress, ERC_ABIS.erc20.abi, signer)
+      const connectedToken = new Contract(
+        tokenAddress,
+        ERC_ABIS.erc20.abi,
+        creditStation.runner!.provider
+      )
       const creditStationAddress = await creditStation.getAddress()
 
       await sendTransaction(
-        signer,
+        wallet,
         connectedToken.approve,
         [creditStationAddress, amountWei],
         'creditStation:approve',
@@ -219,7 +223,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
       )
 
       await sendTransaction(
-        signer,
+        wallet,
         creditStation.buy,
         [schain.name, address, tokenAddress, amount],
         'creditStation:buy',
