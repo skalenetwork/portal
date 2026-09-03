@@ -20,26 +20,18 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import {
-  styles,
-  type MetaportCore,
-  Tile,
-  TokenIcon,
-  SkPaper,
-  useWagmiAccount,
-  useWagmiWalletClient,
-  useWagmiSwitchNetwork,
-  sendTransaction
-} from '@skalenetwork/metaport'
+import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
+import Button from '@/ui/Button'
+import { styles, type MetaportCore, Tile, TokenIcon, SkPaper, sendTransaction } from '@/bridge'
 import { units, helper, notify, contracts as coreContracts } from '@/core'
-import { prepareSignerForWrite, type CreditToken } from '../../core/credit-station'
+import { prepareSignerForWrite, type CreditToken } from '@/lib/credit-station'
 
 import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import DoDisturbOnRoundedIcon from '@mui/icons-material/DoDisturbOnRounded'
 
 import { Contract } from 'ethers'
-import { Button, Dialog, Grid, TextField } from '@mui/material'
+import { Dialog, Grid, TextField } from '@mui/material'
 import SkStack from '../SkStack'
 import { useState } from 'react'
 import Headline from '../Headline'
@@ -66,9 +58,9 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
 
   const network = mpc.config.skaleNetwork
 
-  const { chainId } = useWagmiAccount()
-  const { data: walletClient } = useWagmiWalletClient({ chainId })
-  const { switchChainAsync } = useWagmiSwitchNetwork()
+  const { chainId } = useAccount()
+  const { data: walletClient } = useWalletClient({ chainId })
+  const { switchChainAsync } = useSwitchChain()
 
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (parseFloat(event.target.value) < 0) {
@@ -166,9 +158,10 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
               icon={<Coins size={17} />}
             />
             <Button
-              size="small"
+              variant="secondary"
+              size="sm"
               startIcon={<Bolt size={17} />}
-              className="btnSm bg-secondary-foreground/10! text-foreground! ml-2.5"
+              className="bg-secondary-foreground/10! ml-2.5"
               onClick={() => setOpenModal(true)}
               disabled={creditStation === undefined}
             >
@@ -240,9 +233,8 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
             />
           </SkPaper>
           <Button
-            variant="contained"
-            className="btnMd ml-5 w-full mt-4! mb-2! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-accent! ease-in-out transition-transform duration-150 active:scale-[0.97]"
-            size="large"
+            size="md"
+            className="ml-5 w-full mt-4! mb-2!"
             onClick={updatePrice}
             disabled={loading || price === ''}
           >

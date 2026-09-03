@@ -34,7 +34,7 @@ export default function LinkSurface(props: {
   if (!props.value) return
   return (
     <div className={props.className}>
-      <a target="_blank" rel="noreferrer" href={props.url} className="'undec', text-primary">
+      <a target="_blank" rel="noreferrer" href={props.url} className="undec text-brand">
         <Tooltip title={'Click to see contract'}>
           <ButtonBase className="bg-background! p-5! rounded-3xl!" style={{ width: '100%' }}>
             <div style={{ textAlign: 'left', overflow: 'auto' }} className="grow">

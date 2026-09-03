@@ -23,7 +23,7 @@
 
 import Container from '@mui/material/Container'
 import { useParams } from 'react-router-dom'
-import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper } from '@/bridge'
 import { types, metadata } from '@/core'
 
 import { ChevronLeft, Link2, ShieldUser } from 'lucide-react'

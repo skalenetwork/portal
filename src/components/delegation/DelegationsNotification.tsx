@@ -23,7 +23,7 @@
 
 import { types } from '@/core'
 
-import { getProposedDelegationsCount } from '../../core/delegation'
+import { getProposedDelegationsCount } from '@/lib/delegation'
 import { Tooltip } from '@mui/material'
 
 export default function DelegationsNotification(props: {

@@ -21,30 +21,23 @@
  */
 
 import { useState, useEffect, useMemo } from 'react'
+import Button from '@/ui/Button'
 import Avatar from 'boring-avatars'
 import { Contract } from 'ethers'
 
-import { Grid, Button, Tooltip } from '@mui/material'
+import { Grid, Tooltip } from '@mui/material'
 import HistoryToggleOffRoundedIcon from '@mui/icons-material/HistoryToggleOffRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
-import {
-  type MetaportCore,
-  Tile,
-  ChainIcon,
-  TokenIcon,
-  explorer,
-  useWagmiAccount,
-  sendTransaction,
-  useWagmiWalletClient,
-  useWagmiSwitchNetwork
-} from '@skalenetwork/metaport'
+import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
+import { type MetaportCore, Tile, ChainIcon, TokenIcon, explorer, sendTransaction } from '@/bridge'
 import { types, contracts as coreContracts, timeUtils, helper, metadata, notify } from '@/core'
 
 import SkStack from '../SkStack'
 
-import * as cs from '../../core/credit-station'
-import { CREDITS_CONFIRMATION_BLOCKS, AVATAR_COLORS } from '../../core/constants'
+import * as cs from '@/lib/credit-station'
+import { CREDITS_CONFIRMATION_BLOCKS } from '@/lib/constants'
+import { AVATAR_COLORS } from '@/ui'
 import { BadgeCheck, ExternalLink, HandCoins, IdCard } from 'lucide-react'
 
 interface CreditsPaymentTileProps {
@@ -77,7 +70,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
 
   const sourceAlias = source
     ? metadata.getAlias(network, chainsMeta, source.chainName, undefined, true) ||
-    source.displayName
+      source.displayName
     : ''
 
   const configTokenSymbol = Object.keys(sourceTokens).find(
@@ -106,9 +99,9 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
   const [isFulfilled, setIsFulfilled] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
 
-  const { chainId } = useWagmiAccount()
-  const { data: walletClient } = useWagmiWalletClient({ chainId })
-  const { switchChainAsync } = useWagmiSwitchNetwork()
+  const { chainId } = useAccount()
+  const { data: walletClient } = useWalletClient({ chainId })
+  const { switchChainAsync } = useSwitchChain()
 
   const txTimestamp = payment.timestamp || undefined
 
@@ -117,7 +110,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
     const checkFulfillment = async () => {
       try {
         setIsFulfilled(await ledgerContract.isFulfilled(payment.id))
-      } catch (error) { }
+      } catch (error) {}
     }
     checkFulfillment()
     const interval = setInterval(checkFulfillment, 10000)
@@ -159,9 +152,13 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
   return (
     <div>
       <div className="mb-2.5 bg-background rounded-3xl p-4">
-        <Grid container spacing={0} sx={{
-          alignItems: "center"
-        }}>
+        <Grid
+          container
+          spacing={0}
+          sx={{
+            alignItems: 'center'
+          }}
+        >
           <Grid size={{ xs: 12, md: 4 }} className="flex items-center">
             <div className="flex items-center">
               <Avatar
@@ -262,9 +259,10 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
             {isAdmin && (
               <div className="flex items-center">
                 <Button
-                  size="small"
+                  variant="secondary"
+                  size="md"
                   startIcon={isFulfilled ? <BadgeCheck size={17} /> : <HandCoins size={17} />}
-                  className="btnMd bg-secondary-foreground/10! text-foreground! disabled:opacity-50! ml-2.5"
+                  className="bg-secondary-foreground/10! disabled:opacity-50! ml-2.5"
                   onClick={fulfillPayment}
                   disabled={isFulfilled || loading || !ledgerContract}
                 >
@@ -276,7 +274,7 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
         </Grid>
       </div>
     </div>
-  );
+  )
 }
 
 export default CreditsPaymentTile

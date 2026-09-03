@@ -22,7 +22,7 @@
 
 import React from 'react'
 import { FormControlLabel, Checkbox } from '@mui/material'
-import { useThemeMode } from '@skalenetwork/metaport'
+import { useThemeMode } from '@/bridge'
 import { highlightMatch } from './SearchBar'
 
 interface Subcategory {

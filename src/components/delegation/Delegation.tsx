@@ -23,7 +23,7 @@
 import { useState } from 'react'
 import Avatar from 'boring-avatars'
 import { types, units, timeUtils } from '@/core'
-import { Tile } from '@skalenetwork/metaport'
+import { Tile } from '@/bridge'
 
 import { Grid, Collapse, Tooltip, Grow } from '@mui/material'
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
@@ -32,9 +32,9 @@ import SkStack from '../SkStack'
 import SkBtn from '../SkBtn'
 import ValidatorLogo from './ValidatorLogo'
 
-import { DelegationState, getDelegationSource } from '../../core/delegation'
-import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
-import { AVATAR_COLORS } from '../../core/constants'
+import { DelegationState, getDelegationSource } from '@/lib/delegation'
+import { formatBigIntTimestampSeconds } from '@/lib/timeHelper'
+import { AVATAR_COLORS } from '@/ui'
 import { Coins, ChevronRight, ChevronDown, CircleUser, Globe, Landmark } from 'lucide-react'
 
 export default function Delegation(props: {
@@ -226,8 +226,7 @@ export default function Delegation(props: {
             <SkBtn
               loading={loading}
               text={loading ? 'Accepting delegation' : 'Accept delegation'}
-              color="primary"
-              className=" btnMd w-full"
+              className="w-full"
               onClick={async () => {
                 props.accept && (await props.accept(delegationInfo))
               }}
@@ -238,8 +237,7 @@ export default function Delegation(props: {
             <SkBtn
               loading={loading}
               text={loading ? 'Unstaking tokens' : 'Unstake tokens'}
-              color="error"
-              className="w-full mt-1.5! btnMd"
+              className="w-full mt-1.5!"
               onClick={async () => {
                 props.unstake && (await props.unstake(delegationInfo))
               }}
@@ -250,7 +248,7 @@ export default function Delegation(props: {
             <SkBtn
               loading={loading}
               text={loading ? 'Canceling staking request' : 'Cancel staking request'}
-              className="btnMd w-full! text-accent! bg-accent-foreground!"
+              className="w-full! text-accent! bg-accent-foreground!"
               onClick={async () => {
                 props.cancelRequest && (await props.cancelRequest(delegationInfo))
               }}

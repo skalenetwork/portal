@@ -22,11 +22,11 @@
 
 import React from 'react'
 import { Box } from '@mui/material'
-import { SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@/bridge'
 import AppCard from '../AppCardV2'
 import Carousel from '../../Carousel'
 import { type types } from '@/core'
-import { isTrending, isFeatured } from '../../../core/ecosystem/utils'
+import { isTrending, isFeatured } from '@/lib/ecosystem/utils'
 
 interface NewAppsProps {
   newApps: types.AppWithChainAndName[]

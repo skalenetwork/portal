@@ -26,7 +26,7 @@ import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import { CircleCheck, CircleX } from 'lucide-react'
 
-import { formatTimePeriod } from '../core/timeHelper'
+import { formatTimePeriod } from '@/lib/timeHelper'
 import { notify } from '@/core'
 
 const MONTH_RECOMMENDATIONS = [1, 2, 3, 6, 12, 18, 24]

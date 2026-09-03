@@ -22,7 +22,7 @@
  */
 
 import { type types } from '@/core'
-import { type MetaportCore } from '@skalenetwork/metaport'
+import { type MetaportCore } from '@/bridge'
 
 import CopySurface from '../../CopySurface'
 import { getAddress } from 'ethers'

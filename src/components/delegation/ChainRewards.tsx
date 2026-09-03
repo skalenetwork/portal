@@ -21,12 +21,12 @@
  */
 
 import { useEffect, useState } from 'react'
+import Button from '@/ui/Button'
 import { Contract } from 'ethers'
+import { useSwitchChain, useWalletClient } from 'wagmi'
 import {
   type MetaportCore,
   enforceNetwork,
-  useWagmiWalletClient,
-  useWagmiSwitchNetwork,
   TokenIcon,
   Tile,
   walletClientToSigner,
@@ -35,10 +35,10 @@ import {
   Station,
   explorer,
   contracts
-} from '@skalenetwork/metaport'
+} from '@/bridge'
 import { type types, constants, units, ERC_ABIS, notify } from '@/core'
 
-import { Button, IconButton, Tooltip } from '@mui/material'
+import { IconButton, Tooltip } from '@mui/material'
 import { Blocks, CalendarArrowDown, CircleStar } from 'lucide-react'
 
 import Headline from '../Headline'
@@ -76,8 +76,8 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   const network = mpc.config.skaleNetwork
   const paymasterChain = contracts.paymaster.getPaymasterChain(network)
 
-  const { data: walletClient } = useWagmiWalletClient()
-  const { switchChainAsync } = useWagmiSwitchNetwork()
+  const { data: walletClient } = useWalletClient()
+  const { switchChainAsync } = useSwitchChain()
 
   const addr = customAddress ?? address
 
@@ -164,9 +164,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
         }
       }
 
-      const { chainId } = await paymaster.runner.provider.getNetwork()
-
-      await enforceNetwork(chainId, walletClient, switchChainAsync, network, paymasterChain)
+      await enforceNetwork(walletClient, switchChainAsync, network, paymasterChain)
       setBtnText('Sending transaction')
       notify.loading('Sending transaction...', { id: toastId })
       const signer = walletClientToSigner(walletClient)
@@ -203,10 +201,9 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
         childrenRi={
           <SkStack className="flex items-center">
             <Button
+              size="sm"
               loading={loading}
-              variant="contained"
-              size="small"
-              className="btn btnSm text-xs bg-accent-foreground! text-accent! align-center! disabled:text-foreground/70! disabled:bg-accent-foreground/15!"
+              className="text-xs align-center!"
               disabled={
                 customAddress !== undefined ||
                 rewardAmount === null ||

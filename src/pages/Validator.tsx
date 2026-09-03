@@ -26,7 +26,7 @@ import { type Signer } from 'ethers'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
-import { type MetaportCore, SkPaper, contracts } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper, contracts } from '@/bridge'
 
 import { Collapse, Skeleton } from '@mui/material'
 
@@ -35,10 +35,10 @@ import {
   unstakeDelegation,
   acceptDelegation,
   LoadingState
-} from '../core/delegation/stakingActions'
-import { sortDelegations, SortType } from '../core/delegation'
-import { META_TAGS } from '../core/meta'
-import { ITEMS_PER_PAGE } from '../core/constants'
+} from '@/lib/delegation/stakingActions'
+import { sortDelegations, SortType } from '@/lib/delegation'
+import { META_TAGS } from '@/lib/meta'
+import { ITEMS_PER_PAGE } from '@/lib/constants'
 
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import ValidatorInfo from '../components/delegation/ValidatorInfo'

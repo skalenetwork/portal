@@ -25,9 +25,9 @@ import { useState, useEffect, useMemo } from 'react'
 
 import { Contract } from 'ethers'
 
-import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper } from '@/bridge'
 import { contracts as coreContracts, type types } from '@/core'
-import * as cs from '../core/credit-station'
+import * as cs from '@/lib/credit-station'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
@@ -35,7 +35,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 import HistoryRoundedIcon from '@mui/icons-material/HistoryRounded'
 import { History } from 'lucide-react'
 
-import { META_TAGS } from '../core/meta'
+import { META_TAGS } from '@/lib/meta'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import AccordionSection from '../components/AccordionSection'
 import ErrorTile from '../components/ErrorTile'
@@ -50,22 +50,14 @@ interface CreditsAdminProps {
   chainsMeta: types.ChainsMetadataMap
 }
 
-const CreditsAdmin: React.FC<CreditsAdminProps> = ({
-  mpc,
-  loadData,
-  schains,
-  chainsMeta
-}) => {
+const CreditsAdmin: React.FC<CreditsAdminProps> = ({ mpc, loadData, schains, chainsMeta }) => {
   const [creditStationBySource, setCreditStationBySource] = useState<Record<string, Contract>>({})
   const [ledgerContracts, setLedgerContracts] = useState<{ [schainName: string]: Contract }>({})
   const [allPayments, setAllPayments] = useState<cs.Payment[]>([])
   const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined)
   const [isLoadingPayments, setIsLoadingPayments] = useState<boolean>(false)
 
-  const sources = useMemo(
-    () => cs.getCreditStationSources(mpc.config.skaleNetwork),
-    [mpc]
-  )
+  const sources = useMemo(() => cs.getCreditStationSources(mpc.config.skaleNetwork), [mpc])
 
   const sourceById = useMemo<Record<string, coreContracts.CreditStationSource>>(
     () => Object.fromEntries(sources.map((s) => [s.id, s])),

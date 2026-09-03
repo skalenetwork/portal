@@ -22,9 +22,9 @@
  */
 
 import { useState, type Dispatch, type SetStateAction } from 'react'
+import Button from '@/ui/Button'
 
 import Container from '@mui/material/Container'
-import Button from '@mui/material/Button'
 import Link from '@mui/material/Link'
 
 import Box from '@mui/material/Box'
@@ -32,9 +32,9 @@ import Box from '@mui/material/Box'
 import KeyRoundedIcon from '@mui/icons-material/KeyRounded'
 import LockRoundedIcon from '@mui/icons-material/LockRounded'
 import GradingRoundedIcon from '@mui/icons-material/GradingRounded'
-import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper } from '@/bridge'
 
-import { PORTAL_URLS } from '../core/constants'
+import { PORTAL_URLS } from '@/lib/constants'
 import TermsOfService from '../data/terms-of-service.mdx'
 import { Handshake, Key, Lock } from 'lucide-react'
 
@@ -115,7 +115,7 @@ export default function TermsModal(props: {
                 <div
                   id="terms"
                   style={{ paddingRight: '10px' }}
-                  className="text-foreground text-[13px] md:text-sm tosMd"
+                  className="text-foreground prose prose-sm dark:prose-invert max-w-none prose-headings:font-semibold"
                 >
                   <TermsOfService />
                 </div>
@@ -124,13 +124,12 @@ export default function TermsModal(props: {
           </SkPaper>
         </div>
         <Button
+          size="lg"
           onClick={() => {
             props.setTermsAccepted(true)
           }}
-          variant="contained"
           disabled={!scrolled}
-          className="w-full mt-3! md:mt-4! mb-12! md:mb-0! capitalize! text-[13px]! md:text-sm! font-semibold! py-3.5! md:py-4! bg-accent-foreground! text-accent!  disabled:text-foreground/70!  disabled:bg-accent-foreground/15! ease-in-out transition-transform duration-150 active:scale-[0.97]"
-          size="large"
+          className="w-full mt-3! md:mt-4! mb-12! md:mb-0! capitalize! text-[13px]! md:text-sm! font-semibold! py-3.5! md:py-4!"
         >
           {getAgreeButtonText()}
         </Button>

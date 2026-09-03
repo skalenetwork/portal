@@ -26,7 +26,8 @@ import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
 
 import { type types, endpoints, networks } from '@/core'
-import { useMetaportStore, useWagmiAccount, Debug, contracts } from '@skalenetwork/metaport'
+import { useAccount } from 'wagmi'
+import { useMetaportStore, contracts } from '@/bridge'
 
 import Header from './Header'
 import SkDrawer from './SkDrawer'
@@ -34,10 +35,10 @@ import Router from './Router'
 import SkBottomNavigation from './SkBottomNavigation'
 import ProfileModal from './components/profile/ProfileModal'
 
-import { formatSChains } from './core/chain'
-import { STATS_API } from './core/constants'
-import { getValidatorDelegations } from './core/delegation/staking'
-import { getValidator } from './core/delegation'
+import { formatSChains } from '@/lib/chain'
+import { STATS_API } from '@/lib/constants'
+import { getValidatorDelegations } from '@/lib/delegation/staking'
+import { getValidator } from '@/lib/delegation'
 
 export default function Portal() {
   const mpc = useMetaportStore((state) => state.mpc)
@@ -57,7 +58,7 @@ export default function Portal() {
   const endpoint = endpoints.getProxyEndpoint(mpc.config.skaleNetwork)
   const statsApi = STATS_API[mpc.config.skaleNetwork]
 
-  const { address } = useWagmiAccount()
+  const { address } = useAccount()
   if (!mpc) return <div></div>
 
   const openProfileModal = () => setIsProfileModalOpen(true)
@@ -155,9 +156,6 @@ export default function Portal() {
           loadValidator={loadValidator}
         />
         <ProfileModal isOpen={isProfileModalOpen} onClose={closeProfileModal} />
-        <div className="mt-5 w-full">
-          <Debug />
-        </div>
       </div>
       <SkBottomNavigation />
     </Box>

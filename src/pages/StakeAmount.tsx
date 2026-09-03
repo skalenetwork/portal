@@ -24,7 +24,7 @@
 import { useState, useEffect } from 'react'
 import { type Signer } from 'ethers'
 import { useParams } from 'react-router-dom'
-import { type MetaportCore, SkPaper, contracts } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper, contracts } from '@/bridge'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
@@ -39,8 +39,8 @@ import ConnectWallet from '../components/ConnectWallet'
 
 import ErrorTile from '../components/ErrorTile'
 import Headline from '../components/Headline'
-import { isDelegationTypeAvailable, isLoaded } from '../core/delegation/staking'
-import { getDelegationTypeAlias } from '../core/delegation'
+import { isDelegationTypeAvailable, isLoaded } from '@/lib/delegation/staking'
+import { getDelegationTypeAlias } from '@/lib/delegation'
 
 export default function StakeAmount(props: {
   mpc: MetaportCore

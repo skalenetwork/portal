@@ -26,8 +26,8 @@ import { Box } from '@mui/material'
 
 import { type types } from '@/core'
 
-import { isNewApp, isTrending, isFeatured } from '../../core/ecosystem/utils'
-import { findSimilarApps, type SimilarApp } from '../../core/ecosystem/similarApps'
+import { isNewApp, isTrending, isFeatured } from '@/lib/ecosystem/utils'
+import { findSimilarApps, type SimilarApp } from '@/lib/ecosystem/similarApps'
 
 import AppCardV2 from './AppCardV2'
 import Carousel from '../Carousel'

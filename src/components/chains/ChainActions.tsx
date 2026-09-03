@@ -22,8 +22,8 @@
  */
 
 import React from 'react'
-import { Button } from '@mui/material'
-import { explorer } from '@skalenetwork/metaport'
+import Button from '@/ui/Button'
+import { explorer } from '@/bridge'
 import { type types } from '@/core'
 import { Blocks, Globe } from 'lucide-react'
 
@@ -46,7 +46,8 @@ const ChainActions: React.FC<ChainActionsProps> = ({
     <div className={`flex items-center mt-2.5 ${className}`}>
       {chainMeta && chainMeta.url && (
         <Button
-          size="small"
+          variant="ghost"
+          size="sm"
           href={chainMeta.url}
           target="_blank"
           rel="noopener noreferrer"
@@ -57,7 +58,8 @@ const ChainActions: React.FC<ChainActionsProps> = ({
         </Button>
       )}
       <Button
-        size="small"
+        variant="ghost"
+        size="sm"
         href={explorerUrl}
         target="_blank"
         rel="noopener noreferrer"

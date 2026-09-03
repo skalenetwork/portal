@@ -25,7 +25,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { useParams } from 'react-router-dom'
 import { type types, metadata, units, constants } from '@/core'
 
-import { explorer, MetaportCore, SkPaper, Tile } from '@skalenetwork/metaport'
+import { explorer, MetaportCore, SkPaper, Tile } from '@/bridge'
 
 import Container from '@mui/material/Container'
 
@@ -43,10 +43,10 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined'
 
 import { useApps } from '../useApps'
 
-import { getAppMetaWithChainApp } from '../core/ecosystem/apps'
-import { formatNumber } from '../core/timeHelper'
-import { MAX_APPS_DEFAULT, OFFCHAIN_APP } from '../core/constants'
-import { getRecentApps, isNewApp, isTrending, isFeatured } from '../core/ecosystem/utils'
+import { getAppMetaWithChainApp } from '@/lib/ecosystem/apps'
+import { formatNumber } from '@/lib/timeHelper'
+import { MAX_APPS_DEFAULT, OFFCHAIN_APP } from '@/lib/constants'
+import { getRecentApps, isNewApp, isTrending, isFeatured } from '@/lib/ecosystem/utils'
 
 import SocialButtons from '../components/ecosystem/Socials'
 import CategoriesChips from '../components/ecosystem/CategoriesChips'

@@ -20,16 +20,18 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { Button } from '@mui/material'
-import { SkPaper, useWagmiAccount, RainbowConnectButton } from '@skalenetwork/metaport'
-import { Rainbow } from 'lucide-react'
+import Button from '@/ui/Button'
+import { useAccount } from 'wagmi'
+import { SkPaper, openWallet } from '@/bridge'
+import { Wallet } from 'lucide-react'
 
 export default function ConnectWallet(props: {
   tile?: boolean
   className?: string
   customText?: string
+  onConnect?: () => void
 }) {
-  const { address } = useWagmiAccount()
+  const { address } = useAccount()
   return (
     <div className={props.className}>
       <SkPaper gray={!props.tile} className="bg-muted!">
@@ -40,20 +42,17 @@ export default function ConnectWallet(props: {
           <div className="flex">
             <div className="flex grow"></div>
             <div className="flex">
-              <RainbowConnectButton.Custom>
-                {({ openConnectModal }) => {
-                  return (
-                    <Button
-                      onClick={() => openConnectModal()}
-                      variant="contained"
-                      className="text-center mt-2.5! flex btn bg-accent-foreground! text-accent!"
-                    >
-                      <Rainbow size={16} className="mr-2.5" />
-                      {address ? 'Sign in' : 'Connect Wallet'}
-                    </Button>
-                  )
+              <Button
+                onClick={() => {
+                  props.onConnect?.()
+                  openWallet()
                 }}
-              </RainbowConnectButton.Custom>
+                size="lg"
+                className="text-center mt-2.5! flex"
+              >
+                <Wallet size={16} className="mr-2.5" />
+                {address ? 'Sign in' : 'Connect Wallet'}
+              </Button>
             </div>
             <div className="flex grow"></div>
           </div>

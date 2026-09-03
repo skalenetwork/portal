@@ -22,7 +22,7 @@
  */
 
 import React, { useState, useEffect } from 'react'
-import { SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@/bridge'
 import { constants } from '@/core'
 
 import { Collapse } from '@mui/material'

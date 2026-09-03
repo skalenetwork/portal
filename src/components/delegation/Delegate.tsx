@@ -21,21 +21,14 @@
  */
 
 import { Logger, type ILogObj } from 'tslog'
+import Button from '@/ui/Button'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { type Signer } from 'ethers'
 
-import {
-  TokenIcon,
-  type MetaportCore,
-  sendTransaction,
-  contracts,
-  Tile,
-  styles
-} from '@skalenetwork/metaport'
+import { TokenIcon, type MetaportCore, sendTransaction, contracts, Tile, styles } from '@/bridge'
 import { type types, constants, units } from '@/core'
 
-import Button from '@mui/material/Button'
 import { TextField, Tooltip } from '@mui/material'
 import { ArrowDown, CalendarSync, Clock, Share2 } from 'lucide-react'
 
@@ -114,7 +107,9 @@ export default function Delegate(props: {
         'delegation:delegate'
       )
       setLoading(false)
-      notify.temporarySuccess(`${amount.includes('.') ? amount : Number(amount).toLocaleString()} SKL staked successfully`)
+      notify.temporarySuccess(
+        `${units.formatAmount(amount)} SKL staked successfully`
+      )
       navigate('/staking')
     } catch (err: any) {
       log.error(err)
@@ -219,7 +214,9 @@ export default function Delegate(props: {
           childrenRi={
             <div className="items-center flex">
               <Button
-                className="btnSm outlined ml-5! items-center text-secondary-foreground! hover:bg-muted-foreground/50!"
+                variant="ghost"
+                size="sm"
+                className="outlined ml-5! items-center text-secondary-foreground! hover:bg-muted-foreground/50!"
                 disabled={info.allowedToDelegate === 0n || loading}
                 onClick={() => {
                   if (!info.allowedToDelegate) return
@@ -240,14 +237,16 @@ export default function Delegate(props: {
 
       {loading ? (
         <Button
+          variant="ghost"
+          size="md"
           disabled
-          variant="contained"
-          className="btnMd bg-accent-foreground/15! text-foreground/70! mt-2.5! mb-1! w-full!"
+          className="bg-accent-foreground/15! text-foreground/70! mt-2.5! mb-1! w-full!"
         >
           Staking SKL
         </Button>
       ) : (
         <Button
+          size="md"
           disabled={
             amount === '' ||
             parseFloat(amount) === 0 ||
@@ -256,13 +255,12 @@ export default function Delegate(props: {
             amountWei < props.validator.minimumDelegationAmount ||
             loading
           }
-          variant="contained"
-          className="bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-accent! btnMd mt-2.5! mb-1! w-full!"
+          className="mt-2.5! mb-1! w-full!"
           onClick={stake}
         >
           {getBtnText()}
         </Button>
       )}
     </div>
-  );
+  )
 }

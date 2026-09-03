@@ -27,13 +27,14 @@ import { type types, dc, units } from '@/core'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 
-import { type MetaportCore, TokenIcon, SkPaper, useWagmiAccount } from '@skalenetwork/metaport'
+import { useAccount } from 'wagmi'
+import { type MetaportCore, TokenIcon, SkPaper } from '@/bridge'
 
 import TokenSurface from '../components/TokenSurface'
 import ConnectWallet from '../components/ConnectWallet'
 
 export default function Portfolio(props: { mpc: MetaportCore }) {
-  const { address } = useWagmiAccount()
+  const { address } = useAccount()
 
   const [balances, setTokenBalances] = useState<types.mp.TokenBalancesMap[]>([])
 
@@ -106,7 +107,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                     iconUrl={props.mpc.config.tokens[token].iconUrl}
                   />
                   <div className="ml-2.5 grow">
-                    <p className="text-primary text-base font-bold">
+                    <p className="text-brand text-base font-bold">
                       {props.mpc.config.tokens[token].symbol}
                     </p>
                     <p className="text-secondary-foreground text-sm font-semibold">
@@ -114,8 +115,8 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                     </p>
                   </div>
                   <div className="mr-1.25">
-                    <p className="text-primary text-base font-bold pr-1.5">
-                      {units.fromWei(getTotalBalance(token).toString(), getTokenDecimals(token))}{' '}
+                    <p className="text-brand text-base font-bold pr-1.5">
+                      {units.fromWei(getTotalBalance(token), getTokenDecimals(token))}{' '}
                       {props.mpc.config.tokens[token].symbol}
                     </p>
                     <p className="text-secondary-foreground text-xs font-semibold pr-1.5">
@@ -135,10 +136,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                           title={chain}
                           value={
                             (balances[index] && balances[index][token]
-                              ? units.fromWei(
-                                  balances[index][token].toString(),
-                                  getTokenDecimals(token)
-                                )
+                              ? units.fromWei(balances[index][token], getTokenDecimals(token))
                               : '0') +
                             ' ' +
                             props.mpc.config.tokens[token].symbol

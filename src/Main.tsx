@@ -5,7 +5,7 @@ import './index.css'
 
 import { BrowserRouter } from 'react-router-dom'
 import { inject } from '@vercel/analytics'
-import { MetaportThemeProvider } from '@skalenetwork/metaport'
+import { MetaportThemeProvider } from '@/bridge'
 
 inject()
 

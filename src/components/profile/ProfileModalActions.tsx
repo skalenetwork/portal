@@ -22,10 +22,11 @@
  */
 
 import React from 'react'
-import { Button } from '@mui/material'
-import { RainbowConnectButton, useWagmiDisconnect } from '@skalenetwork/metaport'
+import Button from '@/ui/Button'
+import { openWallet } from '@/bridge'
+import { useDisconnect } from 'wagmi'
 import SkStack from '../SkStack'
-import { PowerOff, Rainbow, SquareArrowOutUpRight } from 'lucide-react'
+import { PowerOff, Wallet, SquareArrowOutUpRight } from 'lucide-react'
 
 interface ProfileModalActionsProps {
   address: string
@@ -38,38 +39,37 @@ const ProfileModalActions: React.FC<ProfileModalActionsProps> = ({
   isMobile,
   className
 }) => {
-  const { disconnect } = useWagmiDisconnect()
+  const { disconnect } = useDisconnect()
 
   return (
     <SkStack className={`${className} profileModalActions`}>
       <Button
-        variant="text"
+        variant="secondary"
+        size="sm"
         startIcon={<SquareArrowOutUpRight size={14} />}
-        className="btn btnSm bg-muted! text-foreground!"
+
         onClick={() => window.open(`https://etherscan.io/address/${address}`, '_blank')}
         fullWidth={isMobile}
       >
         View on Etherscan
       </Button>
 
-      <RainbowConnectButton.Custom>
-        {({ openAccountModal }) => (
-          <Button
-            variant="text"
-            startIcon={<Rainbow size={14} />}
-            className="btn btnSm bg-muted! text-foreground!"
-            onClick={openAccountModal}
-            fullWidth={isMobile}
-          >
-            Manage Wallet
-          </Button>
-        )}
-      </RainbowConnectButton.Custom>
+      <Button
+        variant="secondary"
+        size="sm"
+        startIcon={<Wallet size={14} />}
+
+        onClick={() => openWallet('Account')}
+        fullWidth={isMobile}
+      >
+        Manage Wallet
+      </Button>
 
       <Button
-        variant="text"
+        variant="secondary"
+        size="sm"
         startIcon={<PowerOff size={14} />}
-        className="btn btnSm bg-muted! text-foreground!"
+
         onClick={() => disconnect()}
         fullWidth={isMobile}
       >

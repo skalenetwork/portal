@@ -22,8 +22,8 @@
  */
 
 import { type types, metadata } from '@/core'
-import { useThemeMode } from '@skalenetwork/metaport'
-import { MAINNET_CHAIN_LOGOS } from '../core/constants'
+import { useThemeMode } from '@/bridge'
+import { MAINNET_CHAIN_LOGOS } from '@/lib/constants'
 import ChainLogo from '../components/ChainLogo'
 
 interface LogoProps {
