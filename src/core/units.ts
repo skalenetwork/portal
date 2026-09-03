@@ -20,31 +20,53 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import { formatUnits, parseUnits, BigNumberish } from 'ethers'
+import { formatUnits, parseUnits } from 'viem'
 import {
   DEFAULT_ERC20_DECIMALS,
   DEFAULT_FRACTION_DIGITS,
   DEFAULT_FRACTION_DIGITS_USD
 } from './constants'
 
-export function toWei(value: string, decimals: number): bigint {
+const AMOUNT = /^\d*(\.\d*)?$/
+const DECIMAL_SEPARATOR =
+  new Intl.NumberFormat().formatToParts(1.1).find((part) => part.type === 'decimal')?.value ?? '.'
+
+/** The fraction gate is what keeps parseUnits from rounding: viem rounds half-up
+ * once the input is more precise than the token, which would silently move funds. */
+export function parseAmount(value: string, decimals: number): bigint | null {
+  if (value === '' || value === '.' || !AMOUNT.test(value)) return null
+  if ((value.split('.')[1] ?? '').replace(/0+$/, '').length > decimals) return null
   return parseUnits(value, decimals)
 }
 
-export function fromWei(value: BigNumberish, decimals: number): string {
+export function toWei(value: string, decimals: number): bigint {
+  const wei = parseAmount(value, decimals)
+  if (wei === null) throw new Error(`Invalid amount: ${value}`)
+  return wei
+}
+
+export function fromWei(value: bigint, decimals: number): string {
   return formatUnits(value, decimals)
 }
 
 export function formatBalance(balance: bigint, decimals?: number): string {
-  const tokenDecimals = decimals ?? DEFAULT_ERC20_DECIMALS
-  return formatUnits(balance, tokenDecimals)
+  return formatUnits(balance, decimals ?? DEFAULT_ERC20_DECIMALS)
 }
 
 export function truncateDecimals(input: string | null | undefined, numDecimals: number): string {
   if (!input) return ''
   const delimiter = input.includes(',') ? ',' : '.'
-  const [integerPart, decimalPart = ''] = input.split(delimiter)
-  return `${integerPart}${delimiter}${decimalPart.slice(0, numDecimals)}`
+  const [integerPart, decimalPart] = input.split(delimiter)
+  if (decimalPart === undefined) return integerPart
+  const truncated = decimalPart.slice(0, numDecimals)
+  return truncated ? `${integerPart}${delimiter}${truncated}` : integerPart
+}
+
+export function formatAmount(value: string): string {
+  const [integerPart, decimalPart] = value.split('.')
+  if (!/^\d*$/.test(integerPart)) return value
+  const grouped = BigInt(integerPart || '0').toLocaleString()
+  return decimalPart ? `${grouped}${DECIMAL_SEPARATOR}${decimalPart}` : grouped
 }
 
 export function displayBalance(

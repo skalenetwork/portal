@@ -39,14 +39,8 @@ export async function checkEthBalance( // TODO: optimize balance checks
 ): Promise<types.mp.CheckRes> {
   const checkRes: types.mp.CheckRes = { res: false }
   if (!amount || Number(amount) === 0) return checkRes
-  try {
-    units.toWei(amount, tokenData.meta.decimals)
-  } catch (err) {
-    if (err.fault && err.fault === 'underflow') {
-      checkRes.msg = 'The amount is too small'
-    } else {
-      checkRes.msg = 'Incorrect amount'
-    }
+  if (units.parseAmount(amount, tokenData.meta.decimals) === null) {
+    checkRes.msg = `Incorrect amount, max ${tokenData.meta.decimals} decimals`
     return checkRes
   }
   try {
@@ -81,14 +75,8 @@ export async function checkERC20Balance(
 ): Promise<types.mp.CheckRes> {
   const checkRes: types.mp.CheckRes = { res: false }
   if (!amount || Number(amount) === 0) return checkRes
-  try {
-    units.toWei(amount, tokenData.meta.decimals)
-  } catch (err) {
-    if (err.fault && err.fault === 'underflow') {
-      checkRes.msg = 'The amount is too small'
-    } else {
-      checkRes.msg = 'Incorrect amount'
-    }
+  if (units.parseAmount(amount, tokenData.meta.decimals) === null) {
+    checkRes.msg = `Incorrect amount, max ${tokenData.meta.decimals} decimals`
     return checkRes
   }
   try {

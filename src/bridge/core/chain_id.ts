@@ -21,25 +21,11 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { ethers } from 'ethers'
+import { helper } from '@/core'
 
 import { isExtChain, getExtChain } from './network'
 
-export function remove0x(s: any) {
-  if (!s.startsWith('0x')) return s
-  return s.slice(2)
-}
-
-function calcChainId(chainName: string): number {
-  let h = ethers.solidityPackedKeccak256(['string'], [chainName])
-  h = remove0x(h).toLowerCase()
-  while (h.length < 64) h = '0' + h
-  h = h.substr(0, 13)
-  h = h.replace(/^0+/, '')
-  return ethers.getNumber('0x' + h)
-}
-
 export function getChainId(chainName: string): number {
   if (isExtChain(chainName)) return getExtChain(chainName).id
-  return calcChainId(chainName)
+  return Number(helper.schainChainId(chainName))
 }

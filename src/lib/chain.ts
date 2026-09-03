@@ -21,8 +21,8 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { id, toBeHex, toQuantity } from 'ethers'
-import { type types } from '@/core'
+import { numberToHex } from 'viem'
+import { type types, helper } from '@/core'
 
 export function formatSChains(schainsData: types.ISChainData[]): types.ISChain[] {
   return schainsData.map((schainData) => formatSChain(schainData.schain))
@@ -81,11 +81,11 @@ export function getFsUrl(proxyUrl: string, schainName: string, prefix: string): 
 }
 
 export function getChainId(schainName: string): string {
-  return toQuantity(toBeHex(id(schainName).substring(0, 15)))
+  return numberToHex(helper.schainChainId(schainName))
 }
 
 export function getChainIdInt(schainName: string): number {
-  return parseInt(getChainId(schainName), 16)
+  return Number(helper.schainChainId(schainName))
 }
 
 export function getAllocationTypeName(allocationType: number): string {

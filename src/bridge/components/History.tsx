@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { types } from '@/core'
+import { types, units } from '@/core'
 
 import TokenIcon from './TokenIcon'
 import TransactionData from './TransactionData'
@@ -172,16 +172,14 @@ export default function History(props: {
                     />
                     <div className="flex flex-col min-w-0 flex-1 gap-0.5">
                       <Tooltip
-                        title={`${transfer.amount.includes('.') ? transfer.amount : Number(transfer.amount).toLocaleString()} ${transfer.tokenKeyname?.toUpperCase()}`}
+                        title={`${units.formatAmount(transfer.amount)} ${transfer.tokenKeyname?.toUpperCase()}`}
                         arrow
                       >
                         <p
                           className={`${size === 'sm' ? 'text-base' : 'text-lg'} font-bold text-foreground uppercase truncate m-0 leading-tight`}
                         >
                           {(() => {
-                            const display = transfer.amount.includes('.')
-                              ? transfer.amount
-                              : Number(transfer.amount).toLocaleString()
+                            const display = units.formatAmount(transfer.amount)
                             return size === 'sm' ? (
                               shortenValue(display)
                             ) : (

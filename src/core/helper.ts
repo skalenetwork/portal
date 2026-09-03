@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2022-Present
  */
 
-import { formatUnits, getAddress, keccak256, toUtf8Bytes } from 'ethers'
+import { formatUnits, hexToBigInt, isAddressEqual, keccak256, stringToBytes, type Hex } from 'viem'
 import { types } from '.'
 import * as constants from './constants'
 
@@ -38,7 +38,7 @@ export function isMainnet(chainName: string): boolean {
 }
 
 export function addressesEqual(address1: string, address2: string): boolean {
-  return getAddress(address1) === getAddress(address2)
+  return isAddressEqual(address1 as types.AddressType, address2 as types.AddressType)
 }
 
 export function maxBigInt(a: bigint, b: bigint): bigint {
@@ -137,5 +137,10 @@ export async function getBlockWithRetry<TBlock extends { timestamp: number }>(
 }
 
 export function schainNameToHash(schainName: string): string {
-  return keccak256(toUtf8Bytes(schainName))
+  return keccak256(stringToBytes(schainName))
+}
+
+/** SKALE chain ids are the first 13 hex digits of the chain name hash. */
+export function schainChainId(schainName: string): bigint {
+  return hexToBigInt(schainNameToHash(schainName).slice(0, 15) as Hex)
 }

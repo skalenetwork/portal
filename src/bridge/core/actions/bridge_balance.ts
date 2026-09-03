@@ -72,8 +72,8 @@ export class RechargeBridgeBalance extends Action {
       gasLimit: COMMUNITY_POOL_ESTIMATE_GAS_LIMIT
     })
 
-    const rraEther = units.fromWei(rraWei as string, constants.DEFAULT_ERC20_DECIMALS)
-    const rechargeAmount = calculateRechargeAmount(rraEther as string)
+    const rraEther = units.fromWei(rraWei, constants.DEFAULT_ERC20_DECIMALS)
+    const rechargeAmount = calculateRechargeAmount(rraEther)
 
     log.info('Recharge details', {
       chainName: this.chainName1,

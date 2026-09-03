@@ -116,7 +116,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                   </div>
                   <div className="mr-1.25">
                     <p className="text-brand text-base font-bold pr-1.5">
-                      {units.fromWei(getTotalBalance(token).toString(), getTokenDecimals(token))}{' '}
+                      {units.fromWei(getTotalBalance(token), getTokenDecimals(token))}{' '}
                       {props.mpc.config.tokens[token].symbol}
                     </p>
                     <p className="text-secondary-foreground text-xs font-semibold pr-1.5">
@@ -136,10 +136,7 @@ export default function Portfolio(props: { mpc: MetaportCore }) {
                           title={chain}
                           value={
                             (balances[index] && balances[index][token]
-                              ? units.fromWei(
-                                  balances[index][token].toString(),
-                                  getTokenDecimals(token)
-                                )
+                              ? units.fromWei(balances[index][token], getTokenDecimals(token))
                               : '0') +
                             ' ' +
                             props.mpc.config.tokens[token].symbol

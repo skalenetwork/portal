@@ -20,7 +20,8 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { Wallet, JsonRpcProvider, AbiCoder, TransactionResponse } from 'ethers'
+import { createPublicClient, createWalletClient, encodeAbiParameters, http, type Hash, type Hex } from 'viem'
+import { generatePrivateKey, privateKeyToAccount } from 'viem/accounts'
 import { type types, constants, FAUCET_DATA } from '@/core'
 import SkalePowMiner from './miner'
 import MetaportCore from './metaport'
@@ -43,31 +44,34 @@ export function isFaucetAvailable(chainName: string, skaleNetwork: types.SkaleNe
   return keys.includes(chainName)
 }
 
-function getFuncData(chainName: string, address: string, skaleNetwork: types.SkaleNetwork) {
-  const faucetAddress = getAddress(chainName, skaleNetwork)
-  const functionSig = getFunc(chainName, skaleNetwork)
-  const encoder = new AbiCoder()
-  const functionParam = encoder.encode(['address'], [address])
-  return { to: faucetAddress, data: functionSig + functionParam.slice(2) }
+export function getFuncData(chainName: string, address: string, skaleNetwork: types.SkaleNetwork) {
+  const functionParam = encodeAbiParameters(
+    [{ type: 'address' }],
+    [address as types.AddressType]
+  )
+  return {
+    to: getAddress(chainName, skaleNetwork) as types.AddressType,
+    data: (getFunc(chainName, skaleNetwork) + functionParam.slice(2)) as Hex
+  }
 }
 
 export async function getSFuel(
   chainName: string,
   address: types.AddressType,
   mpc: MetaportCore
-): Promise<TransactionResponse> {
-  const endpoint = mpc.endpoint(chainName)
-  const miner = new SkalePowMiner()
-  const provider = new JsonRpcProvider(endpoint)
-  const wallet = Wallet.createRandom().connect(provider)
-  let nonce: number = await wallet.getNonce()
-  const mineFreeGasResult = await miner.mineGasForTransaction(nonce, 1000000, wallet.address)
+): Promise<Hash> {
+  const transport = http(mpc.endpoint(chainName))
+  const account = privateKeyToAccount(generatePrivateKey())
+  const nonce = await createPublicClient({ transport }).getTransactionCount({
+    address: account.address
+  })
+  const gasPrice = await new SkalePowMiner().mineGasForTransaction(nonce, 1000000, account.address)
   const { to, data } = getFuncData(chainName, address, mpc.config.skaleNetwork)
-  return await wallet.sendTransaction({
-    from: wallet.address,
+  return await createWalletClient({ account, transport }).sendTransaction({
+    chain: null,
     to,
     data,
     nonce,
-    gasPrice: mineFreeGasResult
+    gasPrice
   })
 }

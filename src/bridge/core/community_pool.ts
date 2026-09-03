@@ -86,10 +86,10 @@ export async function getCommunityPoolData(
     gasPrice: feeData.gasPrice,
     gasLimit: COMMUNITY_POOL_ESTIMATE_GAS_LIMIT
   })
-  const rraEther = units.fromWei(rraWei as string, constants.DEFAULT_ERC20_DECIMALS)
+  const rraEther = units.fromWei(rraWei, constants.DEFAULT_ERC20_DECIMALS)
 
   const isActive = activeM && activeS
-  const recommendedAmount = calculateRechargeAmount(rraEther as string)
+  const recommendedAmount = calculateRechargeAmount(rraEther)
 
   log.info('Bridge balance estimation', {
     chainName1,

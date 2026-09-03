@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2023-Present
  */
 
-import { isHexString, getNumber, randomBytes, keccak256, toBeHex, toBigInt } from 'ethers'
+import { bytesToBigInt, hexToBigInt, isHex, keccak256, numberToHex, type Hex } from 'viem'
 import { MAX_NUMBER } from './constants'
 
 interface Params {
@@ -39,36 +39,32 @@ export default class SkalePowMiner {
     nonce: string | number,
     gas: string | number,
     from: string
-  ): Promise<any> {
-    let address = from
-    nonce = isHexString(nonce) ? getNumber(nonce) : (nonce as number)
-    gas = isHexString(gas) ? getNumber(gas) : (gas as number)
-    return await this.mineFreeGas(gas as number, address, nonce as number)
+  ): Promise<bigint> {
+    return await this.mineFreeGas(
+      isHex(gas) ? Number(hexToBigInt(gas)) : (gas as number),
+      from,
+      isHex(nonce) ? Number(hexToBigInt(nonce)) : (nonce as number)
+    )
   }
 
-  public async mineFreeGas(gasAmount: number, address: string, nonce: number): Promise<BigInt> {
-    let nonceHash = toBigInt(keccak256(toBeHex(nonce, 32)))
-    let addressHash = toBigInt(keccak256(address))
-    let nonceAddressXOR = nonceHash ^ addressHash
-    let divConstant = MAX_NUMBER / this.difficulty
+  public async mineFreeGas(gasAmount: number, address: string, nonce: number): Promise<bigint> {
+    const nonceHash = hexToBigInt(keccak256(numberToHex(nonce, { size: 32 })))
+    const addressHash = hexToBigInt(keccak256(address as Hex))
+    const nonceAddressXOR = nonceHash ^ addressHash
+    const divConstant = MAX_NUMBER / this.difficulty
     let candidate: Uint8Array
     let iterations = 0
-    const start = performance.now()
     while (true) {
-      candidate = randomBytes(32)
-      let candidateHash = toBigInt(keccak256(candidate))
-      let resultHash = nonceAddressXOR ^ candidateHash
-      let externalGas = divConstant / resultHash
-      if (externalGas >= gasAmount) {
-        break
-      }
+      candidate = crypto.getRandomValues(new Uint8Array(32))
+      const candidateHash = hexToBigInt(keccak256(candidate))
+      const resultHash = nonceAddressXOR ^ candidateHash
+      const externalGas = divConstant / resultHash
+      if (externalGas >= gasAmount) break
       // every 2k iterations, yield to the event loop
       if (iterations++ % 2_000 === 0) {
         await new Promise<void>((resolve) => setTimeout(resolve, 0))
       }
     }
-    const end = performance.now()
-    console.log(`PoW execution time: ${end - start} ms`)
-    return toBigInt(candidate)
+    return bytesToBigInt(candidate)
   }
 }
