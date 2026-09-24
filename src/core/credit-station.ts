@@ -367,8 +367,7 @@ async function getPaymentIfExists(
     const rawPayment = await creditStation.getPaymentInfo(paymentId)
     return toPayment(paymentId, sourceId, rawPayment, schains)
   } catch (error: any) {
-    // PaymentIdDoesNotExist — ids below the deployment offset
-    if (error?.code === 'CALL_EXCEPTION') return null
+    if (error?.revert?.name === 'PaymentIdDoesNotExist') return null
     throw error
   }
 }
