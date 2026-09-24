@@ -22,19 +22,19 @@
  */
 
 import { Link } from 'react-router-dom'
-import { SkPaper, useThemeMode } from '@skalenetwork/metaport'
+import { SkPaper, useThemeMode } from '@/bridge'
 import { type types, metadata } from '@/core'
 
 import TrendingUpRoundedIcon from '@mui/icons-material/TrendingUpRounded'
 
-import { MAINNET_CHAIN_LOGOS } from '../../core/constants'
+import { MAINNET_CHAIN_LOGOS } from '@/lib/constants'
 
 import ChainLogo from '../ChainLogo'
 import CollapsibleDescription from '../CollapsibleDescription'
 import ChainActions from './ChainActions'
 import Chip from '../Chip'
 
-import { formatNumber } from '../../core/timeHelper'
+import { formatNumber } from '@/lib/timeHelper'
 import CategoriesChips from '../ecosystem/CategoriesChips'
 
 const ChainCard: React.FC<{

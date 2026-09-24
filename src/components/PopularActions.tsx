@@ -26,7 +26,7 @@ import { Link } from 'react-router-dom'
 import { Star } from 'lucide-react'
 import { useTheme } from '@mui/material/styles'
 
-import { SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@/bridge'
 import { types, metadata } from '@/core'
 
 import Logo from './Logo'

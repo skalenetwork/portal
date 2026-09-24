@@ -24,17 +24,14 @@
 import { Contract, id } from 'ethers'
 import { useState, useEffect } from 'react'
 import { type types, metadata, constants, ERC_ABIS, units, helper, notify } from '@/core'
+import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
 import {
   type MetaportCore,
-  useWagmiAccount,
   enforceNetwork,
-  useWagmiWalletClient,
   Tile,
-  useWagmiSwitchNetwork,
-  walletClientToSigner,
   sendTransaction,
   contracts
-} from '@skalenetwork/metaport'
+} from '@/bridge'
 
 import { CircleDollarSign, ShieldAlert } from 'lucide-react'
 
@@ -52,7 +49,7 @@ export default function Paymaster(props: {
   name: string
   chainsMeta: types.ChainsMetadataMap
 }) {
-  const { address } = useWagmiAccount()
+  const { address } = useAccount()
   const network = props.mpc.config.skaleNetwork
   const paymasterChain = contracts.paymaster.getPaymasterChain(network)
 
@@ -69,8 +66,8 @@ export default function Paymaster(props: {
     contracts.paymaster.DEFAULT_PAYMASTER_INFO
   )
 
-  const { data: walletClient } = useWagmiWalletClient()
-  const { switchChainAsync } = useWagmiSwitchNetwork()
+  const { data: walletClient } = useWalletClient()
+  const { switchChainAsync } = useSwitchChain()
 
   useEffect(() => {
     initPaymaster()
@@ -93,7 +90,7 @@ export default function Paymaster(props: {
     const info = await contracts.paymaster.getPaymasterInfo(paymaster, props.name, network)
     let skl = sklToken
     if (skl === undefined) {
-      skl = new Contract(info.skaleToken, ERC_ABIS.erc20.abi, paymaster.runner)
+      skl = new Contract(info.skaleToken, ERC_ABIS.erc20, paymaster.runner)
       setSklToken(skl)
     } else {
       setTokenBalance(await skl.balanceOf(address))
@@ -113,28 +110,29 @@ export default function Paymaster(props: {
     setBtnText(`Switch network to ${metadata.getAlias(network, props.chainsMeta, paymasterChain)}`)
     setErrorMsg(undefined)
     try {
-      const { chainId } = await paymaster.runner.provider.getNetwork()
       const paymasterAddress = contracts.paymaster.getPaymasterAddress(network)
 
-      await enforceNetwork(chainId, walletClient, switchChainAsync, network, paymasterChain)
+      await enforceNetwork(walletClient, switchChainAsync, network, paymasterChain)
       setBtnText('Sending transaction...')
-      const signer = walletClientToSigner(walletClient)
-      paymaster.connect(signer)
-      const connectedToken = new Contract(info.skaleToken, ERC_ABIS.erc20.abi, signer)
+      const connectedToken = new Contract(
+        info.skaleToken,
+        ERC_ABIS.erc20,
+        props.mpc.provider(paymasterChain)
+      )
 
       const allowance = await connectedToken.allowance(address, paymasterAddress)
       const totalPriceWei = getTotalPriceWei()
       if (allowance <= totalPriceWei) {
         setBtnText('Waiting for approval...')
         await sendTransaction(
-          signer,
+          walletClient,
           connectedToken.approve,
           [paymasterAddress, totalPriceWei * APPROVE_MULTIPLIER],
           'paymaster:approve'
         )
         setBtnText('Sending transaction...')
       }
-      await sendTransaction(signer, paymaster.pay, [id(props.name), topupPeriod], 'paymaster:')
+      await sendTransaction(walletClient, paymaster.pay, [id(props.name), topupPeriod], 'paymaster:')
       notify.temporarySuccess('Chain top-up completed')
       await loadPaymasterInfo()
     } catch (e: any) {

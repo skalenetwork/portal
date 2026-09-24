@@ -23,7 +23,7 @@
 
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@/bridge'
 
 interface CategoryCardProps {
   categoryName: string

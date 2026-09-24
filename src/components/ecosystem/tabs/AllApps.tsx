@@ -21,12 +21,12 @@
  */
 
 import React from 'react'
-import { SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@/bridge'
 import { type types } from '@/core'
 
 import AppCardV2 from '../AppCardV2'
 
-import { isNewApp, isTrending, isFeatured } from '../../../core/ecosystem/utils'
+import { isNewApp, isTrending, isFeatured } from '@/lib/ecosystem/utils'
 import Loader from '../../Loader'
 
 interface AllAppsProps {

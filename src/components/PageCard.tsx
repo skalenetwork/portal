@@ -22,10 +22,10 @@
  */
 
 import { Link } from 'react-router-dom'
-import { SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@/bridge'
 import ArrowForwardRoundedIcon from '@mui/icons-material/ArrowForwardRounded'
 import Avatar from 'boring-avatars'
-import { HOME_CARD_COLORS } from '../core/constants'
+import { HOME_CARD_COLORS } from '@/lib/constants'
 
 export default function PageCard(props: {
   name: string

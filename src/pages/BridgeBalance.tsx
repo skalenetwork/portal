@@ -25,21 +25,21 @@ import { useMemo, useEffect } from 'react'
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 
+import { useAccount } from 'wagmi'
 import {
   BridgeBalanceCard,
   SkPaper,
-  useWagmiAccount,
   useMetaportStore,
   useBridgeBalanceStore,
   getBridgeBalanceChains
-} from '@skalenetwork/metaport'
+} from '@/bridge'
 
-import { META_TAGS } from '../core/meta'
+import { META_TAGS } from '@/lib/meta'
 import BridgeMenu from '../components/BridgeMenu'
 import ConnectWallet from '../components/ConnectWallet'
 
 export default function BridgeBalance() {
-  const { address } = useWagmiAccount()
+  const { address } = useAccount()
   const mpc = useMetaportStore((state) => state.mpc)
   const initChains = useBridgeBalanceStore((state) => state.initChains)
 

@@ -22,9 +22,9 @@
 
 import { useMemo } from 'react'
 import { type types } from '@/core'
-import { explorer } from '@skalenetwork/metaport'
-import { getRecentApps } from './core/ecosystem/utils'
-import { MAX_APPS_DEFAULT } from './core/constants'
+import { explorer } from '@/bridge'
+import { getRecentApps } from '@/lib/ecosystem/utils'
+import { MAX_APPS_DEFAULT } from '@/lib/constants'
 
 export function useApps(chainsMeta: types.ChainsMetadataMap, metrics: types.IMetrics | null) {
   const allApps = useMemo<types.AppWithChainAndName[]>(() => {

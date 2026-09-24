@@ -25,7 +25,7 @@ import React, { useMemo } from 'react'
 
 import { type types } from '@/core'
 
-import { categories } from '../../core/ecosystem/categories'
+import { categories } from '@/lib/ecosystem/categories'
 import CategoryCard from './CategoryCard'
 
 interface CategoryCardsGridProps {

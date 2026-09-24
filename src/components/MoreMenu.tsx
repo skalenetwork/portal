@@ -30,7 +30,7 @@ import Tooltip from '@mui/material/Tooltip'
 
 import { Link } from 'react-router-dom'
 
-import { DOCS_PORTAL_URL, SKALE_FORUM_URL } from '../core/constants'
+import { DOCS_PORTAL_URL, SKALE_FORUM_URL } from '@/lib/constants'
 import {
   EllipsisVertical,
   FileText,

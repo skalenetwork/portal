@@ -23,18 +23,17 @@
 
 import { useState, useEffect, useMemo } from 'react'
 
-import { Contract } from 'ethers'
 
-import { type MetaportCore, SkPaper } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper } from '@/bridge'
 import { contracts as coreContracts, dc, type types } from '@/core'
-import * as cs from '../core/credit-station'
+import * as cs from '@/lib/credit-station'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 import CircularProgress from '@mui/material/CircularProgress'
 import { Collapse } from '@mui/material'
 
-import { META_TAGS } from '../core/meta'
+import { META_TAGS } from '@/lib/meta'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 import AccordionSection from '../components/AccordionSection'
 import ConnectWallet from '../components/ConnectWallet'
@@ -52,7 +51,7 @@ interface CreditsProps {
 }
 
 const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chainsMeta }) => {
-  const [creditStationBySource, setCreditStationBySource] = useState<Record<string, Contract>>({})
+  const [creditStationBySource, setCreditStationBySource] = useState<Record<string, cs.ChainContract>>({})
   const [tokenPricesBySource, setTokenPricesBySource] = useState<
     Record<string, Record<string, bigint>>
   >({})
@@ -62,14 +61,11 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
   const [tokenContractsBySource, setTokenContractsBySource] = useState<
     Record<string, types.mp.TokenContractsMap>
   >({})
-  const [ledgerContracts, setLedgerContracts] = useState<{ [schainName: string]: Contract }>({})
+  const [ledgerContracts, setLedgerContracts] = useState<{ [schainName: string]: cs.ChainContract }>({})
   const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined)
   const [payments, setPayments] = useState<cs.Payment[]>([])
 
-  const sources = useMemo(
-    () => cs.getCreditStationSources(mpc.config.skaleNetwork),
-    [mpc]
-  )
+  const sources = useMemo(() => cs.getCreditStationSources(mpc.config.skaleNetwork), [mpc])
 
   const sourceById = useMemo<Record<string, coreContracts.CreditStationSource>>(
     () => Object.fromEntries(sources.map((s) => [s.id, s])),
@@ -78,9 +74,7 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
 
   async function loadPayments() {
     if (Object.keys(creditStationBySource).length === 0 || !address || schains.length === 0) return
-    setPayments(
-      await cs.getPaymentsAcrossSourcesByAddress(creditStationBySource, address, schains)
-    )
+    setPayments(await cs.getPaymentsAcrossSourcesByAddress(creditStationBySource, address, schains))
   }
 
   async function initCreditStations() {

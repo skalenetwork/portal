@@ -22,7 +22,7 @@
 
 import NativeSelect from '@mui/material/NativeSelect'
 import { types } from '@/core'
-import { isDelegationTypeAvailable } from '../../core/delegation/staking'
+import { isDelegationTypeAvailable } from '@/lib/delegation/staking'
 
 export default function DelegationTypeSelect(props: {
   delegationType: types.st.DelegationType

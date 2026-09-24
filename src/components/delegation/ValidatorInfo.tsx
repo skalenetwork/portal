@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { TokenIcon, Tile, SkPaper } from '@skalenetwork/metaport'
+import { TokenIcon, Tile, SkPaper } from '@/bridge'
 import { type types, units, constants } from '@/core'
 
 import { Skeleton } from '@mui/material'

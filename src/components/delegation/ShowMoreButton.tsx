@@ -20,8 +20,8 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { Button } from '@mui/material'
 import { ChevronDown } from 'lucide-react'
+import Button from '@/ui/Button'
 
 interface ShowMoreButtonProps {
   onClick: () => void
@@ -33,8 +33,10 @@ interface ShowMoreButtonProps {
 const ShowMoreButton: React.FC<ShowMoreButtonProps> = ({ onClick, remainingItems, loading }) => {
   return (
     <Button
+      variant="ghost"
+      size="md"
       onClick={onClick}
-      className="mt-2.5 mb-2.5 text-foreground! btnMd"
+      className="mt-2.5 mb-2.5"
       startIcon={<ChevronDown size={17} />}
       disabled={loading}
     >

@@ -21,23 +21,16 @@
  */
 
 import { useState, useEffect } from 'react'
-import { Contract } from 'ethers'
-import {
-  type MetaportCore,
-  Tile,
-  useWagmiAccount,
-  useWagmiWalletClient,
-  useWagmiSwitchNetwork,
-  sendTransaction
-} from '@skalenetwork/metaport'
+import Button from '@/ui/Button'
+import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
+import { type MetaportCore, Tile, writeContract } from '@/bridge'
 import { contracts as coreContracts, notify } from '@/core'
-import { prepareSignerForWrite } from '../../core/credit-station'
-import Button from '@mui/material/Button'
+import { prepareWalletForWrite, type ChainContract } from '@/lib/credit-station'
 import { Badge, BadgeCheck, ToggleLeft, ToggleRight } from 'lucide-react'
 
 interface CreditStationStatusTileProps {
   mpc: MetaportCore
-  creditStation: Contract | undefined
+  creditStation: ChainContract | undefined
   source: coreContracts.CreditStationSource
   setErrorMsg: (msg: string) => void
 }
@@ -52,9 +45,9 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
   const [loading, setLoading] = useState<boolean>(false)
 
   const network = mpc.config.skaleNetwork
-  const { chainId } = useWagmiAccount()
-  const { data: walletClient } = useWagmiWalletClient({ chainId })
-  const { switchChainAsync } = useWagmiSwitchNetwork()
+  const { chainId } = useAccount()
+  const { data: walletClient } = useWalletClient({ chainId })
+  const { switchChainAsync } = useSwitchChain()
 
   useEffect(() => {
     loadPausedStatus()
@@ -63,8 +56,7 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
   async function loadPausedStatus() {
     if (!creditStation) return
     try {
-      const paused = await creditStation.paused()
-      setIsPaused(paused)
+      setIsPaused((await creditStation.contract.read.paused()) as boolean)
     } catch (error) {
       console.error('Error loading paused status:', error)
     }
@@ -72,7 +64,7 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
 
   async function togglePause() {
     if (!creditStation) return
-    if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
+    if (!walletClient || !switchChainAsync) {
       setErrorMsg('Something is wrong with your wallet, try again')
       notify.permanentError('Something is wrong with your wallet, try again')
       return
@@ -80,18 +72,16 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
     setLoading(true)
 
     try {
-      const signer = await prepareSignerForWrite(
-        creditStation,
+      const wallet = await prepareWalletForWrite(
         walletClient,
         switchChainAsync,
         network,
         source.chainName
       )
 
-      const method = isPaused ? creditStation.unpause : creditStation.pause
       const action = isPaused ? 'unpause' : 'pause'
 
-      await sendTransaction(signer, method, [], `creditStation:${action}`)
+      await writeContract(wallet, creditStation.contract, action, [], `creditStation:${action}`)
       notify.temporarySuccess(`Credit station ${action}d`)
       await loadPausedStatus()
     } catch (error) {
@@ -118,9 +108,10 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
         }
         childrenRi={
           <Button
-            size="medium"
+            variant="secondary"
+            size="md"
             startIcon={isPaused ? <ToggleRight size={17} /> : <ToggleLeft size={17} />}
-            className="btnMd bg-secondary-foreground/10! text-foreground! ml-2.5"
+            className="bg-secondary-foreground/10! ml-2.5"
             onClick={togglePause}
             disabled={loading || !creditStation}
           >

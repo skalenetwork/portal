@@ -24,7 +24,7 @@ import { types } from '@/core'
 
 import Tooltip from '@mui/material/Tooltip'
 import { AlertTriangle, BadgeCheck, Landmark } from 'lucide-react'
-import { ESCROW_VALIDATORS } from '../../core/delegation/validators'
+import { ESCROW_VALIDATORS } from '@/lib/delegation/validators'
 
 export function ValidatorBadge(props: { validator: types.st.IValidator; className?: string }) {
   if (ESCROW_VALIDATORS.includes(props.validator.id)) {

@@ -1,11 +1,11 @@
 - always use bun as a package manager
 - use the latest typescript standard
 - for the initial setup, run `bun i` to install dependencies and `bun build:mainnet` to pull assets
-- in order to build dev version portal, run `build:dev`, then run `bun dev` to start the server
+- run `bun dev` to start the server; it generates metadata first
 
-- repo contains 2 subpackages: `packages/metaport` and `packages/core`
-- `metaport` package encapsulates the core bridge logic, `core` package contains lower level reusable functions
-- `metaport` configs are stored in `config/[NETWORK_NAME]` folders
+- single package, everything under `src`, imported through the `@/` alias
+- `src/core` holds SKALE primitives (chains, endpoints, units, ABIs), `src/bridge` the bridge widget, `src/lib` portal domain logic
+- bridge configs are stored in `config/[NETWORK_NAME]` folders
 
 - always keep the changes minimal and purposeful
 - focus on fixing the exact problem or implementing the exact feature

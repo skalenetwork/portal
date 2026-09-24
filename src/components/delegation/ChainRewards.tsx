@@ -21,24 +21,23 @@
  */
 
 import { useEffect, useState } from 'react'
+import Button from '@/ui/Button'
 import { Contract } from 'ethers'
+import { useSwitchChain, useWalletClient } from 'wagmi'
 import {
   type MetaportCore,
   enforceNetwork,
-  useWagmiWalletClient,
-  useWagmiSwitchNetwork,
   TokenIcon,
   Tile,
-  walletClientToSigner,
   sendTransaction,
   SkPaper,
   Station,
   explorer,
   contracts
-} from '@skalenetwork/metaport'
+} from '@/bridge'
 import { type types, constants, units, ERC_ABIS, notify } from '@/core'
 
-import { Button, IconButton, Tooltip } from '@mui/material'
+import { IconButton, Tooltip } from '@mui/material'
 import { Blocks, CalendarArrowDown, CircleStar } from 'lucide-react'
 
 import Headline from '../Headline'
@@ -76,8 +75,8 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
   const network = mpc.config.skaleNetwork
   const paymasterChain = contracts.paymaster.getPaymasterChain(network)
 
-  const { data: walletClient } = useWagmiWalletClient()
-  const { switchChainAsync } = useWagmiSwitchNetwork()
+  const { data: walletClient } = useWalletClient()
+  const { switchChainAsync } = useSwitchChain()
 
   const addr = customAddress ?? address
 
@@ -120,7 +119,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
     const tokenAddress = await paymaster.skaleToken()
     let skl = sklToken
     if (skl === undefined) {
-      skl = new Contract(tokenAddress, ERC_ABIS.erc20.abi, paymaster.runner)
+      skl = new Contract(tokenAddress, ERC_ABIS.erc20, paymaster.runner)
       setTokenUrl(
         explorer.getExplorerUrlForAddress(
           chainsMeta[paymasterChain],
@@ -164,15 +163,10 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
         }
       }
 
-      const { chainId } = await paymaster.runner.provider.getNetwork()
-
-      await enforceNetwork(chainId, walletClient, switchChainAsync, network, paymasterChain)
+      await enforceNetwork(walletClient, switchChainAsync, network, paymasterChain)
       setBtnText('Sending transaction')
       notify.loading('Sending transaction...', { id: toastId })
-      const signer = walletClientToSigner(walletClient)
-      paymaster.connect(signer)
-
-      await sendTransaction(signer, paymaster.claim, [address], 'paymaster:claim')
+      await sendTransaction(walletClient, paymaster.claim, [address], 'paymaster:claim')
       notify.temporarySuccess('Staking rewards retrieved', toastId)
       await loadData()
     } catch (e: any) {
@@ -203,10 +197,9 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
         childrenRi={
           <SkStack className="flex items-center">
             <Button
+              size="sm"
               loading={loading}
-              variant="contained"
-              size="small"
-              className="btn btnSm text-xs bg-accent-foreground! text-accent! align-center! disabled:text-foreground/70! disabled:bg-accent-foreground/15!"
+              className="text-xs align-center!"
               disabled={
                 customAddress !== undefined ||
                 rewardAmount === null ||

@@ -2,7 +2,7 @@ import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
 
 import TermsOfService from '../data/terms-of-service.mdx'
-import { SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@/bridge'
 
 export default function Terms() {
   return (
@@ -12,7 +12,10 @@ export default function Terms() {
         <p className="text-xs text-secondary-foreground font-semibold">
           SKALE Network Blockchain Bridge Terms of Service
         </p>
-        <SkPaper gray className="p-6! pt-2! mt-4 text-foreground! tosMd">
+        <SkPaper
+          gray
+          className="p-6! pt-2! mt-4 text-foreground! prose prose-sm dark:prose-invert max-w-none prose-headings:font-semibold"
+        >
           <TermsOfService />
         </SkPaper>
       </Stack>

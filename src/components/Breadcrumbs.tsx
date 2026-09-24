@@ -22,7 +22,7 @@
  */
 
 import { ReactElement } from 'react'
-import Button from '@mui/material/Button'
+import Button from '@/ui/Button'
 import { Link } from 'react-router-dom'
 export interface BreadcrumbSection {
   icon: ReactElement
@@ -38,6 +38,7 @@ export default function Breadcrumbs(props: { sections: BreadcrumbSection[]; clas
           {section.url ? (
             <Link to={section.url} className="undec w-full text-foreground">
               <Button
+                variant="ghost"
                 className={`hover:bg-muted-foreground/10! ${index < props.sections.length - 1 ? 'text-foreground!' : 'text-muted-foreground!'}`}
               >
                 {section.icon}
@@ -46,6 +47,7 @@ export default function Breadcrumbs(props: { sections: BreadcrumbSection[]; clas
             </Link>
           ) : (
             <Button
+              variant="ghost"
               className={
                 index < props.sections.length - 1
                   ? 'text-foreground!'

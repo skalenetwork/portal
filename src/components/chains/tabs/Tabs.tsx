@@ -34,7 +34,7 @@ import { Settings2 } from 'lucide-react'
 
 import { networks, type types } from '@/core'
 
-import { NETWORKS } from '../../../core/constants'
+import { NETWORKS } from '@/lib/constants'
 
 export default function ChainTabs(props: {
   chainMeta: types.ChainMetadata

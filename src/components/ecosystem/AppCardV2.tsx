@@ -22,7 +22,7 @@
  */
 
 import { Link } from 'react-router-dom'
-import { SkPaper, ChainIcon } from '@skalenetwork/metaport'
+import { SkPaper, ChainIcon } from '@/bridge'
 import { type types, metadata } from '@/core'
 import Logo from '../Logo'
 
@@ -30,7 +30,7 @@ import CollapsibleDescription from '../CollapsibleDescription'
 import CategoriesChips from './CategoriesChips'
 import SocialButtons from './Socials'
 import { ChipNew, ChipPreTge, ChipTrending, ChipFeatured } from '../Chip'
-import { OFFCHAIN_APP } from '../../core/constants'
+import { OFFCHAIN_APP } from '@/lib/constants'
 
 export default function AppCard(props: {
   skaleNetwork: types.SkaleNetwork

@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test'
-import { daysBetweenTimestamps, monthsBetweenTimestamps, formatTimePeriod } from '../src/core/timeHelper'
+import { daysBetweenTimestamps, monthsBetweenTimestamps, formatTimePeriod } from '@/lib/timeHelper'
 
 const BASE_TS = 1710262826n
 

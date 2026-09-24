@@ -22,26 +22,30 @@
  */
 
 import { useEffect, useState } from 'react'
+import Button from '@/ui/Button'
 import { useSearchParams, Link } from 'react-router-dom'
 
+import { useAccount } from 'wagmi'
 import {
   useMetaportStore,
   SkPaper,
   TransactionData,
-  useWagmiAccount,
-  History
-} from '@skalenetwork/metaport'
-import { type types, dc, networks } from '@/core'
+  History,
+  walletCanUseChain,
+  targetChain
+} from '@/bridge'
+import { type types, dc, networks, metadata } from '@/core'
 
-import { Container, Stack, Button } from '@mui/material'
+import { Container, Stack } from '@mui/material'
 
 import BridgeBody from '../components/BridgeBody'
 import Headline from '../components/Headline'
 
-import { META_TAGS } from '../core/meta'
-import { NETWORKS } from '../core/constants'
+import { META_TAGS } from '@/lib/meta'
+import { NETWORKS } from '@/lib/constants'
 import BridgeMenu from '../components/BridgeMenu'
-import { CircleCheckBig, HistoryIcon } from 'lucide-react'
+import Message from '../components/Message'
+import { CircleCheckBig, HistoryIcon, TriangleAlert } from 'lucide-react'
 
 interface TokenParams {
   keyname: string | null
@@ -75,7 +79,8 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
     addressChanged
   } = useMetaportStore((state) => state)
 
-  const { address } = useWagmiAccount()
+  const { address, connector } = useAccount()
+  const [unsupportedChain, setUnsupportedChain] = useState<string | null>(null)
 
   function validChainName(chainName: string | null): boolean {
     if (!chainName) return false
@@ -111,6 +116,22 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
   useEffect(() => {
     addressChanged()
   }, [address])
+
+  useEffect(() => {
+    let active = true
+    const unusable = async () => {
+      if (!connector) return null
+      for (const chainName of [chainName1, chainName2].filter(Boolean)) {
+        const { id } = targetChain(mpc.config.skaleNetwork, chainName)
+        if (!(await walletCanUseChain(connector, id))) return chainName
+      }
+      return null
+    }
+    unusable().then((chainName) => active && setUnsupportedChain(chainName))
+    return () => {
+      active = false
+    }
+  }, [connector, chainName1, chainName2])
 
   useEffect(() => {
     initBridge()
@@ -190,6 +211,17 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
           </div>
         </div>
 
+        {unsupportedChain && (
+          <Message
+            className="mt-3.5"
+            type="warning"
+            closable={false}
+            icon={<TriangleAlert size={17} />}
+            text="Your wallet does not support this network"
+            textLong={`This wallet cannot add ${metadata.getAlias(mpc.config.skaleNetwork, props.chainsMeta, unsupportedChain)}, so the bridge cannot be used with it. Reconnect with a wallet that supports custom networks.`}
+          />
+        )}
+
         <div className="mt-3.5">
           <BridgeBody chainsMeta={props.chainsMeta} />
           {address && transfersHistory && transfersHistory.length > 0 && (
@@ -197,7 +229,9 @@ export default function Bridge(props: { chainsMeta: types.ChainsMetadataMap }) {
               <div className="flex items-center mb-2.5 mt-5 pt-5">
                 <Headline text="Past Transfers" icon={<HistoryIcon size={17} />} size="small" />
                 <Link to="/bridge/history">
-                  <Button className="btn btnSm bg text-foreground! bg-card!">See all</Button>
+                  <Button variant="secondary" size="sm" className="bg-card!">
+                    See all
+                  </Button>
                 </Link>
               </div>
               <History

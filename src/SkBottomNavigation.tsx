@@ -27,7 +27,7 @@ import { useLocation, useNavigate } from 'react-router-dom'
 import Button from '@mui/material/Button'
 import { Home, ArrowLeftRight, PieChart, BadgeDollarSign, Network, LayoutGrid } from 'lucide-react'
 import { networks, types } from '@/core'
-import { NETWORKS } from './core/constants'
+import { NETWORKS } from '@/lib/constants'
 
 export default function SkBottomNavigation() {
   const [value, setValue] = useState(0)

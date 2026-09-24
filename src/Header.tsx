@@ -29,7 +29,7 @@ import { MoonStar, SunMedium } from 'lucide-react'
 
 import logo from './assets/skale_lg.svg'
 
-import { type MetaportCore } from '@skalenetwork/metaport'
+import { type MetaportCore } from '@/bridge'
 
 import { notify } from '@/core'
 import HelpZen from './components/HelpZen'
@@ -37,7 +37,7 @@ import MoreMenu from './components/MoreMenu'
 import AccountMenu from './components/AccountMenu'
 import NetworkSwitch from './components/NetworkSwitch'
 import { Link } from 'react-router-dom'
-import { useThemeMode } from '@skalenetwork/metaport'
+import { useThemeMode } from '@/bridge'
 
 export default function Header(props: {
   address: `0x${string}` | undefined

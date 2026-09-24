@@ -22,9 +22,10 @@
  */
 
 import { useEffect } from 'react'
+import Button from '@/ui/Button'
 import { Link } from 'react-router-dom'
-import { Container, Stack, Button } from '@mui/material'
-import { SkPaper } from '@skalenetwork/metaport'
+import { Container, Stack } from '@mui/material'
+import { SkPaper } from '@/bridge'
 import { networks, type types } from '@/core'
 
 import { useApps } from '../useApps'
@@ -36,7 +37,7 @@ import TrendingApps from '../components/ecosystem/tabs/TrendingApps'
 import FeaturedApps from '../components/ecosystem/tabs/FeaturedApps'
 import HomeBanner from '../components/HomeBanner'
 
-import { NETWORKS, SKALE_SOCIAL_LINKS } from '../core/constants'
+import { NETWORKS, SKALE_SOCIAL_LINKS } from '@/lib/constants'
 import { SECTION_ICONS, EXPLORE_CARDS } from '../components/HomeComponents'
 import SocialButtons from '../components/ecosystem/Socials'
 
@@ -167,7 +168,9 @@ function AppSection({ title, icon, linkTo, component }: AppSectionProps) {
       <div className="flex items-center mb-2.5 mt-5 pt-5">
         <Headline text={title} icon={icon} />
         <Link to={linkTo}>
-          <Button className="btn btnSm bg text-foreground! bg-card!">See all</Button>
+          <Button variant="secondary" size="sm" className="bg-card!">
+            See all
+          </Button>
         </Link>
       </div>
       {component}

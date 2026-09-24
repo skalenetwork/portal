@@ -23,7 +23,7 @@
 
 import { useState, useEffect } from 'react'
 
-import { type MetaportCore } from '@skalenetwork/metaport'
+import { type MetaportCore } from '@/bridge'
 import { type types, constants } from '@/core'
 
 import Container from '@mui/material/Container'
@@ -33,7 +33,7 @@ import CircularProgress from '@mui/material/CircularProgress'
 import { Shapes, LayoutTemplate } from 'lucide-react'
 
 import ChainsSection from '../components/chains/ChainsSection'
-import { META_TAGS } from '../core/meta'
+import { META_TAGS } from '@/lib/meta'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 
 export default function Chains(props: {

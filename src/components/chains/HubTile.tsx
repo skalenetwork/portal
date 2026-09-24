@@ -25,15 +25,15 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Tooltip } from '@mui/material'
 
-import { SkPaper, useThemeMode } from '@skalenetwork/metaport'
+import { SkPaper, useThemeMode } from '@/bridge'
 import { type types, metadata } from '@/core'
 
 import { ChevronRight, TrendingUp } from 'lucide-react'
 
 import ChainLogo from '../ChainLogo'
-import { formatNumber } from '../../core/timeHelper'
+import { formatNumber } from '@/lib/timeHelper'
 
-import { MAINNET_CHAIN_LOGOS } from '../../core/constants'
+import { MAINNET_CHAIN_LOGOS } from '@/lib/constants'
 
 export default function HubTile(props: {
   network: types.SkaleNetwork
@@ -64,7 +64,7 @@ export default function HubTile(props: {
   const chainDescription = metadata.getChainDescription(chainMeta)
 
   return (
-    <Link to={'/chains/' + shortAlias} className="flex text-primary grow">
+    <Link to={'/chains/' + shortAlias} className="flex text-brand grow">
       <SkPaper
         gray
         className="titleSectionOut hoverable pointer grow"

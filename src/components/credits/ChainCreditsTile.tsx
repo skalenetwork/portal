@@ -20,18 +20,18 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import {
-  type MetaportCore,
-  Tile,
-  SkPaper,
-  useWagmiAccount,
-  sendTransaction,
-  useWagmiWalletClient,
-  useWagmiSwitchNetwork,
-  ChainIcon
-} from '@skalenetwork/metaport'
+import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
+import { type MetaportCore, Tile, SkPaper, writeContract, ChainIcon } from '@/bridge'
 
-import { Wallet, Fuel, HandCoins, CoinsIcon, CirclePlus, ExternalLink, ArrowLeftRight } from 'lucide-react'
+import {
+  Wallet,
+  Fuel,
+  HandCoins,
+  CoinsIcon,
+  CirclePlus,
+  ExternalLink,
+  ArrowLeftRight
+} from 'lucide-react'
 
 import { types, contracts, metadata, units, ERC_ABIS, notify, constants } from '@/core'
 
@@ -40,15 +40,14 @@ import { Grid, Button, Dialog } from '@mui/material'
 
 import Logo from '../Logo'
 import SkStack from '../SkStack'
-import { Contract } from 'ethers'
 import { Link } from 'react-router-dom'
 import {
   CREDITS_CONFIRMATION_BLOCKS,
   DEFAULT_CREDITS_AMOUNT,
   RECOMMENDED_CREDITS_AMOUNTS,
   CREDITS_USAGE_EXAMPLE_PER_CREDIT
-} from '../../core/constants'
-import { prepareSignerForWrite } from '../../core/credit-station'
+} from '@/lib/constants'
+import { prepareWalletForWrite, type ChainContract } from '@/lib/credit-station'
 import CreditsAmountSelector from './CreditsAmountSelector'
 import TokenSelector from './TokenSelector'
 import SourceSelector from './SourceSelector'
@@ -58,7 +57,7 @@ interface ChainCreditsTileProps {
   chainsMeta: types.ChainsMetadataMap
   schain: types.ISChain
   sources: contracts.CreditStationSource[]
-  creditStationBySource: Record<string, Contract>
+  creditStationBySource: Record<string, ChainContract>
   tokenPricesBySource: Record<string, Record<string, bigint>>
   tokenBalancesBySource: Record<string, types.mp.TokenBalancesMap | undefined>
   setErrorMsg: (msg: string | undefined) => void
@@ -81,13 +80,11 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   const [token, setToken] = useState<string | undefined>(undefined)
   const [amount, setAmount] = useState<bigint>(DEFAULT_CREDITS_AMOUNT)
   const [chainBalance, setChainBalance] = useState<bigint | undefined>(undefined)
-  const [selectedSourceId, setSelectedSourceId] = useState<string | undefined>(
-    sources[0]?.id
-  )
+  const [selectedSourceId, setSelectedSourceId] = useState<string | undefined>(sources[0]?.id)
 
-  const { address, chainId } = useWagmiAccount()
-  const { data: walletClient } = useWagmiWalletClient({ chainId })
-  const { switchChainAsync } = useWagmiSwitchNetwork()
+  const { address, chainId } = useAccount()
+  const { data: walletClient } = useWalletClient({ chainId })
+  const { switchChainAsync } = useSwitchChain()
 
   const network = mpc.config.skaleNetwork
   const chainAlias = metadata.getAlias(network, chainsMeta, schain.name)
@@ -130,8 +127,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   useEffect(() => {
     const tokens = sourceTokens
     const currentAddress = token ? tokens[token]?.address : undefined
-    const currentValid =
-      currentAddress !== undefined && tokenPrices[currentAddress] !== undefined
+    const currentValid = currentAddress !== undefined && tokenPrices[currentAddress] !== undefined
     if (currentValid) return
 
     const match = Object.entries(tokens).find(
@@ -187,7 +183,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
 
   async function buyCredits() {
     if (!creditStation || !token || !selectedSource) return
-    if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
+    if (!walletClient || !switchChainAsync) {
       setErrorMsg('Something is wrong with your wallet, try again')
       notify.permanentError('Something is wrong with your wallet, try again')
       setOpenModal(false)
@@ -200,8 +196,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
       const tokenAddress = sourceTokens[token]?.address
       if (!tokenAddress) return
 
-      const signer = await prepareSignerForWrite(
-        creditStation,
+      const wallet = await prepareWalletForWrite(
         walletClient,
         switchChainAsync,
         network,
@@ -210,23 +205,22 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
 
       const amountWei = getAmountToPayWei()
 
-      const connectedToken = new Contract(tokenAddress, ERC_ABIS.erc20.abi, signer)
-      const creditStationAddress = await creditStation.getAddress()
-
-      await sendTransaction(
-        signer,
-        connectedToken.approve,
-        [creditStationAddress, amountWei],
+      await writeContract(
+        wallet,
+        { address: tokenAddress, abi: ERC_ABIS.erc20 },
+        'approve',
+        [creditStation.contract.address, amountWei],
         'creditStation:approve',
-        CREDITS_CONFIRMATION_BLOCKS
+        { confirmations: CREDITS_CONFIRMATION_BLOCKS }
       )
 
-      await sendTransaction(
-        signer,
-        creditStation.buy,
+      await writeContract(
+        wallet,
+        creditStation.contract,
+        'buy',
         [schain.name, address, tokenAddress, amount],
         'creditStation:buy',
-        CREDITS_CONFIRMATION_BLOCKS
+        { confirmations: CREDITS_CONFIRMATION_BLOCKS }
       )
       notify.temporarySuccess(
         `Purchased ${amount} ${amount === 1n ? 'Credit' : 'Credits'} for ${chainAlias}`
@@ -245,9 +239,13 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
   return (
     <div>
       <div className="mb-2.5 bg-background rounded-3xl p-5">
-        <Grid container spacing={0} sx={{
-          alignItems: "center"
-        }}>
+        <Grid
+          container
+          spacing={0}
+          sx={{
+            alignItems: 'center'
+          }}
+        >
           <Grid size={{ xs: 12, md: 4 }}>
             <Link to={'/chains/' + shortAlias}>
               <div className="flex items-center">
@@ -328,7 +326,8 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
               maxHeight: { xs: 'calc(100% - 16px)', sm: 'calc(100% - 64px)' }
             }
           }
-        }}>
+        }}
+      >
         <SkPaper gray className="p-4! md:p-6!">
           <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-x-8 gap-y-6 pb-8 px-1">
             <div className="min-w-0 lg:shrink-0">
@@ -464,7 +463,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
         </SkPaper>
       </Dialog>
     </div>
-  );
+  )
 }
 
 export default ChainCreditsTile

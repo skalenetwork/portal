@@ -28,7 +28,7 @@ import { Collapse, Button } from '@mui/material'
 
 import { types } from '@/core'
 
-import { getValidatorById, DelegationState } from '../../core/delegation'
+import { getValidatorById, DelegationState } from '@/lib/delegation'
 
 import Delegation from './Delegation'
 import Reward from './Reward'

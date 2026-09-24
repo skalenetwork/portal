@@ -21,15 +21,16 @@
  * @copyright SKALE Labs 2024-Present
  */
 
+import { type WalletClient } from 'viem'
 import { Link } from 'react-router-dom'
-import { type Signer, isAddress } from 'ethers'
+import Button from '@/ui/Button'
+import { isAddress } from 'ethers'
 import { useCallback, useEffect, useState } from 'react'
-import { SkPaper, contracts, type MetaportCore } from '@skalenetwork/metaport'
+import { SkPaper, contracts, type MetaportCore } from '@/bridge'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
 import Stack from '@mui/material/Stack'
-import Button from '@mui/material/Button'
 
 import { ChartPie, CircleUser, Coins, Eye, Inbox, TriangleAlert } from 'lucide-react'
 
@@ -45,14 +46,14 @@ import {
   retrieveUnlockedTokens,
   type LoadingState,
   StakingActionProps
-} from '../core/delegation/stakingActions'
+} from '@/lib/delegation/stakingActions'
 
-import { BALANCE_UPDATE_INTERVAL_MS } from '../core/constants'
+import { BALANCE_UPDATE_INTERVAL_MS } from '@/lib/constants'
 import ErrorTile from '../components/ErrorTile'
 import ConnectWallet from '../components/ConnectWallet'
 import Headline from '../components/Headline'
 import Message from '../components/Message'
-import { META_TAGS } from '../core/meta'
+import { META_TAGS } from '@/lib/meta'
 import SkPageInfoIcon from '../components/SkPageInfoIcon'
 
 export default function Staking(props: {
@@ -64,7 +65,7 @@ export default function Staking(props: {
   si: types.st.StakingInfoMap
   address: types.AddressType | undefined
   customAddress: types.AddressType | undefined
-  getMainnetSigner: () => Promise<Signer>
+  getMainnetWalletClient: () => Promise<WalletClient>
 }) {
   const [loading, setLoading] = useState<LoadingState>(false)
   const [errorMsg, setErrorMsg] = useState<string | undefined>()
@@ -92,8 +93,8 @@ export default function Staking(props: {
     (): StakingActionProps => ({
       sc: props.sc,
       address: props.address,
-      skaleNetwork: props.mpc.config.skaleNetwork,
-      getMainnetSigner: props.getMainnetSigner,
+      mpc: props.mpc,
+      getMainnetWalletClient: props.getMainnetWalletClient,
       setLoading,
       setErrorMsg,
       postAction: props.loadStakingInfo
@@ -101,8 +102,8 @@ export default function Staking(props: {
     [
       props.sc,
       props.address,
-      props.mpc.config.skaleNetwork,
-      props.getMainnetSigner,
+      props.mpc,
+      props.getMainnetWalletClient,
       props.loadStakingInfo
     ]
   )
@@ -170,8 +171,8 @@ export default function Staking(props: {
           <div className="mr-2.5">
             {loading !== false || props.customAddress !== undefined ? (
               <Button
-                variant="contained"
-                className="btn btnSm py-3! text-xs text-accent! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15!"
+                size="sm"
+                className="py-3! text-xs"
                 startIcon={<Coins size={14} />}
                 disabled={loading !== false || props.customAddress !== undefined}
               >
@@ -180,8 +181,8 @@ export default function Staking(props: {
             ) : (
               <Link to="/staking/new">
                 <Button
-                  variant="contained"
-                  className="btn btnSm py-3! text-xs text-accent! bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15!"
+                  size="sm"
+                  className="py-3! text-xs"
                   startIcon={<Coins size={14} />}
                   disabled={loading || props.customAddress !== undefined}
                 >

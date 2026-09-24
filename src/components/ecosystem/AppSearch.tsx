@@ -23,7 +23,7 @@
 import React from 'react'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
-import { useThemeMode, styles } from '@skalenetwork/metaport'
+import { useThemeMode, styles } from '@/bridge'
 import { Search } from 'lucide-react'
 
 interface SearchComponentProps {

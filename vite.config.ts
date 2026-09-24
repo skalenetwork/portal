@@ -1,20 +1,10 @@
-import { defineConfig } from 'vite'
-import tailwindcss from "@tailwindcss/vite";
-import path from 'path'
+import mdx from '@mdx-js/rollup'
+import tailwindcss from '@tailwindcss/vite'
 import react from '@vitejs/plugin-react'
-import mdx from "@mdx-js/rollup"
+import path from 'node:path'
+import { defineConfig } from 'vite'
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [tailwindcss(), react(), mdx()],
-  resolve: {
-    dedupe: ['@mui/material', '@mui/icons-material', 'react', 'react-dom'],
-    alias: {
-      '@skalenetwork/metaport': path.resolve(__dirname, 'packages/metaport/src'),
-      ...(process.env.NODE_ENV !== 'production' ? {
-        '@skalenetwork/metaport/dist/style.css': path.resolve(__dirname, 'packages/metaport/src/dist/style.css')
-      } : {}),
-      '@/core': path.resolve(__dirname, 'packages/core/src')
-    }
-  }
+  resolve: { alias: { '@': path.resolve(import.meta.dirname, 'src') } }
 })

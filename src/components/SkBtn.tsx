@@ -21,7 +21,7 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import Button from '@mui/material/Button'
+import Button from '@/ui/Button'
 
 export default function SkBtn(props: {
   text: string
@@ -29,17 +29,13 @@ export default function SkBtn(props: {
   onClick?: () => void
   loading?: boolean
   className?: string | undefined
-  color?: 'primary' | 'secondary' | 'success' | 'error' | 'info' | 'warning' | undefined
   size?: 'sm' | 'md'
-  variant?: 'contained' | 'outlined' | 'text'
   startIcon?: React.ReactNode
 }) {
-  const size = props.size ?? 'md'
   return (
     <Button
-      color={props.color}
-      variant={props.variant}
-      className={`btn btnSm bg-accent-foreground! disabled:text-foreground/70! disabled:bg-accent-foreground/15! text-accent! w-full! ${props.className ?? ''}`}
+      size={props.size ?? 'md'}
+      className={`w-full! ${props.className ?? ''}`}
       disabled={props.disabled || props.loading}
       onClick={props.onClick}
       startIcon={props.startIcon}

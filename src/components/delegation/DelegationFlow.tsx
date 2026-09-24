@@ -22,7 +22,7 @@
 
 import { types } from '@/core'
 
-import { formatBigIntTimestampSeconds } from '../../core/timeHelper'
+import { formatBigIntTimestampSeconds } from '@/lib/timeHelper'
 import { ArrowRight } from 'lucide-react'
 
 interface DelegationFlowProps {

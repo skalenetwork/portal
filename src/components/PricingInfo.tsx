@@ -24,7 +24,7 @@
 import { Calendar, ClockFading, Gem } from 'lucide-react'
 
 import { constants, units, type types, helper } from '@/core'
-import { TokenIcon, Tile } from '@skalenetwork/metaport'
+import { TokenIcon, Tile } from '@/bridge'
 
 import {
   daysBetweenNowAndTimestamp,
@@ -32,7 +32,7 @@ import {
   calculateElapsedPercentage,
   formatBigIntTimestampSeconds,
   formatTimePeriod
-} from '../core/timeHelper'
+} from '@/lib/timeHelper'
 
 import SkStack from './SkStack'
 

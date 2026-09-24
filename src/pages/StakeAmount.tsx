@@ -21,10 +21,10 @@
  * @copyright SKALE Labs 2024-Present
  */
 
+import { type WalletClient } from 'viem'
 import { useState, useEffect } from 'react'
-import { type Signer } from 'ethers'
 import { useParams } from 'react-router-dom'
-import { type MetaportCore, SkPaper, contracts } from '@skalenetwork/metaport'
+import { type MetaportCore, SkPaper, contracts } from '@/bridge'
 import { types } from '@/core'
 
 import Container from '@mui/material/Container'
@@ -39,8 +39,8 @@ import ConnectWallet from '../components/ConnectWallet'
 
 import ErrorTile from '../components/ErrorTile'
 import Headline from '../components/Headline'
-import { isDelegationTypeAvailable, isLoaded } from '../core/delegation/staking'
-import { getDelegationTypeAlias } from '../core/delegation'
+import { isDelegationTypeAvailable, isLoaded } from '@/lib/delegation/staking'
+import { getDelegationTypeAlias } from '@/lib/delegation'
 
 export default function StakeAmount(props: {
   mpc: MetaportCore
@@ -50,7 +50,7 @@ export default function StakeAmount(props: {
   sc: types.st.ISkaleContractsMap | null
   si: types.st.StakingInfoMap
   address: types.AddressType | undefined
-  getMainnetSigner: () => Promise<Signer>
+  getMainnetWalletClient: () => Promise<WalletClient>
 }) {
   const { id, delType } = useParams()
   const validatorId = Number(id) ?? -1
@@ -164,7 +164,7 @@ export default function StakeAmount(props: {
             setErrorMsg={setErrorMsg}
             loaded={loaded}
             delegationTypeAvailable={available}
-            getMainnetSigner={props.getMainnetSigner}
+            getMainnetWalletClient={props.getMainnetWalletClient}
             sklPrice={sklPrice}
           />
         ) : (

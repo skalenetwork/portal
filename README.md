@@ -64,7 +64,7 @@ bun install
 VITE_WC_PROJECT_ID=YOUR_ID bun run dev
 ```
 
-This compiles local workspaces (`core`, `metaport`) then starts Vite.
+`predev` generates the network metadata, then Vite starts.
 
 ## Build
 
@@ -78,12 +78,6 @@ Testnet bundle:
 
 ```bash
 bun run build:testnet
-```
-
-Individual packages:
-
-```bash
-bun run build:packages
 ```
 
 ## Security and Liability

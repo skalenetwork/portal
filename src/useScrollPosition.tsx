@@ -23,7 +23,7 @@
 
 import { useEffect } from 'react'
 import { useLocation, useNavigationType } from 'react-router-dom'
-import { PATH_CONFIGS, type PathConfigsType } from './core/constants'
+import { PATH_CONFIGS, type PathConfigsType } from '@/lib/constants'
 
 const scrollPositions = new Map<string, number>()
 

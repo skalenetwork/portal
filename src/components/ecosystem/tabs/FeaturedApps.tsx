@@ -23,14 +23,15 @@
  */
 
 import React, { useMemo } from 'react'
-import { Box, Button } from '@mui/material'
+import Button from '@/ui/Button'
+import { Box } from '@mui/material'
 import { Link } from 'react-router-dom'
 import { Plus } from 'lucide-react'
-import { SkPaper } from '@skalenetwork/metaport'
+import { SkPaper } from '@/bridge'
 import AppCard from '../AppCardV2'
 import Carousel from '../../Carousel'
 import { type types, metadata } from '@/core'
-import { isTrending, isNewApp } from '../../../core/ecosystem/utils'
+import { isTrending, isNewApp } from '@/lib/ecosystem/utils'
 
 interface FeaturedAppsProps {
   featuredApps: types.AppWithChainAndName[]
@@ -116,7 +117,8 @@ const FeaturedApps: React.FC<FeaturedAppsProps> = ({
               style={{ textDecoration: 'none' }}
             >
               <Button
-                size="medium"
+                size="none"
+                variant="ghost"
                 startIcon={<Plus />}
                 className="btn-action pl-20 pr-20 capitalize! text-accent-foreground!"
               >

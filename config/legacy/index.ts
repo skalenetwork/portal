@@ -6,7 +6,6 @@ export const METAPORT_CONFIG: types.mp.Config = {
   skaleNetwork: 'legacy',
   openOnLoad: true,
   openButton: true,
-  debug: false,
   mainnetEndpoint: 'https://ethereum-hoodi-rpc.publicnode.com',
   chains: [
     'mainnet',
