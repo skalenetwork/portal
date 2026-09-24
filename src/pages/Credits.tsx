@@ -43,6 +43,8 @@ import CreditsPaymentTile from '../components/credits/CreditsPaymentTile'
 import ErrorTile from '../components/ErrorTile'
 import { History, HistoryIcon, Link2 } from 'lucide-react'
 
+const REFRESH_INTERVAL_MS = 30000
+
 interface CreditsProps {
   mpc: MetaportCore
   address: types.AddressType | undefined
@@ -143,6 +145,8 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
 
   useEffect(() => {
     loadTokenBalances()
+    const intervalId = setInterval(loadTokenBalances, REFRESH_INTERVAL_MS)
+    return () => clearInterval(intervalId)
   }, [address, tokenContractsBySource])
 
   useEffect(() => {
@@ -151,19 +155,12 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
 
   useEffect(() => {
     loadTokenPrices()
-    loadTokenBalances()
-    if (Object.keys(creditStationBySource).length === 0) return
-    const intervalId = setInterval(() => {
-      loadTokenPrices()
-      loadTokenBalances()
-    }, 10000)
-    return () => clearInterval(intervalId)
   }, [creditStationBySource])
 
   useEffect(() => {
     if (Object.keys(creditStationBySource).length > 0 && address && schains.length > 0) {
       loadPayments()
-      const interval = setInterval(loadPayments, 30000)
+      const interval = setInterval(loadPayments, REFRESH_INTERVAL_MS)
       return () => clearInterval(interval)
     }
   }, [creditStationBySource, address, schains])
@@ -228,7 +225,10 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
                   tokenPricesBySource={tokenPricesBySource}
                   tokenBalancesBySource={tokenBalancesBySource}
                   setErrorMsg={setErrorMsg}
-                  onPurchase={loadPayments}
+                  onPurchase={() => {
+                    loadPayments()
+                    loadTokenBalances()
+                  }}
                 />
               ))}
             </Collapse>

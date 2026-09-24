@@ -170,13 +170,12 @@ export default class MetaportCore {
     tokenContracts: types.mp.TokenContractsMap,
     address: string
   ): Promise<types.mp.TokenBalancesMap> {
-    const balances: types.mp.TokenBalancesMap = {}
-    const tokenKeynames = Object.keys(tokenContracts)
-    for (const tokenKeyname of tokenKeynames) {
-      if (!tokenContracts[tokenKeyname]) continue
-      balances[tokenKeyname] = await tokenContracts[tokenKeyname].balanceOf(address)
-    }
-    return balances
+    const entries = await Promise.all(
+      Object.entries(tokenContracts)
+        .filter(([, contract]) => contract)
+        .map(async ([keyname, contract]) => [keyname, await contract.balanceOf(address)] as const)
+    )
+    return Object.fromEntries(entries)
   }
 
   tokenContracts(
