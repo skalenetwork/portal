@@ -22,15 +22,14 @@
 
 import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
 import Button from '@/ui/Button'
-import { styles, type MetaportCore, Tile, TokenIcon, SkPaper, sendTransaction } from '@/bridge'
+import { styles, type MetaportCore, Tile, TokenIcon, SkPaper, writeContract } from '@/bridge'
 import { units, helper, notify, contracts as coreContracts } from '@/core'
-import { prepareWalletForWrite, type CreditToken } from '@/lib/credit-station'
+import { prepareWalletForWrite, type ChainContract, type CreditToken } from '@/lib/credit-station'
 
 import MonetizationOnRoundedIcon from '@mui/icons-material/MonetizationOnRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import DoDisturbOnRoundedIcon from '@mui/icons-material/DoDisturbOnRounded'
 
-import { Contract } from 'ethers'
 import { Dialog, Grid, TextField } from '@mui/material'
 import SkStack from '../SkStack'
 import { useState } from 'react'
@@ -40,7 +39,7 @@ import { Bolt, Coins } from 'lucide-react'
 interface TokenAdminTileProps {
   mpc: MetaportCore
   reloadTokens: () => Promise<void>
-  creditStation: Contract | undefined
+  creditStation: ChainContract | undefined
   source: coreContracts.CreditStationSource
   token: CreditToken
 }
@@ -72,7 +71,7 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
 
   async function updatePrice() {
     if (!creditStation || price === '') return
-    if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
+    if (!walletClient || !switchChainAsync) {
       notify.permanentError('Something is wrong with your wallet, try again')
       setOpenModal(false)
       return
@@ -83,15 +82,15 @@ const TokenAdminTile: React.FC<TokenAdminTileProps> = ({
 
     try {
       const wallet = await prepareWalletForWrite(
-        creditStation,
         walletClient,
         switchChainAsync,
         network,
         source.chainName
       )
-      await sendTransaction(
+      await writeContract(
         wallet,
-        creditStation.setPrice,
+        creditStation.contract,
+        'setPrice',
         [token.address, priceWei],
         'creditStation:setPrice'
       )

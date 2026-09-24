@@ -42,7 +42,7 @@ import NoTokenPairs from './components/NoTokenPairs'
 import { styles } from './core/css'
 import MetaportCore from './core/metaport'
 import { getAvailableTokensTotal } from './core/tokens/helper'
-import { sendTransaction } from './core/transactions'
+import { sendTransaction, writeContract } from './core/transactions'
 import { getBridgeBalanceChains } from './core/bridge_balance'
 import { Station } from './core/sfuel'
 import * as mp_metadata from './core/metadata'
@@ -82,6 +82,7 @@ export {
   getMetaportTheme,
   getMuiZIndex,
   sendTransaction,
+  writeContract,
   enforceNetwork,
   openWallet,
   walletCanUseChain,

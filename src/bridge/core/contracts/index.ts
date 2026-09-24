@@ -22,9 +22,9 @@
  */
 
 import { Logger, type ILogObj } from 'tslog'
-import { Contract, ContractRunner, type Provider } from 'ethers'
-import { skaleContracts } from '@skalenetwork/skale-contracts-ethers-v6'
-import { dc, ERC_ABIS, types, contracts } from '@/core'
+import { type PublicClient } from 'viem'
+import { skaleContracts } from '@skalenetwork/skale-contracts-viem'
+import { types, contracts, constants } from '@/core'
 
 import SChain from './sChain'
 import MainnetChain from './mainnetChain'
@@ -35,20 +35,10 @@ export { SChain, MainnetChain, paymaster }
 
 const log = new Logger<ILogObj>({ name: 'portal:core:contracts' })
 
-export function getErcContract(
-  signerOrProvider: ContractRunner,
-  address: types.AddressType,
-  tokenType: dc.TokenTypeExtended
-): Contract {
-  const type = tokenType.toLowerCase()
-  const abi = ERC_ABIS[type]
-  return new Contract(address, abi, signerOrProvider)
-}
-
 export async function initContracts(mpc: MetaportCore): Promise<types.st.ISkaleContractsMap> {
   log.info('Initializing contracts')
-  const provider = mpc.provider('mainnet')
-  const network = await skaleContracts.getNetworkByProvider(provider)
+  const client = mpc.publicClient(constants.MAINNET_CHAIN_NAME)
+  const network = await skaleContracts.getNetworkByProvider(client)
   const sn = mpc.config.skaleNetwork
 
   const managerAlias = contracts.getAliasOrAddress(sn, contracts.Project.MANAGER)
@@ -63,26 +53,27 @@ export async function initContracts(mpc: MetaportCore): Promise<types.st.ISkaleC
   const grantsAllocator = await allocatorProject.getInstance(grantsAlias)
 
   return {
-    validatorService: (await manager.getContract('ValidatorService')) as Contract,
-    distributor: (await manager.getContract('Distributor')) as Contract,
-    delegationController: (await manager.getContract('DelegationController')) as Contract,
-    tokenState: (await manager.getContract('TokenState')) as Contract,
-    skaleToken: (await manager.getContract('SkaleToken')) as Contract,
-    allocator: (await allocator.getContract('Allocator')) as Contract,
-    grantsAllocator: (await grantsAllocator.getContract('Allocator')) as Contract
+    validatorService: await manager.getContract('ValidatorService'),
+    distributor: await manager.getContract('Distributor'),
+    delegationController: await manager.getContract('DelegationController'),
+    tokenState: await manager.getContract('TokenState'),
+    skaleToken: await manager.getContract('SkaleToken'),
+    allocator: await allocator.getContract('Allocator'),
+    grantsAllocator: await grantsAllocator.getContract('Allocator'),
+    client
   }
 }
 
 export async function initActionContract(
-  provider: Provider,
+  client: PublicClient,
   delegationType: types.st.DelegationType,
   beneficiary: types.AddressType,
   skaleNetwork: types.SkaleNetwork,
   contractType: types.st.ContractType
-): Promise<Contract> {
+): Promise<types.st.SkaleContract> {
   log.info('initActionContract:', skaleNetwork, beneficiary, contractType, delegationType)
-  const network = await skaleContracts.getNetworkByProvider(provider)
-  let contract: Contract
+  const network = await skaleContracts.getNetworkByProvider(client)
+  let contract: types.st.SkaleContract
   if (delegationType === types.st.DelegationType.REGULAR) {
     contract = await getManagerContract(
       network,
@@ -100,7 +91,7 @@ async function getEscrowContract(
   skaleNetwork: types.SkaleNetwork,
   delegationType: types.st.DelegationType,
   beneficiary: types.AddressType
-): Promise<Contract> {
+): Promise<types.st.SkaleContract> {
   const project = await network.getProject(contracts.Project.ALLOCATOR)
   let type: contracts.IPortalProject = contracts.Project.ALLOCATOR
   if (delegationType === types.st.DelegationType.ESCROW2) {
@@ -108,16 +99,16 @@ async function getEscrowContract(
   }
   const alias = contracts.getAliasOrAddress(skaleNetwork, type)
   const instance = await project.getInstance(alias)
-  return (await instance.getContract('Escrow', [beneficiary])) as Contract
+  return (await instance.getContract('Escrow', [beneficiary])) as types.st.SkaleContract
 }
 
 async function getManagerContract(
   network: any,
   skaleNetwork: types.SkaleNetwork,
   name: string
-): Promise<Contract> {
+): Promise<types.st.SkaleContract> {
   const project = await network.getProject(contracts.Project.MANAGER)
   const alias = contracts.getAliasOrAddress(skaleNetwork, contracts.Project.MANAGER)
   const manager = await project.getInstance(alias)
-  return (await manager.getContract(name)) as Contract
+  return (await manager.getContract(name)) as types.st.SkaleContract
 }

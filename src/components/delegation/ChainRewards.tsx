@@ -119,7 +119,7 @@ const ChainRewards: React.FC<ChainRewardsProps> = ({
     const tokenAddress = await paymaster.skaleToken()
     let skl = sklToken
     if (skl === undefined) {
-      skl = new Contract(tokenAddress, ERC_ABIS.erc20.abi, paymaster.runner)
+      skl = new Contract(tokenAddress, ERC_ABIS.erc20, paymaster.runner)
       setTokenUrl(
         explorer.getExplorerUrlForAddress(
           chainsMeta[paymasterChain],

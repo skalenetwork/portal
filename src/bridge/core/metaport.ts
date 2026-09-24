@@ -23,7 +23,7 @@
 
 import { Logger, type ILogObj } from 'tslog'
 import { Provider, Contract } from 'ethers'
-import { type WalletClient } from 'viem'
+import { createPublicClient, http, type PublicClient, type WalletClient } from 'viem'
 import { types, dc, ERC_ABIS, contracts, constants, endpoints } from '@/core'
 
 import { getEmptyTokenDataMap } from './tokens/helper'
@@ -218,7 +218,7 @@ export default class MetaportCore {
   ): Contract | undefined {
     const token = this.#config.connections[chainName][tokenType][tokenKeyname]
     if (!token.address) return
-    const abi = customAbiTokenType ? ERC_ABIS[customAbiTokenType].abi : ERC_ABIS[tokenType].abi
+    const abi = customAbiTokenType ? ERC_ABIS[customAbiTokenType] : ERC_ABIS[tokenType]
     const address = customAbiTokenType ? token.chains[destChainName].wrapper : token.address
     return new Contract(address, abi, provider)
   }
@@ -312,6 +312,10 @@ export default class MetaportCore {
       return mainnetProvider(this.#config.mainnetEndpoint)
     }
     return sChainProvider(this.#config.skaleNetwork, chainName)
+  }
+
+  publicClient(chainName: string): PublicClient {
+    return createPublicClient({ transport: http(this.endpoint(chainName)) })
   }
 
   tokenChanged(

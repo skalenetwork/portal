@@ -20,19 +20,23 @@
  * @copyright SKALE Labs 2025-Present
  */
 
+import { type Abi } from 'viem'
+
 import { TokenTypeExtended } from '../dataclasses'
 
-import erc20Abi from './erc20_abi.json'
-import erc721Abi from './erc721_abi.json'
-import erc721MetaAbi from './erc721meta_abi.json'
-import erc1155Abi from './erc1155_abi.json'
-import erc20WrapperAbi from './erc20_wrapper_abi.json'
+import { erc20Abi } from './erc20'
+import { erc721Abi } from './erc721'
+import { erc721MetaAbi } from './erc721meta'
+import { erc1155Abi } from './erc1155'
+import { erc20WrapperAbi } from './erc20wrapper'
 
-export const ERC_ABIS: { [tokenType in TokenTypeExtended]: { ['abi']: any } } = {
+export { erc20Abi, erc721Abi, erc721MetaAbi, erc1155Abi, erc20WrapperAbi }
+
+export const ERC_ABIS = {
   eth: erc20Abi,
   erc20: erc20Abi,
   erc20wrap: erc20WrapperAbi,
   erc721: erc721Abi,
   erc721meta: erc721MetaAbi,
   erc1155: erc1155Abi
-}
+} as const satisfies Record<TokenTypeExtended, Abi>

@@ -21,9 +21,23 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { Contract, getUint } from 'ethers'
+import { hexToBigInt, type PublicClient } from 'viem'
+
 import { helper, types } from '@/core'
 import { BATCH_SIZE } from '../constants'
+
+/** getDelegation returns a single all-named tuple, so viem decodes it to an object. */
+interface RawDelegation {
+  holder: types.AddressType
+  validatorId: bigint
+  amount: bigint
+  delegationPeriod: bigint
+  created: bigint
+  started: bigint
+  finished: bigint
+  info: string
+}
+
 
 export enum DelegationState {
   PROPOSED = 0,
@@ -46,20 +60,21 @@ export enum DelegationSource {
 }
 
 export async function getDelegationIdsByHolder(
-  delegationController: Contract,
+  delegationController: types.st.SkaleContract,
   address: types.AddressType
 ): Promise<bigint[]> {
-  const idsLen = await delegationController.getDelegationsByHolderLength(address)
+  const idsLen = await delegationController.read.getDelegationsByHolderLength([address])
   return await Promise.all(
     Array.from(
       { length: Number(idsLen) },
-      async (_, id) => await delegationController.delegationsByHolder(address, id)
+      async (_, id) =>
+        (await delegationController.read.delegationsByHolder([address, BigInt(id)])) as bigint
     )
   )
 }
 
 async function loadDelegationBatch(
-  delegationController: Contract,
+  delegationController: types.st.SkaleContract,
   valId: number,
   start: number,
   size: number
@@ -67,16 +82,22 @@ async function loadDelegationBatch(
   return await Promise.all(
     Array.from(
       { length: size },
-      async (_, index) => await delegationController.delegationsByValidator(valId, start + index)
+      async (_, index) =>
+        (await delegationController.read.delegationsByValidator([
+          BigInt(valId),
+          BigInt(start + index)
+        ])) as bigint
     )
   )
 }
 
 export async function getDelegationIdsByValidator(
-  delegationController: Contract,
+  delegationController: types.st.SkaleContract,
   valId: number
 ): Promise<bigint[]> {
-  const totalDelegations = Number(await delegationController.getDelegationsByValidatorLength(valId))
+  const totalDelegations = Number(
+    await delegationController.read.getDelegationsByValidatorLength([BigInt(valId)])
+  )
   const batchCount = Math.ceil(totalDelegations / BATCH_SIZE)
   let allDelegations: bigint[] = []
 
@@ -91,30 +112,30 @@ export async function getDelegationIdsByValidator(
 }
 
 async function loadDelegationDetailsBatch(
-  delegationController: Contract,
+  delegationController: types.st.SkaleContract,
   delegationIds: bigint[]
 ): Promise<types.st.IDelegation[]> {
   const rawData = await Promise.all(
     delegationIds.flatMap((id) => [
-      delegationController.getDelegation(id),
-      delegationController.getState(id)
+      delegationController.read.getDelegation([id]),
+      delegationController.read.getState([id])
     ])
   )
 
   return delegationIds.map((id, index) => {
-    const delegationArray = rawData[index * 2]
-    const stateId = rawData[index * 2 + 1]
+    const delegation = rawData[index * 2] as RawDelegation
+    const stateId = rawData[index * 2 + 1] as bigint
 
     return {
       id,
-      address: delegationArray[0],
-      validator_id: delegationArray[1],
-      amount: delegationArray[2],
-      delegation_period: delegationArray[3],
-      created: delegationArray[4],
-      started: delegationArray[5],
-      finished: delegationArray[6],
-      info: delegationArray[7],
+      address: delegation.holder,
+      validator_id: delegation.validatorId,
+      amount: delegation.amount,
+      delegation_period: delegation.delegationPeriod,
+      created: delegation.created,
+      started: delegation.started,
+      finished: delegation.finished,
+      info: delegation.info,
       stateId,
       state: DelegationState[Number(stateId)]
     }
@@ -122,7 +143,7 @@ async function loadDelegationDetailsBatch(
 }
 
 export async function getDelegations(
-  delegationController: Contract,
+  delegationController: types.st.SkaleContract,
   delegationIds: bigint[]
 ): Promise<types.st.IDelegation[]> {
   const batchCount = Math.ceil(delegationIds.length / BATCH_SIZE)
@@ -154,7 +175,7 @@ export function getKeyByValue(enumType: any, enumValue: string): string | undefi
 
 export async function groupDelegationsByValidator(
   delegations: types.st.IDelegation[],
-  distributor: Contract,
+  distributor: types.st.SkaleContract,
   address: types.AddressType
 ): Promise<types.st.IDelegationsToValidator[]> {
   const groupedDelegations = new Map<bigint, types.st.IDelegation[]>()
@@ -176,10 +197,10 @@ export async function groupDelegationsByValidator(
   const res = await Promise.all(
     delegationsArray.map(
       async (delegationsToValidator: types.st.IDelegationsToValidator) =>
-        await distributor.getAndUpdateEarnedBountyAmountOf.staticCallResult(
+        (await distributor.read.getAndUpdateEarnedBountyAmountOf([
           address,
-          delegationsToValidator.validatorId
-        )
+          BigInt(delegationsToValidator.validatorId)
+        ])) as [bigint, bigint]
     )
   )
   delegationsArray.forEach((delegationsToValidator, index) => {
@@ -210,13 +231,11 @@ export async function getDelegatorInfo(
   type?: types.st.DelegationType
 ): Promise<types.st.IDelegatorInfo> {
   const info: types.st.IDelegatorInfo = {
-    balance: await sc.skaleToken.balanceOf(address),
-    staked: (
-      await sc.delegationController.getAndUpdateDelegatedAmount.staticCallResult(address)
-    )[0],
-    forbiddenToDelegate: (
-      await sc.tokenState.getAndUpdateForbiddenForDelegationAmount.staticCallResult(address)
-    )[0],
+    balance: (await sc.skaleToken.read.balanceOf([address])) as bigint,
+    staked: (await sc.delegationController.read.getAndUpdateDelegatedAmount([address])) as bigint,
+    forbiddenToDelegate: (await sc.tokenState.read.getAndUpdateForbiddenForDelegationAmount([
+      address
+    ])) as bigint,
     rewards,
     address
   }
@@ -225,12 +244,12 @@ export async function getDelegatorInfo(
 
   if (beneficiary) {
     if (type === types.st.DelegationType.ESCROW) {
-      info.vested = await getVestedAmount(sc.allocator, address, beneficiary)
-      info.fullAmount = await sc.allocator.getFullAmount(beneficiary)
+      info.vested = await getVestedAmount(sc.client, sc.allocator, address, beneficiary)
+      info.fullAmount = (await sc.allocator.read.getFullAmount([beneficiary])) as bigint
     }
     if (type === types.st.DelegationType.ESCROW2) {
-      info.vested = await getVestedAmount(sc.grantsAllocator, address, beneficiary)
-      info.fullAmount = await sc.grantsAllocator.getFullAmount(beneficiary)
+      info.vested = await getVestedAmount(sc.client, sc.grantsAllocator, address, beneficiary)
+      info.fullAmount = (await sc.grantsAllocator.read.getFullAmount([beneficiary])) as bigint
     }
 
     const locked = helper.maxBigInt(info.fullAmount! - info.vested!, info.forbiddenToDelegate)
@@ -240,23 +259,16 @@ export async function getDelegatorInfo(
 }
 
 export async function getVestedAmount(
-  allocator: Contract,
+  client: PublicClient,
+  allocator: types.st.SkaleContract,
   escrowAddress: types.AddressType,
   address: types.AddressType
 ): Promise<bigint> {
-  let vestedAmount: bigint
-  if (await allocator.isVestingActive(address)) {
-    vestedAmount = await allocator.calculateVestedAmount(address)
-  } else {
-    const provider = allocator.runner?.provider
-    if (provider) {
-      const valueHex = await provider.getStorage(escrowAddress, '0x99')
-      vestedAmount = getUint(valueHex)
-    } else {
-      vestedAmount = 0n
-    }
+  if (await allocator.read.isVestingActive([address])) {
+    return (await allocator.read.calculateVestedAmount([address])) as bigint
   }
-  return vestedAmount
+  const value = await client.getStorageAt({ address: escrowAddress, slot: '0x99' })
+  return value ? hexToBigInt(value) : 0n
 }
 
 export function getDelegationTypeAlias(type: types.st.DelegationType): string {

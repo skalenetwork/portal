@@ -21,7 +21,7 @@
  */
 
 import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
-import { type MetaportCore, Tile, SkPaper, sendTransaction, ChainIcon } from '@/bridge'
+import { type MetaportCore, Tile, SkPaper, writeContract, ChainIcon } from '@/bridge'
 
 import {
   Wallet,
@@ -40,7 +40,6 @@ import { Grid, Button, Dialog } from '@mui/material'
 
 import Logo from '../Logo'
 import SkStack from '../SkStack'
-import { Contract } from 'ethers'
 import { Link } from 'react-router-dom'
 import {
   CREDITS_CONFIRMATION_BLOCKS,
@@ -48,7 +47,7 @@ import {
   RECOMMENDED_CREDITS_AMOUNTS,
   CREDITS_USAGE_EXAMPLE_PER_CREDIT
 } from '@/lib/constants'
-import { prepareWalletForWrite } from '@/lib/credit-station'
+import { prepareWalletForWrite, type ChainContract } from '@/lib/credit-station'
 import CreditsAmountSelector from './CreditsAmountSelector'
 import TokenSelector from './TokenSelector'
 import SourceSelector from './SourceSelector'
@@ -58,7 +57,7 @@ interface ChainCreditsTileProps {
   chainsMeta: types.ChainsMetadataMap
   schain: types.ISChain
   sources: contracts.CreditStationSource[]
-  creditStationBySource: Record<string, Contract>
+  creditStationBySource: Record<string, ChainContract>
   tokenPricesBySource: Record<string, Record<string, bigint>>
   tokenBalancesBySource: Record<string, types.mp.TokenBalancesMap | undefined>
   setErrorMsg: (msg: string | undefined) => void
@@ -184,7 +183,7 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
 
   async function buyCredits() {
     if (!creditStation || !token || !selectedSource) return
-    if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
+    if (!walletClient || !switchChainAsync) {
       setErrorMsg('Something is wrong with your wallet, try again')
       notify.permanentError('Something is wrong with your wallet, try again')
       setOpenModal(false)
@@ -198,7 +197,6 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
       if (!tokenAddress) return
 
       const wallet = await prepareWalletForWrite(
-        creditStation,
         walletClient,
         switchChainAsync,
         network,
@@ -207,27 +205,22 @@ const ChainCreditsTile: React.FC<ChainCreditsTileProps> = ({
 
       const amountWei = getAmountToPayWei()
 
-      const connectedToken = new Contract(
-        tokenAddress,
-        ERC_ABIS.erc20.abi,
-        creditStation.runner!.provider
-      )
-      const creditStationAddress = await creditStation.getAddress()
-
-      await sendTransaction(
+      await writeContract(
         wallet,
-        connectedToken.approve,
-        [creditStationAddress, amountWei],
+        { address: tokenAddress, abi: ERC_ABIS.erc20 },
+        'approve',
+        [creditStation.contract.address, amountWei],
         'creditStation:approve',
-        CREDITS_CONFIRMATION_BLOCKS
+        { confirmations: CREDITS_CONFIRMATION_BLOCKS }
       )
 
-      await sendTransaction(
+      await writeContract(
         wallet,
-        creditStation.buy,
+        creditStation.contract,
+        'buy',
         [schain.name, address, tokenAddress, amount],
         'creditStation:buy',
-        CREDITS_CONFIRMATION_BLOCKS
+        { confirmations: CREDITS_CONFIRMATION_BLOCKS }
       )
       notify.temporarySuccess(
         `Purchased ${amount} ${amount === 1n ? 'Credit' : 'Credits'} for ${chainAlias}`

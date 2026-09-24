@@ -14,6 +14,7 @@
         "@reown/appkit": "^1.8.23",
         "@reown/appkit-adapter-wagmi": "^1.8.23",
         "@skalenetwork/skale-contracts-ethers-v6": "2.0.0-develop.6",
+        "@skalenetwork/skale-contracts-viem": "2.0.0-develop.8",
         "@tailwindcss/vite": "^4.3.3",
         "@tanstack/react-query": "^5.102.5",
         "@vercel/analytics": "^2.0.1",
@@ -345,6 +346,8 @@
     "@skalenetwork/skale-contracts": ["@skalenetwork/skale-contracts@2.0.0-develop.6", "", { "dependencies": { "@renovatebot/pep440": "^4.1.0", "axios": "^1.4.0", "dotenv": "^16.5.0", "semver": "^7.6.0" } }, "sha512-+n3TQDgiqK7D7yhRnz3+U7dvd4/8QWsn8hm7CHIMs+I0obs5tDP9eCoCZBNObVDeX1aItrW32VYeTvcJuqIrkA=="],
 
     "@skalenetwork/skale-contracts-ethers-v6": ["@skalenetwork/skale-contracts-ethers-v6@2.0.0-develop.6", "", { "dependencies": { "@skalenetwork/skale-contracts": "2.0.0-develop.6", "ethers": "^6.13.5" } }, "sha512-x3nB3MVM48AuJtzgxnvuKE7XZB7qYdOvXh5Fooi5tW83u0tPnmLQPCoIGrOpbQKRdwQEYCYo83pnpXc+SInz6g=="],
+
+    "@skalenetwork/skale-contracts-viem": ["@skalenetwork/skale-contracts-viem@2.0.0-develop.8", "", { "dependencies": { "@skalenetwork/skale-contracts": "2.0.0-develop.8", "viem": "^2.56.1" } }, "sha512-Y30VRyxyOJzMfHAnk6lO5oQtW1rJWxHfqDqFAsTnw2Zxl5+MYc83fohAvxDD5xu+dUS19O9y/3EJ47+PeTeBaQ=="],
 
     "@solana-program/system": ["@solana-program/system@0.10.0", "", { "peerDependencies": { "@solana/kit": "^5.0" } }, "sha512-Go+LOEZmqmNlfr+Gjy5ZWAdY5HbYzk2RBewD9QinEU/bBSzpFfzqDRT55JjFRBGJUvMgf3C2vfXEGT4i8DSI4g=="],
 
@@ -1276,6 +1279,8 @@
 
     "@skalenetwork/skale-contracts/semver": ["semver@7.8.5", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-Y7/KDsb8LjooZpwaqGyulO6DQlksgCncchHGk+sZIY4SBvUocMBEFH5Ur1fI4dV+Jvl0w6cjvucaIi40puRioA=="],
 
+    "@skalenetwork/skale-contracts-viem/@skalenetwork/skale-contracts": ["@skalenetwork/skale-contracts@2.0.0-develop.8", "", { "dependencies": { "@renovatebot/pep440": "^4.1.0", "axios": "^1.4.0", "dotenv": "^16.5.0", "semver": "^7.6.0" } }, "sha512-sagbJ/MMFKPy0gHPzLkHZS2dFdqMVnG3SeeKQ1vSL0fFu51sB35Bs1TQS6i/uiDOtKQYJhp/cXfgUbeLhEOMPw=="],
+
     "@solana/rpc-transport-http/undici-types": ["undici-types@7.29.0", "", {}, "sha512-vamA8dGlzMwhpyYpQp9d8vka3o4D/yn5I7ez7Or+msDA4bZ8Uh+Zy91WvWf3I73gDAkFha9JcYRqm2li0Npfgg=="],
 
     "@tailwindcss/node/lightningcss": ["lightningcss@1.32.0", "", { "dependencies": { "detect-libc": "^2.0.3" }, "optionalDependencies": { "lightningcss-android-arm64": "1.32.0", "lightningcss-darwin-arm64": "1.32.0", "lightningcss-darwin-x64": "1.32.0", "lightningcss-freebsd-x64": "1.32.0", "lightningcss-linux-arm-gnueabihf": "1.32.0", "lightningcss-linux-arm64-gnu": "1.32.0", "lightningcss-linux-arm64-musl": "1.32.0", "lightningcss-linux-x64-gnu": "1.32.0", "lightningcss-linux-x64-musl": "1.32.0", "lightningcss-win32-arm64-msvc": "1.32.0", "lightningcss-win32-x64-msvc": "1.32.0" } }, "sha512-NXYBzinNrblfraPGyrbPoD19C1h9lfI/1mzgWYvXUTe414Gz/X1FD2XBZSZM7rRTrMA8JL3OtAaGifrIKhQ5yQ=="],
@@ -1351,6 +1356,8 @@
     "@coinbase/wallet-sdk/ox/@noble/curves": ["@noble/curves@1.9.1", "", { "dependencies": { "@noble/hashes": "1.8.0" } }, "sha512-k11yZxZg+t+gWvBbIswW0yoJlu8cHOC7dhunwOzoWH/mXGBiYyR4YY6hAEK/3EUs4UpB8la1RfdRpeGsFHkWsA=="],
 
     "@coinbase/wallet-sdk/ox/@noble/hashes": ["@noble/hashes@1.8.0", "", {}, "sha512-jCs9ldd7NwzpgXDIf6P3+NrHh9/sD6CQdxHyjQI+h/6rDNo88ypBxxz45UDuZHz9r3tNz7N/VInSVoVdtXEI4A=="],
+
+    "@skalenetwork/skale-contracts-viem/@skalenetwork/skale-contracts/semver": ["semver@7.8.5", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-Y7/KDsb8LjooZpwaqGyulO6DQlksgCncchHGk+sZIY4SBvUocMBEFH5Ur1fI4dV+Jvl0w6cjvucaIi40puRioA=="],
 
     "@tailwindcss/node/lightningcss/lightningcss-android-arm64": ["lightningcss-android-arm64@1.32.0", "", { "os": "android", "cpu": "arm64" }, "sha512-YK7/ClTt4kAK0vo6w3X+Pnm0D2cf2vPHbhOXdoNti1Ga0al1P4TBZhwjATvjNwLEBCnKvjJc2jQgHXH0NEwlAg=="],
 

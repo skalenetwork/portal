@@ -21,7 +21,10 @@
  * @copyright SKALE Labs 2024-Present
  */
 
-import { type Contract } from 'ethers'
+import { type PublicClient } from 'viem'
+import { type Instance } from '@skalenetwork/skale-contracts-viem'
+
+export type SkaleContract = Awaited<ReturnType<Instance['getContract']>>
 
 export type SkaleContractName =
   | 'delegationController'
@@ -32,8 +35,9 @@ export type SkaleContractName =
   | 'grantsAllocator'
   | 'tokenState'
 
-export type ISkaleContractsMap = {
-  [key in SkaleContractName]: Contract
+export type ISkaleContractsMap = Record<SkaleContractName, SkaleContract> & {
+  /** the client every contract in this map is read through */
+  client: PublicClient
 }
 
 export type ContractType = 'delegation' | 'distributor'

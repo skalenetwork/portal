@@ -23,14 +23,13 @@
 import { useState, useEffect, useMemo } from 'react'
 import Button from '@/ui/Button'
 import Avatar from 'boring-avatars'
-import { Contract } from 'ethers'
 
 import { Grid, Tooltip } from '@mui/material'
 import HistoryToggleOffRoundedIcon from '@mui/icons-material/HistoryToggleOffRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 
 import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
-import { type MetaportCore, Tile, ChainIcon, TokenIcon, explorer, sendTransaction } from '@/bridge'
+import { type MetaportCore, Tile, ChainIcon, TokenIcon, explorer, writeContract } from '@/bridge'
 import { types, contracts as coreContracts, timeUtils, helper, metadata, notify } from '@/core'
 
 import SkStack from '../SkStack'
@@ -44,8 +43,8 @@ interface CreditsPaymentTileProps {
   mpc: MetaportCore
   payment: cs.Payment
   chainsMeta: types.ChainsMetadataMap
-  ledgerContract: Contract | undefined
-  creditStation: Contract | undefined
+  ledgerContract: cs.ChainContract | undefined
+  creditStation: cs.ChainContract | undefined
   source: coreContracts.CreditStationSource | undefined
   isAdmin?: boolean
   setErrorMsg: (msg: string | undefined) => void
@@ -109,7 +108,9 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
     if (!ledgerContract) return
     const checkFulfillment = async () => {
       try {
-        setIsFulfilled(await ledgerContract.isFulfilled(payment.id))
+        setIsFulfilled(
+          (await ledgerContract.contract.read.isFulfilled([payment.id])) as boolean
+        )
       } catch (error) {}
     }
     checkFulfillment()
@@ -124,20 +125,19 @@ const CreditsPaymentTile: React.FC<CreditsPaymentTileProps> = ({
 
     try {
       const wallet = await cs.prepareWalletForWrite(
-        ledgerContract,
         walletClient,
         switchChainAsync,
         network,
         payment.schainName
       )
 
-      await sendTransaction(
+      await writeContract(
         wallet,
-        ledgerContract.fulfill,
+        ledgerContract.contract,
+        'fulfill',
         [payment.id, payment.to],
         'ledger:fulfill',
-        CREDITS_CONFIRMATION_BLOCKS,
-        payment.value
+        { confirmations: CREDITS_CONFIRMATION_BLOCKS, value: payment.value }
       )
       notify.temporarySuccess('Payment fulfilled')
     } catch (e: any) {

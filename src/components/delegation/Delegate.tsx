@@ -26,7 +26,7 @@ import Button from '@/ui/Button'
 import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-import { TokenIcon, type MetaportCore, sendTransaction, contracts, Tile, styles } from '@/bridge'
+import { TokenIcon, type MetaportCore, contracts, Tile, styles, writeContract } from '@/bridge'
 import { type types, constants, units } from '@/core'
 
 import { TextField, Tooltip } from '@mui/material'
@@ -89,15 +89,16 @@ export default function Delegate(props: {
       )
       const walletClient = await props.getMainnetWalletClient()
       const delegationContract = await contracts.initActionContract(
-        props.mpc.provider(constants.MAINNET_CHAIN_NAME),
+        props.mpc.publicClient(constants.MAINNET_CHAIN_NAME),
         props.delegationType,
         props.address,
         props.mpc.config.skaleNetwork,
         'delegation'
       )
-      await sendTransaction(
+      await writeContract(
         walletClient,
-        delegationContract.delegate,
+        delegationContract,
+        'delegate',
         [
           props.validator.id,
           amountWei,

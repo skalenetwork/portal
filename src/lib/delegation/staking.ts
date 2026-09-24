@@ -36,8 +36,10 @@ export async function getStakingInfoMap(
   address: types.AddressType | undefined
 ): Promise<types.st.StakingInfoMap> {
   if (!address) return { 0: null, 1: null, 2: null }
-  const escrowAddress = await sc.allocator.getEscrowAddress(address)
-  const escrowGrantsAddress = await sc.grantsAllocator.getEscrowAddress(address)
+  const escrowAddress = (await sc.allocator.read.getEscrowAddress([address])) as types.AddressType
+  const escrowGrantsAddress = (await sc.grantsAllocator.read.getEscrowAddress([
+    address
+  ])) as types.AddressType
   return {
     0: await getStakingInfo(sc, address),
     1: helper.isZeroAddr(escrowAddress)

@@ -90,7 +90,7 @@ export default function Paymaster(props: {
     const info = await contracts.paymaster.getPaymasterInfo(paymaster, props.name, network)
     let skl = sklToken
     if (skl === undefined) {
-      skl = new Contract(info.skaleToken, ERC_ABIS.erc20.abi, paymaster.runner)
+      skl = new Contract(info.skaleToken, ERC_ABIS.erc20, paymaster.runner)
       setSklToken(skl)
     } else {
       setTokenBalance(await skl.balanceOf(address))
@@ -116,7 +116,7 @@ export default function Paymaster(props: {
       setBtnText('Sending transaction...')
       const connectedToken = new Contract(
         info.skaleToken,
-        ERC_ABIS.erc20.abi,
+        ERC_ABIS.erc20,
         props.mpc.provider(paymasterChain)
       )
 

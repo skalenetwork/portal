@@ -21,11 +21,36 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import { Contract } from 'ethers'
-import { publicActions, type WalletClient } from 'viem'
+import {
+  BaseError,
+  ContractFunctionRevertedError,
+  parseAbi,
+  publicActions,
+  type PublicClient,
+  type WalletClient
+} from 'viem'
 import { MetaportCore, enforceNetwork } from '@/bridge'
-import { skaleContracts } from '@skalenetwork/skale-contracts-ethers-v6'
+import { skaleContracts, type Instance } from '@skalenetwork/skale-contracts-viem'
 import { type types, constants, contracts, helper } from '@/core'
+
+export type CreditContract = Awaited<ReturnType<Instance['getContract']>>
+
+/** A skale-contracts contract bundled with the client that can read it. */
+export interface ChainContract {
+  contract: CreditContract
+  client: PublicClient
+  chainName: string
+}
+
+/** getPaymentInfo returns a single all-named tuple, so viem decodes it to an object. */
+interface RawPayment {
+  schainHash: `0x${string}`
+  from: types.AddressType
+  to: types.AddressType
+  blockNumber: bigint
+  tokenAddress: types.AddressType
+  value: bigint
+}
 
 export interface Payment {
   id: bigint
@@ -62,13 +87,12 @@ export async function ensureGasBalance(walletClient: WalletClient): Promise<void
 }
 
 export async function prepareWalletForWrite(
-  contract: Contract,
   walletClient: WalletClient | undefined,
   switchChainAsync: Parameters<typeof enforceNetwork>[1],
   network: types.SkaleNetwork,
   chainName: string
 ): Promise<WalletClient> {
-  if (!contract.runner?.provider || !walletClient || !switchChainAsync) {
+  if (!walletClient || !switchChainAsync) {
     throw new Error('Something is wrong with your wallet, try again')
   }
   await enforceNetwork(walletClient, switchChainAsync, network, chainName)
@@ -79,7 +103,7 @@ export async function prepareWalletForWrite(
 export async function initAllLedgerContracts(
   mpc: MetaportCore,
   schains: types.ISChain[]
-): Promise<Record<string, Contract>> {
+): Promise<Record<string, ChainContract>> {
   const results = await Promise.all(
     schains.map(async (schain) => [schain.name, await getLedgerContract(mpc, schain.name)])
   )
@@ -102,19 +126,23 @@ function isValidAddress(address: string | undefined): boolean {
 export async function getCreditStationForSource(
   mpc: MetaportCore,
   source: contracts.CreditStationSource
-): Promise<Contract | undefined> {
+): Promise<ChainContract | undefined> {
   if (!isValidAddress(source.contractAddress)) return undefined
-  const provider = mpc.provider(source.chainName)
-  const network = await skaleContracts.getNetworkByProvider(provider)
+  const client = mpc.publicClient(source.chainName)
+  const network = await skaleContracts.getNetworkByProvider(client)
   const project = await network.getProject(source.skaleContractsProject as any)
   const instance = await project.getInstance(source.contractAddress)
-  return (await instance.getContract('CreditStation')) as Contract
+  return {
+    contract: await instance.getContract('CreditStation'),
+    client,
+    chainName: source.chainName
+  }
 }
 
 export async function initAllCreditStations(
   mpc: MetaportCore,
   sources: contracts.CreditStationSource[]
-): Promise<Record<string, Contract>> {
+): Promise<Record<string, ChainContract>> {
   const entries = await Promise.all(
     sources.map(async (source) => {
       try {
@@ -127,20 +155,21 @@ export async function initAllCreditStations(
     })
   )
   return Object.fromEntries(
-    entries.filter(([, contract]) => contract !== undefined) as [string, Contract][]
+    entries.filter(([, contract]) => contract !== undefined) as [string, ChainContract][]
   )
 }
 
 export async function getLedgerContract(
   mpc: MetaportCore,
   schainName: string
-): Promise<Contract | undefined> {
+): Promise<ChainContract | undefined> {
   const address = getLedgerContractAddress(mpc.config.skaleNetwork, schainName)
   if (!address) return undefined
-  const network = await skaleContracts.getNetworkByProvider(mpc.provider(schainName))
+  const client = mpc.publicClient(schainName)
+  const network = await skaleContracts.getNetworkByProvider(client)
   const project = await network.getProject('schain-credit-station')
   const instance = await project.getInstance(address)
-  return (await instance.getContract('Ledger')) as Contract
+  return { contract: await instance.getContract('Ledger'), client, chainName: schainName }
 }
 
 export interface TokenInfo {
@@ -149,11 +178,11 @@ export interface TokenInfo {
   decimals?: number
 }
 
-const ERC20_METADATA_ABI = [
+const ERC20_METADATA_ABI = parseAbi([
   'function symbol() view returns (string)',
   'function name() view returns (string)',
   'function decimals() view returns (uint8)'
-]
+])
 const tokenInfoCache: Record<string, Promise<TokenInfo>> = {}
 
 export async function getTokenInfo(
@@ -164,11 +193,12 @@ export async function getTokenInfo(
   const cacheKey = `${chainName}:${tokenAddress.toLowerCase()}`
   if (!(cacheKey in tokenInfoCache)) {
     tokenInfoCache[cacheKey] = (async () => {
-      const token = new Contract(tokenAddress, ERC20_METADATA_ABI, mpc.provider(chainName))
+      const client = mpc.publicClient(chainName)
+      const token = { address: tokenAddress as types.AddressType, abi: ERC20_METADATA_ABI }
       const [symbol, name, decimals] = await Promise.allSettled([
-        token.symbol(),
-        token.name(),
-        token.decimals()
+        client.readContract({ ...token, functionName: 'symbol' }),
+        client.readContract({ ...token, functionName: 'name' }),
+        client.readContract({ ...token, functionName: 'decimals' })
       ])
       if (symbol.status === 'rejected') {
         console.error(
@@ -195,13 +225,13 @@ export async function getTokenSymbol(
 }
 
 export async function getTokenPrices(
-  creditStation: Contract | undefined
+  creditStation: ChainContract | undefined
 ): Promise<Record<string, bigint> | undefined> {
   if (!creditStation) return
-  const supportedTokens: string[] = await creditStation.getSupportedTokens()
-  const prices = await Promise.all(
-    supportedTokens.map((tokenAddress) => creditStation.getPrice(tokenAddress))
-  )
+  const supportedTokens = (await creditStation.contract.read.getSupportedTokens()) as string[]
+  const prices = (await Promise.all(
+    supportedTokens.map((tokenAddress) => creditStation.contract.read.getPrice([tokenAddress]))
+  )) as bigint[]
   const priceMap = supportedTokens.reduce(
     (acc, tokenAddress, index) => {
       acc[tokenAddress] = prices[index]
@@ -231,7 +261,7 @@ export interface CreditToken {
 export async function getCreditTokens(
   mpc: MetaportCore,
   chainName: string,
-  creditStation: Contract | undefined
+  creditStation: ChainContract | undefined
 ): Promise<CreditToken[]> {
   const tokenPrices = (await getTokenPrices(creditStation)) ?? {}
   const configTokens = mpc.config.connections[chainName]?.erc20 ?? {}
@@ -287,7 +317,7 @@ export async function getCreditTokens(
 }
 
 export async function getTokenPricesBySource(
-  creditStations: Record<string, Contract>
+  creditStations: Record<string, ChainContract>
 ): Promise<Record<string, Record<string, bigint>>> {
   const entries = await Promise.all(
     Object.entries(creditStations).map(async ([sourceId, contract]) => {
@@ -300,7 +330,7 @@ export async function getTokenPricesBySource(
 
 async function getPayments(
   paymentIds: bigint[],
-  creditStation: Contract,
+  creditStation: ChainContract,
   sourceId: string,
   schains: types.ISChain[]
 ): Promise<Payment[]> {
@@ -312,8 +342,8 @@ async function getPayments(
     const chunk = allIds.slice(i, i + chunkSize)
     const chunkPayments = await Promise.all(
       chunk.map(async (paymentId) => {
-        const rawPayment = await creditStation.getPaymentInfo(paymentId)
-        return toPayment(paymentId, sourceId, rawPayment, schains)
+        const rawPayment = await creditStation.contract.read.getPaymentInfo([paymentId])
+        return toPayment(paymentId, sourceId, rawPayment as RawPayment, schains)
       })
     )
     results.push(...chunkPayments)
@@ -322,9 +352,7 @@ async function getPayments(
   return results
 }
 
-async function fillTimestamps(payments: Payment[], creditStation: Contract): Promise<void> {
-  const provider = creditStation.runner?.provider
-  if (!provider) return
+async function fillTimestamps(payments: Payment[], creditStation: ChainContract): Promise<void> {
   const uniqueBlocks = Array.from(new Set(payments.map((p) => p.blockNumber)))
   const timestamps = new Map<number, number>()
   const chunkSize = 10
@@ -333,8 +361,8 @@ async function fillTimestamps(payments: Payment[], creditStation: Contract): Pro
     await Promise.all(
       chunk.map(async (blockNumber) => {
         try {
-          const block = await provider.getBlock(blockNumber)
-          if (block) timestamps.set(blockNumber, block.timestamp)
+          const block = await creditStation.client.getBlock({ blockNumber: BigInt(blockNumber) })
+          if (block) timestamps.set(blockNumber, Number(block.timestamp))
         } catch (error) {
           console.error(`Failed to fetch block ${blockNumber}:`, error)
         }
@@ -347,35 +375,46 @@ async function fillTimestamps(payments: Payment[], creditStation: Contract): Pro
 }
 
 export async function getPaymentsByAddress(
-  creditStation: Contract | undefined,
+  creditStation: ChainContract | undefined,
   sourceId: string,
   address: string,
   schains: types.ISChain[]
 ): Promise<Payment[]> {
   if (!creditStation) return []
-  const numberOfPayments = await creditStation.getNumberOfPayments(address)
-  const paymentIds = await creditStation.getPaymentIds(address, 0, numberOfPayments)
+  const numberOfPayments = await creditStation.contract.read.getNumberOfPayments([address])
+  const paymentIds = (await creditStation.contract.read.getPaymentIds([
+    address,
+    0n,
+    numberOfPayments
+  ])) as bigint[]
   return await getPayments(paymentIds, creditStation, sourceId, schains)
 }
 
+/** PaymentIdDoesNotExist — ids below the deployment offset revert rather than return. */
+function isRevert(error: unknown): boolean {
+  return (
+    error instanceof BaseError &&
+    error.walk((e) => e instanceof ContractFunctionRevertedError) !== null
+  )
+}
+
 async function getPaymentIfExists(
-  creditStation: Contract,
+  creditStation: ChainContract,
   paymentId: bigint,
   sourceId: string,
   schains: types.ISChain[]
 ): Promise<Payment | null> {
   try {
-    const rawPayment = await creditStation.getPaymentInfo(paymentId)
-    return toPayment(paymentId, sourceId, rawPayment, schains)
-  } catch (error: any) {
-    // PaymentIdDoesNotExist — ids below the deployment offset
-    if (error?.code === 'CALL_EXCEPTION') return null
+    const rawPayment = await creditStation.contract.read.getPaymentInfo([paymentId])
+    return toPayment(paymentId, sourceId, rawPayment as RawPayment, schains)
+  } catch (error) {
+    if (isRevert(error)) return null
     throw error
   }
 }
 
 export async function getAllPayments(
-  creditStation: Contract | undefined,
+  creditStation: ChainContract | undefined,
   sourceId: string,
   schains: types.ISChain[]
 ): Promise<Payment[]> {
@@ -383,7 +422,7 @@ export async function getAllPayments(
   // Payment ids are composite: source prefix in the upper bits, sequential counter
   // in the lower bits. The counter may be seeded with an offset on redeployment,
   // so scan down from the newest id and stop once a whole chunk is missing.
-  const lastPaymentId: bigint = await creditStation.getLastPaymentId()
+  const lastPaymentId = (await creditStation.contract.read.getLastPaymentId()) as bigint
   const lastSeq = getLedgerPaymentId(lastPaymentId)
   const idPrefix = lastPaymentId - lastSeq
 
@@ -405,7 +444,7 @@ export async function getAllPayments(
 }
 
 export async function getPaymentsAcrossSourcesByAddress(
-  creditStations: Record<string, Contract>,
+  creditStations: Record<string, ChainContract>,
   address: string,
   schains: types.ISChain[]
 ): Promise<Payment[]> {
@@ -421,7 +460,7 @@ export async function getPaymentsAcrossSourcesByAddress(
 }
 
 export async function getAllPaymentsAcrossSources(
-  creditStations: Record<string, Contract>,
+  creditStations: Record<string, ChainContract>,
   schains: types.ISChain[]
 ): Promise<Payment[]> {
   const results = await Promise.all(
@@ -435,18 +474,23 @@ export async function getAllPaymentsAcrossSources(
   return results.flat()
 }
 
-function toPayment(id: bigint, sourceId: string, data: any, schains: types.ISChain[]): Payment {
-  const schainName = schains.find((s) => helper.schainNameToHash(s.name) === data[0])?.name || ''
+function toPayment(
+  id: bigint,
+  sourceId: string,
+  data: RawPayment,
+  schains: types.ISChain[]
+): Payment {
+  const schainName = schains.find((s) => helper.schainNameToHash(s.name) === data.schainHash)?.name
   return {
     id,
     sourceId,
-    schainHash: data[0],
-    schainName: schainName,
-    from: data[1],
-    to: data[2],
-    blockNumber: Number(data[3]),
+    schainHash: data.schainHash,
+    schainName: schainName || '',
+    from: data.from,
+    to: data.to,
+    blockNumber: Number(data.blockNumber),
     timestamp: 0,
-    tokenAddress: data[4],
-    value: BigInt(data[5] ?? 0n)
+    tokenAddress: data.tokenAddress,
+    value: BigInt(data.value ?? 0n)
   }
 }

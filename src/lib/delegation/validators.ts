@@ -22,7 +22,6 @@
  */
 
 import { Logger, type ILogObj } from 'tslog'
-import { type Contract } from 'ethers'
 import { types } from '@/core'
 import { DelegationState } from './delegations'
 
@@ -65,31 +64,35 @@ export function sortDelegations(
 }
 
 async function getValidatorsRaw(
-  validatorService: Contract,
-  numberOfValidators: bigint[]
+  validatorService: types.st.SkaleContract,
+  numberOfValidators: bigint
 ): Promise<Array<types.st.IValidatorArray | boolean>> {
   const validatorIds = Array.from(Array(Number(numberOfValidators)).keys())
-  return await Promise.all(
+  return (await Promise.all(
     validatorIds
       .map((validatorId) => [
-        validatorService.validators(validatorId + 1),
-        validatorService.isAuthorizedValidator(validatorId + 1),
-        validatorService.getNodeAddresses(validatorId + 1)
+        validatorService.read.validators([BigInt(validatorId + 1)]),
+        validatorService.read.isAuthorizedValidator([BigInt(validatorId + 1)]),
+        validatorService.read.getNodeAddresses([BigInt(validatorId + 1)])
       ])
       .flat()
-  )
+  )) as Array<types.st.IValidatorArray | boolean>
 }
 
 export async function getValidatorRaw(
-  validatorService: Contract,
+  validatorService: types.st.SkaleContract,
   validatorId: number
 ): Promise<[types.st.IValidatorArray, boolean, string[]]> {
   const [validatorData, isAuthorized, nodeAddresses] = await Promise.all([
-    validatorService.validators(validatorId),
-    validatorService.isAuthorizedValidator(validatorId),
-    validatorService.getNodeAddresses(validatorId)
+    validatorService.read.validators([BigInt(validatorId)]),
+    validatorService.read.isAuthorizedValidator([BigInt(validatorId)]),
+    validatorService.read.getNodeAddresses([BigInt(validatorId)])
   ])
-  return [validatorData, isAuthorized, nodeAddresses]
+  return [
+    validatorData as types.st.IValidatorArray,
+    isAuthorized as boolean,
+    nodeAddresses as string[]
+  ]
 }
 
 function formatValidator(
@@ -114,10 +117,10 @@ function formatValidator(
 }
 
 export async function getValidators(
-  validatorService: Contract,
+  validatorService: types.st.SkaleContract,
   sorted: boolean = true
 ): Promise<types.st.IValidator[]> {
-  const numberOfValidators = await validatorService.numberOfValidators()
+  const numberOfValidators = (await validatorService.read.numberOfValidators()) as bigint
   log.info('getValidators: ', numberOfValidators)
   const rawValidators: Array<types.st.IValidatorArray | boolean | any[]> = await getValidatorsRaw(
     validatorService,
@@ -134,11 +137,11 @@ export async function getValidators(
 }
 
 export async function getValidator(
-  validatorService: Contract,
+  validatorService: types.st.SkaleContract,
   address: types.AddressType
 ): Promise<types.st.IValidator | undefined> {
   try {
-    const validatorId = await validatorService.getValidatorId(address)
+    const validatorId = Number(await validatorService.read.getValidatorId([address]))
     const [validatorData, isAuthorized, nodeAddresses] = await getValidatorRaw(
       validatorService,
       validatorId

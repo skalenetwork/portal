@@ -23,7 +23,7 @@
 
 import { type WalletClient } from 'viem'
 import { MetaportCore } from '@/bridge'
-import { sendTransaction, contracts } from '@/bridge'
+import { writeContract, contracts } from '@/bridge'
 import { type types, notify, constants } from '@/core'
 export type LoadingState = types.st.IRewardInfo | types.st.IDelegationInfo | false
 export type SetLoadingFn = (state: LoadingState) => void
@@ -60,14 +60,14 @@ async function processTx({
   try {
     const walletClient = await props.getMainnetWalletClient()
     const contract = await contracts.initActionContract(
-      props.mpc.provider(constants.MAINNET_CHAIN_NAME),
+      props.mpc.publicClient(constants.MAINNET_CHAIN_NAME),
       delegationType,
       props.address,
       props.mpc.config.skaleNetwork,
       contractType
     )
 
-    await sendTransaction(walletClient, contract[txName], txArgs, `${txName}:${delegationType}`)
+    await writeContract(walletClient, contract, txName, txArgs, `${txName}:${delegationType}`)
     notify.temporarySuccess(`${txName} completed`, toastId)
     await props.postAction()
   } catch (err: any) {

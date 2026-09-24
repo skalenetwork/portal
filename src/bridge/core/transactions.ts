@@ -22,7 +22,7 @@
  */
 
 import { type ContractMethod } from 'ethers'
-import { publicActions, type Hex, type WalletClient } from 'viem'
+import { encodeFunctionData, publicActions, type Abi, type Address, type Hex, type WalletClient } from 'viem'
 import { Logger, type ILogObj } from 'tslog'
 import { types } from '@/core'
 
@@ -63,6 +63,25 @@ export async function confirmTransaction(
   const { timestamp } = await client.getBlock({ blockNumber: receipt.blockNumber })
   log.info('✅ ' + name + ' mined - tx: ' + hash)
   return { hash, blockNumber: receipt.blockNumber, timestamp: Number(timestamp) }
+}
+
+export async function writeContract(
+  walletClient: WalletClient,
+  contract: { address: Address; abi: Abi },
+  functionName: string,
+  args: readonly unknown[],
+  name: string,
+  opts?: { confirmations?: number; value?: bigint }
+): Promise<types.mp.TxResponse> {
+  log.info('💡 Sending transaction: ' + name)
+  const data = encodeFunctionData({ abi: contract.abi, functionName, args })
+  const hash = await sendRawTransaction(walletClient, {
+    to: contract.address,
+    data,
+    value: opts?.value
+  })
+  log.info(`⏳ ${name} mining - tx: ${hash}`)
+  return await confirmTransaction(walletClient, hash, name, opts?.confirmations)
 }
 
 export async function sendTransaction(

@@ -20,7 +20,6 @@
  * @copyright SKALE Labs 2025-Present
  */
 
-import { Contract } from 'ethers'
 import { useEffect, useState } from 'react'
 
 import { type MetaportCore, SkPaper, ChainIcon } from '@/bridge'
@@ -29,13 +28,13 @@ import { contracts as coreContracts, metadata, types } from '@/core'
 import TokenAdminTile from './TokenAdminTile'
 import AccordionSection from '../AccordionSection'
 import CreditStationStatusTile from './CreditStationStatusTile'
-import { getCreditTokens, type CreditToken } from '@/lib/credit-station'
+import { getCreditTokens, type ChainContract, type CreditToken } from '@/lib/credit-station'
 import { Coins, SwatchBook } from 'lucide-react'
 
 interface TokensAdminProps {
   mpc: MetaportCore
   source: coreContracts.CreditStationSource
-  creditStation: Contract | undefined
+  creditStation: ChainContract | undefined
   chainsMeta: types.ChainsMetadataMap
   setErrorMsg: (msg: string | undefined) => void
 }

@@ -22,16 +22,15 @@
 
 import { useState, useEffect } from 'react'
 import Button from '@/ui/Button'
-import { Contract } from 'ethers'
 import { useAccount, useSwitchChain, useWalletClient } from 'wagmi'
-import { type MetaportCore, Tile, sendTransaction } from '@/bridge'
+import { type MetaportCore, Tile, writeContract } from '@/bridge'
 import { contracts as coreContracts, notify } from '@/core'
-import { prepareWalletForWrite } from '@/lib/credit-station'
+import { prepareWalletForWrite, type ChainContract } from '@/lib/credit-station'
 import { Badge, BadgeCheck, ToggleLeft, ToggleRight } from 'lucide-react'
 
 interface CreditStationStatusTileProps {
   mpc: MetaportCore
-  creditStation: Contract | undefined
+  creditStation: ChainContract | undefined
   source: coreContracts.CreditStationSource
   setErrorMsg: (msg: string) => void
 }
@@ -57,8 +56,7 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
   async function loadPausedStatus() {
     if (!creditStation) return
     try {
-      const paused = await creditStation.paused()
-      setIsPaused(paused)
+      setIsPaused((await creditStation.contract.read.paused()) as boolean)
     } catch (error) {
       console.error('Error loading paused status:', error)
     }
@@ -66,7 +64,7 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
 
   async function togglePause() {
     if (!creditStation) return
-    if (!creditStation.runner?.provider || !walletClient || !switchChainAsync) {
+    if (!walletClient || !switchChainAsync) {
       setErrorMsg('Something is wrong with your wallet, try again')
       notify.permanentError('Something is wrong with your wallet, try again')
       return
@@ -75,17 +73,15 @@ const CreditStationStatusTile: React.FC<CreditStationStatusTileProps> = ({
 
     try {
       const wallet = await prepareWalletForWrite(
-        creditStation,
         walletClient,
         switchChainAsync,
         network,
         source.chainName
       )
 
-      const method = isPaused ? creditStation.unpause : creditStation.pause
       const action = isPaused ? 'unpause' : 'pause'
 
-      await sendTransaction(wallet, method, [], `creditStation:${action}`)
+      await writeContract(wallet, creditStation.contract, action, [], `creditStation:${action}`)
       notify.temporarySuccess(`Credit station ${action}d`)
       await loadPausedStatus()
     } catch (error) {

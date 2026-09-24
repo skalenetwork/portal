@@ -23,7 +23,6 @@
 
 import { useState, useEffect, useMemo } from 'react'
 
-import { Contract } from 'ethers'
 
 import { type MetaportCore, SkPaper } from '@/bridge'
 import { contracts as coreContracts, dc, type types } from '@/core'
@@ -52,7 +51,7 @@ interface CreditsProps {
 }
 
 const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chainsMeta }) => {
-  const [creditStationBySource, setCreditStationBySource] = useState<Record<string, Contract>>({})
+  const [creditStationBySource, setCreditStationBySource] = useState<Record<string, cs.ChainContract>>({})
   const [tokenPricesBySource, setTokenPricesBySource] = useState<
     Record<string, Record<string, bigint>>
   >({})
@@ -62,7 +61,7 @@ const Credits: React.FC<CreditsProps> = ({ mpc, address, loadData, schains, chai
   const [tokenContractsBySource, setTokenContractsBySource] = useState<
     Record<string, types.mp.TokenContractsMap>
   >({})
-  const [ledgerContracts, setLedgerContracts] = useState<{ [schainName: string]: Contract }>({})
+  const [ledgerContracts, setLedgerContracts] = useState<{ [schainName: string]: cs.ChainContract }>({})
   const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined)
   const [payments, setPayments] = useState<cs.Payment[]>([])
 

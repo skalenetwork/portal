@@ -23,7 +23,6 @@
 
 import { useState, useEffect, useMemo } from 'react'
 
-import { Contract } from 'ethers'
 
 import { type MetaportCore, SkPaper } from '@/bridge'
 import { contracts as coreContracts, type types } from '@/core'
@@ -51,8 +50,8 @@ interface CreditsAdminProps {
 }
 
 const CreditsAdmin: React.FC<CreditsAdminProps> = ({ mpc, loadData, schains, chainsMeta }) => {
-  const [creditStationBySource, setCreditStationBySource] = useState<Record<string, Contract>>({})
-  const [ledgerContracts, setLedgerContracts] = useState<{ [schainName: string]: Contract }>({})
+  const [creditStationBySource, setCreditStationBySource] = useState<Record<string, cs.ChainContract>>({})
+  const [ledgerContracts, setLedgerContracts] = useState<{ [schainName: string]: cs.ChainContract }>({})
   const [allPayments, setAllPayments] = useState<cs.Payment[]>([])
   const [errorMsg, setErrorMsg] = useState<string | undefined>(undefined)
   const [isLoadingPayments, setIsLoadingPayments] = useState<boolean>(false)
