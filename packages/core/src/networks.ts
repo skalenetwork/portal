@@ -26,22 +26,22 @@ import { NetworksConfig } from './types';
 
 export const networks: NetworksConfig = {
     mainnet: {
-        features: ['ecosystem', 'chains', 'staking', 'stats', 'paymaster', 'sfuel', 'swap', 'metrics']
+        features: ['ecosystem', 'chains', 'staking', 'stats', 'paymaster', 'sfuel', 'swap', 'metrics', 'agentpit']
     },
     legacy: {
-        features: ['bridge', 'ecosystem', 'chains', 'staking', 'stats', 'paymaster', 'sfuel', 'metrics']
+        features: ['bridge', 'ecosystem', 'chains', 'staking', 'stats', 'paymaster', 'sfuel', 'metrics', 'agentpit']
     },
     regression: {
         features: []
     },
     testnet: {
-        features: ['bridge', 'chains', 'sfuel', 'metrics']
+        features: ['bridge', 'chains', 'sfuel', 'metrics', 'agentpit']
     },
     base: {
-        features: ['bridge', 'chains', 'credits']
+        features: ['bridge', 'chains', 'credits', 'agentpit']
     },
     'base-sepolia-testnet': {
-        features: ['bridge', 'chains', 'credits']
+        features: ['bridge', 'chains', 'credits', 'agentpit']
     }
 }
 
@@ -83,12 +83,12 @@ export const NATIVE_TOKEN_SYMBOLS: { [key in types.SkaleNetwork]: string } = {
 }
 
 export const KEY_FEATURES: { [key in types.SkaleNetwork]: types.NetworkFeature } = {
-    mainnet: 'staking',
-    legacy: 'bridge',
-    regression: 'bridge',
-    testnet: 'bridge',
-    base: 'credits',
-    'base-sepolia-testnet': 'credits',
+    mainnet: 'agentpit',
+    legacy: 'agentpit',
+    regression: 'agentpit',
+    testnet: 'agentpit',
+    base: 'agentpit',
+    'base-sepolia-testnet': 'agentpit',
 }
 
 export function parse(networksEnv: string | undefined): types.SkaleNetwork[] {

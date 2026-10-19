@@ -52,6 +52,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import '@rainbow-me/rainbowkit/styles.css'
 
 import { constructWagmiChain } from '../core/wagmi_network'
+import { EXT_CHAIN_RPC_OVERRIDES } from '../core/network'
 
 import { getWidgetTheme, getMuiZIndex } from '../core/themes'
 
@@ -95,7 +96,7 @@ export default function MetaportProvider(props: {
     chains,
     connectors,
     transports: {
-      [mainnet.id]: http(),
+      [mainnet.id]: http(EXT_CHAIN_RPC_OVERRIDES.mainnet),
       [goerli.id]: http(),
       [hoodi.id]: http(),
       [base.id]: http(),

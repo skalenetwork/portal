@@ -29,6 +29,7 @@ export type NetworkFeature =
     | 'sfuel'
     | 'credits'
     | 'swap'
+    | 'agentpit'
 
 export interface NetworkConfig {
     features: NetworkFeature[]

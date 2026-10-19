@@ -32,6 +32,7 @@ import { EXPLORE_CARDS } from './HomeComponents'
 export default function HomeBanner(props: { skaleNetwork: types.SkaleNetwork }) {
   const keyFeature = networks.KEY_FEATURES[props.skaleNetwork]
   const exploreCard = EXPLORE_CARDS.find((card) => card.feature === keyFeature)
+  const isExternal = exploreCard?.url?.startsWith('http') ?? false
 
   return (
     <div className="border-card border-14 rounded-4xl mb-4">
@@ -60,12 +61,15 @@ export default function HomeBanner(props: { skaleNetwork: types.SkaleNetwork }) 
             <p className="text-xs text-secondary-foreground dark:text-black/60 font-medium mt-1">
               {exploreCard?.description}
             </p>
-            <Link to={exploreCard?.url!}>
+            <Link
+              to={exploreCard?.url!}
+              {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+            >
               <Button
                 size="medium"
                 variant="contained"
                 color="primary"
-                className="btn mt-6! w-full px-10! bg-accent-foreground! dark:bg-accent! text-accent! dark:text-accent-foreground! text-sm! ease-in-out transition-transform duration-150 active:scale-[0.97]"
+                className="btn mt-6! px-10! bg-accent-foreground! dark:bg-accent! text-accent! dark:text-accent-foreground! text-sm! ease-in-out transition-transform duration-150 active:scale-[0.97]"
                 startIcon={exploreCard?.buttonIcon}
               >
                 {exploreCard?.buttonText}

@@ -34,7 +34,8 @@ import {
   Star,
   Sparkle,
   Coins,
-  Send
+  Send,
+  Bot
 } from 'lucide-react'
 
 import CoinIcon from '../icons/coin.svg'
@@ -45,6 +46,7 @@ import MoneyIcon from '../icons/money.svg'
 import QuestionIcon from '../icons/question.svg'
 import ArrowsIcon from '../icons/arrows.svg'
 import BaseIcon from '../icons/base.svg'
+import AgentPitIcon from '../icons/agentpit.svg'
 
 import { types } from '@/core'
 
@@ -73,6 +75,16 @@ interface ExploreCard {
 }
 
 export const EXPLORE_CARDS: ExploreCard[] = [
+  {
+    name: 'SKALE AgentPit is live',
+    description: 'Paper trading for prediction market bots, settled on SKALE on Base.',
+    url: 'https://agentpit.dev/',
+    icon: AgentPitIcon,
+    feature: 'agentpit',
+    bgKey: 'base_12',
+    buttonText: 'Get started',
+    buttonIcon: <Bot size={17} />
+  },
   {
     name: 'Bridge to SKALE',
     description: 'Blazingly fast transfers, free between SKALE Chains.',
